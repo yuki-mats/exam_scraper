@@ -121,7 +121,8 @@ from tools.question_review_console.question_candidate import (
     QuestionCandidateError,
     candidate_targets,
     output_schema as candidate_output_schema,
-    parse_candidates,
+    parse_model_candidate_v3,
+    parse_prepared_candidate_payload,
     validate_candidate_content,
     aggregate_answer_review_schema,
     parse_aggregate_answer_reviews,
@@ -1080,7 +1081,7 @@ def _question_candidates_payload(
     candidates: Iterable[QuestionCandidate],
 ) -> dict[str, Any]:
     return {
-        "schemaVersion": "question-maintenance-candidates/v2",
+        "schemaVersion": "question-maintenance-candidates/v3",
         "questionResults": [
             {
                 "questionId": candidate.question_id,
@@ -1092,12 +1093,7 @@ def _question_candidates_payload(
                         "setFields": [
                             {
                                 "field": field,
-                                "valueJson": json.dumps(
-                                    value,
-                                    ensure_ascii=False,
-                                    sort_keys=True,
-                                    separators=(",", ":"),
-                                ),
+                                "value": copy.deepcopy(value),
                             }
                             for field, value in sorted(update.set_fields.items())
                         ],
@@ -1714,16 +1710,17 @@ def _structured_candidate_prompt(
             stage_prompt.rstrip(),
             "",
             *context_lines,
-            "# 構造化候補V2（この契約を最優先する）",
+            "# 構造化候補V3（この契約を最優先する）",
             "",
             "各問題を独立に判断し、指定されたallowedFieldsだけの更新候補を返す。",
             "previousValidationFeedbackが現行allowedFieldsと矛盾する場合は、"
             "現行allowedFieldsを優先する。",
             "file、shell、progress、receipt、git、外部状態は変更しない。",
             "対象を特定できない場合や根拠が足りない場合は、その問題だけblockedにする。",
-            "setFieldsはfieldとvalueJsonの配列とし、valueJsonには値をJSON文字列化して入れる。",
+            "一問だけを判断し、decision、summary、updateだけを返す。questionIdと反映先はserverが確定する。",
+            "setFieldsはfieldとnative JSONのvalueの配列とする。",
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
-            "各fieldは、そのfieldをallowedFieldsに含むtargetIdへだけ入れる。holdReason、auditStatus、reviewStateはlaw_auditへ入れる。",
+            "各semantic fieldは一度だけsetFields又はunsetFieldsへ入れ、反映先はserverに任せる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
             *law_reference_contract_lines,
             "originalizationSourceがある場合、それは00_sourceの更新不能な比較証拠である。"
@@ -14575,7 +14572,7 @@ class QualificationRunCoordinator:
                     for question_id in question_ids
                     if question_id not in invalid_question_ids
                 ]
-                candidates = parse_candidates(
+                candidates = parse_prepared_candidate_payload(
                     candidate_payload,
                     candidate_question_ids,
                     targets_by_question,
@@ -14632,7 +14629,7 @@ class QualificationRunCoordinator:
                         raise QualificationRunError(
                             "read-only候補生成でfile変更通知を検出しました。"
                         )
-                    candidates = parse_candidates(
+                    candidates = parse_model_candidate_v3(
                         result.final_message,
                         candidate_question_ids,
                         targets_by_question,

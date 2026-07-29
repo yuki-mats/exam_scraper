@@ -437,26 +437,24 @@ class FlowAppServer:
             self.before_receipt(logical_work_type)
         candidate_questions = PerQuestionQueueAppServer._candidate_questions(prompt)
         if candidate_questions:
+            if len(candidate_questions) != 1:
+                raise AssertionError("candidate model turn must contain one question")
             stage_id = logical_work_type.removeprefix("maintenance_")
+            question = candidate_questions[0]
             return AppServerTurnResult(
                 thread_id=f"thread-flow-{number}",
                 session_id=f"session-flow-{number}",
                 turn_id=f"turn-flow-{number}",
                 final_message=json.dumps(
                     {
-                        "schemaVersion": "question-maintenance-candidates/v2",
-                        "questionResults": [
-                            {
-                                "questionId": str(question["questionId"]),
-                                "status": "candidate",
-                                "summary": f"phase {number} candidate",
-                                "updates": PerQuestionQueueAppServer._candidate_update(
-                                    question,
-                                    stage_id,
-                                ),
-                            }
-                            for question in candidate_questions
-                        ],
+                        "decision": "candidate",
+                        "summary": f"phase {number} candidate",
+                        "update": PerQuestionQueueAppServer._semantic_update(
+                            PerQuestionQueueAppServer._candidate_update(
+                                question,
+                                stage_id,
+                            )
+                        ),
                     },
                     ensure_ascii=False,
                 ),
@@ -635,17 +633,41 @@ class PerQuestionQueueAppServer:
                 {
                     "auditStatus": "same_as_current",
                     "reviewState": "secondary_verified",
+                    "reconciliationStatus": "matched",
                     "current": {"correctChoiceText": value},
                     "examTime": {"correctChoiceText": value},
+                    "differenceFacts": [],
+                    "answerImpactFacts": [],
+                    "notes": [],
                     "evidenceSummary": {
                         "verdict": "correct",
                         "explanationText": "一次情報と照合した。",
+                        "differenceSummary": "差分なし。",
+                        "promptContext": "一次情報との照合。",
+                        "displayRefIds": [],
+                        "refs": [],
                     },
                 }
                 for value in correct
             ]
         fields_by_role = {
-            "originalized": {"questionBodyText": current.get("questionBodyText", "")},
+            "originalized": {
+                "questionBodyText": str(current.get("questionBodyText") or ""),
+                "choiceTextList": choices,
+                "correctChoiceText": correct,
+                "questionIntent": str(
+                    current.get("questionIntent") or "select_correct"
+                ),
+                "answer_result_text": str(
+                    current.get("answer_result_text") or "正解は 1 です。"
+                ),
+                "questionImageStorageUrls": list(
+                    current.get("questionImageStorageUrls") or []
+                ),
+                "originalQuestionChoiceImageUrls": list(
+                    current.get("originalQuestionChoiceImageUrls") or []
+                ),
+            },
             "question_type": {
                 "questionType": "true_false",
                 "isCalculationQuestion": (
@@ -713,7 +735,11 @@ class PerQuestionQueueAppServer:
                 ),
                 "evidenceSummary": {
                     "verdict": "correct",
-                    "summary": "一次情報と照合した。",
+                    "explanationText": "一次情報と照合した。",
+                    "differenceSummary": "差分なし。",
+                    "promptContext": "一次情報との照合。",
+                    "displayRefIds": [],
+                    "refs": [],
                 },
                 "examTimeDecision": correct,
                 "currentLawDecision": correct,
@@ -731,7 +757,8 @@ class PerQuestionQueueAppServer:
             }
             updates.append(
                 {
-                    "targetId": target["targetId"],
+                    "targetId": f"{question['questionId']}:{role}",
+                    "_allowedFields": sorted(allowed_fields),
                     "setFields": [
                         {
                             "field": field,
@@ -743,6 +770,34 @@ class PerQuestionQueueAppServer:
                 }
             )
         return updates
+
+    @staticmethod
+    def _semantic_update(updates):
+        """Adapt legacy test overrides to the model-owned v3 semantic update."""
+        set_fields = {}
+        unset_fields = []
+        allowed_fields = set()
+        for update in updates:
+            allowed_fields.update(str(value) for value in update.get("_allowedFields") or [])
+            for item in update.get("setFields") or []:
+                field = str(item["field"])
+                candidate_value = json.loads(
+                    str(item.get("valueJson") or "null")
+                )
+                if field in set_fields and set_fields[field] != candidate_value:
+                    raise AssertionError(
+                        f"legacy override has conflicting values: {field}"
+                    )
+                set_fields[field] = candidate_value
+            unset_fields.extend(str(value) for value in update.get("unsetFields") or [])
+        unset_fields.extend(sorted(allowed_fields - set(set_fields)))
+        return {
+            "setFields": [
+                {"field": field, "value": value}
+                for field, value in set_fields.items()
+            ],
+            "unsetFields": list(dict.fromkeys(unset_fields)),
+        }
 
     def run_turn(self, prompt, **kwargs):
         question_ids = self._question_ids(prompt)
@@ -899,29 +954,14 @@ class PerQuestionQueueAppServer:
                         self.before_receipt(value, stage_id)
             candidate_questions = self._candidate_questions(prompt)
             if candidate_questions:
-                question_results = []
-                for question in candidate_questions:
-                    value = str(question["questionId"])
-                    failed = value == self.failed_question_id or (
-                        value,
-                        stage_id,
-                    ) in self.failed_work_items
-                    question_results.append(
-                        {
-                            "questionId": value,
-                            "status": "blocked" if failed else "candidate",
-                            "summary": (
-                                f"{value}のwriter検証に失敗"
-                                if failed
-                                else f"{value}の整備候補を作成した。"
-                            ),
-                            "updates": (
-                                []
-                                if failed
-                                else self._candidate_update(question, stage_id)
-                            ),
-                        }
-                    )
+                if len(candidate_questions) != 1:
+                    raise AssertionError("candidate model turn must contain one question")
+                question = candidate_questions[0]
+                value = str(question["questionId"])
+                failed = value == self.failed_question_id or (
+                    value,
+                    stage_id,
+                ) in self.failed_work_items
                 with self._lock:
                     self.successful_writes.extend(
                         (value, stage_id)
@@ -935,8 +975,19 @@ class PerQuestionQueueAppServer:
                     turn_id=f"turn-queue-{call_number}",
                     final_message=json.dumps(
                         {
-                            "schemaVersion": "question-maintenance-candidates/v2",
-                            "questionResults": question_results,
+                            "decision": "blocked" if failed else "candidate",
+                            "summary": (
+                                f"{value}のwriter検証に失敗"
+                                if failed
+                                else f"{value}の整備候補を作成した。"
+                            ),
+                            "update": (
+                                {"setFields": [], "unsetFields": []}
+                                if failed
+                                else self._semantic_update(
+                                    self._candidate_update(question, stage_id)
+                                )
+                            ),
                         },
                         ensure_ascii=False,
                     ),

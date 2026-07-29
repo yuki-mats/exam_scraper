@@ -39,6 +39,7 @@ from tools.question_review_console.law_audit_quality import (
 
 
 SCHEMA_VERSION = "question-maintenance-candidates/v2"
+CANDIDATE_PAYLOAD_SCHEMA_VERSION = "question-maintenance-candidates/v3"
 OFFICIAL_QUESTION_TYPES = ("true_false", "flash_card", "group_choice")
 AGGREGATE_REVIEW_ISSUE_CODES = (
     "ambiguous_target",
@@ -478,7 +479,6 @@ _LAW_REVISION_EVIDENCE_REF_FIELDS = "、".join(
 )
 
 _LAW_REVISION_FACTS_RULE: dict[str, Any] = {
-    "type": ["object", "array"],
     "description": (
         "question field契約に従う。true_false等の複数選択肢patchでは"
         "choiceTextListと同じ件数のobject配列を使い、各objectにauditStatus、"
@@ -503,7 +503,143 @@ _LAW_REVISION_FACTS_RULE: dict[str, Any] = {
         "auditStatus=not_law_related、reviewState=secondary_verifiedとして"
         "選択肢別に確定する。"
     ),
+    "oneOf": [{
+        "type": "object",
+        "additionalProperties": False,
+        "required": [
+            "auditStatus",
+            "reviewState",
+            "reconciliationStatus",
+            "examTime",
+            "current",
+            "differenceFacts",
+            "answerImpactFacts",
+            "notes",
+            "evidenceSummary",
+        ],
+        "properties": {
+            "auditStatus": {
+                "type": "string",
+                "enum": [
+                    "same_as_current",
+                    "updated_to_current_law",
+                    "hold",
+                    "not_law_related",
+                ],
+            },
+            "reviewState": {"type": "string", "minLength": 1},
+            "reconciliationStatus": {"type": "string", "minLength": 1},
+            "examTime": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["correctChoiceText"],
+                "properties": {
+                    "correctChoiceText": {"type": "string", "minLength": 1},
+                },
+            },
+            "current": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["correctChoiceText"],
+                "properties": {
+                    "correctChoiceText": {"type": "string", "minLength": 1},
+                },
+            },
+            "differenceFacts": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+            "answerImpactFacts": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+            "notes": {"type": "array", "items": {"type": "string"}},
+            "evidenceSummary": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": [
+                    "verdict",
+                    "explanationText",
+                    "differenceSummary",
+                    "promptContext",
+                    "displayRefIds",
+                    "refs",
+                ],
+                "properties": {
+                    "verdict": {"type": "string", "minLength": 1},
+                    "explanationText": {"type": "string", "minLength": 1},
+                    "differenceSummary": {"type": "string", "minLength": 1},
+                    "promptContext": {"type": "string", "minLength": 1},
+                    "displayRefIds": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                    },
+                    "refs": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": [
+                                "refId",
+                                "lawTimeScope",
+                                "relation",
+                                "primaryBasis",
+                                "lawId",
+                                "lawRevisionId",
+                                "lawTitle",
+                                "elm",
+                                "encodedElm",
+                                "rootArticleElm",
+                                "article",
+                                "paragraph",
+                                "item",
+                                "subitem",
+                                "highlightElms",
+                                "articleTextHash",
+                                "textHash",
+                            ],
+                            "properties": {
+                                **{
+                                    field: {"type": "string", "minLength": 1}
+                                    for field in sorted(
+                                        LAW_REVISION_EVIDENCE_REF_KEYS
+                                        - {"highlightElms", "primaryBasis"}
+                                    )
+                                },
+                                "highlightElms": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                },
+                                "primaryBasis": {"type": "boolean"},
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    }, {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "auditStatus",
+                "reviewState",
+                "reconciliationStatus",
+                "examTime",
+                "current",
+                "differenceFacts",
+                "answerImpactFacts",
+                "notes",
+                "evidenceSummary",
+            ],
+            "properties": {},
+        },
+    }],
 }
+_LAW_REVISION_FACTS_RULE["oneOf"][1]["items"]["properties"] = (
+    _LAW_REVISION_FACTS_RULE["oneOf"][0]["properties"]
+)
 
 _SHARED_LAW_FIELD_RULES: dict[str, Any] = {
     "isLawRelated": {"type": "boolean"},
@@ -517,6 +653,27 @@ _SHARED_LAW_FIELD_RULES: dict[str, Any] = {
 }
 
 _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
+    "originalized": {
+        "questionBodyText": {"type": "string"},
+        "choiceTextList": {"type": "array", "items": {"type": "string"}},
+        "correctChoiceText": _CORRECT_CHOICE_TEXT_RULE,
+        "questionIntent": {
+            "type": "string",
+            "allowedValues": ["select_correct", "select_incorrect"],
+        },
+        "answer_result_text": {"type": "string"},
+        "questionImageStorageUrls": {
+            "type": "array",
+            "items": {"type": "string"},
+        },
+        "originalQuestionChoiceImageUrls": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+        },
+    },
     "question_type": {
         "questionType": {
             "type": "string",
@@ -592,13 +749,35 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
                 "needs_tertiary_review",
             ],
         },
-        "tertiaryAuditRunId": {
-            "type": ["string", "null"],
-            "emptyStringAllowed": False,
-            "description": (
-                "三次監査を実施していない場合もunsetFieldsへ入れず、"
-                "valueJsonをnullにする。"
-            ),
+        "sourceSummary": {"type": "string"},
+        "verificationSummary": {"type": "string"},
+        "reconciliationStatus": {"type": "string"},
+        "holdReason": {"type": "string"},
+        "reviewNotes": {"type": "string"},
+        "evidenceSummary": {
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "differenceSummary",
+                "displayRefIds",
+                "explanationText",
+                "promptContext",
+                "refs",
+                "verdict",
+            ],
+            "properties": {
+                "differenceSummary": {"type": "string", "minLength": 1},
+                "displayRefIds": {"type": "array", "items": {"type": "string"}},
+                "explanationText": {"type": "string", "minLength": 1},
+                "promptContext": {"type": "string", "minLength": 1},
+                "refs": {
+                    "type": "array",
+                    "items": _LAW_REVISION_FACTS_RULE["oneOf"][0]["properties"][
+                        "evidenceSummary"
+                    ]["properties"]["refs"]["items"],
+                },
+                "verdict": {"type": "string", "minLength": 1},
+            },
         },
     }
 }
@@ -624,6 +803,26 @@ _CANONICAL_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
     ),
 }
 
+SERVER_OWNED_LAW_AUDIT_FIELDS = frozenset(
+    {
+        "qualification",
+        "listGroupId",
+        "auditedAt",
+        "nextAuditDueAt",
+        "auditMethodVersion",
+        "auditInputHash",
+        "evidenceBindingHash",
+        "auditRunId",
+        "lawCorpusSnapshotId",
+        "primaryAuditRunId",
+        "secondaryAuditRunId",
+        "tertiaryAuditRunId",
+        "userVisibleNoticeRequired",
+        "noticeReason",
+        "remainingRisk",
+    }
+)
+
 
 def _normalized_candidate_value(field: str, value: Any) -> Any:
     if field != "tertiaryAuditRunId":
@@ -643,8 +842,8 @@ def _normalized_candidate_value(field: str, value: Any) -> Any:
 def _field_destinations(
     question_id: str,
     field: str,
-    requested_target: CandidateTarget,
     allowed_targets: Mapping[str, CandidateTarget],
+    requested_target: CandidateTarget | None = None,
 ) -> tuple[CandidateTarget, ...]:
     candidates = tuple(
         target
@@ -658,15 +857,13 @@ def _field_destinations(
     )
     if preferred:
         return preferred
-    if field in requested_target.allowed_fields:
+    if requested_target is not None and field in requested_target.allowed_fields:
         return (requested_target,)
     if len(candidates) == 1:
         return candidates
     raise QuestionCandidateError(
-        "候補に許可されていないfieldがあります: "
-        f"{question_id} / {requested_target.target_id} / {field}。"
-        "このtargetのallowedFields: "
-        + ", ".join(requested_target.allowed_fields)
+        "候補に許可されていないfield又は反映先が曖昧です: "
+        f"{question_id} / {field}"
     )
 
 
@@ -679,7 +876,6 @@ class CandidateTarget:
 
     def prompt_value(self) -> dict[str, Any]:
         value = {
-            "targetId": self.target_id,
             "role": self.role,
             "allowedFields": list(self.allowed_fields),
         }
@@ -737,6 +933,8 @@ def candidate_targets(
         selected_fields = set().union(
             *(_FIELDS_BY_ROLE[role] for role in stage_roles)
         )
+    if stage_id == "law_audit":
+        selected_fields -= SERVER_OWNED_LAW_AUDIT_FIELDS
     supported_fields = set().union(*(_FIELDS_BY_ROLE[role] for role in stage_roles))
     unsupported_fields = selected_fields - supported_fields
     if unsupported_fields:
@@ -781,87 +979,174 @@ def candidate_targets(
     return tuple(targets)
 
 
+def _json_schema_rule(rule: Mapping[str, Any]) -> dict[str, Any]:
+    def normalize(item: Any) -> Any:
+        if isinstance(item, Mapping):
+            return _json_schema_rule(item)
+        if isinstance(item, list):
+            return [normalize(value) for value in item]
+        return item
+
+    value = {key: normalize(item) for key, item in rule.items() if key != "allowedValues"}
+    if "allowedValues" in rule:
+        value["enum"] = list(rule["allowedValues"])
+    if value.get("type") == "object" and isinstance(value.get("properties"), Mapping):
+        value["additionalProperties"] = False
+    return value
+
+
+def _without_schema_descriptions(value: Any) -> Any:
+    if isinstance(value, Mapping):
+        return {
+            key: _without_schema_descriptions(item)
+            for key, item in value.items()
+            if key != "description"
+        }
+    if isinstance(value, list):
+        return [_without_schema_descriptions(item) for item in value]
+    return value
+
+
+def _semantic_field_rules(
+    question_id: str,
+    targets: Iterable[CandidateTarget],
+) -> dict[str, dict[str, Any]]:
+    target_values = tuple(targets)
+    allowed_targets = {target.target_id: target for target in target_values}
+    result: dict[str, dict[str, Any]] = {}
+    for target in target_values:
+        role_rules = _FIELD_RULES_BY_ROLE.get(target.role, {})
+        for field in target.allowed_fields:
+            _field_destinations(question_id, field, allowed_targets)
+            rule = role_rules.get(field)
+            if rule is None:
+                raise QuestionCandidateError(
+                    f"native JSON schemaが未定義です: {question_id} / {field}"
+                )
+            normalized = _json_schema_rule(rule)
+            previous = result.get(field)
+            if (
+                previous is not None
+                and _without_schema_descriptions(previous)
+                != _without_schema_descriptions(normalized)
+            ):
+                raise QuestionCandidateError(
+                    f"native JSON schemaが競合しています: {question_id} / {field}"
+                )
+            result[field] = normalized
+    return result
+
+
+def _output_schema_rule(rule: Mapping[str, Any]) -> dict[str, Any]:
+    """Project semantic rules into the App Server's strict output schema."""
+    if isinstance(rule.get("oneOf"), list):
+        return {
+            key: _output_schema_rule(item)
+            if isinstance(item, Mapping)
+            else item
+            for key, item in rule.items()
+            if key != "oneOf"
+        } | {
+            "anyOf": [
+                _output_schema_rule(variant)
+                for variant in rule["oneOf"]
+                if isinstance(variant, Mapping)
+            ]
+        }
+
+    projected = {
+        key: (
+            _output_schema_rule(item)
+            if isinstance(item, Mapping)
+            else [
+                _output_schema_rule(value)
+                if isinstance(value, Mapping)
+                else value
+                for value in item
+            ]
+            if isinstance(item, list)
+            else item
+        )
+        for key, item in rule.items()
+    }
+    properties = projected.get("properties")
+    if projected.get("type") != "object" or not isinstance(properties, Mapping):
+        return projected
+
+    required = set(projected.get("required") or [])
+    optional = sorted(set(properties) - required)
+    if not optional:
+        projected["required"] = list(properties)
+        return projected
+
+    variants: list[dict[str, Any]] = []
+    for mask in range(1 << len(optional)):
+        included = required | {
+            field
+            for index, field in enumerate(optional)
+            if mask & (1 << index)
+        }
+        variant = {
+            key: value
+            for key, value in projected.items()
+            if key not in {"description", "properties", "required"}
+        }
+        variant["properties"] = {
+            field: value
+            for field, value in properties.items()
+            if field in included
+        }
+        variant["required"] = list(variant["properties"])
+        variants.append(variant)
+    result = {"anyOf": variants}
+    if "description" in projected:
+        result["description"] = projected["description"]
+    return result
+
+
 def output_schema(
     expected_question_ids: Iterable[str],
     targets_by_question: Mapping[str, Iterable[CandidateTarget]],
 ) -> dict[str, Any]:
     question_ids = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
-    target_ids = sorted(
-        {
-            target.target_id
-            for question_id in question_ids
-            for target in targets_by_question.get(question_id, ())
-        }
+    if len(question_ids) != 1:
+        raise QuestionCandidateError("model候補は厳密に一問でなければなりません。")
+    question_id = question_ids[0]
+    field_rules = _semantic_field_rules(
+        question_id, targets_by_question.get(question_id, ())
     )
-    field_names = sorted(
+    field_names = sorted(field_rules)
+    set_variants = [
         {
-            field
-            for question_id in question_ids
-            for target in targets_by_question.get(question_id, ())
-            for field in target.allowed_fields
+            "type": "object",
+            "additionalProperties": False,
+            "required": ["field", "value"],
+            "properties": {
+                "field": {"type": "string", "const": field},
+                "value": _output_schema_rule(rule),
+            },
         }
-    )
+        for field, rule in sorted(field_rules.items())
+    ]
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["schemaVersion", "questionResults"],
+        "required": ["decision", "summary", "update"],
         "properties": {
-            "schemaVersion": {"type": "string", "const": SCHEMA_VERSION},
-            "questionResults": {
-                "type": "array",
-                "minItems": len(question_ids),
-                "maxItems": len(question_ids),
-                "items": {
-                    "type": "object",
-                    "additionalProperties": False,
-                    "required": ["questionId", "status", "summary", "updates"],
-                    "properties": {
-                        "questionId": {"type": "string", "enum": list(question_ids)},
-                        "status": {
-                            "type": "string",
-                            "enum": ["candidate", "blocked"],
-                        },
-                        "summary": {"type": "string", "minLength": 1},
-                        "updates": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "additionalProperties": False,
-                                "required": [
-                                    "targetId",
-                                    "setFields",
-                                    "unsetFields",
-                                ],
-                                "properties": {
-                                    "targetId": {
-                                        "type": "string",
-                                        "enum": target_ids,
-                                    },
-                                    "setFields": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "additionalProperties": False,
-                                            "required": ["field", "valueJson"],
-                                            "properties": {
-                                                "field": {
-                                                    "type": "string",
-                                                    "enum": field_names,
-                                                },
-                                                "valueJson": {"type": "string"},
-                                            },
-                                        },
-                                    },
-                                    "unsetFields": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string",
-                                            "enum": field_names,
-                                        },
-                                    },
-                                },
-                            },
-                        },
+            "decision": {"type": "string", "enum": ["candidate", "blocked"]},
+            "summary": {"type": "string", "minLength": 1},
+            "update": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["setFields", "unsetFields"],
+                "properties": {
+                    "setFields": {
+                        "type": "array",
+                        "items": {"anyOf": set_variants},
+                    },
+                    "unsetFields": {
+                        "type": "array",
+                        "items": {"type": "string", "enum": field_names},
                     },
                 },
             },
@@ -869,16 +1154,255 @@ def output_schema(
     }
 
 
+def _reject_duplicate_object_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    value: dict[str, Any] = {}
+    for key, item in pairs:
+        if key in value:
+            raise QuestionCandidateError(f"JSON object keyが重複しています: {key}")
+        value[key] = item
+    return value
+
+
+def _matches_rule(value: Any, rule: Mapping[str, Any]) -> bool:
+    variants = rule.get("oneOf")
+    if isinstance(variants, list):
+        return sum(
+            _matches_rule(value, variant)
+            for variant in variants
+            if isinstance(variant, Mapping)
+        ) == 1
+    types = rule.get("type")
+    allowed_types = [types] if isinstance(types, str) else list(types or [])
+    matches = (
+        ("null" in allowed_types and value is None)
+        or ("boolean" in allowed_types and isinstance(value, bool))
+        or (
+            "integer" in allowed_types
+            and isinstance(value, int)
+            and not isinstance(value, bool)
+        )
+        or ("string" in allowed_types and isinstance(value, str))
+        or ("array" in allowed_types and isinstance(value, list))
+        or ("object" in allowed_types and isinstance(value, Mapping))
+    )
+    if not matches or ("enum" in rule and value not in rule["enum"]):
+        return False
+    if isinstance(value, str) and len(value) < int(rule.get("minLength", 0)):
+        return False
+    if isinstance(value, list):
+        if len(value) < int(rule.get("minItems", 0)):
+            return False
+        if "maxItems" in rule and len(value) > int(rule["maxItems"]):
+            return False
+        item_rule = rule.get("items")
+        if isinstance(item_rule, Mapping) and not all(
+            _matches_rule(item, item_rule) for item in value
+        ):
+            return False
+    if isinstance(value, Mapping):
+        required = set(rule.get("required") or [])
+        properties = rule.get("properties") or {}
+        if not required <= set(value):
+            return False
+        if rule.get("additionalProperties") is False and not set(value) <= set(properties):
+            return False
+        if any(
+            key in properties and not _matches_rule(item, properties[key])
+            for key, item in value.items()
+        ):
+            return False
+    return True
+
+
 def parse_candidates(
     value: str | Mapping[str, Any],
     expected_question_ids: Iterable[str],
     targets_by_question: Mapping[str, Iterable[CandidateTarget]],
 ) -> tuple[QuestionCandidate, ...]:
+    """Legacy v2 reader retained for existing prepared artifacts and fixtures."""
     try:
         payload = json.loads(value) if isinstance(value, str) else dict(value)
     except (TypeError, json.JSONDecodeError) as exc:
         raise QuestionCandidateError("構造化候補をJSONとして読み取れません。") from exc
     if payload.get("schemaVersion") != SCHEMA_VERSION:
+        raise QuestionCandidateError("構造化候補のschemaVersionが一致しません。")
+    return _parse_prepared_candidates(payload, expected_question_ids, targets_by_question)
+
+
+def parse_prepared_candidate_payload(
+    payload: Mapping[str, Any],
+    expected_question_ids: Iterable[str],
+    targets_by_question: Mapping[str, Iterable[CandidateTarget]],
+) -> tuple[QuestionCandidate, ...]:
+    """Read an explicitly identified persisted v2 or v3 payload."""
+    if not isinstance(payload, Mapping):
+        raise QuestionCandidateError("保存済み候補はobjectでなければなりません。")
+    version = payload.get("schemaVersion")
+    if version not in {SCHEMA_VERSION, CANDIDATE_PAYLOAD_SCHEMA_VERSION}:
+        raise QuestionCandidateError("構造化候補のschemaVersionが一致しません。")
+    if version == CANDIDATE_PAYLOAD_SCHEMA_VERSION:
+        _validate_v3_prepared_shape(
+            payload, expected_question_ids, targets_by_question
+        )
+    return _parse_prepared_candidates(
+        dict(payload), expected_question_ids, targets_by_question
+    )
+
+
+def parse_model_candidate_v3(
+    raw_json: str,
+    expected_question_ids: Iterable[str],
+    targets_by_question: Mapping[str, Iterable[CandidateTarget]],
+) -> tuple[QuestionCandidate, ...]:
+    """Read one fresh semantic model response."""
+    if not isinstance(raw_json, str):
+        raise QuestionCandidateError("model候補はraw JSON stringでなければなりません。")
+    try:
+        payload = json.loads(
+            raw_json, object_pairs_hook=_reject_duplicate_object_keys
+        )
+    except (TypeError, json.JSONDecodeError) as exc:
+        raise QuestionCandidateError("model候補をJSONとして読み取れません。") from exc
+    if not isinstance(payload, Mapping):
+        raise QuestionCandidateError("model候補のrootがobjectではありません。")
+    return _parse_semantic_candidate(
+        payload, expected_question_ids, targets_by_question
+    )
+
+
+def _validate_v3_prepared_shape(
+    payload: Mapping[str, Any],
+    expected_question_ids: Iterable[str],
+    targets_by_question: Mapping[str, Iterable[CandidateTarget]],
+) -> None:
+    if set(payload) != {"schemaVersion", "questionResults"}:
+        raise QuestionCandidateError("v3保存候補のroot fieldが一致しません。")
+    rows = payload.get("questionResults")
+    if not isinstance(rows, list):
+        raise QuestionCandidateError("v3保存候補のquestionResultsが不正です。")
+    expected = {str(value) for value in expected_question_ids}
+    seen_questions: set[str] = set()
+    for row in rows:
+        if not isinstance(row, Mapping) or set(row) != {
+            "questionId", "status", "summary", "updates"
+        }:
+            raise QuestionCandidateError("v3保存候補のresult fieldが一致しません。")
+        question_id = row.get("questionId")
+        if (
+            not isinstance(question_id, str)
+            or question_id not in expected
+            or question_id in seen_questions
+        ):
+            raise QuestionCandidateError("v3保存候補のquestionIdが対象外又は重複です。")
+        seen_questions.add(question_id)
+        updates = row.get("updates")
+        status = row.get("status")
+        summary = row.get("summary")
+        if (
+            status not in {"candidate", "blocked"}
+            or not isinstance(summary, str)
+            or not summary.strip()
+            or not isinstance(updates, list)
+        ):
+            raise QuestionCandidateError("v3保存候補のupdatesが不正です。")
+        allowed_targets = {
+            target.target_id: target
+            for target in targets_by_question.get(question_id, ())
+        }
+        seen_targets: set[str] = set()
+        for update in updates:
+            if not isinstance(update, Mapping) or set(update) != {
+                "targetId", "setFields", "unsetFields"
+            }:
+                raise QuestionCandidateError("v3保存候補のupdate fieldが一致しません。")
+            target_id = update.get("targetId")
+            if (
+                not isinstance(target_id, str)
+                or target_id not in allowed_targets
+                or target_id in seen_targets
+            ):
+                raise QuestionCandidateError("v3保存候補のtargetIdが対象外又は重複です。")
+            seen_targets.add(target_id)
+            sets = update.get("setFields")
+            unsets = update.get("unsetFields")
+            if not isinstance(sets, list) or not isinstance(unsets, list):
+                raise QuestionCandidateError("v3保存候補のset/unsetが不正です。")
+            names: list[str] = []
+            for item in sets:
+                if not isinstance(item, Mapping) or set(item) != {"field", "value"}:
+                    raise QuestionCandidateError("v3保存候補のset fieldが不正です。")
+                field = item.get("field")
+                if (
+                    not isinstance(field, str)
+                    or field not in allowed_targets[target_id].allowed_fields
+                ):
+                    raise QuestionCandidateError(
+                        "v3保存候補のset fieldが対象外です。"
+                    )
+                names.append(field)
+                rule = _FIELD_RULES_BY_ROLE.get(
+                    allowed_targets[target_id].role, {}
+                ).get(field)
+                if rule is None or not _matches_rule(
+                    item.get("value"), _json_schema_rule(rule)
+                ):
+                    raise QuestionCandidateError(
+                        f"v3保存候補のnative valueが不正です: {field}"
+                    )
+            if any(
+                not isinstance(item, str)
+                or item not in allowed_targets[target_id].allowed_fields
+                for item in unsets
+            ):
+                raise QuestionCandidateError(
+                    "v3保存候補のunset fieldが対象外又は文字列ではありません。"
+                )
+            unset_names = list(unsets)
+            if (
+                "" in names
+                or "" in unset_names
+                or len(names) != len(set(names))
+                or len(unset_names) != len(set(unset_names))
+                or set(names) & set(unset_names)
+            ):
+                raise QuestionCandidateError("v3保存候補のfieldが重複又は競合しています。")
+        if status == "blocked" and updates:
+            raise QuestionCandidateError("v3保存候補のblocked updateは空でなければなりません。")
+        if status == "candidate":
+            expected_targets = {
+                target.target_id: set(target.allowed_fields)
+                for target in targets_by_question.get(question_id, ())
+            }
+            actual_targets = {
+                update["targetId"]: {
+                    *(item["field"] for item in update["setFields"]),
+                    *update["unsetFields"],
+                }
+                for update in updates
+            }
+            if actual_targets != expected_targets:
+                raise QuestionCandidateError(
+                    "v3保存候補が全target/allowed fieldを確定していません。"
+                )
+    if seen_questions != expected:
+        raise QuestionCandidateError("v3保存候補に対象問題の不足があります。")
+
+
+def _parse_prepared_candidates(
+    value: str | Mapping[str, Any],
+    expected_question_ids: Iterable[str],
+    targets_by_question: Mapping[str, Iterable[CandidateTarget]],
+) -> tuple[QuestionCandidate, ...]:
+    try:
+        payload = (
+            json.loads(value, object_pairs_hook=_reject_duplicate_object_keys)
+            if isinstance(value, str)
+            else dict(value)
+        )
+    except (TypeError, json.JSONDecodeError) as exc:
+        raise QuestionCandidateError("構造化候補をJSONとして読み取れません。") from exc
+    version = payload.get("schemaVersion")
+    if version not in {SCHEMA_VERSION, CANDIDATE_PAYLOAD_SCHEMA_VERSION}:
         raise QuestionCandidateError("構造化候補のschemaVersionが一致しません。")
     raw_results = payload.get("questionResults")
     if not isinstance(raw_results, list):
@@ -972,7 +1496,11 @@ def parse_candidates(
                     try:
                         parsed_fields[field] = _normalized_candidate_value(
                             field,
-                            json.loads(str(item.get("valueJson") or "")),
+                            (
+                                json.loads(str(item.get("valueJson") or ""))
+                                if version == SCHEMA_VERSION
+                                else item.get("value")
+                            ),
                         )
                     except json.JSONDecodeError as exc:
                         raise QuestionCandidateError(
@@ -998,12 +1526,16 @@ def parse_candidates(
                         + ", ".join(target.allowed_fields)
                     )
                 for field, field_value in parsed_fields.items():
-                    for destination in _field_destinations(
-                        question_id,
-                        field,
-                        target,
-                        allowed_targets,
-                    ):
+                    destinations = (
+                        (target,)
+                        if version == SCHEMA_VERSION
+                        and field == "tertiaryAuditRunId"
+                        and target.role == "law_audit"
+                        else _field_destinations(
+                            question_id, field, allowed_targets, target
+                        )
+                    )
+                    for destination in destinations:
                         routed = routed_fields[destination.target_id]
                         if field in routed["unset"]:
                             raise QuestionCandidateError(
@@ -1016,12 +1548,16 @@ def parse_candidates(
                             )
                         routed["set"][field] = field_value
                 for field in unset:
-                    for destination in _field_destinations(
-                        question_id,
-                        field,
-                        target,
-                        allowed_targets,
-                    ):
+                    destinations = (
+                        (target,)
+                        if version == SCHEMA_VERSION
+                        and field == "tertiaryAuditRunId"
+                        and target.role == "law_audit"
+                        else _field_destinations(
+                            question_id, field, allowed_targets, target
+                        )
+                    )
+                    for destination in destinations:
                         routed = routed_fields[destination.target_id]
                         if field in routed["set"]:
                             raise QuestionCandidateError(
@@ -1060,6 +1596,91 @@ def parse_candidates(
                 )
             )
     return tuple(normalized)
+
+
+def _parse_semantic_candidate(
+    payload: Mapping[str, Any],
+    expected_question_ids: Iterable[str],
+    targets_by_question: Mapping[str, Iterable[CandidateTarget]],
+) -> tuple[QuestionCandidate, ...]:
+    expected = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
+    if len(expected) != 1:
+        raise QuestionCandidateError("model候補は厳密に一問でなければなりません。")
+    if set(payload) != {"decision", "summary", "update"}:
+        raise QuestionCandidateError("model候補のroot fieldが一致しません。")
+    question_id = expected[0]
+    decision = payload.get("decision")
+    summary = payload.get("summary")
+    update = payload.get("update")
+    if (
+        decision not in {"candidate", "blocked"}
+        or not isinstance(summary, str)
+        or not summary.strip()
+        or not isinstance(update, Mapping)
+        or set(update) != {"setFields", "unsetFields"}
+    ):
+        raise QuestionCandidateError("model候補の形式が不正です。")
+    set_fields = update.get("setFields")
+    unset_fields = update.get("unsetFields")
+    if not isinstance(set_fields, list) or not isinstance(unset_fields, list):
+        raise QuestionCandidateError("model候補のupdate形式が不正です。")
+    if decision == "blocked" and (set_fields or unset_fields):
+        raise QuestionCandidateError("blocked候補はupdateを空にしてください。")
+    rules = _semantic_field_rules(
+        question_id, targets_by_question.get(question_id, ())
+    )
+    values: dict[str, Any] = {}
+    for item in set_fields:
+        if not isinstance(item, Mapping) or set(item) != {"field", "value"}:
+            raise QuestionCandidateError("setFieldsのfieldが不正です。")
+        field = item.get("field")
+        if not isinstance(field, str) or field not in rules or field in values:
+            raise QuestionCandidateError("setFieldsのfieldが対象外又は重複です。")
+        if not _matches_rule(item.get("value"), rules[field]):
+            raise QuestionCandidateError(f"setFields.valueの型が不正です: {field}")
+        values[field] = _normalized_candidate_value(field, item.get("value"))
+    if (
+        any(not isinstance(field, str) or field not in rules for field in unset_fields)
+        or len(unset_fields) != len(set(unset_fields))
+    ):
+        raise QuestionCandidateError("unsetFieldsが対象外又は重複です。")
+    if set(values) & set(unset_fields):
+        raise QuestionCandidateError("同じfieldに設定と削除があります。")
+    if decision == "candidate" and set(values) | set(unset_fields) != set(rules):
+        raise QuestionCandidateError(
+            "candidateは全allowed semantic fieldを一度だけ確定してください。"
+        )
+    allowed_targets = {
+        target.target_id: target
+        for target in targets_by_question.get(question_id, ())
+    }
+    routed = {
+        target_id: {"set": {}, "unset": []}
+        for target_id in allowed_targets
+    }
+    for field, item in values.items():
+        for target in _field_destinations(question_id, field, allowed_targets):
+            routed[target.target_id]["set"][field] = item
+    for field in unset_fields:
+        for target in _field_destinations(question_id, field, allowed_targets):
+            routed[target.target_id]["unset"].append(field)
+    updates = tuple(
+        CandidateUpdate(
+            target_id=target_id,
+            set_fields=dict(value["set"]),
+            unset_fields=tuple(value["unset"]),
+        )
+        for target_id, value in routed.items()
+        if value["set"] or value["unset"]
+    )
+    return (
+        QuestionCandidate(
+            question_id=question_id,
+            status=str(decision),
+            summary=summary.strip()[:4000],
+            updates=updates,
+        ),
+    )
 
 
 def validate_candidate_content(

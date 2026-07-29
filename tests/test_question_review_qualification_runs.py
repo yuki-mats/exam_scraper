@@ -2561,6 +2561,180 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
 
 class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
+    def test_saved_v2_prepared_candidate_resumes_and_commits_through_production_dispatch(
+        self,
+    ):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = FlowAppServer()
+            coordinator, _sync, _server, previous = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            original_persist = coordinator.store.persist_prepared_candidate
+            saved_envelope = None
+
+            def persist_v2_then_interrupt(
+                qualification,
+                run_id,
+                candidate,
+            ):
+                nonlocal saved_envelope
+                content = copy.deepcopy(candidate["content"])
+                question_id = previous["questionExecutions"][0]["questionId"]
+                content["candidatePayload"] = {
+                    "schemaVersion": "question-maintenance-candidates/v2",
+                    "questionResults": [
+                        {
+                            "questionId": question_id,
+                            "status": "candidate",
+                            "summary": "保存済みv2候補を再開して確定する。",
+                            "updates": [
+                                {
+                                    "targetId": f"{question_id}:question_type",
+                                    "setFields": [
+                                        {
+                                            "field": "questionType",
+                                            "valueJson": '"flash_card"',
+                                        },
+                                        {
+                                            "field": "isCalculationQuestion",
+                                            "valueJson": "false",
+                                        },
+                                    ],
+                                    "unsetFields": [],
+                                }
+                            ],
+                        }
+                    ],
+                }
+                saved_envelope = _prepared_candidate_envelope(
+                    question_id=question_id,
+                    stage_id="question_type",
+                    input_fingerprint_value=candidate["inputFingerprint"],
+                    projected_input_hash=candidate["projectedInputHash"],
+                    content=content,
+                )
+                persisted = original_persist(
+                    qualification,
+                    run_id,
+                    saved_envelope,
+                )
+                raise SystemExit("simulated stop after saved v2 preparation")
+
+            coordinator.store.persist_prepared_candidate = (
+                persist_v2_then_interrupt
+            )
+            with self.assertRaisesRegex(
+                SystemExit,
+                "after saved v2 preparation",
+            ):
+                coordinator._run_maintenance_flow(
+                    "new-exam",
+                    previous["runId"],
+                    lambda _message: None,
+                )
+            coordinator.store.persist_prepared_candidate = original_persist
+            coordinator.store.recover_interrupted_runs()
+            previous = coordinator.store.get("new-exam", previous["runId"])
+            previous_attempt = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                previous,
+            )[0]
+            saved_envelope = copy.deepcopy(previous_attempt["preparedCandidate"])
+            candidate_calls_before_resume = len(
+                [
+                    call
+                    for call in app_server.calls
+                    if call[1]["work_type"]
+                    == "maintenance_question_type_candidate"
+                ]
+            )
+
+            preview = coordinator.preview(
+                "new-exam",
+                "question_type",
+                "outdated",
+                stage_ids=["question_type"],
+                list_group_ids=["2026"],
+                resumed_from=previous["runId"],
+            )
+            resumed = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "outdated",
+                preview["previewToken"],
+                stage_ids=preview["stageIds"],
+                list_group_ids=preview["scopeListGroupIds"],
+                resumed_from=previous["runId"],
+            )["run"]
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                resumed["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get(
+                "new-exam",
+                resumed["runId"],
+            )
+            resumed_attempt = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )[0]
+            patch_path = root / resumed_attempt["result"]["changedFiles"][0]
+            patch_records = json.loads(patch_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(candidate_calls_before_resume, 1)
+        self.assertEqual(
+            len(
+                [
+                    call
+                    for call in app_server.calls
+                    if call[1]["work_type"]
+                    == "maintenance_question_type_candidate"
+                ]
+            ),
+            candidate_calls_before_resume,
+        )
+        self.assertEqual(resumed_attempt["preparedCandidate"], saved_envelope)
+        self.assertEqual(
+            saved_envelope["schemaVersion"],
+            "question-maintenance-prepared-candidate/v1",
+        )
+        self.assertEqual(
+            saved_envelope["content"]["candidatePayload"]["schemaVersion"],
+            "question-maintenance-candidates/v2",
+        )
+        self.assertEqual(
+            saved_envelope["content"]["candidatePayload"]["questionResults"][0][
+                "updates"
+            ][0]["setFields"][0]["valueJson"],
+            '"flash_card"',
+        )
+        self.assertEqual(
+            resumed_attempt["preparedCandidateReusedFromAttemptId"],
+            previous_attempt["runId"],
+        )
+        self.assertTrue(resumed_attempt["candidateCommitStartedAt"])
+        self.assertTrue(resumed_attempt["receiptValidated"])
+        self.assertEqual(
+            resumed_attempt["workVersionReceipt"]["recordedCount"],
+            1,
+        )
+        self.assertEqual(patch_records[0]["questionType"], "flash_card")
+        self.assertEqual(
+            patch_records[0]["originalQuestionId"],
+            "new-exam-2026-q1",
+        )
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(completed["status"], "succeeded")
+        self.assertEqual(completed["queueStatus"], "succeeded")
+        self.assertEqual(completed["workVersionReceipt"]["recordedCount"], 1)
+
     def test_question_attempt_candidate_is_durable_write_once_state(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -6122,9 +6296,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 if work_type != "maintenance_question_type_candidate":
                     return result
                 payload = json.loads(result.final_message)
-                payload["questionResults"][0]["updates"][0]["setFields"] = [
-                    {"field": "questionType", "valueJson": '"flash_card"'},
-                    {"field": "isCalculationQuestion", "valueJson": "false"},
+                payload["update"]["setFields"] = [
+                    {"field": "questionType", "value": "flash_card"},
+                    {"field": "isCalculationQuestion", "value": False},
                 ]
                 return replace(
                     result,

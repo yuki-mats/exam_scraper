@@ -7,6 +7,8 @@ from tools.question_review_console.question_candidate import (
     candidate_targets,
     output_schema,
     parse_candidates,
+    parse_model_candidate_v3,
+    parse_prepared_candidate_payload,
     validate_candidate_content,
     aggregate_answer_review_schema,
     parse_aggregate_answer_reviews,
@@ -1569,7 +1571,11 @@ class QuestionCandidateTest(unittest.TestCase):
         result = parse_candidates(json.dumps(payload), ["q1"], {"q1": targets})
 
         self.assertEqual(result[0].updates[0].set_fields["explanationText"][0], "正しい。理由。")
-        self.assertEqual(output_schema(["q1"], {"q1": targets})["properties"]["schemaVersion"]["const"], SCHEMA_VERSION)
+        schema_text = json.dumps(output_schema(["q1"], {"q1": targets}))
+        self.assertNotIn("schemaVersion", schema_text)
+        self.assertNotIn("questionId", schema_text)
+        self.assertNotIn("targetId", schema_text)
+        self.assertNotIn("valueJson", schema_text)
 
     def test_output_schema_uses_only_strict_objects(self):
         targets = candidate_targets("q1", "explanation", self.plan())
@@ -1578,6 +1584,7 @@ class QuestionCandidateTest(unittest.TestCase):
         def assert_strict(value):
             if isinstance(value, dict):
                 self.assertNotIn("uniqueItems", value)
+                self.assertNotIn("oneOf", value)
                 if value.get("type") == "object":
                     self.assertIs(value.get("additionalProperties"), False)
                     self.assertEqual(
@@ -1591,6 +1598,87 @@ class QuestionCandidateTest(unittest.TestCase):
                     assert_strict(child)
 
         assert_strict(schema)
+
+    def test_output_schema_is_strict_for_all_candidate_stages(self):
+        paths = [
+            "output/sample/questions_json/2026/05_originalized/q1.json",
+            "output/sample/questions_json/2026/10_questionType_fixed/patch.json",
+            "output/sample/questions_json/2026/15_correctChoiceText_fixed/patch.json",
+            "output/sample/questions_json/2026/18_law_context_prepared/patch.json",
+            "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+            "output/sample/questions_json/2026/22_questionSetId_linked/patch.json",
+            "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+        ]
+        plan = {
+            "allowedPatchFiles": paths,
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+
+        def assert_strict(value):
+            if isinstance(value, dict):
+                self.assertNotIn("oneOf", value)
+                if value.get("type") == "object":
+                    self.assertIs(value.get("additionalProperties"), False)
+                    self.assertEqual(
+                        set(value.get("required") or []),
+                        set((value.get("properties") or {}).keys()),
+                    )
+                for child in value.values():
+                    assert_strict(child)
+            elif isinstance(value, list):
+                for child in value:
+                    assert_strict(child)
+
+        for stage in (
+            "originalize",
+            "question_type",
+            "question_intent",
+            "correct_choice",
+            "law_context",
+            "explanation",
+            "law_audit",
+            "question_set",
+        ):
+            with self.subTest(stage=stage):
+                targets = candidate_targets("q1", stage, plan)
+                schema = output_schema(["q1"], {"q1": targets})
+                assert_strict(schema)
+                variants = schema["properties"]["update"]["properties"][
+                    "setFields"
+                ]["items"]["anyOf"]
+                fields = [
+                    variant["properties"]["field"]["const"]
+                    for variant in variants
+                ]
+                self.assertEqual(len(fields), len(set(fields)))
+
+    def test_output_schema_optional_choice_index_variants_are_disjoint(self):
+        targets = candidate_targets("q1", "explanation", self.plan())
+        schema = output_schema(["q1"], {"q1": targets})
+        set_variants = schema["properties"]["update"]["properties"]["setFields"][
+            "items"
+        ]["anyOf"]
+        explanation_references = next(
+            variant
+            for variant in set_variants
+            if variant["properties"]["field"]["const"] == "explanationReferences"
+        )
+        item_rule = explanation_references["properties"]["value"]["items"]
+        variants = item_rule["anyOf"]
+        self.assertEqual(len(variants), 2)
+        without_choice, with_choice = sorted(
+            variants,
+            key=lambda variant: "choiceIndex" in variant["properties"],
+        )
+        self.assertNotIn("choiceIndex", without_choice["properties"])
+        self.assertNotIn("choiceIndex", without_choice["required"])
+        self.assertEqual(
+            with_choice["properties"]["choiceIndex"],
+            {"type": "integer", "minimum": 0},
+        )
+        self.assertIn("choiceIndex", with_choice["required"])
 
     def test_isolates_disallowed_field_to_its_question(self):
         targets_q1 = candidate_targets("q1", "explanation", self.plan())
@@ -1851,7 +1939,7 @@ class QuestionCandidateTest(unittest.TestCase):
             audit_rules["explanationText"]["description"],
         )
         self.assertEqual(
-            audit_rules["lawRevisionFacts"]["type"],
+            [variant["type"] for variant in audit_rules["lawRevisionFacts"]["oneOf"]],
             ["object", "array"],
         )
         self.assertIn(
@@ -2318,7 +2406,7 @@ class QuestionCandidateTest(unittest.TestCase):
             },
         )
 
-    def test_law_audit_normalizes_empty_tertiary_run_id(self):
+    def test_law_audit_hides_server_owned_tertiary_run_id(self):
         plan = {
             "allowedPatchFiles": [
                 "output/sample/questions_json/2026/21_explanationText_added/patch.json",
@@ -2329,82 +2417,212 @@ class QuestionCandidateTest(unittest.TestCase):
         }
         targets = candidate_targets("q1", "law_audit", plan)
         audit = next(target for target in targets if target.role == "law_audit")
-        candidate = parse_candidates(
-            {
-                "schemaVersion": SCHEMA_VERSION,
-                "questionResults": [
-                    {
-                        "questionId": "q1",
-                        "status": "candidate",
-                        "summary": "二次監査で維持した。",
-                        "updates": [
-                            {
-                                "targetId": audit.target_id,
-                                "setFields": [
-                                    {
-                                        "field": "tertiaryAuditRunId",
-                                        "valueJson": "[]",
-                                    }
-                                ],
-                                "unsetFields": [],
-                            }
-                        ],
-                    }
-                ],
-            },
-            ["q1"],
-            {"q1": targets},
-        )[0]
-
-        self.assertIsNone(candidate.updates[0].set_fields["tertiaryAuditRunId"])
-        self.assertEqual(
-            audit.prompt_value()["fieldRules"]["tertiaryAuditRunId"]["type"],
-            ["string", "null"],
-        )
-
-    def test_law_audit_normalizes_unset_tertiary_run_id_to_null(self):
-        plan = {
-            "allowedPatchFiles": [
-                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
-            ],
-            "allowedWriteFiles": [
-                "output/sample/review/law_revision_audit/2026.jsonl"
-            ],
-        }
-        targets = candidate_targets("q1", "law_audit", plan)
-        audit = next(target for target in targets if target.role == "law_audit")
-        candidate = parse_candidates(
-            {
-                "schemaVersion": SCHEMA_VERSION,
-                "questionResults": [
-                    {
-                        "questionId": "q1",
-                        "status": "candidate",
-                        "summary": "三次監査は不要と判断した。",
-                        "updates": [
-                            {
-                                "targetId": audit.target_id,
-                                "setFields": [],
-                                "unsetFields": ["tertiaryAuditRunId"],
-                            }
-                        ],
-                    }
-                ],
-            },
-            ["q1"],
-            {"q1": targets},
-        )[0]
-
-        self.assertIsNone(candidate.updates[0].set_fields["tertiaryAuditRunId"])
+        self.assertNotIn("tertiaryAuditRunId", audit.allowed_fields)
         self.assertNotIn(
-            "tertiaryAuditRunId", candidate.updates[0].unset_fields
+            "tertiaryAuditRunId", audit.prompt_value().get("fieldRules", {})
         )
-        self.assertIn(
-            "unsetFieldsへ入れず",
-            audit.prompt_value()["fieldRules"]["tertiaryAuditRunId"][
-                "description"
+
+    def test_law_audit_ignores_selected_server_owned_fields(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
             ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        plan["selectedFieldsByStage"] = {
+            "law_audit": ["explanationText", "tertiaryAuditRunId"]
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        self.assertTrue(targets)
+        self.assertTrue(
+            all(
+                "tertiaryAuditRunId" not in target.allowed_fields
+                for target in targets
+            )
         )
+
+    def test_v2_law_audit_normalizes_empty_tertiary_run_id(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json"
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [{
+                    "questionId": "q1",
+                    "status": "candidate",
+                    "summary": "二次監査で維持した。",
+                    "updates": [{
+                        "targetId": audit.target_id,
+                        "setFields": [{
+                            "field": "tertiaryAuditRunId",
+                            "valueJson": "[]",
+                        }],
+                        "unsetFields": [],
+                    }],
+                }],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        self.assertIsNone(candidate.updates[0].set_fields["tertiaryAuditRunId"])
+
+    def test_v2_law_audit_normalizes_unset_tertiary_run_id_to_null(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json"
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026.jsonl"
+            ],
+        }
+        targets = candidate_targets("q1", "law_audit", plan)
+        audit = next(target for target in targets if target.role == "law_audit")
+        candidate = parse_candidates(
+            {
+                "schemaVersion": SCHEMA_VERSION,
+                "questionResults": [{
+                    "questionId": "q1",
+                    "status": "candidate",
+                    "summary": "三次監査は不要と判断した。",
+                    "updates": [{
+                        "targetId": audit.target_id,
+                        "setFields": [],
+                        "unsetFields": ["tertiaryAuditRunId"],
+                    }],
+                }],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        self.assertIsNone(candidate.updates[0].set_fields["tertiaryAuditRunId"])
+        self.assertNotIn("tertiaryAuditRunId", candidate.updates[0].unset_fields)
+
+    def test_semantic_v3_injects_question_and_routes_native_values(self):
+        targets = candidate_targets("q1", "question_type", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        })
+        candidate = parse_model_candidate_v3(
+            '{"decision":"candidate","summary":"分類した。","update":'
+            '{"setFields":[{"field":"questionType","value":"true_false"},'
+            '{"field":"isCalculationQuestion","value":false}],"unsetFields":[]}}',
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        self.assertEqual(candidate.question_id, "q1")
+        self.assertEqual(candidate.updates[0].target_id, "q1:question_type")
+        self.assertIs(candidate.updates[0].set_fields["isCalculationQuestion"], False)
+
+    def test_semantic_v3_rejects_duplicate_unknown_overlap_and_type(self):
+        targets = candidate_targets("q1", "question_type", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        })
+        invalid_values = [
+            '{"decision":"blocked","decision":"candidate","summary":"x","update":{"setFields":[],"unsetFields":[]}}',
+            '{"decision":"candidate","summary":"x","extra":1,"update":{"setFields":[],"unsetFields":[]}}',
+            '{"decision":"candidate","summary":"x","update":{"setFields":[{"field":"questionType","value":"true_false"},{"field":"questionType","value":"true_false"}],"unsetFields":[]}}',
+            '{"decision":"candidate","summary":"x","update":{"setFields":[],"unsetFields":["questionType","questionType"]}}',
+            '{"decision":"candidate","summary":"x","update":{"setFields":[{"field":"questionType","value":"true_false"}],"unsetFields":["questionType"]}}',
+            '{"decision":"candidate","summary":"x","update":{"setFields":[{"field":"isCalculationQuestion","value":"false"}],"unsetFields":[]}}',
+        ]
+        for value in invalid_values:
+            with self.subTest(value=value), self.assertRaises(QuestionCandidateError):
+                parse_model_candidate_v3(value, ["q1"], {"q1": targets})
+
+    def test_semantic_v3_requires_exactly_one_question_and_empty_blocked_update(self):
+        targets = candidate_targets("q1", "question_type", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        })
+        with self.assertRaises(QuestionCandidateError):
+            output_schema([], {})
+        with self.assertRaises(QuestionCandidateError):
+            output_schema(["q1", "q2"], {"q1": targets, "q2": targets})
+        with self.assertRaises(QuestionCandidateError):
+            parse_model_candidate_v3(
+                '{"decision":"blocked","summary":"保留","update":'
+                '{"setFields":[{"field":"questionType","value":"true_false"}],"unsetFields":[]}}',
+                ["q1"],
+                {"q1": targets},
+            )
+
+    def test_prepared_v3_rejects_non_closed_or_incomplete_payloads(self):
+        targets = candidate_targets("q1", "question_type", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        })
+        valid = {
+            "schemaVersion": "question-maintenance-candidates/v3",
+            "questionResults": [{
+                "questionId": "q1",
+                "status": "candidate",
+                "summary": "分類した。",
+                "updates": [{
+                    "targetId": "q1:question_type",
+                    "setFields": [
+                        {"field": "questionType", "value": "true_false"},
+                        {"field": "isCalculationQuestion", "value": False},
+                    ],
+                    "unsetFields": [],
+                }],
+            }],
+        }
+        candidate = parse_prepared_candidate_payload(valid, ["q1"], {"q1": targets})[0]
+        self.assertEqual(candidate.status, "candidate")
+        invalid = [
+            {**valid, "unknown": True},
+            {
+                **valid,
+                "questionResults": [{
+                    **valid["questionResults"][0],
+                    "status": "blocked",
+                }],
+            },
+            {
+                **valid,
+                "questionResults": [{
+                    **valid["questionResults"][0],
+                    "updates": [{
+                        **valid["questionResults"][0]["updates"][0],
+                        "unsetFields": [1],
+                    }],
+                }],
+            },
+            {
+                **valid,
+                "questionResults": [{
+                    **valid["questionResults"][0],
+                    "updates": [{
+                        **valid["questionResults"][0]["updates"][0],
+                        "setFields": [{"field": "questionType", "value": "true_false"}],
+                    }],
+                }],
+            },
+        ]
+        for payload in invalid:
+            with self.subTest(payload=payload), self.assertRaises(QuestionCandidateError):
+                parse_prepared_candidate_payload(payload, ["q1"], {"q1": targets})
 
 
 if __name__ == "__main__":
