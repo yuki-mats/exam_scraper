@@ -191,6 +191,29 @@ class QuestionPublisherSafetyTests(unittest.TestCase):
         )
         self.assertEqual(changes["doc-2"], ["document"])
 
+    def test_preview_uses_publication_original_id_from_upload_ready_documents(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            question = question_payload()
+            for document in question["uploadReadyDocs"]:
+                document["originalQuestionId"] = "legacy-firestore-original-1"
+            write_inputs(root, question)
+
+            preview = self.publisher(root, question, FakeFirestore()).preview(question)
+
+        self.assertTrue(preview["canPublish"])
+        self.assertEqual(preview["missingCount"], 2)
+
+    def test_preview_rejects_mixed_publication_original_ids(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            question = question_payload()
+            question["uploadReadyDocs"][1]["originalQuestionId"] = "another-original"
+            write_inputs(root, question)
+
+            with self.assertRaisesRegex(PublicationError, "別の元問題"):
+                self.publisher(root, question, FakeFirestore()).preview(question)
+
     def test_preview_blocks_live_identity_conflicts_and_deleted_document(self) -> None:
         conflicts = {
             "qualificationId": "another-qualification",

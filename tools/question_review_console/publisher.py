@@ -867,6 +867,15 @@ class QuestionPublisher:
             raise PublicationError("対象問題のFirestore documentを特定できません。")
         if len(expected_ids) != len(expected_documents):
             raise PublicationError("対象問題のFirestore document IDが重複しています。")
+        publication_original_ids = {
+            str(document.get("originalQuestionId") or "")
+            for document in expected_documents
+        }
+        if "" in publication_original_ids:
+            raise PublicationError("対象問題の公開用originalQuestionIdがありません。")
+        if len(publication_original_ids) != 1:
+            raise PublicationError("対象問題に別の元問題documentが含まれています。")
+        publication_original_id = next(iter(publication_original_ids))
         documents = [
             copy.deepcopy(document)
             for document in raw_documents
@@ -880,15 +889,15 @@ class QuestionPublisher:
         publication_qualification_id = str(
             question.get("publicationQualificationId") or qualification
         )
-        original_question_id = str(question.get("originalQuestionId") or "")
-        if not original_question_id:
-            raise PublicationError("対象問題のoriginalQuestionIdがありません。")
         for document in documents:
             if str(document.get("qualificationId") or "") != publication_qualification_id:
                 raise PublicationError("対象問題に別資格のdocumentが含まれています。")
             if str(document.get("listGroupId") or "") != list_group_id:
                 raise PublicationError("対象問題に別フォルダのdocumentが含まれています。")
-            if str(document.get("originalQuestionId") or "") != original_question_id:
+            if (
+                str(document.get("originalQuestionId") or "")
+                != publication_original_id
+            ):
                 raise PublicationError("対象問題に別の元問題documentが含まれています。")
         return path, documents, GroupPublisher._file_hash(path)
 
