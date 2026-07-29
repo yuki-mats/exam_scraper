@@ -34,6 +34,7 @@ from tools.question_review_console.workflow_runner import LOCAL_STALE_ISSUES
 
 
 SCHEMA_VERSION = "question-evaluation/v1"
+PROJECTION_SCHEMA_VERSION = "question-evaluation-projection/v2"
 PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
 MAX_EVALUATION_CONCURRENCY = 100
@@ -142,6 +143,25 @@ class EvaluationStore:
         self._lock = threading.RLock()
 
     def load(self, question: Mapping[str, Any]) -> dict[str, Any] | None:
+        projection = self.load_projection(question)
+        return self.effective_payload(projection)
+
+    @staticmethod
+    def effective_payload(
+        projection: Mapping[str, Any] | None,
+    ) -> dict[str, Any] | None:
+        if projection is None:
+            return None
+        if projection.get("schemaVersion") == SCHEMA_VERSION:
+            return copy.deepcopy(dict(projection))
+        current = projection.get("currentValid")
+        if isinstance(current, Mapping):
+            return copy.deepcopy(dict(current))
+        latest = projection.get("latestAttempt")
+        summary = latest.get("resultSummary") if isinstance(latest, Mapping) else None
+        return copy.deepcopy(dict(summary)) if isinstance(summary, Mapping) else None
+
+    def load_projection(self, question: Mapping[str, Any]) -> dict[str, Any] | None:
         path = self.evaluation_path(question)
         if not path.is_file():
             return None
@@ -154,21 +174,132 @@ class EvaluationStore:
             payload = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             return None
+        if not isinstance(payload, dict):
+            return None
+        schema_version = payload.get("schemaVersion")
+        hash_field = (
+            "projectionHash"
+            if schema_version == PROJECTION_SCHEMA_VERSION
+            else "resultHash"
+        )
         if (
-            not isinstance(payload, dict)
-            or payload.get("schemaVersion") != SCHEMA_VERSION
+            schema_version not in {SCHEMA_VERSION, PROJECTION_SCHEMA_VERSION}
             or payload.get("reviewKey") != question.get("reviewKey")
         ):
             return None
-        result_hash = str(payload.get("resultHash") or "")
-        unsigned = {key: value for key, value in payload.items() if key != "resultHash"}
-        if not result_hash or not hmac.compare_digest(result_hash, _json_hash(unsigned)):
+        if schema_version == SCHEMA_VERSION and any(
+            str(payload.get(field) or "") != expected
+            for field, expected in {
+                "questionId": str(question["id"]),
+                "qualification": str(question["qualification"]),
+                "listGroupId": str(question["listGroupId"]),
+                "originalQuestionId": str(question.get("originalQuestionId") or ""),
+            }.items()
+        ):
             return None
+        stored_hash = str(payload.get(hash_field) or "")
+        unsigned = {key: value for key, value in payload.items() if key != hash_field}
+        if not stored_hash or not hmac.compare_digest(stored_hash, _json_hash(unsigned)):
+            return None
+        if schema_version == PROJECTION_SCHEMA_VERSION:
+            expected_identity = {
+                "questionId": str(question["id"]),
+                "qualification": str(question["qualification"]),
+                "listGroupId": str(question["listGroupId"]),
+                "originalQuestionId": str(question.get("originalQuestionId") or ""),
+            }
+            if payload.get("identity") != expected_identity:
+                return None
+            sequences = [
+                payload.get("nextAttemptSequence"),
+                payload.get("latestAttemptSequence"),
+                payload.get("promotedAttemptSequence"),
+            ]
+            if any(
+                isinstance(value, bool) or not isinstance(value, int) or value < 0
+                for value in sequences
+            ):
+                return None
+            if not (
+                payload["promotedAttemptSequence"]
+                <= payload["latestAttemptSequence"]
+                < payload["nextAttemptSequence"]
+            ):
+                return None
+            latest = payload.get("latestAttempt")
+            if (
+                not isinstance(latest, Mapping)
+                or latest.get("sequence") != payload["latestAttemptSequence"]
+                or not isinstance(latest.get("runId"), str)
+                or str(latest.get("status") or "")
+                not in {
+                    "not_started",
+                    "reserved",
+                    "failed",
+                    "inconclusive",
+                    "passed",
+                    "needs_rework",
+                }
+                or (
+                    payload["latestAttemptSequence"] > 0
+                    and not latest.get("runId")
+                )
+                or (
+                    latest.get("resultSummary") is not None
+                    and not isinstance(latest.get("resultSummary"), Mapping)
+                )
+            ):
+                return None
+            latest_status = str(latest.get("status") or "")
+            latest_summary = latest.get("resultSummary")
+            if (
+                latest_status in {"passed", "needs_rework", "inconclusive"}
+                and (
+                    not isinstance(latest_summary, Mapping)
+                    or latest_summary.get("status") != latest_status
+                    or latest_summary.get("runId") != latest.get("runId")
+                )
+            ) or (
+                latest_status in {"not_started", "reserved", "failed"}
+                and latest_summary is not None
+            ):
+                return None
+            current = payload.get("currentValid")
+            if current is not None:
+                if (
+                    not isinstance(current, Mapping)
+                    or current.get("schemaVersion") != SCHEMA_VERSION
+                    or current.get("reviewKey") != question.get("reviewKey")
+                    or current.get("status") not in {"passed", "needs_rework"}
+                    or any(
+                        str(current.get(field) or "") != expected
+                        for field, expected in {
+                            "questionId": expected_identity["questionId"],
+                            "qualification": expected_identity["qualification"],
+                            "listGroupId": expected_identity["listGroupId"],
+                            "originalQuestionId": expected_identity[
+                                "originalQuestionId"
+                            ],
+                        }.items()
+                    )
+                ):
+                    return None
+                current_hash = str(current.get("resultHash") or "")
+                current_unsigned = {
+                    key: value
+                    for key, value in current.items()
+                    if key != "resultHash"
+                }
+                if not current_hash or not hmac.compare_digest(
+                    current_hash,
+                    _json_hash(current_unsigned),
+                ):
+                    return None
         with self._lock:
             self._cache[path] = (stat.st_size, stat.st_mtime_ns, payload)
         return copy.deepcopy(payload)
 
-    def save(
+    def build_result(
         self,
         question: Mapping[str, Any],
         worker_result: Mapping[str, Any],
@@ -205,14 +336,176 @@ class EvaluationStore:
             **validated,
         }
         payload["resultHash"] = _json_hash(payload)
+        return payload
+
+    def reserve_attempt(
+        self,
+        question: Mapping[str, Any],
+        *,
+        run_id: str,
+    ) -> int:
+        with self._lock:
+            current = self.load_projection(question)
+            if current is None and self.evaluation_path(question).is_file():
+                raise EvaluationError("既存evaluation projectionを検証できません。")
+            projection = self._as_projection(question, current)
+            sequence = int(projection["nextAttemptSequence"])
+            projection["nextAttemptSequence"] = sequence + 1
+            projection["latestAttemptSequence"] = sequence
+            projection["latestAttempt"] = {
+                "sequence": sequence,
+                "runId": run_id,
+                "status": "reserved",
+                "resultSummary": None,
+            }
+            self._write_projection(question, projection)
+            return sequence
+
+    def record_attempt(
+        self,
+        question: Mapping[str, Any],
+        *,
+        sequence: int,
+        run_id: str,
+        status: str,
+        result: Mapping[str, Any] | None,
+        promote: bool,
+    ) -> dict[str, Any]:
+        with self._lock:
+            projection = self._as_projection(
+                question,
+                self.load_projection(question),
+            )
+            latest = projection.get("latestAttempt")
+            if (
+                projection.get("latestAttemptSequence") != sequence
+                or not isinstance(latest, Mapping)
+                or latest.get("runId") != run_id
+            ):
+                raise EvaluationError("評価attemptの予約順序が一致しません。")
+            summary = self._result_summary(result) if result is not None else None
+            projection["latestAttempt"] = {
+                "sequence": sequence,
+                "runId": run_id,
+                "status": status,
+                "resultSummary": summary,
+            }
+            if promote:
+                if result is None or status not in {"passed", "needs_rework"}:
+                    raise EvaluationError("有効評価以外はpromotionできません。")
+                promoted_sequence = int(projection["promotedAttemptSequence"])
+                current = projection.get("currentValid")
+                if sequence < promoted_sequence:
+                    raise EvaluationError("評価projectionを過去へ戻せません。")
+                if sequence == promoted_sequence:
+                    if (
+                        not isinstance(current, Mapping)
+                        or current.get("runId") != run_id
+                        or current.get("resultHash") != result.get("resultHash")
+                    ):
+                        raise EvaluationError("同じsequenceを別評価へ変更できません。")
+                    return projection
+                projection["currentValid"] = copy.deepcopy(dict(result))
+                projection["promotedAttemptSequence"] = sequence
+            self._write_projection(question, projection)
+            return projection
+
+    def _as_projection(
+        self,
+        question: Mapping[str, Any],
+        payload: Mapping[str, Any] | None,
+    ) -> dict[str, Any]:
+        if payload and payload.get("schemaVersion") == PROJECTION_SCHEMA_VERSION:
+            return copy.deepcopy(dict(payload))
+        current_valid = (
+            copy.deepcopy(dict(payload))
+            if payload
+            and payload.get("schemaVersion") == SCHEMA_VERSION
+            and payload.get("status") in {"passed", "needs_rework"}
+            else None
+        )
+        latest_summary = (
+            self._result_summary(payload)
+            if payload and payload.get("schemaVersion") == SCHEMA_VERSION
+            else None
+        )
+        legacy_run_id = str(payload.get("runId") or "") if payload else ""
+        if latest_summary is not None:
+            latest_summary["runId"] = legacy_run_id
+        return {
+            "schemaVersion": PROJECTION_SCHEMA_VERSION,
+            "reviewKey": str(question["reviewKey"]),
+            "identity": {
+                "questionId": str(question["id"]),
+                "qualification": str(question["qualification"]),
+                "listGroupId": str(question["listGroupId"]),
+                "originalQuestionId": str(question.get("originalQuestionId") or ""),
+            },
+            "nextAttemptSequence": 1,
+            "latestAttemptSequence": 0,
+            "promotedAttemptSequence": 0,
+            "currentValid": current_valid,
+            "latestAttempt": {
+                "sequence": 0,
+                "runId": legacy_run_id,
+                "status": str(payload.get("status") or "not_started")
+                if payload
+                else "not_started",
+                "resultSummary": latest_summary,
+            },
+        }
+
+    @staticmethod
+    def _result_summary(result: Mapping[str, Any]) -> dict[str, Any]:
+        return {
+            key: copy.deepcopy(result.get(key))
+            for key in (
+                "schemaVersion",
+                "reviewKey",
+                "questionId",
+                "qualification",
+                "listGroupId",
+                "originalQuestionId",
+                "stateHash",
+                "sessionId",
+                "threadId",
+                "turnId",
+                "runId",
+                "workType",
+                "policyVersion",
+                "policyFingerprint",
+                "provider",
+                "startedAt",
+                "evaluatedAt",
+                "status",
+                "summary",
+                "resultHash",
+                "choiceCount",
+                "verifiedChoiceCount",
+                "explanationScore",
+                "criticalIssues",
+                "reworkItems",
+            )
+            if key in result
+        }
+
+    def _write_projection(
+        self,
+        question: Mapping[str, Any],
+        projection: Mapping[str, Any],
+    ) -> None:
+        payload = {
+            key: copy.deepcopy(value)
+            for key, value in projection.items()
+            if key != "projectionHash"
+        }
+        payload["projectionHash"] = _json_hash(payload)
         path = self.evaluation_path(question)
         atomic_write(
             path,
             json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         )
-        with self._lock:
-            self._cache.pop(path, None)
-        return payload
+        self._cache.pop(path, None)
 
     def save_prompt(self, question: Mapping[str, Any], prompt: str) -> Path:
         path = self.prompt_path(question)
@@ -671,6 +964,262 @@ class QuestionEvaluationService:
             "message": message,
         }
 
+    def _work_version_evaluation_record(
+        self,
+        question: Mapping[str, Any],
+        run_id: str,
+    ) -> Mapping[str, Any] | None:
+        group = self.work_versions.load_group(
+            str(question["qualification"]),
+            str(question["listGroupId"]),
+        )
+        record = (group.get("questions") or {}).get(_question_key_hash(question))
+        expected_identity = {
+            "reviewKey": str(question.get("reviewKey") or ""),
+            "questionId": str(question.get("id") or ""),
+            "originalQuestionId": str(question.get("originalQuestionId") or ""),
+            "publicationQualificationId": str(
+                question.get("publicationQualificationId")
+                or question.get("qualification")
+                or ""
+            ),
+        }
+        if not isinstance(record, Mapping) or any(
+            str(record.get(key) or "") != value
+            for key, value in expected_identity.items()
+        ):
+            return None
+        stage = (
+            (record.get("stages") or {}).get("evaluation")
+            if isinstance(record.get("stages"), Mapping)
+            else None
+        )
+        if not isinstance(stage, Mapping):
+            return None
+        candidates = [stage, *(stage.get("history") or [])]
+        return next(
+            (
+                value
+                for value in candidates
+                if isinstance(value, Mapping)
+                and str(value.get("runId") or "") == run_id
+                and value.get("source") == "validated_evaluation"
+            ),
+            None,
+        )
+
+    def _work_version_has_evaluation_run(
+        self,
+        question: Mapping[str, Any],
+        run_id: str,
+    ) -> bool:
+        return self._work_version_evaluation_record(question, run_id) is not None
+
+    def _committed_attempt_result(
+        self,
+        question: Mapping[str, Any],
+        projection: Mapping[str, Any],
+    ) -> dict[str, Any] | None:
+        latest = projection.get("latestAttempt")
+        if not isinstance(latest, Mapping):
+            return None
+        run_id = str(latest.get("runId") or "")
+        if not run_id:
+            return None
+        qualification = str(question["qualification"])
+        try:
+            manifest = self.run_store.get(qualification, run_id)
+            result_path = (
+                self.run_store.root
+                / qualification
+                / _safe_segment(run_id)
+                / "result.json"
+            )
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError, json.JSONDecodeError):
+            return None
+        if not isinstance(result, dict):
+            return None
+        result_hash = str(result.get("resultHash") or "")
+        unsigned = {key: value for key, value in result.items() if key != "resultHash"}
+        expected_identity = {
+            "reviewKey": str(question["reviewKey"]),
+            "questionId": str(question["id"]),
+            "qualification": qualification,
+            "listGroupId": str(question["listGroupId"]),
+            "originalQuestionId": str(question.get("originalQuestionId") or ""),
+            "stateHash": str(question["stateHash"]),
+        }
+        if (
+            not result_hash
+            or not hmac.compare_digest(result_hash, _json_hash(unsigned))
+            or any(str(result.get(key) or "") != value for key, value in expected_identity.items())
+            or str(result.get("runId") or "") != run_id
+            or result.get("workType") not in {"evaluation", "reevaluation"}
+            or manifest.get("status") != "succeeded"
+            or str(manifest.get("runId") or "") != run_id
+            or manifest.get("workType") != result.get("workType")
+            or str(manifest.get("stateHash") or "") != expected_identity["stateHash"]
+            or manifest.get("result")
+            != {
+                "status": result.get("status"),
+                "summary": result.get("summary"),
+                "resultHash": result_hash,
+            }
+        ):
+            return None
+        try:
+            policy_version = normalize_policy_version(result.get("policyVersion"))
+        except (TypeError, ValueError):
+            return None
+        policy_fingerprint = str(result.get("policyFingerprint") or "")
+        policy_versions = manifest.get("policyVersions")
+        policy_fingerprints = manifest.get("policyFingerprints")
+        if not isinstance(policy_versions, Mapping) or not isinstance(
+            policy_fingerprints, Mapping
+        ):
+            return None
+        try:
+            manifest_policy_version = normalize_policy_version(
+                policy_versions.get("evaluation")
+            )
+        except (TypeError, ValueError):
+            return None
+        if (
+            not policy_fingerprint
+            or manifest_policy_version != policy_version
+            or str(policy_fingerprints.get("evaluation") or "")
+            != policy_fingerprint
+        ):
+            return None
+        if self.app_server is not None:
+            if any(
+                not result.get(field)
+                or result.get(field) != manifest.get(field)
+                for field in ("sessionId", "threadId", "turnId")
+            ):
+                return None
+        status = str(result.get("status") or "")
+        if status == "inconclusive":
+            return result
+        if status not in {"passed", "needs_rework"}:
+            return None
+        receipt = manifest.get("workVersionReceipt")
+        try:
+            version_record = self._work_version_evaluation_record(question, run_id)
+        except (TypeError, ValueError):
+            return None
+        try:
+            receipt_version = normalize_policy_version(
+                receipt.get("version") if isinstance(receipt, Mapping) else None
+            )
+            record_version = normalize_policy_version(
+                version_record.get("version")
+                if isinstance(version_record, Mapping)
+                else None
+            )
+        except (TypeError, ValueError):
+            return None
+        if (
+            not isinstance(receipt, Mapping)
+            or receipt.get("stageId") != "evaluation"
+            or receipt_version != policy_version
+            or receipt.get("recordedCount") != 1
+            or not isinstance(version_record, Mapping)
+            or record_version != policy_version
+            or str(version_record.get("policyFingerprint") or "")
+            != policy_fingerprint
+        ):
+            return None
+        return result
+
+    def _recover_projection(
+        self,
+        question: Mapping[str, Any],
+        *,
+        persist: bool = True,
+        projection: Mapping[str, Any] | None = None,
+        allow_unpersisted: bool = False,
+    ) -> tuple[dict[str, Any] | None, dict[str, Any] | None, bool]:
+        projection = (
+            self.store.load_projection(question)
+            if projection is None
+            else copy.deepcopy(dict(projection))
+        )
+        if not projection or projection.get("schemaVersion") != PROJECTION_SCHEMA_VERSION:
+            return None, projection, False
+        latest = projection.get("latestAttempt")
+        if not isinstance(latest, Mapping):
+            raise EvaluationError("evaluation projectionのlatestAttemptが不正です。")
+        sequence = int(projection["latestAttemptSequence"])
+        if sequence <= int(projection["promotedAttemptSequence"]):
+            current = projection.get("currentValid")
+            logical = (
+                copy.deepcopy(dict(current)) if isinstance(current, Mapping) else None
+            )
+            return logical, projection, False
+        run_id = str(latest.get("runId") or "")
+        if not run_id:
+            return None, projection, False
+        latest_status = str(latest.get("status") or "")
+        if latest_status == "failed":
+            return None, projection, False
+        current = projection.get("currentValid")
+        if latest_status == "inconclusive" and isinstance(current, Mapping):
+            return copy.deepcopy(dict(current)), projection, False
+        result = self._committed_attempt_result(question, projection)
+        if result is None:
+            try:
+                manifest = self.run_store.get(str(question["qualification"]), run_id)
+            except (ValueError, OSError):
+                return None, projection, False
+            if manifest.get("status") != "failed":
+                return None, projection, False
+            if persist:
+                try:
+                    projection = self.store.record_attempt(
+                        question,
+                        sequence=sequence,
+                        run_id=run_id,
+                        status="failed",
+                        result=None,
+                        promote=False,
+                    )
+                except (EvaluationError, OSError):
+                    if not allow_unpersisted:
+                        raise
+            return None, projection, False
+        status = str(result["status"])
+        if status == "inconclusive":
+            if persist and latest_status == "reserved":
+                try:
+                    projection = self.store.record_attempt(
+                        question,
+                        sequence=sequence,
+                        run_id=run_id,
+                        status=status,
+                        result=result,
+                        promote=False,
+                    )
+                except (EvaluationError, OSError):
+                    if not allow_unpersisted:
+                        raise
+            return result, projection, True
+        if persist:
+            try:
+                projection = self.store.record_attempt(
+                    question,
+                    sequence=sequence,
+                    run_id=run_id,
+                    status=status,
+                    result=result,
+                    promote=True,
+                )
+            except (EvaluationError, OSError):
+                if not allow_unpersisted:
+                    raise
+        return result, projection, True
+
     def run(
         self,
         question: Mapping[str, Any],
@@ -696,8 +1245,28 @@ class QuestionEvaluationService:
             if review_key in self._active:
                 raise EvaluationError("この問題は別の評価runで実行中です。")
             self._active.add(review_key)
+        try:
+            return self._run_active(
+                question,
+                emit,
+                run_policy=run_policy,
+                retry_feedback=retry_feedback,
+            )
+        finally:
+            with self._active_lock:
+                self._active.discard(review_key)
+
+    def _run_active(
+        self,
+        question: Mapping[str, Any],
+        emit: Callable[[str], None],
+        *,
+        run_policy: Mapping[str, Any],
+        retry_feedback: Mapping[str, Any] | None,
+    ) -> dict[str, Any]:
         started_at = _now()
         session_id = "evaluation-" + secrets.token_urlsafe(12)
+        self._recover_projection(question)
         previous = self.store.load(question)
         work_type = "reevaluation" if previous is not None else "evaluation"
         prompt = self._build_prompt(
@@ -762,6 +1331,26 @@ class QuestionEvaluationService:
         qualification = str(question["qualification"])
         run_id = str(run["runId"])
         try:
+            attempt_sequence = self.store.reserve_attempt(
+                question,
+                run_id=run_id,
+            )
+        except Exception as exc:
+            self.run_store.write_result(
+                qualification,
+                run_id,
+                {"status": "failed", "summary": str(exc)},
+            )
+            self.run_store.update(
+                qualification,
+                run_id,
+                status="failed",
+                error=str(exc),
+            )
+            raise
+        commit_point_reached = False
+        validated_result_written = False
+        try:
             self.run_store.update(
                 qualification, run_id, status="running", startedAt=started_at
             )
@@ -821,7 +1410,7 @@ class QuestionEvaluationService:
                 raise EvaluationError(
                     "評価中に評価版又は正本文書が変更されました。新しいrunでやり直してください。"
                 )
-            result = self.store.save(
+            result = self.store.build_result(
                 question,
                 worker_result,
                 session_id=session_id,
@@ -835,28 +1424,68 @@ class QuestionEvaluationService:
                 policy_fingerprint=str(run_policy["policyFingerprint"]),
             )
             self.run_store.write_result(qualification, run_id, result)
-            self.run_store.update(
-                qualification,
-                run_id,
-                status="succeeded",
-                sessionId=app_server_session_id,
-                result={
-                    "status": result["status"],
-                    "summary": result["summary"],
-                    "resultHash": result["resultHash"],
-                },
-            )
-            version_receipt = self.work_versions.record_stage(
-                [question],
-                run_policy,
-                run_id=run_id,
-                source="validated_evaluation",
-            )
-            self.run_store.update(
-                qualification,
-                run_id,
-                workVersionReceipt=version_receipt,
-            )
+            validated_result_written = True
+            if result["status"] in {"passed", "needs_rework"}:
+                version_receipt = self.work_versions.record_stage(
+                    [question],
+                    run_policy,
+                    run_id=run_id,
+                    source="validated_evaluation",
+                )
+                self.run_store.update(
+                    qualification,
+                    run_id,
+                    status="succeeded",
+                    sessionId=app_server_session_id,
+                    result={
+                        "status": result["status"],
+                        "summary": result["summary"],
+                        "resultHash": result["resultHash"],
+                    },
+                    workVersionReceipt=version_receipt,
+                )
+                commit_point_reached = True
+                try:
+                    self.store.record_attempt(
+                        question,
+                        sequence=attempt_sequence,
+                        run_id=run_id,
+                        status=str(result["status"]),
+                        result=result,
+                        promote=True,
+                    )
+                except Exception as projection_error:  # noqa: BLE001
+                    emit(
+                        "評価commitは完了しましたがprojection反映を保留しました: "
+                        f"{projection_error}"
+                    )
+            else:
+                self.run_store.update(
+                    qualification,
+                    run_id,
+                    status="succeeded",
+                    sessionId=app_server_session_id,
+                    result={
+                        "status": result["status"],
+                        "summary": result["summary"],
+                        "resultHash": result["resultHash"],
+                    },
+                )
+                commit_point_reached = True
+                try:
+                    self.store.record_attempt(
+                        question,
+                        sequence=attempt_sequence,
+                        run_id=run_id,
+                        status="inconclusive",
+                        result=result,
+                        promote=False,
+                    )
+                except Exception as projection_error:  # noqa: BLE001
+                    emit(
+                        "評価未完了runは確定しましたがprojection反映を保留しました: "
+                        f"{projection_error}"
+                    )
             label = {
                 "passed": "合格",
                 "needs_rework": "要再整備",
@@ -872,21 +1501,32 @@ class QuestionEvaluationService:
                 "message": f"別セッション評価が完了しました: {label}",
             }
         except Exception as exc:  # noqa: BLE001
-            self.run_store.write_result(
-                qualification,
-                run_id,
-                {"status": "failed", "summary": str(exc)},
-            )
+            if commit_point_reached:
+                raise
+            if not validated_result_written:
+                self.run_store.write_result(
+                    qualification,
+                    run_id,
+                    {"status": "failed", "summary": str(exc)},
+                )
             self.run_store.update(
                 qualification,
                 run_id,
                 status="failed",
                 error=str(exc),
             )
+            try:
+                self.store.record_attempt(
+                    question,
+                    sequence=attempt_sequence,
+                    run_id=run_id,
+                    status="failed",
+                    result=None,
+                    promote=False,
+                )
+            except Exception:
+                pass
             raise
-        finally:
-            with self._active_lock:
-                self._active.discard(review_key)
 
     def status_for(
         self,
@@ -899,13 +1539,44 @@ class QuestionEvaluationService:
         review_key = str(question.get("reviewKey") or "")
         with self._active_lock:
             running = review_key in self._active
-        payload = self.store.load(question)
+        projection_path = self.store.evaluation_path(question)
+        projection = self.store.load_projection(question)
+        projection_corrupt = projection is None and projection_path.is_file()
+        payload = self.store.effective_payload(projection)
+        exact_verified = False
+        if (
+            isinstance(projection, Mapping)
+            and projection.get("schemaVersion") == PROJECTION_SCHEMA_VERSION
+        ):
+            logical, projection, exact_verified = self._recover_projection(
+                question,
+                persist=True,
+                projection=projection,
+                allow_unpersisted=True,
+            )
+            payload = self.store.effective_payload(projection)
+            if isinstance(logical, Mapping):
+                if logical.get("status") in {"passed", "needs_rework"}:
+                    payload = copy.deepcopy(dict(logical))
+                elif not isinstance(projection.get("currentValid"), Mapping):
+                    payload = copy.deepcopy(dict(logical))
         if running:
             status = "running"
+        elif projection_corrupt:
+            status = "stale"
+        elif (
+            payload is None
+            and isinstance(projection, Mapping)
+            and isinstance(projection.get("latestAttempt"), Mapping)
+            and projection["latestAttempt"].get("status") == "reserved"
+        ):
+            status = "stale"
         elif payload is None:
             status = "not_started"
-        elif self.app_server is not None and not self._session_receipt_valid(
-            question, payload
+        elif (
+            self.app_server is not None
+            and not exact_verified
+            and not self._session_receipt_valid(question, payload)
         ):
             status = "stale"
         elif payload.get("stateHash") != question.get("stateHash"):

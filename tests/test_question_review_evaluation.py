@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import json
 import tempfile
 import threading
@@ -92,6 +93,15 @@ def evaluation_result(*, first_verdict="true", status="passed"):
     }
 
 
+def inconclusive_result():
+    result = evaluation_result(status="needs_rework")
+    result["explanationScore"] = 0
+    result["criticalIssues"] = ["評価を完了できなかった。"]
+    for choice in result["choiceEvaluations"]:
+        choice["verdict"] = "insufficient_evidence"
+    return result
+
+
 def upload_document(question_id, original_id, choice, verdict):
     return {
         "questionId": question_id,
@@ -117,6 +127,964 @@ def upload_document(question_id, original_id, choice, verdict):
 
 
 class QuestionEvaluationServiceTests(unittest.TestCase):
+    def _committed_with_failed_promotion(self, directory):
+        service = QuestionEvaluationService(
+            Path(directory),
+            "secret",
+            result_runner=lambda _prompt: evaluation_result(),
+        )
+        question = question_payload()
+        original_write = service.store._write_projection
+        writes = 0
+
+        def fail_promotion(target, projection):
+            nonlocal writes
+            writes += 1
+            if writes == 2:
+                raise OSError("projection unavailable")
+            return original_write(target, projection)
+
+        service.store._write_projection = fail_promotion
+        preview = service.preview(question)
+        completed = service.run(
+            question, preview["previewToken"], lambda _line: None
+        )
+        service.store._write_projection = original_write
+        return service, question, completed
+
+    def test_active_lifecycle_failure_matrix_releases_and_allows_retry(self):
+        stages = (
+            "recover",
+            "load",
+            "build_prompt",
+            "run_create",
+            "reserve",
+            "prompt_save",
+            "run_update",
+            "model",
+        )
+        for stage in stages:
+            with self.subTest(stage=stage), tempfile.TemporaryDirectory() as directory:
+                model_calls = 0
+
+                def runner(_prompt):
+                    nonlocal model_calls
+                    model_calls += 1
+                    if stage == "model" and model_calls == 1:
+                        raise RuntimeError("injected model failure")
+                    return evaluation_result()
+
+                service = QuestionEvaluationService(
+                    Path(directory), "secret", result_runner=runner
+                )
+                question = question_payload()
+                preview = service.preview(question)
+                owner, attribute = {
+                    "recover": (service, "_recover_projection"),
+                    "load": (service.store, "load"),
+                    "build_prompt": (service, "_build_prompt"),
+                    "run_create": (service.run_store, "create"),
+                    "reserve": (service.store, "reserve_attempt"),
+                    "prompt_save": (service.store, "save_prompt"),
+                    "run_update": (service.run_store, "update"),
+                }.get(stage, (None, None))
+                original = getattr(owner, attribute) if owner is not None else None
+                if owner is not None:
+                    failed = False
+
+                    def fail_once(*args, **kwargs):
+                        nonlocal failed
+                        if not failed:
+                            failed = True
+                            raise RuntimeError(f"injected {stage} failure")
+                        return original(*args, **kwargs)
+
+                    setattr(owner, attribute, fail_once)
+                with self.assertRaisesRegex(RuntimeError, "injected"):
+                    service.run(
+                        question, preview["previewToken"], lambda _line: None
+                    )
+                if owner is not None:
+                    setattr(owner, attribute, original)
+                self.assertNotIn(question["reviewKey"], service._active)
+                self.assertNotEqual(service.status_for(question)["status"], "running")
+                manifests = list(
+                    service.run_store.root.glob("sample/*/manifest.json")
+                )
+                expected_manifests = 0 if stage in {
+                    "recover",
+                    "load",
+                    "build_prompt",
+                    "run_create",
+                } else 1
+                self.assertEqual(len(manifests), expected_manifests)
+                self.assertEqual(
+                    model_calls,
+                    1 if stage == "model" else 0,
+                )
+                retry = service.preview(question)
+                completed = service.run(
+                    question, retry["previewToken"], lambda _line: None
+                )
+
+            self.assertEqual(completed["evaluation"]["status"], "passed")
+
+    def test_recovery_write_failure_releases_active_before_run_creation(self):
+        calls = 0
+
+        def runner(_prompt):
+            nonlocal calls
+            calls += 1
+            return evaluation_result()
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory), "secret", result_runner=runner
+            )
+            question = question_payload()
+            original_write = service.store._write_projection
+            writes = 0
+
+            def fail_first_promotion(target, projection):
+                nonlocal writes
+                writes += 1
+                if writes == 2:
+                    raise OSError("projection unavailable")
+                return original_write(target, projection)
+
+            service.store._write_projection = fail_first_promotion
+            preview = service.preview(question)
+            service.run(question, preview["previewToken"], lambda _line: None)
+            service.store._write_projection = (
+                lambda _target, _projection: (_ for _ in ()).throw(
+                    OSError("projection unavailable")
+                )
+            )
+            retry_preview = service.preview(question)
+            manifests_before = len(
+                list(service.run_store.root.glob("sample/*/manifest.json"))
+            )
+            with self.assertRaisesRegex(OSError, "projection unavailable"):
+                service.run(
+                    question,
+                    retry_preview["previewToken"],
+                    lambda _line: None,
+                )
+            manifests_after = len(
+                list(service.run_store.root.glob("sample/*/manifest.json"))
+            )
+            self.assertNotIn(question["reviewKey"], service._active)
+            self.assertEqual(calls, 1)
+            self.assertEqual(manifests_after, manifests_before)
+            logical_status = service.status_for(question)
+            self.assertEqual(logical_status["status"], "passed")
+            self.assertEqual(
+                logical_status["resultHash"],
+                service.run_store.get(
+                    "sample",
+                    service.store.load_projection(question)["latestAttempt"]["runId"],
+                )["result"]["resultHash"],
+            )
+            self.assertTrue(logical_status["publishReady"])
+            service.store._write_projection = original_write
+            retry_preview = service.preview(question)
+            service.run(
+                question,
+                retry_preview["previewToken"],
+                lambda _line: None,
+            )
+
+        self.assertEqual(calls, 2)
+
+    def test_terminal_inconclusive_and_failed_status_reads_do_not_rewrite_projection(self):
+        for terminal in ("inconclusive", "failed"):
+            with self.subTest(terminal=terminal), tempfile.TemporaryDirectory() as directory:
+                runner = (
+                    (lambda _prompt: inconclusive_result())
+                    if terminal == "inconclusive"
+                    else (lambda _prompt: (_ for _ in ()).throw(RuntimeError("failed")))
+                )
+                service = QuestionEvaluationService(
+                    Path(directory), "secret", result_runner=runner
+                )
+                question = question_payload()
+                preview = service.preview(question)
+                if terminal == "failed":
+                    with self.assertRaisesRegex(RuntimeError, "failed"):
+                        service.run(
+                            question, preview["previewToken"], lambda _line: None
+                        )
+                else:
+                    service.run(
+                        question, preview["previewToken"], lambda _line: None
+                    )
+                path = service.store.evaluation_path(question)
+                before = path.read_bytes()
+                before_mtime = path.stat().st_mtime_ns
+                writes = 0
+                original_write = service.store._write_projection
+
+                def count_write(target, projection):
+                    nonlocal writes
+                    writes += 1
+                    return original_write(target, projection)
+
+                service.store._write_projection = count_write
+                first = service.status_for(question)
+                second = service.status_for(question)
+                after = path.read_bytes()
+                after_mtime = path.stat().st_mtime_ns
+
+            self.assertEqual(writes, 0)
+            self.assertEqual(after, before)
+            self.assertEqual(after_mtime, before_mtime)
+            self.assertEqual(first["status"], terminal if terminal == "inconclusive" else "not_started")
+            self.assertEqual(second["status"], first["status"])
+            if terminal == "inconclusive":
+                self.assertEqual(len(first["choiceEvaluations"]), 2)
+
+    def test_reserved_failed_projection_repairs_once_and_is_immediately_not_started(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: (_ for _ in ()).throw(
+                    RuntimeError("model failed")
+                ),
+            )
+            question = question_payload()
+            original_record = service.store.record_attempt
+            failed = False
+
+            def fail_first_record(*args, **kwargs):
+                nonlocal failed
+                if not failed:
+                    failed = True
+                    raise OSError("projection unavailable")
+                return original_record(*args, **kwargs)
+
+            service.store.record_attempt = fail_first_record
+            preview = service.preview(question)
+            with self.assertRaisesRegex(RuntimeError, "model failed"):
+                service.run(question, preview["previewToken"], lambda _line: None)
+            projection = service.store.load_projection(question)
+            self.assertEqual(projection["latestAttempt"]["status"], "reserved")
+            writes = 0
+
+            def count_record(*args, **kwargs):
+                nonlocal writes
+                writes += 1
+                return original_record(*args, **kwargs)
+
+            service.store.record_attempt = count_record
+            first = service.status_for(question)
+            second = service.status_for(question)
+            repaired = service.store.load_projection(question)
+
+        self.assertEqual(first["status"], "not_started")
+        self.assertEqual(second["status"], "not_started")
+        self.assertEqual(repaired["latestAttempt"]["status"], "failed")
+        self.assertEqual(writes, 1)
+
+    def test_malformed_policy_evidence_is_stale_without_exception(self):
+        cases = (
+            "policy_versions_type",
+            "policy_version_value",
+            "policy_fingerprints_type",
+            "policy_fingerprints_missing",
+            "receipt_version",
+            "work_version",
+        )
+        for case in cases:
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as directory:
+                service = QuestionEvaluationService(
+                    Path(directory),
+                    "secret",
+                    result_runner=lambda _prompt: evaluation_result(),
+                )
+                question = question_payload()
+                original_write = service.store._write_projection
+                writes = 0
+
+                def fail_promotion(target, projection):
+                    nonlocal writes
+                    writes += 1
+                    if writes == 2:
+                        raise OSError("projection unavailable")
+                    return original_write(target, projection)
+
+                service.store._write_projection = fail_promotion
+                preview = service.preview(question)
+                completed = service.run(
+                    question, preview["previewToken"], lambda _line: None
+                )
+                service.store._write_projection = original_write
+                manifest_path = (
+                    service.run_store.root
+                    / "sample"
+                    / completed["runId"]
+                    / "manifest.json"
+                )
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                if case == "policy_versions_type":
+                    manifest["policyVersions"] = []
+                elif case == "policy_version_value":
+                    manifest["policyVersions"] = {"evaluation": "invalid-version"}
+                elif case == "policy_fingerprints_type":
+                    manifest["policyFingerprints"] = []
+                elif case == "policy_fingerprints_missing":
+                    manifest.pop("policyFingerprints", None)
+                elif case == "receipt_version":
+                    manifest["workVersionReceipt"]["version"] = []
+                elif case == "work_version":
+                    version_path = service.work_versions.path_for("sample", "2026")
+                    versions = json.loads(version_path.read_text(encoding="utf-8"))
+                    record = next(iter(versions["questions"].values()))
+                    record["stages"]["evaluation"]["version"] = []
+                    version_path.write_text(json.dumps(versions), encoding="utf-8")
+                    service.work_versions._cache.clear()
+                manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+                service.run_store._manifest_cache.clear()
+
+                status = service.status_for(question)
+
+            self.assertEqual(status["status"], "stale")
+
+    def test_committed_result_rejects_identity_hash_policy_and_work_version_mismatch(self):
+        cases = (
+            "result_hash",
+            "review_key",
+            "question_id",
+            "qualification",
+            "list_group_id",
+            "original_question_id",
+            "state_hash",
+            "policy",
+            "manifest_summary",
+            "work_version",
+            "session_id",
+            "thread_id",
+            "turn_id",
+        )
+        for case in cases:
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as directory:
+                service = QuestionEvaluationService(
+                    Path(directory),
+                    "secret",
+                    result_runner=lambda _prompt: evaluation_result(),
+                )
+                question = question_payload()
+                preview = service.preview(question)
+                completed = service.run(
+                    question, preview["previewToken"], lambda _line: None
+                )
+                projection = service.store.load_projection(question)
+                run_id = completed["runId"]
+                result_path = service.run_store.root / "sample" / run_id / "result.json"
+                manifest_path = result_path.with_name("manifest.json")
+                result = json.loads(result_path.read_text(encoding="utf-8"))
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                if case == "result_hash":
+                    result["summary"] = "tampered"
+                elif case in {
+                    "review_key",
+                    "question_id",
+                    "qualification",
+                    "list_group_id",
+                    "original_question_id",
+                }:
+                    result[
+                        {
+                            "review_key": "reviewKey",
+                            "question_id": "questionId",
+                            "qualification": "qualification",
+                            "list_group_id": "listGroupId",
+                            "original_question_id": "originalQuestionId",
+                        }[case]
+                    ] = "foreign"
+                elif case == "state_hash":
+                    result["stateHash"] = "foreign"
+                elif case == "policy":
+                    result["policyFingerprint"] = "foreign"
+                elif case == "manifest_summary":
+                    manifest["result"]["summary"] = "foreign"
+                elif case == "work_version":
+                    version_path = service.work_versions.path_for("sample", "2026")
+                    versions = json.loads(version_path.read_text(encoding="utf-8"))
+                    record = next(iter(versions["questions"].values()))
+                    record["stages"]["evaluation"]["policyFingerprint"] = "foreign"
+                    version_path.write_text(json.dumps(versions), encoding="utf-8")
+                    service.work_versions._cache.clear()
+                elif case in {"session_id", "thread_id", "turn_id"}:
+                    service.app_server = object()
+                    field = {
+                        "session_id": "sessionId",
+                        "thread_id": "threadId",
+                        "turn_id": "turnId",
+                    }[case]
+                    for receipt_field in ("sessionId", "threadId", "turnId"):
+                        result[receipt_field] = f"same-{receipt_field}"
+                        manifest[receipt_field] = f"same-{receipt_field}"
+                    result[field] = "foreign"
+                if case in {
+                    "review_key",
+                    "question_id",
+                    "qualification",
+                    "list_group_id",
+                    "original_question_id",
+                    "state_hash",
+                    "policy",
+                    "session_id",
+                    "thread_id",
+                    "turn_id",
+                }:
+                    unsigned = {
+                        key: value for key, value in result.items() if key != "resultHash"
+                    }
+                    result["resultHash"] = hashlib.sha256(
+                        json.dumps(
+                            unsigned,
+                            ensure_ascii=False,
+                            sort_keys=True,
+                            separators=(",", ":"),
+                        ).encode("utf-8")
+                    ).hexdigest()
+                    manifest["result"]["resultHash"] = result["resultHash"]
+                result_path.write_text(json.dumps(result), encoding="utf-8")
+                manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+                service.run_store._manifest_cache.clear()
+
+                recovered = service._committed_attempt_result(question, projection)
+
+            self.assertIsNone(recovered)
+
+    def test_foreign_work_version_evidence_is_stale_without_projection_write(self):
+        cases = (
+            "reviewKey",
+            "questionId",
+            "originalQuestionId",
+            "publicationQualificationId",
+            "source",
+            "empty_policy_fingerprint",
+        )
+        for case in cases:
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as directory:
+                service, question, completed = self._committed_with_failed_promotion(
+                    directory
+                )
+                projection_path = service.store.evaluation_path(question)
+                before_bytes = projection_path.read_bytes()
+                before_mtime = projection_path.stat().st_mtime_ns
+                version_path = service.work_versions.path_for("sample", "2026")
+                versions = json.loads(version_path.read_text(encoding="utf-8"))
+                record = next(iter(versions["questions"].values()))
+                stage = record["stages"]["evaluation"]
+                if case in {
+                    "reviewKey",
+                    "questionId",
+                    "originalQuestionId",
+                    "publicationQualificationId",
+                }:
+                    record[case] = "foreign"
+                elif case == "source":
+                    stage["source"] = "foreign"
+                else:
+                    run_id = completed["runId"]
+                    result_path = (
+                        service.run_store.root / "sample" / run_id / "result.json"
+                    )
+                    manifest_path = result_path.with_name("manifest.json")
+                    result = json.loads(result_path.read_text(encoding="utf-8"))
+                    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                    result["policyFingerprint"] = ""
+                    unsigned = {
+                        key: value for key, value in result.items() if key != "resultHash"
+                    }
+                    result["resultHash"] = hashlib.sha256(
+                        json.dumps(
+                            unsigned,
+                            ensure_ascii=False,
+                            sort_keys=True,
+                            separators=(",", ":"),
+                        ).encode("utf-8")
+                    ).hexdigest()
+                    manifest["policyFingerprints"]["evaluation"] = ""
+                    manifest["result"]["resultHash"] = result["resultHash"]
+                    stage["policyFingerprint"] = ""
+                    result_path.write_text(json.dumps(result), encoding="utf-8")
+                    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+                    service.run_store._manifest_cache.clear()
+                version_path.write_text(json.dumps(versions), encoding="utf-8")
+                service.work_versions._cache.clear()
+
+                status = service.status_for(question)
+
+                self.assertEqual(status["status"], "stale")
+                self.assertEqual(projection_path.read_bytes(), before_bytes)
+                self.assertEqual(projection_path.stat().st_mtime_ns, before_mtime)
+
+    def test_exact_current_and_history_work_versions_recover(self):
+        for location in ("current", "history"):
+            with self.subTest(location=location), tempfile.TemporaryDirectory() as directory:
+                service, question, completed = self._committed_with_failed_promotion(
+                    directory
+                )
+                if location == "history":
+                    version_path = service.work_versions.path_for("sample", "2026")
+                    versions = json.loads(version_path.read_text(encoding="utf-8"))
+                    record = next(iter(versions["questions"].values()))
+                    stage = record["stages"]["evaluation"]
+                    historical = {
+                        key: copy.deepcopy(value)
+                        for key, value in stage.items()
+                        if key != "history"
+                    }
+                    stage["history"] = [historical]
+                    stage["runId"] = "newer-run"
+                    version_path.write_text(json.dumps(versions), encoding="utf-8")
+                    service.work_versions._cache.clear()
+
+                status = service.status_for(question)
+                projection = service.store.load_projection(question)
+
+                self.assertEqual(status["status"], "passed")
+                self.assertEqual(status["resultHash"], completed["evaluation"]["resultHash"])
+                self.assertEqual(projection["currentValid"]["status"], "passed")
+
+    def test_foreign_latest_work_version_preserves_existing_current(self):
+        results = iter([evaluation_result(), evaluation_result(status="needs_rework")])
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: next(results),
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            service.run(question, preview["previewToken"], lambda _line: None)
+            original_write = service.store._write_projection
+            writes = 0
+
+            def fail_second_promotion(target, projection):
+                nonlocal writes
+                writes += 1
+                if writes == 2:
+                    raise OSError("projection unavailable")
+                return original_write(target, projection)
+
+            service.store._write_projection = fail_second_promotion
+            preview = service.preview(question)
+            service.run(question, preview["previewToken"], lambda _line: None)
+            service.store._write_projection = original_write
+            version_path = service.work_versions.path_for("sample", "2026")
+            versions = json.loads(version_path.read_text(encoding="utf-8"))
+            record = next(iter(versions["questions"].values()))
+            record["stages"]["evaluation"]["source"] = "foreign"
+            version_path.write_text(json.dumps(versions), encoding="utf-8")
+            service.work_versions._cache.clear()
+            projection_path = service.store.evaluation_path(question)
+            before_bytes = projection_path.read_bytes()
+            before_mtime = projection_path.stat().st_mtime_ns
+
+            status = service.status_for(question)
+
+            self.assertEqual(status["status"], "passed")
+            self.assertEqual(projection_path.read_bytes(), before_bytes)
+            self.assertEqual(projection_path.stat().st_mtime_ns, before_mtime)
+
+    def test_projection_preserves_passed_current_across_two_inconclusive_attempts(self):
+        results = iter(
+            [evaluation_result(), inconclusive_result(), inconclusive_result()]
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: next(results),
+            )
+            question = question_payload()
+            for _ in range(3):
+                preview = service.preview(question)
+                service.run(question, preview["previewToken"], lambda _line: None)
+            projection = service.store.load_projection(question)
+            status = service.status_for(question)
+
+        self.assertEqual(status["status"], "passed")
+        self.assertEqual(projection["currentValid"]["status"], "passed")
+        self.assertEqual(projection["latestAttempt"]["status"], "inconclusive")
+        self.assertEqual(projection["latestAttemptSequence"], 3)
+        self.assertEqual(projection["promotedAttemptSequence"], 1)
+
+    def test_terminal_inconclusive_with_current_skips_latest_run_evidence(self):
+        for current_status in ("passed", "needs_rework"):
+            with self.subTest(current_status=current_status), tempfile.TemporaryDirectory() as directory:
+                results = iter(
+                    [
+                        evaluation_result(status=current_status),
+                        inconclusive_result(),
+                    ]
+                )
+                service = QuestionEvaluationService(
+                    Path(directory),
+                    "secret",
+                    result_runner=lambda _prompt: next(results),
+                )
+                question = question_payload()
+                preview = service.preview(question)
+                current_run = service.run(
+                    question, preview["previewToken"], lambda _line: None
+                )
+                preview = service.preview(question)
+                latest_run = service.run(
+                    question, preview["previewToken"], lambda _line: None
+                )
+                projection_path = service.store.evaluation_path(question)
+                latest_result_path = (
+                    service.run_store.root
+                    / "sample"
+                    / latest_run["runId"]
+                    / "result.json"
+                )
+                before_bytes = projection_path.read_bytes()
+                before_mtime = projection_path.stat().st_mtime_ns
+                committed_calls = 0
+                manifest_calls = 0
+                result_reads = 0
+                writes = 0
+                original_committed = service._committed_attempt_result
+                original_get = service.run_store.get
+                original_read_text = Path.read_text
+                original_write = service.store._write_projection
+
+                def count_committed(*args, **kwargs):
+                    nonlocal committed_calls
+                    committed_calls += 1
+                    return original_committed(*args, **kwargs)
+
+                def count_get(qualification, run_id):
+                    nonlocal manifest_calls
+                    if run_id == latest_run["runId"]:
+                        manifest_calls += 1
+                    return original_get(qualification, run_id)
+
+                def count_read_text(target, *args, **kwargs):
+                    nonlocal result_reads
+                    if target == latest_result_path:
+                        result_reads += 1
+                    return original_read_text(target, *args, **kwargs)
+
+                def count_write(target, projection):
+                    nonlocal writes
+                    writes += 1
+                    return original_write(target, projection)
+
+                service._committed_attempt_result = count_committed
+                service.run_store.get = count_get
+                service.store._write_projection = count_write
+                with patch.object(Path, "read_text", count_read_text):
+                    status = service.status_for(question, failed_delta_paths=())
+
+                self.assertEqual(status["status"], current_status)
+                self.assertEqual(
+                    status["resultHash"],
+                    current_run["evaluation"]["resultHash"],
+                )
+                self.assertEqual(committed_calls, 0)
+                self.assertEqual(manifest_calls, 0)
+                self.assertEqual(result_reads, 0)
+                self.assertEqual(writes, 0)
+                self.assertEqual(projection_path.read_bytes(), before_bytes)
+                self.assertEqual(projection_path.stat().st_mtime_ns, before_mtime)
+
+    def test_fresh_terminal_inconclusive_still_reads_exact_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: inconclusive_result(),
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            completed = service.run(
+                question, preview["previewToken"], lambda _line: None
+            )
+            result_path = (
+                service.run_store.root
+                / "sample"
+                / completed["runId"]
+                / "result.json"
+            )
+            committed_calls = 0
+            result_reads = 0
+            original_committed = service._committed_attempt_result
+            original_read_text = Path.read_text
+
+            def count_committed(*args, **kwargs):
+                nonlocal committed_calls
+                committed_calls += 1
+                return original_committed(*args, **kwargs)
+
+            def count_read_text(target, *args, **kwargs):
+                nonlocal result_reads
+                if target == result_path:
+                    result_reads += 1
+                return original_read_text(target, *args, **kwargs)
+
+            service._committed_attempt_result = count_committed
+            with patch.object(Path, "read_text", count_read_text):
+                status = service.status_for(question, failed_delta_paths=())
+
+            self.assertEqual(status["status"], "inconclusive")
+            self.assertEqual(len(status["choiceEvaluations"]), 2)
+            self.assertEqual(committed_calls, 1)
+            self.assertEqual(result_reads, 1)
+
+    def test_projection_preserves_needs_rework_current_after_failed_attempt(self):
+        calls = 0
+
+        def runner(_prompt):
+            nonlocal calls
+            calls += 1
+            if calls == 2:
+                raise RuntimeError("model failed")
+            return evaluation_result(status="needs_rework")
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory), "secret", result_runner=runner
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            service.run(question, preview["previewToken"], lambda _line: None)
+            preview = service.preview(question)
+            with self.assertRaisesRegex(RuntimeError, "model failed"):
+                service.run(question, preview["previewToken"], lambda _line: None)
+            projection = service.store.load_projection(question)
+            status = service.status_for(question)
+
+        self.assertEqual(status["status"], "needs_rework")
+        self.assertEqual(projection["currentValid"]["status"], "needs_rework")
+        self.assertEqual(projection["latestAttempt"]["status"], "failed")
+
+    def test_projection_failure_after_commit_recovers_before_next_attempt(self):
+        results = iter([evaluation_result(), inconclusive_result()])
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: next(results),
+            )
+            question = question_payload()
+            original = service.store._write_projection
+            calls = 0
+
+            def fail_first_promotion(target, projection):
+                nonlocal calls
+                calls += 1
+                if calls in {2, 3}:
+                    raise OSError("projection unavailable")
+                return original(target, projection)
+
+            service.store._write_projection = fail_first_promotion
+            preview = service.preview(question)
+            first = service.run(
+                question, preview["previewToken"], lambda _line: None
+            )
+            first_manifest = service.run_store.get("sample", first["runId"])
+            logical_status = service.status_for(question)
+            service.store._write_projection = original
+            preview = service.preview(question)
+            service.run(question, preview["previewToken"], lambda _line: None)
+            projection = service.store.load_projection(question)
+
+        self.assertEqual(first_manifest["status"], "succeeded")
+        self.assertIsInstance(first_manifest["workVersionReceipt"], dict)
+        self.assertEqual(logical_status["status"], "passed")
+        self.assertEqual(logical_status["resultHash"], first["evaluation"]["resultHash"])
+        self.assertEqual(projection["currentValid"]["status"], "passed")
+        self.assertEqual(projection["promotedAttemptSequence"], 1)
+        self.assertEqual(projection["latestAttemptSequence"], 2)
+
+    def test_corrupt_projection_blocks_next_attempt_without_overwrite(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            question = question_payload()
+            path = service.store.evaluation_path(question)
+            path.parent.mkdir(parents=True)
+            path.write_text(
+                json.dumps(
+                    {
+                        "schemaVersion": "question-evaluation-projection/v2",
+                        "reviewKey": question["reviewKey"],
+                        "projectionHash": "invalid",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            preview = service.preview(question)
+            with self.assertRaisesRegex(EvaluationError, "検証できません"):
+                service.run(question, preview["previewToken"], lambda _line: None)
+            unchanged = json.loads(path.read_text(encoding="utf-8"))
+
+        self.assertEqual(unchanged["projectionHash"], "invalid")
+
+    def test_legacy_v1_is_promoted_naturally_on_first_new_attempt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: inconclusive_result(),
+            )
+            question = question_payload()
+            legacy = service.store.build_result(
+                question,
+                evaluation_result(),
+                session_id="legacy-session",
+                provider="test",
+                started_at="2026-01-01T00:00:00+09:00",
+                run_id="legacy-run",
+                policy_version="2.1",
+                policy_fingerprint="legacy",
+            )
+            path = service.store.evaluation_path(question)
+            path.parent.mkdir(parents=True)
+            path.write_text(
+                json.dumps(legacy, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            preview = service.preview(question)
+            service.run(question, preview["previewToken"], lambda _line: None)
+            projection = service.store.load_projection(question)
+
+        self.assertEqual(
+            projection["schemaVersion"],
+            "question-evaluation-projection/v2",
+        )
+        self.assertEqual(projection["currentValid"]["status"], "passed")
+        self.assertEqual(projection["latestAttemptSequence"], 1)
+        self.assertEqual(projection["promotedAttemptSequence"], 0)
+
+    def test_manifest_commit_failure_keeps_previous_valid_projection(self):
+        results = iter(
+            [evaluation_result(), evaluation_result(status="needs_rework")]
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: next(results),
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            first = service.run(
+                question, preview["previewToken"], lambda _line: None
+            )
+            original_update = service.run_store.update
+
+            def fail_commit(qualification, run_id, **changes):
+                if (
+                    changes.get("status") == "succeeded"
+                    and "workVersionReceipt" in changes
+                ):
+                    raise OSError("manifest unavailable")
+                return original_update(qualification, run_id, **changes)
+
+            service.run_store.update = fail_commit
+            preview = service.preview(question)
+            with self.assertRaisesRegex(OSError, "manifest unavailable"):
+                service.run(question, preview["previewToken"], lambda _line: None)
+            projection = service.store.load_projection(question)
+            failed_run_id = projection["latestAttempt"]["runId"]
+            failed_result = json.loads(
+                (
+                    service.run_store.root
+                    / "sample"
+                    / failed_run_id
+                    / "result.json"
+                ).read_text(encoding="utf-8")
+            )
+            old_version_evidence = service._work_version_has_evaluation_run(
+                question,
+                first["runId"],
+            )
+
+        self.assertEqual(projection["currentValid"]["status"], "passed")
+        self.assertEqual(projection["latestAttempt"]["status"], "failed")
+        self.assertEqual(projection["promotedAttemptSequence"], 1)
+        self.assertTrue(old_version_evidence)
+        self.assertEqual(failed_result["status"], "needs_rework")
+        self.assertEqual(len(failed_result["choiceEvaluations"]), 2)
+
+    def test_record_stage_failure_keeps_previous_valid_projection(self):
+        results = iter(
+            [evaluation_result(), evaluation_result(status="needs_rework")]
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: next(results),
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            service.run(question, preview["previewToken"], lambda _line: None)
+            original_record = service.work_versions.record_stage
+            calls = 0
+
+            def fail_second_record(*args, **kwargs):
+                nonlocal calls
+                calls += 1
+                if calls == 1:
+                    raise OSError("work version unavailable")
+                return original_record(*args, **kwargs)
+
+            service.work_versions.record_stage = fail_second_record
+            preview = service.preview(question)
+            with self.assertRaisesRegex(OSError, "work version unavailable"):
+                service.run(question, preview["previewToken"], lambda _line: None)
+            projection = service.store.load_projection(question)
+
+        self.assertEqual(projection["currentValid"]["status"], "passed")
+        self.assertEqual(projection["latestAttempt"]["status"], "failed")
+        self.assertEqual(projection["promotedAttemptSequence"], 1)
+
+    def test_projection_rejects_non_monotonic_promotion(self):
+        results = iter(
+            [evaluation_result(), evaluation_result(status="needs_rework")]
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: next(results),
+            )
+            question = question_payload()
+            runs = []
+            for _ in range(2):
+                preview = service.preview(question)
+                runs.append(
+                    service.run(
+                        question, preview["previewToken"], lambda _line: None
+                    )
+                )
+            with self.assertRaisesRegex(EvaluationError, "予約順序"):
+                service.store.record_attempt(
+                    question,
+                    sequence=1,
+                    run_id=runs[0]["runId"],
+                    status="passed",
+                    result=runs[0]["evaluation"],
+                    promote=True,
+                )
+            projection = service.store.load_projection(question)
+
+        self.assertEqual(projection["currentValid"]["status"], "needs_rework")
+        self.assertEqual(projection["promotedAttemptSequence"], 2)
+
     def test_status_uses_precomputed_failed_delta_paths_without_rescanning_runs(self):
         with tempfile.TemporaryDirectory() as directory:
             service = QuestionEvaluationService(
@@ -135,6 +1103,92 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
 
         self.assertEqual(status["failedDeltaPaths"], [])
         self.assertTrue(status["machineReady"])
+
+    def test_stable_status_polls_use_one_projection_snapshot(self):
+        cases = (
+            "not_started",
+            "legacy",
+            "passed",
+            "needs_rework",
+            "inconclusive",
+            "failed",
+        )
+        for case in cases:
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as directory:
+                runner = (
+                    (lambda _prompt: (_ for _ in ()).throw(RuntimeError("failed")))
+                    if case == "failed"
+                    else (
+                        (lambda _prompt: inconclusive_result())
+                        if case == "inconclusive"
+                        else (
+                            lambda _prompt: evaluation_result(
+                                status=(
+                                    "needs_rework"
+                                    if case == "needs_rework"
+                                    else "passed"
+                                )
+                            )
+                        )
+                    )
+                )
+                service = QuestionEvaluationService(
+                    Path(directory), "secret", result_runner=runner
+                )
+                question = question_payload()
+                path = service.store.evaluation_path(question)
+                if case == "legacy":
+                    policy = service.current_policy()
+                    legacy = service.store.build_result(
+                        question,
+                        evaluation_result(),
+                        session_id="legacy-session",
+                        provider="test",
+                        started_at="2026-01-01T00:00:00+09:00",
+                        run_id="legacy-run",
+                        policy_version=policy["policyVersion"],
+                        policy_fingerprint=policy["policyFingerprint"],
+                    )
+                    path.parent.mkdir(parents=True)
+                    path.write_text(json.dumps(legacy), encoding="utf-8")
+                elif case != "not_started":
+                    preview = service.preview(question)
+                    if case == "failed":
+                        with self.assertRaisesRegex(RuntimeError, "failed"):
+                            service.run(
+                                question,
+                                preview["previewToken"],
+                                lambda _line: None,
+                            )
+                    else:
+                        service.run(
+                            question,
+                            preview["previewToken"],
+                            lambda _line: None,
+                        )
+                original_load = service.store.load_projection
+                load_calls = 0
+
+                def count_load(target):
+                    nonlocal load_calls
+                    load_calls += 1
+                    return original_load(target)
+
+                original_stat = Path.stat
+                path_stat_calls = 0
+
+                def count_stat(target, *args, **kwargs):
+                    nonlocal path_stat_calls
+                    if target == path:
+                        path_stat_calls += 1
+                    return original_stat(target, *args, **kwargs)
+
+                service.store.load_projection = count_load
+                with patch.object(Path, "stat", count_stat):
+                    service.status_for(question, failed_delta_paths=())
+
+                self.assertLessEqual(load_calls, 1)
+                self.assertLessEqual(path_stat_calls, 2)
 
     def test_precomputed_failed_delta_paths_still_block_evaluation(self):
         failed_path = "output/sample/questions_json/2026/21_explanationText_added/partial.json"
@@ -287,6 +1341,152 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 "phase": "evaluation",
             },
         )
+
+    def test_app_server_exact_logical_results_read_run_evidence_once(self):
+        class FakeAppServer:
+            configured = True
+            provider = "Codex App Server"
+
+            def __init__(self, result):
+                self.result = result
+
+            def run_turn(self, _prompt, **kwargs):
+                kwargs["on_thread_started"]("thread-1", "session-1")
+                kwargs["on_turn_started"]("thread-1", "turn-1")
+                return AppServerTurnResult(
+                    thread_id="thread-1",
+                    session_id="session-1",
+                    turn_id="turn-1",
+                    final_message=json.dumps(self.result, ensure_ascii=False),
+                    model="gpt-test",
+                    service_tier=None,
+                )
+
+        for case in ("fresh_inconclusive", "post_commit_passed"):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as directory:
+                service = QuestionEvaluationService(
+                    Path(directory),
+                    "secret",
+                    app_server=FakeAppServer(
+                        inconclusive_result()
+                        if case == "fresh_inconclusive"
+                        else evaluation_result()
+                    ),
+                )
+                question = question_payload()
+                if case == "post_commit_passed":
+                    original_write = service.store._write_projection
+                    writes = 0
+
+                    def fail_promotion(target, projection):
+                        nonlocal writes
+                        writes += 1
+                        if writes == 2:
+                            raise OSError("projection unavailable")
+                        return original_write(target, projection)
+
+                    service.store._write_projection = fail_promotion
+                preview = service.preview(question)
+                completed = service.run(
+                    question, preview["previewToken"], lambda _line: None
+                )
+                if case == "post_commit_passed":
+                    service.store._write_projection = original_write
+                result_path = (
+                    service.run_store.root
+                    / "sample"
+                    / completed["runId"]
+                    / "result.json"
+                )
+                manifest_reads = 0
+                result_reads = 0
+                original_get = service.run_store.get
+                original_read_text = Path.read_text
+
+                def count_get(qualification, run_id):
+                    nonlocal manifest_reads
+                    if run_id == completed["runId"]:
+                        manifest_reads += 1
+                    return original_get(qualification, run_id)
+
+                def count_read_text(target, *args, **kwargs):
+                    nonlocal result_reads
+                    if target == result_path:
+                        result_reads += 1
+                    return original_read_text(target, *args, **kwargs)
+
+                service.run_store.get = count_get
+                with patch.object(Path, "read_text", count_read_text):
+                    status = service.status_for(question, failed_delta_paths=())
+
+                self.assertEqual(manifest_reads, 1)
+                self.assertEqual(result_reads, 1)
+                self.assertEqual(len(status["choiceEvaluations"]), 2)
+                if case == "fresh_inconclusive":
+                    self.assertEqual(status["status"], "inconclusive")
+                else:
+                    self.assertEqual(status["status"], "passed")
+                    self.assertTrue(status["publishReady"])
+
+    def test_promoted_and_legacy_payloads_still_validate_app_server_receipt(self):
+        class FakeAppServer:
+            configured = True
+            provider = "Codex App Server"
+
+            def run_turn(self, _prompt, **kwargs):
+                kwargs["on_thread_started"]("thread-1", "session-1")
+                kwargs["on_turn_started"]("thread-1", "turn-1")
+                return AppServerTurnResult(
+                    thread_id="thread-1",
+                    session_id="session-1",
+                    turn_id="turn-1",
+                    final_message=json.dumps(evaluation_result(), ensure_ascii=False),
+                    model="gpt-test",
+                    service_tier=None,
+                )
+
+        for case in ("promoted", "legacy"):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as directory:
+                service = QuestionEvaluationService(
+                    Path(directory),
+                    "secret",
+                    app_server=FakeAppServer(),
+                )
+                question = question_payload()
+                if case == "promoted":
+                    preview = service.preview(question)
+                    service.run(
+                        question, preview["previewToken"], lambda _line: None
+                    )
+                else:
+                    policy = service.current_policy()
+                    legacy = service.store.build_result(
+                        question,
+                        evaluation_result(),
+                        session_id="session-1",
+                        provider="Codex App Server",
+                        started_at="2026-01-01T00:00:00+09:00",
+                        thread_id="thread-1",
+                        turn_id="foreign",
+                        run_id="legacy-run",
+                        policy_version=policy["policyVersion"],
+                        policy_fingerprint=policy["policyFingerprint"],
+                    )
+                    path = service.store.evaluation_path(question)
+                    path.parent.mkdir(parents=True)
+                    path.write_text(json.dumps(legacy), encoding="utf-8")
+                receipt_checks = 0
+
+                def count_valid(*_args, **_kwargs):
+                    nonlocal receipt_checks
+                    receipt_checks += 1
+                    return False
+
+                service._session_receipt_valid = count_valid
+                status = service.status_for(question, failed_delta_paths=())
+
+                self.assertEqual(receipt_checks, 1)
+                self.assertEqual(status["status"], "stale")
 
     def test_output_schema_uses_supported_structured_output_keywords(self):
         schema_path = (
@@ -498,7 +1698,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
 
             status = service.status_for(question)
 
-        self.assertEqual(status["status"], "not_started")
+        self.assertEqual(status["status"], "stale")
         self.assertFalse(status["publishReady"])
 
     def test_batch_uses_a_separate_runner_call_per_question_and_continues_after_failure(self):
@@ -760,6 +1960,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(status["status"], "inconclusive")
         self.assertEqual(status["nextAction"], "evaluate")
         self.assertEqual(status["reworkItems"], [])
+        self.assertEqual(len(status["choiceEvaluations"]), 2)
 
     def test_batch_rejects_questions_from_different_qualifications(self):
         with tempfile.TemporaryDirectory() as directory:
