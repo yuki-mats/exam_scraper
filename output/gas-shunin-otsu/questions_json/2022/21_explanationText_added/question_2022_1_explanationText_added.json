@@ -783,11 +783,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
     "explanationText": [
-      "正しい。ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故は、ガス事故速報及びガス事故詳報の対象である。ガス関係報告規則第4条第1項の表第5号に定められている。",
-      "正しい。保安閉栓を除く供給支障戸数100戸の供給支障事故は、ガス事故速報及びガス事故詳報の対象である。100戸は、ガス関係報告規則第4条第1項の表第7号が定める100戸以上500戸未満に含まれる。",
-      "正しい。製造支障時間10時間の製造支障事故は、ガス事故速報及びガス事故詳報の対象である。10時間は、ガス関係報告規則第4条第1項の表第8号が定める10時間以上24時間未満に含まれる。",
-      "正しい。消費機器の使用に伴い人が死亡した事故は、ガス事故速報及びガス事故詳報の対象である。ガス関係報告規則第4条第1項の表第17号に定められている。",
-      "正しい。ガス栓の欠陥によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス事故速報及びガス事故詳報の対象である。ガス関係報告規則第4条第1項の表第16号に定められている。"
+      "正しい。ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点でも現行法でも、ガス関係報告規則第4条第1項の表第5号に該当する。",
+      "正しい。保安閉栓を除く供給支障戸数100戸の供給支障事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点では、100戸はガス関係報告規則第4条第1項の表第7号の30戸以上500戸未満に含まれた。現行法でも同表第7号の100戸以上500戸未満に含まれるため、いずれの時点でも報告対象である。",
+      "正しい。製造支障時間10時間の製造支障事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点でも現行法でも、10時間はガス関係報告規則第4条第1項の表第8号の10時間以上24時間未満に含まれる。改正で適用除外号の参照は動いているが、この正誤判定は変わらない。",
+      "正しい。消費機器の使用に伴い人が死亡した事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点ではガス関係報告規則第4条第1項の表第16号、現行法では2023年改正後の同表第17号に置かれており、いずれの時点でも報告対象である。",
+      "正しい。ガス栓の欠陥によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点ではガス関係報告規則第4条第1項の表第15号、現行法では2023年改正後の同表第16号に置かれており、いずれの時点でも報告対象である。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -834,6 +834,8 @@
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
           "verificationStatus": "verified"
         }
       ],
@@ -845,10 +847,27 @@
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "official_or_authorized_shinkyu_reference",
+          "sourceUrl": "https://www.meti.go.jp/shingikai/sankoshin/hoan_shohi/gas_anzen/pdf/024_02_00.pdf",
+          "locator": "2023年5月新旧対照表p.3旧欄: 第7号 30戸以上500戸未満",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "4",
+          "choiceIndex": 1,
+          "item": "7",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
           "referenceDate": "2026-07-27",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
           "verificationStatus": "verified"
         }
       ],
@@ -860,14 +879,46 @@
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "official_or_authorized_shinkyu_reference",
+          "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20230530-2.pdf",
+          "locator": "2023年5月新旧対照表p.3旧欄: 第8号 10時間以上24時間未満",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "4",
+          "choiceIndex": 2,
+          "item": "8",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
           "referenceDate": "2026-07-27",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
           "verificationStatus": "verified"
         }
       ],
       [
+        {
+          "article": "4",
+          "choiceIndex": 3,
+          "item": "16",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "official_or_authorized_shinkyu_reference",
+          "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20230530-2.pdf",
+          "locator": "2023年5月新旧対照表p.4旧欄: 消費機器又はガス栓の使用に伴う死亡等事故",
+          "verificationStatus": "verified"
+        },
         {
           "article": "4",
           "choiceIndex": 3,
@@ -879,10 +930,27 @@
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
           "verificationStatus": "verified"
         }
       ],
       [
+        {
+          "article": "4",
+          "choiceIndex": 4,
+          "item": "15",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "official_or_authorized_shinkyu_reference",
+          "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20230530-2.pdf",
+          "locator": "2023年5月新旧対照表p.3旧欄: ガス栓欠陥等による引火・物損事故",
+          "verificationStatus": "verified"
+        },
         {
           "article": "4",
           "choiceIndex": 4,
@@ -894,6 +962,8 @@
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
           "verificationStatus": "verified"
         }
       ]
@@ -903,9 +973,9 @@
         "answerImpactFacts": [
           "正誤判定は維持する。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.1-rework",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-27T00:00:00+09:00",
+        "auditedAt": "2026-07-29T02:00:00+09:00",
         "current": {
           "article": "4",
           "correctChoiceText": "正しい",
@@ -914,18 +984,52 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "referenceDate": "2026-07-27",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "試験時点から現行法まで、当該事故が速報及び詳報対象である点に正誤へ影響する差異はない。"
+          "2022年9月25日の出題時点から現行法まで、当該事故が速報及び詳報対象である点に正誤へ影響する差異はない。"
         ],
         "evidenceSummary": {
-          "explanationText": "ガス関係報告規則第4条第1項の表第5号の速報及び詳報対象に該当する。",
-          "verdict": "same_as_current"
+          "verdict": "same_as_current",
+          "explanationText": "正しい。ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点でも現行法でも、ガス関係報告規則第4条第1項の表第5号に該当する。",
+          "differenceSummary": "2022年9月25日の出題時点から現行法まで、当該事故が速報及び詳報対象である点に正誤へ影響する差異はない。",
+          "promptContext": "出題時点のガス関係報告規則第4条第1項の表第5号と、現行法の同表第5号を分けて確認。",
+          "refs": [
+            {
+              "refId": "choice-0-exam",
+              "lawTimeScope": "exam_time",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "5"
+            },
+            {
+              "refId": "choice-0-current",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "5"
+            }
+          ]
         },
         "examTime": {
+          "article": "4",
           "correctChoiceText": "正しい",
-          "verificationStatus": "source_verdict_consistent"
+          "item": "5",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20230530-2.pdf"
         },
         "reviewState": "secondary_verified"
       },
@@ -933,9 +1037,9 @@
         "answerImpactFacts": [
           "正誤判定は維持する。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.1-rework",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-27T00:00:00+09:00",
+        "auditedAt": "2026-07-29T02:00:00+09:00",
         "current": {
           "article": "4",
           "correctChoiceText": "正しい",
@@ -944,18 +1048,52 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "referenceDate": "2026-07-27",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "2023年改正で供給支障事故の速報及び詳報対象は30戸以上500戸未満から100戸以上500戸未満へ見直されたが、設問の100戸は現行法でも範囲内である。"
+          "2023年改正で供給支障事故の第7号の戸数範囲は30戸以上500戸未満から100戸以上500戸未満へ見直されたが、設問の100戸はいずれにも含まれる。"
         ],
         "evidenceSummary": {
-          "explanationText": "ガス関係報告規則第4条第1項の表第7号の速報及び詳報対象に該当する。",
-          "verdict": "same_as_current"
+          "verdict": "same_as_current",
+          "explanationText": "正しい。保安閉栓を除く供給支障戸数100戸の供給支障事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点では、100戸はガス関係報告規則第4条第1項の表第7号の30戸以上500戸未満に含まれた。現行法でも同表第7号の100戸以上500戸未満に含まれるため、いずれの時点でも報告対象である。",
+          "differenceSummary": "2023年改正で供給支障事故の第7号の戸数範囲は30戸以上500戸未満から100戸以上500戸未満へ見直されたが、設問の100戸はいずれにも含まれる。",
+          "promptContext": "出題時点のガス関係報告規則第4条第1項の表第7号と、現行法の同表第7号を分けて確認。",
+          "refs": [
+            {
+              "refId": "choice-1-exam",
+              "lawTimeScope": "exam_time",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "7"
+            },
+            {
+              "refId": "choice-1-current",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "7"
+            }
+          ]
         },
         "examTime": {
+          "article": "4",
           "correctChoiceText": "正しい",
-          "verificationStatus": "source_verdict_consistent"
+          "item": "7",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://www.meti.go.jp/shingikai/sankoshin/hoan_shohi/gas_anzen/pdf/024_02_00.pdf"
         },
         "reviewState": "secondary_verified"
       },
@@ -963,9 +1101,9 @@
         "answerImpactFacts": [
           "正誤判定は維持する。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.1-rework",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-27T00:00:00+09:00",
+        "auditedAt": "2026-07-29T02:00:00+09:00",
         "current": {
           "article": "4",
           "correctChoiceText": "正しい",
@@ -974,18 +1112,52 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "referenceDate": "2026-07-27",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "適用除外号の参照番号は変更されているが、製造支障時間10時間以上24時間未満の事故が速報及び詳報対象である点は変わらない。"
+          "製造支障時間10時間以上24時間未満の第8号の基準は維持されている。改正で適用除外号の参照は第12号から第13号へ動いたが、設問の10時間は出題時点・現行法のいずれでも対象範囲に含まれる。"
         ],
         "evidenceSummary": {
-          "explanationText": "ガス関係報告規則第4条第1項の表第8号の速報及び詳報対象に該当する。",
-          "verdict": "same_as_current"
+          "verdict": "same_as_current",
+          "explanationText": "正しい。製造支障時間10時間の製造支障事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点でも現行法でも、10時間はガス関係報告規則第4条第1項の表第8号の10時間以上24時間未満に含まれる。改正で適用除外号の参照は動いているが、この正誤判定は変わらない。",
+          "differenceSummary": "製造支障時間10時間以上24時間未満の第8号の基準は維持されている。改正で適用除外号の参照は第12号から第13号へ動いたが、設問の10時間は出題時点・現行法のいずれでも対象範囲に含まれる。",
+          "promptContext": "出題時点のガス関係報告規則第4条第1項の表第8号と、現行法の同表第8号を分けて確認。",
+          "refs": [
+            {
+              "refId": "choice-2-exam",
+              "lawTimeScope": "exam_time",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "8"
+            },
+            {
+              "refId": "choice-2-current",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "8"
+            }
+          ]
         },
         "examTime": {
+          "article": "4",
           "correctChoiceText": "正しい",
-          "verificationStatus": "source_verdict_consistent"
+          "item": "8",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20230530-2.pdf"
         },
         "reviewState": "secondary_verified"
       },
@@ -993,9 +1165,9 @@
         "answerImpactFacts": [
           "正誤判定は維持する。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.1-rework",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-27T00:00:00+09:00",
+        "auditedAt": "2026-07-29T02:00:00+09:00",
         "current": {
           "article": "4",
           "correctChoiceText": "正しい",
@@ -1004,18 +1176,52 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "referenceDate": "2026-07-27",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "2023年改正で号番号は第16号から第17号へ移動したが、消費機器の使用に伴い人が死亡した事故は現行法でも速報及び詳報対象である。"
+          "2023年改正で消費機器又はガス栓の使用に伴う死亡等事故は第16号から第17号へ移動したが、速報及び詳報対象である点は変わらない。"
         ],
         "evidenceSummary": {
-          "explanationText": "ガス関係報告規則第4条第1項の表第17号の速報及び詳報対象に該当する。",
-          "verdict": "same_as_current"
+          "verdict": "same_as_current",
+          "explanationText": "正しい。消費機器の使用に伴い人が死亡した事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点ではガス関係報告規則第4条第1項の表第16号、現行法では2023年改正後の同表第17号に置かれており、いずれの時点でも報告対象である。",
+          "differenceSummary": "2023年改正で消費機器又はガス栓の使用に伴う死亡等事故は第16号から第17号へ移動したが、速報及び詳報対象である点は変わらない。",
+          "promptContext": "出題時点のガス関係報告規則第4条第1項の表第16号と、現行法の同表第17号を分けて確認。",
+          "refs": [
+            {
+              "refId": "choice-3-exam",
+              "lawTimeScope": "exam_time",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "16"
+            },
+            {
+              "refId": "choice-3-current",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "17"
+            }
+          ]
         },
         "examTime": {
+          "article": "4",
           "correctChoiceText": "正しい",
-          "verificationStatus": "source_verdict_consistent"
+          "item": "16",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20230530-2.pdf"
         },
         "reviewState": "secondary_verified"
       },
@@ -1023,9 +1229,9 @@
         "answerImpactFacts": [
           "正誤判定は維持する。"
         ],
-        "auditMethodVersion": "law_audit/v4.0",
+        "auditMethodVersion": "law_audit/v4.1-rework",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-27T00:00:00+09:00",
+        "auditedAt": "2026-07-29T02:00:00+09:00",
         "current": {
           "article": "4",
           "correctChoiceText": "正しい",
@@ -1034,18 +1240,52 @@
           "lawTitle": "ガス関係報告規則",
           "paragraph": "1",
           "referenceDate": "2026-07-27",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "verificationStatus": "verified"
         },
         "differenceFacts": [
-          "2023年改正で号番号は第15号から第16号へ移動したが、ガス栓の欠陥等により漏えいしたガスへの引火で発生した物損事故は現行法でも速報及び詳報対象である。"
+          "2023年改正でガス栓の欠陥等により漏えいしたガスへの引火で発生した負傷又は物損事故は第15号から第16号へ移動したが、速報及び詳報対象である点は変わらない。"
         ],
         "evidenceSummary": {
-          "explanationText": "ガス関係報告規則第4条第1項の表第16号の速報及び詳報対象に該当する。",
-          "verdict": "same_as_current"
+          "verdict": "same_as_current",
+          "explanationText": "正しい。ガス栓の欠陥によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス事故速報及びガス事故詳報の対象である。2022年9月25日の出題時点ではガス関係報告規則第4条第1項の表第15号、現行法では2023年改正後の同表第16号に置かれており、いずれの時点でも報告対象である。",
+          "differenceSummary": "2023年改正でガス栓の欠陥等により漏えいしたガスへの引火で発生した負傷又は物損事故は第15号から第16号へ移動したが、速報及び詳報対象である点は変わらない。",
+          "promptContext": "出題時点のガス関係報告規則第4条第1項の表第15号と、現行法の同表第16号を分けて確認。",
+          "refs": [
+            {
+              "refId": "choice-4-exam",
+              "lawTimeScope": "exam_time",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "15"
+            },
+            {
+              "refId": "choice-4-current",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "16"
+            }
+          ]
         },
         "examTime": {
+          "article": "4",
           "correctChoiceText": "正しい",
-          "verificationStatus": "source_verdict_consistent"
+          "item": "15",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "paragraph": "1",
+          "referenceDate": "2022-09-25",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20230530-2.pdf"
         },
         "reviewState": "secondary_verified"
       }
@@ -1072,10 +1312,23 @@
         "referenceDate": "2026-07-27",
         "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
         "title": "ガス関係報告規則（e-Gov法令検索）"
+      },
+      {
+        "referenceDate": "2026-07-29",
+        "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20230530-2.pdf",
+        "title": "ガス事業関係法令テキスト（平成31年版）新旧対照表（2023年5月）"
+      },
+      {
+        "referenceDate": "2026-07-29",
+        "sourceUrl": "https://www.meti.go.jp/shingikai/sankoshin/hoan_shohi/gas_anzen/pdf/024_02_00.pdf",
+        "title": "経済産業省 産業構造審議会ガス安全小委員会資料（事故報告要件見直し）"
       }
     ],
-    "lawContextForExplanation": "ガス事故速報及びガス事故詳報の対象となる事故の個数を問う法令問題。現行のガス関係報告規則第4条第1項の表により、選択肢1は第5号、選択肢2は第7号、選択肢3は第8号、選択肢4は第17号、選択肢5は第16号に該当し、いずれも速報及び詳報の対象である。",
-    "suggestedQuestionDetailsByChoice": []
+    "lawContextForExplanation": "ガス事故速報及びガス事故詳報の対象となる事故の個数を問う法令問題。2022年9月25日の出題時点のガス関係報告規則第4条第1項の表では、選択肢1は第5号、選択肢2は第7号の30戸以上500戸未満、選択肢3は第8号、選択肢4は第16号、選択肢5は第15号に該当する。現行法では、選択肢1は第5号、選択肢2は第7号の100戸以上500戸未満、選択肢3は第8号、選択肢4は第17号、選択肢5は第16号に該当する。いずれの時点でも全5肢が速報及び詳報の対象であり、正誤判定は維持する。",
+    "suggestedQuestionDetailsByChoice": [],
+    "auditStatus": "same_as_current",
+    "reviewState": "secondary_verified",
+    "reconciliationStatus": "reconciled"
   },
   {
     "original_question_id": "ed1fd58f1a2d8406",

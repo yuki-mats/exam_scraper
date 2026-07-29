@@ -1399,7 +1399,7 @@
       "正しい。付臭剤には、人間に対して有害でなく毒性がないこと、生活臭と明瞭に区別できること、土壌中を通過した後も検知しやすいよう土壌透過性が高いことなどが求められる。",
       "間違い。蒸発方式は、流量変動の少ない小規模な付臭設備に適している。一方、ポンプ注入方式はガス流量に応じて付臭剤を計量注入でき、中規模から大規模の設備に適しているため、両方式をともに比較的小規模な設備向けとする記述は誤りである。",
       "正しい。蒸発方式では、蒸発器へ分岐するバイパスラインのガス量から付臭剤注入量を計量する方法や、付臭剤タンクの液位変化から確認する方法が用いられる。",
-      "正しい。臭気濃度の管理値は、パネル法では1000倍以上、付臭剤濃度測定法では測定値のばらつきを考慮して2000倍以上とされる。",
+      "正しい。ガス工作物技術基準の解釈例第77条では、パネル法について1000倍に希釈した状態でにおいを確認できることを基準とし、付臭剤濃度測定法の臭気濃度の管理値を2000倍以上としている。",
       "間違い。検知管法で測定できる付臭剤成分は、テトラヒドロチオフェン（THT）及びターシャリーブチルメルカプタン（TBM）である。ジメチルサルファイド（DMS）は検知管法の測定対象に含まれないため、三成分すべてを測定できるとする記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -1440,12 +1440,13 @@
     "explanationReferences": [
       {
         "choiceIndex": 3,
-        "referenceDate": "2026-07-27",
+        "referenceDate": "2026-07-29",
         "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
         "title": "ガス工作物の技術上の基準を定める省令 第22条（付臭措置）"
       },
       {
-        "referenceDate": "2026-07-27",
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-29",
         "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
         "title": "ガス工作物技術基準の解釈例 第77条（臭気の確認）"
       }
@@ -1458,7 +1459,7 @@
       [],
       []
     ],
-    "lawContextForExplanation": "本問は、付臭剤の性質、付臭方式、注入量の確認方法及び臭気測定に関する製造技術上の知識を問う。法令の定義・義務・適用範囲を直接問う問題ではないため、法令根拠を用いずに解説する。",
+    "lawContextForExplanation": "本問は都市ガスの付臭に関する製造技術の問題である。第4肢の数値は、ガス工作物の技術上の基準を定める省令第22条の付臭措置を具体化するガス工作物技術基準の解釈例第77条で確認できる。その他の各肢は、付臭剤の性質、付臭方式、注入量の確認方法及び検知管法の測定対象に関する技術知識として扱う。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
@@ -1466,7 +1467,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "付臭剤に求められる性質を扱う製造技術上の記述であり、法令の定義又は義務を直接問うものではない。"
+          "verdict": "付臭剤に要求される性質を扱う製造技術上の記述であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1479,7 +1480,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "蒸発方式は小規模向け、ポンプ注入方式は中規模から大規模向けであり、付臭方式の処理能力を扱う製造技術上の記述である。"
+          "verdict": "付臭方式の設備規模への適性を扱う製造技術上の記述であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1492,7 +1493,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "蒸発方式における注入量の確認方法を扱う設備運用上の知識であり、法令の基準を直接問うものではない。"
+          "verdict": "蒸発方式における注入量の確認方法を扱う設備運用上の記述であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1505,7 +1506,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "臭気濃度の測定・管理方法に関する製造技術上の記述として確認し、出題時の正誤を維持した。"
+          "verdict": "臭気濃度の測定方法ごとの基準値を扱う製造技術上の記述として公式解釈例で確認し、出題時と現在の正誤は同じである。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1518,7 +1519,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "検知管で測定可能な付臭剤成分を扱う分析技術上の記述であり、THT及びTBMにDMSを加えた点が誤りである。"
+          "verdict": "検知管法で測定できる付臭剤成分を扱う分析技術上の記述であり、法令改正による正誤変動の対象ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2914,11 +2915,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_2.json",
     "explanationText": [
-      "正しい。ポリエチレン管は紫外線によって劣化するおそれがあるため、屋外保管時にシートで覆って直射日光を避ける処置は適切である。ガス工作物の技術上の基準を定める省令第14条は、主要材料が物理的影響に対して安全な機械的性質を有することを求めており、シートによる養生はその性能を損なわないための技術的な取扱いである。",
-      "正しい。漏えいしたガスが滞留するおそれのあるピット内では、配管を確認できる点検口を設ける処置が適切である。ガス工作物の技術上の基準を定める省令第51条第2項は、道路に埋設された導管からガス栓までの設備について適切な方法による漏えい検査を求めており、点検口は隠蔽部の点検性を確保する技術的な手段となる。",
-      "正しい。架管を絶縁性の支持具で支持し、構造物との電気的接触を避ける処置は、電食の防止に有効である。ガス工作物の技術上の基準を定める省令第47条は、腐食を生じるおそれがある導管に適切な防食措置を講じることを求めている。",
-      "正しい。防火区画を管が貫通する部分では、管と壁との隙間をモルタルなどの不燃材料で埋める必要がある。これは建築基準法施行令第112条第20項に定められており、記述の施工方法はこの基準に適合する。",
-      "間違い。溶接部の放射線透過試験では、放射線障害を防止するため、使用する線源に応じた法定の作業主任者を選任しなければならない。労働安全衛生法第14条及び労働安全衛生法施行令第6条第5号に基づき、エックス線を用いる場合は電離放射線障害防止規則第46条のエックス線作業主任者、ガンマ線を用いる場合は同規則第52条の2のガンマ線透過写真撮影作業主任者が必要であり、非破壊試験技術者を選定するだけでは足りない。"
+      "正しい。ポリエチレン管は直射日光を受けると紫外線で劣化するおそれがあるため、屋外保管時にシートで覆う処置は適切である。これはガス用ポリエチレン管の保管上の取扱いとして確認でき、現行法で正誤が変わる事項ではない。",
+      "正しい。漏れたガスが滞留するおそれのあるピット内に配管する場合、点検口を設けて点検や漏えい確認ができるようにする施工は適切である。隠ぺい部を点検できない構造にすると維持管理が困難になるため、出題時判定と現行判定は変わらない。",
+      "正しい。架管を絶縁性の支持具で支持し、構造物との電気的接触を避ける施工は、電食を防ぐために適切である。導管に腐食のおそれがある場合は防食措置が必要であり、この考え方はガス工作物の技術上の基準を定める省令第47条で確認できる。",
+      "正しい。防火区画を貫通する内管を施工する場合、管と壁との隙間をモルタルなどの不燃材料で埋める処置は適切である。現行の建築基準法施行令第112条第20項は、管が防火区画を貫通する部分について、隙間をモルタルその他の不燃材料で埋めることなどを求めている。なお、出題時期の資料では同趣旨の規定が同条第15項として扱われていた。",
+      "間違い。溶接部の放射線透過試験で放射線障害を防止するには、単に非破壊試験技術者を選定するだけでは足りない。労働安全衛生法第14条は一定の作業について作業主任者の選任を求め、労働安全衛生法施行令第6条第5号及び第5号の2は放射線業務を対象に含めている。エックス線を用いる場合は電離放射線障害防止規則第46条のエックス線作業主任者、ガンマ線を用いる場合は同規則第52条の2のガンマ線透過写真撮影作業主任者を選任する必要があるため、本肢は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -2956,60 +2957,71 @@
     "sourceRecordRef": "question_2019_2.json#20",
     "explanationReferences": [
       {
+        "referenceDate": "2026-07-29",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+        "title": "ガス工作物の技術上の基準を定める省令"
+      },
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-07-29",
+        "sourceUrl": "https://www.jfe-eng.co.jp/products/pdf/CA2006.pdf",
+        "title": "JFEガス用ポリエチレン管 製品カタログ"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-07-29",
+        "sourceUrl": "https://www.nilim.go.jp/lab/bcg/siryou/kpr/prn0045pdf/kp004507.pdf",
+        "title": "国土技術政策総合研究所 水素配管を敷設した建物等空間の安全性の検討"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-07-29",
+        "sourceUrl": "https://www.meti.go.jp/meti_lib/report/2024FY/000390.pdf",
+        "title": "経済産業省 報告書"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-29",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/325CO0000000338",
+        "title": "建築基準法施行令"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-29",
+        "sourceUrl": "https://www.mlit.go.jp/gobuild/content/001879798.pdf",
+        "title": "公共建築設備工事標準図（機械設備工事編）平成31年版"
+      },
+      {
         "choiceIndex": 4,
-        "referenceDate": "2026-07-27",
+        "referenceDate": "2026-07-29",
         "sourceUrl": "https://laws.e-gov.go.jp/law/347AC0000000057",
         "title": "労働安全衛生法"
       },
       {
         "choiceIndex": 4,
-        "referenceDate": "2026-07-27",
+        "referenceDate": "2026-07-29",
         "sourceUrl": "https://laws.e-gov.go.jp/law/347CO0000000318",
         "title": "労働安全衛生法施行令"
       },
       {
         "choiceIndex": 4,
-        "referenceDate": "2026-07-27",
+        "referenceDate": "2026-07-29",
         "sourceUrl": "https://laws.e-gov.go.jp/law/347M50002000041",
         "title": "電離放射線障害防止規則"
       }
     ],
     "isLawRelated": true,
-    "lawContextForExplanation": "ポリエチレン管の紫外線対策、ピット内配管の点検性、架管の絶縁、防火区画貫通部及び放射線透過試験の安全管理を確認する。現行法上、ガス工作物の技術上の基準を定める省令第14条、第47条及び第51条第2項、建築基準法施行令第112条第20項、労働安全衛生法第14条、労働安全衛生法施行令第6条第5号並びに電離放射線障害防止規則第46条及び第52条の2が関係する。放射線透過試験では使用線源に応じた作業主任者が必要で、非破壊試験技術者の選定だけでは足りない。",
+    "lawContextForExplanation": "導管工事の各肢を、技術資料による施工・保管上の取扱いと、現行法のガス工作物の技術上の基準を定める省令第47条、建築基準法施行令第112条第20項、労働安全衛生法第14条、労働安全衛生法施行令第6条第5号・第5号の2、電離放射線障害防止規則第46条・第52条の2で確認する。防火区画貫通部は出題時資料上の参照条項が建築基準法施行令第112条第15項、現行法では同条第20項に対応する。",
     "lawReferences": [
-      [
-        {
-          "article": "第14条",
-          "choiceIndex": 0,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第51条第2項",
-          "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ],
+      [],
+      [],
       [
         {
           "article": "第47条",
           "choiceIndex": 2,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
+          "referenceDate": "2026-07-29",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索",
@@ -3022,10 +3034,21 @@
           "choiceIndex": 3,
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
-          "referenceDate": "2026-07-28",
+          "referenceDate": "2026-07-29",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第112条第15項",
+          "choiceIndex": 3,
+          "lawId": "325CO0000000338",
+          "lawTitle": "建築基準法施行令",
+          "referenceDate": "2019-04-01",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "国土交通省 公共建築設備工事標準図（機械設備工事編）平成31年版",
           "verificationStatus": "verified"
         }
       ],
@@ -3035,7 +3058,7 @@
           "choiceIndex": 4,
           "lawId": "347AC0000000057",
           "lawTitle": "労働安全衛生法",
-          "referenceDate": "2026-07-28",
+          "referenceDate": "2026-07-29",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索",
@@ -3046,7 +3069,18 @@
           "choiceIndex": 4,
           "lawId": "347CO0000000318",
           "lawTitle": "労働安全衛生法施行令",
-          "referenceDate": "2026-07-28",
+          "referenceDate": "2026-07-29",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第6条第5号の2",
+          "choiceIndex": 4,
+          "lawId": "347CO0000000318",
+          "lawTitle": "労働安全衛生法施行令",
+          "referenceDate": "2026-07-29",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索",
@@ -3057,7 +3091,7 @@
           "choiceIndex": 4,
           "lawId": "347M50002000041",
           "lawTitle": "電離放射線障害防止規則",
-          "referenceDate": "2026-07-28",
+          "referenceDate": "2026-07-29",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索",
@@ -3068,7 +3102,7 @@
           "choiceIndex": 4,
           "lawId": "347M50002000041",
           "lawTitle": "電離放射線障害防止規則",
-          "referenceDate": "2026-07-28",
+          "referenceDate": "2026-07-29",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令検索",
@@ -3078,12 +3112,39 @@
     ],
     "lawRevisionFacts": [
       {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "explanationText": "ポリエチレン管の紫外線劣化を避ける養生は、ガス工作物の技術上の基準を定める省令第14条の材料安全性能を維持する技術的取扱いとして妥当で、出題時判定から変更はない。"
+          "explanationText": "ポリエチレン管をシートで覆って紫外線劣化を防ぐ取扱いは、ガス用ポリエチレン管の保管上の注意として妥当であり、法令改正により正誤が変わる肢ではない。",
+          "refs": [
+            {
+              "lawTitle": "JFEガス用ポリエチレン管 製品カタログ",
+              "relation": "technical_basis"
+            }
+          ],
+          "verdict": "正誤変更なし"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "漏えいしたガスが滞留するおそれのあるピット内配管について、点検口により点検や漏えい確認を可能にする処置は妥当であり、法令改正により正誤が変わる肢ではない。",
+          "refs": [
+            {
+              "lawTitle": "国土技術政策総合研究所 水素配管を敷設した建物等空間の安全性の検討",
+              "relation": "technical_basis"
+            }
+          ],
+          "verdict": "正誤変更なし"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3093,10 +3154,24 @@
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第47条",
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "explanationText": "ガス工作物の技術上の基準を定める省令第51条第2項が求める適切な漏えい検査を可能にするため、ピット内配管に点検口を設ける処置は妥当で、出題時判定から変更はない。"
+          "explanationText": "架管を絶縁性支持具で支持して構造物との電気的接触を避けることは、防食措置として妥当であり、出題時判定から変更はない。",
+          "refs": [
+            {
+              "article": "第47条",
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "正誤変更なし"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3106,26 +3181,39 @@
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第112条第20項",
+          "correctChoiceText": "正しい",
+          "lawId": "325CO0000000338",
+          "lawTitle": "建築基準法施行令",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "explanationText": "ガス工作物の技術上の基準を定める省令第47条の防食措置に照らし、絶縁性支持具で架管と構造物を絶縁する処置は妥当で、出題時判定から変更はない。"
+          "differenceSummary": "防火区画を貫通する管と壁との隙間をモルタルその他の不燃材料で埋める趣旨は、出題時資料では建築基準法施行令第112条第15項、現行法では同条第20項に対応する。条項番号は変わるが判定は変わらない。",
+          "explanationText": "防火区画を貫通する管と壁との隙間をモルタルその他の不燃材料で埋める施工は、出題時及び現行法のいずれでも適切である。",
+          "refs": [
+            {
+              "article": "第112条第20項",
+              "lawId": "325CO0000000338",
+              "lawTitle": "建築基準法施行令",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第112条第15項",
+              "lawId": "325CO0000000338",
+              "lawTitle": "建築基準法施行令",
+              "relation": "exam_time_basis"
+            }
+          ],
+          "verdict": "正誤変更なし"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "explanationText": "建築基準法施行令第112条第20項は、管と防火区画との隙間をモルタルその他の不燃材料で埋めることを求めており、出題時判定から変更はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
+          "article": "第112条第15項",
+          "correctChoiceText": "正しい",
+          "lawId": "325CO0000000338",
+          "lawTitle": "建築基準法施行令",
+          "referenceDate": "2019-04-01",
+          "verificationStatus": "verified"
         },
         "reviewState": "secondary_verified"
       },
@@ -3135,7 +3223,40 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "explanationText": "労働安全衛生法第14条、労働安全衛生法施行令第6条第5号及び電離放射線障害防止規則第46条・第52条の2により、使用線源に応じた作業主任者の選任が必要である。非破壊試験技術者の選定だけで足りるとする記述は現行でも誤りである。"
+          "explanationText": "放射線透過試験では、使用線源に応じてエックス線作業主任者又はガンマ線透過写真撮影作業主任者などの法定作業主任者を選任する必要がある。非破壊試験技術者を選定するだけで足りるとする記述は現行でも誤りであり、出題時判定から変更はない。",
+          "refs": [
+            {
+              "article": "第14条",
+              "lawId": "347AC0000000057",
+              "lawTitle": "労働安全衛生法",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第6条第5号",
+              "lawId": "347CO0000000318",
+              "lawTitle": "労働安全衛生法施行令",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第6条第5号の2",
+              "lawId": "347CO0000000318",
+              "lawTitle": "労働安全衛生法施行令",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第46条",
+              "lawId": "347M50002000041",
+              "lawTitle": "電離放射線障害防止規則",
+              "relation": "current_basis"
+            },
+            {
+              "article": "第52条の2",
+              "lawId": "347M50002000041",
+              "lawTitle": "電離放射線障害防止規則",
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "正誤変更なし"
         },
         "examTime": {
           "correctChoiceText": "間違い"

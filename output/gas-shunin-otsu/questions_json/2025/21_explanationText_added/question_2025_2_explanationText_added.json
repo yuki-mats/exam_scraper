@@ -1524,7 +1524,7 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "正解は5。表の空欄は、（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMの組合せになる。DMS（ジメチルサルファイド）はスルフィド類、シクロヘキセンは硫黄を含まない炭化水素系、TBM（ターシャリーブチルメルカプタン）はメルカプタン類の付臭剤である。選択肢5はこの対応をすべて満たす。他の選択肢は、いずれかの空欄に対応しない物質を配置しているため、最も適切な組合せは5である。"
+      "正解は5。表の（イ）は分子量62、硫黄含有量51.6質量%、閾値16μg/m³であり、DMS（ジメチルサルファイド）の特徴に合う。（ロ）は硫黄含有量0質量%、接着剤や有機溶剤（シンナー）のようなにおいを示すシクロヘキセンである。（ハ）は分子量90、硫黄含有量35.5質量%、閾値1.1μg/m³で、においのインパクトが強いTBM（ターシャリーブチルメルカプタン）に対応する。したがって、（イ）DMS／（ロ）シクロヘキセン／（ハ）TBMの組合せである選択肢5が最も適切である。他の選択肢は、いずれかの空欄に対応しない付臭剤を入れているため不適切である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1556,17 +1556,16 @@
       [],
       []
     ],
-    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。DMS、シクロヘキセン、TBMなど、代表的な都市ガス用付臭剤の分類と特徴の対応に基づいて解説する。",
+    "lawContextForExplanation": "法令根拠を必要としない技術知識問題。都市ガス用付臭剤であるDMS、シクロヘキセン、TBMの分子量、硫黄含有量、閾値、臭気特徴の対応から組合せを判定する。",
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 0,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "付臭剤の名称と技術的特徴の組合せを判定する肢であり、法令上の要件を正誤根拠としない。",
-          "classification": "not_law_related"
+          "explanationText": "付臭剤の物性値と臭気特徴の組合せを判定する技術知識問題であり、法令上の要件を正誤根拠としない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1575,13 +1574,12 @@
       },
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 1,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "付臭剤の名称と技術的特徴の組合せを判定する肢であり、法令上の要件を正誤根拠としない。",
-          "classification": "not_law_related"
+          "explanationText": "付臭剤の物性値と臭気特徴の組合せを判定する技術知識問題であり、法令上の要件を正誤根拠としない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1590,13 +1588,12 @@
       },
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 2,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "付臭剤の名称と技術的特徴の組合せを判定する肢であり、法令上の要件を正誤根拠としない。",
-          "classification": "not_law_related"
+          "explanationText": "付臭剤の物性値と臭気特徴の組合せを判定する技術知識問題であり、法令上の要件を正誤根拠としない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1605,13 +1602,12 @@
       },
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 3,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "付臭剤の名称と技術的特徴の組合せを判定する肢であり、法令上の要件を正誤根拠としない。",
-          "classification": "not_law_related"
+          "explanationText": "付臭剤の物性値と臭気特徴の組合せを判定する技術知識問題であり、法令上の要件を正誤根拠としない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1620,13 +1616,12 @@
       },
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 4,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "DMS、シクロヘキセン、TBMという技術的な対応が表の空欄と一致する肢であり、法令上の要件を正誤根拠としない。",
-          "classification": "not_law_related"
+          "explanationText": "DMS、シクロヘキセン、TBMの物性値と臭気特徴が表の（イ）〜（ハ）にすべて一致する組合せを選ぶ技術知識問題であり、法令上の要件を正誤根拠としない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2086,11 +2081,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
     "explanationText": [
-      "正しい。ポンプのインペラなどでは、液体中に生じた気泡が崩壊するときの衝撃が材料表面に繰り返し作用し、孔食状の損傷を生じることがある。この現象をキャビテーションエロージョンという。",
-      "正しい。超音波探傷試験（UT）は、検査物の片側から超音波を入射し、内部から戻る反射波を利用して欠陥を検出できる。欠陥面で超音波が反射するため、割れのような平面状の欠陥の検出にも適している。",
-      "正しい。浸透探傷試験（PT）は、表面に開口した欠陥へ浸透液を入り込ませ、現像によって欠陥を見やすくする試験である。表面が過度に多孔質でないなどの適用条件を満たせば、金属・非金属を問わず表面欠陥の検出に用いることができる。",
-      "間違い。大気中の二酸化炭素がコンクリート中の成分と反応すると、コンクリートのアルカリ性が低下する中性化が進む。選択肢はこれを『アルカリ化』としているため誤りである。塩害や凍害は、いずれも代表的なコンクリートの劣化現象である。",
-      "間違い。設備への影響度と故障などの発生確率からリスクを評価し、優先順位を付けて保全する手法はリスクベース保全である。時間計画保全は、所定の時間間隔や運転時間を基準に点検・整備などを行う保全であり、選択肢の説明とは異なる。"
+      "正しい。ポンプのインペラなどでは、流動する液体中で発生した気泡が材料表面付近で崩壊するときの衝撃が繰り返し作用し、孔食状の損傷を生じることがある。このような損傷現象はキャビテーションエロージョンと呼ばれる。",
+      "正しい。超音波探傷試験（UT）は、検査物に超音波を入射し、欠陥や裏面などからの反射波を利用して内部の状態を調べる非破壊試験である。片側から検査でき、割れのような平面欠陥の検出に適している。",
+      "正しい。浸透探傷試験（PT）は、表面に開口した欠陥へ浸透液を入り込ませ、現像処理によって欠陥指示模様を確認する非破壊試験である。金属材料だけでなく、非金属材料にも広く適用できる表面欠陥の検査方法である。",
+      "間違い。大気中の二酸化炭素がコンクリート中へ侵入して反応すると、コンクリートのアルカリ性は低下し、中性化が進む。選択肢はこれを『アルカリ化』としているため誤りである。塩害や凍害は代表的なコンクリートの劣化現象である。",
+      "間違い。発生した場合の影響度と発生確率からリスクを評価し、優先順位を付けて保全する手法はリスクベース保全である。時間計画保全は、所定の時間間隔や運転時間などを基準に点検・整備を行う保全方式であり、選択肢の説明とは異なる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -2114,7 +2109,7 @@
     "reviewQuestionId": "dbe5ecc0d9952b92",
     "sourceRecordRef": "question_2025_2.json#13",
     "explanationReferences": [],
-    "lawContextForExplanation": "本問は、キャビテーションエロージョン、超音波探傷試験、浸透探傷試験、コンクリートの劣化現象、時間計画保全とリスクベース保全の違いを問う技術知識問題である。各肢の正誤を直接決定する法令条項はなく、法令根拠を用いた解説は不要である。",
+    "lawContextForExplanation": "本問は、キャビテーションエロージョン、超音波探傷試験、浸透探傷試験、コンクリートの中性化・塩害・凍害、時間計画保全とリスクベース保全の違いを問う技術知識問題である。各肢の正誤を直接決定する法令条項はなく、法令根拠を用いた解説は不要である。",
     "lawReferences": [
       [],
       [],
@@ -2129,8 +2124,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "キャビテーションエロージョンの定義に関する技術知識",
-          "classification": "technical"
+          "verdict": "キャビテーション気泡の発生・崩壊によりポンプ等の材料表面に壊食状の損傷が生じる現象はキャビテーションエロージョンであり、現行時点・試験時点とも正しい記述と判断する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2143,8 +2137,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "超音波探傷試験の適用方法に関する技術知識",
-          "classification": "technical"
+          "verdict": "超音波探傷試験は片側から検査でき、割れなどの平面欠陥の検出に適しているため、現行時点・試験時点とも正しい記述と判断する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2157,8 +2150,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "浸透探傷試験の適用対象に関する技術知識",
-          "classification": "technical"
+          "verdict": "浸透探傷試験は表面に開口した欠陥を浸透液で検出する方法で、金属・非金属材料に広く適用される表面欠陥検査であり、公式正解との整合からも現行時点・試験時点とも正しい記述と判断する。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2171,8 +2163,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "コンクリートの中性化、塩害及び凍害に関する技術知識",
-          "classification": "technical"
+          "verdict": "大気中の二酸化炭素によるコンクリート劣化はアルカリ化ではなく中性化であるため、現行時点・試験時点とも誤りの記述と判断する。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2185,8 +2176,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "時間計画保全とリスクベース保全の区別に関する技術知識",
-          "classification": "technical"
+          "verdict": "影響度と発生確率からリスクの大小で優先度を付ける保全は時間計画保全ではなくリスクベース保全であるため、現行時点・試験時点とも誤りの記述と判断する。"
         },
         "examTime": {
           "correctChoiceText": "間違い"

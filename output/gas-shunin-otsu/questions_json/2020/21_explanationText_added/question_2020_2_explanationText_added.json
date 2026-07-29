@@ -983,11 +983,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
     "explanationText": [
-      "間違い。PC式平底円筒形LNG貯槽は、プレストレストコンクリート製の外槽に防液堤の機能を持たせる形式であり、金属二重殻式貯槽と防液堤を一体化した貯槽ではない。また、内槽と外槽の間を高度な真空状態にして断熱する真空断熱式貯槽でもないため、記述は誤りである。",
-      "正しい。LNG受入基地などの低温液用ポンプでは、基地の規模や用途に応じて、1次受入基地で遠心式サブマージドポンプ、2次受入基地やLNGサテライト基地でベーン式ポンプやキャンドモーターポンプが用いられる場合が多い。",
-      "正しい。ポンプの性能曲線図は、規定回転数で運転したときの吐出量を基準に、全揚程、ポンプ効率、軸動力などの関係を示す図である。",
-      "間違い。キャビテーションを防止するには、ポンプ入口で利用できる有効吸込ヘッドを、ポンプが必要とする有効吸込ヘッドより大きく確保する必要がある。記述は大小関係を逆にしているため誤りである。",
-      "正しい。斜流ポンプは、羽根車による遠心力と羽根の揚力の両方を利用して、液体に圧力を与えるポンプである。"
+      "間違い。PC式平底円筒形貯槽は、金属二重殻式貯槽と防液堤を一体化した構造を持つ貯槽である。ただし、大型の平底円筒形貯槽では、内槽と外槽の間を高度の真空状態に保つ真空断熱式ではなく、断熱材を用い、防湿・保冷のため窒素ガスを封入する構造が用いられる。記述は断熱方式の説明が誤っている。",
+      "正しい。LNGの一次受入基地などでは大流量の低温液を扱うため遠心式サブマージドポンプが用いられることが多く、LNGの二次受入基地やLNGサテライト基地などでは、設備規模や用途に応じてベーン式ポンプやキャンドモーターポンプが用いられる場合が多い。",
+      "正しい。ポンプの性能曲線図は、規定回転数で運転したときの吐出量と、全揚程、ポンプ効率、軸動力などとの関係を示す図である。運転点や効率の確認に用いられる。",
+      "間違い。キャビテーションを防止するには、ポンプ入口側で実際に利用できる有効吸込ヘッドを、ポンプが必要とする有効吸込ヘッドより大きく確保する必要がある。記述は大小関係を逆にしているため誤りである。",
+      "正しい。斜流ポンプは、羽根車による遠心力と羽根の揚力の両方を利用して液体に圧力を与えるポンプである。遠心ポンプと軸流ポンプの中間的な性質を持つ。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": null,
@@ -1012,7 +1012,7 @@
     "reviewQuestionId": "0780f0cee937cec5",
     "sourceRecordRef": "question_2020_2.json#7",
     "explanationReferences": [],
-    "lawContextForExplanation": "PC式平底円筒形貯槽の構造、LNG・LPG用ポンプの種類、ポンプ性能曲線、キャビテーション防止条件、斜流ポンプの作用原理を問う技術問題である。法令条文に基づく根拠付けは不要。",
+    "lawContextForExplanation": "PC式平底円筒形貯槽の断熱構造、LNG・LPG用ポンプの種類、ポンプ性能曲線、キャビテーション防止条件、斜流ポンプの作用原理を問う技術問題であり、法令条文に基づく根拠付けは不要。",
     "lawReferences": [
       [],
       [],
@@ -1027,7 +1027,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "PC式平底円筒形貯槽の構造に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。"
+          "promptContext": "PC式平底円筒形貯槽の断熱構造に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1040,7 +1041,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "LNG・LPG用ポンプの種類と用途に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。"
+          "promptContext": "LNG受入設備等で用いられるポンプの種類と用途に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1053,7 +1055,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "ポンプ性能曲線の読み方に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。"
+          "promptContext": "ポンプ性能曲線の読み方に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1066,7 +1069,8 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "summary": "キャビテーション防止のための有効吸込ヘッドと必要有効吸込ヘッドの大小関係に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。"
+          "promptContext": "キャビテーション防止のための有効吸込ヘッドと必要有効吸込ヘッドの大小関係に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -1079,7 +1083,8 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "summary": "斜流ポンプの作用原理に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。"
+          "promptContext": "斜流ポンプの作用原理に関する技術知識で判断する記述であり、現行法改正差分の確認対象ではない。",
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1528,11 +1533,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
     "explanationText": [
-      "正しい。買電だけで保安電力を確保する場合は、常用線と系統の異なる予備回線又はこれに相当する措置を設け、停電時にも保安上重要な設備の機能を維持できる構成にする必要がある。これは、停電等で製造所の保安上重要な設備の機能が失われない措置を求めるガス工作物の技術上の基準を定める省令第21条及び同条の経済産業省解釈例に沿う。",
-      "正しい。停電時には、買電で稼働していたガス製造設備が安全側へ移行又は停止していることに加え、保安電源などの停電対策設備が正常に作動していることを確認する必要がある。ガス工作物の技術上の基準を定める省令第21条は、停電等で保安上重要な設備の機能が失われない措置を求めている。",
-      "正しい。BOG圧縮機が長時間停止すると、LNG貯槽内で発生するBOGを十分に処理できず内部圧力が上昇しやすい。そのため、圧力監視を強化し、必要に応じて放散処理設備による降圧の準備などを行うことは、停電時にも保安上重要な設備の機能を失わせない措置を求めるガス工作物の技術上の基準を定める省令第21条の趣旨に合う。",
-      "間違い。保安電力は、保安電力として措置された買電や自家発電のほか、蓄電池によっても確保できる。経済産業省のガス工作物技術基準の解釈例第21条でも蓄電池等が保安電力等の確保方法に含まれるため、蓄電池を用いてはならないとする記述は誤りである。",
-      "間違い。非常用発電設備の定格容量は、接続する負荷の単純な積み上げ合計値だけで決めるのではなく、電動機の起動電流や起動時の電圧降下なども考慮して選定する必要がある。ガス工作物の技術上の基準を定める省令第21条は停電等で保安上重要な設備の機能が失われない措置を求めており、積み上げ合計値と同じでよいとする記述は誤りである。"
+      "正しい。買電のみで保安電力を確保する場合は、常用線とは系統の異なる予備回線又はこれに相当する措置により、停電時にも保安上重要な設備の機能を維持できる構成にする必要がある。これは、停電等により保安上重要な設備の機能が失われないよう措置することを求めるガス工作物の技術上の基準を定める省令第21条及び経済産業省「ガス工作物技術基準の解釈例」第21条に沿う。",
+      "正しい。停電が発生したときは、買電で稼働していたガス製造設備が安全側へ移行又は停止していることに加え、保安電源等が正常に作動していることを確認する必要がある。停電時に保安上重要な設備を確実に機能させるための運用として妥当である。",
+      "正しい。BOG圧縮機が長時間停止すると、LNG貯槽で発生するBOGを十分に処理できず、貯槽内圧が上昇しやすくなる。そのため、内部圧力の監視を強化し、必要に応じて放散処理設備による降圧準備などを行うことは適切である。",
+      "間違い。保安電力は、保安電力として措置された買電や自家発電だけでなく、蓄電池によっても確保できる。経済産業省「ガス工作物技術基準の解釈例」第21条では蓄電池等による電力も保安電力等の確保方法に含まれるため、蓄電池を用いてはならないとする記述は誤りである。",
+      "間違い。非常用発電設備の定格容量は、負荷の単純な積み上げ合計と同じでよいとはいえない。電動機の始動電流、始動順序、同時運転負荷、電圧降下、余裕などを考慮し、停電時に必要な設備を確実に運転できる容量とする必要がある。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1558,12 +1563,12 @@
     "sourceRecordRef": "question_2020_2.json#11",
     "explanationReferences": [
       {
-        "referenceDate": "2026-07-27",
+        "referenceDate": "2026-07-28",
         "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
         "title": "ガス工作物の技術上の基準を定める省令（平成十二年通商産業省令第百十一号）"
       },
       {
-        "referenceDate": "2026-07-27",
+        "referenceDate": "2026-07-28",
         "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
         "title": "ガス工作物技術基準の解釈例"
       }
@@ -1571,81 +1576,88 @@
     "lawReferences": [
       [
         {
-          "article": "第21条（保安電力等）及び経済産業省『ガス工作物技術基準の解釈例』第21条",
+          "article": "第21条（保安電力等）及び経済産業省「ガス工作物技術基準の解釈例」第21条",
           "choiceIndex": 0,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
+          "referenceDate": "2026-07-29",
           "role": "current_basis",
           "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111 ; 経済産業省 ガス工作物技術基準の解釈例 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111 ; 経済産業省「ガス工作物技術基準の解釈例」 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
           "verificationStatus": "verified"
         }
       ],
+      [],
+      [],
       [
         {
-          "article": "第21条（保安電力等）及び経済産業省『ガス工作物技術基準の解釈例』第21条",
-          "choiceIndex": 1,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111 ; 経済産業省 ガス工作物技術基準の解釈例 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第21条（保安電力等）及び経済産業省『ガス工作物技術基準の解釈例』第21条",
-          "choiceIndex": 2,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111 ; 経済産業省 ガス工作物技術基準の解釈例 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "第21条（保安電力等）及び経済産業省『ガス工作物技術基準の解釈例』第21条",
+          "article": "第21条（保安電力等）及び経済産業省「ガス工作物技術基準の解釈例」第21条",
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
+          "referenceDate": "2026-07-29",
           "role": "current_basis",
           "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111 ; 経済産業省 ガス工作物技術基準の解釈例 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111 ; 経済産業省「ガス工作物技術基準の解釈例」 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
           "verificationStatus": "verified"
         }
       ],
-      [
-        {
-          "article": "第21条（保安電力等）及び経済産業省『ガス工作物技術基準の解釈例』第21条",
-          "choiceIndex": 4,
-          "lawId": "412M50000400111",
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-28",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索 https://laws.e-gov.go.jp/law/412M50000400111 ; 経済産業省 ガス工作物技術基準の解釈例 https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-          "verificationStatus": "verified"
-        }
-      ]
+      []
     ],
     "suggestedQuestionDetailsByChoice": [],
-    "lawContextForExplanation": "製造所の停電対策は、ガス工作物の技術上の基準を定める省令第21条の保安電力等に関する問題である。同条は保安上重要な設備が停電等で機能を失わない措置を求め、経済産業省のガス工作物技術基準の解釈例第21条は、買電、自家発電、蓄電池等を保安電力等の確保方法として扱う。",
+    "lawContextForExplanation": "製造所の停電対策のうち、保安電力等はガス工作物の技術上の基準を定める省令第21条及び経済産業省「ガス工作物技術基準の解釈例」第21条に関係する。第1肢は買電のみで保安電力を確保する場合の予備回線等、第4肢は蓄電池等を含む保安電力等の確保方法が直接の根拠である。",
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
         "current": {
+          "article": "第21条（保安電力等）及び経済産業省「ガス工作物技術基準の解釈例」第21条",
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-29",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "verificationStatus": "verified"
+        },
+        "evidenceSummary": {
+          "explanationText": "省令第21条は、製造所及び供給所の保安上重要な設備について停電等で機能が失われない措置を求める。解釈例第21条は、買電のみで保安電力を確保する場合の予備回線等を具体化している。",
+          "refs": [
+            {
+              "article": "第21条",
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            }
+          ],
+          "verdict": "現行法令上も試験時点と同じ判定でよい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "explanationText": "省令第21条及び経済産業省解釈例第21条により、買電のみで保安電力を確保する場合は、常用線とは系統の異なる予備回線又は相当措置が必要である。",
-          "verdict": "現行法令上も試験時点と同じ判定でよい。"
+          "explanationText": "停電時にガス製造設備の安全側移行又は停止と保安電源等の作動を確認する運用上の記述であり、特定条文だけで正誤が直接決まる肢ではない。",
+          "verdict": "法令改正による正誤変更ではなく、現行でも同じ技術判断でよい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "evidenceSummary": {
+          "explanationText": "BOG圧縮機停止時のLNG貯槽内圧上昇に対する監視強化と放散処理設備による降圧準備という技術的対応の記述である。",
+          "verdict": "法令改正による正誤変更ではなく、現行でも同じ技術判断でよい。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -1655,53 +1667,40 @@
       {
         "auditStatus": "same_as_current",
         "current": {
-          "correctChoiceText": "正しい"
+          "article": "第21条（保安電力等）及び経済産業省「ガス工作物技術基準の解釈例」第21条",
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-29",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "verificationStatus": "verified"
         },
         "evidenceSummary": {
-          "explanationText": "省令第21条は、停電等で保安上重要な設備の機能が失われない措置を求めており、停電時の安全側移行又は停止と保安電源等の作動確認はその運用として妥当である。",
+          "explanationText": "解釈例第21条は、保安電力等の確保方法に買電、自家発電に加えて蓄電池等による電力を含めるため、蓄電池を用いてはならないとする記述は誤りである。",
+          "refs": [
+            {
+              "article": "第21条",
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "primaryBasis": true,
+              "relation": "current_basis"
+            }
+          ],
           "verdict": "現行法令上も試験時点と同じ判定でよい。"
         },
         "examTime": {
-          "correctChoiceText": "正しい"
+          "correctChoiceText": "間違い"
         },
         "reviewState": "secondary_verified"
       },
       {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "explanationText": "停電時にも保安上重要設備の機能を確保する省令第21条の趣旨に照らし、BOG圧縮機停止時にLNG貯槽の圧力監視を強化し、必要に応じて降圧準備を行うことは妥当である。",
-          "verdict": "現行法令上も試験時点と同じ判定でよい。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "explanationText": "経済産業省解釈例第21条では蓄電池等も保安電力等の確保方法に含まれるため、蓄電池を用いてはならないとする記述は誤りである。",
-          "verdict": "現行法令上も試験時点と同じ判定でよい。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "reviewState": "secondary_verified"
-      },
-      {
-        "auditStatus": "same_as_current",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "explanationText": "省令第21条は停電等で保安上重要設備の機能が失われない措置を求めるため、非常用発電設備容量は負荷合計だけでなく起動電流等も考慮して選定する必要があり、積み上げ合計値と同じでよいとはいえない。",
-          "verdict": "現行法令上も試験時点と同じ判定でよい。"
+          "explanationText": "非常用発電設備の容量選定は、負荷合計だけでなく始動電流、同時運転負荷、電圧降下等を考慮する必要があるという技術的判断の記述である。",
+          "verdict": "法令改正による正誤変更ではなく、現行でも同じ技術判断でよい。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2251,7 +2250,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
     "explanationText": [
-      "正解は4です。大規模地区で使用される整圧器は、一般に負荷変動が比較的小さいため、流量変化への応答の敏速性よりも安定性が重視されます。応答の敏速性と安定性の両方が特に要求されるのは、負荷変動が大きくなりやすい中規模地区の整圧器です。したがって、4の記述が誤りです。なお、ハウスレギュレーターは一般に不純物除去装置と圧力上昇防止装置を組み合わせた構造をもちます。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が小さくなり、中間圧力が高くなるため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなります。パイロット式整圧器は、最低一次圧力と最高二次圧力との差圧が作動最小差圧を上回るように選定します。また、フィッシャー式整圧器では、メインバルブへのダストかみ込みによる締切り不良が二次圧異常上昇の原因になり得ます。"
+      "正しい。ハウスレギュレーターは、需要家側で使用する小型の整圧器で、一般にガス中のダストなどを取り除く不純物除去装置と、二次側圧力の異常上昇を防ぐ圧力上昇防止装置を組み合わせた構造をもちます。したがって、この記述は正しいです。",
+      "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナ（パイロット）の開度が小さくなり、中間圧力が高くなります。その結果、オキシャリーボール内のダイヤフラムを押し上げる力が強くなるため、この記述は正しいです。",
+      "正しい。パイロット式整圧器は、使用条件の中で最も厳しい場合でも作動できるように選定する必要があります。そのため、最低一次圧力と最高二次圧力との差圧が、その整圧器の作動最小差圧より大きくなるようにします。したがって、この記述は正しいです。",
+      "間違い。大規模地区で使用される整圧器は、一般に負荷変動が比較的小さいため、流量変化への応答の敏速性よりも安定性が重視されます。応答の敏速性と安定性の両方が特に要求されるのは、負荷変動が大きくなりやすい中規模地区の整圧器です。したがって、この記述が誤りであり、本問の正解です。",
+      "正しい。フィッシャー式整圧器で二次圧力が異常に上昇する原因として、メインバルブにダストがかみ込み、弁が完全に締め切れなくなることが考えられます。締切り不良により一次側から二次側へガスが流入し続けるため、この記述は正しいです。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -2295,7 +2298,7 @@
     "reviewQuestionId": "646a578413a7d557",
     "sourceRecordRef": "question_2020_2.json#16",
     "explanationReferences": [],
-    "lawContextForExplanation": "整圧器の構造、作動原理、選定条件、需要規模別の要求特性、異常原因に関する技術知識で判断する問題。ガス工作物に関する一般的な性能規定はあるが、本問各肢の正誤を直接定める個別法令条文は確認できない。",
+    "lawContextForExplanation": "整圧器の構造、作動原理、選定条件、需要規模別の要求特性、異常原因に関する技術知識で判断する問題。各肢の正誤を直接定める個別法令条文ではなく、法令根拠付き解説は不要。",
     "lawReferences": [
       [],
       [],
@@ -2306,12 +2309,11 @@
     "lawRevisionFacts": [
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 0,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "classification": "ハウスレギュレーターの構造・機能に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
+          "verdict": "ハウスレギュレーターの構造・機能に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2320,12 +2322,11 @@
       },
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 1,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "classification": "レイノルド式整圧器の作動原理に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
+          "verdict": "レイノルド式整圧器の作動原理に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2334,12 +2335,11 @@
       },
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 2,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "classification": "パイロット式整圧器の選定条件に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
+          "verdict": "パイロット式整圧器の選定条件に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -2348,12 +2348,11 @@
       },
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 3,
         "current": {
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "classification": "需要規模別の整圧器に要求される応答性・安定性に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
+          "verdict": "需要規模別の整圧器に要求される応答性・安定性に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -2362,12 +2361,11 @@
       },
       {
         "auditStatus": "not_law_related",
-        "choiceIndex": 4,
         "current": {
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "classification": "フィッシャー式整圧器の二次圧異常上昇原因に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
+          "verdict": "フィッシャー式整圧器の二次圧異常上昇原因に関する技術知識で判断する肢であり、正誤を直接定める個別法令条文ではない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3218,10 +3216,10 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
     "explanationText": [
-      "間違い。金属テープによる外面シールは、低圧導管の管体腐食や小規模な損傷による漏えい修理に用いられる方法であり、中圧管の腐食漏えい修理へ適用できるものではない。したがって、この記述は誤りである。",
-      "正しい。樹脂ライニング系の更生修理工法は、管内面に樹脂膜を形成して腐食の進行や漏えいを防ぐ工法である。本支管及び供給管の腐食漏えい予防に有効である。",
+      "間違い。金属テープによる外面シールは、低圧導管の管体腐食や小規模な損傷による漏えい修理に用いられる方法であり、中圧管の腐食による漏えい修理へ適用するものではない。したがって、この記述は誤りである。",
+      "正しい。樹脂ライニング系の更生修理工法は、管内面に樹脂膜を形成し、腐食の進行や漏えいを防ぐための工法である。本支管及び供給管の腐食漏えい予防に有効である。",
       "正しい。半導体式ガス検知器は検知感度が高く、埋設管周辺に漏れ出した微量のガスを検知しやすい。そのため、地中埋設管のガス漏えい調査に適している。",
-      "正しい。サンドブラストにより水道管が損傷すると、大量の水道水がガス管内に流入し続けることがある。水の流入や滞留により、ガスの供給支障が広範囲に及ぶ場合がある。",
+      "正しい。サンドブラストによって水道管が損傷すると、大量の水道水がガス管内に流入し続けることがある。水の流入や滞留により、ガスの供給支障が広範囲に及ぶ場合がある。",
       "正しい。需要家等からガス漏えい等の通報を受けた場合は、通報内容に応じて一般出動、緊急出動及び特別出動に区分し、状況に応じた適切な処理を行う。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -3264,7 +3262,7 @@
     "reviewQuestionId": "825614168cebfd06",
     "sourceRecordRef": "question_2020_2.json#22",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令根拠ではなく、漏えい修理工法、更生修理工法、ガス検知器、サンドブラストによる供給支障及び通報時の出動区分に関する導管維持管理の実務知識に基づく問題。",
+    "lawContextForExplanation": "法令条文の直接適用ではなく、漏えい修理工法、更生修理工法、ガス検知器、サンドブラストによる供給支障、漏えい通報時の出動区分に関する導管維持管理の実務知識に基づいて正誤を判断する問題。",
     "lawReferences": [
       [],
       [],
@@ -3279,8 +3277,7 @@
           "correctChoiceText": "間違い"
         },
         "evidenceSummary": {
-          "basis": "中圧管の漏えい修理工法に関する技術命題であり、正誤を直接決める検証済み法令条項は確認されていない。",
-          "classification": "not_law_related"
+          "verdict": "中圧管の腐食漏えい修理に金属テープによる外面シールを適用できるかを問う技術命題であり、正誤を直接決める検証済み法令条項は確認されていない。"
         },
         "examTime": {
           "correctChoiceText": "間違い"
@@ -3293,8 +3290,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "樹脂ライニング系更生修理工法の技術的用途に関する命題であり、正誤を直接決める検証済み法令条項は確認されていない。",
-          "classification": "not_law_related"
+          "verdict": "樹脂ライニング系更生修理工法の用途に関する技術命題であり、正誤を直接決める検証済み法令条項は確認されていない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3307,8 +3303,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "半導体式ガス検知器の性能と用途に関する技術命題であり、正誤を直接決める検証済み法令条項は確認されていない。",
-          "classification": "not_law_related"
+          "verdict": "半導体式ガス検知器の検知感度と地中埋設管調査への適性に関する技術命題であり、正誤を直接決める検証済み法令条項は確認されていない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3321,8 +3316,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "サンドブラスト事故による供給支障の態様に関する技術命題であり、正誤を直接決める検証済み法令条項は確認されていない。",
-          "classification": "not_law_related"
+          "verdict": "サンドブラスト事故による水道水流入と供給支障の広がりに関する技術命題であり、正誤を直接決める検証済み法令条項は確認されていない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"
@@ -3335,8 +3329,7 @@
           "correctChoiceText": "正しい"
         },
         "evidenceSummary": {
-          "basis": "漏えい通報に対する実務上の出動区分に関する命題であり、正誤を直接決める検証済み法令条項は確認されていない。",
-          "classification": "not_law_related"
+          "verdict": "漏えい通報に対する出動区分と処理に関する実務運用上の命題であり、正誤を直接決める検証済み法令条項は確認されていない。"
         },
         "examTime": {
           "correctChoiceText": "正しい"

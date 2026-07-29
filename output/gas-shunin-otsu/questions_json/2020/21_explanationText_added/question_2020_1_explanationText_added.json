@@ -3406,140 +3406,487 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
     "explanationText": [
-      "正しい。ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置が一体化された構造で用いられる。需要家側に供給するガスの圧力を安定させるだけでなく、異物除去や異常な圧力上昇への対策も考慮されている。",
-      "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が小さくなり、中間圧力が高くなる。そのため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。",
-      "正しい。パイロット式整圧器を選定するときは、最低一次圧力と最高二次圧力との差圧が、その整圧器の作動最小差圧より大きくなるようにする。差圧が不足すると、整圧器が所定の性能で作動しにくくなる。",
-      "間違い。大規模地区用の整圧器では、負荷変動が大きいため、正しくはオフセットやロックアップが小さいなど静特性に優れていることが特に重視される。選択肢は、流量変化に対する応答の敏速性と安定性という動特性が特に要求されるとしており、重視される特性を取り違えているため誤りである。",
-      "正しい。フィッシャー式整圧器でメインバルブにダストがかみ込むと、弁が完全に締まりきらず、二次側へのガス流入が続くことがある。その結果、二次圧が異常に上昇する原因となる。"
+      "正しい。露出している部分がガスの供給の用に供されている導管では、印ろう型接合による接合部に漏えいを防止する適切な措置を講ずる必要がある。これはガス工作物の技術上の基準を定める省令第54条第1項第3号イに定められている。",
+      "正しい。露出している部分がガスの供給の用に供されている直管以外の管の接合部で、特定接合又は告示で定める規格に適合する接合以外のものには、抜出しを防止する適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第3号ロに定められている。",
+      "正しい。低圧で内径100mm未満の導管を除き、露出部分が100m以上で供給の用に供されている導管には、危急の場合に流入するガスを速やかに遮断できる適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第5号に定められている。",
+      "正しい。昇圧供給装置には、運転異常又は取扱いにより障害を生じないよう適切な措置を講じなければならない。これはガス工作物の技術上の基準を定める省令第61条第2項に定められている。",
+      "間違い。選択肢の「ガスの圧力が異常に低下した場合に供給を維持する装置」が誤り。一の使用者にガスを供給するための整圧器には、供給維持装置ではなく、ガスの圧力が異常に上昇することを防止する装置を設ける必要がある。これはガス工作物の技術上の基準を定める省令第57条第1項第3号に定められている。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
-      "技省令_整圧器（乙種）のハウスレギュレーター、レイノルド式整圧器、パイロット式整圧器、大規模地区整圧器、フィッシャー式整圧器が本問の関連論点。",
-      "本問は誤っている記述を選ぶ形式で、誤っている記述は4である。",
-      "ローカルsourceのanswer_result_textは「正解は 5 です。」だが、gassyunin現ページの同一選択肢と既存供給問先例では選択肢4が誤り、選択肢5は正しい。00_sourceは保存制約により変更しない。"
+      "技術基準に規定されている導管の防護、昇圧供給装置及び整圧器の基準を問う法令問題である。",
+      "選択肢1〜3はガス工作物の技術上の基準を定める省令第54条、選択肢4は第61条第2項、選択肢5は第57条第1項第3号を根拠に判定する。"
     ],
     "sourceExplanationCommonSummary": [
-      "選択肢1はハウスレギュレーター、選択肢2はレイノルド式整圧器、選択肢3はパイロット式整圧器の作動差圧、選択肢5はフィッシャー式整圧器の二次圧異常上昇原因として正しい。選択肢4は、大規模地区整圧器について応答の敏速性と安定性の両方が特に要求されるとしている点が誤り。"
+      "選択肢1〜3は掘削により露出する導管の防護基準、選択肢4は昇圧供給装置の安全措置、選択肢5は一の使用者向け整圧器の異常圧力上昇防止装置を確認する。1〜4は条文どおりで正しく、5は異常低下時の供給維持装置としている点が誤りである。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "ハウスレギュレーターは不純物除去と圧力上昇防止の機能を一体化する。"
+        "ガス工作物の技術上の基準を定める省令第54条第1項第3号イは、供給用の露出導管の印ろう型接合部に漏えい防止措置を求める。"
       ],
       [
-        "需要減少時、レイノルド式整圧器では中間圧力が高くなる。"
+        "同省令第54条第1項第3号ロは、直管以外の管の非特定接合部等に抜出し防止措置を求める。"
       ],
       [
-        "パイロット式整圧器は作動最小差圧を上回る差圧で選定する。"
+        "同省令第54条第1項第5号は、一定規模以上の供給用露出導管に危急時の流入ガス遮断措置を求める。"
       ],
       [
-        "大規模地区整圧器は安定性重視で、敏速性と安定性の両方を特に求める記述は誤り。"
+        "同省令第61条第2項は、昇圧供給装置の運転異常又は取扱いによる障害防止措置を求める。"
       ],
       [
-        "メインバルブへのダストかみ込みによる締め切り不良は二次圧異常上昇の原因となる。"
+        "同省令第57条第1項第3号は、一の使用者向け整圧器に異常圧力上昇防止装置を求める。異常低下時の供給維持装置ではない。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正しい",
       "正しい",
       "正しい",
-      "間違い",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "answer_result_text": "正解は 4 です。",
-    "isLawRelated": false,
+    "isLawRelated": true,
     "sourceConflictReviewDecision": "correct_answer_result_text_in_patch_preserve_00_source",
     "sourceContentConflictPolicy": "00_source answer_result_text remains '正解は 5 です。'; prepared patch uses choice 4 as the incorrect statement.",
     "suggestedExplanationText": [
-      "正しい。ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を本体に一体化している。JIA公式の令和2年度乙種ガス技術・供給問11及び公式解答でも正しい記述として確認できる。",
-      "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が上昇するため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
-      "正しい。パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が、整圧器の作動最小差圧より大きくなるように選定する。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
-      "間違い。選択肢の「大規模地区では負荷変動が大きく、流量変化に対する応答の敏速性と安定性の両方が特に要求される」が誤り。大規模地区で使用する整圧器は、オフセットやロックアップが小さい静特性に優れたものを選定する。JIA公式の同問では選択肢4が誤りとされている。",
-      "正しい。フィッシャー式整圧器では、メインバルブにダストがかみ込んで締め切り不良になると、二次側へのガス流入が止まらず、二次圧異常上昇の原因となる。JIA公式の同問及び公式解答でも正しい記述として確認できる。"
+      "正しい。露出している部分がガスの供給の用に供されている導管では、印ろう型接合による接合部に漏えいを防止する適切な措置を講ずる必要がある。これはガス工作物の技術上の基準を定める省令第54条第1項第3号イに定められている。",
+      "正しい。露出している部分がガスの供給の用に供されている直管以外の管の接合部で、特定接合又は告示で定める規格に適合する接合以外のものには、抜出しを防止する適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第3号ロに定められている。",
+      "正しい。低圧で内径100mm未満の導管を除き、露出部分が100m以上で供給の用に供されている導管には、危急の場合に流入するガスを速やかに遮断できる適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第5号に定められている。",
+      "正しい。昇圧供給装置には、運転異常又は取扱いにより障害を生じないよう適切な措置を講じなければならない。これはガス工作物の技術上の基準を定める省令第61条第2項に定められている。",
+      "間違い。選択肢の「ガスの圧力が異常に低下した場合に供給を維持する装置」が誤り。一の使用者にガスを供給するための整圧器には、供給維持装置ではなく、ガスの圧力が異常に上昇することを防止する装置を設ける必要がある。これはガス工作物の技術上の基準を定める省令第57条第1項第3号に定められている。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を本体に一体化している。JIA公式の令和2年度乙種ガス技術・供給問11及び公式解答でも正しい記述として確認できる。",
-      "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が上昇するため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
-      "正しい。パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が、整圧器の作動最小差圧より大きくなるように選定する。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
-      "間違い。選択肢の「大規模地区では負荷変動が大きく、流量変化に対する応答の敏速性と安定性の両方が特に要求される」が誤り。大規模地区で使用する整圧器は、オフセットやロックアップが小さい静特性に優れたものを選定する。JIA公式の同問では選択肢4が誤りとされている。",
-      "正しい。フィッシャー式整圧器では、メインバルブにダストがかみ込んで締め切り不良になると、二次側へのガス流入が止まらず、二次圧異常上昇の原因となる。JIA公式の同問及び公式解答でも正しい記述として確認できる。"
+      "正しい。露出している部分がガスの供給の用に供されている導管では、印ろう型接合による接合部に漏えいを防止する適切な措置を講ずる必要がある。これはガス工作物の技術上の基準を定める省令第54条第1項第3号イに定められている。",
+      "正しい。露出している部分がガスの供給の用に供されている直管以外の管の接合部で、特定接合又は告示で定める規格に適合する接合以外のものには、抜出しを防止する適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第3号ロに定められている。",
+      "正しい。低圧で内径100mm未満の導管を除き、露出部分が100m以上で供給の用に供されている導管には、危急の場合に流入するガスを速やかに遮断できる適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第5号に定められている。",
+      "正しい。昇圧供給装置には、運転異常又は取扱いにより障害を生じないよう適切な措置を講じなければならない。これはガス工作物の技術上の基準を定める省令第61条第2項に定められている。",
+      "間違い。選択肢の「ガスの圧力が異常に低下した場合に供給を維持する装置」が誤り。一の使用者にガスを供給するための整圧器には、供給維持装置ではなく、ガスの圧力が異常に上昇することを防止する装置を設ける必要がある。これはガス工作物の技術上の基準を定める省令第57条第1項第3号に定められている。"
     ],
     "lawReferences": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "article": "54",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "正しい。露出している部分がガスの供給の用に供されている導管では、印ろう型接合による接合部に漏えいを防止する適切な措置を講ずる必要がある。これはガス工作物の技術上の基準を定める省令第54条第1項第3号イに定められている。",
+          "paragraph": "1",
+          "lawId": "412M50000400111",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e",
+          "item": "3",
+          "subitem": "イ"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "article": "54",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "正しい。露出している部分がガスの供給の用に供されている直管以外の管の接合部で、特定接合又は告示で定める規格に適合する接合以外のものには、抜出しを防止する適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第3号ロに定められている。",
+          "paragraph": "1",
+          "lawId": "412M50000400111",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e",
+          "item": "3",
+          "subitem": "ロ"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "article": "54",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "正しい。低圧で内径100mm未満の導管を除き、露出部分が100m以上で供給の用に供されている導管には、危急の場合に流入するガスを速やかに遮断できる適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第5号に定められている。",
+          "paragraph": "1",
+          "lawId": "412M50000400111",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e",
+          "item": "5"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "article": "61",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "正しい。昇圧供給装置には、運転異常又は取扱いにより障害を生じないよう適切な措置を講じなければならない。これはガス工作物の技術上の基準を定める省令第61条第2項に定められている。",
+          "paragraph": "2",
+          "lawId": "412M50000400111",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=61",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "03763869f94b3103c0eff940465db987cf598098ea74dac7126641e8e1bf7995",
+          "rawXmlHash": "3882baa0f53ed255446015b219c10bec7e0450833eff135ff3f2e4b2da960a94"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "article": "57",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の「ガスの圧力が異常に低下した場合に供給を維持する装置」が誤り。一の使用者にガスを供給するための整圧器には、供給維持装置ではなく、ガスの圧力が異常に上昇することを防止する装置を設ける必要がある。これはガス工作物の技術上の基準を定める省令第57条第1項第3号に定められている。",
+          "paragraph": "1",
+          "lawId": "412M50000400111",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "4f1f65c9f6a929235057d5d068280915772bdc19e06c6f34ca77eb37975a448f",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691",
+          "item": "3"
+        }
+      ]
     ],
     "lawRevisionFacts": [
       {
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "basis": "ハウスレギュレーターの一般的な構成に関する技術事項",
-          "lawApplicability": "not_law_related"
-        },
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-29T10:39:45+09:00",
+        "nextAuditDueAt": "2027-07-29",
+        "auditMethodVersion": "law-audit/4.2",
+        "auditInputHash": "sha256:41a99dfcc7a4b71a5cf6aa930b744751493b110214481f503c6f960ea92db24a",
+        "auditRunId": "review-20260729T103944980076-e8f56c00",
+        "lawCorpusSnapshotId": "egov-current-2026-07-29",
+        "primaryAuditRunId": "review-20260729T103944980076-e8f56c00:primary",
+        "secondaryAuditRunId": "review-20260729T103944980076-e8f56c00:secondary",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "sourceEvidenceVersionId": "primary_law_evidence/raw_xml:412M50000400111:54",
+        "evidenceBindingHash": "sha256:5df64954ac8a258503368f622aefa96156c142c714adae707a7b9b5f86ffcbf2",
         "examTime": {
-          "correctChoiceText": "正しい"
+          "correctChoiceText": "正しい",
+          "referenceDate": "2020",
+          "verificationStatus": "source_record_checked"
         },
-        "reviewState": "secondary_verified"
+        "current": {
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawId": "412M50000400111",
+          "article": "54",
+          "paragraph": "1",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
+          "correctChoiceText": "正しい",
+          "item": "3",
+          "subitem": "イ"
+        },
+        "differenceFacts": [
+          "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは1〜4を正しい、5を間違いとして維持する。"
+        ],
+        "notes": [
+          "e-Gov法令APIの保存済み一次情報本文を直接確認し、問題文と選択肢を結合した命題と照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "正しい。露出している部分がガスの供給の用に供されている導管では、印ろう型接合による接合部に漏えいを防止する適切な措置を講ずる必要がある。これはガス工作物の技術上の基準を定める省令第54条第1項第3号イに定められている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第54条第1項第3号イを選択肢1の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-0-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "lawId": "412M50000400111",
+              "article": "54",
+              "paragraph": "1",
+              "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+              "item": "3",
+              "subitem": "イ"
+            }
+          ]
+        }
       },
       {
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "basis": "レイノルド式整圧器の作動原理に関する技術事項",
-          "lawApplicability": "not_law_related"
-        },
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-29T10:39:45+09:00",
+        "nextAuditDueAt": "2027-07-29",
+        "auditMethodVersion": "law-audit/4.2",
+        "auditInputHash": "sha256:a2e7d77dae4a23c407d70a10d0a57dcbf2e1889916de396deba5d3f624949d33",
+        "auditRunId": "review-20260729T103944980076-e8f56c00",
+        "lawCorpusSnapshotId": "egov-current-2026-07-29",
+        "primaryAuditRunId": "review-20260729T103944980076-e8f56c00:primary",
+        "secondaryAuditRunId": "review-20260729T103944980076-e8f56c00:secondary",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "sourceEvidenceVersionId": "primary_law_evidence/raw_xml:412M50000400111:54",
+        "evidenceBindingHash": "sha256:8e8ba1d647ce9ea10c53c92def375a5d50319795d35ad4c61eda642cfac048a3",
         "examTime": {
-          "correctChoiceText": "正しい"
+          "correctChoiceText": "正しい",
+          "referenceDate": "2020",
+          "verificationStatus": "source_record_checked"
         },
-        "reviewState": "secondary_verified"
+        "current": {
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawId": "412M50000400111",
+          "article": "54",
+          "paragraph": "1",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
+          "correctChoiceText": "正しい",
+          "item": "3",
+          "subitem": "ロ"
+        },
+        "differenceFacts": [
+          "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは1〜4を正しい、5を間違いとして維持する。"
+        ],
+        "notes": [
+          "e-Gov法令APIの保存済み一次情報本文を直接確認し、問題文と選択肢を結合した命題と照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "正しい。露出している部分がガスの供給の用に供されている直管以外の管の接合部で、特定接合又は告示で定める規格に適合する接合以外のものには、抜出しを防止する適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第3号ロに定められている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第54条第1項第3号ロを選択肢2の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-1-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "lawId": "412M50000400111",
+              "article": "54",
+              "paragraph": "1",
+              "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+              "item": "3",
+              "subitem": "ロ"
+            }
+          ]
+        }
       },
       {
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "basis": "パイロット式整圧器の選定差圧に関する技術事項",
-          "lawApplicability": "not_law_related"
-        },
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-29T10:39:45+09:00",
+        "nextAuditDueAt": "2027-07-29",
+        "auditMethodVersion": "law-audit/4.2",
+        "auditInputHash": "sha256:299aec752582b94a88072fe68560ac5e2c34e02f6459c971a948e3274d6d4f2c",
+        "auditRunId": "review-20260729T103944980076-e8f56c00",
+        "lawCorpusSnapshotId": "egov-current-2026-07-29",
+        "primaryAuditRunId": "review-20260729T103944980076-e8f56c00:primary",
+        "secondaryAuditRunId": "review-20260729T103944980076-e8f56c00:secondary",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "sourceEvidenceVersionId": "primary_law_evidence/raw_xml:412M50000400111:54",
+        "evidenceBindingHash": "sha256:a7723ab5d60c0a9b70bb29565a5ca6a3446ac155ac4a7f2b9bee4d92a709d4ca",
         "examTime": {
-          "correctChoiceText": "正しい"
+          "correctChoiceText": "正しい",
+          "referenceDate": "2020",
+          "verificationStatus": "source_record_checked"
         },
-        "reviewState": "secondary_verified"
+        "current": {
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawId": "412M50000400111",
+          "article": "54",
+          "paragraph": "1",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
+          "correctChoiceText": "正しい",
+          "item": "5"
+        },
+        "differenceFacts": [
+          "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは1〜4を正しい、5を間違いとして維持する。"
+        ],
+        "notes": [
+          "e-Gov法令APIの保存済み一次情報本文を直接確認し、問題文と選択肢を結合した命題と照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "正しい。低圧で内径100mm未満の導管を除き、露出部分が100m以上で供給の用に供されている導管には、危急の場合に流入するガスを速やかに遮断できる適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第5号に定められている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第54条第1項第5号を選択肢3の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-2-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "lawId": "412M50000400111",
+              "article": "54",
+              "paragraph": "1",
+              "articleTextHash": "b566d0cc79faf20b3f5669c697737dd8a13e3e94aa431157e799abf2a4775518",
+              "item": "5"
+            }
+          ]
+        }
       },
       {
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "evidenceSummary": {
-          "basis": "大規模地区用整圧器で重視される静特性に関する技術事項",
-          "lawApplicability": "not_law_related"
-        },
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-29T10:39:45+09:00",
+        "nextAuditDueAt": "2027-07-29",
+        "auditMethodVersion": "law-audit/4.2",
+        "auditInputHash": "sha256:558602569888829fae3eb212e014c519563f7434d8a6c0132a063e89d82c1856",
+        "auditRunId": "review-20260729T103944980076-e8f56c00",
+        "lawCorpusSnapshotId": "egov-current-2026-07-29",
+        "primaryAuditRunId": "review-20260729T103944980076-e8f56c00:primary",
+        "secondaryAuditRunId": "review-20260729T103944980076-e8f56c00:secondary",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "sourceEvidenceVersionId": "primary_law_evidence/raw_xml:412M50000400111:61",
+        "evidenceBindingHash": "sha256:d1de58d620ea8f19d1d3310f2e8f220f7edb1b4a4a5a04a0e1ed8dbf113002c1",
         "examTime": {
-          "correctChoiceText": "間違い"
+          "correctChoiceText": "正しい",
+          "referenceDate": "2020",
+          "verificationStatus": "source_record_checked"
         },
-        "reviewState": "secondary_verified"
+        "current": {
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawId": "412M50000400111",
+          "article": "61",
+          "paragraph": "2",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "articleTextHash": "03763869f94b3103c0eff940465db987cf598098ea74dac7126641e8e1bf7995",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=61",
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは1〜4を正しい、5を間違いとして維持する。"
+        ],
+        "notes": [
+          "e-Gov法令APIの保存済み一次情報本文を直接確認し、問題文と選択肢を結合した命題と照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "正しい。昇圧供給装置には、運転異常又は取扱いにより障害を生じないよう適切な措置を講じなければならない。これはガス工作物の技術上の基準を定める省令第61条第2項に定められている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第61条第2項を選択肢4の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-3-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "lawId": "412M50000400111",
+              "article": "61",
+              "paragraph": "2",
+              "articleTextHash": "03763869f94b3103c0eff940465db987cf598098ea74dac7126641e8e1bf7995"
+            }
+          ]
+        }
       },
       {
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "evidenceSummary": {
-          "basis": "フィッシャー式整圧器の締切不良と二次圧上昇に関する技術事項",
-          "lawApplicability": "not_law_related"
-        },
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-29T10:39:45+09:00",
+        "nextAuditDueAt": "2027-07-29",
+        "auditMethodVersion": "law-audit/4.2",
+        "auditInputHash": "sha256:a324182c5e136aadf62f44a46c106d2acfb34be4b076bce06c06380e91e6da57",
+        "auditRunId": "review-20260729T103944980076-e8f56c00",
+        "lawCorpusSnapshotId": "egov-current-2026-07-29",
+        "primaryAuditRunId": "review-20260729T103944980076-e8f56c00:primary",
+        "secondaryAuditRunId": "review-20260729T103944980076-e8f56c00:secondary",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "sourceEvidenceVersionId": "primary_law_evidence/raw_xml:412M50000400111:57",
+        "evidenceBindingHash": "sha256:3eb6d784176a41f3a44f0ba5a4ac54009a99d62e88b4e09bb9133206a47b83ec",
         "examTime": {
-          "correctChoiceText": "正しい"
+          "correctChoiceText": "間違い",
+          "referenceDate": "2020",
+          "verificationStatus": "source_record_checked"
         },
-        "reviewState": "secondary_verified"
+        "current": {
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawId": "412M50000400111",
+          "article": "57",
+          "paragraph": "1",
+          "referenceDate": "2026-07-29",
+          "verificationStatus": "verified",
+          "articleTextHash": "4f1f65c9f6a929235057d5d068280915772bdc19e06c6f34ca77eb37975a448f",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "correctChoiceText": "間違い",
+          "item": "3"
+        },
+        "differenceFacts": [
+          "現行条文との照合で、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは1〜4を正しい、5を間違いとして維持する。"
+        ],
+        "notes": [
+          "e-Gov法令APIの保存済み一次情報本文を直接確認し、問題文と選択肢を結合した命題と照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "間違い。選択肢の「ガスの圧力が異常に低下した場合に供給を維持する装置」が誤り。一の使用者にガスを供給するための整圧器には、供給維持装置ではなく、ガスの圧力が異常に上昇することを防止する装置を設ける必要がある。これはガス工作物の技術上の基準を定める省令第57条第1項第3号に定められている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第57条第1項第3号を選択肢5の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-4-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "lawId": "412M50000400111",
+              "article": "57",
+              "paragraph": "1",
+              "articleTextHash": "4f1f65c9f6a929235057d5d068280915772bdc19e06c6f34ca77eb37975a448f",
+              "item": "3"
+            }
+          ]
+        }
       }
     ],
     "sourceQuestionKey": "gas-shunin:otsu:2020:law:q12",
@@ -3547,18 +3894,47 @@
     "sourceRecordRef": "question_2020_1.json#11",
     "explanationReferences": [
       {
-        "referenceDate": "2026-07-12",
-        "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
-        "title": "令和2年度乙種ガス主任技術者試験問題"
-      },
-      {
-        "referenceDate": "2026-07-12",
-        "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf",
-        "title": "令和2年度乙種ガス主任技術者試験解答"
+        "title": "ガス工作物の技術上の基準を定める省令",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+        "referenceDate": "2026-07-29"
       }
     ],
-    "lawContextForExplanation": "整圧器の構造、選定条件、負荷変動への特性及び二次圧異常上昇の原因に関する技術知識を問う問題である。法令条文ではなく、公式問題・解答と整圧器の作動原理に基づいて説明する。",
-    "suggestedQuestionDetailsByChoice": []
+    "lawContextForExplanation": "技術基準に規定されている導管の防護、昇圧供給装置及び整圧器の基準を問う法令問題。選択肢1はガス工作物の技術上の基準を定める省令第54条第1項第3号イ、選択肢2は同号ロ、選択肢3は同条第1項第5号、選択肢4は第61条第2項、選択肢5は第57条第1項第3号を根拠に判定する。",
+    "suggestedQuestionDetailsByChoice": [],
+    "suggestedQuestions": [
+      "印ろう型接合部に必要な措置は？",
+      "直管以外の非特定接合部に必要な措置は？",
+      "100m以上の供給用露出導管に必要な措置は？",
+      "昇圧供給装置の運転異常等に必要な措置は？",
+      "一の使用者向け整圧器に必要な装置は？",
+      "この問題の根拠条文は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "印ろう型接合部に必要な措置は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第54条第1項第3号イにより、漏えいを防止する適切な措置が必要である。"
+      },
+      {
+        "question": "直管以外の非特定接合部に必要な措置は？",
+        "answer": "同省令第54条第1項第3号ロにより、抜出しを防止する適切な措置が必要である。"
+      },
+      {
+        "question": "100m以上の供給用露出導管に必要な措置は？",
+        "answer": "同省令第54条第1項第5号により、危急時に流入ガスを速やかに遮断できる適切な措置が必要である。"
+      },
+      {
+        "question": "昇圧供給装置の運転異常等に必要な措置は？",
+        "answer": "同省令第61条第2項により、運転異常又は取扱いにより障害を生じないよう適切な措置が必要である。"
+      },
+      {
+        "question": "一の使用者向け整圧器に必要な装置は？",
+        "answer": "同省令第57条第1項第3号により、ガス圧力の異常上昇を防止する装置が必要である。異常低下時の供給維持装置ではない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第54条、第57条第1項第3号、第61条第2項である。"
+      }
+    ]
   },
   {
     "original_question_id": "ed514632195d598c",
