@@ -63,6 +63,7 @@
 ## 問題IDと現行法監査
 
 - `uiQuestionId`と`reviewKey`は画面表示・操作用である。03bの監査sidecarは`law-revision-audit/v2`とし、source由来の`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`の3要素が完全一致するrecordだけを結合する。`sourceRecordRef`は`00_source/`基準の相対JSON pathと0始まりのrecord indexを`<path>#<index>`で表す。sidecarの`qualification`と`listGroupId`はmodel候補又は表示用projectionから受け取らず、一問へ限定したrun planの確定済みidentityをserverが設定する。
+- Convert及びupload-readyのdocumentは、`00_source`が保持する既存Firestore IDと、source identityへ完全結合したpatchが持つ公開IDのうち、対象年度内で一意なaliasを併合して元の一問へ対応させる。後続patchに一意なIDがある場合も、`00_source`由来の一意なFirestore IDを捨てない。複数問題が共有する旧IDだけでは対応を決めず、競合又は未対応として停止する。
 - 03bを含むUI runは、`00_source`不変確認後かつmodel開始前に、対象年度の旧sidecarを現在のsource inventoryへ一意に対応させる。旧UI IDは3要素のsource identityへ原子的に正規化し、実質的な監査内容は変えない。v2契約を満たさない旧行はschemaだけを昇格せず、その一問の通常再整備へ送る。正規化件数、保留したmetadata件数、前後hashは親manifestのreceiptへ残す。
 - UIの`reviewKey`が衝突しても、`sourceRecordRef`で問題を分離して資格・年度・問題一覧を表示する。3要素を一意に確定できない場合は03bだけをfail-closedでblockし、他工程の閲覧・実行は妨げない。
 - selected artifactをsource recordへ対応できない場合は、path・工程・件数を`artifactResolutionBlockers`へ出し、その工程とdeliveryを完了扱いにしない。

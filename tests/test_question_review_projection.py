@@ -132,6 +132,67 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         self.assertEqual(downstream.unmatched_count, 1)
         self.assertEqual(downstream.errors_by_binding, {})
 
+    def test_source_owned_firestore_ids_survive_bound_patch_aliases(self):
+        source = source_identity(
+            "first.json#0",
+            "first",
+            "legacy-id",
+            "firestore-document-1",
+            "firestore-document-2",
+        )
+        question_type_index = IdentityCandidateIndex(
+            by_binding={
+                source.binding: (
+                    PatchEntry(
+                        Path("first.json"),
+                        {
+                            **source.binding.as_mapping(),
+                            "original_question_id": (
+                                "firestore:firestore-document-1,"
+                                "firestore-document-2"
+                            ),
+                        },
+                    ),
+                )
+            },
+            errors_by_binding={},
+        )
+
+        downstream_sources = source_identities_with_bound_artifact_aliases(
+            [source],
+            {"questionType": question_type_index},
+        )
+        downstream = build_identity_candidate_index(
+            [
+                {
+                    "questionId": "firestore-document-1",
+                    "originalQuestionId": "legacy-id",
+                },
+                {
+                    "questionId": "firestore-document-2",
+                    "originalQuestionId": "legacy-id",
+                },
+            ],
+            sources=downstream_sources,
+            record_of=lambda document: document,
+            source_stem_of=lambda _document: "",
+            label="converted document",
+        )
+
+        self.assertIn(
+            "firestore-document-1",
+            downstream_sources[0].aliases,
+        )
+        self.assertIn(
+            "firestore-document-2",
+            downstream_sources[0].aliases,
+        )
+        self.assertEqual(
+            [item["questionId"] for item in downstream.by_binding[source.binding]],
+            ["firestore-document-1", "firestore-document-2"],
+        )
+        self.assertEqual(downstream.unmatched_count, 0)
+
     def test_projection_hash_covers_normalized_and_issue_image_fields(self):
         self.assertTrue(
             {

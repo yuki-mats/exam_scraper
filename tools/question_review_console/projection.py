@@ -205,6 +205,10 @@ def source_identities_with_bound_artifact_aliases(
     for binding, aliases in bound_aliases.items():
         for alias in aliases:
             alias_owners.setdefault(alias, set()).add(binding)
+    source_alias_owners: dict[str, set[SourceIdentityBinding]] = {}
+    for source in source_records:
+        for alias in source.aliases:
+            source_alias_owners.setdefault(alias, set()).add(source.binding)
 
     expanded: list[SourceRecordIdentity] = []
     for source in source_records:
@@ -213,11 +217,24 @@ def source_identities_with_bound_artifact_aliases(
             for alias in bound_aliases[source.binding]
             if alias_owners.get(alias) == {source.binding}
         }
-        # Once an exact-bound patch supplies an output identity unique within
-        # the group, shared legacy IDs must not let unrelated documents poison
-        # that source record. Sources without a unique output identity retain
-        # the existing fail-closed legacy resolver.
-        aliases = unique_bound_aliases or set(source.aliases)
+        unique_source_aliases = {
+            alias
+            for alias in source.aliases
+            if source_alias_owners.get(alias) == {source.binding}
+        }
+        public_source_aliases = unique_source_aliases - set(
+            source.binding.as_tuple()
+        )
+        # Keep every unique output identity owned by 00_source or an
+        # exact-bound patch. Shared legacy IDs must not let unrelated
+        # documents poison that source record. If neither side supplies a
+        # public unique identity, retain the existing fail-closed legacy
+        # resolver so an ambiguous alias is reported rather than guessed.
+        aliases = (
+            unique_bound_aliases | unique_source_aliases
+            if unique_bound_aliases or public_source_aliases
+            else set(source.aliases)
+        )
         expanded.append(
             SourceRecordIdentity(
                 binding=source.binding,
