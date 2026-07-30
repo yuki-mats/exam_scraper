@@ -32,11 +32,19 @@ def capture_write_snapshot(
             )
         relative = path.relative_to(resolved_repo).as_posix()
         if not path.exists():
-            entries[relative] = {"kind": "missing"}
+            entries[relative] = {
+                "kind": "missing",
+                "fingerprint": "missing",
+            }
             return
-        mode = path.stat().st_mode & 0o777
+        stat_result = path.stat()
+        mode = stat_result.st_mode & 0o777
         if path.is_dir():
-            entries[relative] = {"kind": "directory", "mode": mode}
+            entries[relative] = {
+                "kind": "directory",
+                "mode": mode,
+                "fingerprint": f"directory:{stat_result.st_mode}",
+            }
             return
         if not path.is_file():
             raise WriteTransactionError(
@@ -49,11 +57,13 @@ def capture_write_snapshot(
         temporary = backup_path.with_suffix(".tmp")
         temporary.write_bytes(data)
         temporary.replace(backup_path)
+        digest = hashlib.sha256(data).hexdigest()
         entries[relative] = {
             "kind": "file",
             "mode": mode,
             "backupFile": backup_name,
-            "sha256": hashlib.sha256(data).hexdigest(),
+            "sha256": digest,
+            "fingerprint": f"sha256:{digest}",
         }
 
     for raw_root in dict.fromkeys(Path(value).resolve() for value in roots):
@@ -74,6 +84,36 @@ def capture_write_snapshot(
             for name in file_names:
                 add(current / name)
     return {"roots": root_keys, "entries": entries}
+
+
+def write_snapshot_fingerprints(
+    snapshot: Mapping[str, Any],
+) -> dict[str, str]:
+    """Return the exact fingerprints captured with the restorable bytes."""
+
+    raw_entries = snapshot.get("entries")
+    raw_roots = snapshot.get("roots")
+    if not isinstance(raw_entries, Mapping) or not isinstance(raw_roots, list):
+        raise WriteTransactionError(
+            "書込transaction baselineのentry形式が不正です。"
+        )
+    roots = {str(value) for value in raw_roots}
+    fingerprints: dict[str, str] = {}
+    for raw_path, raw_entry in raw_entries.items():
+        if not isinstance(raw_entry, Mapping):
+            raise WriteTransactionError(
+                "書込transaction entryの形式が不正です。"
+            )
+        path = str(raw_path)
+        if raw_entry.get("kind") == "directory" and path not in roots:
+            continue
+        fingerprint = str(raw_entry.get("fingerprint") or "")
+        if not path or not fingerprint:
+            raise WriteTransactionError(
+                "書込transaction entryのfingerprintがありません。"
+            )
+        fingerprints[path] = fingerprint
+    return fingerprints
 
 
 def restore_write_snapshot(

@@ -186,6 +186,30 @@ class ChildFeedbackTests(unittest.TestCase):
                 )
                 self.assertTrue(feedback["issues"][0]["retryable"])
 
+    def test_prewrite_canonical_contention_is_retryable(self):
+        feedback = _feedback(
+            {
+                "status": "failed",
+                "error": (
+                    "正本書込み前に対象fileが更新されました: "
+                    "output/sample/patch.json"
+                ),
+                "result": {"status": "failed", "commands": []},
+                "rollback": {
+                    "status": "not_required",
+                    "deltaUnknown": False,
+                    "remainingChangedFiles": [],
+                },
+                "canonicalWriteStarted": False,
+            }
+        )
+
+        self.assertEqual(feedback["status"], "retryable")
+        self.assertEqual(
+            feedback["issues"][0]["code"],
+            "canonical_contention",
+        )
+
     def test_unsafe_rollback_blocks_retry_even_with_retryable_issue(self):
         feedback = _feedback(
             {

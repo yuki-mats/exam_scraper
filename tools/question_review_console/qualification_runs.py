@@ -180,6 +180,7 @@ from tools.question_review_console.write_transaction import (
     WriteTransactionError,
     capture_write_snapshot,
     restore_write_snapshot,
+    write_snapshot_fingerprints,
 )
 
 
@@ -539,6 +540,9 @@ MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
 AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v5"
+AGGREGATE_ADJUDICATION_PROMPT_CONTRACT_VERSION = (
+    "aggregate-answer-adjudication-prompt/v1"
+)
 MAX_POLICY_REFRESH_ATTEMPTS = 2
 MAX_PROVIDER_ATTEMPTS = 2
 ALLOWED_MAINTENANCE_DIR_NAMES = {
@@ -1367,11 +1371,20 @@ def _isolated_failure_state(child: Mapping[str, Any]) -> bool:
         child.get("writeAttributionVerified") is True
         and not unsafe_notified
     )
-    return bool(
+    rollback_safe = bool(
         isinstance(rollback, Mapping)
-        and rollback.get("status") == "succeeded"
         and rollback.get("deltaUnknown") is not True
         and not rollback.get("remainingChangedFiles")
+        and (
+            rollback.get("status") == "succeeded"
+            or (
+                rollback.get("status") == "not_required"
+                and child.get("canonicalWriteStarted") is False
+            )
+        )
+    )
+    return bool(
+        rollback_safe
         and child.get("deltaUnknown") is not True
         and not unsafe_notified
         and (not changed_files or attribution_verified)
@@ -1737,11 +1750,15 @@ def _filter_structured_candidate_prompt(
     raise QualificationRunError("構造化候補promptの問題一覧を確認できません。")
 
 
-def _aggregate_answer_review_prompt(
+def _aggregate_answer_review_questions(
     targets: list[Mapping[str, Any]],
     records_by_question: Mapping[str, Mapping[str, Any]],
     candidate_sets_by_question: Mapping[str, Mapping[str, Any]],
-) -> str:
+    *,
+    independent_reviews_by_question: (
+        Mapping[str, list[Mapping[str, Any]]] | None
+    ) = None,
+) -> list[dict[str, Any]]:
     questions = []
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
@@ -1772,15 +1789,31 @@ def _aggregate_answer_review_prompt(
                     "boundaries": boundaries,
                 }
             )
-        questions.append(
-            {
-                "questionId": question_id,
-                "sourceHash": source_text_hash(source_text),
-                "questionBodyText": source_text,
-                "choiceTextList": copy.deepcopy(record.get("choiceTextList") or []),
-                "candidateSets": candidate_views,
-            }
-        )
+        question = {
+            "questionId": question_id,
+            "sourceHash": source_text_hash(source_text),
+            "questionBodyText": source_text,
+            "choiceTextList": copy.deepcopy(record.get("choiceTextList") or []),
+            "candidateSets": candidate_views,
+        }
+        if independent_reviews_by_question is not None:
+            question["independentReviews"] = copy.deepcopy(
+                independent_reviews_by_question[question_id]
+            )
+        questions.append(question)
+    return questions
+
+
+def _aggregate_answer_review_prompt(
+    targets: list[Mapping[str, Any]],
+    records_by_question: Mapping[str, Mapping[str, Any]],
+    candidate_sets_by_question: Mapping[str, Mapping[str, Any]],
+) -> str:
+    questions = _aggregate_answer_review_questions(
+        targets,
+        records_by_question,
+        candidate_sets_by_question,
+    )
     return "\n".join(
         [
             "# 集約回答問題の独立レビュー",
@@ -1794,6 +1827,38 @@ def _aggregate_answer_review_prompt(
             "targetとして承認できる場合は、個別に判定する全命題を過不足なく含み、前提や入力を含まないcandidateIdを一つだけ選ぶ。",
             "正誤を解かず、正しい項目だけを選ばない。",
             "命題と前提を区別できない場合又は適切なcandidateIdがない場合はambiguous_target、ambiguous_boundary又はmissing_statementでholdにする。",
+            "記述本文、理由、summary、説明、start/endその他の文字位置は出力しない。",
+            "file、shell、外部状態を変更しない。指定JSON Schemaのobjectだけを返す。",
+            json.dumps(questions, ensure_ascii=False, separators=(",", ":")),
+        ]
+    )
+
+
+def _aggregate_answer_adjudication_prompt(
+    targets: list[Mapping[str, Any]],
+    records_by_question: Mapping[str, Mapping[str, Any]],
+    candidate_sets_by_question: Mapping[str, Mapping[str, Any]],
+    independent_reviews_by_question: Mapping[
+        str, list[Mapping[str, Any]]
+    ],
+) -> str:
+    questions = _aggregate_answer_review_questions(
+        targets,
+        records_by_question,
+        candidate_sets_by_question,
+        independent_reviews_by_question=independent_reviews_by_question,
+    )
+    return "\n".join(
+        [
+            "# 集約回答問題の不一致裁定",
+            "2件の独立レビューが一致しなかった問題だけを、原文を正本として再判定する。",
+            "independentReviewsは判断材料であり、多数決又はいずれか一方への自動追随はしない。",
+            "questionBodyTextとchoiceTextListの役割を自分で確認し、target、non_target、holdを一つ確定する。",
+            "candidateSetsはserverが原文から機械生成した候補であり、文章や文字位置を作成・修正しない。",
+            "targetは、元の回答が本文内の複数命題の正誤を個数、組合せその他の一つの回答へ集約し、選択したcandidateIdが個別判定すべき全命題を過不足なく含む場合に限る。",
+            "choiceTextListに受験者が選ぶ個別命題が既に並ぶ通常問題、計算結果、穴埋め、並べ替え、設例条件や共通前提はtargetにしない。",
+            "原文と候補だけでは一意に確定できない場合に限り、ambiguous_target、ambiguous_boundary又はmissing_statementでholdにする。",
+            "正誤を解かず、正しい項目だけを選ばない。",
             "記述本文、理由、summary、説明、start/endその他の文字位置は出力しない。",
             "file、shell、外部状態を変更しない。指定JSON Schemaのobjectだけを返す。",
             json.dumps(questions, ensure_ascii=False, separators=(",", ":")),
@@ -2755,6 +2820,73 @@ class QualificationRunStore:
                 continue
             return attempt_id, candidate
         return None
+
+    def reusable_prewrite_candidate(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        attempt_id: str,
+        question_id: str,
+        stage_id: str,
+        *,
+        input_fingerprint_value: str,
+        projected_input_hash: str,
+    ) -> dict[str, Any] | None:
+        """Reuse a candidate only after a safely closed prewrite contention."""
+
+        if not self.is_question_attempt(attempt_id):
+            return None
+        try:
+            _parent_path, parent, bound_question_id, attempt = (
+                self._question_attempt_context(
+                    qualification,
+                    attempt_id,
+                )
+            )
+        except QualificationRunError:
+            return None
+        rollback = attempt.get("rollback")
+        result = attempt.get("result")
+        batch_results = attempt.get("batchQuestionResults")
+        if (
+            str(parent.get("runId") or "") != parent_run_id
+            or str(attempt.get("parentRunId") or "") != parent_run_id
+            or bound_question_id != question_id
+            or str(attempt.get("questionId") or "") != question_id
+            or str(attempt.get("stageId") or "") != stage_id
+            or attempt.get("canonicalWriteStarted") is not False
+            or attempt.get("candidateTransactionOpen") is True
+            or attempt.get("deltaUnknown") is True
+            or attempt.get("writeAttributionVerified") is not True
+            or not isinstance(rollback, Mapping)
+            or rollback.get("status") != "not_required"
+            or rollback.get("deltaUnknown") is True
+            or rollback.get("remainingChangedFiles")
+            or not isinstance(result, Mapping)
+            or result.get("status") != "succeeded"
+            or not isinstance(batch_results, list)
+            or len(batch_results) != 1
+            or not isinstance(batch_results[0], Mapping)
+            or batch_results[0].get("status") != "failed"
+            or not any(
+                isinstance(command, Mapping)
+                and command.get("command") == "canonical prewrite validation"
+                and command.get("status") == "fail"
+                for command in batch_results[0].get("commands") or []
+            )
+            or not isinstance(attempt.get("preparedCandidate"), Mapping)
+        ):
+            return None
+        try:
+            return _validated_prepared_candidate(
+                attempt["preparedCandidate"],
+                question_id=question_id,
+                stage_id=stage_id,
+                input_fingerprint_value=input_fingerprint_value,
+                projected_input_hash=projected_input_hash,
+            )
+        except QualificationRunError:
+            return None
 
     def create(
         self,
@@ -5844,7 +5976,38 @@ class QualificationRunStore:
                     tracked_roots,
                     backup_root,
                 )
-            except (OSError, WriteTransactionError) as exc:
+                captured_files = write_snapshot_fingerprints(transaction)
+                record_snapshots = {
+                    relative.as_posix(): _record_snapshot(
+                        self.repo_root / relative
+                    )
+                    for relative in sorted(set(record_paths))
+                }
+                source_record_snapshots = {
+                    relative.as_posix(): _record_snapshot(
+                        self.repo_root / relative
+                    )
+                    for relative in sorted(set(source_record_paths))
+                }
+                current_files = _snapshot_roots(
+                    self.repo_root,
+                    tracked_roots,
+                )
+                changed_during_capture = sorted(
+                    path
+                    for path in captured_files.keys() | current_files.keys()
+                    if captured_files.get(path) != current_files.get(path)
+                )
+                if changed_during_capture:
+                    raise WriteTransactionError(
+                        "baseline取得中に対象fileが更新されました: "
+                        + ", ".join(changed_during_capture)
+                    )
+            except (
+                OSError,
+                QualificationRunError,
+                WriteTransactionError,
+            ) as exc:
                 shutil.rmtree(backup_root, ignore_errors=True)
                 raise QualificationRunError(
                     f"書込transactionのbaselineを保存できません: {exc}"
@@ -5855,16 +6018,10 @@ class QualificationRunStore:
                     path.relative_to(self.repo_root).as_posix()
                     for path in tracked_roots
                 ],
-                "files": _snapshot_roots(self.repo_root, tracked_roots),
+                "files": captured_files,
                 "writeTransaction": transaction,
-                "recordSnapshots": {
-                    relative.as_posix(): _record_snapshot(self.repo_root / relative)
-                    for relative in sorted(set(record_paths))
-                },
-                "sourceRecordSnapshots": {
-                    relative.as_posix(): _record_snapshot(self.repo_root / relative)
-                    for relative in sorted(set(source_record_paths))
-                },
+                "recordSnapshots": record_snapshots,
+                "sourceRecordSnapshots": source_record_snapshots,
             }
             baseline_path = manifest_path.parent / "baseline.json"
             self._write_json(baseline_path, payload)
@@ -5938,7 +6095,38 @@ class QualificationRunStore:
                 tracked_roots,
                 backup_root,
             )
-        except (OSError, WriteTransactionError) as exc:
+            captured_files = write_snapshot_fingerprints(transaction)
+            record_snapshots = {
+                relative.as_posix(): _record_snapshot(
+                    self.repo_root / relative
+                )
+                for relative in sorted(set(record_paths))
+            }
+            source_record_snapshots = {
+                relative.as_posix(): _record_snapshot(
+                    self.repo_root / relative
+                )
+                for relative in sorted(set(source_record_paths))
+            }
+            current_files = _snapshot_roots(
+                self.repo_root,
+                tracked_roots,
+            )
+            changed_during_capture = sorted(
+                path
+                for path in captured_files.keys() | current_files.keys()
+                if captured_files.get(path) != current_files.get(path)
+            )
+            if changed_during_capture:
+                raise WriteTransactionError(
+                    "baseline取得中に対象fileが更新されました: "
+                    + ", ".join(changed_during_capture)
+                )
+        except (
+            OSError,
+            QualificationRunError,
+            WriteTransactionError,
+        ) as exc:
             shutil.rmtree(backup_root, ignore_errors=True)
             raise QualificationRunError(
                 f"書込transactionのbaselineを保存できません: {exc}"
@@ -5949,20 +6137,10 @@ class QualificationRunStore:
                 path.relative_to(self.repo_root).as_posix()
                 for path in tracked_roots
             ],
-            "files": _snapshot_roots(self.repo_root, tracked_roots),
+            "files": captured_files,
             "writeTransaction": transaction,
-            "recordSnapshots": {
-                relative.as_posix(): _record_snapshot(
-                    self.repo_root / relative
-                )
-                for relative in sorted(set(record_paths))
-            },
-            "sourceRecordSnapshots": {
-                relative.as_posix(): _record_snapshot(
-                    self.repo_root / relative
-                )
-                for relative in sorted(set(source_record_paths))
-            },
+            "recordSnapshots": record_snapshots,
+            "sourceRecordSnapshots": source_record_snapshots,
         }
         baseline_path = run_dir / "baseline.json"
         self._write_json(baseline_path, payload)
@@ -6372,15 +6550,32 @@ class QualificationRunStore:
                     or attempt.get("candidateTransactionOpen") is not True
                 ):
                     continue
-                rollback = self.rollback_baseline(
-                    qualification,
-                    str(attempt_id),
-                )
+                if attempt.get("canonicalWriteStarted") is False:
+                    observed_delta = self.baseline_delta(
+                        qualification,
+                        str(attempt_id),
+                    )
+                    rollback = self.close_unwritten_baseline(
+                        qualification,
+                        str(attempt_id),
+                        observed_changed_files=observed_delta or [],
+                    )
+                else:
+                    rollback = self.rollback_baseline(
+                        qualification,
+                        str(attempt_id),
+                    )
                 rollback_safe = bool(
                     isinstance(rollback, Mapping)
-                    and rollback.get("status") == "succeeded"
                     and rollback.get("deltaUnknown") is not True
                     and not rollback.get("remainingChangedFiles")
+                    and (
+                        rollback.get("status") == "succeeded"
+                        or (
+                            rollback.get("status") == "not_required"
+                            and attempt.get("canonicalWriteStarted") is False
+                        )
+                    )
                 )
                 if not rollback_safe:
                     unsafe_attempt_id = str(attempt_id)
@@ -6974,6 +7169,73 @@ class QualificationRunStore:
             manifest["updatedAt"] = _now()
             self._write_manifest(manifest_path, manifest)
             return copy.deepcopy(rollback)
+
+    def baseline_delta(
+        self,
+        qualification: str,
+        run_id: str,
+    ) -> list[str] | None:
+        """Return the current delta from the captured one-question boundary."""
+
+        if self.is_question_attempt(run_id):
+            manifest = self.get(qualification, run_id)
+            manifest_path = (
+                self.run_directory(qualification, run_id)
+                / "manifest.json"
+            )
+            return self._recover_baseline_delta(
+                manifest_path,
+                manifest,
+            )
+        manifest_path = self._manifest_path(qualification, run_id)
+        with self._path_lock(manifest_path):
+            manifest = self._load_manifest(manifest_path)
+            return self._recover_baseline_delta(
+                manifest_path,
+                manifest,
+            )
+
+    def close_unwritten_baseline(
+        self,
+        qualification: str,
+        run_id: str,
+        *,
+        observed_changed_files: list[str] | tuple[str, ...] = (),
+    ) -> dict[str, Any]:
+        """Close a baseline without restoring when no canonical write began."""
+
+        if not self.is_question_attempt(run_id):
+            raise QualificationRunError(
+                "未書込みbaselineの終了は一問attemptに限定します。"
+            )
+        current = self.get(qualification, run_id)
+        if current.get("canonicalWriteStarted") is not False:
+            raise QualificationRunError(
+                "正本書込み開始後のbaselineは復元せずに終了できません。"
+            )
+        rollback = {
+            "status": "not_required",
+            "restoredFiles": [],
+            "remainingChangedFiles": [],
+            "externalChangedFiles": sorted(
+                {str(value) for value in observed_changed_files if value}
+            ),
+            "deltaUnknown": False,
+            "message": (
+                "正本書込み前に停止したためrollbackは不要です。"
+            ),
+        }
+        self._update_question_attempt(
+            qualification,
+            run_id,
+            {
+                "rollback": rollback,
+                "deltaUnknown": False,
+                "candidateTransactionOpen": False,
+            },
+        )
+        self.discard_baseline_backups(qualification, run_id)
+        return copy.deepcopy(rollback)
 
     def discard_baseline_backups(
         self,
@@ -11133,7 +11395,48 @@ class QualificationRunCoordinator:
                 or ""
             )
             reused_from_attempt_id = ""
-            if parent.get("resumedFrom"):
+            reused_reason = ""
+            validation_attempts = [
+                dict(value)
+                for value in queue_stage.get("validationAttempts") or []
+                if isinstance(value, Mapping)
+            ]
+            latest_attempt = (
+                validation_attempts[-1] if validation_attempts else {}
+            )
+            latest_feedback = latest_attempt.get("feedback")
+            latest_issue_codes = {
+                str(issue.get("code") or "")
+                for issue in (
+                    latest_feedback.get("issues") or []
+                    if isinstance(latest_feedback, Mapping)
+                    else []
+                )
+                if isinstance(issue, Mapping)
+            }
+            prior_attempt_id = str(
+                latest_attempt.get("childRunId") or ""
+            )
+            reusable_candidate = (
+                self.store.reusable_prewrite_candidate(
+                    qualification,
+                    run_id,
+                    prior_attempt_id,
+                    batch_question_ids[0],
+                    stage_id,
+                    input_fingerprint_value=input_fingerprint_value,
+                    projected_input_hash=projected_input_hash,
+                )
+                if (
+                    prior_attempt_id
+                    and "canonical_contention" in latest_issue_codes
+                )
+                else None
+            )
+            if reusable_candidate is not None:
+                reused_from_attempt_id = prior_attempt_id
+                reused_reason = "canonical_prewrite_contention"
+            elif parent.get("resumedFrom"):
                 reusable = self.store.reusable_prepared_candidate(
                     qualification,
                     str(parent["resumedFrom"]),
@@ -11144,19 +11447,27 @@ class QualificationRunCoordinator:
                 )
                 if reusable is not None:
                     reused_from_attempt_id, reusable_candidate = reusable
-                    self.store.persist_prepared_candidate(
-                        qualification,
-                        child_id,
-                        reusable_candidate,
-                    )
-                    self.store.update(
-                        qualification,
-                        child_id,
-                        preparedCandidateReusedFromAttemptId=(
-                            reused_from_attempt_id
-                        ),
-                    )
-            if retrying:
+                    reused_reason = "interrupted_before_patch_apply"
+            if reused_from_attempt_id:
+                self.store.persist_prepared_candidate(
+                    qualification,
+                    child_id,
+                    reusable_candidate,
+                )
+                self.store.update(
+                    qualification,
+                    child_id,
+                    preparedCandidateReusedFromAttemptId=(
+                        reused_from_attempt_id
+                    ),
+                    preparedCandidateReusedReason=reused_reason,
+                )
+            if reused_from_attempt_id:
+                emit(
+                    f"{stage_id}: 入力が一致する検証済み候補を再利用し、"
+                    "modelを呼ばずpatch toolだけを再試行します。"
+                )
+            elif retrying:
                 emit(
                     f"{stage_id}: 失敗済み{len(targets)}問だけを"
                     f"{QUESTION_MAINTENANCE_RETRY_MODEL} / 推論 "
@@ -13181,6 +13492,7 @@ class QualificationRunCoordinator:
         result = None
         aggregate_consensus: dict[str, dict[str, Any]] = {}
         aggregate_review_pairs: dict[str, list[dict[str, Any]]] = {}
+        aggregate_review_adjudications: dict[str, dict[str, Any]] = {}
         aggregate_source_records: dict[str, Mapping[str, Any]] = {}
         prepared_execution_metadata: dict[str, Any] = {}
         prepared_content: dict[str, Any] | None = None
@@ -13632,11 +13944,209 @@ class QualificationRunCoordinator:
                         parent_run_id,
                         consensus_values,
                     )
+                adjudication_ids = [
+                    question_id
+                    for question_id in question_ids
+                    if aggregate_consensus.get(question_id, {}).get("issueCodes")
+                    == ["review_disagreement"]
+                ]
+                if adjudication_ids:
+                    adjudication_targets = [
+                        target
+                        for target in raw_targets
+                        if str(
+                            target.get("id") or target.get("uiQuestionId") or ""
+                        )
+                        in adjudication_ids
+                    ]
+                    adjudication_prompt = _aggregate_answer_adjudication_prompt(
+                        adjudication_targets,
+                        aggregate_source_records,
+                        candidate_sets_by_question,
+                        {
+                            question_id: aggregate_review_pairs[question_id]
+                            for question_id in adjudication_ids
+                        },
+                    )
+                    adjudication_threads: list[str] = []
+
+                    def on_adjudication_thread_started(
+                        thread_id: str,
+                        session_id: str,
+                    ) -> None:
+                        adjudication_threads.append(thread_id)
+                        self.store.update(
+                            qualification,
+                            run_id,
+                            aggregateReviewAdjudicationThreadId=thread_id,
+                            aggregateReviewAdjudicationSessionId=session_id,
+                        )
+
+                    def on_adjudication_turn_started(
+                        thread_id: str,
+                        turn_id: str,
+                    ) -> None:
+                        self.store.update(
+                            qualification,
+                            run_id,
+                            aggregateReviewAdjudicationThreadId=thread_id,
+                            aggregateReviewAdjudicationTurnId=turn_id,
+                        )
+
+                    adjudication_result = self.app_server.run_turn(
+                        adjudication_prompt,
+                        work_type=(
+                            f"maintenance_{stage_id}_aggregate_review_"
+                            "3_adjudication"
+                        ),
+                        sandbox="read-only",
+                        emit=emit,
+                        output_schema=aggregate_answer_review_schema(
+                            adjudication_ids,
+                            {
+                                question_id: [
+                                    str(candidate.get("candidateId") or "")
+                                    for candidate in candidate_sets_by_question[
+                                        question_id
+                                    ].get("candidates")
+                                    or []
+                                    if isinstance(candidate, Mapping)
+                                    and candidate.get("candidateId")
+                                ]
+                                for question_id in adjudication_ids
+                            },
+                            {
+                                question_id: str(
+                                    signatures[question_id]["sourceHash"]
+                                )
+                                for question_id in adjudication_ids
+                            },
+                        ),
+                        on_thread_started=on_adjudication_thread_started,
+                        on_turn_started=on_adjudication_turn_started,
+                        on_model_turn_event=model_turn_callback(
+                            (
+                                f"maintenance_{stage_id}_aggregate_review_"
+                                "3_adjudication"
+                            )
+                        ),
+                        heartbeat=heartbeat,
+                        cwd=self.repo_root,
+                        model=review_model,
+                        reasoning_effort=review_effort,
+                        speed_mode=speed_mode,
+                        turn_group=qualification,
+                        monitor_context=self._monitor_context(
+                            qualification,
+                            run_id,
+                            parent_run_id=parent_run_id,
+                            question_ids=adjudication_ids,
+                            work_item_keys=batch_work_item_keys,
+                            list_group_ids=batch_list_group_ids,
+                            stage_id=stage_id,
+                            work_type=(
+                                f"maintenance_{stage_id}_aggregate_review_"
+                                "3_adjudication"
+                            ),
+                            phase="review_adjudication",
+                        ),
+                    )
+                    if adjudication_result.changed_files:
+                        raise QualificationRunError(
+                            "read-only集約回答裁定でfile変更通知を検出しました。"
+                        )
+                    if len(adjudication_threads) != 1:
+                        raise QualificationRunError(
+                            "集約回答裁定threadを一意に確認できませんでした。"
+                        )
+                    parsed_adjudications = parse_aggregate_answer_reviews(
+                        adjudication_result.final_message,
+                        adjudication_ids,
+                        {
+                            question_id: [
+                                str(candidate.get("candidateId") or "")
+                                for candidate in candidate_sets_by_question[
+                                    question_id
+                                ].get("candidates")
+                                or []
+                                if isinstance(candidate, Mapping)
+                                and candidate.get("candidateId")
+                            ]
+                            for question_id in adjudication_ids
+                        },
+                    )
+                    for question_id in adjudication_ids:
+                        adjudication = parsed_adjudications[question_id]
+                        execution = {
+                            "reviewNumber": 3,
+                            "role": "adjudication",
+                            "threadId": adjudication_result.thread_id,
+                            "sessionId": adjudication_result.session_id,
+                            "turnId": adjudication_result.turn_id,
+                            "model": adjudication_result.model,
+                            "reasoningEffort": (
+                                adjudication_result.reasoning_effort
+                            ),
+                            "promptContractVersion": (
+                                AGGREGATE_ADJUDICATION_PROMPT_CONTRACT_VERSION
+                            ),
+                        }
+                        prior_thread_ids = {
+                            str(value.get("threadId") or "")
+                            for value in executions_by_question[question_id]
+                        }
+                        if (
+                            not execution["threadId"]
+                            or execution["threadId"] in prior_thread_ids
+                        ):
+                            source_text = str(
+                                aggregate_source_records[question_id].get(
+                                    "questionBodyText"
+                                )
+                                or ""
+                            )
+                            aggregate_consensus[question_id] = {
+                                "schemaVersion": (
+                                    "aggregate-answer-decomposition/v1"
+                                ),
+                                "sourceHash": source_text_hash(source_text),
+                                "classification": "hold",
+                                "spans": [],
+                                "decision": "hold",
+                                "issueCodes": ["invalid_review"],
+                            }
+                        else:
+                            aggregate_review_pairs[question_id] = [
+                                copy.deepcopy(adjudication),
+                                copy.deepcopy(adjudication),
+                            ]
+                            aggregate_consensus[question_id] = reconcile_reviews(
+                                str(
+                                    aggregate_source_records[question_id].get(
+                                        "questionBodyText"
+                                    )
+                                    or ""
+                                ),
+                                aggregate_review_pairs[question_id],
+                                candidate_sets_by_question[question_id],
+                            )
+                        aggregate_review_adjudications[question_id] = {
+                            "review": copy.deepcopy(adjudication),
+                            "execution": copy.deepcopy(execution),
+                        }
+                review_receipts = [
+                    execution
+                    for question_id in question_ids
+                    for execution in executions_by_question[question_id]
+                ]
+                review_receipts.extend(
+                    value["execution"]
+                    for value in aggregate_review_adjudications.values()
+                )
                 all_review_receipts = list(
                     {
                         str(value.get("threadId") or ""): value
-                        for question_id in question_ids
-                        for value in executions_by_question[question_id]
+                        for value in review_receipts
                         if value.get("threadId")
                     }.values()
                 )
@@ -13657,14 +14167,31 @@ class QualificationRunCoordinator:
                     aggregateReviewReusedCount=len(reused_question_ids),
                     aggregateReviewReused=(
                         len(reused_question_ids) == len(question_ids)
+                        and not aggregate_review_adjudications
+                    ),
+                    aggregateReviewAdjudications=copy.deepcopy(
+                        aggregate_review_adjudications
+                    ),
+                    aggregateReviewAdjudicatedQuestionIds=sorted(
+                        aggregate_review_adjudications
+                    ),
+                    aggregateReviewAdjudicatedCount=len(
+                        aggregate_review_adjudications
                     ),
                     aggregateReviewPromptContractVersion=(
                         AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION
+                    ),
+                    aggregateReviewAdjudicationPromptContractVersion=(
+                        AGGREGATE_ADJUDICATION_PROMPT_CONTRACT_VERSION
                     ),
                 )
             if prepared_content is not None:
                 raw_consensus = prepared_content.get("aggregateConsensus")
                 raw_pairs = prepared_content.get("aggregateReviewPairs")
+                raw_adjudications = prepared_content.get(
+                    "aggregateReviewAdjudications",
+                    {},
+                )
                 raw_source_records = prepared_content.get(
                     "aggregateSourceRecords"
                 )
@@ -13677,6 +14204,7 @@ class QualificationRunCoordinator:
                 if (
                     not isinstance(raw_consensus, Mapping)
                     or not isinstance(raw_pairs, Mapping)
+                    or not isinstance(raw_adjudications, Mapping)
                     or not isinstance(raw_source_records, Mapping)
                     or not isinstance(raw_prepared_source_records, Mapping)
                     or not isinstance(raw_invalid_ids, list)
@@ -13699,6 +14227,11 @@ class QualificationRunCoordinator:
                     ]
                     for key, value in raw_pairs.items()
                     if isinstance(value, list)
+                }
+                aggregate_review_adjudications = {
+                    str(key): copy.deepcopy(dict(value))
+                    for key, value in raw_adjudications.items()
+                    if isinstance(value, Mapping)
                 }
                 aggregate_source_records = {
                     str(key): copy.deepcopy(dict(value))
@@ -13843,6 +14376,9 @@ class QualificationRunCoordinator:
                         "aggregateReviewPairs": copy.deepcopy(
                             aggregate_review_pairs
                         ),
+                        "aggregateReviewAdjudications": copy.deepcopy(
+                            aggregate_review_adjudications
+                        ),
                         "aggregateSourceRecords": copy.deepcopy(
                             aggregate_source_records
                         ),
@@ -13968,9 +14504,21 @@ class QualificationRunCoordinator:
                             "sourceHash": consensus["sourceHash"],
                             "issueCodes": list(consensus["issueCodes"]),
                             "decomposition": copy.deepcopy(consensus),
+                            "adjudicated": (
+                                question_id
+                                in aggregate_review_adjudications
+                            ),
                         },
                         "commands": [
-                            {"command": "dual aggregate review", "status": "fail"}
+                            {
+                                "command": (
+                                    "aggregate review adjudication"
+                                    if question_id
+                                    in aggregate_review_adjudications
+                                    else "dual aggregate review"
+                                ),
+                                "status": "fail",
+                            }
                         ],
                         "changedFiles": [],
                     }
@@ -13998,6 +14546,9 @@ class QualificationRunCoordinator:
                         "sourceHash": consensus["sourceHash"],
                         "issueCodes": list(consensus["issueCodes"]),
                         "decomposition": copy.deepcopy(consensus),
+                        "adjudicated": (
+                            question_id in aggregate_review_adjudications
+                        ),
                     }
                     if consensus is not None
                     else None
@@ -14018,7 +14569,15 @@ class QualificationRunCoordinator:
                 )
                 if consensus is not None:
                     commands.append(
-                        {"command": "dual aggregate review", "status": "pass"}
+                        {
+                            "command": (
+                                "aggregate review adjudication"
+                                if question_id
+                                in aggregate_review_adjudications
+                                else "dual aggregate review"
+                            ),
+                            "status": "pass",
+                        }
                     )
                     if (
                         consensus["decision"] == "hold"
@@ -14136,6 +14695,7 @@ class QualificationRunCoordinator:
                 committed_for_question: set[str] = set()
                 rollback: Mapping[str, Any] | None = None
                 baseline_captured = False
+                canonical_write_started = False
                 try:
                     scopes = question_plan.get("targetRecordScopes") or {}
                     effective_updates = (
@@ -14389,6 +14949,7 @@ class QualificationRunCoordinator:
                                 qualification,
                                 run_id,
                                 candidateTransactionOpen=True,
+                                canonicalWriteStarted=False,
                             )
                             baseline_payload = json.loads(
                                 baseline_path.read_text(encoding="utf-8")
@@ -14416,6 +14977,30 @@ class QualificationRunCoordinator:
                             commands.append(
                                 {"command": "record scope", "status": "pass"}
                             )
+                            prewrite_delta = self.store.baseline_delta(
+                                qualification,
+                                run_id,
+                            )
+                            if prewrite_delta is None:
+                                raise QualificationRunError(
+                                    "正本書込み前にbaselineを再検証できません。"
+                                )
+                            if prewrite_delta:
+                                raise QualificationRunError(
+                                    "正本書込み前に対象fileが更新されました: "
+                                    + ", ".join(prewrite_delta)
+                                )
+                            patch_write_required = bool(
+                                prepared_patch is not None
+                                and prepared_patch.changed_files
+                            )
+                            if patch_write_required or record_work_version:
+                                canonical_write_started = True
+                                self.store.update(
+                                    qualification,
+                                    run_id,
+                                    canonicalWriteStarted=True,
+                                )
                             if prepared_patch is not None:
                                 committed_for_question.update(
                                     prepared_patch.commit()
@@ -14467,17 +15052,39 @@ class QualificationRunCoordinator:
                         committed_for_question.update(exc.committed_files)
                         committed_files.update(exc.committed_files)
                         if baseline_captured:
-                            rollback = self.store.rollback_baseline(
-                                qualification,
-                                run_id,
+                            rollback = (
+                                self.store.rollback_baseline(
+                                    qualification,
+                                    run_id,
+                                )
+                                if canonical_write_started
+                                else self.store.close_unwritten_baseline(
+                                    qualification,
+                                    run_id,
+                                )
                             )
                         raise
                     except Exception:
                         if baseline_captured:
-                            rollback = self.store.rollback_baseline(
-                                qualification,
-                                run_id,
-                            )
+                            if canonical_write_started:
+                                rollback = self.store.rollback_baseline(
+                                    qualification,
+                                    run_id,
+                                )
+                            else:
+                                observed_delta = self.store.baseline_delta(
+                                    qualification,
+                                    run_id,
+                                )
+                                rollback = (
+                                    self.store.close_unwritten_baseline(
+                                        qualification,
+                                        run_id,
+                                        observed_changed_files=(
+                                            observed_delta or []
+                                        ),
+                                    )
+                                )
                         raise
 
                     inventory = getattr(self.workflow, "inventory", None)
@@ -14494,7 +15101,6 @@ class QualificationRunCoordinator:
                                 # and work-version success remain authoritative.
                                 pass
                 except CanonicalPatchCommitError as exc:
-                    pipeline_stop.set()
                     rollback_safe = bool(
                         isinstance(rollback, Mapping)
                         and rollback.get("status") == "succeeded"
@@ -14506,6 +15112,8 @@ class QualificationRunCoordinator:
                             committed_for_question
                         )
                         committed_for_question.clear()
+                    else:
+                        pipeline_stop.set()
                     raise QualificationRunError(
                         "検証済みpatchのatomic反映を完了できません: "
                         + ", ".join(exc.pending_files)
@@ -14520,9 +15128,15 @@ class QualificationRunCoordinator:
                         not baseline_captured
                         or bool(
                             isinstance(rollback, Mapping)
-                            and rollback.get("status") == "succeeded"
                             and rollback.get("deltaUnknown") is not True
                             and not rollback.get("remainingChangedFiles")
+                            and (
+                                rollback.get("status") == "succeeded"
+                                or (
+                                    rollback.get("status") == "not_required"
+                                    and not canonical_write_started
+                                )
+                            )
                         )
                     )
                     if rollback_safe:
@@ -14530,7 +15144,7 @@ class QualificationRunCoordinator:
                             committed_for_question
                         )
                         committed_for_question.clear()
-                    if baseline_captured and not rollback_safe:
+                    if canonical_write_started and not rollback_safe:
                         pipeline_stop.set()
                         raise QualificationRunError(
                             "一問transactionに失敗し、開始前の内容へ"
@@ -14546,8 +15160,13 @@ class QualificationRunCoordinator:
                                 *commands,
                                 {
                                     # Stable machine code retained for existing
-                                    # validation-feedback readers.
-                                    "command": "server commit",
+                                    # post-write validation failures.  A
+                                    # pre-write contention remains retryable.
+                                    "command": (
+                                        "server commit"
+                                        if canonical_write_started
+                                        else "canonical prewrite validation"
+                                    ),
                                     "status": "fail",
                                 },
                             ],
@@ -14627,9 +15246,36 @@ class QualificationRunCoordinator:
                     if aggregate_review_enabled
                     else {}
                 ),
+                **(
+                    {
+                        "aggregateReviewAdjudicationPromptContractVersion": (
+                            AGGREGATE_ADJUDICATION_PROMPT_CONTRACT_VERSION
+                        ),
+                        "aggregateReviewAdjudicatedQuestionIds": sorted(
+                            aggregate_review_adjudications
+                        ),
+                    }
+                    if aggregate_review_adjudications
+                    else {}
+                ),
             }
             execution_metadata = copy.deepcopy(
                 prepared_execution_metadata
+            )
+            persisted_attempt = self.store.get(qualification, run_id)
+            persisted_rollback = persisted_attempt.get("rollback")
+            final_rollback = (
+                copy.deepcopy(dict(persisted_rollback))
+                if isinstance(persisted_rollback, Mapping)
+                and str(persisted_rollback.get("status") or "")
+                in {"succeeded", "failed", "not_required"}
+                else {
+                    "status": "not_required",
+                    "restoredFiles": [],
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": False,
+                    "message": "問題別checkpointを保存しました。",
+                }
             )
             self.store.update(
                 qualification,
@@ -14645,13 +15291,7 @@ class QualificationRunCoordinator:
                 writeAttributionVerified=True,
                 unsafeNotifiedChangedFiles=[],
                 unsafeChangedFiles=[],
-                rollback={
-                    "status": "not_required",
-                    "restoredFiles": [],
-                    "remainingChangedFiles": [],
-                    "deltaUnknown": False,
-                    "message": "問題別checkpointを保存しました。",
-                },
+                rollback=final_rollback,
                 deltaUnknown=False,
                 error=None,
             )
@@ -14673,13 +15313,7 @@ class QualificationRunCoordinator:
                 writeAttributionVerified=True,
                 unsafeNotifiedChangedFiles=[],
                 unsafeChangedFiles=[],
-                rollback={
-                    "status": "not_required",
-                    "restoredFiles": [],
-                    "remainingChangedFiles": [],
-                    "deltaUnknown": False,
-                    "message": "候補を問題別に検査し、合格recordだけを反映しました。",
-                },
+                rollback=final_rollback,
                 deltaUnknown=False,
                 result=aggregate_receipt,
                 artifactSync={
@@ -14710,26 +15344,53 @@ class QualificationRunCoordinator:
                 },
             )
             self.store.refresh(qualification, run_id)
+            failed_child = self.store.get(qualification, run_id)
+            canonical_write_started = (
+                failed_child.get("canonicalWriteStarted") is True
+            )
+            recorded_rollback = failed_child.get("rollback")
+            if not isinstance(recorded_rollback, Mapping) or str(
+                recorded_rollback.get("status") or ""
+            ) not in {"succeeded", "failed", "not_required"}:
+                recorded_rollback = {
+                    "status": (
+                        "failed"
+                        if canonical_write_started
+                        else "not_required"
+                    ),
+                    "restoredFiles": [],
+                    "remainingChangedFiles": [],
+                    "deltaUnknown": canonical_write_started,
+                    "message": (
+                        "正本書込み後の回復結果を確認できません。"
+                        if canonical_write_started
+                        else "正本書込み前に停止したためrollbackは不要です。"
+                    ),
+                }
+            rollback_safe = bool(
+                recorded_rollback.get("deltaUnknown") is not True
+                and not recorded_rollback.get("remainingChangedFiles")
+                and (
+                    recorded_rollback.get("status") == "succeeded"
+                    or (
+                        recorded_rollback.get("status") == "not_required"
+                        and not canonical_write_started
+                    )
+                )
+            )
             self.store.update(
                 qualification,
                 run_id,
                 status="failed",
                 receiptValidated=False,
                 candidateTransactionOpen=False,
-                rollback={
-                    "status": "not_required",
-                    "restoredFiles": [],
-                    "remainingChangedFiles": [],
-                    "deltaUnknown": False,
-                    "message": (
-                        "正本は書込み前検証方式のためrollbackせず、"
-                        "親runの公開を停止しました。"
-                    ),
-                },
-                deltaUnknown=False,
-                writeAttributionVerified=True,
+                rollback=dict(recorded_rollback),
+                deltaUnknown=not rollback_safe,
+                writeAttributionVerified=rollback_safe,
                 unsafeNotifiedChangedFiles=[],
-                unsafeChangedFiles=[],
+                unsafeChangedFiles=list(
+                    recorded_rollback.get("remainingChangedFiles") or []
+                ),
                 error=str(exc),
                 finishedAt=_now(),
             )

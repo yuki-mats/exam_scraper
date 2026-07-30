@@ -1,3 +1,4 @@
+import hashlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -6,10 +7,34 @@ from tools.question_review_console.write_transaction import (
     WriteTransactionError,
     capture_write_snapshot,
     restore_write_snapshot,
+    write_snapshot_fingerprints,
 )
 
 
 class WriteTransactionTests(unittest.TestCase):
+    def test_snapshot_fingerprints_come_from_the_same_captured_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / "output/sample/patch.json"
+            target.parent.mkdir(parents=True)
+            target.write_text("before\n", encoding="utf-8")
+            backup = root / "run/baseline_files"
+            backup.parent.mkdir(parents=True)
+
+            snapshot = capture_write_snapshot(root, [target], backup)
+            fingerprints = write_snapshot_fingerprints(snapshot)
+            entry = snapshot["entries"][
+                target.relative_to(root).as_posix()
+            ]
+            captured = (
+                backup / str(entry["backupFile"])
+            ).read_bytes()
+
+        self.assertEqual(
+            fingerprints[target.relative_to(root).as_posix()],
+            "sha256:" + hashlib.sha256(captured).hexdigest(),
+        )
+
     def test_restore_recovers_modified_deleted_and_created_paths(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

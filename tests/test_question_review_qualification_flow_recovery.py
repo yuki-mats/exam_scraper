@@ -1779,6 +1779,67 @@ class QualificationFlowRecoveryTests(QualificationRunTestSupport):
         self.assertEqual(restored_content, "before\n")
         self.assertFalse(created_exists)
 
+    def test_baseline_capture_rejects_a_file_changed_between_snapshot_reads(self):
+        from tools.question_review_console.qualification_runs import (
+            _record_snapshot,
+        )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            relative = Path(
+                "output/sample/questions_json/2026/"
+                "21_explanationText_added/patch.json"
+            )
+            target = root / relative
+            target.parent.mkdir(parents=True)
+            target.write_text(
+                json.dumps([{"originalQuestionId": "q1"}]),
+                encoding="utf-8",
+            )
+            store = QualificationRunStore(root)
+            plan = FakeWorkflow().plan("sample", "law_audit", "remaining")
+            plan.update(
+                allowedPatchFiles=[relative.as_posix()],
+                sourceFiles=[],
+            )
+            run = store.create(plan, status="running", prompt="work")
+            changed = False
+
+            def snapshot_then_change(path):
+                nonlocal changed
+                result = _record_snapshot(path)
+                if path.resolve() == target.resolve() and not changed:
+                    target.write_text(
+                        json.dumps(
+                            [{"originalQuestionId": "q1", "external": True}]
+                        ),
+                        encoding="utf-8",
+                    )
+                    changed = True
+                return result
+
+            with patch(
+                "tools.question_review_console.qualification_runs."
+                "_record_snapshot",
+                side_effect=snapshot_then_change,
+            ), self.assertRaisesRegex(
+                QualificationRunError,
+                "baseline取得中に対象fileが更新されました",
+            ):
+                store.write_baseline(
+                    "sample",
+                    run["runId"],
+                    (target,),
+                )
+
+            backup_exists = (
+                store.run_directory("sample", run["runId"])
+                / "baseline_files"
+            ).exists()
+
+        self.assertTrue(changed)
+        self.assertFalse(backup_exists)
+
     def test_rollback_marks_delta_unknown_when_restore_and_resnapshot_fail(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

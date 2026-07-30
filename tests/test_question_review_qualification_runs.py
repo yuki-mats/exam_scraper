@@ -4602,6 +4602,146 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             "aggregate_review_hold",
         )
 
+    def test_review_disagreement_is_adjudicated_once_and_can_be_accepted(self):
+        question_id = "new-exam-2026-q1"
+        source_text = "A　最初の記述。\nB　次の記述。"
+        app_server = PerQuestionQueueAppServer(
+            aggregate_review_overrides={
+                (question_id, 1): {
+                    "classification": "target",
+                    "decision": "approve",
+                },
+                (question_id, 2): {
+                    "classification": "non_target",
+                    "decision": "approve",
+                },
+                (question_id, 3): {
+                    "classification": "non_target",
+                    "decision": "approve",
+                },
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(
+                root,
+                1,
+                question_body_text=source_text,
+            )
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            child = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )[0]
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(len(app_server.aggregate_review_calls), 3)
+        self.assertEqual(
+            [
+                kwargs["work_type"]
+                for _question_id, _prompt, kwargs
+                in app_server.aggregate_review_calls
+            ],
+            [
+                "maintenance_question_type_aggregate_review_1_candidate",
+                "maintenance_question_type_aggregate_review_2_candidate",
+                "maintenance_question_type_aggregate_review_3_adjudication",
+            ],
+        )
+        checkpoint = completed["aggregateReviewCheckpoints"][question_id]
+        self.assertEqual(
+            checkpoint["consensus"]["issueCodes"],
+            ["review_disagreement"],
+        )
+        self.assertEqual(child["aggregateReviewAdjudicatedCount"], 1)
+        self.assertEqual(
+            child["aggregateReviewAdjudicatedQuestionIds"],
+            [question_id],
+        )
+        self.assertEqual(len(child["aggregateReviewExecutions"]), 3)
+        self.assertEqual(
+            child["aggregateReviewExecutions"][-1]["role"],
+            "adjudication",
+        )
+        question_result = child["batchQuestionResults"][0]
+        self.assertEqual(question_result["status"], "succeeded")
+        self.assertEqual(
+            question_result["aggregateAnswerReview"]["classification"],
+            "non_target",
+        )
+        self.assertEqual(
+            question_result["aggregateAnswerReview"]["decision"],
+            "approve",
+        )
+        self.assertTrue(
+            question_result["aggregateAnswerReview"]["adjudicated"]
+        )
+
+    def test_adjudication_hold_is_the_only_terminal_disagreement_hold(self):
+        question_id = "new-exam-2026-q1"
+        app_server = PerQuestionQueueAppServer(
+            aggregate_review_overrides={
+                (question_id, 1): {
+                    "classification": "target",
+                    "decision": "approve",
+                },
+                (question_id, 2): {
+                    "classification": "non_target",
+                    "decision": "approve",
+                },
+                (question_id, 3): {
+                    "classification": "hold",
+                    "decision": "hold",
+                    "issueCodes": ["ambiguous_target"],
+                },
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(
+                root,
+                1,
+                question_body_text="A　最初の記述。\nB　次の記述。",
+            )
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(len(app_server.aggregate_review_calls), 3)
+        attempts = completed["questionExecutions"][0]["stages"][0][
+            "validationAttempts"
+        ]
+        self.assertEqual(len(attempts), 1)
+        self.assertEqual(attempts[0]["status"], "blocked")
+        self.assertEqual(
+            attempts[0]["feedback"]["issues"][0]["code"],
+            "aggregate_review_hold",
+        )
+
     def test_parallel_batches_preserve_all_review_checkpoints_and_never_exceed_two_reviews(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -6377,8 +6517,98 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             children[0]["batchQuestionResults"][0]["changedFiles"],
             [],
         )
+        self.assertEqual(
+            children[0]["rollback"]["status"],
+            "succeeded",
+        )
+        self.assertTrue(children[0]["canonicalWriteStarted"])
+        self.assertTrue(children[0]["writeAttributionVerified"])
         self.assertFalse(patch_exists)
         self.assertFalse(work_version_exists)
+
+    def test_successful_rollback_does_not_stop_the_next_question(self):
+        patch_relative = (
+            "output/new-exam/questions_json/2026/10_questionType_fixed/"
+            "question_2026_1_questionType_fixed.json"
+        )
+        failed_question_id = "new-exam-2026-q1"
+        app_server = PerQuestionQueueAppServer(
+            changed_files_by_work_item={
+                (failed_question_id, "question_type"): [patch_relative]
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=app_server,
+                question_concurrency=1,
+            )
+            self._write_counted_sources(root, 2)
+            original_update = coordinator.store.update
+            failed_checkpoints = 0
+
+            def fail_first_success_checkpoint(qualification, run_id, **changes):
+                nonlocal failed_checkpoints
+                results = changes.get("batchQuestionResults") or []
+                if (
+                    failed_checkpoints == 0
+                    and changes.get("executionPhase")
+                    == "server_candidate_checkpoint"
+                    and results
+                    and results[-1].get("status") == "succeeded"
+                ):
+                    failed_checkpoints += 1
+                    raise OSError("checkpoint unavailable")
+                return original_update(qualification, run_id, **changes)
+
+            with patch.object(
+                coordinator.store,
+                "update",
+                side_effect=fail_first_success_checkpoint,
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            children = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )
+            failed_patch_exists = (root / patch_relative).exists()
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(failed_checkpoints, 1)
+        self.assertEqual(len(app_server.batch_calls), 2)
+        self.assertEqual(completed["validatedQuestionCount"], 1)
+        self.assertEqual(completed["blockedQuestionCount"], 1)
+        failed_child = next(
+            child
+            for child in children
+            if child.get("rollback", {}).get("status") == "succeeded"
+        )
+        succeeded_child = next(
+            child
+            for child in children
+            if any(
+                value.get("status") == "succeeded"
+                for value in child.get("batchQuestionResults") or []
+            )
+        )
+        self.assertEqual(
+            failed_child["progressTargets"][0]["id"],
+            failed_question_id,
+        )
+        self.assertEqual(
+            succeeded_child["progressTargets"][0]["id"],
+            "new-exam-2026-q2",
+        )
+        self.assertFalse(failed_patch_exists)
 
     def test_validation_failure_never_writes_and_closes_transaction(self):
         patch_relative = (
@@ -6431,29 +6661,109 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 "new-exam",
                 completed,
             )
+            failed_child = next(
+                child
+                for child in children
+                if any(
+                    value.get("status") == "failed"
+                    for value in child.get("batchQuestionResults") or []
+                )
+            )
             patch_exists = (root / patch_relative).exists()
 
-        self.assertEqual(result["queueStatus"], "partial")
-        self.assertEqual(validation_calls, 1)
-        self.assertEqual(rollback.call_count, 1)
-        self.assertEqual(len(app_server.batch_calls), 1)
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(validation_calls, 2)
+        self.assertEqual(rollback.call_count, 0)
+        self.assertEqual(len(app_server.batch_calls), 2)
         self.assertEqual(
-            [
-                value["summary"]
-                for child in children
-                for value in child["batchQuestionResults"]
-            ],
-            ["record scope unavailable"],
+            failed_child["batchQuestionResults"][0]["summary"],
+            "record scope unavailable",
         )
         feedback = completed["questionExecutions"][0]["stages"][0][
             "validationAttempts"
         ][0]["feedback"]
-        self.assertEqual(feedback["status"], "blocked")
+        self.assertEqual(feedback["status"], "retryable")
         self.assertIn(
-            "server_validation",
+            "machine_validation",
             [issue["code"] for issue in feedback["issues"]],
         )
-        self.assertFalse(patch_exists)
+        self.assertEqual(
+            failed_child["rollback"]["status"],
+            "not_required",
+        )
+        self.assertFalse(failed_child["canonicalWriteStarted"])
+        self.assertTrue(patch_exists)
+
+    def test_prewrite_contention_retries_one_question_without_stopping_siblings(
+        self,
+    ):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoQuestionSourceInventory(),
+                ["question_type"],
+                app_server=app_server,
+                question_concurrency=5,
+            )
+            original_delta = coordinator.store.baseline_delta
+            call_count = 0
+            call_lock = threading.Lock()
+
+            def one_transient_contention(qualification, run_id):
+                nonlocal call_count
+                with call_lock:
+                    call_count += 1
+                    current = call_count
+                if current == 1:
+                    return ["output/new-exam/shared-patch.json"]
+                return original_delta(qualification, run_id)
+
+            with patch.object(
+                coordinator.store,
+                "baseline_delta",
+                side_effect=one_transient_contention,
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get(
+                "new-exam",
+                parent["runId"],
+            )
+            attempt_counts = sorted(
+                len(question["stages"][0]["validationAttempts"])
+                for question in completed["questionExecutions"]
+            )
+            feedback_codes = {
+                issue["code"]
+                for question in completed["questionExecutions"]
+                for attempt in question["stages"][0]["validationAttempts"]
+                for issue in (attempt.get("feedback") or {}).get("issues") or []
+            }
+            children = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )
+            reused_children = [
+                child
+                for child in children
+                if child.get("preparedCandidateReusedReason")
+                == "canonical_prewrite_contention"
+            ]
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(attempt_counts, [1, 2])
+        self.assertIn("canonical_contention", feedback_codes)
+        self.assertEqual(len(app_server.batch_calls), 2)
+        self.assertEqual(len(reused_children), 1)
+        self.assertTrue(
+            reused_children[0]["preparedCandidateReusedFromAttemptId"]
+        )
 
     def test_question_concurrency_defaults_to_one_hundred_and_allows_override(self):
         with tempfile.TemporaryDirectory() as directory:

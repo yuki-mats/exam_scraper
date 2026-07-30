@@ -388,6 +388,13 @@ def _classify_message(message: str) -> tuple[str, str, bool]:
         ),
         (
             (
+                "baseline取得中に対象fileが更新されました",
+                "正本書込み前に対象fileが更新されました",
+            ),
+            ("canonical_contention", "transaction.canonical", True),
+        ),
+        (
+            (
                 "baseline",
                 "manifest",
                 "manifest安全",
