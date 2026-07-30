@@ -446,12 +446,12 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "現行のガス事業法第13条第1項による判定は試験時の正答判定と一致する。"
+          "ガス事業法第13条の試験時点条文と現行条文は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法による正誤判定に変更はない。",
+          "differenceSummary": "試験時点と現行で正誤判定に影響する差分はない。",
           "displayRefIds": [],
-          "explanationText": "必要な供給能力を確保する義務が現行のガス事業法第13条第1項に規定されている。",
+          "explanationText": "必要な供給能力を確保する義務がガス事業法第13条第1項に規定されている。",
           "promptContext": "ガス事業法第13条第1項を選択肢の直接根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
@@ -472,12 +472,12 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "現行のガス事業法第14条第1項による判定は試験時の正答判定と一致する。"
+          "ガス事業法第14条の試験時点条文と現行条文は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法による正誤判定に変更はない。",
+          "differenceSummary": "試験時点と現行で正誤判定に影響する差分はない。",
           "displayRefIds": [],
-          "explanationText": "契約締結前に必要なのは相手方への供給条件の説明であり、経済産業大臣への届出ではない。",
+          "explanationText": "契約締結前に必要なのは供給条件の説明であり、経済産業大臣への届出ではない。",
           "promptContext": "ガス事業法第14条第1項を選択肢の直接根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
@@ -498,10 +498,10 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "現行のガス事業法第48条第1項による判定は試験時の正答判定と一致する。"
+          "ガス事業法第48条の試験時点条文と現行条文は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法による正誤判定に変更はない。",
+          "differenceSummary": "試験時点と現行で正誤判定に影響する差分はない。",
           "displayRefIds": [],
           "explanationText": "託送供給約款を定める際に原則として必要な手続は経済産業大臣の認可であり、届出ではない。",
           "promptContext": "ガス事業法第48条第1項を選択肢の直接根拠とする。",
@@ -524,10 +524,10 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "現行のガス事業法第51条第1項による判定は試験時の正答判定と一致する。"
+          "ガス事業法第51条の試験時点条文と現行条文は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法による正誤判定に変更はない。",
+          "differenceSummary": "試験時点と現行で正誤判定に影響する差分はない。",
           "displayRefIds": [],
           "explanationText": "最終保障供給約款は経済産業大臣への届出が必要である。",
           "promptContext": "ガス事業法第51条第1項を選択肢の直接根拠とする。",
@@ -550,10 +550,10 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "現行のガス事業法第56条第1項による判定は試験時の正答判定と一致する。"
+          "ガス事業法第56条の試験時点条文と現行条文は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法による正誤判定に変更はない。",
+          "differenceSummary": "試験時点と現行で正誤判定に影響する差分はない。",
           "displayRefIds": [],
           "explanationText": "供給計画に必要な手続は経済産業大臣への届出であり、認可ではない。",
           "promptContext": "ガス事業法第56条第1項を選択肢の直接根拠とする。",
@@ -592,7 +592,7 @@
         "title": "e-Gov法令API「ガス事業法」"
       }
     ],
-    "lawContextForExplanation": "ガス小売事業者及び一般ガス導管事業者の義務について、現行のガス事業法第13条、第14条、第48条、第51条及び第56条を選択肢別の直接根拠とする。",
+    "lawContextForExplanation": "ガス小売事業者及び一般ガス導管事業者の義務と手続について、ガス事業法第13条第1項、第14条第1項、第48条第1項、第51条第1項及び第56条第1項を選択肢別の直接根拠とする。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -1281,11 +1281,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
     "explanationText": [
-      "間違い。ガス主任技術者は、免状の交付を受けている者であって、さらに経済産業省令で定める実務経験を有するもののうちから選任しなければならない。「免状又は実務経験のいずれか」で足りるとしている点が誤りである（ガス事業法第98条第1項）。",
-      "間違い。ガス主任技術者を選任又は解任したときは、その後、遅滞なく経済産業大臣へ届け出なければならない。選任前にあらかじめ届け出るとしている点が誤りである（ガス事業法第98条第2項）。",
-      "間違い。ガス製造事業に必要な実務経験は、製造又は供給用のガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したことである。2年以上としている点が誤りである（ガス事業法施行規則第151条第1項）。",
-      "間違い。法令違反により罰金以上の刑に処せられた者について、免状を交付しないことができる期間は、刑の執行を終え、又は執行を受けることがなくなった日から2年を経過しない間である。1年としている点が誤りである（ガス事業法第26条第4項第2号）。",
-      "正しい。免状の交付を受けている者が、ガス事業法、同法に基づく命令又はこれらに基づく処分に違反したときは、経済産業大臣はその免状の返納を命ずることができる（ガス事業法第27条）。"
+      "間違い。ガス主任技術者は、免状の交付を受け、かつ、経済産業省令で定める実務経験を有する者のうちから選任しなければならない。免状又は実務経験のいずれか一方だけで足りるとする記述は誤りである（ガス事業法第98条第1項）。",
+      "間違い。ガス主任技術者を選任又は解任した場合は、その後、遅滞なく経済産業大臣へ届け出なければならない。あらかじめ届け出るとする記述は誤りである（ガス事業法第98条第2項）。",
+      "間違い。ガス製造事業に係る所定の実務経験は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したことである。2年以上とする記述は誤りである（ガス事業法施行規則第151条第1項）。",
+      "間違い。法令等への違反により罰金以上の刑に処せられた者について、免状を交付しないことができる期間は、刑の執行を終え、又は執行を受けることがなくなった日から2年を経過しない間である。1年とする記述は誤りである（ガス事業法第26条第4項第2号）。",
+      "正しい。免状の交付を受けている者がガス事業法、同法に基づく命令又はこれらに基づく処分に違反した場合、経済産業大臣はそのガス主任技術者免状の返納を命ずることができる（ガス事業法第27条）。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1395,143 +1395,143 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "現行法では誤りであるが、試験時点との法令比較は保留する。"
+          "両時点とも免状と所定の実務経験の双方が必要であり、正誤は変わらない。"
         ],
-        "auditStatus": "hold",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時点の条文を示す一次根拠がなく、現行条文との異同は未確定である。"
+          "ガス事業法第98条の試験時点と現行時点の本文ハッシュは一致する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点の条文が未確認のため、時点間の差異は確定できない。",
+          "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "現行のガス事業法第98条第1項では、免状と所定の実務経験の双方が必要であり、いずれか一方で足りるとする記述は誤りである。",
-          "promptContext": "ガス主任技術者の選任要件を確認する。",
+          "explanationText": "ガス事業法第98条第1項は、免状の交付と所定の実務経験の双方を選任要件としている。",
+          "promptContext": "ガス主任技術者の選任要件を比較した。",
           "refs": [],
-          "verdict": "hold"
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "提供された一次根拠は2026年7月30日時点の現行条文のみである。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
         ],
-        "reconciliationStatus": "pending_exam_time_comparison",
-        "reviewState": "needs_exam_time_verification"
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "現行法では誤りであるが、試験時点との法令比較は保留する。"
+          "両時点とも選任又は解任後に遅滞なく届け出るため、正誤は変わらない。"
         ],
-        "auditStatus": "hold",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時点の条文を示す一次根拠がなく、現行条文との異同は未確定である。"
+          "ガス事業法第98条の試験時点と現行時点の本文ハッシュは一致する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点の条文が未確認のため、時点間の差異は確定できない。",
+          "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "現行のガス事業法第98条第2項では、選任又は解任後に遅滞なく届け出るため、事前届出とする記述は誤りである。",
-          "promptContext": "ガス主任技術者の選任・解任に係る届出時期を確認する。",
+          "explanationText": "ガス事業法第98条第2項は、選任又は解任後の遅滞ない届出を定めている。",
+          "promptContext": "選任・解任の届出時期を比較した。",
           "refs": [],
-          "verdict": "hold"
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "提供された一次根拠は2026年7月30日時点の現行条文のみである。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
         ],
-        "reconciliationStatus": "pending_exam_time_comparison",
-        "reviewState": "needs_exam_time_verification"
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "現行法では誤りであるが、試験時点との法令比較は保留する。"
+          "両時点とも必要な実務経験は通算1年以上であり、正誤は変わらない。"
         ],
-        "auditStatus": "hold",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時点の条文を示す一次根拠がなく、現行条文との異同は未確定である。"
+          "ガス事業法施行規則第151条の試験時点と現行時点の本文ハッシュは一致する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点の条文が未確認のため、時点間の差異は確定できない。",
+          "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "現行のガス事業法施行規則第151条第1項では必要な実務経験は通算1年以上であり、2年以上とする記述は誤りである。",
-          "promptContext": "ガス製造事業に必要な実務経験の期間を確認する。",
+          "explanationText": "ガス事業法施行規則第151条第1項は、必要な実務経験を通算1年以上としている。",
+          "promptContext": "所定の実務経験期間を比較した。",
           "refs": [],
-          "verdict": "hold"
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "提供された一次根拠は2026年7月30日時点の現行条文のみである。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
         ],
-        "reconciliationStatus": "pending_exam_time_comparison",
-        "reviewState": "needs_exam_time_verification"
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "現行法では誤りであるが、試験時点との法令比較は保留する。"
+          "両時点とも免状交付制限期間は刑の執行終了等から2年であり、正誤は変わらない。"
         ],
-        "auditStatus": "hold",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時点の条文を示す一次根拠がなく、現行条文との異同は未確定である。"
+          "ガス事業法第26条の試験時点と現行時点の本文ハッシュは一致する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点の条文が未確認のため、時点間の差異は確定できない。",
+          "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "現行のガス事業法第26条第4項第2号では、罰金以上の刑に係る免状交付制限期間は刑の執行終了等から2年であり、1年とする記述は誤りである。",
-          "promptContext": "法令違反による免状交付制限の期間を確認する。",
+          "explanationText": "ガス事業法第26条第4項第2号は、罰金以上の刑に係る免状交付制限期間を2年としている。",
+          "promptContext": "法令違反による免状交付制限期間を比較した。",
           "refs": [],
-          "verdict": "hold"
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "提供された一次根拠は2026年7月30日時点の現行条文のみである。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
         ],
-        "reconciliationStatus": "pending_exam_time_comparison",
-        "reviewState": "needs_exam_time_verification"
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "現行法では正しいが、試験時点との法令比較は保留する。"
+          "両時点とも法令等に違反した免状保有者への返納命令が可能であり、正誤は変わらない。"
         ],
-        "auditStatus": "hold",
+        "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時点の条文を示す一次根拠がなく、現行条文との異同は未確定である。"
+          "ガス事業法第27条の試験時点と現行時点の本文ハッシュは一致する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点の条文が未確認のため、時点間の差異は確定できない。",
+          "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "現行のガス事業法第27条では、法令等に違反した免状保有者に対し、経済産業大臣が免状の返納を命ずることができるため、記述は正しい。",
-          "promptContext": "法令違反時のガス主任技術者免状返納命令を確認する。",
+          "explanationText": "ガス事業法第27条は、法令等に違反した免状保有者に対する免状返納命令を定めている。",
+          "promptContext": "法令違反時の免状返納命令を比較した。",
           "refs": [],
-          "verdict": "hold"
+          "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "提供された一次根拠は2026年7月30日時点の現行条文のみである。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
         ],
-        "reconciliationStatus": "pending_exam_time_comparison",
-        "reviewState": "needs_exam_time_verification"
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "secondary_verified"
       }
     ],
     "suggestedExplanationText": [
@@ -1558,13 +1558,12 @@
         "title": "e-Gov法令API ガス事業法"
       },
       {
-        "choiceIndex": 2,
         "referenceDate": "2026-07-30",
         "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2026-07-30",
         "title": "e-Gov法令API ガス事業法施行規則"
       }
     ],
-    "lawContextForExplanation": "ガス主任技術者の選任要件、選任・解任の届出時期、必要な実務経験、免状交付制限及び免状返納命令について、ガス事業法第26条、第27条、第98条及びガス事業法施行規則第151条を選択肢別に参照する。",
+    "lawContextForExplanation": "ガス主任技術者の選任要件、選任・解任の届出時期、実務経験期間、免状交付制限及び免状返納命令について、ガス事業法第98条、第26条、第27条及びガス事業法施行規則第151条を参照する。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -1584,11 +1583,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
     "explanationText": [
-      "正しい。一般ガス導管事業者が、経済産業省令で定めるガス工作物の設置又は変更の工事をしようとするときは、その工事計画を経済産業大臣に届け出なければならない。ただし、ガス工作物の滅失・損壊時又は災害その他の非常時に行う、やむを得ない一時的な工事は例外である。",
-      "間違い。30日の起算日は「届出を提出した日」ではなく、「届出が受理された日」である。届出に係る工事計画が所定の要件に適合すると経済産業大臣が認めるときは、この期間を短縮できる。",
-      "間違い。自主検査を行っただけでは使用できない。自主検査の結果が所定の要件に適合していることについて、経済産業大臣の登録を受けた者が行う検査を受け、これに合格した後でなければ使用できない。",
-      "正しい。ガス工作物を試験のために使用する場合は、使用前検査への合格前でも使用できる例外に当たる。そのガス工作物に係るガスを使用者へ供給する場合は、使用方法を変更するごとにガスの熱量等を測定して供給する必要がある。",
-      "間違い。定期自主検査について求められるのは、検査記録を作成して保存することであり、その記録を経済産業大臣へ届け出ることではない。"
+      "正しい。一般ガス導管事業者が、経済産業省令で定めるガス工作物の設置又は変更の工事をしようとするときは、工事計画を経済産業大臣に届け出なければならない。ガス工作物の滅失・損壊時又は災害その他の非常時に行う、やむを得ない一時的な工事は例外である。この内容はガス事業法第68条第1項に定められている。",
+      "間違い。30日の起算日は「届出を提出した日」ではなく「届出が受理された日」である。工事計画が所定の要件に適合すると経済産業大臣が認めるときは、この期間を短縮できる。これはガス事業法第68条第3項及び第4項に定められている。",
+      "間違い。自主検査を行っただけでは使用できない。自主検査の結果が所定の要件に適合することについて、経済産業大臣の登録を受けた者が行う検査を受け、合格した後でなければ使用できない。この要件はガス事業法第69条第1項に定められている。",
+      "正しい。ガス工作物を試験のために使用する場合は、使用前検査への合格前でも使用できる例外に当たる。そのガス工作物に係るガスを使用者へ供給する場合は、使用方法を変更するごとにガスの熱量等を測定して供給する必要がある。この例外はガス事業法第69条第1項ただし書及びガス事業法施行規則第103条第1号に定められている。",
+      "間違い。定期自主検査について必要なのは、検査記録を作成して保存することであり、その記録を経済産業大臣へ届け出ることではない。この義務はガス事業法第71条第1項に定められている。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1709,17 +1708,17 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "正答判定は維持する。"
+          "正答判定を維持する。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "2024年の設問記述と2026年7月30日現在の第68条第1項を照合し、正誤に影響する差異は認められない。"
+          "試験日と現行基準日のガス事業法第68条第1項は同一であり、正誤に影響する差異はない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現行基準で正誤は同じである。",
+          "differenceSummary": "試験時と現行法で正誤は同じである。",
           "displayRefIds": [],
           "explanationText": "所定の設置又は変更工事には工事計画の届出が必要であり、非常時等のやむを得ない一時的工事は例外となる。",
           "promptContext": "ガス事業法第68条第1項を根拠とする。",
@@ -1735,20 +1734,20 @@
       },
       {
         "answerImpactFacts": [
-          "正答判定は維持する。"
+          "正答判定を維持する。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2024年の設問記述と2026年7月30日現在の第68条第3項・第4項を照合し、正誤に影響する差異は認められない。"
+          "試験日と現行基準日のガス事業法第68条第3項及び第4項は同一であり、正誤に影響する差異はない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現行基準で正誤は同じである。",
+          "differenceSummary": "試験時と現行法で正誤は同じである。",
           "displayRefIds": [],
           "explanationText": "30日の起算日は届出の提出日ではなく受理日であり、所定の場合には期間を短縮できる。",
-          "promptContext": "ガス事業法第68条第3項・第4項を根拠とする。",
+          "promptContext": "ガス事業法第68条第3項及び第4項を根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -1761,17 +1760,17 @@
       },
       {
         "answerImpactFacts": [
-          "正答判定は維持する。"
+          "正答判定を維持する。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2024年の設問記述と2026年7月30日現在の第69条第1項を照合し、正誤に影響する差異は認められない。"
+          "試験日と現行基準日のガス事業法第69条第1項は同一であり、正誤に影響する差異はない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現行基準で正誤は同じである。",
+          "differenceSummary": "試験時と現行法で正誤は同じである。",
           "displayRefIds": [],
           "explanationText": "自主検査だけでは使用できず、登録を受けた者が行う検査への合格も必要である。",
           "promptContext": "ガス事業法第69条第1項を根拠とする。",
@@ -1787,17 +1786,17 @@
       },
       {
         "answerImpactFacts": [
-          "正答判定は維持する。"
+          "正答判定を維持する。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "2024年の設問記述と2026年7月30日現在の第69条第1項ただし書及び施行規則第103条第1号を照合し、正誤に影響する差異は認められない。"
+          "試験日と現行基準日のガス事業法第69条第1項及びガス事業法施行規則第103条は同一であり、正誤に影響する差異はない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現行基準で正誤は同じである。",
+          "differenceSummary": "試験時と現行法で正誤は同じである。",
           "displayRefIds": [],
           "explanationText": "試験使用は使用前検査への合格前の使用が認められる例外であり、使用者へ供給する場合には熱量等の測定条件が付される。",
           "promptContext": "ガス事業法第69条第1項ただし書及びガス事業法施行規則第103条第1号を根拠とする。",
@@ -1813,17 +1812,17 @@
       },
       {
         "answerImpactFacts": [
-          "正答判定は維持する。"
+          "正答判定を維持する。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2024年の設問記述と2026年7月30日現在の第71条第1項を照合し、正誤に影響する差異は認められない。"
+          "試験日と現行基準日のガス事業法第71条第1項は同一であり、正誤に影響する差異はない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現行基準で正誤は同じである。",
+          "differenceSummary": "試験時と現行法で正誤は同じである。",
           "displayRefIds": [],
           "explanationText": "定期自主検査の記録には作成及び保存の義務があり、経済産業大臣への届出義務ではない。",
           "promptContext": "ガス事業法第71条第1項を根拠とする。",
@@ -1868,7 +1867,7 @@
         "title": "e-Gov法令API ガス事業法施行規則（第103条）"
       }
     ],
-    "lawContextForExplanation": "ガス事業法第68条・第69条・第71条及びガス事業法施行規則第103条を根拠に、工事計画届出の待機期間、使用前検査と例外、定期自主検査記録の保存義務を確認する。",
+    "lawContextForExplanation": "ガス事業法第68条第1項・第3項・第4項、第69条第1項、第71条第1項及びガス事業法施行規則第103条第1号を根拠に、工事計画届出、使用前検査、試験使用の例外及び定期自主検査記録の保存義務を確認する。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
