@@ -610,6 +610,33 @@ class ArtifactSynchronizerTests(unittest.TestCase):
             ["published-question-1"],
         )
 
+    def test_strict_validation_allows_questions_sharing_one_artifact_id(self):
+        questions = [
+            {
+                "originalQuestionId": "firestore:doc-1",
+                "projected": {
+                    "originalQuestionId": "published-question-1",
+                },
+            },
+            {
+                "originalQuestionId": "firestore:doc-2",
+                "projected": {
+                    "originalQuestionId": "published-question-1",
+                },
+            },
+        ]
+
+        self.assertEqual(
+            ArtifactSynchronizer._strict_validation_question_ids(questions),
+            ["published-question-1"],
+        )
+        self.assertTrue(
+            all(
+                ArtifactSynchronizer._strict_validation_question_id(question)
+                for question in questions
+            )
+        )
+
     def test_force_refresh_runs_pipeline_even_when_artifacts_match(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

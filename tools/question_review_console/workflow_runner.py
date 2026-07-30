@@ -242,7 +242,10 @@ class ArtifactSynchronizer:
         strict_validation_question_ids = self._strict_validation_question_ids(
             current_law_questions
         )
-        if len(strict_validation_question_ids) != len(current_law_questions):
+        if any(
+            not self._strict_validation_question_id(question)
+            for question in current_law_questions
+        ):
             strict_validation_warnings.append(
                 {
                     "code": "law_audit_identity_missing",
@@ -498,18 +501,26 @@ class ArtifactSynchronizer:
     ) -> list[str]:
         values: list[str] = []
         for question in questions:
-            projected = question.get("projected")
-            projected = projected if isinstance(projected, Mapping) else {}
-            value = str(
-                projected.get("originalQuestionId")
-                or projected.get("original_question_id")
-                or projected.get("public_question_id")
-                or question.get("originalQuestionId")
-                or ""
-            ).strip()
+            value = ArtifactSynchronizer._strict_validation_question_id(
+                question
+            )
             if value and value not in values:
                 values.append(value)
         return values
+
+    @staticmethod
+    def _strict_validation_question_id(
+        question: Mapping[str, Any],
+    ) -> str:
+        projected = question.get("projected")
+        projected = projected if isinstance(projected, Mapping) else {}
+        return str(
+            projected.get("originalQuestionId")
+            or projected.get("original_question_id")
+            or projected.get("public_question_id")
+            or question.get("originalQuestionId")
+            or ""
+        ).strip()
 
     def _recorded_law_audit_major(self, question: Mapping[str, Any]) -> int:
         record = self.work_versions.record_for(question)
