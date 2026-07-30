@@ -16,40 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json",
     "explanationText": [
-      "間違い。バーナーの炎口負荷は、インプットを炎口面積で割った値であり、インプットに比例し、炎口面積に反比例する。記述は比例・反比例が逆である。",
-      "正しい。一般に、空気比を変化させたときに燃焼速度が速くなると、燃焼騒音は大きくなる傾向がある。",
-      "正しい。MCP（燃焼速度指数）は、ガス中の各可燃性ガスの含有率、各成分の燃焼速度等の固有係数及び減衰係数を用いて計算する。",
-      "間違い。サーマルNOxは主に高温場で空気中の窒素と酸素が反応して生成される。火炎中のCH、CH₂等との反応を経由するのはプロンプトNOxの説明である。",
-      "間違い。フラッシュバックは、混合気の噴出速度に比べて燃焼速度が速くなり、炎がバーナー内部へ燃え戻る現象である。バランス点以上という表現で定義する記述は不適切である。"
-    ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: バーナーの炎口負荷は、\n炎口面積に比例し、インプットに反比例する\n。",
-      "次の記述の正誤を確認する: 一般に、空気比を変化させた時に燃焼速度が速くなると燃焼騒音は大きくなる。",
-      "次の記述の正誤を確認する: MCP(燃焼速度指数)は、ガス中の各可燃性ガスの含有率、燃焼速度等の固有の係数及び減衰係数を用いて計算する。",
-      "次の記述の正誤を確認する: サーマルNOxは、空気中の窒素と火炎中のCH、CH₂等との反応を経由して生成される。",
-      "次の記述の正誤を確認する: フラッシュバックは、ガス・空気混合気体の噴出速度に比べて、燃焼速度が\nバランス点\n以上に速くなった時に起こる現象である。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: バーナーの炎口負荷は、\n炎口面積に比例し、インプットに反比例する\n。",
-        "answer": "間違い。バーナーの炎口負荷は、インプットを炎口面積で割った値であり、インプットに比例し、炎口面積に反比例する。記述は比例・反比例が逆である。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 一般に、空気比を変化させた時に燃焼速度が速くなると燃焼騒音は大きくなる。",
-        "answer": "正しい。一般に、空気比を変化させたときに燃焼速度が速くなると、燃焼騒音は大きくなる傾向がある。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: MCP(燃焼速度指数)は、ガス中の各可燃性ガスの含有率、燃焼速度等の固有の係数及び減衰係数を用いて計算する。",
-        "answer": "正しい。MCP（燃焼速度指数）は、ガス中の各可燃性ガスの含有率、各成分の燃焼速度等の固有係数及び減衰係数を用いて計算する。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: サーマルNOxは、空気中の窒素と火炎中のCH、CH₂等との反応を経由して生成される。",
-        "answer": "間違い。サーマルNOxは主に高温場で空気中の窒素と酸素が反応して生成される。火炎中のCH、CH₂等との反応を経由するのはプロンプトNOxの説明である。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: フラッシュバックは、ガス・空気混合気体の噴出速度に比べて、燃焼速度が\nバランス点\n以上に速くなった時に起こる現象である。",
-        "answer": "間違い。フラッシュバックは、混合気の噴出速度に比べて燃焼速度が速くなり、炎がバーナー内部へ燃え戻る現象である。バランス点以上という表現で定義する記述は不適切である。"
-      }
+      "間違い。バーナーの炎口負荷は、インプットを炎口面積で割った値であり、インプットに比例し、炎口面積に反比例する。記述は比例・反比例の関係が逆である。",
+      "正しい。一般に、空気比を変化させたときに燃焼速度が速くなると、燃焼音や振動が強くなり、燃焼騒音は大きくなる傾向がある。",
+      "正しい。MCP（燃焼速度指数）は、ガス中の各可燃性ガスの含有率、各成分の燃焼速度などに関する固有係数及び減衰係数を用いて計算する。",
+      "間違い。サーマルNOxは、主に高温の火炎中で空気中の窒素と酸素が反応して生成される。火炎中のCH、CH₂などとの反応を経由するものは、プロンプトNOxの説明である。",
+      "間違い。フラッシュバックは、ガス・空気混合気の噴出速度より燃焼速度が速くなり、炎がバーナー内部へ燃え戻る現象である。「バランス点以上に速くなった時」と定義する記述は不適切である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -75,7 +46,152 @@
       "正しい",
       "間違い",
       "間違い"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q20",
+    "reviewQuestionId": "60d5be92ebd868da",
+    "sourceRecordRef": "question_2025_gassyunin_site_3.json#0",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、ガス燃焼の理論・現象に関する技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術事項として扱う。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "炎口負荷はインプットを炎口面積で割る考え方で判断する技術事項である。",
+          "promptContext": "ガス燃焼に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "炎口負荷の定義に関する技術記述であり、法令条文を根拠にする肢ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術事項として扱う。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "空気比の変化に伴い燃焼速度が速くなると燃焼騒音が大きくなる傾向を問う技術事項である。",
+          "promptContext": "ガス燃焼に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "燃焼速度と燃焼騒音の関係に関する技術記述であり、法令条文を根拠にする肢ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術事項として扱う。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "MCPは可燃性ガスの含有率、燃焼速度等の固有係数、減衰係数を用いる燃焼速度指数である。",
+          "promptContext": "ガス燃焼に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "MCPの計算要素に関する技術記述であり、法令条文を根拠にする肢ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術事項として扱う。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "サーマルNOxは高温場で窒素と酸素が反応して生成され、CH、CH₂等を経由する説明はプロンプトNOxに対応する。",
+          "promptContext": "ガス燃焼に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "NOx生成機構に関する技術記述であり、法令条文を根拠にする肢ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術事項として扱う。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "フラッシュバックは混合気の噴出速度より燃焼速度が速くなり、炎がバーナー内部へ戻る現象である。",
+          "promptContext": "ガス燃焼に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "フラッシュバックの発生条件に関する技術記述であり、法令条文を根拠にする肢ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "30d4a0bfbe45188a",
@@ -94,40 +210,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json",
     "explanationText": [
-      "正しい。瞬間湯沸器の給湯能力は号数で表され、1号は水温より25℃高い湯を毎分1L出湯できる能力で、おおむね約1.75kWに相当する。",
-      "正しい。BF-DP式ふろがまは、本体天板上部から給気管と排気管を別々に立ち上げ、給排気筒トップに接続して屋外との給排気でバランス燃焼させる方式である。",
-      "間違い。元止め式瞬間湯沸器は使用場所近くに取り付け、機器の出湯管から直接湯を使う方式であり、他の水栓へ給湯配管して使用するのは先止め式である。",
-      "正しい。乾電池を電源とする小型湯沸器は使用できる電力量に制約があるため、大型給湯器並みの多機能な安全制御を搭載することは難しい。",
-      "正しい。温水機器では、濃燃焼と淡燃焼のバーナーを組み合わせるリッチ・リーン燃焼により、低NOx化と安定燃焼を両立させる方式が用いられる。"
-    ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: 瞬間湯沸器の給湯能力は号数で表され、1号は約1.75kWである。",
-      "次の記述の正誤を確認する: BF-DP式ふろがまは、本体天板上部より給気管と排気管を別々に2本立ち上げ、給排気筒トップと連結させることにより、バランス燃焼させる仕組みになっている。",
-      "次の記述の正誤を確認する: 瞬間湯沸器は、その構造上から、\n元止め式\nと先止め式に分類され、元止め式は他の水栓に給湯配管をして使用できる。",
-      "次の記述の正誤を確認する: 乾電池を電源としている小型湯沸器は、許容電力量に限界があり、大型給湯器並みの安全機能は搭載できていない。",
-      "次の記述の正誤を確認する: 温水機器では、ガスと空気の比率を変えた濃燃焼と淡燃焼のバーナーを組合せて、低NOx化と安定した燃焼を実現している。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: 瞬間湯沸器の給湯能力は号数で表され、1号は約1.75kWである。",
-        "answer": "正しい。瞬間湯沸器の給湯能力は号数で表され、1号は水温より25℃高い湯を毎分1L出湯できる能力で、おおむね約1.75kWに相当する。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: BF-DP式ふろがまは、本体天板上部より給気管と排気管を別々に2本立ち上げ、給排気筒トップと連結させることにより、バランス燃焼させる仕組みになっている。",
-        "answer": "正しい。BF-DP式ふろがまは、本体天板上部から給気管と排気管を別々に立ち上げ、給排気筒トップに接続して屋外との給排気でバランス燃焼させる方式である。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 瞬間湯沸器は、その構造上から、\n元止め式\nと先止め式に分類され、元止め式は他の水栓に給湯配管をして使用できる。",
-        "answer": "間違い。元止め式瞬間湯沸器は使用場所近くに取り付け、機器の出湯管から直接湯を使う方式であり、他の水栓へ給湯配管して使用するのは先止め式である。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 乾電池を電源としている小型湯沸器は、許容電力量に限界があり、大型給湯器並みの安全機能は搭載できていない。",
-        "answer": "正しい。乾電池を電源とする小型湯沸器は使用できる電力量に制約があるため、大型給湯器並みの多機能な安全制御を搭載することは難しい。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 温水機器では、ガスと空気の比率を変えた濃燃焼と淡燃焼のバーナーを組合せて、低NOx化と安定した燃焼を実現している。",
-        "answer": "正しい。温水機器では、濃燃焼と淡燃焼のバーナーを組み合わせるリッチ・リーン燃焼により、低NOx化と安定燃焼を両立させる方式が用いられる。"
-      }
+      "正しい。瞬間湯沸器の給湯能力は号数で表され、1号は水温より25℃高い湯を毎分1L出湯できる能力をいう。この熱量はおおむね約1.75kWに相当する。",
+      "正しい。BF-DP式ふろがまは、本体天板上部から給気管と排気管を別々に立ち上げ、給排気筒トップに接続して屋外との給排気で燃焼させるバランス式の構造である。",
+      "間違い。瞬間湯沸器は元止め式と先止め式に分類されるが、元止め式は機器の出湯管から直接湯を使う方式である。他の水栓へ給湯配管して使用できるのは先止め式である。",
+      "正しい。乾電池を電源とする小型湯沸器は、使用できる電力量に制約がある。そのため、大型給湯器と同程度の多機能な安全制御を搭載することは難しい。",
+      "正しい。温水機器では、ガスと空気の比率を変えた濃燃焼と淡燃焼のバーナーを組み合わせる方式により、低NOx化と安定した燃焼の両立を図っている。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -153,7 +240,152 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q21",
+    "reviewQuestionId": "30d4a0bfbe45188a",
+    "sourceRecordRef": "question_2025_gassyunin_site_3.json#1",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、家庭用ガス温水機器の構造・性能・燃焼方式に関する技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令基準による試験時点と現在の差分確認は不要。",
+          "displayRefIds": [],
+          "explanationText": "瞬間湯沸器の給湯能力の号数定義に関する技術内容であり、法令条文を根拠とする判定ではない。",
+          "promptContext": "家庭用ガス温水機器の技術問題として扱う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "瞬間湯沸器の号数と熱量換算に関する技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令基準による試験時点と現在の差分確認は不要。",
+          "displayRefIds": [],
+          "explanationText": "BF-DP式ふろがまの給気管・排気管とバランス燃焼の構造に関する技術内容であり、法令条文を根拠とする判定ではない。",
+          "promptContext": "家庭用ガス温水機器の技術問題として扱う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "BF-DP式ふろがまの給排気構造に関する技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令基準による試験時点と現在の差分確認は不要。",
+          "displayRefIds": [],
+          "explanationText": "元止め式と先止め式の分類および給湯配管可否に関する技術内容であり、法令条文を根拠とする判定ではない。",
+          "promptContext": "家庭用ガス温水機器の技術問題として扱う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "瞬間湯沸器の元止め式・先止め式の用途差に関する技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令基準による試験時点と現在の差分確認は不要。",
+          "displayRefIds": [],
+          "explanationText": "乾電池を電源とする小型湯沸器の電力量制約と安全機能に関する技術内容であり、法令条文を根拠とする判定ではない。",
+          "promptContext": "家庭用ガス温水機器の技術問題として扱う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "乾電池電源の小型湯沸器に搭載できる安全機能の制約に関する技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令基準による試験時点と現在の差分確認は不要。",
+          "displayRefIds": [],
+          "explanationText": "濃燃焼と淡燃焼のバーナーを組み合わせる低NOx燃焼方式に関する技術内容であり、法令条文を根拠とする判定ではない。",
+          "promptContext": "家庭用ガス温水機器の技術問題として扱う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "温水機器の濃淡燃焼による低NOx化と燃焼安定化に関する技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "36671e7d6f13eec2",
@@ -172,42 +404,13 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json",
     "explanationText": [
-      "正しい。ガスオーブンを有するガスこんろでは、ガス消費量の総和だけでなく、こんろバーナー1個当たりのガス消費量も指定範囲に入る必要があるため、5.8kWを超えるものはガス用品に指定されない。",
-      "正しい。こんろでは、調理油過熱防止装置の温度センサーを鍋底温度の検知に活用し、油温度調節機能、炊飯機能、沸騰自動消火機能などを実現している。",
-      "正しい。ガスオーブンは、庫内の熱風をファンなどで強制的に対流させることにより、食品を加熱調理する機器である。",
-      "正しい。赤外線ストーブの放射体には、セラミックプレートを用いるものと、特殊耐熱鋼金網を用いるものがある。",
-      "正しい。ファンヒーターには、不完全燃焼防止装置、転倒時安全装置、過熱防止装置などの安全装置が搭載されている。"
+      "正しい。ガスオーブンを有するガスこんろは、ガスの消費量の総和が21kW以下であっても、こんろバーナー1個当たりのガス消費量が5.8kW以下であるものに限ってガス用品の指定範囲に含まれる。したがって、1個当たり5.8kWを超えるものは指定対象外であり、この範囲はガス事業法施行令第14条及び別表第1第5号に定められている。",
+      "正しい。こんろでは、調理油過熱防止装置の温度センサーで鍋底温度を検知し、その情報を過熱防止だけでなく、油温度調節、炊飯、沸騰自動消火などの機能にも利用している。",
+      "正しい。ガスオーブンは、庫内の加熱された空気をファンなどで強制的に対流させ、食品全体に熱を回して調理する方式が主である。",
+      "正しい。赤外線ストーブは、燃焼熱で放射体を高温にして赤外線を放射させる機器であり、放射体にはセラミックプレートを用いるものや特殊耐熱鋼金網を用いるものがある。",
+      "正しい。ファンヒーターには、燃焼状態の異常や転倒、機器内部の過熱などに備えて、不完全燃焼防止装置、転倒時安全装置、過熱防止装置などが搭載されている。"
     ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: ガスオーブンを有するガスこんろは、ガス消費量の総和が21kW以下であっても、こんろバーナー1個当たりのガス消費量が5.8kWを超えるものはガス用品に指定されない。",
-      "次の記述の正誤を確認する: こんろでは、調理油過熱防止装置の温度センサーを過熱防止以外にも活用することで、油温度調節機能、炊飯機能、沸騰自動消火機能を実現した。",
-      "次の記述の正誤を確認する: オーブンは、主に熱風を強制的に対流させることにより調理を行う。",
-      "次の記述の正誤を確認する: 赤外線ストーブの放射体には、セラミックプレートを用いたものと、特殊耐熱鋼金網を用いたものがある。",
-      "次の記述の正誤を確認する: ファンヒーターに搭載されている安全装置は、不完全燃焼防止装置、転倒時安全装置、過熱防止装置等である。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: ガスオーブンを有するガスこんろは、ガス消費量の総和が21kW以下であっても、こんろバーナー1個当たりのガス消費量が5.8kWを超えるものはガス用品に指定されない。",
-        "answer": "正しい。ガスオーブンを有するガスこんろでは、ガス消費量の総和だけでなく、こんろバーナー1個当たりのガス消費量も指定範囲に入る必要があるため、5.8kWを超えるものはガス用品に指定されない。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: こんろでは、調理油過熱防止装置の温度センサーを過熱防止以外にも活用することで、油温度調節機能、炊飯機能、沸騰自動消火機能を実現した。",
-        "answer": "正しい。こんろでは、調理油過熱防止装置の温度センサーを鍋底温度の検知に活用し、油温度調節機能、炊飯機能、沸騰自動消火機能などを実現している。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: オーブンは、主に熱風を強制的に対流させることにより調理を行う。",
-        "answer": "正しい。ガスオーブンは、庫内の熱風をファンなどで強制的に対流させることにより、食品を加熱調理する機器である。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 赤外線ストーブの放射体には、セラミックプレートを用いたものと、特殊耐熱鋼金網を用いたものがある。",
-        "answer": "正しい。赤外線ストーブの放射体には、セラミックプレートを用いるものと、特殊耐熱鋼金網を用いるものがある。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: ファンヒーターに搭載されている安全装置は、不完全燃焼防止装置、転倒時安全装置、過熱防止装置等である。",
-        "answer": "正しい。ファンヒーターには、不完全燃焼防止装置、転倒時安全装置、過熱防止装置などの安全装置が搭載されている。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -224,14 +427,180 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "correctChoiceText": [
       "正しい",
       "正しい",
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q22",
+    "reviewQuestionId": "36671e7d6f13eec2",
+    "sourceRecordRef": "question_2025_gassyunin_site_3.json#2",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-07-30",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329CO0000000068/",
+        "title": "ガス事業法施行令"
+      }
+    ],
+    "lawContextForExplanation": "選択肢1のみ、ガスこんろがガス用品に該当する範囲を定めるガス事業法施行令第14条・別表第1第5号が根拠となる。選択肢2〜5は家庭用ガス機器の機能・構造・安全装置に関する技術知識で、法令根拠は不要。",
+    "lawReferences": [
+      [
+        {
+          "article": "第14条、別表第1第5号",
+          "choiceIndex": 0,
+          "lawId": "329CO0000000068",
+          "lawTitle": "ガス事業法施行令",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/329CO0000000068/",
+          "verificationStatus": "verified"
+        }
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "試験時点と現在で、選択肢1の正誤判定に影響する差異は確認されない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "正誤判定に影響する法令差分なし。",
+          "displayRefIds": [
+            "gas-law-enforcement-order-art14-appended-table1-item5"
+          ],
+          "explanationText": "ガスオーブンを有するガスこんろについて、こんろバーナー1個当たりのガス消費量が5.8kWを超えるものはガス用品の指定範囲外である。",
+          "promptContext": "ガス事業法施行令第14条・別表第1第5号を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガス用品の指定範囲に関する法令肢として扱う。"
+        ],
+        "reconciliationStatus": "no_difference",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "技術知識肢であり、法令改正による正誤影響の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "こんろの温度センサーは、調理油過熱防止に加えて、油温度調節、炊飯、沸騰自動消火などの制御にも利用される。",
+          "promptContext": "家庭用ガスこんろの機能に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "調理油過熱防止装置の温度センサー活用に関する技術知識。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "技術知識肢であり、法令改正による正誤影響の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "オーブンは、庫内の熱風を強制的に対流させることにより食品を加熱調理する。",
+          "promptContext": "ガスオーブンの調理方式に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "オーブンの加熱方式に関する技術知識。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "技術知識肢であり、法令改正による正誤影響の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "赤外線ストーブの放射体には、セラミックプレートを用いる方式と特殊耐熱鋼金網を用いる方式がある。",
+          "promptContext": "赤外線ストーブの構造に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "赤外線ストーブの放射体材料に関する技術知識。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "技術知識肢であり、法令改正による正誤影響の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "ファンヒーターには、不完全燃焼防止装置、転倒時安全装置、過熱防止装置などが搭載される。",
+          "promptContext": "ファンヒーターの安全装置に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ファンヒーターの安全装置に関する技術知識。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "3a65f66e45517939",
@@ -252,40 +621,11 @@
     "explanationText": [
       "正しい。スチームコンベクションオーブンは、熱風と蒸気を単独または組み合わせて、オーブンモード、スチームモード、コンビモードなどの加熱モードを設定できる。",
       "正しい。業務用厨房でガス消費量が12kWを超える半密閉式瞬間湯沸器を既設の排気専用ダクトに接続する場合、排気ダクト直結型、排気ダクト接続型、排気フード受け型の3種類の設置形態がある。",
-      "間違い。吸収冷凍機では、冷媒を吸収して濃度が薄くなった吸収溶液は再生器で加熱され、冷媒を分離して濃縮・再生される。凝縮器で濃縮・再生するとしている点が誤り。",
-      "正しい。CGSは発電と排熱利用により、省エネルギー性、環境保全性、電力負荷平準化、エネルギーセキュリティ向上などの優位性を持つ。",
-      "間違い。CGSは省エネルギーに寄与し、一定条件下で容積率緩和の対象となり得るが、容積率緩和はエネルギーの使用の合理化及び非化石エネルギーへの転換等に関する法律ではなく建築基準法上の制度として扱われる。"
+      "間違い。吸収冷凍機では、冷媒を吸収して濃度が薄くなった吸収溶液を再生器で加熱し、冷媒を分離して濃縮・再生する。凝縮器で濃縮・再生するとしているため誤りである。",
+      "正しい。CGSは発電時の排熱も有効利用するため、省エネルギー性、環境保全性、電力負荷平準化、エネルギーセキュリティ向上などの優位性がある。",
+      "間違い。CGS用機械室は一定の条件下で容積率制限の緩和対象となり得るが、その法的根拠は省エネ法ではなく、特定行政庁による許可を定める建築基準法第52条第14項第1号である。"
     ],
-    "suggestedQuestions": [
-      "正しい。スチームコンベクションオーブンは、熱風と蒸気を単独または組み合わせて、オーブンモード、スチームモード、コンビモードなどの加熱モードを設定できる。",
-      "正しい。業務用厨房でガス消費量が12kWを超える半密閉式瞬間湯沸器を既設の排気専用ダクトに接続する場合、排気ダクト直結型、排気ダクト接続型、排気フード受け型の3種類の設置形態がある。",
-      "間違い。吸収冷凍機では、冷媒を吸収して濃度が薄くなった吸収溶液は再生器で加熱され、冷媒を分離して濃縮・再生される。凝縮器で濃縮・再生するとしている点が誤り。",
-      "正しい。CGSは発電と排熱利用により、省エネルギー性、環境保全性、電力負荷平準化、エネルギーセキュリティ向上などの優位性を持つ。",
-      "間違い。CGSは省エネルギーに寄与し、一定条件下で容積率緩和の対象となり得るが、容積率緩和はエネルギーの使用の合理化及び非化石エネルギーへの転換等に関する法律ではなく建築基準法上の制度として扱われる。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正しい。スチームコンベクションオーブンは、熱風と蒸気を単独または組み合わせて、オーブンモード、スチームモード、コンビモードなどの加熱モードを設定できる。",
-        "answer": "正しい。スチームコンベクションオーブンは、熱風と蒸気を単独または組み合わせて、オーブンモード、スチームモード、コンビモードなどの加熱モードを設定できる。"
-      },
-      {
-        "question": "正しい。業務用厨房でガス消費量が12kWを超える半密閉式瞬間湯沸器を既設の排気専用ダクトに接続する場合、排気ダクト直結型、排気ダクト接続型、排気フード受け型の3種類の設置形態がある。",
-        "answer": "正しい。業務用厨房でガス消費量が12kWを超える半密閉式瞬間湯沸器を既設の排気専用ダクトに接続する場合、排気ダクト直結型、排気ダクト接続型、排気フード受け型の3種類の設置形態がある。"
-      },
-      {
-        "question": "間違い。吸収冷凍機では、冷媒を吸収して濃度が薄くなった吸収溶液は再生器で加熱され、冷媒を分離して濃縮・再生される。凝縮器で濃縮・再生するとしている点が誤り。",
-        "answer": "間違い。吸収冷凍機では、冷媒を吸収して濃度が薄くなった吸収溶液は再生器で加熱され、冷媒を分離して濃縮・再生される。凝縮器で濃縮・再生するとしている点が誤り。"
-      },
-      {
-        "question": "正しい。CGSは発電と排熱利用により、省エネルギー性、環境保全性、電力負荷平準化、エネルギーセキュリティ向上などの優位性を持つ。",
-        "answer": "正しい。CGSは発電と排熱利用により、省エネルギー性、環境保全性、電力負荷平準化、エネルギーセキュリティ向上などの優位性を持つ。"
-      },
-      {
-        "question": "間違い。CGSは省エネルギーに寄与し、一定条件下で容積率緩和の対象となり得るが、容積率緩和はエネルギーの使用の合理化及び非化石エネルギーへの転換等に関する法律ではなく建築基準法上の制度として扱われる。",
-        "answer": "間違い。CGSは省エネルギーに寄与し、一定条件下で容積率緩和の対象となり得るが、容積率緩和はエネルギーの使用の合理化及び非化石エネルギーへの転換等に関する法律ではなく建築基準法上の制度として扱われる。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -302,14 +642,190 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "correctChoiceText": [
       "正しい",
       "正しい",
       "間違い",
       "正しい",
       "間違い"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q23",
+    "reviewQuestionId": "3a65f66e45517939",
+    "sourceRecordRef": "question_2025_gassyunin_site_3.json#3",
+    "explanationReferences": [
+      {
+        "choiceIndex": 4,
+        "referenceDate": "2026-07-30",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/325AC0000000201",
+        "title": "建築基準法（e-Gov法令検索）"
+      },
+      {
+        "choiceIndex": 4,
+        "referenceDate": "2026-07-30",
+        "sourceUrl": "https://www.mlit.go.jp/report/press/house06_hh_000111.html",
+        "title": "建築基準法第52条第14項第1号の規定の運用等について"
+      }
+    ],
+    "lawContextForExplanation": "選択肢5のみ法令関連肢。CGS用機械室の容積率緩和は、試験時点・現行とも建築基準法第52条第14項第1号に基づく特定行政庁の許可によるもので、省エネ法を根拠とする記述は誤り。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      [
+        {
+          "article": "第52条第14項第1号",
+          "choiceIndex": 4,
+          "lawId": "325AC0000000201",
+          "lawTitle": "建築基準法",
+          "referenceDate": "2025-09-28",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "https://www.mlit.go.jp/common/000138959.pdf",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第52条第14項第1号",
+          "choiceIndex": 4,
+          "lawId": "325AC0000000201",
+          "lawTitle": "建築基準法",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/325AC0000000201",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点比較の対象となる差はない。",
+          "displayRefIds": [],
+          "explanationText": "熱風と蒸気を用いる加熱モードに関する技術的記述である。",
+          "promptContext": "選択肢1の法令関連性と技術的正誤を確認する。",
+          "refs": [],
+          "verdict": "法令時点比較の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "スチームコンベクションオーブンの機能に関する技術・設備知識である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点比較の対象となる差はない。",
+          "displayRefIds": [],
+          "explanationText": "既設排気専用ダクトへの接続形態に関する技術的記述である。",
+          "promptContext": "選択肢2の法令関連性と技術的正誤を確認する。",
+          "refs": [],
+          "verdict": "法令時点比較の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "半密閉式瞬間湯沸器の排気ダクトへの設置形態に関する技術・設備知識である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点比較の対象となる差はない。",
+          "displayRefIds": [],
+          "explanationText": "吸収溶液の濃縮・再生を行う装置は再生器であり、凝縮器ではない。",
+          "promptContext": "選択肢3の法令関連性と技術的正誤を確認する。",
+          "refs": [],
+          "verdict": "法令時点比較の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "吸収冷凍機の吸収溶液の濃縮・再生工程に関する技術知識である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点比較の対象となる差はない。",
+          "displayRefIds": [],
+          "explanationText": "排熱利用を含むCGSの一般的な優位性に関する技術的記述である。",
+          "promptContext": "選択肢4の法令関連性と技術的正誤を確認する。",
+          "refs": [],
+          "verdict": "法令時点比較の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "CGSの一般的な優位性に関する技術・設備知識である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点・現行とも正誤は「間違い」で変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験日の2025年9月28日と基準日の2026年7月30日のいずれも、CGS用機械室の容積率緩和の根拠は建築基準法第52条第14項第1号であり、省エネ法ではない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正答に影響する法令上の差はない。",
+          "displayRefIds": [],
+          "explanationText": "容積率緩和の根拠法令を省エネ法としているため誤りである。",
+          "promptContext": "CGS用機械室に係る容積率緩和の根拠法令を試験時点と現行で確認する。",
+          "refs": [],
+          "verdict": "試験時点の正誤を維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "e-Govの建築基準法及び国土交通省の技術的助言・許可準則を照合した。",
+          "許可準則はコージェネレーション設備を同条の特例対象として明示している。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "620333366e793249",
@@ -328,40 +844,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json",
     "explanationText": [
-      "正しい。開放式又は半密閉式ガス機器を使用する場合は、燃焼に必要な空気の取り入れと燃焼排気の排出を確実に行うことが重要である。",
-      "正しい。換気が成り立つには、空気の排出口、空気の流入口、空気の流れを起こす力が必要である。",
-      "正しい。自然換気回数は、室の容積に相当する空気量が1時間に何回自然に入れ替わるかを回/hで表したものである。",
-      "間違い。必要換気量は、室内の酸素濃度をある限界以上に保つために必要な最小換気量として扱う。室内のCO濃度をある限界以下に保つためとしている点が誤り。",
-      "正しい。都市ガスの燃焼時に換気不足などで酸素が欠乏すると、燃焼反応が完全に進まず一酸化炭素が発生する。"
-    ],
-    "suggestedQuestions": [
-      "正しい。開放式又は半密閉式ガス機器を使用する場合は、燃焼に必要な空気の取り入れと燃焼排気の排出を確実に行うことが重要である。",
-      "正しい。換気が成り立つには、空気の排出口、空気の流入口、空気の流れを起こす力が必要である。",
-      "正しい。自然換気回数は、室の容積に相当する空気量が1時間に何回自然に入れ替わるかを回/hで表したものである。",
-      "間違い。必要換気量は、室内の酸素濃度をある限界以上に保つために必要な最小換気量として扱う。室内のCO濃度をある限界以下に保つためとしている点が誤り。",
-      "正しい。都市ガスの燃焼時に換気不足などで酸素が欠乏すると、燃焼反応が完全に進まず一酸化炭素が発生する。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正しい。開放式又は半密閉式ガス機器を使用する場合は、燃焼に必要な空気の取り入れと燃焼排気の排出を確実に行うことが重要である。",
-        "answer": "正しい。開放式又は半密閉式ガス機器を使用する場合は、燃焼に必要な空気の取り入れと燃焼排気の排出を確実に行うことが重要である。"
-      },
-      {
-        "question": "正しい。換気が成り立つには、空気の排出口、空気の流入口、空気の流れを起こす力が必要である。",
-        "answer": "正しい。換気が成り立つには、空気の排出口、空気の流入口、空気の流れを起こす力が必要である。"
-      },
-      {
-        "question": "正しい。自然換気回数は、室の容積に相当する空気量が1時間に何回自然に入れ替わるかを回/hで表したものである。",
-        "answer": "正しい。自然換気回数は、室の容積に相当する空気量が1時間に何回自然に入れ替わるかを回/hで表したものである。"
-      },
-      {
-        "question": "間違い。必要換気量は、室内の酸素濃度をある限界以上に保つために必要な最小換気量として扱う。室内のCO濃度をある限界以下に保つためとしている点が誤り。",
-        "answer": "間違い。必要換気量は、室内の酸素濃度をある限界以上に保つために必要な最小換気量として扱う。室内のCO濃度をある限界以下に保つためとしている点が誤り。"
-      },
-      {
-        "question": "正しい。都市ガスの燃焼時に換気不足などで酸素が欠乏すると、燃焼反応が完全に進まず一酸化炭素が発生する。",
-        "answer": "正しい。都市ガスの燃焼時に換気不足などで酸素が欠乏すると、燃焼反応が完全に進まず一酸化炭素が発生する。"
-      }
+      "正しい。開放式又は半密閉式ガス機器では、室内の空気を燃焼に用い、燃焼排気を室内又は排気設備を通じて排出するため、給気と排気を確実に行うことが重要である。",
+      "正しい。換気を成立させるには、空気の流入口と排出口に加え、自然の圧力差や換気扇など、空気の流れを生じさせる力が必要である。",
+      "正しい。自然換気回数は、室の容積に相当する空気量が1時間に自然換気によって何回入れ替わるかを示し、単位は回/hで表す。",
+      "間違い。必要換気量は、室内の酸素濃度を所定の限界以上に保つために必要な最小換気量をいう。選択肢は、維持する対象を酸素濃度ではなくCO濃度としているため誤りである。",
+      "正しい。都市ガスの燃焼時に換気不足などで酸素が欠乏すると、炭素が二酸化炭素まで十分に酸化されない不完全燃焼となり、一酸化炭素が発生する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -387,7 +874,142 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q24",
+    "reviewQuestionId": "620333366e793249",
+    "sourceRecordRef": "question_2025_gassyunin_site_3.json#4",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない換気及び一酸化炭素中毒に関する技術・理論問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、正誤に変更はない。",
+          "displayRefIds": [],
+          "explanationText": "給気と燃焼排気の排出を確実に行う必要がある。",
+          "promptContext": "開放式又は半密閉式ガス機器の給排気に関する記述。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論肢。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、正誤に変更はない。",
+          "displayRefIds": [],
+          "explanationText": "換気には流入口、排出口及び空気の流れを起こす力が必要である。",
+          "promptContext": "換気を成立させる条件に関する記述。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論肢。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、正誤に変更はない。",
+          "displayRefIds": [],
+          "explanationText": "自然換気回数は室容積相当の空気が1時間に入れ替わる回数を表す。",
+          "promptContext": "自然換気回数の定義と単位に関する記述。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論肢。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、正誤に変更はない。",
+          "displayRefIds": [],
+          "explanationText": "必要換気量は酸素濃度を限界以上に保つための最小換気量であり、CO濃度を限界以下に保つ量とする記述は誤りである。",
+          "promptContext": "必要換気量の定義に関する記述。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論肢。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、正誤に変更はない。",
+          "displayRefIds": [],
+          "explanationText": "酸素不足による不完全燃焼では一酸化炭素が発生する。",
+          "promptContext": "都市ガスの不完全燃焼と一酸化炭素発生に関する記述。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論肢。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "232faed18eb90bc1",
@@ -406,40 +1028,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json",
     "explanationText": [
-      "正しい。開放式機器は、燃焼用の空気を屋内から取り、燃焼排ガスを屋内へ排出する方式である。",
-      "間違い。ガス事業法施行規則第202条第1項第2号イは、自然排気式燃焼器の排気筒について、凝縮水等がたまりにくい構造などの基準を定めている。CF式ふろがまの排気筒を屋外へ先下がり勾配とする説明は誤り。",
-      "間違い。ガス事業法施行規則第202条第1項第5号は、排気筒を設ける燃焼器を、給気口その他給気上有効な開口部を設けた室に設置することを求めている。FE式機器でも給気口等は不要ではない。",
-      "正しい。FF式機器は密閉燃焼式で、給排気筒を延長して給気・排気を屋外と接続できる。ガス事業法施行規則第202条第1項第6号の給排気部を屋外へ出す基準とも整合する。",
-      "間違い。屋外式（RF式）機器は給排気を屋外で行う点で保安上有利だが、ガス事業法施行規則第202条第1項第7号などの基準や周囲環境上の制約を受ける。屋外なら制約なく設置できるわけではない。"
-    ],
-    "suggestedQuestions": [
-      "正しい。開放式機器は、燃焼用の空気を屋内から取り、燃焼排ガスを屋内へ排出する方式である。",
-      "間違い。自然排気式（CF式）ふろがまの排気筒は、横引き部分をなるべく短くし、排気が円滑に流れるよう先下がり勾配としない設置が必要である。屋外に向かって先下がり勾配とするとしている点が誤り。",
-      "間違い。強制排気式（FE式）機器は燃焼用空気を室内から取り、排気をファンで屋外へ排出するため、設置室には給気口又は有効な開口部が必要である。不要としている点が誤り。",
-      "正しい。強制給排気式（FF式）機器は、給排気筒を延長して給気と排気を屋外と接続できるため、機器本体が外壁に面している必要はない。",
-      "間違い。屋外式（RF式）機器は給排気を屋外で行う点で保安上有利だが、離隔距離や開口部・周囲環境など設置上の制約を受ける。屋外であれば制約なく設置できるとしている点が誤り。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正しい。開放式機器は、燃焼用の空気を屋内から取り、燃焼排ガスを屋内へ排出する方式である。",
-        "answer": "正しい。開放式機器は、燃焼用の空気を屋内から取り、燃焼排ガスを屋内へ排出する方式である。"
-      },
-      {
-        "question": "間違い。自然排気式（CF式）ふろがまの排気筒は、横引き部分をなるべく短くし、排気が円滑に流れるよう先下がり勾配としない設置が必要である。屋外に向かって先下がり勾配とするとしている点が誤り。",
-        "answer": "間違い。自然排気式（CF式）ふろがまの排気筒は、横引き部分をなるべく短くし、排気が円滑に流れるよう先下がり勾配としない設置が必要である。屋外に向かって先下がり勾配とするとしている点が誤り。"
-      },
-      {
-        "question": "間違い。強制排気式（FE式）機器は燃焼用空気を室内から取り、排気をファンで屋外へ排出するため、設置室には給気口又は有効な開口部が必要である。不要としている点が誤り。",
-        "answer": "間違い。強制排気式（FE式）機器は燃焼用空気を室内から取り、排気をファンで屋外へ排出するため、設置室には給気口又は有効な開口部が必要である。不要としている点が誤り。"
-      },
-      {
-        "question": "正しい。強制給排気式（FF式）機器は、給排気筒を延長して給気と排気を屋外と接続できるため、機器本体が外壁に面している必要はない。",
-        "answer": "正しい。強制給排気式（FF式）機器は、給排気筒を延長して給気と排気を屋外と接続できるため、機器本体が外壁に面している必要はない。"
-      },
-      {
-        "question": "間違い。屋外式（RF式）機器は給排気を屋外で行う点で保安上有利だが、離隔距離や開口部・周囲環境など設置上の制約を受ける。屋外であれば制約なく設置できるとしている点が誤り。",
-        "answer": "間違い。屋外式（RF式）機器は給排気を屋外で行う点で保安上有利だが、離隔距離や開口部・周囲環境など設置上の制約を受ける。屋外であれば制約なく設置できるとしている点が誤り。"
-      }
+      "正しい。開放式機器は、燃焼用空気を屋内から取り、燃焼排ガスも屋内へ排出する方式である。したがって、記述の内容は正しい。",
+      "間違い。自然排気式（CF式）ふろがまの排気筒は、排気の流れを妨げないように設ける必要があり、横引き部分を屋外に向かって先下がり勾配とする説明は適切でない。この排気筒の設置基準は、ガス事業法施行規則第202条第1項第2号に定められている。",
+      "間違い。強制排気式（FE式）機器は、排気を送風機で屋外へ排出するが、燃焼用空気は室内から取り入れる。そのため、設置室には給気口又は給気上有効な開口部が必要であり、不要とはいえない。この基準は、ガス事業法施行規則第202条第1項第4号に定められている。",
+      "正しい。強制給排気式（FF式）機器は、給気と排気を給排気筒で屋外に接続する密閉燃焼式の機器である。給排気筒を適切に設ければ、機器本体が外壁に直接面している必要はない。この密閉燃焼式機器の給排気部の基準は、ガス事業法施行規則第202条第1項第6号に定められている。",
+      "間違い。屋外式（RF式）機器は給気・排気を屋外で行うため保安上有利な面はあるが、屋外であれば制約なく設置できるわけではない。屋外に設置する燃焼器の排気筒又は給排気部についても、ガス事業法施行規則第202条第1項第7号に基準が定められている。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -463,235 +1056,325 @@
       [],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 1,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "2",
-          "referenceDate": "2026-07-13",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml+lawzilla_mcp+firestore_laws_corpus",
-          "reason": "間違い。ガス事業法施行規則第202条第1項第2号イは、自然排気式燃焼器の排気筒について、凝縮水等がたまりにくい構造などの基準を定めている。屋外へ先下がり勾配とする説明はこの趣旨に合わない。",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "lawzillaTarget": "345M50000400097@ln202.1.2",
-          "subitem": "イ(10)",
-          "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "lawzillaEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_lawzilla_mcp_evidence.jsonl",
-          "firestoreEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_firestore_law_articles.jsonl",
-          "egovEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_egov_articles.jsonl",
-          "firestoreCollectionPath": "laws/345M50000400097/lawRevisions/345M50000400097_20251225_507M60000400006/lawArticles/Art202",
-          "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-          "firestoreArticleTextHash": "db3c8c917cfc2948dc7f3e43f0c43dcef4ea1aba3c706cbb3697c68ff4bfc88f",
-          "firestoreVerificationStatus": "found_current"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 2,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "5",
-          "referenceDate": "2026-07-13",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml+lawzilla_mcp+firestore_laws_corpus",
-          "reason": "間違い。ガス事業法施行規則第202条第1項第5号は、排気筒を設ける燃焼器を、排気筒の有効断面積以上の給気口その他給気上有効な開口部を設けた室に設置することを求めている。FE式機器でも給気口等は不要ではない。",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "lawzillaTarget": "345M50000400097@ln202.1.5",
-          "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "lawzillaEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_lawzilla_mcp_evidence.jsonl",
-          "firestoreEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_firestore_law_articles.jsonl",
-          "egovEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_egov_articles.jsonl",
-          "firestoreCollectionPath": "laws/345M50000400097/lawRevisions/345M50000400097_20251225_507M60000400006/lawArticles/Art202",
-          "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-          "firestoreArticleTextHash": "db3c8c917cfc2948dc7f3e43f0c43dcef4ea1aba3c706cbb3697c68ff4bfc88f",
-          "firestoreVerificationStatus": "found_current"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 3,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "6",
-          "referenceDate": "2026-07-13",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml+lawzilla_mcp+firestore_laws_corpus",
-          "reason": "正しい。ガス事業法施行規則第202条第1項第6号は、密閉燃焼式機器の給排気部の先端を屋外に出すこと等を定めており、給排気筒を延長して屋外と接続するFF式の設置理解と整合する。",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "lawzillaTarget": "345M50000400097@ln202.1.6",
-          "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "lawzillaEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_lawzilla_mcp_evidence.jsonl",
-          "firestoreEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_firestore_law_articles.jsonl",
-          "egovEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_egov_articles.jsonl",
-          "firestoreCollectionPath": "laws/345M50000400097/lawRevisions/345M50000400097_20251225_507M60000400006/lawArticles/Art202",
-          "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-          "firestoreArticleTextHash": "db3c8c917cfc2948dc7f3e43f0c43dcef4ea1aba3c706cbb3697c68ff4bfc88f",
-          "firestoreVerificationStatus": "found_current"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
+          "article": "202",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-30",
           "role": "current_basis",
           "scope": "choice",
-          "choiceIndex": 4,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "施行規則",
-          "article": "202",
-          "paragraph": "1",
-          "item": "7",
-          "referenceDate": "2026-07-13",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml+lawzilla_mcp+firestore_laws_corpus",
-          "reason": "間違い。ガス事業法施行規則第202条第1項第7号は、屋外に設置する燃焼器の排気筒又は給排気部についても基準を定めている。屋外であれば制約なく設置できるわけではない。",
-          "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "lawzillaTarget": "345M50000400097@ln202.1.7",
-          "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "lawzillaEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_lawzilla_mcp_evidence.jsonl",
-          "firestoreEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_firestore_law_articles.jsonl",
-          "egovEvidencePath": "output/gas-shunin-kou/law_evidence/2025/current_article_snapshots/20260713_2025_egov_articles.jsonl",
-          "firestoreCollectionPath": "laws/345M50000400097/lawRevisions/345M50000400097_20251225_507M60000400006/lawArticles/Art202",
-          "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-          "firestoreArticleTextHash": "db3c8c917cfc2948dc7f3e43f0c43dcef4ea1aba3c706cbb3697c68ff4bfc88f",
-          "firestoreVerificationStatus": "found_current"
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawRevisionFacts": {
-      "auditStatus": "same_as_current",
-      "reviewState": "secondary_verified",
-      "auditedAt": "2026-07-13T23:30:00+09:00",
-      "nextAuditDueAt": "2027-07-13",
-      "auditMethodVersion": "law-grounded-audit-v1",
-      "auditInputHash": "sha256:52e50a882522eae15f9d69ccd7326e455166bc267f533d45b16e83cb8a454a5c",
-      "auditRunId": "law-audit-gas-shunin-kou-2025-52e50a882522eae1",
-      "lawCorpusSnapshotId": "egov-current-2026-07-13",
-      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2025-52e50a882522eae1",
-      "reconciliationStatus": "matched",
-      "examTime": {
-        "referenceDate": "2025",
-        "verificationStatus": "from_original_answer"
-      },
-      "current": {
-        "lawId": "345M50000400097",
-        "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-        "lawTitle": "ガス事業法施行規則",
-        "article": "202",
-        "referenceDate": "2026-07-13",
-        "verificationStatus": "verified",
-        "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
-      },
-      "differenceFacts": [
-        "e-Gov現行条文、Lawzilla MCP、Firestore laws corpusで主要根拠を照合し、現行法監査による正答変更は不要。"
-      ],
-      "answerImpactFacts": [
-        "出題時正答と現行法ベースの正誤は同じ。"
-      ],
-      "evidenceSummary": {
-        "verdict": "same_as_current",
-        "explanationText": "現行法根拠で確認しても正答変更は不要。",
-        "differenceSummary": "e-Gov現行条文、Lawzilla MCP、Firestore laws corpusで主要根拠を照合し、現行法監査による正答変更は不要。",
-        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
-        "displayRefIds": [
-          "choice-1-ref-1",
-          "choice-2-ref-1",
-          "choice-3-ref-1",
-          "choice-4-ref-1"
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "開放式機器の給排気方式の定義に関する技術肢であり、出題時と現行で正誤への影響はない。"
         ],
-        "refs": [
-          {
-            "refId": "choice-1-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "2",
-            "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
-          },
-          {
-            "refId": "choice-2-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "5",
-            "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
-          },
-          {
-            "refId": "choice-3-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "6",
-            "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
-          },
-          {
-            "refId": "choice-4-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawRevisionId": "345M50000400097_20251225_507M60000400006",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "7",
-            "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
-          }
-        ]
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正答変更の対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "開放式機器は室内の空気を燃焼に用い、燃焼排ガスを室内へ排出する方式である。",
+          "promptContext": "給排気方式の技術説明として扱う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文を正誤の直接根拠として追加しない。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
       },
-      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2025-52e50a882522eae1"
-    },
+      {
+        "answerImpactFacts": [
+          "出題時正答と現行法ベースの正誤は同じ。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行のガス事業法施行規則第202条第1項第2号に照らしても、自然排気式燃焼器の排気筒を屋外に向かって先下がり勾配とする説明は適切でない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査による正答変更は不要。",
+          "displayRefIds": [
+            "choice-1-ref-1"
+          ],
+          "explanationText": "自然排気式燃焼器の排気筒は、排気の流れを妨げない構造が求められる。",
+          "promptContext": "ガス事業法施行規則第202条第1項第2号を根拠に、先下がり勾配が誤りである点を説明する。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9",
+              "elm": "Article",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-2"
+              ],
+              "item": "2",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "345M50000400097_20251225_507M60000400006",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-1-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "イ(10)",
+              "textHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時正答と現行法ベースの正誤は同じ。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行のガス事業法施行規則第202条第1項第4号は、排気筒を設ける燃焼器を給気口その他給気上有効な開口部を設けた室に設置することを求める。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査による正答変更は不要。",
+          "displayRefIds": [
+            "choice-2-ref-1"
+          ],
+          "explanationText": "FE式機器でも燃焼用空気を確保するため、設置室には給気口又は給気上有効な開口部が必要である。",
+          "promptContext": "ガス事業法施行規則第202条第1項第4号を根拠に、給気口等が不要ではない点を説明する。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9",
+              "elm": "Article",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-4"
+              ],
+              "item": "4",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "345M50000400097_20251225_507M60000400006",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-2-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "none",
+              "textHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "既存の第202条第1項第5号ではなく、排気筒を設ける燃焼器の給気口等に関する第4号を根拠として整理する。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時正答と現行法ベースの正誤は同じ。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行のガス事業法施行規則第202条第1項第6号は、密閉燃焼式機器の給排気部を屋外に出すこと等を定めており、FF式機器の設置理解と整合する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査による正答変更は不要。",
+          "displayRefIds": [
+            "choice-3-ref-1"
+          ],
+          "explanationText": "FF式機器は給排気筒を通じて屋外と接続する密閉燃焼式であり、機器本体が外壁に面している必要はない。",
+          "promptContext": "ガス事業法施行規則第202条第1項第6号を根拠に、給排気部を屋外に出す密閉燃焼式の設置理解として説明する。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9",
+              "elm": "Article",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-6"
+              ],
+              "item": "6",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "345M50000400097_20251225_507M60000400006",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-3-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "none",
+              "textHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時正答と現行法ベースの正誤は同じ。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行のガス事業法施行規則第202条第1項第7号は、屋外に設置する燃焼器の排気筒又は給排気部についても基準を定めている。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査による正答変更は不要。",
+          "displayRefIds": [
+            "choice-4-ref-1"
+          ],
+          "explanationText": "RF式機器は給排気を屋外で行うが、屋外であれば制約なく設置できるわけではない。",
+          "promptContext": "ガス事業法施行規則第202条第1項第7号を根拠に、屋外式にも設置上の制約がある点を説明する。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9",
+              "elm": "Article",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-7"
+              ],
+              "item": "7",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "345M50000400097_20251225_507M60000400006",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-4-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "none",
+              "textHash": "c9aad212a4c971eea22739f4b612a8160a87317ad2d82f64a8274fb12627d1b9"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      }
+    ],
     "correctChoiceText": [
       "正しい",
       "間違い",
       "間違い",
       "正しい",
       "間違い"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q25",
+    "reviewQuestionId": "232faed18eb90bc1",
+    "sourceRecordRef": "question_2025_gassyunin_site_3.json#5",
+    "explanationReferences": [
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-07-13",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則 第202条"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-07-13",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則 第202条"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-07-13",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則 第202条"
+      },
+      {
+        "choiceIndex": 4,
+        "referenceDate": "2026-07-13",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則 第202条"
+      }
+    ],
+    "lawContextForExplanation": "開放式の方式説明は技術肢として扱い、CF式・FE式・FF式・RF式の設置基準はガス事業法施行規則第202条第1項第2号・第4号・第6号・第7号を根拠に説明する。",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "851ce6e11c7168a8",
@@ -710,40 +1393,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json",
     "explanationText": [
-      "正しい。ガス機器の安全装置は、機器が不安全側の条件にあるとき安全に停止し、不安全条件を取り除かない限り再起動しない、フェイルセーフの思想で構成されている。",
-      "間違い。立ち消え安全装置には、一般に熱電対式とフレームロッド式がある。サーミスター式としている点が誤り。",
-      "間違い。不完全燃焼防止装置は、開放式・半密閉式の屋内設置機器など対象機種に搭載される安全装置であり、現在販売されている全ての家庭用ガス機器に搭載されているわけではない。",
-      "間違い。FF暖房機の排気筒外れ検知装置には、微少電流導通検知の方法が用いられる。排気筒接続部のマイクロスイッチがOFFとなることを検知するとしている点が誤り。",
-      "間違い。現在販売されている開放式小型湯沸器のタイムスタンプ機能は、機器の使用が10万回を超えたことをランプ表示等で知らせる機能である。機器を強制停止するとしている点が誤り。"
-    ],
-    "suggestedQuestions": [
-      "正しい。ガス機器の安全装置は、機器が不安全側の条件にあるとき安全に停止し、不安全条件を取り除かない限り再起動しない、フェイルセーフの思想で構成されている。",
-      "間違い。立ち消え安全装置には、一般に熱電対式とフレームロッド式がある。サーミスター式としている点が誤り。",
-      "間違い。不完全燃焼防止装置は、開放式・半密閉式の屋内設置機器など対象機種に搭載される安全装置であり、現在販売されている全ての家庭用ガス機器に搭載されているわけではない。",
-      "間違い。FF暖房機の排気筒外れ検知装置には、微少電流導通検知の方法が用いられる。排気筒接続部のマイクロスイッチがOFFとなることを検知するとしている点が誤り。",
-      "間違い。現在販売されている開放式小型湯沸器のタイムスタンプ機能は、機器の使用が10万回を超えたことをランプ表示等で知らせる機能である。機器を強制停止するとしている点が誤り。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正しい。ガス機器の安全装置は、機器が不安全側の条件にあるとき安全に停止し、不安全条件を取り除かない限り再起動しない、フェイルセーフの思想で構成されている。",
-        "answer": "正しい。ガス機器の安全装置は、機器が不安全側の条件にあるとき安全に停止し、不安全条件を取り除かない限り再起動しない、フェイルセーフの思想で構成されている。"
-      },
-      {
-        "question": "間違い。立ち消え安全装置には、一般に熱電対式とフレームロッド式がある。サーミスター式としている点が誤り。",
-        "answer": "間違い。立ち消え安全装置には、一般に熱電対式とフレームロッド式がある。サーミスター式としている点が誤り。"
-      },
-      {
-        "question": "間違い。不完全燃焼防止装置は、開放式・半密閉式の屋内設置機器など対象機種に搭載される安全装置であり、現在販売されている全ての家庭用ガス機器に搭載されているわけではない。",
-        "answer": "間違い。不完全燃焼防止装置は、開放式・半密閉式の屋内設置機器など対象機種に搭載される安全装置であり、現在販売されている全ての家庭用ガス機器に搭載されているわけではない。"
-      },
-      {
-        "question": "間違い。FF暖房機の排気筒外れ検知装置には、微少電流導通検知の方法が用いられる。排気筒接続部のマイクロスイッチがOFFとなることを検知するとしている点が誤り。",
-        "answer": "間違い。FF暖房機の排気筒外れ検知装置には、微少電流導通検知の方法が用いられる。排気筒接続部のマイクロスイッチがOFFとなることを検知するとしている点が誤り。"
-      },
-      {
-        "question": "間違い。現在販売されている開放式小型湯沸器のタイムスタンプ機能は、機器の使用が10万回を超えたことをランプ表示等で知らせる機能である。機器を強制停止するとしている点が誤り。",
-        "answer": "間違い。現在販売されている開放式小型湯沸器のタイムスタンプ機能は、機器の使用が10万回を超えたことをランプ表示等で知らせる機能である。機器を強制停止するとしている点が誤り。"
-      }
+      "正しい。ガス機器の安全装置は、機器が不安全側の条件にあるときに安全側へ停止し、その不安全条件を取り除かない限り再起動しないようにするフェイルセーフの考え方で構成されている。",
+      "間違い。立ち消え安全装置には、一般に熱電対式とフレームロッド式がある。サーミスター式とする記述が誤りである。",
+      "間違い。不完全燃焼防止装置は、開放式や半密閉式の屋内設置機器など、燃焼排ガスが室内環境に影響し得る対象機種に設けられる安全装置である。現在販売されている全ての家庭用ガス機器に搭載されているわけではない。",
+      "間違い。FF暖房機の排気筒外れ検知装置では、排気筒の接続状態を微少電流の導通などで検知して停止させる方式が用いられる。排気筒接続部のマイクロスイッチがOFFになることを検知するという記述が誤りである。",
+      "間違い。開放式小型湯沸器のタイムスタンプ機能は、使用回数が一定回数を超えたことを表示などで知らせ、点検・確認を促すための機能である。10万回を超えると機器を強制停止する機能とする記述が誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -769,7 +1423,142 @@
       "間違い",
       "間違い",
       "間違い"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q26",
+    "reviewQuestionId": "851ce6e11c7168a8",
+    "sourceRecordRef": "question_2025_gassyunin_site_3.json#6",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、ガス機器の安全装置・安全機能に関する技術知識問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "フェイルセーフの考え方に関する技術知識で判定する。",
+          "promptContext": "ガス機器の安全装置・安全機能に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなくガス機器安全装置の技術知識により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "立ち消え安全装置の方式に関する技術知識で判定する。",
+          "promptContext": "ガス機器の安全装置・安全機能に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなくガス機器安全装置の技術知識により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "不完全燃焼防止装置の対象機種に関する技術知識で判定する。",
+          "promptContext": "ガス機器の安全装置・安全機能に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなくガス機器安全装置の技術知識により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "FF暖房機の排気筒外れ検知方式に関する技術知識で判定する。",
+          "promptContext": "ガス機器の安全装置・安全機能に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなくガス機器安全装置の技術知識により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "開放式小型湯沸器のタイムスタンプ機能に関する技術知識で判定する。",
+          "promptContext": "ガス機器の安全装置・安全機能に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなくガス機器安全機能の技術知識により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "03f7edabcc660a32",
@@ -788,40 +1577,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json",
     "explanationText": [
-      "間違い。オンオフ機構を有するガス栓では、つまみが半開状態で接続具が外れた場合、ヒューズ機構は作動しないが、オンオフ弁によりガス通路が遮断されてガスは流出しない。オンオフ弁でヒューズ機構を作動させるとしている点が誤り。",
-      "間違い。ガス栓用プラグは、ホースエンド口のガス栓に取り付けてコンセント口化するための先端弁付迅速継手である。ガス機器のホースエンド口にガスコードを接続するための接続具としている点が誤り。",
-      "間違い。金属可とう管には、屋内用のものと屋内及び屋外兼用のものがある。屋内専用としている点が誤り。",
-      "間違い。CO警報器には、浴室に設置可能な防湿構造品がある。浴室に設置可能な防湿対策品はないとしている点が誤り。",
+      "間違い。オンオフ機構を有するガス栓では、つまみが半開状態で接続具が外れた場合、ヒューズ機構は作動しないが、オンオフ弁によってガス通路が遮断される。オンオフ弁がヒューズ機構を作動させるわけではないため誤りである。",
+      "間違い。ガス栓用プラグは、ホースエンド口のガス栓に取り付け、その接続部をコンセント口として使用できるようにする接続具である。ガス機器のホースエンド口にガスコードを接続するための接続具ではないため誤りである。",
+      "間違い。金属可とう管には屋内用に加え、屋内・屋外兼用のものもあるため、すべてを屋内専用としている記述は誤りである。",
+      "間違い。CO警報器には浴室へ設置できる防湿構造の製品もあるため、防湿対策品はないとする記述は誤りである。",
       "正しい。業務用換気警報器は、一酸化炭素濃度と暴露時間から血中一酸化炭素ヘモグロビン濃度を推定演算し、その値が設定値に達したときに警報を発する。"
-    ],
-    "suggestedQuestions": [
-      "間違い。オンオフ機構を有するガス栓では、つまみが半開状態で接続具が外れた場合、ヒューズ機構は作動しないが、オンオフ弁によりガス通路が遮断されてガスは流出しない。オンオフ弁でヒューズ機構を作動させるとしている点が誤り。",
-      "間違い。ガス栓用プラグは、ホースエンド口のガス栓に取り付けてコンセント口化するための先端弁付迅速継手である。ガス機器のホースエンド口にガスコードを接続するための接続具としている点が誤り。",
-      "間違い。金属可とう管には、屋内用のものと屋内及び屋外兼用のものがある。屋内専用としている点が誤り。",
-      "間違い。CO警報器には、浴室に設置可能な防湿構造品がある。浴室に設置可能な防湿対策品はないとしている点が誤り。",
-      "正しい。業務用換気警報器は、一酸化炭素濃度と暴露時間から血中一酸化炭素ヘモグロビン濃度を推定演算し、その値が設定値に達したときに警報を発する。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "間違い。オンオフ機構を有するガス栓では、つまみが半開状態で接続具が外れた場合、ヒューズ機構は作動しないが、オンオフ弁によりガス通路が遮断されてガスは流出しない。オンオフ弁でヒューズ機構を作動させるとしている点が誤り。",
-        "answer": "間違い。オンオフ機構を有するガス栓では、つまみが半開状態で接続具が外れた場合、ヒューズ機構は作動しないが、オンオフ弁によりガス通路が遮断されてガスは流出しない。オンオフ弁でヒューズ機構を作動させるとしている点が誤り。"
-      },
-      {
-        "question": "間違い。ガス栓用プラグは、ホースエンド口のガス栓に取り付けてコンセント口化するための先端弁付迅速継手である。ガス機器のホースエンド口にガスコードを接続するための接続具としている点が誤り。",
-        "answer": "間違い。ガス栓用プラグは、ホースエンド口のガス栓に取り付けてコンセント口化するための先端弁付迅速継手である。ガス機器のホースエンド口にガスコードを接続するための接続具としている点が誤り。"
-      },
-      {
-        "question": "間違い。金属可とう管には、屋内用のものと屋内及び屋外兼用のものがある。屋内専用としている点が誤り。",
-        "answer": "間違い。金属可とう管には、屋内用のものと屋内及び屋外兼用のものがある。屋内専用としている点が誤り。"
-      },
-      {
-        "question": "間違い。CO警報器には、浴室に設置可能な防湿構造品がある。浴室に設置可能な防湿対策品はないとしている点が誤り。",
-        "answer": "間違い。CO警報器には、浴室に設置可能な防湿構造品がある。浴室に設置可能な防湿対策品はないとしている点が誤り。"
-      },
-      {
-        "question": "正しい。業務用換気警報器は、一酸化炭素濃度と暴露時間から血中一酸化炭素ヘモグロビン濃度を推定演算し、その値が設定値に達したときに警報を発する。",
-        "answer": "正しい。業務用換気警報器は、一酸化炭素濃度と暴露時間から血中一酸化炭素ヘモグロビン濃度を推定演算し、その値が設定値に達したときに警報を発する。"
-      }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -847,6 +1607,141 @@
       "間違い",
       "間違い",
       "正しい"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q27",
+    "reviewQuestionId": "03f7edabcc660a32",
+    "sourceRecordRef": "question_2025_gassyunin_site_3.json#7",
+    "explanationReferences": [],
+    "lawContextForExplanation": "ガス栓、接続具、金属可とう管、CO警報器・業務用換気警報器の構造・用途・作動原理に関する技術問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "半開状態で接続具が外れた場合はオンオフ弁がガス通路を遮断し、ヒューズ機構を作動させるわけではない。",
+          "promptContext": "オンオフ機構を有するガス栓の作動に関する技術記述。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術記述。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "ガス栓用プラグはホースエンド口のガス栓をコンセント口として使用できるようにする接続具である。",
+          "promptContext": "ガス栓用プラグの用途に関する技術記述。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術記述。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "金属可とう管には屋内用だけでなく、屋内・屋外兼用のものもある。",
+          "promptContext": "金属可とう管の使用場所に関する技術記述。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術記述。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "CO警報器には浴室へ設置できる防湿構造の製品もある。",
+          "promptContext": "CO警報器の防湿構造と設置場所に関する技術記述。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術記述。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "業務用換気警報器は一酸化炭素濃度と暴露時間から血中一酸化炭素ヘモグロビン濃度を推定し、設定値への到達時に警報を発する。",
+          "promptContext": "業務用換気警報器の警報原理に関する技術記述。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術記述。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

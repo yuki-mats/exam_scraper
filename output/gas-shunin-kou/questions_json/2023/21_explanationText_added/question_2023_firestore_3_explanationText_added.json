@@ -16,40 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "間違い。理想気体の状態方程式から総物質量は n=250kPa×20m³/(8.3×300.15)≒2.0kmol である。平均分子量37kg/kmolを掛けると約74kgとなるため、46kgではない。",
-      "間違い。体積比1:3はモル比1:3なので、平均分子量は(16+3×44)/4=37kg/kmolである。総物質量約2.0kmolから質量は約74kgとなり、69kgより74kgが近い。",
-      "正しい。n=PV/RT=250kPa×20m³/(8.3×300.15)≒2.0kmolで、メタン:プロパン=1:3より平均分子量は37kg/kmolである。質量は2.0×37≒74kgとなる。",
-      "間違い。460kgは理想気体の状態方程式で求めた総物質量約2.0kmolと平均分子量37kg/kmolから得られる約74kgより大きすぎる。",
-      "間違い。740kgは約74kgの10倍に相当し、圧力・体積・温度から求めた物質量と平均分子量を正しく反映した値ではない。"
-    ],
-    "suggestedQuestions": [
-      "混合ガスの質量は約74kgであり、46kgではない。",
-      "総物質量約2.0kmolと平均分子量37kg/kmolから、69kgより74kgが近い。",
-      "PV=nRTと体積比1:3から、混合ガスの質量は約74kgとなる。",
-      "460kgは計算値約74kgより大きすぎる。",
-      "740kgは計算値約74kgの10倍であり、最も近い値ではない。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "混合ガスの質量は約74kgであり、46kgではない。",
-        "answer": "間違い"
-      },
-      {
-        "question": "総物質量約2.0kmolと平均分子量37kg/kmolから、69kgより74kgが近い。",
-        "answer": "間違い"
-      },
-      {
-        "question": "PV=nRTと体積比1:3から、混合ガスの質量は約74kgとなる。",
-        "answer": "正しい"
-      },
-      {
-        "question": "460kgは計算値約74kgより大きすぎる。",
-        "answer": "間違い"
-      },
-      {
-        "question": "740kgは計算値約74kgの10倍であり、最も近い値ではない。",
-        "answer": "間違い"
-      }
+      "間違い。体積比1:3は同温・同圧では物質量比1:3を表す。混合ガス全体の物質量は n=PV/RT=250kPa×20m³/(8.3×300.15)≒2.0kmol であり、平均分子量は(16+3×44)/4=37kg/kmolである。したがって質量は約2.0×37≒74kgとなるため、46kgではない。",
+      "間違い。混合ガス全体の物質量は n=PV/RT=250kPa×20m³/(8.3×300.15)≒2.0kmol である。メタンとプロパンの体積比1:3から平均分子量は37kg/kmolとなり、質量は約74kgである。69kgより74kgの方が計算値に近い。",
+      "正しい。温度は27℃=300.15Kであり、理想気体の状態方程式から n=PV/RT=250kPa×20m³/(8.3×300.15)≒2.0kmol となる。体積比1:3は物質量比1:3なので、平均分子量は(16+3×44)/4=37kg/kmolである。よって混合ガスの質量は約2.0×37≒74kgとなる。",
+      "間違い。理想気体の状態方程式から求まる混合ガス全体の物質量は約2.0kmolで、体積比1:3から平均分子量は37kg/kmolである。質量は約74kgであり、460kgは計算値より大きすぎる。",
+      "間違い。圧力250kPa、体積20m³、温度300.15Kから求める物質量は約2.0kmolである。平均分子量37kg/kmolを掛けると質量は約74kgとなるため、740kgは計算値の約10倍であり最も近い値ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -82,7 +53,142 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2023:kiso:q02",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2023-2-1,gasushunin-koushu-kiso-2023-2-2,chiefgasengineerlicense-C-10005,gasushunin-koushu-kiso-2023-2-4,gasushunin-koushu-kiso-2023-2-5",
+    "sourceRecordRef": "question_2023_firestore_3.json#0",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論計算問題。理想気体の状態方程式と混合ガスの平均分子量に基づいて判断する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
+          "promptContext": "選択肢46kgは計算値約74kgと一致しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・理論計算問題であり、法令改正による正誤への影響はない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
+          "promptContext": "選択肢69kgは計算値約74kgより離れている。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・理論計算問題であり、法令改正による正誤への影響はない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
+          "promptContext": "選択肢74kgは計算値約74kgと一致する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・理論計算問題であり、法令改正による正誤への影響はない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
+          "promptContext": "選択肢460kgは計算値約74kgと一致しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・理論計算問題であり、法令改正による正誤への影響はない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
+          "promptContext": "選択肢740kgは計算値約74kgと一致しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・理論計算問題であり、法令改正による正誤への影響はない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2023-3-1,gasushunin-koushu-kiso-2023-3-2,gasushunin-koushu-kiso-2023-3-3,chiefgasengineerlicense-C-10006,gasushunin-koushu-kiso-2023-3-5",
@@ -101,40 +207,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "間違い。理想気体の物質量は n=100kPa×6m³/(8.3×300.15)≒0.2408kmolである。定圧加熱で与えた熱量と外部仕事を考えると内部エネルギー変化は約501kJとなるため、0kJではない。",
-      "間違い。Q=nCₚΔT≒0.2408×29.1×100≒700.9kJ、W=PΔV≒100×(8.0−6)=199.9kJである。ΔU=Q−W≒501kJとなり、100kJではない。",
-      "間違い。定圧下ではV/Tが一定なので、27℃から127℃への加熱で体積は約8.0m³となる。外部仕事を差し引いても内部エネルギー変化は約501kJであり、300kJではない。",
-      "正しい。n=PV/RT≒0.2408kmol、ΔT=100KよりQ=nCₚΔT≒700.9kJ。V₂≒8.0m³なのでW=PΔV≒199.9kJ、したがってΔU=Q−W≒501kJとなり、500kJが最も近い。",
-      "間違い。700kJは定圧加熱で与えた熱量Qに近い値であり、内部エネルギー変化ではない。内部エネルギー変化は外部仕事約200kJを差し引いた約500kJである。"
-    ],
-    "suggestedQuestions": [
-      "内部エネルギー変化は約501kJであり、0kJではない。",
-      "Qから定圧膨張の仕事を差し引くと約501kJとなり、100kJではない。",
-      "定圧加熱後の体積は約8.0m³で、内部エネルギー変化は約501kJである。",
-      "定圧加熱ではQ≈700.9kJ、W≈199.9kJなので、ΔU≈501kJである。",
-      "700kJは与えた熱量に近く、内部エネルギー変化は外部仕事を差し引いた約500kJである。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "内部エネルギー変化は約501kJであり、0kJではない。",
-        "answer": "間違い"
-      },
-      {
-        "question": "Qから定圧膨張の仕事を差し引くと約501kJとなり、100kJではない。",
-        "answer": "間違い"
-      },
-      {
-        "question": "定圧加熱後の体積は約8.0m³で、内部エネルギー変化は約501kJである。",
-        "answer": "間違い"
-      },
-      {
-        "question": "定圧加熱ではQ≈700.9kJ、W≈199.9kJなので、ΔU≈501kJである。",
-        "answer": "正しい"
-      },
-      {
-        "question": "700kJは与えた熱量に近く、内部エネルギー変化は外部仕事を差し引いた約500kJである。",
-        "answer": "間違い"
-      }
+      "理想気体の物質量は、状態方程式から n=PV/(RT)=100×6/(8.3×300.15)≒0.2408 kmolである。定積モル熱容量は Cᵥ=Cₚ−R=29.1−8.3=20.8 kJ/(kmol・K)、温度差は ΔT=127−27=100 Kなので、内部エネルギー変化は ΔU=nCᵥΔT≒0.2408×20.8×100≒501 kJとなる。したがって最も近い値は500 kJである。なお、約700 kJは定圧加熱で気体に与えられる熱量に相当し、そこから膨張仕事約200 kJを差し引いても同じ結果が得られる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -167,7 +240,142 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2023:kiso:q03",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2023-3-1,gasushunin-koushu-kiso-2023-3-2,gasushunin-koushu-kiso-2023-3-3,chiefgasengineerlicense-C-10006,gasushunin-koushu-kiso-2023-3-5",
+    "sourceRecordRef": "question_2023_firestore_3.json#1",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない熱力学の技術・計算問題。理想気体の状態方程式、定圧加熱の熱量、外部仕事、熱力学第一法則により判断する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "内部エネルギー変化は約501 kJであり、0 kJではない。",
+          "promptContext": "理想気体の定圧加熱における内部エネルギー変化を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱力学の技術・計算肢であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "内部エネルギー変化は約501 kJであり、100 kJではない。",
+          "promptContext": "理想気体の定圧加熱における内部エネルギー変化を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱力学の技術・計算肢であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "内部エネルギー変化は約501 kJであり、300 kJではない。",
+          "promptContext": "理想気体の定圧加熱における内部エネルギー変化を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱力学の技術・計算肢であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "内部エネルギー変化は約501 kJとなるため、最も近い値は500 kJである。",
+          "promptContext": "理想気体の定圧加熱における内部エネルギー変化を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "熱力学の技術・計算肢であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "約700 kJは加えた熱量に相当し、内部エネルギー変化は約501 kJである。",
+          "promptContext": "理想気体の定圧加熱における内部エネルギー変化を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱力学の技術・計算肢であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10007,chiefgasengineerlicense-C-10008,chiefgasengineerlicense-C-10009,chiefgasengineerlicense-C-10010,chiefgasengineerlicense-C-10011",
@@ -186,40 +394,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "正しい。定圧モル熱容量Cₚと定積モル熱容量Cᵥの比Cₚ/Cᵥを比熱比という。理想気体ではCₚ=Cᵥ+Rとなるため、比熱比は常に1より大きい。",
-      "間違い。理想気体の内部エネルギーは温度のみで決まり、等温膨張では温度が一定なので内部エネルギーは増加しない。",
-      "正しい。理想気体を等温圧縮すると体積が減少し、エントロピー変化はnR ln(V₂/V₁)で負となるため、その気体のエントロピーは減少する。",
-      "正しい。理想気体ではエンタルピーが温度のみの関数であり、等エンタルピー変化で温度変化が生じないため、ジュール・トムソン係数は0である。",
-      "正しい。圧力一定の閉じた系で与えた熱量はエンタルピー増加に対応するため、理想気体を定圧加熱した場合の熱量はその気体のエンタルピー増加に等しい。"
-    ],
-    "suggestedQuestions": [
-      "理想気体では比熱比Cₚ/Cᵥは1より大きい？",
-      "理想気体の等温膨張で内部エネルギーは増加する？",
-      "理想気体の等温圧縮ではエントロピーが減少する？",
-      "理想気体のジュール・トムソン係数は0？",
-      "定圧加熱で与えた熱量はエンタルピー増加に等しい？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "理想気体では比熱比Cₚ/Cᵥは1より大きい？",
-        "answer": "大きい。理想気体ではCₚ=Cᵥ+Rなので、Cₚ/Cᵥは1を超える。"
-      },
-      {
-        "question": "理想気体の等温膨張で内部エネルギーは増加する？",
-        "answer": "増加しない。理想気体の内部エネルギーは温度のみの関数であり、等温変化では内部エネルギーは変わらない。"
-      },
-      {
-        "question": "理想気体の等温圧縮ではエントロピーが減少する？",
-        "answer": "減少する。等温圧縮では体積が小さくなるため、理想気体のエントロピー変化は負になる。"
-      },
-      {
-        "question": "理想気体のジュール・トムソン係数は0？",
-        "answer": "0である。理想気体のエンタルピーは温度のみで決まり、ジュール・トムソン効果による温度変化を示さない。"
-      },
-      {
-        "question": "定圧加熱で与えた熱量はエンタルピー増加に等しい？",
-        "answer": "等しい。圧力一定の加熱では熱量がエンタルピー増加に対応する。"
-      }
+      "正しい。定圧モル熱容量をC_p、定積モル熱容量をC_vとすると、その比C_p/C_vを比熱比という。理想気体ではC_p=C_v+Rの関係が成り立つため、C_pはC_vより大きく、比熱比は常に1より大きい。",
+      "間違い。理想気体の内部エネルギーは温度だけで決まる。等温膨張では温度が変わらないので、内部エネルギーは増加せず一定である。",
+      "正しい。理想気体の等温変化では、エントロピー変化は体積比に依存する。等温圧縮では体積が小さくなるため、気体のエントロピーは減少する。",
+      "正しい。理想気体ではエンタルピーが温度だけで決まり、等エンタルピー変化で温度変化を生じない。そのため、理想気体のジュール・トムソン係数は0である。",
+      "正しい。圧力一定の過程では、加えた熱量はエンタルピーの増加に対応する。したがって、理想気体を定圧で加熱したとき、与えた熱量はその気体のエンタルピー増加に等しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -252,7 +431,142 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2023:kiso:q04",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10007,chiefgasengineerlicense-C-10008,chiefgasengineerlicense-C-10009,chiefgasengineerlicense-C-10010,chiefgasengineerlicense-C-10011",
+    "sourceRecordRef": "question_2023_firestore_3.json#2",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない気体の熱力学に関する技術・理論問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "比熱比の定義と理想気体のC_p=C_v+Rの関係に基づく技術・理論判断。",
+          "promptContext": "定圧モル熱容量と定積モル熱容量の比を比熱比と呼び、理想気体では常に1より大きい。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく理想気体の熱容量に関する技術・理論肢であるため、法令改正影響の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体の内部エネルギーは温度のみの関数であり、等温膨張では内部エネルギーは増加しない。",
+          "promptContext": "理想気体を等温膨張させた場合、内部エネルギーは増加する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなく理想気体の等温変化に関する技術・理論肢であるため、法令改正影響の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体の等温圧縮では体積が減少し、気体のエントロピーは減少する。",
+          "promptContext": "理想気体の等温圧縮は、その気体のエントロピーの減少を伴う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく理想気体のエントロピー変化に関する技術・理論肢であるため、法令改正影響の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体では等エンタルピー変化に伴う温度変化がなく、ジュール・トムソン係数は0である。",
+          "promptContext": "理想気体では、ジュール・トムソン係数は0である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく理想気体のジュール・トムソン係数に関する技術・理論肢であるため、法令改正影響の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "圧力一定の加熱では、与えた熱量は気体のエンタルピー増加に対応する。",
+          "promptContext": "理想気体を圧力一定のもとで加熱した場合、与えた熱量はその気体のエンタルピー増加に等しい。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく定圧加熱とエンタルピーに関する技術・理論肢であるため、法令改正影響の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10012,gasushunin-koushu-kiso-2023-5-2,gasushunin-koushu-kiso-2023-5-3,gasushunin-koushu-kiso-2023-5-4,gasushunin-koushu-kiso-2023-5-5",
@@ -271,40 +585,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "正しい。逆カルノーサイクルのヒートポンプの成績係数はεₕ=Tₕ/(Tₕ−Tₗ)である。Tₕ=300.15K、Tₗ=270.15Kなのでεₕ≈10となり、1kWを放熱するための仕事は1000/10≈100Wである。",
-      "間違い。必要仕事はW=Qₕ/εₕで求める。εₕ≈10なのでW≈100Wとなり、250Wではない。",
-      "間違い。温度差30K、屋内側絶対温度300.15Kから成績係数は約10である。1kWを約10で割るため、300Wではなく約100Wである。",
-      "間違い。450Wなら成績係数は1000/450≈2.2となるが、逆カルノーサイクルではεₕ≈10であるため、この値は大きすぎる。",
-      "間違い。900Wは放熱量1kWに近すぎる。逆カルノーサイクルの成績係数が約10なので、必要な仕事は約100Wである。"
-    ],
-    "suggestedQuestions": [
-      "逆カルノーサイクルのヒートポンプで必要仕事は約100W？",
-      "この条件で必要仕事は250W？",
-      "屋内側300.15K、温度差30Kなら必要仕事は300W？",
-      "このヒートポンプの必要仕事は450W？",
-      "放熱量1kWに対して必要仕事は900W？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "逆カルノーサイクルのヒートポンプで必要仕事は約100W？",
-        "answer": "約100Wである。εₕ=Tₕ/(Tₕ−Tₗ)=300.15/30≈10、W=1000/10≈100Wとなる。"
-      },
-      {
-        "question": "この条件で必要仕事は250W？",
-        "answer": "250Wではない。成績係数が約10なので、必要仕事は約100Wである。"
-      },
-      {
-        "question": "屋内側300.15K、温度差30Kなら必要仕事は300W？",
-        "answer": "300Wではない。屋内側絶対温度300.15Kを温度差30Kで割ると成績係数は約10となる。"
-      },
-      {
-        "question": "このヒートポンプの必要仕事は450W？",
-        "answer": "450Wではない。逆カルノーサイクルの成績係数から、1kW放熱に必要な仕事は約100Wである。"
-      },
-      {
-        "question": "放熱量1kWに対して必要仕事は900W？",
-        "answer": "900Wではない。理想的な逆カルノーサイクルでは成績係数が約10であり、必要仕事は放熱量の約10分の1である。"
-      }
+      "逆カルノーサイクルを用いたヒートポンプで屋内へ放熱する場合、暖房側の成績係数は ε_h=T_h/(T_h−T_l) で表される。屋内27℃は T_h=300.15K、屋外−3℃は T_l=270.15K なので、温度差は30Kであり、ε_h=300.15/30≒10.0となる。屋内へ放熱する熱量が1kW=1000Wであるから、必要な仕事は W=Q_h/ε_h≒1000/10.0≒100Wである。したがって最も近い値は100であり、250、300、450、900はいずれも大きすぎる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -337,7 +618,152 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2023:kiso:q05",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10012,gasushunin-koushu-kiso-2023-5-2,gasushunin-koushu-kiso-2023-5-3,gasushunin-koushu-kiso-2023-5-4,gasushunin-koushu-kiso-2023-5-5",
+    "sourceRecordRef": "question_2023_firestore_3.json#3",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、逆カルノーサイクルの成績係数と必要仕事に関する技術・計算問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢100は、ε_h=300.15/(300.15−270.15)≒10、W=1000/10≒100Wとなるため正しい。",
+          "promptContext": "逆カルノーサイクルの成績係数と必要仕事に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "逆カルノーサイクルの暖房側成績係数から必要仕事を計算する問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢250は、計算結果の約100Wと一致しないため間違い。",
+          "promptContext": "逆カルノーサイクルの成績係数と必要仕事に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "必要仕事は約100Wであり、250Wではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢300は、計算結果の約100Wと一致しないため間違い。",
+          "promptContext": "逆カルノーサイクルの成績係数と必要仕事に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "必要仕事は約100Wであり、300Wではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢450は、計算結果の約100Wと一致しないため間違い。",
+          "promptContext": "逆カルノーサイクルの成績係数と必要仕事に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "必要仕事は約100Wであり、450Wではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢900は、計算結果の約100Wと一致しないため間違い。",
+          "promptContext": "逆カルノーサイクルの成績係数と必要仕事に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "必要仕事は約100Wであり、900Wではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10013,chiefgasengineerlicense-C-10014,chiefgasengineerlicense-C-10015,chiefgasengineerlicense-C-10016,chiefgasengineerlicense-C-10017",
@@ -356,40 +782,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "正しい。右方向では気体の物質量が5molから3molへ減るため、等温で圧力を上げると物質量の少ない生成物側、すなわち右方向へ平衡が移動しやすい。",
-      "間違い。右方向は発熱反応なので、温度を上げると熱を吸収する左方向へ平衡が移動しやすい。したがって右方向に進める操作としては不適切である。",
-      "正しい。水素は反応物であり、等温定圧で水素を添加すると反応物濃度が増えるため、平衡は水素を消費する右方向へ移動しやすい。",
-      "正しい。二酸化炭素は反応物であり、等温定圧で二酸化炭素を添加すると反応物側が増えるため、平衡は生成物側である右方向へ移動しやすい。",
-      "正しい。水蒸気は生成物であり、水蒸気を除くと生成物が減るため、平衡は生成物を補う右方向へ移動しやすい。"
-    ],
-    "suggestedQuestions": [
-      "この反応で圧力を上げると右方向に進みやすい？",
-      "発熱反応で温度を上げると右方向に進みやすい？",
-      "水素を添加すると右方向に進みやすい？",
-      "二酸化炭素を添加すると右方向に進みやすい？",
-      "水蒸気を除くと右方向に進みやすい？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この反応で圧力を上げると右方向に進みやすい？",
-        "answer": "進みやすい。右方向では気体分子数が少なくなるため、圧力上昇は生成物側への移動を促す。"
-      },
-      {
-        "question": "発熱反応で温度を上げると右方向に進みやすい？",
-        "answer": "進みにくい。右方向が発熱反応なので、温度上昇は吸熱方向である左方向への移動を促す。"
-      },
-      {
-        "question": "水素を添加すると右方向に進みやすい？",
-        "answer": "進みやすい。水素は反応物なので、添加すると水素を消費する右方向へ平衡が移動する。"
-      },
-      {
-        "question": "二酸化炭素を添加すると右方向に進みやすい？",
-        "answer": "進みやすい。二酸化炭素は反応物なので、添加すると生成物側への反応が促される。"
-      },
-      {
-        "question": "水蒸気を除くと右方向に進みやすい？",
-        "answer": "進みやすい。水蒸気は生成物なので、除去すると生成物を補う右方向へ平衡が移動する。"
-      }
+      "正しい。右方向では気体の物質量が5molから3molへ減るため、等温で圧力を上げると、平衡は気体の物質量が少ない生成物側、すなわち右方向へ移動しやすい。",
+      "間違い。右方向は発熱反応なので、温度を上げると、平衡は熱を吸収する左方向へ移動しやすい。したがって、右方向にさらに進行させる操作としては不適切である。",
+      "正しい。水素は反応物である。等温定圧で水素を添加すると反応物が増えるため、平衡は水素を消費する右方向へ移動しやすい。",
+      "正しい。二酸化炭素は反応物である。等温定圧で二酸化炭素を添加すると反応物が増えるため、平衡は生成物側である右方向へ移動しやすい。",
+      "正しい。水蒸気は生成物である。水蒸気を除くと生成物が減るため、平衡は生成物を補う右方向へ移動しやすい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -430,7 +827,142 @@
       "reason": "技術・基礎科目のsource conflict/Lawzilla候補整理対象。法令名・法令キーワードはあるが、選択肢の正誤を現行条文だけで直接確定する設問としては扱わない。未検証の条文をlawReferencesへ付けない。",
       "sourceConflictHandling": "preserve_firestore_snapshot_after_review",
       "secretHandling": "no Lawzilla endpoint or API key stored"
-    }
+    },
+    "sourceQuestionKey": "gas-shunin:kou:2023:kiso:q06",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10013,chiefgasengineerlicense-C-10014,chiefgasengineerlicense-C-10015,chiefgasengineerlicense-C-10016,chiefgasengineerlicense-C-10017",
+    "sourceRecordRef": "question_2023_firestore_3.json#4",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない化学平衡・反応工学の基礎理論問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令根拠による試験時点と現行時点の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "右方向では気体の物質量が減るため、圧力上昇は生成物側への平衡移動を促す。",
+          "promptContext": "CO₂ + 4H₂ ⇄ CH₄ + 2H₂O の右方向への平衡移動を問う基礎理論問題。",
+          "refs": [],
+          "verdict": "法令改正の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく化学平衡の基礎理論により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令根拠による試験時点と現行時点の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "右方向が発熱反応であるため、温度上昇は吸熱方向である左方向への平衡移動を促す。",
+          "promptContext": "CO₂ + 4H₂ ⇄ CH₄ + 2H₂O の右方向への平衡移動を問う基礎理論問題。",
+          "refs": [],
+          "verdict": "法令改正の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく化学平衡の基礎理論により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令根拠による試験時点と現行時点の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "水素は反応物なので、水素を添加すると平衡は水素を消費する右方向へ移動しやすい。",
+          "promptContext": "CO₂ + 4H₂ ⇄ CH₄ + 2H₂O の右方向への平衡移動を問う基礎理論問題。",
+          "refs": [],
+          "verdict": "法令改正の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく化学平衡の基礎理論により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令根拠による試験時点と現行時点の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "二酸化炭素は反応物なので、二酸化炭素を添加すると平衡は生成物側である右方向へ移動しやすい。",
+          "promptContext": "CO₂ + 4H₂ ⇄ CH₄ + 2H₂O の右方向への平衡移動を問う基礎理論問題。",
+          "refs": [],
+          "verdict": "法令改正の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく化学平衡の基礎理論により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令根拠による試験時点と現行時点の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "水蒸気は生成物なので、水蒸気を除くと平衡は生成物を補う右方向へ移動しやすい。",
+          "promptContext": "CO₂ + 4H₂ ⇄ CH₄ + 2H₂O の右方向への平衡移動を問う基礎理論問題。",
+          "refs": [],
+          "verdict": "法令改正の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく化学平衡の基礎理論により判定する選択肢。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2023-7-1,gasushunin-koushu-kiso-2023-7-2,chiefgasengineerlicense-C-10018,gasushunin-koushu-kiso-2023-7-4,gasushunin-koushu-kiso-2023-7-5",
@@ -449,40 +981,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "間違い。COは1.0molから0.3molへ減ったので0.7mol反応している。平衡時はCO=0.3、H₂O=0.5、CO₂=0.7、H₂=0.7となり、Kp=(0.7×0.7)/(0.3×0.5)≒3.3であるため、0.31ではない。",
-      "間違い。反応前後で気体総モル数は変わらないため、分圧比の全圧項は相殺される。Kp=(0.7×0.7)/(0.3×0.5)≒3.3となり、1ではない。",
-      "正しい。平衡時の物質量はCO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molである。Kp=(P_CO₂×P_H₂)/(P_CO×P_H₂O)=(0.7×0.7)/(0.3×0.5)≒3.3となる。",
-      "間違い。反応量0.7molから求める平衡時組成を用いるとKpは約3.3である。5.4は分子・分母の組成関係を誤って扱った値で、最も近い値ではない。",
-      "間違い。Kpは生成物側の分圧積を反応物側の分圧積で割るため、(0.7×0.7)/(0.3×0.5)≒3.3である。10は大きすぎる。"
-    ],
-    "suggestedQuestions": [
-      "この条件のKpは0.31？",
-      "COシフト反応のKpは1？",
-      "平衡時CO=0.3molならKpは約3.3？",
-      "この平衡定数は5.4に近い？",
-      "この平衡定数は10に近い？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この条件のKpは0.31？",
-        "answer": "0.31ではない。反応量0.7molからKp=(0.7×0.7)/(0.3×0.5)≒3.3となる。"
-      },
-      {
-        "question": "COシフト反応のKpは1？",
-        "answer": "1ではない。平衡時の生成物側の積が反応物側の積より大きく、Kpは約3.3である。"
-      },
-      {
-        "question": "平衡時CO=0.3molならKpは約3.3？",
-        "answer": "約3.3である。CO=0.3、H₂O=0.5、CO₂=0.7、H₂=0.7をKp式に代入する。"
-      },
-      {
-        "question": "この平衡定数は5.4に近い？",
-        "answer": "5.4ではない。正しい平衡時組成を使うと約3.3になる。"
-      },
-      {
-        "question": "この平衡定数は10に近い？",
-        "answer": "10ではない。Kp=(0.7×0.7)/(0.3×0.5)で、約3.3である。"
-      }
+      "間違い。COは1.0molから0.3molに減っているので、0.7mol反応している。平衡時の物質量はCO=0.3mol、H₂O=1.2-0.7=0.5mol、CO₂=0.7mol、H₂=0.7molである。反応前後で気体の総モル数は変わらないため分圧比では全圧項が相殺され、Kp=(0.7×0.7)/(0.3×0.5)≒3.3となる。したがって0.31ではない。",
+      "間違い。平衡時の物質量はCO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molである。Kpは生成物側の分圧積を反応物側の分圧積で割るので、Kp=(P_CO₂×P_H₂)/(P_CO×P_H₂O)=(0.7×0.7)/(0.3×0.5)≒3.3であり、1ではない。",
+      "正しい。COが1.0molから0.3molに減ったため、反応したCOは0.7molである。反応式CO+H₂O⇄CO₂+H₂より、平衡時はCO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molとなる。反応前後で総モル数は変わらないので、Kp=(P_CO₂×P_H₂)/(P_CO×P_H₂O)=(0.7×0.7)/(0.3×0.5)≒3.3である。",
+      "間違い。正しい平衡時組成はCO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molである。これを圧平衡定数の式に代入すると、Kp=(0.7×0.7)/(0.3×0.5)≒3.3となる。したがって最も近い値は5.4ではない。",
+      "間違い。圧平衡定数はKp=(P_CO₂×P_H₂)/(P_CO×P_H₂O)で求める。平衡時の物質量CO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molを用いると、分圧の共通因子は相殺され、Kp=(0.7×0.7)/(0.3×0.5)≒3.3である。したがって10ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -515,7 +1018,152 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2023:kiso:q07",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2023-7-1,gasushunin-koushu-kiso-2023-7-2,chiefgasengineerlicense-C-10018,gasushunin-koushu-kiso-2023-7-4,gasushunin-koushu-kiso-2023-7-5",
+    "sourceRecordRef": "question_2023_firestore_3.json#5",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない化学平衡・圧平衡定数の計算問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、試験時と現在の正誤は同じ。",
+          "displayRefIds": [],
+          "explanationText": "選択肢0.31は、平衡時組成から求めるKp約3.3と一致しない。",
+          "promptContext": "COシフト反応の圧平衡定数を計算する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "化学平衡の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、試験時と現在の正誤は同じ。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1は、平衡時組成から求めるKp約3.3と一致しない。",
+          "promptContext": "COシフト反応の圧平衡定数を計算する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "化学平衡の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、試験時と現在の正誤は同じ。",
+          "displayRefIds": [],
+          "explanationText": "選択肢3.3は、平衡時組成から求めるKp約3.3と一致する。",
+          "promptContext": "COシフト反応の圧平衡定数を計算する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "化学平衡の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、試験時と現在の正誤は同じ。",
+          "displayRefIds": [],
+          "explanationText": "選択肢5.4は、平衡時組成から求めるKp約3.3と一致しない。",
+          "promptContext": "COシフト反応の圧平衡定数を計算する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "化学平衡の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、試験時と現在の正誤は同じ。",
+          "displayRefIds": [],
+          "explanationText": "選択肢10は、平衡時組成から求めるKp約3.3と一致しない。",
+          "promptContext": "COシフト反応の圧平衡定数を計算する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "化学平衡の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2023-8-1,gasushunin-koushu-kiso-2023-8-2,gasushunin-koushu-kiso-2023-8-3,gasushunin-koushu-kiso-2023-8-4,chiefgasengineerlicense-C-10019",
@@ -534,40 +1182,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "間違い。空気比1.5なので過剰空気量は理論空気量の0.5倍である。Aのメタンは12×9.52×0.5=57.12、Bのプロパンは5×23.81×0.5=59.525、Cのブタンは4×30.95×0.5=61.9となるため、A＞B＞Cではない。",
-      "間違い。過剰空気量はA=57.12、B=59.525、C=61.9であり、Aは最も少ない。したがってA＞C＞Bではなく、C＞B＞Aである。",
-      "間違い。過剰空気量はB=59.525、A=57.12、C=61.9で、Cが最も多くAが最も少ない。したがってB＞A＞Cではない。",
-      "間違い。Cが最も多い点は正しいが、B=59.525はA=57.12より多い。したがってC＞A＞Bではなく、C＞B＞Aである。",
-      "正しい。空気比1.5での過剰空気量は、各気体の理論空気量に(1.5−1.0)を掛ける。A:12×9.52×0.5=57.12、B:5×23.81×0.5=59.525、C:4×30.95×0.5=61.9より、多い順はC＞B＞Aである。"
-    ],
-    "suggestedQuestions": [
-      "過剰空気量の多い順はA＞B＞C？",
-      "過剰空気量の多い順はA＞C＞B？",
-      "過剰空気量の多い順はB＞A＞C？",
-      "過剰空気量の多い順はC＞A＞B？",
-      "過剰空気量の多い順はC＞B＞A？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "過剰空気量の多い順はA＞B＞C？",
-        "answer": "A＞B＞Cではない。A=57.12、B=59.525、C=61.9なので、正しい順はC＞B＞Aである。"
-      },
-      {
-        "question": "過剰空気量の多い順はA＞C＞B？",
-        "answer": "A＞C＞Bではない。Aの過剰空気量57.12が最小で、正しい順はC＞B＞Aである。"
-      },
-      {
-        "question": "過剰空気量の多い順はB＞A＞C？",
-        "answer": "B＞A＞Cではない。C=61.9が最大で、A=57.12が最小である。"
-      },
-      {
-        "question": "過剰空気量の多い順はC＞A＞B？",
-        "answer": "C＞A＞Bではない。B=59.525はA=57.12より多いため、C＞B＞Aである。"
-      },
-      {
-        "question": "過剰空気量の多い順はC＞B＞A？",
-        "answer": "C＞B＞Aである。A=57.12、B=59.525、C=61.9で、C、B、Aの順に多い。"
-      }
+      "空気比1.5で完全燃焼させるときの過剰空気量は、理論空気量に空気比の超過分（1.5−1.0=0.5）を掛けて求める。1m³当たりの理論空気量をメタン9.52m³、プロパン23.81m³、ブタン30.95m³として計算すると、Aは12×9.52×0.5=57.12m³、Bは5×23.81×0.5=59.525m³、Cは4×30.95×0.5=61.9m³である。したがって、過剰空気量が多い順はC＞B＞Aとなり、最も適切な選択肢は「C ＞ B ＞ A」である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -609,7 +1224,152 @@
       "reason": "技術・基礎科目のsource conflict/Lawzilla候補整理対象。法令名・法令キーワードはあるが、選択肢の正誤を現行条文だけで直接確定する設問としては扱わない。未検証の条文をlawReferencesへ付けない。",
       "sourceConflictHandling": "preserve_firestore_snapshot_after_review",
       "secretHandling": "no Lawzilla endpoint or API key stored"
-    }
+    },
+    "sourceQuestionKey": "gas-shunin:kou:2023:kiso:q08",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2023-8-1,gasushunin-koushu-kiso-2023-8-2,gasushunin-koushu-kiso-2023-8-3,gasushunin-koushu-kiso-2023-8-4,chiefgasengineerlicense-C-10019",
+    "sourceRecordRef": "question_2023_firestore_3.json#6",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない燃焼計算・基礎理論問題。過剰空気量は各気体の理論空気量に空気比の超過分を掛けて比較する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "A＞B＞Cは、計算結果C=61.9m³、B=59.525m³、A=57.12m³の大小関係と一致しない。",
+          "promptContext": "過剰空気量は理論空気量に空気比の超過分0.5を掛けて比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "燃焼計算・基礎理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "A＞C＞Bは、A=57.12m³が最小であるため正しい大小関係ではない。",
+          "promptContext": "過剰空気量は理論空気量に空気比の超過分0.5を掛けて比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "燃焼計算・基礎理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "B＞A＞Cは、C=61.9m³が最大であるため正しい大小関係ではない。",
+          "promptContext": "過剰空気量は理論空気量に空気比の超過分0.5を掛けて比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "燃焼計算・基礎理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "C＞A＞Bは、B=59.525m³がA=57.12m³より多いため正しい大小関係ではない。",
+          "promptContext": "過剰空気量は理論空気量に空気比の超過分0.5を掛けて比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "燃焼計算・基礎理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "C＞B＞Aは、C=61.9m³、B=59.525m³、A=57.12m³の大小関係と一致する。",
+          "promptContext": "過剰空気量は理論空気量に空気比の超過分0.5を掛けて比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "燃焼計算・基礎理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2023-9-1,gasushunin-koushu-kiso-2023-9-2,chiefgasengineerlicense-C-10020,gasushunin-koushu-kiso-2023-9-4,gasushunin-koushu-kiso-2023-9-5",
@@ -628,40 +1388,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "間違い。ル・シャトリエの式で混合ガスの燃焼下限界を求めると、L=100/(90/5+3/3+7/2)=100/22.5≒4.44vol％である。最も近い選択肢は4.4であり、4ではない。",
-      "間違い。計算値は100/(18+1+3.5)=100/22.5≒4.44vol％である。4.2より4.4の方が近いため、4.2は最も適切ではない。",
-      "正しい。メタン90vol％、エタン3vol％、プロパン7vol％を用いると、燃焼下限界は100/(90/5+3/3+7/2)=100/22.5≒4.44vol％となる。したがって最も近い値は4.4である。",
-      "間違い。混合ガスの燃焼下限界は約4.44vol％で、4.7より4.4に近い。したがって4.7は最も近い値ではない。",
-      "間違い。ル・シャトリエの式による計算値は約4.44vol％であり、4.9は大きすぎる。最も近い値は4.4である。"
-    ],
-    "suggestedQuestions": [
-      "この混合ガスの燃焼下限界は4vol％？",
-      "この混合ガスの燃焼下限界は4.2vol％？",
-      "この混合ガスの燃焼下限界は4.4vol％？",
-      "この混合ガスの燃焼下限界は4.7vol％？",
-      "この混合ガスの燃焼下限界は4.9vol％？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この混合ガスの燃焼下限界は4vol％？",
-        "answer": "4vol％ではない。L=100/(90/5+3/3+7/2)≒4.44vol％なので、4.4が最も近い。"
-      },
-      {
-        "question": "この混合ガスの燃焼下限界は4.2vol％？",
-        "answer": "4.2vol％ではない。計算値は約4.44vol％で、4.2より4.4に近い。"
-      },
-      {
-        "question": "この混合ガスの燃焼下限界は4.4vol％？",
-        "answer": "4.4vol％である。90/5+3/3+7/2=22.5より、100/22.5≒4.44vol％となる。"
-      },
-      {
-        "question": "この混合ガスの燃焼下限界は4.7vol％？",
-        "answer": "4.7vol％ではない。計算値約4.44vol％に最も近い選択肢は4.4である。"
-      },
-      {
-        "question": "この混合ガスの燃焼下限界は4.9vol％？",
-        "answer": "4.9vol％ではない。計算値は約4.44vol％であり、4.9は大きすぎる。"
-      }
+      "間違い。混合ガスの燃焼下限界は、ル・シャトリエの式 L=100/(y1/L1+y2/L2+y3/L3) で求める。メタン90vol％、エタン3vol％、プロパン7vol％を代入すると、L=100/(90/5+3/3+7/2)=100/22.5≒4.44vol％となる。最も近い選択肢は4.4であり、4ではない。",
+      "間違い。計算値は約4.44vol％である。4.2との差は約0.24、4.4との差は約0.04なので、4.2は最も近い値ではない。",
+      "正しい。ル・シャトリエの式に各成分の体積割合と単体ガスの燃焼下限界を代入すると、L=100/(90/5+3/3+7/2)=100/22.5≒4.44vol％となる。したがって、選択肢の中で最も近い値は4.4である。",
+      "間違い。混合ガスの燃焼下限界は約4.44vol％である。4.7との差は約0.26、4.4との差は約0.04なので、4.7は最も近い値ではない。",
+      "間違い。ル・シャトリエの式による計算値は約4.44vol％である。4.9は計算値から離れすぎており、最も近い値は4.4である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -695,6 +1426,141 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2023:kiso:q09",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2023-9-1,gasushunin-koushu-kiso-2023-9-2,chiefgasengineerlicense-C-10020,gasushunin-koushu-kiso-2023-9-4,gasushunin-koushu-kiso-2023-9-5",
+    "sourceRecordRef": "question_2023_firestore_3.json#7",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文ではなく、混合ガスの燃焼下限界をル・シャトリエの式で求める技術・計算問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
+          "promptContext": "選択肢4は計算値約4.44vol％に最も近くない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
+          "promptContext": "選択肢4.2は計算値約4.44vol％に最も近くない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
+          "promptContext": "計算値約4.44vol％に最も近い選択肢は4.4。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
+          "promptContext": "選択肢4.7は計算値約4.44vol％に最も近くない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
+          "promptContext": "選択肢4.9は計算値約4.44vol％に最も近くない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

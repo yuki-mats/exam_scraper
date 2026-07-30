@@ -46,7 +46,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10139,chiefgasengineerlicense-C-10140,chiefgasengineerlicense-C-10141,chiefgasengineerlicense-C-10142,chiefgasengineerlicense-C-10143",
     "sourceRecordRef": "question_2020_firestore_3.json#0",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない材料力学・機械材料の技術問題。許容応力は基準強さを安全係数で除して求めるため、繰返応力、ぜい性材料の静荷重、高温静荷重、延性材料の静荷重に応じた基準強さで判断する。",
+    "lawContextForExplanation": "法令条文を主要根拠としない材料力学・機械材料の技術問題。繰返応力、ぜい性材料、高温静荷重及び延性材料に対応する基準強さから判断する。",
     "lawReferences": [
       [],
       [],
@@ -195,7 +195,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "水素と窒素の体積比1:4は、理想気体ではモル比1:4とみなせる。したがって、混合ガスの平均モル質量は 2×1/5+28×4/5=22.8 kg/kmol、46 kgの物質量は 46/22.8≒2.02 kmol である。温度27℃を300 Kとして理想気体の状態方程式 P=nRT/V に代入すると、P≒(2.02×10³×8.3×300)/1.0≒5.02×10⁶ Pa=5.02 MPaとなる。よって、最も近い値は5 MPaである。"
+      "水素と窒素の体積比1:4は、理想気体ではモル比1:4とみなせる。したがって、混合ガスの平均モル質量は 2×1/5+28×4/5=22.8 kg/kmol である。46 kgの混合ガスは 46/22.8≒2.02 kmol、温度27℃は約300 Kであるため、理想気体の状態方程式 P=nRT/V に代入すると、P≒(2.02×10³×8.3×300)/1.0≒5.02×10⁶ Pa=5.02 MPaとなる。よって、最も近い値は5 MPaである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -221,7 +221,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-2-1,gasushunin-koushu-kiso-2020-2-2,gasushunin-koushu-kiso-2020-2-3,gasushunin-koushu-kiso-2020-2-4,chiefgasengineerlicense-C-10110",
     "sourceRecordRef": "question_2020_firestore_3.json#1",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない技術計算問題。混合気体の平均モル質量と理想気体の状態方程式により判断する。",
+    "lawContextForExplanation": "法令条文を根拠としない技術計算問題。混合気体の平均モル質量と理想気体の状態方程式により判定する。",
     "lawReferences": [
       [],
       [],
@@ -370,11 +370,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "正しい。ファン・デル・ワールスの状態式は、理想気体の状態方程式に対して、分子間引力と気体分子自身の体積の影響を補正する実在気体の状態式である。",
-      "間違い。温度が一定のときに気体の体積が圧力に反比例する関係はボイルの法則である。シャルルの法則は、圧力が一定のときに気体の体積が絶対温度に比例する関係をいう。",
-      "正しい。ラウールの法則では、希薄溶液の蒸気圧降下は不揮発性溶質の種類ではなく、溶質のモル分率に比例する。",
-      "正しい。ヘンリーの法則では、溶解度が小さい気体について、一定温度で一定質量の液体に溶ける気体の質量は、その気体の圧力に比例する。",
-      "正しい。ドルトンの分圧の法則では、混合気体の全圧は、各成分気体の分圧の和で表される。"
+      "正しい。ファン・デル・ワールスの状態式は、理想気体の状態方程式に対し、分子間引力と気体分子自身が占める体積の影響を補正した実在気体の状態式である。",
+      "間違い。温度が一定のとき、気体の体積が圧力に反比例するのはボイルの法則である。シャルルの法則は、圧力が一定のとき、気体の体積が絶対温度に比例する関係を表す。",
+      "正しい。希薄溶液における蒸気圧降下は、不揮発性溶質の種類ではなく粒子数に依存する束一的性質であり、一定温度では溶質のモル分率に比例する。",
+      "正しい。ヘンリーの法則では、溶解度の小さい気体について、一定温度で一定量の液体に溶ける気体の量は、その気体の圧力に比例する。",
+      "正しい。ドルトンの分圧の法則では、互いに反応しない混合気体の全圧は、各成分気体の分圧の和で表される。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -403,7 +403,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10111,chiefgasengineerlicense-C-10112,chiefgasengineerlicense-C-10113,chiefgasengineerlicense-C-10114,chiefgasengineerlicense-C-10115",
     "sourceRecordRef": "question_2020_firestore_3.json#2",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない、気体の性質に関する基礎理論問題。",
+    "lawContextForExplanation": "法令条文を主要根拠としない、気体及び溶液の物理化学に関する基礎理論問題。",
     "lawReferences": [
       [],
       [],
@@ -424,8 +424,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差による正答差はない。",
           "displayRefIds": [],
-          "explanationText": "ファン・デル・ワールスの状態式に関する基礎理論の記述であり、法令条文を根拠とする問題ではない。",
-          "promptContext": "実在気体の状態式は物理化学上の理論事項として判定する。",
+          "explanationText": "ファン・デル・ワールスの状態式に関する物理化学上の記述であり、法令条文を根拠とする肢ではない。",
+          "promptContext": "分子間引力と分子自身の体積を考慮する実在気体の状態式として判定する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -448,7 +448,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差による正答差はない。",
           "displayRefIds": [],
-          "explanationText": "ボイルの法則とシャルルの法則の区別に関する基礎理論の記述であり、法令条文を根拠とする問題ではない。",
+          "explanationText": "ボイルの法則とシャルルの法則の区別に関する物理化学上の記述であり、法令条文を根拠とする肢ではない。",
           "promptContext": "温度一定で体積が圧力に反比例する関係はボイルの法則として判定する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -472,8 +472,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差による正答差はない。",
           "displayRefIds": [],
-          "explanationText": "ラウールの法則に関する基礎理論の記述であり、法令条文を根拠とする問題ではない。",
-          "promptContext": "希薄溶液の蒸気圧降下は溶質のモル分率との関係として判定する。",
+          "explanationText": "ラウールの法則及び束一的性質に関する物理化学上の記述であり、法令条文を根拠とする肢ではない。",
+          "promptContext": "一定温度における希薄溶液の蒸気圧降下と溶質のモル分率との関係として判定する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -496,8 +496,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差による正答差はない。",
           "displayRefIds": [],
-          "explanationText": "ヘンリーの法則に関する基礎理論の記述であり、法令条文を根拠とする問題ではない。",
-          "promptContext": "一定温度で液体に溶ける気体の質量と気体圧力の比例関係として判定する。",
+          "explanationText": "ヘンリーの法則に関する物理化学上の記述であり、法令条文を根拠とする肢ではない。",
+          "promptContext": "一定温度における気体の溶解量と気体圧力との比例関係として判定する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -520,7 +520,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差による正答差はない。",
           "displayRefIds": [],
-          "explanationText": "ドルトンの分圧の法則に関する基礎理論の記述であり、法令条文を根拠とする問題ではない。",
+          "explanationText": "ドルトンの分圧の法則に関する物理化学上の記述であり、法令条文を根拠とする肢ではない。",
           "promptContext": "混合気体の全圧は各成分気体の分圧の和であるという関係として判定する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -552,11 +552,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "間違い。定圧膨張なので、シャルルの法則より V1/T1=V2/T2 が成り立つ。T1=273K、V1=3m³、V2=6m³より T2=273×6/3=546K である。初期状態から n=PV/(RT)=100×3/(8.3×273)kmol と求められ、与えた熱量は Q=n×10^3×29.2×(546−273)≒1.1MJ となる。したがって0.1MJではない。",
-      "間違い。定圧膨張なので、シャルルの法則より V1/T1=V2/T2 が成り立つ。T1=273K、V1=3m³、V2=6m³より T2=273×6/3=546K である。初期状態から n=PV/(RT)=100×3/(8.3×273)kmol と求められ、与えた熱量は Q=n×10^3×29.2×(546−273)≒1.1MJ となる。したがって0.5MJではない。",
-      "正しい。定圧膨張なので、シャルルの法則より V1/T1=V2/T2 が成り立つ。T1=273K、V1=3m³、V2=6m³より T2=273×6/3=546K である。初期状態から n=PV/(RT)=100×3/(8.3×273)kmol と求められ、与えた熱量は Q=n×10^3×29.2×(546−273)≒1.1MJ となる。したがって最も近い値は1.1MJである。",
-      "間違い。定圧膨張なので、シャルルの法則より V1/T1=V2/T2 が成り立つ。T1=273K、V1=3m³、V2=6m³より T2=273×6/3=546K である。初期状態から n=PV/(RT)=100×3/(8.3×273)kmol と求められ、与えた熱量は Q=n×10^3×29.2×(546−273)≒1.1MJ となる。したがって1.5MJではない。",
-      "間違い。定圧膨張なので、シャルルの法則より V1/T1=V2/T2 が成り立つ。T1=273K、V1=3m³、V2=6m³より T2=273×6/3=546K である。初期状態から n=PV/(RT)=100×3/(8.3×273)kmol と求められ、与えた熱量は Q=n×10^3×29.2×(546−273)≒1.1MJ となる。したがって2MJではない。"
+      "間違い。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。最も近い値は1.1MJであり、0.1MJではない。",
+      "間違い。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。最も近い値は1.1MJであり、0.5MJではない。",
+      "正しい。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。したがって、最も近い値は1.1MJである。",
+      "間違い。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。最も近い値は1.1MJであり、1.5MJではない。",
+      "間違い。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。最も近い値は1.1MJであり、2MJではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -582,7 +582,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-4-1,gasushunin-koushu-kiso-2020-4-2,chiefgasengineerlicense-C-10116,gasushunin-koushu-kiso-2020-4-4,gasushunin-koushu-kiso-2020-4-5",
     "sourceRecordRef": "question_2020_firestore_3.json#3",
     "explanationReferences": [],
-    "lawContextForExplanation": "理想気体の状態方程式、シャルルの法則、定圧モル熱容量による熱量計算を扱う技術・理論問題であり、法令条文を主要根拠としない。",
+    "lawContextForExplanation": "理想気体の状態方程式、シャルルの法則及び定圧熱容量による熱量計算を扱う技術・理論問題であり、法令条文を主要根拠としない。",
     "lawReferences": [
       [],
       [],
@@ -593,8 +593,8 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令改正の影響を受ける選択肢ではない。",
-          "熱量の計算結果は約1.1MJであり、0.1MJは該当しない。"
+          "法令改正の影響を受けない。",
+          "計算結果は約1.1MJであり、0.1MJは該当しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -604,8 +604,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "理想気体の状態方程式、シャルルの法則、定圧熱容量による熱量計算を扱うため、法令条文の改正確認対象ではない。",
-          "promptContext": "2020年甲種基礎理論問4の計算選択肢0.1MJ。",
+          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "promptContext": "2020年甲種基礎理論問4、選択肢0.1MJ。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -613,15 +613,15 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "理想気体の定圧膨張に関する基礎理論の計算問題。"
+          "理想気体の定圧膨張に関する熱力学計算肢。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受ける選択肢ではない。",
-          "熱量の計算結果は約1.1MJであり、0.5MJは該当しない。"
+          "法令改正の影響を受けない。",
+          "計算結果は約1.1MJであり、0.5MJは該当しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -631,8 +631,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "理想気体の状態方程式、シャルルの法則、定圧熱容量による熱量計算を扱うため、法令条文の改正確認対象ではない。",
-          "promptContext": "2020年甲種基礎理論問4の計算選択肢0.5MJ。",
+          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "promptContext": "2020年甲種基礎理論問4、選択肢0.5MJ。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -640,15 +640,15 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "理想気体の定圧膨張に関する基礎理論の計算問題。"
+          "理想気体の定圧膨張に関する熱力学計算肢。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受ける選択肢ではない。",
-          "熱量の計算結果は約1.1MJであり、この選択肢が正しい。"
+          "法令改正の影響を受けない。",
+          "計算結果は約1.1MJであり、この選択肢が正しい。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -658,8 +658,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "理想気体の状態方程式、シャルルの法則、定圧熱容量による熱量計算を扱うため、法令条文の改正確認対象ではない。",
-          "promptContext": "2020年甲種基礎理論問4の計算選択肢1.1MJ。",
+          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "promptContext": "2020年甲種基礎理論問4、選択肢1.1MJ。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -667,15 +667,15 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "理想気体の定圧膨張に関する基礎理論の計算問題。"
+          "理想気体の定圧膨張に関する熱力学計算肢。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受ける選択肢ではない。",
-          "熱量の計算結果は約1.1MJであり、1.5MJは該当しない。"
+          "法令改正の影響を受けない。",
+          "計算結果は約1.1MJであり、1.5MJは該当しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -685,8 +685,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "理想気体の状態方程式、シャルルの法則、定圧熱容量による熱量計算を扱うため、法令条文の改正確認対象ではない。",
-          "promptContext": "2020年甲種基礎理論問4の計算選択肢1.5MJ。",
+          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "promptContext": "2020年甲種基礎理論問4、選択肢1.5MJ。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -694,15 +694,15 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "理想気体の定圧膨張に関する基礎理論の計算問題。"
+          "理想気体の定圧膨張に関する熱力学計算肢。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受ける選択肢ではない。",
-          "熱量の計算結果は約1.1MJであり、2MJは該当しない。"
+          "法令改正の影響を受けない。",
+          "計算結果は約1.1MJであり、2MJは該当しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -712,8 +712,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "理想気体の状態方程式、シャルルの法則、定圧熱容量による熱量計算を扱うため、法令条文の改正確認対象ではない。",
-          "promptContext": "2020年甲種基礎理論問4の計算選択肢2MJ。",
+          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "promptContext": "2020年甲種基礎理論問4、選択肢2MJ。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -721,7 +721,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "理想気体の定圧膨張に関する基礎理論の計算問題。"
+          "理想気体の定圧膨張に関する熱力学計算肢。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -746,7 +746,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "断熱圧縮では、圧力と体積の関係は P1V1^γ=P2V2^γ で表される。したがって 100×1^1.4=P2×0.95^1.4 となる。0.95=1−0.05 なので、与えられた近似式から 0.95^1.4=(1−0.05)^1.4≒1−1.4×0.05=0.93、よって P2≒100/0.93=107.5kPa である。さらに気体の状態方程式 P1V1/T1=P2V2/T2 より、T2=300×(107.5×0.95)/(100×1)≒306K となる。したがって、最も近い値は306Kである。"
+      "断熱圧縮では、圧力と体積の関係は P₁V₁^γ=P₂V₂^γ で表される。したがって、100×1^1.4=P₂×0.95^1.4 である。0.95=1−0.05 とし、与えられた近似式を使うと、0.95^1.4=(1−0.05)^1.4≒1−1.4×0.05=0.93 なので、P₂≒100÷0.93=107.5kPa となる。さらに、気体の状態方程式 P₁V₁/T₁=P₂V₂/T₂ から、T₂=300×(107.5×0.95)÷(100×1)≒306K となる。よって、最も近い値は306Kである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -772,7 +772,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-5-1,chiefgasengineerlicense-C-10117,gasushunin-koushu-kiso-2020-5-3,gasushunin-koushu-kiso-2020-5-4,gasushunin-koushu-kiso-2020-5-5",
     "sourceRecordRef": "question_2020_firestore_3.json#4",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、断熱変化式 P1V1^γ=P2V2^γ と気体の状態方程式に基づいて圧縮後の温度を求める基礎理論の計算問題。",
+    "lawContextForExplanation": "法令条文ではなく、断熱変化式と気体の状態方程式に基づく基礎理論の計算問題。",
     "lawReferences": [
       [],
       [],
@@ -783,7 +783,7 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令改正による正誤影響はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -791,10 +791,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令問題ではないため、試験時点と現在法令の差分検証は不要。",
+          "differenceSummary": "法令問題ではないため法改正差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢300Kは、計算値約306Kと一致しないため誤り。",
-          "promptContext": "断熱圧縮後の温度を求める基礎理論の計算問題。",
+          "explanationText": "選択肢300Kは計算値約306Kと一致しない。",
+          "promptContext": "断熱圧縮後の温度を求める計算肢。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -802,14 +802,14 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "断熱変化式と気体の状態方程式を用いる計算肢。"
+          "計算値約306Kと一致しない。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正誤影響はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -817,10 +817,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令問題ではないため、試験時点と現在法令の差分検証は不要。",
+          "differenceSummary": "法令問題ではないため法改正差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢306Kは、計算値約306Kと一致するため正しい。",
-          "promptContext": "断熱圧縮後の温度を求める基礎理論の計算問題。",
+          "explanationText": "選択肢306Kは計算値約306Kと一致する。",
+          "promptContext": "断熱圧縮後の温度を求める計算肢。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -828,14 +828,14 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "断熱変化式と気体の状態方程式を用いる計算肢。"
+          "計算値約306Kと一致する。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正誤影響はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -843,10 +843,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令問題ではないため、試験時点と現在法令の差分検証は不要。",
+          "differenceSummary": "法令問題ではないため法改正差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢309Kは、計算値約306Kと一致しないため誤り。",
-          "promptContext": "断熱圧縮後の温度を求める基礎理論の計算問題。",
+          "explanationText": "選択肢309Kは計算値約306Kと一致しない。",
+          "promptContext": "断熱圧縮後の温度を求める計算肢。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -854,14 +854,14 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "断熱変化式と気体の状態方程式を用いる計算肢。"
+          "計算値約306Kと一致しない。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正誤影響はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -869,10 +869,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令問題ではないため、試験時点と現在法令の差分検証は不要。",
+          "differenceSummary": "法令問題ではないため法改正差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢315Kは、計算値約306Kと一致しないため誤り。",
-          "promptContext": "断熱圧縮後の温度を求める基礎理論の計算問題。",
+          "explanationText": "選択肢315Kは計算値約306Kと一致しない。",
+          "promptContext": "断熱圧縮後の温度を求める計算肢。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -880,14 +880,14 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "断熱変化式と気体の状態方程式を用いる計算肢。"
+          "計算値約306Kと一致しない。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正誤影響はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -895,10 +895,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令問題ではないため、試験時点と現在法令の差分検証は不要。",
+          "differenceSummary": "法令問題ではないため法改正差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢321Kは、計算値約306Kと一致しないため誤り。",
-          "promptContext": "断熱圧縮後の温度を求める基礎理論の計算問題。",
+          "explanationText": "選択肢321Kは計算値約306Kと一致しない。",
+          "promptContext": "断熱圧縮後の温度を求める計算肢。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -906,7 +906,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "断熱変化式と気体の状態方程式を用いる計算肢。"
+          "計算値約306Kと一致しない。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision",
         "reviewState": "secondary_verified"
@@ -931,7 +931,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "COは1.2molから0.2molに減っているので、反応したCOは1.0molである。反応式 CO(g)+H2O(g)→CO2(g)+H2(g) は1:1:1:1で進むため、平衡時の物質量はCO=0.2mol、H2O=0.2mol、CO2=1.0mol、H2=1.0molとなる。全物質量は2.4molのままで、圧平衡定数は Kp=(pCO2×pH2)/(pCO×pH2O) である。各分圧は物質量に比例し、全物質量2.4molの項は分子・分母で打ち消されるので、Kp=(1.0×1.0)/(0.2×0.2)=25。したがって、最も近い値は25である。"
+      "COは1.2 molから0.2 molに減っているため、反応した量は1.0 molである。反応式 CO(g)＋H₂O(g)→CO₂(g)＋H₂(g) の係数比は1：1：1：1なので、平衡時の物質量はCOが0.2 mol、H₂Oが0.2 mol、CO₂が1.0 mol、H₂が1.0 molとなる。圧平衡定数は Kp=(pCO₂×pH₂)/(pCO×pH₂O) であり、各分圧をモル分率と全圧の積で表すと全圧の項は打ち消される。したがって、Kp=(1.0×1.0)/(0.2×0.2)=25となり、正しい選択肢は25である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -957,7 +957,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-6-1,gasushunin-koushu-kiso-2020-6-2,chiefgasengineerlicense-C-10118,gasushunin-koushu-kiso-2020-6-4,gasushunin-koushu-kiso-2020-6-5",
     "sourceRecordRef": "question_2020_firestore_3.json#5",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、COシフト反応の化学平衡と圧平衡定数の計算により判断する基礎理論問題。",
+    "lawContextForExplanation": "法令ではなく、COシフト反応の化学量論と圧平衡定数の計算によって判断する基礎理論問題。",
     "lawReferences": [
       [],
       [],
@@ -968,7 +968,7 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令問題ではないため、法令改正による正誤影響はない。"
+          "法令問題ではないため、法改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -976,10 +976,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正による差分はない。",
+          "differenceSummary": "試験時点と現在で判定差はない。",
           "displayRefIds": [],
-          "explanationText": "COシフト反応の化学平衡計算で判断する問題であり、法令根拠は不要。",
-          "promptContext": "Kp=(pCO2×pH2)/(pCO×pH2O) を平衡時物質量から計算する。",
+          "explanationText": "圧平衡定数の計算により判定する技術選択肢である。",
+          "promptContext": "Kp=(pCO₂×pH₂)/(pCO×pH₂O)=25。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -994,7 +994,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令問題ではないため、法令改正による正誤影響はない。"
+          "法令問題ではないため、法改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1002,10 +1002,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正による差分はない。",
+          "differenceSummary": "試験時点と現在で判定差はない。",
           "displayRefIds": [],
-          "explanationText": "COシフト反応の化学平衡計算で判断する問題であり、法令根拠は不要。",
-          "promptContext": "Kp=(pCO2×pH2)/(pCO×pH2O) を平衡時物質量から計算する。",
+          "explanationText": "圧平衡定数の計算により判定する技術選択肢である。",
+          "promptContext": "Kp=(pCO₂×pH₂)/(pCO×pH₂O)=25。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1020,7 +1020,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令問題ではないため、法令改正による正誤影響はない。"
+          "法令問題ではないため、法改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1028,10 +1028,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正による差分はない。",
+          "differenceSummary": "試験時点と現在で判定差はない。",
           "displayRefIds": [],
-          "explanationText": "COシフト反応の化学平衡計算で判断する問題であり、法令根拠は不要。",
-          "promptContext": "Kp=(pCO2×pH2)/(pCO×pH2O) を平衡時物質量から計算する。",
+          "explanationText": "圧平衡定数の計算値が25となるため正しい。",
+          "promptContext": "Kp=(1.0×1.0)/(0.2×0.2)=25。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1046,7 +1046,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令問題ではないため、法令改正による正誤影響はない。"
+          "法令問題ではないため、法改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1054,10 +1054,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正による差分はない。",
+          "differenceSummary": "試験時点と現在で判定差はない。",
           "displayRefIds": [],
-          "explanationText": "COシフト反応の化学平衡計算で判断する問題であり、法令根拠は不要。",
-          "promptContext": "Kp=(pCO2×pH2)/(pCO×pH2O) を平衡時物質量から計算する。",
+          "explanationText": "圧平衡定数の計算により判定する技術選択肢である。",
+          "promptContext": "Kp=(pCO₂×pH₂)/(pCO×pH₂O)=25。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1072,7 +1072,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令問題ではないため、法令改正による正誤影響はない。"
+          "法令問題ではないため、法改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1080,10 +1080,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正による差分はない。",
+          "differenceSummary": "試験時点と現在で判定差はない。",
           "displayRefIds": [],
-          "explanationText": "COシフト反応の化学平衡計算で判断する問題であり、法令根拠は不要。",
-          "promptContext": "Kp=(pCO2×pH2)/(pCO×pH2O) を平衡時物質量から計算する。",
+          "explanationText": "圧平衡定数の計算により判定する技術選択肢である。",
+          "promptContext": "Kp=(pCO₂×pH₂)/(pCO×pH₂O)=25。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1116,7 +1116,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "一次反応では、反応物濃度が半分になるまでの時間は一定である。50%反応した時点では未反応分が1/2で、これに100秒を要する。87.5%反応した時点では未反応分が12.5%=1/8であり、1/2を3回掛けた状態なので、必要時間は100秒×3=300秒である。したがって、最も近い値は300秒である。"
+      "一次反応では、反応物濃度が半分になるまでの時間は一定である。50%反応した時点の未反応分は初期濃度の1/2であり、ここまでに100秒を要する。87.5%反応した時点の未反応分は1/8で、1/2を3回掛けた濃度に相当する。したがって、必要時間は100秒×3＝300秒であり、最も近い値は300秒である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1142,7 +1142,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-7-1,gasushunin-koushu-kiso-2020-7-2,gasushunin-koushu-kiso-2020-7-3,gasushunin-koushu-kiso-2020-7-4,chiefgasengineerlicense-C-10119",
     "sourceRecordRef": "question_2020_firestore_3.json#6",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない一次反応の反応時間計算に関する技術・理論問題。",
+    "lawContextForExplanation": "法令を根拠とせず、一次反応の半減時間と濃度変化から所要時間を求める技術・理論問題。",
     "lawReferences": [
       [],
       [],
@@ -1153,7 +1153,7 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない一次反応の計算問題である。"
+          "法令改正の影響を受けない一次反応の計算問題であり、138秒は計算結果300秒と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1161,9 +1161,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤への影響はない。",
+          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤は変わらない。",
           "displayRefIds": [],
-          "explanationText": "選択肢138秒は、一次反応で未反応分が1/8になるまでに半減3回分を要することから300秒となる計算結果と一致しない。",
+          "explanationText": "未反応分が1/8になるまでには半減3回分の300秒を要するため、138秒は間違いである。",
           "promptContext": "一次反応の半減時間に基づく反応時間計算。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1177,7 +1177,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない一次反応の計算問題である。"
+          "法令改正の影響を受けない一次反応の計算問題であり、175秒は計算結果300秒と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1185,9 +1185,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤への影響はない。",
+          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤は変わらない。",
           "displayRefIds": [],
-          "explanationText": "選択肢175秒は、一次反応で未反応分が1/8になるまでに半減3回分を要することから300秒となる計算結果と一致しない。",
+          "explanationText": "未反応分が1/8になるまでには半減3回分の300秒を要するため、175秒は間違いである。",
           "promptContext": "一次反応の半減時間に基づく反応時間計算。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1201,7 +1201,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない一次反応の計算問題である。"
+          "法令改正の影響を受けない一次反応の計算問題であり、200秒は計算結果300秒と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1209,9 +1209,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤への影響はない。",
+          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤は変わらない。",
           "displayRefIds": [],
-          "explanationText": "選択肢200秒は、一次反応で未反応分が1/8になるまでに半減3回分を要することから300秒となる計算結果と一致しない。",
+          "explanationText": "未反応分が1/8になるまでには半減3回分の300秒を要するため、200秒は間違いである。",
           "promptContext": "一次反応の半減時間に基づく反応時間計算。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1225,7 +1225,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない一次反応の計算問題である。"
+          "法令改正の影響を受けない一次反応の計算問題であり、250秒は計算結果300秒と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1233,9 +1233,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤への影響はない。",
+          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤は変わらない。",
           "displayRefIds": [],
-          "explanationText": "選択肢250秒は、一次反応で未反応分が1/8になるまでに半減3回分を要することから300秒となる計算結果と一致しない。",
+          "explanationText": "未反応分が1/8になるまでには半減3回分の300秒を要するため、250秒は間違いである。",
           "promptContext": "一次反応の半減時間に基づく反応時間計算。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1249,7 +1249,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない一次反応の計算問題である。"
+          "法令改正の影響を受けない一次反応の計算問題であり、300秒は半減時間100秒の3倍に当たる。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1257,9 +1257,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤への影響はない。",
+          "differenceSummary": "法令比較対象外であり、試験時点と現在で正誤は変わらない。",
           "displayRefIds": [],
-          "explanationText": "選択肢300秒は、一次反応で未反応分が1/8になるまでに半減3回分を要することから、50%反応に要する100秒の3倍となる計算結果と一致する。",
+          "explanationText": "未反応分1/8は半減3回分に相当し、100秒×3＝300秒となるため正しい。",
           "promptContext": "一次反応の半減時間に基づく反応時間計算。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1291,7 +1291,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "プロパンの完全燃焼は C3H8+5O2→3CO2+4H2O で表され、プロパン1m³につき酸素5m³を必要とする。混合ガス1m³中のプロパンは40vol%なので0.4m³、必要酸素量は0.4×5=2.0m³である。一方、混合ガス中には酸素が20vol%、すなわち0.2m³含まれているため、空気から供給すべき酸素量は2.0−0.2=1.8m³となる。空気中の酸素濃度は20vol%だから、必要空気量は1.8÷0.20=9.0m³であり、最も近い値は9m³である。"
+      "プロパンの完全燃焼は C₃H₈＋5O₂→3CO₂＋4H₂O で表され、プロパン1m³につき酸素5m³を必要とする。混合ガス1m³中のプロパンは0.4m³なので、完全燃焼に必要な酸素は0.4×5＝2.0m³である。混合ガス自体に酸素が0.2m³含まれるため、空気から供給すべき酸素は2.0−0.2＝1.8m³となる。空気中の酸素濃度は20vol%なので、必要空気量は1.8÷0.20＝9.0m³である。したがって、最も近い値は9m³である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1317,7 +1317,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10120,gasushunin-koushu-kiso-2020-8-2,gasushunin-koushu-kiso-2020-8-3,gasushunin-koushu-kiso-2020-8-4,gasushunin-koushu-kiso-2020-8-5",
     "sourceRecordRef": "question_2020_firestore_3.json#7",
     "explanationReferences": [],
-    "lawContextForExplanation": "プロパンの燃焼反応式、混合ガス1m³中の各成分体積、空気中酸素濃度20vol%を用いて必要空気量を求める技術計算問題であり、法令条文を主要根拠としない。",
+    "lawContextForExplanation": "プロパンの完全燃焼反応式と混合ガス中の酸素量から必要空気量を求める技術・理論計算問題であり、法令条文を正誤の根拠としない。",
     "lawReferences": [
       [],
       [],
@@ -1328,7 +1328,7 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令改正による正答影響はない。"
+          "法令改正による正答への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1336,10 +1336,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の時点差は関係しない。",
+          "differenceSummary": "法令の時点差は正誤に関係しない。",
           "displayRefIds": [],
-          "explanationText": "プロパン0.4m³の完全燃焼に必要な酸素2.0m³から、混合ガス中の酸素0.2m³を差し引き、空気中酸素濃度20vol%で割ると9.0m³となる。",
-          "promptContext": "燃焼反応式と酸素収支により選択肢9m³を正しいと判断する。",
+          "explanationText": "必要空気量は9.0m³である。",
+          "promptContext": "プロパン0.4m³の燃焼に必要な酸素から混合ガス中の酸素を控除し、空気中酸素濃度で除して判定する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1347,14 +1347,14 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "プロパン燃焼の化学量論に基づく技術計算問題。"
+          "燃焼反応式と酸素収支に基づく技術計算である。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正答影響はない。"
+          "法令改正による正答への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1362,10 +1362,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の時点差は関係しない。",
+          "differenceSummary": "法令の時点差は正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "必要空気量は9.0m³であり、9.5m³ではない。",
-          "promptContext": "燃焼反応式と酸素収支により選択肢9.5m³を間違いと判断する。",
+          "promptContext": "算出値9.0m³と選択肢9.5m³を比較する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1373,14 +1373,14 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "プロパン燃焼の化学量論に基づく技術計算問題。"
+          "燃焼反応式と酸素収支に基づく技術計算である。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正答影響はない。"
+          "法令改正による正答への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1388,10 +1388,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の時点差は関係しない。",
+          "differenceSummary": "法令の時点差は正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "必要空気量は9.0m³であり、10m³ではない。",
-          "promptContext": "燃焼反応式と酸素収支により選択肢10m³を間違いと判断する。",
+          "promptContext": "算出値9.0m³と選択肢10m³を比較する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1399,14 +1399,14 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "プロパン燃焼の化学量論に基づく技術計算問題。"
+          "燃焼反応式と酸素収支に基づく技術計算である。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正答影響はない。"
+          "法令改正による正答への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1414,10 +1414,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の時点差は関係しない。",
+          "differenceSummary": "法令の時点差は正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "必要空気量は9.0m³であり、10.5m³ではない。",
-          "promptContext": "燃焼反応式と酸素収支により選択肢10.5m³を間違いと判断する。",
+          "promptContext": "算出値9.0m³と選択肢10.5m³を比較する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1425,14 +1425,14 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "プロパン燃焼の化学量論に基づく技術計算問題。"
+          "燃焼反応式と酸素収支に基づく技術計算である。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正答影響はない。"
+          "法令改正による正答への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -1440,10 +1440,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の時点差は関係しない。",
+          "differenceSummary": "法令の時点差は正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "必要空気量は9.0m³であり、11m³ではない。",
-          "promptContext": "燃焼反応式と酸素収支により選択肢11m³を間違いと判断する。",
+          "promptContext": "算出値9.0m³と選択肢11m³を比較する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1451,7 +1451,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "プロパン燃焼の化学量論に基づく技術計算問題。"
+          "燃焼反応式と酸素収支に基づく技術計算である。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -1476,11 +1476,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "間違い。混合ガスの燃焼下限界は、ル・シャトリエの式 L=100/(M/5.0+P/2.0) で求める。メタン20vol%、プロパン80vol%では L=100/(20/5.0+80/2.0)=100/44≒2.27vol%となり、3.8vol%に最も近い組成ではない。",
-      "間違い。メタン40vol%、プロパン60vol%では L=100/(40/5.0+60/2.0)=100/38≒2.63vol%である。3.8vol%とは差が大きく、最も近い値ではない。",
-      "間違い。メタン50vol%、プロパン50vol%では L=100/(50/5.0+50/2.0)=100/35≒2.86vol%となる。設問の3.8vol%に最も近い組成ではない。",
-      "間違い。メタン60vol%、プロパン40vol%では L=100/(60/5.0+40/2.0)=100/32=3.125vol%である。3.8vol%に近づくが、選択肢の中で最も近い組成ではない。",
-      "正しい。メタン80vol%、プロパン20vol%では L=100/(80/5.0+20/2.0)=100/26≒3.85vol%となり、設問の3.8vol%に最も近い。したがって、最も近い混合組成はメタン80vol%、プロパン20vol%である。"
+      "間違い。混合ガスの燃焼下限界は、ル・シャトリエの式 L=100/(M/5.0+P/2.0) で求める。メタン20vol%、プロパン80vol%では、L=100/(20/5.0+80/2.0)≒2.27vol%となり、3.8vol%に最も近い組成ではない。",
+      "間違い。メタン40vol%、プロパン60vol%では、ル・シャトリエの式から L=100/(40/5.0+60/2.0)≒2.63vol%となるため、3.8vol%に最も近い組成ではない。",
+      "間違い。メタン50vol%、プロパン50vol%では、ル・シャトリエの式から L=100/(50/5.0+50/2.0)≒2.86vol%となるため、3.8vol%に最も近い組成ではない。",
+      "間違い。メタン60vol%、プロパン40vol%では、ル・シャトリエの式から L=100/(60/5.0+40/2.0)=3.125vol%となる。3.8vol%に近づくが、選択肢中で最も近い組成ではない。",
+      "正しい。メタン80vol%、プロパン20vol%では、ル・シャトリエの式から L=100/(80/5.0+20/2.0)≒3.85vol%となり、選択肢中で3.8vol%に最も近い。したがって、求める混合組成はメタン80vol%、プロパン20vol%である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1506,7 +1506,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-9-1,gasushunin-koushu-kiso-2020-9-2,gasushunin-koushu-kiso-2020-9-3,gasushunin-koushu-kiso-2020-9-4,chiefgasengineerlicense-C-10121",
     "sourceRecordRef": "question_2020_firestore_3.json#8",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、混合ガスの燃焼下限界をル・シャトリエの式で求める基礎理論の計算問題。",
+    "lawContextForExplanation": "法令条文ではなく、ル・シャトリエの式による混合ガスの燃焼下限界計算を根拠とする技術問題。",
     "lawReferences": [
       [],
       [],
@@ -1517,20 +1517,20 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令改正による正誤変更はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "法令条文ではなく、燃焼下限界の計算式に基づく技術・基礎理論問題である。"
+          "法令ではなく燃焼下限界の技術計算で判定する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は問題にならない。",
+          "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "この選択肢はル・シャトリエの式による混合燃焼下限界の計算で判定する。",
-          "promptContext": "混合燃焼下限界 L=100/(M/5.0+P/2.0) を用いる。",
+          "explanationText": "ル・シャトリエの式による計算値は約2.27vol%である。",
+          "promptContext": "メタン20vol%・プロパン80vol%の混合燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1538,27 +1538,27 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "メタン20vol%、プロパン80vol%では計算値が約2.27vol%となる。"
+          "計算値は約2.27vol%である。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正誤変更はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "法令条文ではなく、燃焼下限界の計算式に基づく技術・基礎理論問題である。"
+          "法令ではなく燃焼下限界の技術計算で判定する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は問題にならない。",
+          "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "この選択肢はル・シャトリエの式による混合燃焼下限界の計算で判定する。",
-          "promptContext": "混合燃焼下限界 L=100/(M/5.0+P/2.0) を用いる。",
+          "explanationText": "ル・シャトリエの式による計算値は約2.63vol%である。",
+          "promptContext": "メタン40vol%・プロパン60vol%の混合燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1566,27 +1566,27 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "メタン40vol%、プロパン60vol%では計算値が約2.63vol%となる。"
+          "計算値は約2.63vol%である。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正誤変更はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "法令条文ではなく、燃焼下限界の計算式に基づく技術・基礎理論問題である。"
+          "法令ではなく燃焼下限界の技術計算で判定する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は問題にならない。",
+          "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "この選択肢はル・シャトリエの式による混合燃焼下限界の計算で判定する。",
-          "promptContext": "混合燃焼下限界 L=100/(M/5.0+P/2.0) を用いる。",
+          "explanationText": "ル・シャトリエの式による計算値は約2.86vol%である。",
+          "promptContext": "メタン50vol%・プロパン50vol%の混合燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1594,27 +1594,27 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "メタン50vol%、プロパン50vol%では計算値が約2.86vol%となる。"
+          "計算値は約2.86vol%である。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正誤変更はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "法令条文ではなく、燃焼下限界の計算式に基づく技術・基礎理論問題である。"
+          "法令ではなく燃焼下限界の技術計算で判定する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は問題にならない。",
+          "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "この選択肢はル・シャトリエの式による混合燃焼下限界の計算で判定する。",
-          "promptContext": "混合燃焼下限界 L=100/(M/5.0+P/2.0) を用いる。",
+          "explanationText": "ル・シャトリエの式による計算値は3.125vol%である。",
+          "promptContext": "メタン60vol%・プロパン40vol%の混合燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1622,27 +1622,27 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "メタン60vol%、プロパン40vol%では計算値が3.125vol%となる。"
+          "計算値は3.125vol%である。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令改正による正誤変更はない。"
+          "法令改正による正誤への影響はない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "法令条文ではなく、燃焼下限界の計算式に基づく技術・基礎理論問題である。"
+          "法令ではなく燃焼下限界の技術計算で判定する。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は問題にならない。",
+          "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "この選択肢はル・シャトリエの式による混合燃焼下限界の計算で判定する。",
-          "promptContext": "混合燃焼下限界 L=100/(M/5.0+P/2.0) を用いる。",
+          "explanationText": "ル・シャトリエの式による計算値は約3.85vol%であり、選択肢中で3.8vol%に最も近い。",
+          "promptContext": "メタン80vol%・プロパン20vol%の混合燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1650,7 +1650,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "メタン80vol%、プロパン20vol%では計算値が約3.85vol%となり、3.8vol%に最も近い。"
+          "計算値は約3.85vol%であり、3.8vol%に最も近い。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"

@@ -16,7 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "熱硬化性樹脂は、硬化剤又は架橋剤によって分子同士が三次元的に結合し、加熱によってさらに三次元化が進んで不溶・不融となる樹脂である。この硬化反応は不可逆的であり、一般に熱可塑性樹脂のように加熱して何回も成形し直すことはできず、成形は一回しか行えない。用途例としては、エポキシ樹脂などが配管等の内面コーティングやライニングの材料として用いられる。一方、ポリエチレン樹脂は代表的な熱可塑性樹脂であり、可塑剤、可逆的、何回も行えるという語句も熱硬化性樹脂の説明としては不適切である。したがって、（イ）硬化剤、（ロ）不可逆的、（ハ）一回しか行えない、（ニ）エポキシ樹脂の組合せが最も適切である。"
+      "熱硬化性樹脂は、硬化剤又は架橋剤によって分子同士が三次元的に結合し、加熱によってさらに三次元化が進んで不溶・不融となる樹脂である。硬化反応は不可逆的で、熱可塑性樹脂のように加熱して繰り返し成形することはできないため、一般に成形は一回しか行えない。エポキシ樹脂は熱硬化性樹脂であり、配管等の内面コーティングやライニングに用いられる。一方、ポリエチレン樹脂は代表的な熱可塑性樹脂である。したがって、（イ）硬化剤、（ロ）不可逆的、（ハ）一回しか行えない、（ニ）エポキシ樹脂の組合せが最も適切である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -48,7 +48,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10103,gasushunin-koushu-kiso-2021-14-2,gasushunin-koushu-kiso-2021-14-3,gasushunin-koushu-kiso-2021-14-4,gasushunin-koushu-kiso-2021-14-5",
     "sourceRecordRef": "question_2021_firestore_3.json#0",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、熱硬化性樹脂の性質と材料用途に関する技術・基礎理論を根拠とする問題。",
+    "lawContextForExplanation": "法令条文ではなく、熱硬化性樹脂の硬化機構、再成形性および樹脂材料の分類に基づいて判定する技術・基礎理論問題。",
     "lawReferences": [
       [],
       [],
@@ -67,8 +67,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の新旧差分は該当しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢1は、硬化剤、不可逆的、一回しか行えない、エポキシ樹脂という熱硬化性樹脂の説明として整合する組合せである。",
-          "promptContext": "熱硬化性樹脂の硬化機構、成形性、用途例に基づく技術・基礎理論の判定。",
+          "explanationText": "硬化剤、不可逆的、一回しか行えない、エポキシ樹脂という組合せは、熱硬化性樹脂の性質と用途例に整合する。",
+          "promptContext": "熱硬化性樹脂の硬化機構、再成形性および用途例に基づく技術判定。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -76,7 +76,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "熱硬化性樹脂の材料特性に関する基礎理論問題であり、法令改正影響の確認対象ではない。"
+          "熱硬化性樹脂の材料特性に関する技術・基礎理論問題であり、法令改正の影響を受けない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -91,8 +91,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の新旧差分は該当しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢2は、ポリエチレン樹脂を熱硬化性樹脂の用途例としている点が不適切である。",
-          "promptContext": "熱硬化性樹脂の硬化機構、成形性、用途例に基づく技術・基礎理論の判定。",
+          "explanationText": "ポリエチレン樹脂は熱可塑性樹脂であり、熱硬化性樹脂の用途例とする点が不適切である。",
+          "promptContext": "熱硬化性樹脂と熱可塑性樹脂の材料分類に基づく技術判定。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -100,7 +100,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "熱硬化性樹脂の材料特性に関する基礎理論問題であり、法令改正影響の確認対象ではない。"
+          "熱硬化性樹脂の材料特性に関する技術・基礎理論問題であり、法令改正の影響を受けない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -115,8 +115,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の新旧差分は該当しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢3は、硬化反応を可逆的とし、成形を何回も行えるとしている点が不適切である。",
-          "promptContext": "熱硬化性樹脂の硬化機構、成形性、用途例に基づく技術・基礎理論の判定。",
+          "explanationText": "熱硬化性樹脂の硬化反応は不可逆的であり、加熱による反復成形はできないため、可逆的かつ何回も行えるとの語句が不適切である。",
+          "promptContext": "熱硬化性樹脂の硬化反応と再成形性に基づく技術判定。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -124,7 +124,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "熱硬化性樹脂の材料特性に関する基礎理論問題であり、法令改正影響の確認対象ではない。"
+          "熱硬化性樹脂の材料特性に関する技術・基礎理論問題であり、法令改正の影響を受けない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -139,8 +139,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の新旧差分は該当しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢4は、可塑剤、可逆的、何回も行えるという語句が熱硬化性樹脂の説明として不適切である。",
-          "promptContext": "熱硬化性樹脂の硬化機構、成形性、用途例に基づく技術・基礎理論の判定。",
+          "explanationText": "可塑剤、可逆的、何回も行えるという語句が、熱硬化性樹脂の硬化機構と成形性の説明に適合しない。",
+          "promptContext": "熱硬化性樹脂の硬化機構と再成形性に基づく技術判定。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -148,7 +148,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "熱硬化性樹脂の材料特性に関する基礎理論問題であり、法令改正影響の確認対象ではない。"
+          "熱硬化性樹脂の材料特性に関する技術・基礎理論問題であり、法令改正の影響を受けない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -163,8 +163,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の新旧差分は該当しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢5は、可塑剤、可逆的、何回も行える、ポリエチレン樹脂のいずれも熱硬化性樹脂の正しい組合せに合わない。",
-          "promptContext": "熱硬化性樹脂の硬化機構、成形性、用途例に基づく技術・基礎理論の判定。",
+          "explanationText": "可塑剤、可逆的、何回も行える、ポリエチレン樹脂という語句はいずれも、設問が求める熱硬化性樹脂の正しい説明の組合せに適合しない。",
+          "promptContext": "熱硬化性樹脂の硬化機構、再成形性および材料分類に基づく技術判定。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -172,7 +172,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "熱硬化性樹脂の材料特性に関する基礎理論問題であり、法令改正影響の確認対象ではない。"
+          "熱硬化性樹脂の材料特性に関する技術・基礎理論問題であり、法令改正の影響を受けない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -197,40 +197,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "正しい。クリープは、一定応力を受け続けた材料で時間の経過とともにひずみが増加する現象である。",
-      "正しい。引張応力は引張力を原断面積で割った値であり、力に比例し、原断面積に反比例する。",
-      "正しい。炭素鋼は高温になると強度が低下し、一般に450℃以上では強度低下が著しくなる。",
-      "正しい。アルミニウム合金は低温でも使用できる材料であり、低温用材料として用いることができる。",
-      "間違い。フェライト鋼のような体心立方晶の金属には低温ぜい性が発生するため、低温ぜい性は認められないとする記述は誤りである。"
-    ],
-    "suggestedQuestions": [
-      "クリープは、一定応力の下で時間とともにひずみが増加する現象である。",
-      "引張応力は、力に比例し、原断面積に反比例する。",
-      "炭素鋼は、一般に450℃以上では強度が著しく低下する。",
-      "アルミニウム合金は、低温用材料として用いることができる。",
-      "フェライト鋼のような体心立方晶の金属には、低温ぜい性は認められない。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クリープは、一定応力の下で時間とともにひずみが増加する現象である。",
-        "answer": "正しい。クリープは、一定応力を受け続けた材料で時間の経過とともにひずみが増加する現象である。"
-      },
-      {
-        "question": "引張応力は、力に比例し、原断面積に反比例する。",
-        "answer": "正しい。引張応力は引張力を原断面積で割った値であり、力に比例し、原断面積に反比例する。"
-      },
-      {
-        "question": "炭素鋼は、一般に450℃以上では強度が著しく低下する。",
-        "answer": "正しい。炭素鋼は高温になると強度が低下し、一般に450℃以上では強度低下が著しくなる。"
-      },
-      {
-        "question": "アルミニウム合金は、低温用材料として用いることができる。",
-        "answer": "正しい。アルミニウム合金は低温でも使用できる材料であり、低温用材料として用いることができる。"
-      },
-      {
-        "question": "フェライト鋼のような体心立方晶の金属には、低温ぜい性は認められない。",
-        "answer": "間違い。フェライト鋼のような体心立方晶の金属には低温ぜい性が発生するため、低温ぜい性は認められないとする記述は誤りである。"
-      }
+      "正しい。クリープとは、材料に一定の応力が作用し続けると、時間の経過に伴ってひずみが増加する現象である。特に高温下で問題となる時間依存の変形である。",
+      "正しい。引張応力は、引張力を変形前の原断面積で除した値（引張応力＝引張力÷原断面積）である。このため、原断面積が一定なら引張力に比例し、引張力が一定なら原断面積に反比例する。",
+      "正しい。炭素鋼は温度上昇に伴って引張強さや降伏強さが低下し、一般に450℃以上では強度低下が著しくなる。そのため、高温で使用する設備では使用温度に応じた材料選定が必要である。",
+      "正しい。アルミニウム合金は低温でもじん性を保ちやすく、低温ぜい性を生じにくいため、低温用材料として使用できる。",
+      "間違い。フェライト鋼のような体心立方晶の金属では、温度の低下に伴って延性が急激に失われる低温ぜい性が認められる。したがって、「低温ぜい性は認められない」とする部分が誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -251,7 +222,142 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2021:kiso:q15",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10104,chiefgasengineerlicense-C-10105,chiefgasengineerlicense-C-10106,chiefgasengineerlicense-C-10107,chiefgasengineerlicense-C-10108",
+    "sourceRecordRef": "question_2021_firestore_3.json#1",
+    "explanationReferences": [],
+    "lawContextForExplanation": "材料の力学的性質と金属材料の特性に関する技術・理論問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の正誤は同じである。",
+          "displayRefIds": [],
+          "explanationText": "一定応力下でひずみが時間とともに増加する現象をクリープという。",
+          "promptContext": "クリープの定義に関する技術肢。",
+          "refs": [],
+          "verdict": "正誤判定を維持"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "材料特性に関する技術肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の正誤は同じである。",
+          "displayRefIds": [],
+          "explanationText": "引張応力は引張力を原断面積で除して求める。",
+          "promptContext": "引張応力と力・原断面積の関係に関する技術肢。",
+          "refs": [],
+          "verdict": "正誤判定を維持"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "材料力学に関する技術肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の正誤は同じである。",
+          "displayRefIds": [],
+          "explanationText": "炭素鋼は高温になると強度が低下し、一般に450℃以上ではその低下が著しくなる。",
+          "promptContext": "炭素鋼の高温強度に関する技術肢。",
+          "refs": [],
+          "verdict": "正誤判定を維持"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "炭素鋼の高温特性に関する技術肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の正誤は同じである。",
+          "displayRefIds": [],
+          "explanationText": "アルミニウム合金は低温でもじん性を保ちやすく、低温用材料に使用できる。",
+          "promptContext": "アルミニウム合金の低温用途に関する技術肢。",
+          "refs": [],
+          "verdict": "正誤判定を維持"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "アルミニウム合金の低温特性に関する技術肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の正誤は同じである。",
+          "displayRefIds": [],
+          "explanationText": "フェライト鋼のような体心立方晶の金属には低温ぜい性が認められるため、記述は誤りである。",
+          "promptContext": "フェライト鋼と低温ぜい性の関係に関する技術肢。",
+          "refs": [],
+          "verdict": "正誤判定を維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "金属材料の低温ぜい性に関する技術肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2021-2-1,gasushunin-koushu-kiso-2021-2-2,gasushunin-koushu-kiso-2021-2-3,gasushunin-koushu-kiso-2021-2-4,chiefgasengineerlicense-C-10079",
@@ -270,11 +376,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "間違い。圧力0.3MPaは0.3×10^6Pa、温度27℃は約300Kである。理想気体の状態方程式より、混合気体全体の物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41kmol となる。水素の物質量を x kmol とすると、窒素は 2.41-x kmol であり、質量の合計から 40=2x+28(2.41-x) が成り立つ。これを解くと x≒1.05kmol で、水素の体積割合は物質量割合に等しいため 1.05/2.41×100≒44% となる。したがって22%は最も近い値ではない。",
-      "間違い。圧力0.3MPaは0.3×10^6Pa、温度27℃は約300Kである。理想気体の状態方程式より、混合気体全体の物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41kmol となる。水素の物質量を x kmol とすると、窒素は 2.41-x kmol であり、質量の合計から 40=2x+28(2.41-x) が成り立つ。これを解くと x≒1.05kmol で、水素の体積割合は物質量割合に等しいため 1.05/2.41×100≒44% となる。したがって28%は最も近い値ではない。",
-      "間違い。圧力0.3MPaは0.3×10^6Pa、温度27℃は約300Kである。理想気体の状態方程式より、混合気体全体の物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41kmol となる。水素の物質量を x kmol とすると、窒素は 2.41-x kmol であり、質量の合計から 40=2x+28(2.41-x) が成り立つ。これを解くと x≒1.05kmol で、水素の体積割合は物質量割合に等しいため 1.05/2.41×100≒44% となる。したがって33%は最も近い値ではない。",
-      "間違い。圧力0.3MPaは0.3×10^6Pa、温度27℃は約300Kである。理想気体の状態方程式より、混合気体全体の物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41kmol となる。水素の物質量を x kmol とすると、窒素は 2.41-x kmol であり、質量の合計から 40=2x+28(2.41-x) が成り立つ。これを解くと x≒1.05kmol で、水素の体積割合は物質量割合に等しいため 1.05/2.41×100≒44% となる。38%は計算値より小さく、44%の方が近い。",
-      "正しい。圧力0.3MPaは0.3×10^6Pa、温度27℃は約300Kである。理想気体の状態方程式より、混合気体全体の物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41kmol となる。水素の物質量を x kmol とすると、窒素は 2.41-x kmol であり、質量の合計から 40=2x+28(2.41-x) が成り立つ。これを解くと x≒1.05kmol で、水素の体積割合は物質量割合に等しいため 1.05/2.41×100≒44% となる。したがって44%が最も近い値である。"
+      "間違い。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となるため、22%は最も近い値ではない。",
+      "間違い。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となるため、28%は最も近い値ではない。",
+      "間違い。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となるため、33%は最も近い値ではない。",
+      "間違い。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となる。38%より44%の方が計算値に近い。",
+      "正しい。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となるため、44%が最も近い。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -300,7 +406,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-2-1,gasushunin-koushu-kiso-2021-2-2,gasushunin-koushu-kiso-2021-2-3,gasushunin-koushu-kiso-2021-2-4,chiefgasengineerlicense-C-10079",
     "sourceRecordRef": "question_2021_firestore_3.json#2",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。理想気体の状態方程式で混合気体全体の物質量を求め、窒素と水素の質量収支から水素の物質量割合、すなわち体積割合を計算する。",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。理想気体の状態方程式と混合気体の物質量・質量関係から水素の体積割合を計算する。",
     "lawReferences": [
       [],
       [],
@@ -311,7 +417,7 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない計算問題であり、正誤は理想気体の状態方程式と質量収支で決まる。"
+          "法令改正の影響を受けず、計算値約44%と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -319,10 +425,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は判定に関係しない。",
+          "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢22%は計算値約44%から外れるため誤り。",
-          "promptContext": "理想気体の状態方程式と混合気体の質量収支に基づく計算問題。",
+          "explanationText": "22%は計算値約44%から外れるため間違い。",
+          "promptContext": "理想気体の状態方程式と質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -335,7 +441,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない計算問題であり、正誤は理想気体の状態方程式と質量収支で決まる。"
+          "法令改正の影響を受けず、計算値約44%と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -343,10 +449,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は判定に関係しない。",
+          "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢28%は計算値約44%から外れるため誤り。",
-          "promptContext": "理想気体の状態方程式と混合気体の質量収支に基づく計算問題。",
+          "explanationText": "28%は計算値約44%から外れるため間違い。",
+          "promptContext": "理想気体の状態方程式と質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -359,7 +465,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない計算問題であり、正誤は理想気体の状態方程式と質量収支で決まる。"
+          "法令改正の影響を受けず、計算値約44%と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -367,10 +473,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は判定に関係しない。",
+          "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢33%は計算値約44%から外れるため誤り。",
-          "promptContext": "理想気体の状態方程式と混合気体の質量収支に基づく計算問題。",
+          "explanationText": "33%は計算値約44%から外れるため間違い。",
+          "promptContext": "理想気体の状態方程式と質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -383,7 +489,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない計算問題であり、正誤は理想気体の状態方程式と質量収支で決まる。"
+          "法令改正の影響を受けず、38%より44%の方が計算値に近い。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -391,10 +497,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は判定に関係しない。",
+          "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "選択肢38%は計算値約44%より小さく、44%の方が近いため誤り。",
-          "promptContext": "理想気体の状態方程式と混合気体の質量収支に基づく計算問題。",
+          "explanationText": "38%は計算値約44%より小さく、44%の方が近いため間違い。",
+          "promptContext": "理想気体の状態方程式と質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -407,7 +513,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けない計算問題であり、正誤は理想気体の状態方程式と質量収支で決まる。"
+          "法令改正の影響を受けず、計算値は約44%となる。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -415,10 +521,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の現行・試験時点差分は判定に関係しない。",
+          "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "計算で得られる水素の体積割合は約44%であり、選択肢44%が最も近い。",
-          "promptContext": "理想気体の状態方程式と混合気体の質量収支に基づく計算問題。",
+          "explanationText": "計算で得られる水素の体積割合は約44%であり、44%が最も近いため正しい。",
+          "promptContext": "理想気体の状態方程式と質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -449,40 +555,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 1.5m^3は計算結果と一致しない。",
-      "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 2m^3は計算結果と一致しない。",
-      "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 3.2m^3は計算結果より小さく、最も近い値ではない。",
-      "正しい。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。",
-      "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 4.5m^3は計算結果より大きく、4.0m^3の方が近い。"
-    ],
-    "suggestedQuestions": [
-      "1.5",
-      "2",
-      "3.2",
-      "4",
-      "4.5"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "1.5",
-        "answer": "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 1.5m^3は計算結果と一致しない。"
-      },
-      {
-        "question": "2",
-        "answer": "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 2m^3は計算結果と一致しない。"
-      },
-      {
-        "question": "3.2",
-        "answer": "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 3.2m^3は計算結果より小さく、最も近い値ではない。"
-      },
-      {
-        "question": "4",
-        "answer": "正しい。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。"
-      },
-      {
-        "question": "4.5",
-        "answer": "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 4.5m^3は計算結果より大きく、4.0m^3の方が近い。"
-      }
+      "容積一定なので、空気に加える熱量は定積比熱容量を用いて求める。温度差は900−300=600Kであるから、Q=mC_vΔT=300kg×0.7kJ/(kg・K)×600K=126000kJ=126MJとなる。熱効率が70%なので、都市ガス1m³から実際に利用できる熱量は45MJ/m³×0.70=31.5MJ/m³である。したがって、必要な都市ガスの体積は126MJ÷31.5MJ/m³=4.0m³となり、最も近い値は「4」である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -503,7 +576,142 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2021:kiso:q03",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-3-1,gasushunin-koushu-kiso-2021-3-2,gasushunin-koushu-kiso-2021-3-3,chiefgasengineerlicense-C-10080,gasushunin-koushu-kiso-2021-3-5",
+    "sourceRecordRef": "question_2021_firestore_3.json#3",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない熱量・発熱量・熱効率に関する技術計算問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "必要体積は4.0m³であり、1.5m³は計算結果と一致しない。",
+          "promptContext": "定積加熱の熱量と熱効率から都市ガス体積を求める。",
+          "refs": [],
+          "verdict": "現行法監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "必要体積は4.0m³であり、2m³は計算結果と一致しない。",
+          "promptContext": "定積加熱の熱量と熱効率から都市ガス体積を求める。",
+          "refs": [],
+          "verdict": "現行法監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "必要体積は4.0m³であり、3.2m³は計算結果と一致しない。",
+          "promptContext": "定積加熱の熱量と熱効率から都市ガス体積を求める。",
+          "refs": [],
+          "verdict": "現行法監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "必要熱量126MJを有効発熱量31.5MJ/m³で除すと、必要体積は4.0m³となる。",
+          "promptContext": "定積加熱の熱量と熱効率から都市ガス体積を求める。",
+          "refs": [],
+          "verdict": "現行法監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "必要体積は4.0m³であり、4.5m³は計算結果と一致しない。",
+          "promptContext": "定積加熱の熱量と熱効率から都市ガス体積を求める。",
+          "refs": [],
+          "verdict": "現行法監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10081,chiefgasengineerlicense-C-10082,chiefgasengineerlicense-C-10083,chiefgasengineerlicense-C-10084,chiefgasengineerlicense-C-10085",
@@ -522,40 +730,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "正しい。エントロピーは状態量であり、系がある状態から別の状態に移るときの変化量は途中の経路によらない。",
-      "正しい。エントロピーは熱量を温度で割った量として扱われるため、次元はエネルギーを温度で割ったものになる。",
-      "正しい。理想気体を定圧で加熱すると温度上昇に伴って熱が加えられ、エントロピーは増加する。",
-      "正しい。孤立系の不可逆過程ではエントロピーは増大する。",
-      "間違い。等温、定圧で2種の理想気体を混合すると、混合によって取り得る状態数が増えるためエントロピーは増大する。減少するとする記述は誤りである。"
-    ],
-    "suggestedQuestions": [
-      "系がある状態から別の状態に移るときのエントロピー変化量は、途中の経路にはよらない。",
-      "エントロピーの次元は［エネルギー］/［温度］である。",
-      "理想気体では、定圧条件において温度を上昇させるとエントロピーは増加する。",
-      "孤立系の不可逆過程において、エントロピーは常に増大する。",
-      "等温、定圧で2種の理想気体を混合するとき、エントロピーは減少する。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "系がある状態から別の状態に移るときのエントロピー変化量は、途中の経路にはよらない。",
-        "answer": "正しい。エントロピーは状態量であり、系がある状態から別の状態に移るときの変化量は途中の経路によらない。"
-      },
-      {
-        "question": "エントロピーの次元は［エネルギー］/［温度］である。",
-        "answer": "正しい。エントロピーは熱量を温度で割った量として扱われるため、次元はエネルギーを温度で割ったものになる。"
-      },
-      {
-        "question": "理想気体では、定圧条件において温度を上昇させるとエントロピーは増加する。",
-        "answer": "正しい。理想気体を定圧で加熱すると温度上昇に伴って熱が加えられ、エントロピーは増加する。"
-      },
-      {
-        "question": "孤立系の不可逆過程において、エントロピーは常に増大する。",
-        "answer": "正しい。孤立系の不可逆過程ではエントロピーは増大する。"
-      },
-      {
-        "question": "等温、定圧で2種の理想気体を混合するとき、エントロピーは減少する。",
-        "answer": "間違い。等温、定圧で2種の理想気体を混合すると、混合によって取り得る状態数が増えるためエントロピーは増大する。減少するとする記述は誤りである。"
-      }
+      "正しい。エントロピーは状態量であるため、始状態と終状態が同じなら、その変化量は両状態の差だけで決まり、途中の経路にはよらない。",
+      "正しい。エントロピーは可逆過程では熱量を絶対温度で割った量から定義されるため、次元は［エネルギー］/［温度］であり、SI単位はJ/Kである。",
+      "正しい。理想気体を定圧で加熱したときのエントロピー変化は、物質量をn、定圧モル熱容量をCpとしてΔS＝nCp ln（T2/T1）で表される。温度が上昇してT2＞T1となれば、ΔSは正になる。",
+      "正しい。孤立系では外部との熱や物質の授受がなく、不可逆過程では正のエントロピーが生成されるため、系全体のエントロピーは増大する。",
+      "間違い。異なる2種の理想気体を等温・定圧で混合すると、各気体が占め得る領域が広がるため、混合エントロピーは正となる。したがって、エントロピーは減少せず増加する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -584,7 +763,132 @@
       "reason": "法令キーワード又はLawzilla候補はあるが、2021甲種の技術・基礎科目として、既存解説の正誤は技術知識・Firestore snapshot確認で足りる。未検証の条文をlawReferencesへ付けない。",
       "sourceConflictHandling": "preserve_firestore_snapshot_after_review",
       "secretHandling": "no Lawzilla endpoint or API key stored"
-    }
+    },
+    "sourceQuestionKey": "gas-shunin:kou:2021:kiso:q04",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10081,chiefgasengineerlicense-C-10082,chiefgasengineerlicense-C-10083,chiefgasengineerlicense-C-10084,chiefgasengineerlicense-C-10085",
+    "sourceRecordRef": "question_2021_firestore_3.json#4",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない熱力学・エントロピーに関する基礎理論問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "エントロピーは状態量であり、その変化量は始状態と終状態で決まり経路に依存しない。",
+          "promptContext": "熱力学上の状態量に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "エントロピーは熱量を絶対温度で割った量として扱われ、次元は［エネルギー］/［温度］である。",
+          "promptContext": "エントロピーの次元に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "理想気体を定圧で昇温すると、ΔS＝nCp ln（T2/T1）となり、T2＞T1ではエントロピー変化は正になる。",
+          "promptContext": "理想気体の定圧加熱に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "孤立系の不可逆過程では正のエントロピーが生成されるため、系全体のエントロピーは増大する。",
+          "promptContext": "熱力学第二法則に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "異なる2種の理想気体を等温・定圧で混合すると混合エントロピーは正となり、エントロピーは減少せず増加する。",
+          "promptContext": "理想気体の混合エントロピーに関する技術肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2021-5-1,gasushunin-koushu-kiso-2021-5-2,chiefgasengineerlicense-C-10086,gasushunin-koushu-kiso-2021-5-4,gasushunin-koushu-kiso-2021-5-5",
@@ -603,40 +907,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "間違い。メタン0.5molとプロパン0.5molの完全燃焼で発生する熱は、標準生成熱から 0.5×891+0.5×2222=1556.5kJ と求まる。900kJはこの値から離れており、最も近い値ではない。",
-      "間違い。CH4(g)+2O2(g)→CO2(g)+2H2O(l) の反応熱は -891kJ/mol、C3H8(g)+5O2(g)→3CO2(g)+4H2O(l) の反応熱は -2222kJ/molである。1:1混合ガス1molでは 1556.5kJ となるため、1200kJは最も近い値ではない。",
-      "正しい。体積比1:1の気体混合物ではメタンとプロパンがそれぞれ0.5molである。標準生成熱より、メタン燃焼は -394+2×(-286)-(-75)=-891kJ/mol、プロパン燃焼は 3×(-394)+4×(-286)-(-104)=-2222kJ/mol。発生熱は 0.5×891+0.5×2222=1556.5kJ なので、1600kJが最も近い。",
-      "間違い。混合ガス1molはメタン0.5mol、プロパン0.5molであり、発生熱は 1556.5kJ である。2400kJはプロパン1molの燃焼熱に近い側の値で、混合ガス1molの値としては大きすぎる。",
-      "間違い。標準生成熱を用いて計算すると混合ガス1molの完全燃焼で発生する熱は約1556.5kJである。3200kJはこの値から大きく外れるため、最も近い値ではない。"
-    ],
-    "suggestedQuestions": [
-      "900",
-      "1200",
-      "1600",
-      "2400",
-      "3200"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "900",
-        "answer": "間違い。メタン0.5molとプロパン0.5molの完全燃焼で発生する熱は、標準生成熱から 0.5×891+0.5×2222=1556.5kJ と求まる。900kJはこの値から離れており、最も近い値ではない。"
-      },
-      {
-        "question": "1200",
-        "answer": "間違い。CH4(g)+2O2(g)→CO2(g)+2H2O(l) の反応熱は -891kJ/mol、C3H8(g)+5O2(g)→3CO2(g)+4H2O(l) の反応熱は -2222kJ/molである。1:1混合ガス1molでは 1556.5kJ となるため、1200kJは最も近い値ではない。"
-      },
-      {
-        "question": "1600",
-        "answer": "正しい。体積比1:1の気体混合物ではメタンとプロパンがそれぞれ0.5molである。標準生成熱より、メタン燃焼は -394+2×(-286)-(-75)=-891kJ/mol、プロパン燃焼は 3×(-394)+4×(-286)-(-104)=-2222kJ/mol。発生熱は 0.5×891+0.5×2222=1556.5kJ なので、1600kJが最も近い。"
-      },
-      {
-        "question": "2400",
-        "answer": "間違い。混合ガス1molはメタン0.5mol、プロパン0.5molであり、発生熱は 1556.5kJ である。2400kJはプロパン1molの燃焼熱に近い側の値で、混合ガス1molの値としては大きすぎる。"
-      },
-      {
-        "question": "3200",
-        "answer": "間違い。標準生成熱を用いて計算すると混合ガス1molの完全燃焼で発生する熱は約1556.5kJである。3200kJはこの値から大きく外れるため、最も近い値ではない。"
-      }
+      "間違い。メタン0.5molとプロパン0.5molの完全燃焼で発生する熱は、標準生成熱から0.5×891+0.5×2222=1556.5kJと求まる。900kJはこの値から離れており、最も近い値ではない。",
+      "間違い。CH4(g)+2O2(g)→CO2(g)+2H2O(l)の反応熱は-891kJ/mol、C3H8(g)+5O2(g)→3CO2(g)+4H2O(l)の反応熱は-2222kJ/molである。1:1混合ガス1molでは1556.5kJとなるため、1200kJは最も近い値ではない。",
+      "正しい。体積比1:1の気体混合物ではメタンとプロパンがそれぞれ0.5molである。標準生成熱より、メタン燃焼は-394+2×(-286)-(-75)=-891kJ/mol、プロパン燃焼は3×(-394)+4×(-286)-(-104)=-2222kJ/mol。発生熱は0.5×891+0.5×2222=1556.5kJなので、1600kJが最も近い。",
+      "間違い。混合ガス1molはメタン0.5mol、プロパン0.5molであり、発生熱は1556.5kJである。2400kJはプロパン1molの燃焼熱に近い側の値で、混合ガス1molの値としては大きすぎる。",
+      "間違い。標準生成熱を用いて計算すると、混合ガス1molの完全燃焼で発生する熱は約1556.5kJである。3200kJはこの値から大きく外れるため、最も近い値ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -657,7 +932,142 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2021:kiso:q05",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-5-1,gasushunin-koushu-kiso-2021-5-2,chiefgasengineerlicense-C-10086,gasushunin-koushu-kiso-2021-5-4,gasushunin-koushu-kiso-2021-5-5",
+    "sourceRecordRef": "question_2021_firestore_3.json#5",
+    "explanationReferences": [],
+    "lawContextForExplanation": "標準生成熱から燃焼反応熱を計算する基礎理論問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "燃焼反応熱の計算のみで判定できる。",
+          "promptContext": "選択肢900kJの判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "燃焼反応熱の計算のみで判定できる。",
+          "promptContext": "選択肢1200kJの判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "燃焼反応熱の計算のみで判定できる。",
+          "promptContext": "選択肢1600kJの判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "燃焼反応熱の計算のみで判定できる。",
+          "promptContext": "選択肢2400kJの判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "燃焼反応熱の計算のみで判定できる。",
+          "promptContext": "選択肢3200kJの判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2021-6-1,gasushunin-koushu-kiso-2021-6-2,chiefgasengineerlicense-C-10087,gasushunin-koushu-kiso-2021-6-4,gasushunin-koushu-kiso-2021-6-5",
@@ -676,40 +1086,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "間違い。求める反応 CH4+2H2O→CO2+4H2 は、メタンの完全燃焼反応 CH4+2O2→CO2+2H2O から水素の完全燃焼反応 H2+1/2O2→H2O を4倍した式を差し引いて得られる。標準反応熱は -801-4×(-242)=167kJ/mol なので、-559kJ/molではない。",
-      "間違い。ヘスの法則により、CH4+2H2O→CO2+4H2 の標準反応熱は、メタン燃焼熱 -801kJ/mol から水素燃焼熱4mol分 4×(-242kJ/mol) を差し引く。計算結果は 167kJ/mol であり、-167kJ/molではない。",
-      "正しい。水素の完全燃焼 H2+1/2O2→H2O の標準反応熱は -242kJ/molなので、4倍すると 4H2+2O2→4H2O、標準反応熱は 4×(-242)=-968kJ/mol である。メタン燃焼 CH4+2O2→CO2+2H2O の -801kJ/mol からこの式を差し引くと、CH4+2H2O→CO2+4H2 となり、標準反応熱は -801-(-968)=167kJ/mol となる。",
-      "間違い。与えられた2つの燃焼反応を組み合わせると、対象反応の標準反応熱は -801-4×(-242)=167kJ/mol である。559kJ/molは符号・大きさともにこの計算結果と一致しない。",
-      "間違い。対象反応はメタン燃焼反応から水素燃焼反応4倍を引いて作るため、標準反応熱は 167kJ/mol となる。1043kJ/molは燃焼熱の組合せを正しく反映した値ではない。"
-    ],
-    "suggestedQuestions": [
-      "−559",
-      "−167",
-      "167",
-      "559",
-      "1043"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "−559",
-        "answer": "間違い。求める反応 CH4+2H2O→CO2+4H2 は、メタンの完全燃焼反応 CH4+2O2→CO2+2H2O から水素の完全燃焼反応 H2+1/2O2→H2O を4倍した式を差し引いて得られる。標準反応熱は -801-4×(-242)=167kJ/mol なので、-559kJ/molではない。"
-      },
-      {
-        "question": "−167",
-        "answer": "間違い。ヘスの法則により、CH4+2H2O→CO2+4H2 の標準反応熱は、メタン燃焼熱 -801kJ/mol から水素燃焼熱4mol分 4×(-242kJ/mol) を差し引く。計算結果は 167kJ/mol であり、-167kJ/molではない。"
-      },
-      {
-        "question": "167",
-        "answer": "正しい。水素の完全燃焼 H2+1/2O2→H2O の標準反応熱は -242kJ/molなので、4倍すると 4H2+2O2→4H2O、標準反応熱は 4×(-242)=-968kJ/mol である。メタン燃焼 CH4+2O2→CO2+2H2O の -801kJ/mol からこの式を差し引くと、CH4+2H2O→CO2+4H2 となり、標準反応熱は -801-(-968)=167kJ/mol となる。"
-      },
-      {
-        "question": "559",
-        "answer": "間違い。与えられた2つの燃焼反応を組み合わせると、対象反応の標準反応熱は -801-4×(-242)=167kJ/mol である。559kJ/molは符号・大きさともにこの計算結果と一致しない。"
-      },
-      {
-        "question": "1043",
-        "answer": "間違い。対象反応はメタン燃焼反応から水素燃焼反応4倍を引いて作るため、標準反応熱は 167kJ/mol となる。1043kJ/molは燃焼熱の組合せを正しく反映した値ではない。"
-      }
+      "ヘスの法則を用いる。メタンの完全燃焼を CH4(g)+2O2(g)→CO2(g)+2H2O(g)、ΔH°=-801 kJ/mol、水素の完全燃焼を H2(g)+1/2O2(g)→H2O(g)、ΔH°=-242 kJ/mol とする。水素の完全燃焼を4倍して逆向きにすると、4H2O(g)→4H2(g)+2O2(g)、ΔH°=+968 kJ/mol となる。これをメタンの燃焼反応に加えて共通する物質を消去すれば、CH4(g)+2H2O(g)→CO2(g)+4H2(g) が得られる。したがって、求める標準反応熱は -801+968=167 kJ/mol であり、最も近い値は167である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -730,7 +1107,142 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2021:kiso:q06",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-6-1,gasushunin-koushu-kiso-2021-6-2,chiefgasengineerlicense-C-10087,gasushunin-koushu-kiso-2021-6-4,gasushunin-koushu-kiso-2021-6-5",
+    "sourceRecordRef": "question_2021_firestore_3.json#6",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、ヘスの法則による標準反応熱の技術・計算問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢−559は、ヘスの法則で求める標準反応熱167 kJ/molと一致しない計算肢であり、法令を根拠としない。",
+          "promptContext": "選択肢−559の判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢−167は、ヘスの法則で求める標準反応熱167 kJ/molと一致しない計算肢であり、法令を根拠としない。",
+          "promptContext": "選択肢−167の判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢167は、ヘスの法則で求める標準反応熱167 kJ/molと一致する計算肢であり、法令を根拠としない。",
+          "promptContext": "選択肢167の判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢559は、ヘスの法則で求める標準反応熱167 kJ/molと一致しない計算肢であり、法令を根拠としない。",
+          "promptContext": "選択肢559の判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は生じない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1043は、ヘスの法則で求める標準反応熱167 kJ/molと一致しない計算肢であり、法令を根拠としない。",
+          "promptContext": "選択肢1043の判定",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10088,chiefgasengineerlicense-C-10089,chiefgasengineerlicense-C-10090,chiefgasengineerlicense-C-10091,chiefgasengineerlicense-C-10092",
@@ -749,40 +1261,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "正しい。爆発反応では急速な燃焼・反応に伴って光、音、衝撃的な圧力が生じることがあるため、この記述は妥当である。",
-      "間違い。爆発現象は爆燃と爆ごうに分類されるが、燃焼反応領域の伝播速度は爆燃が亜音速、爆ごうが超音速である。記述はこの関係を逆にしている。",
-      "正しい。可燃性ガスと空気が燃焼・爆発に適した濃度範囲で混合し、着火源など外部からエネルギーが与えられると爆発反応が起こりうる。",
-      "正しい。爆ごうを起こしうる濃度範囲は爆ごう範囲と呼ばれ、一般に爆発範囲の内側に位置する。",
-      "正しい。爆ごうは反応領域が超音速で伝播し、衝撃波を伴う現象である。"
-    ],
-    "suggestedQuestions": [
-      "爆発反応は、光や音、あるいは衝撃的圧力を伴う。",
-      "爆発現象は爆燃、爆ごうに分類され、燃焼反応領域の伝播速度が、爆燃は超音速、爆ごうは亜音速である。",
-      "爆発反応は、可燃性ガスと空気が適当な濃度範囲で混合され、かつ外部から何らかの方法でエネルギーが与えられることにより起こりうる。",
-      "爆ごうを起こしうる可燃性ガスの濃度範囲を爆ごう範囲といい、爆発範囲の内側にある。",
-      "爆ごうは衝撃波を伴う現象である。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "爆発反応は、光や音、あるいは衝撃的圧力を伴う。",
-        "answer": "正しい。爆発反応では急速な燃焼・反応に伴って光、音、衝撃的な圧力が生じることがあるため、この記述は妥当である。"
-      },
-      {
-        "question": "爆発現象は爆燃、爆ごうに分類され、燃焼反応領域の伝播速度が、爆燃は超音速、爆ごうは亜音速である。",
-        "answer": "間違い。爆発現象は爆燃と爆ごうに分類されるが、燃焼反応領域の伝播速度は爆燃が亜音速、爆ごうが超音速である。記述はこの関係を逆にしている。"
-      },
-      {
-        "question": "爆発反応は、可燃性ガスと空気が適当な濃度範囲で混合され、かつ外部から何らかの方法でエネルギーが与えられることにより起こりうる。",
-        "answer": "正しい。可燃性ガスと空気が燃焼・爆発に適した濃度範囲で混合し、着火源など外部からエネルギーが与えられると爆発反応が起こりうる。"
-      },
-      {
-        "question": "爆ごうを起こしうる可燃性ガスの濃度範囲を爆ごう範囲といい、爆発範囲の内側にある。",
-        "answer": "正しい。爆ごうを起こしうる濃度範囲は爆ごう範囲と呼ばれ、一般に爆発範囲の内側に位置する。"
-      },
-      {
-        "question": "爆ごうは衝撃波を伴う現象である。",
-        "answer": "正しい。爆ごうは反応領域が超音速で伝播し、衝撃波を伴う現象である。"
-      }
+      "正しい。爆発反応では、急速な反応によって発光や音の発生、圧力の急激な上昇が起こりうるため、光や音、衝撃的な圧力を伴うという記述は妥当である。",
+      "間違い。爆燃では燃焼反応領域が亜音速で伝播するのに対し、爆ごうでは衝撃波を伴って超音速で伝播する。記述は両者の伝播速度を逆にしている。",
+      "正しい。可燃性ガスと空気が爆発可能な濃度範囲で混合し、着火源などから必要なエネルギーが与えられると、爆発反応が起こりうる。",
+      "正しい。爆ごうが生じうる可燃性ガスの濃度範囲を爆ごう範囲といい、これは爆発が可能な濃度範囲である爆発範囲の内側にある。",
+      "正しい。爆ごうは、燃焼反応領域が超音速で伝播し、その前方に衝撃波を伴う現象である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -803,7 +1286,142 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2021:kiso:q07",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10088,chiefgasengineerlicense-C-10089,chiefgasengineerlicense-C-10090,chiefgasengineerlicense-C-10091,chiefgasengineerlicense-C-10092",
+    "sourceRecordRef": "question_2021_firestore_3.json#7",
+    "explanationReferences": [],
+    "lawContextForExplanation": "可燃性ガスの爆発、爆燃、爆ごうに関する技術・理論問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "爆発反応では光、音又は衝撃的な圧力が生じうる。",
+          "promptContext": "可燃性ガスの爆発反応に伴う現象の判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "爆燃は亜音速、爆ごうは超音速であり、記述では両者が逆である。",
+          "promptContext": "爆燃と爆ごうの伝播速度の判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "適切な混合濃度と外部からの着火エネルギーがそろうと爆発反応が起こりうる。",
+          "promptContext": "可燃性混合気が爆発する条件の判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "爆ごう範囲は爆発範囲に含まれ、その内側に位置する。",
+          "promptContext": "爆ごう範囲と爆発範囲の関係の判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "爆ごうは超音速で伝播し、衝撃波を伴う。",
+          "promptContext": "爆ごうに伴う衝撃波の判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外となる技術・理論記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10093,gasushunin-koushu-kiso-2021-8-2,gasushunin-koushu-kiso-2021-8-3,gasushunin-koushu-kiso-2021-8-4,gasushunin-koushu-kiso-2021-8-5",
@@ -822,10 +1440,10 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "正しい。混合ガスの燃焼下限界は、ル・シャトリエの式により 100/L=80/5+12/3+8/2 として求める。分母は 16+4+4=24 なので、L=100/24=約4.17vol%となる。選択肢の中では4.2vol%が最も近い。",
-      "間違い。ル・シャトリエの式で計算すると、混合ガスの燃焼下限界は L=100/(80/5+12/3+8/2)=100/24=約4.17vol%である。4.3vol%も近いが、4.2vol%の方が計算値に近い。",
-      "間違い。メタン、エタン、プロパンの混合比と各単体ガスの燃焼下限界を用いると、分母は 80/5+12/3+8/2=24 となる。したがって混合ガスの燃焼下限界は約4.17vol%であり、4.4vol%ではない。",
-      "間違い。混合ガスの燃焼下限界は、L=100/(80/5+12/3+8/2)=約4.17vol%である。4.5vol%はこの計算値より高く、最も近い値ではない。",
+      "正しい。ル・シャトリエの式により、100/L=80/5+12/3+8/2=16+4+4=24となる。したがって、混合ガスの燃焼下限界はL=100/24=約4.17vol%であり、選択肢中では4.2vol%が最も近い。",
+      "間違い。ル・シャトリエの式による燃焼下限界は約4.17vol%である。4.3vol%との差は約0.13vol%であるのに対し、4.2vol%との差は約0.03vol%なので、最も近いのは4.2vol%である。",
+      "間違い。100/L=80/5+12/3+8/2からL=約4.17vol%となる。4.4vol%はこの計算値に最も近い選択肢ではない。",
+      "間違い。混合ガスの燃焼下限界は、ル・シャトリエの式から約4.17vol%となる。4.5vol%は計算値より高く、最も近い値ではない。",
       "間違い。ル・シャトリエの式による計算値は約4.17vol%である。4.6vol%は計算値から離れており、選択肢中で最も近いのは4.2vol%である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -852,7 +1470,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10093,gasushunin-koushu-kiso-2021-8-2,gasushunin-koushu-kiso-2021-8-3,gasushunin-koushu-kiso-2021-8-4,gasushunin-koushu-kiso-2021-8-5",
     "sourceRecordRef": "question_2021_firestore_3.json#8",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない、混合ガスの燃焼下限界をル・シャトリエの式で求める技術・計算問題。",
+    "lawContextForExplanation": "法令条文を主要根拠としない、ル・シャトリエの式による混合ガスの燃焼下限界の技術・計算問題。",
     "lawReferences": [
       [],
       [],
@@ -871,10 +1489,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の試験時点と現行時点の差分検証対象ではない。",
+          "differenceSummary": "法令の試験時点と現行時点との差分検証対象ではない。",
           "displayRefIds": [],
-          "explanationText": "選択肢4.2は、ル・シャトリエの式による計算値約4.17vol%に最も近いため正しい。",
-          "promptContext": "メタン80vol%、エタン12vol%、プロパン8vol%、各単体ガスの燃焼下限界5vol%、3vol%、2vol%から混合ガスの燃焼下限界を計算する。",
+          "explanationText": "計算値約4.17vol%に最も近い4.2vol%であるため正しい。",
+          "promptContext": "混合割合と各単体ガスの燃焼下限界から混合ガスの燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -882,7 +1500,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "混合ガスの燃焼下限界を求める技術・計算問題であり、法令条文を根拠としない。"
+          "ル・シャトリエの式を用いる技術・計算問題であり、法令条文を根拠としない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -897,10 +1515,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の試験時点と現行時点の差分検証対象ではない。",
+          "differenceSummary": "法令の試験時点と現行時点との差分検証対象ではない。",
           "displayRefIds": [],
-          "explanationText": "選択肢4.3は、計算値約4.17vol%に対して4.2vol%より近くないため間違い。",
-          "promptContext": "メタン80vol%、エタン12vol%、プロパン8vol%、各単体ガスの燃焼下限界5vol%、3vol%、2vol%から混合ガスの燃焼下限界を計算する。",
+          "explanationText": "4.3vol%より4.2vol%の方が計算値約4.17vol%に近いため間違い。",
+          "promptContext": "混合割合と各単体ガスの燃焼下限界から混合ガスの燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -908,7 +1526,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "混合ガスの燃焼下限界を求める技術・計算問題であり、法令条文を根拠としない。"
+          "ル・シャトリエの式を用いる技術・計算問題であり、法令条文を根拠としない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -923,10 +1541,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の試験時点と現行時点の差分検証対象ではない。",
+          "differenceSummary": "法令の試験時点と現行時点との差分検証対象ではない。",
           "displayRefIds": [],
-          "explanationText": "選択肢4.4は、計算値約4.17vol%から離れているため間違い。",
-          "promptContext": "メタン80vol%、エタン12vol%、プロパン8vol%、各単体ガスの燃焼下限界5vol%、3vol%、2vol%から混合ガスの燃焼下限界を計算する。",
+          "explanationText": "4.4vol%は計算値約4.17vol%に最も近い値ではないため間違い。",
+          "promptContext": "混合割合と各単体ガスの燃焼下限界から混合ガスの燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -934,7 +1552,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "混合ガスの燃焼下限界を求める技術・計算問題であり、法令条文を根拠としない。"
+          "ル・シャトリエの式を用いる技術・計算問題であり、法令条文を根拠としない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -949,10 +1567,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の試験時点と現行時点の差分検証対象ではない。",
+          "differenceSummary": "法令の試験時点と現行時点との差分検証対象ではない。",
           "displayRefIds": [],
-          "explanationText": "選択肢4.5は、計算値約4.17vol%より高く、最も近い値ではないため間違い。",
-          "promptContext": "メタン80vol%、エタン12vol%、プロパン8vol%、各単体ガスの燃焼下限界5vol%、3vol%、2vol%から混合ガスの燃焼下限界を計算する。",
+          "explanationText": "4.5vol%は計算値約4.17vol%に最も近い値ではないため間違い。",
+          "promptContext": "混合割合と各単体ガスの燃焼下限界から混合ガスの燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -960,7 +1578,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "混合ガスの燃焼下限界を求める技術・計算問題であり、法令条文を根拠としない。"
+          "ル・シャトリエの式を用いる技術・計算問題であり、法令条文を根拠としない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -975,10 +1593,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令の試験時点と現行時点の差分検証対象ではない。",
+          "differenceSummary": "法令の試験時点と現行時点との差分検証対象ではない。",
           "displayRefIds": [],
-          "explanationText": "選択肢4.6は、計算値約4.17vol%から離れており、最も近い値ではないため間違い。",
-          "promptContext": "メタン80vol%、エタン12vol%、プロパン8vol%、各単体ガスの燃焼下限界5vol%、3vol%、2vol%から混合ガスの燃焼下限界を計算する。",
+          "explanationText": "4.6vol%は計算値約4.17vol%に最も近い値ではないため間違い。",
+          "promptContext": "混合割合と各単体ガスの燃焼下限界から混合ガスの燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -986,7 +1604,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "混合ガスの燃焼下限界を求める技術・計算問題であり、法令条文を根拠としない。"
+          "ル・シャトリエの式を用いる技術・計算問題であり、法令条文を根拠としない。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -1011,40 +1629,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "間違い。体積比4:1としてメタン4m3、水素1m3を燃焼させると、必要酸素量はメタン分2×4=8m3、水素分0.5×1=0.5m3で合計8.5m3である。8.5は理論酸素量であり、乾き燃焼ガス中のCO2濃度ではない。",
-      "正しい。メタン4m3、水素1m3とすると、理論酸素量は2×4+0.5×1=8.5m3である。空気中のN2:O2=4:1より窒素量は8.5×4=34m3、生成CO2量はメタン由来の4m3である。乾き燃焼ガスはCO2とN2なので、CO2濃度は4/(34+4)×100=10.5vol%となり、11vol%が最も近い。",
-      "間違い。乾き燃焼ガス中では水蒸気を除外し、CO2 4m3 と窒素 34m3 を合計した38m3を分母にする。CO2濃度は約10.5vol%であり、25vol%ではない。",
-      "間違い。空気比1では投入酸素に伴う窒素が8.5×4=34m3含まれるため、乾き燃焼ガスの大部分は窒素である。CO2濃度は4/(34+4)×100=約10.5vol%で、31vol%ではない。",
-      "間違い。水素燃焼ではCO2を生じず、メタン4m3からCO2は4m3だけ生じる。乾き燃焼ガスには窒素34m3も含まれるため、CO2濃度が100vol%になることはない。"
-    ],
-    "suggestedQuestions": [
-      "8.5",
-      "11",
-      "25",
-      "31",
-      "100"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "8.5",
-        "answer": "間違い。体積比4:1としてメタン4m3、水素1m3を燃焼させると、必要酸素量はメタン分2×4=8m3、水素分0.5×1=0.5m3で合計8.5m3である。8.5は理論酸素量であり、乾き燃焼ガス中のCO2濃度ではない。"
-      },
-      {
-        "question": "11",
-        "answer": "正しい。メタン4m3、水素1m3とすると、理論酸素量は2×4+0.5×1=8.5m3である。空気中のN2:O2=4:1より窒素量は8.5×4=34m3、生成CO2量はメタン由来の4m3である。乾き燃焼ガスはCO2とN2なので、CO2濃度は4/(34+4)×100=10.5vol%となり、11vol%が最も近い。"
-      },
-      {
-        "question": "25",
-        "answer": "間違い。乾き燃焼ガス中では水蒸気を除外し、CO2 4m3 と窒素 34m3 を合計した38m3を分母にする。CO2濃度は約10.5vol%であり、25vol%ではない。"
-      },
-      {
-        "question": "31",
-        "answer": "間違い。空気比1では投入酸素に伴う窒素が8.5×4=34m3含まれるため、乾き燃焼ガスの大部分は窒素である。CO2濃度は4/(34+4)×100=約10.5vol%で、31vol%ではない。"
-      },
-      {
-        "question": "100",
-        "answer": "間違い。水素燃焼ではCO2を生じず、メタン4m3からCO2は4m3だけ生じる。乾き燃焼ガスには窒素34m3も含まれるため、CO2濃度が100vol%になることはない。"
-      }
+      "間違い。混合ガスをメタン4m³、水素1m³とすると、完全燃焼に必要な酸素は、CH₄＋2O₂→CO₂＋2H₂Oより8m³、H₂＋1/2O₂→H₂Oより0.5m³で、合計8.5m³となる。しかし、8.5は理論酸素量であり、求める二酸化炭素濃度ではない。",
+      "正しい。混合ガスをメタン4m³、水素1m³とおく。理論酸素量は2×4＋0.5×1＝8.5m³であり、空気中のN₂とO₂の体積比が4:1なので、燃焼に伴う窒素は8.5×4＝34m³である。生成するCO₂はメタン由来の4m³で、空気比1では乾き燃焼ガスはCO₂ 4m³とN₂ 34m³からなる。したがって、CO₂濃度は4÷(4＋34)×100≒10.5vol%となり、最も近い値は11である。",
+      "間違い。空気比1の完全燃焼では、乾き燃焼ガスから水蒸気を除く一方、燃焼用空気に伴う窒素34m³は含める。したがって、CO₂濃度は4÷(4＋34)×100≒10.5vol%であり、25vol%ではない。",
+      "間違い。必要酸素8.5m³とともに窒素34m³が供給されるため、乾き燃焼ガスの全量はCO₂ 4m³とN₂ 34m³の合計38m³となる。CO₂濃度は約10.5vol%であり、31vol%ではない。",
+      "間違い。CO₂を生成するのはメタンだけであり、メタン4m³から生じるCO₂は4m³である。乾き燃焼ガスには空気に伴う窒素34m³も含まれるため、CO₂濃度は約10.5vol%となり、100vol%ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1065,6 +1654,131 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2021:kiso:q09",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-9-1,chiefgasengineerlicense-C-10094,gasushunin-koushu-kiso-2021-9-3,gasushunin-koushu-kiso-2021-9-4,gasushunin-koushu-kiso-2021-9-5",
+    "sourceRecordRef": "question_2021_firestore_3.json#9",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。メタン・水素の燃焼反応式、理論酸素量、空気中N2/O2比、乾き燃焼ガス量からCO2濃度を求める計算で判断する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "8.5は理論酸素量であり、乾き燃焼ガス中のCO2濃度ではない。",
+          "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
+          "refs": [],
+          "verdict": "法令非関連の技術計算肢として判定を維持する。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "CO2濃度は4÷(4+34)×100≒10.5vol%であり、11が最も近い。",
+          "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
+          "refs": [],
+          "verdict": "法令非関連の技術計算肢として判定を維持する。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "乾き燃焼ガス中のCO2濃度は約10.5vol%であり、25vol%ではない。",
+          "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
+          "refs": [],
+          "verdict": "法令非関連の技術計算肢として判定を維持する。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "乾き燃焼ガス中のCO2濃度は約10.5vol%であり、31vol%ではない。",
+          "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
+          "refs": [],
+          "verdict": "法令非関連の技術計算肢として判定を維持する。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異は生じない。",
+          "displayRefIds": [],
+          "explanationText": "乾き燃焼ガスには窒素も含まれるため、CO2濃度は100vol%にならない。",
+          "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
+          "refs": [],
+          "verdict": "法令非関連の技術計算肢として判定を維持する。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

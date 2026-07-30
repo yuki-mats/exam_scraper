@@ -16,40 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "引張応力はσ=P/Aで求める。直径16mmの円断面積はA=πd^2/4=3.14×16^2/4=200.96mm^2で、σ=20000/200.96≒99.5MPaとなるため、25MPaでは小さすぎる。",
-      "断面積A=3.14×16^2/4=200.96mm^2、引張応力σ=20000/200.96≒99.5MPaである。38MPaではない。",
-      "引張応力は引張力を原断面積で割って求める。計算値は約99.5MPaなので、50MPaでは小さすぎる。",
-      "円形断面の面積は約200.96mm^2であり、20000Nを割ると約99.5N/mm^2=99.5MPaとなる。75MPaは最も近い値ではない。",
-      "直径d=16mm、引張力P=20000Nより、A=πd^2/4=3.14×16^2/4=200.96mm^2、σ=P/A=20000/200.96≒99.5MPaとなる。N/mm^2はMPaに等しいため、100MPaが最も近く正しい。"
-    ],
-    "suggestedQuestions": [
-      "25",
-      "38",
-      "50",
-      "75",
-      "100"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "25",
-        "answer": "引張応力はσ=P/Aで求める。直径16mmの円断面積はA=πd^2/4=3.14×16^2/4=200.96mm^2で、σ=20000/200.96≒99.5MPaとなるため、25MPaでは小さすぎる。"
-      },
-      {
-        "question": "38",
-        "answer": "断面積A=3.14×16^2/4=200.96mm^2、引張応力σ=20000/200.96≒99.5MPaである。38MPaではない。"
-      },
-      {
-        "question": "50",
-        "answer": "引張応力は引張力を原断面積で割って求める。計算値は約99.5MPaなので、50MPaでは小さすぎる。"
-      },
-      {
-        "question": "75",
-        "answer": "円形断面の面積は約200.96mm^2であり、20000Nを割ると約99.5N/mm^2=99.5MPaとなる。75MPaは最も近い値ではない。"
-      },
-      {
-        "question": "100",
-        "answer": "直径d=16mm、引張力P=20000Nより、A=πd^2/4=3.14×16^2/4=200.96mm^2、σ=P/A=20000/200.96≒99.5MPaとなる。N/mm^2はMPaに等しいため、100MPaが最も近く正しい。"
-      }
+      "間違い。引張応力は引張力Pを断面積Aで割って求める。直径16mmの円断面積は A=πd^2/4=3.14×16^2/4=200.96mm^2 であり、σ=P/A=20000/200.96≒99.5N/mm^2=99.5MPaとなる。したがって25MPaでは小さすぎる。",
+      "間違い。円柱試験片の断面積は A=3.14×16^2/4=200.96mm^2 である。引張応力は σ=20000/200.96≒99.5MPa となるため、38MPaではない。",
+      "間違い。引張応力は降伏点での引張力を原断面積で除して求める。A=200.96mm^2、σ=20000/200.96≒99.5MPaなので、50MPaは計算値より小さい。",
+      "間違い。直径16mmの円断面積は約200.96mm^2であり、20000Nを割ると約99.5N/mm^2となる。1N/mm^2=1MPaであるため約99.5MPaとなり、75MPaは最も近い値ではない。",
+      "正しい。直径d=16mm、引張力P=20000Nより、円断面積は A=πd^2/4=3.14×16^2/4=200.96mm^2 である。引張応力は σ=P/A=20000/200.96≒99.5N/mm^2=99.5MPa となるため、最も近い値は100MPaである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -70,7 +41,142 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q15",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-15-1,gasushunin-koushu-kiso-2022-15-2,gasushunin-koushu-kiso-2022-15-3,gasushunin-koushu-kiso-2022-15-4,chiefgasengineerlicense-C-10073",
+    "sourceRecordRef": "question_2022_firestore_3.json#0",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない材料力学の計算問題。引張応力は引張力を円断面積で除して求める技術・理論事項で判断する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない材料力学の計算肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "25MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaという計算値と一致しない。",
+          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない材料力学の計算肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "38MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaという計算値と一致しない。",
+          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない材料力学の計算肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "50MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaという計算値と一致しない。",
+          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない材料力学の計算肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "75MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaという計算値と一致しない。",
+          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない材料力学の計算肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "100MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaに最も近い。",
+          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2022-2-1,gasushunin-koushu-kiso-2022-2-2,chiefgasengineerlicense-C-10040,gasushunin-koushu-kiso-2022-2-4,gasushunin-koushu-kiso-2022-2-5",
@@ -119,7 +225,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-2-1,gasushunin-koushu-kiso-2022-2-2,chiefgasengineerlicense-C-10040,gasushunin-koushu-kiso-2022-2-4,gasushunin-koushu-kiso-2022-2-5",
     "sourceRecordRef": "question_2022_firestore_3.json#1",
     "explanationReferences": [],
-    "lawContextForExplanation": "理想気体混合物の分圧を、ドルトンの分圧の法則と各成分の物質量比から求める基礎理論の計算問題であり、法令条文を主要根拠としない。",
+    "lawContextForExplanation": "理想気体混合物の分圧を物質量比から計算する技術・理論問題であり、法令条文を主要根拠としない。",
     "lawReferences": [
       [],
       [],
@@ -278,40 +384,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "定圧膨張ではV/Tが一定なので、T2=300×4/3=400Kで、温度上昇は100Kである。n=PV/RT=100×3/(8.3×300)=1/8.3kmol、C_p=C_v+R=28.3J/(mol・K)より、Q=(1/8.3)×28.3×100≒341kJとなるため、2.8kJでは小さすぎる。",
-      "計算値は約341kJである。140kJは、定圧モル熱容量C_p=C_v+Rや温度上昇100Kを反映した値としては小さすぎる。",
-      "T2=400K、ΔT=100K、n=1/8.3kmol、C_p=20+8.3=28.3J/(mol・K)より、Q≒341kJである。240kJではない。",
-      "定圧膨張なのでC_p=C_v+R=28.3J/(mol・K)を用いる。Q=nC_pΔT=(1/8.3)×28.3×100≒341kJとなり、選択肢では340kJが最も近く正しい。",
-      "気体に与えられた熱量は約341kJであり、1400kJでは大きすぎる。"
-    ],
-    "suggestedQuestions": [
-      "2.8",
-      "140",
-      "240",
-      "340",
-      "1400"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "2.8",
-        "answer": "定圧膨張ではV/Tが一定なので、T2=300×4/3=400Kで、温度上昇は100Kである。n=PV/RT=100×3/(8.3×300)=1/8.3kmol、C_p=C_v+R=28.3J/(mol・K)より、Q=(1/8.3)×28.3×100≒341kJとなるため、2.8kJでは小さすぎる。"
-      },
-      {
-        "question": "140",
-        "answer": "計算値は約341kJである。140kJは、定圧モル熱容量C_p=C_v+Rや温度上昇100Kを反映した値としては小さすぎる。"
-      },
-      {
-        "question": "240",
-        "answer": "T2=400K、ΔT=100K、n=1/8.3kmol、C_p=20+8.3=28.3J/(mol・K)より、Q≒341kJである。240kJではない。"
-      },
-      {
-        "question": "340",
-        "answer": "定圧膨張なのでC_p=C_v+R=28.3J/(mol・K)を用いる。Q=nC_pΔT=(1/8.3)×28.3×100≒341kJとなり、選択肢では340kJが最も近く正しい。"
-      },
-      {
-        "question": "1400",
-        "answer": "気体に与えられた熱量は約341kJであり、1400kJでは大きすぎる。"
-      }
+      "初期温度は27℃＝300Kである。定圧変化では体積が絶対温度に比例するため、膨張後の温度はT₂＝300×(4/3)＝400K、温度差は100Kとなる。初期状態の物質量は、理想気体の状態方程式からn＝PV/(RT)＝(100×3)/(8.3×300)＝1/8.3kmolである。また、定圧モル熱容量はCₚ＝Cᵥ＋R＝20＋8.3＝28.3kJ/(kmol・K)である。したがって、与えられた熱量はQ＝nCₚΔT＝(1/8.3)×28.3×100≒341kJとなり、最も近い値は340kJである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -332,7 +405,152 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q03",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-3-1,gasushunin-koushu-kiso-2022-3-2,gasushunin-koushu-kiso-2022-3-3,chiefgasengineerlicense-C-10041,gasushunin-koushu-kiso-2022-3-5",
+    "sourceRecordRef": "question_2022_firestore_3.json#2",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない理想気体の定圧膨張に関する熱量計算問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "算出される熱量は約341kJであり、2.8kJは該当しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "定圧膨張で与えられる熱量は約341kJであるため、2.8kJではない。",
+          "promptContext": "理想気体の定圧膨張に伴う熱量を計算する。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "理想気体の定圧膨張に関する技術計算であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "算出される熱量は約341kJであり、140kJは該当しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "定圧膨張で与えられる熱量は約341kJであるため、140kJではない。",
+          "promptContext": "理想気体の定圧膨張に伴う熱量を計算する。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "理想気体の定圧膨張に関する技術計算であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "算出される熱量は約341kJであり、240kJは該当しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "定圧膨張で与えられる熱量は約341kJであるため、240kJではない。",
+          "promptContext": "理想気体の定圧膨張に伴う熱量を計算する。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "理想気体の定圧膨張に関する技術計算であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "算出値は約341kJであり、最も近い選択肢は340kJである。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "定圧膨張で与えられる熱量は約341kJとなるため、最も近い340kJが正答である。",
+          "promptContext": "理想気体の定圧膨張に伴う熱量を計算する。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "理想気体の定圧膨張に関する技術計算であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "算出される熱量は約341kJであり、1400kJは該当しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "定圧膨張で与えられる熱量は約341kJであるため、1400kJではない。",
+          "promptContext": "理想気体の定圧膨張に伴う熱量を計算する。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "理想気体の定圧膨張に関する技術計算であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10042,chiefgasengineerlicense-C-10043,chiefgasengineerlicense-C-10044,chiefgasengineerlicense-C-10045,chiefgasengineerlicense-C-10046",
@@ -351,40 +569,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "正しい。ジュール・トムソン膨張は絞り膨張であり、断熱で外部仕事を伴わないため、系のエンタルピーは一定に保たれる。",
-      "正しい。エントロピーは状態量であるため、ある状態から別の状態へのエントロピー変化は、途中の経路ではなく変化前後の状態で決まる。",
-      "間違い。標準エントロピーは標準状態におけるエントロピーであり、その値が常に負となるわけではない。常に負とする記述が誤りである。",
-      "正しい。定圧モル熱容量C_pと定積モル熱容量C_vの比C_p/C_vを比熱比という。",
-      "正しい。物質1kgあたりの熱容量は、質量基準の比熱容量を表す。"
-    ],
-    "suggestedQuestions": [
-      "ジュール・トムソン膨張では、系のエンタルピーは一定に保たれる。",
-      "エントロピーは状態量であり、系がある状態から別の状態に移るときのエントロピー変化は、変化前後の状態のみで決まる。",
-      "標準エントロピーとは、標準状態におけるエントロピーであり、その値は常に負となる。",
-      "定圧モル熱容量と定積モル熱容量の比を比熱比という。",
-      "物質1kgあたりの熱容量を、比熱容量という。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ジュール・トムソン膨張では、系のエンタルピーは一定に保たれる。",
-        "answer": "正しい。ジュール・トムソン膨張は絞り膨張であり、断熱で外部仕事を伴わないため、系のエンタルピーは一定に保たれる。"
-      },
-      {
-        "question": "エントロピーは状態量であり、系がある状態から別の状態に移るときのエントロピー変化は、変化前後の状態のみで決まる。",
-        "answer": "正しい。エントロピーは状態量であるため、ある状態から別の状態へのエントロピー変化は、途中の経路ではなく変化前後の状態で決まる。"
-      },
-      {
-        "question": "標準エントロピーとは、標準状態におけるエントロピーであり、その値は常に負となる。",
-        "answer": "間違い。標準エントロピーは標準状態におけるエントロピーであり、その値が常に負となるわけではない。常に負とする記述が誤りである。"
-      },
-      {
-        "question": "定圧モル熱容量と定積モル熱容量の比を比熱比という。",
-        "answer": "正しい。定圧モル熱容量C_pと定積モル熱容量C_vの比C_p/C_vを比熱比という。"
-      },
-      {
-        "question": "物質1kgあたりの熱容量を、比熱容量という。",
-        "answer": "正しい。物質1kgあたりの熱容量は、質量基準の比熱容量を表す。"
-      }
+      "正しい。ジュール・トムソン膨張は、断熱された絞り部を通過する定常流の膨張であり、通常は外部との熱交換や軸仕事を伴わない。このため、絞り部の前後で比エンタルピーは一定に保たれる。",
+      "正しい。エントロピーは状態量であるため、二つの状態間のエントロピー変化は途中の過程に依存せず、変化前と変化後の状態だけで決まる。",
+      "間違い。標準エントロピーは標準状態におけるエントロピーであり、標準状態では正の値をとる。「常に負」としており、値の符号が正しい内容と反対であるため誤りである。",
+      "正しい。定圧モル熱容量をC_p、定積モル熱容量をC_vとすると、その比C_p/C_vを比熱比という。",
+      "正しい。物質の熱容量をその質量で割った量が比熱容量であり、物質1 kg当たりの熱容量として表される。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -405,7 +594,142 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q04",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10042,chiefgasengineerlicense-C-10043,chiefgasengineerlicense-C-10044,chiefgasengineerlicense-C-10045,chiefgasengineerlicense-C-10046",
+    "sourceRecordRef": "question_2022_firestore_3.json#3",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない熱力学の技術・理論問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "ジュール・トムソン膨張では絞り部の前後で比エンタルピーが一定に保たれる。",
+          "promptContext": "熱力学におけるジュール・トムソン膨張の性質を確認する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外である熱力学の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "エントロピーは状態量であり、その変化は始状態と終状態によって決まる。",
+          "promptContext": "エントロピーの状態量としての性質を確認する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外である熱力学の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "標準状態での標準エントロピーは正の値であり、「常に負」とする記述は符号が反対である。",
+          "promptContext": "標準エントロピーの定義と符号を確認する技術肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正監査の対象外である熱力学の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "定圧モル熱容量と定積モル熱容量の比C_p/C_vは比熱比である。",
+          "promptContext": "比熱比の定義を確認する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外である熱力学の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "物質の熱容量を質量で割った量は比熱容量であり、1 kg当たりの熱容量として表される。",
+          "promptContext": "質量基準の比熱容量の定義を確認する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正監査の対象外である熱力学の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2022-5-1,chiefgasengineerlicense-C-10047,gasushunin-koushu-kiso-2022-5-3,gasushunin-koushu-kiso-2022-5-4,gasushunin-koushu-kiso-2022-5-5",
@@ -424,40 +748,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "燃料電池で必要な水素流量は、v_H2=I/(zF)=192/(2×96000)=1.0×10^-3mol/sである。メタン1molから水素4molが得られるため、必要なメタン流量は2.5×10^-4mol/sであり、1.3×10^-4mol/sでは小さすぎる。",
-      "ファラデーの法則より水素流量は192/(2×96000)=1.0×10^-3mol/sである。CH4+2H2O→4H2+CO2より、メタン流量はその1/4なので2.5×10^-4mol/sとなり正しい。",
-      "水素流量1.0×10^-3mol/sを、そのままメタン流量とするのではなく、メタン1molから水素4molが生じることを考慮する。メタン流量は2.5×10^-4mol/sであり、5.0×10^-4mol/sではない。",
-      "1.0×10^-3mol/sは必要な水素流量であり、メタン流量ではない。メタン流量は水素流量の1/4で、2.5×10^-4mol/sとなる。",
-      "計算されるメタン流量は2.5×10^-4mol/sである。4.0×10^-3mol/sは大きすぎる。"
-    ],
-    "suggestedQuestions": [
-      "1.3×10⁻⁴",
-      "2.5×10⁻⁴",
-      "5.0×10⁻⁴",
-      "1.0×10⁻³",
-      "4.0×10⁻³"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "1.3×10⁻⁴",
-        "answer": "燃料電池で必要な水素流量は、v_H2=I/(zF)=192/(2×96000)=1.0×10^-3mol/sである。メタン1molから水素4molが得られるため、必要なメタン流量は2.5×10^-4mol/sであり、1.3×10^-4mol/sでは小さすぎる。"
-      },
-      {
-        "question": "2.5×10⁻⁴",
-        "answer": "ファラデーの法則より水素流量は192/(2×96000)=1.0×10^-3mol/sである。CH4+2H2O→4H2+CO2より、メタン流量はその1/4なので2.5×10^-4mol/sとなり正しい。"
-      },
-      {
-        "question": "5.0×10⁻⁴",
-        "answer": "水素流量1.0×10^-3mol/sを、そのままメタン流量とするのではなく、メタン1molから水素4molが生じることを考慮する。メタン流量は2.5×10^-4mol/sであり、5.0×10^-4mol/sではない。"
-      },
-      {
-        "question": "1.0×10⁻³",
-        "answer": "1.0×10^-3mol/sは必要な水素流量であり、メタン流量ではない。メタン流量は水素流量の1/4で、2.5×10^-4mol/sとなる。"
-      },
-      {
-        "question": "4.0×10⁻³",
-        "answer": "計算されるメタン流量は2.5×10^-4mol/sである。4.0×10^-3mol/sは大きすぎる。"
-      }
+      "ファラデーの法則より、燃料電池で消費される水素の物質量流量は v_H2=I/(zF)=192/(2×96000)=1.0×10^-3 mol/s である。メタンの水蒸気改質反応は CH4+2H2O→4H2+CO2 なので、メタン1 molから水素4 molが得られる。したがって必要なメタン流量は 1.0×10^-3÷4=2.5×10^-4 mol/s となり、最も近い値は2.5×10^-4である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -478,7 +769,152 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q05",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-5-1,chiefgasengineerlicense-C-10047,gasushunin-koushu-kiso-2022-5-3,gasushunin-koushu-kiso-2022-5-4,gasushunin-koushu-kiso-2022-5-5",
+    "sourceRecordRef": "question_2022_firestore_3.json#4",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、ファラデー則と化学量論に基づく燃料電池・メタン改質の計算問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない計算問題であり、現行の正誤判定に変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ファラデー則と化学量論による計算問題であり、法令条文を根拠にしない。",
+          "promptContext": "選択肢1.3×10^-4は、計算値2.5×10^-4 mol/sと一致しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "選択肢1.3×10^-4は、計算されるメタン流量2.5×10^-4 mol/sと一致しない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない計算問題であり、現行の正誤判定に変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ファラデー則と化学量論による計算問題であり、法令条文を根拠にしない。",
+          "promptContext": "選択肢2.5×10^-4は、計算値2.5×10^-4 mol/sと一致する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "水素流量は1.0×10^-3 mol/sであり、メタン流量はその1/4で2.5×10^-4 mol/sとなる。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない計算問題であり、現行の正誤判定に変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ファラデー則と化学量論による計算問題であり、法令条文を根拠にしない。",
+          "promptContext": "選択肢5.0×10^-4は、計算値2.5×10^-4 mol/sと一致しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "選択肢5.0×10^-4は、計算されるメタン流量2.5×10^-4 mol/sと一致しない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない計算問題であり、現行の正誤判定に変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ファラデー則と化学量論による計算問題であり、法令条文を根拠にしない。",
+          "promptContext": "選択肢1.0×10^-3は水素流量であり、求めるメタン流量ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "1.0×10^-3 mol/sは必要な水素流量であり、メタン流量はその1/4である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない計算問題であり、現行の正誤判定に変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ファラデー則と化学量論による計算問題であり、法令条文を根拠にしない。",
+          "promptContext": "選択肢4.0×10^-3は、計算値2.5×10^-4 mol/sと一致しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "選択肢4.0×10^-3は、計算されるメタン流量2.5×10^-4 mol/sより大きすぎる。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10048,chiefgasengineerlicense-C-10049,chiefgasengineerlicense-C-10050,chiefgasengineerlicense-C-10051,chiefgasengineerlicense-C-10052",
@@ -497,40 +933,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "正しい。アレニウスの式 k=Aexp(-Ea/RT) より、速度定数の対数と絶対温度の逆数は直線関係になる。",
-      "正しい。発熱反応では温度を下げると、ルシャトリエの原理により熱を発生させる方向へ平衡が移動する。",
-      "正しい。一次反応では、温度一定で速度定数が一定なら、反応速度は反応物質の濃度に比例する。",
-      "正しい。一次反応の半減期は t1/2=ln2/k で表され、濃度によらないため、どの時点から測っても同じである。",
-      "間違い。触媒は反応速度を増加させるが、平衡定数や平衡状態の位置には影響を与えない。平衡状態に影響を与えるとする点が誤りである。"
-    ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: アレニウスの式によれば、速度定数の対数と絶対温度の逆数は直線関係を示す。",
-      "次の記述の正誤を確認する: 発熱反応が平衡状態にあるとき、反応温度を下げると、反応熱を発生させる方向へ反応が進行して、新たな平衡状態になる。",
-      "次の記述の正誤を確認する: 温度一定の条件では、一次反応において反応速度は反応物質の濃度に比例する。",
-      "次の記述の正誤を確認する: 一次反応の半減期は、反応のどの時点から測っても同じである。",
-      "次の記述の正誤を確認する: 触媒は、化学平衡状態に影響を与え、反応速度を増加させる機能を持つ。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: アレニウスの式によれば、速度定数の対数と絶対温度の逆数は直線関係を示す。",
-        "answer": "正しい。アレニウスの式 k=Aexp(-Ea/RT) より、速度定数の対数と絶対温度の逆数は直線関係になる。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 発熱反応が平衡状態にあるとき、反応温度を下げると、反応熱を発生させる方向へ反応が進行して、新たな平衡状態になる。",
-        "answer": "正しい。発熱反応では温度を下げると、ルシャトリエの原理により熱を発生させる方向へ平衡が移動する。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 温度一定の条件では、一次反応において反応速度は反応物質の濃度に比例する。",
-        "answer": "正しい。一次反応では、温度一定で速度定数が一定なら、反応速度は反応物質の濃度に比例する。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 一次反応の半減期は、反応のどの時点から測っても同じである。",
-        "answer": "正しい。一次反応の半減期は t1/2=ln2/k で表され、濃度によらないため、どの時点から測っても同じである。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 触媒は、化学平衡状態に影響を与え、反応速度を増加させる機能を持つ。",
-        "answer": "間違い。触媒は反応速度を増加させるが、平衡定数や平衡状態の位置には影響を与えない。平衡状態に影響を与えるとする点が誤りである。"
-      }
+      "正しい。アレニウスの式 k=Aexp(-Ea/RT) の両辺の自然対数をとると、ln k=ln A-Ea/(RT) となる。したがって、ln kを縦軸、絶対温度Tの逆数1/Tを横軸にとれば、傾きが-Ea/Rの直線関係を示す。",
+      "正しい。発熱反応では生成物側に熱があるとみなせるため、温度を下げると、ルシャトリエの原理により温度低下を打ち消す発熱方向へ反応が進み、新たな平衡状態になる。",
+      "正しい。一次反応の反応速度は反応物質の濃度をC、速度定数をkとしてv=kCで表される。温度が一定ならkも一定であるため、反応速度は反応物質の濃度に比例する。",
+      "正しい。一次反応では、ある時点の濃度がその半分になるまでの時間はt1/2=ln2/kで表される。この値は測定開始時の濃度によらないため、反応のどの時点から測っても半減期は同じである。",
+      "間違い。触媒は正反応と逆反応の速度をともに増加させて平衡への到達を速めるが、平衡定数や平衡組成は変化させない。触媒は化学平衡状態に影響を与えないのに、選択肢は影響を与えるとしているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -551,7 +958,142 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q06",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10048,chiefgasengineerlicense-C-10049,chiefgasengineerlicense-C-10050,chiefgasengineerlicense-C-10051,chiefgasengineerlicense-C-10052",
+    "sourceRecordRef": "question_2022_firestore_3.json#5",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文ではなく、アレニウスの式、ルシャトリエの原理、一次反応の速度式・半減期及び触媒と化学平衡の関係を根拠に判断する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "アレニウスの式を対数表示すると、速度定数の対数と絶対温度の逆数との間に直線関係が得られる。",
+          "promptContext": "アレニウスの式に関する基礎理論として確認した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない化学の基礎理論である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "発熱反応の温度を下げると、温度低下を打ち消す発熱方向へ平衡が移動する。",
+          "promptContext": "ルシャトリエの原理に関する基礎理論として確認した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない化学の基礎理論である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "温度一定の一次反応では速度定数が一定であり、反応速度は反応物質の濃度に比例する。",
+          "promptContext": "一次反応の速度式に関する基礎理論として確認した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない化学の基礎理論である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "一次反応の半減期はln2/kで表され、測定開始時の濃度に依存しない。",
+          "promptContext": "一次反応の半減期に関する基礎理論として確認した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない化学の基礎理論である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はなく、試験時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "触媒は平衡への到達を速めるが、平衡定数や平衡組成を変えないため、化学平衡状態に影響を与えるとする記述は誤りである。",
+          "promptContext": "触媒と化学平衡の関係に関する基礎理論として確認した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない化学の基礎理論である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2022-7-1,gasushunin-koushu-kiso-2022-7-2,chiefgasengineerlicense-C-10053,gasushunin-koushu-kiso-2022-7-4,gasushunin-koushu-kiso-2022-7-5",
@@ -570,40 +1112,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "空気比λで1molのメタンを燃焼させると、過剰酸素は2(λ-1)mol、窒素は8λmol、乾き燃焼ガスはCO2 1molを含む。λ=1.1では乾き燃焼ガス中の酸素濃度は2(0.1)/(1+2(0.1)+8.8)=約2.0vol%で、10vol%にはならない。",
-      "乾き燃焼ガス中の酸素濃度は 2(λ-1)/(1+2(λ-1)+8λ) で表される。λ=1.8では1.6/(1+1.6+14.4)=約9.4vol%となり、10vol%より低い。",
-      "メタンの燃焼式はCH4+2O2→CO2+2H2Oである。空気比をλとすると、乾き燃焼ガス中の酸素濃度は2(λ-1)/{1+2(λ-1)+8λ}=0.1となり、これを解くとλ=1.9であるため正しい。",
-      "λ=2.0では過剰酸素が2mol、窒素が16mol、乾き燃焼ガス総量が19molとなるため、酸素濃度は2/19=約10.5vol%であり、10vol%に対して最も近い値ではない。",
-      "λ=2.1では過剰酸素が2.2mol、窒素が16.8mol、乾き燃焼ガス総量が20molとなるため、酸素濃度は11vol%であり、10vol%より高い。"
-    ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: 1.1",
-      "次の記述の正誤を確認する: 1.8",
-      "次の記述の正誤を確認する: 1.9",
-      "次の記述の正誤を確認する: 2",
-      "次の記述の正誤を確認する: 2.1"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: 1.1",
-        "answer": "空気比λで1molのメタンを燃焼させると、過剰酸素は2(λ-1)mol、窒素は8λmol、乾き燃焼ガスはCO2 1molを含む。λ=1.1では乾き燃焼ガス中の酸素濃度は2(0.1)/(1+2(0.1)+8.8)=約2.0vol%で、10vol%にはならない。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 1.8",
-        "answer": "乾き燃焼ガス中の酸素濃度は 2(λ-1)/(1+2(λ-1)+8λ) で表される。λ=1.8では1.6/(1+1.6+14.4)=約9.4vol%となり、10vol%より低い。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 1.9",
-        "answer": "メタンの燃焼式はCH4+2O2→CO2+2H2Oである。空気比をλとすると、乾き燃焼ガス中の酸素濃度は2(λ-1)/{1+2(λ-1)+8λ}=0.1となり、これを解くとλ=1.9であるため正しい。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 2",
-        "answer": "λ=2.0では過剰酸素が2mol、窒素が16mol、乾き燃焼ガス総量が19molとなるため、酸素濃度は2/19=約10.5vol%であり、10vol%に対して最も近い値ではない。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 2.1",
-        "answer": "λ=2.1では過剰酸素が2.2mol、窒素が16.8mol、乾き燃焼ガス総量が20molとなるため、酸素濃度は11vol%であり、10vol%より高い。"
-      }
+      "間違い。メタン1molの完全燃焼では理論酸素量は2molである。空気比をλとすると、供給酸素は2λmol、過剰酸素は2λ-2mol、空気中の窒素は酸素の4倍なので8λmolとなる。乾き燃焼ガスはCO2 1mol、過剰酸素2λ-2mol、窒素8λmolからなり、総量は10λ-1molである。λ=1.1では酸素濃度は(2.2-2)/(11-1)=0.2/10=2.0vol%であり、10vol%ではない。",
+      "間違い。乾き燃焼ガス中の酸素濃度は、過剰酸素量を乾き燃焼ガス総量で割って(2λ-2)/(10λ-1)で表される。λ=1.8では、過剰酸素は1.6mol、乾き燃焼ガス総量は17molなので、酸素濃度は1.6/17=約9.4vol%であり、10vol%ではない。",
+      "正しい。メタンの完全燃焼式はCH4+2O2→CO2+2H2Oである。メタン1molに対し、空気比λでは過剰酸素が2λ-2mol、窒素が8λmol、乾き燃焼ガス総量が1+(2λ-2)+8λ=10λ-1molとなる。酸素濃度10vol%より、(2λ-2)/(10λ-1)=0.10を解くと、2λ-2=λ-0.1、したがってλ=1.9となる。",
+      "間違い。λ=2.0では、過剰酸素は2mol、窒素は16mol、乾き燃焼ガス総量は1+2+16=19molである。したがって酸素濃度は2/19=約10.5vol%となり、10vol%から求まる空気比1.9とは一致しない。",
+      "間違い。λ=2.1では、過剰酸素は2.2mol、窒素は16.8mol、乾き燃焼ガス総量は1+2.2+16.8=20molである。したがって酸素濃度は2.2/20=11.0vol%となり、10vol%より高い。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -624,7 +1137,152 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q07",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-7-1,gasushunin-koushu-kiso-2022-7-2,chiefgasengineerlicense-C-10053,gasushunin-koushu-kiso-2022-7-4,gasushunin-koushu-kiso-2022-7-5",
+    "sourceRecordRef": "question_2022_firestore_3.json#6",
+    "explanationReferences": [],
+    "lawContextForExplanation": "メタン完全燃焼時の物質収支から乾き燃焼ガス中酸素濃度と空気比を求める技術計算問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "λ=1.1では乾き燃焼ガス中の酸素濃度は2.0vol%であり、10vol%ではない。",
+          "promptContext": "CH4+2O2→CO2+2H2O、乾き燃焼ガス中酸素濃度=(2λ-2)/(10λ-1)。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "メタン完全燃焼時の物質収支と乾き燃焼ガス中酸素濃度に関する技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_subject",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "λ=1.8では乾き燃焼ガス中の酸素濃度は約9.4vol%であり、10vol%ではない。",
+          "promptContext": "CH4+2O2→CO2+2H2O、乾き燃焼ガス中酸素濃度=(2λ-2)/(10λ-1)。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "メタン完全燃焼時の物質収支と乾き燃焼ガス中酸素濃度に関する技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_subject",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "乾き燃焼ガス中酸素濃度10vol%の式(2λ-2)/(10λ-1)=0.10を解くとλ=1.9となる。",
+          "promptContext": "CH4+2O2→CO2+2H2O、乾き燃焼ガス中酸素濃度=(2λ-2)/(10λ-1)。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "メタン完全燃焼時の物質収支と乾き燃焼ガス中酸素濃度に関する技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_subject",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "λ=2.0では乾き燃焼ガス中の酸素濃度は約10.5vol%であり、10vol%から求まる空気比1.9とは一致しない。",
+          "promptContext": "CH4+2O2→CO2+2H2O、乾き燃焼ガス中酸素濃度=(2λ-2)/(10λ-1)。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "メタン完全燃焼時の物質収支と乾き燃焼ガス中酸素濃度に関する技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_subject",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける問題ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "λ=2.1では乾き燃焼ガス中の酸素濃度は11.0vol%であり、10vol%ではない。",
+          "promptContext": "CH4+2O2→CO2+2H2O、乾き燃焼ガス中酸素濃度=(2λ-2)/(10λ-1)。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "メタン完全燃焼時の物質収支と乾き燃焼ガス中酸素濃度に関する技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_subject",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2022-8-1,gasushunin-koushu-kiso-2022-8-2,gasushunin-koushu-kiso-2022-8-3,chiefgasengineerlicense-C-10054,gasushunin-koushu-kiso-2022-8-5",
@@ -643,40 +1301,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "プロパン44kgは1kmolで、完全燃焼に必要な理論酸素量は5kmolである。空気比1.4で余る酸素は5×(1.4-1)=2kmolなので、質量は2×32=64kgであり、2kgでは小さすぎる。",
-      "燃焼ガス中に残る酸素は、理論酸素量5kmolに過剰分0.4を掛けた2kmolである。酸素2kmolは64kgなので、7kgではない。",
-      "32kgは酸素1kmol分の質量である。未反応酸素は2kmol残るため、燃焼ガス中の酸素の質量は64kgとなる。",
-      "プロパンの燃焼式はC3H8+5O2→3CO2+4H2Oである。C3H8 44kgは1kmolなので理論酸素量は5kmol、空気比1.4では未反応酸素が5×(1.4-1)=2kmol残り、2×32=64kgとなるため正しい。",
-      "224kgは空気比1.4で供給した酸素量5×1.4=7kmolに相当する質量であり、燃焼で消費されずに燃焼ガス中に残る酸素量ではない。"
-    ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: 2",
-      "次の記述の正誤を確認する: 7",
-      "次の記述の正誤を確認する: 32",
-      "次の記述の正誤を確認する: 64",
-      "次の記述の正誤を確認する: 224"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: 2",
-        "answer": "プロパン44kgは1kmolで、完全燃焼に必要な理論酸素量は5kmolである。空気比1.4で余る酸素は5×(1.4-1)=2kmolなので、質量は2×32=64kgであり、2kgでは小さすぎる。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 7",
-        "answer": "燃焼ガス中に残る酸素は、理論酸素量5kmolに過剰分0.4を掛けた2kmolである。酸素2kmolは64kgなので、7kgではない。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 32",
-        "answer": "32kgは酸素1kmol分の質量である。未反応酸素は2kmol残るため、燃焼ガス中の酸素の質量は64kgとなる。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 64",
-        "answer": "プロパンの燃焼式はC3H8+5O2→3CO2+4H2Oである。C3H8 44kgは1kmolなので理論酸素量は5kmol、空気比1.4では未反応酸素が5×(1.4-1)=2kmol残り、2×32=64kgとなるため正しい。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 224",
-        "answer": "224kgは空気比1.4で供給した酸素量5×1.4=7kmolに相当する質量であり、燃焼で消費されずに燃焼ガス中に残る酸素量ではない。"
-      }
+      "プロパンの完全燃焼反応式は C3H8+5O2→3CO2+4H2O である。プロパン44kgは1kmolに相当するため、理論上必要な酸素は5kmolとなる。空気比1.4では酸素を5×1.4=7kmol供給し、そのうち5kmolが燃焼で消費されるので、燃焼ガス中には7-5=2kmolの酸素が残る。酸素のモル質量は32kg/kmolであるから、残存酸素の質量は2×32=64kgとなる。したがって、最も近い値は64kgである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -697,7 +1322,142 @@
       "正しい",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q08",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-8-1,gasushunin-koushu-kiso-2022-8-2,gasushunin-koushu-kiso-2022-8-3,chiefgasengineerlicense-C-10054,gasushunin-koushu-kiso-2022-8-5",
+    "sourceRecordRef": "question_2022_firestore_3.json#7",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文ではなく、プロパンの完全燃焼反応式、理論酸素量、空気比から燃焼ガス中の残存酸素量を求める技術・計算問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "計算結果は64kgであり、2kgは該当しない。",
+          "promptContext": "プロパン44kgを空気比1.4で完全燃焼させた場合の残存酸素量を判定する。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令の制定・改廃による影響を受けない燃焼計算である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "計算結果は64kgであり、7kgは該当しない。",
+          "promptContext": "プロパン44kgを空気比1.4で完全燃焼させた場合の残存酸素量を判定する。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令の制定・改廃による影響を受けない燃焼計算である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "32kgは酸素1kmolの質量であり、残存酸素2kmolの質量ではない。",
+          "promptContext": "プロパン44kgを空気比1.4で完全燃焼させた場合の残存酸素量を判定する。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令の制定・改廃による影響を受けない燃焼計算である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "未反応酸素は2kmolであり、その質量は64kgとなる。",
+          "promptContext": "プロパン44kgを空気比1.4で完全燃焼させた場合の残存酸素量を判定する。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令の制定・改廃による影響を受けない燃焼計算である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "224kgは供給酸素7kmolの総質量であり、燃焼後に残る酸素の質量ではない。",
+          "promptContext": "プロパン44kgを空気比1.4で完全燃焼させた場合の残存酸素量を判定する。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令の制定・改廃による影響を受けない燃焼計算である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10055,chiefgasengineerlicense-C-10056,chiefgasengineerlicense-C-10057,chiefgasengineerlicense-C-10058,chiefgasengineerlicense-C-10059",
@@ -716,40 +1476,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "正しい。燃料だけをバーナーから噴出し、燃焼に必要な空気を周囲から拡散混合しながら燃焼する方式を拡散燃焼という。",
-      "間違い。拡散燃焼ではバーナー内部で予混合気が形成されないため、火炎がバーナー内部へ戻る逆火のおそれがない。逆火のおそれがあるとする点が誤りである。",
-      "正しい。燃料と空気をあらかじめ混合した可燃予混合気をバーナーから噴出して燃焼させる方式を予混合燃焼という。",
-      "正しい。ブンゼン火炎は燃料と一次空気の部分予混合による火炎で、内炎と外炎からなる二重火炎を形成する。",
-      "正しい。部分予混合燃焼は火炎安定性に優れ、完全予混合燃焼は均一な予混合により低NOx化しやすい。"
-    ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: 燃料のみをバーナーから吹き出させ、周囲の空気と混合させながら燃焼させる方式を拡散燃焼という。",
-      "次の記述の正誤を確認する: 拡散燃焼は、バーナー内部で予混合気が形成されないため、逆火のおそれがある。",
-      "次の記述の正誤を確認する: 燃料と空気を混合させた可燃予混合気をバーナーから吹き出させて燃焼させる方式を予混合燃焼という。",
-      "次の記述の正誤を確認する: ブンゼン火炎は部分予混合燃焼の代表例であり、内炎と外炎による二重火炎が形成される。",
-      "次の記述の正誤を確認する: 予混合燃焼においては、部分予混合燃焼は火炎安定性に優れており、完全予混合燃焼は燃焼ガス中のNOx濃度が低い。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: 燃料のみをバーナーから吹き出させ、周囲の空気と混合させながら燃焼させる方式を拡散燃焼という。",
-        "answer": "正しい。燃料だけをバーナーから噴出し、燃焼に必要な空気を周囲から拡散混合しながら燃焼する方式を拡散燃焼という。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 拡散燃焼は、バーナー内部で予混合気が形成されないため、逆火のおそれがある。",
-        "answer": "間違い。拡散燃焼ではバーナー内部で予混合気が形成されないため、火炎がバーナー内部へ戻る逆火のおそれがない。逆火のおそれがあるとする点が誤りである。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 燃料と空気を混合させた可燃予混合気をバーナーから吹き出させて燃焼させる方式を予混合燃焼という。",
-        "answer": "正しい。燃料と空気をあらかじめ混合した可燃予混合気をバーナーから噴出して燃焼させる方式を予混合燃焼という。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: ブンゼン火炎は部分予混合燃焼の代表例であり、内炎と外炎による二重火炎が形成される。",
-        "answer": "正しい。ブンゼン火炎は燃料と一次空気の部分予混合による火炎で、内炎と外炎からなる二重火炎を形成する。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 予混合燃焼においては、部分予混合燃焼は火炎安定性に優れており、完全予混合燃焼は燃焼ガス中のNOx濃度が低い。",
-        "answer": "正しい。部分予混合燃焼は火炎安定性に優れ、完全予混合燃焼は均一な予混合により低NOx化しやすい。"
-      }
+      "正しい。燃料だけをバーナーから噴出し、燃焼に必要な空気を周囲から取り込んで、拡散混合しながら燃焼させる方式を拡散燃焼という。",
+      "間違い。拡散燃焼ではバーナー内部に可燃予混合気が形成されず、火炎がバーナー内部へさかのぼる逆火は生じないため、「逆火のおそれがある」とする記述は誤りである。",
+      "正しい。燃料と空気をあらかじめ混合して可燃予混合気をつくり、それをバーナーから噴出して燃焼させる方式を予混合燃焼という。",
+      "正しい。ブンゼン火炎は、燃料に一次空気を混合する部分予混合燃焼の代表例であり、内炎と外炎からなる二重火炎を形成する。",
+      "正しい。部分予混合燃焼は火炎の安定性に優れている。また、完全予混合燃焼は燃料と空気を均一に混合して燃焼させるため、燃焼ガス中のNOx濃度を低くしやすい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -770,6 +1501,141 @@
       "正しい",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q09",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10055,chiefgasengineerlicense-C-10056,chiefgasengineerlicense-C-10057,chiefgasengineerlicense-C-10058,chiefgasengineerlicense-C-10059",
+    "sourceRecordRef": "question_2022_firestore_3.json#8",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文ではなく、拡散燃焼・予混合燃焼・ブンゼン火炎など燃焼方式の技術知識を主要根拠とする基礎理論問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在で判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "燃料のみを噴出し、周囲の空気と拡散混合しながら燃焼させる方式は拡散燃焼である。",
+          "promptContext": "拡散燃焼の定義に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない燃焼技術の記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在で判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "拡散燃焼ではバーナー内部に可燃予混合気が形成されないため、逆火のおそれがあるとする記述は誤りである。",
+          "promptContext": "拡散燃焼と逆火の関係に関する技術肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない燃焼技術の記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在で判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "燃料と空気をあらかじめ混合した可燃予混合気を噴出して燃焼させる方式は予混合燃焼である。",
+          "promptContext": "予混合燃焼の定義に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない燃焼技術の記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在で判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "ブンゼン火炎は部分予混合燃焼の代表例で、内炎と外炎による二重火炎を形成する。",
+          "promptContext": "ブンゼン火炎の分類と構造に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない燃焼技術の記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はなく、試験時と現在で判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "部分予混合燃焼は火炎安定性に優れ、完全予混合燃焼はNOx濃度を低くしやすい。",
+          "promptContext": "予混合燃焼の火炎安定性とNOx特性に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない燃焼技術の記述である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   }
 ]
