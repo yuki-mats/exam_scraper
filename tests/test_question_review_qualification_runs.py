@@ -8206,6 +8206,55 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(law_audit_status["status"], "current")
         self.assertEqual(run["workVersionReceipt"]["recordedCount"], 2)
 
+    def test_non_applicable_dynamic_stage_keeps_identity_for_version_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                SourceOnlyInventory(),
+                ["question_type", "law_audit"],
+            )
+            initial_plan = coordinator.workflow.plan(
+                "new-exam",
+                "law_audit",
+                "needed",
+                list_group_id="2026",
+            )
+            initial_plan.update(
+                targetCount=0,
+                workItemCount=0,
+                targetQuestionKeys=[],
+                progressTargets=[],
+                targetRecordBindings=[],
+                targetRecordAliasGroups=[],
+                targetSourceRecordScopes={},
+                policyTargets={"law_audit": []},
+            )
+            coordinator._projection_stage_applicable = (
+                lambda _plan, _stage_id, _projected: False
+            )
+
+            scoped_plan, writer_target = (
+                coordinator._dynamic_question_phase_plan(
+                    "new-exam",
+                    parent,
+                    {"id": "law_audit"},
+                    initial_plan,
+                    "new-exam-2026-q1",
+                )
+            )
+            specialized = specialize_question_plan(
+                scoped_plan,
+                "new-exam-2026-q1",
+            )
+
+        self.assertIsNone(writer_target)
+        self.assertEqual(specialized["targetCount"], 1)
+        self.assertEqual(
+            specialized["policyTargets"],
+            {"law_audit": ["new-exam-2026-q1"]},
+        )
+
 
     def test_writer_reprepares_only_current_question_when_policy_changes(self):
         with tempfile.TemporaryDirectory() as directory:

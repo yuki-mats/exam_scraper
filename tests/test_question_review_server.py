@@ -1604,6 +1604,85 @@ class QuestionReviewServerTests(unittest.TestCase):
             ]
         )
 
+    def test_evaluation_rework_adds_explanation_when_question_type_is_rechecked(self):
+        class Runs:
+            def preview(self, qualification, stage_id, mode, **options):
+                self.stage_id = stage_id
+                self.options = options
+                return {"previewToken": "token", "evaluationRework": True}
+
+        class Workflow:
+            def catalog(self, qualification):
+                return {
+                    "stages": [
+                        {
+                            "id": "question_type",
+                            "updateTargets": [
+                                {"selectionId": "question_type.question_type"},
+                                {"selectionId": "question_type.calculation_flag"},
+                            ],
+                        },
+                        {
+                            "id": "explanation",
+                            "updateTargets": [
+                                {"selectionId": "explanation.basic_explanation"},
+                                {
+                                    "selectionId": (
+                                        "explanation.supplementary_questions"
+                                    )
+                                },
+                                {"selectionId": "explanation.law_support"},
+                            ],
+                        },
+                    ]
+                }
+
+        question = {
+            "id": "q1",
+            "qualification": "sample",
+            "listGroupId": "2025",
+            "evaluation": {
+                "status": "needs_rework",
+                "stateHash": "state-1",
+                "resultHash": "result-1",
+                "reworkItems": [
+                    {"stage": "01", "message": "問題形式を再確認する"}
+                ],
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            runs = Runs()
+            app.qualification_runs = runs
+            app.qualification_workflow = Workflow()
+            app._question = lambda question_id, _query: question
+            app._decorate = lambda value: value
+            app.post(
+                "/api/qualification-runs/preview",
+                {
+                    "qualification": "sample",
+                    "stageIds": ["question_type"],
+                    "questionIds": ["q1"],
+                    "evaluationRework": True,
+                },
+            )
+
+        self.assertEqual(runs.stage_id, "question_type")
+        self.assertEqual(
+            runs.options["stage_ids"],
+            ["question_type", "explanation"],
+        )
+        self.assertEqual(
+            runs.options["update_target_ids"],
+            [
+                "question_type.question_type",
+                "question_type.calculation_flag",
+                "explanation.basic_explanation",
+                "explanation.supplementary_questions",
+                "explanation.law_support",
+            ],
+        )
+
     def test_qualification_run_rejects_unsupported_question_concurrency(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(
             ApiError

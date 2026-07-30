@@ -1140,6 +1140,28 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             {issue["code"] for issue in issues},
         )
 
+    def test_answer_explanation_mismatch_names_both_maintainable_fields(self):
+        projected = {
+            "questionBodyText": "正しいものはどれか。",
+            "choiceTextList": ["A", "B"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["間違い。根拠", "間違い。根拠"],
+            "questionType": "true_false",
+            "isLawRelated": False,
+        }
+
+        issues = detect_issues(projected, projected, [], [], [])
+
+        mismatch = next(
+            issue
+            for issue in issues
+            if issue["code"] == "answer_explanation_mismatch"
+        )
+        self.assertEqual(
+            mismatch["fields"],
+            ["correctChoiceText[0]", "explanationText[0]"],
+        )
+
     def test_select_incorrect_question_level_convert_uses_public_answer_semantics(self):
         projected = {
             "questionBodyText": "誤っているものはどれか。",

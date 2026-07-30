@@ -668,6 +668,12 @@ def evaluation_rework_stage_codes(snapshot: Mapping[str, Any]) -> list[str]:
     )
     if snapshot.get("answerMappingMatched") is False and "02a" not in requested:
         requested.append("02a")
+    # questionType determines whether explanationText is stored per choice or
+    # once per question.  Rechecking 01 without 03 can therefore leave a
+    # validated question with an invalid explanation shape when the type
+    # changes (for example, true_false -> flash_card).
+    if "01" in requested and "03" not in requested:
+        requested.append("03")
     return [
         *(
             stage_code
@@ -10346,8 +10352,11 @@ class QualificationRunCoordinator:
             stage_id,
         )
         projected = dict(projection.record)
-        if not self._projection_stage_applicable(initial_plan, stage_id, projected):
-            return dict(initial_plan), None
+        applicable = self._projection_stage_applicable(
+            initial_plan,
+            stage_id,
+            projected,
+        )
 
         identity = SourceIdentityBinding.from_mapping(target)
         aliases = sorted(
@@ -10407,7 +10416,11 @@ class QualificationRunCoordinator:
             list(plan.get("targetGroupIds") or []),
             plan,
         )
-        return plan, target
+        # A non-applicable stage still needs a one-question identity scope so
+        # its work-version receipt can be recorded mechanically.  Returning
+        # the scoped plan with no writer target prevents the same stage from
+        # being reopened or reported as blocked on every later run.
+        return plan, target if applicable else None
 
     @staticmethod
     def _projection_stage_applicable(

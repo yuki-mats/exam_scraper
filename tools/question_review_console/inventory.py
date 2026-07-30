@@ -518,7 +518,14 @@ def detect_issues(
             add(
                 "answer_explanation_mismatch",
                 "正誤と解説先頭が一致しません。",
-                [f"choice:{index}" for index in mismatch_indexes],
+                [
+                    field
+                    for index in mismatch_indexes
+                    for field in (
+                        f"correctChoiceText[{index}]",
+                        f"explanationText[{index}]",
+                    )
+                ],
             )
 
     merge_fields = record_diff(projected, merged, PROJECTED_COMPARE_FIELDS)
