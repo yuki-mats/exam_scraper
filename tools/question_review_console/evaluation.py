@@ -83,9 +83,40 @@ def _source_answer_evidence(
     projected: Mapping[str, Any],
 ) -> dict[str, Any] | None:
     source = question.get("source")
-    if not isinstance(source, Mapping) or not uses_trusted_gassyunin_judge_answers(
-        source
+    if not isinstance(source, Mapping):
+        return None
+    evidence_type = ""
+    source_documents: list[dict[str, Any]] = []
+    if uses_trusted_gassyunin_judge_answers(source):
+        evidence_type = "trusted_gassyunin_judge_statement_verdicts"
+    elif (
+        source.get("sourceOrigin") == "firestore_snapshot"
+        and source.get("sourceAcquisitionMethod") == "firestore_snapshot"
     ):
+        raw_documents = source.get("firestoreSourceQuestions")
+        source_documents = (
+            [dict(value) for value in raw_documents if isinstance(value, Mapping)]
+            if isinstance(raw_documents, list)
+            else []
+        )
+        source_choices = source.get("choiceTextList")
+        source_correct = source.get("correctChoiceText")
+        if (
+            not isinstance(source_choices, list)
+            or not isinstance(source_correct, list)
+            or len(source_documents) != len(source_choices)
+            or len(source_correct) != len(source_choices)
+            or any(
+                document.get("isOfficial") is not True
+                or document.get("originalQuestionChoiceText") != source_choices[index]
+                or _normalize_current_verdict(document.get("correctChoiceText"))
+                != _normalize_current_verdict(source_correct[index])
+                for index, document in enumerate(source_documents)
+            )
+        ):
+            return None
+        evidence_type = "official_firestore_snapshot_statement_verdicts"
+    else:
         return None
     if (
         source.get("questionBodyText")
@@ -99,12 +130,17 @@ def _source_answer_evidence(
     ):
         return None
     return {
-        "evidenceType": "trusted_gassyunin_judge_statement_verdicts",
+        "evidenceType": evidence_type,
         "verdictSemantics": "final_correct_choice_text_for_source_text",
         "sourceRecordRef": question.get("sourceRecordRef"),
         "correctChoiceText": copy.deepcopy(correct),
         "answerResultText": source.get("answer_result_text"),
         "judgeChoiceMarkers": copy.deepcopy(source.get("judgeChoiceMarkers")),
+        "officialDocumentIds": [
+            str(document.get("questionId") or "")
+            for document in source_documents
+            if document.get("questionId")
+        ],
     }
 
 

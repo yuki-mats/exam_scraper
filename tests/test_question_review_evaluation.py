@@ -1579,6 +1579,47 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             prompt,
         )
 
+    def test_prompt_includes_exact_official_firestore_snapshot_answer_evidence(self):
+        question = question_payload()
+        choices = copy.deepcopy(question["projected"]["choiceTextList"])
+        question["sourceRecordRef"] = "question_2025_firestore_1.json#3"
+        question["source"] = {
+            "questionBodyText": question["projected"]["questionBodyText"],
+            "choiceTextList": choices,
+            "correctChoiceText": ["正しい", "間違い"],
+            "sourceOrigin": "firestore_snapshot",
+            "sourceAcquisitionMethod": "firestore_snapshot",
+            "firestoreSourceQuestions": [
+                {
+                    "questionId": "official-q1",
+                    "isOfficial": True,
+                    "originalQuestionChoiceText": choices[0],
+                    "correctChoiceText": "正しい",
+                },
+                {
+                    "questionId": "official-q2",
+                    "isOfficial": True,
+                    "originalQuestionChoiceText": choices[1],
+                    "correctChoiceText": "間違い",
+                },
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            prompt = service._build_prompt(question)
+
+        self.assertIn('"sourceAnswerEvidence"', prompt)
+        self.assertIn(
+            '"evidenceType": "official_firestore_snapshot_statement_verdicts"',
+            prompt,
+        )
+        self.assertIn('"officialDocumentIds"', prompt)
+        self.assertIn('"official-q1"', prompt)
+
     def test_saves_passed_result_and_marks_it_stale_after_question_change(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1602,7 +1643,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "2.1")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "2.2")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
