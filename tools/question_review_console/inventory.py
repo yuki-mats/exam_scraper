@@ -63,7 +63,7 @@ from scripts.common.suggested_question_contract import public_choice_indexes
 
 
 SOURCE_SUBDIR = "00_source"
-WORKFLOW_GROUP_CACHE_SCHEMA = "question-workflow-group-cache/v2"
+WORKFLOW_GROUP_CACHE_SCHEMA = "question-workflow-group-cache/v3"
 QUALIFICATION_DISPLAY_CATALOG = Path("config/qualification_display_catalog.json")
 YEAR_MONTH_OCCURRENCE_RE = re.compile(r"^((?:19|20)\d{2})-(0?[1-9]|1[0-2])$")
 YEAR_GROUP_RE = re.compile(r"^((?:19|20)\d{2})$")
