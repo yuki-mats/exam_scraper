@@ -25,6 +25,7 @@ from tools.question_bank.question_issue_reports import (
 ALLOWED_EVIDENCE_SUFFIXES = {".pdf", ".png", ".jpg", ".jpeg", ".webp"}
 MAX_EVIDENCE_BYTES = 50 * 1024 * 1024
 SAFE_ID = re.compile(r"[^A-Za-z0-9_-]+")
+PDF_PAGE_LOCATOR = re.compile(r"PDF\s*(\d+)\s*ページ", re.IGNORECASE)
 
 
 class OfficialSourceCorrectionError(ValueError):
@@ -145,6 +146,7 @@ class OfficialSourceCorrectionService:
         review_runner: Callable[..., Any] = run_objective_review,
         record_finder: Callable[..., Any] = find_current_question_record,
         patch_verifier: Callable[..., Any] = verify_patch_against_record,
+        page_renderer: Callable[[Path, int, Path], None] | None = None,
     ):
         self.repo_root = repo_root.resolve()
         self.app_server = app_server
@@ -153,6 +155,7 @@ class OfficialSourceCorrectionService:
         self.review_runner = review_runner
         self.record_finder = record_finder
         self.patch_verifier = patch_verifier
+        self.page_renderer = page_renderer or self._render_pdf_page
 
     def run(
         self,
@@ -212,6 +215,26 @@ class OfficialSourceCorrectionService:
         case_id = f"ui-official-{input_hash[:20]}"
         work_id = f"official-{self._safe_id(original_question_id)}"
         batch_id = f"ui-qir-{timestamp}-{input_hash[:10]}"
+        work_dir = (
+            self.repo_root
+            / "output"
+            / "question_issue_reports"
+            / "ui_official_source"
+            / batch_id
+            / work_id
+        )
+        rendered_evidence = self._prepare_rendered_evidence(
+            resolved_evidence,
+            locator=locator,
+            work_dir=work_dir,
+        )
+        rendered_evidence_relative_path = str(
+            rendered_evidence.relative_to(self.repo_root)
+        )
+        emit(
+            "照合対象ページを固定しました: "
+            f"{rendered_evidence_relative_path}"
+        )
         canonical_snapshot = {
             "questionId": str(question.get("id") or ""),
             "originalQuestionId": original_question_id,
@@ -224,7 +247,11 @@ class OfficialSourceCorrectionService:
                     "locator": locator,
                     "title": title,
                     "contentHash": evidence_hash,
-                    "localRenderedPagePath": evidence_relative_path,
+                    "localSourcePath": evidence_relative_path,
+                    "localRenderedPagePath": rendered_evidence_relative_path,
+                    "localRenderedPageHash": self._file_sha256(
+                        rendered_evidence
+                    ),
                     "verifiedTranscription": transcription,
                 }
             ],
@@ -262,14 +289,6 @@ class OfficialSourceCorrectionService:
         current_record, current_path, source_identity = self.record_finder(
             work_item,
             output_root=self.repo_root / "output",
-        )
-        work_dir = (
-            self.repo_root
-            / "output"
-            / "question_issue_reports"
-            / "ui_official_source"
-            / batch_id
-            / work_id
         )
         executor = AppServerReviewExecutor(
             self.app_server,
@@ -404,6 +423,78 @@ class OfficialSourceCorrectionService:
             for block in iter(lambda: handle.read(1024 * 1024), b""):
                 digest.update(block)
         return digest.hexdigest()
+
+    def _prepare_rendered_evidence(
+        self,
+        evidence_path: Path,
+        *,
+        locator: str,
+        work_dir: Path,
+    ) -> Path:
+        if evidence_path.suffix.casefold() != ".pdf":
+            return evidence_path
+        match = PDF_PAGE_LOCATOR.search(locator)
+        if not match:
+            raise OfficialSourceCorrectionError(
+                "PDFを指定する場合、該当箇所に「PDF 26ページ」の形式で"
+                "ページ番号を入力してください。"
+            )
+        page_number = int(match.group(1))
+        if page_number < 1:
+            raise OfficialSourceCorrectionError(
+                "PDFのページ番号は1以上を指定してください。"
+            )
+        rendered_path = work_dir / f"official_page_{page_number:04d}.png"
+        rendered_path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            self.page_renderer(
+                evidence_path,
+                page_number - 1,
+                rendered_path,
+            )
+        except OfficialSourceCorrectionError:
+            raise
+        except Exception as exc:
+            raise OfficialSourceCorrectionError(
+                f"公式PDFの{page_number}ページを画像化できませんでした: {exc}"
+            ) from exc
+        if not rendered_path.is_file() or rendered_path.stat().st_size == 0:
+            raise OfficialSourceCorrectionError(
+                f"公式PDFの{page_number}ページ画像を作成できませんでした。"
+            )
+        return rendered_path
+
+    @staticmethod
+    def _render_pdf_page(
+        source_path: Path,
+        page_index: int,
+        target_path: Path,
+    ) -> None:
+        try:
+            import pypdfium2 as pdfium
+        except ImportError as exc:
+            raise OfficialSourceCorrectionError(
+                "公式PDFの画像化に必要なpypdfium2がありません。"
+            ) from exc
+        document = pdfium.PdfDocument(str(source_path))
+        try:
+            if page_index >= len(document):
+                raise OfficialSourceCorrectionError(
+                    f"公式PDFは{len(document)}ページのため、"
+                    f"{page_index + 1}ページを参照できません。"
+                )
+            page = document[page_index]
+            try:
+                bitmap = page.render(scale=2.0)
+                try:
+                    image = bitmap.to_pil()
+                    image.save(target_path, format="PNG", optimize=True)
+                finally:
+                    bitmap.close()
+            finally:
+                page.close()
+        finally:
+            document.close()
 
     @staticmethod
     def _verify_selected_evidence(

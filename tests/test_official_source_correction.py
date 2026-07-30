@@ -258,6 +258,118 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             self.assertEqual(len(finder_calls), 1)
             self.assertEqual(len(verifier_calls), 1)
 
+    def test_pdf_evidence_is_rendered_to_the_locator_page_before_review(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence_path = root / "official.pdf"
+            evidence_path.write_bytes(b"%PDF-test")
+            current_path = root / "current.json"
+            current_path.write_text("{}\n", encoding="utf-8")
+            binding = SourceIdentityBinding.from_values(
+                "sample:2026:q1",
+                "q1",
+                "question_2026.json#0",
+            )
+            source_identity = SourceRecordIdentity(
+                binding=binding,
+                aliases=frozenset(binding.as_tuple()),
+                source_stem="question_2026",
+            )
+            current_record = {
+                "original_question_id": "q1",
+                "questionBodyText": "修正前",
+                "choiceTextList": ["誤記"],
+            }
+            rendered: list[tuple[Path, int, Path]] = []
+
+            def page_renderer(source, page_index, target):
+                rendered.append((source, page_index, target))
+                target.write_bytes(b"rendered-page-26")
+
+            def review_runner(work_item, **_options):
+                candidate = work_item["caseSnapshots"][0]["canonicalSnapshot"][
+                    "officialEvidenceCandidates"
+                ][0]
+                self.assertEqual(
+                    candidate["localSourcePath"],
+                    "official.pdf",
+                )
+                self.assertTrue(
+                    candidate["localRenderedPagePath"].endswith(
+                        "/official_page_0026.png"
+                    )
+                )
+                self.assertEqual(
+                    candidate["localRenderedPageHash"],
+                    hashlib.sha256(b"rendered-page-26").hexdigest(),
+                )
+                return ({}, {}, {"decision": "hold"})
+
+            service = OfficialSourceCorrectionService(
+                root,
+                app_server=object(),
+                config_path=CONFIG_PATH,
+                review_runner=review_runner,
+                record_finder=lambda *_args, **_kwargs: (
+                    current_record,
+                    current_path,
+                    source_identity,
+                ),
+                page_renderer=page_renderer,
+            )
+            result = service.run(
+                {
+                    "id": "ui-q1",
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                    "originalQuestionId": "q1",
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "sourceRecordRef": "question_2026.json#0",
+                    "stateHash": "a" * 64,
+                },
+                state_hash="a" * 64,
+                evidence_path=str(evidence_path),
+                evidence_title="2026年度 公式問題冊子",
+                evidence_locator="PDF 26ページ 問1",
+                verified_transcription="公式転記",
+                emit=lambda _message: None,
+            )
+
+            self.assertEqual(result["decision"], "hold")
+            self.assertEqual(len(rendered), 1)
+            self.assertEqual(rendered[0][0], evidence_path.resolve())
+            self.assertEqual(rendered[0][1], 25)
+            self.assertTrue(rendered[0][2].is_file())
+
+    def test_pdf_evidence_requires_an_explicit_pdf_page_locator(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence_path = root / "official.pdf"
+            evidence_path.write_bytes(b"%PDF-test")
+            service = OfficialSourceCorrectionService(
+                root,
+                app_server=object(),
+                config_path=CONFIG_PATH,
+            )
+            with self.assertRaisesRegex(ValueError, "PDF 26ページ"):
+                service.run(
+                    {
+                        "id": "ui-q1",
+                        "qualification": "sample",
+                        "listGroupId": "2026",
+                        "originalQuestionId": "q1",
+                        "stateHash": "a" * 64,
+                    },
+                    state_hash="a" * 64,
+                    evidence_path=str(evidence_path),
+                    evidence_title="2026年度 公式問題冊子",
+                    evidence_locator="問1",
+                    verified_transcription="公式転記",
+                    emit=lambda _message: None,
+                )
+
 
 if __name__ == "__main__":
     unittest.main()
