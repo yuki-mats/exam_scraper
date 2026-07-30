@@ -1630,40 +1630,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_2.json",
     "explanationText": [
-      "間違い。高発熱量ガスを空気で希釈すると発熱量と比重がともに変化するため、ウォッベ指数は変化しないとはいえない。燃焼速度だけが低下するとした記述は適切でない。",
-      "間違い。ガスクロマトグラフのキャリアガスには、測定対象や検出器に応じてヘリウム、窒素、水素などの不活性又は適切なガスを用いる。酸素を用いるとしている点が誤り。",
-      "正しい。ガスクロマトグラフは、固定相と移動相との間で試料各成分の溶解性や吸着性などが異なることを利用して成分を分離し、測定する装置である。",
-      "間違い。熱伝導度検出器(TCD)は、キャリアガスと試料成分の熱伝導度差を利用する検出器であり、有機化合物にしか感度を示さない検出器ではない。非常に高感度とする説明も水素炎イオン化検出器(FID)などと混同している。",
-      "間違い。発熱量は(40×90+100×10)/100=46MJ/m³_Nとなる。公式問題文の45MJ/m³_Nという記述は計算値と異なるため誤り。"
-    ],
-    "suggestedQuestions": [
-      "空気希釈時にウォッベ指数は変化しないといえるか。",
-      "ガスクロマトグラフのキャリアガスに酸素を用いるか。",
-      "ガスクロマトグラフはどの性質の差で成分を分離するか。",
-      "TCDは有機化合物にしか感度を示さない検出器か。",
-      "40MJ/m3Nの天然ガス90m3Nと100MJ/m3NのLPG10m3Nから作る100m3Nの発熱量はいくつか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "空気希釈時にウォッベ指数は変化しないといえるか。",
-        "answer": "いいえ。空気希釈では発熱量や比重が変わるため、ウォッベ指数が変化しないと断定する記述は誤りである。"
-      },
-      {
-        "question": "ガスクロマトグラフのキャリアガスに酸素を用いるか。",
-        "answer": "いいえ。キャリアガスにはヘリウム、窒素、水素などが用いられ、酸素を用いるという記述は誤りである。"
-      },
-      {
-        "question": "ガスクロマトグラフはどの性質の差で成分を分離するか。",
-        "answer": "溶解性や吸着性などの差。固定相と移動相との間での相互作用の差を利用して成分を分離する。"
-      },
-      {
-        "question": "TCDは有機化合物にしか感度を示さない検出器か。",
-        "answer": "いいえ。TCDは熱伝導度差を利用する検出器であり、有機化合物だけに感度を示すものではない。"
-      },
-      {
-        "question": "40MJ/m3Nの天然ガス90m3Nと100MJ/m3NのLPG10m3Nから作る100m3Nの発熱量はいくつか。",
-        "answer": "46MJ/m3N。総発熱量は40×90+100×10=4600MJ、体積100m3Nで割ると46MJ/m3Nである。"
-      }
+      "間違い。高発熱量ガスを空気で希釈すると、混合ガスの発熱量が下がり、比重も変わるため、ウォッベ指数は一般に低下する。「変化しない」としているため誤りである。",
+      "間違い。LPGの体積は100−90＝10m³であり、供給ガスの発熱量は（40×90＋100×10）÷100＝46MJ/m³_Nとなる。45MJ/m³_Nとしているため誤りである。",
+      "正しい。ガスクロマトグラフは、固定相とキャリアガスである移動相との間で生じる、試料各成分の溶解性や吸着性などの差を利用して成分を分離し、測定する装置である。",
+      "間違い。キャリアガスには、試料や固定相と反応しにくいヘリウム、窒素、水素などの高純度ガスが用いられる。反応性のある酸素を用いるとしているため誤りである。",
+      "間違い。熱伝導度検出器（TCD）は、キャリアガスと試料成分との熱伝導度の差を検出するため、有機化合物以外にも応答する。一方、一般に水素炎イオン化検出器（FID）ほど高感度ではなく、「有機化合物にしか感度を示さないが、非常に高感度」とする記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -1706,7 +1677,142 @@
     "questionSetId": "chiefgasengineerlicense-A-40-175",
     "questionSetName": "都市ガスの熱量調整及び燃焼性管理（甲種）",
     "category": "都市ガスの熱量調整及び燃焼性管理（甲種）",
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2024:seizo:q04",
+    "reviewQuestionId": "ac156d57d1e51b9d",
+    "sourceRecordRef": "question_2024_gassyunin_site_2.json#9",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、都市ガスの熱量調整・燃焼性管理・ガスクロマトグラフ・熱量計算に関する技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "空気希釈では発熱量と比重が変化し、ウォッベ指数も一般に低下するため、「変化しない」とする記述は誤りである。",
+          "promptContext": "都市ガスの燃焼性管理に関する技術肢。",
+          "refs": [],
+          "verdict": "試験時点・現在ともに間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "空気希釈とウォッベ指数に関する技術事項であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "体積加重平均による発熱量は46MJ/m³_Nであり、45MJ/m³_Nとはならない。",
+          "promptContext": "天然ガスをLPGで増熱する場合の発熱量計算に関する技術肢。",
+          "refs": [],
+          "verdict": "試験時点・現在ともに間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "混合ガスの発熱量計算に関する技術事項であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "固定相と移動相との間における各成分の溶解性や吸着性などの差を利用する説明は正しい。",
+          "promptContext": "ガスクロマトグラフの分離原理に関する技術肢。",
+          "refs": [],
+          "verdict": "試験時点・現在ともに正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガスクロマトグラフの分離原理に関する技術事項であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "キャリアガスにはヘリウム、窒素、水素などが用いられ、反応性のある酸素を用いるとする記述は誤りである。",
+          "promptContext": "ガスクロマトグラフのキャリアガスに関する技術肢。",
+          "refs": [],
+          "verdict": "試験時点・現在ともに間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガスクロマトグラフのキャリアガスに関する技術事項であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "TCDは熱伝導度差を利用して有機化合物以外も検出でき、一般にFIDほど高感度ではない。",
+          "promptContext": "ガスクロマトグラフの熱伝導度検出器に関する技術肢。",
+          "refs": [],
+          "verdict": "試験時点・現在ともに間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱伝導度検出器の特性に関する技術事項であり、法令改正監査の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "515727ddd8156a5d",
@@ -3617,42 +3723,13 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_2.json",
     "explanationText": [
-      "不正解。設問の管厚計算式 t=0.8PD0/(σaη)+C に P=3、D0=300、σa=100、η=1.0、C=1.0 を代入すると t=8.2mm となる。9.2mmは計算値より大きく、最も近い値ではない。",
-      "正解。t=0.8×3×300/(100×1.0)+1.0=7.2+1.0=8.2mm であり、選択肢では8.1mmが最も近い。",
-      "不正解。計算値は8.2mmであり、4.6mmはこれより小さく、最も近い値ではない。",
-      "不正解。管厚計算式に腐れしろ1.0mmまで加えると8.2mmとなる。3.4mmは計算値から離れており誤り。",
-      "不正解。設問の管厚計算式では0.8PD0/(σaη)に腐れしろCを加えるため計算値は8.2mmとなる。2.2mmではない。"
+      "間違い。外径と内径の比が1.5以下の場合の管厚算定式は t=PDo/(2σaη+0.8P)+C である。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号に基づき、P=3MPa、Do=300mm、σa=62N/mm²、η=1.0、C=1.0mmを代入すると、t=900/(124+2.4)+1.0≒8.12mmとなるため、9.2mmは最も近い値ではない。",
+      "正しい。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式に、P=3MPa、Do=300mm、σa=62N/mm²、η=1.0、C=1.0mmを代入すると、t=3×300/(2×62×1.0+0.8×3)+1.0≒8.12mmとなるため、選択肢では8.1mmが最も近い。",
+      "間違い。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式で求めると管厚は約8.12mmであり、4.6mmは最も近い値ではない。",
+      "間違い。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号では、算定式で求めた値に腐れしろを加えて管厚を求める。設問値では約8.12mmとなるため、3.4mmは最も近い値ではない。",
+      "間違い。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式では、許容引張応力、継手効率及び内圧に係る項を分母に用い、さらに腐れしろを加える。設問値の算定結果は約8.12mmであり、2.2mmではない。"
     ],
-    "suggestedQuestions": [
-      "次の記述の正誤を確認する: 9.2",
-      "次の記述の正誤を確認する: 8.1",
-      "次の記述の正誤を確認する: 4.6",
-      "次の記述の正誤を確認する: 3.4",
-      "次の記述の正誤を確認する: 2.2"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "次の記述の正誤を確認する: 9.2",
-        "answer": "不正解。設問の管厚計算式 t=0.8PD0/(σaη)+C に P=3、D0=300、σa=100、η=1.0、C=1.0 を代入すると t=8.2mm となる。9.2mmは計算値より大きく、最も近い値ではない。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 8.1",
-        "answer": "正解。t=0.8×3×300/(100×1.0)+1.0=7.2+1.0=8.2mm であり、選択肢では8.1mmが最も近い。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 4.6",
-        "answer": "不正解。計算値は8.2mmであり、4.6mmはこれより小さく、最も近い値ではない。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 3.4",
-        "answer": "不正解。管厚計算式に腐れしろ1.0mmまで加えると8.2mmとなる。3.4mmは計算値から離れており誤り。"
-      },
-      {
-        "question": "次の記述の正誤を確認する: 2.2",
-        "answer": "不正解。設問の管厚計算式では0.8PD0/(σaη)に腐れしろCを加えるため計算値は8.2mmとなる。2.2mmではない。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -3669,7 +3746,253 @@
       "不正解",
       "不正解"
     ],
-    "isLawRelated": false
+    "isLawRelated": true,
+    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q13",
+    "reviewQuestionId": "6602bb83e4a77334",
+    "sourceRecordRef": "question_2024_gassyunin_site_2.json#18",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-30",
+        "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+        "title": "ガス工作物技術基準の解釈例"
+      }
+    ],
+    "lawContextForExplanation": "導管の管厚計算式はガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号を根拠に、P、Do、σa、η、Cを代入して t=PDo/(2σaη+0.8P)+C で比較する。",
+    "lawReferences": [
+      [
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2024-09-29",
+          "role": "exam_time_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第41条第1項第1号ロ及び第2号",
+          "lawId": "20140313商局第6号",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "試験時点と現在時点の根拠差による正誤への影響はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "判定に影響する変更は確認されない。",
+          "displayRefIds": [],
+          "explanationText": "管厚算定値は約8.12mmであり、9.2mmは最も近い値ではない。",
+          "promptContext": "ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式と設問値を用いて選択肢9.2mmを判定した。",
+          "refs": [],
+          "verdict": "試験時点・現在とも間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点と現在時点の根拠差による正誤への影響はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "判定に影響する変更は確認されない。",
+          "displayRefIds": [],
+          "explanationText": "管厚算定値は約8.12mmであり、8.1mmが最も近い。",
+          "promptContext": "ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式と設問値を用いて選択肢8.1mmを判定した。",
+          "refs": [],
+          "verdict": "試験時点・現在とも正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点と現在時点の根拠差による正誤への影響はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "判定に影響する変更は確認されない。",
+          "displayRefIds": [],
+          "explanationText": "管厚算定値は約8.12mmであり、4.6mmは最も近い値ではない。",
+          "promptContext": "ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式と設問値を用いて選択肢4.6mmを判定した。",
+          "refs": [],
+          "verdict": "試験時点・現在とも間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点と現在時点の根拠差による正誤への影響はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "判定に影響する変更は確認されない。",
+          "displayRefIds": [],
+          "explanationText": "管厚算定値は約8.12mmであり、3.4mmは最も近い値ではない。",
+          "promptContext": "ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式と設問値を用いて選択肢3.4mmを判定した。",
+          "refs": [],
+          "verdict": "試験時点・現在とも間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点と現在時点の根拠差による正誤への影響はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "判定に影響する変更は確認されない。",
+          "displayRefIds": [],
+          "explanationText": "管厚算定値は約8.12mmであり、2.2mmは最も近い値ではない。",
+          "promptContext": "ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式と設問値を用いて選択肢2.2mmを判定した。",
+          "refs": [],
+          "verdict": "試験時点・現在とも間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "3147d6811ce1cb5f",

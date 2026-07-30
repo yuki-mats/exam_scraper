@@ -573,40 +573,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
     "explanationText": [
-      "正しい。膜式ガスメーターは低圧で使用され、メーター前後の直管もメーターフィルターも不要であるため、3つの特徴をすべて正しく表している。",
-      "間違い。回転子式ガスメーターは低圧・中圧で使用され、メーター前後の直管は不要だが、メーターフィルターは必要である。フィルター不要としている点が誤り。",
-      "間違い。タービン式ガスメーターは中圧・高圧で使用され、メーターフィルターは必要だが、メーター前後の直管も必要である。直管不要としている点が誤り。",
-      "正しい。渦流式ガスメーターは中圧・高圧で使用され、メーター前後の直管とメーターフィルターはいずれも必要であるため、3つの特徴がすべて合っている。",
-      "間違い。サーマルフロー式ガスメーターは中圧で使用され、メーター前後の直管は不要だが、メーターフィルターは必要である。直管必要・フィルター不要としている点が誤り。"
-    ],
-    "suggestedQuestions": [
-      "膜式ガスメーターの使用圧力・直管・フィルターは？",
-      "回転子式ガスメーターはメーターフィルター不要？",
-      "タービン式ガスメーターはメーター前後の直管不要？",
-      "渦流式ガスメーターの使用圧力・直管・フィルターは？",
-      "サーマルフロー式ガスメーターは直管必要・フィルター不要？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "膜式ガスメーターの使用圧力・直管・フィルターは？",
-        "answer": "低圧で使用され、メーター前後の直管もメーターフィルターも不要である。"
-      },
-      {
-        "question": "回転子式ガスメーターはメーターフィルター不要？",
-        "answer": "不要ではない。回転子式は低圧・中圧で使用され、直管は不要だが、メーターフィルターは必要である。"
-      },
-      {
-        "question": "タービン式ガスメーターはメーター前後の直管不要？",
-        "answer": "不要ではない。タービン式は中圧・高圧で使用され、直管とメーターフィルターはいずれも必要である。"
-      },
-      {
-        "question": "渦流式ガスメーターの使用圧力・直管・フィルターは？",
-        "answer": "中圧・高圧で使用され、メーター前後の直管とメーターフィルターはいずれも必要である。"
-      },
-      {
-        "question": "サーマルフロー式ガスメーターは直管必要・フィルター不要？",
-        "answer": "違う。サーマルフロー式は中圧で使用され、直管は不要だが、メーターフィルターは必要である。"
-      }
+      "正しい。膜式ガスメーターは低圧で使用され、メーター前後の直管もメーターフィルターも不要であるため、示された特徴はすべて正しい。",
+      "間違い。回転子式ガスメーターは低圧・中圧で使用され、メーター前後の直管は不要だが、メーターフィルターは必要である。選択肢ではメーターフィルターを不要としているため誤りである。",
+      "間違い。タービン式ガスメーターは中圧・高圧で使用され、メーター前後の直管とメーターフィルターはいずれも必要である。選択肢ではメーター前後の直管を不要としているため誤りである。",
+      "正しい。渦流式ガスメーターは中圧・高圧で使用され、メーター前後の直管とメーターフィルターはいずれも必要であるため、示された特徴はすべて正しい。",
+      "間違い。サーマルフロー式ガスメーターは中圧で使用され、メーター前後の直管は不要だが、メーターフィルターは必要である。選択肢では直管を必要、フィルターを不要としており、いずれも正しい要否と反対であるため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -633,7 +604,142 @@
       "reason": "法令キーワード又はLawzilla候補はあるが、2021甲種の技術・基礎科目として、既存解説の正誤は技術知識・Firestore snapshot確認で足りる。未検証の条文をlawReferencesへ付けない。",
       "sourceConflictHandling": "preserve_firestore_snapshot_after_review",
       "secretHandling": "no Lawzilla endpoint or API key stored"
-    }
+    },
+    "sourceQuestionKey": "gas-shunin:kou:2021:kyokyu:q12",
+    "reviewQuestionId": "firestore:gasushunin-koushu-gizyutsu-2021-12-1,gasushunin-koushu-gizyutsu-2021-12-2,gasushunin-koushu-gizyutsu-2021-12-3,gasushunin-koushu-gizyutsu-2021-12-4,gasushunin-koushu-gizyutsu-2021-12-5",
+    "sourceRecordRef": "question_2021_firestore_1.json#3",
+    "explanationReferences": [],
+    "lawContextForExplanation": "主なガスメーターの種類別の使用圧力、メーター前後の直管、メーターフィルター要否に関する技術知識問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令関連問題ではないため、法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "膜式の使用圧力並びに直管及びフィルターの要否に基づき、正しいと確定した。",
+          "promptContext": "膜式ガスメーターの一般的な特徴を確認する技術肢。",
+          "refs": [],
+          "verdict": "正誤に変更なし"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガスメーターの技術的特徴を問う肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令関連問題ではないため、法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "回転子式ではフィルターが必要であるため、不要とする記述を誤りと確定した。",
+          "promptContext": "回転子式ガスメーターの一般的な特徴を確認する技術肢。",
+          "refs": [],
+          "verdict": "正誤に変更なし"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガスメーターの技術的特徴を問う肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令関連問題ではないため、法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "タービン式ではメーター前後の直管が必要であるため、不要とする記述を誤りと確定した。",
+          "promptContext": "タービン式ガスメーターの一般的な特徴を確認する技術肢。",
+          "refs": [],
+          "verdict": "正誤に変更なし"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガスメーターの技術的特徴を問う肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令関連問題ではないため、法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "渦流式の使用圧力並びに直管及びフィルターの要否に基づき、正しいと確定した。",
+          "promptContext": "渦流式ガスメーターの一般的な特徴を確認する技術肢。",
+          "refs": [],
+          "verdict": "正誤に変更なし"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガスメーターの技術的特徴を問う肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令関連問題ではないため、法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "サーマルフロー式では直管が不要でフィルターが必要であるため、双方を反対に示す記述を誤りと確定した。",
+          "promptContext": "サーマルフロー式ガスメーターの一般的な特徴を確認する技術肢。",
+          "refs": [],
+          "verdict": "正誤に変更なし"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガスメーターの技術的特徴を問う肢であり、法令改正監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-gizyutsu-2021-13-1,gasushunin-koushu-gizyutsu-2021-13-2,gasushunin-koushu-gizyutsu-2021-13-3,gasushunin-koushu-gizyutsu-2021-13-4,gasushunin-koushu-gizyutsu-2021-13-5",
