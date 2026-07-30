@@ -1718,6 +1718,9 @@ def _structured_candidate_prompt(
             "comparison=unchangedなら試験時点と現在時点の条文が同一である。",
             "comparison=changedなら二つの本文を比較して判定し、current_onlyなら"
             "現在時点の根拠として使う。status=partialの不足箇所だけ追加確認する。",
+            "status=completeかつcomparison=unchangedの場合、lawReferencesのroleが"
+            "current_basisであることだけを理由にholdへ送らない。",
+            "examAsOfSourceは試験日の根拠であり、公式試験日catalog又はrecordを示す。",
             "primaryLawEvidence自体はsetFieldsへ転載しない。",
         ]
         if stage_id in {"law_context", "explanation", "law_audit"}
@@ -11395,6 +11398,11 @@ class QualificationRunCoordinator:
                 tuple(spec["candidateTargets"])
                 for spec in specs
             }
+            list_group_id_by_question = {
+                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+                str(spec["target"].get("listGroupId") or "")
+                for spec in specs
+            }
             question_issue_evidence_by_question = {
                 str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
                 tuple(
@@ -11412,6 +11420,11 @@ class QualificationRunCoordinator:
                         current_as_of=str(
                             parent_snapshot.get("startedAt") or _now()
                         )[:10],
+                        qualification=qualification,
+                        list_group_id=list_group_id_by_question.get(
+                            question_id,
+                            "",
+                        ),
                     )
                     for question_id, record in records_by_question.items()
                 }

@@ -117,6 +117,18 @@ class GasShuninOfficialPdfArchiveTests(unittest.TestCase):
             catalog = _catalog_payload([entry])
 
             self.assertEqual(catalog["schemaVersion"], SCHEMA_VERSION)
+            self.assertEqual(
+                catalog["qualificationIds"],
+                [
+                    "gas-shunin-kou",
+                    "gas-shunin-otsu",
+                    "gas-shunin-hei",
+                ],
+            )
+            self.assertEqual(
+                catalog["examDates"]["2025"],
+                "2025-09-28",
+            )
             self.assertNotIn("downloadStatus", catalog["files"][0])
             self.assertNotIn("resolvedUrl", catalog["files"][0])
             self.assertEqual(verify_catalog(catalog, archive), [])

@@ -5,7 +5,7 @@ JIA（日本ガス機器検査協会）が公開したガス主任技術者試�
 ## 正本
 
 - PDF保存先: `output/pdf/gas-shunin-official/<西暦>/`
-- URL・SHA-256・ページ数・容量: [`official_exam_pdf_catalog.json`](official_exam_pdf_catalog.json)
+- 試験日・URL・SHA-256・ページ数・容量: [`official_exam_pdf_catalog.json`](official_exam_pdf_catalog.json)
 - 取得・復元・検証: [`archive_gas_shunin_official_pdfs.py`](../../../scripts/scrape/archive_gas_shunin_official_pdfs.py)
 - JIA公式一覧: [試験の問題と解答](https://www.jia-page.or.jp/exam/examination/answer/)
 

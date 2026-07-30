@@ -1435,7 +1435,7 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
             allowed_fields=("explanationText",),
         )
         evidence = {
-            "schemaVersion": "primary-law-evidence/v1",
+            "schemaVersion": "primary-law-evidence/v2",
             "status": "complete",
             "currentAsOf": "2026-07-30",
             "items": [{"comparison": "unchanged"}],

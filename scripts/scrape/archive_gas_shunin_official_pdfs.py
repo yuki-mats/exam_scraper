@@ -31,7 +31,7 @@ DEFAULT_CATALOG_PATH = (
 )
 OFFICIAL_INDEX_URL = "https://www.jia-page.or.jp/exam/examination/answer/"
 OFFICIAL_PDF_BASE_URL = "https://www.jia-page.or.jp/files/user/doc/exam/"
-SCHEMA_VERSION = "gas-shunin-official-pdf-catalog/v1"
+SCHEMA_VERSION = "gas-shunin-official-pdf-catalog/v2"
 USER_AGENT = "exam_scraper official-exam-archive/1.0"
 
 
@@ -40,18 +40,19 @@ class YearSpec:
     year: int
     era: str
     filename_suffix: str
+    exam_date: str
 
 
 YEAR_SPECS = (
-    YearSpec(2017, "平成29年度", "h29"),
-    YearSpec(2018, "平成30年度", "h30"),
-    YearSpec(2019, "令和元年度", "r1"),
-    YearSpec(2020, "令和2年度", "r2"),
-    YearSpec(2021, "令和3年度", "r3"),
-    YearSpec(2022, "令和4年度", "r4"),
-    YearSpec(2023, "令和5年度", "r5"),
-    YearSpec(2024, "令和6年度", "r6"),
-    YearSpec(2025, "令和7年度", "R7"),
+    YearSpec(2017, "平成29年度", "h29", "2017-09-24"),
+    YearSpec(2018, "平成30年度", "h30", "2018-09-30"),
+    YearSpec(2019, "令和元年度", "r1", "2019-09-29"),
+    YearSpec(2020, "令和2年度", "r2", "2020-09-27"),
+    YearSpec(2021, "令和3年度", "r3", "2021-09-26"),
+    YearSpec(2022, "令和4年度", "r4", "2022-09-25"),
+    YearSpec(2023, "令和5年度", "r5", "2023-09-24"),
+    YearSpec(2024, "令和6年度", "r6", "2024-09-29"),
+    YearSpec(2025, "令和7年度", "R7", "2025-09-28"),
 )
 
 
@@ -430,6 +431,15 @@ def _catalog_payload(files: list[dict[str, Any]]) -> dict[str, Any]:
         "generatedAt": utc_now(),
         "officialIndexUrl": OFFICIAL_INDEX_URL,
         "archiveRoot": "output/pdf/gas-shunin-official",
+        "qualificationIds": [
+            "gas-shunin-kou",
+            "gas-shunin-otsu",
+            "gas-shunin-hei",
+        ],
+        "examDates": {
+            str(spec.year): spec.exam_date
+            for spec in YEAR_SPECS
+        },
         "coverage": {
             "firstYear": min(spec.year for spec in YEAR_SPECS),
             "lastYear": max(spec.year for spec in YEAR_SPECS),
