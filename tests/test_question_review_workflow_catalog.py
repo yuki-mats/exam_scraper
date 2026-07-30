@@ -480,7 +480,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 }
             )
         )
-        self.assertEqual(catalog["evaluation"]["policyVersion"], "2.2")
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "3.0")
         explanation_targets = {
             target["selectionId"]: target
             for target in stage_by_id["explanation"]["updateTargets"]

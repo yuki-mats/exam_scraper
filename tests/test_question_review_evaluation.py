@@ -1643,7 +1643,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "2.2")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "3.0")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
