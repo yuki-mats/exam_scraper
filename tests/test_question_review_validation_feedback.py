@@ -7,6 +7,7 @@ from tools.question_review_console.validation_feedback import (
     build_child_feedback,
     build_improvement_report,
     feedback_prompt,
+    reclassify_feedback,
     write_improvement_report,
 )
 
@@ -185,6 +186,48 @@ class ChildFeedbackTests(unittest.TestCase):
                     {"record_identity", "source_binding"},
                 )
                 self.assertTrue(feedback["issues"][0]["retryable"])
+
+    def test_primary_evidence_shortage_is_retryable_not_rollback_unsafe(self):
+        message = (
+            "current_basis又は改正差分を確認できる一次資料・構造化根拠が"
+            "不足しており、allowedFieldsを確定できない。"
+        )
+        feedback = _feedback(
+            {
+                "status": "succeeded",
+                "receiptValidated": True,
+                "error": message,
+                "result": {
+                    "status": "succeeded",
+                    "commands": [{"command": "model decision", "status": "pass"}],
+                },
+            }
+        )
+
+        self.assertEqual(feedback["status"], "retryable")
+        self.assertEqual(feedback["issues"][0]["code"], "insufficient_evidence")
+        self.assertFalse(feedback["modelPassServerReject"])
+
+    def test_persisted_old_identity_feedback_can_be_discarded_after_normalization(self):
+        refreshed = reclassify_feedback(
+            {
+                "status": "retryable",
+                "issues": [
+                    {
+                        "code": "record_identity",
+                        "field": "record.identity",
+                        "message": (
+                            "既存ID fieldの変更を検出しました: "
+                            "output/sample/review/law_revision_audit/2026.jsonl"
+                        ),
+                        "retryable": True,
+                    }
+                ],
+            },
+            discard_resolved_sidecar_identity=True,
+        )
+
+        self.assertIsNone(refreshed)
 
     def test_prewrite_canonical_contention_is_retryable(self):
         feedback = _feedback(

@@ -21,8 +21,9 @@
 4. `21_explanationText_added/`
 5. 正誤更新が必要な場合は、02aの正答正本である`23_correctChoiceText_fixed/`
 6. 必要時のみ`00_source/`
-7. e-Gov法令検索、所管官庁資料、資格別方針で認めた一次情報
-8. Codex組み込みweb検索。一次情報を開く入口に限り、検索要約だけで`verified`にしない
+7. serverが`primaryLawEvidence`へ取得したe-Gov法令API v2の試験時点・現在時点本文、改正version、hash比較
+8. e-Gov法令検索、所管官庁資料、資格別方針で認めた一次情報
+9. Codex組み込みweb検索。`primaryLawEvidence`がpartial又はlocator未宣言の箇所から一次情報を開く入口に限り、検索要約だけで`verified`にしない
 
 ## 判断
 

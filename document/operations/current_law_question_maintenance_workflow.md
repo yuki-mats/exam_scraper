@@ -12,7 +12,7 @@
 - `updated_to_current_law`は`tertiary_verified`後だけ公開確定する。
 - 03bの改訂では[共通の作業バージョン規則](local_question_review_console.md#作業バージョン)を使う。問題単位の`auditMethodVersion`は使用した監査方式の証跡であり、作業版の代わりにしない。
 
-Codex App Serverでは、組み込みweb検索を一次情報の入口として使います。外部MCP、Lawzilla、Firestore条文検索は使いません。保存済みの`lawReferences`、`lawRevisionFacts`、evidence cacheは候補として読み、一次情報と一致した場合だけ根拠にします。
+Codex App Serverは、保存済み`lawReferences`に`lawId`と条・別表のlocatorがある場合、e-Gov法令API v2から試験時点とrun開始日の法令XMLを決定的に取得し、該当条・別表の本文、改正version、hash、比較結果を一問のmodel入力へ渡します。同じ`lawId`・基準日は資格内で共有cacheと一つの取得処理を使います。宣言済み根拠が不足又は不一致の場合だけ、組み込みweb検索を一次情報の入口として使います。外部MCP、Lawzilla、Firestore条文検索は使いません。保存済みの`lawReferences`、`lawRevisionFacts`は候補であり、server取得又は検索で開いた一次情報と一致した場合だけ根拠にします。
 
 ### 既存の法令紐付けを使う順序
 
@@ -59,6 +59,8 @@ Codex App Serverでは、組み込みweb検索を一次情報の入口として�
 - `sourceRecordRef`: `00_source/`からの相対file pathと0始まりのrecord index（`<path>#<index>`）
 
 画面APIの問題ID、`reviewKey`、`progressTargets[].id`、UI表示用hashは監査IDではありません。sidecarとsourceは上の3要素をexact joinし、部分一致で推測しません。UIの`reviewKey`が衝突しても`sourceRecordRef`で問題を分離し、資格・年度・問題一覧を表示します。3要素を一意に確定できない場合は03bの開始だけをfail-closedでblockします。選択肢の判定は`examTimeDecision`と`currentLawDecision`へ選択肢順で保存し、patchの正答・`lawRevisionFacts`と一致させます。
+
+UIから03bを含むrunを開始した時は、modelを呼ぶ前に対象年度の既存sidecarをsource inventoryへ一意に対応させ、旧UI IDを上の3要素へ原子的に正規化します。内容、判断履歴、監査時刻は変更しません。v2必須metadataを満たす旧行だけをv2へ昇格し、判定配列等が未完成の行は旧schemaのまま再整備対象へ引き継ぎます。対応が曖昧、重複、資格・年度が不一致、又は書込み直前にfileが変わった場合はrun開始を停止します。
 
 ## 保存先
 

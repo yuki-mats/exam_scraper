@@ -18,8 +18,9 @@
 1. `20_merged_1/question_*_merged.json`
 2. 対象資格の `prompt/qualification_docs/<qualification>/`、特に `*law_reference*.md`
 3. 必要時のみ `00_source/`
-4. e-Gov法令検索、官公庁資料、資格別に認めた一次情報相当の法令本文
-5. Codex組み込みweb検索。e-Gov又は所管官庁の一次情報を開く入口に限り、検索要約だけで`verified`にしない
+4. serverが`primaryLawEvidence`へ取得したe-Gov法令API v2の試験時点・現在時点本文
+5. e-Gov法令検索、官公庁資料、資格別に認めた一次情報相当の法令本文
+6. Codex組み込みweb検索。`primaryLawEvidence`がpartial又はlocator未宣言の箇所からe-Gov又は所管官庁の一次情報を開く入口に限り、検索要約だけで`verified`にしない
 
 ## 判定方針
 

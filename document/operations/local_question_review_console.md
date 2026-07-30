@@ -61,6 +61,7 @@
 ## 問題IDと現行法監査
 
 - `uiQuestionId`と`reviewKey`は画面表示・操作用である。03bの監査sidecarは`law-revision-audit/v2`とし、source由来の`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`の3要素が完全一致するrecordだけを結合する。`sourceRecordRef`は`00_source/`基準の相対JSON pathと0始まりのrecord indexを`<path>#<index>`で表す。sidecarの`qualification`と`listGroupId`はmodel候補又は表示用projectionから受け取らず、一問へ限定したrun planの確定済みidentityをserverが設定する。
+- 03bを含むUI runは、`00_source`不変確認後かつmodel開始前に、対象年度の旧sidecarを現在のsource inventoryへ一意に対応させる。旧UI IDは3要素のsource identityへ原子的に正規化し、実質的な監査内容は変えない。v2契約を満たさない旧行はschemaだけを昇格せず、その一問の通常再整備へ送る。正規化件数、保留したmetadata件数、前後hashは親manifestのreceiptへ残す。
 - UIの`reviewKey`が衝突しても、`sourceRecordRef`で問題を分離して資格・年度・問題一覧を表示する。3要素を一意に確定できない場合は03bだけをfail-closedでblockし、他工程の閲覧・実行は妨げない。
 - selected artifactをsource recordへ対応できない場合は、path・工程・件数を`artifactResolutionBlockers`へ出し、その工程とdeliveryを完了扱いにしない。
 - 技術知識や計算だけで正誤を判断できる問題は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`として03b完了を記録できる。法令根拠がないという理由だけで`hold`にしない。
@@ -79,6 +80,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 - GUIでは資格、年度又はフォルダ、整備する項目、処理する問題を指定し、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`、工程、update targetの組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
 - serverは問題の現在projectionをrunごとの希望上限まで同時に準備し、一問を一つの独立したmodel turnへ渡す。1資格と全資格合計の上限は100問・100本とし、UIでは1、5、10、32、64、100から希望上限を選べる。複数資格の実行中は新しく取得するslotを公平に配分し、接続、認証又はcontrol-planeのprovider失敗時はadaptive schedulerが実行数を縮小して、成功に応じて回復する。一問だけの期限切れはその問だけを再試行する。control-plane RPCも全資格合計100本まで受け付け、処理中のrequestをtimeout失敗として重複投入しない。patch toolの待機はmodel turn枠を占有せず、複数のpatch toolが異なる実pathを並行処理する。
 - modelは一問の構造化候補を返すだけで、検査commandや成功receiptを自己申告しない。serverは候補ごとにsource identity、許可field、工程品質、`00_source`不変を検査し、合格recordだけを確定patchへ反映する。他問題の不合格や曖昧さは波及しない。
+- 02b・03・03bで宣言済みの`lawId`と条・別表locatorがある場合、serverはe-Gov法令API v2から試験時点とrun開始日の法令XMLを取得する。同じ法令・基準日の取得はprocess内lockとhash検証済みdisk cacheで一回にまとめ、該当locatorの本文hash、改正version、`unchanged` / `changed` / `current_only`を`primaryLawEvidence`としてmodelへ渡す。取得又はlocator解決が部分的に失敗した場合だけ、不足箇所を理由付きで追加探索又は保留する。
 - 第01工程は、全問題に対して同じsource snapshotを使う独立したread-onlyレビューを2回実行し、serverが結果を照合してから通常の問題形式候補を生成する。レビューの詳細schemaはproductionコードを正本とし、この文書には複製しない。予約、二つの結果、照合結果は、親manifest全体へ書き戻さず、親run配下の`aggregate_review_checkpoints/<questionIdのsha256>.json`へ問題単位で保存する。異なる問題の記録は互いのlockを待たず、同じ問題のslotだけを直列化する。二者の判断だけが不一致の場合は、原文、候補、両レビューを渡した別のread-only裁定を一度実行する。裁定で一意に確定できた問題は通常処理へ戻し、裁定でも判定不能又は境界不明の問題、source hash不一致、review証跡不正だけを問題単位の`hold`とする。対象確定時の記述本文はserverが合意済みspanから切り出し、model出力の文章を保存しない。
 - 初期対象外の先行工程はitemを作らず、その問で最初に必要な工程から始める。patch toolが確定したpatchは、物理Mergeを挟まず共通projectionで次工程へ渡す。patchが実際に変わった時だけ初期対象外の後続を再判定し、準備後の手動変更も最新入力で再準備する。一問の失敗は理由付き`blocked`とし、その問の依存後続だけを保留する。対象外は`not_applicable`で閉じ、他問を止めない。
 - 正本文書又は工程版がrun中に変わった場合は、その問題だけを最新projectionでqueueへ戻す。通常対象を先に終え、不合格問題はfeedback付きでqueue末尾へ回す。品質検査は初回を含む3回で打ち切る。
@@ -127,7 +129,7 @@ Python serverはChatGPT app同梱の`codex app-server`を一つ管理します�
 
 ## 検査feedbackと改善記録
 
-各問は工程固有の機械チェックに不合格となった場合、その問と工程に限った検査feedback付きで最大2回再整備します。他の問は再試行の完了を待ちません。各attemptの指摘と結果は`validationAttempts`と技術ログへ保存し、次の候補生成には該当問題のfeedbackだけを渡します。未確定patchが後続成果物を止める場合は、「パッチ変更を反映」画面から清掃します。serverは保存済みbaseline、現在の一問ごとのrecord scope、対象fileのhashを照合し、履歴を書き換えず検証済みの解消receiptを追加します。問題内容、正答、解説、法令根拠など現在も成立する実質的な指摘は清掃せず、通常の再整備対象に残します。
+各問は工程固有の機械チェックに不合格となった場合、その問と工程に限った検査feedback付きで最大2回再整備します。他の問は再試行の完了を待ちません。各attemptの指摘と結果は`validationAttempts`と技術ログへ保存し、次の候補生成前に現行classifierで再分類します。run開始時に解消済みの旧sidecar ID指摘はmodelへ渡さず、一次資料不足はrollback失敗とせず再試行可能な`insufficient_evidence`として扱います。未確定patchが後続成果物を止める場合は、「パッチ変更を反映」画面から清掃します。serverは保存済みbaseline、現在の一問ごとのrecord scope、対象fileのhashを照合し、履歴を書き換えず検証済みの解消receiptを追加します。問題内容、正答、解説、法令根拠など現在も成立する実質的な指摘は清掃せず、通常の再整備対象に残します。
 
 queueがterminalになった後、`improvement_report.json`へ工程・指摘code・fieldごとの発生問数とattempt数を集計します。3問以上で同じ指摘が出た場合、又はモデル側の検査は通ったのにserverが拒否した場合を改善候補とします。正本文書、prompt、checker、testの変更はactive run中に行わず、別の改善jobで候補を確認して実施します。checkerを変える場合は、該当工程の正本・検査契約と[`policy_version`](../../config/question_maintenance_workflow.toml)を同時に更新します。既存問題の洗い替えが必要ならMAJOR、今後の作業だけに適用できる変更ならMINORを上げます。
 

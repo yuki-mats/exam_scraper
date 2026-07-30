@@ -1420,6 +1420,47 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         )
         self.assertIn("setFieldsへ転載しない", prompt)
 
+    def test_server_primary_law_evidence_is_embedded_in_attempt_prompt(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        candidate_target = CandidateTarget(
+            target_id="question-1:explanation",
+            role="explanation",
+            path="output/sample/21_explanationText_added/question.json",
+            allowed_fields=("explanationText",),
+        )
+        evidence = {
+            "schemaVersion": "primary-law-evidence/v1",
+            "status": "complete",
+            "currentAsOf": "2026-07-30",
+            "items": [{"comparison": "unchanged"}],
+        }
+        prompt = _structured_candidate_prompt(
+            "解説を整える。",
+            [target],
+            stage_id="explanation",
+            records_by_question={
+                "question-1": {
+                    "choiceTextList": ["A"],
+                    "lawReferences": [],
+                }
+            },
+            candidate_targets_by_question={
+                "question-1": (candidate_target,)
+            },
+            feedback_by_question={},
+            primary_law_evidence_by_question={"question-1": evidence},
+        )
+
+        question = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(question["primaryLawEvidence"], evidence)
+        self.assertIn("e-Gov法令API v2", prompt)
+
     def test_other_stage_context_is_empty(self):
         self.assertEqual(
             _structured_candidate_stage_context(Path("."), "sample", "explanation"),

@@ -138,7 +138,13 @@ def build_child_feedback(
         )
 
     model_pass_server_reject = bool(
-        not accepted and commands and all(_command_passed(value) for value in commands)
+        not accepted
+        and commands
+        and all(_command_passed(value) for value in commands)
+        and (
+            str(child.get("status") or "") != "succeeded"
+            or str(result.get("status") or "succeeded") != "succeeded"
+        )
     )
     status = (
         "accepted"
@@ -204,6 +210,57 @@ def feedback_prompt(feedback: Mapping[str, Any]) -> str:
             "完了receiptを更新してください。00_sourceは変更しないでください。"
         )
     return f"{instruction}\n検査フィードバック: {serialized}"
+
+
+def reclassify_feedback(
+    feedback: Mapping[str, Any],
+    *,
+    discard_resolved_sidecar_identity: bool = False,
+) -> dict[str, Any] | None:
+    """Apply the current classifier to persisted feedback before a retry."""
+
+    refreshed = dict(feedback)
+    raw_issues = [
+        value
+        for value in feedback.get("issues") or []
+        if isinstance(value, Mapping)
+    ]
+    if not raw_issues:
+        return refreshed
+    issues: list[dict[str, Any]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for raw_issue in raw_issues:
+        message = _safe_message(str(raw_issue.get("message") or ""))
+        code, field, retryable = _classify_message(message)
+        if (
+            discard_resolved_sidecar_identity
+            and code == "record_identity"
+            and "既存ID fieldの変更を検出しました" in message
+        ):
+            continue
+        key = (code, field, message)
+        if key in seen:
+            continue
+        seen.add(key)
+        issues.append(
+            {
+                "code": code,
+                "field": field,
+                "message": message,
+                "retryable": retryable,
+            }
+        )
+    if not issues:
+        return None
+    refreshed["issues"] = issues
+    refreshed["status"] = (
+        "blocked"
+        if any(not issue["retryable"] for issue in issues)
+        else "retryable"
+    )
+    if refreshed["status"] == "retryable":
+        refreshed["modelPassServerReject"] = False
+    return refreshed
 
 
 def build_improvement_report(
@@ -444,9 +501,19 @@ def _classify_message(message: str) -> tuple[str, str, bool]:
                 "rollback又は",
                 "rollback後も",
                 "残存差分",
-                "差分を確認でき",
             ),
             ("rollback_unsafe", "rollback", False),
+        ),
+        (
+            (
+                "一次資料・構造化根拠が不足",
+                "一次資料が不足",
+                "current_basis又は改正差分を確認できる一次資料",
+                "current_basisまたは改正差分を確認できる一次資料",
+                "根拠が不足しており",
+                "insufficient_evidence",
+            ),
+            ("insufficient_evidence", "lawEvidence", True),
         ),
         (
             (
@@ -459,6 +526,8 @@ def _classify_message(message: str) -> tuple[str, str, bool]:
         ),
         (
             (
+                "既存id field",
+                "id fieldの変更",
                 "reviewquestionid",
                 "review_question_id",
                 "publicquestionid",

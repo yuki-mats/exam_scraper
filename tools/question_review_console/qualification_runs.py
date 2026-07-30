@@ -89,6 +89,12 @@ from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
 )
 from tools.question_review_console.law_audit_contract import is_law_audit_review
+from tools.question_review_console.law_audit_sidecar_normalizer import (
+    normalize_law_audit_sidecars,
+)
+from tools.question_review_console.primary_law_evidence import (
+    PrimaryLawEvidenceResolver,
+)
 from tools.question_review_console.codex_app_server import (
     MAINTENANCE_RESEARCH_WORKERS,
     QUESTION_MAINTENANCE_MODEL,
@@ -168,6 +174,7 @@ from tools.question_review_console.validation_feedback import (
     build_child_feedback,
     build_improvement_report,
     feedback_prompt,
+    reclassify_feedback,
     write_improvement_report,
 )
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
@@ -1593,12 +1600,16 @@ def _structured_candidate_prompt(
     source_answer_evidence_by_question: Mapping[
         str, Mapping[str, Any]
     ] | None = None,
+    primary_law_evidence_by_question: Mapping[
+        str, Mapping[str, Any]
+    ] | None = None,
 ) -> str:
     questions: list[dict[str, Any]] = []
     evidence_by_question = original_aggregate_evidence_by_question or {}
     originalization_sources = originalization_source_by_question or {}
     issue_evidence_by_question = question_issue_evidence_by_question or {}
     answer_evidence_by_question = source_answer_evidence_by_question or {}
+    law_evidence_by_question = primary_law_evidence_by_question or {}
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
         binding = SourceIdentityBinding.from_mapping(target)
@@ -1610,7 +1621,12 @@ def _structured_candidate_prompt(
         }
         previous_feedback = []
         for raw_feedback in feedback_by_question.get(question_id) or []:
-            feedback = dict(raw_feedback)
+            feedback = reclassify_feedback(
+                raw_feedback,
+                discard_resolved_sidecar_identity=True,
+            )
+            if feedback is None:
+                continue
             feedback_text = json.dumps(
                 feedback,
                 ensure_ascii=False,
@@ -1644,6 +1660,11 @@ def _structured_candidate_prompt(
                     records_by_question[question_id],
                     stage_id=stage_id,
                 )
+            )
+        primary_law_evidence = law_evidence_by_question.get(question_id)
+        if primary_law_evidence is not None:
+            question["primaryLawEvidence"] = copy.deepcopy(
+                dict(primary_law_evidence)
             )
         source_answer_evidence = answer_evidence_by_question.get(question_id)
         if source_answer_evidence is not None:
@@ -1692,8 +1713,14 @@ def _structured_candidate_prompt(
         [
             "lawReferenceDiscoveryPlanがある場合は、そのstrategyに従って探索範囲を限定する。",
             "これは実行順と計測用の入力情報であり、setFieldsへ転載しない。",
+            "primaryLawEvidenceはserverがe-Gov法令API v2から取得した公式一次根拠である。",
+            "status=completeのlocatorはモデルのweb探索より優先して使い、"
+            "comparison=unchangedなら試験時点と現在時点の条文が同一である。",
+            "comparison=changedなら二つの本文を比較して判定し、current_onlyなら"
+            "現在時点の根拠として使う。status=partialの不足箇所だけ追加確認する。",
+            "primaryLawEvidence自体はsetFieldsへ転載しない。",
         ]
-        if stage_id in {"law_context", "law_audit"}
+        if stage_id in {"law_context", "explanation", "law_audit"}
         else []
     )
     return "\n".join(
@@ -8155,6 +8182,7 @@ class QualificationRunCoordinator:
             or getattr(workflow, "work_versions", None)
             or QuestionWorkVersionStore(self.repo_root)
         )
+        self.primary_law_evidence = PrimaryLawEvidenceResolver(self.repo_root)
         self._parent_heartbeat_lock = threading.Lock()
         self._parent_heartbeat_monotonic: dict[tuple[str, str], float] = {}
 
@@ -11377,6 +11405,19 @@ class QualificationRunCoordinator:
                 for spec in specs
                 if spec.get("questionIssueCorrectionEvidence")
             }
+            primary_law_evidence_by_question = (
+                {
+                    question_id: self.primary_law_evidence.resolve(
+                        record,
+                        current_as_of=str(
+                            parent_snapshot.get("startedAt") or _now()
+                        )[:10],
+                    )
+                    for question_id, record in records_by_question.items()
+                }
+                if stage_id in {"law_context", "explanation", "law_audit"}
+                else {}
+            )
             original_aggregate_evidence = (
                 _aggregate_downstream_source_evidence(
                     self.repo_root,
@@ -11411,6 +11452,9 @@ class QualificationRunCoordinator:
                 ),
                 source_answer_evidence_by_question=(
                     source_answer_evidence_by_question
+                ),
+                primary_law_evidence_by_question=(
+                    primary_law_evidence_by_question
                 ),
             )
             child = self.store.create_question_attempt(
@@ -12960,6 +13004,51 @@ class QualificationRunCoordinator:
             error=str(pause),
         )
 
+    def _normalize_run_law_audit_sidecars(
+        self,
+        qualification: str,
+        run_id: str,
+        parent: Mapping[str, Any],
+        phases: Iterable[Mapping[str, Any]],
+        emit: Callable[[str], None],
+    ) -> dict[str, Any] | None:
+        if not any(
+            str(phase.get("id") or "") == "law_audit" for phase in phases
+        ):
+            return None
+        groups: dict[str, list[Mapping[str, Any]]] = {}
+        for list_group_id in parent.get("targetGroupIds") or []:
+            group_id = str(list_group_id or "").strip()
+            if not group_id:
+                continue
+            group = self.workflow.inventory.group(qualification, group_id)
+            groups[group_id] = [
+                value
+                for value in group.get("questions") or []
+                if isinstance(value, Mapping)
+            ]
+        receipt = normalize_law_audit_sidecars(
+            self.repo_root,
+            qualification,
+            groups,
+        )
+        invalidate = getattr(self.workflow.inventory, "invalidate", None)
+        if callable(invalidate):
+            for list_group_id in groups:
+                invalidate(qualification, list_group_id)
+        self.store.update(
+            qualification,
+            run_id,
+            lawAuditSidecarNormalization=receipt,
+        )
+        emit(
+            "法令監査sidecarを現行source identityへ正規化しました: "
+            f"{receipt['changedRowCount']}行 / {receipt['changedFileCount']}file。"
+            "未完成metadataは再整備へ引き継ぎました: "
+            f"{receipt['deferredMetadataRowCount']}行"
+        )
+        return receipt
+
     def _run_maintenance_flow(
         self,
         qualification: str,
@@ -13000,6 +13089,14 @@ class QualificationRunCoordinator:
                 for value in parent.get("phaseExecutions") or []
                 if isinstance(value, Mapping)
             ]
+            self._normalize_run_law_audit_sidecars(
+                qualification,
+                run_id,
+                parent,
+                phases,
+                emit,
+            )
+            parent = self.store.get(qualification, run_id)
             queue_order = str(parent.get("queueOrder") or "")
             if queue_order != "question_turn":
                 raise QualificationRunError(
