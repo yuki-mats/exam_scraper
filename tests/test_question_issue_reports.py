@@ -297,6 +297,58 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
                     encoding="utf-8",
                 )
 
+    def test_current_record_can_be_repaired_from_invalid_quarantine(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_root = Path(temp_dir) / "output"
+            group_dir = output_root / "sample/questions_json/2026"
+            source_dir = group_dir / "00_source"
+            source_dir.mkdir(parents=True)
+            source = {
+                "original_question_id": "q1",
+                "sourceQuestionKey": "sample:2026:q1",
+                "questionBodyText": "問題",
+                "choiceTextList": [""],
+            }
+            (source_dir / "question_2026.json").write_text(
+                json.dumps({"question_bodies": [source]}),
+                encoding="utf-8",
+            )
+            merged_dir = group_dir / "30_merged_2"
+            merged_dir.mkdir()
+            invalid = {
+                **source,
+                "invalid_reasons": ["choiceTextList_empty"],
+            }
+            invalid_path = (
+                merged_dir
+                / "question_2026_merged_20260730_1200_invalid.json"
+            )
+            invalid_path.write_text(
+                json.dumps({"question_bodies": [invalid]}),
+                encoding="utf-8",
+            )
+
+            current, current_path, source_identity = (
+                find_current_question_record(
+                    {
+                        "qualificationId": "sample",
+                        "listGroupId": "2026",
+                        "originalQuestionId": "q1",
+                        "sourceQuestionKey": "sample:2026:q1",
+                        "reviewQuestionId": "q1",
+                        "sourceRecordRef": "question_2026.json#0",
+                    },
+                    output_root=output_root,
+                )
+            )
+
+            self.assertEqual(current_path, invalid_path)
+            self.assertEqual(current["choiceTextList"], [""])
+            self.assertEqual(
+                source_identity.binding.source_record_ref,
+                "question_2026.json#0",
+            )
+
             with self.assertRaisesRegex(ValueError, "one source record"):
                 find_current_question_record(
                     {

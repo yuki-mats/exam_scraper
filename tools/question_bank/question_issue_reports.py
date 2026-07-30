@@ -336,11 +336,15 @@ def _current_record_files(
             key=lambda path: (path.stat().st_mtime_ns, path.name),
             reverse=True,
         )
-        selected: dict[str, Path] = {}
+        selected: dict[tuple[str, bool], Path] = {}
         for path in paths:
-            if path.name.endswith("_invalid.json"):
-                continue
-            selected.setdefault(_merged_source_stem(path), path)
+            selected.setdefault(
+                (
+                    _merged_source_stem(path),
+                    path.name.endswith("_invalid.json"),
+                ),
+                path,
+            )
         candidates.extend(selected.values())
         if paths:
             break
@@ -348,7 +352,8 @@ def _current_record_files(
 
 
 def _merged_source_stem(path: Path) -> str:
-    return strip_timestamp_suffix(path.stem).removesuffix("_merged")
+    stem = path.stem.removesuffix("_invalid")
+    return strip_timestamp_suffix(stem).removesuffix("_merged")
 
 
 def find_current_question_record(
