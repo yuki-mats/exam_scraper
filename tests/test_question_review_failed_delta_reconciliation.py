@@ -5,7 +5,9 @@ import unittest
 from pathlib import Path
 
 from tools.question_review_console.failed_delta_reconciliation import (
+    _projected_records,
     _record_scopes,
+    _source_records,
     _validate_sidecars,
     _verified_baseline,
 )
@@ -13,6 +15,56 @@ from tools.question_review_console.qualification_runs import QualificationRunErr
 
 
 class FailedDeltaReconciliationTests(unittest.TestCase):
+    def test_current_projection_is_bound_by_ui_question_id(self):
+        projected = {
+            "choiceTextList": ["公式訂正後A", "公式訂正後B"],
+            "correctChoiceText": "公式訂正後A",
+        }
+
+        records = _projected_records(
+            [
+                {
+                    "id": "ui-q1",
+                    "sourceRecordRef": "source.json#0",
+                    "projected": projected,
+                }
+            ]
+        )
+
+        self.assertEqual(records, {"ui-q1": projected})
+
+    def test_current_projection_is_required_for_every_question(self):
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "現在投影を確認できません",
+        ):
+            _projected_records(
+                [
+                    {
+                        "id": "ui-q1",
+                        "sourceRecordRef": "source.json#0",
+                    }
+                ]
+            )
+
+    def test_current_source_is_bound_by_ui_question_id(self):
+        source = {
+            "choiceTextList": ["取得元A", "取得元B"],
+            "correctChoiceText": "取得元A",
+        }
+
+        records = _source_records(
+            [
+                {
+                    "id": "ui-q1",
+                    "sourceRecordRef": "source.json#0",
+                    "source": source,
+                }
+            ]
+        )
+
+        self.assertEqual(records, {"ui-q1": source})
+
     def test_accepts_current_sidecar_identity_without_mutation(self):
         relative = (
             "output/sample/review/law_revision_audit/"

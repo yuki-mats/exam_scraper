@@ -196,6 +196,24 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(resolved, ())
 
+    def test_generated_delivery_artifact_is_not_a_failed_semantic_delta(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "30_merged_2/generated.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            self._write_manifest(
+                runs / "20260101-run" / "manifest.json",
+                "failed",
+                relative,
+            )
+
+            blocked = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(blocked, ())
+
     def test_ambiguous_alias_enrichment_does_not_resolve_records(self):
         relative = Path(
             "output/sample/questions_json/2026/"

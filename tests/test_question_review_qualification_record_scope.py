@@ -32,6 +32,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
         source_payloads=None,
         stage_id="law_audit",
         projected_records=None,
+        current_source_records=None,
     ):
         def write_payload(path, payload):
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -70,6 +71,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 store.get("sample", run["runId"]),
                 {relative},
                 projected_records=projected_records,
+                current_source_records=current_source_records,
             )
 
     def _validate_multi_row_law_sidecar(
@@ -549,6 +551,112 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                 projected_records={"ui-q1": projected_record},
             )
 
+    def test_reconciliation_allows_exact_current_source_but_rejects_other_content(self):
+        source_relative = Path(
+            "output/sample/questions_json/2026/00_source/q1.json"
+        )
+        patch_relative = Path(
+            "output/sample/questions_json/2026/10_questionType_fixed/q1.json"
+        )
+        aliases = [
+            "ui-q1",
+            "review-q1",
+            "sample:2026:q1",
+            "q1.json#0",
+        ]
+        baseline_source = {
+            "originalQuestionId": "review-q1",
+            "sourceQuestionKey": "sample:2026:q1",
+            "choiceTextList": ["旧取得元A", "旧取得元B"],
+        }
+        current_source = {
+            **baseline_source,
+            "choiceTextList": ["現取得元A", "現取得元B"],
+        }
+        plan = {
+            "failedDeltaReconciliation": True,
+            "sourceFiles": [source_relative.as_posix()],
+            "targetRecordAliasGroups": [aliases],
+            "targetRecordBindings": [
+                {
+                    "uiQuestionId": "ui-q1",
+                    "reviewQuestionId": "review-q1",
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "sourceRecordRef": "q1.json#0",
+                    "aliases": aliases,
+                }
+            ],
+            "allowedPatchDirs": ["10_questionType_fixed"],
+            "allowedPatchFiles": [patch_relative.as_posix()],
+            "targetRecordScopes": {patch_relative.as_posix(): [aliases]},
+        }
+        after_record = {
+            "originalQuestionId": "review-q1",
+            "sourceQuestionKey": "sample:2026:q1",
+            "sourceRecordRef": "q1.json#0",
+            "choiceTextList": current_source["choiceTextList"],
+            "questionType": "single",
+        }
+        self._validate_record_scope_change(
+            patch_relative,
+            {"question_bodies": [{**baseline_source, "questionType": "single"}]},
+            {"question_bodies": [after_record]},
+            plan_updates=plan,
+            source_payloads={
+                source_relative: {"question_bodies": [baseline_source]}
+            },
+            stage_id="question_type",
+            current_source_records={"ui-q1": current_source},
+        )
+
+        self._validate_record_scope_change(
+            patch_relative,
+            {"question_bodies": [{**baseline_source, "questionType": "single"}]},
+            {
+                "question_bodies": [
+                    {
+                        "originalQuestionId": "review-q1",
+                        "sourceQuestionKey": "sample:2026:q1",
+                        "sourceRecordRef": "q1.json#0",
+                        "questionType": "single",
+                    }
+                ]
+            },
+            plan_updates=plan,
+            source_payloads={
+                source_relative: {"question_bodies": [baseline_source]}
+            },
+            stage_id="question_type",
+            current_source_records={"ui-q1": current_source},
+        )
+
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "自動整備対象外field",
+        ):
+            self._validate_record_scope_change(
+                patch_relative,
+                {
+                    "question_bodies": [
+                        {**baseline_source, "questionType": "single"}
+                    ]
+                },
+                {
+                    "question_bodies": [
+                        {
+                            **after_record,
+                            "choiceTextList": ["無根拠A", "無根拠B"],
+                        }
+                    ]
+                },
+                plan_updates=plan,
+                source_payloads={
+                    source_relative: {"question_bodies": [baseline_source]}
+                },
+                stage_id="question_type",
+                current_source_records={"ui-q1": current_source},
+            )
+
     def test_originalize_scope_allows_only_selected_public_content_fields(self):
         source_relative = Path(
             "output/sample/questions_json/independent/00_source/q1.json"
@@ -925,6 +1033,63 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     ]
                 }
             },
+        )
+
+    def test_reconciliation_accepts_identity_copied_from_current_source(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "18_law_context_prepared/q1_lawContext_prepared.json"
+        )
+        source_relative = Path(
+            "output/sample/questions_json/2026/00_source/q1.json"
+        )
+        aliases = [
+            "ui-q1",
+            "public-q1",
+            "sample:2026:q1",
+            "q1.json#0",
+        ]
+        self._validate_record_scope_change(
+            relative,
+            [{"original_question_id": "public-q1", "value": "before"}],
+            [
+                {
+                    "original_question_id": "public-q1",
+                    "public_question_id": "public-q1",
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "reviewQuestionId": "public-q1",
+                    "sourceRecordRef": "q1.json#0",
+                    "value": "after",
+                }
+            ],
+            plan_updates={
+                "failedDeltaReconciliation": True,
+                "sourceFiles": [source_relative.as_posix()],
+                "targetRecordAliasGroups": [aliases],
+                "targetRecordBindings": [
+                    {
+                        "uiQuestionId": "ui-q1",
+                        "reviewQuestionId": "public-q1",
+                        "sourceQuestionKey": "sample:2026:q1",
+                        "sourceRecordRef": "q1.json#0",
+                        "aliases": aliases,
+                    }
+                ],
+                "allowedPatchDirs": ["18_law_context_prepared"],
+                "allowedPatchFiles": [relative.as_posix()],
+                "targetRecordScopes": {relative.as_posix(): [aliases]},
+            },
+            source_payloads={
+                source_relative: {
+                    "question_bodies": [
+                        {
+                            "public_question_id": "public-q1",
+                            "sourceQuestionKey": "sample:2026:q1",
+                        }
+                    ]
+                }
+            },
+            stage_id="law_context",
         )
 
     def test_record_scope_uses_source_record_ref_for_shared_two_field_identity(self):

@@ -50,6 +50,8 @@
 
 `artifactSync`はpatch確定後のMerge、Convert、upload-ready、upload dry-runだけを表します。
 
+失敗runの未確定差分台帳が追跡するのは、工程catalogに定義した意味上のpatch層、`99_model_review_flags`及び`review`等の正本領域です。`12_merged_questionType`、`20_merged_1`、`30_merged_2`、`40_convert`、`upload_to_firestore`等の配信用生成物は`artifactSync`が現行patchとの一致を判定し、古い生成物のfile名を未確定patchとして持ち越しません。旧runのbaseline以後に標準scrape又は公式根拠付きの訂正が反映された場合は、現在の`00_source`又は全patchを合成した現在投影と完全一致するfieldだけを正当な後続変更として認めます。旧形式でpatchへ複製していた問題文・選択肢を削除し、現在の`00_source`又は後続patchへ責務を戻す変更も認めます。baseline、現在の`00_source`及び現在投影のいずれにも一致しない内容変更は清掃せず停止します。
+
 | 契機 | 自動実行 | 手動導線 |
 | --- | --- | --- |
 | 画面でpatchを保存 | 保存ごとに実行 | 自動更新失敗時の`パッチ変更を反映` |

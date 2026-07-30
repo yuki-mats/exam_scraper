@@ -159,6 +159,42 @@ def _target_state(
     return questions, alias_groups, bindings
 
 
+def _projected_records(
+    questions: list[dict[str, Any]],
+) -> dict[str, Mapping[str, Any]]:
+    """Bind each current UI question to its fully composed projection."""
+
+    records: dict[str, Mapping[str, Any]] = {}
+    for question in questions:
+        question_id = str(question.get("id") or "")
+        projected = question.get("projected")
+        if not question_id or not isinstance(projected, Mapping):
+            raise QualificationRunError(
+                "問題の現在投影を確認できません: "
+                f"{question.get('sourceRecordRef') or question_id or 'unknown'}"
+            )
+        records[question_id] = projected
+    return records
+
+
+def _source_records(
+    questions: list[dict[str, Any]],
+) -> dict[str, Mapping[str, Any]]:
+    """Bind each current UI question to its verified 00_source record."""
+
+    records: dict[str, Mapping[str, Any]] = {}
+    for question in questions:
+        question_id = str(question.get("id") or "")
+        source = question.get("source")
+        if not question_id or not isinstance(source, Mapping):
+            raise QualificationRunError(
+                "問題の現在取得元を確認できません: "
+                f"{question.get('sourceRecordRef') or question_id or 'unknown'}"
+            )
+        records[question_id] = source
+    return records
+
+
 def _record_scopes(
     unresolved: tuple[str, ...],
     questions: list[dict[str, Any]],
@@ -423,6 +459,8 @@ def reconcile_failed_deltas(
             {Path(relative) for relative in unresolved},
             validation_root=validation_root,
             baseline_payload=baseline,
+            projected_records=_projected_records(questions),
+            current_source_records=_source_records(questions),
         )
 
     resolvable = resolvable_failed_delta_paths(

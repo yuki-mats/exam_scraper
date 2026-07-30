@@ -121,6 +121,7 @@ def _failed_delta_paths(
         for stage in WorkflowCatalog(repo_root).load()["stages"]
         if stage.get("patchDir")
     }
+    semantic_patch_dirs = set(patch_stage_by_dir) | {"99_model_review_flags"}
     manifests = (
         sorted(manifest_paths)
         if manifest_paths is not None
@@ -166,7 +167,10 @@ def _failed_delta_paths(
         for raw in changed_files:
             relative = _safe_relative_path(repo_root, raw)
             if relative is None or not _in_scope(
-                relative, qualification, list_group_id
+                relative,
+                qualification,
+                list_group_id,
+                semantic_patch_dirs=semantic_patch_dirs,
             ):
                 continue
             key = relative.as_posix()
@@ -181,7 +185,12 @@ def _failed_delta_paths(
                     if relative is None:
                         continue
                     resolved_keys.add(relative.as_posix())
-                    if _in_scope(relative, qualification, list_group_id):
+                    if _in_scope(
+                        relative,
+                        qualification,
+                        list_group_id,
+                        semantic_patch_dirs=semantic_patch_dirs,
+                    ):
                         key = relative.as_posix()
                         remaining = [
                             failed
@@ -331,6 +340,8 @@ def _in_scope(
     path: Path,
     qualification: str,
     list_group_id: str | None,
+    *,
+    semantic_patch_dirs: set[str],
 ) -> bool:
     parts = path.parts
     if parts[:3] == ("prompt", "qualification_docs", qualification):
@@ -338,16 +349,30 @@ def _in_scope(
     if parts[:2] != ("output", qualification):
         return False
     if list_group_id is None:
-        return True
+        group_matches = True
+    elif len(parts) >= 4 and parts[2] == "questions_json":
+        group_matches = parts[3] == list_group_id
+    else:
+        group_matches = True
     if len(parts) >= 4 and parts[2] == "questions_json":
-        return parts[3] == list_group_id
+        return bool(
+            group_matches
+            and len(parts) >= 5
+            and parts[4] in semantic_patch_dirs
+        )
     if len(parts) >= 4 and parts[2] == "law_evidence":
-        return parts[3] == list_group_id
+        return bool(
+            group_matches
+            and (list_group_id is None or parts[3] == list_group_id)
+        )
     if len(parts) >= 5 and parts[2:4] == (
         "review",
         "law_revision_audit",
     ):
-        return parts[4] == f"{list_group_id}_law_revision_audit.jsonl"
+        return bool(
+            list_group_id is None
+            or parts[4] == f"{list_group_id}_law_revision_audit.jsonl"
+        )
     return True
 
 

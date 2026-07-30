@@ -17524,6 +17524,7 @@ class QualificationRunCoordinator:
         validation_root: Path | None = None,
         baseline_payload: Mapping[str, Any] | None = None,
         projected_records: Mapping[str, Mapping[str, Any]] | None = None,
+        current_source_records: Mapping[str, Mapping[str, Any]] | None = None,
     ) -> None:
         record_root = (validation_root or self.repo_root).resolve()
         target_aliases = {
@@ -17917,6 +17918,7 @@ class QualificationRunCoordinator:
                 projected_fields: dict[str, Any] = {}
                 projected_source_aliases: set[str] = set()
                 projected_workflow_aliases: set[str] = set()
+                current_source_fields: dict[str, Any] = {}
                 if matched_binding is not None and isinstance(
                     projected_records, Mapping
                 ):
@@ -17935,6 +17937,18 @@ class QualificationRunCoordinator:
                         projected_workflow_aliases = workflow_identity_aliases(
                             projected_record
                         )
+                if matched_binding is not None and isinstance(
+                    current_source_records, Mapping
+                ):
+                    current_source_record = current_source_records.get(
+                        str(matched_binding.get("uiQuestionId") or "")
+                    )
+                    if isinstance(current_source_record, Mapping):
+                        current_source_fields = {
+                            field: copy.deepcopy(current_source_record[field])
+                            for field in CODEX_PROTECTED_CONTENT_FIELDS
+                            if field in current_source_record
+                        }
                 matched_source_binding = (
                     SourceIdentityBinding.from_mapping(matched_binding)
                     if matched_binding is not None
@@ -18014,6 +18028,9 @@ class QualificationRunCoordinator:
                     )
                 before_identity = unambiguous_identity(
                     before_matches, relative
+                )
+                source_identity = unambiguous_identity(
+                    source_matches, relative
                 )
                 before_schema_versions = {
                     str(contract(entry).get("schemaVersion") or "")
@@ -18166,6 +18183,43 @@ class QualificationRunCoordinator:
                                 "sourceRecordRef",
                             }
                         )
+                        reconciliation_identity_values = dict(
+                            source_identity or {}
+                        )
+                        if matched_source_binding is not None:
+                            reconciliation_identity_values.update(
+                                {
+                                    "sourceQuestionKey": (
+                                        matched_source_binding.source_question_key
+                                    ),
+                                    "reviewQuestionId": (
+                                        matched_source_binding.review_question_id
+                                    ),
+                                    "sourceRecordRef": (
+                                        matched_source_binding.source_record_ref
+                                    ),
+                                }
+                            )
+                        reconciliation_new_identity_fields = (
+                            set(after_identity) - set(before_identity)
+                        )
+                        allowed_reconciliation_identity_enrichment = bool(
+                            run.get("failedDeltaReconciliation") is True
+                            and not is_law_audit_sidecar
+                            and matched_source_binding is not None
+                            and matched_source_binding.is_complete()
+                            and all(
+                                after_identity.get(field) == value
+                                for field, value in before_identity.items()
+                            )
+                            and reconciliation_new_identity_fields
+                            <= set(reconciliation_identity_values)
+                            and all(
+                                after_identity.get(field)
+                                == reconciliation_identity_values.get(field)
+                                for field in reconciliation_new_identity_fields
+                            )
+                        )
                         canonical_sidecar_identity = (
                             {
                                 "reviewQuestionId": (
@@ -18228,6 +18282,7 @@ class QualificationRunCoordinator:
                         if not (
                             allowed_empty_identity_cleanup
                             or allowed_patch_identity_enrichment
+                            or allowed_reconciliation_identity_enrichment
                             or allowed_sidecar_identity_repair
                         ):
                             raise QualificationRunError(
@@ -18354,6 +18409,11 @@ class QualificationRunCoordinator:
                         and field in after_fields
                         and after_fields[field] == projected_fields[field]
                     )
+                    exact_current_source_value = bool(
+                        field in current_source_fields
+                        and field in after_fields
+                        and after_fields[field] == current_source_fields[field]
+                    )
                     if before_fields is not None and field in before_fields:
                         exact_server_derived_change = bool(
                             field in allowed_derived_fields
@@ -18369,14 +18429,24 @@ class QualificationRunCoordinator:
                             and source_fields is not None
                             and source_fields.get(field) == before_fields[field]
                         )
+                        removed_legacy_content_copy = bool(
+                            run.get("failedDeltaReconciliation") is True
+                            and field not in after_fields
+                            and (
+                                field in current_source_fields
+                                or field in projected_fields
+                            )
+                        )
                         if (
                             not exact_server_derived_change
                             and not exact_server_derived_removal
                             and not removed_redundant_source_copy
+                            and not removed_legacy_content_copy
                             and not exact_projected_value
+                            and not exact_current_source_value
                             and (
-                            field not in after_fields
-                            or after_fields[field] != before_fields[field]
+                                field not in after_fields
+                                or after_fields[field] != before_fields[field]
                             )
                         ):
                             raise QualificationRunError(
@@ -18384,7 +18454,7 @@ class QualificationRunCoordinator:
                                 f"{relative} / {field}"
                             )
                     elif field in after_fields:
-                        if exact_projected_value:
+                        if exact_projected_value or exact_current_source_value:
                             continue
                         if (
                             field in allowed_derived_fields
