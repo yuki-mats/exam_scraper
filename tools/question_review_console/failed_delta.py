@@ -577,17 +577,31 @@ def _aligned_scope_coverage(
     Record identity aliases are enriched as the workflow learns stable source
     bindings.  Requiring byte-identical alias sets would leave an old failure
     unresolved even after the same record was verified.  A later scope counts
-    only when its aliases intersect exactly one failed scope; shared aliases
-    that could refer to several records remain unresolved.
+    when it contains an alias owned by exactly one failed scope.  Question-level
+    aliases shared by several records neither create ambiguity nor establish
+    identity on their own.  If no unique alias is available, the scope still
+    counts only when all intersecting aliases point to one failed record.
     """
 
     failed_aliases = {
         group: set(group)
         for group in failed_groups
     }
+    alias_owners: dict[str, set[tuple[str, ...]]] = {}
+    for failed_group, aliases in failed_aliases.items():
+        for alias in aliases:
+            alias_owners.setdefault(alias, set()).add(failed_group)
     covered: set[tuple[str, ...]] = set()
     for succeeded_group in succeeded_groups:
         aliases = set(succeeded_group)
+        unique_matches = {
+            next(iter(owners))
+            for alias in aliases
+            if len(owners := alias_owners.get(alias, set())) == 1
+        }
+        if len(unique_matches) == 1:
+            covered.update(unique_matches)
+            continue
         matches = [
             failed_group
             for failed_group, values in failed_aliases.items()

@@ -232,6 +232,45 @@ class FailedDeltaTests(unittest.TestCase):
 
         self.assertEqual(blocked, (relative.as_posix(),))
 
+    def test_unique_aliases_resolve_records_despite_shared_question_alias(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "21_explanationText_added/aggregate.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            runs = root / "output/question_review_console/workflow_runs/sample"
+            failed_contract = self._contract(relative)
+            failed_contract["targetRecordScopes"] = {
+                relative.as_posix(): [
+                    ["shared-question", "legacy-record-1"],
+                    ["shared-question", "legacy-record-2"],
+                ]
+            }
+            self._write_contract_manifest(
+                runs / "20260101-failed/manifest.json",
+                status="failed",
+                relative=relative,
+                contract=failed_contract,
+            )
+            succeeded_contract = self._contract(relative)
+            succeeded_contract["targetRecordScopes"] = {
+                relative.as_posix(): [
+                    ["shared-question", "legacy-record-1", "source.json#0"],
+                    ["shared-question", "legacy-record-2", "source.json#1"],
+                ]
+            }
+            self._write_contract_manifest(
+                runs / "20260102-succeeded/manifest.json",
+                status="succeeded",
+                relative=relative,
+                contract=succeeded_contract,
+            )
+
+            resolved = unresolved_failed_delta_paths(root, "sample", "2026")
+
+        self.assertEqual(resolved, ())
+
     def test_successful_rollback_does_not_leave_failed_delta(self):
         relative = Path(
             "output/sample/questions_json/2026/"
