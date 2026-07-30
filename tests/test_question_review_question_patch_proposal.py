@@ -239,6 +239,51 @@ class IsolatedQuestionPatchWorkspaceTests(unittest.TestCase):
         self.assertFalse(second.is_alive())
         self.assertTrue(second_acquired.is_set())
 
+    def test_error_recovery_runs_before_the_same_path_lock_is_released(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workspaces = [
+                self._lock_only_workspace(root, f"error-recovery-{index}")
+                for index in range(2)
+            ]
+            work_version_path = Path(
+                "output/question_review_console/sample/group/"
+                "work_versions/question-a.json"
+            )
+            second_attempting = threading.Event()
+            second_acquired = threading.Event()
+            second_threads: list[threading.Thread] = []
+
+            def acquire_same_path() -> None:
+                second_attempting.set()
+                with workspaces[1].canonical_transaction(
+                    (),
+                    lock_paths=(work_version_path,),
+                ):
+                    second_acquired.set()
+
+            def recover_before_unlock(_exc: BaseException) -> None:
+                second = threading.Thread(target=acquire_same_path)
+                second_threads.append(second)
+                second.start()
+                self.assertTrue(second_attempting.wait(1))
+                time.sleep(0.02)
+                self.assertFalse(second_acquired.is_set())
+
+            with self.assertRaisesRegex(RuntimeError, "candidate failed"):
+                with workspaces[0].canonical_transaction(
+                    (),
+                    lock_paths=(work_version_path,),
+                    before_release_on_error=recover_before_unlock,
+                ):
+                    raise RuntimeError("candidate failed")
+            for second in second_threads:
+                second.join(2)
+
+        self.assertTrue(second_threads)
+        self.assertTrue(all(not thread.is_alive() for thread in second_threads))
+        self.assertTrue(second_acquired.is_set())
+
     def test_lock_only_transactions_allow_distinct_actual_paths(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

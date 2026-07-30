@@ -525,9 +525,10 @@ class IsolatedQuestionPatchWorkspace:
         *,
         lock_paths: list[str | Path] | tuple[str | Path, ...] = (),
         on_acquired: Callable[[float, tuple[str, ...]], None] | None = None,
+        before_release_on_error: Callable[[BaseException], None] | None = None,
         on_released: Callable[[], None] | None = None,
     ):
-        """Hold exact canonical file locks for one deterministic transaction."""
+        """Hold exact canonical file locks through commit or error recovery."""
 
         relative_paths = tuple(
             sorted(
@@ -579,11 +580,16 @@ class IsolatedQuestionPatchWorkspace:
                 except Exception:
                     pass
             try:
-                yield LockedCanonicalPatchTransaction(
-                    self,
-                    relative_paths,
-                    transaction_lock_paths,
-                )
+                try:
+                    yield LockedCanonicalPatchTransaction(
+                        self,
+                        relative_paths,
+                        transaction_lock_paths,
+                    )
+                except BaseException as exc:
+                    if before_release_on_error is not None:
+                        before_release_on_error(exc)
+                    raise
             finally:
                 if on_released is not None:
                     try:

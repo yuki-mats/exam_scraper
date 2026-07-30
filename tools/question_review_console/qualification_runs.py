@@ -1025,6 +1025,44 @@ class QualificationRunError(RuntimeError):
     pass
 
 
+def _question_plan_list_group_id(
+    question_plan: Mapping[str, Any],
+) -> str:
+    """Resolve one question's server-owned group identity from its run plan."""
+
+    progress_group_ids = {
+        str(target.get("listGroupId") or "").strip()
+        for target in question_plan.get("progressTargets") or []
+        if isinstance(target, Mapping)
+        and str(target.get("listGroupId") or "").strip()
+    }
+    scope_group_ids = {
+        str(value).strip()
+        for value in question_plan.get("targetGroupIds") or []
+        if str(value).strip()
+    }
+    if len(progress_group_ids) > 1 or len(scope_group_ids) > 1:
+        raise QualificationRunError(
+            "一問のlistGroupIdを実行計画から一意に確定できません。"
+        )
+    progress_group_id = next(iter(progress_group_ids), "")
+    scope_group_id = next(iter(scope_group_ids), "")
+    if (
+        progress_group_id
+        and scope_group_id
+        and progress_group_id != scope_group_id
+    ):
+        raise QualificationRunError(
+            "一問のlistGroupIdが実行計画内で一致しません。"
+        )
+    list_group_id = progress_group_id or scope_group_id
+    if not list_group_id:
+        raise QualificationRunError(
+            "一問のlistGroupIdを実行計画から確認できません。"
+        )
+    return list_group_id
+
+
 def normalize_question_concurrency(value: Any) -> int:
     option_labels = "、".join(str(option) for option in QUESTION_CONCURRENCY_OPTIONS)
     if isinstance(value, bool):
@@ -14826,10 +14864,8 @@ class QualificationRunCoordinator:
                             )
                             server_set_fields = _server_law_audit_fields(
                                 qualification=qualification,
-                                list_group_id=str(
-                                    projected.get("list_group_id")
-                                    or projected.get("listGroupId")
-                                    or ""
+                                list_group_id=_question_plan_list_group_id(
+                                    question_plan
                                 ),
                                 run_id=run_id,
                                 policy_version=policy_version,
@@ -14913,6 +14949,28 @@ class QualificationRunCoordinator:
                         )
                         continue
 
+                    def rollback_before_canonical_unlock(
+                        _exc: BaseException,
+                    ) -> None:
+                        nonlocal rollback
+                        if not baseline_captured:
+                            return
+                        if canonical_write_started:
+                            rollback = self.store.rollback_baseline(
+                                qualification,
+                                run_id,
+                            )
+                            return
+                        observed_delta = self.store.baseline_delta(
+                            qualification,
+                            run_id,
+                        )
+                        rollback = self.store.close_unwritten_baseline(
+                            qualification,
+                            run_id,
+                            observed_changed_files=observed_delta or [],
+                        )
+
                     try:
                         with workspace.canonical_transaction(
                             sorted(candidate_paths),
@@ -14922,6 +14980,9 @@ class QualificationRunCoordinator:
                                 else ()
                             ),
                             on_acquired=record_patch_lock_acquired,
+                            before_release_on_error=(
+                                rollback_before_canonical_unlock
+                            ),
                             on_released=on_patch_lock_released,
                         ) as canonical_transaction:
                             transaction_roots = tuple(
@@ -15051,40 +15112,6 @@ class QualificationRunCoordinator:
                     except CanonicalPatchCommitError as exc:
                         committed_for_question.update(exc.committed_files)
                         committed_files.update(exc.committed_files)
-                        if baseline_captured:
-                            rollback = (
-                                self.store.rollback_baseline(
-                                    qualification,
-                                    run_id,
-                                )
-                                if canonical_write_started
-                                else self.store.close_unwritten_baseline(
-                                    qualification,
-                                    run_id,
-                                )
-                            )
-                        raise
-                    except Exception:
-                        if baseline_captured:
-                            if canonical_write_started:
-                                rollback = self.store.rollback_baseline(
-                                    qualification,
-                                    run_id,
-                                )
-                            else:
-                                observed_delta = self.store.baseline_delta(
-                                    qualification,
-                                    run_id,
-                                )
-                                rollback = (
-                                    self.store.close_unwritten_baseline(
-                                        qualification,
-                                        run_id,
-                                        observed_changed_files=(
-                                            observed_delta or []
-                                        ),
-                                    )
-                                )
                         raise
 
                     inventory = getattr(self.workflow, "inventory", None)

@@ -34,6 +34,7 @@ from tools.question_review_console.qualification_runs import (
     _isolated_turn_timeout,
     _law_reference_discovery_plan,
     _prepared_candidate_envelope,
+    _question_plan_list_group_id,
     _restore_resume_target_aliases,
     _resume_orchestration_selections_match,
     _source_binding_accepts_identity,
@@ -996,6 +997,39 @@ class ResumePolicyCompatibilityTests(unittest.TestCase):
 
 
 class ServerLawAuditFieldsTests(unittest.TestCase):
+    def test_group_identity_comes_from_the_one_question_plan(self):
+        self.assertEqual(
+            _question_plan_list_group_id(
+                {
+                    "targetGroupIds": ["2026"],
+                    "progressTargets": [
+                        {
+                            "id": "question-1",
+                            "listGroupId": "2026",
+                        }
+                    ],
+                }
+            ),
+            "2026",
+        )
+
+    def test_conflicting_group_identity_is_rejected(self):
+        with self.assertRaisesRegex(
+            QualificationRunError,
+            "実行計画内で一致しません",
+        ):
+            _question_plan_list_group_id(
+                {
+                    "targetGroupIds": ["2025"],
+                    "progressTargets": [
+                        {
+                            "id": "question-1",
+                            "listGroupId": "2026",
+                        }
+                    ],
+                }
+            )
+
     def test_server_owns_reproducible_sidecar_metadata(self):
         observed_at = datetime(2026, 7, 22, 5, 0, tzinfo=timezone.utc)
         projected = {
@@ -6609,6 +6643,140 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             "new-exam-2026-q2",
         )
         self.assertFalse(failed_patch_exists)
+
+    def test_shared_law_sidecar_rollback_preserves_the_sibling_commit(self):
+        class TwoLawQuestionInventory(CountedSourceInventory):
+            def __init__(self):
+                super().__init__(2)
+
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                for question in group["questions"]:
+                    question["isLawRelated"] = True
+                    question["projected"] = {
+                        **question["projected"],
+                        "examYear": 2026,
+                        "isLawRelated": True,
+                        "lawGroundedExplanationNotNeeded": False,
+                        "choiceTextList": ["法令上の記述"],
+                        "correctChoiceText": ["正しい"],
+                        "explanationText": [
+                            "正しい。ガス事業法第2条の定義に該当する。"
+                        ],
+                        "lawReferences": [
+                            [
+                                {
+                                    "role": "current_basis",
+                                    "scope": "choice",
+                                    "choiceIndex": 0,
+                                    "lawId": "329AC0000000051",
+                                    "lawTitle": "ガス事業法",
+                                    "referenceDate": "2026-07-24",
+                                    "article": "第2条",
+                                    "verificationStatus": "verified",
+                                    "source": (
+                                        "https://elaws.e-gov.go.jp/document"
+                                        "?lawid=329AC0000000051"
+                                    ),
+                                }
+                            ]
+                        ],
+                        "lawRevisionFacts": [
+                            {
+                                "auditStatus": "same_as_current",
+                                "reviewState": "secondary_verified",
+                                "reconciliationStatus": "matched",
+                                "current": {"correctChoiceText": "正しい"},
+                                "examTime": {"correctChoiceText": "正しい"},
+                                "differenceFacts": [],
+                                "answerImpactFacts": [],
+                                "notes": [],
+                                "evidenceSummary": {
+                                    "verdict": "correct",
+                                    "explanationText": "一次情報と照合した。",
+                                    "differenceSummary": "差分なし。",
+                                    "promptContext": "一次情報との照合。",
+                                    "displayRefIds": [],
+                                    "refs": [],
+                                },
+                            }
+                        ],
+                    }
+                    question["projected"].pop("listGroupId", None)
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = PerQuestionQueueAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                TwoLawQuestionInventory(),
+                ["law_audit"],
+                app_server=app_server,
+                question_concurrency=5,
+            )
+            original_update = coordinator.store.update
+            failed_checkpoints = 0
+
+            def fail_first_success_checkpoint(qualification, run_id, **changes):
+                nonlocal failed_checkpoints
+                results = changes.get("batchQuestionResults") or []
+                if (
+                    failed_checkpoints == 0
+                    and changes.get("executionPhase")
+                    == "server_candidate_checkpoint"
+                    and results
+                    and results[-1].get("status") == "succeeded"
+                ):
+                    failed_checkpoints += 1
+                    raise OSError("checkpoint unavailable")
+                return original_update(qualification, run_id, **changes)
+
+            with patch.object(
+                coordinator.store,
+                "update",
+                side_effect=fail_first_success_checkpoint,
+            ):
+                result = coordinator._run_maintenance_flow(
+                    "new-exam",
+                    parent["runId"],
+                    lambda _message: None,
+                )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            children = _question_attempts(
+                coordinator.store,
+                "new-exam",
+                completed,
+            )
+            sidecar = (
+                root
+                / "output/new-exam/review/law_revision_audit/"
+                "2026_law_revision_audit.jsonl"
+            )
+            self.assertTrue(sidecar.is_file(), completed)
+            sidecar_rows = [
+                json.loads(line)
+                for line in sidecar.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(failed_checkpoints, 1)
+        self.assertEqual(completed["validatedQuestionCount"], 1)
+        self.assertEqual(completed["blockedQuestionCount"], 1)
+        self.assertEqual(len(sidecar_rows), 1)
+        self.assertEqual(sidecar_rows[0]["listGroupId"], "2026")
+        self.assertEqual(
+            {
+                child["rollback"]["status"]
+                for child in children
+                if child.get("rollback")
+            },
+            {"succeeded", "not_required"},
+        )
+        self.assertTrue(
+            all(child.get("deltaUnknown") is not True for child in children)
+        )
 
     def test_validation_failure_never_writes_and_closes_transaction(self):
         patch_relative = (
