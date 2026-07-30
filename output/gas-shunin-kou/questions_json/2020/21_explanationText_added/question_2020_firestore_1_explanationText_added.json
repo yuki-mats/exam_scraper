@@ -2283,40 +2283,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "正しい。自然換気では、風圧による圧力差と、室内外の温度差によって生じる浮力が空気の流れを起こす主な力になる。",
-      "間違い。必要換気量は、室内の酸素濃度をある限界に保つために必要な最小換気量として扱う。CO濃度を保つためとしている点が誤り。",
-      "間違い。調理室の必要換気量の式自体はよいが、排気フードI型の定数は30である。40は排気フードなしの場合の定数であり、I型の定数としては誤り。",
-      "間違い。自然換気回数0.5回/hは、1時間あたり室容積の0.5倍が自然換気されるという意味である。室容積の2倍ではない。",
-      "正しい。COはヘモグロビンと強く結合し、その結合力は酸素の約200〜300倍とされるため、酸素運搬を阻害して中毒を起こす。"
-    ],
-    "suggestedQuestions": [
-      "自然換気の空気の流れは風圧と温度差による浮力で生じる？",
-      "必要換気量はCO濃度をある限界以下に保つための最小換気量？",
-      "排気フードI型を使用する場合の必要換気量の定数は40？",
-      "自然換気回数0.5回/hなら1時間あたり室容積の2倍が換気される？",
-      "COのヘモグロビンへの結合力は酸素の約200〜300倍強い？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "自然換気の空気の流れは風圧と温度差による浮力で生じる？",
-        "answer": "生じる。自然換気では風圧差と、温度差による浮力が空気の流れを生じさせる。"
-      },
-      {
-        "question": "必要換気量はCO濃度をある限界以下に保つための最小換気量？",
-        "answer": "誤り。必要換気量は室内の酸素濃度をある限界に保つための最小換気量であり、CO濃度を基準にした説明ではない。"
-      },
-      {
-        "question": "排気フードI型を使用する場合の必要換気量の定数は40？",
-        "answer": "誤り。排気フードI型の定数は30であり、40は排気フードなしの場合の定数である。"
-      },
-      {
-        "question": "自然換気回数0.5回/hなら1時間あたり室容積の2倍が換気される？",
-        "answer": "誤り。0.5回/hは1時間に室容積の0.5倍が換気されることを示す。2倍ではない。"
-      },
-      {
-        "question": "COのヘモグロビンへの結合力は酸素の約200〜300倍強い？",
-        "answer": "正しい。COはヘモグロビンに酸素より非常に強く結合し、酸素運搬を妨げる。"
-      }
+      "正しい。自然換気で空気の流れを生じさせる主な力には、風による圧力差と、室内外の温度差による浮力がある。",
+      "間違い。必要換気量は、燃焼に必要な室内の酸素濃度を所定の限界以上に保つための最小換気量をいう。室内のCO濃度をある限界以下に保つための量とする説明は誤りである。",
+      "間違い。必要換気量を示す式は正しいが、排気フードI型を使用する場合の定数は30である。定数40は排気フードを使用しない場合に対応する。",
+      "間違い。自然換気回数0.5回/hとは、1時間に室容積の0.5倍に相当する空気が換気されることを表す。室容積の2倍ではない。",
+      "正しい。COのヘモグロビンに対する結合力は酸素の約200～300倍と強く、血液による酸素運搬を妨げて中毒を引き起こす。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -2344,7 +2315,142 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 3 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:shohi:q24",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1475,chiefgasengineerlicense-A-60-1476,chiefgasengineerlicense-A-60-1477,chiefgasengineerlicense-A-60-1478,chiefgasengineerlicense-A-60-1479",
+    "sourceRecordRef": "question_2020_firestore_1.json#16",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、自然換気、必要換気量及び一酸化炭素中毒に関する技術・理論問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤の差はない。",
+          "displayRefIds": [],
+          "explanationText": "自然換気を生じさせる風圧と温度差による浮力についての技術記述である。",
+          "promptContext": "自然換気の駆動力に関する記述",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける記述ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤の差はない。",
+          "displayRefIds": [],
+          "explanationText": "必要換気量の基準をCO濃度とする点が誤りであり、燃焼に必要な酸素濃度を保つための最小換気量として扱う。",
+          "promptContext": "必要換気量の定義に関する記述",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受ける記述ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤の差はない。",
+          "displayRefIds": [],
+          "explanationText": "排気フードI型の定数は30であり、40とする点が誤りである。",
+          "promptContext": "調理室の必要換気量と排気フードの定数に関する記述",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受ける記述ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤の差はない。",
+          "displayRefIds": [],
+          "explanationText": "換気回数0.5回/hに対応する1時間の換気量は室容積の0.5倍であり、2倍ではない。",
+          "promptContext": "自然換気回数と換気量の関係に関する記述",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受ける記述ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤の差はない。",
+          "displayRefIds": [],
+          "explanationText": "COは酸素よりも著しく強くヘモグロビンと結合するという中毒機序に関する技術記述である。",
+          "promptContext": "一酸化炭素中毒の発生機序に関する記述",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける記述ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1480,chiefgasengineerlicense-A-60-1481,chiefgasengineerlicense-A-60-1482,chiefgasengineerlicense-A-60-1483,chiefgasengineerlicense-A-60-1484",
@@ -3053,40 +3159,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "正しい。ガス又は液化ガスを通ずる部分には、点検・修理時などに可燃物を安全に置換できるよう、ガス抜き口や不活性ガスの注入口等を設ける必要がある。",
-      "間違い。保安電力は、そのままガス送出を継続するためではなく、停電時などに製造設備を安全に停止させるために確保する。ガス送出継続のためとしている点が誤り。",
-      "正しい。人為的なミスや機器故障時などに保安を確保するため、計装回路のうち保安上重要な箇所には適切なインターロック機構を設ける。",
-      "正しい。LNG1次受入基地用アンローディングアームには、緊急時の安全対策として緊急遮断システム（ESDS）や緊急離脱装置（ERS）がある。",
-      "間違い。低気温発生時には、水配管の凍結防止対策だけでなく、LNG気化器でも着氷増加や出口ガス温度低下などに注意が必要である。特段の注意は必要ないとしている点が誤り。"
-    ],
-    "suggestedQuestions": [
-      "ガス又は液化ガスを通ずる部分にはガス抜き口や不活性ガス注入口等が必要？",
-      "保安電力は停電時にもそのままガス送出を継続するために確保する？",
-      "保安上重要な計装回路にはインターロック機構を設ける？",
-      "LNG1次受入基地用アンローディングアームにはESDSやERSがある？",
-      "低気温時でもLNG気化器には特段の注意は不要？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ガス又は液化ガスを通ずる部分にはガス抜き口や不活性ガス注入口等が必要？",
-        "answer": "必要である。点検・修理時などに可燃物を安全に置換できるようにするため、ガス抜き口や不活性ガス注入口等を設ける。"
-      },
-      {
-        "question": "保安電力は停電時にもそのままガス送出を継続するために確保する？",
-        "answer": "継続のためではない。保安電力は、停電時などに製造設備を安全に停止させるために確保する。"
-      },
-      {
-        "question": "保安上重要な計装回路にはインターロック機構を設ける？",
-        "answer": "設ける。人為的ミスや機器故障時などに保安の確保を確実にするため、重要箇所にインターロック機構を設ける。"
-      },
-      {
-        "question": "LNG1次受入基地用アンローディングアームにはESDSやERSがある？",
-        "answer": "ある。緊急時の安全対策として、緊急遮断システム（ESDS）や緊急離脱装置（ERS）がある。"
-      },
-      {
-        "question": "低気温時でもLNG気化器には特段の注意は不要？",
-        "answer": "不要ではない。低気温時は、LNG気化器の着氷増加や出口ガス温度低下などに注意が必要である。"
-      }
+      "正しい。ガス又は液化ガスを通ずる部分には、点検・修理時などに内部の可燃性物質を安全に排出又は不活性ガスで置換できるよう、ガス抜き口や不活性ガス注入口などを設ける必要がある。",
+      "間違い。保安電力は、停電時にも通常どおりガス送出を継続することを目的とするものではない。停電などの際に必要な保安機能を維持し、製造設備を安全に停止させるために確保する。",
+      "正しい。人為的ミスや機器故障が生じても危険な操作や状態の進行を防げるよう、保安上重要な計装回路には適切なインターロック機構を設ける。",
+      "正しい。LNG1次受入基地用アンローディングアームには、緊急時にLNGの移送を遮断する緊急遮断システム（ESDS）や、船と陸側設備を安全に切り離す緊急離脱装置（ERS）が用いられる。",
+      "間違い。低気温時には水配管の凍結防止だけでなく、LNG気化器についても着氷の増加や出口ガス温度の低下などに注意する必要がある。LNG自体が超低温であることを理由に、特段の注意が不要になるわけではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -3112,7 +3189,142 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 2 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:seizo:q06",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1395,chiefgasengineerlicense-A-40-1396,chiefgasengineerlicense-A-40-1397,chiefgasengineerlicense-A-40-1398,chiefgasengineerlicense-A-40-1399",
+    "sourceRecordRef": "question_2020_firestore_1.json#23",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文ではなく、製造所の保安設備、停電時の安全停止、計装インターロック及びLNG設備の安全運用に関する技術知識を根拠とする問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外であり、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "点検・修理時などに可燃性物質を安全に排出又は置換できる設備を設けるという技術記述である。",
+          "promptContext": "ガス又は液化ガスを通ずる部分のガス抜き口及び不活性ガス注入口に関する記述。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正比較を要しない技術肢。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外であり、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "保安電力の目的は通常のガス送出継続ではなく、停電時に必要な保安機能を維持して設備を安全に停止させることである。",
+          "promptContext": "停電時に確保する保安電力の目的に関する記述。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正比較を要しない技術肢。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外であり、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "人為的ミスや機器故障による危険を防止するため、保安上重要な計装回路にインターロック機構を設けるという技術記述である。",
+          "promptContext": "保安上重要な計装回路のインターロック機構に関する記述。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正比較を要しない技術肢。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外であり、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "LNG受入用アンローディングアームには、緊急時の移送遮断と安全な離脱のためにESDS及びERSが用いられる。",
+          "promptContext": "LNG1次受入基地用アンローディングアームの緊急安全設備に関する記述。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正比較を要しない技術肢。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外であり、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "低気温時のLNG気化器では、着氷の増加や出口ガス温度の低下などに注意する必要がある。",
+          "promptContext": "低気温時における水配管及びLNG気化器の注意事項に関する記述。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正比較を要しない技術肢。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1400,chiefgasengineerlicense-A-40-1401,chiefgasengineerlicense-A-40-1402,chiefgasengineerlicense-A-40-1403,chiefgasengineerlicense-A-40-1404",

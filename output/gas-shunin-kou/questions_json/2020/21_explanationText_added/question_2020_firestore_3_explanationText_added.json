@@ -195,40 +195,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "間違い。水素と窒素の体積比1:4はモル比1:4なので、混合ガス1kmolの質量は2×1/5+28×4/5=22.8kgである。46kgは約2kmolとなり、P=nRT/V≒5MPaであるため、0.5MPaではない。",
-      "間違い。46kgの混合ガスは約2kmolであり、27℃を300Kとして理想気体の状態方程式に代入すると、圧力は約5MPaとなる。1MPaではない。",
-      "間違い。n≒46/22.8=2.0kmol、T=300K、V=1.0m3より、P=(2.0×10^3×8.3×300)/1.0≒5.0×10^6Pa=5MPaである。2MPaではない。",
-      "間違い。理想気体の状態方程式から求める圧力は約5MPaであり、4MPaより5MPaに最も近い。",
-      "正しい。混合ガス1kmolの質量は22.8kgなので46kgは約2kmolである。P=nRT/V=(2.0×10^3×8.3×300)/1.0≒5.0×10^6Pa=5MPaとなる。"
-    ],
-    "suggestedQuestions": [
-      "充てん後の圧力は0.5MPaに最も近い？",
-      "充てん後の圧力は1MPaに最も近い？",
-      "充てん後の圧力は2MPaに最も近い？",
-      "充てん後の圧力は4MPaに最も近い？",
-      "充てん後の圧力は5MPaに最も近い？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "充てん後の圧力は0.5MPaに最も近い？",
-        "answer": "間違い。水素と窒素の体積比1:4はモル比1:4なので、混合ガス1kmolの質量は2×1/5+28×4/5=22.8kgである。46kgは約2kmolとなり、P=nRT/V≒5MPaであるため、0.5MPaではない。"
-      },
-      {
-        "question": "充てん後の圧力は1MPaに最も近い？",
-        "answer": "間違い。46kgの混合ガスは約2kmolであり、27℃を300Kとして理想気体の状態方程式に代入すると、圧力は約5MPaとなる。1MPaではない。"
-      },
-      {
-        "question": "充てん後の圧力は2MPaに最も近い？",
-        "answer": "間違い。n≒46/22.8=2.0kmol、T=300K、V=1.0m3より、P=(2.0×10^3×8.3×300)/1.0≒5.0×10^6Pa=5MPaである。2MPaではない。"
-      },
-      {
-        "question": "充てん後の圧力は4MPaに最も近い？",
-        "answer": "間違い。理想気体の状態方程式から求める圧力は約5MPaであり、4MPaより5MPaに最も近い。"
-      },
-      {
-        "question": "充てん後の圧力は5MPaに最も近い？",
-        "answer": "正しい。混合ガス1kmolの質量は22.8kgなので46kgは約2kmolである。P=nRT/V=(2.0×10^3×8.3×300)/1.0≒5.0×10^6Pa=5MPaとなる。"
-      }
+      "水素と窒素の体積比1:4は、理想気体ではモル比1:4とみなせる。したがって、混合ガスの平均モル質量は 2×1/5+28×4/5=22.8 kg/kmol、46 kgの物質量は 46/22.8≒2.02 kmol である。温度27℃を300 Kとして理想気体の状態方程式 P=nRT/V に代入すると、P≒(2.02×10³×8.3×300)/1.0≒5.02×10⁶ Pa=5.02 MPaとなる。よって、最も近い値は5 MPaである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -249,7 +216,142 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2020:kiso:q02",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-2-1,gasushunin-koushu-kiso-2020-2-2,gasushunin-koushu-kiso-2020-2-3,gasushunin-koushu-kiso-2020-2-4,chiefgasengineerlicense-C-10110",
+    "sourceRecordRef": "question_2020_firestore_3.json#1",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術計算問題。混合気体の平均モル質量と理想気体の状態方程式により判断する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "計算結果は約5.02 MPaであり、0.5 MPaではない。",
+          "promptContext": "混合気体の平均モル質量と理想気体の状態方程式による判定。",
+          "refs": [],
+          "verdict": "法令非関連・判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "理想気体の状態方程式による技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "計算結果は約5.02 MPaであり、1 MPaではない。",
+          "promptContext": "混合気体の平均モル質量と理想気体の状態方程式による判定。",
+          "refs": [],
+          "verdict": "法令非関連・判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "理想気体の状態方程式による技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "計算結果は約5.02 MPaであり、2 MPaではない。",
+          "promptContext": "混合気体の平均モル質量と理想気体の状態方程式による判定。",
+          "refs": [],
+          "verdict": "法令非関連・判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "理想気体の状態方程式による技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "計算結果は約5.02 MPaであり、4 MPaより5 MPaに近い。",
+          "promptContext": "混合気体の平均モル質量と理想気体の状態方程式による判定。",
+          "refs": [],
+          "verdict": "法令非関連・判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "理想気体の状態方程式による技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外で、判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "計算結果は約5.02 MPaであり、最も近い値は5 MPaである。",
+          "promptContext": "混合気体の平均モル質量と理想気体の状態方程式による判定。",
+          "refs": [],
+          "verdict": "法令非関連・判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "理想気体の状態方程式による技術計算肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10111,chiefgasengineerlicense-C-10112,chiefgasengineerlicense-C-10113,chiefgasengineerlicense-C-10114,chiefgasengineerlicense-C-10115",

@@ -16,40 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
     "explanationText": [
-      "間違い。質量比1：1なので、プロパンとブタンの物質量はそれぞれ1/44、1/58である。プロパンのモル分率は58/102、ブタンは44/102となり、蒸気圧は(58/102)×1.0+(44/102)×0.3≒0.70MPaであるため、0.6MPaではない。",
-      "間違い。ラウールの法則より全蒸気圧は各成分のモル分率と蒸気圧の積の和で求める。計算値は約0.70MPaであり、0.65MPaではない。",
-      "正しい。プロパンのモル分率は(1/44)/(1/44+1/58)、ブタンのモル分率は(1/58)/(1/44+1/58)である。よってP=(1/44)/(1/44+1/58)×1.0+(1/58)/(1/44+1/58)×0.3≒0.70MPaとなり、0.7MPaが正しい。",
-      "間違い。質量比からモル分率に換算してラウールの法則を用いると、全蒸気圧は約0.70MPaとなる。0.75MPaではない。",
-      "間違い。プロパンだけの蒸気圧1.0MPaに近づけるのではなく、ブタンのモル分率分だけ0.3MPaを加重平均するため、全蒸気圧は約0.70MPaである。0.8MPaではない。"
-    ],
-    "suggestedQuestions": [
-      "液化ガスの蒸気圧は0.6MPa？",
-      "液化ガスの蒸気圧は0.65MPa？",
-      "液化ガスの蒸気圧は0.7MPa？",
-      "液化ガスの蒸気圧は0.75MPa？",
-      "液化ガスの蒸気圧は0.8MPa？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "液化ガスの蒸気圧は0.6MPa？",
-        "answer": "質量比1：1なので、プロパンとブタンの物質量はそれぞれ1/44、1/58である。プロパンのモル分率は58/102、ブタンは44/102となり、蒸気圧は(58/102)×1.0+(44/102)×0.3≒0.70MPaであるため、0.6MPaではない。"
-      },
-      {
-        "question": "液化ガスの蒸気圧は0.65MPa？",
-        "answer": "ラウールの法則より全蒸気圧は各成分のモル分率と蒸気圧の積の和で求める。計算値は約0.70MPaであり、0.65MPaではない。"
-      },
-      {
-        "question": "液化ガスの蒸気圧は0.7MPa？",
-        "answer": "プロパンのモル分率は(1/44)/(1/44+1/58)、ブタンのモル分率は(1/58)/(1/44+1/58)である。よってP=(1/44)/(1/44+1/58)×1.0+(1/58)/(1/44+1/58)×0.3≒0.70MPaとなり、0.7MPaが正しい。"
-      },
-      {
-        "question": "液化ガスの蒸気圧は0.75MPa？",
-        "answer": "質量比からモル分率に換算してラウールの法則を用いると、全蒸気圧は約0.70MPaとなる。0.75MPaではない。"
-      },
-      {
-        "question": "液化ガスの蒸気圧は0.8MPa？",
-        "answer": "プロパンだけの蒸気圧1.0MPaに近づけるのではなく、ブタンのモル分率分だけ0.3MPaを加重平均するため、全蒸気圧は約0.70MPaである。0.8MPaではない。"
-      }
+      "質量比が1：1でも、モル質量が異なるためモル分率は1：1にならない。各成分の質量を同じくmとすると、プロパンとブタンの物質量はそれぞれm/44、m/58である。したがって、プロパンのモル分率は(1/44)/(1/44＋1/58)＝58/102、ブタンのモル分率は44/102となる。ラウールの法則より、全蒸気圧Pは、P＝(58/102)×1.0＋(44/102)×0.3≒0.698 MPaである。よって、最も近い値は0.7 MPaである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -77,7 +44,135 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q02",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2019-2-1,gasushunin-koushu-kiso-2019-2-2,chiefgasengineerlicense-C-10145,gasushunin-koushu-kiso-2019-2-4,gasushunin-koushu-kiso-2019-2-5",
+    "sourceRecordRef": "question_2019_firestore_3.json#0",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令を主要根拠としない計算問題。質量比を物質量比へ換算し、各成分のモル分率と蒸気圧からラウールの法則で全蒸気圧を求める。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "ラウールの法則による計算値は約0.70 MPaであり、0.6 MPaではない。",
+          "promptContext": "質量比1：1のプロパン・ブタン混合液の全蒸気圧を求める。",
+          "refs": [],
+          "verdict": "試験時と現在の判定は同じ。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "ラウールの法則による計算値は約0.70 MPaであり、0.65 MPaではない。",
+          "promptContext": "質量比1：1のプロパン・ブタン混合液の全蒸気圧を求める。",
+          "refs": [],
+          "verdict": "試験時と現在の判定は同じ。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "質量比をモル分率へ換算してラウールの法則を適用すると約0.698 MPaとなるため、最も近い値は0.7 MPaである。",
+          "promptContext": "質量比1：1のプロパン・ブタン混合液の全蒸気圧を求める。",
+          "refs": [],
+          "verdict": "試験時と現在の判定は同じ。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "ラウールの法則による計算値は約0.70 MPaであり、0.75 MPaではない。",
+          "promptContext": "質量比1：1のプロパン・ブタン混合液の全蒸気圧を求める。",
+          "refs": [],
+          "verdict": "試験時と現在の判定は同じ。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "ラウールの法則による計算値は約0.70 MPaであり、0.8 MPaではない。",
+          "promptContext": "質量比1：1のプロパン・ブタン混合液の全蒸気圧を求める。",
+          "refs": [],
+          "verdict": "試験時と現在の判定は同じ。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受けない技術計算肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10146,chiefgasengineerlicense-C-10147,chiefgasengineerlicense-C-10148,chiefgasengineerlicense-C-10149,chiefgasengineerlicense-C-10150",

@@ -9,11 +9,11 @@
     ],
     "examLabel": null,
     "explanationText": [
-      "正しい。生産保全は、予防保全、事後保全、改良保全、保全予防を柱として、保全活動だけでなく設備改良や新設備建設まで含めて経済性を追求する考え方である。",
-      "正しい。リスクベース保全（RBM）は、設備各部位の保全の重要度や緊急度を損傷事例や寿命評価理論を基に評価し、リスクを影響度と発生確率の組合せで表して優先度を付ける保全方式である。",
-      "正しい。鉄鋼材料では一定以下の応力振幅で無限に繰り返しても破断しない疲労限度がある一方、アルミニウム合金などの非鉄合金では明確な疲労限度が存在しない。",
-      "正しい。局所的に深い孔状の浸食を生じる腐食を孔食といい、炭素鋼の孔食は溶存酸素の供給差による通気差電池の形成で生じることがある。",
-      "間違い。漏れが生じた場合に増締めにより止まることがあるのは、グランドパッキン方式やリップパッキン方式である。メカニカル方式について同様に述べている点が誤り。"
+      "正しい。生産保全は、設備の故障後に修理するだけでなく、予防保全、事後保全、改良保全及び保全予防を組み合わせ、設備の計画・建設段階まで含めて経済性を追求する考え方である。",
+      "正しい。リスクベース保全（RBM）は、損傷事例や寿命評価を踏まえ、故障などが発生した場合の影響度と発生確率の積でリスクを評価し、その大きさに応じて保全の優先順位を決める方式である。",
+      "正しい。鉄鋼材料には、応力振幅が一定値以下であれば繰返し荷重を受けても疲労破壊しないとされる疲労限度がある。一方、アルミニウム合金などでは一般に明確な疲労限度が現れないため、所定の繰返し数に対する疲労強度で評価する。",
+      "正しい。孔食は、材料表面の限られた部分が深い孔状に腐食する局部腐食である。炭素鋼では、部位による溶存酸素の供給差から通気差電池が形成され、酸素の少ない部分で孔食が進むことがある。",
+      "間違い。漏れに対して増締めを行えるのは、締付け量を調整できるグランドパッキン方式やリップパッキン方式である。メカニカル方式をこれらと同様に増締めできる方式としている点が誤りであり、劣化したシール部品は点検のうえ交換する。"
     ],
     "isLawRelated": false,
     "lawGroundedExplanationNotNeeded": true,
@@ -42,38 +42,144 @@
     "sourceExplanationCommonSummary": [],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
     "source_original_question_id": "gasushunin-koushu-gizyutsu-2020-8",
-    "suggestedQuestionDetails": [
-      {
-        "answer": "柱とする。生産保全は予防保全、事後保全、改良保全、保全予防を柱とする保全の考え方である。",
-        "question": "生産保全は予防保全・事後保全・改良保全・保全予防を柱とする？"
-      },
-      {
-        "answer": "付ける。RBMはリスクを影響度と発生確率で評価し、保全の優先度を決める方式である。",
-        "question": "RBMは影響度と発生確率でリスクを表し優先度を付ける？"
-      },
-      {
-        "answer": "そのとおり。鉄鋼材料には疲労限度があるが、アルミニウム合金などの非鉄合金では明確な疲労限度が存在しない。",
-        "question": "鉄鋼材料には疲労限度があり、非鉄合金では明確な疲労限度が存在しない？"
-      },
-      {
-        "answer": "ある。炭素鋼の孔食は、溶存酸素の供給差によって生じる通気差電池の形成で発生することがある。",
-        "question": "孔食は通気差電池の形成で生じることがある？"
-      },
-      {
-        "answer": "メカニカル方式ではない。増締めで止まることがある対象は、グランドパッキン方式やリップパッキン方式である。",
-        "question": "メカニカル方式の軸封部も漏れを増締めで止めることがある？"
-      }
-    ],
-    "suggestedQuestions": [
-      "生産保全は予防保全・事後保全・改良保全・保全予防を柱とする？",
-      "RBMは影響度と発生確率でリスクを表し優先度を付ける？",
-      "鉄鋼材料には疲労限度があり、非鉄合金では明確な疲労限度が存在しない？",
-      "孔食は通気差電池の形成で生じることがある？",
-      "メカニカル方式の軸封部も漏れを増締めで止めることがある？"
-    ],
     "answer_result_text": "誤っているものは 1 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:seizo:q08",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1405,chiefgasengineerlicense-A-40-1406,chiefgasengineerlicense-A-40-1407,chiefgasengineerlicense-A-40-1408,chiefgasengineerlicense-A-40-1409",
+    "sourceRecordRef": "question_2020_firestore_2.json#0",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、製造設備の保全方式、材料疲労、腐食及び軸封に関する技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "生産保全は、予防保全、事後保全、改良保全及び保全予防を柱として設備の経済性を追求する考え方である。",
+          "promptContext": "製造設備の保全方式に関する技術的定義を確認する肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "生産保全に関する技術肢であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "RBMでは影響度と発生確率からリスクを評価し、保全の優先順位を定める。",
+          "promptContext": "リスクベース保全の評価方法に関する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "リスクベース保全に関する技術肢であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "鉄鋼材料には疲労限度がある一方、アルミニウム合金などでは一般に明確な疲労限度が現れない。",
+          "promptContext": "鉄鋼材料と非鉄合金の疲労特性を比較する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "材料の疲労特性に関する技術肢であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "孔食は局所的な孔状の腐食であり、炭素鋼では溶存酸素の供給差による通気差電池から生じることがある。",
+          "promptContext": "孔食の形態と通気差電池による発生機構を確認する技術肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "孔食及び通気差電池に関する技術肢であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現在で正誤判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "漏れを増締めで抑えられることがあるのはグランドパッキン方式やリップパッキン方式であり、メカニカル方式を同様に扱う点が誤りである。",
+          "promptContext": "ポンプ及び圧縮機の軸封方式ごとの漏れ対応を確認する技術肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "軸封方式の保守方法に関する技術肢であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "choiceTextList": [
@@ -2280,241 +2386,223 @@
     ],
     "examLabel": null,
     "explanationText": [
-      "間違い。選択肢の「ガスの消費量が7kW」が誤り。ガス事業法施行規則第202条第1項第1号トは、排気筒を設ける非密閉燃焼式のガス衣類乾燥機を、ガス消費量が12kWを超えるものと定めている。",
-      "間違い。選択肢の「排気扇を接続している自然排気式」が誤り。ガス事業法施行規則第202条第1項第2号イは、有効断面積の基準を含む同号イの対象を、排気扇を接続するものを除く自然排気式燃焼器の排気筒と定めている。",
-      "正しい。ガス事業法施行規則第202条第1項第2号ロ（2）は、強制排気式燃焼器等の排気筒が外壁を貫通する箇所に、排気ガスが屋内へ流れ込む隙間がないことを定めている。選択肢はこれと一致する。",
-      "正しい。ガス事業法施行規則第202条第1項第3号ハは、排気筒に接続する排気扇に、停止時に燃焼器へのガス供給を自動遮断する装置を設けると定めている。選択肢はこれと一致する。",
-      "間違い。選択肢の「自動ガス遮断装置」が誤り。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器に、ガス漏れ警報設備を設けると定めている。"
+      "間違い。非密閉燃焼式のガス衣類乾燥機に排気筒を設ける基準は、ガス消費量が12kWを超える場合である。選択肢はこれを7kWとしているため、基準に該当しない。",
+      "間違い。排気筒の有効断面積を燃焼器の排気部との接続部以上とする基準は、排気扇を接続するものを除いた自然排気式燃焼器の排気筒に適用される。選択肢は排気扇を接続しているものを対象としているため、適用対象が逆である。",
+      "正しい。強制排気式燃焼器などの排気筒が外壁を貫通する箇所には、排気筒と外壁との間から排気ガスが屋内へ流入する隙間がないことが求められる。選択肢はこの基準どおりである。",
+      "正しい。排気筒に接続する排気扇には、その排気扇が停止したときに燃焼器へのガス供給を自動的に遮断する装置を設ける必要がある。選択肢はこの基準どおりである。",
+      "間違い。特定地下街等または特定地下室等に設置する燃焼器に求められるのは、告示で定める規格と設置方法に適合するガス漏れ警報設備である。選択肢の「自動ガス遮断装置」は設備の種類が異なる。"
     ],
     "isLawRelated": true,
     "lawGroundedExplanationNotNeeded": false,
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 0,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「ガスの消費量が7kW」が誤り。ガス事業法施行規則第202条第1項第1号トは、排気筒を設ける非密閉燃焼式のガス衣類乾燥機を、ガス消費量が12kWを超えるものと定めている。",
-          "paragraph": "1",
-          "item": "1",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "subitem": "ト",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 1,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「排気扇を接続している自然排気式」が誤り。ガス事業法施行規則第202条第1項第2号イは、有効断面積の基準を含む同号イの対象を、排気扇を接続するものを除く自然排気式燃焼器の排気筒と定めている。",
-          "paragraph": "1",
-          "item": "2",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "subitem": "イ（3）",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 2,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第1項第2号ロ（2）は、強制排気式燃焼器等の排気筒が外壁を貫通する箇所に、排気ガスが屋内へ流れ込む隙間がないことを定めている。選択肢はこれと一致する。",
-          "paragraph": "1",
-          "item": "2",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "subitem": "ロ（2）",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 3,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第1項第3号ハは、排気筒に接続する排気扇に、停止時に燃焼器へのガス供給を自動遮断する装置を設けると定めている。選択肢はこれと一致する。",
-          "paragraph": "1",
-          "item": "3",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "subitem": "ハ",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
+          "article": "202",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
           "role": "current_basis",
           "scope": "choice",
-          "choiceIndex": 4,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「自動ガス遮断装置」が誤り。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器に、ガス漏れ警報設備を設けると定めている。",
-          "paragraph": "1",
-          "item": "8",
-          "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "source": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawRevisionFacts": {
-      "auditStatus": "same_as_current",
-      "reviewState": "secondary_verified",
-      "auditedAt": "2026-07-11T18:14:00+09:00",
-      "nextAuditDueAt": "2027-07-11",
-      "auditMethodVersion": "law-grounded-audit-v1",
-      "auditInputHash": "sha256:13b962eb1b05a35024b00608a64056102f0a722649acc3860ae4b20a4880dd1e",
-      "auditRunId": "law-audit-gas-shunin-kou-2020-13b962eb1b05a350",
-      "lawCorpusSnapshotId": "egov-current-2026-07-11",
-      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2020-13b962eb1b05a350",
-      "reconciliationStatus": "matched",
-      "examTime": {
-        "referenceDate": "2020",
-        "verificationStatus": "from_original_answer"
-      },
-      "current": {
-        "lawId": "345M50000400097",
-        "lawTitle": "ガス事業法施行規則",
-        "article": "202",
-        "referenceDate": "2026-07-11",
-        "verificationStatus": "verified",
-        "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-      },
-      "differenceFacts": [
-        "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-      ],
-      "answerImpactFacts": [
-        "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-      ],
-      "evidenceSummary": {
-        "verdict": "same_as_current",
-        "explanationText": "選択肢の「ガスの消費量が7kW」が誤り。ガス事業法施行規則第202条第1項第1号トは、排気筒を設ける非密閉燃焼式のガス衣類乾燥機を、ガス消費量が12kWを超えるものと定めている。 選択肢の「排気扇を接続している自然排気式」が誤り。ガス事業法施行規則第202条第1項第2号イは、有効断面積の基準を含む同号イの対象を、排気扇を接続するものを除く自然排気式燃焼器の排気筒と定めている。 ガス事業法施行規則第202条第1項第2号ロ（2）は、強制排気式燃焼器等の排気筒が外壁を貫通する箇所に、排気ガスが屋内へ流れ込む隙間がないことを定めている。選択肢はこれと一致する。 ガス事業法施行規則第202条第1項第3号ハは、排気筒に接続する排気扇に、停止時に燃焼器へのガス供給を自動遮断する装置を設けると定めている。選択肢はこれと一致する。 選択肢の「自動ガス遮断装置」が誤り。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器に、ガス漏れ警報設備を設けると定めている。",
-        "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
-        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
-        "displayRefIds": [
-          "choice-0-ref-1",
-          "choice-1-ref-1",
-          "choice-2-ref-1",
-          "choice-3-ref-1",
-          "choice-4-ref-1"
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "correctChoiceTextの変更は不要である。"
         ],
-        "refs": [
-          {
-            "refId": "choice-0-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "1",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          },
-          {
-            "refId": "choice-1-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "2",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          },
-          {
-            "refId": "choice-2-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "2",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          },
-          {
-            "refId": "choice-3-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "3",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          },
-          {
-            "refId": "choice-4-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "paragraph": "1",
-            "item": "8",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          }
-        ]
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時の判定と現行法令に基づく判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する差異は確認されていない。",
+          "displayRefIds": [],
+          "explanationText": "非密閉燃焼式ガス衣類乾燥機について排気筒が必要となる基準は12kW超であり、7kWとする記述は誤りである。",
+          "promptContext": "現行のガス事業法施行規則第202条第1項第1号トとの照合結果。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガス事業法施行規則第202条第1項第1号トを根拠とする。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
       },
-      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2020-13b962eb1b05a350"
-    },
+      {
+        "answerImpactFacts": [
+          "correctChoiceTextの変更は不要である。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時の判定と現行法令に基づく判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する差異は確認されていない。",
+          "displayRefIds": [],
+          "explanationText": "有効断面積の基準は排気扇を接続するものを除く自然排気式燃焼器の排気筒に適用されるため、排気扇を接続しているものを対象とする記述は誤りである。",
+          "promptContext": "現行のガス事業法施行規則第202条第1項第2号イとの照合結果。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガス事業法施行規則第202条第1項第2号イを根拠とする。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "correctChoiceTextの変更は不要である。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時の判定と現行法令に基づく判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する差異は確認されていない。",
+          "displayRefIds": [],
+          "explanationText": "強制排気式燃焼器などの排気筒が外壁を貫通する箇所に、排気ガスが屋内へ流入する隙間がないことを求める記述は現行基準と一致する。",
+          "promptContext": "現行のガス事業法施行規則第202条第1項第2号ロ（2）との照合結果。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガス事業法施行規則第202条第1項第2号ロ（2）を根拠とする。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "correctChoiceTextの変更は不要である。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時の判定と現行法令に基づく判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する差異は確認されていない。",
+          "displayRefIds": [],
+          "explanationText": "排気筒に接続する排気扇の停止時に、燃焼器へのガス供給を自動遮断する装置を求める記述は現行基準と一致する。",
+          "promptContext": "現行のガス事業法施行規則第202条第1項第3号ハとの照合結果。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガス事業法施行規則第202条第1項第3号ハを根拠とする。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "correctChoiceTextの変更は不要である。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時の判定と現行法令に基づく判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する差異は確認されていない。",
+          "displayRefIds": [],
+          "explanationText": "特定地下街等または特定地下室等の燃焼器に必要なのはガス漏れ警報設備であり、自動ガス遮断装置とする記述は誤りである。",
+          "promptContext": "現行のガス事業法施行規則第202条第1項第8号との照合結果。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガス事業法施行規則第202条第1項第8号を根拠とする。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      }
+    ],
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0151,chiefgasengineerlicense-A-10-0152,chiefgasengineerlicense-A-10-0153,chiefgasengineerlicense-A-10-0154,chiefgasengineerlicense-A-10-0155",
     "public_question_id": null,
     "questionBodyText": "法令で規定されている消費機器の技術上の基準に関する次の記述のうち、正しいものはいくつあるか。",
@@ -2544,40 +2632,6 @@
     "sourceExplanationCommonSummary": [],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
     "source_original_question_id": "gasushunin-koushu-hourei-2020-15",
-    "suggestedQuestionDetails": [
-      {
-        "question": "ガス衣類乾燥機に排気筒が必要となる消費量は？",
-        "answer": "12kWを超える場合。"
-      },
-      {
-        "question": "自然排気式排気筒の断面積基準から除かれるものは？",
-        "answer": "排気扇を接続する自然排気式燃焼器の排気筒。"
-      },
-      {
-        "question": "強制排気式排気筒の外壁貫通部に必要な状態は？",
-        "answer": "排気ガスが屋内へ流れ込む隙間がないこと。"
-      },
-      {
-        "question": "排気扇停止時に必要な安全装置は？",
-        "answer": "燃焼器へのガス供給を自動的に遮断する装置。"
-      },
-      {
-        "question": "特定地下街等の燃焼器に必要な設備は？",
-        "answer": "告示の規格に適合するガス漏れ警報設備。"
-      },
-      {
-        "question": "この問題の根拠条文は？",
-        "answer": "ガス事業法施行規則第202条第1項第1号ト、第2号イ・ロ、第3号ハ及び第8号。"
-      }
-    ],
-    "suggestedQuestions": [
-      "ガス衣類乾燥機に排気筒が必要となる消費量は？",
-      "自然排気式排気筒の断面積基準から除かれるものは？",
-      "強制排気式排気筒の外壁貫通部に必要な状態は？",
-      "排気扇停止時に必要な安全装置は？",
-      "特定地下街等の燃焼器に必要な設備は？",
-      "この問題の根拠条文は？"
-    ],
     "suggestedExplanationText": [
       "間違い。選択肢の「ガスの消費量が7kW」が誤り。ガス事業法施行規則第202条第1項第1号トは、排気筒を設ける非密閉燃焼式のガス衣類乾燥機を、ガス消費量が12kWを超えるものと定めている。",
       "間違い。選択肢の「排気扇を接続している自然排気式」が誤り。ガス事業法施行規則第202条第1項第2号イは、有効断面積の基準を含む同号イの対象を、排気扇を接続するものを除く自然排気式燃焼器の排気筒と定めている。",
@@ -2591,7 +2645,19 @@
       "正しい。ガス事業法施行規則第202条第1項第2号ロ（2）は、強制排気式燃焼器等の排気筒が外壁を貫通する箇所に、排気ガスが屋内へ流れ込む隙間がないことを定めている。選択肢はこれと一致する。",
       "正しい。ガス事業法施行規則第202条第1項第3号ハは、排気筒に接続する排気扇に、停止時に燃焼器へのガス供給を自動遮断する装置を設けると定めている。選択肢はこれと一致する。",
       "間違い。選択肢の「自動ガス遮断装置」が誤り。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器に、ガス漏れ警報設備を設けると定めている。"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2020:law:q15",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0151,chiefgasengineerlicense-A-10-0152,chiefgasengineerlicense-A-10-0153,chiefgasengineerlicense-A-10-0154,chiefgasengineerlicense-A-10-0155",
+    "sourceRecordRef": "question_2020_firestore_2.json#8",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-11",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "e-Gov法令検索「ガス事業法施行規則」第202条"
+      }
+    ],
+    "lawContextForExplanation": "ガス事業法施行規則第202条第1項を確認する。第1号トは非密閉燃焼式ガス衣類乾燥機の排気筒、第2号イ・ロは自然排気式及び強制排気式の排気筒、第3号ハは排気扇停止時の自動遮断、第8号は特定地下街等のガス漏れ警報設備に関する基準である。",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "choiceTextList": [
@@ -3927,231 +3993,213 @@
     ],
     "examLabel": null,
     "explanationText": [
-      "間違い。選択肢の「15日」が誤り。ガス事業法第101条第3項は、届出が受理された日から30日を経過した後でなければ、届出に係る工事を開始してはならないと定めている。",
-      "間違い。選択肢の「経済産業大臣」が誤り。ガス事業法第102条第1項は、自主検査の結果について、経済産業大臣の登録を受けた者が行う検査を受けると定めている。",
-      "間違い。選択肢の「緊急時」が誤り。ガス事業法施行規則第159条第1項第1号は、使用前検査前に使用できる場合として、ガス工作物を試験のために使用する場合を定めている。",
-      "間違い。選択肢の「燃焼性」が誤り。ガス事業法施行規則第159条第1項第1号は、使用者にガスを供給する場合、使用方法を変更するごとにガスの熱量等を測定して供給すると定めている。",
-      "間違い。選択肢の「3年間」が誤り。ガス事業法施行規則第160条第2項は、自主検査の記録を、原則として記録を行った日から5年間保存すると定めている。"
+      "間違い。工事を開始できるのは、工事計画の届出が受理された日から15日ではなく、30日を経過した後である。したがって、（イ）の「15日」は誤りである。",
+      "間違い。自主検査の結果について検査を行うのは、経済産業大臣本人ではなく、経済産業大臣の登録を受けた者である。したがって、（ロ）の「経済産業大臣」は誤りである。",
+      "間違い。使用前検査に合格する前でも使用できる例外は、ガス工作物を緊急時に使用する場合ではなく、試験のために使用する場合である。したがって、（ハ）の「緊急時」は誤りである。",
+      "間違い。例外的に使用者へガスを供給する場合に測定するのは、ガスの燃焼性ではなく、熱量等である。したがって、（ニ）の「燃焼性」は誤りである。",
+      "間違い。自主検査の記録は、原則として記録を行った日から3年間ではなく、5年間保存しなければならない。したがって、（ホ）の「3」は誤りである。"
     ],
     "isLawRelated": true,
     "lawGroundedExplanationNotNeeded": false,
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 0,
-          "lawTitle": "ガス事業法",
-          "lawAlias": "ガス事業法",
           "article": "101",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「15日」が誤り。ガス事業法第101条第3項は、届出が受理された日から30日を経過した後でなければ、届出に係る工事を開始してはならないと定めている。",
-          "paragraph": "3",
+          "choiceIndex": 0,
           "lawId": "329AC0000000051",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=101",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "6545129b8599979993ec4201451e4cbe24dfefad4e7dbe525ff29d14161e8439",
-          "rawXmlHash": "f7732a461407838fcdf72343a315fafd72d1bfb3b9050bd34e58ebb56d2eb3c1"
-        }
-      ],
-      [
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 1,
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
           "article": "102",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「経済産業大臣」が誤り。ガス事業法第102条第1項は、自主検査の結果について、経済産業大臣の登録を受けた者が行う検査を受けると定めている。",
-          "paragraph": "1",
+          "choiceIndex": 1,
           "lawId": "329AC0000000051",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=102",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "28a60445c6cff4d99b59f67df79878438ee40d159a8b847dd90e7d0244c2835b",
-          "rawXmlHash": "7cfeb9544f3a9126f633f0d3d3f735136396abc364c12f15db2b6ace6f549c2d"
+          "lawTitle": "ガス事業法",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "159",
           "choiceIndex": 2,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "159",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「緊急時」が誤り。ガス事業法施行規則第159条第1項第1号は、使用前検査前に使用できる場合として、ガス工作物を試験のために使用する場合を定めている。",
-          "paragraph": "1",
-          "item": "1",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=159",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "2ae29d1c0dca86cf7474e578bf749e678d440223499b064ecf8480a8e2040dc0",
-          "rawXmlHash": "d834b8c9bdb42aab3a80ce9b94d8cf296e3da35d4ad4a05e6e5fbb5e8953b37f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "159",
           "choiceIndex": 3,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "159",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「燃焼性」が誤り。ガス事業法施行規則第159条第1項第1号は、使用者にガスを供給する場合、使用方法を変更するごとにガスの熱量等を測定して供給すると定めている。",
-          "paragraph": "1",
-          "item": "1",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=159",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "2ae29d1c0dca86cf7474e578bf749e678d440223499b064ecf8480a8e2040dc0",
-          "rawXmlHash": "d834b8c9bdb42aab3a80ce9b94d8cf296e3da35d4ad4a05e6e5fbb5e8953b37f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
+          "article": "160",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
           "role": "current_basis",
           "scope": "choice",
-          "choiceIndex": 4,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "160",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「3年間」が誤り。ガス事業法施行規則第160条第2項は、自主検査の記録を、原則として記録を行った日から5年間保存すると定めている。",
-          "paragraph": "2",
-          "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=160",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "09e81e6437efc23e6c201bccb48921e758988130a260d6ed238ce6fff99e792f",
-          "rawXmlHash": "9abca38572a7de27747b144c7fa4ebb5dddc1fc4e6aa39bb57de13b192da1ea5"
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawRevisionFacts": {
-      "auditStatus": "same_as_current",
-      "reviewState": "secondary_verified",
-      "auditedAt": "2026-07-11T16:59:42+09:00",
-      "nextAuditDueAt": "2027-07-11",
-      "auditMethodVersion": "law-grounded-audit-v1",
-      "auditInputHash": "sha256:4b53c010a1144f9322ddf79368bb703286b2d4fa93bbd5c46ef1c69111536bb8",
-      "auditRunId": "law-audit-gas-shunin-kou-2020-4b53c010a1144f93",
-      "lawCorpusSnapshotId": "egov-current-2026-07-11",
-      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2020-4b53c010a1144f93",
-      "reconciliationStatus": "matched",
-      "examTime": {
-        "referenceDate": "2020",
-        "verificationStatus": "from_original_answer"
-      },
-      "current": {
-        "lawId": "329AC0000000051",
-        "lawTitle": "ガス事業法",
-        "article": "101",
-        "referenceDate": "2026-07-11",
-        "verificationStatus": "verified",
-        "articleTextHash": "6545129b8599979993ec4201451e4cbe24dfefad4e7dbe525ff29d14161e8439"
-      },
-      "differenceFacts": [
-        "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-      ],
-      "answerImpactFacts": [
-        "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-      ],
-      "evidenceSummary": {
-        "verdict": "same_as_current",
-        "explanationText": "選択肢の「15日」が誤り。ガス事業法第101条第3項は、届出が受理された日から30日を経過した後でなければ、届出に係る工事を開始してはならないと定めている。 選択肢の「経済産業大臣」が誤り。ガス事業法第102条第1項は、自主検査の結果について、経済産業大臣の登録を受けた者が行う検査を受けると定めている。 選択肢の「緊急時」が誤り。ガス事業法施行規則第159条第1項第1号は、使用前検査前に使用できる場合として、ガス工作物を試験のために使用する場合を定めている。 選択肢の「燃焼性」が誤り。ガス事業法施行規則第159条第1項第1号は、使用者にガスを供給する場合、使用方法を変更するごとにガスの熱量等を測定して供給すると定めている。 選択肢の「3年間」が誤り。ガス事業法施行規則第160条第2項は、自主検査の記録を、原則として記録を行った日から5年間保存すると定めている。",
-        "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
-        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
-        "displayRefIds": [
-          "choice-0-ref-1",
-          "choice-1-ref-1",
-          "choice-2-ref-1",
-          "choice-3-ref-1",
-          "choice-4-ref-1"
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "正答判定は試験時から変更しない。"
         ],
-        "refs": [
-          {
-            "refId": "choice-0-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "329AC0000000051",
-            "lawTitle": "ガス事業法",
-            "article": "101",
-            "paragraph": "3",
-            "articleTextHash": "6545129b8599979993ec4201451e4cbe24dfefad4e7dbe525ff29d14161e8439"
-          },
-          {
-            "refId": "choice-1-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "329AC0000000051",
-            "lawTitle": "ガス事業法",
-            "article": "102",
-            "paragraph": "1",
-            "articleTextHash": "28a60445c6cff4d99b59f67df79878438ee40d159a8b847dd90e7d0244c2835b"
-          },
-          {
-            "refId": "choice-2-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "159",
-            "paragraph": "1",
-            "item": "1",
-            "articleTextHash": "2ae29d1c0dca86cf7474e578bf749e678d440223499b064ecf8480a8e2040dc0"
-          },
-          {
-            "refId": "choice-3-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "159",
-            "paragraph": "1",
-            "item": "1",
-            "articleTextHash": "2ae29d1c0dca86cf7474e578bf749e678d440223499b064ecf8480a8e2040dc0"
-          },
-          {
-            "refId": "choice-4-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "160",
-            "paragraph": "2",
-            "articleTextHash": "09e81e6437efc23e6c201bccb48921e758988130a260d6ed238ce6fff99e792f"
-          }
-        ]
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現行法で正答判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "届出受理後の工事開始待機期間は15日ではなく30日である。",
+          "promptContext": "ガス事業法第101条第3項を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
       },
-      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2020-4b53c010a1144f93"
-    },
+      {
+        "answerImpactFacts": [
+          "正答判定は試験時から変更しない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現行法で正答判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "自主検査の結果について検査を行うのは、経済産業大臣ではなく、その登録を受けた者である。",
+          "promptContext": "ガス事業法第102条第1項を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正答判定は試験時から変更しない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現行法で正答判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "使用前検査前に認められる例外は、緊急時の使用ではなく、試験のための使用である。",
+          "promptContext": "ガス事業法施行規則第159条第1項第1号を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正答判定は試験時から変更しない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現行法で正答判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "例外的に使用者へガスを供給する場合に測定するのは、燃焼性ではなく熱量等である。",
+          "promptContext": "ガス事業法施行規則第159条第1項第1号を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正答判定は試験時から変更しない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時と現行法で正答判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "自主検査記録の保存期間は、原則として3年間ではなく5年間である。",
+          "promptContext": "ガス事業法施行規則第160条第2項を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      }
+    ],
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0101,chiefgasengineerlicense-A-10-0102,chiefgasengineerlicense-A-10-0103,chiefgasengineerlicense-A-10-0104,chiefgasengineerlicense-A-10-0105",
     "public_question_id": null,
     "questionBodyText": "法令で規定されている工事計画及び使用前検査に関する次の記述について、[  ]の中の（イ）〜（ホ）の語句のうち、誤っているものはいくつあるか。\\nガス製造事業者は、ガス製造事業の用に供するガス工作物の設置又は変更の工事であって、経済産業省令で定めるものをしようとするときは、その工事の計画を経済産業大臣に届け出なければならない。\\nその届出をした者は、その届出が受理された日から[ （イ） ]を経過した後でなければ、その届出に係る工事を開始してはならない。\\nガス製造事業者は、経済産業省令で定めるものの工事について自主検査を行い、その結果について[ （ロ） ]が行う検査を受け、これに合格した後でなければ、これを使用してはならない。ただし、ガス工作物を[ （ハ） ]に使用する場合（そのガス工作物に係るガスを使用者に供給する場合にあっては、当該ガス工作物の使用の方法を変更することによりガスの[ （ニ） ]を測定して供給する場合に限る。）は、この限りでない。\\nガス製造事業者は、経済産業省令で定めるところにより、自主検査の記録を作成し、これを[ （ホ） ]年間保存しなければならない。",
@@ -4185,40 +4233,6 @@
     "sourceExplanationCommonSummary": [],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
     "source_original_question_id": "gasushunin-koushu-hourei-2020-5",
-    "suggestedQuestionDetails": [
-      {
-        "question": "工事計画の届出後、工事開始までに必要な期間は？",
-        "answer": "届出が受理された日から30日。"
-      },
-      {
-        "question": "使用前検査を行う者は？",
-        "answer": "経済産業大臣の登録を受けた者。"
-      },
-      {
-        "question": "使用前検査前に使用できる場合は？",
-        "answer": "ガス工作物を試験のために使用する場合など。"
-      },
-      {
-        "question": "使用者へ供給する場合に測定するものは？",
-        "answer": "使用方法を変更するごとにガスの熱量等を測定する。"
-      },
-      {
-        "question": "自主検査記録の保存期間は？",
-        "answer": "原則として記録を行った日から5年間。"
-      },
-      {
-        "question": "この問題の根拠条文は？",
-        "answer": "ガス事業法第101条第3項、第102条第1項並びにガス事業法施行規則第159条第1項第1号及び第160条第2項。"
-      }
-    ],
-    "suggestedQuestions": [
-      "工事計画の届出後、工事開始までに必要な期間は？",
-      "使用前検査を行う者は？",
-      "使用前検査前に使用できる場合は？",
-      "使用者へ供給する場合に測定するものは？",
-      "自主検査記録の保存期間は？",
-      "この問題の根拠条文は？"
-    ],
     "suggestedExplanationText": [
       "間違い。選択肢の「15日」が誤り。ガス事業法第101条第3項は、届出が受理された日から30日を経過した後でなければ、届出に係る工事を開始してはならないと定めている。",
       "間違い。選択肢の「経済産業大臣」が誤り。ガス事業法第102条第1項は、自主検査の結果について、経済産業大臣の登録を受けた者が行う検査を受けると定めている。",
@@ -4232,7 +4246,24 @@
       "間違い。選択肢の「緊急時」が誤り。ガス事業法施行規則第159条第1項第1号は、使用前検査前に使用できる場合として、ガス工作物を試験のために使用する場合を定めている。",
       "間違い。選択肢の「燃焼性」が誤り。ガス事業法施行規則第159条第1項第1号は、使用者にガスを供給する場合、使用方法を変更するごとにガスの熱量等を測定して供給すると定めている。",
       "間違い。選択肢の「3年間」が誤り。ガス事業法施行規則第160条第2項は、自主検査の記録を、原則として記録を行った日から5年間保存すると定めている。"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2020:law:q05",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0101,chiefgasengineerlicense-A-10-0102,chiefgasengineerlicense-A-10-0103,chiefgasengineerlicense-A-10-0104,chiefgasengineerlicense-A-10-0105",
+    "sourceRecordRef": "question_2020_firestore_2.json#13",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-11",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+        "title": "e-Gov法令検索 ガス事業法"
+      },
+      {
+        "referenceDate": "2026-07-11",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "e-Gov法令検索 ガス事業法施行規則"
+      }
+    ],
+    "lawContextForExplanation": "ガス事業法第101条第3項・第102条第1項、ガス事業法施行規則第159条第1項第1号・第160条第2項が根拠。現行法との照合上、5肢はいずれも誤りである。",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "choiceTextList": [
@@ -4554,237 +4585,213 @@
     ],
     "examLabel": null,
     "explanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、液化ガス用ポンプを耐圧試験の対象外と定めている。",
-      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、昇圧供給装置を耐圧試験の対象外と定めている。",
-      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第4号は、整圧器を耐圧試験の対象外と定めている。",
-      "間違い。選択肢の「海底に設置される導管」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第1号は、非破壊試験の合格により耐圧試験の対象外となる溶接導管から、海底に設置される導管を除くと定めている。",
-      "間違い。選択肢の「適切な機械試験により確認」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第2号は、試験用の管を最高使用圧力の1.5倍以上の圧力で試験し、これに耐えることを条件と定めている。"
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号により、液化ガス用ポンプは耐圧試験を要しないガス工作物に含まれる。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号により、昇圧供給装置は耐圧試験を要しないガス工作物に含まれる。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第4号により、整圧器は耐圧試験を要しないガス工作物に含まれる。",
+      "間違い。非破壊試験の合格を条件に耐圧試験を要しない溶接導管からは、海底に設置される導管が除かれている。そのため、この選択肢の海底導管は第15条第2項ただし書第1号の対象にならない。",
+      "間違い。第15条第2項ただし書第2号が定めるのは、同一材料・寸法・施工方法で接合した試験用の管を最高使用圧力の1.5倍以上の圧力で試験し、これに耐えることを確認する方法である。「適切な機械試験により確認」だけでは所定の条件を満たさない。"
     ],
     "isLawRelated": true,
     "lawGroundedExplanationNotNeeded": false,
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "15",
           "choiceIndex": 0,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、液化ガス用ポンプを耐圧試験の対象外と定めている。",
-          "paragraph": "2",
-          "item": "3",
           "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "15",
           "choiceIndex": 1,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、昇圧供給装置を耐圧試験の対象外と定めている。",
-          "paragraph": "2",
-          "item": "3",
           "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "15",
           "choiceIndex": 2,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第4号は、整圧器を耐圧試験の対象外と定めている。",
-          "paragraph": "2",
-          "item": "4",
           "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "15",
           "choiceIndex": 3,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "間違い。選択肢の「海底に設置される導管」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第1号は、非破壊試験の合格により耐圧試験の対象外となる溶接導管から、海底に設置される導管を除くと定めている。",
-          "paragraph": "2",
-          "item": "1",
           "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
+          "article": "15",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "referenceDate": "2026-07-11",
           "role": "current_basis",
           "scope": "choice",
-          "choiceIndex": 4,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "15",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「適切な機械試験により確認」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第2号は、試験用の管を最高使用圧力の1.5倍以上の圧力で試験し、これに耐えることを条件と定めている。",
-          "paragraph": "2",
-          "item": "2",
-          "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawRevisionFacts": {
-      "auditStatus": "same_as_current",
-      "reviewState": "secondary_verified",
-      "auditedAt": "2026-07-11T17:14:00+09:00",
-      "nextAuditDueAt": "2027-07-11",
-      "auditMethodVersion": "law-grounded-audit-v1",
-      "auditInputHash": "sha256:5e29678d95ae4500de61163363aa3b508930c46e4621e9beb5823666eda1d665",
-      "auditRunId": "law-audit-gas-shunin-kou-2020-5e29678d95ae4500",
-      "lawCorpusSnapshotId": "egov-current-2026-07-11",
-      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2020-5e29678d95ae4500",
-      "reconciliationStatus": "matched",
-      "examTime": {
-        "referenceDate": "2020",
-        "verificationStatus": "from_original_answer"
-      },
-      "current": {
-        "lawId": "412M50000400111",
-        "lawTitle": "ガス工作物の技術上の基準を定める省令",
-        "article": "15",
-        "referenceDate": "2026-07-11",
-        "verificationStatus": "verified",
-        "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
-      },
-      "differenceFacts": [
-        "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-      ],
-      "answerImpactFacts": [
-        "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-      ],
-      "evidenceSummary": {
-        "verdict": "same_as_current",
-        "explanationText": "ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、液化ガス用ポンプを耐圧試験の対象外と定めている。 ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、昇圧供給装置を耐圧試験の対象外と定めている。 ガス工作物の技術上の基準を定める省令第15条第2項ただし書第4号は、整圧器を耐圧試験の対象外と定めている。 選択肢の「海底に設置される導管」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第1号は、非破壊試験の合格により耐圧試験の対象外となる溶接導管から、海底に設置される導管を除くと定めている。 選択肢の「適切な機械試験により確認」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第2号は、試験用の管を最高使用圧力の1.5倍以上の圧力で試験し、これに耐えることを条件と定めている。",
-        "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
-        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
-        "displayRefIds": [
-          "choice-0-ref-1",
-          "choice-1-ref-1",
-          "choice-2-ref-1",
-          "choice-3-ref-1",
-          "choice-4-ref-1"
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "正答は試験時から変更しない。"
         ],
-        "refs": [
-          {
-            "refId": "choice-0-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "412M50000400111",
-            "lawTitle": "ガス工作物の技術上の基準を定める省令",
-            "article": "15",
-            "paragraph": "2",
-            "item": "3",
-            "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
-          },
-          {
-            "refId": "choice-1-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "412M50000400111",
-            "lawTitle": "ガス工作物の技術上の基準を定める省令",
-            "article": "15",
-            "paragraph": "2",
-            "item": "3",
-            "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
-          },
-          {
-            "refId": "choice-2-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "412M50000400111",
-            "lawTitle": "ガス工作物の技術上の基準を定める省令",
-            "article": "15",
-            "paragraph": "2",
-            "item": "4",
-            "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
-          },
-          {
-            "refId": "choice-3-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "412M50000400111",
-            "lawTitle": "ガス工作物の技術上の基準を定める省令",
-            "article": "15",
-            "paragraph": "2",
-            "item": "1",
-            "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
-          },
-          {
-            "refId": "choice-4-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "412M50000400111",
-            "lawTitle": "ガス工作物の技術上の基準を定める省令",
-            "article": "15",
-            "paragraph": "2",
-            "item": "2",
-            "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
-          }
-        ]
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時の判定と現行法令による判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "第15条第2項ただし書第3号は、液化ガス用ポンプを耐圧試験の対象外としている。",
+          "promptContext": "第15条第2項ただし書第3号を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
       },
-      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2020-5e29678d95ae4500"
-    },
+      {
+        "answerImpactFacts": [
+          "正答は試験時から変更しない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時の判定と現行法令による判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "第15条第2項ただし書第3号は、昇圧供給装置を耐圧試験の対象外としている。",
+          "promptContext": "第15条第2項ただし書第3号を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正答は試験時から変更しない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時の判定と現行法令による判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "第15条第2項ただし書第4号は、整圧器を耐圧試験の対象外としている。",
+          "promptContext": "第15条第2項ただし書第4号を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正答は試験時から変更しない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時の判定と現行法令による判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "第15条第2項ただし書第1号の対象から海底に設置される導管は除かれるため、本肢は誤りである。",
+          "promptContext": "第15条第2項ただし書第1号の海底導管に関する除外を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正答は試験時から変更しない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行条文との照合で正誤に影響する差異は確認されていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時の判定と現行法令による判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "第15条第2項ただし書第2号は、試験用の管を最高使用圧力の1.5倍以上の圧力で試験して耐えることを条件としており、本肢の表現は誤りである。",
+          "promptContext": "第15条第2項ただし書第2号の試験圧力条件を根拠とする。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      }
+    ],
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0111,chiefgasengineerlicense-A-10-0112,chiefgasengineerlicense-A-10-0113,chiefgasengineerlicense-A-10-0114,chiefgasengineerlicense-A-10-0115",
     "public_question_id": null,
     "questionBodyText": "技術基準で「ガス工作物のうち、耐圧部分及び液化ガスを通ずる部分は、適切な方法により耐圧試験を行ったときにこれに耐えるものでなければならない。」と規定されている。次のガス工作物のうち、耐圧試験が不要なものはいくつあるか。",
@@ -4818,40 +4825,6 @@
     "sourceExplanationCommonSummary": [],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
     "source_original_question_id": "gasushunin-koushu-hourei-2020-7",
-    "suggestedQuestionDetails": [
-      {
-        "question": "液化ガス用ポンプは耐圧試験の対象？",
-        "answer": "対象外。第15条第2項ただし書第3号に含まれる。"
-      },
-      {
-        "question": "昇圧供給装置は耐圧試験の対象？",
-        "answer": "対象外。第15条第2項ただし書第3号に含まれる。"
-      },
-      {
-        "question": "整圧器は耐圧試験の対象？",
-        "answer": "対象外。第15条第2項ただし書第4号に含まれる。"
-      },
-      {
-        "question": "海底導管は非破壊試験合格で耐圧試験が不要？",
-        "answer": "不要とはならない。第1号は海底に設置される導管を除いている。"
-      },
-      {
-        "question": "中圧導管の試験用管に必要な試験圧力は？",
-        "answer": "最高使用圧力の1.5倍以上。"
-      },
-      {
-        "question": "この問題の根拠条文は？",
-        "answer": "ガス工作物の技術上の基準を定める省令第15条第2項ただし書第1号から第4号。"
-      }
-    ],
-    "suggestedQuestions": [
-      "液化ガス用ポンプは耐圧試験の対象？",
-      "昇圧供給装置は耐圧試験の対象？",
-      "整圧器は耐圧試験の対象？",
-      "海底導管は非破壊試験合格で耐圧試験が不要？",
-      "中圧導管の試験用管に必要な試験圧力は？",
-      "この問題の根拠条文は？"
-    ],
     "suggestedExplanationText": [
       "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、液化ガス用ポンプを耐圧試験の対象外と定めている。",
       "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、昇圧供給装置を耐圧試験の対象外と定めている。",
@@ -4865,7 +4838,19 @@
       "正しい。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第4号は、整圧器を耐圧試験の対象外と定めている。",
       "間違い。選択肢の「海底に設置される導管」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第1号は、非破壊試験の合格により耐圧試験の対象外となる溶接導管から、海底に設置される導管を除くと定めている。",
       "間違い。選択肢の「適切な機械試験により確認」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第2号は、試験用の管を最高使用圧力の1.5倍以上の圧力で試験し、これに耐えることを条件と定めている。"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2020:law:q07",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0111,chiefgasengineerlicense-A-10-0112,chiefgasengineerlicense-A-10-0113,chiefgasengineerlicense-A-10-0114,chiefgasengineerlicense-A-10-0115",
+    "sourceRecordRef": "question_2020_firestore_2.json#15",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-11",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+        "title": "e-Gov法令検索「ガス工作物の技術上の基準を定める省令」第15条"
+      }
+    ],
+    "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第15条第2項ただし書第1号から第4号が、耐圧試験を要しない設備と各条件の直接根拠となる。",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "choiceTextList": [
