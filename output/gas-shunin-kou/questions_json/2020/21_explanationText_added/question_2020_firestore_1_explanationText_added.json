@@ -16,40 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "「LNGの液密度は低下する」が誤りで、正しくは「上昇する」。ボイルオフガスの発生により、軽い成分が蒸発して液体部分の密度が高くなる。",
-      "LNGの液化工程では、腐食や閉そくなどの原因となるCO₂、H₂S、水分、重質炭化水素、水銀等の不純物が除去される。したがって、この記述は正しい。",
-      "「LNG管路の急激な締め切りで発生する現象をガイザリング」というのが誤りで、正しくは「液撃（ウォーターハンマー現象）」。急激な流体停止により圧力が上昇する。",
-      "LNGは水分と接触すると水和物を生成し、配管の閉そく等のトラブルを起こすことがあるため、取扱い前に機器内を十分乾燥させる必要がある。したがって、この記述は正しい。",
-      "国内で就航中のLNG内航船の貨物タンクは、メンブレン方式ではなく蓄圧方式が採用されている。したがって、この記述は誤り。"
-    ],
-    "suggestedQuestions": [
-      "BOG発生でLNGの液密度は低下する？",
-      "LNG液化工程では不純物が除去される？",
-      "急締切りの衝撃・高圧現象はガイザリング？",
-      "LNG取扱い前には機器内乾燥が必要？",
-      "国内LNG内航船はメンブレン方式の貨物タンク？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BOG発生でLNGの液密度は低下する？",
-        "answer": "低下ではなく上昇する。BOGとして軽い成分が抜けるため、残ったLNGの液密度は高くなる。"
-      },
-      {
-        "question": "LNG液化工程では不純物が除去される？",
-        "answer": "除去される。液化工程ではCO₂、H₂S、水分、重質炭化水素、水銀等の不純物を取り除く。"
-      },
-      {
-        "question": "急締切りの衝撃・高圧現象はガイザリング？",
-        "answer": "ガイザリングではなく液撃である。流体を急に停止させると慣性により衝撃と高圧が発生する。"
-      },
-      {
-        "question": "LNG取扱い前には機器内乾燥が必要？",
-        "answer": "必要である。水和物による配管閉そく等を避けるため、LNG取扱い前に機器内を十分乾燥させる。"
-      },
-      {
-        "question": "国内LNG内航船はメンブレン方式の貨物タンク？",
-        "answer": "メンブレン方式ではなく蓄圧方式である。国内で就航中のLNG内航船の貨物タンク方式として記述が誤っている。"
-      }
+      "間違い。BOGは主としてメタンなどの低沸点・軽質成分が気化して発生するため、問題文の「沸点の高いメタン」および「LNGの液密度が低下する」という説明が誤りである。軽質成分が抜けると、残ったLNGは相対的に重質化し、液密度は上昇する。",
+      "正しい。LNGの液化工程では、低温設備の腐食・閉そく・凍結などの原因となるCO₂、H₂S、水分、重質炭化水素、水銀等の不純物を事前に除去する。したがって、この記述は正しい。",
+      "間違い。流れているLNGを急激に締め切ったとき、流体の慣性によって管内に衝撃圧や高圧が生じる現象は液撃、いわゆるウォーターハンマーである。ガイザリングは、低温液体が急激に気化して噴出するような現象を指すため、この記述は誤りである。",
+      "正しい。LNG設備内に水分が残っていると、低温下で氷状の水和物などが生じ、配管や弁の閉そくにつながるおそれがある。そのため、LNGを取り扱う前には機器内を十分に乾燥させておく必要がある。",
+      "間違い。国内で就航中のLNG内航船の貨物タンクは、問題文のようなメンブレン方式ではなく、蓄圧方式が採用されている。したがって、貨物タンク方式についての記述が誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -77,7 +48,152 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 3 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:seizo:q01",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1370,chiefgasengineerlicense-A-40-1371,chiefgasengineerlicense-A-40-1372,chiefgasengineerlicense-A-40-1373,chiefgasengineerlicense-A-40-1374",
+    "sourceRecordRef": "question_2020_firestore_1.json#0",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、LNGの性状、液化工程での不純物除去、取扱い上の留意点、内航船タンク方式に関する技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
+          "displayRefIds": [],
+          "explanationText": "LNGの軽質成分がBOGとして抜けると残液の密度は上昇するため、法令条文ではなく技術知識に基づく判定である。",
+          "promptContext": "LNGの性状に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "LNGのBOG発生と液密度変化に関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
+          "displayRefIds": [],
+          "explanationText": "液化工程でCO₂、H₂S、水分、重質炭化水素、水銀等を除去することは、LNG製造工程の技術知識に基づく判定である。",
+          "promptContext": "LNG液化工程に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "LNG液化工程での不純物除去に関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
+          "displayRefIds": [],
+          "explanationText": "管路を急に締め切った際の衝撃圧は液撃であり、ガイザリングではないため、法令条文ではなく流体現象の技術知識に基づく判定である。",
+          "promptContext": "LNG管路内の流体現象に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "急締切り時の液撃とガイザリングの区別に関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
+          "displayRefIds": [],
+          "explanationText": "水分があると水和物などによる閉そくのおそれがあるため、LNG取扱い前に機器内を乾燥させる必要があるという技術知識に基づく判定である。",
+          "promptContext": "LNG取扱い上の留意点に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "LNG取扱い前の乾燥と水和物による閉そく防止に関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
+          "displayRefIds": [],
+          "explanationText": "国内LNG内航船の貨物タンク方式はメンブレン方式ではなく蓄圧方式とされるため、設備方式の技術知識に基づく判定である。",
+          "promptContext": "LNG内航船のタンク方式に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "国内LNG内航船の貨物タンク方式に関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-gizyutu-koushu-2020-10-1,chiefgasengineerlicense-gizyutu-koushu-2020-10-2,chiefgasengineerlicense-gizyutu-koushu-2020-10-3,chiefgasengineerlicense-gizyutu-koushu-2020-10-4,chiefgasengineerlicense-gizyutu-koushu-2020-10-5",
@@ -167,40 +283,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "フィッシャー式整圧器では、需要家のガス使用量が増加するとパイロットダイヤフラムは降下ではなく上昇し、駆動圧力が調整される。したがって、この記述は誤り。",
-      "直動式整圧器は、一次圧力の変化によってメインバルブの平衡位置が変わり、二次圧力もシフトしやすい。直動式の特性として正しい記述。",
-      "パイロット式アンローディング型整圧器では、メインバルブ全閉時に駆動圧力が最も高くなる。駆動圧力以上の一次圧力が確保されないと閉止に必要な作動ができないため、記述は正しい。",
-      "レイノルズ式整圧器で二次圧が異常上昇する原因として、低圧補助ガバナ（パイロット）の締め切り不良が考えられる。故障原因の説明として正しい記述。",
-      "アキシャルフロー式整圧器では、二次圧力が設定圧力を下回ると、パイロットダイヤフラムはパイロットスプリングの力に打ち勝つのではなく負ける方向に作動する。したがって、この記述は誤り。"
-    ],
-    "suggestedQuestions": [
-      "需要増加時のフィッシャー式整圧器でパイロットダイヤフラムは降下する？",
-      "直動式整圧器では一次圧力変化で二次圧力もシフトする？",
-      "アンローディング型整圧器は全閉時に駆動圧力が最も高い？",
-      "レイノルズ式整圧器の二次圧異常上昇原因にパイロット締め切り不良がある？",
-      "アキシャルフロー式で二次圧低下時にパイロットスプリングに打ち勝つ？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "需要増加時のフィッシャー式整圧器でパイロットダイヤフラムは降下する？",
-        "answer": "降下ではなく上昇する。したがって、降下するとする記述は誤り。"
-      },
-      {
-        "question": "直動式整圧器では一次圧力変化で二次圧力もシフトする？",
-        "answer": "シフトする。直動式では一次圧力変化によりメインバルブの平衡位置が変わり、二次圧力も影響を受ける。"
-      },
-      {
-        "question": "アンローディング型整圧器は全閉時に駆動圧力が最も高い？",
-        "answer": "全閉時に駆動圧力が最も高くなる。必要な一次圧力が確保されないと閉止動作ができないため、記述は正しい。"
-      },
-      {
-        "question": "レイノルズ式整圧器の二次圧異常上昇原因にパイロット締め切り不良がある？",
-        "answer": "考えられる。低圧補助ガバナ（パイロット）の締め切り不良は二次圧異常上昇の原因となる。"
-      },
-      {
-        "question": "アキシャルフロー式で二次圧低下時にパイロットスプリングに打ち勝つ？",
-        "answer": "打ち勝つのではなく負ける。パイロットスプリングの力に負けて作動するため、記述は誤り。"
-      }
+      "間違い。フィッシャー式整圧器では、需要家のガス使用量が増加するとパイロットダイヤフラムは降下ではなく上昇する。したがって、需要増加時にパイロットダイヤフラムが降下するとする記述は誤りである。",
+      "正しい。直動式整圧器は、一次圧力が変化するとメインバルブに働く力のつり合いが変わり、メインバルブの平衡位置が変化する。その結果、二次圧力もシフトするため、記述は正しい。",
+      "正しい。パイロット式アンローディング型整圧器では、メインバルブが全閉のときに駆動圧力が最も高くなる。閉止に必要な駆動圧力に見合う一次圧力が確保されないとメインバルブを閉止できないため、記述は正しい。",
+      "正しい。レイノルズ式整圧器で二次圧力が異常上昇する原因として、低圧補助ガバナ、すなわちパイロットの締め切り不良が考えられる。したがって、故障原因の説明として正しい。",
+      "間違い。アキシャルフロー式（軸流式）整圧器では、二次圧力が設定圧力を下回ったとき、パイロットダイヤフラムを押し上げる力がパイロットスプリングの力に打ち勝つのではなく、スプリング力が優勢となる方向に作動する。したがって、記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -226,7 +313,152 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 2 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:kyokyu:q11",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1415,chiefgasengineerlicense-A-80-1416,chiefgasengineerlicense-A-80-1417,chiefgasengineerlicense-A-80-1418,chiefgasengineerlicense-A-80-1419",
+    "sourceRecordRef": "question_2020_firestore_1.json#2",
+    "explanationReferences": [],
+    "lawContextForExplanation": "整圧器の作動原理、圧力特性、故障原因を問う技術・理論問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分による正誤変更はない。",
+          "displayRefIds": [],
+          "explanationText": "フィッシャー式整圧器の需要増加時の作動を問う技術事項である。",
+          "promptContext": "整圧器の作動原理を根拠とする。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "整圧器の作動原理に関する技術問題として判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分による正誤変更はない。",
+          "displayRefIds": [],
+          "explanationText": "直動式整圧器の一次圧力変化と二次圧力シフトを問う技術事項である。",
+          "promptContext": "整圧器の圧力特性を根拠とする。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "整圧器の圧力特性に関する技術問題として判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分による正誤変更はない。",
+          "displayRefIds": [],
+          "explanationText": "パイロット式アンローディング型整圧器の全閉時の駆動圧力と閉止条件を問う技術事項である。",
+          "promptContext": "整圧器の作動最小差圧を根拠とする。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "整圧器の作動最小差圧に関する技術問題として判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分による正誤変更はない。",
+          "displayRefIds": [],
+          "explanationText": "レイノルズ式整圧器の二次圧異常上昇とパイロット締め切り不良の関係を問う技術事項である。",
+          "promptContext": "整圧器の故障原因を根拠とする。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "整圧器の故障原因に関する技術問題として判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分による正誤変更はない。",
+          "displayRefIds": [],
+          "explanationText": "アキシャルフロー式整圧器の二次圧低下時のパイロットダイヤフラムとスプリング力の関係を問う技術事項である。",
+          "promptContext": "整圧器の作動原理を根拠とする。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "整圧器の作動原理に関する技術問題として判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1420,chiefgasengineerlicense-A-80-1421,chiefgasengineerlicense-A-80-1422,chiefgasengineerlicense-A-80-1423,chiefgasengineerlicense-A-80-1424",
@@ -245,40 +477,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "回転子式ガスメーターは、メーター前後の直管を必要としない。直管が必要であるとしているため、この記述は誤り。",
-      "渦流式ガスメーターは、カルマン渦の発生周波数から瞬時流量を測定する。積算流量を測定するとしている点が誤り。",
-      "サーマルフロー式ガスメーターは、ダストやミストの影響を避けるための専用フィルターを必要とする。構造・機能の説明として正しい記述。",
-      "タービン式ガスメーターは、羽根車の回転速度が流速に比例する原理を用いる推量計量のメーターである。流量に比例し、容積計量するとしている点が誤り。",
-      "超音波式ガスメーターは、超音波を用いて流量を推測計量する。方式の説明として正しい記述。"
-    ],
-    "suggestedQuestions": [
-      "回転子式ガスメーターはメーター前後に直管が必要？",
-      "渦流式ガスメーターはカルマン渦から積算流量を測定する？",
-      "サーマルフロー式ガスメーターは専用フィルターが必要？",
-      "タービン式ガスメーターは流量を容積計量する？",
-      "超音波式ガスメーターは超音波で流量を推測計量する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "回転子式ガスメーターはメーター前後に直管が必要？",
-        "answer": "必要ではない。回転子式ガスメーターは直管を不要とするため、必要とする記述は誤り。"
-      },
-      {
-        "question": "渦流式ガスメーターはカルマン渦から積算流量を測定する？",
-        "answer": "測定しない。渦流式はカルマン渦の発生周波数から瞬時流量を測定するため、積算流量とする記述は誤り。"
-      },
-      {
-        "question": "サーマルフロー式ガスメーターは専用フィルターが必要？",
-        "answer": "必要である。ダストやミストの影響を避けるため、専用フィルターを用いる。"
-      },
-      {
-        "question": "タービン式ガスメーターは流量を容積計量する？",
-        "answer": "容積計量ではない。羽根車の回転速度が流速に比例する原理を用いる推量計量のメーターである。"
-      },
-      {
-        "question": "超音波式ガスメーターは超音波で流量を推測計量する？",
-        "answer": "推測計量する。超音波を用いる方式の説明として正しい。"
-      }
+      "間違い。回転子式ガスメーターは、メーター前後の直管を必要としない方式である。圧力が高い場合に圧力補正装置を取り付けて使用する点は妥当だが、「直管が必要」としているため、この記述は誤り。",
+      "間違い。渦流式ガスメーターは、流れの中に発生するカルマン渦の発生周波数から瞬時流量を求める方式である。積算流量を直接測定するとしているため、この記述は誤り。",
+      "正しい。サーマルフロー式ガスメーターは、熱式の検出部がダストやミストの影響を受けないようにするため、専用のフィルターを用いる。したがって、この記述は正しい。",
+      "間違い。タービン式ガスメーターは、流れの中の羽根車の回転速度が流速に比例することを利用して流量を求める推量計量のメーターである。回転速度が流量に比例し、容積計量するとしているため、この記述は誤り。",
+      "正しい。超音波式ガスメーターは、超音波の伝搬を利用してガスの流れを検出し、流量を推測計量する方式である。したがって、この記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -306,7 +509,142 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 3 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:kyokyu:q12",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1420,chiefgasengineerlicense-A-80-1421,chiefgasengineerlicense-A-80-1422,chiefgasengineerlicense-A-80-1423,chiefgasengineerlicense-A-80-1424",
+    "sourceRecordRef": "question_2020_firestore_1.json#3",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、ガスメーターの構造及び機能に関する技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点・現行時点差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "回転子式ガスメーターの直管要否に関する技術説明であり、法令条文を根拠に正誤を決める設問ではない。",
+          "promptContext": "技術問題として、現在の正誤を維持する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガスメーターの構造及び機能に関する技術事項であり、法令改正の影響確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点・現行時点差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "渦流式ガスメーターの計量原理に関する技術説明であり、法令条文を根拠に正誤を決める設問ではない。",
+          "promptContext": "技術問題として、現在の正誤を維持する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガスメーターの構造及び機能に関する技術事項であり、法令改正の影響確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点・現行時点差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "サーマルフロー式ガスメーターのフィルター要否に関する技術説明であり、法令条文を根拠に正誤を決める設問ではない。",
+          "promptContext": "技術問題として、現在の正誤を維持する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガスメーターの構造及び機能に関する技術事項であり、法令改正の影響確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点・現行時点差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "タービン式ガスメーターの計量原理に関する技術説明であり、法令条文を根拠に正誤を決める設問ではない。",
+          "promptContext": "技術問題として、現在の正誤を維持する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ガスメーターの構造及び機能に関する技術事項であり、法令改正の影響確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点・現行時点差分は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "超音波式ガスメーターの計量方式に関する技術説明であり、法令条文を根拠に正誤を決める設問ではない。",
+          "promptContext": "技術問題として、現在の正誤を維持する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガスメーターの構造及び機能に関する技術事項であり、法令改正の影響確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-gizyutu-koushu-2020-13-1,chiefgasengineerlicense-gizyutu-koushu-2020-13-2,chiefgasengineerlicense-gizyutu-koushu-2020-13-3,chiefgasengineerlicense-gizyutu-koushu-2020-13-4,chiefgasengineerlicense-gizyutu-koushu-2020-13-5",
@@ -641,40 +979,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "水素炎イオン化式ガス検知器（FID）は主に有機化合物・炭化水素を検知する方式であり、水素や一酸化炭素などすべての可燃性ガスを検知できるわけではない。記述は誤り。",
-      "緊急ガス遮断装置の点検では、瞬時に閉動作が行われ、確実に遮断されることを確認する。点検内容として正しい。",
-      "中圧鋼管の腐食による漏えいでは、恒久修理前の応急処置として緊急修理用バンドを用いることがある。記述は正しい。",
-      "低圧の本支管では、地震時の漏えい予防として反転シール系の更生修理工法を適用できる。記述は正しい。",
-      "漏えい磁束ピグは、高圧導管の腐食減肉や管体損傷の検査に用いられる。塗覆装の損傷を主な検査対象としている点が誤り。"
-    ],
-    "suggestedQuestions": [
-      "FIDはすべての可燃性ガスを検知できる？",
-      "緊急ガス遮断装置の点検では瞬時の閉動作と確実な遮断を確認する？",
-      "中圧鋼管の腐食漏えいに緊急修理用バンドで応急処置できる？",
-      "低圧本支管の地震時漏えい予防に反転シール系更生修理工法を適用できる？",
-      "漏えい磁束ピグは主に高圧導管の塗覆装損傷を検査する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "FIDはすべての可燃性ガスを検知できる？",
-        "answer": "検知できない。FIDは主に有機化合物・炭化水素を検知する方式で、すべての可燃性ガスを対象にするわけではない。"
-      },
-      {
-        "question": "緊急ガス遮断装置の点検では瞬時の閉動作と確実な遮断を確認する？",
-        "answer": "確認する。瞬時に閉動作が行われ、確実に遮断されることを点検する。"
-      },
-      {
-        "question": "中圧鋼管の腐食漏えいに緊急修理用バンドで応急処置できる？",
-        "answer": "できる。中圧鋼管の腐食漏えいでは、緊急修理用バンドを応急処置として用いることがある。"
-      },
-      {
-        "question": "低圧本支管の地震時漏えい予防に反転シール系更生修理工法を適用できる？",
-        "answer": "適用できる。低圧の本支管に対する地震時漏えい予防として用いられる。"
-      },
-      {
-        "question": "漏えい磁束ピグは主に高圧導管の塗覆装損傷を検査する？",
-        "answer": "検査しない。漏えい磁束ピグの主な対象は管体の腐食減肉や損傷であり、塗覆装損傷ではない。"
-      }
+      "間違い。FIDは、水素炎中で炭化水素などの有機化合物がイオン化し、炎の電気伝導度が増す現象を利用して検知する方式である。水素や一酸化炭素など、FIDで検知できない可燃性ガスもあるため、「すべての可燃性ガスを検知できる」とする記述は誤りである。",
+      "正しい。緊急ガス遮断装置は、緊急時にガスの流れを確実に止めるための設備である。点検では、指令や操作に対して瞬時に閉動作が行われること、また閉止後に確実に遮断されることを確認する必要がある。",
+      "正しい。中圧鋼管で腐食による漏えいが発生した場合、恒久修理までの応急処置として漏えい箇所を外部から締め付ける緊急修理用バンドを用いることがある。したがって、この処置は中圧鋼管の漏えい修理方法として妥当である。",
+      "正しい。反転シール系の更生修理工法は、既設管内にシール材を反転挿入して管内面を更生し、継手部などからの漏えいを予防・修理する工法である。低圧の本支管に対する地震時の漏えい予防策として適用されることがある。",
+      "間違い。漏えい磁束ピグは、管体を磁化したときの漏えい磁束の変化を検出し、主に鋼管の腐食減肉や管体損傷を調べるために用いられる。塗覆装の損傷そのものを主な検査対象とする装置ではないため、記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -700,7 +1009,142 @@
     "isLawRelated": false,
     "answer_result_text": "正しいものは 3 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:kyokyu:q17",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1440,chiefgasengineerlicense-A-80-1441,chiefgasengineerlicense-A-80-1442,chiefgasengineerlicense-A-80-1443,chiefgasengineerlicense-A-80-1444",
+    "sourceRecordRef": "question_2020_firestore_1.json#8",
+    "explanationReferences": [],
+    "lawContextForExplanation": "FIDの検知対象、緊急ガス遮断装置の点検、中低圧導管の漏えい応急修理、反転シール系更生修理工法、漏えい磁束ピグの用途に関する技術・運用知識を問う問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤影響は扱わない。",
+          "displayRefIds": [],
+          "explanationText": "FIDは炭化水素などの検知に用いられる方式であり、すべての可燃性ガスを検知できるわけではないため、現行正誤は試験時正誤と同じく「間違い」。",
+          "promptContext": "導管維持管理に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなく、FIDの検知原理に関する技術知識で判定する肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤影響は扱わない。",
+          "displayRefIds": [],
+          "explanationText": "緊急ガス遮断装置の点検では、瞬時の閉動作と確実な遮断を確認するため、現行正誤は試験時正誤と同じく「正しい」。",
+          "promptContext": "導管維持管理に関する技術・運用知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく、緊急ガス遮断装置の点検内容に関する運用知識で判定する肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤影響は扱わない。",
+          "displayRefIds": [],
+          "explanationText": "中圧鋼管の腐食漏えいに対し、緊急修理用バンドを応急処置として用いることがあるため、現行正誤は試験時正誤と同じく「正しい」。",
+          "promptContext": "導管維持管理に関する技術・運用知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく、中圧鋼管の漏えい応急修理に関する技術知識で判定する肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤影響は扱わない。",
+          "displayRefIds": [],
+          "explanationText": "反転シール系の更生修理工法は低圧本支管の地震時漏えい予防に用いられることがあるため、現行正誤は試験時正誤と同じく「正しい」。",
+          "promptContext": "導管維持管理に関する技術・運用知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく、低圧本支管の漏えい予防工法に関する技術知識で判定する肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤影響は扱わない。",
+          "displayRefIds": [],
+          "explanationText": "漏えい磁束ピグの主な対象は鋼管の腐食減肉や管体損傷であり、塗覆装損傷を主目的とするものではないため、現行正誤は試験時正誤と同じく「間違い」。",
+          "promptContext": "導管維持管理に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなく、漏えい磁束ピグの検査対象に関する技術知識で判定する肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1445,chiefgasengineerlicense-A-80-1446,chiefgasengineerlicense-A-80-1447,chiefgasengineerlicense-A-80-1448,chiefgasengineerlicense-A-80-1449",
@@ -719,40 +1163,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "レベル1地震動に対する高圧導管の直管接合部や異形管部の許容ひずみは3.0%ではなく1.0%である。記述は誤り。",
-      "中・低圧導管では、地盤変位吸収能力と設計地盤変位を比較して耐震性を評価する。記述は正しい。",
-      "ガス防災支援システム（G-React）は、大規模地震発生時の早期復旧に向け、国とガス事業者が被害情報や復旧活動に必要な情報を共有するためのシステムである。記述は正しい。",
-      "供給停止ブロックをさらに分割して得られる復旧作業用のブロックは、単位ブロックではなく復旧ブロックである。記述は誤り。",
-      "移動式ガス発生設備には、空気吸入式（PA式）、圧縮ガス式（CNG式）、液化ガス式（LNG式）がある。記述は正しい。"
-    ],
-    "suggestedQuestions": [
-      "レベル1地震動に対する高圧導管の許容ひずみは3.0%？",
-      "中・低圧導管の耐震性は地盤変位吸収能力と設計地盤変位の比較で評価する？",
-      "G-Reactは大規模地震時に被害情報や復旧活動に必要な情報共有を図る？",
-      "供給停止ブロックをさらに分割した復旧作業用ブロックは単位ブロック？",
-      "移動式ガス発生設備にはPA式、CNG式、LNG式がある？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "レベル1地震動に対する高圧導管の許容ひずみは3.0%？",
-        "answer": "3.0%ではない。レベル1地震動では1.0%が基準であり、3.0%は誤り。"
-      },
-      {
-        "question": "中・低圧導管の耐震性は地盤変位吸収能力と設計地盤変位の比較で評価する？",
-        "answer": "評価する。地盤変位吸収能力と設計地盤変位を比較して耐震性を評価する。"
-      },
-      {
-        "question": "G-Reactは大規模地震時に被害情報や復旧活動に必要な情報共有を図る？",
-        "answer": "図る。G-Reactは被害情報や復旧活動に必要な情報を国とガス事業者が共有するためのシステムである。"
-      },
-      {
-        "question": "供給停止ブロックをさらに分割した復旧作業用ブロックは単位ブロック？",
-        "answer": "単位ブロックではない。この内容は復旧ブロックの説明であり、単位ブロックとしている点が誤り。"
-      },
-      {
-        "question": "移動式ガス発生設備にはPA式、CNG式、LNG式がある？",
-        "answer": "ある。移動式ガス発生設備にはPA式、CNG式、LNG式がある。"
-      }
+      "間違い。高圧導管の耐震性評価で、レベル1地震動に対する直管の接合部や異形管部の許容ひずみは3.0%ではなく1.0%とされる。数値が異なるため、この記述は誤りである。",
+      "正しい。中・低圧導管の耐震性は、導管側が地盤変位を吸収できる能力と、想定される設計地盤変位を比較して評価する。したがって、この記述は正しい。",
+      "正しい。ガス防災支援システム（G-React）は、大規模地震発生時の早期復旧に向けて、国やガス事業者が被害情報や復旧活動に必要な情報を共有するための仕組みである。したがって、この記述は正しい。",
+      "間違い。供給停止した地域内の復旧作業を効率的に進めるため、供給停止ブロックをさらに分割して得られるブロックは復旧ブロックであり、単位ブロックではない。名称が異なるため、この記述は誤りである。",
+      "正しい。移動式ガス発生設備には、空気吸入式（PA式）、圧縮ガス式（CNG式）、液化ガス式（LNG式）がある。したがって、この記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -778,7 +1193,142 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 2 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:kyokyu:q18",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1445,chiefgasengineerlicense-A-80-1446,chiefgasengineerlicense-A-80-1447,chiefgasengineerlicense-A-80-1448,chiefgasengineerlicense-A-80-1449",
+    "sourceRecordRef": "question_2020_firestore_1.json#9",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、ガス導管の地震対策、災害時情報共有、復旧ブロック、移動式ガス発生設備に関する技術・運用知識問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤影響は扱わない技術知識肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "高圧導管の耐震性評価における許容ひずみ値に関する技術知識であり、法令条文を主要根拠とする肢ではない。",
+          "promptContext": "レベル1地震動に対する許容ひずみの数値を問う技術知識肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision_review",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤影響は扱わない技術知識肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "中・低圧導管の耐震性評価方法に関する技術知識であり、法令条文を主要根拠とする肢ではない。",
+          "promptContext": "地盤変位吸収能力と設計地盤変位の比較による耐震性評価を問う技術知識肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision_review",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤影響は扱わない運用知識肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "G-Reactの目的と情報共有機能に関する運用知識であり、法令条文を主要根拠とする肢ではない。",
+          "promptContext": "大規模地震時の被害情報・復旧活動情報の共有を問う運用知識肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision_review",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤影響は扱わない運用知識肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "復旧作業で用いるブロック名称に関する運用知識であり、法令条文を主要根拠とする肢ではない。",
+          "promptContext": "供給停止ブロックをさらに分割した復旧作業用ブロックの名称を問う運用知識肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision_review",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤影響は扱わない技術知識肢である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "移動式ガス発生設備の方式分類に関する技術知識であり、法令条文を主要根拠とする肢ではない。",
+          "promptContext": "PA式、CNG式、LNG式という移動式ガス発生設備の種類を問う技術知識肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related_no_law_revision_review",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1450,chiefgasengineerlicense-A-60-1451,chiefgasengineerlicense-A-60-1452,chiefgasengineerlicense-A-60-1453,chiefgasengineerlicense-A-60-1454",
@@ -877,40 +1427,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "金属二重殻式平底円筒形LNG貯槽では、内外槽間の窒素ガスの圧力変化を吸収するためにブリージングタンクが付属する。記述は正しい。",
-      "ガスを圧縮すると温度は上昇するため、多段圧縮では中間冷却器を用いる。温度が低下し中間加熱器を用いるとしている点が誤り。",
-      "遠心式BOG圧縮機で流量を絞りすぎると問題になるのはサージングである。キャビテーションが起こるとしている点が誤り。",
-      "サブマージド式LNG気化器は運転費が高く、ピークシェービング用や緊急予備用として用いられることが多い。運転費が安くベースロード用とする点が誤り。",
-      "大口径LNG配管に直接低温液を導入するとボーイング現象が発生するため、一般に低温ガスでプレクールを行う。記述は正しい。"
-    ],
-    "suggestedQuestions": [
-      "金属二重殻式平底円筒形LNG貯槽にはブリージングタンクが付属する？",
-      "往復式BOG圧縮機の多段圧縮では中間加熱器を用いる？",
-      "遠心式BOG圧縮機で流量を絞りすぎるとキャビテーションが起こる？",
-      "サブマージド式LNG気化器は運転費が安くベースロード用に多い？",
-      "大口径LNG配管では低温ガスでプレクールしてボーイング現象を避ける？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "金属二重殻式平底円筒形LNG貯槽にはブリージングタンクが付属する？",
-        "answer": "付属する。内外槽間の窒素ガスの圧力変化を吸収するためにブリージングタンクを用いる。"
-      },
-      {
-        "question": "往復式BOG圧縮機の多段圧縮では中間加熱器を用いる？",
-        "answer": "用いない。圧縮により温度は上昇するため、中間冷却器を用いる。"
-      },
-      {
-        "question": "遠心式BOG圧縮機で流量を絞りすぎるとキャビテーションが起こる？",
-        "answer": "起こらない。遠心式圧縮機で低流量時に問題となるのはサージングである。"
-      },
-      {
-        "question": "サブマージド式LNG気化器は運転費が安くベースロード用に多い？",
-        "answer": "多くない。サブマージド式LNG気化器は運転費が高く、ピークシェービング用や緊急予備用が中心である。"
-      },
-      {
-        "question": "大口径LNG配管では低温ガスでプレクールしてボーイング現象を避ける？",
-        "answer": "避ける。低温液を直接導入するとボーイング現象が生じるため、低温ガスでプレクールを行う。"
-      }
+      "正しい。金属二重殻式平底円筒形LNG貯槽では、内槽と外槽の間に窒素ガスを封入する。気圧変化などでこの空間の圧力が変動するため、その変動を吸収するクッションタンクとしてブリージングタンクが付属する。",
+      "間違い。往復式BOG圧縮機でガスを圧縮すると、圧力上昇に伴ってガス温度は上昇する。多段圧縮では温度上昇を抑えるために中間冷却器を用いるので、「温度が低下する」「中間加熱器を用いる」とする記述は誤りである。",
+      "間違い。遠心式BOG圧縮機は弁操作などによる容量調整が比較的容易であるが、流量を絞りすぎたときに問題となるのはサージングである。キャビテーションは液体ポンプなどで問題となる現象であり、この記述では現象名が誤っている。",
+      "間違い。サブマージド式LNG気化器は燃料を用いて水槽を加熱する方式で、オープンラック式LNG気化器に比べて運転費が高くなりやすい。そのため、ベースロード用ではなく、ピークシェービング用や緊急予備用として用いられることが多い。",
+      "正しい。大口径LNG配管に低温液を直接導入すると、配管の上下などで温度差が生じ、配管が弓状に持ち上がるボーイング現象が発生するおそれがある。このため、一般には低温ガスであらかじめプレクールしてから液を導入する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -938,7 +1459,152 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 3 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:seizo:q02",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1375,chiefgasengineerlicense-A-40-1376,chiefgasengineerlicense-A-40-1377,chiefgasengineerlicense-A-40-1378,chiefgasengineerlicense-A-40-1379",
+    "sourceRecordRef": "question_2020_firestore_1.json#11",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、LNG貯槽、BOG圧縮機、LNG気化器、LNG配管の構造・運転に関する技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令条文ではなくLNG貯槽設備の技術知識に基づく記述であり、法令改正による正誤変更の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "金属二重殻式平底円筒形LNG貯槽のブリージングタンクに関する技術記述であり、法令条文を主要根拠としない。",
+          "promptContext": "LNG貯槽の内外槽間窒素ガス圧力変動を吸収するブリージングタンクの機能。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令条文ではなくBOG圧縮機の圧縮熱と中間冷却に関する技術知識に基づく記述であり、法令改正による正誤変更の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "往復式BOG圧縮機の多段圧縮時の温度上昇と中間冷却器に関する技術記述であり、法令条文を主要根拠としない。",
+          "promptContext": "ガス圧縮では温度が上昇し、多段圧縮では中間冷却器を用いる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令条文ではなく遠心式BOG圧縮機の低流量運転時に生じるサージングに関する技術知識に基づく記述であり、法令改正による正誤変更の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "遠心式BOG圧縮機の容量調整と低流量時のサージングに関する技術記述であり、法令条文を主要根拠としない。",
+          "promptContext": "遠心式圧縮機で流量を絞りすぎるとサージングが問題となる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令条文ではなくLNG気化器方式の運転費と用途に関する技術知識に基づく記述であり、法令改正による正誤変更の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "サブマージド式LNG気化器とオープンラック式LNG気化器の運転費・用途比較に関する技術記述であり、法令条文を主要根拠としない。",
+          "promptContext": "サブマージド式LNG気化器は運転費が高く、ピークシェービング用や緊急予備用に用いられることが多い。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令条文ではなく大口径LNG配管のプレクールとボーイング現象に関する技術知識に基づく記述であり、法令改正による正誤変更の対象外である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "大口径LNG配管への低温液導入時のボーイング現象と低温ガスによるプレクールに関する技術記述であり、法令条文を主要根拠としない。",
+          "promptContext": "大口径LNG配管では低温液を直接導入せず、低温ガスでプレクールしてボーイング現象を避ける。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1455,chiefgasengineerlicense-A-60-1456,chiefgasengineerlicense-A-60-1457,chiefgasengineerlicense-A-60-1458,chiefgasengineerlicense-A-60-1459",
@@ -957,40 +1623,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "全一次空気燃焼式は、燃焼用空気を一次空気として混合してから燃焼するため、混合気がバーナー内に戻るフラッシュバックを起こしやすい。記述は正しい。",
-      "パイロットバーナーには、安定した小火炎を得やすいセミ・ブンゼン燃焼式が主に用いられる。記述は正しい。",
-      "燃焼速度がガスの噴出速度に対して低下すると、火炎が炎口から離れてリフティングが生じる。記述は正しい。",
-      "空気比などの変化で燃焼速度が速くなると、燃焼に伴う圧力変動が大きくなり、燃焼騒音は大きくなる。記述は正しい。",
-      "サーマルNOxは高温域で生成されやすく、燃焼ガス温度が高いほど、また高温域での滞留時間が長いほど生成量が増える。記述は正しい。"
-    ],
-    "suggestedQuestions": [
-      "全一次空気燃焼式はフラッシュバックしやすい？",
-      "パイロットバーナーには主にセミ・ブンゼン燃焼式が用いられる？",
-      "燃焼速度が噴出速度に対して低下するとリフティングが生じる？",
-      "燃焼速度が速くなると燃焼騒音は大きくなる？",
-      "サーマルNOxの生成量は燃焼ガス温度や滞留時間と正の相関がある？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "全一次空気燃焼式はフラッシュバックしやすい？",
-        "answer": "しやすい。全一次空気燃焼式は混合気をあらかじめ作るため、火炎がバーナー内へ戻るフラッシュバックに注意が必要である。"
-      },
-      {
-        "question": "パイロットバーナーには主にセミ・ブンゼン燃焼式が用いられる？",
-        "answer": "用いられる。パイロットバーナーでは主にセミ・ブンゼン燃焼式が使われる。"
-      },
-      {
-        "question": "燃焼速度が噴出速度に対して低下するとリフティングが生じる？",
-        "answer": "生じる。噴出速度に対して燃焼速度が低くなると、炎が炎口から浮き上がるリフティングが起こる。"
-      },
-      {
-        "question": "燃焼速度が速くなると燃焼騒音は大きくなる？",
-        "answer": "大きくなる。燃焼速度が速くなると燃焼騒音は増大する。"
-      },
-      {
-        "question": "サーマルNOxの生成量は燃焼ガス温度や滞留時間と正の相関がある？",
-        "answer": "ある。サーマルNOxは高温かつ滞留時間が長い条件で生成されやすい。"
-      }
+      "正しい。全一次空気燃焼式は、燃焼用空気をあらかじめ一次空気として混合してから燃焼させる方式であり、炎が混合気側へ戻るフラッシュバックを起こしやすい。したがって、記述のとおりである。",
+      "正しい。パイロットバーナーは主バーナーへの着火用に安定した小火炎を保つ必要があり、一般にセミ・ブンゼン燃焼式が用いられる。したがって、記述のとおりである。",
+      "正しい。ガスの噴出速度に対して燃焼速度が小さくなると、火炎が炎口に保持されにくくなり、炎が炎口から浮き上がるリフティングが生じる。したがって、記述のとおりである。",
+      "正しい。燃焼速度が速くなると、燃焼に伴う圧力変動や振動が大きくなりやすく、一般に燃焼騒音は大きくなる。したがって、記述のとおりである。",
+      "正しい。サーマルNOxは高温の燃焼ガス中で生成されやすく、燃焼ガス温度が高いほど、また高温域での滞留時間が長いほど生成量が増加しやすい。したがって、記述のとおりである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1012,7 +1649,142 @@
     "isLawRelated": false,
     "answer_result_text": "正しいものは 5 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:shohi:q20",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1455,chiefgasengineerlicense-A-60-1456,chiefgasengineerlicense-A-60-1457,chiefgasengineerlicense-A-60-1458,chiefgasengineerlicense-A-60-1459",
+    "sourceRecordRef": "question_2020_firestore_1.json#12",
+    "explanationReferences": [],
+    "lawContextForExplanation": "燃焼方式、パイロットバーナー、リフティング、燃焼騒音、サーマルNOx生成条件に関する技術・理論問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "全一次空気燃焼式のフラッシュバック性に関する技術知識で判定する肢であり、法令根拠を要しない。",
+          "promptContext": "全一次空気燃焼式はフラッシュバックしやすい燃焼方式である、という記述の正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "燃焼方式に関する技術・理論問題であり、法令改正による正誤差分の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "パイロットバーナーに用いられる燃焼方式に関する技術知識で判定する肢であり、法令根拠を要しない。",
+          "promptContext": "パイロットバーナーには主にセミ・ブンゼン燃焼式が用いられる、という記述の正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "パイロットバーナーの燃焼方式に関する技術・理論問題であり、法令改正による正誤差分の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ガス噴出速度と燃焼速度の関係によるリフティング発生に関する技術知識で判定する肢であり、法令根拠を要しない。",
+          "promptContext": "ガスの噴出速度に比べ燃焼速度が低下すると炎のリフティングが生じる、という記述の正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "火炎のリフティングに関する技術・理論問題であり、法令改正による正誤差分の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "燃焼速度と燃焼騒音の関係に関する技術知識で判定する肢であり、法令根拠を要しない。",
+          "promptContext": "一般に燃焼速度が速くなると燃焼騒音は大きくなる、という記述の正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "燃焼騒音に関する技術・理論問題であり、法令改正による正誤差分の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サーマルNOx生成量と燃焼ガス温度・滞留時間の関係に関する技術知識で判定する肢であり、法令根拠を要しない。",
+          "promptContext": "サーマルNOxの生成量は燃焼ガス温度や滞留時間と正の相関がある、という記述の正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "サーマルNOx生成条件に関する技術・理論問題であり、法令改正による正誤差分の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1460,chiefgasengineerlicense-A-60-1461,chiefgasengineerlicense-A-60-1462,chiefgasengineerlicense-A-60-1463,chiefgasengineerlicense-A-60-1464",
@@ -1031,40 +1803,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "瞬間湯沸器では、断続使用時の湯温変動を抑える制御機能により、あと沸きや冷水サンドイッチ現象を軽減・解消する機種がある。記述は正しい。",
-      "通信機能を備えた給湯暖房用熱源機では、機器状態の確認、ふろの湯張り、床暖房などの運転をリモコンや外部操作で行えるものがある。記述は正しい。",
-      "元止め式瞬間湯沸器は、使用場所の近くに取り付け、給湯配管を介さず出湯管から直接湯を使う小型湯沸器である。記述は正しい。",
-      "ふろがまは、浴槽内の水を加熱する熱交換器とかまバーナーを組み合わせた機器であり、一体構造のものと、設置時に組み合わせるものがある。記述は正しい。",
-      "給湯暖房システムでは、床暖房などの低温端末と浴室暖房などの高温端末に対応するため、暖房用温水を高温・低温の2温度で制御する方式が主流である。記述は正しい。"
-    ],
-    "suggestedQuestions": [
-      "瞬間湯沸器には、あと沸きや冷水サンドイッチ現象を解消する機能を搭載しているものがある？",
-      "給湯暖房用熱源機には、機器状態確認やふろの湯張り、床暖房運転を遠隔で行えるものがある？",
-      "元止め式瞬間湯沸器は、使用場所に取り付けて出湯管から直接湯を使う機器である？",
-      "ふろがまには、熱交換器とふろバーナーが一体構造のものや設置時に組み合わせるものがある？",
-      "給湯暖房システムの暖房用温水の温度制御では、2温度コントロール方式が主流である？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "瞬間湯沸器には、あと沸きや冷水サンドイッチ現象を解消する機能を搭載しているものがある？",
-        "answer": "ある。Q機能などにより断続使用時の湯温変動を抑え、あと沸きや冷水サンドイッチ現象に対応する機種がある。"
-      },
-      {
-        "question": "給湯暖房用熱源機には、機器状態確認やふろの湯張り、床暖房運転を遠隔で行えるものがある？",
-        "answer": "ある。通信機能付きの給湯暖房用熱源機では、状態確認やふろ自動、床暖房運転などを離れた場所から操作できるものがある。"
-      },
-      {
-        "question": "元止め式瞬間湯沸器は、使用場所に取り付けて出湯管から直接湯を使う機器である？",
-        "answer": "である。元止め式は給湯配管を行わず、湯を使う場所に設置して出湯管から直接湯を使用する。"
-      },
-      {
-        "question": "ふろがまには、熱交換器とふろバーナーが一体構造のものや設置時に組み合わせるものがある？",
-        "answer": "ある。ふろがまは熱交換器とかまバーナーの組合せで、一体型と分離・組合せ型がある。"
-      },
-      {
-        "question": "給湯暖房システムの暖房用温水の温度制御では、2温度コントロール方式が主流である？",
-        "answer": "主流である。高温端末と低温端末を使い分けるため、暖房用温水を2温度で制御する方式が用いられる。"
-      }
+      "正しい。瞬間湯沸器には、断続使用時に起こりやすい湯温変動を抑える制御機能を備えた機種がある。これにより、停止後に一時的に熱い湯が出るあと沸きや、再出湯時に冷たい水が挟まる冷水サンドイッチ現象を軽減・解消できるため、記述は妥当である。",
+      "正しい。給湯暖房用熱源機には、通信機能や対応リモコン等により、機器の状態確認、ふろの湯張り、床暖房の運転などを離れた場所から操作・確認できるものがある。遠隔操作に対応する機種の説明として適切である。",
+      "正しい。元止め式瞬間湯沸器は、湯を使う場所の近くに設置し、給湯配管を介さず湯沸器の出湯管から直接湯を取り出して使用する方式の機器である。記述は元止め式の特徴を正しく述べている。",
+      "正しい。ふろがまは、浴槽内の水を加熱するための熱交換器と、加熱用のふろバーナーを組み合わせて構成される。これらが一体構造になっているものと、設置時に組み合わせるものがあるため、記述は正しい。",
+      "正しい。給湯暖房システムでは、床暖房など比較的低温の温水を用いる端末と、浴室暖房など高温側の温水を必要とする端末に対応するため、暖房用温水を高温・低温の2系統で制御する2温度コントロール方式が主流である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1086,7 +1829,152 @@
     "isLawRelated": false,
     "answer_result_text": "正しいものは 5 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:shohi:q21",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1460,chiefgasengineerlicense-A-60-1461,chiefgasengineerlicense-A-60-1462,chiefgasengineerlicense-A-60-1463,chiefgasengineerlicense-A-60-1464",
+    "sourceRecordRef": "question_2020_firestore_1.json#13",
+    "explanationReferences": [],
+    "lawContextForExplanation": "家庭用ガス温水機器の制御機能、遠隔操作、元止め式瞬間湯沸器、ふろがまの構造及び給湯暖房システムの温水制御方式に関する技術知識の問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける判定ではなく、現行の正誤も試験時の正誤も正しい。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、瞬間湯沸器の湯温変動抑制機能に関する技術知識を問う肢である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "瞬間湯沸器のあと沸き及び冷水サンドイッチ現象への対応機能に関する技術説明であり、法令根拠の整理対象外である。",
+          "promptContext": "家庭用ガス温水機器の制御機能に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける判定ではなく、現行の正誤も試験時の正誤も正しい。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、給湯暖房用熱源機の遠隔確認・遠隔操作機能に関する技術知識を問う肢である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "通信機能を備えた給湯暖房用熱源機の状態確認、ふろ湯張り、床暖房運転等の遠隔操作に関する技術説明であり、法令根拠の整理対象外である。",
+          "promptContext": "家庭用ガス温水機器の遠隔操作機能に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける判定ではなく、現行の正誤も試験時の正誤も正しい。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、元止め式瞬間湯沸器の設置場所と使用方式に関する技術知識を問う肢である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "元止め式瞬間湯沸器が使用場所に取り付けられ、出湯管から直接湯を使う機器であることを述べた技術説明であり、法令根拠の整理対象外である。",
+          "promptContext": "元止め式瞬間湯沸器の構造・使用方式に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける判定ではなく、現行の正誤も試験時の正誤も正しい。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、ふろがまの熱交換器とふろバーナーの構成に関する技術知識を問う肢である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ふろがまの熱交換器とふろバーナーの一体構造又は設置時組合せ構造に関する技術説明であり、法令根拠の整理対象外である。",
+          "promptContext": "ふろがまの構造に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける判定ではなく、現行の正誤も試験時の正誤も正しい。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、給湯暖房システムの暖房用温水の温度制御方式に関する技術知識を問う肢である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "高温端末と低温端末に対応する2温度コントロール方式が主流であることを述べた技術説明であり、法令根拠の整理対象外である。",
+          "promptContext": "給湯暖房システムの温水温度制御に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1465,chiefgasengineerlicense-A-60-1466,chiefgasengineerlicense-A-60-1467,chiefgasengineerlicense-A-60-1468,chiefgasengineerlicense-A-60-1469",
@@ -1105,40 +1993,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "焦げ付き消火機能は、調理油過熱防止装置の温度センサーを利用して鍋底温度を検知し、焦げ付き始めると自動消火する機能である。立ち消え安全装置を利用するものではないため、記述は誤り。",
-      "中火点火機能は、点火時に炎が大きく立ち上がることを抑え、着衣着火火災を防止するための機能である。点火不良防止を目的とするものではないため、記述は誤り。",
-      "ファンヒーターの室温自動制御では、室温検知に主にサーミスタが用いられる。熱電対を主に使用するという記述は誤り。",
-      "8時間程度の連続運転で自動停止する安全機能は、長時間使用を防ぐためファンヒーターに装備される機能である。赤外線ストーブに装備されるとする記述は誤り。",
-      "油が付着したタオルや衣類は蓄熱により自然発火するおそれがあるため、現在販売されている衣類乾燥機には乾燥終了後に温度を下げる冷却運転機構が装備されている。記述は正しい。"
-    ],
-    "suggestedQuestions": [
-      "こんろの焦げ付き消火機能は立ち消え安全装置の温度センサーを利用する？",
-      "中火点火機能は点火不良を防止するための機能である？",
-      "ファンヒーターの室温自動制御では温度センサーとして主に熱電対を使う？",
-      "赤外線ストーブには8時間燃焼で自動停止する機能が装備されている？",
-      "衣類乾燥機には油付き衣類の自然発火を防ぐ冷却運転機構が装備されている？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "こんろの焦げ付き消火機能は立ち消え安全装置の温度センサーを利用する？",
-        "answer": "焦げ付き消火機能は、調理油過熱防止装置の温度センサーを利用して鍋底温度を検知し、焦げ付き始めると自動消火する機能である。立ち消え安全装置を利用するものではないため、記述は誤り。"
-      },
-      {
-        "question": "中火点火機能は点火不良を防止するための機能である？",
-        "answer": "中火点火機能は、点火時に炎が大きく立ち上がることを抑え、着衣着火火災を防止するための機能である。点火不良防止を目的とするものではないため、記述は誤り。"
-      },
-      {
-        "question": "ファンヒーターの室温自動制御では温度センサーとして主に熱電対を使う？",
-        "answer": "ファンヒーターの室温自動制御では、室温検知に主にサーミスタが用いられる。熱電対を主に使用するという記述は誤り。"
-      },
-      {
-        "question": "赤外線ストーブには8時間燃焼で自動停止する機能が装備されている？",
-        "answer": "8時間程度の連続運転で自動停止する安全機能は、長時間使用を防ぐためファンヒーターに装備される機能である。赤外線ストーブに装備されるとする記述は誤り。"
-      },
-      {
-        "question": "衣類乾燥機には油付き衣類の自然発火を防ぐ冷却運転機構が装備されている？",
-        "answer": "油が付着したタオルや衣類は蓄熱により自然発火するおそれがあるため、現在販売されている衣類乾燥機には乾燥終了後に温度を下げる冷却運転機構が装備されている。記述は正しい。"
-      }
+      "間違い。焦げ付き消火機能は、調理油過熱防止装置の温度センサーで鍋底温度を検知し、焦げ付き始めると自動消火する機能である。立ち消え安全装置の温度センサーを利用するものではないため、記述は誤りである。",
+      "間違い。中火点火機能は、点火時に炎が大きく立ち上がることを抑え、着衣着火火災を防止するための機能である。点火不良の防止を目的とする機能ではないため、記述は誤りである。",
+      "間違い。ファンヒーターの室温自動制御では、室温検知用の温度センサーとして主にサーミスタが用いられる。熱電対が主に使用されているとする記述は誤りである。",
+      "間違い。8時間程度の連続運転で自動停止する機能は、長時間使用を防ぐためファンヒーターに装備される安全機能である。赤外線ストーブに装備される機能とする記述は誤りである。",
+      "正しい。油が付着したタオルや衣類は、乾燥後の蓄熱によって自然発火するおそれがある。そのため、現在販売されている衣類乾燥機には、乾燥終了後に温度を下げる冷却運転機構が装備されており、記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1168,7 +2027,162 @@
     "isLawRelated": false,
     "answer_result_text": "正しいものは 1 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:shohi:q22",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1465,chiefgasengineerlicense-A-60-1466,chiefgasengineerlicense-A-60-1467,chiefgasengineerlicense-A-60-1468,chiefgasengineerlicense-A-60-1469",
+    "sourceRecordRef": "question_2020_firestore_1.json#14",
+    "explanationReferences": [],
+    "lawContextForExplanation": "家庭用ガス機器の安全機能・制御方式に関する技術問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "技術知識に基づく正誤であり、法令改正監査による正答変更は不要である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令条文を根拠とする設問ではないため、法令改正による正誤差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "焦げ付き消火機能の検知対象と利用装置に関する技術問題である。",
+          "promptContext": "家庭用ガス機器の安全機能に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "こんろの焦げ付き消火機能に関する技術事項として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "技術知識に基づく正誤であり、法令改正監査による正答変更は不要である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令条文を根拠とする設問ではないため、法令改正による正誤差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "中火点火機能の安全上の目的に関する技術問題である。",
+          "promptContext": "家庭用ガス機器の安全機能に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "中火点火機能の目的に関する技術事項として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "技術知識に基づく正誤であり、法令改正監査による正答変更は不要である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令条文を根拠とする設問ではないため、法令改正による正誤差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "ファンヒーターの室温自動制御に用いられる温度センサーに関する技術問題である。",
+          "promptContext": "家庭用ガス機器の制御方式に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ファンヒーターの室温検知用センサーに関する技術事項として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "技術知識に基づく正誤であり、法令改正監査による正答変更は不要である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令条文を根拠とする設問ではないため、法令改正による正誤差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "長時間運転を防ぐ自動停止機能がどの機器に装備されるかを問う技術問題である。",
+          "promptContext": "家庭用ガス機器の安全機能に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "連続運転時の自動停止機能の対象機器に関する技術事項として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "技術知識に基づく正誤であり、法令改正監査による正答変更は不要である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令条文を根拠とする設問ではないため、法令改正による正誤差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "油が付着した衣類の自然発火防止に関係する冷却運転機構の有無を問う技術問題である。",
+          "promptContext": "家庭用ガス機器の安全機能に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "衣類乾燥機の冷却運転機構に関する技術事項として扱う。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision_impact",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1470,chiefgasengineerlicense-A-60-1471,chiefgasengineerlicense-A-60-1472,chiefgasengineerlicense-A-60-1473,chiefgasengineerlicense-A-60-1474",
@@ -1349,40 +2363,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "正しい。合計インプットが6kWを超える開放式機器を調理室以外の部屋に設置する場合は、燃焼排気を確実に排出するため機械換気が必要になる。",
-      "正しい。自然排気式機器は室内の空気を燃焼用に使い、排気筒で排気するため、排気筒断面積以上の有効開口面積をもつ給気口が必要である。",
-      "間違い。強制排気式機器は排気をファンで屋外へ排出する方式だが、燃焼用空気は設置室から取り入れるため給気口が必要である。燃焼室が室内空気から遮断されているとしている点が誤り。",
-      "正しい。集合住宅の開放廊下に面したパイプシャフト内などに温水機器を設置する場合は、給気と排気を屋外側で完結させる強制給排気式機器を用いる必要がある。",
-      "正しい。屋外式機器には、既設の自然給排気式機器の給排気筒トップがあった壁貫通部を利用して設置できるタイプがある。"
-    ],
-    "suggestedQuestions": [
-      "6kW超の開放式機器を調理室以外に設置する場合は機械換気が必要？",
-      "自然排気式機器の設置室には排気筒断面積以上の給気口が必要？",
-      "強制排気式機器は専用の給気口が不要？",
-      "集合住宅の開放廊下に面したパイプシャフト内の温水機器は強制給排気式が必要？",
-      "屋外式機器には既設の給排気筒トップ壁貫通部に設置できるものがある？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "6kW超の開放式機器を調理室以外に設置する場合は機械換気が必要？",
-        "answer": "必要である。合計インプットが6kWを超える開放式機器を調理室以外に設置する場合は機械換気を行う。"
-      },
-      {
-        "question": "自然排気式機器の設置室には排気筒断面積以上の給気口が必要？",
-        "answer": "必要である。自然排気式機器では、排気筒断面積以上の有効開口面積をもつ給気口を設ける。"
-      },
-      {
-        "question": "強制排気式機器は専用の給気口が不要？",
-        "answer": "不要ではない。強制排気式機器も燃焼用空気を設置室から取り入れるため、給気口が必要である。"
-      },
-      {
-        "question": "集合住宅の開放廊下に面したパイプシャフト内の温水機器は強制給排気式が必要？",
-        "answer": "必要である。パイプシャフト内などでは給排気を確実に行うため強制給排気式機器を用いる。"
-      },
-      {
-        "question": "屋外式機器には既設の給排気筒トップ壁貫通部に設置できるものがある？",
-        "answer": "ある。既設の自然給排気式機器の給排気筒トップ壁貫通部を利用して設置できる屋外式機器がある。"
-      }
+      "正しい。合計インプットが6kWを超える開放式機器を調理室以外の部屋に設置する場合は、燃焼に伴う排気を室内に滞留させないため、機械換気が必要である。",
+      "正しい。自然排気式機器は室内の空気を燃焼用空気として使い、排気筒で自然通風により排気するため、排気に見合う給気を確保する必要がある。そのため、排気筒断面積以上の有効開口面積をもつ給気口が必要である。",
+      "間違い。強制排気式機器は排気をファンで屋外へ排出する方式であり、燃焼用空気は設置される部屋から取り入れる。燃焼室が設置室の空気から遮断されているわけではなく、給気口も必要である。",
+      "正しい。集合住宅の開放廊下に面したパイプシャフト内部などに温水機器を設置する場合は、給気と排気を確実に屋外側で処理できる強制給排気式機器を用いる必要がある。",
+      "正しい。屋外式機器には、既設の自然給排気式機器で給排気筒トップが取り付けられていた壁貫通部を利用して設置できるものがある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1406,7 +2391,142 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 1 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:shohi:q25",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1480,chiefgasengineerlicense-A-60-1481,chiefgasengineerlicense-A-60-1482,chiefgasengineerlicense-A-60-1483,chiefgasengineerlicense-A-60-1484",
+    "sourceRecordRef": "question_2020_firestore_1.json#17",
+    "explanationReferences": [],
+    "lawContextForExplanation": "家庭用ガス温水機器の設置方式・給排気条件に関する技術基準・実務知識の問題であり、法令条文を直接の根拠とする解説は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "合計インプットが6kWを超える開放式機器を調理室以外に設置する場合は機械換気が必要であり、現行判定は正しい。",
+          "promptContext": "家庭用ガス温水機器の設置方式・給排気条件に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく、開放式機器の設置時の換気条件に関する技術知識として判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "自然排気式機器の設置室には、排気筒断面積以上の有効開口面積をもつ給気口が必要であり、現行判定は正しい。",
+          "promptContext": "家庭用ガス温水機器の設置方式・給排気条件に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく、自然排気式機器の給気口条件に関する技術知識として判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "強制排気式機器は燃焼用空気を設置室から取り入れるため給気口が必要であり、燃焼室が設置室の空気から遮断されているという記述は誤り。",
+          "promptContext": "家庭用ガス温水機器の設置方式・給排気条件に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなく、強制排気式機器の給気方式に関する技術知識として判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "集合住宅の開放廊下に面したパイプシャフト内部に温水機器を設置する場合は強制給排気式機器を用いる必要があり、現行判定は正しい。",
+          "promptContext": "家庭用ガス温水機器の設置方式・給排気条件に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく、集合住宅のパイプシャフト内に設置する温水機器の方式に関する技術知識として判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "屋外式機器には、既設の自然給排気式機器の給排気筒トップがあった壁貫通部を利用して設置できるものがあり、現行判定は正しい。",
+          "promptContext": "家庭用ガス温水機器の設置方式・給排気条件に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく、屋外式機器の設置形態に関する技術知識として判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1485,chiefgasengineerlicense-A-60-1486,chiefgasengineerlicense-A-60-1487,chiefgasengineerlicense-A-60-1488,chiefgasengineerlicense-A-60-1489",
@@ -1505,40 +2625,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
     "explanationText": [
-      "正しい。ガス栓用プラグは、ホースエンド口に取り付けてコンセント化する先端弁付の迅速継手であり、接続具として用いられる。",
+      "正しい。ガス栓用プラグは、ホースエンド口に取り付けてガス栓をコンセント化する、先端弁付の迅速継手である。",
       "正しい。ガスコードは、鋼線で補強されたゴム製ホースの両端に迅速継手を取り付けた、定尺の接続具である。",
-      "正しい。強化ガスホースはゴム管の可とう性を持ち、耐切断性能や耐候性能などに優れた接続具である。",
+      "正しい。強化ガスホースは、ゴム管のような可とう性を持ちながら、耐切断性能や耐候性能などに優れた接続具である。",
       "正しい。ガスコンセントは、迅速継手のソケットを接続すると栓が自動的に開き、取り外すと閉じる構造のガス栓である。",
-      "間違い。オンオフ機構を有するガス栓では、つまみが半開状態で接続具が外れるとヒューズ機構は作動しないが、オンオフ弁によりガス通路が遮断され、ガスは流出しない。"
-    ],
-    "suggestedQuestions": [
-      "ガス栓用プラグはホースエンド口をコンセント化する先端弁付迅速継手？",
-      "ガスコードは補強ゴムホースの両端に迅速継手を付けた定尺接続具？",
-      "強化ガスホースは可とう性と耐切断性能・耐候性能に優れる？",
-      "ガスコンセントはソケット接続で自動的に開き、外すと閉じる？",
-      "オンオフ機構付きガス栓は半開状態で接続具が外れるとガスが流出する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ガス栓用プラグはホースエンド口をコンセント化する先端弁付迅速継手？",
-        "answer": "そのとおり。ガス栓用プラグは、ホースエンド口に取り付けてコンセント化する先端弁付迅速継手である。"
-      },
-      {
-        "question": "ガスコードは補強ゴムホースの両端に迅速継手を付けた定尺接続具？",
-        "answer": "そのとおり。ガスコードは、鋼線で補強されたゴム製ホースの両端に迅速継手が付いた定尺の接続具である。"
-      },
-      {
-        "question": "強化ガスホースは可とう性と耐切断性能・耐候性能に優れる？",
-        "answer": "そのとおり。強化ガスホースは、ゴム管の可とう性を有し、耐切断性能や耐候性能などに優れる。"
-      },
-      {
-        "question": "ガスコンセントはソケット接続で自動的に開き、外すと閉じる？",
-        "answer": "そのとおり。ガスコンセントは、迅速継手のソケット接続で栓が開き、取り外すと閉じる。"
-      },
-      {
-        "question": "オンオフ機構付きガス栓は半開状態で接続具が外れるとガスが流出する？",
-        "answer": "流出しない。ヒューズ機構は作動しないが、オンオフ弁によりガス通路が遮断される。"
-      }
+      "間違い。オンオフ機構を有するガス栓では、つまみが半開状態で接続具が外れた場合、ヒューズ機構は作動しないが、オンオフ弁によりガス通路が遮断されるため、ガスは流出しない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1562,7 +2653,142 @@
     "isLawRelated": false,
     "answer_result_text": "誤っているものは 1 つです。",
     "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
-    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review"
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceQuestionKey": "gas-shunin:kou:2020:shohi:q27",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1490,chiefgasengineerlicense-A-60-1491,chiefgasengineerlicense-A-60-1492,chiefgasengineerlicense-A-60-1493,chiefgasengineerlicense-A-60-1494",
+    "sourceRecordRef": "question_2020_firestore_1.json#19",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文ではなく、ガス機器とガス栓の接続具の種類、構造およびオンオフ機構付きガス栓の安全動作に関する技術知識を根拠とする問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点差分による正誤影響はない。",
+          "displayRefIds": [],
+          "explanationText": "ガス栓用プラグの構造に関する記述で、法令条文ではなく接続具の技術知識により判定する。",
+          "promptContext": "ガス栓用プラグはホースエンド口をコンセント化する先端弁付迅速継手である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "接続具の構造に関する技術知識であり、法令改正差分の照合対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点差分による正誤影響はない。",
+          "displayRefIds": [],
+          "explanationText": "ガスコードの構造に関する記述で、法令条文ではなく接続具の技術知識により判定する。",
+          "promptContext": "ガスコードは鋼線補強ゴム製ホースの両端に迅速継手を取り付けた定尺接続具である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "接続具の構造に関する技術知識であり、法令改正差分の照合対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点差分による正誤影響はない。",
+          "displayRefIds": [],
+          "explanationText": "強化ガスホースの性質に関する記述で、法令条文ではなく接続具の技術知識により判定する。",
+          "promptContext": "強化ガスホースは可とう性を有し、耐切断性能や耐候性能などに優れる接続具である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "接続具の性能に関する技術知識であり、法令改正差分の照合対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点差分による正誤影響はない。",
+          "displayRefIds": [],
+          "explanationText": "ガスコンセントの開閉構造に関する記述で、法令条文ではなくガス栓の技術知識により判定する。",
+          "promptContext": "ガスコンセントは迅速継手のソケット接続で自動的に開き、取り外すと閉じるガス栓である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ガス栓の構造に関する技術知識であり、法令改正差分の照合対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の現行・試験時点差分による正誤影響はない。",
+          "displayRefIds": [],
+          "explanationText": "オンオフ機構付きガス栓では、半開状態で接続具が外れてもオンオフ弁によりガス通路が遮断されるため、ガスが流出するという記述は誤りである。",
+          "promptContext": "ヒューズ機構は作動しないが、オンオフ弁がガス通路を遮断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "オンオフ機構付きガス栓の安全動作に関する技術知識であり、法令改正差分の照合対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1380,chiefgasengineerlicense-A-40-1381,chiefgasengineerlicense-A-40-1382,chiefgasengineerlicense-A-40-1383,chiefgasengineerlicense-A-40-1384",

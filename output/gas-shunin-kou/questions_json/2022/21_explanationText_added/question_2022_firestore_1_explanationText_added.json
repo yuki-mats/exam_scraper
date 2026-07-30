@@ -434,40 +434,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
     "explanationText": [
-      "間違い。「マクロセル腐食」としている部分が誤り。正しくは「ミクロセル腐食」。金属表面の微小部位でアノードとカソードが変化し、全面腐食となるタイプはミクロセル腐食である。",
-      "正しい。防食設備の点検は、土壌が湿潤している雨期や電気鉄道の運行時など、防食状況が悪くなりやすい時期・時間帯を選んで行うことが望ましい。",
-      "正しい。電解質中で鉄とマグネシウムを接続すると、自然電位がプラス側の鉄がカソード、マグネシウムがアノードとなり、マグネシウム側が犠牲陽極として作用する。",
-      "間違い。「散水で接地抵抗を上げる」とあるのが誤り。正しくは「接地抵抗を下げる」。管対地電位の測定では通常、飽和硫酸銅電極を用い、散水により土壌等との接地抵抗を低減して設置する。",
-      "間違い。「コンクリート接触でミクロセル腐食」部分が誤り。正しくは「マクロセル腐食」。建物引込部の配管は、コンクリート接触部と土壌中などの異なる環境間で電位差が生じ、マクロセル腐食の原因となりやすい。"
-    ],
-    "suggestedQuestions": [
-      "マクロセル腐食とは、金属表面においてアノードとカソードの部位が刻々と変化するタイプの腐食で、全面腐食となる。",
-      "防食設備の点検は、雨期等の土壌の湿潤期や電気鉄道の運行時等、防食状況の悪い時期や時間帯を選んで行うことが望ましい。",
-      "電解質中の鉄とマグネシウムを接続すると、自然電位がプラス側の鉄がカソードとなり、マグネシウムがアノードとなる。",
-      "管対地電位の測定では、照合電極は通常、飽和硫酸銅電極が用いられ、散水で土壌等との接地抵抗を上げて設置する。",
-      "建物に引き込まれた配管は、ミクロセル腐食の原因となるコンクリートに接触する機会が多いため、一般に埋設配管部近くの架空配管部に絶縁継手を設置する。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "マクロセル腐食とは、金属表面においてアノードとカソードの部位が刻々と変化するタイプの腐食で、全面腐食となる。",
-        "answer": "間違い。「マクロセル腐食」としている部分が誤り。正しくは「ミクロセル腐食」。金属表面の微小部位でアノードとカソードが変化し、全面腐食となるタイプはミクロセル腐食である。"
-      },
-      {
-        "question": "防食設備の点検は、雨期等の土壌の湿潤期や電気鉄道の運行時等、防食状況の悪い時期や時間帯を選んで行うことが望ましい。",
-        "answer": "正しい。防食設備の点検は、土壌が湿潤している雨期や電気鉄道の運行時など、防食状況が悪くなりやすい時期・時間帯を選んで行うことが望ましい。"
-      },
-      {
-        "question": "電解質中の鉄とマグネシウムを接続すると、自然電位がプラス側の鉄がカソードとなり、マグネシウムがアノードとなる。",
-        "answer": "正しい。電解質中で鉄とマグネシウムを接続すると、自然電位がプラス側の鉄がカソード、マグネシウムがアノードとなり、マグネシウム側が犠牲陽極として作用する。"
-      },
-      {
-        "question": "管対地電位の測定では、照合電極は通常、飽和硫酸銅電極が用いられ、散水で土壌等との接地抵抗を上げて設置する。",
-        "answer": "間違い。「散水で接地抵抗を上げる」とあるのが誤り。正しくは「接地抵抗を下げる」。管対地電位の測定では通常、飽和硫酸銅電極を用い、散水により土壌等との接地抵抗を低減して設置する。"
-      },
-      {
-        "question": "建物に引き込まれた配管は、ミクロセル腐食の原因となるコンクリートに接触する機会が多いため、一般に埋設配管部近くの架空配管部に絶縁継手を設置する。",
-        "answer": "間違い。「コンクリート接触でミクロセル腐食」部分が誤り。正しくは「マクロセル腐食」。建物引込部の配管は、コンクリート接触部と土壌中などの異なる環境間で電位差が生じ、マクロセル腐食の原因となりやすい。"
-      }
+      "間違い。金属表面の微小な部分でアノード部とカソード部が入れ替わりながら進む全面腐食は、マクロセル腐食ではなくミクロセル腐食である。マクロセル腐食は、異なる環境に置かれた部分などの間で比較的大きな腐食電池ができ、特定部位が腐食しやすくなる形である。",
+      "正しい。防食設備の点検は、防食状態が悪く現れやすい条件で行う方が異常を見つけやすい。雨期など土壌が湿潤している時期や、電気鉄道の運行時など迷走電流の影響を受けやすい時間帯を選ぶことは適切である。",
+      "正しい。電解質中で鉄とマグネシウムを接続すると、自然電位がよりプラス側の鉄がカソード、よりマイナス側のマグネシウムがアノードとなる。したがってマグネシウムが犠牲陽極として先に溶解し、鉄側を防食する方向に作用する。",
+      "間違い。管対地電位の測定で用いる照合電極には、通常、飽和硫酸銅電極が用いられる。しかし散水は土壌などとの接地抵抗を上げるためではなく、接触状態を良くして接地抵抗を下げるために行う。",
+      "間違い。建物に引き込まれた配管では、コンクリート接触部と土壌中の埋設部など、異なる環境に置かれた部分の間で電位差が生じやすい。これはミクロセル腐食ではなくマクロセル腐食の原因となるため、一般に埋設配管部近くの架空配管部に絶縁継手を設けて腐食電流を抑える。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -492,7 +463,152 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kyokyu:q14",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1185,chiefgasengineerlicense-A-80-1186,chiefgasengineerlicense-A-80-1187,chiefgasengineerlicense-A-80-1188,chiefgasengineerlicense-A-80-1189",
+    "sourceRecordRef": "question_2022_firestore_1.json#5",
+    "explanationReferences": [],
+    "lawContextForExplanation": "腐食・防食に関する技術理論を根拠に判断する問題であり、法令条文の適用や法改正差分によって正誤が変わる内容ではない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、ミクロセル腐食とマクロセル腐食の技術的区別に関する記述である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "金属表面の微小部位でアノードとカソードが変化し、全面腐食となる説明はミクロセル腐食であり、マクロセル腐食とする記述は誤りである。",
+          "promptContext": "腐食・防食の技術理論に基づく判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、防食設備点検を実施する時期・条件に関する技術的記述である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "雨期など土壌が湿潤している時期や電気鉄道の運行時など、防食状況が悪化しやすい条件を選んで点検することは適切である。",
+          "promptContext": "腐食・防食の技術理論に基づく判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、電解質中で接続した金属の自然電位とアノード・カソードの関係に関する技術的記述である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "鉄とマグネシウムを電解質中で接続すると、自然電位がプラス側の鉄がカソード、マグネシウムがアノードとなるため、記述は正しい。",
+          "promptContext": "腐食・防食の技術理論に基づく判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、管対地電位測定時の照合電極と接地抵抗に関する技術的記述である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "照合電極として飽和硫酸銅電極を用いる点はよいが、散水は接地抵抗を上げるのではなく下げるために行うので、記述は誤りである。",
+          "promptContext": "腐食・防食の技術理論に基づく判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令条文ではなく、建物引込部配管に生じる腐食形態と絶縁継手に関する技術的記述である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "コンクリート接触部と土壌中などの異なる環境間で生じる腐食はマクロセル腐食であり、ミクロセル腐食とする記述は誤りである。",
+          "promptContext": "腐食・防食の技術理論に基づく判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",

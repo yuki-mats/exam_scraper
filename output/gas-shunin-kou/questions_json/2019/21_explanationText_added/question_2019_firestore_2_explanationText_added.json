@@ -16,40 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "正しい。異種金属接触腐食では、電位の異なる金属間に腐食電池が形成される。電位が卑な金属がアノード、貴な金属がカソードとなり、アノード側の腐食が進む。",
-      "正しい。溶接部分では、母材、熱影響部、溶接金属で組織や硬度が異なる。硬度の低い部分に繰返しひずみが集中し、疲労強度の低下につながる。",
-      "正しい。経時保全は、設備が予定の累積運転時間に達した時点で行う保全である。",
-      "正しい。応力腐食割れは、引張応力が生じている金属に腐食作用が働き、破断応力以下でも割れが生じる現象である。引張応力には残留応力も含まれる。",
-      "間違い。ポンプのインペラで気泡の発生と破壊が繰り返されて生じる孔食状の損傷は、キャビテーションエロージョンと呼ばれる。選択肢はこれを腐食疲労としているため、誤りである。"
-    ],
-    "suggestedQuestions": [
-      "異種金属接触腐食では卑な金属側の腐食が進行する？",
-      "溶接部分の硬度差は疲労強度低下につながる？",
-      "経時保全は予定の累積運転時間に達したときに行う保全？",
-      "応力腐食割れは破断応力以下でも割れが生じる現象？",
-      "インペラで気泡の発生と破壊により生じる腐食はキャビテーションエロージョン？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "異種金属接触腐食では卑な金属側の腐食が進行する？",
-        "answer": "異種金属接触腐食では、電位の異なる金属間に腐食電池が形成され、電位が卑な金属がアノード、貴な金属がカソードとなり、アノード側の腐食が進行する。記述は正しい。"
-      },
-      {
-        "question": "溶接部分の硬度差は疲労強度低下につながる？",
-        "answer": "溶接部分では母材、熱影響部、溶接金属で組織や硬度が異なり、硬度の低い部分に繰り返しひずみが集中して疲労強度の低下につながる。記述は正しい。"
-      },
-      {
-        "question": "経時保全は予定の累積運転時間に達したときに行う保全？",
-        "answer": "経時保全とは、設備が予定の累積運転時間に達したときに行う保全である。記述は正しい。"
-      },
-      {
-        "question": "応力腐食割れは破断応力以下でも割れが生じる現象？",
-        "answer": "応力腐食割れとは、引張応力の発生下にある金属に腐食作用が働き、破断応力以下でも割れが生じる現象である。記述は正しい。"
-      },
-      {
-        "question": "インペラで気泡の発生と破壊により生じる腐食はキャビテーションエロージョン？",
-        "answer": "ポンプのインペラのように気泡の発生と破壊を繰り返すことで生じる孔食状の腐食は、キャビテーションエロージョンと呼ばれる。腐食疲労としている点が誤り。"
-      }
+      "正しい。異種金属接触腐食では、電位の異なる金属どうしが接触して腐食電池が形成される。このとき電位が卑な金属がアノード、電位が貴な金属がカソードとなり、アノード側である卑な金属の腐食が進行する。",
+      "正しい。溶接部は母材、熱影響部、溶接金属で組織や硬度が異なるため、硬度の低い部分に繰返しひずみが集中しやすい。その結果、溶接部全体として疲労強度の低下につながる。",
+      "正しい。経時保全は、設備があらかじめ定めた累積運転時間に達した時点で実施する保全である。時間の経過や運転時間を基準に保全時期を決める考え方である。",
+      "正しい。応力腐食割れは、引張応力が作用している金属に腐食環境の影響が加わることで、通常の破断応力以下でも割れが生じる現象である。ここでいう引張応力には残留応力も含まれる。",
+      "間違い。ポンプのインペラなどで気泡の発生と破壊が繰り返され、表面に孔食状の損傷が生じる現象はキャビテーションエロージョンである。腐食疲労は腐食環境下で繰返し応力を受けて疲労が進む現象なので、名称が誤っている。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -77,7 +48,135 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:seizo:q08",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1530,chiefgasengineerlicense-A-40-1531,chiefgasengineerlicense-A-40-1532,chiefgasengineerlicense-A-40-1533,chiefgasengineerlicense-A-40-1534",
+    "sourceRecordRef": "question_2019_firestore_2.json#0",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。異種金属接触腐食、溶接部の疲労、経時保全、応力腐食割れ、キャビテーションエロージョンと腐食疲労の区別により正誤を判断する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差による正答差はない。",
+          "displayRefIds": [],
+          "explanationText": "異種金属接触腐食に関する技術知識で正誤が決まる。",
+          "promptContext": "製造設備の保全に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差による正答差はない。",
+          "displayRefIds": [],
+          "explanationText": "溶接部の硬度差と疲労強度低下に関する技術知識で正誤が決まる。",
+          "promptContext": "製造設備の保全に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差による正答差はない。",
+          "displayRefIds": [],
+          "explanationText": "経時保全の定義に関する技術知識で正誤が決まる。",
+          "promptContext": "製造設備の保全に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差による正答差はない。",
+          "displayRefIds": [],
+          "explanationText": "応力腐食割れの定義に関する技術知識で正誤が決まる。",
+          "promptContext": "製造設備の保全に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差による正答差はない。",
+          "displayRefIds": [],
+          "explanationText": "気泡の発生と破壊による孔食状損傷はキャビテーションエロージョンであり、腐食疲労ではない。",
+          "promptContext": "製造設備の保全に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1535,chiefgasengineerlicense-A-40-1536,chiefgasengineerlicense-A-40-1537,chiefgasengineerlicense-A-40-1538,chiefgasengineerlicense-A-40-1539",
@@ -96,42 +195,13 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "間違い。サーマルNOxは、燃焼雰囲気の温度と酸素濃度が高く、滞留時間が長いほど発生量が増える傾向がある。選択肢は温度が低いほど増加するとしているため、誤りである。",
-      "正しい。圧力回収設備である膨張タービンは、ガスの圧力エネルギーを回収できるため、エネルギー使用の合理化に有効である。",
-      "正しい。モーターのようにコイル要素を持つ負荷では、電圧に対して電流の位相が遅れる。力率を改善すると電流を抑えられるため、省エネルギーが期待できる。",
-      "間違い。LNG直接膨張方式はシステムが単純である一方、発電出力は市中送出ガスの圧力に左右される。選択肢は出力が左右されないとしているため、誤りである。",
-      "正しい。特別管理産業廃棄物のうち、廃PCBや廃石綿は、有害性が高いため特定有害産業廃棄物に指定されている。"
+      "間違い。サーマルNOxは、燃焼雰囲気の温度と酸素濃度が高く、滞留時間が長いほど発生しやすい。選択肢は温度が低いほど増加するとしているため、誤りである。",
+      "正しい。圧力回収設備である膨張タービンは、ガスの圧力エネルギーを回収して有効利用できる設備であり、エネルギー使用の合理化に有効な施策である。",
+      "正しい。モーターのようにコイル要素を持つ負荷では、電圧に対して電流の位相が遅れる。力率を改善すると無効電力や電流の低減につながるため、省エネルギーが期待できる。",
+      "間違い。LNG直接膨張方式はシステムが単純である一方、発電出力は市中送出ガスの圧力に左右される。選択肢は出力が市中送出ガス圧力に左右されないとしているため、誤りである。",
+      "正しい。廃棄物処理法施行令では、特別管理産業廃棄物に含まれる特定有害産業廃棄物として、廃ポリ塩化ビフェニル等や廃石綿等が掲げられている。したがって、廃PCBや廃石綿は特定有害産業廃棄物に指定されている。"
     ],
-    "suggestedQuestions": [
-      "サーマルNOxは高温・高酸素濃度・長い滞留時間で増加する？",
-      "圧力回収設備の導入はエネルギー使用の合理化に有効？",
-      "コイル要素を持つ負荷では力率改善による省エネルギーが期待できる？",
-      "LNG直接膨張方式の出力は市中送出ガス圧力に左右される？",
-      "廃PCBや廃石綿は特定有害産業廃棄物に指定されている？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "サーマルNOxは高温・高酸素濃度・長い滞留時間で増加する？",
-        "answer": "サーマルNOxの発生は、燃焼雰囲気の温度及び酸素濃度が高いほど、また滞留時間が長いほど増加する傾向がある。温度が低いほど増加するとしている点が誤り。"
-      },
-      {
-        "question": "圧力回収設備の導入はエネルギー使用の合理化に有効？",
-        "answer": "圧力回収設備（膨張タービン）を導入することは、エネルギー使用の合理化に有効な施策である。記述は正しい。"
-      },
-      {
-        "question": "コイル要素を持つ負荷では力率改善による省エネルギーが期待できる？",
-        "answer": "モーターのようにコイル要素を持つ負荷では、電圧に対して電流が遅れるため、力率改善による省エネルギーが期待できる。記述は正しい。"
-      },
-      {
-        "question": "LNG直接膨張方式の出力は市中送出ガス圧力に左右される？",
-        "answer": "冷熱発電のLNG直接膨張方式は、システムが単純である一方、市中送出ガス圧力により出力が左右される。左右されないとしている点が誤り。"
-      },
-      {
-        "question": "廃PCBや廃石綿は特定有害産業廃棄物に指定されている？",
-        "answer": "特別管理産業廃棄物のうち、廃PCBや廃石綿は、特定有害産業廃棄物に指定されている。記述は正しい。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -152,18 +222,195 @@
       "間違い",
       "正しい"
     ],
-    "isLawRelated": false,
+    "isLawRelated": true,
     "lawReferences": [
       [],
       [],
       [],
       [],
-      []
+      [
+        {
+          "article": "第二条の四第五号",
+          "choiceIndex": 4,
+          "lawId": "346CO0000000300",
+          "lawTitle": "廃棄物の処理及び清掃に関する法律施行令",
+          "referenceDate": "2026-07-30",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/346CO0000000300",
+          "verificationStatus": "verified"
+        }
+      ]
     ],
     "sourceQuestionKey": "gas-shunin:kou:2019:seizo:q09",
     "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1535,chiefgasengineerlicense-A-40-1536,chiefgasengineerlicense-A-40-1537,chiefgasengineerlicense-A-40-1538,chiefgasengineerlicense-A-40-1539",
     "sourceRecordRef": "question_2019_firestore_2.json#1",
-    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。"
+    "lawContextForExplanation": "選択肢5のみ法令根拠が必要。廃棄物処理法施行令第2条の4第5号は、特別管理産業廃棄物のうち特定有害産業廃棄物を定め、廃ポリ塩化ビフェニル等や廃石綿等を含めている。選択肢1〜4は技術・理論事項。",
+    "explanationReferences": [
+      {
+        "choiceIndex": 4,
+        "referenceDate": "2026-07-30",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/346CO0000000300",
+        "title": "廃棄物の処理及び清掃に関する法律施行令 - e-Gov法令検索"
+      }
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "サーマルNOxの発生傾向に関する技術事項であり、法令根拠による正誤判定を要しない。",
+          "promptContext": "選択肢1は技術・理論事項。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "サーマルNOxに関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "圧力回収設備によるエネルギー使用合理化に関する技術事項であり、法令根拠による正誤判定を要しない。",
+          "promptContext": "選択肢2は技術・理論事項。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "圧力回収設備に関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "コイル負荷の電流位相と力率改善に関する技術事項であり、法令根拠による正誤判定を要しない。",
+          "promptContext": "選択肢3は技術・理論事項。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "力率改善に関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受ける選択肢ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "冷熱発電のLNG直接膨張方式に関する技術事項であり、法令根拠による正誤判定を要しない。",
+          "promptContext": "選択肢4は技術・理論事項。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "LNG直接膨張方式に関する技術事項。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "廃PCB及び廃石綿が特定有害産業廃棄物に含まれるため、選択肢5の正誤は現行法でも正しい。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時正答と現行法に基づく正答に差はない。",
+          "displayRefIds": [
+            "egov-346CO0000000300-art2_4_5"
+          ],
+          "explanationText": "廃棄物処理法施行令第2条の4第5号は特定有害産業廃棄物を定め、廃ポリ塩化ビフェニル等及び廃石綿等を含むため、選択肢5は正しい。",
+          "promptContext": "選択肢5のみ法令根拠が必要。",
+          "refs": [
+            {
+              "article": "第二条の四",
+              "articleTextHash": "unavailable",
+              "elm": "Article_2_4",
+              "encodedElm": "Article_2_4",
+              "highlightElms": [
+                "Article_2_4-Item_5"
+              ],
+              "item": "第五号",
+              "lawId": "346CO0000000300",
+              "lawRevisionId": "current-2026-07-30",
+              "lawTimeScope": "current",
+              "lawTitle": "廃棄物の処理及び清掃に関する法律施行令",
+              "paragraph": "第一項",
+              "primaryBasis": true,
+              "refId": "egov-346CO0000000300-art2_4_5",
+              "relation": "basis",
+              "rootArticleElm": "Article_2_4",
+              "subitem": "none",
+              "textHash": "unavailable"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "e-Gov法令検索で廃棄物処理法施行令第2条の4第5号を確認。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0001,chiefgasengineerlicense-A-10-0002,chiefgasengineerlicense-A-10-0003,chiefgasengineerlicense-A-10-0004,chiefgasengineerlicense-A-10-0005",
@@ -2276,45 +2523,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "正しい。ガス消費量が12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気用開口部がある室に設置する場合は、ガス事業法施行規則第202条第5号ロに該当し、排気筒の設置を要しない。",
-      "正しい。屋内に設置する自然排気式燃焼器の排気筒には、ガス事業法施行規則第202条第2号イ（1）により、告示規格に適合する材料又は同等以上の材料を用いる必要がある。",
-      "正しい。排気扇を接続しない自然排気式燃焼器の排気筒は、ガス事業法施行規則第202条第2号イ（3）により、燃焼器との接続部より小さくない有効断面積が必要である。",
-      "正しい。密閉燃焼式燃焼器の給排気部は、ガス事業法施行規則第202条第6号ヌにより、燃焼が妨げられないよう十分な風量を確保できる形状とする必要があり、ガスふろがまも対象となる。",
-      "間違い。特定地下街等に設置する低圧用の燃焼器には、ガス事業法施行規則第202条第8号により、告示規格に適合するガス漏れ警報設備が必要である。選択肢は自動ガス遮断装置又はガス漏れ警報器のいずれかでよいとしているため、誤りである。"
-    ],
-    "suggestedQuestions": [
-      "12kW以下の瞬間湯沸器に必要な換気条件は？",
-      "自然排気式燃焼器の排気筒材料の基準は？",
-      "排気筒の有効断面積の基準は？",
-      "密閉燃焼式燃焼器の給排気部に必要な形状は？",
-      "特定地下街等の燃焼器に必要な警報設備は？",
-      "この問題の根拠条文は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "12kW以下の瞬間湯沸器に必要な換気条件は？",
-        "answer": "換気扇又は有効な給排気用開口部を設けた室に設置する。"
-      },
-      {
-        "question": "自然排気式燃焼器の排気筒材料の基準は？",
-        "answer": "告示規格に適合するもの又は同等以上のもの。"
-      },
-      {
-        "question": "排気筒の有効断面積の基準は？",
-        "answer": "燃焼器の排気部との接続部の有効断面積より小さくないこと。"
-      },
-      {
-        "question": "密閉燃焼式燃焼器の給排気部に必要な形状は？",
-        "answer": "燃焼を妨げないよう十分な風量を確保できる形状。"
-      },
-      {
-        "question": "特定地下街等の燃焼器に必要な警報設備は？",
-        "answer": "告示規格に適合するガス漏れ警報設備。"
-      },
-      {
-        "question": "この問題の根拠条文は？",
-        "answer": "ガス事業法施行規則第202条第2号イ（1）及び（3）、第5号ロ、第6号ヌ並びに第8号。"
-      }
+      "正しい。ガス消費量が12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気用開口部がある室に設置する場合、ガス事業法施行規則第202条第5号ロの基準に該当するため、当該機器に接続する排気筒を設けない扱いでよい。",
+      "正しい。屋内に設置する自然排気式燃焼器の排気筒の材料は、ガス事業法施行規則第202条第2号イの基準により、告示で定める規格に適合するもの又はこれと同等以上のものとされている。",
+      "正しい。排気扇を接続していない自然排気式燃焼器の排気筒は、ガス事業法施行規則第202条第2号イの基準により、燃焼器の排気部との接続部の有効断面積より小さくない有効断面積を確保する必要がある。",
+      "正しい。屋内に設置する密閉燃焼式のガスふろがまの給排気部は、ガス事業法施行規則第202条第6号ヌの基準により、燃焼が妨げられないよう十分な風量が確保される形状でなければならない。",
+      "間違い。特定地下街等に設置される低圧供給の燃焼器について、ガス事業法施行規則第202条第8号は、告示規格に適合するガス漏れ警報設備を告示で定める方法により設けることを求めている。選択肢は、自動ガス遮断装置又はガス漏れ警報器のいずれかで足りるように述べているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -2339,234 +2552,322 @@
     "lawReferences": [
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 0,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第5号ロは、ガス消費量が12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気用開口部を設けた室に設置すると定めている。この場合、第1号の排気筒設置対象には含まれない。",
-          "item": "5",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "subitem": "ロ",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 1,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第2号イ（1）は、自然排気式燃焼器の排気筒材料を、告示規格に適合するもの又は同等以上のものと定めている。選択肢はこれと一致する。",
-          "item": "2",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "subitem": "イ（1）",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 2,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第2号イ（3）は、排気扇を接続しない自然排気式燃焼器の排気筒について、燃焼器との接続部より小さくない有効断面積を求めている。",
-          "item": "2",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "subitem": "イ（3）",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
-          "role": "current_basis",
-          "scope": "choice",
+          "article": "202",
           "choiceIndex": 3,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第6号ヌは、密閉燃焼式燃焼器の給排気部を、燃焼が妨げられないよう十分な風量を確保できる形状と定めている。ガスふろがまも対象に含まれる。",
-          "item": "6",
           "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "subitem": "ヌ",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
         }
       ],
       [
         {
+          "article": "202",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-11",
           "role": "current_basis",
           "scope": "choice",
-          "choiceIndex": 4,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "202",
-          "referenceDate": "2026-07-11",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「自動ガス遮断装置を設け、又はガス漏れ警報器を設ける」が誤り。ガス事業法施行規則第202条第8号は、特定地下街等に設置する燃焼器に、告示規格へ適合するガス漏れ警報設備を設けると定めている。",
-          "item": "8",
-          "lawId": "345M50000400097",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+          "verificationStatus": "verified"
         }
       ]
     ],
-    "lawRevisionFacts": {
-      "auditStatus": "same_as_current",
-      "reviewState": "secondary_verified",
-      "auditedAt": "2026-07-11T18:41:00+09:00",
-      "nextAuditDueAt": "2027-07-11",
-      "auditMethodVersion": "law-grounded-audit-v1",
-      "auditInputHash": "sha256:b45934fbe5c8ef152aafcdea60883da0a9ae7c68ce202d1827a427241a69068a",
-      "auditRunId": "law-audit-gas-shunin-kou-2019-b45934fbe5c8ef15",
-      "lawCorpusSnapshotId": "egov-current-2026-07-11",
-      "primaryAuditRunId": "primary-egov-gas-shunin-kou-2019-b45934fbe5c8ef15",
-      "reconciliationStatus": "matched",
-      "examTime": {
-        "referenceDate": "2019",
-        "verificationStatus": "from_original_answer",
-        "correctChoiceText": [
-          "正しい",
-          "正しい",
-          "正しい",
-          "正しい",
-          "間違い"
-        ]
-      },
-      "current": {
-        "lawId": "345M50000400097",
-        "lawTitle": "ガス事業法施行規則",
-        "article": "202",
-        "referenceDate": "2026-07-11",
-        "verificationStatus": "verified",
-        "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-        "correctChoiceText": [
-          "正しい",
-          "正しい",
-          "正しい",
-          "正しい",
-          "間違い"
-        ]
-      },
-      "differenceFacts": [
-        "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
-      ],
-      "answerImpactFacts": [
-        "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
-      ],
-      "evidenceSummary": {
-        "verdict": "same_as_current",
-        "explanationText": "ガス事業法施行規則第202条第5号ロは、ガス消費量が12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気用開口部を設けた室に設置すると定めている。この場合、第1号の排気筒設置対象には含まれない。 ガス事業法施行規則第202条第2号イ（1）は、自然排気式燃焼器の排気筒材料を、告示規格に適合するもの又は同等以上のものと定めている。選択肢はこれと一致する。 ガス事業法施行規則第202条第2号イ（3）は、排気扇を接続しない自然排気式燃焼器の排気筒について、燃焼器との接続部より小さくない有効断面積を求めている。 ガス事業法施行規則第202条第6号ヌは、密閉燃焼式燃焼器の給排気部を、燃焼が妨げられないよう十分な風量を確保できる形状と定めている。ガスふろがまも対象に含まれる。 選択肢の「自動ガス遮断装置を設け、又はガス漏れ警報器を設ける」が誤り。ガス事業法施行規則第202条第8号は、特定地下街等に設置する燃焼器に、告示規格へ適合するガス漏れ警報設備を設けると定めている。",
-        "differenceSummary": "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。",
-        "promptContext": "この監査済み事実とe-Gov locatorを前提にし、未記載の条文や改正内容を推測しない。",
-        "displayRefIds": [
-          "choice-0-ref-1",
-          "choice-1-ref-1",
-          "choice-2-ref-1",
-          "choice-3-ref-1",
-          "choice-4-ref-1"
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "正誤は維持する。"
         ],
-        "refs": [
-          {
-            "refId": "choice-0-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "item": "5",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          },
-          {
-            "refId": "choice-1-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "item": "2",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          },
-          {
-            "refId": "choice-2-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "item": "2",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          },
-          {
-            "refId": "choice-3-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "item": "6",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          },
-          {
-            "refId": "choice-4-ref-1",
-            "lawTimeScope": "current",
-            "relation": "basis",
-            "primaryBasis": true,
-            "lawId": "345M50000400097",
-            "lawTitle": "ガス事業法施行規則",
-            "article": "202",
-            "item": "8",
-            "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
-          }
-        ]
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する現行法との差異はない。",
+          "displayRefIds": [
+            "choice-0-ref-1"
+          ],
+          "explanationText": "ガス事業法施行規則第202条第5号ロにより、12kW以下のガス瞬間湯沸器を換気扇又は有効な給排気用開口部がある室に設置する場合の基準に合致する。",
+          "promptContext": "第202条第5号ロを根拠とし、未確認の改正内容は推測しない。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "elm": "Article-202",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-5-Subitem-2"
+              ],
+              "item": "5",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "egov-current-2026-07-11",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-0-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "ロ",
+              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
       },
-      "secondaryAuditRunId": "secondary-egov-gas-shunin-kou-2019-b45934fbe5c8ef15"
-    },
+      {
+        "answerImpactFacts": [
+          "正誤は維持する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する現行法との差異はない。",
+          "displayRefIds": [
+            "choice-1-ref-1"
+          ],
+          "explanationText": "ガス事業法施行規則第202条第2号イにより、自然排気式燃焼器の排気筒材料は告示規格に適合するもの又は同等以上のものとされる。",
+          "promptContext": "第202条第2号イを根拠とし、未確認の改正内容は推測しない。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "elm": "Article-202",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-2-Subitem-1"
+              ],
+              "item": "2",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "egov-current-2026-07-11",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-1-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "イ（1）",
+              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正誤は維持する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する現行法との差異はない。",
+          "displayRefIds": [
+            "choice-2-ref-1"
+          ],
+          "explanationText": "ガス事業法施行規則第202条第2号イにより、排気扇を接続しない自然排気式燃焼器の排気筒は、接続部の有効断面積より小さくない有効断面積が必要である。",
+          "promptContext": "第202条第2号イを根拠とし、未確認の改正内容は推測しない。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "elm": "Article-202",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-2-Subitem-1"
+              ],
+              "item": "2",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "egov-current-2026-07-11",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-2-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "イ（3）",
+              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正誤は維持する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する現行法との差異はない。",
+          "displayRefIds": [
+            "choice-3-ref-1"
+          ],
+          "explanationText": "ガス事業法施行規則第202条第6号ヌにより、密閉燃焼式燃焼器の給排気部は、燃焼を妨げない十分な風量を確保できる形状であることが求められる。",
+          "promptContext": "第202条第6号ヌを根拠とし、未確認の改正内容は推測しない。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "elm": "Article-202",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-6-Subitem-10"
+              ],
+              "item": "6",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "egov-current-2026-07-11",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-3-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "ヌ",
+              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "正誤は維持する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する現行法との差異はない。",
+          "displayRefIds": [
+            "choice-4-ref-1"
+          ],
+          "explanationText": "ガス事業法施行規則第202条第8号は、特定地下街等の該当燃焼器にガス漏れ警報設備を設けることを求めており、自動ガス遮断装置又はガス漏れ警報器の選択設置とはしていない。",
+          "promptContext": "第202条第8号を根拠とし、未確認の改正内容は推測しない。",
+          "refs": [
+            {
+              "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "elm": "Article-202",
+              "encodedElm": "Article-202",
+              "highlightElms": [
+                "Article-202-Paragraph-1-Item-8"
+              ],
+              "item": "8",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "egov-current-2026-07-11",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "choice-4-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article-202",
+              "subitem": "none",
+              "textHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      }
+    ],
     "lawzillaWorkflowReview": {
       "schemaVersion": "gas-shunin-lawzilla-workflow-review/v1",
       "reviewedAt": "2026-07-10T08:15:00+09:00",
@@ -2597,7 +2898,19 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:law:q15",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0071,chiefgasengineerlicense-A-10-0072,chiefgasengineerlicense-A-10-0073,chiefgasengineerlicense-A-10-0074,chiefgasengineerlicense-A-10-0075",
+    "sourceRecordRef": "question_2019_firestore_2.json#8",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-11",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "title": "ガス事業法施行規則（昭和四十五年通商産業省令第九十七号）"
+      }
+    ],
+    "lawContextForExplanation": "消費機器の技術上の基準について、ガス事業法施行規則第202条第5号ロ、第2号イ、第6号ヌ及び第8号を選択肢別の根拠として用いる。",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0076,chiefgasengineerlicense-A-10-0077,chiefgasengineerlicense-A-10-0078,chiefgasengineerlicense-A-10-0079,chiefgasengineerlicense-A-10-0080",
@@ -5660,40 +5973,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "正しい。混合気体では各成分の分圧比がモル比に等しい。酸素とメタンのモル比は2.0:0.5=4:1、モル質量比は32:16=2:1であるため、質量比は4×2:1=8:1となる。",
-      "間違い。分圧比から求めたモル比4:1にモル質量比32:16=2:1を反映すると、酸素とメタンの質量比は8:1になる。選択肢は4:1としているため、誤りである。",
-      "間違い。酸素とメタンの分圧比は4:1、モル質量比は2:1であるため、質量比は8:1になる。選択肢は3:1としているため、誤りである。",
-      "間違い。酸素とメタンの質量比は、分圧比4:1にモル質量比2:1を反映して8:1になる。選択肢は2:1としているため、誤りである。",
-      "間違い。分圧比とモル質量比を反映すると、酸素の質量はメタンの8倍となる。選択肢は両者を同じ質量としているため、誤りである。"
-    ],
-    "suggestedQuestions": [
-      "酸素2.0MPa、メタン0.5MPaなら質量比は8:1？",
-      "酸素とメタンの質量比は4:1？",
-      "酸素とメタンの質量比は3:1？",
-      "酸素とメタンの質量比は2:1？",
-      "酸素とメタンの質量比は1:1？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "酸素2.0MPa、メタン0.5MPaなら質量比は8:1？",
-        "answer": "混合気体では各成分の分圧比がモル比に等しい。酸素とメタンのモル比は2.0:0.5=4:1で、モル質量比は32:16=2:1であるため、質量比は4×2:1=8:1となる。記述は正しい。"
-      },
-      {
-        "question": "酸素とメタンの質量比は4:1？",
-        "answer": "分圧比からモル比はO2:CH4=4:1となり、さらにモル質量比32:16=2:1を掛けるため、質量比は8:1である。4:1ではない。"
-      },
-      {
-        "question": "酸素とメタンの質量比は3:1？",
-        "answer": "酸素とメタンの分圧比は4:1で、モル質量比は2:1であるため、質量比は8:1となる。3:1ではない。"
-      },
-      {
-        "question": "酸素とメタンの質量比は2:1？",
-        "answer": "酸素とメタンの質量比は、分圧比4:1にモル質量比2:1を反映して8:1となる。2:1ではない。"
-      },
-      {
-        "question": "酸素とメタンの質量比は1:1？",
-        "answer": "分圧比とモル質量比を考慮すると酸素の質量はメタンの8倍となるため、1:1ではない。"
-      }
+      "混合気体では、同じ温度・体積の下で各成分の物質量は分圧に比例する。したがって酸素とメタンのモル比は、分圧比から 2.0:0.5=4:1 である。質量は物質量にモル質量を掛けて求めるため、酸素 O2 のモル質量32、メタン CH4 のモル質量16を用いると、質量比は 4×32:1×16=128:16=8:1 となる。よって、最も近い値は8:1である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -5721,7 +6001,135 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q01",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10144,gasushunin-koushu-kiso-2019-1-2,gasushunin-koushu-kiso-2019-1-3,gasushunin-koushu-kiso-2019-1-4,gasushunin-koushu-kiso-2019-1-5",
+    "sourceRecordRef": "question_2019_firestore_2.json#18",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、混合気体の分圧・物質量・モル質量に関する基礎理論の計算問題。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は正誤に影響しない。",
+          "displayRefIds": [],
+          "explanationText": "混合気体の分圧比、モル比、モル質量から質量比を求める基礎理論問題であり、法令条文を根拠にしない。",
+          "promptContext": "酸素2.0MPa、メタン0.5MPa、モル質量 O2=32、CH4=16 から質量比8:1を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は正誤に影響しない。",
+          "displayRefIds": [],
+          "explanationText": "混合気体の分圧比、モル比、モル質量から質量比を求める基礎理論問題であり、法令条文を根拠にしない。",
+          "promptContext": "正しい質量比は8:1であり、4:1ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は正誤に影響しない。",
+          "displayRefIds": [],
+          "explanationText": "混合気体の分圧比、モル比、モル質量から質量比を求める基礎理論問題であり、法令条文を根拠にしない。",
+          "promptContext": "正しい質量比は8:1であり、3:1ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は正誤に影響しない。",
+          "displayRefIds": [],
+          "explanationText": "混合気体の分圧比、モル比、モル質量から質量比を求める基礎理論問題であり、法令条文を根拠にしない。",
+          "promptContext": "正しい質量比は8:1であり、2:1ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は正誤に影響しない。",
+          "displayRefIds": [],
+          "explanationText": "混合気体の分圧比、モル比、モル質量から質量比を求める基礎理論問題であり、法令条文を根拠にしない。",
+          "promptContext": "正しい質量比は8:1であり、1:1ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10169,chiefgasengineerlicense-C-10170,chiefgasengineerlicense-C-10171,chiefgasengineerlicense-C-10172,chiefgasengineerlicense-C-10173",
@@ -5740,40 +6148,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "正しい。速度ベクトルが時間によって変化しない流れを定常流、時間によって変化する流れを非定常流という。",
-      "正しい。非圧縮性・非粘性流体の定常流では、ベルヌーイの式により、単位体積当たりの運動エネルギー、位置エネルギー及び圧力エネルギーの和が流線上で一定となる。",
-      "正しい。直円管内の流れのレイノルズ数は、平均流速と内径の積を動粘度で割って求められる。",
-      "正しい。非圧縮性流体の定常流では、連続の式により、管の内径が変化しても各断面を単位時間に通過する質量流量は一定となる。",
-      "間違い。臨界レイノルズ数は、助走区間の状態や流路形状などの影響を受けるため、常に一定ではない。選択肢はこれらの条件によらず一定としているため、誤りである。"
-    ],
-    "suggestedQuestions": [
-      "速度ベクトルが時間変化しない流れは定常流？",
-      "ベルヌーイの式では各エネルギーの和が流線上で一定？",
-      "直円管のレイノルズ数は平均流速×内径÷動粘度で求める？",
-      "非圧縮性流体の定常流では各断面の質量流量は一定？",
-      "臨界レイノルズ数は流路条件によらず一定？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "速度ベクトルが時間変化しない流れは定常流？",
-        "answer": "速度ベクトルが時間によって変化しない流れは定常流、時間によって変化する流れは非定常流である。記述は正しい。"
-      },
-      {
-        "question": "ベルヌーイの式では各エネルギーの和が流線上で一定？",
-        "answer": "非圧縮性・非粘性流体の定常流では、ベルヌーイの式により、単位体積あたりの運動エネルギー、位置エネルギー、圧力エネルギーの和は流線上で一定である。記述は正しい。"
-      },
-      {
-        "question": "直円管のレイノルズ数は平均流速×内径÷動粘度で求める？",
-        "answer": "直円管内の流れのレイノルズ数は、平均流速に内径を掛け、動粘度で割って求めることができる。記述は正しい。"
-      },
-      {
-        "question": "非圧縮性流体の定常流では各断面の質量流量は一定？",
-        "answer": "非圧縮性流体の定常流では連続の式により、管の内径が変化しても各断面を単位時間に通過する質量流量は一定である。記述は正しい。"
-      },
-      {
-        "question": "臨界レイノルズ数は流路条件によらず一定？",
-        "answer": "臨界レイノルズ数は助走区間の状態や流路形状などの影響を受けるため、常に一定ではない。記述は誤り。"
-      }
+      "正しい。流れの中の各点の速度ベクトルが時間によって変化しない流れを定常流、時間によって変化する流れを非定常流という。",
+      "正しい。非圧縮性・非粘性流体の定常流では、ベルヌーイの式により、単位体積当たりの運動エネルギー、位置エネルギー、圧力エネルギーの総和は流線上で一定である。",
+      "正しい。直円管内の流れのレイノルズ数は、平均流速と管内径の積を動粘度で割った値として表される。",
+      "正しい。非圧縮性流体の定常流では連続の式が成り立つため、内径が変化しても各断面を単位時間に通過する質量流量は一定である。",
+      "間違い。臨界レイノルズ数は、助走区間の状態、流路形状、乱れの程度などの影響を受けるため、常に一定とはいえない。選択肢は条件によらず一定としているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -5801,7 +6180,145 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q10",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10169,chiefgasengineerlicense-C-10170,chiefgasengineerlicense-C-10171,chiefgasengineerlicense-C-10172,chiefgasengineerlicense-C-10173",
+    "sourceRecordRef": "question_2019_firestore_2.json#19",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。定常流・非定常流、ベルヌーイの式、レイノルズ数、連続の式、臨界レイノルズ数に関する流体力学知識から正誤を判断する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令問題ではないため、法改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "速度ベクトルが時間変化しない流れを定常流、時間変化する流れを非定常流とする技術知識に基づき正しい。",
+          "promptContext": "法令条文を主要根拠としない管内流動の基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "流体力学の定常流・非定常流に関する技術知識で判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令問題ではないため、法改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "非圧縮性・非粘性流体の定常流では、各エネルギーの総和が流線上で一定となるため正しい。",
+          "promptContext": "法令条文を主要根拠としない管内流動の基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ベルヌーイの式に関する技術知識で判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令問題ではないため、法改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "直円管内のレイノルズ数は平均流速、管内径、動粘度から求められるため正しい。",
+          "promptContext": "法令条文を主要根拠としない管内流動の基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "直円管内流れのレイノルズ数に関する技術知識で判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令問題ではないため、法改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "非圧縮性流体の定常流では、連続の式により各断面の質量流量が一定となるため正しい。",
+          "promptContext": "法令条文を主要根拠としない管内流動の基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "非圧縮性流体の連続の式に関する技術知識で判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令問題ではないため、法改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点差分と現行差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "臨界レイノルズ数は流路条件などの影響を受けるため、条件によらず一定とする記述は誤り。",
+          "promptContext": "法令条文を主要根拠としない管内流動の基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨界レイノルズ数に関する技術知識で判定する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2019-11-1,gasushunin-koushu-kiso-2019-11-2,gasushunin-koushu-kiso-2019-11-3,chiefgasengineerlicense-C-10174,gasushunin-koushu-kiso-2019-11-5",
@@ -5820,40 +6337,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "間違い。ゲージ圧は液体の密度、重力加速度及び液面高低差の積で求める。900×9.8×0.5=4,410Pa=4.41kPaとなり、選択肢の1.1kPaとは一致しないため、誤りである。",
-      "間違い。液面高低差500mmを0.5mに換算すると、ゲージ圧は900×9.8×0.5=4.41kPaとなる。選択肢の2.2kPaはこの計算値より小さいため、誤りである。",
-      "間違い。ゲージ圧はρgHで求められ、900×9.8×0.5=4,410Pa=4.41kPaとなる。選択肢の3.3kPaとは一致しないため、誤りである。",
-      "正しい。ゲージ圧は測定圧力と大気圧との差であり、ρgH=900×9.8×0.5=4,410Pa=4.41kPaとなる。最も近い値は4.4kPaである。",
-      "間違い。計算で求めたゲージ圧は4.41kPaであり、最も近い値は4.4kPaである。選択肢の5.5kPaは計算値より大きいため、誤りである。"
-    ],
-    "suggestedQuestions": [
-      "この条件でゲージ圧は1.1kPa？",
-      "この条件でゲージ圧は2.2kPa？",
-      "この条件でゲージ圧は3.3kPa？",
-      "この条件でゲージ圧は4.4kPa？",
-      "この条件でゲージ圧は5.5kPa？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この条件でゲージ圧は1.1kPa？",
-        "answer": "ゲージ圧は液柱の密度、重力加速度、液面高低差の積で求める。900×9.8×0.5=4410Pa=4.41kPaとなるため、1.1kPaではない。"
-      },
-      {
-        "question": "この条件でゲージ圧は2.2kPa？",
-        "answer": "液面高低差500mmは0.5mであり、ゲージ圧は900×9.8×0.5=4.41kPaとなる。2.2kPaでは小さすぎる。"
-      },
-      {
-        "question": "この条件でゲージ圧は3.3kPa？",
-        "answer": "ゲージ圧はρgHで計算し、900×9.8×0.5=4410Pa=4.41kPaである。3.3kPaではない。"
-      },
-      {
-        "question": "この条件でゲージ圧は4.4kPa？",
-        "answer": "ゲージ圧は測定圧力と大気圧との差であり、ρgH=900×9.8×0.5=4410Pa=4.41kPaとなる。最も近い値は4.4kPaなので正しい。"
-      },
-      {
-        "question": "この条件でゲージ圧は5.5kPa？",
-        "answer": "計算値は4.41kPaであり、最も近い選択肢は4.4kPaである。5.5kPaでは大きすぎる。"
-      }
+      "間違い。マノメーターの液面高低差によるゲージ圧は、液体の密度ρ、重力加速度g、高低差Hの積で求める。500mm=0.5mなので、Δp=ρgH=900×9.8×0.5=4410Pa=4.41kPaである。したがって、1.1kPaは計算値と一致せず、誤りである。",
+      "間違い。ゲージ圧はΔp=ρgHであり、液面高低差500mmを0.5mに換算して計算する。900×9.8×0.5=4410Pa=4.41kPaとなるため、2.2kPaではなく、誤りである。",
+      "間違い。管内径は与えられているが、この液柱差から圧力を求める計算では、圧力差はρgHで決まる。900×9.8×0.5=4410Pa=4.41kPaであり、3.3kPaは最も近い値ではないため、誤りである。",
+      "正しい。容器内のゲージ圧は、マノメーター液の密度、重力加速度、液面高低差の積で求める。500mm=0.5mより、Δp=900×9.8×0.5=4410Pa=4.41kPaとなる。選択肢の中で最も近い値は4.4kPaなので、正しい。",
+      "間違い。計算されるゲージ圧はΔp=900×9.8×0.5=4410Pa=4.41kPaである。5.5kPaはこの値より大きく、最も近い値でもないため、誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -5881,7 +6369,135 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q11",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2019-11-1,gasushunin-koushu-kiso-2019-11-2,gasushunin-koushu-kiso-2019-11-3,chiefgasengineerlicense-C-10174,gasushunin-koushu-kiso-2019-11-5",
+    "sourceRecordRef": "question_2019_firestore_2.json#20",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論の計算問題。マノメーターのゲージ圧は、液体密度、重力加速度、液面高低差の積で判断する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ゲージ圧をρgHで計算する基礎理論問題であり、選択肢1.1kPaは計算値4.41kPaと一致しない。",
+          "promptContext": "マノメーター、密度900kg/m^3、重力加速度9.8m/s^2、液面高低差0.5mから判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正による正誤影響を受けない技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ゲージ圧をρgHで計算する基礎理論問題であり、選択肢2.2kPaは計算値4.41kPaと一致しない。",
+          "promptContext": "マノメーター、密度900kg/m^3、重力加速度9.8m/s^2、液面高低差0.5mから判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正による正誤影響を受けない技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ゲージ圧をρgHで計算する基礎理論問題であり、選択肢3.3kPaは計算値4.41kPaと一致しない。",
+          "promptContext": "マノメーター、密度900kg/m^3、重力加速度9.8m/s^2、液面高低差0.5mから判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正による正誤影響を受けない技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ゲージ圧をρgHで計算すると4.41kPaとなり、選択肢4.4kPaが最も近い。",
+          "promptContext": "マノメーター、密度900kg/m^3、重力加速度9.8m/s^2、液面高低差0.5mから判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正による正誤影響を受けない技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ゲージ圧をρgHで計算する基礎理論問題であり、選択肢5.5kPaは計算値4.41kPaから離れている。",
+          "promptContext": "マノメーター、密度900kg/m^3、重力加速度9.8m/s^2、液面高低差0.5mから判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正による正誤影響を受けない技術計算問題。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2019-12-1,chiefgasengineerlicense-C-10175,gasushunin-koushu-kiso-2019-12-3,gasushunin-koushu-kiso-2019-12-4,gasushunin-koushu-kiso-2019-12-5",
@@ -5900,40 +6516,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "間違い。熱流束q=λΔT/Lから、厚さはL=λΔT/qで求める。断熱材Aは0.01×(300−100)/10=0.2m、断熱材Bは0.02×(400−300)/10=0.2mで、総厚さは0.4mとなる。選択肢は0.35mとしているため、誤りである。",
-      "正しい。断熱材Aの厚さは0.01×200/10=0.2m、断熱材Bの厚さは0.02×100/10=0.2mである。合計すると炉壁の厚さは0.4mとなる。",
-      "間違い。断熱材AとBの厚さはそれぞれ0.2mであり、炉壁の総厚さは0.4mとなる。選択肢は0.45mとしているため、誤りである。",
-      "間違い。炉壁の総厚さはL_A+L_B=0.2+0.2=0.4mである。選択肢は0.5mとしているため、誤りである。",
-      "間違い。熱流束と各層の温度差から求めた炉壁の総厚さは0.4mである。選択肢は0.55mとしているため、誤りである。"
-    ],
-    "suggestedQuestions": [
-      "炉壁の厚さは0.35m？",
-      "炉壁の厚さは0.4m？",
-      "炉壁の厚さは0.45m？",
-      "炉壁の厚さは0.5m？",
-      "炉壁の厚さは0.55m？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "炉壁の厚さは0.35m？",
-        "answer": "熱流束q=λΔT/Lより、厚さはL=λΔT/qで求める。断熱材Aは0.01×(300−100)/10=0.2m、断熱材Bは0.02×(400−300)/10=0.2mなので、総厚さは0.4mであり、0.35mではない。"
-      },
-      {
-        "question": "炉壁の厚さは0.4m？",
-        "answer": "断熱材Aの厚さは0.01×200/10=0.2m、断熱材Bの厚さは0.02×100/10=0.2mである。合計は0.4mとなるため、0.4mが正しい。"
-      },
-      {
-        "question": "炉壁の厚さは0.45m？",
-        "answer": "各層の厚さは、断熱材Aが0.2m、断熱材Bが0.2mで、合計0.4mである。0.45mではない。"
-      },
-      {
-        "question": "炉壁の厚さは0.5m？",
-        "answer": "総厚さはL_A+L_B=0.2+0.2=0.4mである。0.5mでは大きすぎる。"
-      },
-      {
-        "question": "炉壁の厚さは0.55m？",
-        "answer": "熱流束と各層の温度差から求める総厚さは0.4mである。0.55mではない。"
-      }
+      "平面壁の定常熱伝導では、熱流束 q、熱伝導率 λ、温度差 ΔT、厚さ L の関係は q=λΔT/L であり、厚さは L=λΔT/q で求める。断熱材Aは低温側100℃から境界300℃までなので、L_A=0.01×(300−100)/10=0.20m。断熱材Bは境界300℃から高温側400℃までなので、L_B=0.02×(400−300)/10=0.20m。接触熱抵抗は無視するため、炉壁全体の厚さは L_A+L_B=0.20+0.20=0.40m となる。したがって、最も近い値は0.4mである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -5961,7 +6544,145 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q12",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2019-12-1,chiefgasengineerlicense-C-10175,gasushunin-koushu-kiso-2019-12-3,gasushunin-koushu-kiso-2019-12-4,gasushunin-koushu-kiso-2019-12-5",
+    "sourceRecordRef": "question_2019_firestore_2.json#21",
+    "explanationReferences": [],
+    "lawContextForExplanation": "熱伝導率、温度差、熱流束から平面炉壁の厚さを求める技術計算問題であり、法令条文を主要根拠としない。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分は関係しない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢0.35mは、計算で得られる炉壁厚さ0.40mと一致しない。",
+          "promptContext": "平面壁の熱伝導 q=λΔT/L を用いて各層厚さを計算する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱伝導の計算問題であり、法令照合の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分は関係しない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢0.4mは、断熱材A 0.20mと断熱材B 0.20mの合計0.40mと一致する。",
+          "promptContext": "平面壁の熱伝導 q=λΔT/L を用いて各層厚さを計算する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "熱伝導の計算問題であり、法令照合の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分は関係しない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢0.45mは、計算で得られる炉壁厚さ0.40mと一致しない。",
+          "promptContext": "平面壁の熱伝導 q=λΔT/L を用いて各層厚さを計算する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱伝導の計算問題であり、法令照合の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分は関係しない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢0.5mは、計算で得られる炉壁厚さ0.40mと一致しない。",
+          "promptContext": "平面壁の熱伝導 q=λΔT/L を用いて各層厚さを計算する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱伝導の計算問題であり、法令照合の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の新旧差分は関係しない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢0.55mは、計算で得られる炉壁厚さ0.40mと一致しない。",
+          "promptContext": "平面壁の熱伝導 q=λΔT/L を用いて各層厚さを計算する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱伝導の計算問題であり、法令照合の対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2019-13-1,gasushunin-koushu-kiso-2019-13-2,gasushunin-koushu-kiso-2019-13-3,chiefgasengineerlicense-C-10176,gasushunin-koushu-kiso-2019-13-5",
@@ -5980,40 +6701,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "間違い。低温流体の入口温度をTとすると、0.4=(97−T)/(220−T)からT=15℃となる。高温流体の温度効率は(220−56)/(220−15)=164/205=0.8であり、選択肢の0.25とは一致しないため、誤りである。",
-      "間違い。低温流体の入口温度は0.4=(97−T)/(220−T)から15℃となるため、高温流体の温度効率は(220−56)/(220−15)=0.8である。選択肢は0.35としているため、誤りである。",
-      "間違い。高温流体の温度効率は、高温流体の温度低下164℃を最大温度差205℃で割った0.8である。選択肢は0.67としているため、誤りである。",
-      "正しい。低温流体の入口温度をTとすると、0.4=(97−T)/(220−T)からT=15℃となる。高温流体の温度効率は(220−56)/(220−15)=164/205=0.8である。",
-      "間違い。低温流体の入口温度15℃を用いると、高温流体の温度効率は(220−56)/(220−15)=0.8となる。選択肢は0.86としているため、誤りである。"
-    ],
-    "suggestedQuestions": [
-      "高温流体の温度効率は0.25？",
-      "高温流体の温度効率は0.35？",
-      "高温流体の温度効率は0.67？",
-      "高温流体の温度効率は0.8？",
-      "高温流体の温度効率は0.86？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "高温流体の温度効率は0.25？",
-        "answer": "低温流体の入口温度をTとすると、低温流体の温度効率は0.4=(97−T)/(220−T)であり、T=15℃となる。高温流体の温度効率は(220−56)/(220−15)=164/205=0.8なので、0.25ではない。"
-      },
-      {
-        "question": "高温流体の温度効率は0.35？",
-        "answer": "低温流体入口温度は0.4=(97−T)/(220−T)から15℃である。高温流体の温度効率は(220−56)/(220−15)=0.8であり、0.35ではない。"
-      },
-      {
-        "question": "高温流体の温度効率は0.67？",
-        "answer": "高温流体の温度効率は、高温流体の温度低下164℃を最大温度差205℃で割って0.8となる。0.67ではない。"
-      },
-      {
-        "question": "高温流体の温度効率は0.8？",
-        "answer": "低温流体入口温度をTとすると、0.4=(97−T)/(220−T)よりT=15℃である。高温流体の温度効率は(220−56)/(220−15)=164/205=0.8なので、0.8が正しい。"
-      },
-      {
-        "question": "高温流体の温度効率は0.86？",
-        "answer": "計算上、高温流体の温度効率は0.8である。0.86は、低温流体入口温度を求めたうえでの温度差比と一致しない。"
-      }
+      "間違い。低温流体の入口温度をt℃とすると、低温流体の温度効率は(97−t)/(220−t)=0.4である。これを解くとt=15℃となり、高温流体の温度効率は(220−56)/(220−15)=164/205=0.8である。0.25ではないため、誤りである。",
+      "間違い。低温流体の入口温度をt℃とすると、(97−t)/(220−t)=0.4よりt=15℃である。したがって高温流体の温度効率は(220−56)/(220−15)=0.8となる。0.35ではないため、誤りである。",
+      "間違い。低温流体の入口温度は15℃であり、高温流体の温度効率は高温流体の温度低下164℃を最大温度差205℃で割って、164/205=0.8となる。0.67ではないため、誤りである。",
+      "正しい。低温流体の入口温度をt℃とすると、低温流体の温度効率から(97−t)/(220−t)=0.4となる。これを解くとt=15℃である。高温流体の温度効率は(220−56)/(220−15)=164/205=0.8となるため、この選択肢が正しい。",
+      "間違い。低温流体の入口温度は(97−t)/(220−t)=0.4から15℃である。高温流体の温度効率は(220−56)/(220−15)=164/205=0.8であり、0.86ではないため、誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -6041,7 +6733,145 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q13",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2019-13-1,gasushunin-koushu-kiso-2019-13-2,gasushunin-koushu-kiso-2019-13-3,chiefgasengineerlicense-C-10176,gasushunin-koushu-kiso-2019-13-5",
+    "sourceRecordRef": "question_2019_firestore_2.json#22",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、熱交換器の温度効率に関する計算問題。低温流体入口温度を求めてから高温流体の温度効率を算出する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の検討対象外。",
+          "displayRefIds": [],
+          "explanationText": "低温流体入口温度を15℃と求め、高温流体の温度効率を0.8と算出する技術計算問題。選択肢0.25は一致しない。",
+          "promptContext": "熱交換器の温度効率の計算に基づく基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱交換器の温度効率に関する計算問題であり、法令条文を根拠としない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の検討対象外。",
+          "displayRefIds": [],
+          "explanationText": "低温流体入口温度を15℃と求め、高温流体の温度効率を0.8と算出する技術計算問題。選択肢0.35は一致しない。",
+          "promptContext": "熱交換器の温度効率の計算に基づく基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱交換器の温度効率に関する計算問題であり、法令条文を根拠としない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の検討対象外。",
+          "displayRefIds": [],
+          "explanationText": "低温流体入口温度を15℃と求め、高温流体の温度効率を0.8と算出する技術計算問題。選択肢0.67は一致しない。",
+          "promptContext": "熱交換器の温度効率の計算に基づく基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱交換器の温度効率に関する計算問題であり、法令条文を根拠としない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の検討対象外。",
+          "displayRefIds": [],
+          "explanationText": "低温流体入口温度は15℃であり、高温流体の温度効率は(220−56)/(220−15)=0.8となるため、この選択肢が正しい。",
+          "promptContext": "熱交換器の温度効率の計算に基づく基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "熱交換器の温度効率に関する計算問題であり、法令条文を根拠としない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の検討対象外。",
+          "displayRefIds": [],
+          "explanationText": "低温流体入口温度を15℃と求め、高温流体の温度効率を0.8と算出する技術計算問題。選択肢0.86は一致しない。",
+          "promptContext": "熱交換器の温度効率の計算に基づく基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "熱交換器の温度効率に関する計算問題であり、法令条文を根拠としない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10177,chiefgasengineerlicense-C-10178,chiefgasengineerlicense-C-10179,chiefgasengineerlicense-C-10180,chiefgasengineerlicense-C-10181",
@@ -6060,40 +6890,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "正しい。α鉄に炭素原子が固溶した組織をフェライト、γ鉄に炭素原子が固溶した組織をオーステナイトという。",
-      "正しい。鉄鋼材料には疲労に対する耐久限度があり、それ以下の応力振幅では繰返し荷重を受けても疲労破壊に至らない。",
-      "正しい。クリープは、材料に一定の応力を加え続けたとき、時間の経過とともにひずみが増加する現象である。",
-      "間違い。炭素鋼に不純物として含まれるリンは、硬さや引張強さを増加させる。選択肢はこれらを低下させるとしているため、誤りである。",
-      "正しい。炭素鋼は、一般に炭素量が増えると引張強さが増す一方、伸びは減少する。"
-    ],
-    "suggestedQuestions": [
-      "この記述は正しい？",
-      "この記述は正しい？",
-      "この記述は正しい？",
-      "この記述は誤っている？",
-      "この記述は正しい？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この記述は正しい？",
-        "answer": "正しい。α鉄に炭素原子を固溶したものをフェライト、γ鉄に炭素原子を固溶したものをオーステナイトという。"
-      },
-      {
-        "question": "この記述は正しい？",
-        "answer": "正しい。鉄鋼材料の疲労破壊では耐久限度が存在し、それ以下の応力振幅では繰返し荷重に対して破断しないで耐える。"
-      },
-      {
-        "question": "この記述は正しい？",
-        "answer": "正しい。クリープは、一定応力の下で時間の経過とともにひずみが増加する現象である。"
-      },
-      {
-        "question": "この記述は誤っている？",
-        "answer": "間違い。炭素鋼に不純物として含まれるリン（P）は、硬さや引張強さを低下させるのではなく増加させる。"
-      },
-      {
-        "question": "この記述は正しい？",
-        "answer": "正しい。炭素鋼は、一般に炭素量が増加すると引張強さが増し、伸びは減少する。"
-      }
+      "正しい。フェライトは炭素をわずかに固溶したα鉄、オーステナイトは炭素を固溶したγ鉄を指すため、記述は正しい。",
+      "正しい。鉄鋼材料の疲労破壊では耐久限度が現れ、それ以下の応力振幅では、繰返し荷重を受けても疲労破壊しにくくなるため、記述は正しい。",
+      "正しい。クリープは、材料に一定の応力を加え続けたとき、時間の経過とともにひずみが増加していく現象である。",
+      "間違い。炭素鋼に不純物として含まれるリン（P）は、一般に硬さや引張強さを増加させる方向に働く。記述は「低下させる」としているため誤りである。",
+      "正しい。炭素鋼は、一般に炭素量が増えると引張強さが増す一方で、延性を示す伸びは減少するため、記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -6121,7 +6922,135 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q14",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10177,chiefgasengineerlicense-C-10178,chiefgasengineerlicense-C-10179,chiefgasengineerlicense-C-10180,chiefgasengineerlicense-C-10181",
+    "sourceRecordRef": "question_2019_firestore_2.json#23",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、鉄鋼材料の組織、疲労、クリープ及び炭素鋼の性質に関する技術・基礎理論問題。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フェライトとオーステナイトの定義に関する技術知識の問題で、法令条文を根拠としない。",
+          "promptContext": "金属材料の組織に関する技術・基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "金属材料の基礎理論に関する記述であり、法令改正による正誤影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "鉄鋼材料の疲労破壊と耐久限度に関する技術知識の問題で、法令条文を根拠としない。",
+          "promptContext": "金属材料の疲労破壊に関する技術・基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "金属材料の基礎理論に関する記述であり、法令改正による正誤影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クリープ現象に関する技術知識の問題で、法令条文を根拠としない。",
+          "promptContext": "材料の時間依存変形に関する技術・基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "金属材料の基礎理論に関する記述であり、法令改正による正誤影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "炭素鋼に含まれるリンの影響に関する技術知識の問題で、法令条文を根拠としない。",
+          "promptContext": "炭素鋼中の不純物元素の影響に関する技術・基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "金属材料の基礎理論に関する記述であり、法令改正による正誤影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "炭素鋼の炭素量と引張強さ・伸びの関係に関する技術知識の問題で、法令条文を根拠としない。",
+          "promptContext": "炭素鋼の機械的性質に関する技術・基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "金属材料の基礎理論に関する記述であり、法令改正による正誤影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10182,chiefgasengineerlicense-C-10183,chiefgasengineerlicense-C-10184,chiefgasengineerlicense-C-10185,chiefgasengineerlicense-C-10186",
@@ -6140,40 +7069,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
     "explanationText": [
-      "正しい。低温では材料が脆くなりやすいため、低温用材料には、使用温度で脆性破壊を起こさない靱性が必要である。",
-      "正しい。低温用材料には、使用温度でも荷重に耐えられる十分な強度が必要である。",
-      "正しい。低温機器を適切に製作するため、低温用材料には良好な溶接性と加工性が必要である。",
-      "正しい。内容物による腐食を防いで健全性を保つため、低温用材料には内容物に対する耐食性が必要である。",
-      "間違い。黒鉛化による強度低下への耐性は、高温装置用材料で問題となる性質であり、低温用材料に求める一般的な性質ではない。選択肢は高温環境の論点を低温用材料の要件としているため、誤りである。"
-    ],
-    "suggestedQuestions": [
-      "低温用材料は低温で脆性破壊を起こさないことが必要？",
-      "低温用材料は低温で十分な強度を有することが必要？",
-      "低温用材料は溶接性、加工性が良いことが必要？",
-      "低温用材料は内容物に対して耐食性があることが必要？",
-      "黒鉛化現象によって強度が著しく低下しないことは低温用材料の一般的性質？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "低温用材料は低温で脆性破壊を起こさないことが必要？",
-        "answer": "正しい。低温用材料には、低温において脆性破壊を起こさない性質が要求される。"
-      },
-      {
-        "question": "低温用材料は低温で十分な強度を有することが必要？",
-        "answer": "正しい。低温用材料には、使用温度で十分な強度を有することが要求される。"
-      },
-      {
-        "question": "低温用材料は溶接性、加工性が良いことが必要？",
-        "answer": "正しい。低温用材料には、溶接性や加工性が良いことも一般的に要求される。"
-      },
-      {
-        "question": "低温用材料は内容物に対して耐食性があることが必要？",
-        "answer": "正しい。低温用材料には、内容物に対して耐食性があることが要求される。"
-      },
-      {
-        "question": "黒鉛化現象によって強度が著しく低下しないことは低温用材料の一般的性質？",
-        "answer": "間違い。黒鉛化現象によって強度が著しく低下しないことは、高温装置用材料に関する性質であり、低温用材料に要求される一般的な性質ではない。"
-      }
+      "正しい。低温では材料の靱性が低下し、割れが急速に進む脆性破壊が問題になりやすい。氷点以下で使用する低温用材料には、使用温度で脆性破壊を起こしにくい性質が必要である。",
+      "正しい。低温環境でも機器や配管に作用する荷重・圧力に耐える必要があるため、低温用材料には使用温度で十分な強度を保つことが求められる。",
+      "正しい。低温装置は溶接や成形加工を伴って製作されるため、材料には低温特性だけでなく、溶接性や加工性が良いことも一般的な要求事項となる。",
+      "正しい。内容物によって腐食すると、肉厚減少や割れなどにより健全性が損なわれる。したがって、低温用材料には内容物に対する耐食性も求められる。",
+      "間違い。黒鉛化現象によって強度が著しく低下しないことは、高温で使用される装置材料に関係する性質である。低温用材料の一般的性質は、低温での脆性破壊防止、強度、溶接性・加工性、耐食性などであり、この記述は低温用材料の要件としては適切でない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -6201,6 +7101,134 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q15",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10182,chiefgasengineerlicense-C-10183,chiefgasengineerlicense-C-10184,chiefgasengineerlicense-C-10185,chiefgasengineerlicense-C-10186",
+    "sourceRecordRef": "question_2019_firestore_2.json#24",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、低温用材料の一般的性質に関する材料技術・基礎理論問題。低温用材料では低温靱性、十分な強度、溶接性・加工性、内容物への耐食性が論点となり、黒鉛化による強度低下は高温装置用材料の論点である。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正に基づく差分はない。",
+          "displayRefIds": [],
+          "explanationText": "低温用材料の一般的性質として、低温で脆性破壊を起こしにくいことを問う技術問題である。",
+          "promptContext": "低温用材料の靱性に関する基礎理論。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "材料技術・基礎理論問題であり、法令改正による正答影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正に基づく差分はない。",
+          "displayRefIds": [],
+          "explanationText": "低温用材料の一般的性質として、低温で十分な強度を有することを問う技術問題である。",
+          "promptContext": "低温用材料の強度に関する基礎理論。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "材料技術・基礎理論問題であり、法令改正による正答影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正に基づく差分はない。",
+          "displayRefIds": [],
+          "explanationText": "低温用材料の一般的性質として、溶接性・加工性が良いことを問う技術問題である。",
+          "promptContext": "低温用材料の製作性に関する基礎理論。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "材料技術・基礎理論問題であり、法令改正による正答影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正に基づく差分はない。",
+          "displayRefIds": [],
+          "explanationText": "低温用材料の一般的性質として、内容物に対する耐食性を問う技術問題である。",
+          "promptContext": "低温用材料の耐食性に関する基礎理論。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "材料技術・基礎理論問題であり、法令改正による正答影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正に基づく差分はない。",
+          "displayRefIds": [],
+          "explanationText": "黒鉛化による強度低下への耐性は高温装置用材料の論点であり、低温用材料の一般的性質として問う記述ではない。",
+          "promptContext": "低温用材料と高温装置用材料の要求性質の区別に関する基礎理論。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "材料技術・基礎理論問題であり、法令改正による正答影響の確認対象ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

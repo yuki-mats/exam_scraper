@@ -96,40 +96,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
     "explanationText": [
-      "正しい。熱容量は、一定量の物質の温度を1K上昇させるのに必要な熱量である。",
-      "間違い。物質1kgあたりの熱容量は質量基準、1molあたりの熱容量は物質量基準であり、同じ量ではない。",
-      "正しい。理想気体では、定圧モル熱容量Cₚは定積モル熱容量Cᵥと気体定数Rの和で表される。",
-      "正しい。定圧モル熱容量Cₚと定積モル熱容量Cᵥの比Cₚ/Cᵥを比熱比という。",
-      "正しい。理想気体の混合ガスの定圧モル熱容量は、各成分の定圧モル熱容量をモル分率で加重平均して求められる。"
-    ],
-    "suggestedQuestions": [
-      "熱容量は一定量の物質の温度を1K上昇させるのに必要な熱量？",
-      "物質1kgあたりの熱容量と1molあたりの熱容量は同じ？",
-      "理想気体ではCₚ＝Cᵥ＋R？",
-      "CₚとCᵥの比は比熱比？",
-      "混合ガスのCₚはモル分率による加重平均で求められる？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "熱容量は一定量の物質の温度を1K上昇させるのに必要な熱量？",
-        "answer": "正しい。熱容量は、一定量の物質の温度を1K上昇させるのに必要な熱量である。"
-      },
-      {
-        "question": "物質1kgあたりの熱容量と1molあたりの熱容量は同じ？",
-        "answer": "間違い。物質1kgあたりの熱容量は質量基準、1molあたりの熱容量は物質量基準であり、同じ量ではない。"
-      },
-      {
-        "question": "理想気体ではCₚ＝Cᵥ＋R？",
-        "answer": "正しい。理想気体では、定圧モル熱容量Cₚは定積モル熱容量Cᵥと気体定数Rの和で表される。"
-      },
-      {
-        "question": "CₚとCᵥの比は比熱比？",
-        "answer": "正しい。定圧モル熱容量Cₚと定積モル熱容量Cᵥの比Cₚ/Cᵥを比熱比という。"
-      },
-      {
-        "question": "混合ガスのCₚはモル分率による加重平均で求められる？",
-        "answer": "正しい。理想気体の混合ガスの定圧モル熱容量は、各成分の定圧モル熱容量をモル分率で加重平均して求められる。"
-      }
+      "正しい。熱容量は、一定量の物質の温度を1K上昇させるために必要な熱量である。対象とする物質量を固定したときの熱の入りやすさを表す量であり、単位は一般にJ/Kで表される。",
+      "間違い。物質1kgあたりの熱容量は質量基準の比熱容量、1molあたりの熱容量はモル基準のモル熱容量であり、基準量が異なる。したがって、両者は同じ量ではない。",
+      "正しい。理想気体では、定圧モル熱容量Cₚと定積モル熱容量Cᵥの間にCₚ＝Cᵥ＋Rの関係が成り立つ。これは、定圧変化では内部エネルギーの増加に加えて膨張仕事に相当する熱量も必要になるためである。",
+      "正しい。定圧モル熱容量Cₚを定積モル熱容量Cᵥで割った比Cₚ/Cᵥを比熱比という。比熱比は、気体の断熱変化などを扱うときに用いられる重要な物性値である。",
+      "正しい。理想気体の混合ガスの定圧モル熱容量は、各成分の定圧モル熱容量Cₚᵢを、その成分のモル分率xᵢで重み付けして合計した値で表される。したがって、Cₚ＝Σᵢ₌₁ᴺ xᵢCₚᵢで求められる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -157,7 +128,145 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q03",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10146,chiefgasengineerlicense-C-10147,chiefgasengineerlicense-C-10148,chiefgasengineerlicense-C-10149,chiefgasengineerlicense-C-10150",
+    "sourceRecordRef": "question_2019_firestore_3.json#1",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、熱力学における気体の熱容量に関する技術理論問題。熱容量、モル熱容量、理想気体のCₚ＝Cᵥ＋R、比熱比、混合気体のモル分率加重平均を根拠に解説する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術理論肢であり、現在の正誤は試験時と同じです。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "一定量の物質の温度を1K上昇させるのに必要な熱量を熱容量という定義に関する技術理論肢です。",
+          "promptContext": "気体の熱容量に関する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "熱容量の定義に関する記述であり、法令条文を根拠としません。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術理論肢であり、現在の正誤は試験時と同じです。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "物質1kgあたりの熱容量と1molあたりの熱容量は基準量が異なるため、同じ量ではありません。",
+          "promptContext": "気体の熱容量に関する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "質量基準の熱容量とモル基準の熱容量の違いに関する記述であり、法令条文を根拠としません。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術理論肢であり、現在の正誤は試験時と同じです。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "理想気体では定圧モル熱容量Cₚと定積モル熱容量Cᵥの間にCₚ＝Cᵥ＋Rの関係が成り立ちます。",
+          "promptContext": "気体の熱容量に関する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "理想気体のモル熱容量の関係式に関する記述であり、法令条文を根拠としません。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術理論肢であり、現在の正誤は試験時と同じです。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "定圧モル熱容量Cₚと定積モル熱容量Cᵥの比Cₚ/Cᵥを比熱比といいます。",
+          "promptContext": "気体の熱容量に関する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "比熱比の定義に関する記述であり、法令条文を根拠としません。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術理論肢であり、現在の正誤は試験時と同じです。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "理想気体の混合ガスの定圧モル熱容量は、各成分の定圧モル熱容量をモル分率で重み付けして合計します。",
+          "promptContext": "気体の熱容量に関する基礎理論問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "理想気体の混合ガスにおける定圧モル熱容量の計算式に関する記述であり、法令条文を根拠としません。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2019-4-1,gasushunin-koushu-kiso-2019-4-2,chiefgasengineerlicense-C-10151,gasushunin-koushu-kiso-2019-4-4,gasushunin-koushu-kiso-2019-4-5",
@@ -176,40 +285,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
     "explanationText": [
-      "間違い。空気1m³は1000/22.4=44.64molであり、1m³あたりの定圧熱容量は29.2×44.64=約1303J/Kである。利用できる熱量36MJを25Kの温度上昇に使うと約1100m³となるため、11m³ではない。",
-      "間違い。都市ガス1m³から有効に利用できる熱量は45×10⁶×0.8=36×10⁶Jである。空気1m³を25K上げる熱量は約1303×25Jなので、体積は約1100m³であり、110m³ではない。",
-      "正しい。空気1m³は1000/22.4=44.64molで、空気1m³あたりの定圧熱容量は29.2×44.64=約1303J/Kである。したがって45×10⁶×0.8÷(1303×(30−5))≒1100m³となり、1100m³が正しい。",
-      "間違い。必要熱量の分母は空気1m³あたり約1303J/Kに温度差25Kを掛けた値である。計算結果は約1100m³であり、11000m³は10倍大きい。",
-      "間違い。有効熱量36MJを、空気1m³を25K上げる熱量で割ると約1100m³である。110000m³は計算値より大きすぎる。"
-    ],
-    "suggestedQuestions": [
-      "暖められた空気の体積は11m³？",
-      "暖められた空気の体積は110m³？",
-      "暖められた空気の体積は1100m³？",
-      "暖められた空気の体積は11000m³？",
-      "暖められた空気の体積は110000m³？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "暖められた空気の体積は11m³？",
-        "answer": "空気1m³は1000/22.4=44.64molであり、1m³あたりの定圧熱容量は29.2×44.64=約1303J/Kである。利用できる熱量36MJを25Kの温度上昇に使うと約1100m³となるため、11m³ではない。"
-      },
-      {
-        "question": "暖められた空気の体積は110m³？",
-        "answer": "都市ガス1m³から有効に利用できる熱量は45×10⁶×0.8=36×10⁶Jである。空気1m³を25K上げる熱量は約1303×25Jなので、体積は約1100m³であり、110m³ではない。"
-      },
-      {
-        "question": "暖められた空気の体積は1100m³？",
-        "answer": "空気1m³は1000/22.4=44.64molで、空気1m³あたりの定圧熱容量は29.2×44.64=約1303J/Kである。したがって45×10⁶×0.8÷(1303×(30−5))≒1100m³となり、1100m³が正しい。"
-      },
-      {
-        "question": "暖められた空気の体積は11000m³？",
-        "answer": "必要熱量の分母は空気1m³あたり約1303J/Kに温度差25Kを掛けた値である。計算結果は約1100m³であり、11000m³は10倍大きい。"
-      },
-      {
-        "question": "暖められた空気の体積は110000m³？",
-        "answer": "有効熱量36MJを、空気1m³を25K上げる熱量で割ると約1100m³である。110000m³は計算値より大きすぎる。"
-      }
+      "都市ガス1m³から空気加熱に有効に使える熱量は、45MJ/m³×0.8=36×10^6Jである。標準状態では空気1m³は1000L÷22.4L/mol=44.64molなので、空気1m³あたりの定圧熱容量は29.2J/(mol・K)×44.64mol=約1303J/Kとなる。温度上昇は30−5=25Kであるから、空気1m³を暖めるのに必要な熱量は約1303×25=約3.26×10^4Jである。したがって、暖められる空気の体積は36×10^6÷(1303×25)≒1100m³となり、最も近い値は1100である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -237,7 +313,145 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q04",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2019-4-1,gasushunin-koushu-kiso-2019-4-2,chiefgasengineerlicense-C-10151,gasushunin-koushu-kiso-2019-4-4,gasushunin-koushu-kiso-2019-4-5",
+    "sourceRecordRef": "question_2019_firestore_3.json#2",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文ではなく、発熱量、熱効率、標準状態のモル体積、定圧モル熱容量、温度差から暖められる空気体積を求める技術・計算問題。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較の対象外で、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢11m³は、計算値約1100m³と一致しない。",
+          "promptContext": "発熱量45MJ/m³、熱効率80%、空気の定圧モル熱容量29.2J/(mol・K)、標準状態のモル体積22.4L/molを用いる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "都市ガスの有効熱量と空気の定圧熱容量から体積を計算する。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較の対象外で、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢110m³は、計算値約1100m³と一致しない。",
+          "promptContext": "発熱量45MJ/m³、熱効率80%、空気の定圧モル熱容量29.2J/(mol・K)、標準状態のモル体積22.4L/molを用いる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "都市ガスの有効熱量と空気の定圧熱容量から体積を計算する。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較の対象外で、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "有効熱量36×10^6Jを、空気1m³を25K暖める熱量約1303×25Jで割ると約1100m³となる。",
+          "promptContext": "発熱量45MJ/m³、熱効率80%、空気の定圧モル熱容量29.2J/(mol・K)、標準状態のモル体積22.4L/molを用いる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "都市ガスの有効熱量と空気の定圧熱容量から体積を計算する。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較の対象外で、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢11000m³は、計算値約1100m³の約10倍であり一致しない。",
+          "promptContext": "発熱量45MJ/m³、熱効率80%、空気の定圧モル熱容量29.2J/(mol・K)、標準状態のモル体積22.4L/molを用いる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "都市ガスの有効熱量と空気の定圧熱容量から体積を計算する。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較の対象外で、試験時と現在の正誤に差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢110000m³は、計算値約1100m³より大きすぎる。",
+          "promptContext": "発熱量45MJ/m³、熱効率80%、空気の定圧モル熱容量29.2J/(mol・K)、標準状態のモル体積22.4L/molを用いる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "都市ガスの有効熱量と空気の定圧熱容量から体積を計算する。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10152,chiefgasengineerlicense-C-10153,chiefgasengineerlicense-C-10154,chiefgasengineerlicense-C-10155,chiefgasengineerlicense-C-10156",
@@ -256,40 +470,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
     "explanationText": [
-      "正しい。エントロピーは状態量であり、その値は現在の状態で決まり、そこへ至る経路には依存しない。",
-      "正しい。エントロピーは熱量を温度で割った次元を持つため、通常J/Kを単位として表される。",
-      "正しい。理想気体を等温膨張させると、体積の増加に伴ってエントロピーは増大する。",
-      "間違い。2種の理想気体を等温定圧下で混合すると、混合によりエントロピーは増大するため、減少するとする記述は誤りである。",
-      "正しい。理想気体を定積条件で加熱すると温度上昇によりエントロピーは増大する。"
-    ],
-    "suggestedQuestions": [
-      "エントロピーは状態だけで決まる状態量？",
-      "エントロピーの単位は通常J/K？",
-      "理想気体を等温膨張させるとエントロピーは増大する？",
-      "2種の理想気体を等温定圧下で混合するとエントロピーは減少する？",
-      "理想気体を定積で加熱するとエントロピーは増大する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "エントロピーは状態だけで決まる状態量？",
-        "answer": "正しい。エントロピーは状態量であり、その値は現在の状態で決まり、そこへ至る経路には依存しない。"
-      },
-      {
-        "question": "エントロピーの単位は通常J/K？",
-        "answer": "正しい。エントロピーは熱量を温度で割った次元を持つため、通常J/Kを単位として表される。"
-      },
-      {
-        "question": "理想気体を等温膨張させるとエントロピーは増大する？",
-        "answer": "正しい。理想気体を等温膨張させると、体積の増加に伴ってエントロピーは増大する。"
-      },
-      {
-        "question": "2種の理想気体を等温定圧下で混合するとエントロピーは減少する？",
-        "answer": "間違い。2種の理想気体を等温定圧下で混合すると、混合によりエントロピーは増大するため、減少するとする記述は誤りである。"
-      },
-      {
-        "question": "理想気体を定積で加熱するとエントロピーは増大する？",
-        "answer": "正しい。理想気体を定積条件で加熱すると温度上昇によりエントロピーは増大する。"
-      }
+      "正しい。エントロピーは状態量であり、物質の状態が決まれば値も決まるため、その状態に至る経路には依存しない。",
+      "正しい。エントロピーは熱量を絶対温度で割った量として扱われるため、通常はJ/Kを単位として表される。",
+      "正しい。理想気体を等温膨張させると体積が増加し、分子の取り得る状態が広がるため、エントロピーは増大する。",
+      "間違い。2種の理想気体を等温定圧下で混合すると、混合により取り得る状態が増えるため、エントロピーは増大する。したがって、減少するとする記述は誤りである。",
+      "正しい。理想気体を定積条件で加熱して温度を上昇させると、熱の流入に伴ってエントロピーは増大する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -317,7 +502,145 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q05",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10152,chiefgasengineerlicense-C-10153,chiefgasengineerlicense-C-10154,chiefgasengineerlicense-C-10155,chiefgasengineerlicense-C-10156",
+    "sourceRecordRef": "question_2019_firestore_3.json#3",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない、エントロピーに関する熱力学の技術・理論問題。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない熱力学の状態量に関する記述であり、正誤は現在も同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "熱力学の技術・理論問題であり、法令条文による根拠付けは不要。",
+          "promptContext": "エントロピーは状態量であるため、その状態に至る経路に依存しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "エントロピーは状態量であり、経路に依存しない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けないエントロピーの単位に関する記述であり、正誤は現在も同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "熱力学の技術・理論問題であり、法令条文による根拠付けは不要。",
+          "promptContext": "エントロピーは熱量を温度で割った次元を持つため、通常J/Kで表される。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "エントロピーの単位は通常J/Kで表される。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない理想気体の等温膨張に関する記述であり、正誤は現在も同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "熱力学の技術・理論問題であり、法令条文による根拠付けは不要。",
+          "promptContext": "理想気体を等温膨張させると、体積増加に伴ってエントロピーは増大する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "理想気体の等温膨張ではエントロピーが増大する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない理想気体の混合に関する記述であり、正誤は現在も同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "熱力学の技術・理論問題であり、法令条文による根拠付けは不要。",
+          "promptContext": "2種の理想気体を等温定圧下で混合するとエントロピーは増大するため、減少するとする記述は誤り。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "2種の理想気体の等温定圧混合ではエントロピーは減少せず、増大する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない理想気体の定積加熱に関する記述であり、正誤は現在も同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "熱力学の技術・理論問題であり、法令条文による根拠付けは不要。",
+          "promptContext": "理想気体を定積条件で加熱し温度を上昇させると、エントロピーは増大する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "理想気体を定積条件で加熱するとエントロピーは増大する。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2019-6-1,gasushunin-koushu-kiso-2019-6-2,gasushunin-koushu-kiso-2019-6-3,gasushunin-koushu-kiso-2019-6-4,chiefgasengineerlicense-C-10157",
@@ -336,40 +659,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
     "explanationText": [
-      "間違い。標準反応熱は、生成系の標準生成熱の和から反応系の標準生成熱の和を引いて求める。206=(−111+3×0)−(ΔHf(CH₄)−242)より、ΔHf(CH₄)=−75kJ/molであるため、75kJ/molではない。",
-      "間違い。ヘスの法則より206=−111−ΔHf(CH₄)+242となる。したがってΔHf(CH₄)=−75kJ/molであり、31kJ/molではない。",
-      "間違い。H₂の標準生成熱は0であるが、CH₄の標準生成熱は反応熱の式から求める未知数である。計算すると−75kJ/molであり、0kJ/molではない。",
-      "間違い。206=(−111+0)−(ΔHf(CH₄)−242)=131−ΔHf(CH₄)である。よってΔHf(CH₄)=−75kJ/molとなり、−31kJ/molではない。",
-      "正しい。標準反応熱は生成系−反応系なので、206=(−111+3×0)−(ΔHf(CH₄)+(−242))である。整理すると206=131−ΔHf(CH₄)、したがってΔHf(CH₄)=−75kJ/molとなり、−75kJ/molが正しい。"
-    ],
-    "suggestedQuestions": [
-      "CH₄の標準生成熱は75kJ/mol？",
-      "CH₄の標準生成熱は31kJ/mol？",
-      "CH₄の標準生成熱は0kJ/mol？",
-      "CH₄の標準生成熱は−31kJ/mol？",
-      "CH₄の標準生成熱は−75kJ/mol？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CH₄の標準生成熱は75kJ/mol？",
-        "answer": "標準反応熱は、生成系の標準生成熱の和から反応系の標準生成熱の和を引いて求める。206=(−111+3×0)−(ΔHf(CH₄)−242)より、ΔHf(CH₄)=−75kJ/molであるため、75kJ/molではない。"
-      },
-      {
-        "question": "CH₄の標準生成熱は31kJ/mol？",
-        "answer": "ヘスの法則より206=−111−ΔHf(CH₄)+242となる。したがってΔHf(CH₄)=−75kJ/molであり、31kJ/molではない。"
-      },
-      {
-        "question": "CH₄の標準生成熱は0kJ/mol？",
-        "answer": "H₂の標準生成熱は0であるが、CH₄の標準生成熱は反応熱の式から求める未知数である。計算すると−75kJ/molであり、0kJ/molではない。"
-      },
-      {
-        "question": "CH₄の標準生成熱は−31kJ/mol？",
-        "answer": "206=(−111+0)−(ΔHf(CH₄)−242)=131−ΔHf(CH₄)である。よってΔHf(CH₄)=−75kJ/molとなり、−31kJ/molではない。"
-      },
-      {
-        "question": "CH₄の標準生成熱は−75kJ/mol？",
-        "answer": "標準反応熱は生成系−反応系なので、206=(−111+3×0)−(ΔHf(CH₄)+(−242))である。整理すると206=131−ΔHf(CH₄)、したがってΔHf(CH₄)=−75kJ/molとなり、−75kJ/molが正しい。"
-      }
+      "標準反応熱は、生成物の標準生成熱の合計から反応物の標準生成熱の合計を引いて求める。CH₄の標準生成熱をx kJ/molとすると、反応 CH₄(g)+H₂O(g)→CO(g)+3H₂(g) について、206={−111+3×0}−{x+(−242)}=131−x となる。したがって x=131−206=−75kJ/molであり、CH₄(g)の標準生成熱として最も近い値は−75kJ/molである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -397,7 +687,145 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q06",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2019-6-1,gasushunin-koushu-kiso-2019-6-2,gasushunin-koushu-kiso-2019-6-3,gasushunin-koushu-kiso-2019-6-4,chiefgasengineerlicense-C-10157",
+    "sourceRecordRef": "question_2019_firestore_3.json#4",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。標準反応熱と標準生成熱の関係を用いて、生成系−反応系の式からCH₄の標準生成熱を計算する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題であり、選択肢75は計算結果−75kJ/molと一致しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "標準反応熱は生成物側の標準生成熱合計から反応物側の標準生成熱合計を引くため、計算結果は−75kJ/molとなる。",
+          "promptContext": "CH₄(g)+H₂O(g)→CO(g)+3H₂(g)、標準反応熱206kJ/mol、H₂O(g)−242、H₂ 0、CO−111から算定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "標準反応熱と標準生成熱の関係による判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題であり、選択肢31は計算結果−75kJ/molと一致しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "206={−111+3×0}−{x+(−242)}=131−xより、x=−75kJ/molである。",
+          "promptContext": "CH₄(g)+H₂O(g)→CO(g)+3H₂(g)、標準反応熱206kJ/mol、H₂O(g)−242、H₂ 0、CO−111から算定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "標準反応熱と標準生成熱の関係による判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題であり、選択肢0は計算結果−75kJ/molと一致しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "H₂の標準生成熱は0kJ/molだが、CH₄の標準生成熱は反応熱の式から−75kJ/molと求まる。",
+          "promptContext": "CH₄(g)+H₂O(g)→CO(g)+3H₂(g)、標準反応熱206kJ/mol、H₂O(g)−242、H₂ 0、CO−111から算定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "標準反応熱と標準生成熱の関係による判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題であり、選択肢−31は計算結果−75kJ/molと一致しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "206=131−xを解くとx=−75kJ/molとなり、−31kJ/molではない。",
+          "promptContext": "CH₄(g)+H₂O(g)→CO(g)+3H₂(g)、標準反応熱206kJ/mol、H₂O(g)−242、H₂ 0、CO−111から算定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "標準反応熱と標準生成熱の関係による判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない技術・計算問題であり、選択肢−75は計算結果−75kJ/molと一致する。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "206={−111+3×0}−{x+(−242)}=131−xより、x=−75kJ/molである。",
+          "promptContext": "CH₄(g)+H₂O(g)→CO(g)+3H₂(g)、標準反応熱206kJ/mol、H₂O(g)−242、H₂ 0、CO−111から算定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "標準反応熱と標準生成熱の関係による判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10158,chiefgasengineerlicense-C-10159,chiefgasengineerlicense-C-10160,chiefgasengineerlicense-C-10161,chiefgasengineerlicense-C-10162",
@@ -416,40 +844,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
     "explanationText": [
-      "間違い。触媒は反応速度を増加させるが、平衡定数には影響を与えない。したがって、平衡定数に影響を与えるという記述は誤りである。",
-      "正しい。触媒と反応物質が異なる相にある触媒反応は、不均一触媒反応と呼ばれる。したがって、この記述は正しい。",
-      "正しい。速度定数は温度に依存するが、温度が一定であればその反応に固有の定数として扱われる。したがって、この記述は正しい。",
-      "正しい。一次反応では、反応速度は反応物質の濃度に比例する。したがって、この記述は正しい。",
-      "正しい。アレニウスの式を対数形にすると、速度定数の対数と絶対温度の逆数は直線関係を示す。したがって、この記述は正しい。"
-    ],
-    "suggestedQuestions": [
-      "触媒は平衡定数に影響を与え、反応速度を増加させる？",
-      "異なる相での触媒反応は不均一触媒反応？",
-      "温度一定なら速度定数は反応固有の定数？",
-      "一次反応の反応速度は反応物質濃度に比例する？",
-      "速度定数の対数と絶対温度の逆数は直線関係？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "触媒は平衡定数に影響を与え、反応速度を増加させる？",
-        "answer": "触媒は反応速度を増加させるが、平衡定数には影響を与えない。したがって、平衡定数に影響を与えるという記述は誤りである。"
-      },
-      {
-        "question": "異なる相での触媒反応は不均一触媒反応？",
-        "answer": "触媒と反応物質が異なる相にある触媒反応は、不均一触媒反応と呼ばれる。したがって、この記述は正しい。"
-      },
-      {
-        "question": "温度一定なら速度定数は反応固有の定数？",
-        "answer": "速度定数は温度に依存するが、温度が一定であればその反応に固有の定数として扱われる。したがって、この記述は正しい。"
-      },
-      {
-        "question": "一次反応の反応速度は反応物質濃度に比例する？",
-        "answer": "一次反応では、反応速度は反応物質の濃度に比例する。したがって、この記述は正しい。"
-      },
-      {
-        "question": "速度定数の対数と絶対温度の逆数は直線関係？",
-        "answer": "アレニウスの式を対数形にすると、速度定数の対数と絶対温度の逆数は直線関係を示す。したがって、この記述は正しい。"
-      }
+      "間違い。触媒は正反応と逆反応の速度をともに変化させ、平衡に達するまでの時間を短くするが、平衡定数そのものは変化させない。したがって、触媒が平衡定数に影響を与えるとする記述は誤りである。",
+      "正しい。触媒と反応物質が同じ相にある反応は均一触媒反応、異なる相にある反応は不均一触媒反応と呼ばれる。したがって、この記述は正しい。",
+      "正しい。速度定数は反応の種類と温度などの条件に依存する量であり、温度が一定であれば、その反応に固有の定数として扱える。したがって、この記述は正しい。",
+      "正しい。一次反応では、反応速度は反応物質の濃度の1乗に比例し、濃度が大きいほど反応速度も大きくなる。したがって、この記述は正しい。",
+      "正しい。アレニウスの式を対数形にすると、速度定数の対数は絶対温度の逆数に対して一次式で表される。したがって、この記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -477,7 +876,145 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q07",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10158,chiefgasengineerlicense-C-10159,chiefgasengineerlicense-C-10160,chiefgasengineerlicense-C-10161,chiefgasengineerlicense-C-10162",
+    "sourceRecordRef": "question_2019_firestore_3.json#5",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。触媒は平衡定数を変えず、反応速度、反応次数、アレニウス式の基礎知識から正誤を判断する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で、法令改正に起因する判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "触媒は平衡到達を速めるが平衡定数は変えないため、記述は誤りである。",
+          "promptContext": "化学反応速度と触媒の基礎知識により判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "触媒と化学平衡に関する技術・理論事項であり、法令条文を根拠とする問題ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で、法令改正に起因する判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "触媒と反応物質が異なる相にある触媒反応は不均一触媒反応である。",
+          "promptContext": "触媒反応の分類に関する基礎知識により判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "触媒反応の分類に関する技術・理論事項であり、法令条文を根拠とする問題ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で、法令改正に起因する判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "温度一定では、速度定数はその反応に固有の定数として扱われる。",
+          "promptContext": "反応速度式と速度定数の基礎知識により判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "速度定数に関する技術・理論事項であり、法令条文を根拠とする問題ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で、法令改正に起因する判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "一次反応では反応速度が反応物質濃度に比例する。",
+          "promptContext": "反応次数と反応速度式の基礎知識により判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "一次反応の反応速度式に関する技術・理論事項であり、法令条文を根拠とする問題ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正誤への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で、法令改正に起因する判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "アレニウス式の対数形では、速度定数の対数と絶対温度の逆数が直線関係を示す。",
+          "promptContext": "アレニウス式の基礎知識により判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "アレニウス式に関する技術・理論事項であり、法令条文を根拠とする問題ではない。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10163,chiefgasengineerlicense-C-10164,chiefgasengineerlicense-C-10165,chiefgasengineerlicense-C-10166,chiefgasengineerlicense-C-10167",
@@ -496,40 +1033,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
     "explanationText": [
-      "正しい。気体燃料の発熱量は、一般に標準状態における単位体積あたりの値で表される。したがって、この記述は正しい。",
-      "間違い。総発熱量は、燃焼生成物中の水蒸気が凝縮するときの潜熱を含むため、真発熱量より大きい。したがって、真発熱量より小さいという記述は誤りである。",
-      "正しい。不完全燃焼では可燃成分が完全に酸化されないため、完全燃焼の場合より得られる熱量は小さい。したがって、この記述は正しい。",
-      "正しい。混合ガスの発熱量は、含まれる各成分の種類と割合によって決まる。したがって、この記述は正しい。",
-      "正しい。飽和炭化水素では、メタンよりプロパンのように炭素数が多い成分ほど単位体積あたりの発熱量が大きい。したがって、この記述は正しい。"
-    ],
-    "suggestedQuestions": [
-      "気体燃料の発熱量は標準状態の1m³あたりで示す？",
-      "総発熱量は真発熱量より小さい？",
-      "不完全燃焼の熱量は完全燃焼より小さい？",
-      "混合ガスの発熱量は組成で変わる？",
-      "飽和炭化水素は炭素数が多いほど単位体積発熱量が大きい？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "気体燃料の発熱量は標準状態の1m³あたりで示す？",
-        "answer": "気体燃料の発熱量は、一般に標準状態における単位体積あたりの値で表される。したがって、この記述は正しい。"
-      },
-      {
-        "question": "総発熱量は真発熱量より小さい？",
-        "answer": "総発熱量は、燃焼生成物中の水蒸気が凝縮するときの潜熱を含むため、真発熱量より大きい。したがって、真発熱量より小さいという記述は誤りである。"
-      },
-      {
-        "question": "不完全燃焼の熱量は完全燃焼より小さい？",
-        "answer": "不完全燃焼では可燃成分が完全に酸化されないため、完全燃焼の場合より得られる熱量は小さい。したがって、この記述は正しい。"
-      },
-      {
-        "question": "混合ガスの発熱量は組成で変わる？",
-        "answer": "混合ガスの発熱量は、含まれる各成分の種類と割合によって決まる。したがって、この記述は正しい。"
-      },
-      {
-        "question": "飽和炭化水素は炭素数が多いほど単位体積発熱量が大きい？",
-        "answer": "飽和炭化水素では、メタンよりプロパンのように炭素数が多い成分ほど単位体積あたりの発熱量が大きい。したがって、この記述は正しい。"
-      }
+      "正しい。気体燃料の発熱量は、気体の体積が温度や圧力で変わるため、比較できるように標準状態における単位体積、一般には1m³あたりの値で表す。したがって、この記述は正しい。",
+      "間違い。総発熱量は、燃焼で生じた水蒸気が凝縮して水になるときの潜熱まで含めた発熱量である。一方、真発熱量はこの凝縮潜熱を含めないため、総発熱量の方が真発熱量より大きい。したがって、総発熱量は真発熱量より小さいとする記述は誤りである。",
+      "正しい。不完全燃焼では、可燃成分が二酸化炭素や水などへ完全に酸化されず、一酸化炭素など燃焼しきっていない生成物が残る。その分だけ取り出せる熱量は完全燃焼の場合より小さくなる。したがって、この記述は正しい。",
+      "正しい。混合ガスの発熱量は、メタン、プロパンなど各成分ガスの発熱量と、それらが混合ガス中に占める割合によって決まる。組成が変われば単位体積あたりの発熱量も変わるため、この記述は正しい。",
+      "正しい。メタン、エタン、プロパンなどの飽和炭化水素では、炭素数が多いほど1分子あたりの燃焼で放出される熱量が大きくなる。標準状態では同体積の気体に含まれる分子数は同じなので、一般に炭素数が多いほど単位体積あたりの発熱量も大きい。したがって、この記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -557,7 +1065,135 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q08",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10163,chiefgasengineerlicense-C-10164,chiefgasengineerlicense-C-10165,chiefgasengineerlicense-C-10166,chiefgasengineerlicense-C-10167",
+    "sourceRecordRef": "question_2019_firestore_3.json#6",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。気体燃料の発熱量は標準状態の単位体積あたりで表すこと、総発熱量は水蒸気の凝縮潜熱を含むため真発熱量より大きいこと、不完全燃焼では完全燃焼より得られる熱量が小さいこと、混合ガスの発熱量は成分と組成に依存すること、飽和炭化水素は炭素数が多いほど単位体積あたりの発熱量が大きいことから判断する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "気体燃料の発熱量の表示単位に関する基礎理論であり、法令条文を根拠に正誤が変わる内容ではない。",
+          "promptContext": "技術・理論問題として正誤を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "総発熱量と真発熱量の大小関係に関する基礎理論であり、法令条文を根拠に正誤が変わる内容ではない。",
+          "promptContext": "技術・理論問題として正誤を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "完全燃焼と不完全燃焼で得られる熱量の違いに関する基礎理論であり、法令条文を根拠に正誤が変わる内容ではない。",
+          "promptContext": "技術・理論問題として正誤を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "混合ガスの発熱量が成分組成に依存することに関する基礎理論であり、法令条文を根拠に正誤が変わる内容ではない。",
+          "promptContext": "技術・理論問題として正誤を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "飽和炭化水素の炭素数と単位体積あたり発熱量の関係に関する基礎理論であり、法令条文を根拠に正誤が変わる内容ではない。",
+          "promptContext": "技術・理論問題として正誤を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響を受ける設問ではない。"
+        ],
+        "reconciliationStatus": "not_law_related_no_law_revision",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2019-9-1,gasushunin-koushu-kiso-2019-9-2,chiefgasengineerlicense-C-10168,gasushunin-koushu-kiso-2019-9-4,gasushunin-koushu-kiso-2019-9-5",
@@ -576,40 +1212,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
     "explanationText": [
-      "間違い。メタン0.9m³の燃焼に必要な酸素は1.8m³、プロパン0.1m³の燃焼に必要な酸素は0.5m³で、合計2.3m³である。理論空気量は2.3÷0.20=11.5m³、空気比は15÷11.5≒1.3なので、1.1ではない。",
-      "間違い。必要酸素量は0.9×2+0.1×5=2.3m³であり、理論空気量は11.5m³である。空気比は15÷11.5≒1.3となるため、1.2ではない。",
-      "正しい。CH₄は1m³あたり2m³、C₃H₈は1m³あたり5m³の酸素を必要とする。したがって必要酸素量は0.9×2+0.1×5=2.3m³、理論空気量は2.3÷0.20=11.5m³であり、空気比は15÷11.5≒1.3となる。",
-      "間違い。理論空気量は11.5m³で、実際の空気量15m³をこれで割ると空気比は約1.3である。したがって、1.4ではない。",
-      "間違い。空気比は実際空気量を理論空気量で割って求める。15÷11.5≒1.3であり、1.5ではない。"
-    ],
-    "suggestedQuestions": [
-      "この条件の空気比は1.1？",
-      "この条件の空気比は1.2？",
-      "この条件の空気比は1.3？",
-      "この条件の空気比は1.4？",
-      "この条件の空気比は1.5？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この条件の空気比は1.1？",
-        "answer": "メタン0.9m³の燃焼に必要な酸素は1.8m³、プロパン0.1m³の燃焼に必要な酸素は0.5m³で、合計2.3m³である。理論空気量は2.3÷0.20=11.5m³、空気比は15÷11.5≒1.3なので、1.1ではない。"
-      },
-      {
-        "question": "この条件の空気比は1.2？",
-        "answer": "必要酸素量は0.9×2+0.1×5=2.3m³であり、理論空気量は11.5m³である。空気比は15÷11.5≒1.3となるため、1.2ではない。"
-      },
-      {
-        "question": "この条件の空気比は1.3？",
-        "answer": "CH₄は1m³あたり2m³、C₃H₈は1m³あたり5m³の酸素を必要とする。したがって必要酸素量は0.9×2+0.1×5=2.3m³、理論空気量は2.3÷0.20=11.5m³であり、空気比は15÷11.5≒1.3となる。"
-      },
-      {
-        "question": "この条件の空気比は1.4？",
-        "answer": "理論空気量は11.5m³で、実際の空気量15m³をこれで割ると空気比は約1.3である。したがって、1.4ではない。"
-      },
-      {
-        "question": "この条件の空気比は1.5？",
-        "answer": "空気比は実際空気量を理論空気量で割って求める。15÷11.5≒1.3であり、1.5ではない。"
-      }
+      "メタンとプロパンの完全燃焼では、CH4+2O2→CO2+2H2O、C3H8+5O2→3CO2+4H2Oとなる。標準状態では気体の体積比をそのまま反応係数で扱えるので、混合燃料1m³中のメタン0.9m³に必要な酸素は0.9×2=1.8m³、プロパン0.1m³に必要な酸素は0.1×5=0.5m³で、必要酸素量は合計2.3m³である。空気中の酸素濃度を20vol%とすると理論空気量は2.3÷0.20=11.5m³。空気比は実際空気量÷理論空気量だから、15÷11.5≒1.30となり、最も近い値は1.3である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -637,6 +1240,144 @@
       [],
       [],
       []
-    ]
+    ],
+    "sourceQuestionKey": "gas-shunin:kou:2019:kiso:q09",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2019-9-1,gasushunin-koushu-kiso-2019-9-2,chiefgasengineerlicense-C-10168,gasushunin-koushu-kiso-2019-9-4,gasushunin-koushu-kiso-2019-9-5",
+    "sourceRecordRef": "question_2019_firestore_3.json#7",
+    "explanationReferences": [],
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。メタンとプロパンの燃焼反応式、理論空気量、空気比の計算で正答を判断する。",
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令問題ではなく、法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外。",
+          "displayRefIds": [],
+          "explanationText": "メタンとプロパンの燃焼に必要な酸素量、理論空気量、空気比の計算で判断する。",
+          "promptContext": "技術・理論計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "燃焼反応式と空気比の計算で判定する基礎理論問題。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令問題ではなく、法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外。",
+          "displayRefIds": [],
+          "explanationText": "メタンとプロパンの燃焼に必要な酸素量、理論空気量、空気比の計算で判断する。",
+          "promptContext": "技術・理論計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "燃焼反応式と空気比の計算で判定する基礎理論問題。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令問題ではなく、法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外。",
+          "displayRefIds": [],
+          "explanationText": "メタンとプロパンの燃焼に必要な酸素量、理論空気量、空気比の計算で判断する。",
+          "promptContext": "技術・理論計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "燃焼反応式と空気比の計算で判定する基礎理論問題。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令問題ではなく、法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外。",
+          "displayRefIds": [],
+          "explanationText": "メタンとプロパンの燃焼に必要な酸素量、理論空気量、空気比の計算で判断する。",
+          "promptContext": "技術・理論計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "燃焼反応式と空気比の計算で判定する基礎理論問題。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令問題ではなく、法令改正による正答影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正比較の対象外。",
+          "displayRefIds": [],
+          "explanationText": "メタンとプロパンの燃焼に必要な酸素量、理論空気量、空気比の計算で判断する。",
+          "promptContext": "技術・理論計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "燃焼反応式と空気比の計算で判定する基礎理論問題。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

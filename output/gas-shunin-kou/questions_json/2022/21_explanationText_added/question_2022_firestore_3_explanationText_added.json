@@ -89,40 +89,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "メタンの物質量は20/16=1.25kmol、エタンの物質量は15/30=0.5kmolである。メタンのモル分率は1.25/(1.25+0.5)=約0.714なので、分圧は200×0.714=約143kPaとなり、50kPaでは小さすぎる。",
-      "ドルトンの分圧の法則より、メタン分圧は全圧にメタンのモル分率を掛けて求める。計算値は約143kPaであり、100kPaではない。",
-      "n_CH4=20/16=1.25kmol、n_C2H6=15/30=0.5kmolより、P_CH4=200×1.25/(1.25+0.5)=約142.9kPaとなる。選択肢では140kPaが最も近く正しい。",
-      "メタンのモル分率は約0.714であるため、分圧は200kPa×0.714=約143kPaである。180kPaは大きすぎる。",
-      "メタンだけで全圧をほぼ占めるわけではなく、エタン0.5kmolも含まれる。メタン分圧は約143kPaなので、190kPaでは大きすぎる。"
-    ],
-    "suggestedQuestions": [
-      "50",
-      "100",
-      "140",
-      "180",
-      "190"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "50",
-        "answer": "メタンの物質量は20/16=1.25kmol、エタンの物質量は15/30=0.5kmolである。メタンのモル分率は1.25/(1.25+0.5)=約0.714なので、分圧は200×0.714=約143kPaとなり、50kPaでは小さすぎる。"
-      },
-      {
-        "question": "100",
-        "answer": "ドルトンの分圧の法則より、メタン分圧は全圧にメタンのモル分率を掛けて求める。計算値は約143kPaであり、100kPaではない。"
-      },
-      {
-        "question": "140",
-        "answer": "n_CH4=20/16=1.25kmol、n_C2H6=15/30=0.5kmolより、P_CH4=200×1.25/(1.25+0.5)=約142.9kPaとなる。選択肢では140kPaが最も近く正しい。"
-      },
-      {
-        "question": "180",
-        "answer": "メタンのモル分率は約0.714であるため、分圧は200kPa×0.714=約143kPaである。180kPaは大きすぎる。"
-      },
-      {
-        "question": "190",
-        "answer": "メタンだけで全圧をほぼ占めるわけではなく、エタン0.5kmolも含まれる。メタン分圧は約143kPaなので、190kPaでは大きすぎる。"
-      }
+      "間違い。理想気体の混合ガスでは、各成分の分圧は全圧にその成分のモル分率を掛けて求める。メタンの物質量は20/16=1.25kmol、エタンの物質量は15/30=0.5kmolで、合計は1.75kmolである。したがってメタンの分圧は200×1.25/1.75=約142.9kPaとなり、50kPaは小さすぎる。",
+      "間違い。メタンの分圧は質量比ではなく物質量比で計算する。メタンは1.25kmol、エタンは0.5kmolなので、メタンのモル分率は1.25/(1.25+0.5)=約0.714である。全圧200kPaを掛けると約142.9kPaとなり、100kPaではない。",
+      "正しい。ドルトンの分圧の法則より、メタン分圧はP_CH4=全圧×n_CH4/(n_CH4+n_C2H6)で求める。n_CH4=20/16=1.25kmol、n_C2H6=15/30=0.5kmolだから、P_CH4=200×1.25/1.75=約142.9kPaである。選択肢では140kPaが最も近い。",
+      "間違い。メタンのモル分率は1.25/1.75=約0.714であるため、メタンの分圧は200×0.714=約142.9kPaとなる。180kPaは、メタンが全圧の約90%を占める場合に近い値であり、この混合比には合わない。",
+      "間違い。エタンも0.5kmol含まれているため、メタンが全圧のほとんどを占めるわけではない。メタンの物質量割合は1.25/(1.25+0.5)=約0.714なので、分圧は約142.9kPaであり、190kPaは大きすぎる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -143,7 +114,152 @@
       "間違い",
       "間違い"
     ],
-    "isLawRelated": false
+    "isLawRelated": false,
+    "sourceQuestionKey": "gas-shunin:kou:2022:kiso:q02",
+    "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-2-1,gasushunin-koushu-kiso-2022-2-2,chiefgasengineerlicense-C-10040,gasushunin-koushu-kiso-2022-2-4,gasushunin-koushu-kiso-2022-2-5",
+    "sourceRecordRef": "question_2022_firestore_3.json#1",
+    "explanationReferences": [],
+    "lawContextForExplanation": "理想気体混合物の分圧を、ドルトンの分圧の法則と各成分の物質量比から求める基礎理論の計算問題であり、法令条文を主要根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない理想気体混合物の分圧計算である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢50kPaは、計算値約142.9kPaと一致しない。",
+          "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない理想気体混合物の分圧計算である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢100kPaは、計算値約142.9kPaと一致しない。",
+          "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない理想気体混合物の分圧計算である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差分はない。",
+          "displayRefIds": [],
+          "explanationText": "メタン分圧は200×(20/16)/((20/16)+(15/30))=約142.9kPaであり、140kPaが最も近い。",
+          "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない理想気体混合物の分圧計算である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢180kPaは、計算値約142.9kPaより大きく一致しない。",
+          "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正の影響を受けない理想気体混合物の分圧計算である。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令に基づく時点差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢190kPaは、計算値約142.9kPaより大きく一致しない。",
+          "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・理論問題として扱う。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2022-3-1,gasushunin-koushu-kiso-2022-3-2,gasushunin-koushu-kiso-2022-3-3,chiefgasengineerlicense-C-10041,gasushunin-koushu-kiso-2022-3-5",
