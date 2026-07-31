@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260730120113-9b365ac6df",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-9b365ac6df36ffb06189"
+  ],
+  "inputCaseHashes": {
+    "ui-official-9b365ac6df36ffb06189": "9b365ac6df36ffb06189089386dca1d204e8f86cd0cf0c221ced2772fff15e8e"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "d336c8d8187f9a32c1fe06b7faf3d22950c78e135ce306cf9d5100719d3bd727",
+    "ca2211363a2dbad3d8064846e7c4b12fd3d8b129bf203faaba613c67a20e9865"
+  ],
+  "challengeReviewHash": "508f27b0e71871a2ef63a169fbc0642cee8d841ede4f82e7b411449f7f7add14",
+  "createdAt": "2026-07-30T12:07:46.849529Z",
+  "entries": [
+    {
+      "original_question_id": "ac156d57d1e51b9d",
+      "sourceQuestionKey": "gas-shunin:kou:2024:seizo:q04",
+      "reviewQuestionId": "ac156d57d1e51b9d",
+      "sourceRecordRef": "question_2024_gassyunin_site_2.json#9",
+      "expectedBeforeHash": "c26ddc4e45dc1e68e7c951cd7cd18ea253f82b54b0bd89f6e8a2ec4f49384f04",
+      "changes": {
+        "choiceTextList": [
+          "高発熱量ガスを空気で希釈すると、ウォッベ指数(WI)は変化しないが、\n燃焼速度(MCP)は低下する\n。",
+          "発熱量40MJ/m³\n_Nの天然ガス90m³を発熱量100MJ/m³_NのLPG(ガス)で増熱して、供給ガスを100m³製造する場合、この供給ガスの発熱量は、45MJ/m³_Nとなる。",
+          "ガスクロマトグラフとは、固定相に移動相と呼ばれるキャリアガスを流して、固定相と移動相との間における試料各成分の溶解性、吸着性の差によって成分物質を分離し、測定する装置である。",
+          "ガスクロマトグラフのキャリアガスには、純度が体積分率99.99%以上の\n酸素\nが用いられている。",
+          "ガスクロマトグラフの熱伝導度検出器(TCD)は、\n有機化合物にしか感度を示さないが、非常に高感度\nである。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "output/pdf/gas-shunin-official/2024/q_kou_r6.pdf / PDF 26ページ（冊子25ページ） （ガ）問4",
+          "title": "令和6年度 ガス主任技術者試験 甲種問題",
+          "verifiedAt": "2026-07-30T12:01:13.214348Z",
+          "contentHash": "079226cf086a83e12bd6f6789a6929c713cc2a1e8769925286567629242295c5"
+        },
+        {
+          "sourceClass": "primary",
+          "locator": "document/sources/gas-shunin/official_exam_pdf_catalog.json#q_kou_r6.pdf",
+          "title": "ガス主任技術者試験 公式PDFカタログ",
+          "verifiedAt": "2026-07-30T12:05:22Z",
+          "contentHash": "02f8e577f596e42d9959be9f82af93c427ddd3d2400406e4e94b993298203609"
+        }
+      ]
+    }
+  ]
+}

@@ -722,11 +722,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_2.json",
     "explanationText": [
-      "正しい。両端を閉じた薄肉円筒では、円周方向のつり合いから円周応力は σt=PD/(2t) となり、端面に働く圧力と円筒肉厚部のつり合いから軸応力は σz=PD/(4t) となる。したがって、この組合せは正しい。",
-      "間違い。円周応力と軸応力の式が入れ替わっている。薄肉円筒では円周応力 σt=PD/(2t)、軸応力 σz=PD/(4t) であり、円周応力は軸応力の2倍になる。",
-      "間違い。軸応力 σz=PD/(4t) は正しいが、円周応力 σt は PD/(4t) ではなく PD/(2t) である。円周応力と軸応力は同じ値にはならない。",
-      "間違い。軸応力 σz=PD/(4t) は正しいが、円周応力 σt は PD/(8t) ではなく PD/(2t) である。円周方向のつり合いで受け持つ断面は両側の肉厚部になるため、分母は2tとなる。",
-      "間違い。円周応力 σt は PD/(4t) ではなく PD/(2t)、軸応力 σz は PD/(8t) ではなく PD/(4t) である。薄肉円筒の基本式はいずれも分母を取り違えている。"
+      "両端を平板で密閉した薄肉円筒では、内圧Pによる円周方向のつり合いを考えると、長さLの半円筒に働く圧力合力はPDL、これを両側の肉厚部2tLで受けるため、円周応力は σt=PD/(2t) となる。軸方向では、端面に働く圧力合力 PπD^2/4 を円筒の肉厚断面 πDt が受けるため、軸応力は σz=PD/(4t) となる。したがって、正しい組合せは σt=PD/(2t)、σz=PD/(4t) であり、選択肢1が正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -750,7 +746,7 @@
     "reviewQuestionId": "94c70c7f3e7ec91f",
     "sourceRecordRef": "question_2024_gassyunin_site_2.json#4",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。薄肉円筒の内圧による円周応力・軸応力の力学公式に基づいて判断する。",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。薄肉閉端円筒の内圧による円周方向・軸方向の力のつり合いから、円周応力 σt=PD/(2t)、軸応力 σz=PD/(4t) と判断する。",
     "lawReferences": [
       [],
       [],
@@ -769,7 +765,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の評価対象外。",
           "displayRefIds": [],
-          "explanationText": "薄肉円筒の内圧による円周応力と軸応力を力学公式で判定する問題であり、法令改正による正誤影響はない。",
+          "explanationText": "薄肉閉端円筒の内圧による円周応力と軸応力を力学的つり合いで判定する問題であり、法令改正による正誤影響はない。",
           "promptContext": "円周応力 σt=PD/(2t)、軸応力 σz=PD/(4t) の組合せが正しい。",
           "refs": [],
           "verdict": "not_law_related"
@@ -778,7 +774,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "法令条文ではなく薄肉円筒の応力式に基づく理論問題。"
+          "法令条文ではなく薄肉閉端円筒の内圧応力式に基づく理論問題。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision_review",
         "reviewState": "secondary_verified"
@@ -793,7 +789,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の評価対象外。",
           "displayRefIds": [],
-          "explanationText": "薄肉円筒の内圧による円周応力と軸応力を力学公式で判定する問題であり、法令改正による正誤影響はない。",
+          "explanationText": "薄肉閉端円筒の内圧による円周応力と軸応力を力学的つり合いで判定する問題であり、法令改正による正誤影響はない。",
           "promptContext": "円周応力と軸応力を取り違えているため誤り。",
           "refs": [],
           "verdict": "not_law_related"
@@ -802,7 +798,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令条文ではなく薄肉円筒の応力式に基づく理論問題。"
+          "法令条文ではなく薄肉閉端円筒の内圧応力式に基づく理論問題。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision_review",
         "reviewState": "secondary_verified"
@@ -817,7 +813,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の評価対象外。",
           "displayRefIds": [],
-          "explanationText": "薄肉円筒の内圧による円周応力と軸応力を力学公式で判定する問題であり、法令改正による正誤影響はない。",
+          "explanationText": "薄肉閉端円筒の内圧による円周応力と軸応力を力学的つり合いで判定する問題であり、法令改正による正誤影響はない。",
           "promptContext": "軸応力は正しいが、円周応力をPD/(4t)としているため誤り。",
           "refs": [],
           "verdict": "not_law_related"
@@ -826,7 +822,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令条文ではなく薄肉円筒の応力式に基づく理論問題。"
+          "法令条文ではなく薄肉閉端円筒の内圧応力式に基づく理論問題。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision_review",
         "reviewState": "secondary_verified"
@@ -841,7 +837,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の評価対象外。",
           "displayRefIds": [],
-          "explanationText": "薄肉円筒の内圧による円周応力と軸応力を力学公式で判定する問題であり、法令改正による正誤影響はない。",
+          "explanationText": "薄肉閉端円筒の内圧による円周応力と軸応力を力学的つり合いで判定する問題であり、法令改正による正誤影響はない。",
           "promptContext": "軸応力は正しいが、円周応力をPD/(8t)としているため誤り。",
           "refs": [],
           "verdict": "not_law_related"
@@ -850,7 +846,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令条文ではなく薄肉円筒の応力式に基づく理論問題。"
+          "法令条文ではなく薄肉閉端円筒の内圧応力式に基づく理論問題。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision_review",
         "reviewState": "secondary_verified"
@@ -865,7 +861,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の評価対象外。",
           "displayRefIds": [],
-          "explanationText": "薄肉円筒の内圧による円周応力と軸応力を力学公式で判定する問題であり、法令改正による正誤影響はない。",
+          "explanationText": "薄肉閉端円筒の内圧による円周応力と軸応力を力学的つり合いで判定する問題であり、法令改正による正誤影響はない。",
           "promptContext": "円周応力と軸応力の分母がいずれも正しい式と異なるため誤り。",
           "refs": [],
           "verdict": "not_law_related"
@@ -874,7 +870,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令条文ではなく薄肉円筒の応力式に基づく理論問題。"
+          "法令条文ではなく薄肉閉端円筒の内圧応力式に基づく理論問題。"
         ],
         "reconciliationStatus": "not_law_related_no_law_revision_review",
         "reviewState": "secondary_verified"
@@ -1630,10 +1626,10 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_2.json",
     "explanationText": [
-      "間違い。高発熱量ガスを空気で希釈すると、混合ガスの発熱量が下がり、比重も変わるため、ウォッベ指数は一般に低下する。「変化しない」としているため誤りである。",
+      "間違い。高発熱量ガスを空気で希釈すると、混合ガスの発熱量が下がり、比重も変わるため、ウォッベ指数（WI）は一般に低下する。また、空気混合では最大燃焼速度（MCP）は低下するのではなく、ほぼ変化しないと扱われる。したがって、「WIは変化しないが、MCPは低下する」とする記述は誤りである。",
       "間違い。LPGの体積は100−90＝10m³であり、供給ガスの発熱量は（40×90＋100×10）÷100＝46MJ/m³_Nとなる。45MJ/m³_Nとしているため誤りである。",
       "正しい。ガスクロマトグラフは、固定相とキャリアガスである移動相との間で生じる、試料各成分の溶解性や吸着性などの差を利用して成分を分離し、測定する装置である。",
-      "間違い。キャリアガスには、試料や固定相と反応しにくいヘリウム、窒素、水素などの高純度ガスが用いられる。反応性のある酸素を用いるとしているため誤りである。",
+      "間違い。ガスクロマトグラフのキャリアガスには、試料や固定相と反応しにくいヘリウム、窒素、水素、アルゴンなどの高純度ガスが用いられる。反応性のある酸素を用いるとしているため誤りである。",
       "間違い。熱伝導度検出器（TCD）は、キャリアガスと試料成分との熱伝導度の差を検出するため、有機化合物以外にも応答する。一方、一般に水素炎イオン化検出器（FID）ほど高感度ではなく、「有機化合物にしか感度を示さないが、非常に高感度」とする記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -1701,7 +1697,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による判定差はない。",
           "displayRefIds": [],
-          "explanationText": "空気希釈では発熱量と比重が変化し、ウォッベ指数も一般に低下するため、「変化しない」とする記述は誤りである。",
+          "explanationText": "空気希釈ではウォッベ指数は一般に低下し、最大燃焼速度は低下ではなくほぼ変化しないため、記述は誤りである。",
           "promptContext": "都市ガスの燃焼性管理に関する技術肢。",
           "refs": [],
           "verdict": "試験時点・現在ともに間違い。"
@@ -1710,7 +1706,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "空気希釈とウォッベ指数に関する技術事項であり、法令改正監査の対象外。"
+          "空気希釈とウォッベ指数・最大燃焼速度に関する技術事項であり、法令改正監査の対象外。"
         ],
         "reconciliationStatus": "not_law_related",
         "reviewState": "secondary_verified"
@@ -1773,7 +1769,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による判定差はない。",
           "displayRefIds": [],
-          "explanationText": "キャリアガスにはヘリウム、窒素、水素などが用いられ、反応性のある酸素を用いるとする記述は誤りである。",
+          "explanationText": "キャリアガスにはヘリウム、窒素、水素、アルゴンなどが用いられ、反応性のある酸素を用いるとする記述は誤りである。",
           "promptContext": "ガスクロマトグラフのキャリアガスに関する技術肢。",
           "refs": [],
           "verdict": "試験時点・現在ともに間違い。"
@@ -3723,11 +3719,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_2.json",
     "explanationText": [
-      "間違い。外径と内径の比が1.5以下の場合の管厚算定式は t=PDo/(2σaη+0.8P)+C である。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号に基づき、P=3MPa、Do=300mm、σa=62N/mm²、η=1.0、C=1.0mmを代入すると、t=900/(124+2.4)+1.0≒8.12mmとなるため、9.2mmは最も近い値ではない。",
-      "正しい。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式に、P=3MPa、Do=300mm、σa=62N/mm²、η=1.0、C=1.0mmを代入すると、t=3×300/(2×62×1.0+0.8×3)+1.0≒8.12mmとなるため、選択肢では8.1mmが最も近い。",
-      "間違い。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式で求めると管厚は約8.12mmであり、4.6mmは最も近い値ではない。",
-      "間違い。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号では、算定式で求めた値に腐れしろを加えて管厚を求める。設問値では約8.12mmとなるため、3.4mmは最も近い値ではない。",
-      "間違い。ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の管厚算定式では、許容引張応力、継手効率及び内圧に係る項を分母に用い、さらに腐れしろを加える。設問値の算定結果は約8.12mmであり、2.2mmではない。"
+      "外径と内径の比が1.5以下の導管の管厚は、ガス工作物技術基準の解釈例第41条第1項第1号ロ及び第2号の式 t=PDo/(2σaη+0.8P)+C で求める。設問では、P=3MPa、Do=300mm、σa=62N/mm²、η=1.0、C=1.0mmであるから、t=3×300/(2×62×1.0+0.8×3)+1.0=900/126.4+1.0≒8.12mmとなる。したがって、選択肢の中で最も近い値は8.1mmである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],

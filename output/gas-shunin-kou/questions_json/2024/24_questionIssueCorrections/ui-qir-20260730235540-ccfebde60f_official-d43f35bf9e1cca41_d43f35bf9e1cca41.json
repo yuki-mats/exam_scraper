@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260730235540-ccfebde60f",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-ccfebde60f35a054b2a7"
+  ],
+  "inputCaseHashes": {
+    "ui-official-ccfebde60f35a054b2a7": "ccfebde60f35a054b2a79d9330f6589db1dffebe80045c39b3f6bb9fe015d634"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "005625b51bceb3322f69f99349c8f16b173ddb15216a8b05a76ed40af80ffe11",
+    "8333e6e0a3131624d1c5e895e1656a89f5f3b42d51ebe1385944fb53979a8860"
+  ],
+  "challengeReviewHash": "25af374eaea29cf081472db2e4bb2ec10259ec7af84012bc037f6d346752fde0",
+  "createdAt": "2026-07-30T23:58:40.331887Z",
+  "entries": [
+    {
+      "original_question_id": "d43f35bf9e1cca41",
+      "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q24",
+      "reviewQuestionId": "d43f35bf9e1cca41",
+      "sourceRecordRef": "question_2024_gassyunin_site_3.json#4",
+      "expectedBeforeHash": "a25fcda55f35f52e9c7f942f416c875d398b597102a93120ffd5cf827b4997f9",
+      "changes": {
+        "choiceTextList": [
+          "調理室の換気に排気フードI型を使用すると、排気フードを使用しない場合と比べて、必要換気量を75%にすることができる。",
+          "自然換気回数は、一般的に次式で表される。n=Q/V（n：自然換気回数（回/h）、Q：自然換気量（m³/h）、V：室の容積（m³））",
+          "高層住宅等では、外風圧の影響により換気風量が大きく変動するため、シロッコファン等の高静圧な換気扇を使う必要がある。",
+          "血液中のヘモグロビンは、COと結合しやすく、その結合力は酸素の200〜300倍もあり、少量であっても一定濃度以上のCOを吸引した場合、酸素欠乏症状に至るおそれがある。",
+          "ガスこんろ上部の排気フードは、火源から所定の距離を取り、こんろ上面から1000mmを超えて設置してはならない。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/q_kou_r6/page-36.jpg / 消費機器 問24（PDF 36ページ、冊子35ページ）",
+          "title": "令和6年度 ガス主任技術者試験 甲種問題",
+          "verifiedAt": "2026-07-30T23:55:40.202792Z",
+          "contentHash": "3e997fc5c3ffd832dcebd9c11ba6043946786a8d28a4cc7d03e0028eef9bbc27"
+        }
+      ]
+    }
+  ]
+}

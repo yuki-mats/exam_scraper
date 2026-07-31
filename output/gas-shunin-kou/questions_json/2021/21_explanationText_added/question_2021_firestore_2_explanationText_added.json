@@ -1590,11 +1590,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "正しい。道路に埋設された最高使用圧力が高圧の導管は、原則として、埋設の日以後1年に1回以上、適切な方法で漏えい検査を行う必要がある。設問では漏えい検知装置などの例外に該当しないため、「ガス工作物の技術上の基準を定める省令」第51条第1項の表（1）に合致する。",
-      "間違い。ポリエチレン管を使用している部分は、定期的な漏えい検査の適用除外であり、4年に1回以上の検査を必要とする部分ではない。この例外は「ガス工作物の技術上の基準を定める省令」第51条第1項ただし書第2号に定められている。",
-      "間違い。本支管からガス栓までの間に絶縁措置が講じられ、その部分からガス栓までの間がプラスチックで被覆されている部分には、埋設の日以後6年に1回以上の漏えい検査が必要である。「ガス工作物の技術上の基準を定める省令」第51条第2項の表（1）に定めがあり、検査不要ではない。",
-      "正しい。最高使用圧力が高圧の導管は、ガスの供給に係る建物を除き、建物の内部又は基礎面下に設置してはならない。この設置制限は「ガス工作物の技術上の基準を定める省令」第52条第1項に定められている。",
-      "間違い。対象となる中圧導管について、建物内の接合方法が一律に溶接だけに限定されているわけではない。溶接以外の接合を行う場合は、適切な自動ガス遮断装置又はガス漏れ警報器の検知区域内で接合する必要がある。この条件は「ガス工作物の技術上の基準を定める省令」第52条第3項に定められている。"
+      "正しい。道路に埋設されている導管で最高使用圧力が高圧のものは、原則として埋設の日以後1年に1回以上、適切な方法で漏えい検査を行い、漏えいが認められなかったものでなければならない。これはガス工作物の技術上の基準を定める省令第51条第1項の表に定められている。",
+      "間違い。道路に埋設されている導管でも、ポリエチレン管を使用している部分は漏えい検査義務の適用除外となる。したがって、ポリエチレン管を使用している場合に4年に1回以上の漏えい検査を要するとする記述は誤りである。この適用除外はガス工作物の技術上の基準を定める省令第51条のただし書各号で確認できる。",
+      "間違い。道路に埋設されている導管からガス栓までの導管で、本支管からガス栓までの間に絶縁措置が講じられ、その絶縁措置部分からガス栓までの間がプラスチックで被覆された部分は、埋設の日以後6年に1回以上の漏えい検査が必要である。検査不要ではないため、記述は誤りである。これはガス工作物の技術上の基準を定める省令第51条第2項の表に定められている。",
+      "正しい。最高使用圧力が高圧の導管は、当該建物がガスの供給に係るものを除き、建物の内部又は基礎面下に設置してはならない。これはガス工作物の技術上の基準を定める省令第52条第1項に定められている。",
+      "間違い。最高使用圧力が中圧の導管で建物にガスを供給するものについて、建物内で溶接以外の接合を行う場合には検知区域内で接合することが求められるが、建物内の接合を一律に溶接接合に限定しているわけではない。これはガス工作物の技術上の基準を定める省令第52条第3項に定められている。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1634,7 +1634,7 @@
           "choiceIndex": 0,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令API v2",
@@ -1647,7 +1647,7 @@
           "choiceIndex": 1,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令API v2",
@@ -1660,7 +1660,7 @@
           "choiceIndex": 2,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令API v2",
@@ -1673,7 +1673,7 @@
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令API v2",
@@ -1686,7 +1686,7 @@
           "choiceIndex": 4,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "e-Gov法令API v2",
@@ -1704,14 +1704,38 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "2021年の直接正答証拠と2026-07-30時点の第51条第1項による判定は一致する。"
+          "第51条第1項の高圧道路埋設導管の漏えい検査頻度は、出題時点と現行基準日で判定に影響する差がない。"
         ],
         "evidenceSummary": {
           "differenceSummary": "出題時判定と現行法判定に差はない。",
-          "displayRefIds": [],
-          "explanationText": "最高使用圧力が高圧の道路埋設導管には、原則として埋設の日以後1年に1回以上の漏えい検査が必要である。",
-          "promptContext": "第51条第1項の表（1）及びただし書の適用関係を確認した。",
-          "refs": [],
+          "displayRefIds": [
+            "gas-tech-std-art51-current"
+          ],
+          "explanationText": "最高使用圧力が高圧の道路埋設導管は、原則として埋設の日以後1年に1回以上の漏えい検査が必要である。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第51条第1項の表を確認した。",
+          "refs": [
+            {
+              "article": "51",
+              "articleTextHash": "23f96985f8a476fd1a8fc9aef35435f474efe2b8bf6a221ab29cce935046d83a",
+              "elm": "Article",
+              "encodedElm": "Article-51",
+              "highlightElms": [
+                "Article-51"
+              ],
+              "item": "none",
+              "lawId": "412M50000400111",
+              "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "gas-tech-std-art51-current",
+              "relation": "supports_choice_0",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "23f96985f8a476fd1a8fc9aef35435f474efe2b8bf6a221ab29cce935046d83a"
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -1730,20 +1754,46 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2021年の直接正答証拠と2026-07-30時点の第51条第1項ただし書第2号による判定は一致する。"
+          "第51条のポリエチレン管使用部分に関する漏えい検査適用除外は、出題時点と現行基準日で判定に影響する差がない。"
         ],
         "evidenceSummary": {
           "differenceSummary": "出題時判定と現行法判定に差はない。",
-          "displayRefIds": [],
-          "explanationText": "ポリエチレン管を使用している部分は、第51条第1項に基づく定期的な漏えい検査の適用除外である。",
-          "promptContext": "第51条第1項ただし書第2号を確認した。",
-          "refs": [],
+          "displayRefIds": [
+            "gas-tech-std-art51-current"
+          ],
+          "explanationText": "ポリエチレン管を使用している部分は漏えい検査義務の適用除外であり、4年に1回以上の漏えい検査対象とする記述は誤りである。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第51条のポリエチレン管使用部分の適用除外を確認した。",
+          "refs": [
+            {
+              "article": "51",
+              "articleTextHash": "23f96985f8a476fd1a8fc9aef35435f474efe2b8bf6a221ab29cce935046d83a",
+              "elm": "Article",
+              "encodedElm": "Article-51",
+              "highlightElms": [
+                "Article-51"
+              ],
+              "item": "none",
+              "lawId": "412M50000400111",
+              "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "paragraph": "1-3",
+              "primaryBasis": true,
+              "refId": "gas-tech-std-art51-current",
+              "relation": "supports_choice_1",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "23f96985f8a476fd1a8fc9aef35435f474efe2b8bf6a221ab29cce935046d83a"
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "notes": [],
+        "notes": [
+          "ポリエチレン管部分の適用除外は、第51条内のただし書各号として整理する。"
+        ],
         "reconciliationStatus": "matched",
         "reviewState": "secondary_verified"
       },
@@ -1756,14 +1806,38 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2021年の直接正答証拠と2026-07-30時点の第51条第2項による判定は一致する。"
+          "第51条第2項の該当部分の漏えい検査頻度は、出題時点と現行基準日で判定に影響する差がない。"
         ],
         "evidenceSummary": {
           "differenceSummary": "出題時判定と現行法判定に差はない。",
-          "displayRefIds": [],
-          "explanationText": "所定の絶縁措置及びプラスチック被覆がある部分には、埋設の日以後6年に1回以上の漏えい検査が必要である。",
-          "promptContext": "第51条第2項の表（1）を確認した。",
-          "refs": [],
+          "displayRefIds": [
+            "gas-tech-std-art51-current"
+          ],
+          "explanationText": "所定の絶縁措置後からガス栓までのプラスチック被覆部分は、埋設の日以後6年に1回以上の漏えい検査が必要である。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第51条第2項の表を確認した。",
+          "refs": [
+            {
+              "article": "51",
+              "articleTextHash": "23f96985f8a476fd1a8fc9aef35435f474efe2b8bf6a221ab29cce935046d83a",
+              "elm": "Article",
+              "encodedElm": "Article-51",
+              "highlightElms": [
+                "Article-51"
+              ],
+              "item": "none",
+              "lawId": "412M50000400111",
+              "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "paragraph": "2",
+              "primaryBasis": true,
+              "refId": "gas-tech-std-art51-current",
+              "relation": "supports_choice_2",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "23f96985f8a476fd1a8fc9aef35435f474efe2b8bf6a221ab29cce935046d83a"
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -1782,14 +1856,38 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "2021年の直接正答証拠と2026-07-30時点の第52条第1項による判定は一致する。"
+          "第52条第1項の高圧導管の設置場所制限は、出題時点と現行基準日で判定に影響する差がない。"
         ],
         "evidenceSummary": {
           "differenceSummary": "出題時判定と現行法判定に差はない。",
-          "displayRefIds": [],
-          "explanationText": "高圧導管は、ガスの供給に係る建物を除く建物の内部又は基礎面下に設置できない。",
-          "promptContext": "第52条第1項を確認した。",
-          "refs": [],
+          "displayRefIds": [
+            "gas-tech-std-art52-current"
+          ],
+          "explanationText": "高圧導管は、ガスの供給に係る建物を除く建物の内部又は基礎面下に設置してはならない。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第52条第1項を確認した。",
+          "refs": [
+            {
+              "article": "52",
+              "articleTextHash": "291ba88357f7ebfb67b199d5dd8e515ce86aeb47064f144043cc8739802329ee",
+              "elm": "Article",
+              "encodedElm": "Article-52",
+              "highlightElms": [
+                "Article-52"
+              ],
+              "item": "none",
+              "lawId": "412M50000400111",
+              "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "gas-tech-std-art52-current",
+              "relation": "supports_choice_3",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "291ba88357f7ebfb67b199d5dd8e515ce86aeb47064f144043cc8739802329ee"
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -1808,14 +1906,38 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2021年の直接正答証拠と2026-07-30時点の第52条第3項による判定は一致する。"
+          "第52条第3項の中圧導管の設置及び接合条件は、出題時点と現行基準日で判定に影響する差がない。"
         ],
         "evidenceSummary": {
           "differenceSummary": "出題時判定と現行法判定に差はない。",
-          "displayRefIds": [],
-          "explanationText": "対象となる中圧導管を建物内で溶接以外により接合する場合は、ガス漏れを検知できる区域内で接合する必要がある。",
-          "promptContext": "第52条第3項の接合条件を確認した。",
-          "refs": [],
+          "displayRefIds": [
+            "gas-tech-std-art52-current"
+          ],
+          "explanationText": "対象となる中圧導管は、建物内で溶接以外の接合を行う場合に検知区域内で接合する必要があるが、接合方法が一律に溶接へ限定されるわけではない。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第52条第3項を確認した。",
+          "refs": [
+            {
+              "article": "52",
+              "articleTextHash": "291ba88357f7ebfb67b199d5dd8e515ce86aeb47064f144043cc8739802329ee",
+              "elm": "Article",
+              "encodedElm": "Article-52",
+              "highlightElms": [
+                "Article-52"
+              ],
+              "item": "none",
+              "lawId": "412M50000400111",
+              "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "paragraph": "3",
+              "primaryBasis": true,
+              "refId": "gas-tech-std-art52-current",
+              "relation": "supports_choice_4",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "291ba88357f7ebfb67b199d5dd8e515ce86aeb47064f144043cc8739802329ee"
+            }
+          ],
           "verdict": "same_as_current"
         },
         "examTime": {
@@ -1845,12 +1967,12 @@
     "sourceRecordRef": "question_2021_firestore_2.json#6",
     "explanationReferences": [
       {
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-07-30",
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-07-31",
         "title": "e-Gov法令API v2「ガス工作物の技術上の基準を定める省令」"
       }
     ],
-    "lawContextForExplanation": "「ガス工作物の技術上の基準を定める省令」第51条の漏えい検査頻度・適用除外及び第52条の高圧・中圧導管の設置条件を選択肢別に参照する。",
+    "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第51条の漏えい検査頻度・ポリエチレン管等の適用除外、第52条の高圧導管設置制限・中圧導管の接合条件を選択肢別に参照する。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -3107,7 +3229,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "間違い。託送供給約款は、単に経済産業大臣へ届け出るのではなく、原則としてその認可を受けなければならない。ガス事業法第48条第1項に定められている。",
+      "間違い。託送供給約款は、単に経済産業大臣へ届け出るのではなく、原則として経済産業大臣の認可を受けなければならない。ガス事業法第48条第1項に定められている。",
       "正しい。託送供給約款には、託送供給を行うことができるガスの熱量等の範囲、組成その他の受入条件を定めなければならない。ガス事業法施行規則第64条第1項第1号ホ及び第2号ヘに定められている。",
       "正しい。一般ガス導管事業者は、正当な理由がなければ最終保障供給を拒んではならない。ガス事業法第47条第2項に定められている。",
       "間違い。ガス製造事業者が毎年度作成し、当該年度の開始前に経済産業大臣へ届け出るのは、供給計画ではなく製造計画である。ガス事業法第93条第1項に定められている。",
@@ -3151,7 +3273,7 @@
           "choiceIndex": 0,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3164,7 +3286,7 @@
           "choiceIndex": 1,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3177,7 +3299,7 @@
           "choiceIndex": 2,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3190,7 +3312,7 @@
           "choiceIndex": 3,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3203,7 +3325,7 @@
           "choiceIndex": 4,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3221,7 +3343,7 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時の正誤と現行法による正誤は一致する。"
+          "ガス事業法第48条第1項の該当本文は試験時点と現行で同一である。"
         ],
         "evidenceSummary": {
           "differenceSummary": "試験時と現行法の判定はいずれも間違いである。",
@@ -3269,7 +3391,7 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時の正誤と現行法による正誤は一致する。"
+          "ガス事業法施行規則第64条には試験時点と現行で一部文言差があるが、第1項第1号ホ及び第2号ヘの受入条件事項は正誤判断に影響する範囲で維持されている。"
         ],
         "evidenceSummary": {
           "differenceSummary": "試験時と現行法の判定はいずれも正しい。",
@@ -3337,7 +3459,7 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時の正誤と現行法による正誤は一致する。"
+          "ガス事業法第47条第2項の該当本文は試験時点と現行で同一である。"
         ],
         "evidenceSummary": {
           "differenceSummary": "試験時と現行法の判定はいずれも正しい。",
@@ -3385,7 +3507,7 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時の正誤と現行法による正誤は一致する。"
+          "ガス事業法第93条第1項の該当本文は試験時点と現行で同一である。"
         ],
         "evidenceSummary": {
           "differenceSummary": "試験時と現行法の判定はいずれも間違いである。",
@@ -3433,7 +3555,7 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時の正誤と現行法による正誤は一致する。"
+          "ガス事業法施行規則第144条第1項第2号の該当本文は試験時点と現行で同一である。"
         ],
         "evidenceSummary": {
           "differenceSummary": "試験時と現行法の判定はいずれも間違いである。",
@@ -3468,7 +3590,9 @@
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "notes": [],
+        "notes": [
+          "previousValidationFeedbackは測定場所に整圧器の出口を含める指摘をしているが、primaryLawEvidenceの第144条第1項第2号本文には含まれないため採用しない。"
+        ],
         "reconciliationStatus": "matched",
         "reviewState": "secondary_verified"
       }
@@ -3502,7 +3626,7 @@
         "title": "ガス事業法施行規則"
       }
     ],
-    "lawContextForExplanation": "託送供給約款はガス事業法第48条第1項及び同法施行規則第64条第1項、最終保障供給は同法第47条第2項、製造計画は同法第93条第1項、圧力測定は同法施行規則第144条第1項第2号を根拠にする。",
+    "lawContextForExplanation": "託送供給約款の認可はガス事業法第48条第1項、託送供給約款の受入条件事項はガス事業法施行規則第64条第1項第1号ホ及び第2号ヘ、最終保障供給拒否禁止はガス事業法第47条第2項、製造計画は同法第93条第1項、圧力測定場所は同規則第144条第1項第2号を根拠にする。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -3862,11 +3986,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "正しい。ガス工作物（ガス栓を除く。）の操作により人が死亡した事故は、ガス事故速報及びガス事故詳報の対象である。この報告方式は、ガス関係報告規則第4条第1項の表第1号に定められている。",
-      "正しい。供給支障戸数が500以上の供給支障事故は、設問で除外された指定事故を除き、ガス事故速報及びガス事故詳報の対象である。この報告方式は、ガス関係報告規則第4条第1項の表第3号に定められている。",
-      "正しい。選択肢の「事故中」は「工事中」を指す転記上の表記と解される。工事中のガス工作物の損壊により人が負傷した事故は、ガス事故速報及びガス事故詳報の対象であり、その根拠はガス関係報告規則第4条第1項の表第6号である。",
-      "間違い。ガス工作物の損壊により一般公衆に交通の困難等を招来した事故は、ガス事故詳報のみの対象であり、ガス事故速報の対象ではない。この報告方式は、ガス関係報告規則第4条第1項の表第14号に定められている。",
-      "正しい。ガス栓の欠陥によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス事故速報及びガス事故詳報の対象である。この報告方式は、ガス関係報告規則第4条第1項の表第16号に定められている。"
+      "正しい。ガス工作物（ガス栓を除く。）の操作により人が死亡した事故は、ガス関係報告規則第4条第1項の表第1号に掲げられ、報告方式はガス事故速報及びガス事故詳報とされている。したがって、ガス事故速報を報告することが法令で規定されている。",
+      "正しい。供給支障戸数が500以上の供給支障事故は、設問で除外されている自然災害等による指定事故を除き、ガス関係報告規則第4条第1項の表第3号に掲げられ、報告方式はガス事故速報及びガス事故詳報とされている。したがって、ガス事故速報の報告対象である。",
+      "正しい。工事中のガス工作物（ガス栓を除く。）の損壊により人が負傷した事故は、ガス関係報告規則第4条第1項の表第6号に掲げられ、報告方式はガス事故速報及びガス事故詳報とされている。したがって、ガス事故速報を報告することが法令で規定されている。",
+      "間違い。ガス工作物（ガス栓を除く。）の損壊により一般公衆に交通の困難等を招来した事故は、ガス関係報告規則第4条第1項の表第14号ではガス事故詳報のみの対象であり、ガス事故速報の対象ではない。したがって、速報を報告することが規定されているとはいえない。",
+      "正しい。ガス栓の欠陥によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス関係報告規則第4条第1項の表第16号に掲げられ、報告方式はガス事故速報及びガス事故詳報とされている。したがって、ガス事故速報の報告対象である。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -3906,10 +4030,10 @@
           "choiceIndex": 0,
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-30",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-31",
           "verificationStatus": "verified"
         }
       ],
@@ -3919,10 +4043,10 @@
           "choiceIndex": 1,
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-30",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-31",
           "verificationStatus": "verified"
         }
       ],
@@ -3932,10 +4056,10 @@
           "choiceIndex": 2,
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-30",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-31",
           "verificationStatus": "verified"
         }
       ],
@@ -3945,10 +4069,10 @@
           "choiceIndex": 3,
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-30",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-31",
           "verificationStatus": "verified"
         }
       ],
@@ -3958,10 +4082,10 @@
           "choiceIndex": 4,
           "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-30",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-31",
           "verificationStatus": "verified"
         }
       ]
@@ -3969,20 +4093,20 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "現行の第4条第1項表第1号も当該事故を速報及び詳報の対象としており、正答への影響はない。"
+          "試験時点と現行法で正誤はいずれも「正しい」であり、正答への影響はない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時点の出題記録と現行法に基づく正誤はいずれも「正しい」である。"
+          "試験時点の表第1号と現行の表第1号はいずれも、ガス工作物の操作により人が死亡した事故を速報及び詳報の対象としている。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点と現在で正誤は一致する。",
+          "differenceSummary": "条文全体には改正があるが、この事故類型の速報要否は変わらない。",
           "displayRefIds": [],
-          "explanationText": "ガス工作物の操作により人が死亡した事故は、現行のガス関係報告規則第4条第1項表第1号で速報及び詳報の対象とされている。",
-          "promptContext": "第4条第1項表第1号の事故欄及び報告方式欄を照合した。",
+          "explanationText": "ガス工作物の操作により人が死亡した事故は、試験時点及び現行法のいずれでもガス事故速報の対象である。",
+          "promptContext": "ガス関係報告規則第4条第1項の表第1号を、試験日基準日と現行基準日で照合した。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -3995,20 +4119,20 @@
       },
       {
         "answerImpactFacts": [
-          "現行の第4条第1項表第3号も供給支障戸数500以上の事故を速報及び詳報の対象としており、正答への影響はない。"
+          "試験時点と現行法で正誤はいずれも「正しい」であり、正答への影響はない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時点の出題記録と現行法に基づく正誤はいずれも「正しい」である。"
+          "試験時点の表第3号と現行の表第3号はいずれも、供給支障戸数500以上の供給支障事故を速報及び詳報の対象としている。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点と現在で正誤は一致する。",
+          "differenceSummary": "条文全体には改正があるが、この事故類型の速報要否は変わらない。",
           "displayRefIds": [],
-          "explanationText": "供給支障戸数500以上の供給支障事故は、現行のガス関係報告規則第4条第1項表第3号で速報及び詳報の対象とされている。",
-          "promptContext": "第4条第1項表第3号の事故欄及び報告方式欄を照合した。",
+          "explanationText": "供給支障戸数500以上の供給支障事故は、試験時点及び現行法のいずれでもガス事故速報の対象である。",
+          "promptContext": "ガス関係報告規則第4条第1項の表第3号を、試験日基準日と現行基準日で照合した。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4021,48 +4145,46 @@
       },
       {
         "answerImpactFacts": [
-          "現行の第4条第1項表第6号は工事中のガス工作物の損壊等による負傷事故を速報及び詳報の対象としており、正答への影響はない。"
+          "試験時点と現行法で正誤はいずれも「正しい」であり、正答への影響はない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "選択肢の「事故中」は「工事中」を指す転記上の表記として扱うと、試験時点と現行法に基づく正誤はいずれも「正しい」である。"
+          "試験時点の表第6号と現行の表第6号はいずれも、工事中のガス工作物の損壊等により人が負傷した事故を速報及び詳報の対象としている。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "転記上の表記を除き、試験時点と現在で正誤は一致する。",
+          "differenceSummary": "条文全体には改正があるが、この事故類型の速報要否は変わらない。",
           "displayRefIds": [],
-          "explanationText": "工事中のガス工作物の損壊により人が負傷した事故は、現行のガス関係報告規則第4条第1項表第6号で速報及び詳報の対象とされている。",
-          "promptContext": "「事故中」を「工事中」に対応する表記として、第4条第1項表第6号を照合した。",
+          "explanationText": "工事中のガス工作物の損壊により人が負傷した事故は、試験時点及び現行法のいずれでもガス事故速報の対象である。",
+          "promptContext": "ガス関係報告規則第4条第1項の表第6号を、試験日基準日と現行基準日で照合した。",
           "refs": [],
           "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "notes": [
-          "公開解説は事故内容を主語として記述し、条文を機械的な文頭主語にしていない。"
-        ],
+        "notes": [],
         "reconciliationStatus": "matched",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "現行の第4条第1項表第14号は当該事故を詳報のみの対象としており、速報対象ではないため、正答への影響はない。"
+          "試験時点と現行法で正誤はいずれも「間違い」であり、正答への影響はない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時点の出題記録と現行法に基づく正誤はいずれも「間違い」である。"
+          "試験時点では表第13号、現行法では表第14号に対応する事故類型であり、いずれも報告方式は詳報のみである。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点と現在で正誤は一致する。",
+          "differenceSummary": "号番号は試験時点の第13号から現行の第14号へ変わっているが、速報要否は変わらない。",
           "displayRefIds": [],
-          "explanationText": "一般公衆に交通の困難等を招来した事故は、現行のガス関係報告規則第4条第1項表第14号では詳報のみの対象である。",
-          "promptContext": "第4条第1項表第14号の事故欄及び報告方式欄を照合した。",
+          "explanationText": "ガス工作物の損壊等により一般公衆に交通の困難等を招来した事故は、試験時点及び現行法のいずれでもガス事故詳報のみの対象であり、速報対象ではない。",
+          "promptContext": "ガス関係報告規則第4条第1項の表について、試験時点の第13号と現行の第14号を照合した。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4075,20 +4197,20 @@
       },
       {
         "answerImpactFacts": [
-          "現行の第4条第1項表第16号もガス栓から漏えいしたガスへの引火による物損事故を速報及び詳報の対象としており、正答への影響はない。"
+          "試験時点と現行法で正誤はいずれも「正しい」であり、正答への影響はない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時点の出題記録と現行法に基づく正誤はいずれも「正しい」である。"
+          "試験時点では表第15号、現行法では表第16号に対応する事故類型であり、いずれも速報及び詳報の対象である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点と現在で正誤は一致する。",
+          "differenceSummary": "号番号は試験時点の第15号から現行の第16号へ変わっているが、速報要否は変わらない。",
           "displayRefIds": [],
-          "explanationText": "ガス栓から漏えいしたガスへの引火による物損事故は、現行のガス関係報告規則第4条第1項表第16号で速報及び詳報の対象とされている。",
-          "promptContext": "第4条第1項表第16号の事故欄及び報告方式欄を照合した。",
+          "explanationText": "ガス栓の欠陥等によりガス栓から漏えいしたガスに引火して発生した物損事故は、試験時点及び現行法のいずれでもガス事故速報の対象である。",
+          "promptContext": "ガス関係報告規則第4条第1項の表について、試験時点の第15号と現行の第16号を照合した。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4119,12 +4241,12 @@
     "sourceRecordRef": "question_2021_firestore_2.json#14",
     "explanationReferences": [
       {
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-30",
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/429M60000400016?asof=2026-07-31",
         "title": "e-Gov法令API「ガス関係報告規則」第4条"
       }
     ],
-    "lawContextForExplanation": "ガス関係報告規則第4条第1項の表第1号、第3号、第6号、第14号及び第16号により、各事故について速報の要否を確認する。選択肢3の「事故中」は「工事中」を指す転記上の表記として扱う。",
+    "lawContextForExplanation": "ガス関係報告規則第4条第1項の表第1号、第3号、第6号、第14号及び第16号により、各事故についてガス事故速報の要否を確認する。試験時点と現行法で表の号番号に一部変更があるが、本問の正誤には影響しない。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -5925,11 +6047,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "間違い。ダルシー・ワイズバッハ式 Δh=λ(L/d)・v²/(2g) をLについて解くと、L=Δh・d/{λ・v²/(2g)}である。d=0.15m、v²/(2g)=2²/(2×10)=0.2mを代入すると、L=(0.3×0.15)/(0.03×0.2)=7.5mとなるため、4.5mではない。",
-      "正しい。ダルシー・ワイズバッハ式 Δh=λ(L/d)・v²/(2g) より、L=Δh・d/{λ・v²/(2g)}である。d=150mm=0.15m、v²/(2g)=2²/(2×10)=0.2mを代入すると、L=(0.3×0.15)/(0.03×0.2)=7.5mとなる。",
-      "間違い。ダルシー・ワイズバッハ式から求めた直円管の長さは7.5mである。他の条件が同じなら損失ヘッドは管長に比例するため、15mでは損失ヘッドが0.6mとなり、条件の0.3mと一致しない。",
-      "間違い。ダルシー・ワイズバッハ式から求めた直円管の長さは7.5mである。750mはその100倍であり、他の条件が同じなら損失ヘッドも100倍の30mとなるため、条件に合わない。",
-      "間違い。ダルシー・ワイズバッハ式から求めた直円管の長さは7.5mである。7500mはその1000倍であり、他の条件が同じなら損失ヘッドも1000倍の300mとなるため、条件に合わない。"
+      "ダルシー・ワイズバッハ式は、損失ヘッドをΔh、管摩擦係数をλ、管長をL、管内径をd、平均流速をv、重力加速度をgとすると、Δh=λ(L/d)・v²/(2g)で表される。これをLについて解くと、L=Δh・d/{λ・v²/(2g)}となる。条件よりd=150mm=0.15m、v²/(2g)=2²/(2×10)=0.2mであるから、L=(0.3×0.15)/(0.03×0.2)=0.045/0.006=7.5mとなる。したがって、最も近い値は7.5である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -6104,11 +6222,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "間違い。マノメーターが示す圧力差とピトー管の動圧を等置すると、流速uはu=√{2(ρ'−ρ)gH/ρ}で求められる。H=13mm=0.013m、ρ=1.04kg/m³、ρ'=800kg/m³、g=10m/s²を代入すると、u²≈199.7、u≈14.1m/sとなるため、4m/sは最も近い値ではない。",
-      "間違い。流速はu=√{2(ρ'−ρ)gH/ρ}から約14.1m/sとなる。10m/sとの差は約4.1m/sで、14m/sとの差約0.1m/sより大きいため、10m/sは最も近い値ではない。",
-      "間違い。各値を関係式に代入すると流速は約14.1m/sとなる。12m/sとの差は約2.1m/sで、14m/sとの差約0.1m/sより大きいため、12m/sは最も近い値ではない。",
-      "正しい。マノメーターによる圧力差とピトー管の動圧の関係から、u=√{2(ρ'−ρ)gH/ρ}を用いる。各値をSI単位で代入するとu²≈199.7、u≈14.1m/sとなるため、最も近い値は14m/sである。",
-      "間違い。計算から得られる流速は約14.1m/sである。20m/sとの差は約5.9m/sで、14m/sとの差約0.1m/sより大きいため、20m/sは最も近い値ではない。"
+      "ピトー管では、気体の動圧とマノメーターの差圧を等置する。差圧は (ρ'−ρ)gH、動圧は ρu^2/2 なので、ρu^2/2=(ρ'−ρ)gH より u=√{2(ρ'−ρ)gH/ρ} となる。H=13mm=0.013m、ρ=1.04kg/m^3、ρ'=800kg/m^3、g=10m/s^2 を代入すると、u^2=2×(800−1.04)×10×0.013÷1.04≈199.7、u≈14.1m/sである。選択肢の中で最も近い値は14m/sであり、4、10、12、20m/sは最も近い値ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -6134,7 +6248,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-11-1,gasushunin-koushu-kiso-2021-11-2,gasushunin-koushu-kiso-2021-11-3,chiefgasengineerlicense-C-10096,gasushunin-koushu-kiso-2021-11-5",
     "sourceRecordRef": "question_2021_firestore_2.json#22",
     "explanationReferences": [],
-    "lawContextForExplanation": "ピトー管とマノメーターの関係式を用いる技術・理論計算問題であり、法令条文を正誤の根拠としない。",
+    "lawContextForExplanation": "ピトー管とマノメーターの差圧から流速を求める技術計算問題であり、法令条文を正誤根拠としない。",
     "lawReferences": [
       [],
       [],
@@ -6153,7 +6267,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "計算値約14.1m/sに対して4m/sは最も近い値ではない。",
+          "explanationText": "計算値は約14.1m/sであり、4m/sは最も近い値ではない。",
           "promptContext": "選択肢4m/sの判定",
           "refs": [],
           "verdict": "非法令問題"
@@ -6177,7 +6291,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "計算値約14.1m/sに対して10m/sは最も近い値ではない。",
+          "explanationText": "計算値は約14.1m/sであり、10m/sは最も近い値ではない。",
           "promptContext": "選択肢10m/sの判定",
           "refs": [],
           "verdict": "非法令問題"
@@ -6201,7 +6315,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "計算値約14.1m/sに対して12m/sは最も近い値ではない。",
+          "explanationText": "計算値は約14.1m/sであり、12m/sは最も近い値ではない。",
           "promptContext": "選択肢12m/sの判定",
           "refs": [],
           "verdict": "非法令問題"
@@ -6225,7 +6339,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "計算値約14.1m/sに最も近い14m/sが正しい。",
+          "explanationText": "計算値は約14.1m/sであり、最も近い14m/sが正しい。",
           "promptContext": "選択肢14m/sの判定",
           "refs": [],
           "verdict": "非法令問題"
@@ -6249,7 +6363,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "計算値約14.1m/sに対して20m/sは最も近い値ではない。",
+          "explanationText": "計算値は約14.1m/sであり、20m/sは最も近い値ではない。",
           "promptContext": "選択肢20m/sの判定",
           "refs": [],
           "verdict": "非法令問題"
@@ -6283,11 +6397,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "間違い。熱通過率Kは、壁両面の熱伝達抵抗と壁内部の熱伝導抵抗を合計した全熱抵抗の逆数で求める。厚さ50mmは0.050mなので、K=1/(1/10+0.050/1.2+1/25)≈5.50W/(m²・K)となり、0.02ではない。",
-      "間違い。全熱抵抗は1/10+0.050/1.2+1/25=0.1817(m²・K)/Wであり、その逆数である熱通過率は約5.50W/(m²・K)となるため、0.04ではない。",
-      "間違い。壁両面の熱伝達抵抗と壁内部の熱伝導抵抗を合算すると0.1817(m²・K)/Wとなり、熱通過率はその逆数の約5.50W/(m²・K)であるため、0.23ではない。",
-      "間違い。厚さ50mmを0.050mとして計算すると、K=1/(0.100+0.0417+0.0400)≈5.50W/(m²・K)となるため、2.5ではない。",
-      "正しい。K=1/(1/10+0.050/1.2+1/25)=1/0.1817≈5.50W/(m²・K)であり、選択肢の中では5.5が最も近い。"
+      "熱通過率Kは、室内側の熱伝達抵抗、壁内部の熱伝導抵抗、外気側の熱伝達抵抗を合計した全熱抵抗の逆数で求める。壁厚50mmを0.050mに換算すると、全熱抵抗は 1/10+0.050/1.2+1/25=0.100+0.0417+0.0400=0.1817(m²・K)/W である。したがって K=1/0.1817≒5.50W/(m²・K) となり、最も近い値は5.5である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -6313,7 +6423,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-12-1,gasushunin-koushu-kiso-2021-12-2,gasushunin-koushu-kiso-2021-12-3,gasushunin-koushu-kiso-2021-12-4,chiefgasengineerlicense-C-10097",
     "sourceRecordRef": "question_2021_firestore_2.json#23",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を根拠とせず、熱伝達抵抗と熱伝導抵抗から求める熱通過率の技術計算問題。",
+    "lawContextForExplanation": "法令条文を根拠とせず、熱伝達抵抗と熱伝導抵抗を合計した全熱抵抗の逆数から熱通過率を求める技術計算問題。",
     "lawReferences": [
       [],
       [],
@@ -6330,10 +6440,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現在の判定に差はない。",
+          "differenceSummary": "法令問題ではないため、試験時と現在の判定に差はない。",
           "displayRefIds": [],
-          "explanationText": "熱通過率は約5.50W/(m²・K)であり、0.02は間違い。",
-          "promptContext": "熱通過率の技術計算問題。",
+          "explanationText": "熱通過率は約5.50W/(m²・K)であり、0.02は該当しない。",
+          "promptContext": "熱伝達抵抗と熱伝導抵抗から求める熱通過率の計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -6341,7 +6451,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令改正の影響を受けない技術計算肢。"
+          "法令改正の影響を受けない熱通過率の技術計算肢。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -6354,10 +6464,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現在の判定に差はない。",
+          "differenceSummary": "法令問題ではないため、試験時と現在の判定に差はない。",
           "displayRefIds": [],
-          "explanationText": "熱通過率は約5.50W/(m²・K)であり、0.04は間違い。",
-          "promptContext": "熱通過率の技術計算問題。",
+          "explanationText": "熱通過率は約5.50W/(m²・K)であり、0.04は該当しない。",
+          "promptContext": "熱伝達抵抗と熱伝導抵抗から求める熱通過率の計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -6365,7 +6475,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令改正の影響を受けない技術計算肢。"
+          "法令改正の影響を受けない熱通過率の技術計算肢。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -6378,10 +6488,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現在の判定に差はない。",
+          "differenceSummary": "法令問題ではないため、試験時と現在の判定に差はない。",
           "displayRefIds": [],
-          "explanationText": "熱通過率は約5.50W/(m²・K)であり、0.23は間違い。",
-          "promptContext": "熱通過率の技術計算問題。",
+          "explanationText": "熱通過率は約5.50W/(m²・K)であり、0.23は該当しない。",
+          "promptContext": "熱伝達抵抗と熱伝導抵抗から求める熱通過率の計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -6389,7 +6499,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令改正の影響を受けない技術計算肢。"
+          "法令改正の影響を受けない熱通過率の技術計算肢。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -6402,10 +6512,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現在の判定に差はない。",
+          "differenceSummary": "法令問題ではないため、試験時と現在の判定に差はない。",
           "displayRefIds": [],
-          "explanationText": "熱通過率は約5.50W/(m²・K)であり、2.5は間違い。",
-          "promptContext": "熱通過率の技術計算問題。",
+          "explanationText": "熱通過率は約5.50W/(m²・K)であり、2.5は該当しない。",
+          "promptContext": "熱伝達抵抗と熱伝導抵抗から求める熱通過率の計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -6413,7 +6523,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令改正の影響を受けない技術計算肢。"
+          "法令改正の影響を受けない熱通過率の技術計算肢。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -6426,10 +6536,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "試験時と現在の判定に差はない。",
+          "differenceSummary": "法令問題ではないため、試験時と現在の判定に差はない。",
           "displayRefIds": [],
-          "explanationText": "熱通過率は約5.50W/(m²・K)であり、5.5は正しい。",
-          "promptContext": "熱通過率の技術計算問題。",
+          "explanationText": "熱通過率は約5.50W/(m²・K)であり、5.5が最も近い。",
+          "promptContext": "熱伝達抵抗と熱伝導抵抗から求める熱通過率の計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -6437,7 +6547,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "法令改正の影響を受けない技術計算肢。"
+          "法令改正の影響を受けない熱通過率の技術計算肢。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -6462,11 +6572,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "間違い。ブロック形熱交換器は、ブロック内部に流路を設けて流体間で熱を移動させる形式であり、凹凸のある伝熱板をガスケットではさんで積層する構造ではない。",
-      "間違い。ジャケット形熱交換器は、容器などの外側にジャケットを設け、その内部に加熱用又は冷却用の流体を通す形式であり、多数の伝熱板を重ねる構造ではない。",
-      "正しい。プレート形熱交換器は、凹凸形にプレスした伝熱板をガスケットを介して重ね、隣り合う流路へ2種類の流体を交互に通して伝熱板越しに熱交換させる構造である。",
-      "間違い。二重管式熱交換器は、内管と外管によって形成される流路へ2種類の流体を通し、管壁を介して熱交換させる形式であり、伝熱板を積層する構造ではない。",
-      "間違い。単管式熱交換器は管壁を伝熱面として利用する形式であり、凹凸形の伝熱板をガスケットではさんで積層するプレート形熱交換器とは構造が異なる。"
+      "凹凸形にプレスした伝熱板をガスケットで挟んで重ね、隣り合う流路に2種類の流体を交互に流して熱交換する構造は、プレート形熱交換器である。ブロック形熱交換器はブロック内部の流路を利用する形式、ジャケット形熱交換器は容器外側のジャケットに加熱・冷却用流体を通す形式、二重管式熱交換器は内管と外管の間の流路を利用する形式、単管式熱交換器は管壁を伝熱面として用いる形式であり、いずれも提示された伝熱板を積層する構造とは異なる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -6509,7 +6615,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "ブロック形熱交換器は伝熱板をガスケットではさんで積層する形式ではない。",
+          "explanationText": "ブロック形熱交換器は、提示された伝熱板をガスケットで挟んで積層する形式ではない。",
           "promptContext": "ブロック形熱交換器が提示された構造に該当するかを判定する。",
           "refs": [],
           "verdict": "法令監査対象外"
@@ -6533,7 +6639,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "ジャケット形熱交換器は容器外側のジャケットを利用する形式であり、伝熱板を積層する形式ではない。",
+          "explanationText": "ジャケット形熱交換器は、容器外側のジャケットに流体を通す形式であり、伝熱板を積層する形式ではない。",
           "promptContext": "ジャケット形熱交換器が提示された構造に該当するかを判定する。",
           "refs": [],
           "verdict": "法令監査対象外"
@@ -6557,7 +6663,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "提示された積層伝熱板と交互流路の構造はプレート形熱交換器の特徴に一致する。",
+          "explanationText": "提示された積層伝熱板と交互流路の構造は、プレート形熱交換器の特徴に一致する。",
           "promptContext": "プレート形熱交換器が提示された構造に該当するかを判定する。",
           "refs": [],
           "verdict": "法令監査対象外"
@@ -6581,7 +6687,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "二重管式熱交換器は管壁を介して熱交換する形式であり、伝熱板を積層する形式ではない。",
+          "explanationText": "二重管式熱交換器は、内管と外管による流路で管壁を介して熱交換する形式であり、伝熱板を積層する形式ではない。",
           "promptContext": "二重管式熱交換器が提示された構造に該当するかを判定する。",
           "refs": [],
           "verdict": "法令監査対象外"
@@ -6605,7 +6711,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "単管式熱交換器は管壁を伝熱面とする形式であり、伝熱板を積層する形式ではない。",
+          "explanationText": "単管式熱交換器は、管壁を伝熱面として利用する形式であり、伝熱板を積層する形式ではない。",
           "promptContext": "単管式熱交換器が提示された構造に該当するかを判定する。",
           "refs": [],
           "verdict": "法令監査対象外"

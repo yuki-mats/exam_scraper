@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260730213120-718f82e86e",
+  "category": "image",
+  "caseIds": [
+    "ui-official-718f82e86ea4332692c4"
+  ],
+  "inputCaseHashes": {
+    "ui-official-718f82e86ea4332692c4": "718f82e86ea4332692c409621349625b7e7979aa3405ca691d134f49a35f4e54"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "a073070ec554854f17b16ec7312618218dac59de956438419679021f693522cd",
+    "97842d4f40319e019832cd546b208e03f5ab9b3f02497bef9fa7b0cbed39a4d2"
+  ],
+  "challengeReviewHash": "a5958fa919f4228cd9d6d3a6669eee31bfb8017a9783074ac4d5996cfa2d77af",
+  "createdAt": "2026-07-30T21:32:26.818294Z",
+  "entries": [
+    {
+      "original_question_id": "a227f152a94ed421",
+      "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q20",
+      "reviewQuestionId": "a227f152a94ed421",
+      "sourceRecordRef": "question_2024_gassyunin_site_3.json#0",
+      "expectedBeforeHash": "5e4af742bca18850cdef5bb0390db82c7a26e11954ae8f03d4a135e9df76f16d",
+      "changes": {
+        "questionImageStorageUrls": [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-kou%2Fofficial-source-2024-a227f152a94ed421-6c0009988bdc123b.png?alt=media"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=image, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/official-review-final/r6_q20_burner_characteristics.png / 消費機器 問20のバーナー燃焼特性図（PDF 34ページ・冊子33ページ）",
+          "title": "令和6年度 ガス主任技術者試験 甲種問題",
+          "verifiedAt": "2026-07-30T21:31:20.066742Z",
+          "contentHash": "6c0009988bdc123bfa1f90fea8653e1e755d7b318a6c588b748f5c6beddf6c08"
+        }
+      ]
+    }
+  ]
+}

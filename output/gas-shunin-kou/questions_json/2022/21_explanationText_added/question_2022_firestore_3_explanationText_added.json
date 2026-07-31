@@ -16,11 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "間違い。引張応力は引張力Pを断面積Aで割って求める。直径16mmの円断面積は A=πd^2/4=3.14×16^2/4=200.96mm^2 であり、σ=P/A=20000/200.96≒99.5N/mm^2=99.5MPaとなる。したがって25MPaでは小さすぎる。",
-      "間違い。円柱試験片の断面積は A=3.14×16^2/4=200.96mm^2 である。引張応力は σ=20000/200.96≒99.5MPa となるため、38MPaではない。",
-      "間違い。引張応力は降伏点での引張力を原断面積で除して求める。A=200.96mm^2、σ=20000/200.96≒99.5MPaなので、50MPaは計算値より小さい。",
-      "間違い。直径16mmの円断面積は約200.96mm^2であり、20000Nを割ると約99.5N/mm^2となる。1N/mm^2=1MPaであるため約99.5MPaとなり、75MPaは最も近い値ではない。",
-      "正しい。直径d=16mm、引張力P=20000Nより、円断面積は A=πd^2/4=3.14×16^2/4=200.96mm^2 である。引張応力は σ=P/A=20000/200.96≒99.5N/mm^2=99.5MPa となるため、最も近い値は100MPaである。"
+      "引張応力は、引張力を試験片の原断面積で割って求める。直径16mmの円断面積は A=πd^2/4=3.14×16^2/4=200.96mm^2 である。したがって σ=P/A=20000/200.96≒99.5N/mm^2 となる。1N/mm^2=1MPaなので約99.5MPaであり、選択肢の中で最も近い値は100MPaである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -46,7 +42,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-15-1,gasushunin-koushu-kiso-2022-15-2,gasushunin-koushu-kiso-2022-15-3,gasushunin-koushu-kiso-2022-15-4,chiefgasengineerlicense-C-10073",
     "sourceRecordRef": "question_2022_firestore_3.json#0",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない材料力学の計算問題。引張応力は引張力を円断面積で除して求める技術・理論事項で判断する。",
+    "lawContextForExplanation": "法令条文を主要根拠としない材料力学の計算問題。引張応力は引張力を円断面積で除して求め、N/mm^2はMPaに等しい。",
     "lawReferences": [
       [],
       [],
@@ -68,7 +64,7 @@
           "differenceSummary": "法令時点差はない。",
           "displayRefIds": [],
           "explanationText": "25MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaという計算値と一致しない。",
-          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "promptContext": "引張応力は引張力を円断面積で除して求める技術計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -92,7 +88,7 @@
           "differenceSummary": "法令時点差はない。",
           "displayRefIds": [],
           "explanationText": "38MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaという計算値と一致しない。",
-          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "promptContext": "引張応力は引張力を円断面積で除して求める技術計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -116,7 +112,7 @@
           "differenceSummary": "法令時点差はない。",
           "displayRefIds": [],
           "explanationText": "50MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaという計算値と一致しない。",
-          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "promptContext": "引張応力は引張力を円断面積で除して求める技術計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -140,7 +136,7 @@
           "differenceSummary": "法令時点差はない。",
           "displayRefIds": [],
           "explanationText": "75MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaという計算値と一致しない。",
-          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "promptContext": "引張応力は引張力を円断面積で除して求める技術計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -164,7 +160,7 @@
           "differenceSummary": "法令時点差はない。",
           "displayRefIds": [],
           "explanationText": "100MPaは、σ=20000/(3.14×16^2/4)≒99.5MPaに最も近い。",
-          "promptContext": "引張応力は引張力を断面積で除して求める技術計算問題。",
+          "promptContext": "引張応力は引張力を円断面積で除して求める技術計算問題。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -195,11 +191,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "間違い。理想気体の混合ガスでは、各成分の分圧は全圧にその成分のモル分率を掛けて求める。メタンの物質量は20/16=1.25kmol、エタンの物質量は15/30=0.5kmolで、合計は1.75kmolである。したがってメタンの分圧は200×1.25/1.75=約142.9kPaとなり、50kPaは小さすぎる。",
-      "間違い。メタンの分圧は質量比ではなく物質量比で計算する。メタンは1.25kmol、エタンは0.5kmolなので、メタンのモル分率は1.25/(1.25+0.5)=約0.714である。全圧200kPaを掛けると約142.9kPaとなり、100kPaではない。",
-      "正しい。ドルトンの分圧の法則より、メタン分圧はP_CH4=全圧×n_CH4/(n_CH4+n_C2H6)で求める。n_CH4=20/16=1.25kmol、n_C2H6=15/30=0.5kmolだから、P_CH4=200×1.25/1.75=約142.9kPaである。選択肢では140kPaが最も近い。",
-      "間違い。メタンのモル分率は1.25/1.75=約0.714であるため、メタンの分圧は200×0.714=約142.9kPaとなる。180kPaは、メタンが全圧の約90%を占める場合に近い値であり、この混合比には合わない。",
-      "間違い。エタンも0.5kmol含まれているため、メタンが全圧のほとんどを占めるわけではない。メタンの物質量割合は1.25/(1.25+0.5)=約0.714なので、分圧は約142.9kPaであり、190kPaは大きすぎる。"
+      "理想気体の混合ガスでは、各成分の分圧は全圧にその成分のモル分率を掛けて求める。メタンの物質量は20kg÷16kg/kmol=1.25kmol、エタンの物質量は15kg÷30kg/kmol=0.50kmolなので、全物質量は1.75kmolである。したがってメタンのモル分率は1.25/1.75=約0.714、メタンの分圧は200kPa×0.714=約142.9kPaとなる。選択肢の中では140kPaが最も近い。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -225,7 +217,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2022-2-1,gasushunin-koushu-kiso-2022-2-2,chiefgasengineerlicense-C-10040,gasushunin-koushu-kiso-2022-2-4,gasushunin-koushu-kiso-2022-2-5",
     "sourceRecordRef": "question_2022_firestore_3.json#1",
     "explanationReferences": [],
-    "lawContextForExplanation": "理想気体混合物の分圧を物質量比から計算する技術・理論問題であり、法令条文を主要根拠としない。",
+    "lawContextForExplanation": "理想気体混合物の分圧を、ドルトンの分圧の法則と物質量比から求める技術・理論問題であり、法令条文を主要根拠としない。",
     "lawReferences": [
       [],
       [],
@@ -246,7 +238,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令に基づく時点差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢50kPaは、計算値約142.9kPaと一致しない。",
+          "explanationText": "選択肢50kPaは、メタン分圧の計算値約142.9kPaと一致しない。",
           "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -272,7 +264,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令に基づく時点差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢100kPaは、計算値約142.9kPaと一致しない。",
+          "explanationText": "選択肢100kPaは、メタン分圧の計算値約142.9kPaと一致しない。",
           "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -324,7 +316,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令に基づく時点差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢180kPaは、計算値約142.9kPaより大きく一致しない。",
+          "explanationText": "選択肢180kPaは、メタン分圧の計算値約142.9kPaより大きく一致しない。",
           "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -350,7 +342,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令に基づく時点差分はない。",
           "displayRefIds": [],
-          "explanationText": "選択肢190kPaは、計算値約142.9kPaより大きく一致しない。",
+          "explanationText": "選択肢190kPaは、メタン分圧の計算値約142.9kPaより大きく一致しない。",
           "promptContext": "メタン20kgとエタン15kgの理想気体混合物について、全圧200kPaからメタン分圧を物質量比で計算する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1112,11 +1104,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_3.json",
     "explanationText": [
-      "間違い。メタン1molの完全燃焼では理論酸素量は2molである。空気比をλとすると、供給酸素は2λmol、過剰酸素は2λ-2mol、空気中の窒素は酸素の4倍なので8λmolとなる。乾き燃焼ガスはCO2 1mol、過剰酸素2λ-2mol、窒素8λmolからなり、総量は10λ-1molである。λ=1.1では酸素濃度は(2.2-2)/(11-1)=0.2/10=2.0vol%であり、10vol%ではない。",
-      "間違い。乾き燃焼ガス中の酸素濃度は、過剰酸素量を乾き燃焼ガス総量で割って(2λ-2)/(10λ-1)で表される。λ=1.8では、過剰酸素は1.6mol、乾き燃焼ガス総量は17molなので、酸素濃度は1.6/17=約9.4vol%であり、10vol%ではない。",
-      "正しい。メタンの完全燃焼式はCH4+2O2→CO2+2H2Oである。メタン1molに対し、空気比λでは過剰酸素が2λ-2mol、窒素が8λmol、乾き燃焼ガス総量が1+(2λ-2)+8λ=10λ-1molとなる。酸素濃度10vol%より、(2λ-2)/(10λ-1)=0.10を解くと、2λ-2=λ-0.1、したがってλ=1.9となる。",
-      "間違い。λ=2.0では、過剰酸素は2mol、窒素は16mol、乾き燃焼ガス総量は1+2+16=19molである。したがって酸素濃度は2/19=約10.5vol%となり、10vol%から求まる空気比1.9とは一致しない。",
-      "間違い。λ=2.1では、過剰酸素は2.2mol、窒素は16.8mol、乾き燃焼ガス総量は1+2.2+16.8=20molである。したがって酸素濃度は2.2/20=11.0vol%となり、10vol%より高い。"
+      "メタンの完全燃焼式は CH4+2O2→CO2+2H2O である。メタン1molを空気比λで燃焼させると、供給酸素は2λmol、燃焼に使われる酸素は2molなので、乾き燃焼ガス中に残る過剰酸素は2λ-2molとなる。また、空気中の窒素と酸素の体積比は4:1であるから、窒素は2λ×4=8λmolである。乾き燃焼ガスはCO2 1mol、過剰酸素2λ-2mol、窒素8λmolからなり、総量は1+(2λ-2)+8λ=10λ-1molである。したがって酸素濃度は(2λ-2)/(10λ-1)で表され、これが10vol%なので、(2λ-2)/(10λ-1)=0.10を解く。2λ-2=λ-0.1よりλ=1.9となるため、最も近い値は1.9である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],

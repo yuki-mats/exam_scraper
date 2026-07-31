@@ -217,11 +217,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json",
     "explanationText": [
-      "間違い。低圧導管式では、口径・延長・ガス比重が同じなら、流量は圧力差の平方根に比例する。延伸前のABの圧力損失は2.3-2.1=0.2kPaである。延伸後のABではB点向け150m³/hとC点向け150m³/hの合計300m³/hが流れるため、流量は2倍、圧力損失は2²=4倍となり、ABの圧力損失は0.8kPa、B点圧力は2.3-0.8=1.5kPaとなる。BCは150m³/hなので高低差を考えないC点圧力は1.5-0.2=1.3kPaだが、B点より60m高いC点では高低差補正60×1.3×10/1000×(1-0.5)=0.39kPaを加え、C点圧力は約1.69kPaとなる。したがって1.3kPaは最も近い値ではない。",
-      "間違い。延伸後のABには300m³/hが流れるため、ABの圧力損失は0.2×(300/150)²=0.8kPaとなり、B点圧力は2.3-0.8=1.5kPaとなる。しかし問われているのはC点圧力である。BCの圧力損失0.2kPaを差し引いた後、高低差補正0.39kPaを加えるので、C点圧力は1.5-0.2+0.39=約1.69kPaとなり、1.5kPaではない。",
-      "正しい。延伸前のABでは150m³/hで圧力損失が0.2kPaである。延伸後のABでは流量が300m³/hとなるため、圧力損失は流量比の2乗に比例して0.2×2²=0.8kPa、B点圧力は2.3-0.8=1.5kPaとなる。BCは同じ口径・延長・ガス比重で150m³/hを流すので、高低差を考えない圧力損失は0.2kPa、C点圧力は1.3kPaである。さらに高低差補正は60×1.3×10/1000×(1-0.5)=0.39kPaで、C点圧力は1.3+0.39=1.69kPaとなる。選択肢では1.7kPaが最も近い。",
-      "間違い。C点圧力は、ABでの流量増加による圧力損失0.8kPa、BCでの圧力損失0.2kPa、高低差補正0.39kPaを順に考える。B点圧力は2.3-0.8=1.5kPa、高低差を考えないC点圧力は1.5-0.2=1.3kPaであり、補正後は1.3+0.39=約1.69kPaとなる。1.9kPaより1.7kPaの方が計算値に近い。",
-      "間違い。延伸後のC点圧力は、低圧導管式による圧力損失と高低差補正を合わせて求める。ABの流量は2倍なので圧力損失は0.8kPa、B点圧力は1.5kPaとなる。BCの圧力損失0.2kPaを差し引くと1.3kPaで、ここに高低差補正0.39kPaを加えるため、C点圧力は約1.69kPaである。2.1kPaは計算値から離れており、最も近い値ではない。"
+      "低圧導管式では、口径・延長・ガス比重が同じ導管区間なら、流量は圧力損失の平方根に比例し、圧力損失は流量の2乗に比例する。延伸前のABでは150m³/hを流したとき、圧力損失は2.3-2.1=0.2kPaである。延伸後のABではB点向け150m³/hとC点向け150m³/hの合計300m³/hが流れるため、流量は2倍となり、ABの圧力損失は0.2×2²=0.8kPa、B点圧力は2.3-0.8=1.5kPaとなる。BCはABと同じ口径・延長・ガス比重で150m³/hを流すので、高低差を考えない圧力損失は0.2kPaであり、このときのC点圧力は1.5-0.2=1.3kPaである。さらに、C点はB点より60m高く、空気密度1.3kg/m³、ガス比重0.5、重力加速度10m/s²より、高低差補正は60×1.3×10/1000×(1-0.5)=0.39kPaとなる。したがってC点圧力は1.3+0.39=1.69kPaであり、最も近い値は1.7kPaである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -245,7 +241,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-gizyutsu-2023-10-1,gasushunin-koushu-gizyutsu-2023-10-2,gasushunin-koushu-gizyutsu-2023-10-3,gasushunin-koushu-gizyutsu-2023-10-4,gasushunin-koushu-gizyutsu-2023-10-5",
     "sourceRecordRef": "question_2023_firestore_1.json#1",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文ではなく、低圧導管式と高低差補正による圧力計算を根拠とする技術・理論問題。",
+    "lawContextForExplanation": "法令条文ではなく、低圧導管式における流量と圧力損失の関係、および高低差補正によってC点圧力を求める技術計算問題。",
     "lawReferences": [
       [],
       [],
@@ -266,7 +262,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
           "displayRefIds": [],
-          "explanationText": "選択肢1.3は、計算上の最終C点圧力約1.69kPaと一致せず誤りである。",
+          "explanationText": "計算上のC点圧力は約1.69kPaであり、選択肢1.3は最も近い値ではない。",
           "promptContext": "低圧導管式と高低差補正を用いる計算問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -292,7 +288,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
           "displayRefIds": [],
-          "explanationText": "選択肢1.5はB点圧力であり、C点圧力ではないため誤りである。",
+          "explanationText": "1.5kPaは延伸後のB点圧力であり、高低差補正後のC点圧力約1.69kPaとは一致しない。",
           "promptContext": "低圧導管式と高低差補正を用いる計算問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -318,7 +314,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
           "displayRefIds": [],
-          "explanationText": "計算上のC点圧力は約1.69kPaであり、選択肢1.7が最も近いため正しい。",
+          "explanationText": "延伸後のC点圧力は約1.69kPaとなり、選択肢1.7が最も近い。",
           "promptContext": "低圧導管式と高低差補正を用いる計算問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -344,7 +340,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
           "displayRefIds": [],
-          "explanationText": "選択肢1.9は計算値約1.69kPaより大きく、1.7の方が近いため誤りである。",
+          "explanationText": "計算値は約1.69kPaであり、1.9kPaより1.7kPaの方が近い。",
           "promptContext": "低圧導管式と高低差補正を用いる計算問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -370,7 +366,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の試験時点差分と現行差分は問題にならない。",
           "displayRefIds": [],
-          "explanationText": "選択肢2.1は計算値約1.69kPaから離れており誤りである。",
+          "explanationText": "計算値は約1.69kPaであり、2.1kPaは最も近い値ではない。",
           "promptContext": "低圧導管式と高低差補正を用いる計算問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -794,11 +790,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json",
     "explanationText": [
-      "間違い。両端を堅固に固定された鋼管では、温度変化による自由伸縮が拘束されるため、熱応力は σ=EαΔT で求める。設置時の管体温度10℃から最も寒い時期-10℃までの温度差は20℃なので、この場合の応力は 2×10^5×1×10^-5×20=40N/mm² である。しかし、最大応力は絶対値が最も大きい温度変化で決まり、暑い時期の温度差40℃の方が大きいため、40N/mm²は最大応力ではない。",
-      "正しい。設置時の管体温度10℃から最も暑い時期50℃までの温度差は40℃であり、最も寒い時期-10℃までの温度差20℃より大きい。両端固定の熱応力は σ=EαΔT で求めるので、σ=2×10^5×1×10^-5×40=80N/mm² となる。したがって、最大応力として最も近い値は80N/mm²である。",
-      "間違い。120N/mm²は、-10℃から50℃までの全温度幅60℃をそのまま ΔT とした場合の値である。この問題では、設置時の管体温度10℃を基準に、その後の温度変化によって生じる応力を評価する。最大の温度差は10℃から50℃までの40℃なので、最大応力は80N/mm²であり、120N/mm²ではない。",
-      "間違い。両端固定による熱応力は、条件として与えられたヤング率、線膨張係数、設置時からの温度差で計算する。口径や長さはこの式 σ=EαΔT には入らず、内圧や自重も考慮しない条件である。最大温度差40℃を用いると80N/mm²となるため、360N/mm²は過大である。",
-      "間違い。この設問では内圧や自重を考慮しないため、温度変化による拘束応力だけを計算すればよい。最大温度差は設置時10℃から最も暑い時期50℃までの40℃であり、σ=2×10^5×1×10^-5×40=80N/mm² となる。したがって、900N/mm²は最大応力として大きすぎる。"
+      "両端を堅固に固定された鋼管では、温度変化による自由伸縮が拘束されるため、温度変化による熱応力は σ=EαΔT で求める。設置時の管体温度は10℃であり、最も寒い時期-10℃との差は20℃、最も暑い時期50℃との差は40℃である。最大応力は設置時からの温度差の絶対値が大きい側で決まり、ΔT=40℃を用いる。したがって、σ=2×10^5×1×10^-5×40=80N/mm² となる。よって、最も近い値は80である。40は寒い時期側の20℃だけを用いた値、120は-10℃から50℃までの全温度幅60℃を誤って用いた値であり、360、900はいずれも与えられた条件から求まる熱応力として過大である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1178,10 +1170,10 @@
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json",
     "explanationText": [
       "間違い。ポリエチレン管の融着面は、専用工具で表面を切削した後、エタノールなどを用いて清掃する。水で清掃すると融着面に水分が残り、融着不良の原因となるため不適切である。",
-      "間違い。超重量建物への引込み配管には、不等沈下による変位を吸収できる伸縮継手などを用いる必要がある。ボールスライドジョイントを用いるとしているため不適切である。",
+      "間違い。ボールスライドジョイントは周囲の障害物を避けて露出設置するものであり、埋設配管に用いた点が不適切である。",
       "正しい。漏れたガスが滞留するおそれのあるパイプシャフト内に電気開閉器が設置されている場合、換気口を設けてガスの滞留を防止する措置は適切である。",
       "間違い。JISの配管識別に従う場合、都市ガスを示す識別色はうすい黄色である。うすい緑色を都市ガスの識別色としているため不適切である。",
-      "正しい。占用のため掘削した道路の本復旧では、所定の埋戻し又は表面仕上げの範囲を踏まえ、道路管理者と協議して施工する取扱いは適切である。この復旧範囲は道路法施行規則第4条の4の7に定められている。"
+      "正しい。占用のため掘削した道路を復旧する際は、掘削部分やそれに接続する所定の道路部分を埋戻し又は表面仕上げの対象とする。道路管理者と協議し、この基準に従って本復旧の範囲を定めて施工することは適切である。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1231,12 +1223,12 @@
       },
       {
         "choiceIndex": 4,
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/327M50004000025?asof=2026-07-30",
-        "title": "道路法施行規則（2026年7月30日時点）第4条の4の7・e-Gov法令API"
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/327M50004000025?asof=2026-07-31",
+        "title": "道路法施行規則（2026年7月31日時点）第4条の4の7・e-Gov法令API"
       }
     ],
-    "lawContextForExplanation": "第1～第4肢は施工技術又はJIS規格に基づいて説明する。第5肢は道路法施行規則第4条の4の7が定める道路復旧時の埋戻し・表面仕上げの範囲を根拠とする。",
+    "lawContextForExplanation": "第1～第4肢は施工技術又はJIS規格に基づいて説明する。第5肢は、道路復旧時に埋戻し又は表面仕上げを行う範囲を定める道路法施行規則第4条の4の7を根拠とする。",
     "lawReferences": [
       [],
       [],
@@ -1259,10 +1251,10 @@
           "choiceIndex": 4,
           "lawId": "327M50004000025",
           "lawTitle": "道路法施行規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
-          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/327M50004000025?asof=2026-07-30",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/327M50004000025?asof=2026-07-31",
           "verificationStatus": "verified"
         }
       ]
@@ -1302,7 +1294,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差比較は不要。",
           "displayRefIds": [],
-          "explanationText": "不等沈下による変位を吸収する継手の選定は導管工事上の技術知識によって判定する。",
+          "explanationText": "ボールスライドジョイントを埋設配管に用いることの適否は導管工事上の技術知識によって判定する。",
           "promptContext": "導管工事に関する第2肢。",
           "refs": [],
           "verdict": "法令非関連"
@@ -1311,7 +1303,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "建物の不等沈下対策に関する技術肢であり、法令改廃監査の対象外。"
+          "ボールスライドジョイントの設置条件に関する技術肢であり、法令改廃監査の対象外。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
@@ -4449,10 +4441,10 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json",
     "explanationText": [
-      "間違い。付臭剤は、ガス漏えいを低濃度でも臭気で感知できることに加え、嗅覚疲労を起こしにくいことが必要である。記述は「嗅覚疲労を起こしやすい」としているため誤り。",
-      "間違い。無臭空気を入れたにおい袋に試験ガスを注射器で添加し、パネルがにおいの有無を判定して感知希釈倍数を求める方法は、におい袋法である。記述はこれを注射器法としているため誤り。",
-      "間違い。検知管法では、検知剤を充てんした検知管に一定量の試験ガスを通し、検知剤の変色長さから付臭剤成分濃度を求める。記述は「変色濃度」から求めるとしているため誤り。",
-      "間違い。提示されたA～Dのパネル結果から、4名のパネル法による臭気濃度を3000倍とは判定できない。したがって、記述は誤り。",
+      "間違い。付臭剤は、極めて低い濃度でも特有の臭気が認められ、かつ嗅覚疲労を起こしにくいことが必要である。記述は、嗅覚疲労を起こしやすいとしているため誤りである。",
+      "間違い。無臭空気を入れたにおい袋に試験ガスを注射器で添加し、パネルがにおいの有無を判定して感知希釈倍数を求める方法は、におい袋法である。記述はこの方法を注射器法としているため誤りである。",
+      "間違い。検知管法では、検知剤を充てんした検知管に一定量の試験ガスを通し、検知剤の変色した長さを濃度目盛などで読んで付臭剤成分濃度を求める。記述は変色濃度から求めるとしているため誤りである。",
+      "間違い。提示されたA～Dの各パネルの感知希釈倍数は、Aが3000倍、Bが750倍、Cが1500倍、Dが3000倍である。平均は(3000+750+1500+3000)/4=2062.5倍となり、臭気濃度は有効数字2桁で2000倍と扱うため、3000倍であるとする記述は誤りである。",
       "正しい。ガスに付臭剤を注入する方式は、液体注入方式、蒸発方式及び液付臭方式の3種類に大別される。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -4490,7 +4482,13 @@
     "sourceQuestionKey": "gas-shunin:kou:2023:seizo:q05",
     "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1021,chiefgasengineerlicense-A-40-1022,chiefgasengineerlicense-A-40-1023,chiefgasengineerlicense-A-40-1024,chiefgasengineerlicense-A-40-1025",
     "sourceRecordRef": "question_2023_firestore_1.json#22",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_kou_r5.pdf",
+        "title": "日本ガス機器検査協会 令和5年度ガス主任技術者試験 甲種 解答"
+      }
+    ],
     "lawContextForExplanation": "法令条文を主要根拠としない、都市ガスの付臭に関する技術・測定方法・計算問題。",
     "lawReferences": [
       [],
@@ -4521,7 +4519,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "付臭剤の性質に関する技術知識として判定。"
+          "付臭剤の要件に関する技術知識として判定。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -4547,7 +4545,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "付臭剤のにおい袋法に関する技術知識として判定。"
+          "におい袋法と注射器法の区別に関する技術知識として判定。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -4564,7 +4562,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差はない。",
           "displayRefIds": [],
-          "explanationText": "検知管法では検知剤の変色長さから付臭剤成分濃度を求めるため、変色濃度から求めるとする記述は誤り。",
+          "explanationText": "検知管法では検知剤の変色した長さから付臭剤成分濃度を求めるため、変色濃度から求めるとする記述は誤り。",
           "promptContext": "都市ガスの付臭に関する技術事項。",
           "refs": [],
           "verdict": "not_law_related"
@@ -4590,7 +4588,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差はない。",
           "displayRefIds": [],
-          "explanationText": "提示されたAからDのパネル結果から4名全体の臭気濃度を3000倍とは判定できないため、記述は誤り。",
+          "explanationText": "A～Dの感知希釈倍数は3000倍、750倍、1500倍、3000倍で、平均は2062.5倍となる。臭気濃度は有効数字2桁で2000倍と扱うため、3000倍であるとする記述は誤り。",
           "promptContext": "都市ガスの付臭に関する技術事項。",
           "refs": [],
           "verdict": "not_law_related"
@@ -4599,7 +4597,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "パネル法の提示結果に基づく臭気濃度の計算・判定問題として扱う。"
+          "パネル法の提示結果に基づく臭気濃度の計算問題として判定。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"

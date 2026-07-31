@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260730114834-6e5d47d237",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-6e5d47d2379e6de00c99"
+  ],
+  "inputCaseHashes": {
+    "ui-official-6e5d47d2379e6de00c99": "6e5d47d2379e6de00c99cc500e6dec421a6882827d53c2cf7138d49e07bb4a60"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "c8a2fd2388ebe76ce5c27321cc0dfd0deae6a10f0d050362f768cb9c4e98da2a",
+    "a0b4321589fdab40d4e01dda903fe364aea9bb6870ccc8e9084f9c8549ada5fb"
+  ],
+  "challengeReviewHash": "ac07b04e43c1772b4f73d71ee25c8319d31c40b11a05ffbbce7d8daee6ced4f0",
+  "createdAt": "2026-07-30T11:53:12.260120Z",
+  "entries": [
+    {
+      "original_question_id": "6602bb83e4a77334",
+      "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q13",
+      "reviewQuestionId": "6602bb83e4a77334",
+      "sourceRecordRef": "question_2024_gassyunin_site_2.json#18",
+      "expectedBeforeHash": "6c8fa3e40566b6d91495631053129bcbb9f0acb85eb5579d9a682bbf164e475f",
+      "changes": {
+        "questionBodyText": "外径300mmの鋼管が内圧3MPaを受ける場合、ガス事業法の管厚計算式を用いたときの管厚(mm)として、最も近い値はどれか。なお、この鋼管の外径と内径の比は1.5以下とし、鋼管の許容引張応力は62N/mm²、継手効率は1.0、腐れしろは1.0mmとする。"
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "output/pdf/gas-shunin-official/2024/q_kou_r6.pdf / PDF 30ページ（冊子29ページ） (ガ)問13",
+          "title": "令和6年度 ガス主任技術者試験 甲種問題",
+          "verifiedAt": "2026-07-30T11:48:34.340891Z",
+          "contentHash": "079226cf086a83e12bd6f6789a6929c713cc2a1e8769925286567629242295c5"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "scratch/gas_jia/pages/page_30.png、公式PDFからのローカル表示画像、冊子29ページ （ガ）問13",
+          "title": "令和6年度 ガス主任技術者試験 甲種問題 PDF 30ページ表示画像",
+          "verifiedAt": "2026-07-30T11:50:00Z",
+          "contentHash": "2142d08eeab80721a2428c5af110f178f4608245860534d8da9bf5faa5ea0e46"
+        }
+      ]
+    }
+  ]
+}

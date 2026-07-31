@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260730212414-47318bd719",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-47318bd7190db9f5f5c5"
+  ],
+  "inputCaseHashes": {
+    "ui-official-47318bd7190db9f5f5c5": "47318bd7190db9f5f5c5b68d95ba0f2d759188fa7385a44935eaf3100568ad68"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "87db84ae59d9a6eb6a2474d141cb491c5561daa3dd3b6dc969b949705d3b85c4",
+    "7278ad0f760cba5995bf0de8e7a21f1bfbe46c31b3bc4323a8507bbae3987de8"
+  ],
+  "challengeReviewHash": "570620290cc97450ac939ee96f1eed002e15cc18ff88c0e4133c2662c9a5bf66",
+  "createdAt": "2026-07-30T21:26:19.397096Z",
+  "entries": [
+    {
+      "original_question_id": "firestore:chiefgasengineerlicense-A-10-0276,chiefgasengineerlicense-A-10-0277,chiefgasengineerlicense-A-10-0278,chiefgasengineerlicense-A-10-0279,chiefgasengineerlicense-A-10-0280",
+      "sourceQuestionKey": "gas-shunin:kou:2022:law:q08",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0276,chiefgasengineerlicense-A-10-0277,chiefgasengineerlicense-A-10-0278,chiefgasengineerlicense-A-10-0279,chiefgasengineerlicense-A-10-0280",
+      "sourceRecordRef": "question_2022_firestore_2.json#17",
+      "expectedBeforeHash": "8ccb61a5f5831995bd214eebee4d3f51eb42e440fc9463a3dc0c661192019023",
+      "changes": {
+        "choiceTextList": [
+          "容器であって、最高使用圧力が0.2 MPa以上のガスを通ずるもの（内容積が0.04 m³以上又は内径が200 mm以上で、長さが1000 mm以上のものに限る。）",
+          "容器であって、液化ガスを通ずるもの（最高使用圧力をメガパスカルで表した数値と内容積を立方メートルで表した数値との積が0.004以下のものを除く。）",
+          "内径が１５０ｍｍ以上の配管であって、最高使用圧力が中圧のガスを通ずるもの",
+          "内径が１５０ｍｍ以上の配管であって、液化ガスを通ずるもの",
+          "導管であって、最高使用圧力が高圧のガスを通ずるもの"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/official-review-final/r4_page_09.png / 法令 問8（PDF 9ページ・冊子8ページ）",
+          "title": "令和4年度 ガス主任技術者試験 甲種問題",
+          "verifiedAt": "2026-07-30T21:24:14.633975Z",
+          "contentHash": "d21e2c3c5f405961775ca8ea1afcba1aeda958b6b5e9f172f64f487277fd666c"
+        }
+      ]
+    }
+  ]
+}

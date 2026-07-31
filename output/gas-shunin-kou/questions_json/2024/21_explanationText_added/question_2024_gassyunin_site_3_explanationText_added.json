@@ -16,11 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_3.json",
     "explanationText": [
-      "間違い。サーマルNOxの生成速度は温度依存性が極めて高く、燃焼温度が高くなるほど急速に増加する。選択肢は、温度が低くなると生成速度が急速に増加するとしており、温度との関係が逆であるため誤りである。",
+      "間違い。サーマルNOxの生成速度は燃焼温度への依存性が大きく、温度が高くなるほど急速に増加する。選択肢は温度が低くなると生成速度が急速に増加するとしており、温度との関係が逆であるため誤りである。",
       "間違い。バーナーの燃焼特性図における①は、一次空気率が低く、インプットが小さいときにイエローチップが発生しやすい領域である。フラッシュバックが発生しやすい領域としているため誤りである。",
-      "正しい。炎の先端が赤黄色になって燃える現象をイエローチップといい、燃焼反応が十分な速さで進んでいない状態を示す。",
+      "正しい。炎の先端が赤黄色になって燃えている現象をイエローチップという。これは燃焼反応が十分な速さで進んでいない状態を示すため、記述は正しい。",
       "間違い。バーナーの燃焼特性図における②は、一次空気率が低く、インプットが大きいときに不完全燃焼が発生しやすい領域である。リフティングが発生しやすい領域としているため誤りである。",
-      "間違い。インプットは、ノズル口径の二乗、ウォッベ指数及び標準圧力の平方根に比例する。したがって、ガス種Aからガス種Bへ変更してインプットを一定にする場合は、DB/DA＝√(WIA√PA／WIB√PB)となる。選択肢の式は分子と分母が逆であるため誤りである。"
+      "間違い。インプットは、ノズル口径の二乗、ウォッベ指数、標準圧力の平方根に比例する。したがって、ガス種Aからガス種Bへ変更してインプットを一定にする場合は、DB/DA＝√(WIA√PA／WIB√PB)となる。選択肢の式は分子と分母が逆であるため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -43,7 +43,18 @@
     "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q20",
     "reviewQuestionId": "a227f152a94ed421",
     "sourceRecordRef": "question_2024_gassyunin_site_3.json#0",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/q_kou_r6.pdf",
+        "title": "令和6年度 ガス主任技術者試験 甲種問題"
+      },
+      {
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/a_kou_r6.pdf",
+        "title": "令和6年度 ガス主任技術者試験 甲種解答"
+      }
+    ],
     "lawContextForExplanation": "法令条文を主要根拠としない、ガス燃焼・バーナー燃焼特性・熱量変更時の適応計算に関する技術問題。",
     "lawReferences": [
       [],
@@ -63,7 +74,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現在時点の法令差分を検討する必要はない。",
           "displayRefIds": [],
-          "explanationText": "サーマルNOxの生成速度と温度の関係により正誤を判定する技術肢である。",
+          "explanationText": "サーマルNOxの生成速度は温度上昇で増加するため、温度低下で急速に増加するとする記述は誤りである。",
           "promptContext": "ガス燃焼に関する技術問題として確認した。",
           "refs": [],
           "verdict": "法令非該当"
@@ -72,7 +83,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "サーマルNOxの温度依存性に関する技術記述であり、法令改正監査の対象外。"
+          "サーマルNOxの生成速度と温度の関係に関する技術記述であり、法令改正監査の対象外。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
@@ -87,7 +98,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現在時点の法令差分を検討する必要はない。",
           "displayRefIds": [],
-          "explanationText": "バーナーの燃焼特性図における①の現象を判別する技術肢である。",
+          "explanationText": "燃焼特性図の①はフラッシュバックではなく、イエローチップが発生しやすい領域として判定する技術肢である。",
           "promptContext": "バーナーの燃焼特性に関する技術問題として確認した。",
           "refs": [],
           "verdict": "法令非該当"
@@ -111,7 +122,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現在時点の法令差分を検討する必要はない。",
           "displayRefIds": [],
-          "explanationText": "イエローチップの外観と燃焼状態により正誤を判定する技術肢である。",
+          "explanationText": "イエローチップは炎の先端が赤黄色になる現象で、燃焼反応が十分な速さで進んでいない状態を示す。",
           "promptContext": "ガス燃焼現象に関する技術問題として確認した。",
           "refs": [],
           "verdict": "法令非該当"
@@ -135,7 +146,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現在時点の法令差分を検討する必要はない。",
           "displayRefIds": [],
-          "explanationText": "バーナーの燃焼特性図における②の現象を判別する技術肢である。",
+          "explanationText": "燃焼特性図の②はリフティングではなく、不完全燃焼が発生しやすい領域として判定する技術肢である。",
           "promptContext": "バーナーの燃焼特性に関する技術問題として確認した。",
           "refs": [],
           "verdict": "法令非該当"
@@ -159,7 +170,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現在時点の法令差分を検討する必要はない。",
           "displayRefIds": [],
-          "explanationText": "インプットを一定にするノズル口径比の式により正誤を判定する技術肢である。",
+          "explanationText": "インプット一定条件では DB/DA＝√(WIA√PA／WIB√PB) となるため、分子分母を逆にした式は誤りである。",
           "promptContext": "ガスと機器の適応に関する技術計算問題として確認した。",
           "refs": [],
           "verdict": "法令非該当"

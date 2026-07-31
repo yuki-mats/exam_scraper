@@ -376,11 +376,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "間違い。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となるため、22%は最も近い値ではない。",
-      "間違い。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となるため、28%は最も近い値ではない。",
-      "間違い。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となるため、33%は最も近い値ではない。",
-      "間違い。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となる。38%より44%の方が計算値に近い。",
-      "正しい。圧力0.3 MPaは0.3×10^6 Pa、温度27℃は約300 Kである。理想気体の状態方程式から混合気体の総物質量は n=PV/RT=0.3×10^6×20/(8.3×300)≒2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとすると、質量収支40=2x+28(2.41−x)からx≒1.05 kmolである。水素の体積割合は物質量割合に等しく、1.05/2.41×100≒44%となるため、44%が最も近い。"
+      "圧力0.3 MPaは3.0×10^5 Pa、温度27℃は約300 Kである。理想気体の状態方程式から、混合気体の総物質量は n=PV/RT=3.0×10^5×20/(8.3×300)=約2409.6 mol=約2.41 kmolとなる。水素をx kmol、窒素を2.41−x kmolとおくと、質量収支は 40=2x+28(2.41−x) であり、x=約1.06 kmolである。理想気体では体積分率は物質量分率に等しいため、水素の体積割合は 1.06/2.41×100=約43.8%となる。したがって、選択肢の中では44%が最も近い。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -406,7 +402,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-2-1,gasushunin-koushu-kiso-2021-2-2,gasushunin-koushu-kiso-2021-2-3,gasushunin-koushu-kiso-2021-2-4,chiefgasengineerlicense-C-10079",
     "sourceRecordRef": "question_2021_firestore_3.json#2",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。理想気体の状態方程式と混合気体の物質量・質量関係から水素の体積割合を計算する。",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。理想気体の状態方程式で混合気体の総物質量を求め、質量収支から水素の物質量分率を計算する。",
     "lawReferences": [
       [],
       [],
@@ -417,7 +413,7 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けず、計算値約44%と一致しない。"
+          "法令改正の影響を受けず、計算値約43.8%と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -427,8 +423,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "22%は計算値約44%から外れるため間違い。",
-          "promptContext": "理想気体の状態方程式と質量収支による計算。",
+          "explanationText": "22%は理想気体の状態方程式と質量収支から得られる水素の体積割合約43.8%から外れるため間違い。",
+          "promptContext": "理想気体の状態方程式と混合気体の質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -441,7 +437,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けず、計算値約44%と一致しない。"
+          "法令改正の影響を受けず、計算値約43.8%と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -451,8 +447,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "28%は計算値約44%から外れるため間違い。",
-          "promptContext": "理想気体の状態方程式と質量収支による計算。",
+          "explanationText": "28%は理想気体の状態方程式と質量収支から得られる水素の体積割合約43.8%から外れるため間違い。",
+          "promptContext": "理想気体の状態方程式と混合気体の質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -465,7 +461,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けず、計算値約44%と一致しない。"
+          "法令改正の影響を受けず、計算値約43.8%と一致しない。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -475,8 +471,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "33%は計算値約44%から外れるため間違い。",
-          "promptContext": "理想気体の状態方程式と質量収支による計算。",
+          "explanationText": "33%は理想気体の状態方程式と質量収支から得られる水素の体積割合約43.8%から外れるため間違い。",
+          "promptContext": "理想気体の状態方程式と混合気体の質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -489,7 +485,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けず、38%より44%の方が計算値に近い。"
+          "法令改正の影響を受けず、38%より44%の方が計算値約43.8%に近い。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -499,8 +495,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "38%は計算値約44%より小さく、44%の方が近いため間違い。",
-          "promptContext": "理想気体の状態方程式と質量収支による計算。",
+          "explanationText": "38%は計算値約43.8%に対して最も近い値ではなく、44%の方が近いため間違い。",
+          "promptContext": "理想気体の状態方程式と混合気体の質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -513,7 +509,7 @@
       },
       {
         "answerImpactFacts": [
-          "法令改正の影響を受けず、計算値は約44%となる。"
+          "法令改正の影響を受けず、計算値は約43.8%となり44%が最も近い。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -523,8 +519,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差分は判定に関係しない。",
           "displayRefIds": [],
-          "explanationText": "計算で得られる水素の体積割合は約44%であり、44%が最も近いため正しい。",
-          "promptContext": "理想気体の状態方程式と質量収支による計算。",
+          "explanationText": "理想気体の状態方程式と質量収支から水素の体積割合は約43.8%となり、44%が最も近いため正しい。",
+          "promptContext": "理想気体の状態方程式と混合気体の質量収支による計算。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -907,11 +903,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "間違い。メタン0.5molとプロパン0.5molの完全燃焼で発生する熱は、標準生成熱から0.5×891+0.5×2222=1556.5kJと求まる。900kJはこの値から離れており、最も近い値ではない。",
-      "間違い。CH4(g)+2O2(g)→CO2(g)+2H2O(l)の反応熱は-891kJ/mol、C3H8(g)+5O2(g)→3CO2(g)+4H2O(l)の反応熱は-2222kJ/molである。1:1混合ガス1molでは1556.5kJとなるため、1200kJは最も近い値ではない。",
-      "正しい。体積比1:1の気体混合物ではメタンとプロパンがそれぞれ0.5molである。標準生成熱より、メタン燃焼は-394+2×(-286)-(-75)=-891kJ/mol、プロパン燃焼は3×(-394)+4×(-286)-(-104)=-2222kJ/mol。発生熱は0.5×891+0.5×2222=1556.5kJなので、1600kJが最も近い。",
-      "間違い。混合ガス1molはメタン0.5mol、プロパン0.5molであり、発生熱は1556.5kJである。2400kJはプロパン1molの燃焼熱に近い側の値で、混合ガス1molの値としては大きすぎる。",
-      "間違い。標準生成熱を用いて計算すると、混合ガス1molの完全燃焼で発生する熱は約1556.5kJである。3200kJはこの値から大きく外れるため、最も近い値ではない。"
+      "同温同圧の気体では、体積比は物質量比に等しい。したがって、メタンとプロパンを体積比1：1で混合したガス1 molには、メタン0.5 mol、プロパン0.5 molが含まれる。燃焼反応は、メタンが CH4(g)+2O2(g)→CO2(g)+2H2O(l)、プロパンが C3H8(g)+5O2(g)→3CO2(g)+4H2O(l) である。標準生成熱から反応熱を求めると、メタンは {-394+2×(-286)}-{-75+2×0}=-891 kJ/mol、プロパンは {3×(-394)+4×(-286)}-{-104+5×0}=-2222 kJ/mol となる。発生する熱は反応熱の絶対値で考えるため、混合ガス1 molでは 0.5×891+0.5×2222=1556.5 kJ である。選択肢の中では1600 kJが最も近い。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -956,8 +948,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "燃焼反応熱の計算のみで判定できる。",
-          "promptContext": "選択肢900kJの判定",
+          "explanationText": "混合ガス1 molの燃焼発生熱を、問題文で与えられた標準生成熱から計算して判定する選択肢である。",
+          "promptContext": "選択肢900 kJの判定",
           "refs": [],
           "verdict": "法令非関連"
         },
@@ -965,7 +957,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+          "標準生成熱を用いる燃焼熱計算問題であり、法令改正監査の対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -980,8 +972,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "燃焼反応熱の計算のみで判定できる。",
-          "promptContext": "選択肢1200kJの判定",
+          "explanationText": "混合ガス1 molの燃焼発生熱を、問題文で与えられた標準生成熱から計算して判定する選択肢である。",
+          "promptContext": "選択肢1200 kJの判定",
           "refs": [],
           "verdict": "法令非関連"
         },
@@ -989,7 +981,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+          "標準生成熱を用いる燃焼熱計算問題であり、法令改正監査の対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -1004,8 +996,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "燃焼反応熱の計算のみで判定できる。",
-          "promptContext": "選択肢1600kJの判定",
+          "explanationText": "混合ガス1 molの燃焼発生熱を、問題文で与えられた標準生成熱から計算して判定する選択肢である。",
+          "promptContext": "選択肢1600 kJの判定",
           "refs": [],
           "verdict": "法令非関連"
         },
@@ -1013,7 +1005,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+          "標準生成熱を用いる燃焼熱計算問題であり、法令改正監査の対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -1028,8 +1020,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "燃焼反応熱の計算のみで判定できる。",
-          "promptContext": "選択肢2400kJの判定",
+          "explanationText": "混合ガス1 molの燃焼発生熱を、問題文で与えられた標準生成熱から計算して判定する選択肢である。",
+          "promptContext": "選択肢2400 kJの判定",
           "refs": [],
           "verdict": "法令非関連"
         },
@@ -1037,7 +1029,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+          "標準生成熱を用いる燃焼熱計算問題であり、法令改正監査の対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -1052,8 +1044,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差は生じない。",
           "displayRefIds": [],
-          "explanationText": "燃焼反応熱の計算のみで判定できる。",
-          "promptContext": "選択肢3200kJの判定",
+          "explanationText": "混合ガス1 molの燃焼発生熱を、問題文で与えられた標準生成熱から計算して判定する選択肢である。",
+          "promptContext": "選択肢3200 kJの判定",
           "refs": [],
           "verdict": "法令非関連"
         },
@@ -1061,7 +1053,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "標準生成熱を用いる計算問題であり、法令改正監査の対象外。"
+          "標準生成熱を用いる燃焼熱計算問題であり、法令改正監査の対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -1440,11 +1432,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "正しい。ル・シャトリエの式により、100/L=80/5+12/3+8/2=16+4+4=24となる。したがって、混合ガスの燃焼下限界はL=100/24=約4.17vol%であり、選択肢中では4.2vol%が最も近い。",
-      "間違い。ル・シャトリエの式による燃焼下限界は約4.17vol%である。4.3vol%との差は約0.13vol%であるのに対し、4.2vol%との差は約0.03vol%なので、最も近いのは4.2vol%である。",
-      "間違い。100/L=80/5+12/3+8/2からL=約4.17vol%となる。4.4vol%はこの計算値に最も近い選択肢ではない。",
-      "間違い。混合ガスの燃焼下限界は、ル・シャトリエの式から約4.17vol%となる。4.5vol%は計算値より高く、最も近い値ではない。",
-      "間違い。ル・シャトリエの式による計算値は約4.17vol%である。4.6vol%は計算値から離れており、選択肢中で最も近いのは4.2vol%である。"
+      "混合ガスの燃焼下限界は、各成分の体積割合をその成分単体の燃焼下限界で割った値の合計から求めるル・シャトリエの式を用いる。メタン80vol%、エタン12vol%、プロパン8vol%なので、100/L=80/5+12/3+8/2=16+4+4=24 となり、L=100/24=約4.17vol%である。提示された値の中では4.2vol%が最も近いため、正答は4.2である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1517,7 +1505,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の試験時点と現行時点との差分検証対象ではない。",
           "displayRefIds": [],
-          "explanationText": "4.3vol%より4.2vol%の方が計算値約4.17vol%に近いため間違い。",
+          "explanationText": "4.3vol%は計算値約4.17vol%に最も近い値ではないため間違い。",
           "promptContext": "混合割合と各単体ガスの燃焼下限界から混合ガスの燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1629,11 +1617,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
     "explanationText": [
-      "間違い。混合ガスをメタン4m³、水素1m³とすると、完全燃焼に必要な酸素は、CH₄＋2O₂→CO₂＋2H₂Oより8m³、H₂＋1/2O₂→H₂Oより0.5m³で、合計8.5m³となる。しかし、8.5は理論酸素量であり、求める二酸化炭素濃度ではない。",
-      "正しい。混合ガスをメタン4m³、水素1m³とおく。理論酸素量は2×4＋0.5×1＝8.5m³であり、空気中のN₂とO₂の体積比が4:1なので、燃焼に伴う窒素は8.5×4＝34m³である。生成するCO₂はメタン由来の4m³で、空気比1では乾き燃焼ガスはCO₂ 4m³とN₂ 34m³からなる。したがって、CO₂濃度は4÷(4＋34)×100≒10.5vol%となり、最も近い値は11である。",
-      "間違い。空気比1の完全燃焼では、乾き燃焼ガスから水蒸気を除く一方、燃焼用空気に伴う窒素34m³は含める。したがって、CO₂濃度は4÷(4＋34)×100≒10.5vol%であり、25vol%ではない。",
-      "間違い。必要酸素8.5m³とともに窒素34m³が供給されるため、乾き燃焼ガスの全量はCO₂ 4m³とN₂ 34m³の合計38m³となる。CO₂濃度は約10.5vol%であり、31vol%ではない。",
-      "間違い。CO₂を生成するのはメタンだけであり、メタン4m³から生じるCO₂は4m³である。乾き燃焼ガスには空気に伴う窒素34m³も含まれるため、CO₂濃度は約10.5vol%となり、100vol%ではない。"
+      "混合ガスの体積比をそのままメタン4m³、水素1m³として計算する。完全燃焼に必要な酸素は、メタンでは CH4 + 2O2 -> CO2 + 2H2O より 4×2=8m³、水素では H2 + 1/2O2 -> H2O より 1×0.5=0.5m³ なので、合計8.5m³である。空気中の窒素と酸素の体積比は4:1だから、燃焼用空気に伴う窒素は 8.5×4=34m³ となる。生成する二酸化炭素はメタン由来の4m³であり、水素は二酸化炭素を生成しない。乾き燃焼ガスでは水蒸気を除くため、全量は CO2 4m³ + N2 34m³ = 38m³ である。したがって二酸化炭素濃度は 4÷38×100≒10.5vol% となり、最も近い値は11である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1659,7 +1643,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2021-9-1,chiefgasengineerlicense-C-10094,gasushunin-koushu-kiso-2021-9-3,gasushunin-koushu-kiso-2021-9-4,gasushunin-koushu-kiso-2021-9-5",
     "sourceRecordRef": "question_2021_firestore_3.json#9",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。メタン・水素の燃焼反応式、理論酸素量、空気中N2/O2比、乾き燃焼ガス量からCO2濃度を求める計算で判断する。",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論問題。メタンと水素の完全燃焼反応式、理論酸素量、空気中のN2/O2比、乾き燃焼ガス量からCO2濃度を求める。",
     "lawReferences": [
       [],
       [],
@@ -1678,7 +1662,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "8.5は理論酸素量であり、乾き燃焼ガス中のCO2濃度ではない。",
+          "explanationText": "8.5は完全燃焼に必要な理論酸素量であり、乾き燃焼ガス中の二酸化炭素濃度ではない。",
           "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
           "refs": [],
           "verdict": "法令非関連の技術計算肢として判定を維持する。"
@@ -1700,7 +1684,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "CO2濃度は4÷(4+34)×100≒10.5vol%であり、11が最も近い。",
+          "explanationText": "乾き燃焼ガス中のCO2濃度は4÷(4+34)×100≒10.5vol%であり、選択肢では11が最も近い。",
           "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
           "refs": [],
           "verdict": "法令非関連の技術計算肢として判定を維持する。"
@@ -1744,7 +1728,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "乾き燃焼ガス中のCO2濃度は約10.5vol%であり、31vol%ではない。",
+          "explanationText": "必要酸素に伴う窒素34m³を乾き燃焼ガスに含めるため、CO2濃度は約10.5vol%であり、31vol%ではない。",
           "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
           "refs": [],
           "verdict": "法令非関連の技術計算肢として判定を維持する。"
@@ -1766,7 +1750,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差異は生じない。",
           "displayRefIds": [],
-          "explanationText": "乾き燃焼ガスには窒素も含まれるため、CO2濃度は100vol%にならない。",
+          "explanationText": "CO2を生成するのはメタンだけであり、乾き燃焼ガスには空気に伴う窒素も含まれるため、100vol%にはならない。",
           "promptContext": "メタンと水素の完全燃焼における乾き燃焼ガス中のCO2濃度を判定する。",
           "refs": [],
           "verdict": "法令非関連の技術計算肢として判定を維持する。"

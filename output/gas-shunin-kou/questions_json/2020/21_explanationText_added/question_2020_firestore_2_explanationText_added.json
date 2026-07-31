@@ -3795,11 +3795,11 @@
     ],
     "examLabel": null,
     "explanationText": [
-      "間違い。工事を開始できるのは、届出が受理された日から15日ではなく30日を経過した後である。ガス事業法第101条第3項に定められている。",
-      "間違い。自主検査の結果について検査を行うのは、経済産業大臣ではなく、経済産業大臣の登録を受けた者である。ガス事業法第102条第1項に定められている。",
-      "間違い。この文中の例外は緊急時ではなく、ガス工作物を試験のために使用する場合である。ガス事業法施行規則第159条第1号に定められている。",
-      "間違い。試験使用の際に使用者へガスを供給する場合に測定するのは、燃焼性ではなく、使用方法を変更するごとの熱量等である。ガス事業法施行規則第159条第1号に定められている。",
-      "間違い。自主検査の記録は、記録を行った日から5年間保存する。登録ガス工作物検査機関の検査に合格した場合も、その合格日から5年間であり、3年間ではない。ガス事業法施行規則第160条第2項に定められている。"
+      "間違い。工事を開始できるのは、届出が受理された日から15日ではなく、30日を経過した後である。この期間は、ガス事業法第101条第3項に定められている。",
+      "間違い。自主検査の結果について検査を行うのは、経済産業大臣ではなく、経済産業大臣の登録を受けた者である（ガス事業法第102条第1項）。",
+      "間違い。使用前検査に合格する前でも使用できる例外として、この箇所に入るのは「緊急時」ではなく「試験のため」である（ガス事業法第102条第1項ただし書、ガス事業法施行規則第159条第1号）。",
+      "間違い。正しい語句は「熱量等」である。ここでいう熱量等は熱量、圧力及び燃焼性を指すため、「燃焼性」だけでは必要な範囲を表さない（ガス事業法施行規則第159条第1号・第17条）。",
+      "間違い。自主検査の記録は、記録を行った日から5年間保存する。登録ガス工作物検査機関の検査に合格した場合は、その合格日から5年間であり、3年間ではない（ガス事業法施行規則第160条第2項）。"
     ],
     "isLawRelated": true,
     "lawGroundedExplanationNotNeeded": false,
@@ -3810,7 +3810,7 @@
           "choiceIndex": 0,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3823,7 +3823,7 @@
           "choiceIndex": 1,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3836,7 +3836,7 @@
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3849,7 +3849,18 @@
           "choiceIndex": 3,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "17",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3862,7 +3873,7 @@
           "choiceIndex": 4,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -3880,13 +3891,13 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2020年の出題時判定と2026年7月30日時点の現行法による判定は一致する。"
+          "2020年9月27日時点と2026年7月31日時点で、工事開始までの期間を定めるガス事業法第101条第3項の内容は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "出題時と現在はいずれも「間違い」である。",
+          "differenceSummary": "試験時点と現在時点はいずれも「間違い」である。",
           "displayRefIds": [],
-          "explanationText": "工事開始までの待機期間は15日ではなく30日である。",
-          "promptContext": "ガス事業法第101条第3項を根拠とする。",
+          "explanationText": "届出受理日から工事開始までの期間は15日ではなく30日である。",
+          "promptContext": "工事開始には届出受理日から30日の経過が必要である。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -3906,13 +3917,13 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2020年の出題時判定と2026年7月30日時点の現行法による判定は一致する。"
+          "2020年9月27日時点と2026年7月31日時点で、検査主体を定めるガス事業法第102条第1項の内容は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "出題時と現在はいずれも「間違い」である。",
+          "differenceSummary": "試験時点と現在時点はいずれも「間違い」である。",
           "displayRefIds": [],
           "explanationText": "検査主体は経済産業大臣ではなく、その登録を受けた者である。",
-          "promptContext": "ガス事業法第102条第1項を根拠とする。",
+          "promptContext": "自主検査の結果については、経済産業大臣の登録を受けた者が検査する。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -3932,13 +3943,13 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2020年の出題時判定と2026年7月30日時点の現行法による判定は一致する。"
+          "2020年9月27日時点と2026年7月31日時点で、検査前使用の例外を定めるガス事業法施行規則第159条の内容は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "出題時と現在はいずれも「間違い」である。",
+          "differenceSummary": "試験時点と現在時点はいずれも「間違い」である。",
           "displayRefIds": [],
-          "explanationText": "文中の例外は緊急時ではなく、試験のための使用である。",
-          "promptContext": "ガス事業法施行規則第159条第1号を根拠とする。",
+          "explanationText": "この箇所の例外は緊急時ではなく、試験のための使用である。",
+          "promptContext": "検査合格前の使用が認められる場合の一つは、ガス工作物を試験のために使用する場合である。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -3951,27 +3962,30 @@
       },
       {
         "answerImpactFacts": [
-          "正答判定の変更はない。"
+          "条文差異は本肢の正答判定に影響しない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2020年の出題時判定と2026年7月30日時点の現行法による判定は一致する。"
+          "ガス事業法施行規則第159条の該当部分は、2020年9月27日時点と2026年7月31日時点で同一である。",
+          "同規則第17条には両時点で本文上の相違があるが、「熱量等」が熱量、圧力及び燃焼性を指すことに変更はない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "出題時と現在はいずれも「間違い」である。",
+          "differenceSummary": "第17条には本文上の相違があるものの、出題に関係する定義と正答判定は変わらない。",
           "displayRefIds": [],
-          "explanationText": "測定対象は燃焼性ではなく、使用方法を変更するごとの熱量等である。",
-          "promptContext": "ガス事業法施行規則第159条第1号を根拠とする。",
+          "explanationText": "正しい語句は「熱量等」であり、「燃焼性」単独では必要な範囲を表さない。",
+          "promptContext": "試験使用中にガスを供給する場合は、使用方法を変更するごとに熱量等を測定する。",
           "refs": [],
           "verdict": "same_as_current"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "notes": [],
+        "notes": [
+          "燃焼性は熱量等に含まれるが、「燃焼性」単独では条文所定の語句を満たさない。"
+        ],
         "reconciliationStatus": "matched",
         "reviewState": "secondary_verified"
       },
@@ -3984,13 +3998,13 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "2020年の出題時判定と2026年7月30日時点の現行法による判定は一致する。"
+          "2020年9月27日時点と2026年7月31日時点で、記録の保存期間を定めるガス事業法施行規則第160条第2項の内容は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "出題時と現在はいずれも「間違い」である。",
+          "differenceSummary": "試験時点と現在時点はいずれも「間違い」である。",
           "displayRefIds": [],
           "explanationText": "自主検査記録の保存期間は3年間ではなく5年間である。",
-          "promptContext": "ガス事業法施行規則第160条第2項を根拠とする。",
+          "promptContext": "記録日から5年間、検査合格時は合格日から5年間保存する。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4054,17 +4068,27 @@
     "sourceRecordRef": "question_2020_firestore_2.json#13",
     "explanationReferences": [
       {
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329AC0000000051?asof=2026-07-30",
-        "title": "e-Gov法令API ガス事業法（2026年7月30日時点）"
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329AC0000000051?asof=2026-07-31",
+        "title": "e-Gov法令API ガス事業法（2026年7月31日時点）"
       },
       {
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2026-07-30",
-        "title": "e-Gov法令API ガス事業法施行規則（2026年7月30日時点）"
+        "referenceDate": "2020-09-27",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329AC0000000051?asof=2020-09-27",
+        "title": "e-Gov法令API ガス事業法（2020年9月27日時点）"
+      },
+      {
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2026-07-31",
+        "title": "e-Gov法令API ガス事業法施行規則（2026年7月31日時点）"
+      },
+      {
+        "referenceDate": "2020-09-27",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2020-09-27",
+        "title": "e-Gov法令API ガス事業法施行規則（2020年9月27日時点）"
       }
     ],
-    "lawContextForExplanation": "ガス事業法第101条第3項・第102条第1項、ガス事業法施行規則第159条第1号・第160条第2項が根拠。工事開始は届出受理日から30日経過後、検査主体は登録を受けた者、例外は試験使用と熱量等の測定、記録保存期間は5年間である。",
+    "lawContextForExplanation": "ガス事業法第101条第3項・第102条第1項、ガス事業法施行規則第159条第1号・第17条・第160条第2項が根拠。工事開始は届出受理日から30日経過後、検査主体は登録を受けた者、検査前使用の例外は試験使用、測定対象は熱量等、記録保存期間は5年間である。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -5330,11 +5354,7 @@
     ],
     "examLabel": null,
     "explanationText": [
-      "間違い。液化メタン1m³の質量は、液密度416kg/m³より416kgである。メタンのモル質量を16g/molとすると物質量は416000÷16=26000molとなる。27℃=300K、100kPa=100000Paとして理想気体の状態方程式V=nRT/Pを用いると、体積は647.4m³となるため、240m³は最も近い値ではない。",
-      "間違い。液化メタン1m³は416000gであり、メタンのモル質量16g/molから物質量は26000molとなる。理想気体の状態方程式V=nRT/Pに代入すると体積は約647.4m³となるため、590m³より650m³の方が近い。",
-      "正しい。液化メタン1m³の質量は416kgで、メタンのモル質量16g/molより物質量は416000÷16=26000molとなる。27℃を300K、100kPaを100000PaとしてV=nRT/Pに代入すると、V=(26000×8.3×300)/100000=647.4m³となる。したがって、選択肢では650m³が最も近い。",
-      "間違い。理想気体の状態方程式で計算すると、液化メタン1m³を27℃、100kPaの気体にした体積は約647.4m³である。1560m³はこの値から大きく離れており、最も近い値ではない。",
-      "間違い。理想気体の状態方程式による計算値は約647.4m³であり、選択肢の中では650m³が最も近い。3760m³は計算結果と大きく異なる。"
+      "液化メタン1m³の質量は、液密度416kg/m³より416kgである。メタンのモル質量を16g/molとすると、物質量は416000g÷16g/mol=26000molとなる。27℃=300K、100kPa=100000Paとして理想気体の状態方程式PV=nRTを用いると、V=nRT/P=(26000×8.3×300)/100000=647.4m³である。したがって、選択肢の中では650m³が最も近い。"
     ],
     "isLawRelated": false,
     "lawGroundedExplanationNotNeeded": true,
@@ -5367,7 +5387,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-1-1,gasushunin-koushu-kiso-2020-1-2,chiefgasengineerlicense-C-10109,gasushunin-koushu-kiso-2020-1-4,gasushunin-koushu-kiso-2020-1-5",
     "sourceRecordRef": "question_2020_firestore_2.json#18",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論計算問題。理想気体の状態方程式と単位換算により判断する。",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論計算問題。理想気体の状態方程式、物質量の換算、温度・圧力の単位換算により判断する。",
     "lawReferences": [
       [],
       [],
@@ -5509,11 +5529,7 @@
     ],
     "examLabel": null,
     "explanationText": [
-      "間違い。質量流量Qm=10kg/s、密度ρ=1000kg/m³より、体積流量はQ=Qm/ρ=0.010m³/sである。内径d=0.10mの断面積はA=πd²/4≒0.00785m²なので、平均流速はv=Q/A≒1.27m/sとなる。したがって、1.0m/sは最も近い値ではない。",
-      "間違い。平均流速はv=4Qm/(ρπd²)で求められ、v=4×10/(1000×π×0.10²)≒1.27m/sとなる。したがって、1.1m/sは最も近い値ではない。",
-      "間違い。計算値は約1.27m/sである。1.2m/sとの差は約0.07m/s、1.3m/sとの差は約0.03m/sなので、1.3m/sの方が近い。",
-      "正しい。連続の式Qm=ρAvとA=πd²/4より、v=4Qm/(ρπd²)=4×10/(1000×π×0.10²)≒1.27m/sとなる。選択肢の中では1.3m/sが最も近い。",
-      "間違い。計算値は約1.27m/sである。1.4m/sとの差は約0.13m/sであり、1.3m/sとの差約0.03m/sより大きい。したがって、1.4m/sは最も近い値ではない。"
+      "質量流量を \\dot{m}=10 kg/s、密度を ρ=1000 kg/m³、管内径を d=0.10 m とする。連続の式 \\dot{m}=ρAv と円管断面積 A=πd²/4 より、平均流速は v=\\dot{m}/(ρA)=4\\dot{m}/(ρπd²)=4×10/(1000×π×0.10²)≒1.27 m/s となる。各選択肢との差は、1.0 m/sが約0.27、1.1 m/sが約0.17、1.2 m/sが約0.07、1.3 m/sが約0.03、1.4 m/sが約0.13であるため、最も近い値は1.3 m/sである。"
     ],
     "isLawRelated": false,
     "lawGroundedExplanationNotNeeded": true,
@@ -5567,8 +5583,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差の検討対象ではない。",
           "displayRefIds": [],
-          "explanationText": "連続の式による計算値約1.27m/sと一致しない。",
-          "promptContext": "選択肢は1.0m/s。",
+          "explanationText": "平均流速は約1.27 m/sであり、1.0 m/sは最も近い値ではない。",
+          "promptContext": "選択肢は1.0 m/s。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -5593,8 +5609,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差の検討対象ではない。",
           "displayRefIds": [],
-          "explanationText": "連続の式による計算値約1.27m/sと一致しない。",
-          "promptContext": "選択肢は1.1m/s。",
+          "explanationText": "平均流速は約1.27 m/sであり、1.1 m/sは最も近い値ではない。",
+          "promptContext": "選択肢は1.1 m/s。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -5619,8 +5635,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差の検討対象ではない。",
           "displayRefIds": [],
-          "explanationText": "1.3m/sの方が計算値約1.27m/sに近い。",
-          "promptContext": "選択肢は1.2m/s。",
+          "explanationText": "平均流速は約1.27 m/sであり、1.2 m/sより1.3 m/sの方が近い。",
+          "promptContext": "選択肢は1.2 m/s。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -5645,8 +5661,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差の検討対象ではない。",
           "displayRefIds": [],
-          "explanationText": "1.3m/sは計算値約1.27m/sに最も近い。",
-          "promptContext": "選択肢は1.3m/s。",
+          "explanationText": "平均流速は約1.27 m/sであり、1.3 m/sが最も近い。",
+          "promptContext": "選択肢は1.3 m/s。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -5671,8 +5687,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差の検討対象ではない。",
           "displayRefIds": [],
-          "explanationText": "1.3m/sの方が計算値約1.27m/sに近い。",
-          "promptContext": "選択肢は1.4m/s。",
+          "explanationText": "平均流速は約1.27 m/sであり、1.4 m/sより1.3 m/sの方が近い。",
+          "promptContext": "選択肢は1.4 m/s。",
           "refs": [],
           "verdict": "not_law_related"
         },

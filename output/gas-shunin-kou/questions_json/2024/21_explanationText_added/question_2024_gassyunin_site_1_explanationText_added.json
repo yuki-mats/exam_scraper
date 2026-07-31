@@ -1281,7 +1281,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
     "explanationText": [
-      "間違い。ガス主任技術者は、免状の交付を受け、かつ、経済産業省令で定める実務経験を有する者のうちから選任しなければならない。免状又は実務経験のいずれか一方だけで足りるとする記述は誤りである（ガス事業法第98条第1項）。",
+      "間違い。ガス主任技術者は、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務経験を有するもののうちから選任する必要がある。免状保有者又は実務経験者のいずれか一方から選任できるとする二者択一の記述は誤りである（ガス事業法第98条第1項、ガス事業法施行規則第151条第1項）。",
       "間違い。ガス主任技術者を選任又は解任した場合は、その後、遅滞なく経済産業大臣へ届け出なければならない。あらかじめ届け出るとする記述は誤りである（ガス事業法第98条第2項）。",
       "間違い。ガス製造事業に係る所定の実務経験は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したことである。2年以上とする記述は誤りである（ガス事業法施行規則第151条第1項）。",
       "間違い。法令等への違反により罰金以上の刑に処せられた者について、免状を交付しないことができる期間は、刑の執行を終え、又は執行を受けることがなくなった日から2年を経過しない間である。1年とする記述は誤りである（ガス事業法第26条第4項第2号）。",
@@ -1332,7 +1332,18 @@
           "choiceIndex": 0,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "151",
+          "choiceIndex": 0,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -1345,7 +1356,7 @@
           "choiceIndex": 1,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -1358,7 +1369,7 @@
           "choiceIndex": 2,
           "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -1371,7 +1382,7 @@
           "choiceIndex": 3,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -1384,7 +1395,7 @@
           "choiceIndex": 4,
           "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -1395,19 +1406,19 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "両時点とも免状と所定の実務経験の双方が必要であり、正誤は変わらない。"
+          "両時点とも免状の交付と所定の実務経験が必要であり、正誤は変わらない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "ガス事業法第98条の試験時点と現行時点の本文ハッシュは一致する。"
+          "ガス事業法第98条及びガス事業法施行規則第151条は、試験時点と現行時点で関係する規定に変更がない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "試験時点と現行時点で条文に変更はない。",
+          "differenceSummary": "試験時点と現行時点で判断根拠に変更はない。",
           "displayRefIds": [],
-          "explanationText": "ガス事業法第98条第1項は、免状の交付と所定の実務経験の双方を選任要件としている。",
+          "explanationText": "ガス主任技術者は、免状の交付を受けている者であって、所定の実務経験を有するもののうちから選任する。",
           "promptContext": "ガス主任技術者の選任要件を比較した。",
           "refs": [],
           "verdict": "same_as_current"
@@ -1416,7 +1427,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月31日である。"
         ],
         "reconciliationStatus": "reconciled_unchanged",
         "reviewState": "secondary_verified"
@@ -1435,7 +1446,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "ガス事業法第98条第2項は、選任又は解任後の遅滞ない届出を定めている。",
+          "explanationText": "ガス主任技術者を選任又は解任したときは、遅滞なく届け出る必要がある。",
           "promptContext": "選任・解任の届出時期を比較した。",
           "refs": [],
           "verdict": "same_as_current"
@@ -1444,7 +1455,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月31日である。"
         ],
         "reconciliationStatus": "reconciled_unchanged",
         "reviewState": "secondary_verified"
@@ -1463,7 +1474,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "ガス事業法施行規則第151条第1項は、必要な実務経験を通算1年以上としている。",
+          "explanationText": "所定の実務経験は、対象業務に通算して1年以上従事したことである。",
           "promptContext": "所定の実務経験期間を比較した。",
           "refs": [],
           "verdict": "same_as_current"
@@ -1472,7 +1483,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月31日である。"
         ],
         "reconciliationStatus": "reconciled_unchanged",
         "reviewState": "secondary_verified"
@@ -1491,7 +1502,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "ガス事業法第26条第4項第2号は、罰金以上の刑に係る免状交付制限期間を2年としている。",
+          "explanationText": "罰金以上の刑に係る免状交付制限期間は、刑の執行終了等から2年である。",
           "promptContext": "法令違反による免状交付制限期間を比較した。",
           "refs": [],
           "verdict": "same_as_current"
@@ -1500,7 +1511,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月31日である。"
         ],
         "reconciliationStatus": "reconciled_unchanged",
         "reviewState": "secondary_verified"
@@ -1519,7 +1530,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点で条文に変更はない。",
           "displayRefIds": [],
-          "explanationText": "ガス事業法第27条は、法令等に違反した免状保有者に対する免状返納命令を定めている。",
+          "explanationText": "法令等に違反した免状保有者に対し、経済産業大臣は免状の返納を命ずることができる。",
           "promptContext": "法令違反時の免状返納命令を比較した。",
           "refs": [],
           "verdict": "same_as_current"
@@ -1528,7 +1539,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "試験基準日は2024年9月29日、現行基準日は2026年7月30日である。"
+          "試験基準日は2024年9月29日、現行基準日は2026年7月31日である。"
         ],
         "reconciliationStatus": "reconciled_unchanged",
         "reviewState": "secondary_verified"
@@ -1553,17 +1564,17 @@
     "sourceRecordRef": "question_2024_gassyunin_site_1.json#4",
     "explanationReferences": [
       {
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329AC0000000051?asof=2026-07-30",
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329AC0000000051?asof=2026-07-31",
         "title": "e-Gov法令API ガス事業法"
       },
       {
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2026-07-30",
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2026-07-31",
         "title": "e-Gov法令API ガス事業法施行規則"
       }
     ],
-    "lawContextForExplanation": "ガス主任技術者の選任要件、選任・解任の届出時期、実務経験期間、免状交付制限及び免状返納命令について、ガス事業法第98条、第26条、第27条及びガス事業法施行規則第151条を参照する。",
+    "lawContextForExplanation": "ガス主任技術者の選任要件、選任・解任後の届出、実務経験期間、免状交付制限及び免状返納命令について、ガス事業法第98条、第26条、第27条及びガス事業法施行規則第151条を参照する。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -4031,11 +4042,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
     "explanationText": [
-      "正しい。ガス事業者の掘削により周囲が露出することとなった導管は、露出部分の両端が地くずれのおそれのない地中に支持されていなければならない。ガス工作物の技術上の基準を定める省令第54条第1号に合致する。",
-      "間違い。抜出し防止措置が必要なのは、直管以外の管の接合部のうち、特定接合又は告示所定の規格に適合する接合以外の方法によるものである。フランジ接合は特定接合に含まれるため、本肢の接合部は対象ではない。ガス工作物の技術上の基準を定める省令第54条第3号ロに反する。",
-      "間違い。整圧器の入口にはガス遮断装置を設ける必要があり、一の使用者にガスを供給するものも例外ではない。ガス工作物の技術上の基準を定める省令第57条では、第1号がガス遮断装置を定め、同条第2号のただし書だけが不純物除去装置について例外を設けている。",
-      "正しい。ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結防止措置を講じなければならない。ガス工作物の技術上の基準を定める省令第58条第2項に合致する。",
-      "正しい。整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されていなければならない。ガス工作物の技術上の基準を定める省令第58条第3項に合致する。"
+      "正しい。ガス事業者の掘削によって周囲が露出する導管は、露出部分の両端を地くずれのおそれがない地中に支持する必要があるため、本肢は第54条第1号に合致する。",
+      "間違い。抜出し防止措置が必要なのは、直管以外の管の接合部のうち、特定接合又は告示所定の規格に適合する接合以外の方法で接合されたものである。フランジ接合は第54条第3号ロで特定接合に含められているため、フランジ接合されたものに一律に抜出し防止措置が必要だとする本肢は誤りである。",
+      "間違い。整圧器の入口にはガス遮断装置を設ける必要があり、一の使用者にガスを供給する整圧器も例外ではない。一の使用者に供給する場合の例外は、入口に設ける不純物除去装置について定めた第57条第2号のただし書であり、同条第1号のガス遮断装置には適用されない。",
+      "正しい。ガス中の水分が凍結して整圧機能を損なうおそれのある整圧器には、凍結防止措置を講じる必要があるため、本肢は第58条第2項に合致する。",
+      "正しい。整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持する必要があるため、本肢は第58条第3項に合致する。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
@@ -4085,7 +4096,7 @@
           "choiceIndex": 0,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -4098,7 +4109,7 @@
           "choiceIndex": 1,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -4111,7 +4122,7 @@
           "choiceIndex": 2,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -4124,7 +4135,7 @@
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -4137,7 +4148,7 @@
           "choiceIndex": 4,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -4155,13 +4166,13 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時点と2026-07-30現在の正誤判定は一致する。"
+          "試験時点と2026-07-31現在の第54条は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法でも正しいとの判定を維持できる。",
+          "differenceSummary": "条文に変更はなく、現在も正しいと判定できる。",
           "displayRefIds": [],
-          "explanationText": "露出部分の両端を地くずれのおそれのない地中に支持するとの記述は、第54条第1号に合致する。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第54条第1号を根拠とする。",
+          "explanationText": "露出部分の両端を地くずれのおそれがない地中に支持するとの記述は、第54条第1号に合致する。",
+          "promptContext": "第54条第1号を根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4169,7 +4180,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "第54条第1号を直接の現行法根拠として確認した。"
+          "第54条第1号を試験時点及び現在時点の公式条文で確認した。"
         ],
         "reconciliationStatus": "matched",
         "reviewState": "secondary_verified"
@@ -4183,13 +4194,13 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時点と2026-07-30現在の正誤判定は一致する。"
+          "試験時点と2026-07-31現在の第54条は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法でも間違いとの判定を維持できる。",
+          "differenceSummary": "条文に変更はなく、現在も間違いと判定できる。",
           "displayRefIds": [],
-          "explanationText": "フランジ接合は特定接合に含まれ、当該抜出し防止措置の対象ではない。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第54条第3号ロを根拠とする。",
+          "explanationText": "フランジ接合は特定接合に含まれ、抜出し防止措置の対象は特定接合等以外の方法で接合されたものなので、本肢は誤りである。",
+          "promptContext": "第54条第3号ロを根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4197,7 +4208,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "第54条第3号ロの特定接合の範囲を確認した。"
+          "第54条第3号ロにおける特定接合の定義と抜出し防止措置の対象を確認した。"
         ],
         "reconciliationStatus": "matched",
         "reviewState": "secondary_verified"
@@ -4211,13 +4222,13 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "試験時点と2026-07-30現在の正誤判定は一致する。"
+          "試験時点と2026-07-31現在の第57条は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法でも間違いとの判定を維持できる。",
+          "differenceSummary": "条文に変更はなく、現在も間違いと判定できる。",
           "displayRefIds": [],
-          "explanationText": "一の使用者に供給する整圧器の例外は不純物除去装置に関するもので、ガス遮断装置には適用されない。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第57条第1号及び第2号を根拠とする。",
+          "explanationText": "一の使用者に供給する場合の例外は不純物除去装置についてのものであり、ガス遮断装置には適用されない。",
+          "promptContext": "第57条第1号及び第2号を根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4239,13 +4250,13 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時点と2026-07-30現在の正誤判定は一致する。"
+          "試験時点と2026-07-31現在の第58条は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法でも正しいとの判定を維持できる。",
+          "differenceSummary": "条文に変更はなく、現在も正しいと判定できる。",
           "displayRefIds": [],
           "explanationText": "水分の凍結により整圧機能を損なうおそれがある整圧器には、凍結防止措置が必要である。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第58条第2項を根拠とする。",
+          "promptContext": "第58条第2項を根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4253,7 +4264,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "第58条第2項を直接の現行法根拠として確認した。"
+          "第58条第2項を試験時点及び現在時点の公式条文で確認した。"
         ],
         "reconciliationStatus": "matched",
         "reviewState": "secondary_verified"
@@ -4267,13 +4278,13 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "試験時点と2026-07-30現在の正誤判定は一致する。"
+          "試験時点と2026-07-31現在の第58条は同一である。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "現行法でも正しいとの判定を維持できる。",
+          "differenceSummary": "条文に変更はなく、現在も正しいと判定できる。",
           "displayRefIds": [],
           "explanationText": "整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持する必要がある。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第58条第3項を根拠とする。",
+          "promptContext": "第58条第3項を根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -4281,7 +4292,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "第58条第3項を直接の現行法根拠として確認した。"
+          "第58条第3項を試験時点及び現在時点の公式条文で確認した。"
         ],
         "reconciliationStatus": "matched",
         "reviewState": "secondary_verified"
@@ -4306,12 +4317,12 @@
     "sourceRecordRef": "question_2024_gassyunin_site_1.json#12",
     "explanationReferences": [
       {
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-07-30",
-        "title": "e-Gov法令API v2「ガス工作物の技術上の基準を定める省令」（2026年7月30日時点）"
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-07-31",
+        "title": "e-Gov法令API v2「ガス工作物の技術上の基準を定める省令」（2026年7月31日時点）"
       }
     ],
-    "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第54条第1号・第3号ロ、第57条第1号・第2号、第58条第2項・第3項を選択肢別根拠とする。",
+    "lawContextForExplanation": "ガス工作物の技術上の基準を定める省令第54条第1号・第3号ロ、第57条第1号・第2号、第58条第2項・第3項を選択肢別の根拠とする。試験時点と現在の条文は同一である。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -6124,11 +6135,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
     "explanationText": [
-      "正しい。図では、反応物からエネルギーの山頂Dまでに必要なエネルギー差Aが、正反応の活性化エネルギーに相当する。",
-      "間違い。触媒は反応経路を変えて活性化エネルギーを小さくするが、反応物と生成物のエネルギー差である反応熱Bを小さくするものではない。",
-      "間違い。反応熱は反応物と生成物のエネルギー差であるBに相当する。Cは生成物側から山頂Dまでのエネルギー差であり、反応熱ではない。",
-      "間違い。Dは反応過程のエネルギーが最も高い遷移状態を表す点であり、臨界状態を表すものではない。",
-      "間違い。図では生成物のエネルギーが反応物より低いため、この反応はエネルギーを放出する発熱反応である。吸熱反応ではない。"
+      "正しい。図のAは、反応物のエネルギー準位から反応経路上の山頂Dまでのエネルギー差を示している。この差が正反応を進めるために必要な活性化エネルギーに相当する。",
+      "間違い。触媒は反応経路を変え、山頂までに必要な活性化エネルギーを小さくする。Bは反応物と生成物のエネルギー差、すなわち反応熱に相当する量であり、触媒によって小さくなる量ではない。",
+      "間違い。反応熱は反応物と生成物のエネルギー差であるため、図ではBに相当する。Cは生成物側のエネルギー準位から山頂Dまでの差を示しており、反応熱ではない。",
+      "間違い。Dは反応経路上でエネルギーが最も高い点であり、遷移状態を表す。臨界状態を表す点ではない。",
+      "間違い。図では生成物のエネルギー準位が反応物より低いので、反応によりエネルギーを放出する発熱反応である。吸熱反応ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -6151,8 +6162,14 @@
     "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q06",
     "reviewQuestionId": "9fde1b61cadb2ba6",
     "sourceRecordRef": "question_2024_gassyunin_site_1.json#21",
-    "explanationReferences": [],
-    "lawContextForExplanation": "化学反応のエネルギー図に関する技術・理論問題であり、法令条文を主要根拠としない。",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://www.jia-page.or.jp/files/user/doc/exam/q_kou_r6.pdf",
+        "title": "一般財団法人 日本ガス機器検査協会 令和6年度ガス主任技術者試験問題 マークシート（甲種）"
+      }
+    ],
+    "lawContextForExplanation": "化学反応のエネルギー図、活性化エネルギー、触媒、反応熱、遷移状態、発熱反応に関する技術・理論問題であり、法令条文を主要根拠としない。",
     "lawReferences": [
       [],
       [],
@@ -6173,7 +6190,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の現行・試験時差分はない。",
           "displayRefIds": [],
-          "explanationText": "Aが反応物から遷移状態までのエネルギー差を示すかを問う理論問題。",
+          "explanationText": "Aが正反応の活性化エネルギーに相当するかを問う理論問題。",
           "promptContext": "化学反応のエネルギー図に関する基礎理論。",
           "refs": [],
           "verdict": "not_law_related"
@@ -6182,7 +6199,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "化学反応のエネルギー図の読解に関する選択肢であり、法令根拠の照合対象外。"
+          "化学反応のエネルギー図で、Aが反応物から山頂Dまでのエネルギー差を示すかを判定する選択肢であり、法令根拠の照合対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -6199,7 +6216,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の現行・試験時差分はない。",
           "displayRefIds": [],
-          "explanationText": "触媒が小さくする量と反応熱の違いを問う理論問題。",
+          "explanationText": "触媒は活性化エネルギーを下げるが、反応物と生成物のエネルギー差である反応熱を変えるものではないことを問う理論問題。",
           "promptContext": "化学反応のエネルギー図に関する基礎理論。",
           "refs": [],
           "verdict": "not_law_related"
@@ -6208,7 +6225,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "触媒と活性化エネルギー、反応熱の関係を問う選択肢であり、法令根拠の照合対象外。"
+          "触媒が小さくする量と反応熱の違いを判定する選択肢であり、法令根拠の照合対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -6225,7 +6242,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の現行・試験時差分はない。",
           "displayRefIds": [],
-          "explanationText": "反応熱が反応物と生成物のエネルギー差であることを問う理論問題。",
+          "explanationText": "反応熱は反応物と生成物のエネルギー差であり、CではなくBに相当することを問う理論問題。",
           "promptContext": "化学反応のエネルギー図に関する基礎理論。",
           "refs": [],
           "verdict": "not_law_related"
@@ -6234,7 +6251,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "反応熱と生成物側から遷移状態までのエネルギー差の区別を問う選択肢であり、法令根拠の照合対象外。"
+          "反応熱と生成物側から遷移状態までのエネルギー差を区別する選択肢であり、法令根拠の照合対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -6251,7 +6268,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の現行・試験時差分はない。",
           "displayRefIds": [],
-          "explanationText": "Dが臨界状態ではなく遷移状態を示す点であることを問う理論問題。",
+          "explanationText": "Dはエネルギー最大点である遷移状態を表し、臨界状態ではないことを問う理論問題。",
           "promptContext": "化学反応のエネルギー図に関する基礎理論。",
           "refs": [],
           "verdict": "not_law_related"
@@ -6260,7 +6277,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "エネルギー図の山頂を遷移状態として読む理論問題であり、法令根拠の照合対象外。"
+          "反応経路上の山頂Dを遷移状態として読む理論問題であり、法令根拠の照合対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -6277,7 +6294,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の現行・試験時差分はない。",
           "displayRefIds": [],
-          "explanationText": "生成物のエネルギーが反応物より低い図から発熱反応と判断する理論問題。",
+          "explanationText": "生成物のエネルギーが反応物より低い図から、吸熱反応ではなく発熱反応と判断する理論問題。",
           "promptContext": "化学反応のエネルギー図に関する基礎理論。",
           "refs": [],
           "verdict": "not_law_related"
@@ -6286,7 +6303,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "生成物と反応物のエネルギー差から発熱・吸熱を判定する理論問題であり、法令根拠の照合対象外。"
+          "反応物と生成物のエネルギー準位から発熱・吸熱を判定する選択肢であり、法令根拠の照合対象外。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"

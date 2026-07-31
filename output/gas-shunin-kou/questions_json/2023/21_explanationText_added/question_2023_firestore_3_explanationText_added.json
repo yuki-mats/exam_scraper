@@ -16,11 +16,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "間違い。体積比1:3は同温・同圧では物質量比1:3を表す。混合ガス全体の物質量は n=PV/RT=250kPa×20m³/(8.3×300.15)≒2.0kmol であり、平均分子量は(16+3×44)/4=37kg/kmolである。したがって質量は約2.0×37≒74kgとなるため、46kgではない。",
-      "間違い。混合ガス全体の物質量は n=PV/RT=250kPa×20m³/(8.3×300.15)≒2.0kmol である。メタンとプロパンの体積比1:3から平均分子量は37kg/kmolとなり、質量は約74kgである。69kgより74kgの方が計算値に近い。",
-      "正しい。温度は27℃=300.15Kであり、理想気体の状態方程式から n=PV/RT=250kPa×20m³/(8.3×300.15)≒2.0kmol となる。体積比1:3は物質量比1:3なので、平均分子量は(16+3×44)/4=37kg/kmolである。よって混合ガスの質量は約2.0×37≒74kgとなる。",
-      "間違い。理想気体の状態方程式から求まる混合ガス全体の物質量は約2.0kmolで、体積比1:3から平均分子量は37kg/kmolである。質量は約74kgであり、460kgは計算値より大きすぎる。",
-      "間違い。圧力250kPa、体積20m³、温度300.15Kから求める物質量は約2.0kmolである。平均分子量37kg/kmolを掛けると質量は約74kgとなるため、740kgは計算値の約10倍であり最も近い値ではない。"
+      "正答は74 kg。温度は27℃=300.15 Kである。理想気体の状態方程式PV=nRTより、混合ガス全体の物質量は n=250 kPa×20 m³÷(8.3×300.15 K)≒2.0 kmol となる。同温・同圧では体積比は物質量比に等しいため、メタン:プロパン=1:3から平均分子量は(16×1+44×3)÷4=37 kg/kmolである。したがって質量は約2.0 kmol×37 kg/kmol=74 kgとなり、最も近い値は74 kgである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -58,7 +54,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2023-2-1,gasushunin-koushu-kiso-2023-2-2,chiefgasengineerlicense-C-10005,gasushunin-koushu-kiso-2023-2-4,gasushunin-koushu-kiso-2023-2-5",
     "sourceRecordRef": "question_2023_firestore_3.json#0",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論計算問題。理想気体の状態方程式と混合ガスの平均分子量に基づいて判断する。",
+    "lawContextForExplanation": "法令条文を主要根拠としない技術・理論計算問題。理想気体の状態方程式、体積比と物質量比の対応、混合ガスの平均分子量に基づいて判断する。",
     "lawReferences": [
       [],
       [],
@@ -78,7 +74,7 @@
           "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
-          "promptContext": "選択肢46kgは計算値約74kgと一致しない。",
+          "promptContext": "選択肢46 kgは計算値約74 kgと一致しない。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -102,7 +98,7 @@
           "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
-          "promptContext": "選択肢69kgは計算値約74kgより離れている。",
+          "promptContext": "選択肢69 kgは計算値約74 kgより離れている。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -126,7 +122,7 @@
           "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
-          "promptContext": "選択肢74kgは計算値約74kgと一致する。",
+          "promptContext": "選択肢74 kgは計算値約74 kgと一致する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -150,7 +146,7 @@
           "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
-          "promptContext": "選択肢460kgは計算値約74kgと一致しない。",
+          "promptContext": "選択肢460 kgは計算値約74 kgと一致しない。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -174,7 +170,7 @@
           "differenceSummary": "法令の時点差は問題の正誤に関係しない。",
           "displayRefIds": [],
           "explanationText": "理想気体の状態方程式と混合ガスの平均分子量により判断する計算問題である。",
-          "promptContext": "選択肢740kgは計算値約74kgと一致しない。",
+          "promptContext": "選択肢740 kgは計算値約74 kgと一致しない。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -782,11 +778,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "正しい。右方向では気体の物質量が5molから3molへ減るため、等温で圧力を上げると、平衡は気体の物質量が少ない生成物側、すなわち右方向へ移動しやすい。",
-      "間違い。右方向は発熱反応なので、温度を上げると、平衡は熱を吸収する左方向へ移動しやすい。したがって、右方向にさらに進行させる操作としては不適切である。",
-      "正しい。水素は反応物である。等温定圧で水素を添加すると反応物が増えるため、平衡は水素を消費する右方向へ移動しやすい。",
-      "正しい。二酸化炭素は反応物である。等温定圧で二酸化炭素を添加すると反応物が増えるため、平衡は生成物側である右方向へ移動しやすい。",
-      "正しい。水蒸気は生成物である。水蒸気を除くと生成物が減るため、平衡は生成物を補う右方向へ移動しやすい。"
+      "正しい。右方向では気体の物質量が、二酸化炭素1 molと水素4 molの合計5 molから、メタン1 molと水蒸気2 molの合計3 molへ減る。等温で圧力を上げると、平衡は気体の物質量が少ない右方向へ移動しやすいため、さらに右方向へ進行させる操作として適切である。",
+      "間違い。右方向は発熱反応なので、温度を上げると、加えられた熱を打ち消す向きである吸熱方向、つまり左方向へ平衡が移動しやすい。したがって、右方向にさらに進行させる操作としては不適切である。",
+      "正しい。水素は左辺の反応物である。等温定圧のもとで水素を添加すると、平衡は増えた水素を消費する向き、すなわち生成物側である右方向へ移動しやすいため、さらに右方向へ進行させる操作として適切である。",
+      "正しい。二酸化炭素は左辺の反応物である。等温定圧のもとで二酸化炭素を添加すると、平衡は増えた二酸化炭素を消費する向き、すなわち生成物側である右方向へ移動しやすいため、さらに右方向へ進行させる操作として適切である。",
+      "正しい。水蒸気は右辺の生成物である。水蒸気を除くと、平衡は減った生成物を補う向き、すなわち右方向へ移動しやすいため、さらに右方向へ進行させる操作として適切である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -981,11 +977,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "間違い。COは1.0molから0.3molに減っているので、0.7mol反応している。平衡時の物質量はCO=0.3mol、H₂O=1.2-0.7=0.5mol、CO₂=0.7mol、H₂=0.7molである。反応前後で気体の総モル数は変わらないため分圧比では全圧項が相殺され、Kp=(0.7×0.7)/(0.3×0.5)≒3.3となる。したがって0.31ではない。",
-      "間違い。平衡時の物質量はCO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molである。Kpは生成物側の分圧積を反応物側の分圧積で割るので、Kp=(P_CO₂×P_H₂)/(P_CO×P_H₂O)=(0.7×0.7)/(0.3×0.5)≒3.3であり、1ではない。",
-      "正しい。COが1.0molから0.3molに減ったため、反応したCOは0.7molである。反応式CO+H₂O⇄CO₂+H₂より、平衡時はCO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molとなる。反応前後で総モル数は変わらないので、Kp=(P_CO₂×P_H₂)/(P_CO×P_H₂O)=(0.7×0.7)/(0.3×0.5)≒3.3である。",
-      "間違い。正しい平衡時組成はCO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molである。これを圧平衡定数の式に代入すると、Kp=(0.7×0.7)/(0.3×0.5)≒3.3となる。したがって最も近い値は5.4ではない。",
-      "間違い。圧平衡定数はKp=(P_CO₂×P_H₂)/(P_CO×P_H₂O)で求める。平衡時の物質量CO=0.3mol、H₂O=0.5mol、CO₂=0.7mol、H₂=0.7molを用いると、分圧の共通因子は相殺され、Kp=(0.7×0.7)/(0.3×0.5)≒3.3である。したがって10ではない。"
+      "COが1.0molから0.3molに減っているので、反応したCOは0.7molである。反応式CO+H₂O⇄CO₂+H₂では係数がすべて1のため、平衡時の物質量はCO=0.3mol、H₂O=1.2-0.7=0.5mol、CO₂=0.7mol、H₂=0.7molとなる。圧平衡定数はKp=(P_CO₂×P_H₂)/(P_CO×P_H₂O)であり、この反応では反応前後の総モル数が変わらないため、分圧に共通して含まれる全圧と総モル数の因子は相殺される。したがってKp=(0.7×0.7)/(0.3×0.5)=0.49/0.15≒3.3となり、最も近い値は3.3である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -1388,11 +1380,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json",
     "explanationText": [
-      "間違い。混合ガスの燃焼下限界は、ル・シャトリエの式 L=100/(y1/L1+y2/L2+y3/L3) で求める。メタン90vol％、エタン3vol％、プロパン7vol％を代入すると、L=100/(90/5+3/3+7/2)=100/22.5≒4.44vol％となる。最も近い選択肢は4.4であり、4ではない。",
-      "間違い。計算値は約4.44vol％である。4.2との差は約0.24、4.4との差は約0.04なので、4.2は最も近い値ではない。",
-      "正しい。ル・シャトリエの式に各成分の体積割合と単体ガスの燃焼下限界を代入すると、L=100/(90/5+3/3+7/2)=100/22.5≒4.44vol％となる。したがって、選択肢の中で最も近い値は4.4である。",
-      "間違い。混合ガスの燃焼下限界は約4.44vol％である。4.7との差は約0.26、4.4との差は約0.04なので、4.7は最も近い値ではない。",
-      "間違い。ル・シャトリエの式による計算値は約4.44vol％である。4.9は計算値から離れすぎており、最も近い値は4.4である。"
+      "混合ガスの燃焼下限界は、ル・シャトリエの式 L=100/(C1/L1+C2/L2+C3/L3) で求める。メタン90vol%、エタン3vol%、プロパン7vol%を、それぞれの単体ガスの燃焼下限界5vol%、3vol%、2vol%で割ると、L=100/(90/5+3/3+7/2)=100/(18+1+3.5)=100/22.5=約4.44vol%となる。提示値のうち計算値に最も近いのは4.4である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -1452,8 +1440,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差なし。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
-          "promptContext": "選択肢4は計算値約4.44vol％に最も近くない。",
+          "explanationText": "ル・シャトリエの式により混合ガスの燃焼下限界は約4.44vol%となる。",
+          "promptContext": "選択肢4は計算値約4.44vol%に最も近くない。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1476,8 +1464,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差なし。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
-          "promptContext": "選択肢4.2は計算値約4.44vol％に最も近くない。",
+          "explanationText": "ル・シャトリエの式により混合ガスの燃焼下限界は約4.44vol%となる。",
+          "promptContext": "選択肢4.2は計算値約4.44vol%に最も近くない。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1500,8 +1488,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差なし。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
-          "promptContext": "計算値約4.44vol％に最も近い選択肢は4.4。",
+          "explanationText": "ル・シャトリエの式により混合ガスの燃焼下限界は約4.44vol%となる。",
+          "promptContext": "選択肢4.4は計算値約4.44vol%に最も近い。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1524,8 +1512,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差なし。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
-          "promptContext": "選択肢4.7は計算値約4.44vol％に最も近くない。",
+          "explanationText": "ル・シャトリエの式により混合ガスの燃焼下限界は約4.44vol%となる。",
+          "promptContext": "選択肢4.7は計算値約4.44vol%に最も近くない。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1548,8 +1536,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令時点差なし。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による燃焼下限界計算で正誤が決まる。",
-          "promptContext": "選択肢4.9は計算値約4.44vol％に最も近くない。",
+          "explanationText": "ル・シャトリエの式により混合ガスの燃焼下限界は約4.44vol%となる。",
+          "promptContext": "選択肢4.9は計算値約4.44vol%に最も近くない。",
           "refs": [],
           "verdict": "not_law_related"
         },

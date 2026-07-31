@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260730121432-ca41a46c6d",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-ca41a46c6d33d3627cd2"
+  ],
+  "inputCaseHashes": {
+    "ui-official-ca41a46c6d33d3627cd2": "ca41a46c6d33d3627cd2f41ef9ccdaac816e696f76dd4d9d550f26f7d4cecb06"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "4f17d79c017d95fb81107d2517e30c183dd303fd311aa54ab10861389ceeeb4b",
+    "86b3105afb77cba796848be1b431665f7bb374200cac231871f0cc3e4d642378"
+  ],
+  "challengeReviewHash": "4513533df762310608459be3374e0aae4fb87f10ab9e51f57b813b6fd53349b2",
+  "createdAt": "2026-07-30T12:17:25.390583Z",
+  "entries": [
+    {
+      "original_question_id": "a227f152a94ed421",
+      "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q20",
+      "reviewQuestionId": "a227f152a94ed421",
+      "sourceRecordRef": "question_2024_gassyunin_site_3.json#0",
+      "expectedBeforeHash": "ea0afd955f73f4199766546bcd3a440fe298d767d2d894d7d79bda3a61cd5910",
+      "changes": {
+        "choiceTextList": [
+          "サーマルNOx生成の特徴は、NOx生成速度が極めて高い温度依存性を持つことにあり、\n温度が低くなるとその生成速度は急速に増加\nする。",
+          "バーナーの燃焼特性を示す図において、①は\nフラッシュバック\nが発生しやすい領域を示している。",
+          "炎の先端が赤黄色になって燃えている現象をイエローチップといい、燃焼反応が十分な速さで進んでいないことを示している。",
+          "バーナーの燃焼特性を示す図において、②は\nリフティング\nが発生しやすい領域を示している。",
+          "ガス種Aからガス種Bへの\n熱量変更する場合、インプットを一定にするためのノズル口径の変更率は、DB/DA=√(WIB√PB/WIA√PA)で計算される。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "output/pdf/gas-shunin-official/2024/q_kou_r6.pdf / PDF 34ページ（冊子33ページ） （ガ）問20",
+          "title": "令和6年度 ガス主任技術者試験 甲種問題",
+          "verifiedAt": "2026-07-30T12:14:32.627825Z",
+          "contentHash": "079226cf086a83e12bd6f6789a6929c713cc2a1e8769925286567629242295c5"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "output/question_issue_reports/ui_official_source/ui-qir-20260730121432-ca41a46c6d/official-a227f152a94ed421/official_page_0034.png、PDF 34ページ（冊子33ページ） （ガ）問20",
+          "title": "令和6年度 ガス主任技術者試験 甲種問題 レンダリング画像",
+          "verifiedAt": "2026-07-30T12:15:57Z",
+          "contentHash": "0455ccc3a4c35aa35cf760774cf8bcf1ee07dc7f027872f47bd8797be6c7e1d1"
+        }
+      ]
+    }
+  ]
+}

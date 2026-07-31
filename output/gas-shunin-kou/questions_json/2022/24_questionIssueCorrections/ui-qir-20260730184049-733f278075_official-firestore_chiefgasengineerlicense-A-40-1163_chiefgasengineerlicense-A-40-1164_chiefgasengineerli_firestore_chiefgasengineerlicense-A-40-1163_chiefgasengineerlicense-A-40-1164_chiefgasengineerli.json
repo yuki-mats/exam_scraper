@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260730184049-733f278075",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-733f278075a1d7071d2c"
+  ],
+  "inputCaseHashes": {
+    "ui-official-733f278075a1d7071d2c": "733f278075a1d7071d2c8e47767b898faa2973e9f46dc4699cd3c21575154bbb"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "25743e2113a50378e429c13984919e9502c650c80bf52adbade3154c49019130",
+    "f36e8fd5547330cc20ecd88d516483e605430f8d72083768e4fcb35351b7dbef"
+  ],
+  "challengeReviewHash": "d50d7da0baf2ad2797e6775fe0ae978d896b67c699c34104fe07cc47d8b9bb27",
+  "createdAt": "2026-07-30T18:42:34.308824Z",
+  "entries": [
+    {
+      "original_question_id": "firestore:chiefgasengineerlicense-A-40-1163,chiefgasengineerlicense-A-40-1164,chiefgasengineerlicense-A-40-1165,chiefgasengineerlicense-A-40-1166,chiefgasengineerlicense-A-40-1167",
+      "sourceQuestionKey": "gas-shunin:kou:2022:seizo:q08",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1163,chiefgasengineerlicense-A-40-1164,chiefgasengineerlicense-A-40-1165,chiefgasengineerlicense-A-40-1166,chiefgasengineerlicense-A-40-1167",
+      "sourceRecordRef": "question_2022_firestore_2.json#0",
+      "expectedBeforeHash": "228f7d1d21839b91e05b4c4011d00301fbbdf750095ab7e812b4aa40e308632a",
+      "changes": {
+        "choiceTextList": [
+          "改良保全（CM）とは、新設備の建設段階にさかのぼり、信頼性、保全性、経済性、操作性、安全性等を考慮した設計を行い、保全費用、劣化損失を積極的に防止しようとする保全方式である。",
+          "孔食とは局所的に深い孔状の浸食を生じる形式の腐食をいう。炭素鋼の孔食は、しばしば通気差電池の形成によって生じる。",
+          "粒界腐食は、金属や合金の粒界又は粒界に沿った狭い部分が優先的に腐食する現象である。",
+          "溶接部には熱影響部を含む母材、熱影響部、溶接金属と組織が異なり硬度が変化する。このため、硬度の高い部分に集中して繰り返しひずみを受けることとなり疲労強度の低下につながる。",
+          "浸透探傷試験は、金属、非金属の内在欠陥を調べることができる。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-kou-official/q_kou_r4.pdf / ガス技術 製造 問8（PDF 26ページ）",
+          "title": "令和4年度 ガス主任技術者試験 甲種問題（JIA公式）",
+          "verifiedAt": "2026-07-30T18:40:49.261742Z",
+          "contentHash": "67cc1ba3e989707a6664835db5d2e1336ab5d3ff88a7fba8285918889fc2e1d3"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "output/question_issue_reports/ui_official_source/ui-qir-20260730184049-733f278075/official-firestore_chiefgasengineerlicense-A-40-1163_chiefgasengineerlicense-A-40-1164_chiefgasengineerli/official_page_0026.png",
+          "title": "令和4年度 ガス主任技術者試験 甲種問題 PDF 26ページ レンダリング画像",
+          "verifiedAt": "2026-07-30T18:41:30Z",
+          "contentHash": "ee19c41db2348f47ae21f1540d467c14c1ba4e3bba2265c61c1b0d804287785b"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-shunin-kou-official/q_kou_r4.pdf / ガス技術 製造 問8（PDF 26ページ）",
+          "title": "令和4年度 ガス主任技術者試験 甲種問題（JIA公式）",
+          "verifiedAt": "2026-07-30T18:40:49.261742Z",
+          "contentHash": "67cc1ba3e989707a6664835db5d2e1336ab5d3ff88a7fba8285918889fc2e1d3"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "output/question_issue_reports/ui_official_source/ui-qir-20260730184049-733f278075/official-firestore_chiefgasengineerlicense-A-40-1163_chiefgasengineerlicense-A-40-1164_chiefgasengineerli/official_page_0026.png; 問8ハ",
+          "title": "令和4年度 ガス主任技術者試験 甲種問題（JIA公式）レンダリング画像",
+          "verifiedAt": "2026-07-30T18:41:22Z",
+          "contentHash": "ee19c41db2348f47ae21f1540d467c14c1ba4e3bba2265c61c1b0d804287785b"
+        }
+      ]
+    }
+  ]
+}

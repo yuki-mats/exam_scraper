@@ -1136,11 +1136,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
     "explanationText": [
-      "間違い。ヒートフュージョン接合では、融着部に形成されたビードの高さ、幅、外観などによって接合後の融着状態を確認する。接合面のインジケーターの高さや幅を確認対象としているため誤りである。",
-      "正しい。架管が橋台などの壁を貫通する部分にスリーブを設け、スリーブとガス管の隙間に弾力性のあるシール材を隙間なく充てんする施工は、貫通部の防水やガス管の保護に適した措置である。",
+      "間違い。ヒートフュージョン接合では、融着部に形成されたビードの高さ、幅、外観などにより接合後の融着状態を確認する。選択肢は、エレクトロフュージョン接合で用いられるインジケーターをヒートフュージョン接合の確認対象としているため誤りである。",
+      "正しい。架管が橋台などの壁を貫通する部分にスリーブを設け、スリーブとガス管の隙間へ弾力性のあるシール材を隙間なく充てんすることは、貫通部の防水とガス管の保護に適した施工である。",
       "正しい。中圧導管の連絡工事では、安全に作業できる圧力条件を確保するため、整圧器を操作して導管内を減圧することがある。",
-      "正しい。エアーパージは、気密試験完了後に管内に残る空気又は不活性ガスを供給ガスに置換し、ガスを安全に開通させるための作業である。",
-      "間違い。道路舗装の復旧は、道路占用者の原状回復と道路管理者の必要な指示に係る事項であり、道路法第32条の道路占用許可及び第40条の原状回復の文脈で道路管理者と調整する。道路交通法に基づき所轄警察署と協議して復旧範囲を定めるという記述は誤りである。"
+      "正しい。エアーパージは、気密試験の完了後、管内に残る空気又は不活性ガスを供給ガスに置換し、安全にガスを開通させる作業である。",
+      "間違い。道路舗装の復旧範囲は、道路法第32条の道路占用許可、同法第40条の原状回復・道路管理者の指示、及び道路法施行規則第4条の4の7の復旧範囲基準に基づき、道路管理者との関係で扱われる。選択肢は、これを道路交通法に基づいて所轄警察署と協議する事項としているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1184,12 +1184,18 @@
     "explanationReferences": [
       {
         "choiceIndex": 4,
-        "referenceDate": "2026-07-30",
+        "referenceDate": "2026-07-31",
         "sourceUrl": "https://laws.e-gov.go.jp/law/327AC1000000180",
         "title": "e-Gov法令検索 道路法"
+      },
+      {
+        "choiceIndex": 4,
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/327M50004000025",
+        "title": "e-Gov法令検索 道路法施行規則"
       }
     ],
-    "lawContextForExplanation": "選択肢5のみ法令肢。道路舗装の復旧範囲は道路交通法に基づく警察署協議ではなく、道路法第32条の道路占用許可及び第40条の原状回復・道路管理者の指示の文脈で説明する。選択肢1〜4は導管工事の技術肢。",
+    "lawContextForExplanation": "選択肢5のみ法令肢。道路舗装の復旧範囲は、道路交通法に基づく警察署との協議事項ではなく、道路法第32条の道路占用許可、同法第40条の原状回復・道路管理者の指示、及び道路法施行規則第4条の4の7の復旧範囲基準に基づき説明する。選択肢1〜4は導管工事の技術肢。",
     "lawReferences": [
       [],
       [],
@@ -1197,14 +1203,36 @@
       [],
       [
         {
-          "article": "第32条、第40条",
+          "article": "第32条",
           "choiceIndex": 4,
           "lawId": "327AC1000000180",
           "lawTitle": "道路法",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "https://laws.e-gov.go.jp/law/327AC1000000180",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第40条",
+          "choiceIndex": 4,
+          "lawId": "327AC1000000180",
+          "lawTitle": "道路法",
+          "referenceDate": "2026-07-31",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/327AC1000000180",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第4条の4の7",
+          "choiceIndex": 4,
+          "lawId": "327M50004000025",
+          "lawTitle": "道路法施行規則",
+          "referenceDate": "2026-07-31",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/law/327M50004000025",
           "verificationStatus": "verified"
         }
       ]
@@ -1228,7 +1256,9 @@
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "notes": [],
+        "notes": [
+          "導管工事の接合確認方法を問う技術肢であり、法令改廃監査の対象外。"
+        ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
       },
@@ -1250,7 +1280,9 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "notes": [],
+        "notes": [
+          "架管の壁貫通部施工を問う技術肢であり、法令改廃監査の対象外。"
+        ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
       },
@@ -1272,7 +1304,9 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "notes": [],
+        "notes": [
+          "中圧導管の連絡工事における減圧作業を問う技術肢であり、法令改廃監査の対象外。"
+        ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
       },
@@ -1286,7 +1320,7 @@
         "evidenceSummary": {
           "differenceSummary": "技術肢のため法令改廃による差分はない。",
           "displayRefIds": [],
-          "explanationText": "気密試験後のエアーパージ手順を扱う技術肢である。",
+          "explanationText": "気密試験後の管内空気又は不活性ガスを供給ガスへ置換するエアーパージ手順を扱う技術肢である。",
           "promptContext": "エアーパージによる供給ガスへの置換",
           "refs": [],
           "verdict": "法令改廃監査の対象外"
@@ -1294,27 +1328,122 @@
         "examTime": {
           "correctChoiceText": "正しい"
         },
-        "notes": [],
+        "notes": [
+          "気密試験後のエアーパージ手順を問う技術肢であり、法令改廃監査の対象外。"
+        ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "試験時・現行とも選択肢5は間違いで、正答配列への影響はない。"
+          "試験時・現行とも、道路舗装の復旧範囲を道路交通法に基づいて所轄警察署と協議するとした選択肢5は間違いであり、正答への影響はない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "道路法第32条・第40条に照らし、道路舗装の復旧範囲は道路交通法上の警察署協議ではなく、道路管理者の占用許可・原状回復指示の文脈で扱う。正誤に影響する現行法上の差分はない。"
+          "道路法第32条は試験時点と現行で本文同一であり、ガス管等を道路に設け継続使用する場合の道路管理者の占用許可及び申請書記載事項としての道路の復旧方法を定めている。",
+          "道路法第40条は試験時点と現行で本文同一であり、道路占用者の原状回復義務及び道路管理者の必要な指示を定めている。",
+          "道路法施行規則第4条の4の7は試験時点と現行で本文同一であり、占用のため掘削した道路を復旧する場合の埋戻し又は表面仕上げを行う道路部分を定めている。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "道路法第32条・第40条に照らし、試験時から現行まで正誤に影響する差分はない。",
-          "displayRefIds": [],
-          "explanationText": "道路舗装の復旧は道路法上の道路占用及び原状回復の文脈で道路管理者が関与する事項であり、道路交通法に基づいて所轄警察署と復旧範囲を協議するものではない。",
-          "promptContext": "道路舗装の復旧範囲を定める主体と法的根拠",
-          "refs": [],
+          "differenceSummary": "道路法第32条・第40条及び道路法施行規則第4条の4の7はいずれも試験時点と現行で本文同一であり、選択肢5の正誤は変わらない。",
+          "displayRefIds": [
+            "road_act_article_32_current",
+            "road_act_article_40_current",
+            "road_act_enforcement_reg_article_4_4_7_current"
+          ],
+          "explanationText": "道路舗装の復旧範囲は、道路法上の占用許可及び原状回復に加え、道路法施行規則第4条の4の7が定める復旧範囲の基準により、道路管理者との関係で扱われる。",
+          "promptContext": "道路舗装の復旧範囲を定める主体と直接根拠",
+          "refs": [
+            {
+              "article": "第32条",
+              "articleTextHash": "3d5d59a0db7deccc5d6f824e3a3093c775ad27ff8336e71531e3e3599b2cf2dd",
+              "elm": "Article",
+              "encodedElm": "Article:32",
+              "highlightElms": [
+                "Article:32-Paragraph:1-Item:2"
+              ],
+              "item": "二",
+              "lawId": "327AC1000000180",
+              "lawRevisionId": "327AC1000000180_20260723_508AC0000000065",
+              "lawTimeScope": "current",
+              "lawTitle": "道路法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "road_act_article_32_current",
+              "relation": "道路占用許可及びガス管の道路占用に関する根拠",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "3d5d59a0db7deccc5d6f824e3a3093c775ad27ff8336e71531e3e3599b2cf2dd"
+            },
+            {
+              "article": "第32条",
+              "articleTextHash": "3d5d59a0db7deccc5d6f824e3a3093c775ad27ff8336e71531e3e3599b2cf2dd",
+              "elm": "Article",
+              "encodedElm": "Article:32",
+              "highlightElms": [
+                "Article:32-Paragraph:2-Item:7"
+              ],
+              "item": "七",
+              "lawId": "327AC1000000180",
+              "lawRevisionId": "327AC1000000180_20260723_508AC0000000065",
+              "lawTimeScope": "current",
+              "lawTitle": "道路法",
+              "paragraph": "2",
+              "primaryBasis": false,
+              "refId": "road_act_article_32_current_recovery_method",
+              "relation": "占用許可申請に道路の復旧方法を記載する根拠",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "3d5d59a0db7deccc5d6f824e3a3093c775ad27ff8336e71531e3e3599b2cf2dd"
+            },
+            {
+              "article": "第40条",
+              "articleTextHash": "691009462ccc39c6af8936373251f6d9e7c1c54db31881fb476cc372305c1573",
+              "elm": "Article",
+              "encodedElm": "Article:40",
+              "highlightElms": [
+                "Article:40-Paragraph:1",
+                "Article:40-Paragraph:2"
+              ],
+              "item": "none",
+              "lawId": "327AC1000000180",
+              "lawRevisionId": "327AC1000000180_20260723_508AC0000000065",
+              "lawTimeScope": "current",
+              "lawTitle": "道路法",
+              "paragraph": "1",
+              "primaryBasis": false,
+              "refId": "road_act_article_40_current",
+              "relation": "道路占用者の原状回復義務に関する根拠",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "691009462ccc39c6af8936373251f6d9e7c1c54db31881fb476cc372305c1573"
+            },
+            {
+              "article": "第4条の4の7",
+              "articleTextHash": "8a7596eef4ed6b5b81d28d5c4c9680ef50b0d69783e0b6fed8a164534073e51c",
+              "elm": "Article",
+              "encodedElm": "Article:4_4_7",
+              "highlightElms": [
+                "Article:4_4_7-Paragraph:1",
+                "Article:4_4_7-Paragraph:2"
+              ],
+              "item": "none",
+              "lawId": "327M50004000025",
+              "lawRevisionId": "327M50004000025_20260401_508M60000800038",
+              "lawTimeScope": "current",
+              "lawTitle": "道路法施行規則",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "road_act_enforcement_reg_article_4_4_7_current",
+              "relation": "道路舗装の復旧範囲の直接根拠",
+              "rootArticleElm": "Article",
+              "subitem": "none",
+              "textHash": "8a7596eef4ed6b5b81d28d5c4c9680ef50b0d69783e0b6fed8a164534073e51c"
+            }
+          ],
           "verdict": "試験時・現行とも間違い"
         },
         "examTime": {
@@ -2684,7 +2813,7 @@
     "explanationText": [
       "間違い。オーブンでは庫内の加熱された空気を循環させ、対流伝熱を主体として食品を加熱するため、主に放射伝熱により調理が行われるとする記述は誤りである。",
       "正しい。Siセンサーコンロの標準搭載機能には、調理油過熱防止装置、立ち消え安全装置、消し忘れ消火機能及び早切れ防止機能が含まれる。",
-      "間違い。ファンヒーターのメインバーナーには主にブンゼン式が用いられており、全一次空気燃焼式が主に用いられているわけではないため誤りである。",
+      "間違い。全一次空気燃焼式は、燃焼に必要な空気のほぼ全量を燃焼前にガスへ混合する方式である。ファンヒーターのメインバーナーは主にブンゼン式であり、全一次空気燃焼式が主に用いられるとはいえない。令和3年度のJIA公式解答は本問の正しい記述を3つとしており、選択肢2・4・5が該当する。",
       "正しい。FF暖房機は燃焼用空気を屋外から取り入れ、燃焼排ガスも屋外へ排出する密閉式である。このため、気密性が高い部屋で長時間使用しても室内の酸素を燃焼に消費しにくく、酸欠事故は起きにくい。",
       "正しい。回転ドラム式衣類乾燥機は、燃焼排ガスを空気で希釈してドラム内へ送り、その熱気を洗濯物に直接接触させて乾燥する方式である。"
     ],
@@ -3212,11 +3341,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
     "explanationText": [
-      "間違い。排気フードⅠ型の必要換気量は、V=30×K×Qで求める。K=0.93m³/kWh、Q=5kWを代入すると、V=30×0.93×5=139.5m³/hとなるため、5m³/hは最も近い値ではない。",
-      "間違い。必要換気量の計算値は、30×0.93×5=139.5m³/hである。45m³/hはこの値に最も近い選択肢ではない。",
-      "間違い。排気フードⅠ型では係数30を用いるため、必要換気量は139.5m³/hとなる。90m³/hはこの値に最も近い選択肢ではない。",
-      "正しい。排気フードⅠ型の必要換気量は、V=30×0.93×5=139.5m³/hである。したがって、選択肢では140m³/hが最も近い。",
-      "間違い。必要換気量の計算値は139.5m³/hであり、190m³/hよりも140m³/hの方が計算値に近い。"
+      "排気フードⅠ型の必要換気量は、V=30×K×Qで求める。ここで、排気フードⅠ型の定数は30、理論排ガス量Kは0.93m³/kWh、燃料消費量Qは5kWなので、V=30×0.93×5=139.5m³/hとなる。したがって、選択肢の中で最も近い値は140m³/hである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -3399,11 +3524,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
     "explanationText": [
-      "正しい。自然排気式機器及び自然給排気式機器では、燃焼によって高温となり周囲の空気より密度が小さくなった排ガスに浮力が生じる。この浮力による自然通風を利用して排気する。",
-      "間違い。バフラーは、外部からの風などによる排気の逆流や燃焼への影響を抑える逆風止めである。排気に必要なドラフトそのものを発生させる装置ではない。",
-      "間違い。強制排気式機器は送風機で排気するのに対し、自然排気式機器は自然通風に依存するため、風圧帯では外気の風圧によって排気が妨げられたり逆流したりするおそれがある。したがって、自然排気式機器の排気筒トップも風圧帯内に設置できるとしているため誤りである。",
-      "間違い。共用排気ダクトに接続する機器として求められるのは、低酸素濃度下での燃焼検査に合格した密閉式機器であり、半密閉式機器ではない。機器の区分を半密閉式としているため誤りである。",
-      "正しい。強制給排気式機器は、送風機を利用して給気と排気を行い、給排気筒を延長できる。このため、機器本体を外壁に直接面して設置する必要はない。"
+      "正しい。自然排気式機器では、高温になって周囲の空気より密度が小さくなった燃焼排ガスに生じる浮力を利用し、自然通風によって排気する。自然給排気式機器も同じ自然通気力を利用して給排気するため、この記述は正しい。",
+      "間違い。バフラーは、外部の風による排ガスの逆流や燃焼への影響を抑える逆風止めである。排気に必要なドラフトは、排気筒内外の温度差と密度差による自然通気力によって生じるので、バフラーがドラフトを発生させるとする記述は誤りである。",
+      "間違い。強制排気式機器は送風機で排気するため、所定の条件下では排気筒トップを風圧帯内に設置できる。一方、自然排気式機器は自然通風に依存し、風圧による排気阻害や逆流を避ける必要があるため、排気筒トップを風圧帯内に設置できない。両方式とも設置できるとする記述は誤りである。",
+      "間違い。正しくは、共用給排気ダクトに接続する機器には、低酸素濃度下での燃焼検査に合格した密閉式機器を用いる。選択肢はダクトを「共用排気ダクト」、機器区分を「半密閉式機器」としており、正しい給排気方式と機器区分のいずれとも異なるため誤りである。",
+      "正しい。強制給排気式機器は、送風機を用いて屋外から給気し、燃焼排ガスを屋外へ排出する。給排気筒を延長できるので、機器本体を外壁に直接面して設置する必要はなく、この記述は正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -3444,8 +3569,14 @@
     "sourceQuestionKey": "gas-shunin:kou:2021:shohi:q25",
     "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1355,chiefgasengineerlicense-A-60-1356,chiefgasengineerlicense-A-60-1357,chiefgasengineerlicense-A-60-1358,chiefgasengineerlicense-A-60-1359",
     "sourceRecordRef": "question_2021_firestore_1.json#17",
-    "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない、ガス機器の給排気方式に関する技術・構造知識の問題。",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://www.fdma.go.jp/laws/tutatsu/assets/070731yo167.pdf",
+        "title": "消防庁「業務用ガス機器の設置基準の改正について（通知）」"
+      }
+    ],
+    "lawContextForExplanation": "自然通風、逆風止め、排気筒トップ、共用給排気ダクト及び強制給排気式機器に関する技術・構造知識を根拠とする問題。",
     "lawReferences": [
       [],
       [],
@@ -3488,7 +3619,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差による正誤の変化はない。",
           "displayRefIds": [],
-          "explanationText": "バフラーは逆風の影響を抑えるもので、排気ドラフトを発生させる装置ではない。",
+          "explanationText": "バフラーは逆風の影響を抑える逆風止めであり、排気ドラフトを発生させる装置ではない。",
           "promptContext": "自然排気式機器のバフラーの役割を判定する技術肢。",
           "refs": [],
           "verdict": "間違い"
@@ -3536,8 +3667,8 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差による正誤の変化はない。",
           "displayRefIds": [],
-          "explanationText": "対象となるのは低酸素濃度下での燃焼検査に合格した密閉式機器であり、半密閉式機器ではない。",
-          "promptContext": "共用排気ダクトに設置する機器の構造区分を判定する技術肢。",
+          "explanationText": "正しくは、共用給排気ダクトに接続する低酸素濃度下での燃焼検査に合格した密閉式機器であり、選択肢の「共用排気ダクト」「半密閉式機器」とは異なる。",
+          "promptContext": "共用給排気ダクトに設置する機器の構造区分を判定する技術肢。",
           "refs": [],
           "verdict": "間違い"
         },
@@ -3545,7 +3676,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "共用ダクトに接続する機器の構造区分に関する技術肢であり、法令改正監査の対象外。"
+          "共用給排気ダクトに接続する機器の構造区分に関する技術肢であり、法令改正監査の対象外。"
         ],
         "reconciliationStatus": "confirmed_not_law_related",
         "reviewState": "secondary_verified"

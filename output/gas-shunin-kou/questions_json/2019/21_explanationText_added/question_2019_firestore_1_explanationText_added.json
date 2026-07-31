@@ -17,10 +17,10 @@
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
       "間違い。LNG貯槽内でLNGが層状化すると、上層液では軽質成分がBOGとして抜け、残った液は濃縮して液密度が上昇する。選択肢は液密度が低下するとしているため誤りである。",
-      "間違い。バイオガスは、水分の多い有機物を無酸素状態でメタン発酵させて得られるガスで、主成分はメタンと二酸化炭素である。選択肢は主成分をメタンと窒素としているため誤りである。",
+      "間違い。バイオガスは、下水や食品廃棄物などの水分の多い有機物を無酸素状態でメタン発酵させて得られるガスで、主成分はメタンと二酸化炭素である。選択肢は主成分をメタンと窒素としているため誤りである。",
       "正しい。液封されたLNGが外気から熱を受けると、温度上昇に伴ってLNGが膨張し、内部圧力が上昇する。そのため、フランジなどの弱い部分が破壊されるおそれがある。",
       "正しい。メタンは常温では空気より軽く拡散しやすいが、約－110℃以下の低温では常温の空気より重くなるため、地表面付近に滞留しやすい点に注意が必要である。",
-      "間違い。LNG配管で問題となるベーパーロックは、急激な圧力低下や温度上昇によって気化が進む場合に起こりやすい。選択肢は急激な圧力上昇や温度低下で起こるとしているため誤りである。"
+      "間違い。選択肢の「ペーパーロック」は文脈上「ベーパーロック」を指すものと考えられる。LNG配管で問題となるベーパーロックは、急激な圧力低下や温度上昇によって気化が進む場合に起こりやすい。選択肢は急激な圧力上昇や温度低下で起こるとしているため誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -185,7 +185,9 @@
         "examTime": {
           "correctChoiceText": "間違い"
         },
-        "notes": [],
+        "notes": [
+          "設問本文の「ペーパーロック」は、文脈上「ベーパーロック」を指すものとして解説する。"
+        ],
         "reconciliationStatus": "not_law_related",
         "reviewState": "secondary_verified"
       }
@@ -383,7 +385,7 @@
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
       "間違い。フィッシャー式整圧器では、需要家のガス使用量が減少すると駆動圧力は低下する。選択肢は駆動圧力が上昇するとしているため誤りである。",
-      "正しい。パイロット式整圧器は、パイロットで二次圧力の小さな変化を増幅して主弁側を作動させるため、締切時の圧力上昇であるロックアップを小さくできる。ここでいうメインバーナーは、整圧器の主弁側の作動対象を指す趣旨である。",
+      "正しい。パイロット式整圧器は、パイロットで二次圧力の小さな変化を増幅してメインガバナーを作動させるため、締切時の圧力上昇であるロックアップを小さくできる。",
       "間違い。パイロット式アンローディング型整圧器では、駆動圧力はメインバルブの全閉時に最も高くなる。選択肢は全開時に最も高くなるとしているため誤りである。",
       "間違い。パイロットバルブの締切り不良では二次側への流れを止めきれず、二次圧力は異常上昇する方向に働く。選択肢は二次圧力異常低下の原因としているため誤りである。",
       "正しい。高圧整圧器では、減圧に伴う温度低下や凍結を防ぐためにラインヒーターを用いることがある。その方式には、温水槽加熱方式や温水循環加熱方式がある。"
@@ -423,7 +425,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1541,chiefgasengineerlicense-A-80-1542,chiefgasengineerlicense-A-80-1543,chiefgasengineerlicense-A-80-1544,chiefgasengineerlicense-A-80-1545",
     "sourceRecordRef": "question_2019_firestore_1.json#2",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない、整圧器の構造・作動特性・故障原因・高圧整圧器付属設備に関する技術問題。",
+    "lawContextForExplanation": "法令条文を主要根拠としない整圧器の構造・作動特性・故障原因・付属設備に関する技術問題。",
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
@@ -463,7 +465,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令の時点差による正誤差分なし。",
           "displayRefIds": [],
-          "explanationText": "パイロット式整圧器が二次圧力の変化を増幅して主弁側を作動させ、ロックアップを小さくする性質を問う技術肢である。",
+          "explanationText": "パイロット式整圧器が二次圧力の変化を増幅してメインガバナーを作動させ、ロックアップを小さくする性質を問う技術肢である。",
           "promptContext": "整圧器の動特性に関する技術知識として扱う。",
           "refs": [],
           "verdict": "法令問題ではないため法令改正監査の対象外。"
@@ -2536,11 +2538,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
-      "正しい。円形ノズルからのガス噴出量は、流路面積に対応するノズル口径の2乗に比例し、噴出速度を左右するガス圧力の平方根にも比例する。",
-      "正しい。炎口が詰まって有効面積が小さくなると、同じガス量を通すためにバーナー内圧や炎口流速が上がりやすい。炎口流速が火炎の燃焼速度を上回る方向になるため、火炎が炎口から離れるリフティングが発生しやすくなる。",
-      "正しい。サーマルNOxは高温燃焼時に空気中の窒素と酸素が反応して生成されるもので、生成速度は燃焼温度に強く左右される。空気比が変わると燃焼温度も変化するため、NOxの生成速度も変化する。",
-      "正しい。ブンゼンバーナーでは一次空気が不足する側で燃焼に必要な空気が足りず、炎の先端が黄色くなるイエローチップが生じやすい。図の①はこの発生領域を示している。",
-      "正しい。図の②は燃焼状態が良好燃焼域を外れ、不完全燃焼を起こしやすい領域を示している。燃焼に必要な空気の混合や火炎の安定が不足すると、一酸化炭素などを伴う不完全燃焼につながる。"
+      "正しい。円形ノズルから噴出するガス量は、ノズルの開口面積と噴出速度で決まる。開口面積はノズル口径の2乗に比例し、噴出速度はガス圧力の平方根に比例するため、ガス量はガス圧力の平方根とノズル口径の2乗に比例する。",
+      "正しい。炎口が詰まって有効面積が小さくなると、同じガス量を通すためにバーナー内圧や炎口での噴出速度が上がりやすい。噴出速度が火炎の燃焼速度を上回る方向になるため、火炎が炎口から離れるリフティングが発生しやすくなる。",
+      "正しい。サーマルNOxは、高温燃焼時に空気中の窒素と酸素が反応して生成されるNOxであり、生成速度は燃焼温度に強く依存する。空気比が変わると燃焼温度や酸素濃度の条件も変わるため、サーマルNOxの生成速度も変化する。",
+      "正しい。ブンゼンバーナーでは、一次空気率が低い側で燃焼に必要な空気が不足し、炎の先端が黄色くなるイエローチップが生じやすい。図の①はこの低一次空気率側の発生領域を示している。",
+      "正しい。図の②は、良好燃焼域を外れた高インプット・低一次空気率側の領域を示している。この領域ではガス量に対して空気の混合や供給が不足しやすく、一酸化炭素の発生を伴う不完全燃焼につながりやすい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -2571,7 +2573,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1582,chiefgasengineerlicense-A-60-1583,chiefgasengineerlicense-A-60-1584,chiefgasengineerlicense-A-60-1585,chiefgasengineerlicense-A-60-1586",
     "sourceRecordRef": "question_2019_firestore_1.json#12",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない、ガス燃焼・バーナー燃焼特性に関する技術・理論問題。",
+    "lawContextForExplanation": "法令条文を主要根拠としない、ノズル流量、リフティング、サーマルNOx、ブンゼンバーナー燃焼特性に関する技術・理論問題。",
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
@@ -2585,7 +2587,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の検討対象外。",
           "displayRefIds": [],
-          "explanationText": "法令条文の適用ではなく、ノズル流量の技術的関係を問う記述である。",
+          "explanationText": "法令条文の適用ではなく、ノズル口径・圧力とガス噴出量の関係を問う記述である。",
           "promptContext": "ガス燃焼・消費機器分野の技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -2611,7 +2613,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の検討対象外。",
           "displayRefIds": [],
-          "explanationText": "法令条文の適用ではなく、バーナーの燃焼安定性を問う記述である。",
+          "explanationText": "法令条文の適用ではなく、炎口詰まりによる噴出速度上昇とリフティングの関係を問う記述である。",
           "promptContext": "ガス燃焼・消費機器分野の技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -2637,7 +2639,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の検討対象外。",
           "displayRefIds": [],
-          "explanationText": "法令条文の適用ではなく、燃焼温度とNOx生成の関係を問う記述である。",
+          "explanationText": "法令条文の適用ではなく、燃焼温度とサーマルNOx生成速度の関係を問う記述である。",
           "promptContext": "ガス燃焼・消費機器分野の技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -2663,7 +2665,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の検討対象外。",
           "displayRefIds": [],
-          "explanationText": "法令条文の適用ではなく、一次空気不足側の燃焼状態を問う記述である。",
+          "explanationText": "法令条文の適用ではなく、一次空気率が低い側でイエローチップが発生しやすいことを問う記述である。",
           "promptContext": "ガス燃焼・消費機器分野の技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -2672,7 +2674,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "ブンゼンバーナーの燃焼特性図に関する技術・理論事項。"
+          "ブンゼンバーナーの燃焼特性図とイエローチップ発生領域に関する技術・理論事項。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -2689,7 +2691,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分の検討対象外。",
           "displayRefIds": [],
-          "explanationText": "法令条文の適用ではなく、不完全燃焼が発生しやすい燃焼領域を問う記述である。",
+          "explanationText": "法令条文の適用ではなく、高インプット・低一次空気率側で不完全燃焼が発生しやすいことを問う記述である。",
           "promptContext": "ガス燃焼・消費機器分野の技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -2698,7 +2700,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "ブンゼンバーナーの燃焼特性図に関する技術・理論事項。"
+          "ブンゼンバーナーの燃焼特性図と不完全燃焼発生領域に関する技術・理論事項。"
         ],
         "reconciliationStatus": "not_applicable",
         "reviewState": "secondary_verified"
@@ -3502,11 +3504,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
-      "正しい。こんろの消し忘れ防止装置は、一定時間の経過などで消し忘れ状態を検知し、ガス通路を閉じる安全装置であり、一般にタイマー式が採用される。",
-      "間違い。こんろの調理油過熱防止装置は、サーミスターで鍋底温度を検知し、調理油が発火する前の目安である約250℃に達するとバーナーへのガス通路を閉じる。選択肢は作動温度を約370℃としているため誤りである。",
-      "間違い。こんろのグリル過熱防止装置には、一般にバイメタル式とサーミスタ式がある。選択肢はサーミスタ式ではなく温度ヒューズ式としているため誤りである。",
-      "間違い。温水機器が空だきした場合、機器が損傷する前に自動的にバーナーへのガス通路を閉じる装置は、空だき安全装置である。選択肢は名称を空だき防止装置としているため誤りである。",
-      "間違い。開放式瞬間湯沸器の不完全燃焼防止装置には、一般に熱電対が用いられる。選択肢はフレームロッドが用いられるとしているため誤りである。"
+      "正しい。こんろの消し忘れ防止装置は、点火後に一定時間が経過した場合などに自動的に消火し、ガス通路を閉じる安全装置である。家庭用こんろでは一般にタイマー式の考え方で作動するため、この記述は正しい。",
+      "間違い。こんろの調理油過熱防止装置は、サーミスターなどで鍋底の温度を検知し、調理油が発火に至る前の目安である約250℃で自動的に消火する装置である。選択肢は作動温度を約370℃としているため、誤りである。",
+      "間違い。こんろのグリル過熱防止装置は、グリル庫内などの異常な温度上昇を検知して自動的に消火させる装置であり、試験で問われる方式はバイメタル式とサーミスタ式である。選択肢はサーミスタ式ではなく温度ヒューズ式としているため、誤りである。",
+      "間違い。温水機器が空だきした場合に、機器が損傷する前に自動的にバーナーへのガス通路を閉じる装置は、空だき安全装置である。水がない状態での使用開始を防ぐ空だき防止装置とは名称と機能が異なるため、この記述は誤りである。",
+      "間違い。開放式瞬間湯沸器の不完全燃焼防止装置には、一般に熱電対を利用した方式が用いられる。フレームロッドは主に炎検知に用いられる素子であり、不完全燃焼防止装置に一般に用いられるとする記述は誤りである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -3545,7 +3547,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1607,chiefgasengineerlicense-A-60-1608,chiefgasengineerlicense-A-60-1609,chiefgasengineerlicense-A-60-1610,chiefgasengineerlicense-A-60-1611",
     "sourceRecordRef": "question_2019_firestore_1.json#17",
     "explanationReferences": [],
-    "lawContextForExplanation": "法令条文を主要根拠としない、家庭用ガス機器の安全装置に関する技術知識問題。",
+    "lawContextForExplanation": "法令条文を主要根拠としない、家庭用ガス機器の安全装置に関する技術知識問題。消し忘れ防止装置、調理油過熱防止装置、グリル過熱防止装置、空だき防止装置・空だき安全装置、不完全燃焼防止装置の名称・作動条件・方式を区別して説明する。",
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
@@ -3612,7 +3614,7 @@
           "differenceSummary": "法令の試験時点差分と現行差分の比較対象外。",
           "displayRefIds": [],
           "explanationText": "グリル過熱防止装置の方式に関する技術知識であり、法令条文を根拠にする設問ではない。",
-          "promptContext": "グリル過熱防止装置はバイメタル式とサーミスタ式であり、温度ヒューズ式とする記述は誤り。",
+          "promptContext": "本問で問うグリル過熱防止装置はバイメタル式とサーミスタ式であり、温度ヒューズ式とする記述は誤り。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -4568,11 +4570,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
-      "間違い。パネル法による臭気濃度の測定では、この条件では有りから無しに変わる1000倍と2000倍を用いて、このパネルの感知希釈倍数を1500倍とする。記述は2000倍としているため誤りである。",
+      "間違い。パネル法による臭気濃度の測定では、希釈倍率を小さい順に見て、においを確認できなくなった最小希釈倍数と、その一段下でにおいを確認できた希釈倍数の平均を、このパネルの感知希釈倍数とする。この場合は1000倍でにおい有り、2000倍でにおい無しなので、感知希釈倍数は(1000+2000)/2=1500倍である。2000倍より大きい4000倍でにおい有りとなっていても、確認できなくなった最小希釈倍数より大きい希釈倍数での有りは採用しないため、記述は誤りである。",
       "間違い。検知管法は、検知剤を充てんした検知管に一定量の試験ガスを通し、検知剤の変色長さから付臭剤成分濃度を求める方法である。記述は変色濃度から求めるとしているため誤りである。",
       "正しい。付臭剤には、人間に対して毒性がないこと、土壌を透過しやすいこと、生活臭と明瞭に区別できることなどの要件が求められる。",
       "間違い。ターシャリーブチルメルカプタン（TBM）、ジメチルサルファイド（DMS）、シクロヘキセンの中では、最もにおいの閾値が小さいのはTBMである。記述はDMSとしているため誤りである。",
-      "正しい。付臭剤を含む空気を活性炭で脱臭する場合は、活性炭層が破過すると脱臭性能が低下するため、破過に留意し、定期的に活性炭を交換する必要がある。"
+      "正しい。付臭室の空気を活性炭で脱臭する場合、活性炭層が破過すると臭気成分の吸着性能が低下する。そのため、破過に留意し、定期的に活性炭を交換する必要がある。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -4609,7 +4611,7 @@
     "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1515,chiefgasengineerlicense-A-40-1516,chiefgasengineerlicense-A-40-1517,chiefgasengineerlicense-A-40-1518,chiefgasengineerlicense-A-40-1519",
     "sourceRecordRef": "question_2019_firestore_1.json#22",
     "explanationReferences": [],
-    "lawContextForExplanation": "都市ガスの付臭に関する測定方法、付臭剤の性質、脱臭設備上の留意点を問う技術・実務問題であり、法令条文を主要根拠としない。",
+    "lawContextForExplanation": "都市ガスの付臭に関する測定方法、付臭剤の性質、脱臭設備上の留意点を問う技術・実務問題。法令条文を主要根拠としない。",
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [],
@@ -4717,7 +4719,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令条文に基づく新旧差分はない。",
           "displayRefIds": [],
-          "explanationText": "活性炭による付臭剤含有空気の脱臭管理上の留意点を問う記述である。",
+          "explanationText": "活性炭による付臭室の空気の脱臭管理上の留意点を問う記述である。",
           "promptContext": "技術・実務問題のため法令根拠は付与しない。",
           "refs": [],
           "verdict": "not_law_related"
@@ -4751,9 +4753,9 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
     "explanationText": [
-      "間違い。気化装置又はこれに接続される配管等には、液化ガスが液体のまま流出することを防ぐ措置が必要である。ただし、その方法は逆流防止装置の設置に限定されず、構造上流出のおそれがない場合なども含まれるため、選択肢は誤りである。この基準は、ガス工作物の技術上の基準を定める省令第31条第3項に定められている。",
+      "間違い。気化装置又はこれに接続される配管等には、液化ガスが気化装置から液体のまま流出することを防ぐ措置が必要である。ただし、求められるのは流出防止措置であり、逆流防止装置の設置に限定されないため、選択肢は誤りである。この基準は、ガス工作物の技術上の基準を定める省令第31条第3項に定められている。",
       "間違い。保安電源用の自家発電設備には、液体燃料で始動した後にガス燃料へ切り替えられるデュアルフューエル型も使用できる。一律に使用してはならないとする記述は誤りである。",
-      "正しい。製造設備の運転及び監視に用いる制御システムでは、サイバー攻撃などのリスクを評価し、そのリスクに応じた適切なセキュリティ対策を講ずる必要がある。",
+      "正しい。製造設備の運転及び監視に用いる制御システムでは、サイバー攻撃などのリスクを評価し、そのリスクに応じた適切なセキュリティ対策を講ずる必要がある。この趣旨は、ガス工作物の運転又は操作を管理する電子計算機に係るサイバーセキュリティの確保を保安規程事項とするガス事業法施行規則第148条第1項第6号にも示されている。",
       "正しい。ベントスタックには、放出したガスが周囲に障害を与えるおそれがないよう適切な措置を講ずる必要がある。この要件は、ガス工作物の技術上の基準を定める省令第13条第2項に定められている。",
       "正しい。遮断装置には、誤操作を防止するとともに、必要なときに確実に操作できる措置が必要である。この要件は、ガス工作物の技術上の基準を定める省令第20条第1項に定められている。"
     ],
@@ -4793,7 +4795,7 @@
           "choiceIndex": 0,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-17",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -4801,14 +4803,26 @@
         }
       ],
       [],
-      [],
+      [
+        {
+          "article": "148",
+          "choiceIndex": 2,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "referenceDate": "2026-07-31",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_law",
+          "verificationStatus": "verified"
+        }
+      ],
       [
         {
           "article": "13",
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-17",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -4821,7 +4835,7 @@
           "choiceIndex": 4,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-17",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_law",
@@ -4832,26 +4846,26 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "流出防止方法を逆流防止装置に限定する記述は現行でも誤りであり、correctChoiceTextは維持する。"
+          "流出防止措置を逆流防止装置の設置に限定する記述は、試験時点も現行も誤りである。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "現行のガス工作物の技術上の基準を定める省令第31条第3項にも液化ガスの流出防止措置が定められている。"
+          "ガス工作物の技術上の基準を定める省令第31条第3項は、試験時点と現行で正誤に影響する差異がない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "正誤に影響する現行法との差異はない。",
+          "differenceSummary": "試験時点と現行の条文は同一で、正誤への影響はない。",
           "displayRefIds": [
             "choice-0-ref-1"
           ],
-          "explanationText": "気化装置又は接続配管等には液化ガスの流出防止措置が必要だが、その方法は逆流防止装置に限定されない。",
+          "explanationText": "気化装置又は接続配管等には液化ガスの流出防止措置が必要だが、逆流防止装置に限定されない。",
           "promptContext": "ガス工作物の技術上の基準を定める省令第31条第3項を根拠とする。",
           "refs": [
             {
               "article": "31",
-              "articleTextHash": "unknown",
+              "articleTextHash": "7a326956a3526561140329c3ab444cad2549a801f49eb97c3e9fe2abe0000b04",
               "elm": "Article_31",
               "encodedElm": "Article_31",
               "highlightElms": [
@@ -4859,7 +4873,7 @@
               ],
               "item": "none",
               "lawId": "412M50000400111",
-              "lawRevisionId": "current-2026-07-17",
+              "lawRevisionId": "412M50000400111_20240427_506M60000400035",
               "lawTimeScope": "current",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "paragraph": "3",
@@ -4868,7 +4882,7 @@
               "relation": "basis",
               "rootArticleElm": "Article_31",
               "subitem": "none",
-              "textHash": "unknown"
+              "textHash": "7a326956a3526561140329c3ab444cad2549a801f49eb97c3e9fe2abe0000b04"
             }
           ],
           "verdict": "same_as_current"
@@ -4882,19 +4896,19 @@
       },
       {
         "answerImpactFacts": [
-          "デュアルフューエル型を一律に使用禁止とする記述は誤りであり、correctChoiceTextは維持する。"
+          "デュアルフューエル型を一律に使用禁止とする記述は、試験時点も現行も誤りである。"
         ],
         "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "保安電源用自家発電設備の方式に関する技術肢であり、法令改正監査の対象外である。"
+          "デュアルフューエル型自家発電設備の使用可否に関する技術知識肢であり、法令改正監査の対象外である。"
         ],
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤影響の対象外である。",
           "displayRefIds": [],
-          "explanationText": "液体燃料で始動後にガス燃料へ切り替えるデュアルフューエル型も使用できる。",
+          "explanationText": "液体燃料で始動後にガス燃料へ切り替えるデュアルフューエル型も使用できるため、一律禁止とする記述は誤りである。",
           "promptContext": "保安電源設備に関する技術知識として扱う。",
           "refs": [],
           "verdict": "not_law_related"
@@ -4908,67 +4922,41 @@
       },
       {
         "answerImpactFacts": [
-          "リスクに応じて適切なセキュリティ対策を講ずる記述は正しく、correctChoiceTextは維持する。"
-        ],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [
-          "制御システムのサイバーセキュリティに関する技術肢であり、法令改正監査の対象外である。"
-        ],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による正誤影響の対象外である。",
-          "displayRefIds": [],
-          "explanationText": "製造設備の制御システムでは、サイバー攻撃等のリスクを踏まえた適切な対策が必要である。",
-          "promptContext": "制御システムの保安及びサイバーセキュリティに関する技術知識として扱う。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "matched",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [
-          "ベントスタックに周囲への障害を防ぐ措置を求める記述は現行でも正しく、correctChoiceTextは維持する。"
+          "制御システムにサイバー攻撃等のリスクを踏まえた適切なセキュリティ対策を講ずる記述は、現行でも正しい。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "現行のガス工作物の技術上の基準を定める省令第13条第2項にも同じ要件が定められている。"
+          "ガス事業法施行規則第148条第1項第6号により、ガス工作物の運転又は操作を管理する電子計算機に係るサイバーセキュリティの確保が保安規程事項とされている。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "正誤に影響する現行法との差異はない。",
+          "differenceSummary": "正誤に影響する現行法との差異は確認されない。",
           "displayRefIds": [
-            "choice-3-ref-1"
+            "choice-2-ref-1"
           ],
-          "explanationText": "ベントスタックには、放出ガスが周囲に障害を与えないよう適切な措置が求められる。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第13条第2項を根拠とする。",
+          "explanationText": "製造設備の運転及び監視に係る制御システムでは、サイバー攻撃等のリスクを判断し、適切なセキュリティ対策を講ずる必要がある。",
+          "promptContext": "ガス事業法施行規則第148条第1項第6号を根拠とする。",
           "refs": [
             {
-              "article": "13",
+              "article": "148",
               "articleTextHash": "unknown",
-              "elm": "Article_13",
-              "encodedElm": "Article_13",
+              "elm": "Article_148",
+              "encodedElm": "Article_148",
               "highlightElms": [
-                "Article_13-Paragraph_2"
+                "Article_148-Paragraph_1-Item_6"
               ],
-              "item": "none",
-              "lawId": "412M50000400111",
-              "lawRevisionId": "current-2026-07-17",
+              "item": "6",
+              "lawId": "345M50000400097",
+              "lawRevisionId": "current-2026-07-31",
               "lawTimeScope": "current",
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "paragraph": "2",
+              "lawTitle": "ガス事業法施行規則",
+              "paragraph": "1",
               "primaryBasis": true,
-              "refId": "choice-3-ref-1",
+              "refId": "choice-2-ref-1",
               "relation": "basis",
-              "rootArticleElm": "Article_13",
+              "rootArticleElm": "Article_148",
               "subitem": "none",
               "textHash": "unknown"
             }
@@ -4984,17 +4972,67 @@
       },
       {
         "answerImpactFacts": [
-          "遮断装置に誤操作防止及び確実な操作の措置を求める記述は現行でも正しく、correctChoiceTextは維持する。"
+          "ベントスタックに周囲への障害を防ぐ措置を求める記述は、試験時点も現行も正しい。"
         ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "現行のガス工作物の技術上の基準を定める省令第20条第1項にも同じ要件が定められている。"
+          "ガス工作物の技術上の基準を定める省令第13条第2項は、試験時点と現行で正誤に影響する差異がない。"
         ],
         "evidenceSummary": {
-          "differenceSummary": "正誤に影響する現行法との差異はない。",
+          "differenceSummary": "試験時点と現行の条文は同一で、正誤への影響はない。",
+          "displayRefIds": [
+            "choice-3-ref-1"
+          ],
+          "explanationText": "ベントスタックには、放出したガスが周囲に障害を与えるおそれがないよう適切な措置が求められる。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第13条第2項を根拠とする。",
+          "refs": [
+            {
+              "article": "13",
+              "articleTextHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+              "elm": "Article_13",
+              "encodedElm": "Article_13",
+              "highlightElms": [
+                "Article_13-Paragraph_2"
+              ],
+              "item": "none",
+              "lawId": "412M50000400111",
+              "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+              "lawTimeScope": "current",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "paragraph": "2",
+              "primaryBasis": true,
+              "refId": "choice-3-ref-1",
+              "relation": "basis",
+              "rootArticleElm": "Article_13",
+              "subitem": "none",
+              "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "遮断装置に誤操作防止及び確実な操作の措置を求める記述は、試験時点も現行も正しい。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "ガス工作物の技術上の基準を定める省令第20条第1項は、試験時点と現行で正誤に影響する差異がない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行の条文は同一で、正誤への影響はない。",
           "displayRefIds": [
             "choice-4-ref-1"
           ],
@@ -5003,7 +5041,7 @@
           "refs": [
             {
               "article": "20",
-              "articleTextHash": "unknown",
+              "articleTextHash": "f98e1afe2a7694b2d989dc36199a2745d3a21c10fffc21dd1acf2d6b59bcf475",
               "elm": "Article_20",
               "encodedElm": "Article_20",
               "highlightElms": [
@@ -5011,7 +5049,7 @@
               ],
               "item": "none",
               "lawId": "412M50000400111",
-              "lawRevisionId": "current-2026-07-17",
+              "lawRevisionId": "412M50000400111_20240427_506M60000400035",
               "lawTimeScope": "current",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "paragraph": "1",
@@ -5020,7 +5058,7 @@
               "relation": "basis",
               "rootArticleElm": "Article_20",
               "subitem": "none",
-              "textHash": "unknown"
+              "textHash": "f98e1afe2a7694b2d989dc36199a2745d3a21c10fffc21dd1acf2d6b59bcf475"
             }
           ],
           "verdict": "same_as_current"
@@ -5056,7 +5094,7 @@
         "title": "ガス工作物の技術上の基準を定める省令"
       }
     ],
-    "lawContextForExplanation": "第1肢はガス工作物の技術上の基準を定める省令第31条第3項の液化ガス流出防止措置、第4肢は同省令第13条第2項のベントスタック、第5肢は同省令第20条第1項の遮断装置が直接の根拠となる。第2肢と第3肢は保安設備に関する技術知識として扱う。",
+    "lawContextForExplanation": "第1肢はガス工作物の技術上の基準を定める省令第31条第3項の液化ガス流出防止措置、第3肢はガス事業法施行規則第148条第1項第6号の電子計算機に係るサイバーセキュリティ確保、第4肢はガス工作物の技術上の基準を定める省令第13条第2項のベントスタック、第5肢は同省令第20条第1項の遮断装置が根拠となる。第2肢は保安電源設備に関する技術知識として扱う。",
     "suggestedQuestionDetailsByChoice": []
   },
   {

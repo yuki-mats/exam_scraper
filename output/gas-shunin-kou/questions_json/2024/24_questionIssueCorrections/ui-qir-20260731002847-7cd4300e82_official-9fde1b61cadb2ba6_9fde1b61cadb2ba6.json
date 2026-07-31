@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260731002847-7cd4300e82",
+  "category": "image",
+  "caseIds": [
+    "ui-official-7cd4300e8273b1955aa6"
+  ],
+  "inputCaseHashes": {
+    "ui-official-7cd4300e8273b1955aa6": "7cd4300e8273b1955aa6302880a7987d7e6253c72288f3ccf052396db450a704"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "1268a4ba7ee48c8428f42bb40467bb31c071133a7785860f74bcaab7e02fcfbc",
+    "6ed454df771f135fc0e0dd6b17b413c0eac4363e4fbe4783dc539c8aed934d24"
+  ],
+  "challengeReviewHash": "ce0a5276be4954107871de1432ce75a97d7ba034987e7dad8840ed907e1b9ab2",
+  "createdAt": "2026-07-31T00:30:00.957592Z",
+  "entries": [
+    {
+      "original_question_id": "9fde1b61cadb2ba6",
+      "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q06",
+      "reviewQuestionId": "9fde1b61cadb2ba6",
+      "sourceRecordRef": "question_2024_gassyunin_site_1.json#21",
+      "expectedBeforeHash": "2deb56e2ab72c454a00603069dc2ad3e0382710fdd4ca5771fa1769d93880da9",
+      "changes": {
+        "questionImageStorageUrls": [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-kou%2Fofficial-source-2024-9fde1b61cadb2ba6-6ca313fa113d393e.png?alt=media"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=image, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/q_kou_r6/q06-energy-diagram.png / 基礎理論 問6（PDF 18ページ）のエネルギー変化図",
+          "title": "一般財団法人 日本ガス機器検査協会 令和6年度ガス主任技術者試験 甲種問題",
+          "verifiedAt": "2026-07-31T00:28:47.326562Z",
+          "contentHash": "6ca313fa113d393e1b271b7f7ca825f437bc60f84133478e9ff2ec16767ef9e3"
+        }
+      ]
+    }
+  ]
+}

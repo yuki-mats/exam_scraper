@@ -1297,10 +1297,10 @@
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
     "explanationText": [
       "間違い。工事計画箇所に他埋設設備がある場合、施工通知を行い、保安措置等について協議する相手は、道路使用を許可した所轄警察署ではなく、上下水道・電気・通信などの他埋設物の管理者である。",
-      "正しい。アスファルト・コンクリートは、建設工事に係る資材の再資源化等に関する法律第2条第5項及び同法施行令第1条の特定建設資材に含まれる。同法第9条及び同法施行令第2条に該当する対象建設工事では、同法第10条による事前届出と同法第16条による再資源化等が必要である。",
+      "正しい。アスファルト・コンクリートは、建設リサイクル法施行令第1条で定める特定建設資材に含まれる。一定規模以上の対象建設工事では、建設リサイクル法第10条による事前届出と、同法第16条による再資源化等が必要になるため、記述は正しい。",
       "間違い。数メートル間隔で多数の揚水管を打ち込み、集水管を介して真空ポンプで揚水して地下水位を下げる工法は、重力排水法ではなくウェルポイント工法である。",
-      "間違い。中圧以上の導管であっても、すべてについて耐圧試験が必要とは限らない。ガス工作物の技術上の基準を定める省令第15条第2項第1号及び第2号は、非破壊試験に合格した溶接導管や、所定の試験条件を満たす延長15メートル未満の高圧・中圧導管等を例外としている。",
-      "間違い。ガス検知器を用いる気密試験では、試験ガスの濃度が0.2％以下で作動する検知器を使用し、その検知器が作動しないことにより判定する。根拠はガス工作物の技術上の基準を定める省令第15条第3項及び経済産業省のガス工作物技術基準の解釈例第26条第2項第2号であり、0.5％以下とする記述は誤りである。"
+      "間違い。中圧以上の導管であっても、すべてについて耐圧試験が必要とは限らない。ガス工作物の技術上の基準を定める省令第15条第2項は、非破壊試験に合格した溶接導管や、所定条件を満たす延長15メートル未満の高圧・中圧導管等を例外としている。",
+      "間違い。ガス検知器を用いる気密試験では、試験ガスの濃度が0.2％以下で作動する検知器を使用し、その検知器が作動しないことにより判定する。0.5％以下で作動する検知器とする記述は誤りである。根拠は、ガス工作物の技術上の基準を定める省令第15条第3項及びガス工作物技術基準の解釈例第51条である。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
@@ -1346,7 +1346,7 @@
           "choiceIndex": 1,
           "lawId": "412AC0000000104",
           "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_xml",
@@ -1357,10 +1357,10 @@
           "choiceIndex": 1,
           "lawId": "412AC0000000104",
           "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
-          "source": "mlit_official_web",
+          "source": "egov_xml",
           "verificationStatus": "verified"
         },
         {
@@ -1368,7 +1368,7 @@
           "choiceIndex": 1,
           "lawId": "412AC0000000104",
           "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_xml",
@@ -1379,7 +1379,7 @@
           "choiceIndex": 1,
           "lawId": "412AC0000000104",
           "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_xml",
@@ -1390,7 +1390,7 @@
           "choiceIndex": 1,
           "lawId": "412CO0000000495",
           "lawTitle": "建設工事に係る資材の再資源化等に関する法律施行令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_xml",
@@ -1401,10 +1401,10 @@
           "choiceIndex": 1,
           "lawId": "412CO0000000495",
           "lawTitle": "建設工事に係る資材の再資源化等に関する法律施行令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
-          "source": "mlit_official_web",
+          "source": "egov_xml",
           "verificationStatus": "verified"
         }
       ],
@@ -1415,7 +1415,7 @@
           "choiceIndex": 3,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_xml",
@@ -1428,7 +1428,7 @@
           "choiceIndex": 4,
           "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-30",
+          "referenceDate": "2026-07-31",
           "role": "current_basis",
           "scope": "choice",
           "source": "egov_xml",
@@ -1472,7 +1472,7 @@
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "現行の建設リサイクル法令による判定は、出題時の正誤判定と一致する。"
+          "建設リサイクル法第2条、第9条、第10条、第16条及び同法施行令第1条、第2条は、試験時点と現行で判定に影響する差がない。"
         ],
         "evidenceSummary": {
           "differenceSummary": "現行法による正答変更はない。",
@@ -1524,7 +1524,7 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "現行省令の耐圧試験規定による判定は、出題時の正誤判定と一致する。"
+          "ガス工作物の技術上の基準を定める省令第15条は、試験時点と現行で判定に影響する差がない。"
         ],
         "evidenceSummary": {
           "differenceSummary": "現行法による正答変更はない。",
@@ -1550,13 +1550,13 @@
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "現行省令及び経済産業省解釈例による判定は、出題時の正誤判定と一致する。"
+          "ガス工作物の技術上の基準を定める省令第15条は、試験時点と現行で判定に影響する差がない。"
         ],
         "evidenceSummary": {
           "differenceSummary": "現行の技術基準及び公式解釈による正答変更はない。",
           "displayRefIds": [],
-          "explanationText": "気密試験に用いる検知器の作動濃度は0.2％以下である。",
-          "promptContext": "ガス工作物の技術上の基準を定める省令第15条第3項及び経済産業省解釈例第26条第2項第2号を根拠とする。",
+          "explanationText": "気密試験に用いる検知器の作動濃度は0.2％以下であり、解釈例の根拠条番号は第51条で整理する。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第15条第3項及び経済産業省のガス工作物技術基準の解釈例第51条を根拠とする。",
           "refs": [],
           "verdict": "same_as_current"
         },
@@ -1636,29 +1636,29 @@
     "explanationReferences": [
       {
         "choiceIndex": 1,
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412AC0000000104?asof=2026-07-30",
-        "title": "建設工事に係る資材の再資源化等に関する法律（第2条、第10条及び第16条）"
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412AC0000000104?asof=2026-07-31",
+        "title": "建設工事に係る資材の再資源化等に関する法律（第2条、第9条、第10条及び第16条）"
       },
       {
         "choiceIndex": 1,
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412CO0000000495?asof=2026-07-30",
-        "title": "建設工事に係る資材の再資源化等に関する法律施行令（第1条）"
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412CO0000000495?asof=2026-07-31",
+        "title": "建設工事に係る資材の再資源化等に関する法律施行令（第1条及び第2条）"
       },
       {
-        "referenceDate": "2026-07-30",
-        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-07-30",
+        "referenceDate": "2026-07-31",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-07-31",
         "title": "ガス工作物の技術上の基準を定める省令（第15条）"
       },
       {
         "choiceIndex": 4,
-        "referenceDate": "2026-07-30",
+        "referenceDate": "2026-07-31",
         "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
-        "title": "ガス工作物技術基準の解釈例"
+        "title": "ガス工作物技術基準の解釈例（第51条）"
       }
     ],
-    "lawContextForExplanation": "第2肢は建設リサイクル法第2条、第9条、第10条、第16条及び同法施行令第1条、第2条、第4肢はガス工作物技術基準省令第15条第2項、第5肢は同条第3項及び経済産業省解釈例第26条第2項第2号を根拠とする。第1肢と第3肢は技術・実務知識として扱う。",
+    "lawContextForExplanation": "第2肢は建設リサイクル法第2条、第9条、第10条、第16条及び同法施行令第1条、第2条、第4肢はガス工作物技術基準省令第15条第2項、第5肢は同条第3項及び経済産業省のガス工作物技術基準の解釈例第51条を根拠とする。第1肢と第3肢は技術・実務知識として扱う。",
     "suggestedQuestionDetailsByChoice": []
   },
   {
@@ -2248,10 +2248,10 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
     "explanationText": [
-      "間違い。高圧導管の液状化に対する耐震性は、液状化により地盤及び管体に生じる変位を算出し、導管の終局限界状態に対応する限界変位と比較して評価する。設計地盤変位と比較するとしているため誤りである。",
-      "正しい。第1次緊急停止判断の基準値は、供給継続地区の想定被害数が緊急時対応能力の範囲内に収まるよう、あらかじめ設定する。",
-      "正しい。供給継続地区の需要家からガス漏えい通報があった場合は、供給停止地区より優先して迅速かつ適切に対応し、ガスによる二次災害の防止に必要な措置を講ずる。",
-      "間違い。地震対策が設計対策、緊急対策、復旧対策の三つで構成される点は正しいが、安全かつ可能な限り速やかにガスの供給を再開することが基本となるのは復旧対策である。緊急対策としているため誤りである。",
+      "間違い。高圧導管の液状化に対する耐震性は、液状化により地盤及び管体に生じる変位を算出し、導管の終局限界状態に対応する限界変位と比較して評価する。記述は比較対象を設計地盤変位としているため誤りである。",
+      "正しい。第1次緊急停止判断の基準値は、供給継続地区の想定被害数が緊急時対応能力の範囲内に収まるよう、あらかじめ設定する。地震時にも必要な保安対応能力を超えない範囲で供給継続地区を残すための基準である。",
+      "正しい。供給継続地区の需要家からガス漏えい通報があった場合は、供給停止地区より優先して迅速かつ適切に対応し、ガスによる二次災害の防止に必要な措置を講ずる。供給が継続している地区では漏えいが事故につながるおそれがあるためである。",
+      "間違い。地震対策の三本柱は設備対策、緊急対策、復旧対策であり、記述の「設計対策」は正しい区分ではない。また、安全かつ可能な限り速やかにガスの供給を再開することが基本となるのは復旧対策であり、緊急対策としている点も誤りである。",
       "正しい。ガス防災支援システム（G-React）は、大規模地震発生時の早期復旧のため、国とガス事業者が被害情報や復旧活動に必要な情報を共有するためのシステムである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -2434,7 +2434,7 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現在で、法令改正による正誤変更を検討する対象ではない。",
           "displayRefIds": [],
-          "explanationText": "地震対策の三分類と復旧対策の目的を問う技術・運用問題であり、法令改正監査の対象外と判断した。",
+          "explanationText": "地震対策の三本柱と復旧対策の目的を問う技術・運用問題であり、法令改正監査の対象外と判断した。",
           "promptContext": "技術・運用問題として、既存の正誤を維持する。",
           "refs": [],
           "verdict": "not_law_related"

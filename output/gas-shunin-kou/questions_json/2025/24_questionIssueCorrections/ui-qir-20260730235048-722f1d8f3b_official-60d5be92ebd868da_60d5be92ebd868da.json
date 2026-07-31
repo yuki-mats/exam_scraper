@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260730235048-722f1d8f3b",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-722f1d8f3bf469a46517"
+  ],
+  "inputCaseHashes": {
+    "ui-official-722f1d8f3bf469a46517": "722f1d8f3bf469a46517373caa00f4e2333f868a71e2b73e76e4f7b43cda2e88"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "7fcf217dc386ca463151b5f2bd3b27be08725b02138be8e0cbc47963d671e15e",
+    "b9ea3af6ac0657aae1d0e20476df5e1780c44075b7970ccb03c01384c0ffcaab"
+  ],
+  "challengeReviewHash": "a0bfd6f7e0bb5b0e06c0516bb70b4c134c7384fb1fd905c1785217e785eab012",
+  "createdAt": "2026-07-30T23:52:12.496595Z",
+  "entries": [
+    {
+      "original_question_id": "60d5be92ebd868da",
+      "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q20",
+      "reviewQuestionId": "60d5be92ebd868da",
+      "sourceRecordRef": "question_2025_gassyunin_site_3.json#0",
+      "expectedBeforeHash": "7dbdbec8d9e46c15351e07f36dd39a31d2b62b72bad2072685fdfc9a57016a96",
+      "changes": {
+        "choiceTextList": [
+          "バーナーの炎口負荷は、\n炎口面積に比例し、インプットに反比例する\n。",
+          "一般に、空気比を変化させた時に燃焼速度が速くなると燃焼騒音は大きくなる。",
+          "MCP(燃焼速度指数)は、ガス中の各可燃性ガスの含有率、燃焼速度等の固有の係数及び減衰係数を用いて計算する。",
+          "サーマルNOxは、空気中の窒素と火炎中のCH、CH₂等との反応を経由して生成される。",
+          "フラッシュバックは、ガス・空気混合気体の噴出速度に比べて、燃焼速度が\nバランス点\n以下に遅くなった時に起こる現象である。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/gas_jia_r7/page_render/page_37.png / 消費機器 問20（PDF 37ページ、冊子36ページ）",
+          "title": "令和7年度 ガス主任技術者試験 甲種問題",
+          "verifiedAt": "2026-07-30T23:50:48.529947Z",
+          "contentHash": "23a48b4f52a9974a784c72b0226279df556411bb19a0a6ff17422f7233390c26"
+        }
+      ]
+    }
+  ]
+}

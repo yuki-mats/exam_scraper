@@ -552,11 +552,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "間違い。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。最も近い値は1.1MJであり、0.1MJではない。",
-      "間違い。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。最も近い値は1.1MJであり、0.5MJではない。",
-      "正しい。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。したがって、最も近い値は1.1MJである。",
-      "間違い。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。最も近い値は1.1MJであり、1.5MJではない。",
-      "間違い。定圧膨張なので、シャルルの法則からV₁/T₁＝V₂/T₂が成り立つ。T₁＝273K、V₁＝3m³、V₂＝6m³よりT₂＝546Kである。初期状態の物質量はn＝PV/(RT)＝約132.4molであり、Q＝nCₚ(T₂−T₁)＝約1.055MJとなる。最も近い値は1.1MJであり、2MJではない。"
+      "定圧膨張では圧力が一定なので、理想気体について体積は絶対温度に比例する。初期温度は0℃＝273Kであり、体積が3m³から6m³へ2倍になるため、終状態の温度はT₂＝546K、温度上昇はΔT＝273Kである。また、初期状態から物質量は n＝PV/(RT)＝(100000Pa×3m³)/(8.3J/(mol・K)×273K)≒132.4mol と求まる。したがって、与えられた熱量は Q＝nCₚΔT＝132.4×29.2×273≒1.06×10⁶J＝約1.1MJ となる。よって、最も近い値は1.1MJである。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -582,7 +578,7 @@
     "reviewQuestionId": "firestore:gasushunin-koushu-kiso-2020-4-1,gasushunin-koushu-kiso-2020-4-2,chiefgasengineerlicense-C-10116,gasushunin-koushu-kiso-2020-4-4,gasushunin-koushu-kiso-2020-4-5",
     "sourceRecordRef": "question_2020_firestore_3.json#3",
     "explanationReferences": [],
-    "lawContextForExplanation": "理想気体の状態方程式、シャルルの法則及び定圧熱容量による熱量計算を扱う技術・理論問題であり、法令条文を主要根拠としない。",
+    "lawContextForExplanation": "理想気体の状態方程式、定圧変化における体積と絶対温度の比例関係、及び定圧モル熱容量による熱量計算を扱う技術・理論問題であり、法令条文を主要根拠としない。",
     "lawReferences": [
       [],
       [],
@@ -604,7 +600,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "explanationText": "与えられた条件から、定圧膨張時の温度変化と定圧モル熱容量による熱量を計算して判定する。",
           "promptContext": "2020年甲種基礎理論問4、選択肢0.1MJ。",
           "refs": [],
           "verdict": "not_law_related"
@@ -631,7 +627,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "explanationText": "与えられた条件から、定圧膨張時の温度変化と定圧モル熱容量による熱量を計算して判定する。",
           "promptContext": "2020年甲種基礎理論問4、選択肢0.5MJ。",
           "refs": [],
           "verdict": "not_law_related"
@@ -658,7 +654,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "explanationText": "与えられた条件から、定圧膨張時の温度変化と定圧モル熱容量による熱量を計算して判定する。",
           "promptContext": "2020年甲種基礎理論問4、選択肢1.1MJ。",
           "refs": [],
           "verdict": "not_law_related"
@@ -685,7 +681,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "explanationText": "与えられた条件から、定圧膨張時の温度変化と定圧モル熱容量による熱量を計算して判定する。",
           "promptContext": "2020年甲種基礎理論問4、選択肢1.5MJ。",
           "refs": [],
           "verdict": "not_law_related"
@@ -712,7 +708,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
-          "explanationText": "熱力学の法則と与えられた物性値による計算だけで正誤を判定できる。",
+          "explanationText": "与えられた条件から、定圧膨張時の温度変化と定圧モル熱容量による熱量を計算して判定する。",
           "promptContext": "2020年甲種基礎理論問4、選択肢2MJ。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1476,11 +1472,7 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
     "explanationText": [
-      "間違い。混合ガスの燃焼下限界は、ル・シャトリエの式 L=100/(M/5.0+P/2.0) で求める。メタン20vol%、プロパン80vol%では、L=100/(20/5.0+80/2.0)≒2.27vol%となり、3.8vol%に最も近い組成ではない。",
-      "間違い。メタン40vol%、プロパン60vol%では、ル・シャトリエの式から L=100/(40/5.0+60/2.0)≒2.63vol%となるため、3.8vol%に最も近い組成ではない。",
-      "間違い。メタン50vol%、プロパン50vol%では、ル・シャトリエの式から L=100/(50/5.0+50/2.0)≒2.86vol%となるため、3.8vol%に最も近い組成ではない。",
-      "間違い。メタン60vol%、プロパン40vol%では、ル・シャトリエの式から L=100/(60/5.0+40/2.0)=3.125vol%となる。3.8vol%に近づくが、選択肢中で最も近い組成ではない。",
-      "正しい。メタン80vol%、プロパン20vol%では、ル・シャトリエの式から L=100/(80/5.0+20/2.0)≒3.85vol%となり、選択肢中で3.8vol%に最も近い。したがって、求める混合組成はメタン80vol%、プロパン20vol%である。"
+      "メタンの体積百分率を x、プロパンを 100−x とすると、混合ガスの燃焼下限界 L はル・シャトリエの式により L=100/{x/5.0+(100−x)/2.0} で求める。L=3.8 を代入すると、x/5.0+(100−x)/2.0=100/3.8 となり、x は約78.9vol%である。したがって、選択肢の中で最も近い混合組成はメタン80vol%、プロパン20vol%である。各選択肢を式に代入すると、メタン20%・プロパン80%は約2.27vol%、40%・60%は約2.63vol%、50%・50%は約2.86vol%、60%・40%は3.125vol%、80%・20%は約3.85vol%となるため、正しいのは「メタン80 プロパン20」である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
@@ -1529,8 +1521,8 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による計算値は約2.27vol%である。",
-          "promptContext": "メタン20vol%・プロパン80vol%の混合燃焼下限界を計算する。",
+          "explanationText": "メタン20vol%・プロパン80vol%の混合ガスの燃焼下限界は約2.27vol%であり、3.8vol%に最も近い組成ではない。",
+          "promptContext": "メタンとプロパンの混合ガスについて、ル・シャトリエの式で燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1538,7 +1530,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "計算値は約2.27vol%である。"
+          "メタン20vol%・プロパン80vol%では、ル・シャトリエの式による燃焼下限界は約2.27vol%である。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -1557,8 +1549,8 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による計算値は約2.63vol%である。",
-          "promptContext": "メタン40vol%・プロパン60vol%の混合燃焼下限界を計算する。",
+          "explanationText": "メタン40vol%・プロパン60vol%の混合ガスの燃焼下限界は約2.63vol%であり、3.8vol%に最も近い組成ではない。",
+          "promptContext": "メタンとプロパンの混合ガスについて、ル・シャトリエの式で燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1566,7 +1558,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "計算値は約2.63vol%である。"
+          "メタン40vol%・プロパン60vol%では、ル・シャトリエの式による燃焼下限界は約2.63vol%である。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -1585,8 +1577,8 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による計算値は約2.86vol%である。",
-          "promptContext": "メタン50vol%・プロパン50vol%の混合燃焼下限界を計算する。",
+          "explanationText": "メタン50vol%・プロパン50vol%の混合ガスの燃焼下限界は約2.86vol%であり、3.8vol%に最も近い組成ではない。",
+          "promptContext": "メタンとプロパンの混合ガスについて、ル・シャトリエの式で燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1594,7 +1586,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "計算値は約2.86vol%である。"
+          "メタン50vol%・プロパン50vol%では、ル・シャトリエの式による燃焼下限界は約2.86vol%である。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -1613,8 +1605,8 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による計算値は3.125vol%である。",
-          "promptContext": "メタン60vol%・プロパン40vol%の混合燃焼下限界を計算する。",
+          "explanationText": "メタン60vol%・プロパン40vol%の混合ガスの燃焼下限界は3.125vol%であり、3.8vol%に近づくが選択肢中で最も近い組成ではない。",
+          "promptContext": "メタンとプロパンの混合ガスについて、ル・シャトリエの式で燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1622,7 +1614,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "計算値は3.125vol%である。"
+          "メタン60vol%・プロパン40vol%では、ル・シャトリエの式による燃焼下限界は3.125vol%である。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
@@ -1641,8 +1633,8 @@
         "evidenceSummary": {
           "differenceSummary": "試験時点と現行時点の法令差分は適用されない。",
           "displayRefIds": [],
-          "explanationText": "ル・シャトリエの式による計算値は約3.85vol%であり、選択肢中で3.8vol%に最も近い。",
-          "promptContext": "メタン80vol%・プロパン20vol%の混合燃焼下限界を計算する。",
+          "explanationText": "メタン80vol%・プロパン20vol%の混合ガスの燃焼下限界は約3.85vol%であり、選択肢中で3.8vol%に最も近い。",
+          "promptContext": "メタンとプロパンの混合ガスについて、ル・シャトリエの式で燃焼下限界を計算する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -1650,7 +1642,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "計算値は約3.85vol%であり、3.8vol%に最も近い。"
+          "メタン80vol%・プロパン20vol%では、ル・シャトリエの式による燃焼下限界は約3.85vol%であり、3.8vol%に最も近い。"
         ],
         "reconciliationStatus": "not_applicable_non_law",
         "reviewState": "secondary_verified"
