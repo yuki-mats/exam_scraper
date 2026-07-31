@@ -52,6 +52,7 @@ EXPLICIT_INCORRECT_STATEMENT_REQUESTS = (
     "正しくないもの",
     "不適切なもの",
     "適切でないもの",
+    "該当しないもの",
 )
 EXPLICIT_CORRECT_STATEMENT_REQUESTS = (
     "正しいもの",
@@ -60,18 +61,18 @@ EXPLICIT_CORRECT_STATEMENT_REQUESTS = (
 
 
 def explicit_statement_question_intent(value: Any) -> str | None:
-    """Read only unambiguous correct/incorrect requests about statements."""
+    """Read an unambiguous correct/incorrect selection request."""
 
     if not isinstance(value, str):
         return None
     normalized = "".join(value.split())
-    if "記述" not in normalized:
-        return None
     selects_incorrect = any(
         token in normalized
         for token in EXPLICIT_INCORRECT_STATEMENT_REQUESTS
     )
-    positive_text = normalized.replace("不適切なもの", "")
+    positive_text = normalized
+    for token in EXPLICIT_INCORRECT_STATEMENT_REQUESTS:
+        positive_text = positive_text.replace(token, "")
     selects_correct = any(
         token in positive_text
         for token in EXPLICIT_CORRECT_STATEMENT_REQUESTS
@@ -218,6 +219,45 @@ def uses_trusted_gassyunin_judge_answers(record: dict[str, Any]) -> bool:
         and len({str(value).strip() for value in judge_markers})
         == statement_count
         and all(str(value).strip() for value in judge_markers)
+    )
+
+
+def uses_official_firestore_statement_answers(record: dict[str, Any]) -> bool:
+    """Return whether every statement verdict is preserved as an official doc."""
+
+    if (
+        record.get("sourceOrigin") != "firestore_snapshot"
+        or record.get("sourceAcquisitionMethod") != "firestore_snapshot"
+    ):
+        return False
+    choices = record.get("choiceTextList")
+    correct_choices = record.get("correctChoiceText")
+    documents = record.get("firestoreSourceQuestions")
+    if not all(
+        isinstance(values, list) and bool(values)
+        for values in (choices, correct_choices, documents)
+    ):
+        return False
+    if not len(documents) == len(choices) == len(correct_choices):
+        return False
+
+    def normalized_verdict(value: Any) -> bool | None:
+        normalized = str(value or "").strip().casefold()
+        if normalized in {"正しい", "正解", "○", "〇", "true"}:
+            return True
+        if normalized in {"間違い", "不正解", "誤り", "×", "false"}:
+            return False
+        return None
+
+    return all(
+        isinstance(document, dict)
+        and document.get("isOfficial") is True
+        and document.get("originalQuestionChoiceText") == choices[index]
+        and normalized_verdict(document.get("correctChoiceText"))
+        is not None
+        and normalized_verdict(document.get("correctChoiceText"))
+        == normalized_verdict(correct_choices[index])
+        for index, document in enumerate(documents)
     )
 
 

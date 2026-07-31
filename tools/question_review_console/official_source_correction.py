@@ -1,11 +1,19 @@
 from __future__ import annotations
 
 import hashlib
+import mimetypes
 import os
 import re
+import shutil
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
+from scripts.common.image_storage_urls import (
+    FIREBASE_STORAGE_BUCKET,
+    build_public_storage_url,
+    build_storage_object_path,
+)
+from scripts.upload.upload_question_images_to_storage import make_storage_bucket
 from tools.question_bank.question_issue_reports import (
     DEFAULT_CONFIG_PATH,
     ReviewExecutor,
@@ -147,6 +155,7 @@ class OfficialSourceCorrectionService:
         record_finder: Callable[..., Any] = find_current_question_record,
         patch_verifier: Callable[..., Any] = verify_patch_against_record,
         page_renderer: Callable[[Path, int, Path], None] | None = None,
+        image_publisher: Callable[..., Mapping[str, str]] | None = None,
     ):
         self.repo_root = repo_root.resolve()
         self.app_server = app_server
@@ -156,6 +165,7 @@ class OfficialSourceCorrectionService:
         self.record_finder = record_finder
         self.patch_verifier = patch_verifier
         self.page_renderer = page_renderer or self._render_pdf_page
+        self.image_publisher = image_publisher or self._publish_question_image
 
     def run(
         self,
@@ -178,9 +188,10 @@ class OfficialSourceCorrectionService:
                 "画面表示後に問題内容が更新されました。問題を開き直してください。"
             )
         category_id = str(category or "").strip()
-        if category_id not in {"question_content", "correct_answer"}:
+        if category_id not in {"question_content", "correct_answer", "image"}:
             raise OfficialSourceCorrectionError(
-                "公式資料との照合対象は問題文・選択肢又は正答を指定してください。"
+                "公式資料との照合対象は問題文・選択肢、問題画像又は正答を"
+                "指定してください。"
             )
         category_config = self.config["categories"][category_id]
 
@@ -290,6 +301,22 @@ class OfficialSourceCorrectionService:
             work_item,
             output_root=self.repo_root / "output",
         )
+        image_publication: dict[str, Any] | None = None
+        if category_id == "image":
+            image_publication = self._image_publication_candidate(
+                qualification=qualification,
+                list_group_id=list_group_id,
+                original_question_id=original_question_id,
+                current_record=current_record,
+                rendered_evidence=rendered_evidence,
+                evidence_hash=evidence_hash,
+            )
+            canonical_snapshot["officialImagePublicationCandidate"] = {
+                "localImagePath": image_publication["localImagePath"],
+                "publicUrl": image_publication["publicUrl"],
+                "contentHash": evidence_hash,
+                "proposedChanges": image_publication["proposedChanges"],
+            }
         executor = AppServerReviewExecutor(
             self.app_server,
             repo_root=self.repo_root,
@@ -327,6 +354,12 @@ class OfficialSourceCorrectionService:
             locator=locator,
             local_path=evidence_relative_path,
         )
+        if image_publication is not None:
+            changes = challenge.get("changes")
+            if changes != image_publication["proposedChanges"]:
+                raise OfficialSourceCorrectionError(
+                    "画像補正はserverが固定した新規画像URLだけを反映できます。"
+                )
         patch = build_correction_patch(
             manifest=manifest,
             work_item=work_item,
@@ -345,6 +378,20 @@ class OfficialSourceCorrectionService:
             source_identity=source_identity,
             config_path=self.config_path,
         )
+        if image_publication is not None:
+            published = self.image_publisher(
+                qualification=qualification,
+                source_path=rendered_evidence,
+                local_path=self.repo_root / image_publication["localImagePath"],
+                filename=image_publication["filename"],
+                public_url=image_publication["publicUrl"],
+                content_hash=evidence_hash,
+                emit=emit,
+            )
+            if str(published.get("publicUrl") or "") != image_publication["publicUrl"]:
+                raise OfficialSourceCorrectionError(
+                    "画像公開後のURLが補正patchのURLと一致しません。"
+                )
 
         target_dir = (
             self.repo_root
@@ -423,6 +470,126 @@ class OfficialSourceCorrectionService:
             for block in iter(lambda: handle.read(1024 * 1024), b""):
                 digest.update(block)
         return digest.hexdigest()
+
+    def _image_publication_candidate(
+        self,
+        *,
+        qualification: str,
+        list_group_id: str,
+        original_question_id: str,
+        current_record: Mapping[str, Any],
+        rendered_evidence: Path,
+        evidence_hash: str,
+    ) -> dict[str, Any]:
+        suffix = rendered_evidence.suffix.casefold()
+        if suffix not in {".png", ".jpg", ".jpeg", ".webp"}:
+            raise OfficialSourceCorrectionError(
+                "問題画像の補正には、必要な図表だけを切り出した"
+                "PNG/JPEG/WEBPを指定してください。"
+            )
+        existing = current_record.get("questionImageStorageUrls")
+        if existing is None:
+            current_urls: list[str] = []
+        elif isinstance(existing, list) and all(
+            isinstance(value, str) and value.strip() for value in existing
+        ):
+            current_urls = list(existing)
+        else:
+            raise OfficialSourceCorrectionError(
+                "現在のquestionImageStorageUrlsが文字列配列ではありません。"
+            )
+        filename = (
+            f"official-source-{self._safe_id(list_group_id)}-"
+            f"{self._safe_id(original_question_id)}-{evidence_hash[:16]}{suffix}"
+        )
+        public_url = build_public_storage_url(qualification, filename)
+        proposed_urls = list(current_urls)
+        if public_url not in proposed_urls:
+            proposed_urls.append(public_url)
+        local_path = (
+            Path("output")
+            / qualification
+            / "question_images"
+            / list_group_id
+            / filename
+        )
+        return {
+            "filename": filename,
+            "localImagePath": local_path.as_posix(),
+            "publicUrl": public_url,
+            "proposedChanges": {
+                "questionImageStorageUrls": proposed_urls,
+            },
+        }
+
+    def _publish_question_image(
+        self,
+        *,
+        qualification: str,
+        source_path: Path,
+        local_path: Path,
+        filename: str,
+        public_url: str,
+        content_hash: str,
+        emit: Callable[[str], None],
+    ) -> dict[str, str]:
+        expected_url = build_public_storage_url(qualification, filename)
+        if public_url != expected_url:
+            raise OfficialSourceCorrectionError(
+                "問題画像の公開URLがserverの決定値と一致しません。"
+            )
+        local_path.parent.mkdir(parents=True, exist_ok=True)
+        created_local = False
+        if local_path.exists():
+            if self._file_sha256(local_path) != content_hash:
+                raise OfficialSourceCorrectionError(
+                    f"同名の問題画像と内容が一致しません: "
+                    f"{local_path.relative_to(self.repo_root)}"
+                )
+        else:
+            shutil.copyfile(source_path, local_path)
+            local_path.chmod(0o644)
+            created_local = True
+
+        try:
+            bucket = make_storage_bucket(FIREBASE_STORAGE_BUCKET)
+            object_path = build_storage_object_path(qualification, filename)
+            blob = bucket.blob(object_path)
+            if blob.exists():
+                remote_bytes = blob.download_as_bytes()
+                if hashlib.sha256(remote_bytes).hexdigest() != content_hash:
+                    raise OfficialSourceCorrectionError(
+                        "同名のStorage画像と内容hashが一致しません。"
+                    )
+                emit(f"既存の同一Storage画像を確認しました: gs://{bucket.name}/{object_path}")
+            else:
+                content_type, _ = mimetypes.guess_type(filename)
+                blob.metadata = {
+                    "sha256": content_hash,
+                    "origin": "official_source_correction",
+                }
+                blob.upload_from_filename(
+                    str(local_path),
+                    content_type=content_type,
+                )
+                emit(f"問題画像をStorageへ保存しました: gs://{bucket.name}/{object_path}")
+            blob.reload()
+            if int(blob.size or -1) != local_path.stat().st_size:
+                raise OfficialSourceCorrectionError(
+                    "Storage画像のreadbackサイズがローカル画像と一致しません。"
+                )
+        except Exception:
+            if created_local and local_path.exists():
+                local_path.unlink()
+            raise
+        emit(
+            "問題画像のStorage readbackを確認しました: "
+            f"{local_path.relative_to(self.repo_root)}"
+        )
+        return {
+            "localPath": str(local_path.relative_to(self.repo_root)),
+            "publicUrl": public_url,
+        }
 
     def _prepare_rendered_evidence(
         self,

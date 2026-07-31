@@ -682,10 +682,13 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
                 "公式過去問とexamYearのない暗記プラス独自問題は、いずれも"
                 "true_false、flash_card、group_choiceの3分類で回答体験を表す。"
                 "single_choiceとfill_in_blankはユーザー作成問題だけに使う。"
-                "問題文の条件だけから、choiceTextListを見なくても具体的な答えを"
-                "一意に導ける問題だけをflash_cardとする。choiceTextListの各候補を"
-                "計算又は比較し、その候補が条件を満たすかを個別に判定する問題は、"
-                "計算問題でもtrue_falseとする。最大・最小などを問う問題で、"
+                "問題文の条件、知識、図又は計算から具体的な答えを一意に導き、"
+                "choiceTextListをその答えとの照合にだけ使う問題はflash_cardとする。"
+                "単一の計算結果に最も近い数値候補を選ぶ問題もflash_cardであり、"
+                "数値候補を順番に照合することだけを理由にtrue_falseへ変えない。"
+                "choiceTextListの各肢が互いに異なる条件、物質、反応式などの"
+                "計算対象を持ち、肢ごとに独立して正誤を判定する問題はtrue_false"
+                "とする。最大・最小などを問う問題で、"
                 "choiceTextListが組合せ番号ではなく比較対象そのものを持つ場合も"
                 "true_falseとする。最終回答となる組合せ候補そのものが"
                 "choiceTextListに並び、そこから正答を1つ選ぶ場合だけgroup_choice"
@@ -701,15 +704,11 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
             "type": "string",
             "allowedValues": ["select_correct", "select_incorrect"],
             "description": (
-                "choiceTextListがそれだけで真偽を判定できる完結した記述なら、"
-                "誤り又は不適合を選ばせる設問はselect_incorrectとする。"
-                "問題文が『次の記述のうち、誤っているものはいくつあるか』"
-                "のように記述の正誤方向を明示する場合は、その要求を優先し、"
-                "選択肢が短い又は『場合』で終わることだけで断片肢へ変えない。"
-                "choiceTextListが設備名、名詞句、数値又は対象名などの断片で、"
-                "問題文の『該当しない』『除く』などの述語を補って完全な命題に"
-                "する場合は、その成立する命題を選ぶselect_correctとする。"
-                "断片へ補った否定述語を選択方向としてもう一度反転しない。"
+                "設問が正しい、適切又は条件に合う側を選ばせるなら"
+                "select_correct、誤り、不適切又は該当しない側を選ばせるなら"
+                "select_incorrectとする。choiceTextListが設備名、名詞句、数値、"
+                "対象名などの断片でも、問題文が明示する選択方向を反転しない。"
+                "各肢のcorrectChoiceText判定とquestionIntent判定を混ぜない。"
                 "現在値、正答番号又はcorrectChoiceTextから逆算しない。"
             ),
         },
@@ -1823,9 +1822,9 @@ def validate_candidate_content(
                 == explicit_intent
             )
             errors.append(
-                "questionBodyTextが記述の正誤方向を明示していますが、"
+                "questionBodyTextが選択方向を明示していますが、"
                 "questionIntent候補が一致しません。選択肢が短い又は"
-                "『場合』で終わることだけで、明示された選択方向を"
+                "断片であることを理由に、明示された選択方向を"
                 "反転しないでください。"
                 + (
                     "00_sourceの同一本文・選択肢に対するquestionIntentも"

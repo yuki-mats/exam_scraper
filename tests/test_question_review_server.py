@@ -1452,6 +1452,12 @@ class QuestionReviewServerTests(unittest.TestCase):
                             ],
                         },
                         {
+                            "id": "law_context",
+                            "updateTargets": [
+                                {"selectionId": "law_context.law_context"}
+                            ],
+                        },
+                        {
                             "id": "law_audit",
                             "updateTargets": [
                                 {"selectionId": "law_audit.law_audit"}
@@ -1513,7 +1519,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(runs.mode, "group_refresh")
         self.assertEqual(
             runs.options["stage_ids"],
-            ["explanation", "law_audit"],
+            ["explanation", "law_context", "law_audit"],
         )
         self.assertEqual(
             runs.options["list_group_ids"],
@@ -1523,6 +1529,7 @@ class QuestionReviewServerTests(unittest.TestCase):
             runs.options["update_target_ids"],
             [
                 "explanation.basic_explanation",
+                "law_context.law_context",
                 "law_audit.law_audit",
             ],
         )

@@ -33,6 +33,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn('"24_questionIssueCorrections"', javascript)
         self.assertIn("Blind A/B", html)
         self.assertIn("00_sourceは変更しません", html)
+        self.assertIn('<option value="image">問題画像</option>', html)
 
     def test_qualification_and_group_selectors_use_display_labels_but_keep_ids_as_values(self):
         javascript = APP_PATH.read_text(encoding="utf-8")

@@ -2868,12 +2868,14 @@ class QuestionReviewApplication:
         evaluation = question.get("evaluation")
         evaluation = evaluation if isinstance(evaluation, Mapping) else {}
         status = str(evaluation.get("status") or "not_started")
+        # 機械検証で再整備内容まで確定した問題は、公開前提不足という
+        # 汎用bucketへ滞留させず、通常の再整備queueへ流す。
+        if status == "needs_rework":
+            return "needsRework"
         if not evaluation.get("machineReady"):
             return "maintenance"
         if status in {"not_started", "stale", "running", "inconclusive"}:
             return "unreviewed"
-        if status == "needs_rework":
-            return "needsRework"
         if question.get("workflow", {}).get("firestore") == "match":
             return "published"
         return "publishReady"

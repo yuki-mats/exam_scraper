@@ -17,6 +17,7 @@ from tools.question_review_console.inventory import (
     detect_issues,
     list_group_display_name,
     load_qualification_display_catalog,
+    source_answer_difference_approval,
 )
 import tools.question_review_console.inventory as inventory_module
 from tools.question_review_console.patch_validation import (
@@ -255,6 +256,68 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertFalse(same["different"])
         self.assertTrue(changed["different"])
         self.assertEqual(changed["changedChoiceIndexes"], [0])
+
+    def test_source_answer_difference_requires_exact_verified_answer_patch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_path = (
+                root
+                / "output"
+                / "sample"
+                / "questions_json"
+                / "2026"
+                / "24_questionIssueCorrections"
+                / "answer.json"
+            )
+            write_json(
+                patch_path,
+                {
+                    "schemaVersion": "question-issue-correction/v1",
+                    "origin": "user_problem_report",
+                    "reviewProtocol": "blind-a-b-challenge/v1",
+                    "category": "correct_answer",
+                    "entries": [
+                        {
+                            "sourceQuestionKey": "sample:q1",
+                            "reviewQuestionId": "q1",
+                            "changes": {
+                                "correctChoiceText": ["間違い", "正しい"]
+                            },
+                            "evidence": [
+                                {
+                                    "sourceClass": "official",
+                                    "title": "公式解答",
+                                    "locator": "問1",
+                                    "contentHash": "a" * 64,
+                                    "verifiedAt": "2026-07-31T00:00:00Z",
+                                }
+                            ],
+                        }
+                    ],
+                },
+            )
+
+            approved = source_answer_difference_approval(
+                [patch_path],
+                repo_root=root,
+                source_question_key="sample:q1",
+                review_question_id="q1",
+                current_correct_choice_text=["間違い", "正しい"],
+            )
+            different_value = source_answer_difference_approval(
+                [patch_path],
+                repo_root=root,
+                source_question_key="sample:q1",
+                review_question_id="q1",
+                current_correct_choice_text=["正しい", "間違い"],
+            )
+
+            self.assertTrue(approved["approved"])
+            self.assertEqual(
+                approved["reason"],
+                "verified_correct_answer_patch",
+            )
+            self.assertFalse(different_value["approved"])
 
     def test_invalid_source_record_fails_closed_instead_of_reducing_count(self):
         with tempfile.TemporaryDirectory() as directory:

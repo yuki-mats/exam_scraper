@@ -16,6 +16,7 @@ from tools.question_review_console.evaluation import (
 )
 from tools.question_review_console.codex_app_server import AppServerTurnResult
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
+from tools.question_review_console.server import QuestionReviewApplication
 
 
 def question_payload(*, question_id="api-q1", body="問題1", state_hash="state-1"):
@@ -35,6 +36,17 @@ def question_payload(*, question_id="api-q1", body="問題1", state_hash="state-
         "body": body,
         "choiceCount": 2,
         "stateHash": state_hash,
+        "sourceCorrectChoiceComparison": {
+            "comparable": True,
+            "different": False,
+            "source": ["正しい", "間違い"],
+            "current": ["正しい", "間違い"],
+            "changedChoiceIndexes": [],
+        },
+        "sourceAnswerDifferenceApproval": {
+            "approved": False,
+            "reason": "verified_correct_answer_patch_missing",
+        },
         "issueCodes": [],
         "workflow": {"merge": "match", "convert": "match", "upload": "match"},
         "projected": {
@@ -42,6 +54,11 @@ def question_payload(*, question_id="api-q1", body="問題1", state_hash="state-
             "questionType": "true_false",
             "questionIntent": "select_correct",
             "choiceTextList": ["選択肢A", "選択肢B"],
+            "isCalculationQuestion": False,
+            "questionImageStorageUrls": [
+                "https://example.invalid/question-image.png"
+            ],
+            "originalQuestionChoiceImageUrls": [],
             "correctChoiceText": ["正しい", "間違い"],
             "answer_result_text": "正解は1",
             "explanationText": ["Aの解説", "Bの解説"],
@@ -1515,10 +1532,18 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("複数のtrue又はfalseがあることだけをcriticalIssues", prompt)
         self.assertIn("公式問題のquestionTypeはtrue_false、flash_card、group_choiceの3分類だけ", prompt)
         self.assertIn("single_choiceとfill_in_blankはユーザー作成問題用", prompt)
-        self.assertIn("計算結果を問題文の条件から一意に求める問題はflash_card", prompt)
+        self.assertIn("計算で一つの数値を求め", prompt)
+        self.assertIn("その値に最も近い数値候補を選ぶ問題もflash_card", prompt)
+        self.assertIn("数値候補を一つずつ計算結果と照合することだけを理由にtrue_false化せず", prompt)
         self.assertIn("複数選択形式と誤解して分類変更を求めない", prompt)
         self.assertIn("isCalculationQuestionは計算過程が主要な学習対象かを表し", prompt)
         self.assertIn("questionTypeとは独立に評価", prompt)
+        self.assertIn('"isCalculationQuestion": false', prompt)
+        self.assertIn('"questionImageStorageUrls"', prompt)
+        self.assertIn("https://example.invalid/question-image.png", prompt)
+        self.assertIn("図表画像は問題に添付されている", prompt)
+        self.assertIn("技術式の裏取りに公式規程を使ったことだけを理由に", prompt)
+        self.assertNotIn('"examLabel"', prompt)
         self.assertIn("api/2/law_data/{lawId}?response_format=json", prompt)
         self.assertIn("tagがArticleかつattr.Numが対象条番号に一致", prompt)
         self.assertIn("--retry 3 --retry-all-errors", prompt)
@@ -1643,9 +1668,66 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "3.0")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "4.0")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
+
+    def test_unapproved_source_answer_difference_blocks_publication(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            service.run(
+                question,
+                preview["previewToken"],
+                lambda _line: None,
+            )
+            unapproved = copy.deepcopy(question)
+            unapproved["sourceCorrectChoiceComparison"] = {
+                "comparable": True,
+                "different": True,
+                "source": ["正しい", "間違い"],
+                "current": ["正しい", "正しい"],
+                "changedChoiceIndexes": [1],
+            }
+            blocked = service.status_for(unapproved)
+            approved = copy.deepcopy(unapproved)
+            approved["sourceAnswerDifferenceApproval"] = {
+                "approved": True,
+                "reason": "verified_correct_answer_patch",
+            }
+            allowed = service.status_for(approved)
+
+        self.assertFalse(blocked["machineReady"])
+        self.assertFalse(blocked["publishReady"])
+        self.assertEqual(blocked["status"], "needs_rework")
+        self.assertEqual(
+            [item["stage"] for item in blocked["reworkItems"]],
+            ["02a", "03"],
+        )
+        self.assertEqual(
+            blocked["reworkItems"][0]["choiceIndexes"],
+            [1],
+        )
+        self.assertEqual(
+            QuestionReviewApplication._quality_bucket(
+                {
+                    "evaluation": blocked,
+                    "workflow": {"firestore": "mismatch"},
+                }
+            ),
+            "needsRework",
+        )
+        self.assertIn(
+            "source_answer_difference_unapproved",
+            blocked["blockingIssues"],
+        )
+        self.assertTrue(allowed["machineReady"])
+        self.assertTrue(allowed["publishReady"])
 
     def test_evaluation_freshness_uses_version_not_document_fingerprint(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1665,13 +1747,13 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             same_version = service.status_for(question)
             service.current_policy = lambda: {
                 **original_policy,
-                "policyVersion": "2.1",
+                "policyVersion": "4.1",
                 "policyFingerprint": "new-evaluation-policy",
             }
             minor_version = service.status_for(question)
             service.current_policy = lambda: {
                 **original_policy,
-                "policyVersion": "3.0",
+                "policyVersion": "5.0",
                 "policyFingerprint": "breaking-evaluation-policy",
             }
             next_major = service.status_for(question)
@@ -2055,6 +2137,19 @@ class FakeFirestore:
 
 
 class QuestionPublisherTests(unittest.TestCase):
+    def test_source_answer_difference_has_specific_publication_block_reason(self):
+        reason = QuestionPublisher._quality_block_reason(
+            {
+                "machineReady": False,
+                "blockingIssues": [
+                    "source_answer_difference_unapproved",
+                ],
+            }
+        )
+
+        self.assertIn("00_sourceと異なる正答", reason)
+        self.assertIn("公式資料", reason)
+
     def test_failed_delta_blocks_question_publish_before_firestore_read(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

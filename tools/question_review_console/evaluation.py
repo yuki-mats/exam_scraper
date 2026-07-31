@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
 
 from scripts.common.question_answer_contract import (
+    uses_official_firestore_statement_answers,
     uses_trusted_gassyunin_judge_answers,
 )
 from tools.question_review_console.review_store import atomic_write
@@ -89,32 +90,13 @@ def _source_answer_evidence(
     source_documents: list[dict[str, Any]] = []
     if uses_trusted_gassyunin_judge_answers(source):
         evidence_type = "trusted_gassyunin_judge_statement_verdicts"
-    elif (
-        source.get("sourceOrigin") == "firestore_snapshot"
-        and source.get("sourceAcquisitionMethod") == "firestore_snapshot"
-    ):
+    elif uses_official_firestore_statement_answers(dict(source)):
         raw_documents = source.get("firestoreSourceQuestions")
         source_documents = (
             [dict(value) for value in raw_documents if isinstance(value, Mapping)]
             if isinstance(raw_documents, list)
             else []
         )
-        source_choices = source.get("choiceTextList")
-        source_correct = source.get("correctChoiceText")
-        if (
-            not isinstance(source_choices, list)
-            or not isinstance(source_correct, list)
-            or len(source_documents) != len(source_choices)
-            or len(source_correct) != len(source_choices)
-            or any(
-                document.get("isOfficial") is not True
-                or document.get("originalQuestionChoiceText") != source_choices[index]
-                or _normalize_current_verdict(document.get("correctChoiceText"))
-                != _normalize_current_verdict(source_correct[index])
-                for index, document in enumerate(source_documents)
-            )
-        ):
-            return None
         evidence_type = "official_firestore_snapshot_statement_verdicts"
     else:
         return None
@@ -1631,6 +1613,27 @@ class QuestionEvaluationService:
                 and str(code) not in {"live_mismatch", "firestore_readback_stale"}
             }
         )
+        source_answer_comparison = question.get(
+            "sourceCorrectChoiceComparison"
+        )
+        source_answer_approval = question.get(
+            "sourceAnswerDifferenceApproval"
+        )
+        source_answer_requires_rework = bool(
+            isinstance(source_answer_comparison, Mapping)
+            and source_answer_comparison.get("different") is True
+            and (
+                not isinstance(source_answer_approval, Mapping)
+                or source_answer_approval.get("approved") is not True
+            )
+        )
+        if source_answer_requires_rework:
+            blocking_issues.append("source_answer_difference_unapproved")
+            blocking_issues = sorted(set(blocking_issues))
+            # 00_sourceと異なる正答は、公開だけを止めて「整備が必要」に
+            # 滞留させない。通常の要再整備queueへ流し、02aで正答を再照合し、
+            # 03で正答変更後の解説まで同じrunで整合させる。
+            status = "needs_rework"
         resolved_failed_delta_paths = list(
             unresolved_failed_delta_paths(
                 self.repo_root,
@@ -1677,6 +1680,70 @@ class QuestionEvaluationService:
         else:
             next_action = "publish"
         result = copy.deepcopy(payload) if payload else {}
+        if source_answer_requires_rework:
+            changed_choice_indexes = [
+                value
+                for value in source_answer_comparison.get(
+                    "changedChoiceIndexes"
+                )
+                or []
+                if isinstance(value, int) and not isinstance(value, bool)
+            ]
+            deterministic_rework_items = [
+                {
+                    "stage": "02a",
+                    "message": (
+                        "00_sourceと現在の正答が異なり、公式資料で検証した"
+                        "正答補正patchがありません。00_sourceと公式解答を再照合し、"
+                        "正答を確定してください。"
+                    ),
+                    "choiceIndexes": changed_choice_indexes,
+                },
+                {
+                    "stage": "03",
+                    "message": (
+                        "再照合後の正答に合わせ、全選択肢の解説と"
+                        "正答個数の説明を整合させてください。"
+                    ),
+                    "choiceIndexes": changed_choice_indexes,
+                },
+            ]
+            existing_rework_items = [
+                copy.deepcopy(dict(item))
+                for item in result.get("reworkItems") or []
+                if isinstance(item, Mapping)
+                and str(item.get("stage") or "") not in {"02a", "03"}
+            ]
+            critical_issues = [
+                str(value)
+                for value in result.get("criticalIssues") or []
+                if str(value).strip()
+            ]
+            source_issue = (
+                "00_sourceと異なる正答に、公式資料で検証した"
+                "正答補正patchがありません。"
+            )
+            if source_issue not in critical_issues:
+                critical_issues.append(source_issue)
+            result.update(
+                {
+                    "stateHash": str(question.get("stateHash") or ""),
+                    "resultHash": str(result.get("resultHash") or _json_hash(
+                        {
+                            "questionId": question.get("id"),
+                            "stateHash": question.get("stateHash"),
+                            "issue": "source_answer_difference_unapproved",
+                        }
+                    )),
+                    "summary": source_issue,
+                    "criticalIssues": critical_issues,
+                    "answerMappingMatched": False,
+                    "reworkItems": [
+                        *existing_rework_items,
+                        *deterministic_rework_items,
+                    ],
+                }
+            )
         result.update(
             {
                 "status": status,
@@ -1787,12 +1854,20 @@ class QuestionEvaluationService:
             "stateHash": question.get("stateHash"),
             "qualification": question.get("qualification"),
             "listGroupId": question.get("listGroupId"),
-            "examLabel": question.get("examLabel"),
             "originalQuestionId": question.get("originalQuestionId"),
             "questionBodyText": projected.get("questionBodyText") or question.get("body"),
             "questionType": projected.get("questionType"),
+            "isCalculationQuestion": projected.get("isCalculationQuestion"),
             "questionIntent": projected.get("questionIntent"),
             "choiceTextList": projected.get("choiceTextList"),
+            "questionImageStorageUrls": projected.get("questionImageStorageUrls")
+            or question.get("questionImageStorageUrls")
+            or [],
+            "originalQuestionChoiceImageUrls": projected.get(
+                "originalQuestionChoiceImageUrls"
+            )
+            or question.get("originalQuestionChoiceImageUrls")
+            or [],
             "currentExplanationText": projected.get("explanationText"),
             "isLawRelated": projected.get("isLawRelated"),
             "lawReferences": projected.get("lawReferences"),
@@ -1830,17 +1905,19 @@ class QuestionEvaluationService:
 7. 現在の正誤対応との比較はPython serverが行う。推測して出力へ加えない。
 8. questionTypeがtrue_falseの場合、各選択肢は公開時に独立した○×問題になる。元問題のquestionIntentや「どれか」という表現から正しい肢・誤った肢の個数を一つへ制限せず、各命題を独立に判定する。複数のtrue又はfalseがあることだけをcriticalIssuesや要再整備理由にしない。
 9. 公式問題のquestionTypeはtrue_false、flash_card、group_choiceの3分類だけを使う。single_choiceとfill_in_blankはユーザー作成問題用なので、公式問題の再整備候補として提案しない。
-10. questionTypeがflash_cardの場合、問題文の条件、知識、図又は計算から答えを一意に導き、選択肢は導いた答えとの照合に使う。計算結果を問題文の条件から一意に求める問題はflash_cardであり、5択から1件を選ぶことだけを理由にsingle_choice化又は要再整備にしない。
+10. questionTypeがflash_cardの場合、問題文の条件、知識、図又は計算から答えを一意に導き、選択肢は導いた答えとの照合に使う。計算で一つの数値を求め、その値に最も近い数値候補を選ぶ問題もflash_cardである。数値候補を一つずつ計算結果と照合することだけを理由にtrue_false化せず、5択から1件を選ぶことだけを理由にsingle_choice化又は要再整備にしない。
 11. questionTypeがgroup_choiceの場合、選択肢側の情報又は候補比較が解答に不可欠な問題として評価する。複数選択形式と誤解して分類変更を求めない。
 12. isCalculationQuestionは計算過程が主要な学習対象かを表し、questionTypeとは独立に評価する。questionTypeから値を推測したり、questionType変更の理由にしたりしない。
-13. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
-14. 非法令問題のcurrentExplanationTextは、裏取りに使った機関名、資料名、URL又はlocatorが本文に書かれていないことを減点又は要再整備理由にしない。確認済みの正誤理由が正確かつ自己完結していればよい。参照先はchoiceEvaluations[].evidenceだけに記録する。
-15. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
-16. 法令問題は入力済みlawReferencesのlawIdと条番号を探索の入口にする。現行法本文は公式e-Gov API v2の https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json を取得し、JSON内でtagがArticleかつattr.Numが対象条番号に一致するobjectを抽出する。例えば第45条なら `curl -L --fail --silent --show-error --retry 3 --retry-all-errors --retry-delay 1 --max-time 30 'https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json' | jq -c '.. | objects | select(.tag? == "Article" and .attr.Num? == "45")'` とし、jq式全体を一組のsingle quote内に保つ。別の条では最後の`"45"`だけを対象条番号へ置き換える。`head`で法令JSONの先頭だけを読んで確認完了にしない。入力済みlawReferencesはその公式本文と一致した場合だけ根拠として使う。
-17. e-Gov法令APIのlaws.e-gov.go.jpで一時的な名前解決又は接続失敗が起きた場合は、上記curlの自動再試行後に、同じlawIdを使える公式e-LAWSの https://elaws.e-gov.go.jp/document?lawid={{lawId}} も確認する。一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず、別の公式経路を確認する。
-18. 法令問題の間違い解説は、正しい定義・基準と条文位置を自然な一文で示し、その後に選択肢との差を示す構成を基本として採点する。法令名を機械的に主語へ置いた定型反復や、差を示さず「点が誤り」だけで終わる説明は高得点にしない。
-19. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
-20. sourceAnswerEvidenceのverdictSemanticsがfinal_correct_choice_text_for_source_textの場合、その配列は取得元のjudge欄と同一本文・同一選択肢の対応を機械検証した基準である。一般資料に書かれた適用除外や例外を広く解釈しただけで覆さない。同じ年度・資格・種別・科目・問番号の公式問題冊子と公式解答を確認して明白に衝突する場合だけ、公式資料を根拠に異なるverdictを返す。問題文と選択肢自体が公式冊子と一致しない場合は、正答配列を推測で合わせずcriticalIssuesへ記録する。
+13. questionImageStorageUrls又はoriginalQuestionChoiceImageUrlsが空でなければ、図表画像は問題に添付されている。本文へ図表の文字が転記されていないことだけで画像欠落と判定せず、必要なら渡されたURLの画像を確認して問題と解説を評価する。両方が空で、本文又は選択肢が解答に必要な図表を参照している場合だけ画像欠落を指摘する。
+14. 法令名、技術基準又は公式規程が背景資料に含まれることだけでisLawRelated=trueとは判定しない。法令の定義、義務、禁止、数値基準又は適用関係そのものが正答を直接決める問題だけを法令問題とする。資格別正本が純粋な技術計算を非法令問題と定めている場合、技術式の裏取りに公式規程を使ったことだけを理由にlawReferencesの追加又は法令工程への再整備を求めない。
+15. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
+16. 非法令問題のcurrentExplanationTextは、裏取りに使った機関名、資料名、URL又はlocatorが本文に書かれていないことを減点又は要再整備理由にしない。確認済みの正誤理由が正確かつ自己完結していればよい。参照先はchoiceEvaluations[].evidenceだけに記録する。
+17. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
+18. 法令問題は入力済みlawReferencesのlawIdと条番号を探索の入口にする。現行法本文は公式e-Gov API v2の https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json を取得し、JSON内でtagがArticleかつattr.Numが対象条番号に一致するobjectを抽出する。例えば第45条なら `curl -L --fail --silent --show-error --retry 3 --retry-all-errors --retry-delay 1 --max-time 30 'https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json' | jq -c '.. | objects | select(.tag? == "Article" and .attr.Num? == "45")'` とし、jq式全体を一組のsingle quote内に保つ。別の条では最後の`"45"`だけを対象条番号へ置き換える。`head`で法令JSONの先頭だけを読んで確認完了にしない。入力済みlawReferencesはその公式本文と一致した場合だけ根拠として使う。
+19. e-Gov法令APIのlaws.e-gov.go.jpで一時的な名前解決又は接続失敗が起きた場合は、上記curlの自動再試行後に、同じlawIdを使える公式e-LAWSの https://elaws.e-gov.go.jp/document?lawid={{lawId}} も確認する。一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず、別の公式経路を確認する。
+20. 法令問題の間違い解説は、正しい定義・基準と条文位置を自然な一文で示し、その後に選択肢との差を示す構成を基本として採点する。法令名を機械的に主語へ置いた定型反復や、差を示さず「点が誤り」だけで終わる説明は高得点にしない。
+21. 一つでも正誤不一致、根拠不足、重大指摘又は解説90点未満があればstatusはneeds_reworkとする。
+22. sourceAnswerEvidenceのverdictSemanticsがfinal_correct_choice_text_for_source_textの場合、その配列は取得元のjudge欄と同一本文・同一選択肢の対応を機械検証した基準である。一般資料に書かれた適用除外や例外を広く解釈しただけで覆さない。同じ年度・資格・種別・科目・問番号の公式問題冊子と公式解答を確認して明白に衝突する場合だけ、公式資料を根拠に異なるverdictを返す。問題文と選択肢自体が公式冊子と一致しない場合は、正答配列を推測で合わせずcriticalIssuesへ記録する。
 
 ## 再整備stageの責務
 

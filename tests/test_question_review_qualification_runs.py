@@ -30,6 +30,7 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_review_source_records,
     _candidate_unset_fields,
     _external_provider_failure,
+    evaluation_rework_stage_codes,
     _isolated_turn_failure,
     _isolated_turn_timeout,
     _law_reference_discovery_plan,
@@ -51,7 +52,10 @@ from tools.question_review_console.question_patch_proposal import (
     assert_target_resolvable,
 )
 import tools.question_review_console.question_patch_proposal as question_patch_proposal
-from tools.question_review_console.question_candidate import CandidateTarget
+from tools.question_review_console.question_candidate import (
+    CandidateTarget,
+    _semantic_field_rules,
+)
 from scripts.common.question_identity import SourceIdentityBinding
 from scripts.common.aggregate_answer_decomposition import (
     candidate_set_hash,
@@ -62,6 +66,63 @@ from scripts.common.aggregate_answer_decomposition import (
 
 _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+class EvaluationReworkStageTests(unittest.TestCase):
+    def test_correct_answer_rework_also_rebuilds_explanation(self):
+        stages = evaluation_rework_stage_codes(
+            {
+                "reworkItems": [
+                    {
+                        "stage": "02a",
+                        "message": "正答を再確認する",
+                        "choiceIndexes": [1],
+                    }
+                ]
+            }
+        )
+
+        self.assertEqual(stages, ["02a", "03"])
+
+    def test_law_audit_rework_includes_law_context_prerequisite(self):
+        stages = evaluation_rework_stage_codes(
+            {
+                "reworkItems": [
+                    {
+                        "stage": "03b",
+                        "message": "法令根拠を再確認する",
+                        "choiceIndexes": [0],
+                    }
+                ]
+            }
+        )
+
+        self.assertEqual(stages, ["02b", "03b"])
+
+    def test_question_type_field_rule_matches_single_result_calculation_policy(
+        self,
+    ):
+        rules = _semantic_field_rules(
+            "question-1",
+            (
+                CandidateTarget(
+                    target_id="question-1:question_type",
+                    role="question_type",
+                    path="output/sample/10_questionType_fixed/question.json",
+                    allowed_fields=("questionType", "isCalculationQuestion"),
+                ),
+            ),
+        )
+
+        description = rules["questionType"]["description"]
+        self.assertIn(
+            "単一の計算結果に最も近い数値候補を選ぶ問題もflash_card",
+            description,
+        )
+        self.assertIn(
+            "肢ごとに独立して正誤を判定する問題はtrue_false",
+            description,
+        )
 
 
 class PipelineTelemetryContractTests(unittest.TestCase):
@@ -3297,7 +3358,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertIn("組合せ対応表がないことだけを理由にblockedにしない", prompt)
         self.assertIn("否定語やquestionIntentを使って再反転しない", prompt)
-        self.assertIn("名詞句等の断片肢では本文の述語を一度だけ補う", prompt)
+        self.assertIn("名詞句等の断片肢であることを理由に反転しない", prompt)
 
     def test_trusted_count_evidence_exposes_all_correct_sentinel_semantics(self):
         target = {
@@ -3382,6 +3443,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertIsNotNone(evidence)
         self.assertTrue(evidence["appliesToCurrentText"])
+        self.assertEqual(evidence["applicationBasis"], "exact_source_text")
         self.assertEqual(
             evidence["answerResultSemantics"],
             "source_choice_index",
@@ -3405,6 +3467,124 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertIsNotNone(changed_evidence)
         self.assertFalse(changed_evidence["appliesToCurrentText"])
+        self.assertEqual(
+            changed_evidence["applicationBasis"],
+            "source_text_changed_without_verified_mapping",
+        )
+
+        official_correction_evidence = [
+            {
+                "sourceQuestionKey": target["sourceQuestionKey"],
+                "sourceRecordRef": target["sourceRecordRef"],
+                "changedFields": ["choiceTextList"],
+                "evidence": [
+                    {
+                        "sourceClass": "official",
+                        "locator": "公式問題冊子 9ページ 問9",
+                        "contentHash": "official-content-hash",
+                    }
+                ],
+            }
+        ]
+        corrected_evidence = _trusted_source_answer_evidence(
+            source_record,
+            target,
+            changed_current,
+            official_correction_evidence,
+        )
+        self.assertIsNotNone(corrected_evidence)
+        self.assertTrue(corrected_evidence["appliesToCurrentText"])
+        self.assertEqual(
+            corrected_evidence["applicationBasis"],
+            "official_question_content_correction",
+        )
+
+        reordered_current = {
+            **source_record,
+            "choiceTextList": [
+                *source_record["choiceTextList"],
+                "増えた選択肢",
+            ],
+        }
+        reordered_evidence = _trusted_source_answer_evidence(
+            source_record,
+            target,
+            reordered_current,
+            official_correction_evidence,
+        )
+        self.assertIsNotNone(reordered_evidence)
+        self.assertFalse(reordered_evidence["appliesToCurrentText"])
+
+    def test_official_firestore_source_verdict_survives_verified_text_correction(
+        self,
+    ):
+        target = {
+            "id": "question-1",
+            "listGroupId": "2020",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "gas-shunin:kou:2020:kyokyu:q14",
+            "sourceRecordRef": "question_2020_firestore_1.json#5",
+        }
+        source_record = {
+            "questionBodyText": "正しいものはいくつあるか。",
+            "choiceTextList": ["銅の表面", "コンクリート貫通部"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "sourceOrigin": "firestore_snapshot",
+            "sourceAcquisitionMethod": "firestore_snapshot",
+            "firestoreSourceQuestions": [
+                {
+                    "isOfficial": True,
+                    "originalQuestionChoiceText": "銅の表面",
+                    "correctChoiceText": "正解",
+                },
+                {
+                    "isOfficial": True,
+                    "originalQuestionChoiceText": "コンクリート貫通部",
+                    "correctChoiceText": "不正解",
+                },
+            ],
+        }
+        current_record = {
+            **source_record,
+            "choiceTextList": ["鋼の表面", "コンクリート貫通部"],
+        }
+        correction_evidence = [
+            {
+                "sourceQuestionKey": target["sourceQuestionKey"],
+                "sourceRecordRef": target["sourceRecordRef"],
+                "changedFields": ["choiceTextList"],
+                "evidence": [
+                    {
+                        "sourceClass": "official",
+                        "locator": "公式問題冊子 25ページ 問14",
+                        "contentHash": "official-content-hash",
+                    }
+                ],
+            }
+        ]
+
+        evidence = _trusted_source_answer_evidence(
+            source_record,
+            target,
+            current_record,
+            correction_evidence,
+        )
+
+        self.assertIsNotNone(evidence)
+        assert evidence is not None
+        self.assertEqual(
+            evidence["evidenceType"],
+            "official_firestore_snapshot_statement_verdicts",
+        )
+        self.assertTrue(evidence["appliesToCurrentText"])
+        self.assertEqual(
+            evidence["applicationBasis"],
+            "official_question_content_correction",
+        )
+        self.assertEqual(
+            evidence["correctChoiceText"],
+            ["正しい", "間違い"],
+        )
 
     def test_originalize_prompt_separates_current_record_and_source_evidence(self):
         target = {

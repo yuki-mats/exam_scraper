@@ -418,6 +418,87 @@ def correct_choice_comparison(
     }
 
 
+def source_answer_difference_approval(
+    applied_files: Iterable[str | Path],
+    *,
+    repo_root: Path,
+    source_question_key: str,
+    review_question_id: str,
+    current_correct_choice_text: Any,
+) -> dict[str, Any]:
+    """Require a verified correct-answer correction for answer drift.
+
+    A content-only correction must not silently authorize a different answer.
+    The approval is therefore bound to an exact current ``correctChoiceText``
+    value in a Blind A/B/Challenge ``correct_answer`` correction patch.
+    """
+
+    if not isinstance(current_correct_choice_text, list):
+        return {
+            "approved": False,
+            "reason": "current_correct_choice_text_invalid",
+        }
+    root = repo_root.resolve()
+    for raw_path in reversed(tuple(applied_files)):
+        unresolved = Path(raw_path)
+        path = (
+            unresolved if unresolved.is_absolute() else root / unresolved
+        ).resolve()
+        if path.parent.name != "24_questionIssueCorrections":
+            continue
+        try:
+            payload = load_json(path)
+        except (OSError, ValueError, json.JSONDecodeError):
+            continue
+        if (
+            not isinstance(payload, Mapping)
+            or payload.get("schemaVersion") != "question-issue-correction/v1"
+            or payload.get("category") != "correct_answer"
+            or payload.get("origin") != "user_problem_report"
+            or payload.get("reviewProtocol") != "blind-a-b-challenge/v1"
+        ):
+            continue
+        for entry in payload.get("entries") or []:
+            if not isinstance(entry, Mapping):
+                continue
+            if (
+                str(entry.get("sourceQuestionKey") or "") != source_question_key
+                and str(entry.get("reviewQuestionId") or "") != review_question_id
+            ):
+                continue
+            changes = entry.get("changes")
+            if (
+                not isinstance(changes, Mapping)
+                or changes.get("correctChoiceText")
+                != current_correct_choice_text
+            ):
+                continue
+            evidence = entry.get("evidence")
+            if not isinstance(evidence, list) or not any(
+                isinstance(item, Mapping)
+                and item.get("sourceClass") == "official"
+                and all(
+                    str(item.get(field) or "").strip()
+                    for field in ("title", "locator", "contentHash", "verifiedAt")
+                )
+                for item in evidence
+            ):
+                continue
+            return {
+                "approved": True,
+                "reason": "verified_correct_answer_patch",
+                "patchPath": (
+                    str(path.relative_to(root))
+                    if path.is_relative_to(root)
+                    else str(path)
+                ),
+            }
+    return {
+        "approved": False,
+        "reason": "verified_correct_answer_patch_missing",
+    }
+
+
 def choices_extracted_from_question_body(projected: Mapping[str, Any]) -> bool:
     """Return whether choices are verified exact spans of questionBodyText."""
 
@@ -1627,6 +1708,15 @@ class QuestionInventory:
                     source,
                     projection.record,
                 )
+                source_answer_approval = source_answer_difference_approval(
+                    projection.applied_files,
+                    repo_root=self.repo_root,
+                    source_question_key=source_binding.source_question_key,
+                    review_question_id=source_binding.review_question_id,
+                    current_correct_choice_text=projection.record.get(
+                        "correctChoiceText"
+                    ),
+                )
                 questions.append(
                     {
                         "id": question_id,
@@ -1657,6 +1747,9 @@ class QuestionInventory:
                         "projected": _json_safe(projection.record),
                         "sourceCorrectChoiceComparison": _json_safe(
                             source_correct_choice_comparison
+                        ),
+                        "sourceAnswerDifferenceApproval": _json_safe(
+                            source_answer_approval
                         ),
                         "merged": _json_safe(merged),
                         "convertedDocs": _json_safe(

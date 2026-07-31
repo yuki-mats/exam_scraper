@@ -987,7 +987,7 @@ class QualificationWorkflow:
                 target_group_ids = [
                     str(group.get("listGroupId") or "")
                     for group in groups
-                    if not self._group_summary(group)["localReady"]
+                    if not self._group_summary(group, {})["localReady"]
                 ]
             source_files = [
                 str(Path("output") / qualification / "questions_json" / group_id)

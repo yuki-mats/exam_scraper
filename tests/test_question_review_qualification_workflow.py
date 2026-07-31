@@ -180,6 +180,55 @@ class QualificationWorkflowTests(unittest.TestCase):
 
         self.assertIsNone(summary["latestContentUpdatedAt"])
 
+    def test_delivery_plan_checks_local_ready_without_dashboard_progress(self):
+        groups = [
+            {
+                "listGroupId": "2026",
+                "questions": [
+                    {
+                        "workflow": {
+                            "merge": "missing",
+                            "convert": "missing",
+                            "upload": "missing",
+                        }
+                    }
+                ],
+            }
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory("sample", groups),
+            )
+            workflow.catalog = lambda _qualification: {
+                "lawWorkflowEnabled": False,
+                "system": {},
+                "catalogHash": "test",
+                "catalogWarning": "",
+                "restartRequired": False,
+                "stages": [
+                    {
+                        "id": "delivery",
+                        "code": "out",
+                        "label": "公開準備",
+                        "purpose": "test",
+                        "kind": "system",
+                        "automatic": True,
+                        "version": 1,
+                        "updateTargets": [],
+                    }
+                ],
+            }
+
+            plan = workflow.plan(
+                "sample",
+                "delivery",
+                "needed",
+                _qualification_data=(groups, groups[0]["questions"]),
+            )
+
+        self.assertEqual(plan["targetGroupIds"], ["2026"])
+
     def test_law_workflow_setting_persists_and_updates_effective_catalog(self):
         qualification = "sample"
         group = {"listGroupId": "2026", "questions": [question()]}

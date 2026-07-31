@@ -8,6 +8,7 @@ from scripts.common.question_answer_contract import (
     explicit_statement_question_intent,
     official_answer_alignment_issue,
     question_level_answer_cardinality_issue,
+    uses_official_firestore_statement_answers,
     uses_trusted_gassyunin_judge_answers,
 )
 
@@ -33,13 +34,24 @@ class QuestionAnswerContractTests(unittest.TestCase):
             "select_correct",
         )
 
-    def test_explicit_statement_intent_ignores_fragment_predicate(
+    def test_explicit_intent_keeps_negative_direction_for_fragment_choices(
         self,
     ) -> None:
-        self.assertIsNone(
+        self.assertEqual(
             explicit_statement_question_intent(
                 "次の設備のうち、この規定に該当しないものはどれか。"
-            )
+            ),
+            "select_incorrect",
+        )
+
+    def test_explicit_intent_reads_inappropriate_combination_as_incorrect(
+        self,
+    ) -> None:
+        self.assertEqual(
+            explicit_statement_question_intent(
+                "次の気体と材料の組合せとして、最も不適切なものはどれか。"
+            ),
+            "select_incorrect",
         )
 
     def test_question_level_cardinality_follows_select_incorrect(self) -> None:
@@ -194,6 +206,32 @@ class QuestionAnswerContractTests(unittest.TestCase):
                 }
             )
         )
+
+    def test_official_firestore_statement_answers_require_bound_documents(
+        self,
+    ) -> None:
+        record = {
+            "sourceOrigin": "firestore_snapshot",
+            "sourceAcquisitionMethod": "firestore_snapshot",
+            "choiceTextList": ["記述1", "記述2"],
+            "correctChoiceText": ["間違い", "正しい"],
+            "firestoreSourceQuestions": [
+                {
+                    "isOfficial": True,
+                    "originalQuestionChoiceText": "記述1",
+                    "correctChoiceText": "不正解",
+                },
+                {
+                    "isOfficial": True,
+                    "originalQuestionChoiceText": "記述2",
+                    "correctChoiceText": "正解",
+                },
+            ],
+        }
+
+        self.assertTrue(uses_official_firestore_statement_answers(record))
+        record["firestoreSourceQuestions"][1]["isOfficial"] = False
+        self.assertFalse(uses_official_firestore_statement_answers(record))
 
     def test_official_answer_alignment_compares_count_for_ikutsu_question(self) -> None:
         self.assertIsNone(

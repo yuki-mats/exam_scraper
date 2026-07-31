@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from scripts.common.question_identity import (
     SourceIdentityBinding,
@@ -369,6 +370,189 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                     verified_transcription="公式転記",
                     emit=lambda _message: None,
                 )
+
+    def test_image_fix_publishes_server_owned_url_before_patch_promotion(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence_path = root / "tmp" / "official-figure.png"
+            evidence_path.parent.mkdir(parents=True)
+            evidence_path.write_bytes(b"official-figure")
+            evidence_hash = hashlib.sha256(b"official-figure").hexdigest()
+            current_path = root / "current.json"
+            current_path.write_text("{}\n", encoding="utf-8")
+            binding = SourceIdentityBinding.from_values(
+                "sample:2026:q1",
+                "q1",
+                "question_2026.json#0",
+            )
+            source_identity = SourceRecordIdentity(
+                binding=binding,
+                aliases=frozenset(binding.as_tuple()),
+                source_stem="question_2026",
+            )
+            current_record = {
+                "original_question_id": "q1",
+                "questionBodyText": "図の①を確認する。",
+                "choiceTextList": ["選択肢1"],
+                "questionImageStorageUrls": [],
+            }
+            published: list[dict[str, object]] = []
+
+            def review_runner(work_item, **_options):
+                snapshot = work_item["caseSnapshots"][0]["canonicalSnapshot"]
+                candidate = snapshot["officialEvidenceCandidates"][0]
+                image_candidate = snapshot["officialImagePublicationCandidate"]
+                changes = image_candidate["proposedChanges"]
+                evidence = {
+                    "sourceClass": "official",
+                    "locator": (
+                        f'{candidate["localRenderedPagePath"]} / '
+                        f'{candidate["locator"]}'
+                    ),
+                    "title": candidate["title"],
+                    "verifiedAt": "2026-07-28T00:00:00Z",
+                    "contentHash": candidate["contentHash"],
+                }
+                return (
+                    {"proposedChanges": changes, "evidence": [evidence]},
+                    {"proposedChanges": changes, "evidence": [evidence]},
+                    {
+                        "decision": "fix",
+                        "changes": changes,
+                        "evidence": [evidence],
+                    },
+                )
+
+            def image_publisher(**options):
+                published.append(options)
+                return {"publicUrl": options["public_url"]}
+
+            service = OfficialSourceCorrectionService(
+                root,
+                app_server=object(),
+                config_path=CONFIG_PATH,
+                review_runner=review_runner,
+                record_finder=lambda *_args, **_kwargs: (
+                    current_record,
+                    current_path,
+                    source_identity,
+                ),
+                patch_verifier=lambda path, **_options: json.loads(
+                    path.read_text(encoding="utf-8")
+                ),
+                image_publisher=image_publisher,
+            )
+            result = service.run(
+                {
+                    "id": "ui-q1",
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                    "originalQuestionId": "q1",
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "sourceRecordRef": "question_2026.json#0",
+                    "stateHash": "a" * 64,
+                },
+                state_hash="a" * 64,
+                category="image",
+                evidence_path=str(evidence_path),
+                evidence_title="2026年度 公式問題冊子",
+                evidence_locator="問1の図",
+                verified_transcription="選択肢が参照する図①",
+                emit=lambda _message: None,
+            )
+
+            patch = json.loads((root / result["patchPath"]).read_text(encoding="utf-8"))
+            image_urls = patch["entries"][0]["changes"][
+                "questionImageStorageUrls"
+            ]
+            self.assertEqual(len(image_urls), 1)
+            self.assertIn(evidence_hash[:16], image_urls[0])
+            self.assertEqual(len(published), 1)
+            self.assertEqual(published[0]["content_hash"], evidence_hash)
+            self.assertEqual(published[0]["public_url"], image_urls[0])
+
+    def test_image_publication_uploads_and_reads_back_the_exact_file(self) -> None:
+        class Blob:
+            def __init__(self):
+                self.metadata = None
+                self.size = None
+                self.content = None
+                self.content_type = None
+
+            def exists(self):
+                return False
+
+            def upload_from_filename(self, filename, *, content_type):
+                self.content = Path(filename).read_bytes()
+                self.content_type = content_type
+                self.size = len(self.content)
+
+            def reload(self):
+                return None
+
+        class Bucket:
+            name = "sample.appspot.com"
+
+            def __init__(self):
+                self.created_blob = Blob()
+                self.object_path = None
+
+            def blob(self, object_path):
+                self.object_path = object_path
+                return self.created_blob
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "official.png"
+            source.write_bytes(b"official-image")
+            content_hash = hashlib.sha256(source.read_bytes()).hexdigest()
+            service = OfficialSourceCorrectionService(
+                root,
+                app_server=object(),
+                config_path=CONFIG_PATH,
+            )
+            target = (
+                service.repo_root
+                / "output/sample/question_images/2026/image.png"
+            )
+            bucket = Bucket()
+            logs: list[str] = []
+            with patch(
+                "tools.question_review_console.official_source_correction."
+                "make_storage_bucket",
+                return_value=bucket,
+            ) as make_bucket:
+                result = service._publish_question_image(
+                    qualification="sample",
+                    source_path=source,
+                    local_path=target,
+                    filename="image.png",
+                    public_url=(
+                        "https://firebasestorage.googleapis.com/v0/b/"
+                        "repaso-rbaqy4.appspot.com/o/"
+                        "question_images%2Fofficial%2Fsample%2Fimage.png?alt=media"
+                    ),
+                    content_hash=content_hash,
+                    emit=logs.append,
+                )
+
+            make_bucket.assert_called_once_with("repaso-rbaqy4.appspot.com")
+            self.assertEqual(target.read_bytes(), source.read_bytes())
+            self.assertEqual(bucket.created_blob.content, source.read_bytes())
+            self.assertEqual(bucket.created_blob.content_type, "image/png")
+            self.assertEqual(
+                bucket.created_blob.metadata["sha256"],
+                content_hash,
+            )
+            self.assertEqual(
+                bucket.object_path,
+                "question_images/official/sample/image.png",
+            )
+            self.assertEqual(
+                result["localPath"],
+                str(target.relative_to(service.repo_root)),
+            )
+            self.assertTrue(logs)
 
 
 if __name__ == "__main__":

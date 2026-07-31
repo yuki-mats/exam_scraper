@@ -1384,6 +1384,13 @@ class QuestionPublisher:
 
     @staticmethod
     def _quality_block_reason(evaluation: Mapping[str, Any]) -> str:
+        if "source_answer_difference_unapproved" in set(
+            evaluation.get("blockingIssues") or []
+        ):
+            return (
+                "00_sourceと異なる正答に、公式資料で検証した"
+                "正答補正patchがありません。公式冊子と解答を照合してください。"
+            )
         if not evaluation.get("machineReady"):
             return "Merge・Convert・upload-ready又は要確認項目の整備が必要です。"
         status = str(evaluation.get("status") or "not_started")

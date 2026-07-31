@@ -434,12 +434,13 @@
           <p id="official-source-question" class="inline-notice"></p>
           <p>
             指定した公式資料をBlind A/Bが独立に照合し、両者の完全一致をChallengeで確認します。
-            一致した場合だけ、問題文・選択肢又は正答の補正を24_questionIssueCorrectionsへ保存します。
+            一致した場合だけ、問題文・選択肢、問題画像又は正答の補正を24_questionIssueCorrectionsへ保存します。
           </p>
           <label>
             <span>照合する内容</span>
             <select id="official-source-category">
               <option value="question_content">問題文・選択肢</option>
+              <option value="image">問題画像</option>
               <option value="correct_answer">正答</option>
             </select>
           </label>
@@ -457,7 +458,7 @@
           </label>
           <label>
             <span>公式資料から確認した転記</span>
-            <textarea id="official-source-transcription" rows="10" required placeholder="問題番号と、問題文・選択肢又は正答を該当箇所どおりに転記"></textarea>
+            <textarea id="official-source-transcription" rows="10" required placeholder="問題番号と、問題文・選択肢・正答の転記又は画像に含まれる図表の説明"></textarea>
           </label>
         </div>
         <footer class="dialog-actions">

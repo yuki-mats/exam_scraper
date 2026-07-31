@@ -36,6 +36,7 @@ from scripts.common.question_answer_contract import (
     all_correct_choice_sentinel_number,
     asks_for_combination_choice,
     asks_for_selected_choice_count,
+    uses_official_firestore_statement_answers,
     uses_trusted_gassyunin_judge_answers,
 )
 from scripts.common.repaso_firestore_schema import is_law_revision_facts_shape
@@ -668,11 +669,16 @@ def evaluation_rework_stage_codes(snapshot: Mapping[str, Any]) -> list[str]:
     )
     if snapshot.get("answerMappingMatched") is False and "02a" not in requested:
         requested.append("02a")
+    # A law audit can only verify revisions after the law-context stage has
+    # independently classified the question and discovered its references.
+    # Do not let a stale isLawRelated=false value skip that prerequisite.
+    if "03b" in requested and "02b" not in requested:
+        requested.append("02b")
     # questionType determines whether explanationText is stored per choice or
-    # once per question.  Rechecking 01 without 03 can therefore leave a
-    # validated question with an invalid explanation shape when the type
-    # changes (for example, true_false -> flash_card).
-    if "01" in requested and "03" not in requested:
+    # once per question. Rechecking 01 without 03 can therefore leave a
+    # validated question with an invalid explanation shape. Correct-answer
+    # changes likewise require the corresponding explanation to be rewritten.
+    if ({"01", "02a"} & set(requested)) and "03" not in requested:
         requested.append("03")
     return [
         *(
@@ -1768,15 +1774,22 @@ def _structured_candidate_prompt(
             "evidenceType=trusted_gassyunin_judge_statement_verdictsは、取得元のjudge欄が"
             "sourceの問題文と各選択肢を組み合わせた最終命題へcorrectChoiceTextを直接対応付け、"
             "件数・順序・出所の機械検証を通過したことを示す。"
+            "evidenceType=official_firestore_snapshot_statement_verdictsは、各肢の"
+            "公式Firestore原本がofficial文書として保存され、本文・肢順・正答対応の"
+            "機械検証を通過したことを示す。"
             "verdictSemantics=final_correct_choice_text_for_source_textかつ"
-            "appliesToCurrentText=trueなら、配列は現在と完全一致する本文・選択肢に対する"
-            "最終正誤であり、否定語やquestionIntentを使って再反転しない。"
+            "appliesToCurrentText=trueなら、applicationBasisを確認する。"
+            "exact_source_textは現在と完全一致する本文・選択肢、"
+            "official_question_content_correctionは同一問題・同一肢順の取得誤りを"
+            "公式資料のBlind A/B・Challenge済みpatchで直した本文・選択肢に対する"
+            "最終正誤である。どちらも否定語やquestionIntentを使って再反転しない。"
             "モデル内部の記憶や出典を示さない一般知識だけを、この証拠との明白な"
             "衝突とは扱わない。公式解答又は確認済みの公式・一次資料と衝突する場合だけ、"
             "確認した資料をsummaryへ要約してblockedにする。"
             "appliesToCurrentText=falseなら、source配列を現在値へ転記せず、現在の本文と"
-            "選択肢から完全な命題を作り直す。完全な記述肢では「誤っているものを選べ」等は"
-            "選択方向にだけ使い、名詞句等の断片肢では本文の述語を一度だけ補う。"
+            "選択肢から完全な命題を作り直す。各肢の正誤判定では本文と選択肢を"
+            "組み合わせるが、questionIntentは本文が明示する選択方向から独立に決め、"
+            "名詞句等の断片肢であることを理由に反転しない。"
             "公式解答番号の意味はanswerResultSemanticsに従い、元の組合せ肢を指す場合は"
             "組合せ対応表がないことだけを理由にblockedにしない。"
             "証拠自体はsetFieldsへ転載しない。",
@@ -2051,6 +2064,30 @@ def _structured_candidate_inputs(
     return records, targets
 
 
+def _projected_question_issue_evidence(
+    repo_root: Path,
+    target: Mapping[str, Any],
+) -> tuple[dict[str, Any], ...]:
+    """Read server-produced official correction evidence for one projection."""
+
+    relative_path = str(target.get("_projectedInputPath") or "")
+    if not relative_path:
+        return ()
+    try:
+        payload = json.loads(
+            (repo_root / relative_path).read_text(encoding="utf-8")
+        )
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return ()
+    if not isinstance(payload, Mapping):
+        return ()
+    return tuple(
+        copy.deepcopy(dict(item))
+        for item in payload.get("questionIssueCorrectionEvidence") or []
+        if isinstance(item, Mapping)
+    )
+
+
 def _aggregate_review_source_records(
     repo_root: Path,
     qualification: str,
@@ -2214,16 +2251,71 @@ def _trusted_source_answer_evidence(
     source_record: Mapping[str, Any],
     target: Mapping[str, Any],
     current_record: Mapping[str, Any],
+    question_issue_correction_evidence: Iterable[Mapping[str, Any]] = (),
 ) -> dict[str, Any] | None:
     """Build prompt-only final verdict evidence from a trusted judge table."""
 
     source = dict(source_record)
-    if not uses_trusted_gassyunin_judge_answers(source):
+    if uses_trusted_gassyunin_judge_answers(source):
+        evidence_type = "trusted_gassyunin_judge_statement_verdicts"
+    elif uses_official_firestore_statement_answers(source):
+        evidence_type = "official_firestore_snapshot_statement_verdicts"
+    else:
         return None
     source_body = source.get("questionBodyText")
     source_choices = source.get("choiceTextList")
     current_body = current_record.get("questionBodyText")
     current_choices = current_record.get("choiceTextList")
+    exact_source_text = bool(
+        source_body == current_body
+        and source_choices == current_choices
+    )
+    corrected_fields: set[str] = set()
+    if source_body != current_body:
+        corrected_fields.add("questionBodyText")
+    if source_choices != current_choices:
+        corrected_fields.add("choiceTextList")
+    source_question_key = str(target.get("sourceQuestionKey") or "")
+    source_record_ref = SourceIdentityBinding.from_mapping(
+        target
+    ).source_record_ref
+    official_correction_applies = bool(
+        not exact_source_text
+        and corrected_fields
+        and isinstance(source_choices, list)
+        and isinstance(current_choices, list)
+        and len(source_choices) == len(current_choices)
+        and isinstance(source.get("correctChoiceText"), list)
+        and len(source["correctChoiceText"]) == len(current_choices)
+        and any(
+            corrected_fields.issubset(
+                {
+                    str(field)
+                    for field in correction.get("changedFields") or []
+                    if field
+                }
+            )
+            and (
+                not source_question_key
+                or str(correction.get("sourceQuestionKey") or "")
+                == source_question_key
+            )
+            and (
+                not source_record_ref
+                or str(correction.get("sourceRecordRef") or "")
+                == source_record_ref
+            )
+            and any(
+                isinstance(item, Mapping)
+                and str(item.get("sourceClass") or "") == "official"
+                and str(item.get("locator") or "").strip()
+                and str(item.get("contentHash") or "").strip()
+                for item in correction.get("evidence") or []
+            )
+            for correction in question_issue_correction_evidence
+            if isinstance(correction, Mapping)
+        )
+    )
     if asks_for_selected_choice_count(source_body):
         answer_result_semantics = (
             "count_choice_index_with_all_correct_sentinel"
@@ -2235,12 +2327,18 @@ def _trusted_source_answer_evidence(
     else:
         answer_result_semantics = "source_choice_index"
     return {
-        "evidenceType": "trusted_gassyunin_judge_statement_verdicts",
+        "evidenceType": evidence_type,
         "verdictSemantics": "final_correct_choice_text_for_source_text",
         "answerResultSemantics": answer_result_semantics,
         "appliesToCurrentText": (
-            source_body == current_body
-            and source_choices == current_choices
+            exact_source_text or official_correction_applies
+        ),
+        "applicationBasis": (
+            "exact_source_text"
+            if exact_source_text
+            else "official_question_content_correction"
+            if official_correction_applies
+            else "source_text_changed_without_verified_mapping"
         ),
         "sourceRecordRef": SourceIdentityBinding.from_mapping(
             target
@@ -11402,6 +11500,7 @@ class QualificationRunCoordinator:
                         spec["sourceRecord"],
                         spec["target"],
                         spec["candidateRecord"],
+                        spec.get("questionIssueCorrectionEvidence") or (),
                     )
                 ]
                 if stage_id == "correct_choice" and evidence is not None
@@ -13622,6 +13721,10 @@ class QualificationRunCoordinator:
                     source_record,
                     raw_target_by_question[question_id],
                     records_by_question[question_id],
+                    _projected_question_issue_evidence(
+                        self.repo_root,
+                        raw_target_by_question[question_id],
+                    ),
                 )
             ]
             if stage_id == "correct_choice" and evidence is not None

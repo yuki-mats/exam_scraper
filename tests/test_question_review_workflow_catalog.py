@@ -200,7 +200,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         )
 
         self.assertIn(
-            "`choiceTextList`に並ぶ各候補を計算又は比較して",
+            "`choiceTextList`の各肢が互いに異なる条件、物質、反応式などの計算対象を持ち",
             prompt,
         )
         self.assertIn(
@@ -208,6 +208,14 @@ class WorkflowCatalogTests(unittest.TestCase):
             prompt,
         )
         self.assertIn("各反応式の該当・非該当を判定する`true_false`", prompt)
+        self.assertIn(
+            "計算で一つの数値を求め、その値に最も近い数値候補を選ぶ問題も",
+            prompt,
+        )
+        self.assertIn(
+            "単一の計算結果に数値候補を順番に当てはめるだけの問題は",
+            prompt,
+        )
 
     def test_law_audit_keeps_official_answer_result_read_only(self):
         catalog = WorkflowCatalog(ROOT).load()
@@ -455,7 +463,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
         self.assertEqual(version_by_stage["originalize"], "2.7")
-        self.assertEqual(version_by_stage["question_type"], "5.1")
+        self.assertEqual(version_by_stage["question_type"], "5.2")
         self.assertEqual(version_by_stage["question_intent"], "4.0")
         self.assertEqual(version_by_stage["correct_choice"], "4.0")
         self.assertEqual(version_by_stage["question_set"], "2.0")
@@ -480,7 +488,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 }
             )
         )
-        self.assertEqual(catalog["evaluation"]["policyVersion"], "3.0")
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "4.0")
         explanation_targets = {
             target["selectionId"]: target
             for target in stage_by_id["explanation"]["updateTargets"]
