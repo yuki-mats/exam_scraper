@@ -351,7 +351,9 @@ _EXPLANATION_FIELD_RULES: dict[str, Any] = {
         "description": (
             "true_falseは選択肢数と同数。flash_cardとgroup_choiceは問題共通の1本だけ。"
             "true_falseの各解説は対応するcorrectChoiceTextに合わせて、"
-            "「正しい。」又は「間違い。」で始める。"
+            "「正しい。」又は「間違い。」で始める。正しい選択肢は追加の"
+            "学習情報がなければ「正しい。」だけとし、選択肢を再掲しない。"
+            "間違いの選択肢は正しい内容と判断を分ける差を必ず説明する。"
         ),
     },
     "suggestedQuestionDetailsByChoice": (

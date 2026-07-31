@@ -61,7 +61,37 @@ class ExplanationQualityTests(unittest.TestCase):
         )
 
         self.assertEqual(len(issues), 1)
-        self.assertIn("判断理由", issues[0])
+        self.assertIn("正しい選択肢の全文", issues[0])
+        self.assertIn("正しい。", issues[0])
+
+    def test_accepts_only_verdict_for_self_contained_correct_choice(self):
+        issues = explanation_style_issues(
+            ["正しい。"],
+            ["正しい"],
+            choice_texts=["燃料転換が完了している。"],
+        )
+
+        self.assertEqual(issues, [])
+
+    def test_rejects_correct_choice_repeated_before_extra_sentence(self):
+        issues = explanation_style_issues(
+            ["正しい。燃料転換が完了している。これは国内の状況を示す。"],
+            ["正しい"],
+            choice_texts=["燃料転換が完了している。"],
+        )
+
+        self.assertEqual(len(issues), 1)
+        self.assertIn("正しい選択肢の全文", issues[0])
+
+    def test_rejects_only_verdict_for_incorrect_choice(self):
+        issues = explanation_style_issues(
+            ["間違い。"],
+            ["間違い"],
+            choice_texts=["燃料転換は完了していない。"],
+        )
+
+        self.assertEqual(len(issues), 1)
+        self.assertIn("正しい内容と判断を分ける差", issues[0])
 
     def test_rejects_the_missing_prefix_and_old_closing_seen_in_2019_q12(self):
         issues = explanation_style_issues(

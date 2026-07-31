@@ -459,7 +459,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "4.5")
+        self.assertEqual(version_by_stage["explanation"], "5.0")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
         self.assertEqual(version_by_stage["originalize"], "2.7")
@@ -488,7 +488,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 }
             )
         )
-        self.assertEqual(catalog["evaluation"]["policyVersion"], "4.0")
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "4.1")
         explanation_targets = {
             target["selectionId"]: target
             for target in stage_by_id["explanation"]["updateTargets"]
@@ -600,6 +600,12 @@ class WorkflowCatalogTests(unittest.TestCase):
         )
 
         self.assertIn("正しい内容と条文位置 → 選択肢との差", prompt)
+        self.assertIn(
+            "追加できる内容が選択肢の再掲又は表面的な言い換えしかない場合",
+            prompt,
+        )
+        self.assertIn("`正しい。`だけで終える", prompt)
+        self.assertIn("`間違い。`だけでは完了にしない", prompt)
         self.assertIn("qualification_docs/README.md", prompt)
         self.assertNotIn("ガス事業は、ガス事業法第2条第11項において", prompt)
         self.assertNotIn("誤り部分が条文説明より先", prompt)

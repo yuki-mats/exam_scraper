@@ -212,7 +212,8 @@ kind = "human"
 # 4.3: 法令情報の部分実行でもlawRevisionFactsのFirestore公開契約を保存前に検証する。
 # 4.4: 宣言済み法令根拠はserver取得の試験時点・現在時点本文と差分を使い、通信探索への依存を減らす。
 # 4.5: 公式試験日catalogと正規化locatorによる時点比較を解説入力へ共通適用する。
-policy_version = "4.5"
+# 5.0: 正しい肢の再掲を禁止し、追加情報がなければ「正しい。」だけを正規形とする。
+policy_version = "5.0"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -376,7 +377,8 @@ documents = [
 
 [evaluation]
 # 4.0: 画像URLを評価入力へ含め、問題形式・計算/法令分類を公開契約として再評価する。
-policy_version = "4.0"
+# 4.1: 正しい肢の簡潔な解説を許容し、再掲・言い換えだけの解説は不合格にする。
+policy_version = "4.1"
 documents = ["document/operations/local_question_review_console.md"]
 inputs = [
   "tools/question_review_console/evaluation.py",

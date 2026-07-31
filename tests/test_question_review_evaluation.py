@@ -1558,6 +1558,12 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("sourceAnswerEvidenceがある場合", prompt)
         self.assertIn("非法令問題のcurrentExplanationText", prompt)
         self.assertIn("減点又は要再整備理由にしない", prompt)
+        self.assertIn("解説が`正しい。`だけでも減点しない", prompt)
+        self.assertIn("選択肢の全文再掲", prompt)
+        self.assertIn(
+            "true_falseの間違いの選択肢は、`間違い。`だけでは合格にしない",
+            prompt,
+        )
         self.assertIn("正しい定義・基準と条文位置", prompt)
         self.assertIn("その後に選択肢との差", prompt)
         self.assertIn("02: questionIntentだけ", prompt)
@@ -1668,7 +1674,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "4.0")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "4.1")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 

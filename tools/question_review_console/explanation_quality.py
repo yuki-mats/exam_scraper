@@ -183,29 +183,63 @@ def explanation_style_issues(
             issues.append(f"{item_label}: 解説が空です。")
             continue
         prefix = VERDICT_PREFIX.match(text)
+        expected_verdict = (
+            normalize_verdict(verdicts[choice_index - 1])
+            if choice_index <= len(verdicts)
+            else ""
+        )
         if require_verdict_prefix and prefix is None:
             issues.append(
                 f"{item_label}: 解説は「正しい。」又は「間違い。」で"
                 "始めてください。"
             )
         elif prefix is not None and choice_index <= len(verdicts):
-            expected = normalize_verdict(verdicts[choice_index - 1])
-            if expected in {"正しい", "間違い"} and prefix.group(1) != expected:
+            if (
+                expected_verdict in {"正しい", "間違い"}
+                and prefix.group(1) != expected_verdict
+            ):
                 issues.append(
                     f"{item_label}: 解説冒頭の正誤がcorrectChoiceTextと"
                     "一致しません。"
                 )
+        if not expected_verdict and prefix is not None:
+            expected_verdict = prefix.group(1)
         if not question_level and choice_index <= len(choices):
             choice = re.sub(r"\s+", "", str(choices[choice_index - 1] or "")).rstrip(
                 "。"
             )
             body = text[prefix.end() :] if prefix is not None else text
             body = re.sub(r"\s+", "", body).rstrip("。")
-            if choice and body == choice:
-                issues.append(
-                    f"{item_label}: 解説が選択肢を繰り返すだけです。"
-                    "判断理由を説明してください。"
+            repeats_choice = bool(
+                choice
+                and (
+                    body == choice
+                    or body.startswith(f"{choice}。")
+                    or body.startswith(f"{choice}、")
                 )
+            )
+            if repeats_choice:
+                if expected_verdict == "正しい":
+                    issues.append(
+                        f"{item_label}: 正しい選択肢の全文を解説で"
+                        "繰り返さないでください。追加の学習情報がなければ"
+                        "「正しい。」だけにしてください。"
+                    )
+                else:
+                    issues.append(
+                        f"{item_label}: 解説が選択肢を繰り返すだけです。"
+                        "正しい内容と判断を分ける差を説明してください。"
+                    )
+        if (
+            not question_level
+            and expected_verdict == "間違い"
+            and prefix is not None
+            and not text[prefix.end() :].strip()
+        ):
+            issues.append(
+                f"{item_label}: 間違いの選択肢は「間違い。」だけで"
+                "終えず、正しい内容と判断を分ける差を説明してください。"
+            )
         if LAW_AS_SENTENCE_SUBJECT.search(text):
             issues.append(
                 f"{item_label}: 法令名・条文を機械的に文頭の主語へ"

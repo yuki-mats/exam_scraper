@@ -1912,6 +1912,8 @@ class QuestionEvaluationService:
 14. 法令名、技術基準又は公式規程が背景資料に含まれることだけでisLawRelated=trueとは判定しない。法令の定義、義務、禁止、数値基準又は適用関係そのものが正答を直接決める問題だけを法令問題とする。資格別正本が純粋な技術計算を非法令問題と定めている場合、技術式の裏取りに公式規程を使ったことだけを理由にlawReferencesの追加又は法令工程への再整備を求めない。
 15. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
 16. 非法令問題のcurrentExplanationTextは、裏取りに使った機関名、資料名、URL又はlocatorが本文に書かれていないことを減点又は要再整備理由にしない。確認済みの正誤理由が正確かつ自己完結していればよい。参照先はchoiceEvaluations[].evidenceだけに記録する。
+16a. true_falseの正しい選択肢は、選択肢自体が自己完結し、追加できる学習情報がない場合、解説が`正しい。`だけでも減点しない。`正しい。`の後が選択肢の全文再掲、語順・語尾だけを変えた表面的な言い換え、又は循環説明だけなら、簡潔さではなく解説品質の欠陥として要再整備にする。説明を続ける場合は、選択肢にない判断基準、境界、比較又は仕組みを含める。
+16b. true_falseの間違いの選択肢は、`間違い。`だけでは合格にしない。正しい内容と、選択肢の判断を分ける語句、数値、主体、範囲又は条件が必要である。
 17. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は式、代入値、単位、丸めを確認する。
 18. 法令問題は入力済みlawReferencesのlawIdと条番号を探索の入口にする。現行法本文は公式e-Gov API v2の https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json を取得し、JSON内でtagがArticleかつattr.Numが対象条番号に一致するobjectを抽出する。例えば第45条なら `curl -L --fail --silent --show-error --retry 3 --retry-all-errors --retry-delay 1 --max-time 30 'https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json' | jq -c '.. | objects | select(.tag? == "Article" and .attr.Num? == "45")'` とし、jq式全体を一組のsingle quote内に保つ。別の条では最後の`"45"`だけを対象条番号へ置き換える。`head`で法令JSONの先頭だけを読んで確認完了にしない。入力済みlawReferencesはその公式本文と一致した場合だけ根拠として使う。
 19. e-Gov法令APIのlaws.e-gov.go.jpで一時的な名前解決又は接続失敗が起きた場合は、上記curlの自動再試行後に、同じlawIdを使える公式e-LAWSの https://elaws.e-gov.go.jp/document?lawid={{lawId}} も確認する。一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず、別の公式経路を確認する。
