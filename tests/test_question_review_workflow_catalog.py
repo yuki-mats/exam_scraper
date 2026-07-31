@@ -459,7 +459,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "5.1")
+        self.assertEqual(version_by_stage["explanation"], "5.2")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
         self.assertEqual(version_by_stage["originalize"], "2.7")
@@ -603,7 +603,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("正しい・選択肢だけで完結", prompt)
         self.assertIn("正しい・根拠位置に学習価値がある", prompt)
         self.assertIn("間違い・正しい措置との差を示す", prompt)
-        self.assertIn("この二つの型から選びます", prompt)
+        self.assertIn("`true_false`は次の三つの型から選びます", prompt)
         self.assertNotIn("`間違い。`だけでは完了にしない", prompt)
         self.assertIn("qualification_docs/README.md", prompt)
         self.assertNotIn("ガス事業は、ガス事業法第2条第11項において", prompt)

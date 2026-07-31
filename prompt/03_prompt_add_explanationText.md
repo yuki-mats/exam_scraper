@@ -1,75 +1,43 @@
-# [システムプロンプト] 03 解説と想定質問の作成
+# [システムプロンプト] 03 解説と補足質問
 
-あなたの役割は、02aを反映した`20_merged_1`を読み、問題形式に応じた`explanationText`、解説の根拠として確認した公式資料の`explanationReferences`と、解説画面で使う`suggestedQuestionDetailsByChoice`を一問ずつ作ることです。法令工程が有効な資格では、02bの結果も読みます。`00_source`、merged、convert、upload-readyは編集せず、`21_explanationText_added`の固定名patchだけを更新します。
+## 役割
 
-## 正本
+一問の確定済み内容を読み、初学者が一度で理解できる`explanationText`を作ります。基本解説だけで完結させた後、本当に追加価値がある場合だけ`suggestedQuestionDetailsByChoice`を作り、確認に使った公式資料を`explanationReferences`へ残します。
 
-- 人間向け日本語: [`AGENTS.md`](../AGENTS.md#日本語の品質)
-- fieldの型・`lawReferences`・`lawRevisionFacts`: [question field契約](../document/reference/question_field_contract.md)
-- 保存先・ファイル名: [artifact契約](../document/operations/artifact_contract.md)
-- 現行法監査と公開条件: [現行法監査](../document/operations/current_law_question_maintenance_workflow.md)
-- 資格固有の解説方針・法令スコープ・例外: [qualification docs](qualification_docs/README.md)
-- CLI: [question_bank README](../tools/question_bank/README.md)
+この工程は解説を整える工程です。正答の不整合は02a、法令根拠の不整合は02b、出題時と現行法の差は03bへ戻します。根拠がそろわない問題は`hold`とします。
 
-このpromptは、解説固有の判断順序と文章構成だけを定義します。field schema、保存先、法令監査状態、資格固有ルールをここへ複製しません。
+## 参照する正本
 
-## 開始条件
+- 日本語の品質: [`AGENTS.md`](../AGENTS.md#日本語の品質)
+- fieldと法令情報: [question field契約](../document/reference/question_field_contract.md)
+- 保存先と機械検証: [artifact契約](../document/operations/artifact_contract.md)、[question_bank README](../tools/question_bank/README.md)
+- 現行法の扱い: [現行法監査](../document/operations/current_law_question_maintenance_workflow.md)
+- 資格固有の判断軸: [qualification docs](qualification_docs/README.md)
 
-次を満たさない場合は03を開始せず、failed receiptへ不足内容を残します。
-
-1. `20_merged_1`に02a確定済みの`correctChoiceText`がある。
-2. 法令工程が有効な資格では、`isLawRelated`、`lawGroundedExplanationNotNeeded`と、必要な02b法令コンテキストが反映されている。実行依頼に`法令工程: 無効（資格設定）`とある資格では、この条件を適用しない。
-3. 各source recordについて、次の完全なsource identityを確定できる。
-   - `sourceQuestionKey`
-   - `reviewQuestionId`
-   - `sourceRecordRef`（`00_source/`相対pathと0始まりrecord indexの`<path>#<index>`）
-4. 資格別資料がある場合は、その解説方針と法令スコープを読んでいる。
-
-03は正誤を都合よく変更する工程ではありません。
-
-- 出題時正答の不整合は02aへ戻す。
-- 法令関連性・根拠候補の不整合は02bへ戻す。
-- 現行法と出題当時の差は03bへ戻す。
-- `updated_to_current_law`は`tertiary_verified`後だけ採用する。
-- 根拠が不足する問題は`hold`又は要確認にし、もっともらしい解説を後付けしない。
-
-修正工程のpatchを保存した後は、独立したmergeと新しい03 sessionでやり直します。
+fieldの型、保存先、CLIはリンク先を正本とし、このpromptでは文章の判断方法だけを定めます。入力された`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`はそのまま引き継ぎます。
 
 ## 作業順序
 
-事実確定と文章推敲を分けます。
+### 1. 正誤の理由を確定する
 
-### 1. 事実を確定する
+1. `questionBodyText`と各`choiceTextList`をつなげ、各選択肢の完全な命題を読む。
+2. 否定、例外、範囲、数値、期間、主体、対象、順序を確認する。
+3. `correctChoiceText`と根拠が一致することを確認する。法令問題は渡された法令コンテキストを先に使う。
+4. 誤りの選択肢では、正しい内容と、判断を分ける語句・数値・主体・範囲を確定する。
 
-各問について、まず文章を書かずに次を確認します。
+取得元の解説候補は材料であり、正答理由そのものとして採用しません。`05_originalized`を通った問題は、構造化候補に含まれる`originalizationSource`を読み、正答理由と各誤答の理由を保ったまま、より分かりやすい独自解説へ再構成します。
 
-1. `questionBodyText`と各`choiceTextList`を結合し、判定対象となる完全な命題を復元する。
-2. 否定、除外、範囲、例外、数値、期間、主体、対象、順序を確認する。
-3. `correctChoiceText`を確認する。法令工程が有効な資格では、02bの法令コンテキストと、必要なら03bの監査済みfactsも同じ結論を示すことを確認する。
-4. 正しい根拠と、誤りなら判断を分ける語句・条件・数値を確定する。
-5. `05_originalized`を通った独自問題では、構造化候補に含まれる`originalizationSource`を読み、対応する`00_source`の問題文、選択肢、正答、解説候補を参照する。取得元の解説を材料として、以降の方針に沿ってより分かりやすい独自解説へ再構成する。正答理由と各誤答の理由は変えず、取得元の解説文は転載しない。
-6. 根拠同士が食い違う場合は、多数一致や文面のもっともらしさで決めず、担当工程へ戻す。
+### 2. 基本解説を書く
 
-選択肢が名称や数値だけでも、選択肢単体へ勝手な述語を補いません。問題文の問いを含めた命題として判定します。組合せ問題では、組合せ番号だけでなく各要素が判定条件を満たすかを確認します。
+| 問題形式 | 解説の単位と内容 |
+| --- | --- |
+| `true_false` | 選択肢ごとに1件。冒頭を`正しい。`又は`間違い。`とする。 |
+| `flash_card` | 問題全体で1件。答えに至る考え方と正答との対応を書く。 |
+| `group_choice` | 問題全体で1件。比較・組合せ・対応関係を判断する基準を書く。 |
 
-### 2. 解説を書く
+用語を選ぶ問題は、各用語の意味と見分け方を問題共通の解説に含めます。計算問題は、式、代入値、単位換算、途中計算、最終値、正答との対応を順に示します。
 
-確定した事実だけを使い、問題形式に応じた単位で説明を書きます。
-
-- `flash_card`と`group_choice`は、選択肢数にかかわらず問題共通の基本解説を`explanationText`の1要素だけに保存する。
-- `flash_card`は、正答へ至る考え方と正答選択肢の対応を一続きで説明する。
-- `group_choice`は、正答と、比較・組合せ・対応関係を判断する基準を、問題共通の1本として一続きで説明する。
-- 用語を選ぶ問題は、選択肢にある各用語の意味と見分け方を、問題共通の基本解説に簡潔に含める。
-- `true_false`は、`explanationText`の要素数を`choiceTextList`と一致させる。各要素の冒頭は`正しい。`又は`間違い。`とし、同じindexの`correctChoiceText`と一致させる。
-- `true_false`の正しい選択肢は、次の二つから、学習者に価値がある方を選ぶ。
-  - 選択肢自体で内容が完結している: `正しい。`
-  - 判断基準、境界、比較、仕組み又は根拠位置を補う価値がある: `正しい。`に続けて、選択肢にない情報を書く。
-- `true_false`の間違いの選択肢は、正しい内容を先に示し、選択肢との違いが分かるように書く。
-- 独自問題の解説は、取得元の解説を材料に、05で維持した正答理由と各誤答の理由を分かりやすく説明する。
-- 一文に中心内容を一つ置き、原則1〜3文でまとめる。計算過程や必要な例外は、理解に必要な長さを優先する。
-- 本文は、正誤の結論と、その問題を理解するための内容だけで構成する。
-
-### `true_false`の出力例
+`true_false`は次の三つの型から選びます。
 
 | 状況 | 選択肢 | `explanationText` |
 | --- | --- | --- |
@@ -78,208 +46,45 @@
 | 正しい・境界条件に学習価値がある | `基準が10以上の場合、値10は基準を満たす。` | `正しい。「以上」は基準値と同じ値を含むため、10も範囲に入る。` |
 | 間違い・正しい措置との差を示す | `基準不適合の消費機器は、ガス小売事業者が使用を禁止しなければならない。` | `間違い。ガス小売事業者は、基準に適合させるための措置と、措置をとらなかった場合の結果を所有者又は占有者へ通知する。使用を禁止する義務ではない。` |
 
-正しい選択肢で後半に書ける内容が選択肢と同じなら、1行目の型を使います。追加説明する場合は、選択肢を省いて読んでも新しい情報として成立する文から始めます。資格別文書で判断軸が示されている場合も、この二つの型から選びます。
+正しい選択肢で追加できるのが同じ内容だけなら`正しい。`を選びます。説明を続ける場合は、選択肢を省いて読んでも新しい情報になる文を書きます。誤りの選択肢は、正しい内容から選択肢との差へ進めます。
 
-### 3. 文章だけを読み直す
+一文では中心内容を一つに絞り、通常は1〜3文にまとめます。結論、理由、学習上必要な情報の順に置き、自然な主語と動詞で書きます。
 
-根拠確認後に、文章を独立して読み直します。
+### 3. 補足質問を選ぶ
 
-- 前資料を見なくても結論と理由が一度で分かるか。
-- 主語と述語、修飾語と被修飾語が自然につながるか。
-- 作業メモ調、機械翻訳調、同じ構文の反復になっていないか。
-- 法令名、条項、数値、単位、肯定・否定を推敲で変えていないか。
-- `explanationText`だけで正誤理由が完結しているか。
-- 正しい選択肢の解説が、上の二つの型のどちらかになっているか。
-- 間違いの選択肢の解説が、正しい内容と選択肢との差を一度で理解できる順序になっているか。
-- 独自問題では、取得元の解説を踏まえ、正答理由と各誤答の理由を変えずに説明できているか。
+基本解説を読んだ後にも、問題の中心論点に直結する自然な疑問が残る場合だけ補足を作ります。各選択肢0〜3件で、0件を標準の選択肢として扱います。
 
-## 根拠の読み方
-
-参照順は次のとおりです。
-
-1. 02a・02b反映済みの`20_merged_1`
-2. 必要時のみ同じ年度の`18_law_context_prepared`と`23_correctChoiceText_fixed`
-3. 出題時正答やsource identityの追跡に必要な場合だけ`00_source`
-4. 資格別資料
-5. 公的一次情報又は原典に近い資料
-
-`explanation_common_summary`、`explanation_choice_snippets`、`explanation_common_prefix`は候補資料です。空、薄い、又は矛盾する場合は、それだけで推測せず一次情報を確認します。正答番号の推定値は、各選択肢の理由を説明する根拠にはなりません。
-
-外部Webは、条文、用語定義、数値基準、技術基準、制度趣旨の裏取りに使えます。
-
-- serverが`primaryLawEvidence`へ取得したe-Gov法令API v2の本文と時点比較を最初に使う。不足箇所だけ、e-Gov、所管官庁、自治体、標準規格団体、公的機関、学会などの一次情報を追加確認する。
-- `question_url`を再取得して説明根拠にしない。
-- 本文へURLを入れず、長文を転載しない。
-- 直接引用は判断を分ける最小限にし、確認した原文と一致させる。要約へ引用符を付けない。
-- 確認できない条項、数値、期間、主体、対象範囲を補完しない。
-
-解説の事実は、利用可能な公式の一次資料で確認します。実際に解説の根拠として確認したページだけを`explanationReferences`へ保存します。
-
-- 資格試験の実施団体、官公庁、メーカー、標準化団体などが公開する公式資料を優先する。
-- 非公式サイト、試験対策サイト、検索結果、`question_url`を公式資料の代わりにしない。
-- 資料本文は転載せず、ページ名、HTTPS URL、確認日だけを保存する。
-- 同じURLを重複させず、問題の判断に必要な1〜3件へ絞る。
-- 特定の選択肢だけに対応する場合だけ`choiceIndex`を付ける。
-- 公式資料がオンライン公開されている問題では、原則1件以上を紐づける。確認できない場合は非公式URLで穴埋めせず、`99_model_review_flags`へ確認事項を残す。
-- 法令の条・項・号や監査状態は`explanationReferences`へ複製せず、既存の`lawReferences`契約を使う。
-
-Pythonは件数確認、正式patch化、構造検証にだけ使います。説明文、法令判定、正誤理由をscriptで量産しません。
-
-## 問題形式ごとの補足
-
-| `questionType` | 解説で追加確認すること |
+| 基本解説を読んだ後の状態 | 結果 |
 | --- | --- |
-| `true_false` | 正しい選択肢は上記の二つの型から選ぶ。間違いの選択肢は、正しい内容から選択肢との差へ進む。 |
-| `flash_card` | 問題共通の基本解説を1本だけ作り、正答の並び、対応関係、数値を実値で示す。 |
-| `group_choice` | 問題共通の基本解説を1本だけ作り、正答と、比較・組合せ・対応関係を判断する基準を示す。 |
+| 正誤理由と必要な背景まで理解できる | 0件 |
+| 比較、例外、仕組み又は法令の列挙事項を知ると理解が深まる | その疑問だけを追加 |
 
-`isCalculationQuestion=true`では、使用する式、数値の代入、必要な単位換算、途中計算、最終値、正答選択肢との対応を、問題共通の`explanationText` 1本へ順に書きます。これを読むだけで解法と答えが分かり、選択肢は計算結果を照合する役割になります。この方針は資格を問わず共通です。
-
-## 補足質問
-
-補足質問は、基本解説にない追加情報を回答できる場合だけ、公開対象の選択肢ごとに最大3件作ります。次の順で判断します。
-
-1. 正誤理由と学習上必要な内容を、先に基本解説だけで完結させる。
-2. 基本解説を読んだ後にも残る疑問があれば、質問と回答の候補を作る。
-3. 候補の質問と回答を基本解説と比べる。同じ結論・理由・根拠を質問形式で言い換えただけなら削除し、残らなければ0件とする。
-
-0件は不足ではありません。重複する1件を置くより、0件を正しい結果とします。計算問題は詳細な計算過程を基本解説へまとめるため原則0件です。`flash_card`と`group_choice`では問題全体の補足だけを対象とし、誤答選択肢ごとの補足は作りません。`true_false`では各選択肢へ同じ基準を適用します。
-
-各要素は`{"choiceIndex", "items"}`だけ、`items`の各要素は`{"question", "answer"}`だけで構成します。`choiceIndex`は0始まりです。`true_false`は各選択肢、`flash_card`と`group_choice`は公開変換で`isChoiceOnly=false`になる正答選択肢だけを対象にし、0件の選択肢は要素自体を省略します。`isChoiceOnly`はFirestore documentの役割fieldであり、問題内容や計算問題の判定には使いません。
-
-- `question`は問題固有の短い疑問にし、`なぜ？`、`覚え方`、`関連知識`のような固定文言だけにしない。
-- `answer`は質問へ直接答え、基本解説にはない比較、条件、例外又は仕組みを含める。
-- 同じ選択肢内の重複、学習論点から離れた内容、件数を満たすための質問、URL、空欄、プレースホルダーを入れない。
-- 正誤理由の核心を補足回答だけへ置かない。
-
-## 法令問題
-
-法令fieldの形と状態は[question field契約](../document/reference/question_field_contract.md)、監査順序と公開条件は[現行法監査](../document/operations/current_law_question_maintenance_workflow.md)に従います。
-
-- 02bの`isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences`、`lawContextForExplanation`を起点にする。
-- `lawReferences`が非空なら`isLawRelated=true`かつ`lawGroundedExplanationNotNeeded=false`であることを確認する。
-- 法令名、条・項・号、ただし書、表、別表は、資格別方針が明記を求め、一次情報で確認できた範囲だけを書く。
-- `explanationText`の条文位置と、同じ選択肢のverified `lawReferences`を一致させる。
-- 間違いの解説は原則として、`正しい内容と条文位置 → 選択肢との差`の順に書く。条文を示すだけで終えない。
-- `candidate` / `unverified`を断定的な引用根拠にしない。
-- 現行法と出題当時の正誤が異なる場合は、`tertiary_verified`の03b結果だけを使う。現行法更新済みの注記と出題当時との差は基本解説で完結させ、そこにない追加疑問が残る場合だけ補足質問を作る。
-- `hold`、未完了review state、根拠間の不一致があれば完了扱いにしない。
-
-資格ごとに`lawReferences`を出すか、条項をどこまで本文へ書くかは[qualification docs](qualification_docs/README.md)で確認します。資格固有の例外をこの共通promptで推測せず、対象資格の文書へ従います。二級建築士など資格固有の監査コマンドも各資格文書から実行します。
-
-## 出力契約
-
-保存先と固定名は[artifact契約](../document/operations/artifact_contract.md)に従います。
-
-```text
-output/<qualification>/questions_json/<list_group_id>/
-  21_explanationText_added/<source_stem>_merged_explanationText_added.json
-```
-
-- 同じsourceの既存patchを更新し、作業ごとにtimestamp付きファイルを増やさない。
-- 出力順は入力`question_bodies`と一致させる。
-- 各正式patch entryへ`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`を保存する。
-- `original_question_id`は`reviewQuestionId`と一致させる。
-- `explanationText`、`explanationReferences`、`suggestedQuestionDetailsByChoice`を必須とする。公式資料が存在しない又はオンライン確認できない場合、`explanationReferences`は空配列にする。
-- `suggestedQuestions`と`suggestedQuestionDetails`は公開変換で回答から派生するため、patchへ保存しない。
-- `isLawRelated`と`lawGroundedExplanationNotNeeded`は02bのbooleanを引き継ぐ。
-- 資格別方針と監査状態に応じて、`lawReferences`と`lawRevisionFacts`を含める。
-- 全体解説だけの別entryや、未定義fieldを追加しない。
-
-完全なsource identityを確定できないentryは保存しません。旧形式のIDだけを使う正式化は、source recordへ一意に対応できる既存データの互換処理に限ります。新規raw patchは必ず3項目を持たせます。
-
-## 最小raw patchと正式化
-
-最小raw patchにも完全なsource identityを入れます。次は形の例であり、文章を固定文として流用しません。
+例えば、基本解説が保安業務規程の遵守義務と条文位置まで示した後なら、次の補足には追加価値があります。
 
 ```json
-[
-  {
-    "sourceQuestionKey": "sample:2026:q1",
-    "reviewQuestionId": "sample-q1",
-    "sourceRecordRef": "question_2026_1.json#0",
-    "original_question_id": "sample-q1",
-    "explanationText": [
-      "正しい。基準は10以上であり、値10も範囲に含まれる。"
-    ],
-    "explanationReferences": [
-      {
-        "title": "公式資料のページ名",
-        "sourceUrl": "https://example.go.jp/official-document",
-        "referenceDate": "2026-07-23"
-      }
-    ],
-    "suggestedQuestionDetailsByChoice": [
-      {
-        "choiceIndex": 0,
-        "items": [
-          {
-            "question": "「以上」と「超える」では境界値の扱いがどう違いますか？",
-            "answer": "「以上」は基準値と同じ値を含むが、「超える」は含まない。境界値が選択肢にあるときは、この違いを確認する。"
-          }
-        ]
-      }
-    ],
-    "isLawRelated": false,
-    "lawGroundedExplanationNotNeeded": true
-  }
-]
+{
+  "question": "同じ条には、ほかに何が規定されていますか？",
+  "answer": "同条には、保安業務規程の作成・届出、変更届出、変更命令、ガス小売事業者と従業者の遵守義務が規定されている。"
+}
 ```
 
-正式patch化では、完全一致を優先し、旧形式は一意な場合だけ許可します。duplicate、unmatched、ambiguousが1件でもあれば停止します。
+候補が基本解説と同じ結論・理由・根拠を質問形式にしただけなら0件を選びます。質問は問題固有の短い疑問にし、回答は質問へ直接答えます。`true_false`は該当する選択肢へ、`flash_card`と`group_choice`は問題全体の正答側へ紐づけます。
 
-```bash
-.venv/bin/python tools/question_bank/question_bank.py materialize-patch \
-  --task explanation \
-  --source /path/to/20_merged_1/<source_stem>_merged.json \
-  --raw /path/to/raw.json \
-  --output /path/to/21_explanationText_added/<source_stem>_merged_explanationText_added.json
-```
+### 4. 根拠を記録する
 
-## 不確実性
+実際に確認した公式一次資料だけを`explanationReferences`へ残します。オンライン資料がある場合も、判断に必要な1〜3件へ絞ります。取得元の問題ページ、検索結果、未確認の候補は根拠に数えません。
 
-未確認事項を正式patchの独自fieldへ混ぜません。保存先と固定名は[artifact契約](../document/operations/artifact_contract.md)に従い、必要な問題だけ`99_model_review_flags/`のJSONL sidecarへ残します。
+法令問題は、渡されたverifiedの法令情報と公式本文を一致させます。間違いの解説は`正しい内容と条文位置 → 選択肢との差`の順を基本とします。出題時と現行法が異なる場合は、`tertiary_verified`になった`updated_to_current_law`だけを公開文へ反映します。
 
-各行には、完全なsource identity、`reviewStage="03_explanationText"`、不確実性の分類、現在の判断、確認した根拠、次に確認する具体的な質問を残します。
+## 完成前の確認
 
-- 正誤、法令根拠、数値、定義を確定できない不確実性は`hold`とし、03を完了しない。
-- 正誤理由は確定しており、追加確認だけが残る場合は、保守的な本文と具体的な再確認事項を分ける。
-- sidecarを理由に、根拠のない内容を正式patchへ断定して書かない。
+- 正答、解説、法令情報が同じ結論を示している。
+- `true_false`は選択肢と同数、`flash_card`と`group_choice`は問題単位の1件になっている。
+- 正しい選択肢は、`正しい。`又は選択肢にない追加情報のある説明になっている。
+- 間違いの選択肢は、正しい内容と選択肢との差だけで理解できる。
+- 計算問題は、解説だけで計算過程と答えを再現できる。
+- 補足は基本解説にない追加情報を持ち、不要なら0件になっている。
+- 法令名、条項、数値、単位、肯定・否定を推敲で変えていない。
+- 保存するfieldと機械検証は、リンク先の契約に一致している。
 
-## 必須検証
-
-保存前に人が次を確認します。
-
-1. 事実確定と文章推敲を分けて実施した。
-2. 入力件数、出力件数、source identityの集合が一致する。
-3. `flash_card`と`group_choice`の`explanationText`が問題共通の1要素、`true_false`が`choiceTextList`と同数である。
-4. `true_false`の各要素が、同じindexの正誤に対応する`正しい。`又は`間違い。`で始まる。
-5. 正しい選択肢の解説が上記の二つの型のどちらかであり、間違いの選択肢の解説に正しい内容と選択肢との差がある。
-6. `isCalculationQuestion=true`の解説に、式、代入、必要な単位換算、途中計算、最終値、正答選択肢との対応がある。
-7. `suggestedQuestionDetailsByChoice`が公開対象の選択肢だけを指し、各選択肢0〜3件で、質問と回答が基本解説の言い換えになっていない。
-8. `explanationReferences`に、解説で実際に確認した公式一次資料だけが入り、URLがHTTPS、確認日が`YYYY-MM-DD`になっている。
-9. 法令問題に`hold`、未完了review state、根拠不一致がない。
-10. 資格別方針が要求する追加監査を通過した。
-
-機械検証は必ず実行します。
-
-```bash
-.venv/bin/python tools/question_bank/question_bank.py check-explanation-patch \
-  --source /path/to/20_merged_1/<source_stem>_merged.json \
-  --patch /path/to/21_explanationText_added/<source_stem>_merged_explanationText_added.json \
-  --require-is-law-related \
-  --require-law-grounded-flag \
-  --require-law-evidence-utilization
-```
-
-通過しない場合は完了扱いにしません。説明、配列長、source identity、法令根拠を修正して再実行します。
-
-## 完了報告
-
-次を簡潔に報告します。
-
-1. 対象資格・年度・問題数
-2. 更新した固定名patchとsidecar
-3. source identity、入力件数、出力件数の照合結果
-4. 必須検証と資格固有検証の結果
-5. `hold`又は未解決事項
+事実確定と文章推敲を分け、最後に解説文だけを読み返します。前の資料を見なくても意味が通り、声に出しても引っ掛からない文章を完成形とします。

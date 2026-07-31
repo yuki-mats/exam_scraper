@@ -238,26 +238,22 @@ class DocumentationStructureTests(unittest.TestCase):
             ROOT / "document" / "reference" / "question_field_contract.md"
         ).read_text(encoding="utf-8")
 
-        self.assertLessEqual(len(text.splitlines()), 300)
+        self.assertLessEqual(len(text.splitlines()), 120)
         for concept in (
-            "事実確定と文章推敲を分けます",
-            "`flash_card`と`group_choice`は、選択肢数にかかわらず問題共通の基本解説",
-            "`group_choice`は、正答と、比較・組合せ・対応関係を判断する基準",
-            "`true_false`は、`explanationText`の要素数を`choiceTextList`と一致",
-            "`isCalculationQuestion=true`では、使用する式、数値の代入",
-            "用語を選ぶ問題は、選択肢にある各用語の意味と見分け方",
-            "`flash_card`と`group_choice`では問題全体の補足だけを対象とし",
-            "重複する1件を置くより、0件を正しい結果",
+            "事実確定と文章推敲を分け",
+            "`flash_card`",
+            "`group_choice`",
+            "`true_false`",
+            "計算問題は、式、代入値、単位換算、途中計算、最終値",
+            "用語を選ぶ問題は、各用語の意味と見分け方",
+            "基本解説と同じ結論・理由・根拠",
+            "各選択肢0〜3件で、0件を標準",
             "`sourceQuestionKey`",
             "`reviewQuestionId`",
             "`sourceRecordRef`",
-            "duplicate、unmatched、ambiguous",
             "`updated_to_current_law`",
             "`tertiary_verified`",
             "`hold`",
-            "21_explanationText_added/<source_stem>_merged_explanationText_added.json",
-            "materialize-patch",
-            "check-explanation-patch",
             "question_field_contract.md",
             "artifact_contract.md",
             "qualification_docs/README.md",
@@ -270,6 +266,10 @@ class DocumentationStructureTests(unittest.TestCase):
             "lawAnswerUpdatedFromExamTime",
             "audit_2nd_class_kenchikushi_law_revision.py",
             "mecnet-kokushi",
+            "materialize-patch",
+            "check-explanation-patch",
+            "21_explanationText_added/<source_stem>_merged_explanationText_added.json",
+            "duplicate、unmatched、ambiguous",
         ):
             self.assertNotIn(obsolete, text)
 
@@ -319,9 +319,9 @@ class DocumentationStructureTests(unittest.TestCase):
             )
         )
         stages = {stage["id"]: stage for stage in workflow["stages"]}
-        self.assertEqual(stages["explanation"]["policy_version"], "4.3")
-        self.assertEqual(stages["law_audit"]["policy_version"], "4.3")
-        self.assertEqual(stages["law_context"]["policy_version"], "1.2")
+        self.assertEqual(stages["explanation"]["policy_version"], "5.2")
+        self.assertEqual(stages["law_audit"]["policy_version"], "4.5")
+        self.assertEqual(stages["law_context"]["policy_version"], "1.4")
 
 
 if __name__ == "__main__":
