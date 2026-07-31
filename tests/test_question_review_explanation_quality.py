@@ -32,14 +32,28 @@ class ExplanationQualityTests(unittest.TestCase):
             Path(__file__).resolve().parents[1]
             / "prompt/03_prompt_add_explanationText.md"
         ).read_text(encoding="utf-8")
-        examples = [
+        example_rows = [
             line
             for line in prompt.splitlines()
-            if line.startswith(("正しい。", "間違い。"))
+            if line.startswith(("| 正しい・", "| 間違い・"))
+        ]
+        choices = [line.split("`")[1] for line in example_rows]
+        examples = [line.split("`")[3] for line in example_rows]
+        verdicts = [
+            "正しい" if line.startswith("| 正しい・") else "間違い"
+            for line in example_rows
         ]
 
-        self.assertTrue(examples)
-        self.assertEqual(explanation_style_issues(examples), [])
+        self.assertEqual(len(examples), 4)
+        self.assertEqual(
+            explanation_style_issues(
+                examples,
+                verdicts,
+                choice_texts=choices,
+                question_type="true_false",
+            ),
+            [],
+        )
 
     def test_rejects_missing_required_verdict_prefix(self):
         issues = explanation_style_issues(["定義に一致するため正しい。"], ["正しい"])

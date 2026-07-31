@@ -213,7 +213,8 @@ kind = "human"
 # 4.4: 宣言済み法令根拠はserver取得の試験時点・現在時点本文と差分を使い、通信探索への依存を減らす。
 # 4.5: 公式試験日catalogと正規化locatorによる時点比較を解説入力へ共通適用する。
 # 5.0: 正しい肢の再掲を禁止し、追加情報がなければ「正しい。」だけを正規形とする。
-policy_version = "5.0"
+# 5.1: 禁止事項の列挙を減らし、正しい肢2型・誤り肢1型の出力例を生成基準にする。
+policy_version = "5.1"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
