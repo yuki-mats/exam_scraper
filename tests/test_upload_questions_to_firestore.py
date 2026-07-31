@@ -360,6 +360,47 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             ),
         )
 
+    def test_regular_doc_removes_stale_suggestions_when_current_artifact_has_none(
+        self,
+    ) -> None:
+        new_base = module.build_doc_data_base(
+            {
+                "questionId": "q-regular",
+                "questionSetId": "qs1",
+                "listGroupId": "2026",
+                "originalQuestionId": "original-1",
+                "originalQuestionBodyText": "元問題文",
+                "questionBodyText": "問題文",
+                "originalQuestionChoiceText": "選択肢",
+                "questionText": "本文",
+                "questionType": "true_false",
+                "qualificationId": "sample-qualification",
+                "correctChoiceText": "正しい",
+                "explanationText": "基本解説",
+                "examSource": "サンプル試験",
+                "questionTags": [],
+                "isOfficial": True,
+                "isDeleted": False,
+                "isChoiceOnly": False,
+                "isGroupable": True,
+            }
+        )
+
+        self.assertNotIn("suggestedQuestions", new_base)
+        self.assertNotIn("suggestedQuestionDetails", new_base)
+        self.assertEqual(
+            module.stale_public_fields_to_delete(
+                new_base,
+                {
+                    "suggestedQuestions": ["旧補足"],
+                    "suggestedQuestionDetails": [
+                        {"question": "旧補足", "answer": "旧回答"}
+                    ],
+                },
+            ),
+            ("suggestedQuestions", "suggestedQuestionDetails"),
+        )
+
     def test_release_incompatible_field_is_removed_from_regular_doc(self) -> None:
         actual = module.build_doc_data_base(
             {

@@ -249,7 +249,14 @@ def stale_public_fields_to_delete(
         for field in PRODUCTION_CLIENT_OMITTED_FIELDS
         if field in existing
     ]
-    if new_base.get("isChoiceOnly") is True:
+    is_choice_only = new_base.get("isChoiceOnly") is True
+    if not is_choice_only:
+        fields.extend(
+            field
+            for field in ("suggestedQuestions", "suggestedQuestionDetails")
+            if field in existing and field not in new_base and field not in fields
+        )
+    if is_choice_only:
         fields.extend(
             field
             for field in CHOICE_ONLY_OMITTED_FIELDS

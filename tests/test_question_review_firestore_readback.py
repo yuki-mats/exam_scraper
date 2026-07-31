@@ -62,7 +62,7 @@ class QuestionReviewFirestoreReadbackTests(unittest.TestCase):
         self.assertEqual(result["missingDocumentIds"], ["doc2"])
         self.assertIn("doc1.lawReferences[0].article", result["differences"])
 
-    def test_compare_preserves_omitted_optional_fields_for_regular_documents(self):
+    def test_compare_requires_omitted_stale_suggestions_to_be_deleted(self):
         result = compare_documents(
             [{"questionId": "doc1", "isChoiceOnly": False}],
             {
@@ -76,8 +76,11 @@ class QuestionReviewFirestoreReadbackTests(unittest.TestCase):
             fields=("suggestedQuestions", "suggestedQuestionDetails"),
         )
 
-        self.assertEqual(result["status"], "match")
-        self.assertEqual(result["differences"], [])
+        self.assertEqual(result["status"], "mismatch")
+        self.assertEqual(
+            result["differences"],
+            ["doc1.suggestedQuestionDetails", "doc1.suggestedQuestions"],
+        )
 
     def test_compare_requires_choice_only_omitted_fields_to_be_deleted(self):
         result = compare_documents(
