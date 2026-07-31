@@ -16,7 +16,6 @@ from scripts.common.suggested_question_contract import (
 )
 from scripts.common.explanation_contract import (
     explanation_shape_errors,
-    uses_question_level_explanation,
 )
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
@@ -201,12 +200,6 @@ class PatchEditor:
                     explanations,
                     correctness if isinstance(correctness, list) else None,
                     choice_texts=final_record.get("choiceTextList"),
-                    require_verdict_prefix=(
-                        choice_count > 0
-                        and not uses_question_level_explanation(
-                            final_record.get("questionType")
-                        )
-                    ),
                     question_type=final_record.get("questionType"),
                 )
                 if explanation_issues:

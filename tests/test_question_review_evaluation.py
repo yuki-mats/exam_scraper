@@ -1561,9 +1561,12 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("解説が`正しい。`だけでも減点しない", prompt)
         self.assertIn("選択肢の全文再掲", prompt)
         self.assertIn(
-            "true_falseの間違いの選択肢は、`間違い。`だけでは合格にしない",
+            "`正しくは、〜。`に相当する完全な訂正文",
             prompt,
         )
+        self.assertIn("flash_cardとgroup_choiceの問題単位の解説", prompt)
+        self.assertIn("最小限の具体例", prompt)
+        self.assertIn("補足0件を適切", prompt)
         self.assertIn("正しい定義・基準と条文位置", prompt)
         self.assertIn("その後に選択肢との差", prompt)
         self.assertIn("02: questionIntentだけ", prompt)
@@ -1674,7 +1677,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "4.1")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.0")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
@@ -1753,13 +1756,13 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             same_version = service.status_for(question)
             service.current_policy = lambda: {
                 **original_policy,
-                "policyVersion": "4.1",
+                "policyVersion": "5.1",
                 "policyFingerprint": "new-evaluation-policy",
             }
             minor_version = service.status_for(question)
             service.current_policy = lambda: {
                 **original_policy,
-                "policyVersion": "5.0",
+                "policyVersion": "6.0",
                 "policyFingerprint": "breaking-evaluation-policy",
             }
             next_major = service.status_for(question)

@@ -59,7 +59,6 @@ from tools.question_review_console.process_lease import (
     ProcessLeaseError,
     qualification_run_lease,
 )
-from scripts.common.explanation_contract import uses_question_level_explanation
 from scripts.common.aggregate_answer_decomposition import (
     candidate_set_hash,
     derived_source_unique_keys_for_parent,
@@ -16636,23 +16635,12 @@ class QualificationRunCoordinator:
                 errors.append(f"{label}: explanationTextを確認できません。")
                 continue
             choices = projected.get("choiceTextList")
-            require_verdict_prefix = not (
-                isinstance(choices, list)
-                and not choices
-                and projected.get("questionType") in {"fill_in_blank", "free_text"}
-            )
             errors.extend(
                 f"{label} {issue}"
                 for issue in explanation_style_issues(
                     explanations,
                     projected.get("correctChoiceText"),
                     choice_texts=choices,
-                    require_verdict_prefix=(
-                        require_verdict_prefix
-                        and not uses_question_level_explanation(
-                            projected.get("questionType")
-                        )
-                    ),
                     question_type=projected.get("questionType"),
                 )
             )

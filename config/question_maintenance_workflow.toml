@@ -215,7 +215,8 @@ kind = "human"
 # 5.0: 正しい肢の再掲を禁止し、追加情報がなければ「正しい。」だけを正規形とする。
 # 5.1: 禁止事項の列挙を減らし、正しい肢2型・誤り肢1型の出力例を生成基準にする。
 # 5.2: 判断順・出力例・完成確認へ絞り、保存契約とCLIの重複説明を正本へ戻す。
-policy_version = "5.2"
+# 6.0: 全問題形式で正誤を先頭表示し、誤りは正しい全体像、抽象概念は具体例から説明する。
+policy_version = "6.0"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -380,7 +381,8 @@ documents = [
 [evaluation]
 # 4.0: 画像URLを評価入力へ含め、問題形式・計算/法令分類を公開契約として再評価する。
 # 4.1: 正しい肢の簡潔な解説を許容し、再掲・言い換えだけの解説は不合格にする。
-policy_version = "4.1"
+# 5.0: 全形式の冒頭正誤、誤りの完全な訂正文、具体例と基本解説優先を評価する。
+policy_version = "5.0"
 documents = ["document/operations/local_question_review_console.md"]
 inputs = [
   "tools/question_review_console/evaluation.py",

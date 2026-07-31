@@ -12,7 +12,6 @@ from scripts.common.suggested_question_contract import (
 )
 from scripts.common.explanation_contract import (
     explanation_shape_errors,
-    uses_question_level_explanation,
 )
 from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
 from scripts.common.explanation_references import explanation_reference_errors
@@ -1788,9 +1787,6 @@ def validate_candidate_content(
                     explanations,
                     correct,
                     choice_texts=choices,
-                    require_verdict_prefix=not uses_question_level_explanation(
-                        logical.get("questionType")
-                    ),
                     question_type=logical.get("questionType"),
                 )
             )

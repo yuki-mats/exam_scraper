@@ -16,16 +16,37 @@ class ExplanationQualityTests(unittest.TestCase):
 
         self.assertIn("解説の件数が選択肢の件数と一致しません。", issues[0])
 
-    def test_group_choice_accepts_one_question_level_explanation_without_verdict_prefix(self):
+    def test_group_choice_requires_correct_verdict_prefix(self):
         issues = explanation_style_issues(
             ["各組合せを比較すると、条件をすべて満たすのは選択肢3である。"],
             ["間違い", "間違い", "正しい", "間違い"],
             choice_texts=["組合せ1", "組合せ2", "組合せ3", "組合せ4"],
-            require_verdict_prefix=False,
             question_type="group_choice",
         )
 
-        self.assertEqual(issues, [])
+        self.assertEqual(len(issues), 1)
+        self.assertIn("正しい。", issues[0])
+
+        self.assertEqual(
+            explanation_style_issues(
+                ["正しい。条件をすべて満たすのは選択肢3である。"],
+                ["間違い", "間違い", "正しい", "間違い"],
+                choice_texts=["組合せ1", "組合せ2", "組合せ3", "組合せ4"],
+                question_type="group_choice",
+            ),
+            [],
+        )
+
+    def test_question_level_explanation_rejects_wrong_verdict_prefix(self):
+        issues = explanation_style_issues(
+            ["間違い。平均値は合計を個数で割って求める。"],
+            ["正しい"],
+            choice_texts=["合計を個数で割る"],
+            question_type="flash_card",
+        )
+
+        self.assertEqual(len(issues), 1)
+        self.assertIn("問題単位の解説", issues[0])
 
     def test_canonical_prompt_examples_follow_the_same_style_contract(self):
         prompt = (
@@ -44,7 +65,14 @@ class ExplanationQualityTests(unittest.TestCase):
             for line in example_rows
         ]
 
-        self.assertEqual(len(examples), 4)
+        self.assertEqual(len(examples), 5)
+        self.assertTrue(
+            all(
+                "正しくは、" in example
+                for example, verdict in zip(examples, verdicts)
+                if verdict == "間違い"
+            )
+        )
         self.assertEqual(
             explanation_style_issues(
                 examples,

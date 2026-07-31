@@ -432,6 +432,26 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
                 "hash",
             )
 
+    def test_rejects_question_level_explanation_without_verdict_prefix(self):
+        editor = PatchEditor(Path.cwd())
+        question = {
+            "stateHash": "hash",
+            "projected": {
+                "questionType": "group_choice",
+                "choiceTextList": ["組合せ1", "組合せ2"],
+                "correctChoiceText": ["間違い", "正しい"],
+                "explanationText": ["正しい。正しい組合せは2である。"],
+            },
+        }
+
+        with self.assertRaisesRegex(DirectEditError, "正しい。"):
+            editor.preview(
+                question,
+                {"explanationText": ["正しい組合せは2である。"]},
+                "",
+                "hash",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

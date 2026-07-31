@@ -319,7 +319,7 @@ class DocumentationStructureTests(unittest.TestCase):
             )
         )
         stages = {stage["id"]: stage for stage in workflow["stages"]}
-        self.assertEqual(stages["explanation"]["policy_version"], "5.2")
+        self.assertEqual(stages["explanation"]["policy_version"], "6.0")
         self.assertEqual(stages["law_audit"]["policy_version"], "4.5")
         self.assertEqual(stages["law_context"]["policy_version"], "1.4")
 

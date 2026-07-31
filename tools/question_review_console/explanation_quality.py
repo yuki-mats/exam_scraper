@@ -154,7 +154,6 @@ def explanation_style_issues(
     correct_choices: Iterable[Any] | None = None,
     *,
     choice_texts: Iterable[Any] | None = None,
-    require_verdict_prefix: bool = True,
     question_type: object = None,
 ) -> list[str]:
     """Return deterministic violations of the stage-03 Japanese style policy."""
@@ -183,21 +182,25 @@ def explanation_style_issues(
             issues.append(f"{item_label}: 解説が空です。")
             continue
         prefix = VERDICT_PREFIX.match(text)
-        expected_verdict = (
+        expected_verdict = "正しい" if question_level else (
             normalize_verdict(verdicts[choice_index - 1])
             if choice_index <= len(verdicts)
             else ""
         )
-        if require_verdict_prefix and prefix is None:
+        if prefix is None:
             issues.append(
                 f"{item_label}: 解説は「正しい。」又は「間違い。」で"
                 "始めてください。"
             )
-        elif prefix is not None and choice_index <= len(verdicts):
-            if (
-                expected_verdict in {"正しい", "間違い"}
-                and prefix.group(1) != expected_verdict
-            ):
+        elif expected_verdict in {"正しい", "間違い"} and (
+            prefix.group(1) != expected_verdict
+        ):
+            if question_level:
+                issues.append(
+                    f"{item_label}: 問題単位の解説は「正しい。」で"
+                    "始めてください。"
+                )
+            else:
                 issues.append(
                     f"{item_label}: 解説冒頭の正誤がcorrectChoiceTextと"
                     "一致しません。"

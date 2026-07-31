@@ -415,7 +415,7 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                         {
                             **identity,
                             "explanationText": [
-                                "正解は2です。両方を比べると、肢2が正答です。"
+                                "正しい。正解は2です。両方を比べると、肢2が正答です。"
                             ],
                             "suggestedQuestionDetailsByChoice": [],
                         }
