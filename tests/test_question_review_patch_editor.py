@@ -401,7 +401,7 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
 
         for explanation, error in (
             ("定義に一致するため正しい。", "正しい。"),
-            ("正しい。A", "判断理由"),
+            ("正しい。A", "全文を解説で繰り返さない"),
         ):
             with self.subTest(explanation=explanation), self.assertRaisesRegex(
                 DirectEditError, error

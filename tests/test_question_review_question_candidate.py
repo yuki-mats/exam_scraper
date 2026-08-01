@@ -305,7 +305,7 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertTrue(
             any(
-                "記述の正誤方向を明示" in error
+                "選択方向を明示" in error
                 and "00_source" in error
                 for error in errors
             ),
@@ -1217,10 +1217,13 @@ class QuestionCandidateTest(unittest.TestCase):
         description = target.prompt_value()["fieldRules"]["questionIntent"][
             "description"
         ]
-        self.assertIn("設備名、名詞句、数値又は対象名などの断片", description)
-        self.assertIn("誤っているものはいくつあるか", description)
-        self.assertIn("成立する命題を選ぶselect_correct", description)
-        self.assertIn("もう一度反転しない", description)
+        self.assertIn("設備名、名詞句、数値、対象名などの断片", description)
+        self.assertIn("問題文が明示する選択方向を反転しない", description)
+        self.assertIn(
+            "各肢のcorrectChoiceText判定とquestionIntent判定を混ぜない",
+            description,
+        )
+        self.assertIn("correctChoiceTextから逆算しない", description)
 
     def test_question_type_target_rejects_single_choice(self):
         plan = {
@@ -1240,10 +1243,13 @@ class QuestionCandidateTest(unittest.TestCase):
             ],
         )
         self.assertIn(
-            "choiceTextListの各候補を",
+            "choiceTextListをその答えとの照合にだけ使う問題はflash_card",
             rules["questionType"]["description"],
         )
-        self.assertIn("計算問題でもtrue_false", rules["questionType"]["description"])
+        self.assertIn(
+            "単一の計算結果に最も近い数値候補を選ぶ問題もflash_card",
+            rules["questionType"]["description"],
+        )
         self.assertIn(
             "比較対象そのものを持つ場合もtrue_false",
             rules["questionType"]["description"],

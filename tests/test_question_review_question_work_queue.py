@@ -142,7 +142,20 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
 
     def test_evaluation_rework_plan_maps_each_question_to_its_own_stage(self) -> None:
-        plan = copy.deepcopy(self.plan)
+        law_context = stage_plan("law_context", self.targets)
+        plan = copy.deepcopy(
+            {
+                **self.plan,
+                "stageIds": ["law_context", "explanation", "law_audit"],
+                "stagePlans": [law_context, self.first, self.second],
+                "workItemCount": 6,
+                "policyTargets": {
+                    "law_context": ["q1", "q2"],
+                    "explanation": ["q1", "q2"],
+                    "law_audit": ["q1", "q2"],
+                },
+            }
+        )
         coordinator = object.__new__(QualificationRunCoordinator)
 
         coordinator._apply_evaluation_rework_plan(
@@ -171,10 +184,13 @@ class QuestionWorkQueueTests(unittest.TestCase):
 
         self.assertTrue(plan["evaluationRework"])
         self.assertEqual(plan["targetCount"], 2)
-        self.assertEqual(plan["workItemCount"], 2)
+        self.assertEqual(plan["workItemCount"], 3)
         self.assertEqual(
             plan["targetStageIdsByQuestion"],
-            {"q1": ["explanation"], "q2": ["law_audit"]},
+            {
+                "q1": ["explanation"],
+                "q2": ["law_context", "law_audit"],
+            },
         )
 
     def test_evaluation_rework_plan_adds_correct_choice_for_mapping_mismatch(self) -> None:

@@ -28,6 +28,9 @@ from tests.support.law_audit import valid_v2_audit_row
 
 
 class FakeWorkflow:
+    def __init__(self, inventory=None):
+        self.inventory = inventory or SourceOnlyInventory()
+
     def plan(self, qualification, stage_id, mode="remaining"):
         machine = stage_id == "delivery"
         groups = ["2025", "2026"] if machine else ["2026"]

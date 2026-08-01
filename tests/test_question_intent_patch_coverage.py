@@ -60,7 +60,7 @@ class QuestionIntentPatchCoverageTests(unittest.TestCase):
         patch = [
             {
                 "original_question_id": "q1",
-                "questionIntent": "select_correct",
+                "questionIntent": "select_incorrect",
             }
         ]
 
