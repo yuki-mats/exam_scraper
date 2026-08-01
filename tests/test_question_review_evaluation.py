@@ -1538,6 +1538,9 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("複数選択形式と誤解して分類変更を求めない", prompt)
         self.assertIn("isCalculationQuestionは計算過程が主要な学習対象かを表し", prompt)
         self.assertIn("questionTypeとは独立に評価", prompt)
+        self.assertIn("flutter_math_fork対応", prompt)
+        self.assertIn("一般式、数値の代入、途中計算、最終値", prompt)
+        self.assertIn("横幅超過はアプリの横スクロール", prompt)
         self.assertIn('"isCalculationQuestion": false', prompt)
         self.assertIn('"questionImageStorageUrls"', prompt)
         self.assertIn("https://example.invalid/question-image.png", prompt)
@@ -1677,7 +1680,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.0")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.1")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
@@ -1756,7 +1759,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             same_version = service.status_for(question)
             service.current_policy = lambda: {
                 **original_policy,
-                "policyVersion": "5.1",
+                "policyVersion": "5.2",
                 "policyFingerprint": "new-evaluation-policy",
             }
             minor_version = service.status_for(question)

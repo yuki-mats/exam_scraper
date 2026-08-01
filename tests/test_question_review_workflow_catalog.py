@@ -459,7 +459,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "6.0")
+        self.assertEqual(version_by_stage["explanation"], "6.1")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
         self.assertEqual(version_by_stage["originalize"], "2.7")
@@ -488,7 +488,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 }
             )
         )
-        self.assertEqual(catalog["evaluation"]["policyVersion"], "5.0")
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "5.1")
         explanation_targets = {
             target["selectionId"]: target
             for target in stage_by_id["explanation"]["updateTargets"]

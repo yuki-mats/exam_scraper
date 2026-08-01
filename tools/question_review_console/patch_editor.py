@@ -201,6 +201,10 @@ class PatchEditor:
                     correctness if isinstance(correctness, list) else None,
                     choice_texts=final_record.get("choiceTextList"),
                     question_type=final_record.get("questionType"),
+                    is_calculation_question=final_record.get(
+                        "isCalculationQuestion"
+                    )
+                    is True,
                 )
                 if explanation_issues:
                     raise DirectEditError(

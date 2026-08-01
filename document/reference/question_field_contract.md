@@ -124,7 +124,7 @@
 | 誤答3 | `incorrectChoice3Text` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 同上。 |
 | 誤答4 | `incorrectChoice4Text` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 同上。 |
 | 知識メモ | `knowledgeText` | string | 任意 | 任意 | 原則omit | string。 | explanation / manual | 解説本文と分ける補足知識。 |
-| 基本解説 | `explanationText` | string | 任意 | 必須相当 | 原則omit | string。`isChoiceOnly=true`ではfield自体を禁止する。 | `21_explanationText_added`, convert | AI自動起動を避けるため事前データとして持つ。`flash_card`と`group_choice`は問題単位の1本だけを正答documentへ投影する。法令差分注記もここに含める。 |
+| 基本解説 | `explanationText` | string | 任意 | 必須相当 | 原則omit | string。`isChoiceOnly=true`ではfield自体を禁止する。数式は`flutter_math_fork`対応の`$...$`、`$$...$$`、`\(...\)`又は`\[...\]`で囲み、計算問題の途中式は表示用数式にする。数式内で文字サイズを変えず、横幅超過はアプリ側の横スクロールで表示する。 | `21_explanationText_added`, convert | AI自動起動を避けるため事前データとして持つ。`flash_card`と`group_choice`は問題単位の1本だけを正答documentへ投影する。法令差分注記もここに含める。 |
 | 解説の公式資料 | `explanationReferences` | array<object> | 任意 | 公式一次資料をオンライン確認できる場合は必須相当 | omit | 後述の`explanationReferences`契約に従う。公開アプリの読取対応が確認できるまではFirestoreへ投影しない。 | `21_explanationText_added` | 解説の根拠として実際に確認した公式ページの軽量メタデータ。取得元の`referenceUrls`とは分ける。 |
 | 想定質問 | `suggestedQuestions` | array<string> | 任意 | 条件付き | 原則omit | Firestore公開時に`suggestedQuestionDetails[].question`から派生する。最大3件。`isChoiceOnly=true`ではfield自体を禁止する。 | convert | 解説画面に即時表示する質問候補。patchでは手書きしない。 |
 | 想定質問回答 | `suggestedQuestionDetails` | array<object> | 任意 | 条件付き | 原則omit | 各要素は `{question, answer}` のみ。最大3件。`isChoiceOnly=true`ではfield自体を禁止する。 | convert | 対応する`isChoiceOnly=false` documentだけへ選択肢別正本から投影する。 |

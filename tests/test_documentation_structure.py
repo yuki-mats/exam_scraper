@@ -272,6 +272,9 @@ class DocumentationStructureTests(unittest.TestCase):
             "duplicate、unmatched、ambiguous",
         ):
             self.assertNotIn(obsolete, text)
+        self.assertIn("`flutter_math_fork`対応", field_contract)
+        self.assertIn("計算問題の途中式は表示用数式", field_contract)
+        self.assertIn("横幅超過はアプリ側の横スクロール", field_contract)
 
         self.assertIn(
             "`flash_card`と`group_choice`の`explanationText`は、選択肢数にかかわらず問題単位の1要素",
@@ -319,7 +322,7 @@ class DocumentationStructureTests(unittest.TestCase):
             )
         )
         stages = {stage["id"]: stage for stage in workflow["stages"]}
-        self.assertEqual(stages["explanation"]["policy_version"], "6.0")
+        self.assertEqual(stages["explanation"]["policy_version"], "6.1")
         self.assertEqual(stages["law_audit"]["policy_version"], "4.5")
         self.assertEqual(stages["law_context"]["policy_version"], "1.4")
 

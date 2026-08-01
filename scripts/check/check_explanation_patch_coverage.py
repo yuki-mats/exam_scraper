@@ -322,6 +322,7 @@ def compare_entries(
                 src.get("correctChoiceText"),
                 choice_texts=choices,
                 question_type=source_question_type,
+                is_calculation_question=src.get("isCalculationQuestion") is True,
             ):
                 errors.append(f"index {idx}: {issue}")
 

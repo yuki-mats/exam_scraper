@@ -16642,6 +16642,10 @@ class QualificationRunCoordinator:
                     projected.get("correctChoiceText"),
                     choice_texts=choices,
                     question_type=projected.get("questionType"),
+                    is_calculation_question=projected.get(
+                        "isCalculationQuestion"
+                    )
+                    is True,
                 )
             )
         if errors:

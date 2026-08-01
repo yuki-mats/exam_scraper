@@ -182,6 +182,86 @@ class ExplanationQualityTests(unittest.TestCase):
 
         self.assertEqual(issues, [])
 
+    def test_accepts_flutter_math_calculation_derivation(self):
+        issues = explanation_style_issues(
+            [
+                r"""間違い。正しくは、電界の強さは電圧を電極間の距離で割って求める。
+\[
+\begin{aligned}
+E &= \frac{V}{d} \\
+  &= \frac{100}{1 \times 10^{-3}} \\
+  &= 1 \times 10^{5}\ \mathrm{V/m}
+\end{aligned}
+\]"""
+            ],
+            ["間違い"],
+            choice_texts=["電界の強さは別の値となる。"],
+            is_calculation_question=True,
+        )
+
+        self.assertEqual(issues, [])
+
+    def test_calculation_requires_display_math_derivation(self):
+        issues = explanation_style_issues(
+            ["正しい。E = V / d = 100 / 0.001 = 100,000 V/m。"],
+            ["正しい"],
+            choice_texts=["電界の強さを求める。"],
+            is_calculation_question=True,
+        )
+
+        self.assertTrue(any("flutter_math_fork対応" in issue for issue in issues))
+
+    def test_calculation_rejects_inline_only_math(self):
+        issues = explanation_style_issues(
+            [r"正しい。\(E = V / d = 100 / 0.001 = 100000\)である。"],
+            ["正しい"],
+            choice_texts=["電界の強さを求める。"],
+            is_calculation_question=True,
+        )
+
+        self.assertTrue(any("表示用" in issue for issue in issues))
+
+    def test_rejects_unclosed_math_delimiter(self):
+        issues = explanation_style_issues(
+            [r"正しい。\[E = V / d = 100 / 0.001"],
+            ["正しい"],
+        )
+
+        self.assertTrue(any("閉じられていません" in issue for issue in issues))
+
+    def test_rejects_unbalanced_tex_braces(self):
+        issues = explanation_style_issues(
+            [r"正しい。\[E = \frac{100}{0.001 = 100000\]"],
+            ["正しい"],
+        )
+
+        self.assertTrue(any("波括弧" in issue for issue in issues))
+
+    def test_rejects_tex_command_outside_math_delimiters(self):
+        issues = explanation_style_issues(
+            [r"正しい。E = \frac{100}{0.001}。"],
+            ["正しい"],
+        )
+
+        self.assertTrue(any("内側に置いてください" in issue for issue in issues))
+
+    def test_accepts_lone_dollar_sign_as_currency_text(self):
+        issues = explanation_style_issues(
+            ["正しい。利用料金は$0.10である。"],
+            ["正しい"],
+        )
+
+        self.assertEqual(issues, [])
+
+    def test_rejects_math_specific_font_size_changes(self):
+        issues = explanation_style_issues(
+            [r"正しい。\[\small E = V / d = 100 / 0.001 = 100000\]"],
+            ["正しい"],
+            is_calculation_question=True,
+        )
+
+        self.assertTrue(any("横スクロール" in issue for issue in issues))
+
 
 if __name__ == "__main__":
     unittest.main()

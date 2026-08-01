@@ -452,6 +452,31 @@ class QuestionReviewPatchEditorTests(unittest.TestCase):
                 "hash",
             )
 
+    def test_rejects_calculation_explanation_without_display_math(self):
+        editor = PatchEditor(Path.cwd())
+        question = {
+            "stateHash": "hash",
+            "projected": {
+                "questionType": "flash_card",
+                "isCalculationQuestion": True,
+                "choiceTextList": ["100,000 V/m"],
+                "correctChoiceText": ["正しい"],
+                "explanationText": ["正しい。旧解説。"],
+            },
+        }
+
+        with self.assertRaisesRegex(DirectEditError, "flutter_math_fork対応"):
+            editor.preview(
+                question,
+                {
+                    "explanationText": [
+                        "正しい。E = V / d = 100 / 0.001 = 100,000 V/m。"
+                    ]
+                },
+                "",
+                "hash",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

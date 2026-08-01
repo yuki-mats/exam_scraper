@@ -1788,6 +1788,8 @@ def validate_candidate_content(
                     correct,
                     choice_texts=choices,
                     question_type=logical.get("questionType"),
+                    is_calculation_question=logical.get("isCalculationQuestion")
+                    is True,
                 )
             )
     if "explanationReferences" in changed_fields:
