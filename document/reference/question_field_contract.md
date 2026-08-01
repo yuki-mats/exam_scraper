@@ -40,7 +40,8 @@
    - 全fieldの確定後に機械検証で整合性を確認し、矛盾時は停止して再確認へ送る。検証が正しいfieldを決めたり、一方へ自動補正したりしない。
    - 法令問題で現行法ベースへ更新する場合は、出題当時の正答・現行法根拠・更新済み注記を `lawRevisionFacts` / `explanationText` / `lawReferences` / review sidecar に残す。補足質問は後述の追加価値がある場合だけ保存する。
 6. 資格固有ルールは field の意味を変えない。
-   - 資格ごとに変えてよいのは、法令スコープ、カテゴリ粒度、出題形式の傾向、解説方針。
+   - 資格ごとに定義してよいのは、法令スコープ、カテゴリ粒度、出題形式の傾向、取得事情。
+   - 解説方針は全資格共通の`prompt/03_prompt_add_explanationText.md`に従う。公式用語、問題の読み方、判断軸、根拠資料の資格固有調整だけを資格別`README.md`へ追加できる。
    - `questionType` や `lawReferences` などの共通 field の意味を資格ごとに変えてはいけない。
 7. 複数正解を単一正解へ矯正しない。
    - `answer_result_text`が複数番号を示す問題は、資格・問題形式により正規の仕様として存在する。
@@ -436,7 +437,7 @@ patchとmergedの正本は`explanationText`と`suggestedQuestionDetailsByChoice`
 | 情報 | 保存先 | Firestore へ入れるか |
 | --- | --- | --- |
 | 出題範囲、章立て、頻出論点 | `prompt/qualification_docs/<qualification>/01_exam_profile.md` | 入れない |
-| 解説方針、ひっかけ、学習者への補足観点 | `prompt/qualification_docs/<qualification>/02_explanation_strategy.md` | `explanationText` に反映するが、独自 field は作らない |
+| 公式用語、問題の読み方、判断軸、根拠資料の資格固有調整 | `prompt/qualification_docs/<qualification>/README.md` | 共通03に従い`explanationText`へ反映するが、独自fieldは作らない |
 | カテゴリ粒度、questionSetId の境界 | `prompt/qualification_docs/<qualification>/03_category_preparation.md`, `category.json` | `questionSetId` として反映 |
 | 法令スコープ、短縮表記、現行法監査方針 | `prompt/qualification_docs/<qualification>/*law_reference*.md` | `lawReferences` / `explanationText` / `suggestedQuestionDetailsByChoice` に反映 |
 | 03前の法令作業メモ | `18_law_context_prepared[].lawContextForExplanation` | Firestore には入れない。03の文章化補助だけに使う |

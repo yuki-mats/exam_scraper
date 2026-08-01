@@ -322,8 +322,8 @@ class WorkflowCatalogTests(unittest.TestCase):
         explanation_prompt = (
             ROOT / "prompt/03_prompt_add_explanationText.md"
         ).read_text(encoding="utf-8")
-        self.assertIn("構造化候補に含まれる`originalizationSource`", explanation_prompt)
-        self.assertIn("より分かりやすい独自解説へ再構成", explanation_prompt)
+        self.assertIn("`originalizationSource`も読み", explanation_prompt)
+        self.assertIn("正答理由と各誤答理由を保った独自解説へ再構成", explanation_prompt)
         for profile in (clf_profile, saa_profile):
             self.assertIn("独自問題化で維持するAWSらしさ", profile)
             self.assertIn("AWSサービス名", profile)
@@ -459,7 +459,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "6.1")
+        self.assertEqual(version_by_stage["explanation"], "7.0")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
         self.assertEqual(version_by_stage["originalize"], "2.7")
@@ -594,22 +594,36 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertFalse(recovered["restartRequired"])
         self.assertEqual(recovered["catalogWarning"], "")
 
-    def test_explanation_policy_uses_examples_and_fact_then_difference_order(self):
+    def test_explanation_policy_uses_shared_patterns_and_fact_then_difference_order(self):
         prompt = (ROOT / "prompt" / "03_prompt_add_explanationText.md").read_text(
             encoding="utf-8"
         )
 
         self.assertIn("正しい内容と条文位置 → 選択肢との差", prompt)
-        self.assertIn("正しい・選択肢だけで完結", prompt)
-        self.assertIn("正しい・抽象語を具体例で区別", prompt)
-        self.assertIn("間違い・正しい値と換算根拠", prompt)
+        for pattern in (
+            "用語・基本知識",
+            "違い・組合せ",
+            "条件・範囲",
+            "仕組み・理由",
+            "順序・流れ",
+            "文章・事例",
+            "計算",
+            "図表・画像",
+        ):
+            with self.subTest(pattern=pattern):
+                self.assertIn(f"| {pattern} |", prompt)
+                self.assertIn(f"**{pattern}**", prompt)
+        self.assertIn("主パターンを一つ選びます", prompt)
+        self.assertIn("複合パターンは増やさず", prompt)
+        self.assertIn("この分類のために新しい保存fieldは作りません", prompt)
         self.assertIn("`間違い。正しくは、〜。`", prompt)
         self.assertIn("問題単位の解説は`正しい。`", prompt)
-        self.assertNotIn("`間違い。`だけでは完了にしない", prompt)
+        self.assertIn("正しい記述は本文だけで完結していれば`正しい。`", prompt)
+        self.assertIn("中学生でも意味を追える言葉", prompt)
         self.assertIn("qualification_docs/README.md", prompt)
-        self.assertNotIn("ガス事業は、ガス事業法第2条第11項において", prompt)
-        self.assertNotIn("誤り部分が条文説明より先", prompt)
-        self.assertNotIn("誤り部分 → 正式法令名と条文位置", prompt)
+        self.assertIn("資格別`README.md`に「解説の資格固有調整」", prompt)
+        self.assertIn("共通ルールを保ったまま", prompt)
+        self.assertNotIn("02_explanation_strategy.md", prompt)
 
 
 class CanonicalDocumentTests(unittest.TestCase):

@@ -8,7 +8,7 @@
 
 ## 資格固有資料
 
-[qualification_docs](qualification_docs/README.md)に、資格ごとの試験範囲、解説方針、カテゴリ境界、法令スコープを置きます。共通fieldの意味や共通工程を資格文書へ複製しません。
+[qualification_docs](qualification_docs/README.md)に、資格ごとの試験範囲、取得事情、カテゴリ境界、法令スコープを置きます。必要な解説調整は資格別`README.md`へ短く統合し、共通03の文章方針、共通fieldの意味、共通工程は複製しません。
 
 ## 実行境界
 

@@ -470,7 +470,7 @@ class QualificationWorkflow:
                     not in LAW_WORKFLOW_UPDATE_TARGET_IDS
                 ]
                 if str(stage.get("id") or "") == "setup":
-                    stage["purpose"] = "出題範囲と解説方針を固定する"
+                    stage["purpose"] = "出題範囲と取得事情の資格固有事項を固定する"
             patterns = list(stage.get("qualificationDocumentPatterns") or [])
             stage_qualification_documents = (
                 [
@@ -902,7 +902,6 @@ class QualificationWorkflow:
                 for name in (
                     "README.md",
                     "01_exam_profile.md",
-                    "02_explanation_strategy.md",
                 )
             ] if target_questions else []
         elif stage_id == "category_setup":
@@ -2343,7 +2342,7 @@ class QualificationWorkflow:
         if stage_id == "source":
             return "00_sourceの取得が必要です。"
         if stage_id == "setup":
-            return "資格固有の方針文書が未作成です。"
+            return "資格固有資料が未作成です。"
         if stage_id == "category_setup":
             return "資格全体のcategory.jsonが未作成又は不正です。"
         outdated = int(stage.get("versionOutdatedCount") or 0)

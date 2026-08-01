@@ -1,3 +1,4 @@
+import re
 import unittest
 from pathlib import Path
 
@@ -53,19 +54,29 @@ class ExplanationQualityTests(unittest.TestCase):
             Path(__file__).resolve().parents[1]
             / "prompt/03_prompt_add_explanationText.md"
         ).read_text(encoding="utf-8")
-        example_rows = [
-            line
-            for line in prompt.splitlines()
-            if line.startswith(("| 正しい・", "| 間違い・"))
-        ]
-        choices = [line.split("`")[1] for line in example_rows]
-        examples = [line.split("`")[3] for line in example_rows]
-        verdicts = [
-            "正しい" if line.startswith("| 正しい・") else "間違い"
-            for line in example_rows
-        ]
+        inline_examples = {}
+        for line in prompt.splitlines():
+            match = re.fullmatch(r"- \*\*(.+?)\*\*: `(.*)`", line)
+            if match:
+                inline_examples[match.group(1)] = match.group(2)
 
-        self.assertEqual(len(examples), 5)
+        self.assertEqual(
+            set(inline_examples),
+            {
+                "用語・基本知識",
+                "違い・組合せ",
+                "条件・範囲",
+                "仕組み・理由",
+                "順序・流れ",
+                "文章・事例",
+                "図表・画像",
+            },
+        )
+        examples = list(inline_examples.values())
+        verdicts = [
+            "正しい" if example.startswith("正しい。") else "間違い"
+            for example in examples
+        ]
         self.assertTrue(
             all(
                 "正しくは、" in example
@@ -77,8 +88,17 @@ class ExplanationQualityTests(unittest.TestCase):
             explanation_style_issues(
                 examples,
                 verdicts,
-                choice_texts=choices,
                 question_type="true_false",
+            ),
+            [],
+        )
+
+        calculation = prompt.split("```text\n", 1)[1].split("\n```", 1)[0]
+        self.assertEqual(
+            explanation_style_issues(
+                [calculation],
+                ["正しい"],
+                is_calculation_question=True,
             ),
             [],
         )

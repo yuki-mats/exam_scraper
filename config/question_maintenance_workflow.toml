@@ -29,7 +29,7 @@ documents = ["document/operations/scraping_workflow.md"]
 id = "setup"
 code = "準備"
 label = "資格方針"
-purpose = "出題範囲・解説・法令確認の方針を固定する"
+purpose = "出題範囲・取得事情・法令確認の資格固有事項を固定する"
 kind = "human"
 documents = [
   "prompt/qualification_docs/README.md",
@@ -208,7 +208,7 @@ purpose = "正誤理由を整え、追加の学習価値がある場合だけ補
 kind = "human"
 # 4.0: 基本解説の言い換え補足を不適合とし、追加価値がなければ0件へ洗い替える。
 # 4.1: 解説で確認したオンラインの公式一次資料を共通契約で紐づける。
-# 4.2: 独自問題では元解説を参照し、既存の解説方針でより良く再構成する。
+# 4.2: 独自問題では元解説を参照し、共通03の解説方針でより良く再構成する。
 # 4.3: 法令情報の部分実行でもlawRevisionFactsのFirestore公開契約を保存前に検証する。
 # 4.4: 宣言済み法令根拠はserver取得の試験時点・現在時点本文と差分を使い、通信探索への依存を減らす。
 # 4.5: 公式試験日catalogと正規化locatorによる時点比較を解説入力へ共通適用する。
@@ -217,11 +217,10 @@ kind = "human"
 # 5.2: 判断順・出力例・完成確認へ絞り、保存契約とCLIの重複説明を正本へ戻す。
 # 6.0: 全問題形式で正誤を先頭表示し、誤りは正しい全体像、抽象概念は具体例から説明する。
 # 6.1: 今後生成する計算問題の導出をflutter_math_fork互換の数式にする。
-policy_version = "6.1"
+# 7.0: 全資格共通の八パターンへ統合し、専用文型を廃止。READMEの必要最小限の資格固有調整だけを加味する。
+policy_version = "7.0"
 qualification_document_patterns = [
   "README.md",
-  "01_exam_profile.md",
-  "02_explanation_strategy.md",
   "*law_reference*.md",
 ]
 batch_selectable = true

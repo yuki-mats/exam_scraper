@@ -1,27 +1,19 @@
 # 公害防止管理者 補助ドキュメント
 
-このディレクトリは、`kougai` の 01〜04 作業を安定させるための資格固有メモである。  
-主に `03_prompt_add_explanationText.md` と `04_prompt_link_questionSetId.md` の前提として読む。
+このディレクトリには、公害防止管理者試験に固有の取得データ構造とカテゴリ設計資料を置きます。解説文の書き方は全資格共通の`prompt/03_prompt_add_explanationText.md`を使います。
 
-## 使い分け
+## 資格固有の前提
 
-- `01_exam_profile.md`
-  - 2010〜2025 の yaku-tik 過去問がどんな構造で並んでいるかを整理する。
-- `02_explanation_strategy.md`
-  - `explanationText` を一問ずつ確認するときの書き方と、穴埋め true/false 問題の扱い方をまとめる。
-- `03_category_preparation.md`
-  - `category.json` の questionSet 粒度と境界ルールを決める。
+- canonical sourceはyaku-tikである。
+- 取得範囲は2010〜2025年で、`questionLabel`と`source_question_id`のprefixが安定している。
+- 取得済み問題は全問`true_false`だが、穴埋め由来の設問が多い。
+- `category.json`はJEMAI公式の18試験科目をfolder、公式PDF「試験科目の範囲」のnumbered rangeをquestionSetとする。
 
-## この資格の前提
+## 資料
 
-- canonical source は yaku-tik のみを使う。
-- 2010〜2025 の全年度で、questionLabel / source_question_id の prefix が安定している。
-- 問題形式は全問 `true_false` だが、穴埋め由来の設問が多い。
-- `category.json` は JEMAI 公式の18試験科目を folder とし、PDF「試験科目の範囲」の各 numbered range を questionSet とする。
-- 04 の `questionSetId` は、yaku-tik prefix ではなく公式PDF範囲に合わせて付ける。
+- `01_exam_profile.md`: 取得範囲、科目、問題形式
+- `03_category_preparation.md`: `category.json`を設計又は見直す場合の資料
 
-## 参照順
+## 解説の資格固有調整
 
-1. `01_exam_profile.md`
-2. `02_explanation_strategy.md`
-3. `03_category_preparation.md`
+- 穴埋め由来の問題は正しい語句を直接示す。処理設備・処理法は、対象となる物質、処理原理、適用範囲のうち正誤を分ける要素を結び付ける。

@@ -1,61 +1,62 @@
 # 資格別補助ドキュメント
 
-このディレクトリは、資格ごとの出題傾向、問題形式、解説方針、`category.json` 整備メモを集約する共通置き場である。
+このディレクトリには、資格ごとにしか定義できない事実と必要最小限の調整を置きます。解説文の構成・情報量・正誤の示し方・補足の採否は、全資格共通の[`03_prompt_add_explanationText.md`](../03_prompt_add_explanationText.md)を正本とします。
 
-各資格に共通する`category.json`の分類・命名方針は、[category taxonomy policy](category_taxonomy_policy.md)を正本として参照する。
+共通field、Firestoreキー、型、`questionType`、`lawReferences`は[question field契約](../../document/reference/question_field_contract.md)、`category.json`の分類・命名は[category taxonomy policy](category_taxonomy_policy.md)を参照します。資格別資料はこれらを上書きしません。
 
-過去問データの共通field、Firestoreキー、型、必須性、`questionType`、`lawReferences`は[question field契約](../../document/reference/question_field_contract.md)を正本とする。資格別資料では共通fieldの意味を上書きせず、法令スコープ、カテゴリ粒度、出題傾向、解説方針だけを書く。
+## 置く情報
 
-補足質問の採否と0件の扱いも共通field契約に従う。資格別資料には、この資格で理解を深める論点だけを書き、補足質問の必須化、件数、field形を重複定義しない。
+- 試験範囲、章立て、公式用語、取得済みデータの問題構造
+- 取得元や画像など、その資格だけにある入力上の事情
+- `category.json`を設計するときに必要な専門家資料と境界
+- 通常参照する法令・告示・公式資料の範囲と短縮表記
 
-## 役割の優先順位
-- 主用途は `03_prompt_add_explanationText.md`
-  - 資格ごとの傾向に合わせて、解説文をより学習効果の高い内容にするために使う
-  - 目標は「その問題の理解」だけでなく、「その資格でよく問われる傾向への気づき」と「類題に使える判断軸」の付与まで含む
-  - 資格固有の章構成、頻出のひっかけ、判定軸、類題を意識した補足知識はここに書く
-- 従用途は `03c_prompt_prepare_category_json.md`
-  - ふだんの紐付けでは `category.json` の `name` / `description` / `matchingHints` を主根拠にする
-  - このディレクトリ内の資料は、`category.json` を新規作成・見直しする際の検討資料として使う
+「正しい。から始める」「誤りは正しい内容を直接示す」「補足は0件を標準とする」といった共通ルールは資格別に複製しません。新しい傾向を見つけても、八つの共通パターンで説明できる内容には既存パターンを適用します。
 
-## 配置ルール
-- 資格別の長文知識は、この `qualification_docs/` に集約する。
-- 各工程promptの本文には、共通原則と参照ルールだけを残す。
-- `04_prompt_link_questionSetId/` のような prompt 番号別の補助ディレクトリは増やさず、資格別資料はここにまとめる。
-- 新しい資格固有ルールや判断軸が必要になった場合も、prompt 本体へ書き足さず、`qualification_docs/<qualification_key>/` に整理する。
-- 法令を扱わない資格は、`config/qualification_rules.json`で`law_workflow_enabled=false`にする。この設定では02bと03bを工程一覧・自動選択・完了条件から外し、資格別の細かな除外条件は追加しない。
+## 資格固有の調整
 
-## 推奨構成
-各資格ディレクトリでは、次の3本を基本形にする。
+共通パターンだけではその資格らしい正確な説明にならない場合は、資格別`README.md`に`## 解説の資格固有調整`を置き、次のような情報だけを短く足します。専用の解説promptは作りません。
 
-1. `01_exam_profile.md`
-  - 試験全体の章立て、出題傾向、問題形式
-2. `02_explanation_strategy.md`
-   - 解説文を書くときに重視すべき判定軸、頻出のひっかけ、章別の補足知識
-   - 学習者に「ハッとする」気づきや、類題へ伸ばすための見分け方
+- 公式用語、略称、記号の意味や、その資格特有の読み方
+- 正誤を分けるために繰り返し使う判断軸
+- 根拠として優先する公式資料と、その資格だけにある注意点
+
+例えば、建築法規で設問中の「法」「令」「規則」が通常どの法令を指すか、ガス主任で取得元のjudge欄をどの条件で正答根拠として扱うかを記載できます。共通03の正誤表示、説明順、計算式、補足の基準はそのまま使います。
+
+## 基本構成
+
+資格ごとに必要なファイルだけを置きます。
+
+1. `README.md`
+   - 資料の索引、資格コード、取得元などの短い前提。必要なら`解説の資格固有調整`もここへ置く
+2. `01_exam_profile.md`
+   - 試験範囲、章立て、問題形式、取得データ固有の構造
 3. `03_category_preparation.md`
-  - `category.json` を整備する際の分類粒度、章内の切り方、境界ルール
+   - `category.json`を新規作成又は見直す場合だけ使う分類資料
+4. `*law_reference*.md`
+   - 法令問題を扱う資格だけに置く法令スコープ
 
-法令問題を扱う資格では、上記に加えて次を必ず整備する。
+公式の文体見本や画像規約など、上記へ統合できない資格固有の一次資料がある場合だけ、目的を限定したファイルを追加できます。
 
-- `01_law_reference_policy.md` / `02_law_reference_scope.md` / `04_law_reference_policy.md`
-  - 試験で通常参照する法令・政令・省令・告示・条例・通達の範囲
-  - 正式法令名、`lawId` 候補、短縮表記、使う場面、使わない場面
-  - スコープ外法令を追加する条件
-  - 現行法と出題当時法令との差分確認が必要か
-  - 現行法で正誤が明らかに変わる場合に、現行法ベースへ更新し、更新済み注記・出題当時正答との差分・根拠条項をどう残すか
+## 工程ごとの参照
 
-法令問題では、このスコープを先に確認してから `lawReferences` を作る。e-Gov の全法令から無差別に探してはいけない。
+- 工程03は共通プロンプトと資格別`README.md`を読み、`解説の資格固有調整`があれば加味する。法令問題では`*law_reference*.md`も参照する。
+- 工程05は、問題の形式や公式用語を保つために`01_exam_profile.md`を参照する。
+- category整備は、まず`category.json`を使い、設計又は見直しが必要な場合だけ`03_category_preparation.md`を参照する。
+- 法令問題は資格別スコープを起点にし、e-Gov全体を無差別に検索しない。
 
-## 運用ルール
-- まず `03` のために `01_exam_profile.md` と `02_explanation_strategy.md` を整備する。
-- 問題サイトや公式サンプルを参考にする場合は、最初の複数問から一般化できる出題傾向を`01_exam_profile.md`、解説の判断軸と情報順序を`02_explanation_strategy.md`へ反映する。取得元ごとの文章例や専用ナレッジファイルは作らず、本当に新しい傾向が見つかった場合だけ更新する。
-- 法令問題を扱う資格では、解説作成前に法令スコープ文書を整備する。未整備なら簡易版を作ってから `03_prompt_add_explanationText.md` を実行する。
-- `category.json` の設計や見直しが必要になった段階で、`03_category_preparation.md` を追加・更新する。
-- `03_category_preparation.md`は、共通方針として[category taxonomy policy](category_taxonomy_policy.md)を踏まえ、資格固有の専門家資料・目次・境界ルールだけを書く。
-- 日常の `questionSetId` 紐付けが補助資料依存になっている場合は、先に `category.json` 側の `description` と `matchingHints` を改善する。
-- 資格別の指針を参照する作業では、各資格ディレクトリの内容を正本とみなし、prompt 本体は共通ルールの置き場として扱う。
+法令を扱わない資格は`config/qualification_rules.json`で`law_workflow_enabled=false`にします。この設定では02bと03bを工程一覧・自動選択・完了条件から外し、資格別の細かな除外条件は追加しません。
+
+## 運用
+
+- 新資格の準備工程では、まず`README.md`と`01_exam_profile.md`だけを作る。
+- 資格固有の調整は`README.md`へ短く統合し、別の解説方針ファイルは作らない。
+- 資格固有資料がなくても問題データと共通正本だけで判断できる場合は、新しい資料を増やさない。
+- 日常の`questionSetId`紐付けが補助資料依存なら、先に`category.json`の`description`と`matchingHints`を改善する。
+- 継続する仕様は責務に合う既存ファイルへ統合し、取得元別・年度別の文章ルールを作らない。
 
 ## 現在ある資格
+
 - `aws-cloud-practitioner`
 - `aws-solutions-architect-associate`
 - `2nd-class-kenchikushi`

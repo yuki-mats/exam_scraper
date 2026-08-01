@@ -60,7 +60,7 @@ flowchart TD
 | 独自問題化 | [original_question_authoring_workflow.md](original_question_authoring_workflow.md) | 取得元URLの確認、05、独自問題化、資格別ナレッジ、公開条件を定義する。 |
 | 工程順・名称・正本文書 | [../../config/question_maintenance_workflow.toml](../../config/question_maintenance_workflow.toml) | 問題整備システムの工程カタログを一元管理する。 |
 | 人間判断prompt | [../../prompt/README.md](../../prompt/README.md) | 各promptが所有する判断方法と実行境界への入口。 |
-| 資格固有方針 | [../../prompt/qualification_docs/README.md](../../prompt/qualification_docs/README.md) | 出題範囲、解説、分類、法令スコープを資格単位で定義する。 |
+| 資格固有資料 | [../../prompt/qualification_docs/README.md](../../prompt/qualification_docs/README.md) | 出題範囲、取得事情、分類、法令スコープを資格単位で定義する。解説は共通03を土台に、必要な資格固有調整だけをREADMEへ置く。 |
 | category.json | [../../prompt/qualification_docs/category_taxonomy_policy.md](../../prompt/qualification_docs/category_taxonomy_policy.md) | 03cで作る資格単位taxonomyの根拠、ID、検証方法を定義する。 |
 | 保存先・ファイル名 | [artifact_contract.md](artifact_contract.md) | source、patch、merged、convert、review artifactの責務を定義する。 |
 | field・型・必須性 | [../reference/question_field_contract.md](../reference/question_field_contract.md) | Firestoreへ至る共通field契約を定義する。 |

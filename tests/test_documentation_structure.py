@@ -322,9 +322,59 @@ class DocumentationStructureTests(unittest.TestCase):
             )
         )
         stages = {stage["id"]: stage for stage in workflow["stages"]}
-        self.assertEqual(stages["explanation"]["policy_version"], "6.1")
+        self.assertEqual(stages["explanation"]["policy_version"], "7.0")
         self.assertEqual(stages["law_audit"]["policy_version"], "4.5")
         self.assertEqual(stages["law_context"]["policy_version"], "1.4")
+
+    def test_qualification_specific_explanation_strategies_do_not_return(self):
+        qualification_root = ROOT / "prompt" / "qualification_docs"
+        self.assertEqual(
+            list(qualification_root.glob("**/*explanation_strategy*.md")),
+            [],
+        )
+
+        qualification_contract = (qualification_root / "README.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("## 資格固有の調整", qualification_contract)
+        self.assertIn("資格別`README.md`に`## 解説の資格固有調整`", qualification_contract)
+        self.assertIn("専用の解説promptは作りません", qualification_contract)
+        self.assertIn(
+            "## 解説の資格固有調整",
+            (qualification_root / "gas-shunin-kou" / "README.md").read_text(
+                encoding="utf-8"
+            ),
+        )
+        adjustment_owners = []
+        for path in qualification_root.glob("**/*.md"):
+            heading_count = len(
+                re.findall(
+                    r"^## 解説の資格固有調整$",
+                    path.read_text(encoding="utf-8"),
+                    flags=re.MULTILINE,
+                )
+            )
+            self.assertLessEqual(heading_count, 1, path)
+            if heading_count:
+                self.assertEqual(path.name, "README.md", path)
+                adjustment_owners.append(path)
+        self.assertTrue(adjustment_owners)
+
+        workflow = tomllib.loads(
+            (ROOT / "config" / "question_maintenance_workflow.toml").read_text(
+                encoding="utf-8"
+            )
+        )
+        stages = {stage["id"]: stage for stage in workflow["stages"]}
+        self.assertEqual(
+            stages["explanation"]["qualification_document_patterns"],
+            ["README.md", "*law_reference*.md"],
+        )
+
+        setup_output_names = (
+            ROOT / "tools" / "question_review_console" / "qualification_workflow.py"
+        ).read_text(encoding="utf-8")
+        self.assertNotIn('"02_explanation_strategy.md"', setup_output_names)
 
 
 if __name__ == "__main__":

@@ -1,32 +1,15 @@
 # 医師国家試験 補助ドキュメント
 
-このディレクトリは、医師国家試験について、`03_prompt_add_explanationText.md` と `04_prompt_link_questionSetId.md` の判断を安定させるための補助資料である。
+このディレクトリには、医師国家試験に固有の法令スコープとカテゴリ設計資料を置きます。純知識、症例、画像を含む解説文の書き方は、全資格共通の`prompt/03_prompt_add_explanationText.md`を使います。
 
-主な狙いは次の3点である。
+## 資料
 
-1. 医学知識問題と制度・法令問題を早い段階で切り分ける
-2. `isLawRelated` / `lawGroundedExplanationNotNeeded` の判断をぶらさない
-3. MHLW ブループリント由来の `category.json` へ違和感なく `questionSetId` を寄せる
+- `01_law_reference_policy.md`: 医学知識と制度・法令問題の境界
+- `02_law_reference_scope.md`: 優先確認する法令・制度と短縮表記
+- `04_category_preparation.md`: MHLWブループリント由来の`category.json`を見直す場合の資料
 
-## 使い分け
+## 解説の資格固有調整
 
-- [01_law_reference_policy.md](/Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/01_law_reference_policy.md)
-  - `03` で法令ベースの追加解説が必要な問題の境界
-  - `isLawRelated` と `lawGroundedExplanationNotNeeded` を倒す基準
-- [02_law_reference_scope.md](/Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/02_law_reference_scope.md)
-  - 医師国家試験で優先的に確認する法令・制度スコープ
-  - 判定時に迷いやすい法令名、短縮表記、使う場面、使わない場面
-- [03_explanation_strategy.md](/Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/03_explanation_strategy.md)
-  - 医師国家試験の解説文で何を短く残すべきか
-  - 症例問題、画像問題、制度問題の書き分け
-- [04_category_preparation.md](/Users/yuki/development/exam_scraper/prompt/qualification_docs/mecnet-kokushi/04_category_preparation.md)
-  - `questionSetId` をブループリント名へ寄せるときの優先順位
+- 症例問題は、患者の状態、判断の決め手となる所見、診断又は優先対応の順に示す。画像問題は、読み取った所見を疾患、部位又は緊急度へどう結び付けたかを示す。
 
-## 運用ルール
-
-- `03` では、まず制度・法令問題かどうかを判定する。
-- 医師国家試験では `lawReferences` を最終成果物に出さない。
-- 制度・法令問題でない限り、原則 `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` に倒す。
-- 制度・法令問題、届出、医師の義務、医療安全、感染症対応、母子保健、精神保健、臓器移植などが絡む場合は、原則 `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` とする。
-- `04` では、まず病態・臓器・診療場面の主題を取り、既存の `questionSets[].questionSetName` に最も近い具体カテゴリへ寄せる。
-- 個別の出題回は checkpoint / resume の単位であり、この資料の適用範囲は全 52 出題回・13,060 問である。
+制度・法令問題、届出、医師の義務、医療安全、感染症対応、母子保健、精神保健、臓器移植などが正誤根拠になる場合だけ、法令スコープを追加参照します。`questionSetId`は既存の`category.json`を正本とし、個別出題回はcheckpoint / resumeの単位として扱います。

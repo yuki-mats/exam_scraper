@@ -38,13 +38,6 @@
 - 個人情報の保護に関する法律
   - 施術録や個人情報の取り扱いが論点になる場合に確認する。
 
-## `explanationText` を書くときの目安
-
-- 法規問題では、主体、要件、例外、期限、届出先、罰則の有無を短く明示する。
-- 施設名、制度名、法律名の使い分けを混同させない。
-- 出題当時法と現行法で違いがある場合は、現行法での正誤、出題当時の正答、更新有無を分けて書く。
-- 迷う場合は `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` に倒し、必要なら外部 Web の一次情報で裏取りする。
-
 ## 迷った場合
 
 - `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` に倒す。
