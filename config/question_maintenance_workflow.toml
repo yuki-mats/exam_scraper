@@ -218,7 +218,8 @@ kind = "human"
 # 6.0: 全問題形式で正誤を先頭表示し、誤りは正しい全体像、抽象概念は具体例から説明する。
 # 6.1: 今後生成する計算問題の導出をflutter_math_fork互換の数式にする。
 # 7.0: 全資格共通の八パターンへ統合し、専用文型を廃止。READMEの必要最小限の資格固有調整だけを加味する。
-policy_version = "7.0"
+# 8.0: 学習者向けの七分類へ整理し、図表・画像は提示形式として分離する。
+policy_version = "8.0"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",

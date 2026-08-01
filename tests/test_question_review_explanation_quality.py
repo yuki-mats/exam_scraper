@@ -63,13 +63,12 @@ class ExplanationQualityTests(unittest.TestCase):
         self.assertEqual(
             set(inline_examples),
             {
-                "用語・基本知識",
-                "違い・組合せ",
-                "条件・範囲",
-                "仕組み・理由",
-                "順序・流れ",
-                "文章・事例",
-                "図表・画像",
+                "用語と基本を押さえる",
+                "違いを整理する",
+                "条件と例外を押さえる",
+                "しくみと理由を理解する",
+                "順序と流れをつかむ",
+                "事例に当てはめて考える",
             },
         )
         examples = list(inline_examples.values())
