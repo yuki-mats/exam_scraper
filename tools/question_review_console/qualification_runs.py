@@ -610,6 +610,10 @@ FIELD_PATCH_DIR_NAMES = {
     "questionIntent": {"15_correctChoiceText_fixed", "99_model_review_flags"},
     "answer_result_text": {"23_correctChoiceText_fixed", "99_model_review_flags"},
     "correctChoiceText": {"23_correctChoiceText_fixed", "99_model_review_flags"},
+    "questionLearningPatternId": {
+        "21_explanationText_added",
+        "99_model_review_flags",
+    },
     "explanationText": {"21_explanationText_added", "99_model_review_flags"},
     "suggestedQuestionDetailsByChoice": {
         "21_explanationText_added",

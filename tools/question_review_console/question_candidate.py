@@ -20,6 +20,7 @@ from scripts.common.question_answer_contract import (
     official_answer_alignment_issue,
     question_level_answer_cardinality_issue,
 )
+from scripts.common.question_learning_patterns import QUESTION_LEARNING_PATTERN_IDS
 from scripts.common.repaso_firestore_schema import (
     LAW_REVISION_EVIDENCE_REF_KEYS,
     LAW_REVISION_EVIDENCE_SUMMARY_KEYS,
@@ -246,6 +247,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
     ),
     "explanation": frozenset(
         {
+            "questionLearningPatternId",
             "explanationText",
             "explanationReferences",
             "suggestedQuestionDetailsByChoice",
@@ -720,6 +722,15 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
     },
     "law_context": _SHARED_LAW_FIELD_RULES,
     "explanation": {
+        "questionLearningPatternId": {
+            "type": "string",
+            "allowedValues": list(QUESTION_LEARNING_PATTERN_IDS),
+            "description": (
+                "問題で主に練習する学び方を、"
+                "共通分類カタログのIDから1つ選ぶ。"
+                "questionSetId又は現在の解説から逆算しない。"
+            ),
+        },
         **_EXPLANATION_FIELD_RULES,
         **_SHARED_LAW_FIELD_RULES,
         "lawRevisionFacts": _LAW_REVISION_FACTS_RULE,
@@ -788,6 +799,7 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
 _CANONICAL_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
     # 03bの一つの候補を、既存patch責務と監査sidecarへ同時に配送する。
     "correctChoiceText": ("correct_choice", "law_audit"),
+    "questionLearningPatternId": ("explanation",),
     "explanationText": ("explanation", "law_audit"),
     "explanationReferences": ("explanation",),
     "suggestedQuestionDetailsByChoice": ("explanation", "law_audit"),
@@ -938,6 +950,7 @@ def candidate_targets(
         )
     if stage_id == "law_audit":
         selected_fields -= SERVER_OWNED_LAW_AUDIT_FIELDS
+        selected_fields.discard("questionLearningPatternId")
     supported_fields = set().union(*(_FIELDS_BY_ROLE[role] for role in stage_roles))
     unsupported_fields = selected_fields - supported_fields
     if unsupported_fields:
@@ -1672,9 +1685,10 @@ def validate_candidate_content(
     independently_required_fields = {
         field
         for target in target_values
+        for field in target.allowed_fields
         if target.role
         in {"question_type", "question_intent", "correct_choice", "question_set"}
-        for field in target.allowed_fields
+        or field == "questionLearningPatternId"
     }
     missing_fields = independently_required_fields - set_fields
     if missing_fields:

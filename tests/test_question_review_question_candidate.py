@@ -640,6 +640,7 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertEqual(targets[0].target_id, "q1:explanation")
         self.assertIn("explanationText", targets[0].allowed_fields)
         self.assertIn("explanationReferences", targets[0].allowed_fields)
+        self.assertIn("questionLearningPatternId", targets[0].allowed_fields)
         self.assertIn("suggestedQuestionDetailsByChoice", targets[0].allowed_fields)
         self.assertNotIn("suggestedQuestions", targets[0].allowed_fields)
         self.assertNotIn("questionBodyText", targets[0].allowed_fields)
@@ -1863,6 +1864,10 @@ class QuestionCandidateTest(unittest.TestCase):
                                 "targetId": "q1:explanation",
                                 "setFields": [
                                     {
+                                        "field": "questionLearningPatternId",
+                                        "value": "terms_basics",
+                                    },
+                                    {
                                         "field": "explanationText",
                                         "value": ['正しい。理由。'],
                                     }
@@ -1899,6 +1904,10 @@ class QuestionCandidateTest(unittest.TestCase):
                             {
                                 "targetId": "q1:explanation",
                                 "setFields": [
+                                    {
+                                        "field": "questionLearningPatternId",
+                                        "value": "terms_basics",
+                                    },
                                     {
                                         "field": "explanationText",
                                         "value": ['理由から正しい。'],
@@ -1990,6 +1999,10 @@ class QuestionCandidateTest(unittest.TestCase):
                             {
                                 "targetId": "q1:explanation",
                                 "setFields": [
+                                    {
+                                        "field": "questionLearningPatternId",
+                                        "value": "terms_basics",
+                                    },
                                     {
                                         "field": "suggestedQuestionDetailsByChoice",
                                         "value": [

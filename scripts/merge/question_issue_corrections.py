@@ -40,6 +40,7 @@ PATCHABLE_FIELDS = frozenset(
         "lawRevisionFacts",
         "isLawRelated",
         "lawGroundedExplanationNotNeeded",
+        "questionLearningPatternId",
         "questionSetId",
         "choiceQuestionSetIds",
         "questionSetIds",

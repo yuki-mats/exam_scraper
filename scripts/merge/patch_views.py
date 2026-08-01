@@ -35,6 +35,7 @@ from scripts.merge.merge_utils import (
 
 
 EXPLANATION_FIELDS = [
+    "questionLearningPatternId",
     "explanationText",
     "explanationReferences",
     "suggestedQuestionDetailsByChoice",
@@ -98,6 +99,7 @@ LEGACY_QUESTION_TYPE_CONTENT_FIELDS = (
 )
 AGGREGATE_DERIVATIVE_STALE_FIELDS = (
     "correctChoiceText",
+    "questionLearningPatternId",
     "explanationText",
     "explanationReferences",
     "suggestedQuestionDetailsByChoice",

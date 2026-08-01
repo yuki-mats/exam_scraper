@@ -119,8 +119,9 @@
       "existingPromptStages": []
     },
     "classification": {
-      "label": "所属フォルダ・問題集",
+      "label": "問題の分類",
       "allowedChangeFields": [
+        "questionLearningPatternId",
         "questionSetId",
         "choiceQuestionSetIds",
         "questionSetIds"
@@ -128,6 +129,7 @@
       "expectedBeforeHashFields": [
         "questionBodyText",
         "choiceTextList",
+        "questionLearningPatternId",
         "questionSetIdList",
         "questionSetId",
         "choiceQuestionSetIds",
@@ -166,6 +168,7 @@
         "suggestedQuestions",
         "suggestedQuestionDetails",
         "lawReferences",
+        "questionLearningPatternId",
         "questionSetId",
         "choiceQuestionSetIds",
         "questionSetIds",
@@ -191,6 +194,7 @@
         "explanationReferences",
         "suggestedQuestions",
         "suggestedQuestionDetails",
+        "questionLearningPatternId",
         "questionSetIdList",
         "questionSetId",
         "choiceQuestionSetIds",

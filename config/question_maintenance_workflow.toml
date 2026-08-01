@@ -219,7 +219,8 @@ kind = "human"
 # 6.1: 今後生成する計算問題の導出をflutter_math_fork互換の数式にする。
 # 7.0: 全資格共通の八パターンへ統合し、専用文型を廃止。READMEの必要最小限の資格固有調整だけを加味する。
 # 8.0: 学習者向けの七分類へ整理し、図表・画像は提示形式として分離する。
-policy_version = "8.0"
+# 9.0: 七分類をquestionLearningPatternIdとして解説と同時に保存する。
+policy_version = "9.0"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",
@@ -229,12 +230,19 @@ session_group = "maintenance"
 patch_dir = "21_explanationText_added"
 patch_suffix = "explanationText_added"
 issue_fields = [
+  "questionLearningPatternId",
   "explanationText",
   "explanationReferences",
   "suggestedQuestionDetailsByChoice",
   "lawRevisionFacts",
 ]
 documents = ["prompt/03_prompt_add_explanationText.md"]
+
+[[stages.update_targets]]
+id = "learning_pattern"
+label = "問題の学び方"
+fields = ["questionLearningPatternId"]
+read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion"]
 
 [[stages.update_targets]]
 id = "basic_explanation"

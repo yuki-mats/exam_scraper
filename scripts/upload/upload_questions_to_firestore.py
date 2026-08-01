@@ -60,6 +60,7 @@ DOC_COMPARE_KEYS = (
     "questionType",
     "qualificationId",
     "correctChoiceText",
+    "questionLearningPatternId",
     "explanationText",
     "knowledgeText",
     "suggestedQuestions",
@@ -83,8 +84,10 @@ PRODUCTION_CLIENT_OMITTED_FIELDS = (
     # App Store 公開版 2.17.6 は未知fieldを拒否するため、対応版の公開確認まで
     # Firestore question documentへ書き込まない。整備patchには保持する。
     "explanationReferences",
+    "questionLearningPatternId",
 )
 CHOICE_ONLY_OMITTED_FIELDS = (
+    "questionLearningPatternId",
     "explanationText",
     "explanationReferences",
     "suggestedQuestions",
@@ -217,6 +220,7 @@ def build_doc_data_base(question: dict) -> dict:
         doc_data["examYear"] = question["examYear"]
     # オプションフィールド
     for opt_key in (
+        "questionLearningPatternId",
         "knowledgeText",
         "suggestedQuestions",
         "suggestedQuestionDetails",

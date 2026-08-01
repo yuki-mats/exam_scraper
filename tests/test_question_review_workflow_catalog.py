@@ -459,7 +459,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "8.0")
+        self.assertEqual(version_by_stage["explanation"], "9.0")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
         self.assertEqual(version_by_stage["originalize"], "2.7")
@@ -493,6 +493,10 @@ class WorkflowCatalogTests(unittest.TestCase):
             target["selectionId"]: target
             for target in stage_by_id["explanation"]["updateTargets"]
         }
+        self.assertEqual(
+            explanation_targets["explanation.learning_pattern"]["fields"],
+            ["questionLearningPatternId"],
+        )
         self.assertEqual(
             explanation_targets["explanation.supplementary_questions"]["fields"],
             ["suggestedQuestionDetailsByChoice"],
@@ -614,11 +618,11 @@ class WorkflowCatalogTests(unittest.TestCase):
                 self.assertIn(f"**{pattern}**", prompt)
         self.assertIn("主パターンを一つ選びます", prompt)
         self.assertIn("複合パターンは増やさず", prompt)
-        self.assertIn("現在は解説の構成を決めるために使い", prompt)
-        self.assertIn("資格ごとの`questionSetId`と組み合わせます", prompt)
-        self.assertIn("学習者がつまずきやすい問題の傾向", prompt)
+        self.assertIn("`questionLearningPatternId`へ保存します", prompt)
+        self.assertIn("`questionSetId`は「どの単元を復習するか」", prompt)
+        self.assertIn("学習者の苦手", prompt)
         self.assertIn("復習すべき単元", prompt)
-        self.assertIn("表示名とは別に安定IDを定め", prompt)
+        self.assertIn("question_learning_patterns.json", prompt)
         self.assertIn("`間違い。正しくは、〜。`", prompt)
         self.assertIn("問題単位の解説は`正しい。`", prompt)
         self.assertIn("正しい記述は本文だけで完結していれば`正しい。`", prompt)

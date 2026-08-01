@@ -142,6 +142,7 @@ class ExplanationReferencesTests(unittest.TestCase):
                 "questionTags": [],
                 "originalQuestionBodyText": "元問題文",
                 "originalQuestionChoiceText": "記述",
+                "questionLearningPatternId": "terms_basics",
                 "explanationReferences": [reference],
             },
             now,
@@ -149,6 +150,7 @@ class ExplanationReferencesTests(unittest.TestCase):
 
         validate_question_doc(doc, doc_id="q-reference")
         self.assertNotIn("explanationReferences", doc)
+        self.assertNotIn("questionLearningPatternId", doc)
 
 
 if __name__ == "__main__":

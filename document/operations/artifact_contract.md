@@ -61,7 +61,7 @@ output/question_review_console/
 | 02a | `23_correctChoiceText_fixed/` | `<source_stem>_merged_correctChoiceText_fixed.json` | 03前に確定する厳密正答patch。 |
 | 02b | `18_law_context_prepared/` | `<source_stem>_merged_lawContext_prepared.json` | 法令関連性と根拠候補。 |
 | merge | `20_merged_1/` | `<source_stem>_merged.json` | 03・04の主入力。02aと02bも反映する。 |
-| 03 | `21_explanationText_added/` | `<source_stem>_merged_explanationText_added.json` | 解説、想定質問、法令監査facts。 |
+| 03 | `21_explanationText_added/` | `<source_stem>_merged_explanationText_added.json` | 資格横断の問題学習分類、解説、想定質問、法令監査facts。 |
 | 03c | `output/<qualification>/category/` | `category.json` | 資格全体の分類正本。問題単位patchではない。 |
 | 04 | `22_questionSetId_linked/` | `<source_stem>_merged_questionSetId_linked.json` | `category.json`に基づく問題集対応。 |
 | 問題報告 | `24_questionIssueCorrections/` | `<batch>_<work>_<originalQuestionId>.json` | blind review済みcorrection overlay。 |

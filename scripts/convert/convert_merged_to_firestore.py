@@ -60,6 +60,9 @@ from scripts.common.explanation_references import (
 from scripts.common.question_answer_contract import (
     question_level_answer_cardinality_issue,
 )
+from scripts.common.question_learning_patterns import (
+    question_learning_pattern_id_error,
+)
 
 # 試験名定義（ここに必要な試験名を追加して使う）
 EXAM_NAME_PSY = "二級建築士"
@@ -850,6 +853,7 @@ def finalize_firestore_question(question: dict) -> dict:
     """共通フィールドの補正（isChoiceOnly/isGroupableなど）"""
     question.setdefault("isChoiceOnly", False)
     if question["isChoiceOnly"]:
+        question.pop("questionLearningPatternId", None)
         question.pop("explanationText", None)
         question.pop("explanationReferences", None)
         question.pop("suggestedQuestions", None)
@@ -909,6 +913,11 @@ def create_firestore_question_base(
         "isOfficial": True,
         "isDeleted": False,
     })
+    learning_pattern_id = str(
+        question_body.get("questionLearningPatternId") or ""
+    ).strip()
+    if learning_pattern_id:
+        firestore_question["questionLearningPatternId"] = learning_pattern_id
     if is_independent_question(question_body) and isinstance(
         question_body.get(INDEPENDENT_IMAGE_REQUIRED_FIELD), bool
     ):
@@ -1224,6 +1233,12 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
     true_false / flash_card / group_choice は複数レコードに分割して返す
     それ以外は1要素のリストで返す
     """
+    learning_pattern_error = question_learning_pattern_id_error(
+        question_body.get("questionLearningPatternId"),
+        required=False,
+    )
+    if learning_pattern_error:
+        raise ValueError(learning_pattern_error)
     question_type = question_body.get("questionType", "")
     
     if question_type == "true_false":
@@ -1276,6 +1291,11 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
             "isOfficial": True,
             "isDeleted": False,
         }
+        learning_pattern_id = str(
+            question_body.get("questionLearningPatternId") or ""
+        ).strip()
+        if learning_pattern_id:
+            firestore_question["questionLearningPatternId"] = learning_pattern_id
         if is_independent_question(question_body) and isinstance(
             question_body.get(INDEPENDENT_IMAGE_REQUIRED_FIELD), bool
         ):

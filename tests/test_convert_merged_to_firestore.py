@@ -29,6 +29,50 @@ KOUNIN_SHINRISHI_LIST_GROUP_IDS = (
 
 
 class ConvertMergedToFirestoreTests(unittest.TestCase):
+    def test_unknown_learning_pattern_is_rejected_before_projection(self) -> None:
+        with self.assertRaisesRegex(ValueError, "分類カタログ"):
+            convert_question_to_firestore(
+                {
+                    "questionType": "single_choice",
+                    "questionLearningPatternId": "unknown",
+                }
+            )
+
+    def test_learning_pattern_is_projected_to_public_questions_only(self) -> None:
+        question = {
+            "original_question_id": "pattern-q1",
+            "questionBodyText": "正しい記述を選べ。",
+            "choiceTextList": ["記述A", "記述B"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["正しい。", "間違い。正しくは、記述Cである。"],
+            "questionLearningPatternId": "differences_relationships",
+            "questionType": "group_choice",
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は1です。",
+            "examYear": 2026,
+            "questionLabel": "問1",
+        }
+
+        converted = convert_question_to_firestore(question)
+
+        public_questions = [item for item in converted if not item["isChoiceOnly"]]
+        choice_only_questions = [item for item in converted if item["isChoiceOnly"]]
+        self.assertTrue(public_questions)
+        self.assertTrue(choice_only_questions)
+        self.assertTrue(
+            all(
+                item["questionLearningPatternId"]
+                == "differences_relationships"
+                for item in public_questions
+            )
+        )
+        self.assertTrue(
+            all(
+                "questionLearningPatternId" not in item
+                for item in choice_only_questions
+            )
+        )
+
     def test_derived_statement_ids_are_new_and_original_body_remains_visible(self) -> None:
         body = "組合せを選べ。\nA 原文一。\nB 原文二。"
         question = {

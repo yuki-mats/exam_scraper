@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Iterable
 
+from scripts.common.question_learning_patterns import QUESTION_LEARNING_PATTERN_IDS
+
 
 REPASO_QUESTION_TYPES = {
     "single_choice",
@@ -126,6 +128,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "questionBodyText",
         "questionText",
         "questionType",
+        "questionLearningPatternId",
         "qualificationId",
         "examDate",
         "questionImageUrls",
@@ -705,6 +708,14 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     qt = doc.get("questionType")
     if not isinstance(qt, str) or qt not in REPASO_QUESTION_TYPES:
         raise ValueError(f"questions:{doc_id} questionType must be one of {sorted(REPASO_QUESTION_TYPES)}")
+    learning_pattern_id = doc.get("questionLearningPatternId")
+    if learning_pattern_id is not None and learning_pattern_id not in (
+        QUESTION_LEARNING_PATTERN_IDS
+    ):
+        raise ValueError(
+            f"questions:{doc_id} questionLearningPatternId must be one of "
+            f"{sorted(QUESTION_LEARNING_PATTERN_IDS)}"
+        )
     for key in ("isOfficial", "isDeleted", "isChoiceOnly", "isGroupable"):
         if not isinstance(doc.get(key), bool):
             raise ValueError(f"questions:{doc_id} {key} must be bool")
@@ -712,6 +723,7 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
         forbidden = [
             key
             for key in (
+                "questionLearningPatternId",
                 "explanationText",
                 "explanationReferences",
                 "suggestedQuestions",

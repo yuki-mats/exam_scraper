@@ -74,7 +74,7 @@
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `isCalculationQuestion`, `answer_result_text`, `correctChoiceText`。公式過去問では`examYear`, `examLabel`も必須 | Firestore 変換前の最低限の品質を担保する。未分類legacyは監査時だけheuristicで抽出できるが、新規整備の代用にはしない。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |
 | `18_law_context_prepared` | 法令コンテキスト patch | `isLawRelated`, `lawGroundedExplanationNotNeeded`, 条件付きで `lawReferences` | 03の解説文作成前に、法令・制度論点かどうかと現行法根拠候補を固定する。 |
-| `21_explanationText_added` | patch | `explanationText`, `suggestedQuestionDetailsByChoice`, `original_question_id`。元データにURLがある場合は`question_url`も必須 | 解説と選択肢別の想定質問・回答を事前データとして持ち、画面表示時に AI を自動起動しない。 |
+| `21_explanationText_added` | patch | `questionLearningPatternId`, `explanationText`, `suggestedQuestionDetailsByChoice`, `original_question_id`。元データにURLがある場合は`question_url`も必須 | 学び方の主分類、解説、選択肢別の想定質問・回答を同じ問題判断で事前データにする。 |
 | `21_explanationText_added` | 法令判定の最終反映 | `isLawRelated`, `lawGroundedExplanationNotNeeded` | 02bの判定を引き継ぎ、解説文作成中に矛盾を見つけた場合だけ修正する。 |
 | `22_questionSetId_linked` | patch | 通常の04では`questionSetId`。既存互換として`choiceQuestionSetIds`を保持できる。 | 問題全体の主な復習先をアプリ内カテゴリ/問題集へ紐付ける。肢別分類とは別に確定する。 |
 | `40_convert` | `questions[]` | `questionId`, `questionSetId`, `questionText`, `questionType`, `qualificationId`, `questionTags`, `isOfficial`, `isDeleted`, `isChoiceOnly`, `isGroupable`, `originalQuestionBodyText`, `correctChoiceText`, `examSource`。`examYear`は公式過去問だけ必須 | upload 直前の Firestore 相当データ。 |
@@ -112,6 +112,7 @@
 | 画面用設問本文 | `questionBodyText` | string | 任意 | 推奨 | 原則omit | string。 | convert | `questionText` 生成の元。改行除去されることがある。 |
 | 問題文 | `questionText` | string | 必須 | 必須 | 不可 | 空文字不可。 | convert | アプリで実際に表示・検索する主文。 |
 | 問題タイプ | `questionType` | string enum | 必須 | 必須 | 不可 | DBは`single_choice`, `true_false`, `flash_card`, `fill_in_blank`, `group_choice`。公式問題の整備は`true_false`, `flash_card`, `group_choice`だけ。 | `10_questionType_fixed` | 回答体験の分類。資格ごとに別の意味を持たせない。 |
+| 問題の学び方 | `questionLearningPatternId` | string enum | 任意 | 03実行後は必須 | 原則omit | `config/question_learning_patterns.json`のIDのいずれか。 | `21_explanationText_added`, convert | 資格横断で練習する考え方の主分類。`questionSetId`と独立に確定する。互換アプリの公開確認までupload対象から除外する。 |
 | 資格ID | `qualificationId` | string | 必須 | 必須 | 不可 | 空文字不可。 | convert / upload | 資格横断集計・カテゴリ管理の軸。 |
 | 試験日 | `examDate` | timestamp | 任意 | 任意 | 可 | app rules では timestamp/null。 | future / app | 出題当時法令を厳密に解くための候補。現行 upload では通常使わない。string で入れない。 |
 | 問題画像URL | `questionImageUrls` | array<string> | 任意 | 任意 | 可 | list[str]。 | Storage upload / convert | Storage URL 変換後の値。 |
