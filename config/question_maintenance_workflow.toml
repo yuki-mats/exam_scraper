@@ -228,7 +228,8 @@ kind = "human"
 # 7.0: 全資格共通の八パターンへ統合し、専用文型を廃止。READMEの必要最小限の資格固有調整だけを加味する。
 # 8.0: 学習者向けの七分類へ整理し、図表・画像は提示形式として分離する。
 # 9.0: 七分類をquestionLearningPatternIdとして解説と同時に保存する。
-policy_version = "9.0"
+# 10.0: 条件と例外を分けた八分類へ更新し、法令・順序・計算の解説構成を初学者向けに統一する。
+policy_version = "10.0"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",

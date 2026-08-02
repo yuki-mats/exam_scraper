@@ -16,7 +16,7 @@ from scripts.setup.sync_question_learning_pattern_catalog import sync_catalog
 
 
 class QuestionLearningPatternCatalogTests(unittest.TestCase):
-    def test_canonical_catalog_has_seven_stable_patterns(self) -> None:
+    def test_canonical_catalog_has_eight_stable_patterns(self) -> None:
         catalog = load_question_learning_pattern_catalog()
 
         self.assertEqual(catalog.field_name, QUESTION_LEARNING_PATTERN_FIELD)
@@ -25,7 +25,8 @@ class QuestionLearningPatternCatalogTests(unittest.TestCase):
             (
                 "terms_basics",
                 "differences_relationships",
-                "conditions_exceptions",
+                "conditions_scope",
+                "principles_exceptions",
                 "mechanisms_reasons",
                 "sequence_flow",
                 "scenario_application",
@@ -42,6 +43,12 @@ class QuestionLearningPatternCatalogTests(unittest.TestCase):
         )
         self.assertIsNotNone(
             question_learning_pattern_id_error("unknown", required=True)
+        )
+        self.assertIsNotNone(
+            question_learning_pattern_id_error(
+                "conditions_exceptions",
+                required=True,
+            )
         )
         self.assertIsNotNone(question_learning_pattern_id_error(None, required=True))
         self.assertIsNone(question_learning_pattern_id_error(None, required=False))

@@ -244,7 +244,8 @@ class DocumentationStructureTests(unittest.TestCase):
             "`flash_card`",
             "`group_choice`",
             "`true_false`",
-            "計算問題は、式、代入値、単位換算、途中計算、最終値",
+            "計算問題は、公式を一般形で先に示し",
+            "すべての変数を初学者にも分かる日本語",
             "用語を選ぶ問題は、各用語の意味と見分け方",
             "基本解説と同じ結論・理由・根拠",
             "各選択肢0〜3件で、0件を標準",
@@ -322,7 +323,7 @@ class DocumentationStructureTests(unittest.TestCase):
             )
         )
         stages = {stage["id"]: stage for stage in workflow["stages"]}
-        self.assertEqual(stages["explanation"]["policy_version"], "9.0")
+        self.assertEqual(stages["explanation"]["policy_version"], "10.0")
         self.assertEqual(stages["law_audit"]["policy_version"], "4.5")
         self.assertEqual(stages["law_context"]["policy_version"], "1.4")
 

@@ -459,7 +459,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "9.0")
+        self.assertEqual(version_by_stage["explanation"], "10.0")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
         self.assertEqual(version_by_stage["originalize"], "2.7")
@@ -613,7 +613,8 @@ class WorkflowCatalogTests(unittest.TestCase):
         for pattern in (
             "用語と基本を押さえる",
             "違いを整理する",
-            "条件と例外を押さえる",
+            "条件を押さえる",
+            "例外まで押さえる",
             "しくみと理由を理解する",
             "順序と流れをつかむ",
             "事例に当てはめて考える",
@@ -628,11 +629,18 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("`questionSetId`は「どの単元を復習するか」", prompt)
         self.assertIn("学習者の苦手", prompt)
         self.assertIn("復習すべき単元", prompt)
+        self.assertIn("条件を満たすと通常とは違う扱い", prompt)
+        self.assertIn("元の設問が複数の記述をまとめていても", prompt)
+        self.assertIn("各工程の役割と次へ進める理由", prompt)
         self.assertIn("question_learning_patterns.json", prompt)
         self.assertIn("`間違い。正しくは、〜。`", prompt)
         self.assertIn("問題単位の解説は`正しい。`", prompt)
         self.assertIn("正しい記述は本文だけで完結していれば`正しい。`", prompt)
         self.assertIn("中学生でも意味を追える言葉", prompt)
+        self.assertIn("公式を一般形で先に示し", prompt)
+        self.assertIn("すべての変数を初学者にも分かる日本語", prompt)
+        self.assertIn("法令名、法令番号、条・項・号", prompt)
+        self.assertNotIn("conditions_exceptions", prompt)
         self.assertIn("qualification_docs/README.md", prompt)
         self.assertIn("資格別`README.md`に「解説の資格固有調整」", prompt)
         self.assertIn("共通ルールを保ったまま", prompt)
