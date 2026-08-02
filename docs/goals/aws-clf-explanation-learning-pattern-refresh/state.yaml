@@ -1,0 +1,251 @@
+version: 2
+
+goal:
+  title: "AWS CLF解説・学び方分類の再整備"
+  slug: "aws-clf-explanation-learning-pattern-refresh"
+  kind: existing_plan
+  tranche: "承認済みAWS例を03工程へ簡潔に組み込み、AWS CLF全対象をUIから再整備して成果物を品質収束させる"
+  status: active
+  oracle:
+    signal: "AWS CLFの03再整備run終端readbackと、全対象03成果物の機械検証・代表8分類レビューが同じ内容を支持し、Firestore書き込みが0件である"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "03参照正本のdiffとtests、両list groupの対象件数、status=succeeded、verified=true、artifactSync=succeeded、分類・解説・補足・根拠・計算の検証receipt"
+  intake:
+    original_request: "これも解説工程を得るときに参照するようにして、AWSの解説を整備してほしい。"
+    interpreted_outcome: "承認済みAWS8分類例を03工程が参照し、その基準でAWS CLF全対象の解説成果物をUIから再整備して品質検証済みにする"
+    input_shape: existing_plan
+    audience: "AWS資格を初めて学ぶ受験者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "参照設計・現行03成果物・run終端・品質検証・Firestore非書込を一つの最終監査で確認する"
+    likely_misfire: "共通promptをAWS例で肥大化する、分類だけ付けて文章構成へ反映しない、正答不整合を03で補正する、又はUIを経由せず完了扱いする"
+    blind_spots_considered:
+      - "AWS仕様の時点変化"
+      - "既存runとrepository lock"
+      - "KeepItUpとPing-tの両list group"
+      - "group_choiceと肢別分類"
+      - "Flutter数式契約"
+      - "補足0件を標準とする方針"
+      - "公式一次資料"
+      - "Firestore書き込み境界"
+    existing_plan_facts:
+      - "一肢につき学び方分類は一つ"
+      - "基本解説は正誤を先頭に置いて単独で完結する"
+      - "承認済みAWS8分類例と各分類の判断理由・解説構成を参照する"
+      - "更新は問題整備UIから行い、ログとJSONを進捗確認に使ってよい"
+      - "Firestoreへはアップロードしない"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: blocked
+    url: null
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.2/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/aws-clf-explanation-learning-pattern-refresh"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "現行03工程のprompt読込、資格別資料読込、AWS成果物・run状態、検証経路をread-onlyで特定する。"
+    inputs:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "config/question_maintenance_workflow.toml"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "prompt/qualification_docs/aws-cloud-practitioner"
+      - "AWS CLFのmanifest、progress、10/20/30系成果物"
+    constraints:
+      - "Read-only。"
+      - "00_sourceを変更しない。"
+      - "UIを再起動せず、稼働中runを乱さない。"
+      - "サブエージェントをspawnしない。"
+    expected_output:
+      - "03 promptと資格別資料の実読込経路"
+      - "最小の正本変更案とallowed_files"
+      - "KeepItUp・Ping-tの現対象件数と最新run状態"
+      - "既存検証コマンドと不足する検証"
+      - "Snowball問題を戻すべき工程"
+    receipt: null
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "T001の証拠から、共通promptを簡潔に保ちながらAWS例を確実に参照させる実装とUI再整備範囲を確定する。"
+    inputs:
+      - "T001 receipt"
+      - "承認済みAWS8分類例"
+    constraints:
+      - "Do not implement。"
+      - "資格別資料が実行時に読まれない設計を承認しない。"
+      - "Snowballの正答不整合を03へ押し込まない。"
+      - "サブエージェントをspawnしない。"
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "UI run scopeとFirestore境界"
+    receipt: null
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "T002で確定した範囲で、AWS8分類例の03参照、必要な資格別資料、Snowballの前工程修正、機械検証を一つの整合した実装へ反映する。"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "00_source又はmerged/upload-readyの直接編集が必要になる。"
+      - "必要な変更がT002のallowed_files外へ広がる。"
+      - "既存の未コミット変更と競合する。"
+      - "検証が同じ原因で2回失敗する。"
+    receipt: null
+
+  - id: T004
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: medium
+    objective: "T003の関連変更だけを再検証し、mainへコミットしてorigin/mainへpushする。"
+    inputs:
+      - "T003 receipt"
+      - "git diff"
+    constraints:
+      - "関連変更以外をstageしない。"
+      - "main以外を作成又はpushしない。"
+      - "サブエージェントをspawnしない。"
+    expected_output:
+      - "検証結果"
+      - "commit hash"
+      - "origin/main push readback"
+    receipt: null
+
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "既存の問題整備UIからAWS CLFの全対象へ03解説再整備を開始し、問ごとの自動補充で終端まで監視する。"
+    allowed_files:
+      - "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/aws-cloud-practitioner"
+    verify:
+      - "qualification run parent manifest readback"
+      - "progress API or progress artifact readback"
+      - "status=succeeded"
+      - "verified=true"
+      - "artifactSync=succeeded"
+      - "Firestore writes=0"
+    stop_if:
+      - "別資格のrun lockを破壊しないと開始できない。"
+      - "UIサーバーの再起動が稼働中runをinterruptedへ変える可能性がある。"
+      - "Firestore反映の確認操作が必要になる。"
+      - "同じ障害で自動再試行が3回失敗する。"
+    receipt: null
+
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "03成果物を全件機械検証し、承認済み8分類の代表問題と境界問題を文章・正答・根拠までレビューする。"
+    inputs:
+      - "T005 receipt"
+      - "AWS CLFの現行03成果物"
+      - "承認済みAWS8分類例"
+    constraints:
+      - "Do not implement。"
+      - "件数だけで品質合格としない。"
+      - "正答不整合を解説文で隠さない。"
+      - "補足が多いことを品質とみなさない。"
+      - "サブエージェントをspawnしない。"
+    expected_output:
+      - "全件機械検証結果"
+      - "8分類代表レビュー"
+      - "境界分類レビュー"
+      - "文章品質レビュー"
+      - "再整備対象の限定リスト又はcomplete判定"
+    receipt: null
+
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "T006で残った実質的な保留・不合格だけを通常UIフローで再整備し、03成果物を再検証する。"
+    allowed_files:
+      - "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/aws-cloud-practitioner"
+    verify:
+      - "限定再整備run終端readback"
+      - "対象問題の03成果物readback"
+      - "T006で不合格だった検証の再実行"
+      - "Firestore writes=0"
+    stop_if:
+      - "前工程の正答又は問題文を03だけで変更する必要がある。"
+      - "Firestore反映が必要になる。"
+      - "同じ障害で自動再試行が3回失敗する。"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "承認済みAWS例の実参照、全対象03収束、品質、Git反映、Firestore非書込が元の依頼を満たすか最終監査する。"
+    inputs:
+      - "All done task receipts"
+      - "Last verification"
+      - "Current dirty diff"
+      - "AWS CLF final run and artifact readback"
+    constraints:
+      - "Do not implement。"
+      - "必要なWorker作業がqueued、active又は未解決なら完了を拒否する。"
+      - "片方のlist groupだけなら完了を拒否する。"
+      - "status=succeeded、verified=true、artifactSync=succeededのいずれかが未確認なら完了を拒否する。"
+      - "サブエージェントをspawnしない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle evidence map"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "clean:main:origin-main-even"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
