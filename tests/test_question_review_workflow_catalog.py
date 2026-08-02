@@ -646,6 +646,35 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("共通ルールを保ったまま", prompt)
         self.assertNotIn("02_explanation_strategy.md", prompt)
 
+    def test_aws_explanation_stage_reads_approved_learning_pattern_examples(self):
+        relative = "prompt/qualification_docs/aws-cloud-practitioner/README.md"
+        document = (ROOT / relative).read_text(encoding="utf-8")
+        catalog = QualificationWorkflow(ROOT, None).catalog(
+            "aws-cloud-practitioner"
+        )
+        explanation = next(
+            stage for stage in catalog["stages"] if stage["id"] == "explanation"
+        )
+
+        self.assertIn(relative, explanation["canonicalDocs"])
+        for pattern_id, source_ref in (
+            ("terms_basics", "question_ping-t-76_39411.json#0"),
+            ("differences_relationships", "question_ping-t-76_39578.json#0"),
+            ("conditions_scope", "question_keepitup-CLF203C040.json#0"),
+            ("principles_exceptions", "question_ping-t-76_39629.json#0"),
+            ("mechanisms_reasons", "question_keepitup-CLF201C028.json#0"),
+            ("sequence_flow", "question_ping-t-76_39640.json#0"),
+            ("scenario_application", "question_ping-t-76_39400.json#0"),
+            ("calculation", "question_keepitup-CLF201C044.json#0"),
+        ):
+            with self.subTest(pattern_id=pattern_id):
+                self.assertIn(f"`{pattern_id}`", document)
+                self.assertIn(f"`{source_ref}`", document)
+        self.assertEqual(document.count("分類の判断理由:"), 8)
+        self.assertEqual(document.count("解説の構成:"), 8)
+        self.assertIn("正解になる選択肢がない場合は03を`blocked`", document)
+        self.assertIn("05と02aへ戻します", document)
+
 
 class CanonicalDocumentTests(unittest.TestCase):
     def test_document_content_and_hash_refresh_without_restart(self):

@@ -68,13 +68,13 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.2/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/aws-clf-explanation-learning-pattern-refresh"
 
-active_task: T001
+active_task: T004
 
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "現行03工程のprompt読込、資格別資料読込、AWS成果物・run状態、検証経路をread-onlyで特定する。"
     inputs:
@@ -94,12 +94,46 @@ tasks:
       - "KeepItUp・Ping-tの現対象件数と最新run状態"
       - "既存検証コマンドと不足する検証"
       - "Snowball問題を戻すべき工程"
-    receipt: null
-
+    receipt:
+      result: done
+      summary: "03工程の実読込経路、AWS CLF 879問の現行入力、既存成果物・run・検証経路、Snowball問題の責務境界をread-onlyで確定した。"
+      evidence:
+        - "QualificationWorkflow.catalog()は資格別Markdownを列挙し、explanationのqualification_document_patterns=[README.md,*law_reference*.md]で絞ったcanonicalDocsをpolicyFingerprintと実行promptへ渡す。"
+        - "aws-cloud-practitionerにはREADME.mdがないため、現行03 canonicalDocsは共通03、AGENTS.md、prompt/README.md、幹マニュアルだけで、承認済みAWS例は実行時に読まれていない。"
+        - "refresh planはkeepitup-aws-clf-c02 332問とping-t-aws-clf-c02 547問の合計879問、sourceFiles 879、outputFiles 879を対象にできる。"
+        - "05_originalizedは両groupとも879/879でquestionType、questionIntent、correctChoiceText、choiceTextListが非空。03単独runはlogical projectionで05を読み、存在する後続patchを重ねるため、Ping-tの10不足298件が03入力欠損にはならない。"
+        - "21_explanationText_addedはKeepItUp 0件、Ping-t 1件のみで、既存1件は旧形式かつquestionLearningPatternIdがない。"
+        - "最新AWS run 20260726T164036669269-1b726a9dはquestion_type 25問のinterrupted。879問multi run 20260726T155857082783-7a03e45fもUI再起動でinterrupted。現在8765 listenerと有効processはなく、残るUI・ガス資格lockはPID不在のstale候補である。"
+        - "Snowball CLF201C044は現在の05/10で230TBに対するStorage Optimized 3台を正解としているが、AWS公式現行仕様は1台210TBで必要台数は2台、かつ現在の選択肢にStorage Optimized 2台がない。03や02aだけでは修正不能で、問題文・選択肢・正答を所有する05へ戻し、その後01・02・02a・03を再実行する必要がある。"
+        - "既存のcheck_explanation_patch_coverage.pyは解説件数、正誤先頭、誤答理由、補足形状、数式構造を検証するが、questionLearningPatternIdの必須・enum検証は行っていない。候補生成時schemaだけでなく成果物checkにも追加が必要である。"
+      recommended_change:
+        - "prompt/qualification_docs/aws-cloud-practitioner/README.mdをAWS固有調整の正本として作り、承認済み8例を判断理由・解説構成・公式一次資料とともに簡潔に置く。"
+        - "03 catalog/prompt previewがAWS READMEをcanonicalDocsとして実際に読むことをテストする。"
+        - "check_explanation_patch_coverage.pyへquestionLearningPatternId必須・共通enum検証を追加する。"
+        - "Snowballは05の限定再整備として扱い、正答ラベルだけを03又は02aで補正しない。"
+      suggested_allowed_files:
+        - prompt/qualification_docs/aws-cloud-practitioner/README.md
+        - scripts/check/check_explanation_patch_coverage.py
+        - tests/test_question_review_workflow_catalog.py
+        - tests/test_documentation_structure.py
+        - tests/test_explanation_references.py
+        - "docs/goals/aws-clf-explanation-learning-pattern-refresh/**"
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/05_originalized/question_keepitup-CLF201C044_originalized.json
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/10_questionType_fixed/question_keepitup-CLF201C044_questionType_fixed.json
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/question_keepitup-CLF201C044_correctChoiceText_fixed.json
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/question_keepitup-CLF201C044_correctChoiceText_fixed.json
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added/question_keepitup-CLF201C044_explanationText_added.json
+      verification_candidates:
+        - "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_references"
+        - "QualificationWorkflow.catalog('aws-cloud-practitioner') and plan('explanation','refresh') readback"
+        - "python tools/question_bank/question_bank.py check-explanation-patch for every generated 21 file"
+        - "parent manifest status=succeeded, receiptValidated=true, artifact sync succeeded, both list groups and 879 targets"
+        - "git diff -- output/aws-cloud-practitioner/questions_json/*/00_source is empty"
+        - "Firestore upload command and write receipt are absent"
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "T001の証拠から、共通promptを簡潔に保ちながらAWS例を確実に参照させる実装とUI再整備範囲を確定する。"
     inputs:
@@ -117,27 +151,95 @@ tasks:
       - "verify"
       - "stop_if"
       - "UI run scopeとFirestore境界"
-    receipt: null
-
+    receipt:
+      result: done
+      decision: approved_with_scope_refinement
+      summary: "AWS固有の8例は資格別READMEへ集約し、既存03のREADME読込経路とpolicyFingerprintを利用する。共通03とworkflow configは変更しない。SnowballはUIの前工程限定再整備後に全879問の03へ合流させ、成果物は最後に別コミットする。"
+      implementation:
+        objective: "AWS資格別READMEへ承認済み8分類例を判断理由・解説構成・公式一次資料付きで記録し、03 catalogの実参照と分類IDの成果物検証をテストで固定する。"
+        allowed_files:
+          - prompt/qualification_docs/aws-cloud-practitioner/README.md
+          - scripts/check/check_explanation_patch_coverage.py
+          - tests/test_question_review_workflow_catalog.py
+          - tests/test_explanation_patch_pipeline.py
+        verify:
+          - "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_patch_pipeline"
+          - "QualificationWorkflow.catalog('aws-cloud-practitioner')でexplanation canonicalDocsに資格別READMEが含まれる"
+          - "共通03が120行以内のまま変わっていない"
+          - "00_sourceとAWS成果物に実装工程のdiffがない"
+        stop_if:
+          - "共通03へAWS例を複製する必要が生じる"
+          - "workflow config又は00_sourceの変更が必要になる"
+          - "分類例を事実の固定値として扱い、実行時の公式確認を省く設計になる"
+          - "既存未コミット変更と競合する"
+      ui_run_scope:
+        - "CLF201C044だけを05・01・02・02aで再整備し、Storage Optimized 2台という成立する選択肢と正答へ収束させる。03で選択肢又は正答を変更しない。"
+        - "その後、KeepItUp 332問とPing-t 547問の全879問を03 refreshで洗い替える。"
+        - "UI操作でrunを開始し、進捗はmanifest・progress・JSONで監視する。"
+        - "Firestore upload、delivery、公開同期は選ばず、書込0件を最終確認する。"
+      quality_boundary:
+        - "8例は文章構成と分類判断の見本であり、AWS仕様の正本ではない。毎問の生成時に公式一次資料を確認する。"
+        - "Snowballは現行仕様とサポート終了予定を明示し、仕様差で正解選択肢が消えた場合は03をblockedにして05へ戻す。"
+        - "questionLearningPatternIdは一問につき共通enumから一つ必須とし、CLI成果物チェックでも検出する。"
+        - "補足は0件を標準とし、基本解説、分類、公式根拠の質を優先する。"
+      finalization: "UI成果物とwork versionを品質収束後に関連ファイルだけcommitし、origin/mainへpushしてから最終監査する。"
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
-    objective: "T002で確定した範囲で、AWS8分類例の03参照、必要な資格別資料、Snowballの前工程修正、機械検証を一つの整合した実装へ反映する。"
-    allowed_files: []
-    verify: []
+    objective: "AWS資格別READMEへ承認済み8分類例を判断理由・解説構成・公式一次資料付きで記録し、03 catalogの実参照と分類IDの成果物検証をテストで固定する。"
+    allowed_files:
+      - "prompt/qualification_docs/aws-cloud-practitioner/README.md"
+      - "scripts/check/check_explanation_patch_coverage.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tests/test_explanation_patch_pipeline.py"
+    verify:
+      - "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_patch_pipeline"
+      - "AWS explanation canonicalDocs readback"
+      - "common 03 prompt remains at most 120 lines"
+      - "00_source and AWS output artifacts unchanged"
     stop_if:
       - "00_source又はmerged/upload-readyの直接編集が必要になる。"
       - "必要な変更がT002のallowed_files外へ広がる。"
       - "既存の未コミット変更と競合する。"
       - "検証が同じ原因で2回失敗する。"
-    receipt: null
-
+    receipt:
+      result: done
+      summary: "共通03を変更せず、AWS資格別READMEへ承認済み8分類例を実問題・判断理由・解説構成・公式資料付きで実装し、03実参照と分類IDの成果物検証を固定した。"
+      changed_files:
+        - prompt/qualification_docs/aws-cloud-practitioner/README.md
+        - scripts/check/check_explanation_patch_coverage.py
+        - tests/test_question_review_workflow_catalog.py
+        - tests/test_explanation_patch_pipeline.py
+      implementation_notes:
+        - "AWS READMEはtrue_falseと問題単位形式の違いを明示し、flash_card/group_choiceの例を誤答肢単位で出力しない。"
+        - "八例すべてに分類の判断理由と解説の構成を置き、補足0件を標準にした。"
+        - "Snowball例は公式仕様と正解選択肢が不一致なら03をblockedにして05・02aへ戻す境界を明示した。"
+        - "CLIのexplanation patch checkはquestionLearningPatternIdの必須・共通enumを検証する。既存の内部compare APIは明示指定時だけ新検証を有効にし、通常CLIでは常に有効にした。"
+      verification:
+        - "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_patch_pipeline: 63 tests OK"
+        - "AWS explanation canonicalDocs includes prompt/qualification_docs/aws-cloud-practitioner/README.md"
+        - "AWS explanation refresh plan remains 879 targets across keepitup 332 and ping-t 547"
+        - "common 03 prompt remains 119 lines"
+        - "git diff --check passed"
+        - "no diff under output/aws-cloud-practitioner/questions_json"
+      commands:
+        - cmd: "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_patch_pipeline"
+          status: pass
+        - cmd: "QualificationWorkflow.catalog and explanation refresh plan readback"
+          status: pass
+        - cmd: "wc -l prompt/03_prompt_add_explanationText.md prompt/qualification_docs/aws-cloud-practitioner/README.md"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git diff --name-only -- output/aws-cloud-practitioner/questions_json"
+          status: pass
+      scope_check: "Only T002 allowed implementation files and GoalBuddy control files changed. 00_source and AWS artifacts are untouched."
   - id: T004
     type: pm
     assignee: PM
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "T003の関連変更だけを再検証し、mainへコミットしてorigin/mainへpushする。"
     inputs:
@@ -158,9 +260,16 @@ tasks:
     assignee: Worker
     status: queued
     reasoning_hint: medium
-    objective: "既存の問題整備UIからAWS CLFの全対象へ03解説再整備を開始し、問ごとの自動補充で終端まで監視する。"
+    objective: "既存の問題整備UIでSnowball問題だけを05・01・02・02aへ戻して収束させ、その後AWS CLF全879問の03解説再整備を開始し、問ごとの自動補充で終端まで監視する。"
     allowed_files:
-      - "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/aws-cloud-practitioner"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/05_originalized/question_keepitup-CLF201C044_originalized.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/10_questionType_fixed/question_keepitup-CLF201C044_questionType_fixed.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/question_keepitup-CLF201C044_correctChoiceText_fixed.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/question_keepitup-CLF201C044_correctChoiceText_fixed.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added"
+      - "output/question_review_console/aws-cloud-practitioner"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner"
     verify:
       - "qualification run parent manifest readback"
       - "progress API or progress artifact readback"
@@ -216,6 +325,25 @@ tasks:
       - "前工程の正答又は問題文を03だけで変更する必要がある。"
       - "Firestore反映が必要になる。"
       - "同じ障害で自動再試行が3回失敗する。"
+    receipt: null
+
+  - id: T008
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: medium
+    objective: "品質収束したAWS 03成果物、Snowball前工程成果物、work version、goal receiptだけを再検証し、mainへコミットしてorigin/mainへpushする。"
+    inputs:
+      - "T005からT007のreceipt"
+      - "git diff"
+    constraints:
+      - "00_source、Firestore、他資格の成果物を含めない。"
+      - "main以外を作成又はpushしない。"
+      - "未完又は不合格の成果物をcommitしない。"
+    expected_output:
+      - "最終成果物の検証結果"
+      - "commit hash"
+      - "origin/main push readback"
     receipt: null
 
   - id: T999

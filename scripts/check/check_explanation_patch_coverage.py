@@ -16,6 +16,9 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.question_identity import review_question_id
+from scripts.common.question_learning_patterns import (
+    question_learning_pattern_id_error,
+)
 from scripts.check.patch_entry_matching import (
     bind_source_records,
     match_patch_entries,
@@ -263,6 +266,7 @@ def compare_entries(
     require_is_law_related: bool = False,
     require_law_revision_facts: bool = False,
     require_law_evidence_utilization: bool = False,
+    require_learning_pattern: bool = False,
 ) -> Tuple[List[str], List[str]]:
     errors: List[str] = []
     warnings: List[str] = []
@@ -282,6 +286,14 @@ def compare_entries(
         if missing_fields:
             errors.append(f"index {idx}: missing fields {missing_fields}")
             continue
+
+        if require_learning_pattern:
+            learning_pattern_error = question_learning_pattern_id_error(
+                patch.get("questionLearningPatternId"),
+                required=True,
+            )
+            if learning_pattern_error:
+                errors.append(f"index {idx}: {learning_pattern_error}")
 
         if patch.get("question_url") != src.get("question_url"):
             errors.append(
@@ -432,6 +444,7 @@ def check_pair(
     require_is_law_related: bool = False,
     require_law_revision_facts: bool = False,
     require_law_evidence_utilization: bool = False,
+    require_learning_pattern: bool = False,
 ) -> int:
     if not source_path.exists():
         print(f"[ERROR] source not found: {source_path}")
@@ -548,6 +561,7 @@ def check_pair(
         require_is_law_related=require_is_law_related,
         require_law_revision_facts=require_law_revision_facts,
         require_law_evidence_utilization=require_law_evidence_utilization,
+        require_learning_pattern=require_learning_pattern,
     )
     for warn in warnings:
         print(f"[WARN] {warn}")
@@ -619,6 +633,7 @@ def main() -> int:
         require_is_law_related=args.require_is_law_related,
         require_law_revision_facts=args.require_law_revision_facts,
         require_law_evidence_utilization=args.require_law_evidence_utilization,
+        require_learning_pattern=True,
     )
 
 

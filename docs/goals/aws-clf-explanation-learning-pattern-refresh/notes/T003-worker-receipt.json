@@ -1,0 +1,47 @@
+{
+  "result": "done",
+  "summary": "共通03を変更せず、AWS資格別READMEへ承認済み8分類例を実問題・判断理由・解説構成・公式資料付きで実装し、03実参照と分類IDの成果物検証を固定した。",
+  "changed_files": [
+    "prompt/qualification_docs/aws-cloud-practitioner/README.md",
+    "scripts/check/check_explanation_patch_coverage.py",
+    "tests/test_question_review_workflow_catalog.py",
+    "tests/test_explanation_patch_pipeline.py"
+  ],
+  "implementation_notes": [
+    "AWS READMEはtrue_falseと問題単位形式の違いを明示し、flash_card/group_choiceの例を誤答肢単位で出力しない。",
+    "八例すべてに分類の判断理由と解説の構成を置き、補足0件を標準にした。",
+    "Snowball例は公式仕様と正解選択肢が不一致なら03をblockedにして05・02aへ戻す境界を明示した。",
+    "CLIのexplanation patch checkはquestionLearningPatternIdの必須・共通enumを検証する。既存の内部compare APIは明示指定時だけ新検証を有効にし、通常CLIでは常に有効にした。"
+  ],
+  "verification": [
+    "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_patch_pipeline: 63 tests OK",
+    "AWS explanation canonicalDocs includes prompt/qualification_docs/aws-cloud-practitioner/README.md",
+    "AWS explanation refresh plan remains 879 targets across keepitup 332 and ping-t 547",
+    "common 03 prompt remains 119 lines",
+    "git diff --check passed",
+    "no diff under output/aws-cloud-practitioner/questions_json"
+  ],
+  "commands": [
+    {
+      "cmd": "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_patch_pipeline",
+      "status": "pass"
+    },
+    {
+      "cmd": "QualificationWorkflow.catalog and explanation refresh plan readback",
+      "status": "pass"
+    },
+    {
+      "cmd": "wc -l prompt/03_prompt_add_explanationText.md prompt/qualification_docs/aws-cloud-practitioner/README.md",
+      "status": "pass"
+    },
+    {
+      "cmd": "git diff --check",
+      "status": "pass"
+    },
+    {
+      "cmd": "git diff --name-only -- output/aws-cloud-practitioner/questions_json",
+      "status": "pass"
+    }
+  ],
+  "scope_check": "Only T002 allowed implementation files and GoalBuddy control files changed. 00_source and AWS artifacts are untouched."
+}

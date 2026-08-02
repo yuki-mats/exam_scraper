@@ -1,0 +1,41 @@
+{
+  "result": "done",
+  "summary": "03工程の実読込経路、AWS CLF 879問の現行入力、既存成果物・run・検証経路、Snowball問題の責務境界をread-onlyで確定した。",
+  "evidence": [
+    "QualificationWorkflow.catalog()は資格別Markdownを列挙し、explanationのqualification_document_patterns=[README.md,*law_reference*.md]で絞ったcanonicalDocsをpolicyFingerprintと実行promptへ渡す。",
+    "aws-cloud-practitionerにはREADME.mdがないため、現行03 canonicalDocsは共通03、AGENTS.md、prompt/README.md、幹マニュアルだけで、承認済みAWS例は実行時に読まれていない。",
+    "refresh planはkeepitup-aws-clf-c02 332問とping-t-aws-clf-c02 547問の合計879問、sourceFiles 879、outputFiles 879を対象にできる。",
+    "05_originalizedは両groupとも879/879でquestionType、questionIntent、correctChoiceText、choiceTextListが非空。03単独runはlogical projectionで05を読み、存在する後続patchを重ねるため、Ping-tの10不足298件が03入力欠損にはならない。",
+    "21_explanationText_addedはKeepItUp 0件、Ping-t 1件のみで、既存1件は旧形式かつquestionLearningPatternIdがない。",
+    "最新AWS run 20260726T164036669269-1b726a9dはquestion_type 25問のinterrupted。879問multi run 20260726T155857082783-7a03e45fもUI再起動でinterrupted。現在8765 listenerと有効processはなく、残るUI・ガス資格lockはPID不在のstale候補である。",
+    "Snowball CLF201C044は現在の05/10で230TBに対するStorage Optimized 3台を正解としているが、AWS公式現行仕様は1台210TBで必要台数は2台、かつ現在の選択肢にStorage Optimized 2台がない。03や02aだけでは修正不能で、問題文・選択肢・正答を所有する05へ戻し、その後01・02・02a・03を再実行する必要がある。",
+    "既存のcheck_explanation_patch_coverage.pyは解説件数、正誤先頭、誤答理由、補足形状、数式構造を検証するが、questionLearningPatternIdの必須・enum検証は行っていない。候補生成時schemaだけでなく成果物checkにも追加が必要である。"
+  ],
+  "recommended_change": [
+    "prompt/qualification_docs/aws-cloud-practitioner/README.mdをAWS固有調整の正本として作り、承認済み8例を判断理由・解説構成・公式一次資料とともに簡潔に置く。",
+    "03 catalog/prompt previewがAWS READMEをcanonicalDocsとして実際に読むことをテストする。",
+    "check_explanation_patch_coverage.pyへquestionLearningPatternId必須・共通enum検証を追加する。",
+    "Snowballは05の限定再整備として扱い、正答ラベルだけを03又は02aで補正しない。"
+  ],
+  "suggested_allowed_files": [
+    "prompt/qualification_docs/aws-cloud-practitioner/README.md",
+    "scripts/check/check_explanation_patch_coverage.py",
+    "tests/test_question_review_workflow_catalog.py",
+    "tests/test_documentation_structure.py",
+    "tests/test_explanation_references.py",
+    "docs/goals/aws-clf-explanation-learning-pattern-refresh/**",
+    "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/05_originalized/question_keepitup-CLF201C044_originalized.json",
+    "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/10_questionType_fixed/question_keepitup-CLF201C044_questionType_fixed.json",
+    "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/question_keepitup-CLF201C044_correctChoiceText_fixed.json",
+    "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/question_keepitup-CLF201C044_correctChoiceText_fixed.json",
+    "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added/question_keepitup-CLF201C044_explanationText_added.json"
+  ],
+  "verification_candidates": [
+    "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_references",
+    "QualificationWorkflow.catalog('aws-cloud-practitioner') and plan('explanation','refresh') readback",
+    "python tools/question_bank/question_bank.py check-explanation-patch for every generated 21 file",
+    "parent manifest status=succeeded, receiptValidated=true, artifact sync succeeded, both list groups and 879 targets",
+    "git diff -- output/aws-cloud-practitioner/questions_json/*/00_source is empty",
+    "Firestore upload command and write receipt are absent"
+  ]
+}

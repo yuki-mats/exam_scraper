@@ -1,0 +1,39 @@
+{
+  "result": "done",
+  "decision": "approved_with_scope_refinement",
+  "summary": "AWS固有の8例は資格別READMEへ集約し、既存03のREADME読込経路とpolicyFingerprintを利用する。共通03とworkflow configは変更しない。SnowballはUIの前工程限定再整備後に全879問の03へ合流させ、成果物は最後に別コミットする。",
+  "implementation": {
+    "objective": "AWS資格別READMEへ承認済み8分類例を判断理由・解説構成・公式一次資料付きで記録し、03 catalogの実参照と分類IDの成果物検証をテストで固定する。",
+    "allowed_files": [
+      "prompt/qualification_docs/aws-cloud-practitioner/README.md",
+      "scripts/check/check_explanation_patch_coverage.py",
+      "tests/test_question_review_workflow_catalog.py",
+      "tests/test_explanation_patch_pipeline.py"
+    ],
+    "verify": [
+      "python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_explanation_patch_pipeline",
+      "QualificationWorkflow.catalog('aws-cloud-practitioner')でexplanation canonicalDocsに資格別READMEが含まれる",
+      "共通03が120行以内のまま変わっていない",
+      "00_sourceとAWS成果物に実装工程のdiffがない"
+    ],
+    "stop_if": [
+      "共通03へAWS例を複製する必要が生じる",
+      "workflow config又は00_sourceの変更が必要になる",
+      "分類例を事実の固定値として扱い、実行時の公式確認を省く設計になる",
+      "既存未コミット変更と競合する"
+    ]
+  },
+  "ui_run_scope": [
+    "CLF201C044だけを05・01・02・02aで再整備し、Storage Optimized 2台という成立する選択肢と正答へ収束させる。03で選択肢又は正答を変更しない。",
+    "その後、KeepItUp 332問とPing-t 547問の全879問を03 refreshで洗い替える。",
+    "UI操作でrunを開始し、進捗はmanifest・progress・JSONで監視する。",
+    "Firestore upload、delivery、公開同期は選ばず、書込0件を最終確認する。"
+  ],
+  "quality_boundary": [
+    "8例は文章構成と分類判断の見本であり、AWS仕様の正本ではない。毎問の生成時に公式一次資料を確認する。",
+    "Snowballは現行仕様とサポート終了予定を明示し、仕様差で正解選択肢が消えた場合は03をblockedにして05へ戻す。",
+    "questionLearningPatternIdは一問につき共通enumから一つ必須とし、CLI成果物チェックでも検出する。",
+    "補足は0件を標準とし、基本解説、分類、公式根拠の質を優先する。"
+  ],
+  "finalization": "UI成果物とwork versionを品質収束後に関連ファイルだけcommitし、origin/mainへpushしてから最終監査する。"
+}

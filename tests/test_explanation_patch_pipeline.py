@@ -63,6 +63,44 @@ def saved_details(*items: tuple[str, str], choice_index: int = 0) -> list[dict]:
 
 
 class ExplanationPatchPipelineTests(unittest.TestCase):
+    def test_compare_entries_requires_catalog_learning_pattern_when_requested(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q-pattern",
+                "question_url": "https://example.com/q-pattern",
+                "choiceTextList": ["肢1"],
+                "correctChoiceText": ["正しい"],
+            }
+        ]
+        base_patch = {
+            "original_question_id": "q-pattern",
+            "question_url": "https://example.com/q-pattern",
+            "explanationText": ["正しい。用語の基本的な意味に一致する。"],
+            "suggestedQuestionDetailsByChoice": [],
+        }
+
+        missing, _ = compare_entries(
+            source_questions,
+            [base_patch],
+            require_learning_pattern=True,
+        )
+        invalid, _ = compare_entries(
+            source_questions,
+            [{**base_patch, "questionLearningPatternId": "unknown"}],
+            require_learning_pattern=True,
+        )
+        valid, _ = compare_entries(
+            source_questions,
+            [{**base_patch, "questionLearningPatternId": "terms_basics"}],
+            require_learning_pattern=True,
+        )
+
+        self.assertTrue(
+            any("questionLearningPatternIdが必要" in error for error in missing)
+        )
+        self.assertTrue(any("分類カタログのID" in error for error in invalid))
+        self.assertEqual(valid, [])
+
     def test_compare_entries_rejects_missing_and_opposite_verdict_prefixes(self) -> None:
         source_questions = [
             {
