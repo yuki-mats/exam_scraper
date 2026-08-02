@@ -482,6 +482,73 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             decomposition,
         )
 
+    def test_stage_projection_uses_predecessors_and_ignores_stale_current_patch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            source = {
+                "original_question_id": "q1",
+                "questionBodyText": "取得時の問題",
+                "choiceTextList": ["取得時の選択肢"],
+                "questionType": "multiple_choice",
+            }
+            write_json(
+                group / "00_source" / "question.json",
+                {"question_bodies": [source]},
+            )
+            write_json(
+                group / "05_originalized" / "question_originalized.json",
+                [
+                    {
+                        "original_question_id": "q1",
+                        "questionBodyText": "更新済みの05問題",
+                        "choiceTextList": ["更新済みの05選択肢"],
+                        "correctChoiceText": ["正しい"],
+                        "questionIntent": "select_correct",
+                        "answer_result_text": "正解は1です。",
+                    }
+                ],
+            )
+            write_json(
+                group
+                / "10_questionType_fixed"
+                / "question_questionType_fixed.json",
+                [
+                    {
+                        "original_question_id": "q1",
+                        "questionBodyText": "更新前の05問題",
+                        "choiceTextList": ["更新前の05選択肢"],
+                        "questionType": "flash_card",
+                    }
+                ],
+            )
+            inventory = QuestionInventory(root)
+
+            full_projection = inventory.projected_input(
+                "sample-exam",
+                "2026",
+                "question.json#0",
+            )
+            question_type_input = inventory.projected_input_for_stage(
+                "sample-exam",
+                "2026",
+                "question.json#0",
+                "question_type",
+            )
+
+        self.assertEqual(full_projection.record["questionBodyText"], "更新済みの05問題")
+        self.assertEqual(
+            question_type_input.record["questionBodyText"],
+            "更新済みの05問題",
+        )
+        self.assertEqual(
+            question_type_input.record["choiceTextList"],
+            ["更新済みの05選択肢"],
+        )
+        self.assertEqual(len(question_type_input.applied_files), 2)
+        self.assertIn("05_originalized", question_type_input.applied_files[0])
+        self.assertIn("10_questionType_fixed", question_type_input.applied_files[-1])
+
     def test_projected_input_rejects_an_unmatched_patch_like_physical_merge(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

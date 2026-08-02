@@ -1,5 +1,6 @@
 import copy
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from tools.question_review_console.question_work_queue import (
@@ -221,6 +222,54 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
         feedback = plan["evaluationFeedbackByQuestion"]["q1"][0]
         self.assertFalse(feedback["answerMappingMatched"])
+
+    def test_blocked_rework_carries_terminal_reason_into_every_selected_stage(self) -> None:
+        originalize = stage_plan("originalize", self.targets)
+        plan = copy.deepcopy(
+            {
+                **self.plan,
+                "qualification": "sample",
+                "questionIds": ["q1"],
+                "stageIds": ["originalize", "explanation"],
+                "stagePlans": [originalize, self.first],
+            }
+        )
+        previous = {
+            "status": "succeeded",
+            "queueStatus": "partial",
+            "questionExecutions": [
+                {
+                    "questionId": "q1",
+                    "status": "blocked",
+                    "stages": [
+                        {
+                            "stageId": "explanation",
+                            "status": "blocked",
+                            "error": "現行仕様と正答が一致しないため上流から再整備する。",
+                        }
+                    ],
+                },
+                {
+                    "questionId": "q2",
+                    "status": "validated",
+                    "stages": [],
+                },
+            ],
+        }
+        coordinator = object.__new__(QualificationRunCoordinator)
+        coordinator.store = SimpleNamespace(get=lambda _qualification, _run_id: previous)
+
+        coordinator._apply_blocked_rework_plan(plan, "run-partial")
+        executions = build_question_executions(plan)
+
+        self.assertEqual(plan["blockedReworkFrom"], "run-partial")
+        self.assertEqual(
+            executions[0]["stages"][0]["priorValidationFeedback"],
+            executions[0]["stages"][1]["priorValidationFeedback"],
+        )
+        feedback = executions[0]["stages"][0]["priorValidationFeedback"][0]
+        self.assertEqual(feedback["source"], "blocked_maintenance")
+        self.assertIn("現行仕様", feedback["summary"])
 
     def test_builds_placeholder_for_later_dynamic_stage(self) -> None:
         later = stage_plan("law_audit", [self.targets[1]])

@@ -222,6 +222,7 @@ const state = {
     running: false,
     previewSequence: 0,
     resumedFrom: "",
+    blockedReworkFrom: "",
     stageIds: [],
     listGroupIds: [],
     updateTargetIds: [],
@@ -1241,6 +1242,7 @@ function bindControls() {
     }
     openEvaluationDialog([...state.selectedQuestionIds]);
   });
+  $("#bulk-maintenance-button").addEventListener("click", openSelectedQuestionRefresh);
   $("#continuous-evaluate-button").addEventListener("click", () => {
     openEvaluationDialog([], { continuousQueue: true });
   });
@@ -1739,6 +1741,28 @@ function openSelectedQuestionMaintenance() {
     mode: "group_refresh",
     simplified: true,
     evaluationRework: true,
+    questionConcurrency: AUTO_QUESTION_CONCURRENCY,
+  });
+}
+
+function openSelectedQuestionRefresh() {
+  const selectedQuestions = state.questions.filter(
+    (question) => state.selectedQuestionIds.has(question.id),
+  );
+  if (!selectedQuestions.length) {
+    toast("再整備する問題を選択してください。", true);
+    return;
+  }
+  const firstStage = qualificationMaintenanceEntryStage();
+  if (!firstStage) {
+    toast("問題整備工程を開始できません。", true);
+    return;
+  }
+  openQualificationRunDialog(firstStage, {
+    listGroupIds: [...new Set(selectedQuestions.map((question) => question.listGroupId))],
+    questionIds: selectedQuestions.map((question) => question.id),
+    mode: "group_refresh",
+    fieldFirst: true,
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
   });
 }
@@ -3112,6 +3136,47 @@ function qualificationRunStageIdsForUpdateTargetIds(targetIds = []) {
     .map((stage) => stage.id);
 }
 
+function qualificationRunDependencyUpdateTargetIds(targetIds = []) {
+  const targets = qualificationRunSelectableUpdateTargets().map((target, index) => ({
+    ...target,
+    workflowIndex: index,
+  }));
+  const bySelectionId = new Map(
+    targets.map((target) => [target.selectionId, target]),
+  );
+  const selected = new Set(
+    targetIds.filter((targetId) => bySelectionId.has(targetId)),
+  );
+  const pending = [...selected];
+  while (pending.length) {
+    const consumer = bySelectionId.get(pending.pop());
+    if (!consumer) continue;
+    for (const field of consumer.readFields || []) {
+      const producer = targets
+        .filter((target) => (
+          target.workflowIndex < consumer.workflowIndex
+          && (target.fields || []).includes(field)
+        ))
+        .at(-1);
+      if (!producer || selected.has(producer.selectionId)) continue;
+      selected.add(producer.selectionId);
+      pending.push(producer.selectionId);
+    }
+  }
+  return targets
+    .filter((target) => selected.has(target.selectionId))
+    .map((target) => target.selectionId);
+}
+
+function qualificationRunBlockedQuestionIds(progress) {
+  return [...new Set(
+    (progress?.questions || [])
+      .filter((question) => progressQuestionQueueState(question).status === "blocked")
+      .map((question) => question.questionId)
+      .filter(Boolean),
+  )];
+}
+
 function selectedQualificationRunUpdateTargetIds() {
   const inputs = [...document.querySelectorAll('input[name="qualification-run-update-target"]')];
   if (!inputs.length) return [...state.qualificationRunDialog.updateTargetIds];
@@ -3517,6 +3582,7 @@ function openQualificationRunDialog(stage, options = {}) {
     running: false,
     previewSequence: state.qualificationRunDialog.previewSequence + 1,
     resumedFrom: options.resumedFrom || "",
+    blockedReworkFrom: options.blockedReworkFrom || "",
     stageIds: selectedStageIds,
     listGroupIds: selectedGroupIds,
     updateTargetIds: selectedUpdateTargetIds,
@@ -3691,6 +3757,7 @@ async function previewQualificationRun() {
         updateTargetIds: availableUpdateTargets.length ? updateTargetIds : undefined,
         questionIds: questionIds.length ? questionIds : undefined,
         evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
+        blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
     });
@@ -3845,6 +3912,7 @@ async function startQualificationRun(event) {
           : undefined,
         questionIds: preview.questionIds?.length ? preview.questionIds : undefined,
         evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
+        blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
         previewToken: preview.previewToken,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
@@ -4568,10 +4636,10 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
   }
 }
 
-function retryBlockedQualificationRun(runOverride = null) {
+async function retryBlockedQualificationRun(runOverride = null) {
   const run = runOverride?.runId ? runOverride : displayedQualificationRun();
   if (!run) return;
-  const progress = qualificationRunProgressForRun(
+  let progress = qualificationRunProgressForRun(
     state.qualificationRunProgress,
     run.runId,
   );
@@ -4580,20 +4648,49 @@ function retryBlockedQualificationRun(runOverride = null) {
     qualificationRunViewState(run, progress),
   )) return;
   const stageIds = Array.isArray(run.stageIds) ? run.stageIds.filter(Boolean) : [];
-  const firstStage = state.qualificationWorkflow?.stages?.find((stage) => stage.id === stageIds[0]);
+  const retryBlockedAsRepair = (
+    run.status === "succeeded"
+    && run.queueStatus === "partial"
+  );
+  if (
+    retryBlockedAsRepair
+    && (!progress || progress.questionsIncluded !== true)
+  ) {
+    await loadQualificationRunProgress(run.runId);
+    progress = qualificationRunProgressForRun(
+      state.qualificationRunProgress,
+      run.runId,
+    );
+  }
+  const blockedQuestionIds = retryBlockedAsRepair
+    ? qualificationRunBlockedQuestionIds(progress)
+    : [];
+  const originalTargetIds = defaultQualificationRunUpdateTargetIds(stageIds, {
+    updateTargetIds: run.selectedUpdateTargetIds,
+  });
+  const updateTargetIds = blockedQuestionIds.length
+    ? qualificationRunDependencyUpdateTargetIds(originalTargetIds)
+    : originalTargetIds;
+  const retryStageIds = qualificationRunStageIdsForUpdateTargetIds(updateTargetIds);
+  const firstStage = state.qualificationWorkflow?.stages?.find(
+    (stage) => stage.id === retryStageIds[0],
+  );
   if (!firstStage) {
     toast("再実行する工程を現在のworkflowから確認できません。", true);
     return;
   }
   openQualificationRunDialog(firstStage, {
-    stageIds,
+    stageIds: retryStageIds,
     listGroupIds: run.scopeListGroupIds || run.targetGroupIds || [],
-    updateTargetIds: run.selectedUpdateTargetIds,
-    mode: run.mode || "outdated",
+    updateTargetIds,
+    questionIds: blockedQuestionIds,
+    mode: blockedQuestionIds.length ? "group_refresh" : run.mode || "outdated",
     questionConcurrency: run.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
-    resumedFrom: run.runId,
+    resumedFrom: blockedQuestionIds.length ? "" : run.runId,
+    blockedReworkFrom: blockedQuestionIds.length ? run.runId : "",
     simplified: true,
+    fieldFirst: blockedQuestionIds.length > 0,
   });
 }
 
@@ -5069,6 +5166,13 @@ function updateEvaluationSelectionControls() {
       : "一覧を選択";
   }
   const count = state.selectedQuestionIds.size;
+  const maintenanceAction = $("#bulk-maintenance-button");
+  if (maintenanceAction) {
+    maintenanceAction.disabled = count === 0 || !qualificationMaintenanceEntryStage();
+    maintenanceAction.textContent = count
+      ? `選択した${count}問を再整備`
+      : "選択した問題を再整備";
+  }
   const action = $("#bulk-evaluate-button");
   if (action) {
     const evaluationStatus = $("#evaluation-status-select").value;

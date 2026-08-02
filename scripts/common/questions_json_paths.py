@@ -7,7 +7,10 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def is_list_group_dir(path: Path) -> bool:
-    return path.is_dir() and path.name.isdigit()
+    return path.is_dir() and (
+        path.name.isdigit()
+        or (path / "00_source").is_dir()
+    )
 
 
 def list_group_ids_in_base_dir(base_dir: Path) -> list[str]:

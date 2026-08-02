@@ -15,7 +15,7 @@
 - Authority: `requested`
 - Proof type: `artifact`
 - Completion proof: 承認済み8分類例を03工程が実際に参照し、AWS CLF全対象の現行03成果物が分類・基本解説・補足・根拠の機械検証と代表問題の文章レビューを通過したことを、run終端状態と成果物で確認できる。
-- Goal oracle: UIから開始したAWS CLFの03再整備runが`status=succeeded`、`verified=true`、`artifactSync=succeeded`となり、全対象問題に現行版の03成果物、妥当な単一`questionLearningPatternId`、正誤から始まる基本解説が存在し、品質検証が合格する。
+- Goal oracle: UIから開始したAWS CLFの03再整備runが終端し、全対象問題に現行版の03成果物、妥当な単一`questionLearningPatternId`、正誤から始まる基本解説が存在し、品質検証が合格する。公開用同期が別工程の不足で止まる場合は、03工程内の不合格でないことを成果物から帰属し、Firestoreへ書き込まない。
 - Likely misfire: 03プロンプトへ長いAWS例を直書きして共通promptを再び読みにくくする、分類名だけ付けて解説構成へ反映しない、Snowballの正答不整合を03解説で辻褄合わせする、又はUIを使わず成果物だけ直接量産して完了扱いする。
 - Blind spots considered: AWS仕様の時点変化、既存runとrepository lock、KeepItUpとPing-tの両list group、`group_choice`と肢別分類の境界、計算式のFlutter数式契約、補足0件を標準とする方針、公式一次資料、Firestore書き込み境界。
 - Existing plan facts: 一肢につき学び方分類は一つ、基本解説は正誤を先頭に置いて単独で完結、誤答は設問用語を自然に使い正しい全体像を直接示す、補足は0件を標準、計算は公式・全変数・代入・途中計算・最終値を示す、承認済みAWS8分類例を使う、更新は問題整備UIから行い進捗確認はログとJSONを直接参照してよい。

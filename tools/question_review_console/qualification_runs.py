@@ -1598,6 +1598,7 @@ def _structured_candidate_prompt(
     stage_prompt: str,
     targets: list[Mapping[str, Any]],
     *,
+    canonical_guidance: str = "",
     stage_id: str | None = None,
     records_by_question: Mapping[str, Mapping[str, Any]],
     candidate_targets_by_question: Mapping[str, tuple[CandidateTarget, ...]],
@@ -1745,6 +1746,10 @@ def _structured_candidate_prompt(
         [
             "# 工程の品質規則",
             "",
+            canonical_guidance.rstrip(),
+            "",
+            "# 実行対象",
+            "",
             stage_prompt.rstrip(),
             "",
             *context_lines,
@@ -1806,6 +1811,56 @@ def _structured_candidate_prompt(
             "",
         ]
     )
+
+
+def _canonical_document_guidance(
+    repo_root: Path,
+    canonical_docs: Iterable[str],
+) -> str:
+    """Embed trusted canonical documents for no-tool question model turns."""
+
+    root = repo_root.resolve()
+    sections = ["# 正本文書の内容", ""]
+    seen: set[Path] = set()
+    for raw_path in canonical_docs:
+        value = str(raw_path or "").strip()
+        if not value:
+            continue
+        candidate = Path(value)
+        if not candidate.is_absolute():
+            candidate = root / candidate
+        resolved = candidate.resolve()
+        try:
+            relative = resolved.relative_to(root)
+        except ValueError as exc:
+            raise QualificationRunError(
+                f"正本文書がrepository外を指しています: {value}"
+            ) from exc
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        # WorkflowCatalog may be used against a minimal temporary repository in
+        # tests or migrations. The catalog fingerprint already records missing
+        # documents; embed every document that is actually present here.
+        if not resolved.is_file():
+            continue
+        try:
+            content = resolved.read_text(encoding="utf-8").strip()
+        except (OSError, UnicodeError) as exc:
+            raise QualificationRunError(
+                f"正本文書を読み込めません: {relative.as_posix()}"
+            ) from exc
+        sections.extend(
+            [
+                f"## {relative.as_posix()}",
+                "",
+                content,
+                "",
+            ]
+        )
+    if len(sections) == 2:
+        return ""
+    return "\n".join(sections).rstrip()
 
 
 def _filter_structured_candidate_prompt(
@@ -8581,6 +8636,81 @@ class QualificationRunCoordinator:
             ),
         )
 
+    def _apply_blocked_rework_plan(
+        self,
+        plan: dict[str, Any],
+        blocked_rework_from: str | None,
+    ) -> None:
+        if not blocked_rework_from:
+            return
+        qualification = str(plan.get("qualification") or "")
+        previous = self.store.get(qualification, blocked_rework_from)
+        if (
+            previous.get("status") != "succeeded"
+            or previous.get("queueStatus") != "partial"
+        ):
+            raise QualificationRunError(
+                "保留再整備の元runは、保留付きで終了したrunを指定してください。"
+            )
+        feedback_by_question: dict[str, list[dict[str, Any]]] = {}
+        for execution in previous.get("questionExecutions") or []:
+            if not isinstance(execution, Mapping):
+                continue
+            question_id = str(execution.get("questionId") or "")
+            if not question_id or execution.get("status") != "blocked":
+                continue
+            blocked_stages = [
+                dict(stage)
+                for stage in execution.get("stages") or []
+                if isinstance(stage, Mapping)
+                and stage.get("status") == "blocked"
+                and str(stage.get("error") or "").strip()
+            ]
+            reasons = list(
+                dict.fromkeys(
+                    str(stage.get("error") or "").strip()
+                    for stage in blocked_stages
+                )
+            )
+            if not reasons:
+                continue
+            feedback_by_question[question_id] = [
+                {
+                    "source": "blocked_maintenance",
+                    "status": "needs_rework",
+                    "runId": blocked_rework_from,
+                    "summary": reasons[0],
+                    "criticalIssues": reasons,
+                    "blockedStageIds": list(
+                        dict.fromkeys(
+                            str(stage.get("stageId") or "")
+                            for stage in blocked_stages
+                            if stage.get("stageId")
+                        )
+                    ),
+                }
+            ]
+        requested_question_ids = {
+            str(value) for value in plan.get("questionIds") or [] if value
+        }
+        if not requested_question_ids:
+            raise QualificationRunError(
+                "保留再整備ではquestionIdsを指定してください。"
+            )
+        missing = requested_question_ids - set(feedback_by_question)
+        if missing:
+            raise QualificationRunError(
+                "保留理由を確認できない問題が含まれています: "
+                + ", ".join(sorted(missing))
+            )
+        plan.update(
+            blockedReworkFrom=blocked_rework_from,
+            evaluationFeedbackByQuestion={
+                question_id: feedback_by_question[question_id]
+                for question_id in sorted(requested_question_ids)
+            },
+        )
+
     def preview(
         self,
         qualification: str,
@@ -8595,6 +8725,7 @@ class QualificationRunCoordinator:
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
+        blocked_rework_from: str | None = None,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
@@ -8612,6 +8743,7 @@ class QualificationRunCoordinator:
             plan,
             evaluation_rework_snapshots,
         )
+        self._apply_blocked_rework_plan(plan, blocked_rework_from)
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
         if plan["kind"] == "machine":
@@ -8704,6 +8836,7 @@ class QualificationRunCoordinator:
         question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
+        blocked_rework_from: str | None = None,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
@@ -8719,6 +8852,7 @@ class QualificationRunCoordinator:
             question_concurrency=question_concurrency,
             speed_mode=speed_mode,
             evaluation_rework_snapshots=evaluation_rework_snapshots,
+            blocked_rework_from=blocked_rework_from,
         )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
@@ -8749,6 +8883,7 @@ class QualificationRunCoordinator:
             plan,
             evaluation_rework_snapshots,
         )
+        self._apply_blocked_rework_plan(plan, blocked_rework_from)
         if plan["kind"] == "human":
             selected_stage_ids = list(plan.get("stageIds") or [stage_id])
             prompt_scope = {}
@@ -11557,9 +11692,14 @@ class QualificationRunCoordinator:
                 if stage_id in {"correct_choice", "law_context", "explanation"}
                 else {}
             )
+            canonical_guidance = _canonical_document_guidance(
+                self.repo_root,
+                batch_plan.get("canonicalDocs") or [],
+            )
             batch_prompt = _structured_candidate_prompt(
                 batch_stage_prompt,
                 targets,
+                canonical_guidance=canonical_guidance,
                 stage_id=stage_id,
                 records_by_question=records_by_question,
                 candidate_targets_by_question=candidate_targets_by_question,

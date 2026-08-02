@@ -462,7 +462,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["explanation"], "10.0")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
-        self.assertEqual(version_by_stage["originalize"], "2.7")
+        self.assertEqual(version_by_stage["originalize"], "2.8")
         self.assertEqual(version_by_stage["question_type"], "5.2")
         self.assertEqual(version_by_stage["question_intent"], "4.0")
         self.assertEqual(version_by_stage["correct_choice"], "4.0")
@@ -672,6 +672,9 @@ class WorkflowCatalogTests(unittest.TestCase):
                 self.assertIn(f"`{source_ref}`", document)
         self.assertEqual(document.count("分類の判断理由:"), 8)
         self.assertEqual(document.count("解説の構成:"), 8)
+        self.assertIn("230TBのデータを、1台210TB", document)
+        self.assertIn("1台では20TB不足する", document)
+        self.assertNotIn("1台では10TB不足する", document)
         self.assertIn("正解になる選択肢がない場合は03を`blocked`", document)
         self.assertIn("05と02aへ戻します", document)
 

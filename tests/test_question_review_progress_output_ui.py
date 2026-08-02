@@ -384,6 +384,25 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         )
         self.assertIn("選択した${count}問を再整備", javascript)
 
+    def test_selected_questions_can_start_a_regular_field_first_refresh(self):
+        javascript = APP_PATH.read_text(encoding="utf-8")
+        html = INDEX_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('id="bulk-maintenance-button"', html)
+        self.assertIn(
+            '$("#bulk-maintenance-button").addEventListener',
+            javascript,
+        )
+        section = javascript[
+            javascript.index("function openSelectedQuestionRefresh()") :
+            javascript.index("function openListGroupStatus")
+        ]
+        self.assertIn("state.selectedQuestionIds.has(question.id)", section)
+        self.assertIn("questionIds: selectedQuestions.map", section)
+        self.assertIn('mode: "group_refresh"', section)
+        self.assertIn("fieldFirst: true", section)
+        self.assertNotIn("evaluationRework: true", section)
+
     def test_validated_work_and_artifact_sync_have_separate_ui_states(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = APP_PATH.with_name("index.html").read_text(encoding="utf-8")

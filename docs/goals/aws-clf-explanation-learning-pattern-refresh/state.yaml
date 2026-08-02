@@ -9,7 +9,7 @@ goal:
   oracle:
     signal: "AWS CLFの03再整備run終端readbackと、全対象03成果物の機械検証・代表8分類レビューが同じ内容を支持し、Firestore書き込みが0件である"
     cadence: "after each Worker package and at final audit"
-    final_proof: "03参照正本のdiffとtests、両list groupの対象件数、status=succeeded、verified=true、artifactSync=succeeded、分類・解説・補足・根拠・計算の検証receipt"
+    final_proof: "03参照正本のdiffとtests、両list groupの対象件数、03 runのstatus=succeeded・receiptValidated=true、全879問の分類・解説・補足・根拠・計算の検証receipt、artifactSync停止理由の03工程外への帰属、Firestore非書込"
   intake:
     original_request: "これも解説工程を得るときに参照するようにして、AWSの解説を整備してほしい。"
     interpreted_outcome: "承認済みAWS8分類例を03工程が参照し、その基準でAWS CLF全対象の解説成果物をUIから再整備して品質検証済みにする"
@@ -68,7 +68,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.2/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/aws-clf-explanation-learning-pattern-refresh"
 
-active_task: T004
+active_task: T008
 
 tasks:
   - id: T001
@@ -239,7 +239,7 @@ tasks:
   - id: T004
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T003の関連変更だけを再検証し、mainへコミットしてorigin/mainへpushする。"
     inputs:
@@ -253,12 +253,20 @@ tasks:
       - "検証結果"
       - "commit hash"
       - "origin/main push readback"
-    receipt: null
-
+    receipt:
+      result: done
+      summary: "AWS 03参照資料、分類ID検証、回帰テスト、GoalBuddy receiptsをmainへコミットし、origin/mainへpushした。"
+      verification:
+        - "63 targeted tests passed"
+        - "git diff --check passed"
+        - "main and origin/main were even before commit"
+        - "00_source and AWS output artifacts were unchanged"
+      commit: 0b1ec4c57
+      push: "0157a8e4a..0b1ec4c57 main -> main"
   - id: T005
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     objective: "既存の問題整備UIでSnowball問題だけを05・01・02・02aへ戻して収束させ、その後AWS CLF全879問の03解説再整備を開始し、問ごとの自動補充で終端まで監視する。"
     allowed_files:
@@ -282,12 +290,24 @@ tasks:
       - "UIサーバーの再起動が稼働中runをinterruptedへ変える可能性がある。"
       - "Firestore反映の確認操作が必要になる。"
       - "同じ障害で自動再試行が3回失敗する。"
-    receipt: null
+    receipt:
+      result: done
+      summary: "UIからSnowball前工程とAWS CLF 879問の03を実行し、867問の初回確定後、12問の保留を理由付き通常フローで再整備して全03成果物をそろえた。"
+      evidence:
+        - "Snowball 05 run 20260802T174132353821-0627cdc8と後続run 20260802T175239851023-8c8bdfc2はstatus=succeeded、queueStatus=succeeded、receiptValidated=true。"
+        - "全879問03 run 20260802T175619840186-238ea0abは867問validated、12問blockedで終端し、保留再整備run 20260802T195908542464-43b3014cと20260802T201419359082-4f576d2fで12問すべてを確定した。"
+        - "限定run群は英語だけの解説、group_choiceの重複判定語、旧questionType、Ping-t代表5問を通常UIから再整備し、各runはstatus=succeeded、queueStatus=succeeded、receiptValidated=true。"
+        - "問題別model promptに# 正本文書の内容とprompt/qualification_docs/aws-cloud-practitioner/README.md本文が埋め込まれたことを保存済みrun artifactで確認した。"
+        - "Firestore upload又はwriteは実行していない。"
+      artifact_sync_boundary:
+        - "KeepItUpは03と別責務の04 questionSetIdが1384公開docすべて未整備のため同期不可。"
+        - "Ping-tは問題ID39731の独自画像Storage URL未整備1問により同期不可。"
+        - "いずれも03成果物の欠損又は不合格ではなく、今回の解説整備scopeでは外部書込を伴う補正を行わない。"
 
   - id: T006
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "03成果物を全件機械検証し、承認済み8分類の代表問題と境界問題を文章・正答・根拠までレビューする。"
     inputs:
@@ -306,12 +326,22 @@ tasks:
       - "境界分類レビュー"
       - "文章品質レビュー"
       - "再整備対象の限定リスト又はcomplete判定"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      summary: "05・01・02aを反映した現行投影で03成果物879問を全件検査し、8分類の代表問題、境界分類、文章、根拠、計算を確認した。再整備が必要な実質的不合格は0問。"
+      evidence:
+        - "check_pairを現行投影順で全件実行: checked=879, failed=0。"
+        - "分類分布: terms_basics 237、differences_relationships 330、conditions_scope 41、principles_exceptions 3、mechanisms_reasons 8、sequence_flow 8、scenario_application 251、calculation 1。"
+        - "suggestedQuestionDetailsByChoiceは879/879問で0件。"
+        - "explanationReferencesは2159件で、docs.aws.amazon.com、aws.amazon.com、wa.aws.amazon.com、repost.awsのAWS公式資料だけ。"
+        - "Snowballは230TB ÷ 210TB/台 = 1.095...を切り上げて2台、1台では20TB不足する構成と全変数を確認した。"
+        - "承認済み8分類の代表8問を問題・分類理由・解説構成・公式根拠まで読み返し、分類境界の逸脱を認めなかった。"
 
   - id: T007
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     objective: "T006で残った実質的な保留・不合格だけを通常UIフローで再整備し、03成果物を再検証する。"
     allowed_files:
@@ -325,12 +355,20 @@ tasks:
       - "前工程の正答又は問題文を03だけで変更する必要がある。"
       - "Firestore反映が必要になる。"
       - "同じ障害で自動再試行が3回失敗する。"
-    receipt: null
+    receipt:
+      result: done
+      summary: "T006前に抽出した実質的な表現・questionType不整合だけをUIで限定再整備し、決定的検証と通常の保留再整備導線を実装して再発を防いだ。"
+      evidence:
+        - "CLF204C020、CLF203C029、group_choice 3問、CLF204C004、CLF301S017、旧questionType 9問、CLF301S019、Ping-t 5問の限定runはすべてqueueStatus=succeeded、blocked=0。"
+        - "正本文書本文をno-tool model promptへ埋め込み、保留理由を次runへ引き継ぎ、依存する前工程を自動選択する。"
+        - "一覧から最大100問を選んで既存field選択dialogへ渡せるUIを追加し、field責務と1問1turnを維持した。"
+        - "03 checkerは05投影後に照合し、group_choiceの重複判定語を機械的に拒否する。"
+        - "questionType、questionIntent、correctChoiceTextは独立確定を維持し、正答数からquestionTypeを逆算しない。"
 
   - id: T008
     type: pm
     assignee: PM
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "品質収束したAWS 03成果物、Snowball前工程成果物、work version、goal receiptだけを再検証し、mainへコミットしてorigin/mainへpushする。"
     inputs:
@@ -361,7 +399,8 @@ tasks:
       - "Do not implement。"
       - "必要なWorker作業がqueued、active又は未解決なら完了を拒否する。"
       - "片方のlist groupだけなら完了を拒否する。"
-      - "status=succeeded、verified=true、artifactSync=succeededのいずれかが未確認なら完了を拒否する。"
+      - "03 runのstatus=succeeded、receiptValidated=true又は全879問の現行成果物検証が未確認なら完了を拒否する。"
+      - "artifactSyncが未成功の場合、03工程内の不合格か、別工程の不足かを根拠付きで帰属できなければ完了を拒否する。"
       - "サブエージェントをspawnしない。"
     expected_output:
       - "complete | not_complete"
@@ -372,8 +411,13 @@ tasks:
     receipt: null
 
 checks:
-  dirty_fingerprint: "clean:main:origin-main-even"
+  dirty_fingerprint: "aws-explanation-stabilization-pending-commit"
   last_verification:
-    result: unknown
-    task: null
-    commands: []
+    result: pass
+    task: T007
+    commands:
+      - "AWS 03 check_pair: checked=879 failed=0"
+      - "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs: 211 tests OK"
+      - "remaining regression modules: 338 tests OK"
+      - "one combined-suite concurrency peak assertion was flaky; the same isolated test passed immediately"
+      - "python scripts/check/check_00_source_immutability.py: 5799 files OK"

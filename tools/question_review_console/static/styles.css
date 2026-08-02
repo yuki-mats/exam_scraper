@@ -370,7 +370,6 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .advanced-toolbar .segmented[hidden],
 .audit-admin-tools[hidden] { display: none; }
 .audit-view:not(.admin-tools-open) .queue-item { grid-template-columns: minmax(0, 1fr); }
-.audit-view:not(.admin-tools-open) .queue-select { display: none; }
 .audit-view:not(.admin-tools-open) .queue-open { padding-left: 14px; }
 .audit-view:not(.detail-open) .audit-workspace,
 .audit-view.detail-open .audit-workspace {

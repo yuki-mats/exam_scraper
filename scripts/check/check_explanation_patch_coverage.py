@@ -26,6 +26,7 @@ from scripts.check.patch_entry_matching import (
 from scripts.common.repaso_firestore_schema import _is_law_revision_facts
 from scripts.merge.patch_views import (
     apply_correct_choice,
+    apply_originalized_fields,
     apply_question_intent,
     apply_question_type,
 )
@@ -437,6 +438,7 @@ def check_pair(
     source_path: Path,
     patch_path: Path,
     *,
+    originalized_patch_path: Path | None = None,
     question_type_patch_path: Path | None = None,
     question_intent_patch_path: Path | None = None,
     correct_choice_patch_path: Path | None = None,
@@ -466,6 +468,10 @@ def check_pair(
         return get_patch_entries(load_json(path))
 
     try:
+        originalized_entries = load_predecessor(
+            originalized_patch_path,
+            "originalized",
+        )
         question_type_entries = load_predecessor(
             question_type_patch_path,
             "questionType",
@@ -504,6 +510,15 @@ def check_pair(
             for match in matches
             if review_question_id(match.source)
         }
+
+    if originalized_entries:
+        originalized_map = predecessor_map(
+            originalized_entries,
+            "originalized",
+        )
+        if originalized_map is None:
+            return 1
+        apply_originalized_fields(source_data, originalized_map)
 
     if question_type_entries:
         question_type_map = predecessor_map(
@@ -585,6 +600,10 @@ def main() -> int:
         help="Path to *_explanationText_added_YYYYMMDD_HHMM.json (旧形式 *_explanationText_added.json も可)",
     )
     parser.add_argument(
+        "--originalized-patch",
+        help="Path to the effective 05 originalize patch for this source file.",
+    )
+    parser.add_argument(
         "--question-type-patch",
         help="Path to the effective 01 questionType patch for this source file.",
     )
@@ -620,6 +639,9 @@ def main() -> int:
     return check_pair(
         Path(args.source),
         Path(args.patch),
+        originalized_patch_path=(
+            Path(args.originalized_patch) if args.originalized_patch else None
+        ),
         question_type_patch_path=(
             Path(args.question_type_patch) if args.question_type_patch else None
         ),

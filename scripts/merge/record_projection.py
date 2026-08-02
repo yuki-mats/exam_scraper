@@ -226,6 +226,10 @@ def project_merge_record(
             data,
             values,
             validate_aggregate_target=validate_aggregate_question_type,
+            # 05 is the canonical owner of publication content. 10 keeps
+            # questionBodyText/choiceTextList only as a migration fallback for
+            # records that do not have a 05 patch yet.
+            apply_legacy_content_fields=not bool(originalized),
         )
 
     counts["question_type"] = _apply_candidates(

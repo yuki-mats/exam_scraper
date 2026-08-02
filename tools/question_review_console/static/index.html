@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v4-20260802-03">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v4-20260802-08">
   </head>
   <body>
     <header class="app-header">
@@ -117,6 +117,8 @@
           <label class="check-control"><input id="question-body-choices-only" type="checkbox"> 問題文から選択肢を取得</label>
           <label class="check-control"><input id="calculation-only" type="checkbox"> 計算問題</label>
           <label class="check-control"><input id="law-only" type="checkbox"> 法令問題</label>
+          <label class="check-control evaluation-select-visible"><input id="select-visible" type="checkbox"> <span id="select-visible-label">一覧を選択</span></label>
+          <button id="bulk-maintenance-button" class="secondary-button" type="button" disabled>選択した問題を再整備</button>
           <span id="list-summary" class="list-summary">問題一覧を開くと読み込みます</span>
         </section>
 
@@ -209,7 +211,6 @@
                   <option value="unrecorded">未記録</option>
                 </select>
               </label>
-              <label class="check-control evaluation-select-visible"><input id="select-visible" type="checkbox"> <span id="select-visible-label">一覧を選択</span></label>
               <button id="bulk-evaluate-button" class="primary-button" type="button" disabled>選択した問題を評価</button>
               <button id="continuous-evaluate-button" class="primary-button" type="button">評価待ちを100問並列で連続評価</button>
               <div class="action-with-help">
@@ -588,6 +589,6 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="/monitor-link.js?v=batch-monitor-v1"></script>
-    <script src="/app.js?v=question-review-ui-v4-20260802-03"></script>
+    <script src="/app.js?v=question-review-ui-v4-20260802-08"></script>
   </body>
 </html>

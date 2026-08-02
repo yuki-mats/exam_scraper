@@ -1196,7 +1196,14 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("理由付きで保留", view_state)
         self.assertIn("qualificationRunCanRetryBlocked(", retry)
         self.assertIn("qualificationRunViewState(run, progress)", retry)
-        self.assertIn("resumedFrom: run.runId", retry)
+        self.assertIn("qualificationRunDependencyUpdateTargetIds", retry)
+        self.assertIn("qualificationRunBlockedQuestionIds", retry)
+        self.assertIn('run.queueStatus === "partial"', retry)
+        self.assertNotIn("progress?.blockedQuestionCount", retry)
+        self.assertIn("questionIds: blockedQuestionIds", retry)
+        self.assertIn('mode: blockedQuestionIds.length ? "group_refresh"', retry)
+        self.assertIn('resumedFrom: blockedQuestionIds.length ? "" : run.runId', retry)
+        self.assertIn('blockedReworkFrom: blockedQuestionIds.length ? run.runId', retry)
         self.assertIn("scopeListGroupIds", retry)
         self.assertIn('"未完了の問題を再開"', javascript)
         self.assertIn('id="qualification-active-run-retry"', html)
@@ -1348,6 +1355,99 @@ assert.deepEqual(
     updateTargetIds: ["question_type.question_type"],
   }),
   ["question_type.question_type"],
+);
+"""
+        subprocess.run(
+            ["node", "-e", script, str(app)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+    def test_blocked_retry_expands_field_dependencies_without_images_or_law(self):
+        root = Path(__file__).resolve().parents[1]
+        app = root / "tools/question_review_console/static/app.js"
+        script = r"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const source = fs.readFileSync(process.argv[1], "utf8");
+const helper = source.slice(
+  source.indexOf("function qualificationRunSelectableUpdateTargets"),
+  source.indexOf("function selectedQualificationRunUpdateTargetIds"),
+);
+const selectable = (id, updateTargets, supportsGroupScope = true) => ({
+  id,
+  code: id,
+  label: id,
+  kind: "human",
+  batchSelectable: true,
+  supportsGroupScope,
+  updateTargets,
+});
+const target = (selectionId, fields, readFields = []) => ({
+  selectionId,
+  fields,
+  readFields,
+});
+const state = {
+  qualificationWorkflow: {
+    stages: [
+      selectable("originalize", [
+        target("originalize.content", ["questionBodyText", "choiceTextList", "correctChoiceText", "questionIntent"]),
+        target("originalize.images", ["questionImageStorageUrls"]),
+      ]),
+      selectable("question_type", [
+        target("question_type.question_type", ["questionType"]),
+        target("question_type.calculation_flag", ["isCalculationQuestion"], ["questionType"]),
+      ]),
+      selectable("question_intent", [
+        target("question_intent.intent", ["questionIntent"], ["questionBodyText", "choiceTextList", "correctChoiceText"]),
+      ]),
+      selectable("correct_choice", [
+        target("correct_choice.correct_answer", ["correctChoiceText"], ["questionBodyText", "choiceTextList", "questionIntent"]),
+      ]),
+      selectable("law_context", [
+        target("law_context.grounding", ["isLawRelated", "lawReferences"]),
+      ], false),
+      selectable("explanation", [
+        target("explanation.learning_pattern", ["questionLearningPatternId"], ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion"]),
+        target("explanation.basic_explanation", ["explanationText"], ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isLawRelated"]),
+        target("explanation.supplementary_questions", ["suggestedQuestionDetailsByChoice"], ["explanationText"]),
+      ]),
+    ],
+  },
+};
+const api = new Function(
+  "state",
+  "progressQuestionQueueState",
+  `${helper}; return { qualificationRunDependencyUpdateTargetIds, qualificationRunBlockedQuestionIds };`,
+)(state, (question) => ({ status: question.status }));
+assert.deepEqual(
+  api.qualificationRunDependencyUpdateTargetIds([
+    "explanation.learning_pattern",
+    "explanation.basic_explanation",
+    "explanation.supplementary_questions",
+  ]),
+  [
+    "originalize.content",
+    "question_type.question_type",
+    "question_type.calculation_flag",
+    "question_intent.intent",
+    "correct_choice.correct_answer",
+    "explanation.learning_pattern",
+    "explanation.basic_explanation",
+    "explanation.supplementary_questions",
+  ],
+);
+assert.deepEqual(
+  api.qualificationRunBlockedQuestionIds({
+    questions: [
+      { questionId: "q1", status: "blocked" },
+      { questionId: "q1", status: "blocked" },
+      { questionId: "q2", status: "validated" },
+    ],
+  }),
+  ["q1"],
 );
 """
         subprocess.run(
@@ -1530,6 +1630,7 @@ assert.deepEqual(
             "work-version-select",
             "work-version-label",
             "select-visible",
+            "bulk-maintenance-button",
             "bulk-evaluate-button",
             "readback-dialog",
             "readback-execute",
@@ -1717,7 +1818,7 @@ assert.deepEqual(
         self.assertIn('.audit-view:not(.detail-open) .detail-pane', css)
         self.assertIn('.audit-view.detail-open .queue-pane', css)
         self.assertIn('$("#audit-admin-tools").addEventListener("toggle"', javascript)
-        self.assertIn('.audit-view:not(.admin-tools-open) .queue-select { display: none; }', css)
+        self.assertNotIn('.audit-view:not(.admin-tools-open) .queue-select { display: none; }', css)
         self.assertIn("Firestoreへ反映する最終内容", javascript)
         self.assertIn("question.uploadReadyDocs", javascript)
         self.assertIn('section("暗記プラス表示設定")', javascript)
@@ -2415,7 +2516,7 @@ const api = new Function(`
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v4-20260802-03"
+        asset_version = "question-review-ui-v4-20260802-08"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

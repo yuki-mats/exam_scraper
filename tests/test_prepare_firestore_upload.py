@@ -138,6 +138,32 @@ class PrepareFirestoreUploadTest(unittest.TestCase):
         self.assertEqual(len(upload_commands), 1)
         self.assertEqual(upload_commands[0][-1], "--dry-run")
 
+    def test_single_mode_supports_readable_list_group_id(self) -> None:
+        group_id = "keepitup-aws-clf-c02"
+        group_dir = self.make_group_dir(group_id)
+        (group_dir / "00_source").mkdir()
+        commands: list[tuple[str, list[str], bool]] = []
+
+        def fake_run_step(name: str, command: list[str], dry_run: bool) -> None:
+            commands.append((name, command, dry_run))
+
+        with mock.patch.object(module, "run_step", side_effect=fake_run_step):
+            exit_code = module.main(
+                [
+                    group_id,
+                    "--base-dir",
+                    str(self.base_dir),
+                    "--category-json",
+                    str(self.category_path),
+                    "--skip-requirements-check",
+                    "--skip-update-category-counts",
+                    "--dry-run",
+                ]
+            )
+
+        self.assertEqual(exit_code, 0)
+        self.assertIn(f"merge ({group_id})", [name for name, _, _ in commands])
+
     def test_allow_missing_answer_result_is_forwarded_to_snapshot_pipeline(self) -> None:
         self.make_group_dir("85010")
         commands: list[tuple[str, list[str], bool]] = []

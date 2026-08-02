@@ -472,6 +472,73 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
 
         self.assertEqual(result, 0)
 
+    def test_check_pair_applies_originalized_content_before_explanation(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "source.json"
+            originalized = root / "originalized.json"
+            explanation = root / "explanation.json"
+            identity = {
+                "original_question_id": "q-originalized",
+                "question_url": "https://example.com/q-originalized",
+            }
+            source.write_text(
+                json.dumps(
+                    {
+                        "question_bodies": [
+                            {
+                                **identity,
+                                "questionType": "true_false",
+                                "questionIntent": "select_correct",
+                                "choiceTextList": ["旧肢1", "旧肢2"],
+                                "correctChoiceText": ["正しい", "間違い"],
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            originalized.write_text(
+                json.dumps(
+                    [
+                        {
+                            **identity,
+                            "questionBodyText": "更新後の問題文",
+                            "choiceTextList": ["新肢1", "新肢2"],
+                            "correctChoiceText": ["間違い", "正しい"],
+                            "questionIntent": "select_correct",
+                            "answer_result_text": "2",
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            explanation.write_text(
+                json.dumps(
+                    [
+                        {
+                            **identity,
+                            "questionLearningPatternId": "terms_basics",
+                            "explanationText": [
+                                "間違い。新肢1の誤りを説明する。",
+                                "正しい。新肢2の内容を説明する。",
+                            ],
+                            "suggestedQuestionDetailsByChoice": [],
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            result = check_pair(
+                source,
+                explanation,
+                originalized_patch_path=originalized,
+                require_learning_pattern=True,
+            )
+
+        self.assertEqual(result, 0)
+
     def test_law_verdict_ignores_legacy_correct_choice_in_explanation_patch(
         self,
     ) -> None:

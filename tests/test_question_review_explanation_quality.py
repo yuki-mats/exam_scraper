@@ -49,6 +49,17 @@ class ExplanationQualityTests(unittest.TestCase):
         self.assertEqual(len(issues), 1)
         self.assertIn("問題単位の解説", issues[0])
 
+    def test_question_level_explanation_rejects_repeated_correct_verdict(self):
+        issues = explanation_style_issues(
+            ["正しい。正しい組合せは1と3である。"],
+            ["正しい", "間違い", "正しい"],
+            choice_texts=["記述1", "記述2", "記述3"],
+            question_type="group_choice",
+        )
+
+        self.assertEqual(len(issues), 1)
+        self.assertIn("該当するのは1と3", issues[0])
+
     def test_canonical_prompt_examples_follow_the_same_style_contract(self):
         prompt = (
             Path(__file__).resolve().parents[1]
@@ -56,7 +67,10 @@ class ExplanationQualityTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         inline_examples = {}
         for line in prompt.splitlines():
-            match = re.fullmatch(r"- \*\*(.+?)\*\*: `(.*)`", line)
+            match = re.fullmatch(
+                r"\| \*\*(.+?)\*\*・[^|]+ \| [^|]+ \| `(.*)` \|",
+                line,
+            )
             if match:
                 inline_examples[match.group(1)] = match.group(2)
 
@@ -65,7 +79,8 @@ class ExplanationQualityTests(unittest.TestCase):
             {
                 "用語と基本を押さえる",
                 "違いを整理する",
-                "条件と例外を押さえる",
+                "条件を押さえる",
+                "例外まで押さえる",
                 "しくみと理由を理解する",
                 "順序と流れをつかむ",
                 "事例に当てはめて考える",
@@ -92,7 +107,8 @@ class ExplanationQualityTests(unittest.TestCase):
             [],
         )
 
-        calculation = prompt.split("```text\n", 1)[1].split("\n```", 1)[0]
+        calculation_block = prompt.split("```text\n", 1)[1].split("\n```", 1)[0]
+        calculation = calculation_block.split("\n", 1)[1]
         self.assertEqual(
             explanation_style_issues(
                 [calculation],

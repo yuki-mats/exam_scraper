@@ -366,6 +366,7 @@ def apply_question_type(
     qtype_map: Mapping[str, Any],
     *,
     validate_aggregate_target: bool = True,
+    apply_legacy_content_fields: bool = True,
 ) -> int:
     normalize_question_ids(data)
     updated = 0
@@ -455,7 +456,7 @@ def apply_question_type(
             # 新規01は本文・選択肢を所有しない。既存10だけに保存済みの
             # 内容は05へ移行し切るまでread-compatとして維持する。
             # 集約回答targetはserverが原文spanから投影した内容を正本とする。
-            if not approved_aggregate_target:
+            if not approved_aggregate_target and apply_legacy_content_fields:
                 for field in LEGACY_QUESTION_TYPE_CONTENT_FIELDS:
                     if (
                         field in patch_entry

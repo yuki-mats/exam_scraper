@@ -90,7 +90,15 @@ def resolve_bulk_base_dir(qualification: str, base_dir: str | None) -> Path:
 
 
 def resolve_targets(target_id: str, base_dir: str | None) -> tuple[Path, list[str], bool]:
-    if is_list_group_id(target_id):
+    explicit_group = (
+        Path(base_dir).expanduser().resolve() / target_id
+        if base_dir
+        else None
+    )
+    if is_list_group_id(target_id) or (
+        explicit_group is not None
+        and is_list_group_dir(explicit_group)
+    ):
         resolved_base_dir = resolve_single_base_dir(target_id, base_dir)
         return resolved_base_dir, [target_id], False
 

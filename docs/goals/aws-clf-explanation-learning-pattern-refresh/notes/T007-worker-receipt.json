@@ -1,0 +1,20 @@
+{
+  "result": "done",
+  "summary": "実質的な表現・questionType不整合だけをUIで限定再整備し、正本文書の実読込、保留理由引継ぎ、依存工程選択、最大100問の一覧選択、03機械検証を再発防止として実装した。",
+  "verifiedRuns": [
+    "20260802T204618357174-5a89b995",
+    "20260802T205017319669-759deef3",
+    "20260802T205914398822-4749b017",
+    "20260802T211009937923-7456bc41",
+    "20260802T211503421928-39b90ce0",
+    "20260802T212116465313-092355dd",
+    "20260802T213448874324-8618c76b",
+    "20260802T213919900306-67390938"
+  ],
+  "verification": [
+    "AWS 03 check_pair: checked=879 failed=0",
+    "question candidate and qualification run tests: 211 tests OK",
+    "remaining regression modules: 338 tests OK",
+    "00_source immutability: 5799 files OK"
+  ]
+}

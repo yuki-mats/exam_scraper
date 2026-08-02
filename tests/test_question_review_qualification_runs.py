@@ -29,6 +29,7 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_downstream_source_evidence,
     _aggregate_review_source_records,
     _candidate_unset_fields,
+    _canonical_document_guidance,
     _external_provider_failure,
     evaluation_rework_stage_codes,
     _isolated_turn_failure,
@@ -1267,6 +1268,52 @@ class SourceBindingAliasTests(unittest.TestCase):
 
 
 class StructuredCandidateStageContextTests(unittest.TestCase):
+    def test_canonical_document_guidance_embeds_document_body(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            document = root / "prompt" / "qualification_docs" / "sample" / "README.md"
+            document.parent.mkdir(parents=True)
+            document.write_text("資格固有の確認済みルール", encoding="utf-8")
+
+            guidance = _canonical_document_guidance(
+                root,
+                ["prompt/qualification_docs/sample/README.md"],
+            )
+
+        self.assertIn("# 正本文書の内容", guidance)
+        self.assertIn("## prompt/qualification_docs/sample/README.md", guidance)
+        self.assertIn("資格固有の確認済みルール", guidance)
+
+    def test_structured_candidate_prompt_contains_canonical_guidance(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        candidate_target = CandidateTarget(
+            target_id="question-1:explanation",
+            role="explanation",
+            path="output/sample/21_explanationText_added/question.json",
+            allowed_fields=("explanationText",),
+        )
+
+        prompt = _structured_candidate_prompt(
+            "解説を整える。",
+            [target],
+            canonical_guidance="# 正本文書の内容\n\nAWSの承認済み例",
+            stage_id="explanation",
+            records_by_question={"question-1": {"choiceTextList": ["A"]}},
+            candidate_targets_by_question={
+                "question-1": (candidate_target,)
+            },
+            feedback_by_question={},
+        )
+
+        self.assertIn("AWSの承認済み例", prompt)
+        self.assertLess(prompt.index("AWSの承認済み例"), prompt.index("# 実行対象"))
+
     def test_aggregate_calculation_requires_a_candidate_when_selected(self):
         with self.assertRaisesRegex(
             QualificationRunError,

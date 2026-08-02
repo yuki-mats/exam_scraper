@@ -1,0 +1,23 @@
+{
+  "result": "done",
+  "decision": "complete",
+  "summary": "現行投影でAWS CLF 879問の03成果物を全件検査し、8分類、文章、根拠、計算を確認した。再整備が必要な実質的不合格は0問。",
+  "machineAudit": {
+    "checked": 879,
+    "failed": 0,
+    "supplementaryZeroCount": 879,
+    "officialReferenceCount": 2159,
+    "thirdPartyReferenceCount": 0
+  },
+  "classificationDistribution": {
+    "terms_basics": 237,
+    "differences_relationships": 330,
+    "conditions_scope": 41,
+    "principles_exceptions": 3,
+    "mechanisms_reasons": 8,
+    "sequence_flow": 8,
+    "scenario_application": 251,
+    "calculation": 1
+  },
+  "snowball": "230TBを210TB/台で割り、1.095...を2台へ切り上げ、1台では20TB不足する導出を確認した。"
+}

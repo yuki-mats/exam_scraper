@@ -48,7 +48,8 @@ kind = "human"
 # 2.5: 問題文を維持して選択肢だけを変更・並べ替える独自化とAWS公式翻訳文体を許可する。
 # 2.6: 問題文と選択肢は微修正にとどめ、正答と各選択肢の意味を維持する。
 # 2.7: 既存草案も00_sourceと比較し、過剰な改変は元の情報と流れを保つ微修正へ整え直す。
-policy_version = "2.7"
+# 2.8: 資格別正本に公式確認済みの修正がある場合、古い取得元を維持せず05の所有fieldへ反映する。
+policy_version = "2.8"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",

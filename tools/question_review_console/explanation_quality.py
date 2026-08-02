@@ -18,6 +18,7 @@ LAW_AS_SENTENCE_SUBJECT = re.compile(
 )
 POINT_IS_WRONG = re.compile(r"(?:点|ところ)が誤り(?:である)?(?:。|$)")
 VERDICT_PREFIX = re.compile(r"^(正しい|間違い)。")
+REPEATED_QUESTION_LEVEL_VERDICT = re.compile(r"^正しい。\s*正しい")
 RAW_TEX_COMMAND = re.compile(
     r"\\(?:begin|end|frac|dfrac|tfrac|sqrt|times|cdot|div|mathrm|mathbf|"
     r"text|left|right|sum|prod|int|lim|alpha|beta|gamma|delta|theta|lambda|"
@@ -417,6 +418,12 @@ def explanation_style_issues(
                 )
         if not expected_verdict and prefix is not None:
             expected_verdict = prefix.group(1)
+        if question_level and REPEATED_QUESTION_LEVEL_VERDICT.match(text):
+            issues.append(
+                f"{item_label}: 「正しい。」の直後は、例えば"
+                "「該当するのは1と3である。」のように、判定語を"
+                "繰り返さず内容を続けてください。"
+            )
         if not question_level and choice_index <= len(choices):
             choice = re.sub(r"\s+", "", str(choices[choice_index - 1] or "")).rstrip(
                 "。"

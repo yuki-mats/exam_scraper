@@ -949,6 +949,7 @@ class QuestionReviewApplication:
                     "questionIds",
                     "mode",
                     "evaluationRework",
+                    "blockedReworkFrom",
                     "resumedFrom",
                     "questionConcurrency",
                     "speedMode",
@@ -996,6 +997,10 @@ class QuestionReviewApplication:
                     "stage_ids": stage_ids,
                     "resumed_from": str(body.get("resumedFrom") or "") or None,
                 }
+                if body.get("blockedReworkFrom"):
+                    run_options["blocked_rework_from"] = str(
+                        body["blockedReworkFrom"]
+                    )
                 if evaluation_rework_snapshots is not None:
                     run_options["evaluation_rework_snapshots"] = (
                         evaluation_rework_snapshots

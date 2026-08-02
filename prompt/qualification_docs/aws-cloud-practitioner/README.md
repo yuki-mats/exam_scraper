@@ -133,11 +133,13 @@
 > \[
 > N=\left\lceil1.095\ldots\right\rceil=2\,\mathrm{台}
 > \]
-> 1台では10TB不足するため、2台が必要である。
+> 1台では20TB不足するため、2台が必要である。
 
 公式資料: [Snowball Edgeデバイスの仕様](https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html)、[AWS Snowballのサポート終了案内](https://aws.amazon.com/snowball/)
 
 この計算例は、入力に「Storage Optimizedを2台」という成立する選択肢があり、その肢が正答になっている場合だけ使います。AWS公式仕様と入力が食い違う、又は正解になる選択肢がない場合は03を`blocked`とし、05と02aへ戻します。AWS Snowballは2026年12月31日に商用リージョンでサポート終了予定であるため、説明には実行時点の提供状況を反映します。
+
+`question_keepitup-CLF201C044.json#0`を05で再整備するときは、旧80TBモデルを前提にした「Storage Optimizedを3台」を維持しません。AWS公式仕様の1台210TBに合わせ、230TBを収められる「Storage Optimizedを2台」を選択肢に置いて正答とし、02aで同じ結論を独立に確認します。03は、この上流修正が成立した後にだけ解説を作ります。
 
 ## 完成前のAWS確認
 
