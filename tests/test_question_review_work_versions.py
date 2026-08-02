@@ -45,6 +45,35 @@ def question_for(question_id, *, list_group_id):
 
 
 class QuestionWorkVersionStoreTests(unittest.TestCase):
+    def test_instruction_aliases_do_not_change_content_policy_fingerprint(self):
+        base = {
+            "id": "explanation",
+            "policyVersion": "9.0",
+            "updateTargets": [
+                {
+                    "selectionId": "explanation.learning_pattern",
+                    "fields": ["questionLearningPatternId"],
+                }
+            ],
+        }
+        with_alias = json.loads(json.dumps(base))
+        with_alias["updateTargets"][0]["instructionAliases"] = ["分類"]
+
+        base_hash = work_versions_module.policy_fingerprint(
+            Path("/tmp"),
+            "/tmp/config/question_maintenance_workflow.toml",
+            base,
+            canonical_docs=[],
+        )
+        alias_hash = work_versions_module.policy_fingerprint(
+            Path("/tmp"),
+            "/tmp/config/question_maintenance_workflow.toml",
+            with_alias,
+            canonical_docs=[],
+        )
+
+        self.assertEqual(base_hash, alias_hash)
+
     def test_distinct_work_version_paths_write_concurrently(self):
         with tempfile.TemporaryDirectory() as directory:
             store = QuestionWorkVersionStore(Path(directory))

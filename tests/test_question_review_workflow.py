@@ -1305,7 +1305,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertNotIn('"law_audit"', selector)
         self.assertNotIn('"category_setup"', selector)
         self.assertNotIn('"question_set"', selector)
-        self.assertIn('const UI_CONTRACT_VERSION = "question-review-ui/v3"', javascript)
+        self.assertIn('const UI_CONTRACT_VERSION = "question-review-ui/v4"', javascript)
         self.assertIn("session.uiContractVersion !== UI_CONTRACT_VERSION", javascript)
         stage_controls = javascript.split(
             "function renderQualificationRunStages", 1
@@ -1508,6 +1508,9 @@ assert.deepEqual(
             "qualification-run-groups-clear",
             "qualification-run-update-all",
             "qualification-run-update-clear",
+            "qualification-run-instruction",
+            "qualification-run-instruction-apply",
+            "qualification-run-instruction-status",
             "qualification-run-start",
             "qualification-run-progress-current",
             "qualification-run-progress-title",
@@ -1554,6 +1557,7 @@ assert.deepEqual(
             "executeQualificationWorkflowAction",
             "loadQualificationRuns",
             "openQualificationRunDialog",
+            "applyQualificationRunInstruction",
             "previewQualificationRun",
             "startQualificationRun",
             "resumeQualificationRun",
@@ -2411,7 +2415,7 @@ const api = new Function(`
             root / "tools" / "question_review_console" / "static" / "index.html"
         ).read_text(encoding="utf-8")
 
-        asset_version = "question-review-ui-v3-20260728-23"
+        asset_version = "question-review-ui-v4-20260802-03"
         self.assertIn(f'href="/styles.css?v={asset_version}"', html)
         self.assertIn(f'src="/app.js?v={asset_version}"', html)
 

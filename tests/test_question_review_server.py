@@ -1401,6 +1401,51 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(caught.exception.status, 422)
         self.assertIn("Standard mode", str(caught.exception))
 
+    def test_qualification_run_interprets_instruction_against_server_workflow(self):
+        class Overviews:
+            def get(self, qualification):
+                self.qualification = qualification
+                return {"qualification": qualification, "stages": []}
+
+        class Interpreter:
+            def interpret(self, **options):
+                self.options = options
+                return {
+                    "status": "ready",
+                    "canApply": True,
+                    "selectedUpdateTargetIds": ["explanation.learning_pattern"],
+                    "selectedStageIds": ["explanation"],
+                    "mode": "group_refresh",
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            overviews = Overviews()
+            interpreter = Interpreter()
+            app.workflow_overviews = overviews
+            app.maintenance_instruction_interpreter = interpreter
+
+            status, result = app.post(
+                "/api/qualification-runs/interpret-instruction",
+                {
+                    "qualification": "sample",
+                    "instruction": "分類だけ再実行して",
+                    "currentMode": "needed",
+                },
+            )
+
+        self.assertEqual(status, 200)
+        self.assertEqual(overviews.qualification, "sample")
+        self.assertEqual(
+            interpreter.options["workflow"],
+            {"qualification": "sample", "stages": []},
+        )
+        self.assertEqual(interpreter.options["current_mode"], "needed")
+        self.assertEqual(
+            result["selectedUpdateTargetIds"],
+            ["explanation.learning_pattern"],
+        )
+
     def test_qualification_run_passes_normalized_question_ids(self):
         class Runs:
             def preview(self, qualification, stage_id, mode, **options):
@@ -2835,7 +2880,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                 self.assertEqual(session["sessionToken"], app.session_token)
                 self.assertEqual(
                     session["uiContractVersion"],
-                    "question-review-ui/v3",
+                    "question-review-ui/v4",
                 )
                 self.assertEqual(session["questionContentApiVersion"], 1)
                 connection.close()

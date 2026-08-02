@@ -497,6 +497,12 @@ class WorkflowCatalogTests(unittest.TestCase):
             explanation_targets["explanation.learning_pattern"]["fields"],
             ["questionLearningPatternId"],
         )
+        self.assertIn(
+            "分類",
+            explanation_targets["explanation.learning_pattern"][
+                "instructionAliases"
+            ],
+        )
         self.assertEqual(
             explanation_targets["explanation.supplementary_questions"]["fields"],
             ["suggestedQuestionDetailsByChoice"],

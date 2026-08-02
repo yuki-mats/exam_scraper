@@ -31,6 +31,7 @@ from tools.question_review_console.bulk_readback import (
 )
 from tools.question_review_console.canonical_documents import CanonicalDocumentStore
 from tools.question_review_console.codex_app_server import (
+    CodexAppServerError,
     CodexAppServerClient,
     normalize_speed_mode,
 )
@@ -54,6 +55,10 @@ from tools.question_review_console.law_audit_contract import (
     QUALIFICATION_LAW_AUDIT_REQUEST,
 )
 from tools.question_review_console.live_readback_store import LiveReadbackStore
+from tools.question_review_console.maintenance_instruction import (
+    MaintenanceInstructionError,
+    MaintenanceInstructionInterpreter,
+)
 from tools.question_review_console.monitor_service import MonitorReadModel
 from tools.question_review_console.monitor_events import MonitorEventHub
 from tools.question_review_console.official_source_correction import (
@@ -107,7 +112,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 STATIC_ROOT = Path(__file__).resolve().parent / "static"
 MAX_REQUEST_BYTES = 2 * 1024 * 1024
 ALL_LIST_GROUPS = "__all__"
-UI_CONTRACT_VERSION = "question-review-ui/v3"
+UI_CONTRACT_VERSION = "question-review-ui/v4"
 STATIC_CONTENT_TYPES = {
     ".html": "text/html; charset=utf-8",
     ".js": "text/javascript; charset=utf-8",
@@ -348,6 +353,9 @@ class QuestionReviewApplication:
             set_observer = getattr(self.app_server, "set_event_observer", None)
             if callable(set_observer):
                 set_observer(self.monitor_event_hub)
+        self.maintenance_instruction_interpreter = MaintenanceInstructionInterpreter(
+            self.app_server
+        )
         self.official_source_corrections = OfficialSourceCorrectionService(
             self.repo_root,
             app_server=self.app_server,
@@ -883,6 +891,45 @@ class QuestionReviewApplication:
             except ValueError as exc:
                 raise ApiError(
                     HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)
+                ) from exc
+        if path == "/api/qualification-runs/interpret-instruction":
+            qualification = str(body.get("qualification") or "")
+            if not qualification:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
+                )
+            unknown_fields = sorted(
+                set(body) - {"qualification", "instruction", "currentMode"}
+            )
+            if unknown_fields:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST,
+                    "未対応のrequest fieldがあります: "
+                    + ", ".join(unknown_fields),
+                )
+            instruction = body.get("instruction")
+            if not isinstance(instruction, str):
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "instructionは文字列で指定してください。"
+                )
+            try:
+                workflow = self.workflow_overviews.get(qualification)
+                return HTTPStatus.OK, self.maintenance_instruction_interpreter.interpret(
+                    qualification=qualification,
+                    instruction=instruction,
+                    workflow=workflow,
+                    current_mode=str(body.get("currentMode") or "needed"),
+                )
+            except FileNotFoundError as exc:
+                raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
+            except MaintenanceInstructionError as exc:
+                raise ApiError(
+                    HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)
+                ) from exc
+            except CodexAppServerError as exc:
+                raise ApiError(
+                    HTTPStatus.SERVICE_UNAVAILABLE,
+                    "自然言語の指示解釈を開始できません: " + str(exc),
                 ) from exc
         if path in {
             "/api/qualification-runs/preview",

@@ -152,6 +152,10 @@ def _update_targets(value: Any, stage_id: str) -> list[dict[str, Any]]:
         read_fields = _string_list(
             raw.get("read_fields"), f"{stage_id}.{target_id}.read_fields"
         )
+        instruction_aliases = _string_list(
+            raw.get("instruction_aliases"),
+            f"{stage_id}.{target_id}.instruction_aliases",
+        )
         if (
             not re.fullmatch(r"[a-z][a-z0-9_]*", target_id)
             or target_id in seen_ids
@@ -173,6 +177,14 @@ def _update_targets(value: Any, stage_id: str) -> list[dict[str, Any]]:
             )
         if len(fields) != len(set(fields)) or len(read_fields) != len(set(read_fields)):
             raise ValueError(f"{stage_id}.{target_id}のfieldが重複しています。")
+        normalized_aliases = [alias.strip() for alias in instruction_aliases]
+        if (
+            any(not alias or len(alias) > 80 for alias in normalized_aliases)
+            or len(normalized_aliases) != len(set(normalized_aliases))
+        ):
+            raise ValueError(
+                f"{stage_id}.{target_id}のinstruction_aliasesが不正又は重複しています。"
+            )
         overlap = writable_fields & set(fields)
         if overlap:
             raise ValueError(
@@ -188,6 +200,7 @@ def _update_targets(value: Any, stage_id: str) -> list[dict[str, Any]]:
                 "label": label,
                 "fields": fields,
                 "readFields": read_fields,
+                "instructionAliases": normalized_aliases,
             }
         )
     return targets

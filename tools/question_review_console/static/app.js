@@ -1,7 +1,7 @@
 "use strict";
 
 const ALL_LIST_GROUPS = "__all__";
-const UI_CONTRACT_VERSION = "question-review-ui/v3";
+const UI_CONTRACT_VERSION = "question-review-ui/v4";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 900000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
@@ -232,6 +232,9 @@ const state = {
     fieldFirst: false,
     evaluationRework: false,
     entryStageId: "",
+    instructionDirty: false,
+    instructionApplying: false,
+    instructionResolution: null,
   },
   progressQuestion: null,
   workflowGuide: {
@@ -1183,12 +1186,17 @@ function bindControls() {
   $("#qualification-run-groups-clear").addEventListener("click", () => setQualificationRunGroupSelection(false));
   $("#qualification-run-update-all").addEventListener("click", selectAllQualificationRunUpdateTargets);
   $("#qualification-run-update-clear").addEventListener("click", () => setQualificationRunUpdateTargetSelection([]));
+  $("#qualification-run-instruction").addEventListener("input", handleQualificationRunInstructionInput);
+  $("#qualification-run-instruction-apply").addEventListener("click", applyQualificationRunInstruction);
   $("#qualification-run-dialog").addEventListener("cancel", (event) => {
     if (state.qualificationRunDialog.running) event.preventDefault();
   });
   $("#qualification-run-dialog").addEventListener("close", cancelQualificationRunPreview);
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
-    node.addEventListener("change", previewQualificationRun);
+    node.addEventListener("change", () => {
+      clearQualificationRunInstructionAfterManualChoice();
+      previewQualificationRun();
+    });
   }
   for (const node of document.querySelectorAll(
     'input[name="qualification-run-concurrency"]',
@@ -3142,7 +3150,7 @@ function renderQualificationRunUpdateTargets(stageIds, selectedTargetIds) {
       element(
         "small",
         "",
-        `${target.stageCode || ""} ${target.stageLabel || ""}・${(target.fields || []).join("・")}`,
+        `${target.stageCode || ""} ${target.stageLabel || ""}`.trim(),
       ),
     );
     label.append(input, content);
@@ -3151,6 +3159,7 @@ function renderQualificationRunUpdateTargets(stageIds, selectedTargetIds) {
 }
 
 function syncQualificationRunStagesFromUpdateTargets() {
+  clearQualificationRunInstructionAfterManualChoice();
   const updateTargetIds = selectedQualificationRunUpdateTargetIds();
   state.qualificationRunDialog.updateTargetIds = updateTargetIds;
   if (state.qualificationRunDialog.fieldFirst) {
@@ -3164,6 +3173,111 @@ function syncQualificationRunStagesFromUpdateTargets() {
     $("#qualification-run-guide").disabled = !stage?.canonicalDocs?.length;
   }
   previewQualificationRun();
+}
+
+function renderQualificationRunInstructionStatus(message = "", status = "") {
+  const node = $("#qualification-run-instruction-status");
+  node.textContent = message;
+  node.className = "run-instruction-status";
+  if (status) node.classList.add(status);
+  const instruction = $("#qualification-run-instruction").value.trim();
+  $("#qualification-run-instruction-apply").disabled = (
+    state.qualificationRunDialog.running
+    || state.qualificationRunDialog.instructionApplying
+    || !instruction
+  );
+}
+
+function clearQualificationRunInstructionAfterManualChoice() {
+  if (state.qualificationRunDialog.instructionApplying) return;
+  if (
+    !$("#qualification-run-instruction").value.trim()
+    && !state.qualificationRunDialog.instructionResolution
+  ) return;
+  $("#qualification-run-instruction").value = "";
+  state.qualificationRunDialog.instructionDirty = false;
+  state.qualificationRunDialog.instructionResolution = null;
+  renderQualificationRunInstructionStatus("主要項目の選択内容を使います。");
+}
+
+function handleQualificationRunInstructionInput() {
+  const instruction = $("#qualification-run-instruction").value.trim();
+  state.qualificationRunDialog.instructionDirty = Boolean(instruction);
+  state.qualificationRunDialog.instructionResolution = null;
+  cancelQualificationRunPreview();
+  if (!instruction) {
+    renderQualificationRunInstructionStatus();
+    previewQualificationRun();
+    return;
+  }
+  renderQualificationRunInstructionStatus(
+    "「指示を反映」を押すと、実行項目と処理範囲を確定します。",
+  );
+  setQualificationRunPreviewState("blocked", "自然言語の指示を反映してください。");
+}
+
+async function applyQualificationRunInstruction() {
+  const instruction = $("#qualification-run-instruction").value.trim();
+  if (!instruction || state.qualificationRunDialog.instructionApplying) return;
+  cancelQualificationRunPreview();
+  state.qualificationRunDialog.instructionApplying = true;
+  state.qualificationRunDialog.instructionDirty = true;
+  renderQualificationRunInstructionStatus("指示から実行項目を確認しています。");
+  setQualificationRunPreviewState("loading", "自然言語の指示を解釈しています。");
+  try {
+    const result = await api("/api/qualification-runs/interpret-instruction", {
+      method: "POST",
+      body: {
+        qualification: state.qualificationWorkflow.qualification,
+        instruction,
+        currentMode: selectedQualificationRunMode(),
+      },
+    });
+    state.qualificationRunDialog.instructionResolution = result;
+    if (!result.canApply) {
+      state.qualificationRunDialog.instructionDirty = true;
+      const message = result.clarification || "指示をもう少し具体的に入力してください。";
+      renderQualificationRunInstructionStatus(message, "error");
+      setQualificationRunPreviewState("blocked", message);
+      return;
+    }
+    state.qualificationRunDialog.instructionDirty = false;
+    const selected = new Set(result.selectedUpdateTargetIds || []);
+    for (const input of document.querySelectorAll('input[name="qualification-run-update-target"]')) {
+      input.checked = selected.has(input.value);
+    }
+    state.qualificationRunDialog.updateTargetIds = [...selected];
+    const stageIds = qualificationRunStageIdsForUpdateTargetIds([...selected]);
+    state.qualificationRunDialog.stageIds = stageIds;
+    state.qualificationWorkflowStageId = stageIds[0]
+      || state.qualificationRunDialog.entryStageId
+      || state.qualificationWorkflowStageId;
+    for (const input of document.querySelectorAll('input[name="qualification-run-mode"]')) {
+      input.checked = input.value === result.mode;
+    }
+    updateQualificationRunHeading();
+    renderQualificationRunInstructionStatus(
+      `反映済み：${result.summary}`,
+      "ready",
+    );
+    previewQualificationRun();
+  } catch (error) {
+    state.qualificationRunDialog.instructionDirty = true;
+    state.qualificationRunDialog.instructionResolution = null;
+    renderQualificationRunInstructionStatus(error.message, "error");
+    setQualificationRunPreviewState("error", `${error.message} 指示を修正して再確認してください。`);
+  } finally {
+    state.qualificationRunDialog.instructionApplying = false;
+    const current = $("#qualification-run-instruction-status");
+    renderQualificationRunInstructionStatus(
+      current.textContent,
+      current.classList.contains("error")
+        ? "error"
+        : current.classList.contains("ready")
+          ? "ready"
+          : "",
+    );
+  }
 }
 
 function setQualificationRunUpdateTargetSelection(targetIds) {
@@ -3414,6 +3528,9 @@ function openQualificationRunDialog(stage, options = {}) {
     fieldFirst,
     evaluationRework: options.evaluationRework === true,
     entryStageId: stage.id,
+    instructionDirty: Boolean(String(options.instruction || "").trim()),
+    instructionApplying: false,
+    instructionResolution: null,
   };
   state.qualificationWorkflowStageId = stage.id;
   $("#qualification-run-preview").hidden = false;
@@ -3424,6 +3541,12 @@ function openQualificationRunDialog(stage, options = {}) {
   renderQualificationRunStages(stage, selectedStageIds);
   renderQualificationRunGroups(stage, selectedGroupIds);
   renderQualificationRunUpdateTargets(selectedStageIds, selectedUpdateTargetIds);
+  $("#qualification-run-instruction").value = String(options.instruction || "");
+  renderQualificationRunInstructionStatus(
+    state.qualificationRunDialog.instructionDirty
+      ? "「指示を反映」を押して実行内容を確定してください。"
+      : "",
+  );
   updateQualificationRunHeading();
   $("#qualification-run-guide").disabled = fieldFirst || !stage.canonicalDocs?.length;
   $("#qualification-run-guide").hidden = state.qualificationRunDialog.simplified || fieldFirst;
@@ -3510,6 +3633,13 @@ async function previewQualificationRun() {
   state.qualificationRunDialog.previewSequence = sequence;
   state.qualificationRunDialog.previewController?.abort();
   state.qualificationRunDialog.previewController = null;
+  if (
+    state.qualificationRunDialog.instructionDirty
+    && $("#qualification-run-instruction").value.trim()
+  ) {
+    setQualificationRunPreviewState("blocked", "自然言語の指示を反映してください。");
+    return;
+  }
   const stageIds = selectedQualificationRunStageIds();
   const availableUpdateTargets = qualificationRunUpdateTargets(stageIds);
   const updateTargetIds = selectedQualificationRunUpdateTargetIds();
@@ -3768,9 +3898,21 @@ function setQualificationRunRunning(running) {
         )
     );
   }
-  for (const node of $("#qualification-run-dialog").querySelectorAll(".run-group-actions button")) {
+  for (const node of $("#qualification-run-dialog").querySelectorAll(
+    ".run-group-actions button, .run-update-actions button",
+  )) {
     node.disabled = running;
   }
+  $("#qualification-run-instruction").disabled = running;
+  const instructionStatus = $("#qualification-run-instruction-status");
+  renderQualificationRunInstructionStatus(
+    instructionStatus.textContent,
+    instructionStatus.classList.contains("error")
+      ? "error"
+      : instructionStatus.classList.contains("ready")
+        ? "ready"
+        : "",
+  );
 }
 
 const PROGRESS_RESULT_FIELDS = [

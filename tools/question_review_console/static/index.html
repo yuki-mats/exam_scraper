@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>問題整備システム</title>
-    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v3-20260728-23">
+    <link rel="stylesheet" href="/styles.css?v=question-review-ui-v4-20260802-03">
   </head>
   <body>
     <header class="app-header">
@@ -269,13 +269,24 @@
             <div id="qualification-run-groups" class="run-group-options"></div>
           </fieldset>
           <fieldset id="qualification-run-update-fieldset">
-            <legend>整備する項目</legend>
-            <p class="fieldset-note">初期状態では、整備できる項目をすべて選択しています。</p>
+            <legend>主な整備項目</legend>
+            <p class="fieldset-note">選択した項目に必要な工程を自動で実行します。初期状態はすべて選択です。</p>
             <div class="run-update-actions">
               <button id="qualification-run-update-all" class="document-link-button" type="button">すべて選択</button>
               <button id="qualification-run-update-clear" class="document-link-button" type="button">選択解除</button>
             </div>
             <div id="qualification-run-update-targets" class="run-update-options"></div>
+            <div id="qualification-run-instruction-wrap" class="run-instruction">
+              <label for="qualification-run-instruction">
+                <strong>文章で指示</strong>
+                <small>主要な項目は上で選べます。例：「分類だけ再実行して」</small>
+              </label>
+              <textarea id="qualification-run-instruction" rows="3" maxlength="1000" placeholder="やりたい整備内容を入力"></textarea>
+              <div class="run-instruction-actions">
+                <button id="qualification-run-instruction-apply" class="secondary-button" type="button">指示を反映</button>
+              </div>
+              <p id="qualification-run-instruction-status" class="run-instruction-status" aria-live="polite"></p>
+            </div>
           </fieldset>
           <fieldset id="qualification-run-mode-fieldset">
             <legend>処理する問題</legend>
@@ -577,6 +588,6 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="/monitor-link.js?v=batch-monitor-v1"></script>
-    <script src="/app.js?v=question-review-ui-v3-20260728-23"></script>
+    <script src="/app.js?v=question-review-ui-v4-20260802-03"></script>
   </body>
 </html>

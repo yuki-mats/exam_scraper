@@ -72,6 +72,9 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertNotIn('id="maintenance-start"', html)
         self.assertIn('id="qualification-run-update-all"', html)
         self.assertIn('id="qualification-run-update-clear"', html)
+        self.assertIn('id="qualification-run-instruction"', html)
+        self.assertIn('id="qualification-run-instruction-apply"', html)
+        self.assertIn("分類だけ再実行して", html)
         self.assertIn('value="needed" checked', html)
         self.assertIn("整備が必要な問題だけ", html)
         self.assertIn("選択年度の全問題を洗い替える", html)
@@ -109,6 +112,15 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("function qualificationRunUpdateTargets", javascript)
         self.assertNotIn("function selectedQualificationRunQuestionRange", javascript)
         self.assertIn("function selectAllQualificationRunUpdateTargets", javascript)
+        self.assertIn("function applyQualificationRunInstruction", javascript)
+        self.assertIn(
+            'api("/api/qualification-runs/interpret-instruction"',
+            javascript,
+        )
+        self.assertIn(
+            "state.qualificationRunDialog.instructionDirty",
+            javascript,
+        )
         self.assertIn("scopeLabelForGroups(groupIds)", javascript)
         self.assertIn(": selectableTargetIds", javascript)
         self.assertNotIn("questionRange", javascript)

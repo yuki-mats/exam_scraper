@@ -77,12 +77,14 @@ documents = [
 id = "content"
 label = "問題文・選択肢・正答"
 fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionIntent", "answer_result_text"]
+instruction_aliases = ["独自問題化", "問題文と選択肢と正答"]
 
 [[stages.update_targets]]
 id = "images"
 label = "問題画像"
 fields = ["questionImageStorageUrls", "originalQuestionChoiceImageUrls"]
 read_fields = ["questionBodyText", "choiceTextList"]
+instruction_aliases = ["画像", "図表画像"]
 
 [[stages]]
 id = "question_type"
@@ -111,12 +113,14 @@ agent_policy = { independent_review = { model = "gpt-5.5", reasoning_effort = "h
 id = "question_type"
 label = "問題形式"
 fields = ["questionType"]
+instruction_aliases = ["形式", "出題形式"]
 
 [[stages.update_targets]]
 id = "calculation_flag"
 label = "計算問題フラグ"
 fields = ["isCalculationQuestion"]
 read_fields = ["questionType", "questionBodyText", "choiceTextList"]
+instruction_aliases = ["計算問題の判定", "計算問題か"]
 
 [[stages]]
 id = "question_intent"
@@ -141,6 +145,7 @@ id = "intent"
 label = "設問意図"
 fields = ["questionIntent"]
 read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "answer_result_text"]
+instruction_aliases = ["何を問う問題か", "問題の狙い"]
 
 [[stages]]
 id = "correct_choice"
@@ -165,6 +170,7 @@ id = "correct_answer"
 label = "正答"
 fields = ["correctChoiceText"]
 read_fields = ["questionBodyText", "choiceTextList", "questionIntent", "answer_result_text"]
+instruction_aliases = ["答え", "正誤"]
 
 [[stages]]
 id = "law_context"
@@ -193,12 +199,14 @@ id = "law_classification"
 label = "法令関連性"
 fields = ["isLawRelated", "lawGroundedExplanationNotNeeded"]
 read_fields = ["questionBodyText", "choiceTextList"]
+instruction_aliases = ["法令問題か", "法令関連か"]
 
 [[stages.update_targets]]
 id = "law_grounding"
 label = "法令根拠候補"
 fields = ["lawReferences", "lawContextForExplanation"]
 read_fields = ["isLawRelated", "questionBodyText", "choiceTextList", "correctChoiceText"]
+instruction_aliases = ["法令根拠", "条文根拠"]
 
 [[stages]]
 id = "explanation"
@@ -243,24 +251,28 @@ id = "learning_pattern"
 label = "問題の学び方"
 fields = ["questionLearningPatternId"]
 read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion"]
+instruction_aliases = ["学び方分類", "問題分類", "分類"]
 
 [[stages.update_targets]]
 id = "basic_explanation"
 label = "基本解説"
 fields = ["explanationText", "explanationReferences"]
 read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion", "isLawRelated", "lawReferences", "lawContextForExplanation"]
+instruction_aliases = ["解説", "正誤解説"]
 
 [[stages.update_targets]]
 id = "supplementary_questions"
 label = "補足質問と回答"
 fields = ["suggestedQuestionDetailsByChoice"]
 read_fields = ["explanationText", "questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion"]
+instruction_aliases = ["補足質問", "補足解説"]
 
 [[stages.update_targets]]
 id = "law_support"
 label = "解説用の法令情報"
 fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences", "lawContextForExplanation", "lawRevisionFacts"]
 read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText"]
+instruction_aliases = ["解説の条文情報", "解説の法令根拠"]
 
 [[stages]]
 id = "law_audit"
@@ -327,6 +339,7 @@ read_fields = [
   "questionIntent",
   "answer_result_text",
 ]
+instruction_aliases = ["現行法監査", "法令監査"]
 
 [[stages]]
 id = "category_setup"
@@ -374,6 +387,7 @@ read_fields = [
   "questionSetIdList",
   "choiceQuestionSetIds",
 ]
+instruction_aliases = ["問題集分類", "カテゴリ割当"]
 
 [[stages]]
 id = "delivery"

@@ -1317,6 +1317,7 @@ class CodexAppServerClient:
         evaluation_work = work_type in {"evaluation", "reevaluation"}
         research_work = work_type == "maintenance_research"
         official_source_work = work_type == "official_source_review"
+        instruction_candidate_work = work_type == "maintenance_instruction_candidate"
         candidate_work = work_type.startswith("maintenance_") and work_type.endswith(
             "_candidate"
         )
@@ -1380,6 +1381,13 @@ class CodexAppServerClient:
                 "指定されたrepository内の公式資料と入力JSONだけを確認し、"
                 "file又は外部状態を変更しない。subagentは使わず、"
                 "指定された構造化JSONだけを返す。思考過程は返さない。"
+            )
+        elif instruction_candidate_work:
+            developer_instructions = (
+                "このthreadは自然言語の問題整備指示を構造化計画へ変換する専用である。"
+                "subagentは使わず、file、command、外部状態を変更しない。"
+                "指定されたJSON Schemaと許可IDに一致する最終objectだけを返す。"
+                "開始、検証、patch反映はserverが行う。思考過程は返さない。"
             )
         elif candidate_work:
             developer_instructions = (

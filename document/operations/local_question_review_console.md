@@ -37,8 +37,9 @@
 ### 項目を限定した洗い替え
 
 - 人間が判断する問題整備と洗い替えは、トップの`listGroupId`一覧だけを開始地点とする。整備済みの範囲も開け、タップした範囲を初期選択したうえで他の年度又はフォルダを追加できる。資格全体の状態と工程管理画面は開始地点にしない。
-- 更新項目は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の各工程の`update_targets`だけを正本とする。UI、prompt、候補schema、patch保存、作業版は同じ定義を使い、別のfield一覧を持たない。
-- UIで工程を直接選ばない。選択したupdate targetが属する工程をworkflow順で自動実行する。整備できる項目は初期状態ですべて選択し、操作は`すべて選択`と`選択解除`に統一する。前提が未整備のため実行できない項目は、前提を完了するまで選択肢に出さない。
+- 更新項目は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の各工程の`update_targets`だけを正本とする。UI、自然言語の指示解釈、prompt、候補schema、patch保存、作業版は同じ定義を使い、別のfield一覧を持たない。よく使う呼び方は同じupdate targetの`instruction_aliases`で管理する。UIで工程を直接選ばず、主要な更新項目は選択式で指定できる。「分類だけ再実行して」のような自然言語も、同じupdate targetと`整備が必要な問題だけ` / `選択範囲の全問題を洗い替える`へ変換する。単一対象を「だけ」「のみ」で指定する定型文と全項目の定型文はcatalogで即時解決し、それ以外はread-onlyの構造化modelで解釈する。
+- 自然言語の文章自体は整備modelの作業promptへ渡さない。serverが現行catalogのIDと照合した構造化計画だけを既存previewへ渡す。解釈が一意でない場合、未知ID、指示の未反映状態では開始しない。年度・フォルダ、同時処理数及びFirestore反映は文章だけで変更せず、画面の明示選択と既存の確認境界を保つ。
+- 選択又は解釈済みのupdate targetが属する工程をworkflow順で自動実行する。整備できる項目は初期状態ですべて選択し、操作は`すべて選択`と`選択解除`に統一する。前提が未整備のため実行できない項目は、前提を完了するまで選択肢に出さない。
 - 処理する問題は`整備が必要な問題だけ`を初期値とし、未整備、現行の整備基準を適用していない問題、要確認の問題をserverがまとめて抽出する。意図的に全件をやり直す場合だけ`選択年度の全問題を洗い替える`を選ぶ。内部状態ごとの選択肢と問題番号範囲は画面に出さない。
 - 年度又はフォルダの識別には`examYear`を使わず、`listGroupId`を使う。独自問題に`examYear`がなくても実行契約は変わらない。ただし、`examYear`がある公式過去問では独自問題専用の`05_originalized`を自動的に非適用とし、`examYear`がない問題だけを05の対象にする。
 - `補足質問と回答`だけを選ぶ場合、`explanationText`は候補判断の参照用であり、更新できるのは`suggestedQuestionDetailsByChoice`だけである。他の工程も、選択したupdate targetの`fields`だけを書き換えられる。

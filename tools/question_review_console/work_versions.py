@@ -237,6 +237,21 @@ def policy_fingerprint(
         for key, value in policy.items()
         if key not in {"canonicalDocs", "policyFingerprint", "documents", "inputs"}
     }
+    # Natural-language aliases only resolve a UI instruction to an existing
+    # update target. They do not change the model prompt, writable fields, or
+    # generated content policy, so changing an alias must not age every
+    # question's work version.
+    if isinstance(normalized_policy.get("updateTargets"), list):
+        normalized_policy["updateTargets"] = [
+            {
+                key: value
+                for key, value in target.items()
+                if key != "instructionAliases"
+            }
+            if isinstance(target, Mapping)
+            else target
+            for target in normalized_policy["updateTargets"]
+        ]
     payload = {
         "policy": normalized_policy,
         "artifacts": artifacts,

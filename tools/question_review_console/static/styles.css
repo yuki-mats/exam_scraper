@@ -960,6 +960,15 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
 .run-update-options input { width: 15px; height: 15px; margin: 0; accent-color: var(--blue); }
 .run-update-options span { min-width: 0; display: grid; gap: 2px; font-size: 11px; }
 .run-update-options small { color: var(--text-muted); font-size: 9px; overflow-wrap: anywhere; }
+.run-instruction { margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--line); display: grid; gap: 7px; }
+.run-instruction label { display: grid; gap: 2px; color: #3d4853; font-size: 11px; }
+.run-instruction label small { color: var(--text-muted); font-size: 9px; font-weight: 500; }
+.run-instruction textarea { width: 100%; min-height: 70px; resize: vertical; padding: 8px 9px; border: 1px solid var(--line-strong); border-radius: 4px; background: #fff; color: var(--text); font: inherit; font-size: 12px; line-height: 1.5; }
+.run-instruction textarea:focus { border-color: var(--blue); outline: 3px solid rgba(22, 102, 168, 0.16); }
+.run-instruction-actions { display: flex; justify-content: flex-end; }
+.run-instruction-status { min-height: 18px; margin: 0; color: var(--text-muted); font-size: 10px; line-height: 1.5; }
+.run-instruction-status.ready { color: var(--green); }
+.run-instruction-status.error { color: var(--red); }
 .run-mode-options { display: grid; grid-template-columns: repeat(var(--run-mode-count, 3), minmax(0, 1fr)); border: 1px solid var(--line-strong); border-radius: 4px; overflow: hidden; }
 .run-mode-options label { position: relative; display: block; border-right: 1px solid var(--line-strong); color: #3d4853; text-align: center; }
 .run-mode-options label[hidden] { display: none; }
@@ -1359,6 +1368,9 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .run-update-actions button { min-height: 40px; }
   .run-update-options span { font-size: 13px; }
   .run-update-options small, .fieldset-note { font-size: 11px; }
+  .run-instruction label, .run-instruction textarea { font-size: 13px; }
+  .run-instruction label small, .run-instruction-status { font-size: 11px; }
+  .run-instruction-actions button { min-height: 40px; }
   .run-mode-options span { min-height: 48px; padding: 8px 10px; font-size: 13px; line-height: 1.4; }
   .run-concurrency-options span { min-height: 48px; padding: 8px 6px; font-size: 12px; line-height: 1.35; }
   .run-concurrency-note { font-size: 11px; }
