@@ -1,0 +1,13 @@
+{
+  "result": "done",
+  "summary": "AWS解説再整備と通常UIフロー安定化の関連変更だけをmainへコミットし、origin/mainへpushした。",
+  "verification": [
+    "AWS 03 check_pair: checked=879 failed=0",
+    "question candidate and qualification run tests: 211 tests OK",
+    "remaining regression modules: 338 tests OK",
+    "node --check、py_compile、git diff --check passed",
+    "00_source immutability: 5799 files OK"
+  ],
+  "commit": "d83d988d7",
+  "push": "0b1ec4c57..d83d988d7 main -> main"
+}

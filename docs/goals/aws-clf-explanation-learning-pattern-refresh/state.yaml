@@ -5,7 +5,7 @@ goal:
   slug: "aws-clf-explanation-learning-pattern-refresh"
   kind: existing_plan
   tranche: "承認済みAWS例を03工程へ簡潔に組み込み、AWS CLF全対象をUIから再整備して成果物を品質収束させる"
-  status: active
+  status: done
   oracle:
     signal: "AWS CLFの03再整備run終端readbackと、全対象03成果物の機械検証・代表8分類レビューが同じ内容を支持し、Firestore書き込みが0件である"
     cadence: "after each Worker package and at final audit"
@@ -68,7 +68,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.2/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper/docs/goals/aws-clf-explanation-learning-pattern-refresh"
 
-active_task: T008
+active_task: null
 
 tasks:
   - id: T001
@@ -293,6 +293,18 @@ tasks:
     receipt:
       result: done
       summary: "UIからSnowball前工程とAWS CLF 879問の03を実行し、867問の初回確定後、12問の保留を理由付き通常フローで再整備して全03成果物をそろえた。"
+      changed_files:
+        - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/05_originalized/question_keepitup-CLF201C044_originalized.json"
+        - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added"
+        - "output/question_review_console/workflow_runs/aws-cloud-practitioner"
+      commands:
+        - cmd: "問題整備UI: Snowball前工程を限定再整備"
+          status: pass
+        - cmd: "問題整備UI: AWS CLF 879問の03解説を再整備"
+          status: pass
+        - cmd: "問題整備UI: 保留12問と品質抽出問題を限定再整備"
+          status: pass
       evidence:
         - "Snowball 05 run 20260802T174132353821-0627cdc8と後続run 20260802T175239851023-8c8bdfc2はstatus=succeeded、queueStatus=succeeded、receiptValidated=true。"
         - "全879問03 run 20260802T175619840186-238ea0abは867問validated、12問blockedで終端し、保留再整備run 20260802T195908542464-43b3014cと20260802T201419359082-4f576d2fで12問すべてを確定した。"
@@ -346,6 +358,30 @@ tasks:
     objective: "T006で残った実質的な保留・不合格だけを通常UIフローで再整備し、03成果物を再検証する。"
     allowed_files:
       - "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/aws-cloud-practitioner"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/explanation_quality.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/styles.css"
+      - "scripts/check/check_explanation_patch_coverage.py"
+      - "scripts/common/questions_json_paths.py"
+      - "scripts/merge/patch_views.py"
+      - "scripts/merge/record_projection.py"
+      - "scripts/pipeline/prepare_firestore_upload.py"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "prompt/05_prompt_originalize_question.md"
+      - "prompt/qualification_docs/aws-cloud-practitioner/README.md"
+      - "config/question_maintenance_workflow.toml"
+      - "tests/test_explanation_patch_pipeline.py"
+      - "tests/test_prepare_firestore_upload.py"
+      - "tests/test_question_review_explanation_quality.py"
+      - "tests/test_question_review_inventory.py"
+      - "tests/test_question_review_progress_output_ui.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_question_work_queue.py"
+      - "tests/test_question_review_workflow.py"
+      - "tests/test_question_review_workflow_catalog.py"
     verify:
       - "限定再整備run終端readback"
       - "対象問題の03成果物readback"
@@ -358,6 +394,23 @@ tasks:
     receipt:
       result: done
       summary: "T006前に抽出した実質的な表現・questionType不整合だけをUIで限定再整備し、決定的検証と通常の保留再整備導線を実装して再発を防いだ。"
+      changed_files:
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/explanation_quality.py"
+        - "tools/question_review_console/server.py"
+        - "tools/question_review_console/static/app.js"
+        - "tools/question_review_console/static/index.html"
+        - "tools/question_review_console/static/styles.css"
+        - "scripts/check/check_explanation_patch_coverage.py"
+        - "scripts/merge/record_projection.py"
+        - "scripts/pipeline/prepare_firestore_upload.py"
+      commands:
+        - cmd: "AWS 03 check_pair for 879 questions"
+          status: pass
+        - cmd: "python -m unittest tests.test_question_review_question_candidate tests.test_question_review_qualification_runs"
+          status: pass
+        - cmd: "remaining targeted regression modules"
+          status: pass
       evidence:
         - "CLF204C020、CLF203C029、group_choice 3問、CLF204C004、CLF301S017、旧questionType 9問、CLF301S019、Ping-t 5問の限定runはすべてqueueStatus=succeeded、blocked=0。"
         - "正本文書本文をno-tool model promptへ埋め込み、保留理由を次runへ引き継ぎ、依存する前工程を自動選択する。"
@@ -368,7 +421,7 @@ tasks:
   - id: T008
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "品質収束したAWS 03成果物、Snowball前工程成果物、work version、goal receiptだけを再検証し、mainへコミットしてorigin/mainへpushする。"
     inputs:
@@ -382,12 +435,22 @@ tasks:
       - "最終成果物の検証結果"
       - "commit hash"
       - "origin/main push readback"
-    receipt: null
+    receipt:
+      result: done
+      summary: "AWS解説再整備と通常UIフロー安定化の関連変更だけをmainへコミットし、origin/mainへpushした。"
+      verification:
+        - "AWS 03 check_pair: checked=879 failed=0"
+        - "question candidate and qualification run tests: 211 tests OK"
+        - "remaining regression modules: 338 tests OK"
+        - "node --check、py_compile、git diff --check passed"
+        - "00_source immutability: 5799 files OK"
+      commit: d83d988d7
+      push: "0b1ec4c57..d83d988d7 main -> main"
 
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "承認済みAWS例の実参照、全対象03収束、品質、Git反映、Firestore非書込が元の依頼を満たすか最終監査する。"
     inputs:
@@ -408,10 +471,29 @@ tasks:
       - "oracle evidence map"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary:
+        - "AWS資格別READMEの本文は03のno-tool model promptへ実際に埋め込まれ、承認済み8分類例を生成時に参照する。"
+        - "KeepItUp 332問とPing-t 547問の全879問に03成果物があり、現行投影で機械検証879/879問、実質的不合格0問。"
+        - "全問題に単一の学び方分類と正誤から始まる基本解説があり、補足は879/879問で0件、根拠はAWS公式資料だけ。"
+        - "Snowballの時点差は03で辻褄を合わせず05へ戻し、210TB/台、230TBなら2台、1台では20TB不足へ修正した。"
+        - "UI runは全件run、保留再整備、限定再整備をすべて終端し、03の残保留は0問。"
+        - "artifactSync停止は04 questionSetIdと独自画像Storage URLという別工程へ帰属し、Firestoreへの書き込みは0件。"
+        - "実装と検証はmainのd83d988d7へコミットし、origin/mainへpush済み。"
+      oracle_evidence_map:
+        - "実参照: 保存済み問題別promptの# 正本文書の内容にAWS README本文を確認。"
+        - "全対象: KeepItUp 332 + Ping-t 547 = 879問。"
+        - "品質: check_pair checked=879 failed=0、代表8分類と境界分類レビュー完了。"
+        - "安全: 00_source 5799 files差分なし、Firestore upload未実行。"
+        - "反映: d83d988d7 pushed to origin/main。"
+      missing_evidence: []
+      remaining_tasks: []
 
 checks:
-  dirty_fingerprint: "aws-explanation-stabilization-pending-commit"
+  dirty_fingerprint: "goal-final-receipt-pending-commit"
   last_verification:
     result: pass
     task: T007
