@@ -974,6 +974,69 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             projected_records={"ui-q1": projected_record},
         )
 
+    def test_new_patch_accepts_source_aliases_from_projected_choice_split(self):
+        relative = Path(
+            "output/sample/questions_json/2026/"
+            "10_questionType_fixed/q1_questionType_fixed.json"
+        )
+        source_relative = Path(
+            "output/sample/questions_json/2026/00_source/q1.json"
+        )
+        source_record = {
+            "public_question_id": "source-q1",
+            "sourceQuestionKey": "sample:2026:q1",
+            "questionBodyText": "正しいものを2つ選べ。",
+            "choiceTextList": ["A", "B"],
+        }
+        projected_record = {
+            **source_record,
+            "sourceUniqueKeys": [
+                "source-q1:choice:1",
+                "source-q1:choice:2",
+            ],
+        }
+        binding_aliases = [
+            "ui-q1",
+            "source-q1",
+            "sample:2026:q1",
+            "q1.json#0",
+        ]
+        after_record = {
+            **projected_record,
+            "reviewQuestionId": "source-q1",
+            "sourceRecordRef": "q1.json#0",
+            "questionType": "group_choice",
+        }
+
+        self._validate_record_scope_change(
+            relative,
+            None,
+            {"question_bodies": [after_record]},
+            plan_updates={
+                "sourceFiles": [source_relative.as_posix()],
+                "targetRecordAliasGroups": [binding_aliases],
+                "targetRecordBindings": [
+                    {
+                        "uiQuestionId": "ui-q1",
+                        "reviewQuestionId": "source-q1",
+                        "sourceQuestionKey": "sample:2026:q1",
+                        "sourceRecordRef": "q1.json#0",
+                        "aliases": binding_aliases,
+                    }
+                ],
+                "allowedPatchDirs": ["10_questionType_fixed"],
+                "allowedPatchFiles": [relative.as_posix()],
+                "targetRecordScopes": {
+                    relative.as_posix(): [binding_aliases]
+                },
+            },
+            source_payloads={
+                source_relative: {"question_bodies": [source_record]}
+            },
+            stage_id="question_type",
+            projected_records={"ui-q1": projected_record},
+        )
+
     def test_legacy_reconciliation_can_verify_an_unbound_existing_patch(self):
         relative = Path(
             "output/sample/questions_json/2026/"

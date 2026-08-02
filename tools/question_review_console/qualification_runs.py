@@ -605,6 +605,8 @@ STAGE_REVIEW_FLAG_SUFFIXES = {
     "question_set": {"questionSetId"},
 }
 FIELD_PATCH_DIR_NAMES = {
+    "questionImageStorageUrls": {"05_originalized"},
+    "originalQuestionChoiceImageUrls": {"05_originalized"},
     "questionType": {"10_questionType_fixed", "99_model_review_flags"},
     "isCalculationQuestion": {"10_questionType_fixed", "99_model_review_flags"},
     "questionIntent": {"15_correctChoiceText_fixed", "99_model_review_flags"},
@@ -18583,11 +18585,17 @@ class QualificationRunCoordinator:
                         # 現在inventoryが同じsourceRecordRefへ一意に束ねた
                         # 対象groupだけを許可し、無関係なID注入は拒否する。
                         source_bound_aliases.update(matched_target_group)
+                    allowed_scoped_aliases = (
+                        matched_target_group
+                        | source_bound_aliases
+                        | projected_source_aliases
+                        | projected_workflow_aliases
+                    )
                     if (
                         len(matching_target_groups) != 1
                         or not source_matches
                         or not (entry_aliases - derived_aliases).issubset(
-                            matched_target_group
+                            allowed_scoped_aliases
                         )
                         or (
                             not is_law_audit_sidecar
@@ -18609,14 +18617,21 @@ class QualificationRunCoordinator:
                     ):
                         target_extras = sorted(
                             (entry_aliases - derived_aliases)
-                            - (matched_target_group | source_bound_aliases)
+                            - allowed_scoped_aliases
                         )
                         source_extras = sorted(
                             (source_aliases(after_entry) - derived_aliases)
-                            - source_bound_aliases
+                            - (
+                                source_bound_aliases
+                                | projected_source_aliases
+                            )
                         )
                         workflow_extras = sorted(
-                            workflow_aliases(after_entry) - source_bound_aliases
+                            workflow_aliases(after_entry)
+                            - (
+                                source_bound_aliases
+                                | projected_workflow_aliases
+                            )
                         )
                         raise QualificationRunError(
                             f"sourceと異なるID fieldを検出しました: {relative} / "

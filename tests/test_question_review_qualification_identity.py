@@ -366,6 +366,43 @@ class QualificationIdentityContractTests(QualificationRunTestSupport):
                     },
                 )
 
+    def test_question_image_review_is_bounded_to_originalized_patch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory),
+                FakeWorkflow(),
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            patch_dirs, write_areas, patch_files, write_files = (
+                coordinator._review_write_contract(
+                    {
+                        "paths": {
+                            "source": (
+                                "output/sample/questions_json/2026/"
+                                "00_source/question_2026_1.json"
+                            )
+                        }
+                    },
+                    {
+                        "selection": {"fields": ["questionImageStorageUrls"]},
+                        "investigationScope": "current_question",
+                    },
+                )
+            )
+
+        self.assertEqual(patch_dirs, {"05_originalized"})
+        self.assertEqual(write_areas, set())
+        self.assertEqual(write_files, set())
+        self.assertEqual(
+            patch_files,
+            {
+                "output/sample/questions_json/2026/05_originalized/"
+                "question_2026_1_originalized.json"
+            },
+        )
+
     def test_question_body_and_choices_require_the_dedicated_correction_workflow(self):
         with tempfile.TemporaryDirectory() as directory:
             coordinator = QualificationRunCoordinator(
