@@ -5,7 +5,7 @@ goal:
   slug: "aws-clf-two-source-upload-ready"
   kind: recovery
   tranche: "既存成果物を保持し、問題整備システムでCLF-C02全対象の未完了工程をfast収束してupload dry-runまで完了する"
-  status: blocked
+  status: active
   oracle:
     signal: "問題整備システムのCLF-C02全対象run、artifact sync、upload-ready、quality gate、upload dry-runが成功し、Firestore writes=0、00_source不変、blocking/hold/pending=0である"
     cadence: "after each Worker package and at final audit"
@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: null
+active_task: T022
 
 tasks:
   - id: T001
@@ -280,7 +280,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: blocked
+    status: queued
     reasoning_hint: medium
     objective: "T013で確定した879問の問題整備システム成果物だけを入力に、問題整備システム経由で両groupのartifact syncを成功させ、879 unique question IDを覆うupload-readyを生成する。同一artifact hashへquality gateとupload dry-runを実行し、Firestoreへ書かず公開直前状態へ収束する。"
     depends_on:
@@ -302,16 +302,12 @@ tasks:
       - "artifact sync、merged、convert、upload-readyの手編集又は直接生成が必要になる。"
       - "Firestore write又は本番反映フラグが必要になる。"
       - "upload-readyの件数、ID一意性、hash、quality gate、dry-runのいずれかが一致しない。"
-    receipt:
-      result: blocked
-      summary: "問題39685の01契約不整合が未解決で、T018未完了のためartifact syncとupload-readyを開始できない。"
-      waiting_for_user_approval: true
-      required_reply: "01プロンプト修正を承認します"
+    receipt: null
 
   - id: T005
     type: pm
     assignee: PM
-    status: blocked
+    status: queued
     reasoning_hint: medium
     objective: "関連成果物とGoalBuddy receiptsだけを最終検証し、mainへ内容別にコミットしてorigin/mainへpushする。"
     depends_on:
@@ -330,11 +326,7 @@ tasks:
       - "commit hashes"
       - "origin/main push readback"
       - "clean worktree"
-    receipt:
-      result: blocked
-      summary: "T018とT004が未完了のため、最終commit・pushを開始できない。"
-      waiting_for_user_approval: true
-      required_reply: "01プロンプト修正を承認します"
+    receipt: null
 
   - id: T006
     type: scout
@@ -1199,11 +1191,11 @@ tasks:
   - id: T018
     type: worker
     assignee: Worker
-    status: blocked
+    status: queued
     reasoning_hint: medium
-    objective: "T017のvalidated成果物を入力に、通常UIで旧run 20260809T181048580324-c5cc55b0の未完了だけを再開する。その後、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問windowで実行し、879問の必要工程を終端化する。artifact syncとupload-readyはT004へ残す。"
+    objective: "T022のvalidated成果物を入力に、通常UIで旧run 20260809T181048580324-c5cc55b0の未完了だけを再開する。その後、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問windowで実行し、879問の必要工程を終端化する。artifact syncとupload-readyはT004へ残す。"
     depends_on:
-      - T017
+      - T022
     allowed_files:
       - "output/question_review_console/.review-ui.lock"
       - "output/question_review_console/cache/**"
@@ -1213,7 +1205,7 @@ tasks:
       - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
       - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
     verify:
-      - "T017 done、問題39685の05→04 validated。"
+      - "T022 done、問題39685の01→04 validated。"
       - "再開runのresumedFrom=20260809T181048580324-c5cc55b0。"
       - "inventory=332+547=879、全run succeeded・receiptValidated=true。"
       - "全879問が05=2、01=5、02=4、02a=4、03=10、04=2を満たす。"
@@ -1221,16 +1213,12 @@ tasks:
       - "standard/auto_max、Fast未使用、00_source・SAA・tools・config不変、Firestore writes=0。"
       - "終了後process/listener/valid lease=0。"
     stop_if:
-      - "T017未完了又は不整合。"
+      - "T022未完了又は不整合。"
       - "再開scope/resumedFrom不一致、inventoryが332+547でない。"
       - "同じ未修正入力のblocked工程が再検出される。"
       - "手編集・直接生成・Fast・工程省略・Firestore write・コード・設定変更が必要になる。"
       - "00_source・SAA・allowed_files外差分、別operation競合、終了後live sidecarが残る。"
-    receipt:
-      result: blocked
-      summary: "問題39685を新しい01 policyでtrue_falseへ収束させる前提が未承認のため、旧run未完了と879問needed runを再開できない。"
-      waiting_for_user_approval: true
-      required_reply: "01プロンプト修正を承認します"
+    receipt: null
 
   - id: T019
     type: judge
@@ -1285,10 +1273,170 @@ tasks:
         - "artifact sync、upload-ready、quality gate、dry-run、commit/push。"
       waiting_for_user_approval: true
       required_reply: "01プロンプト修正を承認します"
+  - id: T020
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "複数選択サービス問題を、正答数や現在値ではなく各候補の該当性を個別判定する回答操作からtrue_falseへ分類できるよう01プロンプトを一般化し、policy MAJORと回帰検証を更新する。"
+    depends_on:
+      - T019
+    allowed_files:
+      - "prompt/01_prompt_fix_questionType.md"
+      - "config/question_maintenance_workflow.toml"
+      - "tests/test_documentation_structure.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "git diff --check"
+      - ".venv/bin/python -m unittest tests.test_documentation_structure tests.test_question_review_qualification_runs -q"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+    stop_if:
+      - "問題ID、資格、現在のquestionType又は正答数を固定条件にする必要がある。"
+      - "allowed_files外の実装変更が必要になる。"
+      - "field責務の独立性を崩す自動補正が必要になる。"
+      - "検証が2回失敗する。"
+    receipt:
+      result: blocked
+      changed_files:
+        - prompt/01_prompt_fix_questionType.md
+        - config/question_maintenance_workflow.toml
+        - tests/test_documentation_structure.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - "git diff --check: pass"
+        - ".venv/bin/python -m unittest tests.test_documentation_structure tests.test_question_review_qualification_runs -q: fail"
+        - ".venv/bin/python scripts/check/check_00_source_immutability.py: pass"
+      summary: "共通述語を候補ごとに独立判定する複数選択問題をtrue_falseとする一般境界、選択肢を見る前に単一解を導くflash_card境界、policy 6.0、回帰テストを追加。追加テストのパス定数ミスは修正済み。既存の03解説プロンプトが上限120行に対して121行のため、所定unittestのみ失敗した。"
+      remaining_blockers:
+        - "prompt/03_prompt_add_explanationText.mdの121行を120行以下にする必要があるが、T020のallowed_files外"
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: "許可ファイル外の修正が必要で、所定検証が2回とも失敗したため"
+  - id: T021
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T020の01契約修正が一般化され、T023の書式整理が意味を変えず、既存flash_card・group_choice境界を壊さず問題39685の再整備を許可できるか監査する。"
+    depends_on:
+      - T020
+      - T023
+    inputs:
+      - "T020 receipt"
+      - "T023 receipt"
+      - "01 prompt、workflow policy、回帰テスト差分"
+    constraints:
+      - "Do not implement。"
+      - "問題ID又はAWS資格へのhardcodeを承認しない。"
+      - "正答数からquestionTypeを逆算する規則を承認しない。"
+    expected_output:
+      - "approve_next | reject"
+      - "policy fingerprintとテスト証拠"
+      - "T022 Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "01変更は問題ID・資格・正答数に依存せず、共通述語を各候補へ補う回答操作を一般化している。単一解を選択肢前に導くflash_cardと、候補比較が不可欠なgroup_choiceの境界も維持された。03変更は空行1行の削除だけである。policy 6.0の新fingerprintと統合検証成功により、T022を新入力の一回限りのcanaryとして承認する。"
+      evidence:
+        - "prompt/01_prompt_fix_questionType.mdの追加は、候補種別によらない共通述語・独立判定をtrue_false条件とし、複数選択指示や該当候補数だけでは決めない。"
+        - "同promptは、選択肢を見る前に単一解を導く場合だけflash_card、選択肢側の情報又は候補比較が不可欠な場合をgroup_choiceとして保持する。"
+        - "変更差分に問題ID 39685又はAWS資格固有条件はない。既存の正答数非依存規則も維持されている。"
+        - "config/question_maintenance_workflow.tomlはquestion_type policy_versionを5.2から6.0へMAJOR更新した。"
+        - "aws-cloud-practitionerの現行question_type policy fingerprintはdad5a75e7cdd669a41cdb11917de6fc0783e1f3ca903874670856d46a97f34caで、旧runの1e07085971fefc0c2031be64d5c751fb75bb21914f02505ef840a4882a70e24aと異なる。"
+        - "prompt/03_prompt_add_explanationText.mdの差分は末尾の空行1行削除のみで、121行から120行となり意味・生成契約は不変。"
+        - "git diff --check、所定unittest 169件、00_source immutability 5799 filesを統合状態で再実行し、すべて成功した。"
+        - "回帰差分は一般境界、正答数非依存、flash_card境界、policy 6.0を固定する。ライブmodel収束はT022のverify/stop_ifでfail-closedに確認される。"
+      next_allowed_task: T022
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "T022はreview-ui、対象work version、同一資格patch及びworkflow runへ書き込むため、他Worker又は別review-ui operationと並列実行できない。"
+        required_order:
+          - T022
+          - T018
+          - T004
+          - T005
+          - T999
+      blocked_tasks: []
+      missing_evidence:
+        - "T022の新policy fingerprintによる01=true_falseのvalidated receipt。"
+        - "02aの5肢独立判定、03の5件、04のvalidated証拠。"
+        - "T022のsucceeded・receiptValidated=trueと終了後live-state readback。"
+      required_board_updates:
+        - "T021 receiptを記録し、PM判断でT022を次の単独Worker候補とする。"
+        - "T020はblocked receiptのまま保持し、T023とT021の統合証拠で後続許可を表す。"
+        - "T022開始前にprocess、TCP:8765 listener、有効lease、active recovery sidecar、別operationがすべて0であることを確認する。"
+  - id: T023
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "T020の所定回帰検証を妨げている03解説プロンプトの既存121行を、意味を変えない書式整理だけで規定の120行以下に戻し、T020を含む所定検証を通す。"
+    depends_on: []
+    allowed_files:
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "git diff --check"
+      - "wc -l prompt/03_prompt_add_explanationText.md が120以下"
+      - ".venv/bin/python -m unittest tests.test_documentation_structure tests.test_question_review_qualification_runs -q"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+    stop_if:
+      - "03解説プロンプトの意味又は生成契約を変える必要がある。"
+      - "allowed_files外の追加修正が必要になる。"
+      - "検証が2回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - prompt/03_prompt_add_explanationText.md
+      commands:
+        - command: "git diff --check"
+          status: pass
+        - command: "wc -l prompt/03_prompt_add_explanationText.md"
+          status: pass
+        - command: ".venv/bin/python -m unittest tests.test_documentation_structure tests.test_question_review_qualification_runs -q (169 tests)"
+          status: pass
+        - command: ".venv/bin/python scripts/check/check_00_source_immutability.py (5799 files)"
+          status: pass
+      summary: "03解説プロンプト末尾の空行を1行だけ削除し、意味と生成契約を変えず121行から120行へ整理した。T020を含む所定回帰テストと00_source不変性検証はすべて成功した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T022
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "T021承認後、新しい01 policyで問題52b376dcb5f52f02e4f89c24だけを通常UIから01起点で再整備し、02、02a、03、04まで収束する。"
+    depends_on:
+      - T021
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/52b376dcb5f52f02e4f89c24.json"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{10_questionType_fixed,15_correctChoiceText_fixed,23_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+    verify:
+      - "開始前のprocess、TCP:8765 listener、有効lease、active recovery sidecar、別operationがすべて0である。"
+      - "UI previewが問題52b376dcb5f52f02e4f89c24だけ、01起点、05非選択である。"
+      - "01=true_false、02=select_correct、02a=[正しい,正しい,間違い,間違い,間違い]、03は5件、04 validatedである。"
+      - "run succeeded、receiptValidated=true、pending/blocked/hold/open transaction/active sidecar=0である。"
+      - "00_source・05・SAA・Firestore不変、終了後process/listener/valid lease=0である。"
+    stop_if:
+      - "開始前に別process、TCP:8765 listener、有効lease、active recovery sidecar又は別operationが存在する。"
+      - "通常UIで指定1問、01起点に限定できない。"
+      - "01がtrue_false以外を返す。同じpolicy fingerprintで再試行しない。"
+      - "02aが5肢を独立判定しない、03が5件にならない、又は04が未検証となる。"
+      - "手編集・直接生成・00_source・05・SAA・Firestore変更が必要になる。"
+      - "allowed_files外の変更又は別operation競合がある。"
+    receipt: null
+
   - id: T999
     type: judge
     assignee: Judge
-    status: blocked
+    status: queued
     reasoning_hint: high
     objective: "全receiptとlive readbackをoracleへ対応付け、CLF-C02全件が問題整備システム経由でupload dry-runまで完了したか最終監査する。"
     depends_on:
@@ -1312,11 +1460,7 @@ tasks:
       - "oracle evidence map"
       - "missing evidence"
       - "next task if not complete"
-    receipt:
-      result: blocked
-      summary: "T018・T004・T005の完了証拠がなく、最終完了監査を実行できない。"
-      waiting_for_user_approval: true
-      required_reply: "01プロンプト修正を承認します"
+    receipt: null
 
 checks:
   dirty_fingerprint: "main clean origin/main...HEAD=0 0 at prep"
