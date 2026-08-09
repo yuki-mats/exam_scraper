@@ -1,0 +1,205 @@
+version: 2
+
+goal:
+  title: "AWS CLF全件 fast整備・upload-ready収束"
+  slug: "aws-clf-two-source-upload-ready"
+  kind: recovery
+  tranche: "既存成果物を保持し、問題整備システムでCLF-C02全対象の未完了工程をfast収束してupload dry-runまで完了する"
+  status: active
+  oracle:
+    signal: "問題整備システムのCLF-C02全対象run、artifact sync、upload-ready、quality gate、upload dry-runが成功し、Firestore writes=0、00_source不変、blocking/hold/pending=0である"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "対象資格・全list group・全問題件数、終端manifest、verified receipt、artifact sync、upload-ready hash、quality gate、upload dry-run、Firestore非書込、00_source hash、Git push readback"
+  intake:
+    original_request: "aws過去問を整備しておいて。現在ローカルにあるCLF-C02全件を、Firestore反映直前まで、fastモードで最速、問題整備システム経由で実行する。"
+    interpreted_outcome: "CLF-C02の全ローカル対象を問題整備システムでfast収束し、Firestoreへ書かずupload-readyとdry-run合格まで閉じる。"
+    input_shape: recovery
+    audience: "AWS Certified Cloud Practitionerを学習する受験者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "全対象の終端run、公開前artifact、quality gate、upload dry-run、Firestore非書込、00_source不変のreceiptが一致する。"
+    likely_misfire: "問題整備システムを迂回する、03だけで完了扱いする、片方の取得元だけ処理する、fastモードを理由に検証を省略する、又はFirestoreへ書く。"
+    blind_spots_considered:
+      - "既存runとrepository lock"
+      - "前回03成果物の現行性"
+      - "両取得元と全対象件数"
+      - "04分類と独自画像gate"
+      - "hold・pendingの再開"
+      - "artifact syncと公開版互換"
+      - "Firestore書き込み境界"
+    existing_plan_facts:
+      - "現在ローカルにあるCLF-C02全件を対象にする。"
+      - "問題整備システム経由だけで実行する。"
+      - "fastモードで最速化する。"
+      - "Firestore反映直前のupload-ready・dry-runまでで止める。"
+      - "既存のAWS 03整備goalは完了済みだが、現行状態を再確認する。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "問題整備システムの現行状態、CLF-C02全list group・全問題件数、既存run・lock、各工程の未完了・hold、artifact sync・upload-ready不足をread-onlyで確定する。"
+    inputs:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "config/question_maintenance_workflow.toml"
+      - "問題整備システムのinventory、qualification run、manifest、progress、work version"
+      - "docs/goals/aws-clf-explanation-learning-pattern-refresh/state.yaml"
+    constraints:
+      - "Read-only。"
+      - "問題整備システムを再起動しない。"
+      - "稼働中run又はrepository lockを変更しない。"
+      - "00_sourceを変更しない。"
+      - "対象件数を過去receiptだけで決めず、現行inventoryを確認する。"
+    expected_output:
+      - "現行の対象資格・list group・問題件数"
+      - "run・process・lockの現行状態"
+      - "工程別の未完了・hold・古い成果物"
+      - "upload-readyを止める具体的gate"
+      - "問題整備システムで使うfastモードの正確な開始・再開操作"
+      - "最大の安全なWorker scope、allowed_files、verify、stop_if"
+    receipt: null
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "T001の現行証拠から、問題整備システムだけでCLF-C02全対象を最速収束させるrun scopeと公開前artifact完了条件を確定する。"
+    inputs:
+      - "T001 receipt"
+      - "goal oracle"
+    constraints:
+      - "Do not implement。"
+      - "UI・問題整備システム迂回を承認しない。"
+      - "fastモードを理由に品質工程を省略しない。"
+      - "Firestore writeを含めない。"
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "run scope、fast設定、再開方式"
+      - "artifact sync・upload-ready・dry-runの完了条件"
+    receipt: null
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "問題整備システムでCLF-C02全対象の未完了・hold・古い工程をfastモード実行し、全問題を検証済み終端状態へ収束させる。"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "問題整備システム外の直接生成又はpatch手編集が必要になる。"
+      - "稼働中runをinterruptedにする再起動が必要になる。"
+      - "別資格のlockを破壊する必要がある。"
+      - "Firestore反映操作が必要になる。"
+      - "同じ障害で安全な再開が3回失敗する。"
+    receipt: null
+
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "問題整備システムの確定成果物からartifact sync、upload-ready、quality gate、upload dry-runを収束し、Firestore非書込receiptを残す。"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T003のblocking、hold、pendingが残っている。"
+      - "upload-ready又はmerged/convertの手編集が必要になる。"
+      - "Firestore writeフラグ又は本番確認操作が必要になる。"
+      - "公開版互換の未解決blockingがある。"
+    receipt: null
+
+  - id: T005
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: medium
+    objective: "関連成果物とGoalBuddy receiptsだけを最終検証し、mainへ内容別にコミットしてorigin/mainへpushする。"
+    inputs:
+      - "T003 receipt"
+      - "T004 receipt"
+      - "git diff"
+    constraints:
+      - "関連変更以外をstageしない。"
+      - "main以外を作成又はpushしない。"
+      - "00_source差分があれば停止する。"
+    expected_output:
+      - "scoped verification"
+      - "commit hashes"
+      - "origin/main push readback"
+      - "clean worktree"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全receiptとlive readbackをoracleへ対応付け、CLF-C02全件が問題整備システム経由でupload dry-runまで完了したか最終監査する。"
+    inputs:
+      - "All done task receipts"
+      - "terminal manifests and progress"
+      - "upload-ready and dry-run receipts"
+      - "Firestore write evidence"
+      - "00_source hash and Git readback"
+    constraints:
+      - "Do not implement。"
+      - "片方の取得元、単一工程、又は一部問題だけの成功を完了扱いしない。"
+      - "blocking、hold、pending、未検証artifactがあればrejectする。"
+      - "Firestore writeがあればscope違反としてrejectする。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle evidence map"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "main clean origin/main...HEAD=0 0 at prep"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
