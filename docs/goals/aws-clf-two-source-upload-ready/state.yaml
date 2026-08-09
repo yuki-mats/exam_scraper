@@ -5,7 +5,7 @@ goal:
   slug: "aws-clf-two-source-upload-ready"
   kind: recovery
   tranche: "既存成果物を保持し、問題整備システムでCLF-C02全対象の未完了工程をfast収束してupload dry-runまで完了する"
-  status: active
+  status: blocked
   oracle:
     signal: "問題整備システムのCLF-C02全対象run、artifact sync、upload-ready、quality gate、upload dry-runが成功し、Firestore writes=0、00_source不変、blocking/hold/pending=0である"
     cadence: "after each Worker package and at final audit"
@@ -67,13 +67,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T001
+active_task: null
 
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "問題整備システムの現行状態、CLF-C02全list group・全問題件数、既存run・lock、各工程の未完了・hold、artifact sync・upload-ready不足をread-onlyで確定する。"
     inputs:
@@ -94,12 +94,54 @@ tasks:
       - "upload-readyを止める具体的gate"
       - "問題整備システムで使うfastモードの正確な開始・再開操作"
       - "最大の安全なWorker scope、allowed_files、verify、stop_if"
-    receipt: null
-
+    receipt:
+      result: done
+      summary: "現行inventoryはAWS CLF-C02の2 list group、計879問。問題整備process・8765 listener・実メモリlockはないが、Ping-tの親runが古いrunning表示のまま停止している。全問03/04済みでも多数の01/02/02a作業版が未現行で、Ping-t同期は334問の必須field不足、upload-readyはKeepItUp旧1件のみ。Fast service tierは仕様上使用不可で、最速設定はstandard＋auto_max。"
+      evidence:
+        - "現行00_source実数はkeepitup-aws-clf-c02=332、ping-t-aws-clf-c02=547、合計879。"
+        - "両groupとも05_originalized、10、12、20、21、22、30のJSONは各source件数と一致する。40_convertはKeepItUpに1ファイル、Ping-tにはなく、upload_to_firestoreは2026-08-02生成のKeepItUpファイル1件だけである。"
+        - "最新親run 20260803T054423238863-b4300885はPing-t 542問・2172 work item、status/queueStatus=runningだがheartbeatは2026-08-03 09:55:47で停止し、2026-08-09時点で対応processも8765 listenerも存在しない。"
+        - "同runはvalidated work item=651、pending=1521、committing=95、validated question=0、blocked/hold=0。工程内訳は02:252済/290 queued、02a:246済/296 queued、03:149済/95 committing/298 queued、04:542 queued。"
+        - "最新runのspeedMode=standard、throughputMode=auto_max、retrySafe=true、receiptValidated=false、artifactSync未実行。"
+        - "直前のPing-t再開run 20260803T034626223243-59b906beはsucceededだがartifactSync=blockedで、必須field不足334問を報告した。"
+        - "KeepItUpの現行作業版は03=332、04=332、05=332だが、01現行MAJOR 5.xは246/332、02・02aは各8/332。Ping-tは03=547、04=547、05=547、01現行5.x=547、02=257、02a=251。"
+        - "workflow現行MAJORは05=2、01=5、02=4、02a=4、03=10、04=2。AWSはlaw workflow対象外なので02b/03bは不要。"
+        - "問題整備仕様は開始を各list groupカードの「整備・洗い替え」、再開を「未完了を再開」と定義し、再開時は元runの未完了問題だけを現行workflow・作業版から再計画する。"
+        - "問題整備仕様はStandard service tierだけを許可し、UI/APIからFastを指定した場合は開始しない。最速化はspeedMode=standardを維持しthroughputMode=auto_max・最大100問windowを使う。"
+        - "JobManagerの資格/repository lockはprocess内メモリだけに保持される。server process不在のため現行lockはないが、古いrunning manifestを成功扱い又は手編集してはならない。"
+      facts:
+        - "対象資格はaws-cloud-practitioner、list groupはkeepitup-aws-clf-c02とping-t-aws-clf-c02、対象総数879問。"
+        - "hold/blockingとして確定済みの問題は0件だが、停止runに1521 pending work itemと95 committing work itemが残る。"
+        - "最大の安全なWorker scopeは、問題整備システム上で古いPing-t runを正規に再開して542問を収束後、両list groupを「整備が必要な問題だけ」・全update target・standard/auto_maxで再previewし、残存対象を一つの資格runとして処理する範囲。"
+        - "allowed_files候補はoutput/aws-cloud-practitioner/questions_json/{keepitup-aws-clf-c02,ping-t-aws-clf-c02}/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**、output/question_review_console/aws-cloud-practitioner/**、output/question_review_console/workflow_runs/aws-cloud-practitioner/**、output/aws-cloud-practitioner/questions_json/upload_to_firestore/**。00_sourceは除外する。"
+        - "verify候補は現行inventory再読込=332+547、終端manifest status=succeeded/receiptValidated=true、全879問の必要工程が現行MAJOR、pending/committing/blocked/hold=0、両group artifactSync=succeeded、両group upload-ready生成、quality-gate・upload dry-run成功、Firestore writes=0、00_source git diff/hash不変。"
+        - "stop_if候補は古いrunning runを問題整備システムが安全に再開候補へ正規化できない、95 committing itemのtransaction回収結果が不明、Fast service tierが必要、00_source・merged・convert・upload-readyの手編集が必要、Firestore writeが必要、又は別資格/repository operationと競合する場合。"
+      contradictions:
+        - "Goalの「fastモード」をCodex Fast service tierと解釈すると現行仕様に反する。現行の正確な最速設定はspeedMode=standardかつthroughputMode=auto_maxである。"
+        - "manifestはrunをrunningと示す一方、heartbeatは6日前でprocess/listenerが存在しないため、永続状態と実行実体が矛盾している。"
+        - "全879問に03・04成果物がある一方、公開前同期はPing-tで334問の必須field不足により停止し、upload-readyは両group現行完了ではない。"
+      ambiguity_requiring_judge:
+        - "古いrunning manifestを問題整備システムの通常read/recovery経路でinterrupted相当へ回収してから「未完了を再開」できるか。再起動やmanifest手編集が必要ならWorker scope外として停止すべき。"
+        - "ユーザーのfast指定を、禁止されるFast service tierではなくstandard service tier＋auto_max throughputとして承認する必要がある。"
+        - "停止runの95 committing itemは再開前transaction recoveryが必須であり、単純な新規run開始で上書きしてよいかはJudge確定が必要。"
+      commands:
+        - "rg -n CLF-C02等 /Users/yuki/.codex/memories/MEMORY.md"
+        - "sed state.yaml、幹マニュアル、workflow.toml"
+        - "rg local_question_review_consoleと関連実装、find AWS paths"
+        - "find manifests/data dirs、00_source集計"
+        - "Python stage件数/run一覧、pgrep、lock探索"
+        - "最新manifest群と旧Goal state読取"
+        - "最新running manifest/plan/questions集計、lsof/ps"
+        - "question state工程集計、lock/speed実装検索"
+        - "jobs/lock実装・qualification_runs該当箇所読取"
+        - "latest result/upload成果物探索"
+        - "work_versionsと現行policy version集計"
+        - "work_versions工程coverageとUI開始/再開表示検索"
+      note_needed: false
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "T001の現行証拠から、問題整備システムだけでCLF-C02全対象を最速収束させるrun scopeと公開前artifact完了条件を確定する。"
     inputs:
@@ -118,47 +160,165 @@ tasks:
       - "stop_if"
       - "run scope、fast設定、再開方式"
       - "artifact sync・upload-ready・dry-runの完了条件"
-    receipt: null
-
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T003のみ次工程として承認する。対象は2 group・879問で、古いPing-t runと95 committingを通常の問題整備システム経路で回収してから再開する必要がある。fast指定はFast service tierではなくstandard＋auto_maxとして扱い、必須工程は省略しない。T004はT003の終端receipt取得後に逐次実行し、両groupのartifact sync、879問を覆うupload-ready、quality gate、dry-run、Firestore writes=0を確認するまで開始不可とする。"
+      evidence:
+        - "T001 receipt: 現行inventoryはkeepitup-aws-clf-c02=332問、ping-t-aws-clf-c02=547問、合計879問。"
+        - "T001 receipt: 最新Ping-t親runはrunning表示だがheartbeat停止、対応process・8765 listener・実メモリlockなし。"
+        - "T001 receipt: 停止runにはpending=1521、committing=95が残り、receiptValidated=false、artifactSync未実行。"
+        - "T001 receipt: 直前のPing-t artifact syncは必須field不足334問でblocked。upload-readyはKeepItUp旧1件だけ。"
+        - "T001 receipt: 現行仕様はFast service tierを禁止し、最速設定をspeedMode=standard、throughputMode=auto_max、最大100問windowと定義。"
+        - "Goal oracle: 全list group・全問題、終端manifest、artifact sync、upload-ready、quality gate、upload dry-run、Firestore非書込、00_source不変、Git push readbackが必要。"
+      next_allowed_task: T003
+      worker_package:
+        objective: "問題整備システムの通常UIだけを使う。まず古いPing-t親runを通常read/recovery経路で回収し、95 committing itemをtransaction recoveryで欠落・重複なくvalidated又は再queueへ確定した後、「未完了を再開」で542問の残作業を収束する。続いて両list groupを「整備が必要な問題だけ」・全update target・speedMode=standard・throughputMode=auto_max・最大100問windowで再previewし、332+547=879問について05、01、02、02a、03、04の必須現行MAJORへ収束させる。Fast service tier、工程省略、直接生成、手編集、Firestore writeは禁止する。"
+        allowed_files:
+          - "output/question_review_console/aws-cloud-practitioner/**"
+          - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+          - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+          - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+        verify:
+          - "UI inventory readbackがkeepitup=332、ping-t=547、合計879である。"
+          - "古い親runが通常recoveryで終端化され、95 committing itemが一意に回収され、欠落・重複・未確定transactionが0である。"
+          - "再開runと資格runの終端manifestがsucceeded、receiptValidated=trueである。回収された旧親runはinterrupted等の正規終端状態でもよい。"
+          - "最終queueがpending=0、queued=0、committing=0、blocked=0、hold=0である。"
+          - "879問すべてで現行MAJORが05=2、01=5、02=4、02a=4、03=10、04=2を満たす。AWSでは02b・03bを要求しない。"
+          - "全runの設定readbackがspeedMode=standard、throughputMode=auto_maxであり、Fast service tier未使用である。"
+          - "操作・生成履歴が問題整備システム経由で、対象外資格の成果物差分がない。"
+          - "Firestore writes=0であり、00_sourceの事前・事後hashとgit diffが不変である。"
+        stop_if:
+          - "古いrunning runを問題整備システムの通常read/recovery経路で安全に回収できず、再起動、manifest手編集又は直接status変更が必要になる。"
+          - "95 committing itemのtransaction recovery結果が一意に説明できない、又は欠落・重複の可能性が残る。"
+          - "UIがFast service tierを要求する、又は必須品質工程を省略する。"
+          - "00_source、merged、convert、upload-readyの手編集又は問題整備システム外の直接生成が必要になる。"
+          - "Firestore write、本番反映操作、コード・設定変更が必要になる。"
+          - "別資格又はrepository operationとのlock競合がある。"
+          - "inventoryが332+547と一致せず、問題整備システム内のreadbackだけで差異を説明できない。"
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "T004はT003の確定成果物を入力とし、同じAWS成果物・console領域へ書くため並列不可。T005とT999も各receiptに依存する。"
+        required_order:
+          - T003
+          - T004
+          - T005
+          - T999
+      blocked_tasks:
+        - "T004: T003の全879問終端receipt、pending/committing/blocked/hold=0、00_source不変、Firestore writes=0まで開始不可。"
+        - "T005: T003・T004完了まで開始不可。"
+        - "T999: T003・T004・T005のreceiptとlive readbackが揃うまで開始不可。"
+      missing_evidence:
+        - "古いrunning runが通常recoveryで正規終端化されたlive readback。"
+        - "95 committing itemの回収内訳と欠落・重複なしの証拠。"
+        - "879問すべての現行MAJOR、終端manifest、receiptValidated=true。"
+        - "両list groupのartifactSync=succeeded。"
+        - "両group・879 unique question IDを過不足なく覆うupload-ready artifactとhash。"
+        - "同一upload-ready hashに対するquality gate成功とupload dry-run成功。"
+        - "Firestore writes=0および00_source事前・事後hash不変。"
+        - "関連差分だけのcommit、origin/main push readback、clean worktree。"
+      required_board_updates:
+        - task_id: T003
+          update: "objective、allowed_files、verify、stop_ifを本receiptのworker_packageで確定する。"
+        - task_id: T004
+          update: "[object Object]"
+        - task_id: T004
+          update: "depends_on: T003を明示し、T003と並列実行しない。"
+        - task_id: T005
+          update: "depends_on: [T003, T004]を明示する。"
+        - task_id: T999
+          update: "depends_on: [T003, T004, T005]を明示する。"
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: blocked
     reasoning_hint: medium
-    objective: "問題整備システムでCLF-C02全対象の未完了・hold・古い工程をfastモード実行し、全問題を検証済み終端状態へ収束させる。"
-    allowed_files: []
-    verify: []
+    objective: "問題整備システムの通常UIだけを使う。まず古いPing-t親runを通常read/recovery経路で回収し、95 committing itemをtransaction recoveryで欠落・重複なくvalidated又は再queueへ確定した後、「未完了を再開」で542問の残作業を収束する。続いて両list groupを「整備が必要な問題だけ」・全update target・speedMode=standard・throughputMode=auto_max・最大100問windowで再previewし、332+547=879問について05、01、02、02a、03、04の必須現行MAJORへ収束させる。Fast service tier、工程省略、直接生成、手編集、Firestore writeは禁止する。"
+    depends_on:
+      - T008
+    allowed_files:
+      - "output/question_review_console/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+    verify:
+      - "UI inventory readbackがkeepitup=332、ping-t=547、合計879である。"
+      - "古い親runが通常recoveryで終端化され、95 committing itemが一意に回収され、欠落・重複・未確定transactionが0である。"
+      - "再開runと資格runの終端manifestがsucceeded、receiptValidated=trueである。回収された旧親runはinterrupted等の正規終端状態でもよい。"
+      - "最終queueがpending=0、queued=0、committing=0、blocked=0、hold=0である。"
+      - "879問すべてで現行MAJORが05=2、01=5、02=4、02a=4、03=10、04=2を満たす。AWSでは02b・03bを要求しない。"
+      - "全runの設定readbackがspeedMode=standard、throughputMode=auto_maxであり、Fast service tier未使用である。"
+      - "操作・生成履歴が問題整備システム経由で、対象外資格の成果物差分がない。"
+      - "Firestore writes=0であり、00_sourceの事前・事後hashとgit diffが不変である。"
     stop_if:
-      - "問題整備システム外の直接生成又はpatch手編集が必要になる。"
-      - "稼働中runをinterruptedにする再起動が必要になる。"
-      - "別資格のlockを破壊する必要がある。"
-      - "Firestore反映操作が必要になる。"
-      - "同じ障害で安全な再開が3回失敗する。"
-    receipt: null
-
+      - "古いrunning runを問題整備システムの通常read/recovery経路で安全に回収できず、再起動、manifest手編集又は直接status変更が必要になる。"
+      - "95 committing itemのtransaction recovery結果が一意に説明できない、又は欠落・重複の可能性が残る。"
+      - "UIがFast service tierを要求する、又は必須品質工程を省略する。"
+      - "00_source、merged、convert、upload-readyの手編集又は問題整備システム外の直接生成が必要になる。"
+      - "Firestore write、本番反映操作、コード・設定変更が必要になる。"
+      - "別資格又はrepository operationとのlock競合がある。"
+      - "inventoryが332+547と一致せず、問題整備システム内のreadbackだけで差異を説明できない。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          status: pass
+        - cmd: "canonical docs・T003契約・通常recovery経路の読取確認"
+          status: pass
+        - cmd: "review-uiプロセス・TCP:8765・recovery sidecar・manifestの読取確認"
+          status: pass
+      summary: "review-ui起動前の安全確認で、対象外資格aws-solutions-architect-associateのrunning recovery sidecar（runId 20260803T034930552603-75bce750）を検出した。現行serverは停止中だが、通常起動はこの対象外runもstartup recoveryし、allowed_files外を変更する可能性がある。stop_ifの「別資格lock競合」およびWorkerのallowed_files制約に該当するため、UI起動・AWS recovery・編集を行わず停止した。AWS旧親run 20260803T054423238863-b4300885にもrecovery sidecarがあることは確認済み。"
+      remaining_blockers:
+        - "対象外資格aws-solutions-architect-associateのrunning recovery sidecarを、当該資格を所有する別taskで正規終端化する必要がある。"
+        - "対象外run解消後、repository-wide recovery/lock競合がないことを再確認してT003を再実行する必要がある。"
+      needs_judge: true
+      verification_attempts: 0
+      stopped_because: "別資格aws-solutions-architect-associateのrunning recoveryが存在し、review-ui起動時にallowed_files外の回収変更が発生し得るため。"
   - id: T004
     type: worker
     assignee: Worker
-    status: queued
+    status: blocked
     reasoning_hint: medium
-    objective: "問題整備システムの確定成果物からartifact sync、upload-ready、quality gate、upload dry-runを収束し、Firestore非書込receiptを残す。"
-    allowed_files: []
-    verify: []
+    objective: "T013で確定した879問の問題整備システム成果物だけを入力に、問題整備システム経由で両groupのartifact syncを成功させ、879 unique question IDを覆うupload-readyを生成する。同一artifact hashへquality gateとupload dry-runを実行し、Firestoreへ書かず公開直前状態へ収束する。"
+    depends_on:
+      - T018
+    allowed_files:
+      - "output/question_review_console/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/**"
+    verify:
+      - "T013 receiptがdoneでpending/queued/preparing/committing/blocked/hold/open transaction/active recovery sidecar=0。"
+      - "両groupのartifactSync=succeeded。"
+      - "upload-readyが両group・879 unique question IDを過不足なく覆い、hashが記録される。"
+      - "記録hashと同一入力に対してquality gateとupload dry-runが成功する。"
+      - "Firestore writes=0、00_source hash不変、対象外資格差分なし。"
     stop_if:
-      - "T003のblocking、hold、pendingが残っている。"
-      - "upload-ready又はmerged/convertの手編集が必要になる。"
-      - "Firestore writeフラグ又は本番確認操作が必要になる。"
-      - "公開版互換の未解決blockingがある。"
-    receipt: null
+      - "T013の未完了状態又は未解決blockingが残る。"
+      - "artifact sync、merged、convert、upload-readyの手編集又は直接生成が必要になる。"
+      - "Firestore write又は本番反映フラグが必要になる。"
+      - "upload-readyの件数、ID一意性、hash、quality gate、dry-runのいずれかが一致しない。"
+    receipt:
+      result: blocked
+      summary: "問題39685の01契約不整合が未解決で、T018未完了のためartifact syncとupload-readyを開始できない。"
+      waiting_for_user_approval: true
+      required_reply: "01プロンプト修正を承認します"
 
   - id: T005
     type: pm
     assignee: PM
-    status: queued
+    status: blocked
     reasoning_hint: medium
     objective: "関連成果物とGoalBuddy receiptsだけを最終検証し、mainへ内容別にコミットしてorigin/mainへpushする。"
+    depends_on:
+      - T018
+      - T004
     inputs:
-      - "T003 receipt"
+      - "T013 receipt"
       - "T004 receipt"
       - "git diff"
     constraints:
@@ -170,14 +330,971 @@ tasks:
       - "commit hashes"
       - "origin/main push readback"
       - "clean worktree"
-    receipt: null
+    receipt:
+      result: blocked
+      summary: "T018とT004が未完了のため、最終commit・pushを開始できない。"
+      waiting_for_user_approval: true
+      required_reply: "01プロンプト修正を承認します"
 
+  - id: T006
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "対象外資格aws-solutions-architect-associateの古いrunning recovery sidecarがCLF-C02の問題整備システム起動を妨げる仕組みをread-onlyで確認し、対象外成果物を変更せずCLFだけを安全に起動・再開できる正規経路、又は必要最小限の独立回収taskを確定する。"
+    inputs:
+      - "T003 blocked receipt"
+      - "問題整備システムのstartup recovery実装とrun sidecar"
+      - "aws-cloud-practitionerとaws-solutions-architect-associateの現行run状態"
+    constraints:
+      - "Read-only。"
+      - "review-uiを起動・再起動しない。"
+      - "run、manifest、sidecar、lockを変更しない。"
+      - "対象外資格の成果物を変更しない。"
+    expected_output:
+      - "SAA recovery sidecarの正確な状態と起動時の変更範囲"
+      - "資格scopeを限定してCLFだけ起動できるか"
+      - "通常経路で必要な最小回収scope"
+      - "次のWorkerまたはJudge package"
+    receipt:
+      result: done
+      summary: "現行review-uiのstartup recoveryは資格指定に関係なく全資格のrecovery.jsonを走査するため、CLF限定起動はできない。SAA旧runは395問、running/queue running、40件の開始済みcanonical transactionを含み、起動時回収はSAA question state・manifest・sidecarに加えcanonical成果物をrollbackし得る。対象外成果物を不変に保つT003では起動不可。JudgeがSAAを所有する独立回収scopeを承認するか、資格限定startup recoveryの実装taskを先行させる必要がある。"
+      evidence:
+        - "review-uiはTCP listener確保とprocess-wide lease取得後、URL用qualification引数を適用する前にapp.run_store.recover_interrupted_runs()を無条件実行する。"
+        - "recover_interrupted_runs()はworkflow_runs/*/*/recovery.jsonをglobし、qualification filterなしで全候補を回収する。"
+        - "--qualificationと--list-group-idは起動後に表示URLのquery parameterを作るだけで、startup recovery範囲を限定しない。"
+        - "SAA sidecarはqualification=aws-solutions-architect-associate、runId=20260803T034930552603-75bce750、kind=orchestration、status=running、updatedAt=2026-08-03T09:55:48+09:00。"
+        - "SAA manifestはquestion-maintenance-run/v2、status=running、queueStatus=running、retrySafe=true、receiptValidated=false、questionStateCount=395。"
+        - "SAA question state実数395件の状態はvalidated=238、queued=94、committing=54、preparing=3、blocked=6。"
+        - "SAAにはcandidateTransactionOpen=trueが40件あり、全件canonicalWriteStarted=true、stageId=explanationである。"
+        - "startup recoveryはopen transactionについてrollback_baselineを実行し、安全確認後にattemptをinterruptedへ更新するため、SAA canonical成果物を復元変更する可能性がある。"
+        - "その後、全SAA question stateを回収更新し、queue summary・phase状態を再構築してmanifestを書き、terminal化に伴いrecovery.jsonを削除する。dashboard_runs.jsonも派生更新され得る。"
+        - "CLFにも別のactive sidecarがあり、runId=20260803T054423238863-b4300885、status/queueStatus=running、questionStateCount=542、retrySafe=trueである。"
+        - "process leaseはrepository単位、runtime run leaseは資格単位だが、startup recovery自体はrepository内の全sidecarを一括処理する。"
+        - "現行worktreeではstate.yamlにPM所有の変更があり、Scoutは変更していない。branchはmain、origin/mainとの差は0/0。"
+      facts:
+        - "現行の正規review-ui起動経路に、startup recoveryをqualification scopeへ限定する引数又は分岐はない。"
+        - "T003のallowed_filesを守り対象外SAA成果物を変更しないまま、CLFだけを起動・回収することは現行実装では不可能である。"
+        - "通常経路での最小独立回収scopeは、SAA旧runのmanifest/recovery/dashboard、395 question states、40 open transactionのbaseline rollback対象、関連attempt/run receiptを所有し、同時にCLF旧runもstartup recoveryされることを明示的に許可するscopeである。"
+        - "対象外成果物変更を一切許可しない場合の代替は、startup recoveryへqualification filterを追加し、既定動作は全資格回収のまま、明示指定時だけCLF sidecarを回収するコード変更と回帰テストを先行することである。"
+        - "次はJudge packageが適切。選択肢AはSAA独立回収を承認し、allowed_filesへSAA run stateと40 transactionのrollback対象を含める。選択肢Bは資格限定startup recovery実装Workerを先行し、その後T003を再開する。"
+      contradictions:
+        - "T003は通常UIだけでCLFを回収する一方、対象外資格成果物の変更を禁じる。しかし通常UI起動はSAA sidecarも必ず回収し、40件のcanonical rollbackを行い得るため両条件を同時に満たせない。"
+        - "資格単位run leaseはruntime競合を分離するが、startup recoveryの対象範囲は分離しない。したがって資格leaseがあることはCLF限定起動の根拠にならない。"
+      ambiguity_requiring_judge:
+        - "SAAの40 open transactionを通常rollbackして対象外成果物を回収する権限を、このGoal内の独立Worker taskへ拡張してよいか。"
+        - "対象外成果物不変を優先する場合、資格限定startup recoveryのコード変更を本Goalの必要最小限の前提taskとして承認するか。"
+        - "SAA独立回収を選ぶ場合、review-ui一回の起動でSAAとCLFの両sidecarが同時回収されるため、単一Workerに両資格の回収領域を所有させるか。"
+      commands:
+        - "pwd; MEMORY.md関連語検索"
+        - "state.yaml・goal.md・幹マニュアル読取"
+        - "T006契約とrecovery関連実装検索"
+        - "server startup・QualificationRunStore回収実装読取"
+        - "回収処理・sidecar一覧読取"
+        - "sidecar/manifestの誤った広範jq読取（出力過多、変更なし）"
+        - "SAA/CLF sidecar・manifestの限定jq読取"
+        - "question recovery・CLI qualification・lease実装読取"
+        - "SAA question state集計・process lease確認"
+        - "SAA open transaction集計・git readback"
+      note_needed: false
+  - id: T007
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T006の証拠を基に、問題整備システムの標準startup recoveryでSAAとCLFの古いrunを一括して安全回収するtaskを承認するか、資格限定recoveryのコード変更を前提にするかを決定する。"
+    inputs:
+      - "T003 blocked receipt"
+      - "T006 receipt"
+      - "goal oracleと元のCLF scope"
+    constraints:
+      - "Do not implement。"
+      - "SAAの問題内容を再整備しない。"
+      - "通常recovery以外のmanifest・sidecar手編集を承認しない。"
+      - "Firestore writeを含めない。"
+      - "必要最小限のscopeを選ぶ。"
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "T003再開条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "標準startup recoveryによるSAA・CLF一括回収を承認する。SAAの変更は新規整備ではなく、開始済み40 transactionを記録済みbaselineへ戻して原子性を回復する保全操作である。資格限定コード変更は全資格回収という安全設計を変え、元goalのstop_ifにも該当するため、より大きく危険なscopeとなる。専用T008では起動前にactive sidecarが当該2件だけと確認し、startup recovery以外の操作を禁止する。回収証拠が揃うまでT003は再開しない。"
+      evidence:
+        - "T003 receipt: 通常UI起動がallowed_files外のSAA回収を発生させ得るため、起動・編集なしで停止した。"
+        - "T006 receipt: startup recoveryはqualification filterなしで全recovery.jsonを走査し、CLF限定起動経路は存在しない。"
+        - "T006 receipt: SAA旧runは395 states、40 open canonical transactionsを持ち、全40件でcanonicalWriteStarted=true、stageId=explanationである。"
+        - "T006 receipt: 通常recoveryはopen transactionをbaseline rollback後にinterrupted化し、question state・manifest・sidecar・dashboardを正規更新する。"
+        - "T006 receipt: CLFにもrunId 20260803T054423238863-b4300885のactive sidecarがあり、一回の標準起動で両資格が回収対象になる。"
+        - "Goal oracle: 問題整備システム経由、Firestore writes=0、00_source不変、終端manifestと検証済みreceiptが必要である。"
+      next_allowed_task: T008
+      worker_package:
+        objective: "問題整備システムの標準review-uiを一度だけ起動し、startup recoveryだけでSAA旧run 20260803T034930552603-75bce750とCLF旧run 20260803T054423238863-b4300885を一括回収する。起動前にactive recovery sidecarがこの2件だけであることをread-only確認する。SAAでは395 question statesを再整備せず、40 open canonical transactionsを記録済みbaselineへrollbackしてinterrupted化する。CLFも同じ通常transaction recoveryへ委ねる。整備開始・未完了再開・artifact sync・upload・manifest/sidecar手編集・コード変更・Firestore writeは行わない。startup recovery完了後にlive readbackと差分を記録して終了する。"
+        allowed_files:
+          - output/question_review_console/dashboard_runs.json
+          - "output/question_review_console/aws-solutions-architect-associate/**"
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/aws-solutions-architect-associate/questions_json/**/{10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+          - "output/question_review_console/aws-cloud-practitioner/**"
+          - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+          - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+          - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+        verify:
+          - "起動直前のactive recovery sidecar集合がSAA runId 20260803T034930552603-75bce750とCLF runId 20260803T054423238863-b4300885の2件だけである。"
+          - "既存review-ui process、TCP:8765 listener、repository process lease、別operationが存在しない。"
+          - "startup recovery後、両旧runがinterrupted等の正規終端状態となり、対応recovery sidecarが通常経路で除去されている。"
+          - "SAAの395 question statesが全件accounted-forで、40 open transactionsが0になり、各transactionのrollback先・baseline hash・attempt interrupted化が一意に対応する。"
+          - "SAAでは新規run、再queue実行、prompt処理、問題内容の再整備が0件であり、canonical差分は40 transactionの記録済みbaseline復元に限定される。"
+          - "CLF旧runの全542 question statesがaccounted-forで、open transaction、committing、未確定transactionが0になり、欠落・重複がない。"
+          - "CLF inventoryがkeepitup=332、ping-t=547、合計879のままである。"
+          - "問題整備開始、未完了再開、artifact sync、upload-ready生成、quality処理、本番反映を実行していない。"
+          - "コード・設定・00_sourceに差分がなく、Firestore writes=0である。"
+          - "変更ファイルがallowed_files内かつ標準startup recoveryのreceiptで説明できる。"
+        stop_if:
+          - "起動前のactive recovery sidecar集合が指定したSAA・CLFの2件と一致しない。"
+          - "既存process、listener、repository lease、又は別operationとの競合がある。"
+          - "SAAの40 transactions又はCLFのtransactionについてbaseline欠落、hash不一致、rollback先不明、欠落・重複の可能性がある。"
+          - "startup recoveryが00_source、Firestore、allowed_files外、又は記録済みbaseline以外への書込みを要求する。"
+          - "SAAの新規整備、再queue実行、prompt処理、又は問題内容の再生成が必要になる。"
+          - "manifest・sidecarの手編集、直接status変更、資格限定recoveryを含むコード・設定変更が必要になる。"
+          - "標準startup recoveryだけでは両runを正規終端化できない。"
+          - "CLF inventoryが332+547と一致しない。"
+        t003_resume_conditions:
+          - "T008 receiptがdoneである。"
+          - "SAA・CLFの指定2 sidecarが通常recoveryで解消され、両旧runの終端状態をlive readbackできる。"
+          - "SAA 40件およびCLF全件のopen transactionが0で、baseline rollbackとattempt状態を一意に説明できる。"
+          - "active recovery sidecar、repository lease、別資格operationが残っていない。"
+          - "SAAにbaseline復元以外の再整備差分がなく、コード・設定・00_source差分がなく、Firestore writes=0である。"
+          - "上記確認後、T003を元のCLF限定worker_packageのままqueuedへ戻す。"
+      parallel_safety:
+        safe: false
+        reason: "startup recoveryはrepository内の全sidecarを一括走査し、repository process leaseと両資格のrun state・canonical transactionへ触れる。T008中はT003、他資格run、review-ui操作を並列実行できない。"
+        required_order:
+          - T008
+          - T003
+          - T004
+          - T005
+          - T999
+      blocked_tasks:
+        - "T003: T008の通常startup recovery完了と全再開条件の確認までblocked。"
+        - "T004: T003 doneまで開始不可。"
+        - "T005: T003・T004 doneまで開始不可。"
+        - "T999: T003・T004・T005のreceiptとlive readbackが揃うまで開始不可。"
+      missing_evidence:
+        - "起動直前にactive sidecarが指定2件だけであるlive readback。"
+        - "SAA 40 open transactionsのbaseline path・hash・rollback結果・interrupted attempt対応表。"
+        - "CLF旧runのtransaction recovery内訳と欠落・重複なしの証拠。"
+        - "両旧runの正規終端manifest、sidecar解消、open transaction=0のreadback。"
+        - "SAAの新規整備0件とbaseline復元以外のcanonical差分0件。"
+        - "コード・設定・00_source不変およびFirestore writes=0。"
+      required_board_updates:
+        - task_id: T007
+          update: "本receiptを保存してdoneへ更新する。"
+        - task_id: T008
+          update: "T007直後の単一Worker taskとして追加し、本receiptのobjective、allowed_files、verify、stop_ifをそのまま設定する。"
+        - task_id: T003
+          update: "depends_onへT008を追加し、T008 doneとt003_resume_conditions充足までblockedを維持する。既存blocked receiptと元worker_packageは保持する。"
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "問題整備システムの標準review-uiを一度だけ起動し、通常のrepository process leaseをoutput/question_review_console/.review-ui.lockで取得した上で、startup recoveryだけによりSAA旧run 20260803T034930552603-75bce750とCLF旧run 20260803T054423238863-b4300885を一括回収する。SAAでは395 question statesを再整備せず、40 open canonical transactionsを記録済みbaselineへrollbackしてinterrupted化する。CLFの542 states・95 open transactionsも同じ通常recoveryへ委ねる。整備開始、未完了再開、artifact sync、upload、manifest・sidecar・lock手編集、コード変更、Firestore writeは禁止する。回収後にlive readbackと差分を記録してreview-uiを正常終了する。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/dashboard_runs.json"
+      - "output/question_review_console/aws-solutions-architect-associate/**"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/aws-solutions-architect-associate/questions_json/**/{10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+      - "output/question_review_console/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+    verify:
+      - "起動直前のactive recovery sidecar集合が指定したSAA・CLFの2件だけで、process、TCP:8765 listener、別operationが存在しない。"
+      - ".review-ui.lockが標準review-ui自身によって取得・更新され、手編集、削除、強制解除を行っていない。"
+      - "startup recovery後、両旧runがinterrupted等の正規終端状態となり、対応recovery sidecarが通常経路で除去されている。"
+      - "SAAの395 question statesが全件accounted-forで、40 open transactionsが0になり、各transactionのrollback先・baseline hash・attempt interrupted化が一意に対応する。"
+      - "SAAでは新規run、再queue実行、prompt処理、問題内容の再整備が0件であり、canonical差分は40 transactionの記録済みbaseline復元に限定される。"
+      - "CLFの542 statesが全件accounted-forで、95 open transactions、committing、未確定transactionが0となり、欠落・重複がない。"
+      - "CLF inventoryがkeepitup=332、ping-t=547、合計879のままである。"
+      - "review-ui正常終了後、live process・listener・有効なrepository leaseが残らず、leaseが再取得可能である。"
+      - "問題整備開始、未完了再開、artifact sync、upload-ready生成、quality処理、本番反映を実行していない。"
+      - "コード・設定・00_sourceに差分がなく、Firestore writes=0である。"
+      - "変更ファイルがT008の従来allowed_filesと追加した.review-ui.lockだけで、すべて標準startup recovery receiptにより説明できる。"
+    stop_if:
+      - "起動前のactive recovery sidecar集合が指定したSAA・CLFの2件と一致しない。"
+      - "既存process、listener、repository lease、又は別operationとの競合がある。"
+      - ".review-ui.lockの手編集、削除、強制解除、又は標準lease処理以外の更新が必要になる。"
+      - "SAA 40件又はCLF 95件のbaseline、hash、backup、rollback先に欠落・不一致・重複可能性が生じる。"
+      - "startup recoveryが新たに追加した.review-ui.lock以外の従来allowed_files外へ書き込む。"
+      - "SAAの新規整備、再queue実行、prompt処理、又は問題内容の再生成が必要になる。"
+      - "manifest・sidecarの手編集、直接status変更、コード・設定変更が必要になる。"
+      - "00_source又はFirestoreへの書込みが必要になる。"
+      - "標準startup recoveryだけでは両runを正規終端化できない。"
+      - "CLF inventoryが332+547と一致しない。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json
+      commands:
+        - cmd: "起動前sidecar・process・listener・lease・SAA40/CLF95 transaction baseline/hash/backup・inventory確認"
+          status: pass
+        - cmd: ".venv/bin/python tools/question_bank/question_bank.py review-ui"
+          status: pass
+        - cmd: "両run終端・sidecar除去・SAA395/40 rollback・CLF542/95 rollback・open/committing=0のlive readback"
+          status: pass
+        - cmd: "allowed_files外差分監査"
+          status: fail
+        - cmd: "review-ui正常終了・process/listener消滅・lease再取得可能確認"
+          status: pass
+      summary: "startup recovery自体は完了。SAAはinterrupted/partial、395 states、40 rollbackが問・attempt・baseline hash単位で一意、open/committing=0。CLFはinterrupted/interrupted、542 states、95 rollbackが一意、open/committing=0。sidecarは全除去され、serverも正常終了した。ただし標準起動が自動表示したブラウザのGETにより、対象外gas-shunin-otsuの派生workflow cacheが17:58:45に再保存された。allowed_files外書込みのstop_ifに該当するためblocked。手編集・巻戻しはしていない。"
+      remaining_blockers:
+        - "allowed_files外のoutput/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json再保存をJudgeが審査する必要がある。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "標準review-uiの自動ブラウザ読込が対象外資格の派生cacheをallowed_files外へ再保存したため。"
+  - id: T009
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T008の起動前検証を審査し、標準review-uiが必須更新するrepository process lease file `output/question_review_console/.review-ui.lock`だけを回収Workerのallowed_filesへ追加して再実行してよいか決定する。"
+    inputs:
+      - "T007 receipt"
+      - "T008 blocked receipt"
+      - "process lease実装と起動前readback"
+    constraints:
+      - "Do not implement。"
+      - "lease file以外へscopeを広げない。"
+      - "startup recovery以外の操作を承認しない。"
+      - "Firestore writeを含めない。"
+    expected_output:
+      - "Decision"
+      - "Exact retry Worker package"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T008の再実行を承認する。`.review-ui.lock`は標準review-uiがrepository単位の排他制御に必須利用する一時的process leaseであり、startup recoveryの安全境界そのものである。起動前検証では対象sidecarがSAA・CLFの2件だけ、process・listenerなし、SAA 40件・CLF 95件のbaseline/hash/backup整合まで確認済みである。allowed_filesへの追加はこの1ファイルだけに限定し、手編集・強制解除は禁止する。他のT008契約は変更しない。"
+      evidence:
+        - "T008 receipt: active recovery sidecarはSAA runId 20260803T034930552603-75bce750とCLF runId 20260803T054423238863-b4300885の2件だけだった。"
+        - "T008 receipt: review-ui processとTCP:8765 listenerは存在せず、対象leaseは取得可能だった。"
+        - "T008 receipt: SAA 395 states・40 open transactionsとCLF 542 states・95 open transactionsのbaseline/hash/backup整合が確認された。"
+        - "T008 receipt: 標準review-uiは起動時にoutput/question_review_console/.review-ui.lockを必ずtruncate・更新するため、allowed_files外として起動前に安全停止した。"
+        - "T008 receipt: changed_filesは空で、state.yamlを含む変更、startup recovery、Firestore writeは実行されていない。"
+        - "T007 receipt: 標準startup recoveryによるSAA・CLF一括回収だけが承認済みで、整備開始・再開・手編集・コード変更は禁止されている。"
+      next_allowed_task: T008
+      worker_package:
+        objective: "問題整備システムの標準review-uiを一度だけ起動し、通常のrepository process leaseをoutput/question_review_console/.review-ui.lockで取得した上で、startup recoveryだけによりSAA旧run 20260803T034930552603-75bce750とCLF旧run 20260803T054423238863-b4300885を一括回収する。SAAでは395 question statesを再整備せず、40 open canonical transactionsを記録済みbaselineへrollbackしてinterrupted化する。CLFの542 states・95 open transactionsも同じ通常recoveryへ委ねる。整備開始、未完了再開、artifact sync、upload、manifest・sidecar・lock手編集、コード変更、Firestore writeは禁止する。回収後にlive readbackと差分を記録してreview-uiを正常終了する。"
+        allowed_files:
+          - output/question_review_console/.review-ui.lock
+          - output/question_review_console/dashboard_runs.json
+          - "output/question_review_console/aws-solutions-architect-associate/**"
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/aws-solutions-architect-associate/questions_json/**/{10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+          - "output/question_review_console/aws-cloud-practitioner/**"
+          - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+          - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+          - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,12_merged_questionType,15_correctChoiceText_fixed,20_merged_1,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,30_merged_2,40_convert}/**"
+        verify:
+          - "起動直前のactive recovery sidecar集合が指定したSAA・CLFの2件だけで、process、TCP:8765 listener、別operationが存在しない。"
+          - ".review-ui.lockが標準review-ui自身によって取得・更新され、手編集、削除、強制解除を行っていない。"
+          - "startup recovery後、両旧runがinterrupted等の正規終端状態となり、対応recovery sidecarが通常経路で解消されている。"
+          - "SAAの395 statesが全件accounted-forで、40 open transactionsが0となり、各baseline hash、backup、rollback結果、interrupted attemptが一意に対応する。"
+          - "SAAでは新規run、再queue実行、prompt処理、問題内容の再整備が0件で、canonical差分が40 transactionの記録済みbaseline復元に限定される。"
+          - "CLFの542 statesが全件accounted-forで、95 open transactions、committing、未確定transactionが0となり、欠落・重複がない。"
+          - "CLF inventoryがkeepitup=332、ping-t=547、合計879のままである。"
+          - "review-ui正常終了後、live process・listener・有効なrepository leaseが残らず、leaseが再取得可能である。"
+          - "問題整備開始、未完了再開、artifact sync、upload-ready生成、quality処理、本番反映を実行していない。"
+          - "コード・設定・00_sourceに差分がなく、Firestore writes=0である。"
+          - "変更ファイルがT008の従来allowed_filesと追加した.review-ui.lockだけで、すべて標準startup recovery receiptにより説明できる。"
+        stop_if:
+          - "起動前のactive recovery sidecar集合が指定したSAA・CLFの2件と一致しない。"
+          - "既存process、listener、有効なrepository lease、又は別operationとの競合がある。"
+          - ".review-ui.lockの手編集、削除、強制解除、又は標準lease処理以外の更新が必要になる。"
+          - "SAA 40件又はCLF 95件のbaseline、hash、backup、rollback先に欠落・不一致・重複可能性が生じる。"
+          - "startup recoveryが新たに追加した.review-ui.lock以外の従来allowed_files外へ書き込む。"
+          - "SAAの新規整備、再queue実行、prompt処理、又は問題内容の再生成が必要になる。"
+          - "manifest・sidecarの手編集、直接status変更、コード・設定変更が必要になる。"
+          - "00_source又はFirestoreへの書込みが必要になる。"
+          - "標準startup recoveryだけでは両runを正規終端化できない。"
+          - "CLF inventoryが332+547と一致しない。"
+      parallel_safety:
+        safe: false
+        reason: "T008はrepository process leaseを取得し、全sidecarを走査してSAA・CLF双方のrun stateとcanonical transactionを回収する。完了までreview-ui、T003、別資格run、repository operationとの並列実行は安全でない。"
+        required_order:
+          - T008
+          - T003
+          - T004
+          - T005
+          - T999
+      blocked_tasks:
+        - "T003: T008がdoneとなり、両sidecar解消、open transaction=0、有効leaseなしを確認するまでblocked。"
+        - "T004: T003 doneまで開始不可。"
+        - "T005: T003・T004 doneまで開始不可。"
+        - "T999: T003・T004・T005のreceiptとlive readbackが揃うまで開始不可。"
+      missing_evidence:
+        - "標準review-uiによる.review-ui.lock取得・解放又は再取得可能性のreadback。"
+        - "両旧runの正規終端manifestとrecovery sidecar解消。"
+        - "SAA 40件とCLF 95件のbaseline rollback・attempt interrupted対応表。"
+        - "SAAの新規整備0件とbaseline復元以外のcanonical差分0件。"
+        - "コード・設定・00_source不変およびFirestore writes=0。"
+      required_board_updates:
+        - task_id: T009
+          update: "本receiptを保存してdoneへ更新する。"
+        - task_id: T008
+          update: "allowed_filesへoutput/question_review_console/.review-ui.lockだけを追加し、本receiptのretry Worker packageでqueuedへ戻す。従来のscopeと禁止事項は緩和しない。"
+        - task_id: T003
+          update: "T008 doneと回収後live readbackが揃うまでblockedを維持する。"
+  - id: T010
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T008のstartup recovery成果とallowed_files外のgas-shunin-otsu派生workflow cache再保存を監査し、回収成果を受理してCLF整備再開へ進めるか、追加修復が必要かを決定する。"
+    inputs:
+      - "T007・T009 receipts"
+      - "T008 blocked receipt"
+      - "actual git diffとcache生成責務"
+    constraints:
+      - "Do not implement。"
+      - "問題データのscope違反と派生cache再保存を区別する。"
+      - "不要な巻戻しを承認しない。"
+      - "Firestore writeを含めない。"
+    expected_output:
+      - "Decision"
+      - "startup recovery受理可否"
+      - "cache差分の扱い"
+      - "CLF再開Worker package"
+      - "verifyとstop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T008のstartup recovery成果を受理し、T003再開を承認する。scope外の1件は問題・patch・manifestではなく、ブラウザGETが正本からatomic再生成した表示専用cacheである。Git管理外かつ再生成可能で、回収結果や問題内容の正本性を変えないため、巻戻し・削除は不要である。SAA395/40とCLF542/95は一意にrollbackされ、open/committing=0、sidecar全除去、server正常終了まで確認済みである。T003ではSAAへ触れず、CLFだけを通常UIから再開する。"
+      evidence:
+        - "T008 receipt: SAA旧runはinterrupted/partial、395 states、40 transactionsが問・attempt・baseline hash単位で一意にrollbackされ、open/committing=0となった。"
+        - "T008 receipt: CLF旧runはinterrupted/interrupted、542 states、95 transactionsが一意にrollbackされ、open/committing=0となった。"
+        - "T008 receipt: active recovery sidecarは全除去され、review-uiは正常終了し、process・listener・有効leaseが残っていない。"
+        - "実git status/diff: tracked差分はPM所有のdocs/goals/aws-clf-two-source-upload-ready/state.yamlだけで、問題データ又はcacheのtracked差分はない。"
+        - "git ls-files/check-ignore: gas-shunin-otsu.jsonはGit管理外で、.gitignoreのoutput/規則により無視される。"
+        - "cache実体: schemaVersion=question-workflow-overview-cache/v1、qualification=gas-shunin-otsu、refreshedAtとoverview.generatedAtは2026-08-09T17:58:45+09:00で一致する。"
+        - "document/operations/local_question_review_console.md: workflow_overviewsは表示専用の派生read modelで、問題、patch、run manifest、工程バージョンの正本ではなく、欠損時は正本から再構築される。"
+        - "workflow_overview_cache.py: GETで取得したoverviewを検証後、atomic_writeでcacheへ保存し、保存失敗も整備処理を失敗させない責務である。"
+      next_allowed_task: T003
+      worker_package:
+        objective: "問題整備システムの通常UIだけを使う。起動前にactive recovery sidecar、review-ui process、TCP:8765 listener、有効repository lease、別operationがないことを確認する。Ping-tのinterrupted旧run 20260803T054423238863-b4300885について「未完了を再開」を実行し、542問の残作業を現行workflowで収束する。続いてkeepitup-aws-clf-c02とping-t-aws-clf-c02を「整備が必要な問題だけ」・全update target・speedMode=standard・throughputMode=auto_max・最大100問windowで再previewし、332+547=879問を05、01、02、02a、03、04の現行MAJORへ収束させる。SAA再整備、Fast service tier、工程省略、直接生成、手編集、artifact sync、upload-ready生成、Firestore writeは禁止する。"
+        allowed_files:
+          - output/question_review_console/.review-ui.lock
+          - output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json
+          - output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json
+          - "output/question_review_console/aws-cloud-practitioner/**"
+          - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+          - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+          - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+        verify:
+          - "起動前にactive recovery sidecar=0、review-ui process=0、TCP:8765 listener=0、有効repository lease=0、別operation=0である。"
+          - "SAA旧runは回収済み状態を維持し、SAAのquestion state、canonical問題データ、manifest、sidecarに新たな差分がない。"
+          - "再開対象がCLF Ping-t旧run 20260803T054423238863-b4300885の未完了542問だけで、resumedFromが一意に記録される。"
+          - "UI inventory readbackがkeepitup=332、ping-t=547、合計879である。"
+          - "再開runと後続資格runの終端manifestがsucceeded、receiptValidated=trueである。"
+          - "最終queueがpending=0、queued=0、preparing=0、committing=0、blocked=0、hold=0で、open transaction=0である。"
+          - "879問すべてで現行MAJORが05=2、01=5、02=4、02a=4、03=10、04=2を満たす。AWSでは02b・03bを要求しない。"
+          - "全runの設定readbackがspeedMode=standard、throughputMode=auto_maxで、Fast service tier未使用である。"
+          - "gas-shunin-otsu.jsonに再保存があっても、正規schema、qualification一致、GET由来の派生cache更新だけであり、gas-shuninの問題、patch、manifestには差分がない。"
+          - "問題整備開始・再開以外にartifact sync、upload-ready生成、upload、Firestore反映を実行していない。"
+          - "00_sourceの事前・事後hashとgit diffが不変で、Firestore writes=0である。"
+          - "review-ui正常終了後、process、listener、有効leaseが残らない。"
+        stop_if:
+          - "active recovery sidecar、有効lease、別資格run、又はrepository operationが存在する。"
+          - "SAAのquestion state、canonical問題データ、manifest、sidecarへ新たな変更が必要又は発生する。"
+          - "再開対象が指定CLF旧runの未完了542問に限定されない。"
+          - "CLFのopen transaction、欠落、重複、未確定rollbackが再検出される。"
+          - "inventoryがkeepitup=332、ping-t=547と一致しない。"
+          - "UIがFast service tier又は必須品質工程の省略を要求する。"
+          - "00_source、merged、convert、upload-readyの手編集又は問題整備システム外の直接生成が必要になる。"
+          - "Firestore write、本番反映、コード・設定変更が必要になる。"
+          - "gas-shunin-otsu.json以外の対象外資格cache、又は対象外資格の問題・patch・run成果物へ差分が発生する。"
+          - "gas-shunin-otsu.jsonが正規schema・qualification一致の派生cache再保存では説明できない。"
+          - "allowed_files外の変更が発生する。"
+        cache_treatment:
+          - "既存gas-shunin-otsu.jsonは巻き戻し、削除、手編集、stage、commitしない。"
+          - "同ファイルは問題整備の証拠、正本、完了判定へ使用しない。"
+          - "通常UIのGETによる同内容の派生再保存だけを許容し、それ以外のgas-shunin差分は停止する。"
+      parallel_safety:
+        safe: false
+        reason: "T003はrepository process leaseを取得し、CLFの同一run stateとcanonical成果物へ継続書込みする。完了まで別review-ui、別資格run、T004を並列実行できない。"
+        required_order:
+          - T003
+          - T004
+          - T005
+          - T999
+      blocked_tasks:
+        - "T004: T003の終端receipt、queue/open transaction=0、00_source不変、Firestore writes=0まで開始不可。"
+        - "T005: T003・T004 doneまで開始不可。"
+        - "T999: T003・T004・T005のreceiptとlive readbackが揃うまで開始不可。"
+      missing_evidence:
+        - "CLF Ping-t旧runからの通常UI再開run IDとresumedFrom readback。"
+        - "CLF全879問の現行MAJOR収束と最終queue/open transaction=0。"
+        - "T003終端manifestのsucceeded・receiptValidated=true。"
+        - "T003中のSAA不変、00_source不変、Firestore writes=0。"
+        - "両list groupのartifact sync、879 unique ID upload-ready、quality gate、upload dry-run。"
+        - "関連差分だけのcommit、origin/main push readback、clean worktree。"
+      required_board_updates:
+        - task_id: T008
+          update: "startup recovery成果を受理してdoneへ更新する。gas-shunin-otsu.jsonは表示専用派生cacheのGET再保存として記録し、巻戻し又は修復taskを追加しない。"
+        - task_id: T010
+          update: "本receiptを保存してdoneへ更新する。"
+        - task_id: T003
+          update: "blockedを解除してqueuedへ戻し、本receiptのCLF再開Worker packageへobjective、allowed_files、verify、stop_ifを更新する。"
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "問題整備システムの通常UIだけを使う。起動前にactive recovery sidecar、review-ui process、TCP:8765 listener、有効repository lease、別operationがないことを確認する。Ping-tのinterrupted旧run 20260803T054423238863-b4300885について「未完了を再開」を実行し、542問の残作業を現行workflowで収束する。続いてkeepitup-aws-clf-c02とping-t-aws-clf-c02を「整備が必要な問題だけ」・全update target・speedMode=standard・throughputMode=auto_max・最大100問windowで再previewし、332+547=879問を05、01、02、02a、03、04の現行MAJORへ収束させる。SAA再整備、Fast service tier、工程省略、直接生成、手編集、artifact sync、upload-ready生成、Firestore writeは禁止する。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json"
+      - "output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json"
+      - "output/question_review_console/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+    verify:
+      - "起動前にactive recovery sidecar=0、review-ui process=0、TCP:8765 listener=0、有効repository lease=0、別operation=0である。"
+      - "SAA旧runは回収済み状態を維持し、SAAのquestion state、canonical問題データ、manifest、sidecarに新たな差分がない。"
+      - "再開対象がCLF Ping-t旧run 20260803T054423238863-b4300885の未完了542問だけで、resumedFromが一意に記録される。"
+      - "UI inventory readbackがkeepitup=332、ping-t=547、合計879である。"
+      - "再開runと後続資格runの終端manifestがsucceeded、receiptValidated=trueである。"
+      - "最終queueがpending=0、queued=0、preparing=0、committing=0、blocked=0、hold=0で、open transaction=0である。"
+      - "879問すべてで現行MAJORが05=2、01=5、02=4、02a=4、03=10、04=2を満たす。AWSでは02b・03bを要求しない。"
+      - "全runの設定readbackがspeedMode=standard、throughputMode=auto_maxで、Fast service tier未使用である。"
+      - "gas-shunin-otsu.jsonに再保存があっても、正規schema、qualification一致、GET由来の派生cache更新だけであり、gas-shuninの問題、patch、manifestには差分がない。"
+      - "問題整備開始・再開以外にartifact sync、upload-ready生成、upload、Firestore反映を実行していない。"
+      - "00_sourceの事前・事後hashとgit diffが不変で、Firestore writes=0である。"
+      - "review-ui正常終了後、process、listener、有効leaseが残らない。"
+    stop_if:
+      - "active recovery sidecar、有効lease、別資格run、又はrepository operationが存在する。"
+      - "SAAのquestion state、canonical問題データ、manifest、sidecarへ新たな変更が必要又は発生する。"
+      - "再開対象が指定CLF旧runの未完了542問に限定されない。"
+      - "CLFのopen transaction、欠落、重複、未確定rollbackが再検出される。"
+      - "inventoryがkeepitup=332、ping-t=547と一致しない。"
+      - "UIがFast service tier又は必須品質工程の省略を要求する。"
+      - "00_source、merged、convert、upload-readyの手編集又は問題整備システム外の直接生成が必要になる。"
+      - "Firestore write、本番反映、コード・設定変更が必要になる。"
+      - "gas-shunin-otsu.json以外の対象外資格cache、又は対象外資格の問題・patch・run成果物へ差分が発生する。"
+      - "gas-shunin-otsu.jsonが正規schema・qualification一致の派生cache再保存では説明できない。"
+      - "allowed_files外の変更が発生する。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json
+        - output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json
+        - output/question_review_console/aws-cloud-practitioner/
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260809T181048580324-c5cc55b0/
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/
+      commands:
+        - cmd: "問題整備システム通常UIで旧run 20260803T054423238863-b4300885の「未完了を再開」"
+          status: pass
+        - cmd: "run manifest・question state・validationAttempts readback"
+          status: pass
+        - cmd: "review-ui Ctrl-C通常停止とprocess/listener/lock readback"
+          status: fail
+        - cmd: "git diff --quiet -- '**/00_source/**'"
+          status: pass
+        - cmd: "git diff --quiet -- tools config"
+          status: pass
+      summary: "run 20260809T181048580324-c5cc55b0はresumedFromを記録し、950/1260 work items・220/337問まで検証。Firestore writes=0、00_source・SAA不変。5問12工程が3回再試行後blocked。03ff673…:03 Snowball、824848…:03 Organizations、9ef440…:03 EFS分類は05・02a修正必須。52b376…/15bfa5…:02aはflash_card正答2件。停止時に4017 accepted eventsが未drainでexit 1となり、manifest/recovery sidecarはrunning、receiptValidated=falseのまま。"
+      remaining_blockers:
+        - "03ff67348d23d05ecd192f5e: explanationと後続question_set。05で利用条件・時点を明示し、02aで正答を再確認する必要がある。"
+        - "824848b48946e119b15e1138: explanationと後続question_set。05でOrganizations対象範囲を明示し、02aで正答を再確認する必要がある。"
+        - "9ef440cd72ed49c8cbe2adc9: explanationと後続question_set。05でOne Zone/EFS Standardの問題文・選択肢を修正し、02aで正答を再確認する必要がある。"
+        - "52b376dcb5f52f02e4f89c24: correct_choiceと後続工程。flash_cardの正答2件をquestionType・questionIntent・correctChoiceTextから再確認する必要がある。"
+        - "15bfa5c1dfc23ee04665ac80: correct_choiceと後続工程。flash_cardの正答2件をquestionType・questionIntent・correctChoiceTextから再確認する必要がある。"
+        - "review-ui終了時にmonitor disk persistenceが4017 accepted eventsを期限内に保存できずexit 1。process/listener/lockは消失したが、manifestとrecovery.jsonがrunningで残存。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "5問12工程が標準3回再試行後もblockedとなり上流05・02aの内容修正が必要になった。さらに終了時timeoutでactive recovery sidecarが残存し、stop_ifに該当した。"
+  - id: T012
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T011の5問12工程blockedと停止時monitor persistence timeoutを監査し、問題整備システム経由で安全に回収・上流修正・再開する最小Worker packageを確定する。"
+    depends_on:
+      - T011
+    inputs:
+      - "T011 receipt"
+      - "run 20260809T181048580324-c5cc55b0 manifest・recovery sidecar・question states・validation attempts"
+      - "5問の05・01・02・02a・03・04成果物と正本workflow"
+    constraints:
+      - "Do not implement。"
+      - "問題整備システムを迂回する手編集・直接生成を承認しない。"
+      - "00_source、SAA、Firestoreを変更しない。"
+      - "監視ログのtimeoutを問題内容の成功として扱わない。"
+    expected_output:
+      - "Decision"
+      - "recovery sidecarの安全な回収方式"
+      - "5問の上流修正工程と再開範囲"
+      - "allowed_files、verify、stop_if"
+      - "T004へ進めるための完了条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "通常startup recoveryと問題内容の再整備を分離して逐次実行すれば、安全に続行できる。現行sidecarはCLFの1件だけで、11 committing問は確定receipt済み・transaction閉鎖済みのため、標準回収でvalidatedへ昇格可能である。5問は同じ入力で再試行せず、3問を05、2問を01へ戻して各fieldを独立判定し、後続だけを再計画する。コード変更、手編集、直接生成、Firestore write、00_source・SAA変更は不要かつ不承認とする。"
+      evidence:
+        - "T011 receipt: run 20260809T181048580324-c5cc55b0はresumedFrom=20260803T054423238863-b4300885、Firestore writes=0、00_source・SAA不変で停止した。"
+        - "manifest/question_summary: status=running、queueStatus=running、receiptValidated=false、337問・1260工程中validated=950、blocked=5問12工程、pending=298、committing=11。"
+        - "11 committing問はすべてattempt.status=succeeded、receiptValidated=true、candidateTransactionOpen=false、rollback.deltaUnknown=false、remainingChangedFiles=0であり、未確定canonical transactionではなく親state反映待ちである。"
+        - "現時点のactive recovery sidecarはoutput/question_review_console/workflow_runs/aws-cloud-practitioner/20260809T181048580324-c5cc55b0/recovery.jsonだけで、review-ui process、TCP:8765 listener、有効repository leaseはない。"
+        - "document/operations/local_question_review_console.mdとserver.pyは、listenerとrepository lease取得後、recovery.jsonに記録されたrunだけをstartup recoveryする。qualification_runs.pyはcurrent question stateの確定attemptをvalidatedへ昇格し、未完了だけを再queue可能なinterrupted状態へ移す。"
+        - "document/operations/batch_artifact_monitor.mdはmonitor persistence failureを観測欠落としてworkflowへ伝播させない。一方、accepted eventのdisk durability timeoutを成功扱いすることも禁止している。欠落monitor eventを推測復元せず、run artifactを正本として回収する。"
+        - "03ff67348d23d05ecd192f5e、824848b48946e119b15e1138、9ef440cd72ed49c8cbe2adc9は03が各3回同じ実質理由で失敗し、05の条件・問題文・選択肢と02a正答の再確認を要求している。後続04は依存停止である。"
+        - "52b376dcb5f52f02e4f89c24と15bfa5c1dfc23ee04665ac80は02aが各3回、flash_cardで正答2件の不整合により停止し、03・04が依存停止した。両問の10_questionType_fixedはflash_card、05と既存解説は正答2件で、23_correctChoiceText_fixedは未生成である。"
+        - "prompt/01_prompt_fix_questionType.mdは正答数や現在値から形式を逆算せず回答操作から独立判定する。両問は各候補の該当性が学習単位であり、現行正本上はtrue_falseとして再評価すべきで、正答数に合わせる自動補正は不承認である。"
+        - "幹マニュアルは前工程変更時に影響する後続だけを再実行し、未完了再開では現行workflowと作業版から再計画すると定める。03は正答不整合を02aへ戻し、04は現在問題とcategory正本から独立再判定する。"
+        - "git status上のtracked差分はPM所有のstate.yamlだけで、コード、設定、00_source、SAA問題データの差分はない。"
+      next_allowed_task: T013
+      parallel_safety:
+        safe: false
+        reason: "startup recoveryはrepository-wide sidecar走査とprocess leaseを使い、その後のrepair・resumeも同じCLF question state、work version、patchへ逐次書き込む。T004や別review-uiとの並列実行は安全でない。"
+        required_order:
+          - "T013 startup recovery"
+          - "T013 3問の05起点repair"
+          - "T013 2問の01起点repair"
+          - "T013 旧run未完了再開"
+          - "T013 両group needed run"
+          - T004
+          - T005
+          - T999
+      blocked_tasks:
+        - "T004: T013がdoneとなり、全879問の必要工程、queue、transaction、sidecarが終端条件を満たすまで開始不可。"
+        - "T005: T013とT004のdone receiptが揃うまで開始不可。"
+        - "T999: T013・T004・T005のreceiptとlive readbackが揃うまで開始不可。"
+      missing_evidence:
+        - "標準startup recovery後の旧run manifest、question_summary、recovery sidecar消失のlive readback。"
+        - "11 committing問がvalidatedへ一意に昇格し、committing/open transaction/remaining deltaが0になった証拠。"
+        - "3問の05起点repair runと2問の01起点repair runの終端manifest、validated receipt、作業版、現在projection。"
+        - "旧run未完了再開と後続両group runのrun ID、resumedFrom、終端manifest、全879問の現行MAJOR coverage。"
+        - "最終queue pending/queued/preparing/committing/blocked/hold=0、open transaction=0、active recovery sidecar=0。"
+        - "T004が生成する両group artifactSync、879 unique ID upload-ready、quality gate、upload dry-run、同一hash。"
+        - "Firestore writes=0、00_source・SAA不変、関連差分だけのcommit、origin/main push readback、clean worktree。"
+  - id: T013
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "問題整備システムの通常UIだけを一つのreview-ui sessionで使う。run 20260809T181048580324-c5cc55b0を標準startup recoveryし、11 committing問を確定receiptからvalidatedへ昇格して旧runを正規終端化する。次に指定3問を05起点、指定2問を01起点で限定洗い替えし、影響する後続工程だけを再計画する。5問修復後、旧runの未完了だけを『未完了を再開』で収束し、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問windowで実行して879問の必要工程を閉じる。"
+    depends_on:
+      - T012
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json"
+      - "output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json"
+      - "output/question_review_console/cache/question_lists/aws-cloud-practitioner.json"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+    verify:
+      - "起動前のactive recovery sidecarが指定CLF runの1件だけで、review-ui process・listener・有効lease・別operationが0である。"
+      - "startup recovery後、旧runはinterrupted/partial、validated=961、committing=0、pending=287、blocked=5問12工程となり、recovery sidecarとopen transactionが0である。"
+      - "03ff67348d23d05ecd192f5e、824848b48946e119b15e1138、9ef440cd72ed49c8cbe2adc9だけを05起点で修復し、公式根拠から05→01→02→02a→03→04がvalidatedである。"
+      - "52b376dcb5f52f02e4f89c24、15bfa5c1dfc23ee04665ac80だけを01起点で修復し、正答数に依存せず回答操作からquestionType=true_falseを独立判定し、02→02a→03→04がvalidatedである。"
+      - "各repair run、旧run未完了再開run、両group needed runがsucceeded・receiptValidated=trueである。"
+      - "inventoryがkeepitup=332、ping-t=547、合計879で、全879問が05=2、01=5、02=4、02a=4、03=10、04=2を満たす。"
+      - "最終pending/queued/preparing/committing/blocked/hold/open transaction/active recovery sidecarが0である。"
+      - "全runはspeedMode=standard、throughputMode=auto_max、Fast未使用である。"
+      - "00_source・tools・config・SAAは不変、Firestore writes=0である。"
+      - "review-ui正常終了後、process・listener・有効leaseが0である。"
+    stop_if:
+      - "起動直前のactive recovery sidecar集合が指定CLF runの1件だけでない、又は既存process・listener・有効lease・別operationが存在する。"
+      - "startup recoveryがSAA又は別資格を変更する、11 committing問を一意にvalidatedへ昇格できない、open transaction又はremaining deltaが残る。"
+      - "manifest・sidecar・question state・work version・patch・lockの手編集、削除、直接status変更が必要になる。"
+      - "指定3問を05起点、指定2問を01起点へ通常UIで限定できない、又は同じ未修正入力を再試行する。"
+      - "3問の公式根拠を現在時点で一意に確定できない、又は2問のquestionTypeを回答操作から独立に確定できない。"
+      - "5問にblocked・hold・未検証工程・正答・解説・分類の不整合が残る。"
+      - "未完了再開scope・resumedFrom・inventoryが指定条件と一致しない。"
+      - "Fast、工程省略、システム外生成、00_source・SAA・Firestore・コード・設定への書込みが必要になる。"
+      - "allowed_files外の変更又は別operationとの競合が発生する。"
+      - "monitor persistence timeoutが再発し、正常停止後もmanifest又はrecovery sidecarがlive状態に残る。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/.review-ui.lock
+        - output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json
+        - output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json
+        - output/question_review_console/cache/question_lists/aws-cloud-practitioner.json
+        - output/question_review_console/runtime_observations/aws-cloud-practitioner/
+        - output/question_review_console/aws-cloud-practitioner/
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260809T202822646288-f405c8c0/
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260809T203841365954-408447b9/
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/
+      commands:
+        - cmd: "通常UI startup recovery: 20260809T181048580324-c5cc55b0"
+          status: pass
+        - cmd: "通常UI 3問05起点repair: 20260809T202822646288-f405c8c0"
+          status: pass
+        - cmd: "通常UI 2問01起点repair: 20260809T203841365954-408447b9"
+          status: fail
+        - cmd: ".venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "review-ui Ctrl-C正常停止"
+          status: pass
+        - cmd: "process・listener・recovery sidecar・valid lease readback"
+          status: pass
+      summary: "startup recoveryで旧runをinterrupted/partial、validated 961、未完了287、blocked 5問12工程、transaction 0へ正規化。3問05起点runは18/18、3/3、succeeded、receiptValidated=true。2問01起点runはsucceeded/partial、4/10、receiptValidated=trueだが2問6工程blocked。通常UI停止はexit 0。inventory 332+547=879、Firestore writes=0、00_source・tools・config・SAA不変。"
+      remaining_blockers:
+        - "52b376dcb5f52f02e4f89c24: 01はquestionType=flash_card、02はquestionIntent=select_correctとしてvalidated。02aは正答2件との矛盾で3回失敗し、03・04も依存停止。"
+        - "15bfa5c1dfc23ee04665ac80: 01はquestionType=flash_card、02はquestionIntent=select_correctとしてvalidated。02aは正答2件との矛盾で3回失敗し、03・04も依存停止。"
+        - "通常UIの回答操作に基づく独立判定が契約上必要なquestionType=true_falseへ収束しなかった。"
+        - "旧run未完了再開と両group needed runはstop_ifにより未実施。"
+        - "review-ui lock fileは終了済みPID 58019のstale記録として残存するが、process・listener・active recovery sidecar・valid leaseは0。契約により手削除していない。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "指定2問の01起点repairでもquestionTypeをtrue_falseへ独立確定できず、blocked・未検証工程・正答不整合が残ったため、T013 stop_ifに従って後続runを開始せず停止した。"
+  - id: T014
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T013で残った2問のflash_card・正答2件矛盾を、05問題内容、01 questionType、02 questionIntent、02a正答の独立責務から再監査し、問題整備システムだけで収束できる最小修復起点を確定する。"
+    depends_on:
+      - T013
+    inputs:
+      - "T013 receipt"
+      - "対象2問の00_source、05、01、02、02a、03、04とvalidation attempts"
+      - "questionType・questionIntent・correctChoiceTextの正本promptとworkflow contract"
+    constraints:
+      - "Do not implement。"
+      - "正答数に合わせた自動補正を承認しない。"
+      - "questionType=true_falseを証拠なく固定しない。"
+      - "問題整備システム外の手編集・直接生成、00_source・SAA・Firestore変更を承認しない。"
+    expected_output:
+      - "2問それぞれの正しい回答操作と修復起点"
+      - "通常UIで実行可能なWorker package"
+      - "allowed_files、verify、stop_if"
+      - "T004へ進むための完了条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "両問とも5肢へ本文の述語を一度補えば、各候補の該当性を独立判定できる複数選択問題であり、正本上はtrue_falseである。正答2件は分類根拠ではなく、各肢判定後の整合証拠にすぎない。『2つ選択』は原問題の選択指示として05とanswer_result_textに保持し、削除・書換えしない。05、02の修復は不要で、最小起点は01。通常UIで2問限定の01→02a→03→04を一度実行し、flash_card再判定時は反復せず停止する。"
+      evidence:
+        - "52b376dcb5f52f02e4f89c24はDDoS基本防御とWeb攻撃フィルタリングに利用するサービスを2つ選び、Shield Standard/WAFが正しく残り3肢が誤りと独立判定できる。"
+        - "15bfa5c1dfc23ee04665ac80はDynamoDBのデータモデルを2つ選び、Key-Value/ドキュメントが正しく残り3肢が誤りと独立判定できる。"
+        - "question field contractは複数の独立した選択肢を正答として選ぶ問題をtrue_falseとし、group_choiceを複数選択形式として扱わない。"
+        - "両問のquestionIntentはselect_correctである。"
+        - "両00_source、05、既存03は正答1・2と5肢の正誤を一致して示し、05変更は不要である。"
+        - "T013の01 attemptは『2つの答えを知識から導く』としてflash_cardを返し、正本契約を適用していない。"
+        - "02aのみの再試行では01を変更できず収束しない。"
+        - "true_false確定後は両問とも03を5肢分再生成する必要がある。"
+      next_allowed_task: T015
+      parallel_safety:
+        safe: false
+        reason: "T015は同じ2問のwork versionとworkflow runへ逐次書き込むため別review-uiと並列不可。"
+        required_order:
+          - T015
+          - "CLF旧run未完了継続Worker"
+          - T004
+          - T005
+          - T999
+      missing_evidence:
+        - "通常UIの新runで両問の01がtrue_falseとしてvalidatedになったreceipt。"
+        - "両問の02aが5肢を独立確定し、03が5件、04がvalidatedになった証拠。"
+        - "旧run未完了287工程と全879問を収束した証拠。"
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "問題整備システムの通常UIだけを使い、ping-t-aws-clf-c02の52b376dcb5f52f02e4f89c24と15bfa5c1dfc23ee04665ac80だけを01起点で限定洗い替えする。05本文・選択肢・『2つ選択』注釈・answer_result_textは変更しない。回答操作から両問のquestionTypeを独立判定し、true_falseになった場合だけ、02のselect_correctを保持又は独立再確認し、02aで5肢を個別判定、03を5肢分、04を現在内容から再確定する。"
+    depends_on:
+      - T014
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json"
+      - "output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json"
+      - "output/question_review_console/cache/question_lists/aws-cloud-practitioner.json"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/52b376dcb5f52f02e4f89c24.json"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/15bfa5c1dfc23ee04665ac80.json"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{10_questionType_fixed,15_correctChoiceText_fixed,23_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+    verify:
+      - "UI previewが指定2問だけ、01起点、05非選択である。"
+      - "両問のquestionType=true_false、isCalculationQuestion=falseである。"
+      - "両問のquestionIntent=select_correctである。"
+      - "両問のcorrectChoiceTextが選択肢順に[正しい,正しい,間違い,間違い,間違い]である。"
+      - "両問の03 explanationTextが選択肢順5件、04がvalidatedである。"
+      - "runがsucceeded、receiptValidated=true、blocked/hold/open transaction/active sidecar=0である。"
+      - "05・00_source・SAA・tools・config不変、Firestore writes=0である。"
+      - "review-ui正常終了後、process・listener・有効lease=0である。"
+    stop_if:
+      - "通常UIで指定2問だけ、01起点に限定できない。"
+      - "01が一問でもflash_card又はgroup_choiceを返す。同じ入力で再試行せず停止する。"
+      - "01理由が正答数、現在値又は『2つ選択』表記だけに依存する。"
+      - "05本文・選択肢・注釈・answer_result_textの変更が必要になる。"
+      - "02aが5肢を独立判定しない、03が5件にならない、又は04に未検証が残る。"
+      - "手編集・直接生成・manifest/status変更、00_source・SAA・Firestore・コード・設定変更が必要になる。"
+      - "allowed_files外の変更又は別operationとの競合がある。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/.review-ui.lock
+        - output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json
+        - output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json
+        - output/question_review_console/cache/question_lists/aws-cloud-practitioner.json
+        - output/question_review_console/runtime_observations/aws-cloud-practitioner/
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/52b376dcb5f52f02e4f89c24.json
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/15bfa5c1dfc23ee04665ac80.json
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260809T205617191166-5d5d5853/
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/10_questionType_fixed/
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/
+      commands:
+        - cmd: "通常UIで指定2問のみ・01起点・05非選択をpreview"
+          status: pass
+        - cmd: "通常UI限定repair run 20260809T205617191166-5d5d5853"
+          status: fail
+        - cmd: "標準startup recoveryで中断runを正規化"
+          status: pass
+        - cmd: "review-ui正常停止とprocess/listener/sidecar readback"
+          status: pass
+        - cmd: "05・00_source・SAA・tools・config不変確認"
+          status: pass
+      summary: "指定2問のみ、Ping-t、05非選択、01以降8項目、Standard・auto_max・最大100で一度だけ実行。39826は01=true_false、39685は01=flash_cardとなったため即停止。両問の02=select_correct、isCalculationQuestion=false。runはstartup recovery後interrupted、validated=4、blocked=0、receiptValidated=false。02a・03・04は未実施。Firestore writes=0、05・00_source・SAA・tools・config不変。review-uiはexit 0、process・listener・active sidecar・valid lease=0。"
+      remaining_blockers:
+        - "52b376dcb5f52f02e4f89c24（問題ID 39685）の01がflash_cardを返し、T015 stop_ifに該当した。"
+        - "02a・03・04は同一入力の再試行を避けるためqueuedのまま未実施。"
+        - "T015 run 20260809T205617191166-5d5d5853はinterrupted/interrupted、receiptValidated=false。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "指定2問のうち52b376dcb5f52f02e4f89c24が01でflash_cardを返したため、同じ入力を再試行せずT015 stop_ifに従って停止した。"
+  - id: T016
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T015で1問だけ残ったquestionType判定矛盾について、05の必要最小限の独自化で回答操作を明示して通常UIを収束させられるか、知識・難易度・正答根拠・原文注釈を保つ条件を監査する。"
+    depends_on:
+      - T015
+    inputs:
+      - "T014・T015 receipts"
+      - "52b376dcb5f52f02e4f89c24の00_source、05、01、02、02a、03とvalidation attempts"
+      - "05 originalization、questionType、source annotationの正本"
+    constraints:
+      - "Do not implement。"
+      - "00_source・原文注釈を変更しない。"
+      - "正答数に合わせた自動補正を承認しない。"
+      - "知識・難易度・正答根拠・distractor plausibilityを変えない。"
+      - "問題整備システム外の手編集・直接生成を承認しない。"
+    expected_output:
+      - "05起点修復の可否と必要最小限の意味上の変更条件"
+      - "通常UI Worker package"
+      - "allowed_files、verify、stop_if"
+      - "継続runとの順序"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "05起点の局所修復は可能。本文へ各肢を個別判定する指示を1文だけ追加すれば、知識・難易度・正答根拠・誤答のもっともらしさを変えずtrue_falseの回答操作を明示できる。00_source、選択肢、正誤、選択数注釈、answer_result_textは不変とする。通常UIで05から04まで再検証し、01が再びflash_cardなら反復せず停止する。"
+      evidence:
+        - "00_source hash=664bf474c928074524095681c53b09b6f50ae0c7120ba10e5dd30f54af9430ea。原文は末尾に（2つ選択）を持ち正答はShield StandardとWAF。"
+        - "現行05は5選択肢、correctChoiceText=[正しい,正しい,間違い,間違い,間違い]、questionIntent=select_correct、answer_result_text=正解は 1, 2 です。を保持。"
+        - "T015の01は問題文から2サービスを一意に導くと解釈してflash_cardを返した。同じ入力の再試行では収束しない。"
+        - "05正本v2.8は問題文の局所的な微修正を許し、問う知識、難易度、正答理由、各肢の正誤、distractor plausibilityの維持を要求する。"
+        - "許容する唯一の意味差は各選択肢を個別判定することを示す短い1文の追加。既存の2つ選べは保持する。"
+        - "02a失敗はflash_cardなのに正答2件という機械的不整合で正答変更根拠ではない。"
+      next_allowed_task: T017
+      parallel_safety:
+        safe: false
+        reason: "T017と旧run再開は同一問題の05と後続patchへ逐次書き込むため並列不可。"
+        required_order:
+          - T017
+          - T018
+          - T004
+          - T005
+          - T999
+      missing_evidence:
+        - "05本文だけが許容1文追加に限定された差分。"
+        - "新本文で01=true_false、02a独立判定、03 5件、04 validated。"
+        - "T017 succeeded/receiptValidated=true。"
+        - "T018で全879問収束。"
+  - id: T017
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "問題整備システムの通常UIで52b376dcb5f52f02e4f89c24だけを05起点で洗い替える。現行05本文へ各選択肢を個別判定する回答操作を示す短い1文だけを追加し、既存本文、末尾の『利用すべきAWSサービスはどれか。2つ選べ。』、選択肢、正誤配列、questionIntent、answer_result_textを保持する。その後01→02→02a→03→04を逐次実行する。"
+    depends_on:
+      - T016
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json"
+      - "output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json"
+      - "output/question_review_console/cache/question_lists/aws-cloud-practitioner.json"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/52b376dcb5f52f02e4f89c24.json"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/05_originalized/question_ping-t-76_39685_originalized.json"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{10_questionType_fixed,15_correctChoiceText_fixed,23_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+    verify:
+      - "UI previewが指定1問だけ、05起点、05→01→02→02a→03→04である。"
+      - "05の意味差が各肢の個別判定を示す短い1文の追加だけである。"
+      - "00_source hashが664bf474c928074524095681c53b09b6f50ae0c7120ba10e5dd30f54af9430eaのままである。"
+      - "05の既存末尾・5選択肢・correctChoiceText・questionIntent・answer_result_textが不変である。"
+      - "01=true_false、02=select_correct、02a=[正しい,正しい,間違い,間違い,間違い]、03は5件、04 validatedである。"
+      - "run succeeded、receiptValidated=true、pending/blocked/hold/open transaction/sidecar=0である。"
+      - "Firestore writes=0、SAA・tools・config不変、終了後process/listener/valid lease=0である。"
+    stop_if:
+      - "通常UIで指定1問、05起点、指定工程だけに限定できない。"
+      - "05が追加1文以外の本文、選択肢、選択順、正誤、questionIntent、answer_result_text、選択数注釈を変更する。"
+      - "追加文が新しい知識、正答ヒント、条件、比較軸を加える。"
+      - "01がtrue_false以外を返す。同じ入力で再試行しない。"
+      - "02aが5肢を独立判定しない、03が5件にならない、又は04が未検証となる。"
+      - "手編集・直接生成・manifest/status変更、00_source・SAA・Firestore・コード・設定変更が必要になる。"
+      - "allowed_files外の変更又は別operation競合がある。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/.review-ui.lock
+        - output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json
+        - output/question_review_console/cache/workflow_overviews/gas-shunin-otsu.json
+        - output/question_review_console/cache/question_lists/aws-cloud-practitioner.json
+        - output/question_review_console/runtime_observations/aws-cloud-practitioner/
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/52b376dcb5f52f02e4f89c24.json
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260809T211324083141-b43599cf/
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/05_originalized/question_ping-t-76_39685_originalized.json
+      commands:
+        - cmd: "通常UIで問題39685のみ・05本文から04までをpreview"
+          status: pass
+        - cmd: "通常UI限定repair run 20260809T211324083141-b43599cf"
+          status: fail
+        - cmd: "05生成後の本文・保持field・00_source hash readback"
+          status: pass
+        - cmd: "標準startup recoveryで中断runを正規化"
+          status: pass
+        - cmd: "review-ui正常停止とprocess/listener/sidecar readback"
+          status: pass
+      summary: "問題39685のみ、05本文と01〜04の9項目、Standard・auto_max・最大100で実行。05はvalidatedしたが本文は旧文と完全一致し、必須の個別判定1文が追加されなかった。5選択肢、正誤配列、questionIntent、answer_result_textは不変。runはinterrupted、validated=1、receiptValidated=false、01以降未実行。00_source hash=664bf474c928074524095681c53b09b6f50ae0c7120ba10e5dd30f54af9430ea、Firestore writes=0、SAA・tools・config不変。終了後process・listener・active sidecar・valid lease=0。"
+      remaining_blockers:
+        - "05本文に各選択肢を個別判定する回答操作を示す短い1文が追加されなかった。"
+        - "01・02・02a・03・04は同じ未修正入力での継続を避けるため未実行。"
+        - "run 20260809T211324083141-b43599cfはinterrupted/interrupted、receiptValidated=false。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "05が旧本文のままで、T017が必須とする唯一の意味差である短い1文の局所追加を生成できなかったため、同じ入力を再試行せず停止した。"
+  - id: T018
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "T017のvalidated成果物を入力に、通常UIで旧run 20260809T181048580324-c5cc55b0の未完了だけを再開する。その後、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問windowで実行し、879問の必要工程を終端化する。artifact syncとupload-readyはT004へ残す。"
+    depends_on:
+      - T017
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+    verify:
+      - "T017 done、問題39685の05→04 validated。"
+      - "再開runのresumedFrom=20260809T181048580324-c5cc55b0。"
+      - "inventory=332+547=879、全run succeeded・receiptValidated=true。"
+      - "全879問が05=2、01=5、02=4、02a=4、03=10、04=2を満たす。"
+      - "pending/queued/preparing/committing/blocked/hold/open transaction/sidecar=0。"
+      - "standard/auto_max、Fast未使用、00_source・SAA・tools・config不変、Firestore writes=0。"
+      - "終了後process/listener/valid lease=0。"
+    stop_if:
+      - "T017未完了又は不整合。"
+      - "再開scope/resumedFrom不一致、inventoryが332+547でない。"
+      - "同じ未修正入力のblocked工程が再検出される。"
+      - "手編集・直接生成・Fast・工程省略・Firestore write・コード・設定変更が必要になる。"
+      - "00_source・SAA・allowed_files外差分、別operation競合、終了後live sidecarが残る。"
+    receipt:
+      result: blocked
+      summary: "問題39685を新しい01 policyでtrue_falseへ収束させる前提が未承認のため、旧run未完了と879問needed runを再開できない。"
+      waiting_for_user_approval: true
+      required_reply: "01プロンプト修正を承認します"
+
+  - id: T019
+    type: judge
+    assignee: Judge
+    status: blocked
+    reasoning_hint: high
+    objective: "T013・T015・T017の反復停止を監査し、現行の問題整備システム内に手編集・コード変更なしで問題39685を収束させる正式経路が残るかを最終判定する。残らない場合は必要な新規権限と未完了範囲を確定する。"
+    depends_on:
+      - T017
+    inputs:
+      - "T013、T014、T015、T016、T017 receipts"
+      - "問題39685のrun artifactsと正本workflow"
+      - "question issue correction・user feedback・manual overrideの現行実装と運用正本"
+    constraints:
+      - "Do not implement。"
+      - "同じ入力の再試行を承認しない。"
+      - "手編集・直接生成・00_source・SAA・Firestore変更を承認しない。"
+      - "未実装の経路を利用可能として扱わない。"
+    expected_output:
+      - "in-scope path remains | genuinely blocked"
+      - "根拠と反復回数"
+      - "必要な最小の追加権限"
+      - "再開後のWorker順序"
+    receipt:
+      result: blocked
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "現行経路では収束不能。39685は同一stateHashで01が2回flash_cardとなり、02aは3回不整合停止、05起点も本文差分を生成しなかった。再試行は新証拠を生まない。直接編集はquestionType非対応、公式資料補正も回答形式非対応、user-feedbackは未実装で、対象24 patchも存在しない。最小追加権限は01 prompt/system契約の修正承認である。"
+      evidence:
+        - "T013: 39685の01=flash_card、02=select_correct、02aは正答2件との矛盾で3回失敗。"
+        - "T015: 同一stateHashで01を再実行して再びflash_card。"
+        - "T017: 05はvalidatedしたが本文・選択肢・正誤・意図に差分なし。"
+        - "01正本は複数独立選択肢を選ぶ問題をtrue_falseと定義するが現行実行結果は契約へ収束しない。"
+        - "patch editorはquestionType変更非対応。"
+        - "official source correctionはanswer format/questionType補正を拒否。"
+        - "user feedback response systemは未実装。"
+        - "39685対象のissue report/24 patchは0件。"
+        - "補正系テスト82件は成功し経路見落としではない。"
+      next_allowed_task: null
+      blocked_tasks:
+        - T013
+        - T015
+        - T017
+        - T018
+        - T004
+        - T005
+        - T999
+      missing_evidence:
+        - "新しい01 policy fingerprintで39685がtrue_falseとしてvalidatedになったreceipt。"
+        - "39685の02a・03・04 validated。"
+        - "旧run未完了と879問needed-run終端。"
+        - "artifact sync、upload-ready、quality gate、dry-run、commit/push。"
+      waiting_for_user_approval: true
+      required_reply: "01プロンプト修正を承認します"
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: blocked
     reasoning_hint: high
     objective: "全receiptとlive readbackをoracleへ対応付け、CLF-C02全件が問題整備システム経由でupload dry-runまで完了したか最終監査する。"
+    depends_on:
+      - T018
+      - T004
+      - T005
     inputs:
       - "All done task receipts"
       - "terminal manifests and progress"
@@ -195,7 +1312,11 @@ tasks:
       - "oracle evidence map"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
+    receipt:
+      result: blocked
+      summary: "T018・T004・T005の完了証拠がなく、最終完了監査を実行できない。"
+      waiting_for_user_approval: true
+      required_reply: "01プロンプト修正を承認します"
 
 checks:
   dirty_fingerprint: "main clean origin/main...HEAD=0 0 at prep"
