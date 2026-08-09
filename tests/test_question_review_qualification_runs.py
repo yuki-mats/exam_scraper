@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from dataclasses import replace
 from datetime import datetime, timezone
 import hashlib
+from pathlib import Path
 
 from tests.qualification_run_test_support import *  # noqa: F403
 
@@ -124,6 +125,15 @@ class EvaluationReworkStageTests(unittest.TestCase):
             "肢ごとに独立して正誤を判定する問題はtrue_false",
             description,
         )
+
+        prompt = (
+            Path(__file__).resolve().parents[1]
+            / "prompt"
+            / "01_prompt_fix_questionType.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("問題文の共通述語を各候補に補って判定", prompt)
+        self.assertIn("他の候補の判定と切り離して", prompt)
+        self.assertIn("選択肢を見る前に導き", prompt)
 
 
 class PipelineTelemetryContractTests(unittest.TestCase):

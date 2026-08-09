@@ -377,6 +377,23 @@ class DocumentationStructureTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         self.assertNotIn('"02_explanation_strategy.md"', setup_output_names)
 
+    def test_question_type_prompt_uses_answer_operation_for_multi_select(self):
+        prompt = (ROOT / "prompt" / "01_prompt_fix_questionType.md").read_text(
+            encoding="utf-8"
+        )
+        workflow = tomllib.loads(
+            (ROOT / "config" / "question_maintenance_workflow.toml").read_text(
+                encoding="utf-8"
+            )
+        )
+        stages = {stage["id"]: stage for stage in workflow["stages"]}
+
+        self.assertIn("問題文の共通述語を各候補に補って判定", prompt)
+        self.assertIn("他の候補の判定と切り離して", prompt)
+        self.assertIn("選択肢を見る前に導き", prompt)
+        self.assertIn("該当候補の数だけでは決めません", prompt)
+        self.assertEqual(stages["question_type"]["policy_version"], "6.0")
+
 
 if __name__ == "__main__":
     unittest.main()
