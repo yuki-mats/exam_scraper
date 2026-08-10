@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T022
+active_task: T018
 
 tasks:
   - id: T001
@@ -1024,7 +1024,16 @@ tasks:
       - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/52b376dcb5f52f02e4f89c24.json"
       - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/15bfa5c1dfc23ee04665ac80.json"
       - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
-      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{10_questionType_fixed,15_correctChoiceText_fixed,23_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/10_questionType_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/40_convert/**"
     verify:
       - "UI previewが指定2問だけ、01起点、05非選択である。"
       - "両問のquestionType=true_false、isCalculationQuestion=falseである。"
@@ -1191,7 +1200,7 @@ tasks:
   - id: T018
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "T022のvalidated成果物を入力に、通常UIで旧run 20260809T181048580324-c5cc55b0の未完了だけを再開する。その後、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問windowで実行し、879問の必要工程を終端化する。artifact syncとupload-readyはT004へ残す。"
     depends_on:
@@ -1406,7 +1415,7 @@ tasks:
   - id: T022
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T021承認後、新しい01 policyで問題52b376dcb5f52f02e4f89c24だけを通常UIから01起点で再整備し、02、02a、03、04まで収束する。"
     depends_on:
@@ -1417,7 +1426,16 @@ tasks:
       - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
       - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/52b376dcb5f52f02e4f89c24.json"
       - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
-      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{10_questionType_fixed,15_correctChoiceText_fixed,23_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,99_model_review_flags,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/10_questionType_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/40_convert/**"
     verify:
       - "開始前のprocess、TCP:8765 listener、有効lease、active recovery sidecar、別operationがすべて0である。"
       - "UI previewが問題52b376dcb5f52f02e4f89c24だけ、01起点、05非選択である。"
@@ -1431,8 +1449,38 @@ tasks:
       - "02aが5肢を独立判定しない、03が5件にならない、又は04が未検証となる。"
       - "手編集・直接生成・00_source・05・SAA・Firestore変更が必要になる。"
       - "allowed_files外の変更又は別operation競合がある。"
-    receipt: null
-
+    receipt:
+      result: done
+      changed_files:
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/52b376dcb5f52f02e4f89c24.json
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T085343804588-e0cc9d12/manifest.json
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/10_questionType_fixed/question_ping-t-76_39685_questionType_fixed.json
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/question_ping-t-76_39685_correctChoiceText_fixed.json
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/23_correctChoiceText_fixed/question_ping-t-76_39685_correctChoiceText_fixed.json
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/question_ping-t-76_39685_merged_explanationText_added.json
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/22_questionSetId_linked/question_ping-t-76_39685_questionSetId_linked.json
+      commands:
+        - command: "開始前process・TCP listener・process/qualification lease・active recovery sidecar・別operation確認"
+          status: pass
+        - command: "通常UI preview（指定1問、01起点、05非選択、Standard、同時1問）"
+          status: pass
+        - command: "通常UI run 20260810T085343804588-e0cc9d12"
+          status: pass
+        - command: "run/artifact readback"
+          status: pass
+        - command: "review-ui通常停止とprocess/listener/lease/sidecar readback"
+          status: pass
+        - command: "git diff --quiet -- **/00_source/**"
+          status: pass
+        - command: "git diff --quiet -- ping-t-aws-clf-c02/05_originalized/**"
+          status: pass
+        - command: "git diff --quiet -- output/aws-solutions-architect-associate/**"
+          status: pass
+      summary: "対象1問を通常UIから01起点で再整備した。01=true_false、02=select_correct、02aは期待した5肢配列、03は5件、04はvalidated。runはsucceeded、receiptValidated=trueで、1問5工程すべてvalidated、pending・blocked・open transaction・active sidecarは0。Standardのみ使用し、00_source・05・SAA・Firestoreは不変。公開用データ自動更新のみ、対象外の既存78問の必須field不足で保留された。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
   - id: T999
     type: judge
     assignee: Judge
