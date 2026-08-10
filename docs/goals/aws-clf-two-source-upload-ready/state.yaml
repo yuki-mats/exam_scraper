@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T027
+active_task: T028
 
 tasks:
   - id: T001
@@ -1663,7 +1663,7 @@ tasks:
   - id: T027
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "履歴run再開dialogのpreviewへ、選択した再開元run IDを明示表示し、preview/startへ渡すresumedFromと同じ値であることを回帰テストと運用SSOTで固定する。"
     depends_on:
@@ -1682,11 +1682,33 @@ tasks:
       - "表示するrun IDとpreview/startへ渡すresumedFromを同一値から導けない。"
       - "新規run又は通常洗い替えdialogへ誤って再開元IDを表示する。"
       - "許可ファイル外の変更が必要になる。"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/static/styles.css
+        - tests/test_question_review_workflow.py
+        - document/operations/local_question_review_console.md
+      commands:
+        - command: ".venv/bin/python -m unittest tests.test_question_review_workflow"
+          status: pass
+        - command: ".venv/bin/python -m unittest tests.test_question_review_qualification_flow_recovery.QualificationFlowRecoveryTests.test_question_queue_resumes_only_failed_stage_after_store_restart"
+          status: pass
+        - command: "git diff --check"
+          status: pass
+        - command: "git commit -m \"Show resume source in maintenance preview\""
+          status: pass
+        - command: "git push origin main"
+          status: pass
+      summary: "再開dialogのpreviewへ「再開元run」と完全IDを表示した。dialog stateのresumedFromを単一ヘルパーから取得し、表示・preview API・start APIで共用する。空値の新規runと通常洗い替えでは表示しない。回帰テストと運用SSOTを更新し、全検証に合格した。commit 4a0629e2cをorigin/mainへpush済み。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
   - id: T028
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "T027後の実画面で再開元run IDを確認し、作業履歴の指定旧run 20260809T181048580324-c5cc55b0から通常UIで未完了だけをresumedFrom付き再開する。成功後、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問windowで実行し、879問の必要工程を終端化する。artifact syncとupload-readyはT004へ残す。"
     depends_on:
