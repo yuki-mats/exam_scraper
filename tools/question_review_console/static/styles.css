@@ -527,8 +527,10 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-run-history { margin: 7px -16px -10px; border-top: 1px solid var(--line); background: #fff; }
 .qualification-run-history[hidden] { display: none; }
 .qualification-run-history > summary { padding: 7px 16px; color: #46515c; font-size: 10px; font-weight: 750; }
-.qualification-run-history-row { min-height: 34px; display: grid; grid-template-columns: 80px minmax(120px, 1fr) 100px 80px 150px; align-items: center; gap: 8px; padding: 6px 16px; border-top: 1px solid var(--line); font-size: 10px; }
+.qualification-run-history-row { min-height: 34px; display: grid; grid-template-columns: 80px minmax(90px, 0.8fr) minmax(190px, 1.4fr) minmax(120px, 1fr) 80px 150px 120px; align-items: center; gap: 8px; padding: 6px 16px; border-top: 1px solid var(--line); font-size: 10px; }
 .qualification-run-history-row > span:not(.run-status), .qualification-run-history-row time { color: var(--text-muted); }
+.qualification-run-history-id { color: var(--text-muted); overflow-wrap: anywhere; }
+.qualification-run-history-row .secondary-button { min-height: 28px; padding: 5px 8px; font-size: 10px; }
 
 .filter-bar {
   min-height: 48px;
@@ -1328,7 +1330,7 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .qualification-run-history > summary { padding-right: 10px; padding-left: 10px; }
   .qualification-run-history-row { grid-template-columns: 70px minmax(110px, 1fr); padding-right: 10px; padding-left: 10px; }
   .qualification-run-history-row .run-status { grid-row: 1 / span 4; }
-  .qualification-run-history-row strong, .qualification-run-history-row > span:not(.run-status), .qualification-run-history-row time { grid-column: 2; }
+  .qualification-run-history-row strong, .qualification-run-history-row code, .qualification-run-history-row > span:not(.run-status), .qualification-run-history-row time, .qualification-run-history-row button { grid-column: 2; }
   .qualification-run-progress-current { min-height: 76px; }
   .qualification-progress-event { min-height: 60px; padding: 10px; }
   .progress-question-section { padding: 10px; }

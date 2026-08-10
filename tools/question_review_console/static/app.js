@@ -2942,10 +2942,17 @@ function renderQualificationActiveRun() {
   const container = $("#qualification-active-run");
   const history = $("#qualification-run-history");
   const historyList = $("#qualification-run-history-list");
+  const historyResumeCanStart = (
+    state.qualificationRunStatusQualification === state.qualification
+    && !state.qualificationActiveRun
+    && !state.qualificationWorkflow?.restartRequired
+  );
   history.hidden = !state.qualificationRuns.length;
   historyList.replaceChildren();
   for (const item of state.qualificationRuns) {
     const row = element("div", "qualification-run-history-row");
+    const itemView = qualificationRunViewState(item, null);
+    const canRetryItem = qualificationRunCanRetryBlocked(item, itemView);
     const itemVerified = item.receiptValidated === true && (
       item.status === "succeeded"
       || (item.status === "failed" && item.queueStatus === "partial")
@@ -2970,12 +2977,22 @@ function renderQualificationActiveRun() {
       element("strong", "", item.workType === "maintenance_flow"
         ? "トップ整備"
         : `${item.stageCode} ${item.stageLabel}`),
+      element("code", "qualification-run-history-id", item.runId),
       element("span", "", item.modeLabel),
       element("span", "", item.kind === "machine"
         ? `${item.targetCount}フォルダ`
         : `${item.targetCount}問 × ${item.stageIds?.length || 1}工程`),
       element("time", "", new Date(item.updatedAt).toLocaleString("ja-JP", { dateStyle: "short", timeStyle: "short" })),
     );
+    if (canRetryItem) {
+      const retryItem = element("button", "secondary-button", "この未完了を再開");
+      retryItem.type = "button";
+      retryItem.disabled = !historyResumeCanStart;
+      retryItem.addEventListener("click", () => retryBlockedQualificationRun(item));
+      row.append(retryItem);
+    } else {
+      row.append(element("span", "qualification-run-history-action", ""));
+    }
     historyList.append(row);
   }
   const phases = $("#qualification-active-run-phases");

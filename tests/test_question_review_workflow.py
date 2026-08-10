@@ -1323,6 +1323,41 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             stage_controls,
         )
 
+    def test_run_history_exposes_only_safe_item_scoped_resume_actions(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        renderer = javascript.split(
+            "function renderQualificationActiveRun", 1
+        )[1].split("function selectedQualificationRunMode", 1)[0]
+        retry = javascript.split(
+            "async function retryBlockedQualificationRun", 1
+        )[1].split("async function resumeQualificationRun", 1)[0]
+
+        self.assertIn('element("code", "qualification-run-history-id", item.runId)', renderer)
+        self.assertIn("qualificationRunViewState(item, null)", renderer)
+        self.assertIn("qualificationRunCanRetryBlocked(item, itemView)", renderer)
+        self.assertIn('"この未完了を再開"', renderer)
+        self.assertIn("if (canRetryItem)", renderer)
+        self.assertIn(
+            "state.qualificationRunStatusQualification === state.qualification",
+            renderer,
+        )
+        self.assertIn("&& !state.qualificationActiveRun", renderer)
+        self.assertIn("&& !state.qualificationWorkflow?.restartRequired", renderer)
+        self.assertIn("retryItem.disabled = !historyResumeCanStart", renderer)
+        self.assertIn("() => retryBlockedQualificationRun(item)", renderer)
+        self.assertIn(
+            "const run = runOverride?.runId ? runOverride : displayedQualificationRun()",
+            retry,
+        )
+        self.assertIn('resumedFrom: blockedQuestionIds.length ? "" : run.runId', retry)
+        self.assertIn(
+            '$("#qualification-active-run-retry").addEventListener('
+            '"click", retryBlockedQualificationRun)',
+            javascript,
+        )
     def test_resume_defaults_targets_when_compact_run_has_no_target_ids(self):
         root = Path(__file__).resolve().parents[1]
         app = root / "tools/question_review_console/static/app.js"
