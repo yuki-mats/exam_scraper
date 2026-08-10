@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T029
+active_task: T030
 
 tasks:
   - id: T001
@@ -282,9 +282,9 @@ tasks:
     assignee: Worker
     status: queued
     reasoning_hint: medium
-    objective: "T013で確定した879問の問題整備システム成果物だけを入力に、問題整備システム経由で両groupのartifact syncを成功させ、879 unique question IDを覆うupload-readyを生成する。同一artifact hashへquality gateとupload dry-runを実行し、Firestoreへ書かず公開直前状態へ収束する。"
+    objective: "T030で確定した879問の問題整備システム成果物だけを入力に、問題整備システム経由で両groupのartifact syncを成功させ、879 unique question IDを覆うupload-readyを生成する。同一artifact hashへquality gateとupload dry-runを実行し、Firestoreへ書かず公開直前状態へ収束する。"
     depends_on:
-      - T028
+      - T030
     allowed_files:
       - "output/question_review_console/aws-cloud-practitioner/**"
       - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
@@ -292,13 +292,13 @@ tasks:
       - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
       - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/**"
     verify:
-      - "T013 receiptがdoneでpending/queued/preparing/committing/blocked/hold/open transaction/active recovery sidecar=0。"
+      - "T030 receiptがdoneでpending/queued/preparing/committing/blocked/hold/open transaction/active recovery sidecar=0。"
       - "両groupのartifactSync=succeeded。"
       - "upload-readyが両group・879 unique question IDを過不足なく覆い、hashが記録される。"
       - "記録hashと同一入力に対してquality gateとupload dry-runが成功する。"
       - "Firestore writes=0、00_source hash不変、対象外資格差分なし。"
     stop_if:
-      - "T013の未完了状態又は未解決blockingが残る。"
+      - "T030の未完了状態又は未解決blockingが残る。"
       - "artifact sync、merged、convert、upload-readyの手編集又は直接生成が必要になる。"
       - "Firestore write又は本番反映フラグが必要になる。"
       - "upload-readyの件数、ID一意性、hash、quality gate、dry-runのいずれかが一致しない。"
@@ -311,10 +311,10 @@ tasks:
     reasoning_hint: medium
     objective: "関連成果物とGoalBuddy receiptsだけを最終検証し、mainへ内容別にコミットしてorigin/mainへpushする。"
     depends_on:
-      - T028
+      - T030
       - T004
     inputs:
-      - "T013 receipt"
+      - "T030 receipt"
       - "T004 receipt"
       - "git diff"
     constraints:
@@ -1803,7 +1803,7 @@ tasks:
   - id: T029
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T028で理由付き保留となったPing-t 4問と、01 v6.0への全879問収束不足を監査し、通常の問題整備システムだけで安全に収束させる次の最大Worker scopeを確定する。"
     depends_on:
@@ -1826,6 +1826,98 @@ tasks:
       - "prompt又はworkflow修正の要否とユーザー承認要否"
       - "next Worker objective、allowed_files、verify、stop_if"
       - "01 v6.0全件収束とartifact syncへ戻る順序"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "現行01 v6.0は3問の複数候補個別判定を既にtrue_falseと定義しており、prompt修正なしで通常UI再整備できる。39674だけは新規導入を示す05本文が現行Kendra提供条件と衝突するため、既存顧客・既存検索環境の継続利用へ最小修正する。選択肢と正答は維持できる。4問を先に修復し、その後に両groupのneeded runで全879問の現行工程版を確定してからT004へ進む。"
+      evidence:
+        - path_decision: normal_ui_four_question_repair_then_full_needed
+        - user_approval: "[object Object]"
+        - run: 20260810T113216764048-fdbe8fc5
+          finding: "resumedFromは指定旧runと一致し、status=succeeded、queueStatus=partial、receiptValidated=true。94問を確定し4問を理由付き保留、pendingWorkItemCount=0。"
+        - run: 20260810T115340823218-796dee29
+          finding: "status/queueStatus=interrupted、retrySafe=true、validated=0、pendingWorkItemCount=4390。通常recoveryで安全終端したが、4問修正前のplanなので再開しない。"
+        - question: "39768 / 09599489010e9489"
+          finding: "公式正答1,2。各DBエンジン候補のAurora互換性を個別判定するため、通常UIで01起点にtrue_falseへ再確定する。"
+        - question: "39717 / c958d4608747d86a"
+          finding: "公式正答1,2。各サービスがControl Towerの構築・管理へ使われるかを個別判定するため、通常UIで01起点にtrue_falseへ再確定する。"
+        - question: "39743 / caf3057bd8124a39"
+          finding: "公式正答1,2。各サービスが記録又は監視・通知要件へ該当するかを個別判定するため、通常UIで01起点にtrue_falseへ再確定する。"
+        - question: "39674 / e3e809f95d908d28"
+          finding: "05本文だけを既存顧客が既に運用中のS3・Slack・Dropbox横断検索環境を継続利用する文脈へ最小修正する。選択肢、正答、answer_result_text、IDは維持する。Kendraは新規顧客不可だが既存顧客にはfull supportが続く。"
+        - policy: "01 v6.0"
+          finding: "共通述語を各候補へ補い、各候補を独立判定する複数選択をtrue_falseと明記しているためprompt/workflow修正は不要。"
+        - coverage: "05=879、01 v6.0=1、02=555、02a=552、03=879、04=879。4問修復後に両group needed runが必要。"
+      next_allowed_task: T030
+      parallel_safety:
+        safe: false
+        reason: "4問修復が全体needed planの入力を変え、同じpatch、work-version、cache、workflow-run領域へ書くため直列実行する。"
+      blocked_tasks:
+        - T028
+        - T004
+        - T005
+        - T999
+      missing_evidence:
+        - "39674の05最小修正と現行AWS根拠を含む03のvalidated receipt。"
+        - "39717、39743、39768の01=true_falseおよび後続02a・03・04のvalidated receipt。"
+        - "両list group全879問の現行MAJOR coverageとterminal succeeded readback。"
+        - "T004 artifact sync、upload-ready、同一hashのquality gateとupload dry-run receipt。"
+  - id: T030
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "問題整備システムの通常UIだけを一つの安全なreview-ui sessionで使う。最初に39674を05起点で限定再整備し、新規導入文脈を既存顧客・既存Kendra検索環境の継続利用へ最小修正する。選択肢、正答、IDは維持し、01→02→02a→03→04を確定する。次に39717、39743、39768だけを01起点でまとめて再整備し、questionType=true_false、既存の公式正答配列、5肢分の03、04を確定する。4問がsucceededになった後、修正前planのinterrupted runは再開せず、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問で新規previewし、全879問を現行MAJORへ収束させる。artifact syncとupload-readyは実行せずT004へ渡す。"
+    depends_on:
+      - T029
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/05_originalized/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/10_questionType_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/40_convert/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/05_originalized/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/10_questionType_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/40_convert/**"
+    verify:
+      - "開始前にreview-ui process、TCP:8765 listener、有効lease、active recovery sidecar、別operationがすべて0である。"
+      - "39674の05差分が既存顧客・既存Kendra検索環境の条件だけで、選択肢順、正誤、answer_result_text、IDを保持する。"
+      - "39674の限定runがsucceeded、receiptValidated=trueで、02a・03・04 validated、03の公式根拠が現行availability条件と一致する。"
+      - "39717、39743、39768の限定runがsucceeded、receiptValidated=trueで、01=true_false、02=select_correct、02aは1・2だけ正しい、03は5件、04 validatedである。"
+      - "4問修復後の両group needed previewがinventory=332+547=879、全update target、standard、auto_max、最大100問、Fast未使用である。"
+      - "全体runがsucceeded、queueStatus=succeeded、receiptValidated=trueで、全879問が05=2、01=6、02=4、02a=4、03=10、04=2を満たす。"
+      - "pending、queued、preparing、committing、blocked、hold、open transaction、active sidecarがすべて0である。"
+      - "00_source、SAA、tools、config、prompt不変、Firestore writes=0、終了後process/listener/valid lease=0である。"
+      - "git status --short"
+    stop_if:
+      - "39674が新規Kendra導入を残す、Bedrock Managed Knowledge BaseをSlack・Dropboxの直接connectorとして扱う、又は選択肢・正答・IDを変更する。"
+      - "39717、39743、39768がtrue_false以外になる、又は公式正答1,2を根拠なく変更する。"
+      - "4問のどれかが同じ未修正入力・同じ停止理由で再試行される。"
+      - "4問修復前にrun 20260810T115340823218-796dee29を再開する。"
+      - "prompt、workflow、checker、UI、API、manifestの変更が必要になる。"
+      - "00_source手編集、直接API、直接生成、Fast、工程省略、Firestore write、SAA又はallowed_files外変更が必要になる。"
+      - "4問限定run又は全体needed runでblocked、hold、未確定transaction、receipt未検証が発生する。"
+      - "全体previewのinventoryが332+547でない、又は現行policy targetが期待値と一致しない。"
     receipt: null
   - id: T999
     type: judge
@@ -1834,8 +1926,8 @@ tasks:
     reasoning_hint: high
     objective: "全receiptとlive readbackをoracleへ対応付け、CLF-C02全件が問題整備システム経由でupload dry-runまで完了したか最終監査する。"
     depends_on:
-      - T028
       - T029
+      - T030
       - T004
       - T005
     inputs:
