@@ -5,7 +5,7 @@ goal:
   slug: "aws-clf-two-source-upload-ready"
   kind: recovery
   tranche: "既存成果物を保持し、問題整備システムでCLF-C02全対象の未完了工程をfast収束してupload dry-runまで完了する"
-  status: blocked
+  status: active
   oracle:
     signal: "問題整備システムのCLF-C02全対象run、artifact sync、upload-ready、quality gate、upload dry-runが成功し、Firestore writes=0、00_source不変、blocking/hold/pending=0である"
     cadence: "after each Worker package and at final audit"
@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: null
+active_task: T054
 
 tasks:
   - id: T001
@@ -304,9 +304,7 @@ tasks:
       - "upload-readyの件数、ID一意性、hash、quality gate、dry-runのいずれかが一致しない。"
     receipt:
       result: blocked
-      waiting_for_user_approval: true
-      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
-      summary: "T040の最小UI修正承認と、その後の39674・残り3問の収束が完了するまでartifact sync、upload-ready、quality gate、upload dry-runを開始できない。"
+      summary: "T040のUI修正承認は得られた。T054以降の39674・残り3問の収束とT030完了までartifact sync、upload-ready、quality gate、upload dry-runを開始できない。"
 
   - id: T005
     type: pm
@@ -332,9 +330,7 @@ tasks:
       - "clean worktree"
     receipt:
       result: blocked
-      waiting_for_user_approval: true
-      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
-      summary: "T040、問題整備収束、公開前artifact収束が完了するまで最終commit整理を開始できない。"
+      summary: "T040のUI修正承認は得られた。T054以降の問題整備収束とT004公開前artifact収束が完了するまで最終commit整理を開始できない。"
 
   - id: T006
     type: scout
@@ -2494,7 +2490,7 @@ tasks:
   - id: T040
     type: pm
     assignee: PM
-    status: blocked
+    status: done
     reasoning_hint: low
     objective: "未完成問題のreadOnly詳細でも文字列選択からcurrent_questionレビューだけを開けるようにする最小UI修正について、ユーザーの明示承認を得る。readOnly時の『類似も調査』は非表示のままにし、localReady、評価・公開、直接編集、同期、server API、Firestoreのgateは変えない。"
     depends_on:
@@ -2511,10 +2507,9 @@ tasks:
       - "user reply: 未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
       - "承認後の単独UI Worker"
     receipt:
-      result: blocked
-      waiting_for_user_approval: true
-      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
-      summary: "AWS 879問を整備しきる意思は確認できたが、共通readOnly詳細でcurrent_questionレビューを有効化するコード変更の明示承認が必要。承認前はUI、review、prompt、run、Firestoreを変更しない。"
+      result: done
+      user_approval: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します。これ以降も必要な修正は全て完了させてください。"
+      summary: "2026-08-11にユーザーのexact approvalを受領した。readOnly詳細でcurrent_questionレビューだけを有効化し、類似調査、localReady、評価・公開、直接編集、同期、server API、Firestore gateを変えないT054を開始できる。"
   - id: T041
     type: scout
     assignee: Scout
@@ -3239,6 +3234,37 @@ tasks:
         - "T048をdoneとしてdefault_only_model_policy_complete=trueを記録する。"
         - "T053の派生cache stop_ifはrollback acceptanceを妨げずcleanup taskを作成しない。"
         - "default-onlyモデル方針の完了とAWS全件整備goalの未完了を分離する。"
+  - id: T054
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "未完成問題のreadOnly詳細でも、同一reviewable-content内の文字列選択からcurrent_question限定の『この箇所を確認』を開けるようにする。readOnly時は『類似も調査』を表示せず、review保存前のUI確認まで行う。localReady、評価・公開、直接編集、artifact sync、server API、Firestore、model policyは変更しない。実装・回帰・通常Chrome readback後、対象差分だけをmainへcommit/pushする。"
+    depends_on:
+      - T040
+    allowed_files:
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/**"
+    verify:
+      - "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "readOnly詳細の同一reviewable-content内選択でtoolbarが表示され、action labelが『この箇所を確認』でcurrent_question reviewだけを開く。"
+      - "readOnly時は『類似も調査』が非表示で、範囲外・複数field跨ぎ・collapsed selectionではtoolbarをclearする。"
+      - "manage modeのcurrent_question/qualification review、localReady、評価・公開、直接編集、同期、server API契約が不変である。"
+      - "通常Chromeで問題39674のreadOnly詳細を開き、実pointer selection後にtoolbarとcurrent_question/explanationText限定dialogを確認するがreviewは保存しない。"
+      - "Chrome確認前後でreview、prompt、plan、run、artifact、Firestore writeが0。終了時process/listener/lockなし。"
+      - "git diff --check、変更対象がallowed source/test/docだけ、main/origin/main同期0 0、git clean。"
+    stop_if:
+      - "readOnlyでqualification類似調査、直接編集、評価・公開、artifact sync又はFirestore操作も有効になる。"
+      - "server API、index.html、styles.css、workflow config、prompt又はallowed_files外のsource変更が必要になる。"
+      - "DOM Range注入、direct API、review保存又は問題run開始がlive確認に必要になる。"
+      - "別資格run、listener、valid lease又はrepository operationと競合する。"
+      - "00_source、output成果物又はmodel policyが変わる。"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
@@ -3265,6 +3291,7 @@ tasks:
       - T045
       - T046
       - T048
+      - T054
       - T004
       - T005
     inputs:
@@ -3286,9 +3313,7 @@ tasks:
       - "next task if not complete"
     receipt:
       result: blocked
-      waiting_for_user_approval: true
-      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
-      summary: "T040以降の39674修正、残り3問、全879問、artifact sync、upload-ready、quality gate、upload dry-runが未完のため最終監査を開始できない。"
+      summary: "T040の承認は得られた。T054以降の39674修正、残り3問、全879問、artifact sync、upload-ready、quality gate、upload dry-runが未完のため最終監査を開始できない。"
 
 checks:
   dirty_fingerprint: "main clean origin/main...HEAD=0 0 at prep"
