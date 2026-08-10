@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T066
+active_task: T067
 
 tasks:
   - id: T001
@@ -4034,7 +4034,7 @@ tasks:
   - id: T066
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T065でreadOnly詳細のchoiceTextList[3]を選択してもtoolbarが出ない原因をread-only監査し、choiceTextListとquestionBodyTextをcurrent_question review対象にする最小UI修正を確定する。既存のreadOnly限定、類似調査非表示、standalone field契約fail-closed、localReady、公開・同期・Firestore境界を維持する。"
     depends_on:
@@ -4052,6 +4052,79 @@ tasks:
       - "Decision and root cause"
       - "最小Worker objective、allowed_files、verify、stop_if"
       - "T065再開条件と追加承認要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "原因はDOM登録漏れである。readOnly詳細の問題文とchoiceTextは表示されるがinstallReviewTarget未適用のためtoolbar候補にならない。readOnly時だけ問題文をquestionBodyText・choiceIndexes=[]、各肢をchoiceTextList[index]・choiceIndexes=[index]として登録すれば足りる。既存のscope強制、類似非表示、範囲検証を再利用できる。REVIEW_FIELDSへ追加せず、backendのNON_AUTOMATED_CORRECTION_FIELDSと24専用契約を維持するため自動patchはfail-closedのまま。ユーザーは以降の必要修正を承認済みで追加承認不要。"
+      evidence:
+        - "T065 receipt: CLF204C012のchoiceTextList[3]は実pointer選択できたがtoolbar非表示。review/prompt/run未作成、Git clean・origin/main同期済み。"
+        - "tools/question_review_console/static/app.js renderDetail: questionBody要素にはinstallReviewTargetがないため、Ping-t 39481のquestionBodyTextも同じ原因で選択対象外。"
+        - "tools/question_review_console/static/app.js renderChoices: choiceText要素には登録がなく、correctChoiceTextとexplanationTextだけがreviewable-content。"
+        - "app.jsの既存selectionCandidateは単一Range、同一reviewable-content、非collapsed、範囲内だけを受理し、readOnlyでは類似操作を隠してscopeをcurrent_questionへ強制する。"
+        - "app.jsのREVIEW_FIELDS/EDITABLE_FIELDSはquestionBodyTextとchoiceTextListを含まず、selection由来fieldだけをdialogへ初期選択できる。"
+        - "qualification_runs.pyのNON_AUTOMATED_CORRECTION_FIELDSはquestionBodyText/choiceTextListを拒否し、24_questionIssueCorrectionsも専用workflow外から拒否する。既存tests/test_question_review_qualification_identity.pyが両境界を検証する。"
+        - "document/operations/local_question_review_console.mdはreadOnly選択reviewと24専用補正を同じSSOTで定義している。"
+      next_allowed_task: T067
+      parallel_safety:
+        safe: false
+        reason: "単一UI source・回帰test・SSOTを同時編集し、Chrome確認では共通review-ui listener/lockを使う。T065も同じUIとrepository operationを使うため逐次実行する。"
+      blocked_tasks:
+        - T065
+        - T999
+      missing_evidence:
+        - "T067のsource/test/doc差分と全verify合格receipt"
+        - "CLF204C012でchoiceTextList[3]、Ping-t 39481でquestionBodyTextを実pointer選択したChrome readback"
+        - "Chrome確認前後でreview/prompt/run/artifact/Firestore変更0、listener/lock清掃、Git clean・main/origin同期"
+        - "T067後にT065を再開し、2件のreview保存から全879問upload dry-runまで収束したreceipt"
+      required_board_updates:
+        - action: create_worker
+          task_id: T067
+        - action: after_T067
+          instruction: "T067が全verify合格後、T065を既存review_inputs・実行順・stop_ifのまま再開する。T067は選択記録UIだけを直し、T065のstandalone review patch禁止を緩めない。"
+        - action: approval
+          instruction: "既に『これ以降も必要な修正は全て完了』の承認があるためT067とT065再開に追加ユーザー承認は不要。"
+        - action: final_gate
+          instruction: "T999はT065の全879問artifact sync・quality gate・upload dry-run receiptが揃うまでblockedを維持する。"
+  - id: T067
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "readOnly問題詳細だけで、問題文と各選択肢本文をcurrent_question reviewの文字列選択対象にする。問題文はfield=questionBodyText・dataPath=questionBodyText・choiceIndexes=[]、各肢はfield=choiceTextList・dataPath=choiceTextList[index]・choiceIndexes=[index]とする。既存T054のtoolbar、類似非表示、範囲外・複数field・collapsed拒否を維持し、REVIEW_FIELDS/EDITABLE_FIELDS、standalone patch、localReady、評価・公開、直接編集、artifact sync、API、Firestore、model policyを変えない。Chromeではreviewを保存せず確認し、対象差分だけをmainへcommit/pushする。"
+    depends_on:
+      - T066
+    inputs:
+      - "T066 receipt"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+    allowed_files:
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/**"
+    verify:
+      - "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_qualification_identity.QualificationIdentityContractTests.test_question_body_and_choices_require_the_dedicated_correction_workflow tests.test_question_review_qualification_identity.QualificationIdentityContractTests.test_target_files_cannot_enable_question_issue_corrections"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "Chrome通常review-uiのCLF204C012 readOnly詳細で『推定削減額』を実pointer選択し、toolbar『この箇所を確認』、field=choiceTextList、dataPath=choiceTextList[3]、choiceIndexes=[3]、scope=current_question、類似非表示を確認してcancelする。"
+      - "Chrome通常review-uiのPing-t 39481 readOnly詳細で指定の問題文を実pointer選択し、toolbar『この箇所を確認』、field=questionBodyText、dataPath=questionBodyText、choiceIndexes=[]、scope=current_question、類似非表示を確認してcancelする。"
+      - "manage modeのquestionBodyText/choiceTextListは新たなreview targetにならず、readOnlyでも範囲外・複数field跨ぎ・collapsed selectionはtoolbarをclearする。"
+      - "Chrome確認前後でreview、prompt、plan、run、artifact、Firestore/Storage writeが0。終了時process/listener/lockなし。"
+      - "git diff --check"
+      - "最終changed_filesはapp.js、test_question_review_workflow.py、local_question_review_console.mdだけ。mainへcommit/pushし、git status clean、origin/main...HEAD=0 0。"
+    stop_if:
+      - "questionBodyText又はchoiceTextListをREVIEW_FIELDS/EDITABLE_FIELDSへ追加する必要がある。"
+      - "manage mode、qualification類似調査、直接編集、評価・公開、artifact sync又はFirestore操作にも保護fieldの権限が広がる。"
+      - "server.py、qualification_runs.py、review_store.py、prompt_builder.py、index.html、styles.css、workflow config、prompt又はallowed_files外sourceの変更が必要になる。"
+      - "NON_AUTOMATED_CORRECTION_FIELDS又は24_questionIssueCorrections専用workflowのfail-closed契約が弱まる。"
+      - "DOM Range注入、direct API、review保存又はrun開始がChrome確認に必要になる。"
+      - "field、dataPath、choiceIndexes、current_questionのいずれかを一意に固定できない。"
+      - "00_source、成果物、ID、localReady、API、Firestore又はmodel policyが変わる。"
+      - "別run、listener、valid lease又はrepository operationと競合する。"
     receipt: null
   - id: T999
     type: judge
