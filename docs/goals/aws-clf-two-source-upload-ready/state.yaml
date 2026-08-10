@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T044
+active_task: T045
 
 tasks:
   - id: T001
@@ -2678,7 +2678,7 @@ tasks:
   - id: T044
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "問題整備システムでrunごとの初回モデルをUI選択できるようにするため、現行のdialog、preview/start request、server allowlist、run plan、agent policy、履歴表示・再開、manifest/readback、テスト契約をread-onlyで追う。既定はgpt-5.6-luna/high、選択肢は現行許可modelのLunaとSol、失敗再試行はgpt-5.6-sol/high固定とし、選択した初回modelを全non-retry turnへ一貫して渡す最小設計とWorker契約を提示する。"
     depends_on:
@@ -2704,6 +2704,57 @@ tasks:
       - "選択値のpreview、start、manifest、history、resume契約"
       - "変更対象と非対象file map"
       - "Worker objective、allowed_files、verify、stop_if"
+    receipt:
+      result: done
+      summary: "現行UIはmodelを送らず、serverもrequest fieldを拒否する。初回modelはworkflow agentPolicy又はLuna定数、retryはSol固定で、親manifestに選択値はない。最小設計はbackendの許可model定義をcatalog APIでUIへ渡し、dialogのinitialModelをpreview token・start・plan・親manifest・履歴・resumeへ保存すること。全non-retry turnではrun選択値をworkflow既定より優先し、candidate_retryだけSol/high固定にする。"
+      evidence:
+        - "開始dialog、preview/start request、server allowlistにmodel selector又はinitialModel fieldがない。"
+        - "qualification runのpreview/start/planとpreview tokenにinitial modelがなく、親manifest作成時のmodelはNoneである。"
+        - "candidate turnはstage agentPolicyを定数fallbackより優先するため、選択値をplanへ足すだけでは上書きされる。"
+        - "失敗判定はretryModelRequiredで保持され、retryだけcandidate_retryへ分岐する既存境界がある。"
+        - "question_type独立レビューと裁定はagentPolicy.independent_reviewを使うためrun選択値の明示伝播が必要。"
+        - "Codex App ServerはLuna/Sol、高推論、Standardだけを許可する。"
+        - "active/history/resumeは選択初回modelの契約を現在保持しない。"
+      facts:
+        - "backendの単一許可model定義をcatalog APIでUIへ返し、UIはmodelOptions/defaultInitialModel/retryModel/reasoningEffortを描画する。"
+        - "request fieldはinitialModelに統一し、previewとstartでLuna/Solだけを検証する。"
+        - "preview token、response、plan、親manifestへinitialModel、retryModel、reasoningEffortを保存する。"
+        - "retry=trueなら常にSol/high、それ以外はrun.initialModel/highを全roleへ適用する。"
+        - "履歴再開は元run.initialModelを固定継承し、歴史的runにfieldがなければLunaを互換既定とする。"
+        - "変更候補はcodex_app_server.py、workflow_catalog.py、server.py、qualification_runs.py、static/index.html、static/app.js、必要時styles.css、運用文書、関連tests。"
+      contradictions:
+        - "workflow agentPolicy固定値はrun選択値の一貫伝播と衝突するためruntime優先順位が必要。"
+        - "許可model集合がbackend内で重複しdrift余地がある。"
+        - "親manifest.modelはactual表示用途のためinitialModelを別fieldとして保存すべきである。"
+      ambiguity_requiring_judge:
+        - "resumeは元runのinitialModelを固定継承し、別modelなら新規runとする。"
+        - "workflow schemaは維持し、runtimeではrun initialModelを優先する案を監査する。"
+      commands:
+        - "dialog、preview/start、allowlist、routing、resume、testsのread-only追跡"
+      note_needed: false
+  - id: T045
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T044のUI model selector設計をread-onlyで監査し、model allowlistの単一SSOT、request field名、run-level overrideとworkflow agentPolicyの優先順位、全non-retry roleへの伝播、retry Sol/high固定、preview token、manifest/history/readback、履歴resumeのモデル固定継承、歴史的run互換既定を確定する。最大安全な単一Worker packageを提示し、既存Standard・credits・provider・単一thread・Firestore境界を維持する。"
+    depends_on:
+      - T044
+    inputs:
+      - "T044 Scout receipt"
+      - "T043 model_migration_complete receipt"
+      - "current UI/server/workflow tests"
+    constraints:
+      - "read-only。コード、test、docs、output、board、Firestoreを変更しない。"
+      - "既定はLuna/high、選択可能な初回modelは現行許可のLunaとSol、retryはSol/high固定。"
+      - "履歴再開は元runのinitialModelを固定継承し、変更する場合は新規runとする。"
+      - "reasoning選択、Fast、追加credits、Platform API、外部providerは追加しない。"
+      - "モデル一覧をUI、server、workflowへ重複手書きしない。"
+    expected_output:
+      - "approve | reject"
+      - "single SSOT and request/manifest schema"
+      - "routing precedence for every role"
+      - "Worker objective、allowed_files、verify、stop_if"
     receipt: null
   - id: T999
     type: judge
@@ -2728,6 +2779,7 @@ tasks:
       - T042
       - T043
       - T044
+      - T045
       - T004
       - T005
     inputs:
