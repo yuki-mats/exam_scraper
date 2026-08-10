@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T047
+active_task: T049
 
 tasks:
   - id: T001
@@ -2866,7 +2866,7 @@ tasks:
   - id: T047
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "通常の問題整備UIをStandardで起動し、初回model selectorがcatalog由来のLuna/Sol二択、既定Luna、Sol選択可能であることをブラウザで確認する。AWS CLFの開始dialogでLunaとSolをそれぞれ選んだpreview readbackがinitialModel、retryModel=Sol、requestedReasoningEffort=highを正しく示すこと、選択変更で古いpreviewが無効になること、歴史run再開では元model又はfield欠落互換Lunaが固定表示されることを確認する。runは開始せず、終了時にUI processとlockを解放する。"
     depends_on:
@@ -2887,6 +2887,54 @@ tasks:
       - "履歴再開でinitialModelを変更できる、未知modelが黙ってLunaへ補正される、又は元manifestの書換えが必要になる。"
       - "Fast、credits、API、外部provider、Firestore、00_source又はsource code変更が必要になる。"
       - "別資格又はrepository operationとのlock競合がある。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - command: "browser runtime setup"
+          status: blocked
+        - command: "agent.browsers.get(iab)"
+          status: blocked
+        - command: "agent.documentation.get(bootstrap-troubleshooting)"
+          status: pass
+        - command: "agent.browsers.list()"
+          status: pass
+        - command: "git status --short"
+          status: pass
+        - command: "git rev-list --left-right --count origin/main...main"
+          status: pass
+        - command: "review-ui process/listener/lock readback"
+          status: pass
+      summary: "browser:control-in-app-browserスキルを完全に読み、in-app Browserへ接続したがBrowser is not available: iabで選択不能だった。利用可能なのはChrome extensionだけだったため、明示されたin-app Browserを別手段で代替せず停止した。review UI・preview・run・model turnは開始せず、変更、新規run、成果物、Firestore writeは0。main同期、git clean、process/listener/lockなし。"
+      remaining_blockers:
+        - "in-app Browserが現在利用不可。通常UI browser readbackはChrome連携での回収が必要。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "指定されたin-app Browser backendが利用不可で、スキル契約上Chromeへ代替できないため。"
+  - id: T049
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "T047でin-app Browserが利用不能だったため、利用可能なChrome連携から通常の問題整備UIをStandardで起動し、初回model selectorをlive readbackする。AWS CLFの開始dialogでcatalog由来Luna/Sol二択、既定Luna、Luna/Sol各preview、選択変更時のpreview無効化、歴史run再開のmodel固定を確認する。runは開始せず、終了時にUI processとlockを解放する。"
+    depends_on:
+      - T046
+    allowed_files:
+      - ".review-ui.lock"
+    verify:
+      - "Chrome上の通常UIでmodel選択肢がgpt-5.6-lunaとgpt-5.6-solの二つだけで、既定がLunaである。"
+      - "Luna/Sol各previewがinitialModel、retryModel=Sol、requestedReasoningEffort=high、speedMode=standardを画面表示する。"
+      - "model選択変更で既存preview/start状態が無効になり、再previewが必要になる。"
+      - "履歴再開では元run initialModel又はfield欠落互換Lunaが固定表示され、変更できない。"
+      - "reasoning、Fast、credits、API、providerの選択UIがない。"
+      - "新規runId、review、prompt、plan、artifact、Firestore write、00_source/source code差分が0である。"
+      - "終了時にlistener/processと有効lockがなく、git clean、origin/main...main=0 0である。"
+    stop_if:
+      - "Chrome連携又は通常UIが利用できない。"
+      - "model選択肢又はpreview readbackがcatalog policyと一致しない。"
+      - "previewだけでrun又は成果物が生成される。"
+      - "resume modelが可変、Fast等が選択可能、又はFirestore/source code変更が必要になる。"
+      - "別資格又はrepository operationとのlock競合がある。"
     receipt: null
   - id: T048
     type: judge
@@ -2895,11 +2943,12 @@ tasks:
     reasoning_hint: high
     objective: "T046実装receiptとT047ブラウザreadbackをread-onlyで監査し、初回モデル選択UIの限定成果をaccept又はrejectする。単一SSOT、preview token/start拘束、fresh/retry routing、resume固定、actual欄分離、Standard/ChatGPT/credits無効/Firestore境界、Git同期を確認する。AWS全879問整備goalの完了とは分離する。"
     depends_on:
-      - T047
+      - T049
     inputs:
       - "T045 design receipt"
       - "T046 implementation receipt and commit 61b18ab82"
       - "T047 live UI readback receipt"
+      - "T049 Chrome live UI recovery receipt"
     constraints:
       - "read-only。code、test、docs、output、board、Firestoreを変更しない。"
       - "モデル選択UIの限定成果だけを判定し、AWS全件整備を完了扱いしない。"
@@ -2935,7 +2984,7 @@ tasks:
       - T044
       - T045
       - T046
-      - T047
+      - T049
       - T048
       - T004
       - T005
