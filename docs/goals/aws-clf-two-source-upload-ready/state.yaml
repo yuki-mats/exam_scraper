@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T037
+active_task: T038
 
 tasks:
   - id: T001
@@ -2298,7 +2298,7 @@ tasks:
   - id: T037
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T036で問題39674のexplanationText全文を同一reviewable-content内に選択できたのにselection-toolbarがhiddenのままだった原因をread-onlyで監査する。selection event、toolbar表示条件、問題詳細DOM、既存テスト、通常の人間操作とブラウザ自動操作の差を確認し、既存UIの正しい操作で再試行できるのか、UIコード修正が必要なのかを判定する。コード修正が必要なら最小変更、テスト、影響範囲、ユーザー承認要否を提示する。"
     depends_on:
@@ -2321,6 +2321,85 @@ tasks:
       - "root causeと再現条件"
       - "next Worker objective、allowed_files、verify、stop_if"
       - "user approval要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T036はselection自体ではなく、閲覧専用の『問題一覧を見る』経路だったためtoolbarをコードが意図的にclearした可能性が高い。『評価・公開』から管理modeで開けば同じselectionchangeを処理できる。UI修正と新規承認は不要である。"
+      evidence:
+        - "問題一覧を見るはopenAuditView(readOnly:true)を呼び、scheduleSelectionToolbarはreadOnly時にselection内容を評価せずtoolbarをclearする。"
+        - "評価・公開はopenAuditView(readOnly:false)を呼び、URLへmode=manageが付く。"
+        - "selectionchange処理にevent.isTrustedやautomation種別の判定はない。実pointer drag又はShift選択で処理は共通である。"
+        - "renderChoicesは選択肢別explanationをreviewable-content、fields=[explanationText]、choiceIndexes=[index]、dataPath=explanationText[index]として登録する。"
+        - "openSelectionReviewはscope=current_questionを渡し、serverのreviews経路もcurrent_questionとexplanationTextを受け付ける。"
+        - "route=approve_retryで、UIコード修正は不要である。"
+      next_allowed_task: T038
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "同じPing-t問題39674のreview、work version、03 patch、派生成果物を更新するため直列実行する。"
+      blocked_tasks:
+        - T036
+        - T030
+        - T004
+        - T005
+        - T999
+      missing_evidence:
+        - "mode=manage経路でselection-toolbarが表示されたlive readback"
+        - "current_questionかつexplanationText限定で保存されたreviewとprompt"
+        - "新しい03限定run、成果物、不変項目、残り3問、全879問、T004の終端証拠"
+      required_board_updates:
+        - "T036はreadOnly経路で停止したhistorical blocked receiptとして保持する。"
+        - "T038をapprove_retry契約の単独Workerとして実行する。"
+        - "UIコード修正taskは追加しない。"
+  - id: T038
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常review-uiのAWS CLFダッシュボードでPing-t行の『評価・公開』からmode=manageを開き、問題39674の選択肢1の基本解説を実pointer dragで選択する。selection-toolbarの『この箇所を確認』からscope=current_question、field=explanationText、choiceIndexes=[0]だけのreviewを作り、T036と同じnote・expectedOutcomeを保存して03限定runとartifact syncを完了する。"
+    depends_on:
+      - T037
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-cloud-practitioner.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/reviews/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/prompts/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/c03d8b25af6627419388375f.json"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/question_ping-t-76_39674_merged_explanationText_added.json"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/question_ping-t-76_39674_explanationText_needs_5_5_high_review.jsonl"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/40_convert/**"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/ping-t-aws-clf-c02_*"
+    verify:
+      - "起動前にactive process、listener、valid lease、recovery sidecarが0である。"
+      - "Ping-t行の『評価・公開』がenabledで、クリック後URLがview=questionsとmode=manageを含む。"
+      - "問題39674詳細が管理modeで、『パッチを修正』を表示し、閲覧専用ではない。"
+      - "open中dialogなしで実pointer drag後のselectionが非collapsed、同じchoice-explanation.reviewable-content内、selectedText全文一致である。"
+      - "pointer releaseから120ms以上後、selection-toolbarが表示され、labelが『選択肢1の基本解説』である。"
+      - "review dialogがscope=current_question、dataPath=explanationText[0]、field=explanationTextだけ、choiceIndexes=[0]である。"
+      - "review JSONとpromptがBMKB新規検索アプリ推奨、Kendra Maintenance Mode、2026-06-30、2026-07-30、既存顧客サポート、公式URL、Slack・Dropbox直接connectorを主張しない旨を含む。"
+      - "新run planがtargetCount=1、問題39674、explanation 10.1だけ、allowedPatchFilesが21と対応99 flagだけである。"
+      - "新runがstatus=succeeded、queueStatus=succeeded、receiptValidated=trueで終端する。"
+      - "03が要求内容を含み、05、選択肢、正解、ID、questionIntent、questionLearningPattern、00_sourceが不変である。"
+      - "artifact sync成功、Firestore write=0、終了後process、listener、valid lease、recovery sidecar=0である。"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+    stop_if:
+      - "『評価・公開』がdisabled、又は通常操作でmode=manageを開けない。"
+      - "詳細がreadOnlyのまま、又はopen中dialogを閉じられない。"
+      - "実pointer drag以外のDOM Range注入、direct API又は手編集が必要になる。"
+      - "管理modeで有効なselectionchange後もtoolbarがhiddenのままである。"
+      - "review dialogがcurrent_question、explanationText、選択肢1だけに限定されない。"
+      - "保存済みreview又はpromptに指定note・expectedOutcomeが反映されない。"
+      - "planが03以外、05、別問題又は別資格を含む。"
+      - "05、正解、ID、questionIntent、questionLearningPattern又は00_sourceが変わる。"
+      - "tools、static、server、tests、prompt、config又はAPI契約の変更が必要になる。"
+      - "allowed_files外の変更、Firestore write、artifact sync失敗又は未完transactionが発生する。"
     receipt: null
   - id: T999
     type: judge
@@ -2338,6 +2417,7 @@ tasks:
       - T035
       - T036
       - T037
+      - T038
       - T004
       - T005
     inputs:
