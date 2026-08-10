@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T061
+active_task: T062
 
 tasks:
   - id: T001
@@ -3691,7 +3691,7 @@ tasks:
   - id: T061
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "同一AWS CLF-C02 maintenance_flow run 20260811T020130995286-e6fd3234を、新規run・再起動・手編集なしで継続監視する。server/process/leaseを保護し、deferredのCLF203C070 correct_choiceを含む失敗問題だけがSol/highで再試行されることを確認する。terminal成功後は通常フローのartifact sync、merge、convert、upload-ready、quality gate、upload dry-runまで進め、Firestoreへは書かない。実行窓を越える場合はrunを停止せず次の継続taskへ引き渡す。"
     depends_on:
@@ -3722,6 +3722,70 @@ tasks:
       - "成功問題がSolへ送られる、又はretryがgpt-5.6-sol/high以外になる。"
       - "Fast、credits、API key、外部provider、Firestore/Storage write、00_source、別資格、code/config/prompt/docs変更が必要になる。"
       - "個別blocked/holdは他問を継続し、terminal後に限定taskへ分離する。artifact sync blocked時は手編集せず問題IDと不足fieldを記録する。"
+    receipt:
+      result: done
+      changed_files:
+        - "output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T020130995286-e6fd3234/**"
+        - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/**"
+        - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/**"
+        - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/**"
+      commands:
+        - cmd: "terminal manifest/result readback"
+          status: pass
+          detail: "status=succeeded、queueStatus=partial、receiptValidated=true、868確定・9保留"
+        - cmd: "Sol validation-attempt routing audit"
+          status: pass
+          detail: "46 attempts/35 questions、all high、attempt1 Sol=0"
+        - cmd: "CLF203C070 validation-attempt readback"
+          status: pass
+          detail: "attempt1 retryable blank response、attempt2 gpt-5.6-sol/high validated"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          detail: "5799 files"
+        - cmd: "question 39674 source/originalized hash readback"
+          status: pass
+          detail: unchanged
+        - cmd: "artifact sync and upload dry-run technical-log readback"
+          status: pass
+          detail: "Ping-t succeeded、KeepItUp blocked、external write 0"
+        - cmd: "git status and main...origin/main"
+          status: pass
+          detail: "clean、0 0"
+        - cmd: "server/process/listener/lease cleanup readback"
+          status: pass
+      summary: "runはsucceeded、queue partial、receiptValidated=true。868問確定・9問保留。Sol/highは失敗後だけ46 attempts/35問で、CLF203C070もattempt2でvalidated。Ping-t artifact syncとupload dry-run成功、KeepItUpは必須field不足1問で安全にblocked。00_sourceと39674不変、外部writeなし、git clean/0 0。server・listener・leaseを清掃済み。"
+      remaining_blockers:
+        - "限定taskへ分離する保留9問: CLF201C002/C005/C022、CLF202C020/C059、CLF203C011、CLF204C011/C012、Ping-t 39481"
+        - "KeepItUp artifact syncは必須field不足1問の解消後に再実行が必要"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T062
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T061終端receipt、保留9問、KeepItUp artifact sync必須field不足1問をread-only監査する。各問題のblock root cause、必要field、必要工程、現行05/01/02/02a/03/04、公式根拠、work versionを対応付け、問題整備システム通常UIだけで全9問を安全に収束する最大Worker packageを確定する。サービス提供終了・新規受付停止問題は05から、正答・出題意図不整合は必要な上流工程から再確定し、単一fieldの決め打ち補正をしない。"
+    depends_on:
+      - T061
+    inputs:
+      - "run 20260811T020130995286-e6fd3234 terminal manifest/result/question states"
+      - "保留9問の05/10/15/21/22/23とwork versions"
+      - "KeepItUp artifactSync blocker detail"
+      - "T061 receipt"
+    constraints:
+      - "Read-only。"
+      - "問題、review、prompt、artifact、manifest、Firestore、00_sourceを変更しない。"
+      - "正答、questionIntent、問題文、選択肢、解説を各責務と正本に基づいて独立確定し、最後に機械整合検証する。"
+      - "問題整備システム外の直接編集を提案しない。"
+      - "9問を一括可能か、サービス更新問題と正答不整合問題を分ける必要があるかを安全性で判断する。"
+    expected_output:
+      - "Decision and acceptance of T061"
+      - "9問それぞれのID、root cause、必要工程、公式根拠要否"
+      - "KeepItUp artifactSync不足1問との対応"
+      - "next Worker objective、allowed_files、verify、stop_if"
+      - "追加ユーザー承認要否"
     receipt: null
   - id: T999
     type: judge
@@ -3757,6 +3821,7 @@ tasks:
       - T059
       - T060
       - T061
+      - T062
       - T004
       - T005
     inputs:
