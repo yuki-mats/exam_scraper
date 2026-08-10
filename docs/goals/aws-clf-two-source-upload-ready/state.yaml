@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T040
+active_task: T041
 
 tasks:
   - id: T001
@@ -2486,7 +2486,7 @@ tasks:
   - id: T040
     type: pm
     assignee: PM
-    status: active
+    status: queued
     reasoning_hint: low
     objective: "未完成問題のreadOnly詳細でも文字列選択からcurrent_questionレビューだけを開けるようにする最小UI修正について、ユーザーの明示承認を得る。readOnly時の『類似も調査』は非表示のままにし、localReady、評価・公開、直接編集、同期、server API、Firestoreのgateは変えない。"
     depends_on:
@@ -2502,6 +2502,33 @@ tasks:
     expected_output:
       - "user reply: 未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
       - "承認後の単独UI Worker"
+    receipt: null
+  - id: T041
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "問題整備システムの初回モデルをgpt-5.6-luna/high、失敗時再試行をgpt-5.6-sol/highへ変更するため、現行のmodel policy、role別agent policy、allowlist、status/manifest記録、文書、テスト期待値をread-onlyで特定する。ChatGPT app同梱Codex App Serverのmodel/list等の非生成preflightでgpt-5.6-lunaが現在の認証・Standard境界から選択可能かも確認し、履歴fixtureを不用意に書き換えない最小Worker契約を提示する。"
+    depends_on: []
+    inputs:
+      - "OpenAI Docs: gpt-5.6-luna supports reasoning high"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/workflow_catalog.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "config/question_maintenance_workflow.toml"
+      - "tests/test_question_review_*.py"
+      - "document/operations/local_question_review_console.md"
+    constraints:
+      - "read-only。コード、設定、test、docs、output、board、Firestoreを変更しない。"
+      - "対象モデルはgpt-5.6-luna/high、再試行はgpt-5.6-sol/highから変更しない。"
+      - "OpenAI Platform API、外部provider、追加credits、Fastを使わない。"
+      - "live model turn、問題整備run、review、prompt、patch、artifact syncを開始しない。"
+      - "過去run、履歴receipt、fixture内の歴史的actual modelは移行対象と決め打ちしない。"
+    expected_output:
+      - "Codex App Serverでのgpt-5.6-luna選択可否と証拠"
+      - "変更対象と非対象のfile map"
+      - "Worker objective、allowed_files、verify、stop_if"
+      - "代表的なmodel-routing回帰とreadback方法"
     receipt: null
   - id: T999
     type: judge
@@ -2522,6 +2549,7 @@ tasks:
       - T038
       - T039
       - T040
+      - T041
       - T004
       - T005
     inputs:
