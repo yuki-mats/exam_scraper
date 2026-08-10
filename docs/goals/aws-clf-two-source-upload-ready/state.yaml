@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T038
+active_task: T039
 
 tasks:
   - id: T001
@@ -2355,7 +2355,7 @@ tasks:
   - id: T038
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常review-uiのAWS CLFダッシュボードでPing-t行の『評価・公開』からmode=manageを開き、問題39674の選択肢1の基本解説を実pointer dragで選択する。selection-toolbarの『この箇所を確認』からscope=current_question、field=explanationText、choiceIndexes=[0]だけのreviewを作り、T036と同じnote・expectedOutcomeを保存して03限定runとartifact syncを完了する。"
     depends_on:
@@ -2400,6 +2400,55 @@ tasks:
       - "05、正解、ID、questionIntent、questionLearningPattern又は00_sourceが変わる。"
       - "tools、static、server、tests、prompt、config又はAPI契約の変更が必要になる。"
       - "allowed_files外の変更、Firestore write、artifact sync失敗又は未完transactionが発生する。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - command: "state.yamlのT038契約を確認"
+          status: pass
+        - command: "git status、branch、origin/main差分を確認"
+          status: pass
+        - command: "review-ui起動前のprocess、listener、lease、recoveryを確認"
+          status: pass
+        - command: ".venv/bin/python tools/question_bank/question_bank.py review-ui"
+          status: pass
+        - command: "通常review-uiでAWS CLFを選択し、Ping-t行の評価・公開ボタン状態を確認"
+          status: fail
+        - command: "review-uiを正常終了"
+          status: pass
+      summary: "起動前はreview-ui process/listener、valid lease、recovery sidecarが0だった。通常review-uiでAWS CLFを選択したが、Ping-t行の『評価・公開』がdisabledだったためmode=manageを開けず、stop_ifに従い停止した。review、prompt、plan、runは未作成で成果物は不変。direct API、DOM Range注入、手編集、Firestore write、commit、pushは行っていない。"
+      remaining_blockers:
+        - "Ping-t行の『評価・公開』がdisabledで、通常操作からmode=manageを開けない。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "stop_if: 評価・公開がdisabledで、通常操作からmode=manageを開けなかったため。"
+  - id: T039
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T038でPing-t行の『評価・公開』がdisabledとなった条件をread-only監査する。group.localReadyと管理routeの算出、現行Ping-t成果物・work version・artifact sync状態、既存UIの未完成問題修正経路を追い、通常の問題整備システム内で39674のexplanationTextだけを修正するための正しい前提順序又は経路を決める。artifact syncを先に限定実行すべきか、別の既存UI経路があるか、UI制約のコード修正が必要かを判定し、scope拡大時はユーザー承認要否を示す。"
+    depends_on:
+      - T038
+    inputs:
+      - "T038 blocked receipt"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/**"
+    constraints:
+      - "read-only。コード、test、output、board、Firestoreを変更しない。"
+      - "T034の05とvalidated工程を再実行対象へ戻さない。"
+      - "direct API、DOM注入、manifest手編集、成果物手編集を代替経路として認めない。"
+      - "全879問の未完了を無視して広いartifact sync又はpublishを先行させない。"
+      - "UI修正又はworkflow契約変更が必要ならユーザー承認前にWorkerを開始しない。"
+    expected_output:
+      - "use_existing_ui | prerequisite_sync | require_ui_fix | blocked"
+      - "disabledのroot causeとlocalReadyの根拠"
+      - "次の一工程と正しいallowed_files、verify、stop_if"
+      - "user approval要否"
     receipt: null
   - id: T999
     type: judge
@@ -2418,6 +2467,7 @@ tasks:
       - T036
       - T037
       - T038
+      - T039
       - T004
       - T005
     inputs:
