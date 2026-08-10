@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T048
+active_task: T040
 
 tasks:
   - id: T001
@@ -2486,7 +2486,7 @@ tasks:
   - id: T040
     type: pm
     assignee: PM
-    status: queued
+    status: active
     reasoning_hint: low
     objective: "未完成問題のreadOnly詳細でも文字列選択からcurrent_questionレビューだけを開けるようにする最小UI修正について、ユーザーの明示承認を得る。readOnly時の『類似も調査』は非表示のままにし、localReady、評価・公開、直接編集、同期、server API、Firestoreのgateは変えない。"
     depends_on:
@@ -3182,7 +3182,7 @@ tasks:
   - id: T048
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T053のdefault-only rollbackをread-only監査し、UI model selectorとrun-level initialModel overrideが完全に除去され、T043で確定した初回/default Luna/high・失敗再試行Sol/highだけへ戻ったことをaccept又はrejectする。Standard/ChatGPT/credits無効/actual記録/Firestore境界、Git同期を確認し、AWS全879問整備goalの完了とは分離する。"
     depends_on: []
@@ -3201,7 +3201,32 @@ tasks:
       - "default_only_model_policy_complete: true | false"
       - "evidence map"
       - "remaining broader-goal blockers"
-    receipt: null
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "current mainはselector導入前へ厳密に復元され、初回Luna/high、失敗再試行のみSol/high、actual記録、Standard・ChatGPT限定、credits/API無効、Firestore非書込境界を維持する。更新されたファイルはgitignoredな再生成overview cacheで正本・run成果物ではない。復元baselineがないためcleanupは不要。default-only rollbackは完了したがAWS全件整備は未完了。"
+      evidence:
+        - default_only_model_policy_complete: true
+        - revert: "343dba09cは61b18ab82の明示的revert。selector影響15ファイルは導入直前treeと一致。"
+        - selector_removal: "initialModel等のselector契約は現行tools/config/tests検索0件。"
+        - routing: "既定gpt-5.6-luna、retry gpt-5.6-sol、high、Standard固定。失敗時だけretryへ切替え、requested/actualを分離記録。"
+        - live_readback: "selectorなし、banner初回Luna・再試行Sol・high・ChatGPT Pro Standard、credits/API無効、Firestore非書込。run/model turn未開始。"
+        - verification: "独立398 tests OK、00_source 5799 files OK、main/origin同期0/0、clean、listener/lockなし。"
+        - derived_cache: "gas-shunin-otsu.jsonはgitignoredなUI GET由来overview cache。正本/run/artifact/Firestoreではなくcleanup不要。"
+      next_allowed_task: null
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks:
+        - T999
+      missing_evidence:
+        - "AWS対象全879問の整備・評価完了receipt"
+        - "問題39674を含む残存不合格の解消確認"
+        - "正規artifact sync、upload-ready検証、Firestore upload dry-runの最終receipt"
+      required_board_updates:
+        - "T048をdoneとしてdefault_only_model_policy_complete=trueを記録する。"
+        - "T053の派生cache stop_ifはrollback acceptanceを妨げずcleanup taskを作成しない。"
+        - "default-onlyモデル方針の完了とAWS全件整備goalの未完了を分離する。"
   - id: T999
     type: judge
     assignee: Judge
