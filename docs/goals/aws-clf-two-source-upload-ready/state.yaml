@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T030
+active_task: T031
 
 tasks:
   - id: T001
@@ -1866,7 +1866,7 @@ tasks:
   - id: T030
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "問題整備システムの通常UIだけを一つの安全なreview-ui sessionで使う。最初に39674を05起点で限定再整備し、新規導入文脈を既存顧客・既存Kendra検索環境の継続利用へ最小修正する。選択肢、正答、IDは維持し、01→02→02a→03→04を確定する。次に39717、39743、39768だけを01起点でまとめて再整備し、questionType=true_false、既存の公式正答配列、5肢分の03、04を確定する。4問がsucceededになった後、修正前planのinterrupted runは再開せず、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問で新規previewし、全879問を現行MAJORへ収束させる。artifact syncとupload-readyは実行せずT004へ渡す。"
     depends_on:
@@ -1918,6 +1918,68 @@ tasks:
       - "00_source手編集、直接API、直接生成、Fast、工程省略、Firestore write、SAA又はallowed_files外変更が必要になる。"
       - "4問限定run又は全体needed runでblocked、hold、未確定transaction、receipt未検証が発生する。"
       - "全体previewのinventoryが332+547でない、又は現行policy targetが期待値と一致しない。"
+    receipt:
+      result: blocked
+      changed_files:
+        - "output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T121957016883-ceae2f3e/**"
+        - "output/question_review_console/cache/**"
+        - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+        - "output/question_review_console/aws-cloud-practitioner/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/05_originalized/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/10_questionType_fixed/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/22_questionSetId_linked/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/23_correctChoiceText_fixed/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/**"
+      commands:
+        - command: "通常UI: Ping-t問題一覧で39674だけを選択"
+          status: pass
+        - command: "通常UI: 05起点・全10更新項目・指定1問・Standard・最大100問をpreview"
+          status: pass
+        - command: "通常UI: 39674限定run 20260810T121957016883-ceae2f3eを開始"
+          status: pass
+        - command: "jq manifest.json/question_summary.json readback"
+          status: pass
+        - command: "jq 05/10/21成果物readback"
+          status: fail
+        - command: "git status --short"
+          status: pass
+        - command: "lsof -nP -iTCP:8765 -sTCP:LISTEN"
+          status: pass
+        - command: "00_source/SAA SHA-256 readback"
+          status: pass
+      summary: "39674限定runはsucceeded・queueStatus=succeeded・receiptValidated=trueで、05、01、02、02a、03、04がvalidated、blocked=0だった。しかし05成果物は『企業向け検索機能を用意したい』という新規導入文脈を残し、指定した既存顧客・既存Kendra環境の継続利用へ修正されなかった。21成果物もavailability条件を反映していない。停止条件に従い再試行せず、残り3問と全体runは開始しなかった。終了後はworktree clean、process/listener/lock/lease/sidecar=0、00_source/SAA hash不変、Firestore writes=0。"
+      remaining_blockers:
+        - "Ping-t 39674 / e3e809f95d908d28: 05本文が新規Kendra導入の意味を残しており、T030の必須文脈を満たさない。03成果物にもKendraの新規顧客不可、既存顧客full support、新規検索へのBedrock Managed Knowledge Base推奨が反映されていない。"
+        - "39717、39743、39768の01限定修復と両list group全体runは、39674修復成功後という開始条件を満たさないため未実行。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "39674の05成果物が新規Kendra導入文脈を残し、明示されたstop_ifに該当したため"
+  - id: T031
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T030で39674の通常UI runが成功扱いなのに、05本文と03解説へ明示指示が反映されなかった原因をread-onlyで確定し、同じ入力を繰り返さず問題整備システム内で収束させる次の最小taskを決める。"
+    depends_on:
+      - T030
+    inputs:
+      - "T030 blocked receipt"
+      - "run 20260810T121957016883-ceae2f3e"
+      - "39674の05・03成果物、candidate、attempt、instruction mapping、validation receipt"
+      - "05と03のprompt・checker・通常UI instruction contract"
+    constraints:
+      - "Do not implement。"
+      - "同じ未修正入力の再試行を承認しない。"
+      - "00_source、正答、選択肢、ID、manifestを手編集しない。"
+      - "Firestore writeを含めない。"
+    expected_output:
+      - "Decision and path_decision"
+      - "成功扱いと内容未反映が両立した根本原因"
+      - "data-only再整備、instruction経路修正、prompt/checker修正のどれが必要か"
+      - "user approval要否"
+      - "next Worker objective、allowed_files、verify、stop_if"
     receipt: null
   - id: T999
     type: judge
@@ -1928,6 +1990,7 @@ tasks:
     depends_on:
       - T029
       - T030
+      - T031
       - T004
       - T005
     inputs:
