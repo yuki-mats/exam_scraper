@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T036
+active_task: T037
 
 tasks:
   - id: T001
@@ -2233,7 +2233,7 @@ tasks:
   - id: T036
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題詳細レビューUIでPing-t問題39674のcurrent_questionを開き、対象fieldをexplanationTextだけに限定して修正を再依頼する。noteとexpectedOutcomeへ、既存Kendra継続の結論、Maintenance Mode、2026-06-30と2026-07-30、既存顧客サポート、公式availability URL、新規検索アプリではAmazon Bedrock Managed Knowledge BaseをAWSが推奨すること、ただしBMKBにSlack・Dropboxの直接connectorがあるとは説明しないことを明記し、新しいreview入力として03を再生成・同期する。"
     depends_on:
@@ -2273,6 +2273,54 @@ tasks:
       - "prompt、config、tools、API、共通checker、manifest手編集、直接API編集又はFirestore反映が必要になる。"
       - "許可範囲外のファイル、別資格又は別問題へ変更が及ぶ。"
       - "artifact syncが失敗する、未完transactionが残る、又は別資格のactive recoveryが存在する。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/.review-ui.lock
+        - "output/question_review_console/cache/**"
+      commands:
+        - command: "通常review-uiでAWS CLF、Ping-t、問題39674のcurrent_questionを開く"
+          status: pass
+        - command: "選択肢1のexplanationText全文を同一reviewable-content内で選択"
+          status: pass
+        - command: "selectionchange相当の通常キー操作後にselection-toolbar表示を確認"
+          status: fail
+        - command: "review、prompt、plan、workflow runの新規作成がないことを確認"
+          status: pass
+        - command: "git status、process、listener、lease、recovery sidecarの終了状態を確認"
+          status: pass
+      summary: "問題39674の詳細画面で選択肢1のexplanationText全文を選択でき、selectionは非collapsed、anchor/focusは同じreviewable-content、selectedTextも全文一致した。しかしselection-toolbarはhiddenのままで、通常UIから修正再依頼へ進めなかった。direct API・手編集へ切り替えず、review、prompt、plan、runを作成せず停止した。成果物は不変で、question review serverのprocess/listener/valid lease/recovery sidecarは残っていない。"
+      remaining_blockers:
+        - "通常UIで有効なexplanationText選択後もselection-toolbarが表示されず、修正再依頼を保存できない。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "current_questionのexplanationTextだけに限定した修正再依頼を通常UIで開始できなかったため。"
+  - id: T037
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T036で問題39674のexplanationText全文を同一reviewable-content内に選択できたのにselection-toolbarがhiddenのままだった原因をread-onlyで監査する。selection event、toolbar表示条件、問題詳細DOM、既存テスト、通常の人間操作とブラウザ自動操作の差を確認し、既存UIの正しい操作で再試行できるのか、UIコード修正が必要なのかを判定する。コード修正が必要なら最小変更、テスト、影響範囲、ユーザー承認要否を提示する。"
+    depends_on:
+      - T036
+    inputs:
+      - "T036 blocked receipt"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/styles.css"
+      - "tools/question_review_console/server.py"
+      - "tests/**question_review_console**"
+    constraints:
+      - "read-only。コード、test、output、board、UIデータ、Firestoreを変更しない。"
+      - "selectionが非collapsed、anchor/focusが同じreviewable-content、selectedTextが全文一致していた事実を前提にする。"
+      - "direct API、手編集、ブラウザ内JavaScript注入を通常UIの代替として認めない。"
+      - "既存の正常な人間操作で解決するなら、exact gestureとDOM/event根拠を示す。"
+      - "新規UI修正が必要ならユーザー承認前にWorkerを開始しない。"
+    expected_output:
+      - "approve_retry | require_ui_fix | blocked"
+      - "root causeと再現条件"
+      - "next Worker objective、allowed_files、verify、stop_if"
+      - "user approval要否"
     receipt: null
   - id: T999
     type: judge
@@ -2289,6 +2337,7 @@ tasks:
       - T034
       - T035
       - T036
+      - T037
       - T004
       - T005
     inputs:
