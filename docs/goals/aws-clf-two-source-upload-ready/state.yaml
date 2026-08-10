@@ -5,7 +5,7 @@ goal:
   slug: "aws-clf-two-source-upload-ready"
   kind: recovery
   tranche: "既存成果物を保持し、問題整備システムでCLF-C02全対象の未完了工程をfast収束してupload dry-runまで完了する"
-  status: active
+  status: blocked
   oracle:
     signal: "問題整備システムのCLF-C02全対象run、artifact sync、upload-ready、quality gate、upload dry-runが成功し、Firestore writes=0、00_source不変、blocking/hold/pending=0である"
     cadence: "after each Worker package and at final audit"
@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T040
+active_task: null
 
 tasks:
   - id: T001
@@ -280,7 +280,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: queued
+    status: blocked
     reasoning_hint: medium
     objective: "T030で確定した879問の問題整備システム成果物だけを入力に、問題整備システム経由で両groupのartifact syncを成功させ、879 unique question IDを覆うupload-readyを生成する。同一artifact hashへquality gateとupload dry-runを実行し、Firestoreへ書かず公開直前状態へ収束する。"
     depends_on:
@@ -302,12 +302,16 @@ tasks:
       - "artifact sync、merged、convert、upload-readyの手編集又は直接生成が必要になる。"
       - "Firestore write又は本番反映フラグが必要になる。"
       - "upload-readyの件数、ID一意性、hash、quality gate、dry-runのいずれかが一致しない。"
-    receipt: null
+    receipt:
+      result: blocked
+      waiting_for_user_approval: true
+      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
+      summary: "T040の最小UI修正承認と、その後の39674・残り3問の収束が完了するまでartifact sync、upload-ready、quality gate、upload dry-runを開始できない。"
 
   - id: T005
     type: pm
     assignee: PM
-    status: queued
+    status: blocked
     reasoning_hint: medium
     objective: "関連成果物とGoalBuddy receiptsだけを最終検証し、mainへ内容別にコミットしてorigin/mainへpushする。"
     depends_on:
@@ -326,7 +330,11 @@ tasks:
       - "commit hashes"
       - "origin/main push readback"
       - "clean worktree"
-    receipt: null
+    receipt:
+      result: blocked
+      waiting_for_user_approval: true
+      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
+      summary: "T040、問題整備収束、公開前artifact収束が完了するまで最終commit整理を開始できない。"
 
   - id: T006
     type: scout
@@ -2486,7 +2494,7 @@ tasks:
   - id: T040
     type: pm
     assignee: PM
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "未完成問題のreadOnly詳細でも文字列選択からcurrent_questionレビューだけを開けるようにする最小UI修正について、ユーザーの明示承認を得る。readOnly時の『類似も調査』は非表示のままにし、localReady、評価・公開、直接編集、同期、server API、Firestoreのgateは変えない。"
     depends_on:
@@ -2502,7 +2510,11 @@ tasks:
     expected_output:
       - "user reply: 未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
       - "承認後の単独UI Worker"
-    receipt: null
+    receipt:
+      result: blocked
+      waiting_for_user_approval: true
+      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
+      summary: "AWS 879問を整備しきる意思は確認できたが、共通readOnly詳細でcurrent_questionレビューを有効化するコード変更の明示承認が必要。承認前はUI、review、prompt、run、Firestoreを変更しない。"
   - id: T041
     type: scout
     assignee: Scout
@@ -3230,7 +3242,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: blocked
     reasoning_hint: high
     objective: "全receiptとlive readbackをoracleへ対応付け、CLF-C02全件が問題整備システム経由でupload dry-runまで完了したか最終監査する。"
     depends_on:
@@ -3272,7 +3284,11 @@ tasks:
       - "oracle evidence map"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
+    receipt:
+      result: blocked
+      waiting_for_user_approval: true
+      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
+      summary: "T040以降の39674修正、残り3問、全879問、artifact sync、upload-ready、quality gate、upload dry-runが未完のため最終監査を開始できない。"
 
 checks:
   dirty_fingerprint: "main clean origin/main...HEAD=0 0 at prep"
