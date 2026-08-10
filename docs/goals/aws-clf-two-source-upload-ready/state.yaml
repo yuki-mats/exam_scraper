@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T039
+active_task: T040
 
 tasks:
   - id: T001
@@ -2425,7 +2425,7 @@ tasks:
   - id: T039
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T038でPing-t行の『評価・公開』がdisabledとなった条件をread-only監査する。group.localReadyと管理routeの算出、現行Ping-t成果物・work version・artifact sync状態、既存UIの未完成問題修正経路を追い、通常の問題整備システム内で39674のexplanationTextだけを修正するための正しい前提順序又は経路を決める。artifact syncを先に限定実行すべきか、別の既存UI経路があるか、UI制約のコード修正が必要かを判定し、scope拡大時はユーザー承認要否を示す。"
     depends_on:
@@ -2449,6 +2449,59 @@ tasks:
       - "disabledのroot causeとlocalReadyの根拠"
       - "次の一工程と正しいallowed_files、verify、stop_if"
       - "user approval要否"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "route=require_ui_fix。Ping-tのlocalReadyは全547問のMerge・Convert・upload-ready一致でのみ成立し、現行547問は全て未一致。広い同期先行は不承認で、『この問題を再整備』は任意note・expectedOutcomeをpromptへ渡せない。readOnly詳細でcurrent_questionの選択レビューだけを許可する最小UI修正が必要で、新規ユーザー承認前には開始できない。"
+      evidence:
+        - "group.localReadyは全問題のmerge、convert、uploadがmatchかつartifactResolutionBlockersが空の場合だけtrueになる。"
+        - "Ping-tは547問、localReady=false、547問全てmerge=stale、convert/upload=missingである。39674限定同期ではgateを満たさない。"
+        - "39717、39743、39768にはexplanationText必須欠損がありblocksSyncとblocksPublishが残る。"
+        - "閲覧経路の再整備は対象と工程を限定できるが、任意内容指示を生成promptへ保持しない。"
+        - "selection reviewはnote、expectedOutcome、field、choiceIndex、current_question scopeを保持できるが、readOnly詳細ではtoolbarをclearする。"
+        - "管理routeのlocalReady gateを外さず、readOnly詳細でcurrent_questionだけを許可するのが最小である。"
+        - "T032承認は共通UI変更を含まないため新規承認が必要である。"
+      next_allowed_task: "T040 user approval"
+      approval_required: true
+      required_reply: "未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
+      parallel_safety:
+        safe: false
+        reason: "共通app.jsと通常review-uiを変更・検証するため、問題整備runと並列実行しない。"
+      blocked_tasks:
+        - T038
+        - T030
+        - T004
+        - T005
+        - T999
+      missing_evidence:
+        - "共通UI修正に対するユーザーのexact approval"
+        - "readOnly詳細でcurrent_questionだけを許可する実装・テスト・ブラウザ証拠"
+        - "修正後UIから保存した39674のreview、prompt、03限定run"
+        - "残り3問、全879問、artifact sync、upload dry-runの終端証拠"
+      required_board_updates:
+        - "T040でユーザー承認を待ち、承認前はUI Workerを開始しない。"
+        - "use_existing_uiとprerequisite_syncを採用しない。"
+        - "承認後だけ最小UI Workerを追加する。"
+  - id: T040
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: low
+    objective: "未完成問題のreadOnly詳細でも文字列選択からcurrent_questionレビューだけを開けるようにする最小UI修正について、ユーザーの明示承認を得る。readOnly時の『類似も調査』は非表示のままにし、localReady、評価・公開、直接編集、同期、server API、Firestoreのgateは変えない。"
+    depends_on:
+      - T039
+    inputs:
+      - "T039 Judge receipt"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_workflow.py"
+    constraints:
+      - "承認前にapp.js、test、output、review、prompt、run、Firestoreを変更しない。"
+      - "required replyを明示し、変更範囲と変えない範囲を簡潔に伝える。"
+      - "承認後だけUI修正Workerを追加・activateする。"
+    expected_output:
+      - "user reply: 未完成問題の閲覧画面で、選択箇所の『この箇所を確認』だけを有効にするUI修正を承認します"
+      - "承認後の単独UI Worker"
     receipt: null
   - id: T999
     type: judge
@@ -2468,6 +2521,7 @@ tasks:
       - T037
       - T038
       - T039
+      - T040
       - T004
       - T005
     inputs:
