@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T050
+active_task: T051
 
 tasks:
   - id: T001
@@ -2964,7 +2964,7 @@ tasks:
   - id: T050
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "T049で通常Chrome UIの初回model selectorが0件となった原因をread-onlyで特定する。live catalog/qualification response、server serializer、workflow catalog、app state、dialog描画のfield pathとload timingを追い、bannerだけ正しくdialogが空になる差を説明する。最小修正候補、tests、allowed_files、stop_ifを証拠付きで返す。"
     depends_on:
@@ -2982,11 +2982,33 @@ tasks:
       - "root cause with exact field/data flow"
       - "minimal fix candidate and regression tests"
       - "allowed_files and stop_if candidates"
-    receipt: null
+    receipt:
+      result: done
+      summary: "根本原因はresponse経路のfield欠落。modelPolicyはworkflow catalogに存在するが、通常画面が読むqualification overview serializerで除外され、state.qualificationWorkflow.modelPolicyがundefinedになる。dialogはこのfieldだけからoptions・注記を描画するため空になる。一方bannerは別経路の/api/sessionから読むため正常。overviewへcatalog.modelPolicyを透過し、旧localStorage cacheをschema検証で無効化するのが単一SSOTを保つ最小fix。"
+      evidence:
+        - "WorkflowCatalogStore.loadは単一runtime定義からLuna/Sol、default Luna、retry Sol、highを生成する。"
+        - "QualificationWorkflow.catalogはmodelPolicyを含むが、overview returnでmodelPolicyを除外している。"
+        - "通常画面は/api/qualification-workflowをstate.qualificationWorkflowへ格納し、dialogはそのmodelPolicyだけを参照する。"
+        - "bannerは/api/session内appServer status由来の別経路なので正常表示できる。"
+        - "localStorage cache version 1はmodelPolicy shapeを検証せず最大6時間復元できる。"
+      facts:
+        - "最小fixはqualification_workflow.pyのoverviewへcatalog.modelPolicyを透過し、app.jsでmodelPolicy shape欠落cacheを拒否する。"
+        - "必要testはoverview/API responseのmodelPolicyと旧cache拒否、正常cache/dialog描画の結合。"
+        - "allowed_files候補はqualification_workflow.py、static/app.js、test_question_review_qualification_workflow.py、test_question_review_server.py、test_question_review_workflow.py。"
+      contradictions:
+        - "catalog endpointは正しいが通常UIのqualification endpointでfieldが欠落する。"
+        - "server serializerだけ直しても旧cacheが最大6時間残る。"
+      ambiguity_requiring_judge: []
+      commands:
+        - "T050 board taskとgit statusのread-only確認"
+        - "modelPolicy、initialModel、selector関連実装とtestsの限定検索"
+        - "catalog、overview serializer、app state/dialog描画の読取"
+        - "localStorage cache version、restore条件、load timingの読取"
+      note_needed: false
   - id: T051
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "T050 root-cause receiptをread-only監査し、モデルselector空表示を直す最大安全な単一Worker packageをapprove又はrejectする。live catalog導出、dialog state初期化、preview token/start拘束、resume固定、actual欄分離、retry Sol/high、Standard/Firestore境界を維持する。"
     depends_on:
