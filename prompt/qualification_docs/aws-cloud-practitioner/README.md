@@ -141,6 +141,14 @@
 
 `question_keepitup-CLF201C044.json#0`を05で再整備するときは、旧80TBモデルを前提にした「Storage Optimizedを3台」を維持しません。AWS公式仕様の1台210TBに合わせ、230TBを収められる「Storage Optimizedを2台」を選択肢に置いて正答とし、02aで同じ結論を独立に確認します。03は、この上流修正が成立した後にだけ解説を作ります。
 
+## Amazon Kendraの提供状況を反映する問題
+
+`question_ping-t-76_39674.json#0`は、Amazon Kendraを既に利用している顧客が、稼働中のKendraでAmazon S3、Slack、Dropboxを横断検索し続ける状況として05で問題文を必要最小限だけ直します。選択肢、正答、`answer_result_text`、問題IDなどの識別情報は変更しません。
+
+Amazon Kendraは2026年6月30日からメンテナンスモードとなり、2026年7月30日から新規顧客の受付を停止します。既存顧客にはバグ修正とセキュリティ更新を含むフルサポートが継続されます。AWSはKendraアプリケーションの移行先と新規検索アプリケーションの実装先としてAmazon Bedrock Managed Knowledge Base（BMKB）を推奨しています。ただし、BMKBにはSlackとDropboxのネイティブコネクタがないため、この問題の既存Kendra構成をBMKBの直接コネクタへ置き換えません。
+
+03では、既存顧客が稼働中のKendraを継続利用できることを結論として先に示し、メンテナンスモード、新規受付停止日、既存顧客へのサポート範囲を説明します。根拠にはAWS公式の[Amazon Kendra availability change](https://docs.aws.amazon.com/kendra/latest/dg/kendra-availability-change.html)を使います。
+
 ## 完成前のAWS確認
 
 - AWS公式資料の現在値と、問題文・選択肢・`correctChoiceText`が同じ結論を示している。

@@ -361,6 +361,9 @@ class WorkflowCatalogTests(unittest.TestCase):
             "prompt/qualification_docs/aws_official_japanese_sample_questions.md",
             originalize["canonicalDocs"],
         )
+        clf_readme = "prompt/qualification_docs/aws-cloud-practitioner/README.md"
+        self.assertIn(clf_readme, originalize["canonicalDocs"])
+        self.assertIn("question_ping-t-76_39674.json#0", (ROOT / clf_readme).read_text(encoding="utf-8"))
 
     def test_production_catalog_is_the_stage_structure_ssot(self):
         catalog = WorkflowCatalog(ROOT).load()
@@ -459,11 +462,11 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "10.0")
+        self.assertEqual(version_by_stage["explanation"], "10.1")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
-        self.assertEqual(version_by_stage["originalize"], "2.8")
-        self.assertEqual(version_by_stage["question_type"], "5.2")
+        self.assertEqual(version_by_stage["originalize"], "2.9")
+        self.assertEqual(version_by_stage["question_type"], "6.0")
         self.assertEqual(version_by_stage["question_intent"], "4.0")
         self.assertEqual(version_by_stage["correct_choice"], "4.0")
         self.assertEqual(version_by_stage["question_set"], "2.0")
@@ -657,6 +660,10 @@ class WorkflowCatalogTests(unittest.TestCase):
         )
 
         self.assertIn(relative, explanation["canonicalDocs"])
+        self.assertIn("2026年7月30日から新規顧客の受付を停止", document)
+        self.assertIn("既存顧客にはバグ修正とセキュリティ更新を含むフルサポート", document)
+        self.assertIn("Amazon Bedrock Managed Knowledge Base", document)
+        self.assertIn("SlackとDropboxのネイティブコネクタがない", document)
         for pattern_id, source_ref in (
             ("terms_basics", "question_ping-t-76_39411.json#0"),
             ("differences_relationships", "question_ping-t-76_39578.json#0"),

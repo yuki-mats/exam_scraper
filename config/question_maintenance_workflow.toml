@@ -49,7 +49,8 @@ kind = "human"
 # 2.6: 問題文と選択肢は微修正にとどめ、正答と各選択肢の意味を維持する。
 # 2.7: 既存草案も00_sourceと比較し、過剰な改変は元の情報と流れを保つ微修正へ整え直す。
 # 2.8: 資格別正本に公式確認済みの修正がある場合、古い取得元を維持せず05の所有fieldへ反映する。
-policy_version = "2.8"
+# 2.9: 提供状況が変わったAWSサービスは、既存利用者など成立する利用条件を資格別正本から問題文へ反映する。
+policy_version = "2.9"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -231,7 +232,8 @@ kind = "human"
 # 8.0: 学習者向けの七分類へ整理し、図表・画像は提示形式として分離する。
 # 9.0: 七分類をquestionLearningPatternIdとして解説と同時に保存する。
 # 10.0: 条件と例外を分けた八分類へ更新し、法令・順序・計算の解説構成を初学者向けに統一する。
-policy_version = "10.0"
+# 10.1: AWSサービスの提供状況は、資格別正本で確認した新規受付と既存利用者の条件を分けて説明する。
+policy_version = "10.1"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",

@@ -147,5 +147,4 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 - Firestore反映はCodex threadへ任せない。公開可能な問題を最大100問まで明示選択し、serverは指定順、問題単位preflight token、親tokenを確認時に固定する。開始直前に全件を再確認した後、既存の問題単位publisherをrepository排他job内で一問ずつ実行する。一問の失敗は次問へ波及させず、失敗問だけを再選択状態へ残す。親queueは選択順と終端集計、問題単位runは対象artifactと直後のreadbackをそれぞれ保存する。
 
 ## 起動
-
 `.venv/bin/python tools/question_bank/question_bank.py review-ui`で起動します。serverは`127.0.0.1`だけへbindし、本人端末から使う場合だけTailscale Serveのprivate HTTPSを使います。TCP listenerを確保した後、process全体のfile leaseを取得してから中断回収を始めます。二つ目のserver processはrunを変更せず起動に失敗し、同じ資格のrun writerも資格単位leaseで一つに限定します。`QualificationRunStore`の生成だけでは回収又はfile更新を行いません。起動時の中断回収は、`workflow_runs/*/*/recovery.json`に記録された実行中runだけを読みます。全manifestの索引や初回移行処理は持ちません。回収対象sidecarはrunを実行状態へ保存する前に作成し、terminal状態をmanifestへ保存した後に削除します。
