@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T032
+active_task: T033
 
 tasks:
   - id: T001
@@ -2022,7 +2022,7 @@ tasks:
   - id: T032
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: low
     objective: "AWS資格別正本READMEへ問題39674のKendra提供条件と修正方針を追加し、05を2.9、03を10.1へminor bumpするprompt/config修正について、ユーザーの明示承認を得る。"
     depends_on:
@@ -2038,6 +2038,43 @@ tasks:
     expected_output:
       - "exact user approval or rejection"
       - "承認時のみ次Workerを追加・activate"
+    receipt:
+      result: done
+      summary: "ユーザーから『AWS資格別正本と05/03の修正を承認します』との明示承認を受領した。承認範囲はAWS資格別正本への39674のKendra提供条件追加、originalize 2.9、explanation 10.1へのminor bump、および変更を証明する関連回帰テストである。instruction-routing、共通prompt、checker、API、問題成果物、00_source、Firestoreへは広げない。"
+      evidence:
+        - "user reply: AWS資格別正本と05/03の修正を承認します"
+        - "T031 Judge path_decision=c_qualification_prompt_ssot_fix"
+      next_allowed_task: T033
+      remaining_blockers: []
+  - id: T033
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "承認済みの最小prompt/config修正を実施する。AWS資格別正本へ問題39674のAmazon Kendra提供条件と05・03の修正方針を追加し、originalizeを2.9、explanationを10.1へminor bumpする。focused regressionで同じ資格別正本が05・03双方へ投影されることを固定し、既存のversion期待値と文書行数の回帰不整合も現行正本へ合わせる。live run・問題成果物・00_source・Firestoreには触れず、mainへscoped commit/pushする。"
+    depends_on:
+      - T032
+    allowed_files:
+      - "prompt/qualification_docs/aws-cloud-practitioner/README.md"
+      - "config/question_maintenance_workflow.toml"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tests/test_documentation_structure.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_workflow_catalog tests.test_documentation_structure tests.test_question_review_work_versions tests.test_question_review_qualification_workflow"
+      - "AWS READMEが05 originalizeと03 explanation双方のcanonicalDocsへ入り、39674の既存顧客・既存Kendra継続利用方針を含む。"
+      - "policy_versionがoriginalize=2.9、explanation=10.1、question_type=6.0で、対応fingerprintが更新される。"
+      - "local_question_review_console.mdが内容を失わず150行以内である。"
+      - "git diff --check"
+      - "git diff -- prompt/qualification_docs/aws-cloud-practitioner/README.md config/question_maintenance_workflow.toml tests/test_question_review_workflow_catalog.py tests/test_documentation_structure.py document/operations/local_question_review_console.md"
+      - "push後にmainとorigin/mainが一致し、git status --shortが空である。"
+    stop_if:
+      - "AWS公式一次資料で新規顧客不可、既存顧客へのfull support、推奨移行先を再確認できない。"
+      - "Amazon Bedrock Managed Knowledge BaseをSlack又はDropboxの直接connectorとして記述する必要が生じる。"
+      - "選択肢、正答、answer_result_text、ID、00_sourceの変更が必要になる。"
+      - "共通05/03 prompt、checker、UI instruction routing又はAPI契約の変更が必要になる。"
+      - "output、workflow run、manifest、Firestore又はallowed_files外を変更する必要が生じる。"
+      - "unrelated dirty差分と競合し、対象差分だけを安全にcommitできない。"
     receipt: null
   - id: T999
     type: judge
@@ -2050,6 +2087,7 @@ tasks:
       - T030
       - T031
       - T032
+      - T033
       - T004
       - T005
     inputs:
