@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T041
+active_task: T042
 
 tasks:
   - id: T001
@@ -2506,7 +2506,7 @@ tasks:
   - id: T041
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "問題整備システムの初回モデルをgpt-5.6-luna/high、失敗時再試行をgpt-5.6-sol/highへ変更するため、現行のmodel policy、role別agent policy、allowlist、status/manifest記録、文書、テスト期待値をread-onlyで特定する。ChatGPT app同梱Codex App Serverのmodel/list等の非生成preflightでgpt-5.6-lunaが現在の認証・Standard境界から選択可能かも確認し、履歴fixtureを不用意に書き換えない最小Worker契約を提示する。"
     depends_on: []
@@ -2529,6 +2529,72 @@ tasks:
       - "変更対象と非対象のfile map"
       - "Worker objective、allowed_files、verify、stop_if"
       - "代表的なmodel-routing回帰とreadback方法"
+    receipt:
+      result: done
+      summary: "非生成preflightでChatGPT app同梱Codex App Serverのmodel/listを確認し、現在のChatGPT Pro認証・Standard境界でgpt-5.6-luna/highが選択可能と確認した。初回/defaultと独立レビューをLuna/high、失敗再試行をSol/highへ移す最小変更はruntime定数、workflow allowlist・role policy、運用文書、現行routingテストに限定できる。qualification_runsのrouting・attempt/manifest記録機構は既にrequested/actual modelとreasoningを保存するため変更不要。過去run、履歴receipt、歴史的fixtureは非対象とする。"
+      evidence:
+        - path: "tools/question_review_console/codex_app_server.py:92-99"
+          finding: "現行defaultはgpt-5.5、retryはgpt-5.6-sol、推論強度はhigh固定。"
+        - path: "tools/question_review_console/codex_app_server.py:1288-1317"
+          finding: "run_turnはallowlist外modelとhigh以外を開始前に拒否し、service tier未指定でStandard境界を維持する。"
+        - path: "tools/question_review_console/workflow_catalog.py:16-20,110-135"
+          finding: "roleはcandidate_initial、candidate_retry、independent_reviewで、model allowlistはgpt-5.5とgpt-5.6-sol、reasoningはhigh。"
+        - path: "config/question_maintenance_workflow.toml:113"
+          finding: "question_typeのindependent_reviewだけが明示的にgpt-5.5/highを指定する。"
+        - path: "tools/question_review_console/qualification_runs.py:11525-11562"
+          finding: "初回と再試行をrole policy又はdefault/retry定数から選び、requested modelとreasoningをplanへ保存する。"
+        - path: "tools/question_review_console/qualification_runs.py:12120-12170,13920-14498"
+          finding: "actual model/reasoningをvalidation attemptと独立レビュー証跡へ保存するためschema変更不要。"
+        - preflight: "ChatGPT.app bundled codex app-server model/list"
+          finding: "gpt-5.6-lunaはhidden=falseで、highを含む推論強度をサポートし、Standardで選択可能。"
+        - preflight: "account/read and account/rateLimits/read"
+          finding: "allowed=true、accountType=chatgpt、planType=pro、creditsEnabled=false、speedMode=standard。"
+      facts:
+        - change_targets: "tools/question_review_console/codex_app_server.py,tools/question_review_console/workflow_catalog.py,config/question_maintenance_workflow.toml,document/operations/local_question_review_console.md,tests/test_question_review_codex_app_server.py,tests/test_question_review_workflow_catalog.py,tests/test_question_review_qualification_runs.py"
+        - non_targets: "tools/question_review_console/qualification_runs.py,tests/qualification_run_test_support.py内の歴史的actual model fixture,output/**,docs/goals/**の過去receipt,過去run manifest/progress/result,prompt/**,patch/artifact/upload成果物"
+      contradictions:
+        - finding: "現行runtimeと文書は初回・評価系をgpt-5.5/highとしており、ユーザー指定と不一致。"
+        - finding: "App ServerではLunaが利用可能だが、production allowlistが現状拒否する。"
+        - finding: "LunaのFast tierは存在するが、今回使用するのはStandardだけである。"
+      commands:
+        - "現行model policy、allowlist、docs、testsのread-only確認"
+        - "Codex App Serverの非生成model/list確認"
+        - "account/readとrateLimits/readのfail-closed確認"
+        - "git status、branch、origin/main差分確認"
+      note_needed: false
+  - id: T042
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "問題整備システムの初回/default modelとcandidate_initial、評価・再整備・再評価、question_type独立レビュー・裁定をgpt-5.6-luna/highへ移行する。失敗済み問題のcandidate_retryはgpt-5.6-sol/highのまま維持する。ChatGPT認証、公式provider、Standard service tier、追加credits無効、単一thread、requested/actual model記録を維持し、過去run・履歴fixture・outputを変更せず、対象差分だけをmainへcommit/pushする。"
+    depends_on:
+      - T041
+    allowed_files:
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/workflow_catalog.py"
+      - "config/question_maintenance_workflow.toml"
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_workflow_catalog tests.test_question_review_qualification_runs"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "非生成model/listでgpt-5.6-lunaとhighを確認し、account/read・rateLimits/readでChatGPT認証、credits無効、Standardを確認する。"
+      - "public subscription statusがmodel=gpt-5.6-luna、retryModel=gpt-5.6-sol、turnReasoningEffort=highを返す。"
+      - "workflow catalogのAGENT_POLICY_MODELSとQUESTION_MAINTENANCE_MODELSが一致し、independent_reviewがgpt-5.6-luna/highである。"
+      - "routing testが初回Luna、失敗した同一問題だけSol、成功問題の再投入なし、requested/actual model/reasoning記録を証明する。"
+      - "git diff --check"
+      - "git diff --name-onlyがallowed_filesだけで、output、過去run、履歴fixture、prompt、00_sourceを含まない。"
+      - "push後にmainとorigin/mainが一致し、git status --shortが空である。"
+    stop_if:
+      - "model/listからgpt-5.6-luna又はhighが消えている。"
+      - "ChatGPT認証、公式provider、Standard、credits無効のいずれかを確認できない。"
+      - "Lunaを選ぶためFast、Platform API、外部provider、追加credits又はlive model turnが必要になる。"
+      - "qualification_runsの記録schema、過去run、履歴fixture又はoutputの移行が必要になる。"
+      - "retryがgpt-5.6-sol/high以外へ変わる、又は成功問題までretryへ送られる。"
+      - "allowed_files外の変更又はunrelated dirty差分との競合が発生する。"
     receipt: null
   - id: T999
     type: judge
@@ -2550,6 +2616,7 @@ tasks:
       - T039
       - T040
       - T041
+      - T042
       - T004
       - T005
     inputs:
