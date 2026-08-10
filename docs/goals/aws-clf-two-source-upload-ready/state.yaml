@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T052
+active_task: T053
 
 tasks:
   - id: T001
@@ -3053,7 +3053,7 @@ tasks:
   - id: T052
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIへcatalog由来modelPolicyを確実に届ける。QualificationWorkflow.overviewへcatalog.modelPolicyをdeep copyで透過する。server-side workflow overview cacheをv2へ更新し、modelPolicyのobject、非空で重複のないinitialModelOptions、optionsに含まれるdefaultInitialModel/retryModel、非空requestedReasoningEffortを検証して旧欠落cacheを拒否・再生成する。browser cacheもv2化し、同じshape条件をcache保存・復元・live response採用前にfail-closed検証する。model値はUIへ手書きせず、routing、request/token、manifest/resume、actual欄、Standard、Firestore契約を変えない。限定差分をmainへcommit/pushし、通常Chrome UIで再検証する。"
     depends_on:
@@ -3088,29 +3088,81 @@ tasks:
       - "routing、preview token/start、resume、actual欄、retry契約の変更が必要になる。"
       - "Fast、credits、API、外部provider、Firestore write、localStorage手動削除、direct API、DOM注入又はrun開始が必要になる。"
       - "新規run又は成果物、model turn、00_source差分、unrelated dirty、branch/remote競合を検出する。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - command: "git status --short"
+          status: pass
+        - command: "git rev-list --left-right --count main...origin/main"
+          status: pass
+      summary: "live selector修正がbrowser/server両cache schema変更まで拡大したため、ユーザーが複雑なら選択UIを元に戻しLuna/high既定値のみとする方針を明示した。T052は実装開始前に停止し、変更なし。"
+      remaining_blockers:
+        - "commit 61b18ab82のselector実装をrevertし、Luna/high defaultとSol/high retryのみへ戻す。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "ユーザーが複雑化を避けるためdefault-only rollbackを選択した。"
+  - id: T053
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "ユーザーのdefault-only方針に従い、UI model selector実装commit 61b18ab82だけをgit revertして、T043で確定済みの初回/default Luna/high・失敗再試行Sol/highへ戻す。selector、initialModel request/preview/manifest/resume override、selector専用cache/UI/test/docs差分を残さず、既存actual model記録、Standard、ChatGPT認証、credits無効、Firestore境界を維持する。mainへrevert commitをpushし、通常UIでselectorがなくbannerがLuna/Sol/high/Standardを示すことを非生成確認する。"
+    depends_on:
+      - T052
+    allowed_files:
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/styles.css"
+      - "tools/question_review_console/workflow_catalog.py"
+      - ".review-ui.lock"
+    verify:
+      - "git revert 61b18ab82がconflictなしで対象15ファイルだけを戻す。"
+      - "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_workflow_catalog tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "runtime/catalog/docs/testsがdefault=gpt-5.6-luna、retry=gpt-5.6-sol、reasoning=highで、初回model選択request/UI/overrideがない。"
+      - "Chrome通常UIで初回model selectorがなく、bannerにLuna/Sol/high/ChatGPT Pro Standardが表示される。model turn/runは開始しない。"
+      - "output、run、review、prompt、plan、artifact、Firestore write、00_source差分0。終了時process/listener/lockなし。"
+      - "revert commitをorigin/mainへpushし、git clean、main...origin/main=0 0。"
+    stop_if:
+      - "61b18ab82以外のmodel migration、ユーザー変更又は無関係変更を戻す必要がある。"
+      - "revert conflict又はallowed_files外変更が発生する。"
+      - "default Luna/high又はretry Sol/highが失われる。"
+      - "Fast、credits、API、外部provider、Firestore、output、00_source変更又はmodel turnが必要になる。"
     receipt: null
   - id: T048
     type: judge
     assignee: Judge
     status: queued
     reasoning_hint: high
-    objective: "T046実装receiptとT047ブラウザreadbackをread-onlyで監査し、初回モデル選択UIの限定成果をaccept又はrejectする。単一SSOT、preview token/start拘束、fresh/retry routing、resume固定、actual欄分離、Standard/ChatGPT/credits無効/Firestore境界、Git同期を確認する。AWS全879問整備goalの完了とは分離する。"
+    objective: "T053のdefault-only rollbackをread-only監査し、UI model selectorとrun-level initialModel overrideが完全に除去され、T043で確定した初回/default Luna/high・失敗再試行Sol/highだけへ戻ったことをaccept又はrejectする。Standard/ChatGPT/credits無効/actual記録/Firestore境界、Git同期を確認し、AWS全879問整備goalの完了とは分離する。"
     depends_on:
-      - T052
+      - T053
     inputs:
-      - "T045 design receipt"
-      - "T046 implementation receipt and commit 61b18ab82"
-      - "T047 live UI readback receipt"
-      - "T049 Chrome live UI recovery receipt"
-      - "T050/T051 live blocker diagnosis and approved recovery"
-      - "T052 cache-safe fix and live Chrome receipt"
+      - "T043 model_migration_complete receipt"
+      - "T046 selector implementation commit 61b18ab82"
+      - "T049/T050/T051 selector live blocker evidence"
+      - "T052 user-directed scope stop receipt"
+      - "T053 revert receipt and current main"
     constraints:
       - "read-only。code、test、docs、output、board、Firestoreを変更しない。"
-      - "モデル選択UIの限定成果だけを判定し、AWS全件整備を完了扱いしない。"
-      - "自動testだけでなくbrowser live readbackを必須とする。"
+      - "selector実装を部分的に残さず、Luna/high既定値とSol/high retry以外のmodel選択機能を認めない。"
+      - "default-only rollback完了とAWS全件整備goal完了を混同しない。"
     expected_output:
       - "accept | reject"
-      - "model_selector_complete: true | false"
+      - "default_only_model_policy_complete: true | false"
       - "evidence map"
       - "remaining broader-goal blockers"
     receipt: null
