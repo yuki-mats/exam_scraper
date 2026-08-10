@@ -226,7 +226,7 @@ class SubscriptionGateTests(unittest.TestCase):
 
         self.assertEqual(status["configuredModel"], "gpt-5.6-sol")
         self.assertEqual(status["configuredReasoningEffort"], "xhigh")
-        self.assertEqual(status["model"], "gpt-5.5")
+        self.assertEqual(status["model"], "gpt-5.6-luna")
         self.assertEqual(status["retryModel"], "gpt-5.6-sol")
         self.assertEqual(status["turnReasoningEffort"], "high")
 
@@ -500,7 +500,7 @@ class ProtocolClient(CodexAppServerClient):
         self.research_threads = set()
         self.subagent_parents = {}
         self.research_child_count = 2
-        self.research_child_model = "gpt-5.5"
+        self.research_child_model = "gpt-5.6-luna"
         self.research_child_effort = "high"
         self.research_agent_config_path = Path(
             "/isolated/question-maintenance-explorer.toml"
@@ -2227,7 +2227,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(second_turn["sandboxPolicy"]["excludeTmpdirEnvVar"])
         self.assertTrue(second_turn["sandboxPolicy"]["excludeSlashTmp"])
         self.assertEqual(first.final_message, '{"status":"ok"}')
-        self.assertEqual(first.model, "gpt-5.5")
+        self.assertEqual(first.model, "gpt-5.6-luna")
         self.assertEqual(first.reasoning_effort, "high")
         self.assertEqual(
             started,
@@ -2263,7 +2263,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(all(params["approvalPolicy"] == "never" for params in thread_params))
         self.assertTrue(all(params["serviceTier"] is None for params in thread_params))
         self.assertTrue(all(params["modelProvider"] == "openai" for params in thread_params))
-        self.assertTrue(all(params["model"] == "gpt-5.5" for params in thread_params))
+        self.assertTrue(all(params["model"] == "gpt-5.6-luna" for params in thread_params))
         self.assertTrue(all(params["config"]["features"]["fast_mode"] is False for params in thread_params))
         self.assertTrue(all(params["config"]["features"]["plugins"] is False for params in thread_params))
         self.assertTrue(all(params["config"]["features"]["hooks"] is False for params in thread_params))
@@ -2376,7 +2376,7 @@ class AppServerTurnTests(unittest.TestCase):
                 cwd=Path(directory),
             )
 
-        self.assertEqual(result.model, "gpt-5.5")
+        self.assertEqual(result.model, "gpt-5.6-luna")
         self.assertEqual(result.subagent_thread_ids, ())
         self.assertEqual(result.subagent_models, ())
         self.assertEqual(result.subagent_reasoning_efforts, ())
@@ -2546,7 +2546,7 @@ class AppServerTurnTests(unittest.TestCase):
 
         client = WrongModelClient()
 
-        with self.assertRaisesRegex(SubscriptionGateError, "gpt-5.5"):
+        with self.assertRaisesRegex(SubscriptionGateError, "gpt-5.6-luna"):
             client.run_turn(
                 "maintain",
                 work_type="maintenance",

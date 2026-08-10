@@ -4806,18 +4806,18 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         }
         self.assertEqual(
             sorted(models_by_question["new-exam-2026-q1"]),
-            ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
+            ["gpt-5.6-luna", "gpt-5.6-sol", "gpt-5.6-sol"],
         )
         self.assertTrue(
             all(
-                models_by_question[f"new-exam-2026-q{number}"] == ["gpt-5.5"]
+                models_by_question[f"new-exam-2026-q{number}"] == ["gpt-5.6-luna"]
                 for number in range(2, 7)
             )
         )
         self.assertEqual(len(app_server.aggregate_review_calls), 12)
         self.assertTrue(
             all(
-                kwargs["model"] == "gpt-5.5"
+                kwargs["model"] == "gpt-5.6-luna"
                 and kwargs["reasoning_effort"] == "high"
                 for _question_id, _prompt, kwargs in app_server.aggregate_review_calls
             )
@@ -4831,7 +4831,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertNotIn("executions", checkpoint)
         self.assertEqual(
             [attempt["requestedModel"] for attempt in failed_stage["validationAttempts"]],
-            ["gpt-5.5", "gpt-5.6-sol", "gpt-5.6-sol"],
+            ["gpt-5.6-luna", "gpt-5.6-sol", "gpt-5.6-sol"],
         )
         self.assertTrue(
             all(
@@ -4844,7 +4844,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(len(successful_stage["validationAttempts"]), 1)
         self.assertEqual(
             successful_stage["validationAttempts"][0]["requestedModel"],
-            "gpt-5.5",
+            "gpt-5.6-luna",
         )
 
     def test_review_checkpoint_mismatch_blocks_without_third_review(self):
@@ -5977,7 +5977,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         }
         self.assertEqual(
             models_by_batch[(fresh_question_id,)],
-            "gpt-5.5",
+            "gpt-5.6-luna",
         )
         self.assertEqual(
             models_by_batch[(failed_question_id,)],
@@ -8942,7 +8942,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(len(set(child["aggregateReviewThreadIds"])), 2)
         self.assertEqual(
             [kwargs["model"] for _prompt, kwargs in child_review_calls],
-            ["gpt-5.5", "gpt-5.5"],
+            ["gpt-5.6-luna", "gpt-5.6-luna"],
         )
         self.assertTrue(
             all(
@@ -8952,7 +8952,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(
             [entry["model"] for entry in child["aggregateReviewExecutions"]],
-            ["gpt-5.5", "gpt-5.5"],
+            ["gpt-5.6-luna", "gpt-5.6-luna"],
         )
         self.assertTrue(
             all(entry["reasoningEffort"] == "high" for entry in child["aggregateReviewExecutions"])

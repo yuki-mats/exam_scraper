@@ -472,7 +472,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
-            {"model": "gpt-5.5", "reasoningEffort": "high"},
+            {"model": "gpt-5.6-luna", "reasoningEffort": "high"},
         )
         self.assertTrue(
             all(
@@ -542,8 +542,8 @@ class WorkflowCatalogTests(unittest.TestCase):
 
     def test_agent_policy_rejects_unknown_roles_and_incomplete_settings(self):
         invalid_policies = (
-            'agent_policy = { writer = { model = "gpt-5.5", reasoning_effort = "high" } }',
-            'agent_policy = { independent_review = { model = "gpt-5.5" } }',
+            'agent_policy = { writer = { model = "gpt-5.6-luna", reasoning_effort = "high" } }',
+            'agent_policy = { independent_review = { model = "gpt-5.6-luna" } }',
         )
         for policy in invalid_policies:
             with self.subTest(policy=policy), tempfile.TemporaryDirectory() as directory:
