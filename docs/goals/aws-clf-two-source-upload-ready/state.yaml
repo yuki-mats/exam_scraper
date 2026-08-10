@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T051
+active_task: T052
 
 tasks:
   - id: T001
@@ -3008,7 +3008,7 @@ tasks:
   - id: T051
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T050 root-cause receiptをread-only監査し、モデルselector空表示を直す最大安全な単一Worker packageをapprove又はrejectする。live catalog導出、dialog state初期化、preview token/start拘束、resume固定、actual欄分離、retry Sol/high、Standard/Firestore境界を維持する。"
     depends_on:
@@ -3025,6 +3025,69 @@ tasks:
       - "approve | reject"
       - "exact Worker objective、allowed_files、verify、stop_if"
       - "follow-up live readback contract"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T050のroot causeは正しいが5-file案だけでは不十分。browser localStorageに加えserver-side永続overview cacheもschema v1かつmodelPolicy欠落を許容する。overview透過、browser cache/live response検証、server cache v2化・shape検証を一工程で行えば安全に修正できる。routing、token、resume、actual欄、Standard、Firestore境界は変更不要。"
+      evidence:
+        - root_cause: "QualificationWorkflow.catalogはmodelPolicyを返すがoverviewでは透過されず、通常UI stateで欠落する。"
+        - browser_cache: "version 1のrestoreはmodelPolicy shapeを検証せず最大6時間受理する。"
+        - server_cache: "永続overview cacheもv1でmodelPolicy欠落を許容し、再起動後の初回APIで返し得る。"
+        - single_ssot: "model値はcodex_app_server.py由来だけを正本とし、cache検証はshapeと包含関係だけを見る。"
+        - preserved_contracts: "routing、preview token、resume、actual欄、retry Sol/high、Standard、Firestore境界は変更不要。"
+      next_allowed_task: T052
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "共有overview serializer、永続cache、通常UI stateとlive Chromeを扱う単一変更。"
+      blocked_tasks:
+        - T048
+        - T999
+      missing_evidence:
+        - "server/browser両cacheを含む修正実装と回帰結果"
+        - "通常ChromeでのLuna/Sol selector・preview・resume固定readback"
+        - "39674修正、全879問整備、artifact sync、upload dry-run"
+      required_board_updates:
+        - "server-side cacheを含む単一Worker package T052を実行する。"
+  - id: T052
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常の問題整備UIへcatalog由来modelPolicyを確実に届ける。QualificationWorkflow.overviewへcatalog.modelPolicyをdeep copyで透過する。server-side workflow overview cacheをv2へ更新し、modelPolicyのobject、非空で重複のないinitialModelOptions、optionsに含まれるdefaultInitialModel/retryModel、非空requestedReasoningEffortを検証して旧欠落cacheを拒否・再生成する。browser cacheもv2化し、同じshape条件をcache保存・復元・live response採用前にfail-closed検証する。model値はUIへ手書きせず、routing、request/token、manifest/resume、actual欄、Standard、Firestore契約を変えない。限定差分をmainへcommit/pushし、通常Chrome UIで再検証する。"
+    depends_on:
+      - T051
+    allowed_files:
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tools/question_review_console/workflow_overview_cache.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "tests/test_question_review_workflow_overview_cache.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - ".review-ui.lock"
+      - "output/question_review_console/cache/workflow_overviews/aws-cloud-practitioner.json"
+    verify:
+      - "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_workflow_catalog tests.test_question_review_qualification_workflow tests.test_question_review_workflow_overview_cache tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "overview.modelPolicyがcatalogと等値かつ別objectである。"
+      - "modelPolicy欠落v1 server cacheが拒否されv2正常snapshotへ再生成される。"
+      - "browserの旧v1、modelPolicy欠落、options/default/retry/effort不正cacheを拒否し、正常cacheだけ復元する。"
+      - "API responseにmodelPolicy全fieldが含まれる。"
+      - "git diff --checkとscope確認後、実装/testファイルだけをstage・mainへcommit/pushし、lockとderived cacheはstageしない。"
+      - "既存localStorageを手動削除せずChrome通常UIでLuna/Sol二択、既定Luna、retry Sol/high、Pro Standardを確認する。"
+      - "ChromeでLuna/Sol各preview、変更時の旧preview無効化、履歴resumeのmodel固定を確認し、開始ボタンは押さない。"
+      - "前後で新規run/review/prompt/plan/artifact/model turn/Firestore write/00_source差分0。終了時process/listener/lockなし、git clean、main同期0 0。"
+    stop_if:
+      - "UI、overview又はcache validatorへLuna/Sol一覧を手書きする必要がある。"
+      - "server/browserの旧欠落cacheを受理したままになる。"
+      - "不正live responseをstate/localStorageへ保存してから補正する設計になる。"
+      - "codex_app_server.py、workflow_catalog.py、qualification_runs.py、server.py、index.html、styles.css、docs又はallowed_files外変更が必要になる。"
+      - "routing、preview token/start、resume、actual欄、retry契約の変更が必要になる。"
+      - "Fast、credits、API、外部provider、Firestore write、localStorage手動削除、direct API、DOM注入又はrun開始が必要になる。"
+      - "新規run又は成果物、model turn、00_source差分、unrelated dirty、branch/remote競合を検出する。"
     receipt: null
   - id: T048
     type: judge
@@ -3033,13 +3096,14 @@ tasks:
     reasoning_hint: high
     objective: "T046実装receiptとT047ブラウザreadbackをread-onlyで監査し、初回モデル選択UIの限定成果をaccept又はrejectする。単一SSOT、preview token/start拘束、fresh/retry routing、resume固定、actual欄分離、Standard/ChatGPT/credits無効/Firestore境界、Git同期を確認する。AWS全879問整備goalの完了とは分離する。"
     depends_on:
-      - T051
+      - T052
     inputs:
       - "T045 design receipt"
       - "T046 implementation receipt and commit 61b18ab82"
       - "T047 live UI readback receipt"
       - "T049 Chrome live UI recovery receipt"
       - "T050/T051 live blocker diagnosis and approved recovery"
+      - "T052 cache-safe fix and live Chrome receipt"
     constraints:
       - "read-only。code、test、docs、output、board、Firestoreを変更しない。"
       - "モデル選択UIの限定成果だけを判定し、AWS全件整備を完了扱いしない。"
