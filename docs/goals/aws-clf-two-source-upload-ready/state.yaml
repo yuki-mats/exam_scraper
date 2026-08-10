@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T034
+active_task: T035
 
 tasks:
   - id: T001
@@ -2106,7 +2106,7 @@ tasks:
   - id: T034
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "問題整備システムの標準review-uiだけを使い、Ping-tの問題39674を1問限定で05・01・02・02a・03・04の順に再整備する。standard速度、auto_max、上限100、全更新項目をpreviewで確認してからfresh runを開始し、新しいAWS資格別正本に従う05と03の実成果物をreadbackする。"
     depends_on:
@@ -2144,6 +2144,60 @@ tasks:
       - "選択肢、正答、answer_result_text、ID、questionIntent又は00_sourceが変わる。"
       - "direct API、manifest・sidecar手編集、Firestore write又はallowed_files外の変更が必要になる。"
       - "対象外資格のrun又は未解決recoveryが検出される。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/.review-ui.lock
+        - "output/question_review_console/cache/**"
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/c03d8b25af6627419388375f.json
+        - "output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T170559529180-228d8dc0/**"
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/05_originalized/question_ping-t-76_39674_originalized.json
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/question_ping-t-76_39674_merged_explanationText_added.json
+      commands:
+        - command: "git status --short; git branch --show-current; git rev-list --left-right --count origin/main...HEAD"
+          status: pass
+        - command: "標準review-uiでPing-t問題39674の1問・全10更新target・6工程・Standard・auto_max・上限100をpreview後に開始"
+          status: pass
+        - command: "jqによるmanifest、question_summary、work_versions、05・03・00_source成果物のreadback"
+          status: pass
+        - command: "sha256sumとtechnical_logによる00_source不変確認"
+          status: pass
+        - command: "review-uiを正常終了し、process・listener・lease・recovery sidecarを確認"
+          status: pass
+      summary: "fresh run 20260810T170559529180-228d8dc0は6/6工程validated、terminal succeeded、receiptValidated=true。05は既存KendraでS3・Slack・Dropbox検索を継続する文脈へ更新し、不変fieldを維持した。03は公式URL、Maintenance Mode、新規受付停止日、既存顧客サポートを含むが、BMKBを新規構築の推奨先として説明しておらず内容要件未達。また標準UIの実保存先がboard許可のscraped_dataではなくoutput配下でallowed_files外だった。追加run・修正・commitは行わず停止した。"
+      remaining_blockers:
+        - "03成果物にAmazon Bedrock Managed Knowledge Baseを新規検索アプリケーションの推奨先として区別した説明がない。"
+        - "T034 allowed_filesのscraped_dataパスと標準review-uiの実保存先output/aws-cloud-practitioner/questions_jsonパスが一致しない。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "03の実成果物が内容要件を満たさず、標準review-uiがallowed_files外のoutput配下へ成果物を書き込んだため。"
+  - id: T035
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T034のterminal runと実成果物をread-only監査する。標準review-uiの正規保存先がboardの誤記と異なった点をscope逸脱として再実行すべきか、又は記録を訂正して成果物を採用できるか判定する。03にBedrock Managed Knowledge Baseの新規構築時推奨が欠けた原因をprompt projection・attempt・UI修正経路から切り分け、同一入力の再試行、03限定の通常UI修正、資格別正本の追加修正、又は別契約変更のうち最小で確実な次工程を一つだけ提示する。"
+    depends_on:
+      - T034
+    inputs:
+      - "T034 blocked receipt"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T170559529180-228d8dc0/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/05_originalized/question_ping-t-76_39674_originalized.json"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/question_ping-t-76_39674_merged_explanationText_added.json"
+      - "prompt/qualification_docs/aws-cloud-practitioner/README.md"
+      - "config/question_maintenance_workflow.toml"
+      - "tools/question_review_console/**"
+    constraints:
+      - "read-only。コード、prompt、config、output、board、manifest、sidecar、lock、Firestoreを変更しない。"
+      - "runの緑表示だけでなく、attempt prompt/candidate、適用後05/03、00_source、live残留を照合する。"
+      - "同一入力の再試行は、欠落が確率的で再試行により確実に収束する根拠がある場合だけ認める。"
+      - "ユーザー承認済み範囲を超えるprompt、checker、UI、API契約変更が必要ならapproval gateを明示する。"
+    expected_output:
+      - "approve_next | reject_next"
+      - "T034成果物の採否とpath誤記の扱い"
+      - "03欠落のroot cause"
+      - "next Worker objective、正しいallowed_files、verify、stop_if"
+      - "user approval要否"
     receipt: null
   - id: T999
     type: judge
@@ -2158,6 +2212,7 @@ tasks:
       - T032
       - T033
       - T034
+      - T035
       - T004
       - T005
     inputs:
