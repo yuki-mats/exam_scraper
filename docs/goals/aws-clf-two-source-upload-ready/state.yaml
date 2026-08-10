@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T031
+active_task: T032
 
 tasks:
   - id: T001
@@ -1959,7 +1959,7 @@ tasks:
   - id: T031
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T030で39674の通常UI runが成功扱いなのに、05本文と03解説へ明示指示が反映されなかった原因をread-onlyで確定し、同じ入力を繰り返さず問題整備システム内で収束させる次の最小taskを決める。"
     depends_on:
@@ -1980,6 +1980,64 @@ tasks:
       - "data-only再整備、instruction経路修正、prompt/checker修正のどれが必要か"
       - "user approval要否"
       - "next Worker objective、allowed_files、verify、stop_if"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "T030のdata-only再試行は承認できない。自然言語欄は現行SSOT上、更新項目とmodeの選択専用で、原文を整備promptへ渡さない。したがってrun成功は機械契約上正しいが、内容指示の達成を意味しない。最小修正はAWS資格別正本へ39674の確認済み提供条件を追加し、05/03のminor policy versionを更新すること。広いinstruction-routing変更は不要で、新規仕様となる。prompt/config変更前にユーザー承認が必要である。"
+      evidence:
+        - path_decision: "[object Object]"
+        - path: document/operations/local_question_review_console.md
+          finding: "自然言語はupdate targetとneeded/group_refreshへ変換し、文章自体は整備modelへ渡さないと明記されている。"
+        - path: tools/question_review_console/static/app.js
+          finding: "applyQualificationRunInstructionはselectedUpdateTargetIdsとmodeだけを反映し、preview/start bodyへinstructionを含めない。"
+        - path: tools/question_review_console/server.py
+          finding: "preview/startの許可request fieldとrun_optionsにinstruction系fieldが存在しない。"
+        - path: output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T121957016883-ceae2f3e/manifest.json
+          finding: "6/6 work item validatedだがinstruction/userInstruction/instructionMappingは存在しない。"
+        - path: output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T121957016883-ceae2f3e/plan.json
+          finding: "親planと全stagePlansに指示原文がなく、05/03 promptにも既存顧客、新規顧客、maintenance modeの指定がない。"
+        - path: output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T121957016883-ceae2f3e/attempts
+          finding: "05候補はS3をAmazon S3へ直しただけで新規導入文脈を維持し、03候補もavailability条件なし。schema、content、immutability、scope、atomic applyがpassしたため成功した。"
+        - path: prompt/qualification_docs/aws-cloud-practitioner/README.md
+          finding: "提供状況を実行時点の公式資料で確認し、上流05へ戻す一般規則がある。39674固有方針を資格別SSOTへ追加するのが最小修正。"
+        - approval: "[object Object]"
+        - sequence: "承認後のprompt/config Worker,39674限定再整備,39717・39743・39768限定再整備,両group全879問needed run,T004 artifact sync・upload-ready"
+      next_allowed_task:
+        path_decision: c_qualification_prompt_ssot_fix
+        status: awaiting_user_approval
+      parallel_safety:
+        safe: false
+        reason: "資格別正本とpolicy versionが後続runの入力とneeded判定を変えるため直列実行する。"
+      blocked_tasks:
+        - T030
+        - T004
+        - T005
+        - T999
+      missing_evidence:
+        - "prompt/config変更に対するユーザー承認。"
+        - "更新後05/03 prompt projectionが39674方針を含むfocused regression。"
+        - "新policyでの39674限定runと05/03内容readback。"
+        - "残り3問、全879問、T004の各terminal receipt。"
+  - id: T032
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: low
+    objective: "AWS資格別正本READMEへ問題39674のKendra提供条件と修正方針を追加し、05を2.9、03を10.1へminor bumpするprompt/config修正について、ユーザーの明示承認を得る。"
+    depends_on:
+      - T031
+    inputs:
+      - "T031 Judge receipt"
+      - "prompt/qualification_docs/aws-cloud-practitioner/README.md"
+      - "config/question_maintenance_workflow.toml"
+    constraints:
+      - "承認前にprompt、config、test、outputを変更しない。"
+      - "instruction-routing、共通prompt、checker、APIへscopeを広げない。"
+      - "ユーザーが修正内容を判断できるよう、変更点と理由を簡潔に示す。"
+    expected_output:
+      - "exact user approval or rejection"
+      - "承認時のみ次Workerを追加・activate"
     receipt: null
   - id: T999
     type: judge
@@ -1991,6 +2049,7 @@ tasks:
       - T029
       - T030
       - T031
+      - T032
       - T004
       - T005
     inputs:
