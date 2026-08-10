@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T025
+active_task: T026
 
 tasks:
   - id: T001
@@ -284,7 +284,7 @@ tasks:
     reasoning_hint: medium
     objective: "T013で確定した879問の問題整備システム成果物だけを入力に、問題整備システム経由で両groupのartifact syncを成功させ、879 unique question IDを覆うupload-readyを生成する。同一artifact hashへquality gateとupload dry-runを実行し、Firestoreへ書かず公開直前状態へ収束する。"
     depends_on:
-      - T018
+      - T026
     allowed_files:
       - "output/question_review_console/aws-cloud-practitioner/**"
       - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
@@ -311,7 +311,7 @@ tasks:
     reasoning_hint: medium
     objective: "関連成果物とGoalBuddy receiptsだけを最終検証し、mainへ内容別にコミットしてorigin/mainへpushする。"
     depends_on:
-      - T018
+      - T026
       - T004
     inputs:
       - "T013 receipt"
@@ -1550,7 +1550,7 @@ tasks:
   - id: T025
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "問題整備メインUIの既存『作業履歴』にrun IDと、安全に再開可能な履歴runごとの『この未完了を再開』操作を追加する。クリックした履歴objectだけを既存retryBlockedQualificationRunへ渡し、preview/startのresumedFromがそのrun IDになることを回帰検証し、運用SSOTへ操作手順を追記する。monitor、API契約、再開バックエンド、manifestは変更しない。"
     depends_on:
@@ -1571,6 +1571,79 @@ tasks:
       - "active run、repository lease、recovery sidecar又は別operationとの競合をUIで安全に遮断できない。"
       - "指定旧runがrecent履歴から消れ、追加の履歴取得契約変更が必要になる。"
       - "許可ファイル外の変更又は既存ユーザー差分へ触れる必要が生じる。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/static/styles.css
+        - tests/test_question_review_workflow.py
+        - document/operations/local_question_review_console.md
+      commands:
+        - command: ".venv/bin/python -m unittest tests.test_question_review_workflow (48 tests)"
+          status: pass
+        - command: ".venv/bin/python -m unittest tests.test_question_review_qualification_flow_recovery.QualificationFlowRecoveryTests.test_per_question_queue_continues_sibling_after_one_writer_fails"
+          status: pass
+        - command: ".venv/bin/python -m unittest tests.test_question_review_qualification_flow_recovery.QualificationFlowRecoveryTests.test_question_queue_resumes_only_failed_stage_after_store_restart"
+          status: pass
+        - command: "git diff --check"
+          status: pass
+      summary: "作業履歴へrun IDと安全な履歴run再開操作を追加した。クリックしたitemを既存再開関数へ渡し、同じrun IDをresumedFromにする。さらに、表示資格のrun状態確認済み、active runなし、workflow再起動不要の3条件を満たす場合だけ履歴ボタンをenabledにした。安全判定、item固定、競合遮断、既存トップ再開を回帰テストで固定し、CSSと運用SSOTも更新した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 3
+      stopped_because: null
+  - id: T026
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "T025の履歴run再開UIを実画面で確認し、作業履歴の指定旧run 20260809T181048580324-c5cc55b0から通常UIで未完了だけをresumedFrom付き再開する。成功後、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問windowで実行し、879問の必要工程を終端化する。artifact syncとupload-readyはT004へ残す。"
+    depends_on:
+      - T025
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/05_originalized/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/10_questionType_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/40_convert/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/05_originalized/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/10_questionType_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/40_convert/**"
+    verify:
+      - "開始前のprocess、TCP:8765 listener、有効lease、active recovery sidecar、別operationがすべて0である。"
+      - "実画面の作業履歴に旧run IDと『この未完了を再開』が表示され、競合時はdisabledである。"
+      - "previewの再開元ID、scope、mode、工程が指定旧runと一致する。"
+      - "開始後manifestのresumedFrom=20260809T181048580324-c5cc55b0で、旧run自体は保持される。"
+      - "inventory=332+547=879、全run succeeded・receiptValidated=true。"
+      - "全879問が05=2、01=6、02=4、02a=4、03=10、04=2を満たす。"
+      - "pending/queued/preparing/committing/blocked/hold/open transaction/sidecar=0。"
+      - "standard/auto_max、Fast未使用、00_source・SAA・tools・config不変、Firestore writes=0。"
+      - "終了後process/listener/valid lease=0。"
+    stop_if:
+      - "履歴UIで指定旧runを一意に選べない、又はpreview/resumedFrom/scopeが一致しない。"
+      - "旧runの削除・複製・手編集・直接APIが必要になる。"
+      - "inventoryが332+547でない、又は同じ未修正入力のblocked工程が再検出される。"
+      - "手編集・直接生成・Fast・工程省略・Firestore write・コード・設定変更が必要になる。"
+      - "00_source・SAA・allowed_files外差分、別operation競合、終了後live sidecarが残る。"
     receipt: null
   - id: T999
     type: judge
@@ -1579,7 +1652,7 @@ tasks:
     reasoning_hint: high
     objective: "全receiptとlive readbackをoracleへ対応付け、CLF-C02全件が問題整備システム経由でupload dry-runまで完了したか最終監査する。"
     depends_on:
-      - T018
+      - T026
       - T004
       - T005
     inputs:
