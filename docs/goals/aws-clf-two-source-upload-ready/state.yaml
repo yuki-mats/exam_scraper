@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T055
+active_task: T056
 
 tasks:
   - id: T001
@@ -3293,7 +3293,7 @@ tasks:
   - id: T055
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常review-uiのreadOnly問題詳細でPing-t問題39674の選択肢1の基本解説を実pointer dragで選択し、『この箇所を確認』からscope=current_question、field=explanationText、choiceIndexes=[0]だけのreviewを作る。新しいreview noteとexpectedOutcomeへ、既存Kendra継続の結論、Maintenance Mode、2026-06-30と2026-07-30、既存顧客サポート、公式availability URL、新規検索アプリではAmazon Bedrock Managed Knowledge BaseをAWSが推奨すること、ただしBMKBにSlack・Dropboxの直接connectorがあるとは説明しないことを明記する。問題整備システムで03だけを再生成し、内容と不変fieldをreadbackする。可能な範囲で通常artifact syncまで進め、Firestoreへは書かない。"
     depends_on:
@@ -3335,6 +3335,53 @@ tasks:
       - "prompt、config、tools、API、共通checker、manifest手編集、直接API編集又はFirestore反映が必要になる。"
       - "許可範囲外のファイル、別資格又は別問題へ変更が及ぶ。"
       - "別資格run、listener、valid lease又はrepository operationと競合する。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "preflight process/listener/valid lease/recovery check"
+          status: pass
+        - cmd: "normal review-ui launch"
+          status: pass
+        - cmd: "Chrome problem 39674 real pointer drag"
+          status: pass
+        - cmd: "readOnly review dialog scope/dataPath/field/choiceIndexes inspection"
+          status: fail
+        - cmd: "review cancel without save"
+          status: pass
+        - cmd: "00_source/05/21/work-version hashes unchanged"
+          status: pass
+        - cmd: "clean shutdown and main...origin/main 0 0"
+          status: pass
+      summary: "通常Chromeで問題39674の問題共通基本解説を実pointer dragし、『この箇所を確認』を開いた。scope=current_question、dataPath=explanationText[0]、field=explanationText、類似調査非表示は確認できたが、choiceIndexesは要求された[0]ではなく空配列だった。T055のstop_ifに従いreviewを保存せず、runも開始せず停止した。成果物と00_sourceは不変。"
+      remaining_blockers:
+        - "flash_cardの問題共通基本解説は現行UIでchoiceIndexes=[]となり、T055必須のchoiceIndexes=[0]へ限定できない。正規契約か追加UI修正が必要かを監査する。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "current_questionかつexplanationText[0]は限定できたが、choiceIndexes=[0]に限定できずT055 stop_ifに該当した。"
+  - id: T056
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T055で問題39674のreadOnly review dialogがscope=current_question、dataPath=explanationText[0]、field=explanationTextだがchoiceIndexes=[]となった事実を、schema、UI保存処理、prompt生成、既存review、問題形式からread-only監査する。flash_cardの問題共通基本解説でchoiceIndexes=[]が正規表現なら、追加UI修正なしで安全に03限定再整備できるWorker契約を確定する。choiceIndexes=[0]が必須なら、最小の追加UI修正scopeを確定する。"
+    depends_on:
+      - T055
+    inputs:
+      - "T055 receipt"
+      - "tools/question_review_console/static/app.js"
+      - "review schema、prompt生成、qualification run plan生成の現行実装"
+      - "問題39674の現行05/21/work versionと既存review"
+    constraints:
+      - "Read-only。"
+      - "review保存、prompt生成、run開始、artifact変更、Firestore writeを行わない。"
+      - "choiceIndexesの値だけで推測せず、dataPath、field、問題形式、保存後routingを対応付ける。"
+      - "既に承認されたreadOnly current_question限定の範囲を広げない。"
+    expected_output:
+      - "Decision: approve retry with choiceIndexes=[] | require UI fix | blocked"
+      - "choiceIndexesの正規契約と、空配列でもexplanationText[0]だけに限定される証拠"
+      - "次Workerのobjective、allowed_files、verify、stop_if"
+      - "追加のユーザー承認要否"
     receipt: null
   - id: T999
     type: judge
@@ -3364,6 +3411,7 @@ tasks:
       - T048
       - T054
       - T055
+      - T056
       - T004
       - T005
     inputs:
