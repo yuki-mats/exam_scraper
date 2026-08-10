@@ -106,6 +106,7 @@ from tools.question_review_console.codex_app_server import (
     CodexTurnTimeoutError,
     SubscriptionGateError,
     normalize_speed_mode,
+    normalize_question_maintenance_model,
 )
 from tools.question_review_console.qualification_workflow import (
     LAW_WORKFLOW_STAGE_IDS,
@@ -3426,6 +3427,11 @@ class QualificationRunStore:
                 plan.get("speedMode") or STANDARD_SPEED_MODE
             ),
             "requestedServiceTier": plan.get("requestedServiceTier"),
+            "initialModel": normalize_question_maintenance_model(
+                plan.get("initialModel")
+            ),
+            "retryModel": QUESTION_MAINTENANCE_RETRY_MODEL,
+            "requestedReasoningEffort": TURN_REASONING_EFFORT,
             "parallelWorkerLimit": int(plan.get("parallelWorkerLimit") or 1),
             "writeWorkerLimit": int(plan.get("writeWorkerLimit") or 1),
             "executionPhase": "queued",
@@ -3950,6 +3956,66 @@ class QualificationRunStore:
                     question_id,
                 )
         return results
+
+    def transition_aggregate_review_checkpoint_for_retry(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        question_id: str,
+        signature: Mapping[str, Any],
+        *,
+        initial_model: str,
+    ) -> dict[str, Any] | None:
+        """Start a Sol retry checkpoint while preserving resolved initial evidence."""
+
+        parent_path = self._manifest_path(qualification, parent_run_id)
+        sidecar_path = self._aggregate_checkpoint_path(parent_path, question_id)
+        with self._path_lock(sidecar_path):
+            current = self._effective_aggregate_checkpoint(
+                sidecar_path, question_id
+            )
+            if current is None or self._aggregate_checkpoint_signature(current) == dict(signature):
+                return current
+            comparable_fields = {
+                "sourceHash",
+                "candidateSetHash",
+                "stableParentIdentity",
+                "promptContractVersion",
+            }
+            if (
+                any(current.get(field) != signature.get(field) for field in comparable_fields)
+                or current.get("model") != initial_model
+                or current.get("reasoningEffort") != TURN_REASONING_EFFORT
+                or signature.get("model") != QUESTION_MAINTENANCE_RETRY_MODEL
+                or signature.get("reasoningEffort") != TURN_REASONING_EFFORT
+                or any(
+                    slot.get("status") != "resolved"
+                    for slot in self._aggregate_checkpoint_slots(current).values()
+                )
+            ):
+                raise QualificationRunError(
+                    "aggregate review checkpointをretry契約へ安全に移行できません。"
+                )
+            superseded = [
+                copy.deepcopy(dict(value))
+                for value in current.get("supersededCheckpoints") or []
+                if isinstance(value, Mapping)
+            ]
+            archived = copy.deepcopy(dict(current))
+            archived.pop("supersededCheckpoints", None)
+            replacement = {
+                **copy.deepcopy(dict(signature)),
+                "slots": {},
+                "consensus": None,
+                "supersededCheckpoints": [*superseded, archived],
+            }
+            self._write_aggregate_checkpoint_sidecar(
+                parent_path,
+                sidecar_path,
+                question_id,
+                replacement,
+            )
+            return replacement
 
     def reserve_aggregate_review_slot(
         self,
@@ -5819,6 +5885,11 @@ class QualificationRunStore:
         return {
             "runId": manifest.get("runId"),
             "status": manifest.get("status"),
+            "initialModel": manifest.get("initialModel") or QUESTION_MAINTENANCE_MODEL,
+            "retryModel": manifest.get("retryModel") or QUESTION_MAINTENANCE_RETRY_MODEL,
+            "requestedReasoningEffort": (
+                manifest.get("requestedReasoningEffort") or TURN_REASONING_EFFORT
+            ),
             "verified": _terminal_receipt_validated(manifest),
             "targetQuestionCount": int(manifest.get("targetCount") or 0),
             "completedQuestionCount": 0,
@@ -8713,6 +8784,38 @@ class QualificationRunCoordinator:
             },
         )
 
+    def _initial_model_for_request(
+        self,
+        qualification: str,
+        resumed_from: str | None,
+        initial_model: str | None,
+    ) -> str:
+        requested = str(initial_model or "").strip()
+        if not resumed_from:
+            try:
+                return normalize_question_maintenance_model(requested)
+            except ValueError as exc:
+                raise QualificationRunError(str(exc)) from exc
+        previous = self.store.get(qualification, resumed_from)
+        try:
+            inherited = normalize_question_maintenance_model(
+                previous.get("initialModel")
+            )
+        except ValueError as exc:
+            raise QualificationRunError(
+                "再開元runのinitialModelが現在の許可modelではありません。"
+            ) from exc
+        if requested:
+            try:
+                normalized_requested = normalize_question_maintenance_model(requested)
+            except ValueError as exc:
+                raise QualificationRunError(str(exc)) from exc
+            if normalized_requested != inherited:
+                raise QualificationRunError(
+                    "再開時にinitialModelを変更できません。"
+                )
+        return inherited
+
     def preview(
         self,
         qualification: str,
@@ -8728,9 +8831,13 @@ class QualificationRunCoordinator:
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
         blocked_rework_from: str | None = None,
+        initial_model: str | None = None,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
+        selected_initial_model = self._initial_model_for_request(
+            qualification, resumed_from, initial_model
+        )
         plan = self._plan(
             qualification,
             stage_id,
@@ -8740,6 +8847,11 @@ class QualificationRunCoordinator:
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
             question_ids=question_ids,
+        )
+        plan.update(
+            initialModel=selected_initial_model,
+            retryModel=QUESTION_MAINTENANCE_RETRY_MODEL,
+            requestedReasoningEffort=TURN_REASONING_EFFORT,
         )
         self._apply_evaluation_rework_plan(
             plan,
@@ -8787,6 +8899,9 @@ class QualificationRunCoordinator:
             "questionConcurrency": question_concurrency,
             "speedMode": speed_mode,
             "requestedServiceTier": None,
+            "initialModel": selected_initial_model,
+            "retryModel": QUESTION_MAINTENANCE_RETRY_MODEL,
+            "requestedReasoningEffort": TURN_REASONING_EFFORT,
             "targetCount": plan["targetCount"],
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
             "stageCount": int(
@@ -8839,6 +8954,7 @@ class QualificationRunCoordinator:
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
         blocked_rework_from: str | None = None,
+        initial_model: str | None = None,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
@@ -8855,6 +8971,7 @@ class QualificationRunCoordinator:
             speed_mode=speed_mode,
             evaluation_rework_snapshots=evaluation_rework_snapshots,
             blocked_rework_from=blocked_rework_from,
+            initial_model=initial_model,
         )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
@@ -8880,6 +8997,11 @@ class QualificationRunCoordinator:
             list_group_ids=list_group_ids,
             update_target_ids=update_target_ids,
             question_ids=question_ids,
+        )
+        plan.update(
+            initialModel=str(preview["initialModel"]),
+            retryModel=str(preview["retryModel"]),
+            requestedReasoningEffort=str(preview["requestedReasoningEffort"]),
         )
         self._apply_evaluation_rework_plan(
             plan,
@@ -11541,15 +11663,15 @@ class QualificationRunCoordinator:
                 {},
             )
             agent_policy = dict(definition.get("agentPolicy") or {})
-            candidate_role = "candidate_retry" if retrying else "candidate_initial"
-            candidate_policy = dict(agent_policy.get(candidate_role) or {})
-            requested_model = str(
-                candidate_policy.get("model")
-                or (QUESTION_MAINTENANCE_RETRY_MODEL if retrying else QUESTION_MAINTENANCE_MODEL)
+            requested_model = (
+                QUESTION_MAINTENANCE_RETRY_MODEL
+                if retrying
+                else normalize_question_maintenance_model(
+                    parent_snapshot.get("initialModel")
+                    or parent.get("initialModel")
+                )
             )
-            requested_effort = str(
-                candidate_policy.get("reasoningEffort") or TURN_REASONING_EFFORT
-            )
+            requested_effort = TURN_REASONING_EFFORT
             batch_plan, target = self._question_plan_for_spec(
                 single_spec,
                 parent_run_id=run_id,
@@ -13925,13 +14047,8 @@ class QualificationRunCoordinator:
                     raw_targets,
                     records_by_question,
                 )
-                review_policy = dict(
-                    (batch_plan.get("agentPolicy") or {}).get("independent_review") or {}
-                )
-                review_model = str(review_policy.get("model") or model)
-                review_effort = str(
-                    review_policy.get("reasoningEffort") or reasoning_effort
-                )
+                review_model = normalize_question_maintenance_model(model)
+                review_effort = TURN_REASONING_EFFORT
                 parent_run_id = str(batch_plan.get("parentRunId") or "")
                 reused_question_ids: list[str] = []
                 signatures: dict[str, dict[str, Any]] = {}
@@ -13964,6 +14081,26 @@ class QualificationRunCoordinator:
                     }
                     signatures[question_id] = signature
                     checkpoint = stored_checkpoints[question_id]
+                    if (
+                        checkpoint is not None
+                        and checkpoint.get("model") != review_model
+                        and bool(batch_plan.get("retryModelFallback"))
+                    ):
+                        try:
+                            checkpoint = self.store.transition_aggregate_review_checkpoint_for_retry(
+                                qualification,
+                                parent_run_id,
+                                question_id,
+                                signature,
+                                initial_model=normalize_question_maintenance_model(
+                                    batch_plan.get("initialModel")
+                                ),
+                            )
+                        except QualificationRunError:
+                            checkpoint_mismatches.add(question_id)
+                            reviews_by_question[question_id] = []
+                            executions_by_question[question_id] = []
+                            continue
                     if checkpoint is None:
                         reviews_by_question[question_id] = []
                         executions_by_question[question_id] = []
@@ -15990,6 +16127,10 @@ class QualificationRunCoordinator:
                             cwd=Path(research_directory).resolve(),
                             speed_mode=speed_mode,
                             turn_group=qualification,
+                            model=normalize_question_maintenance_model(
+                                current_run.get("initialModel")
+                            ),
+                            reasoning_effort=TURN_REASONING_EFFORT,
                             monitor_context=self._monitor_context(
                                 qualification,
                                 run_id,
@@ -16102,6 +16243,10 @@ class QualificationRunCoordinator:
                         completion_probe=completion_probe,
                         speed_mode=speed_mode,
                         turn_group=qualification,
+                        model=normalize_question_maintenance_model(
+                            current_run.get("initialModel")
+                        ),
+                        reasoning_effort=TURN_REASONING_EFFORT,
                         monitor_context=self._monitor_context(
                             qualification,
                             run_id,

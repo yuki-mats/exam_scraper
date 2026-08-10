@@ -8,6 +8,13 @@ import tomllib
 from pathlib import Path, PurePosixPath
 from typing import Any, Mapping
 
+from tools.question_review_console.codex_app_server import (
+    QUESTION_MAINTENANCE_MODEL,
+    QUESTION_MAINTENANCE_MODEL_OPTIONS,
+    QUESTION_MAINTENANCE_RETRY_MODEL,
+    TURN_REASONING_EFFORT,
+)
+
 
 DEFAULT_CATALOG_PATH = (
     Path(__file__).resolve().parents[2]
@@ -16,7 +23,7 @@ DEFAULT_CATALOG_PATH = (
 )
 STAGE_KINDS = {"source", "human", "machine"}
 AGENT_POLICY_ROLES = {"candidate_initial", "candidate_retry", "independent_review"}
-AGENT_POLICY_MODELS = {"gpt-5.6-luna", "gpt-5.6-sol"}
+AGENT_POLICY_MODELS = set(QUESTION_MAINTENANCE_MODEL_OPTIONS)
 AGENT_POLICY_REASONING_EFFORTS = {"high"}
 POLICY_VERSION_PATTERN = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)")
 
@@ -238,6 +245,12 @@ class WorkflowCatalog:
                     "catalogPath": str(path),
                     "catalogWarning": "",
                     "restartRequired": False,
+                    "modelPolicy": {
+                        "initialModelOptions": list(QUESTION_MAINTENANCE_MODEL_OPTIONS),
+                        "defaultInitialModel": QUESTION_MAINTENANCE_MODEL,
+                        "retryModel": QUESTION_MAINTENANCE_RETRY_MODEL,
+                        "requestedReasoningEffort": TURN_REASONING_EFFORT,
+                    },
                 }
             except (OSError, UnicodeError, ValueError, KeyError) as exc:
                 if self._last_good is None:

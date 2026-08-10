@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import fnmatch
 import hashlib
 import json
@@ -530,6 +531,7 @@ class QualificationWorkflow:
             "lawWorkflowEnabled": law_workflow_enabled,
             "generatedAt": _now_iso(),
             "system": system,
+            "modelPolicy": copy.deepcopy(loaded["modelPolicy"]),
             "sessionGroups": [
                 dict(value)
                 for value in loaded.get("sessionGroups") or []

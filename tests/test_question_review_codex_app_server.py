@@ -22,6 +22,7 @@ from tools.question_review_console.codex_app_server import (
     FAST_SPEED_MODE,
     MIN_APP_SERVER_FILE_DESCRIPTORS,
     QUESTION_MAINTENANCE_RETRY_MODEL,
+    QUESTION_MAINTENANCE_MODEL_OPTIONS,
     RESEARCH_AGENT_CONFIG,
     RESEARCH_AGENT_CONFIG_FILENAME,
     RESEARCH_AGENT_ROLE,
@@ -33,8 +34,24 @@ from tools.question_review_console.codex_app_server import (
     _TurnState,
     adapt_output_schema_for_app_server,
     ensure_app_server_file_descriptor_capacity,
+    normalize_question_maintenance_model,
     validate_subscription_access,
 )
+
+
+class MaintenanceModelPolicyTests(unittest.TestCase):
+    def test_ordered_options_default_and_unknown_fail_closed(self):
+        self.assertEqual(
+            QUESTION_MAINTENANCE_MODEL_OPTIONS,
+            ("gpt-5.6-luna", "gpt-5.6-sol"),
+        )
+        self.assertEqual(normalize_question_maintenance_model(None), "gpt-5.6-luna")
+        self.assertEqual(
+            normalize_question_maintenance_model("gpt-5.6-sol"),
+            "gpt-5.6-sol",
+        )
+        with self.assertRaisesRegex(ValueError, "unsupported maintenance model"):
+            normalize_question_maintenance_model("unknown")
 
 
 class OutputSchemaAdapterTests(unittest.TestCase):

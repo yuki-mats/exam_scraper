@@ -1235,12 +1235,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 resumed_from=None,
                 question_concurrency=None,
                 speed_mode=None,
+                initial_model=None,
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 self.speed_mode = speed_mode
+                self.initial_model = initial_model
                 return {
                     "qualification": qualification,
                     "stageId": stage_id,
@@ -1262,12 +1264,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 resumed_from=None,
                 question_concurrency=None,
                 speed_mode=None,
+                initial_model=None,
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 self.speed_mode = speed_mode
+                self.initial_model = initial_model
                 return {
                     "run": {"runId": "run-1", "qualification": qualification},
                     "prompt": "依頼",
@@ -1323,6 +1327,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "mode": "attention",
                     "questionConcurrency": 10,
                     "speedMode": "standard",
+                    "initialModel": "gpt-5.6-sol",
                 },
             )
             start_status, started = app.post(
@@ -1336,6 +1341,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "mode": "attention",
                     "questionConcurrency": 10,
                     "speedMode": "standard",
+                    "initialModel": "gpt-5.6-sol",
                     "previewToken": "token",
                 },
             )
@@ -1366,6 +1372,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(runs.question_ids, ["q2", "q10"])
         self.assertEqual(runs.question_concurrency, 10)
         self.assertEqual(runs.speed_mode, "standard")
+        self.assertEqual(runs.initial_model, "gpt-5.6-sol")
         self.assertEqual(start_status, 201)
         self.assertEqual(started["run"]["runId"], "run-1")
         self.assertEqual(recent["qualification"], "sample")

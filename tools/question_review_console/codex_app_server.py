@@ -89,15 +89,26 @@ DISABLED_EXTERNAL_FEATURES = (
     "tool_suggest",
 )
 
-QUESTION_MAINTENANCE_MODEL = "gpt-5.6-luna"
-QUESTION_MAINTENANCE_RETRY_MODEL = "gpt-5.6-sol"
-QUESTION_MAINTENANCE_MODELS = frozenset(
-    {QUESTION_MAINTENANCE_MODEL, QUESTION_MAINTENANCE_RETRY_MODEL}
+QUESTION_MAINTENANCE_MODEL_OPTIONS = (
+    "gpt-5.6-luna",
+    "gpt-5.6-sol",
 )
+QUESTION_MAINTENANCE_MODEL = QUESTION_MAINTENANCE_MODEL_OPTIONS[0]
+QUESTION_MAINTENANCE_RETRY_MODEL = "gpt-5.6-sol"
+QUESTION_MAINTENANCE_MODELS = frozenset(QUESTION_MAINTENANCE_MODEL_OPTIONS)
 TURN_REASONING_EFFORT = "high"
 STANDARD_SPEED_MODE = "standard"
 FAST_SPEED_MODE = "fast"
 SPEED_MODES = frozenset({STANDARD_SPEED_MODE})
+
+
+def normalize_question_maintenance_model(value: Any) -> str:
+    """Normalize a requested initial model without silently changing unknown values."""
+
+    model = str(value or "").strip() or QUESTION_MAINTENANCE_MODEL
+    if model not in QUESTION_MAINTENANCE_MODELS:
+        raise ValueError(f"unsupported maintenance model: {model}")
+    return model
 MAINTENANCE_RESEARCH_WORKERS = 0
 APP_SERVER_AGENT_THREAD_CAP = 1
 APP_SERVER_AGENT_MAX_DEPTH = 1

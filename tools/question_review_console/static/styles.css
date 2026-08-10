@@ -518,6 +518,13 @@ html.audit-view-open, body.audit-view-open { overflow: hidden; }
 .qualification-active-run-error[hidden] { display: none; }
 .qualification-active-run-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--text-muted); font-size: 10px; }
 .qualification-active-run-model { white-space: nowrap; }
+
+.run-model-select-label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.run-model-select-label select { max-width: 22rem; }
 .run-status { color: var(--blue); font-size: 10px; font-weight: 800; }
 .run-status.idle { color: var(--text-muted); }
 .run-status.interrupted, .run-status.failed, .run-status.invalidated, .run-status.unverified { color: var(--red); }

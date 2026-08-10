@@ -299,6 +299,10 @@ class QualificationWorkflowTests(unittest.TestCase):
                 workflow.plan(qualification, "law_audit", "refresh")
 
         stage_ids = [stage["id"] for stage in catalog["stages"]]
+        self.assertEqual(
+            catalog["modelPolicy"]["initialModelOptions"],
+            ["gpt-5.6-luna", "gpt-5.6-sol"],
+        )
         self.assertFalse(catalog["lawWorkflowEnabled"])
         self.assertNotIn("law_context", stage_ids)
         self.assertNotIn("law_audit", stage_ids)

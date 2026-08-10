@@ -24,6 +24,7 @@ from tools.question_review_console.qualification_runs import (
     QuestionItemError,
     QuestionQueuePaused,
     QualificationRunCoordinator,
+    QualificationRunError,
     _PipelineRuntimeTelemetry,
     _aggregate_answer_review_prompt,
     _aggregate_calculation_flag,
@@ -2681,6 +2682,50 @@ class QualificationProgressObservabilityTests(QualificationRunTestSupport):
 
 
 class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
+    def test_initial_model_selection_and_resume_are_fail_closed(self):
+        class Store:
+            run = {"initialModel": "gpt-5.6-sol"}
+
+            def get(self, qualification, run_id):
+                self.seen = (qualification, run_id)
+                return dict(self.run)
+
+        coordinator = object.__new__(QualificationRunCoordinator)
+        coordinator.store = Store()
+
+        self.assertEqual(
+            coordinator._initial_model_for_request("sample", None, None),
+            "gpt-5.6-luna",
+        )
+        self.assertEqual(
+            coordinator._initial_model_for_request(
+                "sample", None, "gpt-5.6-sol"
+            ),
+            "gpt-5.6-sol",
+        )
+        self.assertEqual(
+            coordinator._initial_model_for_request(
+                "sample", "run-sol", "gpt-5.6-sol"
+            ),
+            "gpt-5.6-sol",
+        )
+        with self.assertRaisesRegex(QualificationRunError, "変更できません"):
+            coordinator._initial_model_for_request(
+                "sample", "run-sol", "gpt-5.6-luna"
+            )
+        coordinator.store.run = {}
+        self.assertEqual(
+            coordinator._initial_model_for_request(
+                "sample", "historical-run", None
+            ),
+            "gpt-5.6-luna",
+        )
+        coordinator.store.run = {"initialModel": "unknown"}
+        with self.assertRaisesRegex(QualificationRunError, "許可model"):
+            coordinator._initial_model_for_request(
+                "sample", "unknown-run", None
+            )
+
     def test_saved_v3_prepared_candidate_resumes_and_commits_through_production_dispatch(
         self,
     ):
@@ -4814,11 +4859,29 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for number in range(2, 7)
             )
         )
-        self.assertEqual(len(app_server.aggregate_review_calls), 12)
+        self.assertEqual(len(app_server.aggregate_review_calls), 14)
+        review_models_by_question = {
+            question_id: [
+                kwargs["model"]
+                for value, _prompt, kwargs in app_server.aggregate_review_calls
+                if value == question_id
+            ]
+            for question_id in call_counts
+        }
+        self.assertEqual(
+            review_models_by_question["new-exam-2026-q1"],
+            ["gpt-5.6-luna", "gpt-5.6-luna", "gpt-5.6-sol", "gpt-5.6-sol"],
+        )
         self.assertTrue(
             all(
-                kwargs["model"] == "gpt-5.6-luna"
-                and kwargs["reasoning_effort"] == "high"
+                review_models_by_question[f"new-exam-2026-q{number}"]
+                == ["gpt-5.6-luna", "gpt-5.6-luna"]
+                for number in range(2, 7)
+            )
+        )
+        self.assertTrue(
+            all(
+                kwargs["reasoning_effort"] == "high"
                 for _question_id, _prompt, kwargs in app_server.aggregate_review_calls
             )
         )
