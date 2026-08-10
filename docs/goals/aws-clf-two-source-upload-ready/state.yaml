@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T045
+active_task: T046
 
 tasks:
   - id: T001
@@ -2735,7 +2735,7 @@ tasks:
   - id: T045
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T044のUI model selector設計をread-onlyで監査し、model allowlistの単一SSOT、request field名、run-level overrideとworkflow agentPolicyの優先順位、全non-retry roleへの伝播、retry Sol/high固定、preview token、manifest/history/readback、履歴resumeのモデル固定継承、歴史的run互換既定を確定する。最大安全な単一Worker packageを提示し、既存Standard・credits・provider・単一thread・Firestore境界を維持する。"
     depends_on:
@@ -2755,6 +2755,74 @@ tasks:
       - "single SSOT and request/manifest schema"
       - "routing precedence for every role"
       - "Worker objective、allowed_files、verify、stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "選択要求とactual実績を分離し、backend単一SSOTからUIへ選択肢を供給すれば安全な一貫実装が可能。resumeは元run modelを固定継承し、欠落した歴史runだけLunaへ互換補完する。retry attempt全体はSol/high固定。追加承認は不要。"
+      evidence:
+        - single_ssot: "codex_app_server.pyを唯一のmodel policy正本とし、ordered options、default Luna、retry Sol、high、正規化関数を定義する。"
+        - schema: "requestはinitialModelのみ。catalog、preview、token、plan、manifest、history/progressへ要求値を保存し、existing model/reasoningEffortはactualのまま。"
+        - routing: "fresh candidate、独立review/裁定、research/writerはrun.initialModel/high。retry attempt全体だけSol/high。"
+        - resume: "元run initialModelを固定継承。field欠落歴史runだけLuna。未知modelと異なる要求は停止。"
+        - ui: "整備dialogだけにLuna/Sol selector、既定Luna、resume固定表示。reasoning/Fast/credits/provider selectorなし。"
+        - approval: "ユーザーがUI model selectorを明示要望済み。"
+      next_allowed_task: T046
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "server、qualification_runs、共通dialog、共通routing testsを横断する単一契約。"
+      blocked_tasks:
+        - T999
+      missing_evidence:
+        - "UI selector実装とブラウザreadback"
+        - "Luna/Sol両fresh routing、retry固定、resume互換の回帰結果"
+        - "39674修正、全879問、artifact sync、upload dry-run"
+      required_board_updates:
+        - "T046を単一Workerとして実行する。"
+        - "モデル選択実装完了をAWS全件整備goal完了とは扱わない。"
+  - id: T046
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "問題整備runの初回modelをUIでLuna又はSolから選択できるようにする。codex_app_server.pyの単一SSOTからcatalogへ選択肢を公開し、initialModelをpreview token、start、plan、親manifest、history、progress、resumeへ一貫伝播する。全fresh/non-retry roleはrun.initialModel/high、retry attempt全体はSol/highとする。actual model欄、Standard、ChatGPT認証、credits無効、公式provider、単一thread、Firestore境界、歴史成果物を維持し、mainへ限定commit/pushする。"
+    depends_on:
+      - T045
+    allowed_files:
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/workflow_catalog.py"
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/styles.css"
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_workflow_catalog.py"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+    verify:
+      - "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_workflow_catalog tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "routing testsがLuna/Sol両fresh turn、Luna run失敗retry=Sol、独立review・裁定、research/writer、requested/actual記録を証明する。"
+      - "resume testsがSol run固定継承、別model拒否、initialModel欠落歴史run=Luna、未知model fail-closedを証明する。"
+      - "API/UI testsがcatalog由来二択、Luna既定、preview token拘束、start改変拒否、reasoning/Fast/credits/API/provider選択なし、history/progress表示を証明する。"
+      - "git diff --check"
+      - "git diff --name-onlyがallowed_filesだけで、output、過去run、prompt、config/question_maintenance_workflow.toml、00_sourceを含まない。"
+      - "push後にorigin/main...mainが0 0、git status --shortが空である。"
+    stop_if:
+      - "model一覧をUI、server、workflowへ手書き複製する必要がある。"
+      - "actual model又はreasoningEffort欄を選択要求値で上書きする必要がある。"
+      - "retry attemptの一部がSol/high以外、又はfresh成功問題までretry扱いになる。"
+      - "resumeで元runのinitialModelを変更できる、未知modelをLunaへ黙って補正する、又は歴史manifestを書き換える必要がある。"
+      - "reasoning選択、Fast、追加credits、Platform API、外部provider、service tier変更又は複数threadが必要になる。"
+      - "output、過去run、prompt、config/question_maintenance_workflow.toml、00_source、Firestore又はallowed_files外の変更が必要になる。"
+      - "unrelated dirty差分、main以外のbranch又はorigin/mainとの競合を検出する。"
     receipt: null
   - id: T999
     type: judge
@@ -2780,6 +2848,7 @@ tasks:
       - T043
       - T044
       - T045
+      - T046
       - T004
       - T005
     inputs:
