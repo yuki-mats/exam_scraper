@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T028
+active_task: T029
 
 tasks:
   - id: T001
@@ -1708,7 +1708,7 @@ tasks:
   - id: T028
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "T027後の実画面で再開元run IDを確認し、作業履歴の指定旧run 20260809T181048580324-c5cc55b0から通常UIで未完了だけをresumedFrom付き再開する。成功後、両list groupを『整備が必要な問題だけ』・全update target・standard・auto_max・最大100問windowで実行し、879問の必要工程を終端化する。artifact syncとupload-readyはT004へ残す。"
     depends_on:
@@ -1757,6 +1757,75 @@ tasks:
       - "inventoryが332+547でない、又は同じ未修正入力のblocked工程が再検出される。"
       - "手編集・直接生成・Fast・工程省略・Firestore write・コード・設定変更が必要になる。"
       - "00_source・SAA・allowed_files外差分、別operation競合、終了後live sidecarが残る。"
+    receipt:
+      result: blocked
+      changed_files:
+        - "output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T113216764048-fdbe8fc5/**"
+        - "output/question_review_console/workflow_runs/aws-cloud-practitioner/20260810T115340823218-796dee29/**"
+        - "output/question_review_console/cache/**"
+        - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+        - "output/question_review_console/aws-cloud-practitioner/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/22_questionSetId_linked/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/23_correctChoiceText_fixed/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/**"
+      commands:
+        - command: "通常UI: AWS CLF-C02 > 評価・公開 > 作業履歴 > 20260809T181048580324-c5cc55b0 > この未完了を再開"
+          status: pass
+        - command: "通常UI preview: 再開元run完全ID、Ping-t、未整備113問、全10 update target、Standard、最大100問を確認"
+          status: pass
+        - command: "通常UI: 整備を開始"
+          status: pass
+        - command: "jq manifest.json/question_summary.json readback"
+          status: pass
+        - command: "通常UI: 両list group・整備が必要な問題だけ・全10 update target・Standard・最大100問 preview"
+          status: pass
+        - command: "通常UI再起動による標準recovery終端確認"
+          status: pass
+        - command: "git status --short"
+          status: pass
+        - command: "lsof -nP -iTCP:8765 -sTCP:LISTEN"
+          status: pass
+        - command: "00_source/SAA SHA-256 readback"
+          status: pass
+      summary: "再開run 20260810T113216764048-fdbe8fc5はresumedFrom完全一致、standard/auto_max/100でsucceeded・receiptValidated=trueとなり、94問を確定、4問を保留した。両group run 20260810T115340823218-796dee29は開始直後に停止判断となり、標準recoveryでinterruptedへ安全終端した。最終状態はprocess/listener/lock/lease/sidecar=0、worktree clean、inventory=332+547、00_source/SAA hash不変、Firestore writes=0。工程版は05=879、01=1、02=555、02a=552、03=879、04=879で未達。"
+      remaining_blockers:
+        - "Ping-t 39768 / reviewQuestionId=09599489010e9489: 02a blocked。flash_cardに正答2件。最小上流修正は01で複数肢判定に適するquestionTypeへ再確定後、02a・03・04を再実行。"
+        - "Ping-t 39717 / reviewQuestionId=c958d4608747d86a: 02a blocked。公式解答1,2の2肢正答をflash_cardが表現不能。最小上流修正は01でquestionTypeを再確定後、02a・03・04を再実行。"
+        - "Ping-t 39743 / reviewQuestionId=caf3057bd8124a39: 02a blocked。flash_cardに正答2件。最小上流修正は01で複数肢判定に適するquestionTypeへ再確定後、02a・03・04を再実行。"
+        - "Ping-t 39674 / reviewQuestionId=e3e809f95d908d28: 03 blocked。Amazon Kendraの新規受付停止に対し選択肢に現行推奨サービスがない。最小上流修正は05で問題文・選択肢を現行仕様へ更新し、02a・03・04を再実行。"
+        - "879問の工程版未達: 01 v6.0=1/879、02 v4.0=555/879、02a v4.0=552/879。"
+        - "両group run 20260810T115340823218-796dee29はstatus/queueStatus=interrupted、receiptValidated=false。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "再開runで4問が理由付き保留となり、blocked=0および879問の必要工程版を満たせなかったため"
+  - id: T029
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T028で理由付き保留となったPing-t 4問と、01 v6.0への全879問収束不足を監査し、通常の問題整備システムだけで安全に収束させる次の最大Worker scopeを確定する。"
+    depends_on:
+      - T028
+    inputs:
+      - "T028 blocked receipt"
+      - "再開run 20260810T113216764048-fdbe8fc5"
+      - "中断run 20260810T115340823218-796dee29"
+      - "4問のquestion state、source、patch、attempt、review flag"
+      - "現行workflow policy versions"
+    constraints:
+      - "Do not implement。"
+      - "00_source、manifest、正答を根拠なく変更しない。"
+      - "同じ未修正入力の再試行を承認しない。"
+      - "問題整備システムの通常UIを迂回しない。"
+      - "Firestore writeを含めない。"
+    expected_output:
+      - "Decision and rationale"
+      - "4問それぞれの正本根拠と最小上流修正"
+      - "prompt又はworkflow修正の要否とユーザー承認要否"
+      - "next Worker objective、allowed_files、verify、stop_if"
+      - "01 v6.0全件収束とartifact syncへ戻る順序"
     receipt: null
   - id: T999
     type: judge
@@ -1766,6 +1835,7 @@ tasks:
     objective: "全receiptとlive readbackをoracleへ対応付け、CLF-C02全件が問題整備システム経由でupload dry-runまで完了したか最終監査する。"
     depends_on:
       - T028
+      - T029
       - T004
       - T005
     inputs:
