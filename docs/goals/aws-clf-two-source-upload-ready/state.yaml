@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T063
+active_task: T064
 
 tasks:
   - id: T001
@@ -3810,7 +3810,7 @@ tasks:
   - id: T063
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使い、AWS CLF-C02の保留9問を二つのgroup_refresh runで逐次修正する。先にGroup Aの05起点5問を完了し、そのterminal receiptを確認してからGroup Bの02起点4問を実行する。各fieldを公式根拠から独立確定し、機械整合、artifact sync、332/547のupload-ready再生成、quality gate、upload dry-runまで完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持し、対象変更だけをmainへcommit/pushする。"
     depends_on:
@@ -3877,6 +3877,51 @@ tasks:
       - "最大再試行後も正答・intent・questionType・explanation不整合が残る。自動反転や手動patchをしない。"
       - "Firestore/Storage write、外部provider、API key、追加creditが必要になる。"
       - "artifact sync警告が9問以外へ及ぶ、failed delta、unsafe rollback、lease conflict、新規run混入が発生する。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "通常review-ui Group A preview/start"
+          status: pass
+        - cmd: "Group A run 20260811T073104040768-5964f58f"
+          status: fail
+          detail: "3/5 validated、2 blocked、receiptValidated=true"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git status and main...origin/main"
+          status: pass
+          detail: "clean、0 0"
+        - cmd: "server/listener/process/lease/recovery cleanup"
+          status: pass
+      summary: "Group Aはexact 5・両group・画像なし・05→01→02→02a→03→04・Standardで実行。CLF201C005、CLF203C011、CLF202C020は確定。CLF204C012は選択肢4の%欠落により02aで停止、39481は新規顧客条件不明により03で停止。新規blockedのstop_ifに従いGroup Bとartifact syncは未実施。"
+      remaining_blockers:
+        - "CLF204C012: 02a correct_choiceと連鎖03/04"
+        - "Ping-t 39481: 03 explanationと連鎖04"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "T063 stop_if: Group Aで新規blockedが2問発生したため"
+  - id: T064
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T063 Group A partialの2問、CLF204C012とPing-t 39481をread-only監査する。05生成結果が必須条件を反映しなかった理由、current_question reviewで選択すべきfield/dataPath、note・expectedOutcome、再実行工程を確定する。3問の成功成果物は採用し、Group Bは2問修正後に実行する安全な順序を決める。"
+    depends_on:
+      - T063
+    inputs:
+      - "run 20260811T073104040768-5964f58f manifest/result/question states"
+      - "CLF204C012とPing-t 39481の05/10/15/21/22/23/work versions"
+      - "T062公式根拠とT063 receipt"
+    constraints:
+      - "Read-only。"
+      - "review、prompt、run、artifact、code、Firestore、00_sourceを変更しない。"
+      - "05を単に再実行せず、新しいreview inputへ不足条件を具体的に記録する。"
+      - "既に確定したGroup A 3問を再処理しない。"
+    expected_output:
+      - "Decision and acceptance of Group A 3問"
+      - "2問それぞれのreview scope/dataPath/note/expectedOutcome"
+      - "次Worker objective、allowed_files、verify、stop_if"
+      - "Group Bとartifact syncへ戻る順序"
     receipt: null
   - id: T999
     type: judge
@@ -3914,6 +3959,7 @@ tasks:
       - T061
       - T062
       - T063
+      - T064
       - T004
       - T005
     inputs:
