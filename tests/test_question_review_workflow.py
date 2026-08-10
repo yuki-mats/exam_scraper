@@ -1950,6 +1950,27 @@ assert.deepEqual(
             "state.auditView.readOnly && Boolean(selection)",
             javascript[javascript.index("function openReview") : javascript.index("function openOfficialSourceCorrection")],
         )
+        question_body_source = javascript[
+            javascript.index('const questionBody = element("p", "question-body"') :
+            javascript.index("questionSection.append(questionBody)")
+        ]
+        self.assertIn("if (state.auditView.readOnly)", question_body_source)
+        self.assertIn('fields: ["questionBodyText"]', question_body_source)
+        self.assertIn("choiceIndexes: []", question_body_source)
+        self.assertIn('dataPath: "questionBodyText"', question_body_source)
+        choice_text_source = javascript[
+            javascript.index('const choiceText = element("div", "choice-text", choice)') :
+            javascript.index("const explanation = usesQuestionLevelExplanation")
+        ]
+        self.assertIn("if (state.auditView.readOnly)", choice_text_source)
+        self.assertIn('fields: ["choiceTextList"]', choice_text_source)
+        self.assertIn("choiceIndexes: [index]", choice_text_source)
+        self.assertIn('dataPath: `choiceTextList[${index}]`', choice_text_source)
+        review_fields_source = javascript[
+            javascript.index("const REVIEW_FIELDS") : javascript.index("const LAW_REVIEW_ISSUES")
+        ]
+        self.assertNotIn('"questionBodyText"', review_fields_source)
+        self.assertNotIn('"choiceTextList"', review_fields_source)
         self.assertIn('"欠損をまとめて修正依頼"', javascript)
         self.assertNotIn('"監査パッチをまとめて修正依頼"', javascript)
         self.assertNotIn("function openLawAuditQualityReview", javascript)

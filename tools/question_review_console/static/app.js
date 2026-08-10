@@ -5672,6 +5672,14 @@ function renderDetail() {
 
   const questionSection = section("問題文");
   const questionBody = element("p", "question-body", publication.record.questionBodyText || question.body);
+  if (state.auditView.readOnly) {
+    installReviewTarget(questionBody, {
+      fields: ["questionBodyText"],
+      choiceIndexes: [],
+      targetLabel: "問題文",
+      dataPath: "questionBodyText",
+    });
+  }
   questionSection.append(questionBody);
   const visibleIssues = question.issues.filter(
     (issue) => ![
@@ -7320,6 +7328,14 @@ function renderChoices(projected) {
       suggestionToggle,
     );
     const choiceText = element("div", "choice-text", choice);
+    if (state.auditView.readOnly) {
+      installReviewTarget(choiceText, {
+        fields: ["choiceTextList"],
+        choiceIndexes: [index],
+        targetLabel: `選択肢${index + 1}の本文`,
+        dataPath: `choiceTextList[${index}]`,
+      });
+    }
     const explanation = usesQuestionLevelExplanation(projected.questionType)
       ? null
       : element("div", "choice-explanation", explanations[index] || "（解説なし）");
