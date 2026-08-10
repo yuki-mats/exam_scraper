@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T035
+active_task: T036
 
 tasks:
   - id: T001
@@ -2174,7 +2174,7 @@ tasks:
   - id: T035
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T034のterminal runと実成果物をread-only監査する。標準review-uiの正規保存先がboardの誤記と異なった点をscope逸脱として再実行すべきか、又は記録を訂正して成果物を採用できるか判定する。03にBedrock Managed Knowledge Baseの新規構築時推奨が欠けた原因をprompt projection・attempt・UI修正経路から切り分け、同一入力の再試行、03限定の通常UI修正、資格別正本の追加修正、又は別契約変更のうち最小で確実な次工程を一つだけ提示する。"
     depends_on:
@@ -2198,6 +2198,81 @@ tasks:
       - "03欠落のroot cause"
       - "next Worker objective、正しいallowed_files、verify、stop_if"
       - "user approval要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T034のscraped_data表記は、正本契約と実行計画が一貫してoutputを指定するため、board側の記載誤りである。05を含む検証済み成果物は採用できるが、03は新規検索用途のBMKB推奨が欠落しており未完了。同一promptの再試行ではなく、既存レビューUIからexplanationTextだけを明示的な人手指示付きで再依頼する。これはT032の承認範囲内であり、新規承認は不要である。"
+      evidence:
+        - "T034 manifestはstatus=succeeded、queueStatus=succeeded、receiptValidated=true、全6工程validatedを記録している。"
+        - "正本のartifact_contract、qualification_workflow.py、T034実行計画はいずれもoutput/aws-cloud-practitioner/questions_json配下を正規保存先としている。scraped_data配下に該当成果物はない。"
+        - "05成果物は既存Kendra利用企業という前提へ修正され、選択肢、正解、ID、questionIntentを維持している。"
+        - "03 attempt promptにはBMKB推奨の根拠文がある一方、後段の03専用指示はKendra継続、Maintenance Mode、日付、既存顧客サポート、URLだけを列挙し、candidateもBMKB比較を省略した。"
+        - "通常checkerはschema、対象問題、00_source保護、許可ファイル、atomic applyを検査したが、BMKB説明の意味的充足は検査していない。"
+        - "T032でAWS資格別正本と05/03修正が承認済みであり、BMKB推奨の追記に新規承認は不要である。"
+      next_allowed_task: T036
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "同じPing-t成果物、work version、派生artifactを更新するため、残り3問や全879問と並列化しない。"
+      blocked_tasks:
+        - T034
+        - T030
+        - T004
+        - T005
+        - T999
+      missing_evidence:
+        - "明示的な人手review入力を使った新しい03 runの成功receipt"
+        - "BMKB推奨とconnector注意を含む03成果物のcurrent readback"
+        - "05、正解、ID、00_source不変の比較証拠"
+        - "残り3問、全879問、T004の各終端証拠"
+      required_board_updates:
+        - "T034のscraped_data表記はPMのpath誤記で、正規output成果物を採用する。historical manifestとreceiptは書き換えない。"
+        - "T034の05と他のvalidated工程は再実行せず、03の意味的欠落だけを未完とする。"
+        - "T036を単独Workerとして実行する。"
+  - id: T036
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常の問題詳細レビューUIでPing-t問題39674のcurrent_questionを開き、対象fieldをexplanationTextだけに限定して修正を再依頼する。noteとexpectedOutcomeへ、既存Kendra継続の結論、Maintenance Mode、2026-06-30と2026-07-30、既存顧客サポート、公式availability URL、新規検索アプリではAmazon Bedrock Managed Knowledge BaseをAWSが推奨すること、ただしBMKBにSlack・Dropboxの直接connectorがあるとは説明しないことを明記し、新しいreview入力として03を再生成・同期する。"
+    depends_on:
+      - T035
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-cloud-practitioner.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/reviews/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/prompts/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/c03d8b25af6627419388375f.json"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/question_ping-t-76_39674_merged_explanationText_added.json"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/question_ping-t-76_39674_explanationText_needs_5_5_high_review.jsonl"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/40_convert/**"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/ping-t-aws-clf-c02_*"
+    verify:
+      - "起動前にactive process、listener、valid lease、recovery sidecarがなく、対象外資格へ波及しない。"
+      - "保存したreview JSONとpromptにAmazon Bedrock Managed Knowledge Base、新規検索アプリ推奨、Slack・Dropboxの直接connectorを主張しない旨が実行前から含まれる。"
+      - "新runのplanがtargetCount=1、問題39674、explanation 10.1だけを対象とし、allowedPatchFilesが21と対応99 flagだけで、05を含まない。"
+      - "新runのmanifestとresult receiptがstatus=succeeded、queueStatus=succeeded、receiptValidated=trueである。"
+      - "03成果物がBMKB推奨、Maintenance Mode、2026-06-30、2026-07-30、既存顧客サポート、kendra-availability-change公式URLを含み、BMKBのSlack・Dropbox直接connectorを主張しない。"
+      - "05、選択肢、正解、ID、questionIntent、questionLearningPattern、00_sourceが実行前後で不変である。"
+      - "work versionのexplanation 10.1 current runが新runを参照し、artifact syncが成功する。"
+      - "Firestore writeがなく、終了時にactive process、listener、valid lease、recovery sidecarがない。"
+    stop_if:
+      - "current_questionかつexplanationTextだけに限定できない。"
+      - "保存済みreview又はpromptに指定したnoteとexpectedOutcomeが反映されない。"
+      - "planが03以外の工程、05、別問題又は別資格を含む。"
+      - "新しいreview入力なしにT034と同一の03 promptを再実行しようとする。"
+      - "生成結果がBMKB推奨を欠く、又はBMKBにSlack・Dropboxの直接connectorがあると主張する。"
+      - "05、選択肢、正解、ID、questionIntent、questionLearningPattern又は00_sourceが変わる。"
+      - "prompt、config、tools、API、共通checker、manifest手編集、直接API編集又はFirestore反映が必要になる。"
+      - "許可範囲外のファイル、別資格又は別問題へ変更が及ぶ。"
+      - "artifact syncが失敗する、未完transactionが残る、又は別資格のactive recoveryが存在する。"
     receipt: null
   - id: T999
     type: judge
@@ -2213,6 +2288,7 @@ tasks:
       - T033
       - T034
       - T035
+      - T036
       - T004
       - T005
     inputs:
