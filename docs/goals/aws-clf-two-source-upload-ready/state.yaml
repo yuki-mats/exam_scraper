@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T057
+active_task: T058
 
 tasks:
   - id: T001
@@ -3403,7 +3403,7 @@ tasks:
   - id: T057
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常review-uiのreadOnly問題詳細でPing-t問題39674の問題共通基本解説を実pointer dragし、『この箇所を確認』を開く。scope=current_question、dataPath=explanationText[0]、field=explanationText、choiceIndexes=[]を正規値として受理する。T055指定のnote・expectedOutcomeを入力して保存し、生成review/promptを直ちにreadbackする。そのまま問題39674だけの工程03 explanation v10.1 runを通常UI経由で終端化し、更新内容と不変fieldを確認する。コード修正、別問題、別工程、artifact sync、Firestore反映は行わない。"
     depends_on:
@@ -3437,6 +3437,61 @@ tasks:
       - "05、問題文、選択肢、正答、ID、questionType、questionIntent、questionLearningPatternId、補足質問、00_sourceへ差分が出る。"
       - "code、prompt、config、server API、manifest手編集、direct API、artifact sync、Firestore write、allowed_files外変更が必要になる。"
       - "別資格run、listener、有効lease、repository operationと競合する。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/reviews/20260811T012413770790-b05aa36d.json
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/prompts/20260811T012413770790-b05aa36d.md
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/c03d8b25af6627419388375f.json
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T012414020122-ae58c740/manifest.json
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T012414020122-ae58c740/agent_output/result.json
+        - output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/question_ping-t-76_39674_merged_explanationText_added.json
+      commands:
+        - cmd: "通常review-uiで39674を実pointer選択し、この箇所を確認からreview保存・実行"
+          status: pass
+          detail: "scope=current_question, dataPath=explanationText[0], choiceIndexes=[], 類似非表示。runId=20260811T012414020122-ae58c740、gpt-5.6-luna/high初回成功"
+        - cmd: "run manifest/result/work version readback"
+          status: fail
+          detail: "status=succeeded、receiptValidated=true、targetCount=1、対象03 v10.1、公式URL・不変field・Firestore writes=0は確認。ただしqueueStatus=nullで要求値succeededではない"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          detail: "00_source差分なし: 5799 files"
+        - cmd: "git status --short and main...origin/main"
+          status: pass
+          detail: "tracked差分なし、0 0。commit/push不要"
+        - cmd: "listener/lock/lease shutdown readback"
+          status: pass
+          detail: "ports 58206/8765、review lock、run leaseすべて不在"
+      summary: "39674のcurrent_question限定reviewを通常UIから作成し、指定要件を含む03解説をLuna/high初回で生成した。対象範囲、公式URL、不変field、work version、Firestore writes=0、00_source不変、終了清掃は確認済み。artifact syncは自動試行が全体未完成問題でblockedとなり、手動syncは行っていない。human-maintenance manifestのqueueStatusがnullで、T057のqueueStatus=succeeded条件だけ満たせないためblockedとした。"
+      remaining_blockers:
+        - "run manifestはstatus=succeededかつreceiptValidated=trueだがqueueStatus=null。T057のqueueStatus=succeeded検証条件を満たさず、manifestの手編集は禁止されている。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "通常human-maintenance runのqueueStatusがnullで、必須検証条件queueStatus=succeededとの契約差を安全な許可範囲内で解消できないため。"
+  - id: T058
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T057のhuman-maintenance run 20260811T012414020122-ae58c740がstatus=succeeded、receiptValidated=trueだがqueueStatus=nullである契約差をread-only監査する。通常のcurrent_question修正runでqueueStatus=nullが正規なら、39674の03内容・scope・不変条件を独立確認してT057を成果採用可能と判定し、次の全件収束taskを確定する。queueStatus必須なら最小修正scopeと承認要否を示す。"
+    depends_on:
+      - T057
+    inputs:
+      - "T057 receipt"
+      - "workflow run 20260811T012414020122-ae58c740 manifest/result/progress"
+      - "human maintenance runとqualification runのstatus契約実装・tests"
+      - "問題39674の05/10/21/work version、review、prompt"
+    constraints:
+      - "Read-only。"
+      - "manifest、artifact、review、prompt、code、Firestore、00_sourceを変更しない。"
+      - "queueStatusだけで判断せず、run種別、terminal marker、receiptValidated、work version、patch readbackを対応付ける。"
+      - "artifact syncのblocked理由と03 run成功を分離する。"
+    expected_output:
+      - "Decision: accept T057 output | require fix | blocked"
+      - "queueStatus=nullの正規契約または欠陥の証拠"
+      - "39674の03内容・scope・不変条件の独立readback"
+      - "次の最大の安全なWorker task、allowed_files、verify、stop_if"
+      - "追加ユーザー承認要否"
     receipt: null
   - id: T999
     type: judge
@@ -3468,6 +3523,7 @@ tasks:
       - T055
       - T056
       - T057
+      - T058
       - T004
       - T005
     inputs:
