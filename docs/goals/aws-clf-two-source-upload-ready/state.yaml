@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T065
+active_task: T066
 
 tasks:
   - id: T001
@@ -3947,7 +3947,7 @@ tasks:
   - id: T065
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。最初にCLF204C012とPing-t 39481のreadOnly詳細から指定文字列を選択し、下記note・expectedOutcomeをcurrent_question reviewとして保存してreview JSONとpromptをreadbackする。standalone review patchは実行しない。次にT063 runの『保留を再整備』でexact 2問を05→01→02→02a→03→04へ収束する。修正内容確認後reviewを承認し、Group B exact 4問を02→02a→03→04で実行する。最後に両group artifact sync、332/547 upload-ready、quality gate、upload dry-runを完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持する。"
     depends_on:
@@ -4007,6 +4007,51 @@ tasks:
       - "00_source、ID、対象外問題・資格、code/config/prompt/documentへ変更が及ぶ。"
       - "Firestore/Storage access、external provider、API key、additional credit、direct API/CLI mutation、手編集が必要になる。"
       - "artifact sync警告が対象6問以外、failed delta、unsafe rollback、lease conflict、新規run混入が発生する。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "通常review-uiでCLF204C012 readOnly詳細を表示しchoiceTextList[3]を実pointer選択"
+          status: fail
+          detail: "選択成功、toolbar非表示"
+        - cmd: "app.js review target readback"
+          status: pass
+          detail: "choiceTextはreviewable-content未登録。correctChoiceTextとexplanationTextのみ登録"
+        - cmd: "review/prompt/run作成確認"
+          status: pass
+          detail: "作成・開始なし"
+        - cmd: "git status and main...origin/main"
+          status: pass
+          detail: "clean、0 0"
+        - cmd: "server/listener/process/lease cleanup"
+          status: pass
+      summary: "現行UIではchoiceTextList本文がreviewable-contentではないため、指定文字列を正確にpointer選択してもcurrent_question reviewを開けない。explanation側から開くとdataPathがexplanationText[3]となり契約違反になるため実施せず、review/prompt/runを作成しないまま停止した。"
+      remaining_blockers:
+        - "CLF204C012のchoiceTextList[3]をreadOnly詳細からreview対象にできるUI実装が必要"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "T065 stop_if: 指定field/dataPathのreview/promptを通常UIから保存できないため"
+  - id: T066
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T065でreadOnly詳細のchoiceTextList[3]を選択してもtoolbarが出ない原因をread-only監査し、choiceTextListとquestionBodyTextをcurrent_question review対象にする最小UI修正を確定する。既存のreadOnly限定、類似調査非表示、standalone field契約fail-closed、localReady、公開・同期・Firestore境界を維持する。"
+    depends_on:
+      - T065
+    inputs:
+      - "T065 receipt"
+      - "tools/question_review_console/static/app.js render question body/choices and selection review logic"
+      - "review schema/prompt builder/tests/docs"
+    constraints:
+      - "Read-only。"
+      - "review、prompt、run、artifact、Firestore、00_sourceを変更しない。"
+      - "current_question reviewの選択記録だけを有効化し、standaloneでquestionBodyText/choiceTextListを直接patchできるようにしない。"
+      - "追加の公開・類似調査・直接編集権限を開かない。"
+    expected_output:
+      - "Decision and root cause"
+      - "最小Worker objective、allowed_files、verify、stop_if"
+      - "T065再開条件と追加承認要否"
     receipt: null
   - id: T999
     type: judge
@@ -4046,6 +4091,7 @@ tasks:
       - T063
       - T064
       - T065
+      - T066
       - T004
       - T005
     inputs:
