@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T064
+active_task: T065
 
 tasks:
   - id: T001
@@ -3903,7 +3903,7 @@ tasks:
   - id: T064
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T063 Group A partialの2問、CLF204C012とPing-t 39481をread-only監査する。05生成結果が必須条件を反映しなかった理由、current_question reviewで選択すべきfield/dataPath、note・expectedOutcome、再実行工程を確定する。3問の成功成果物は採用し、Group Bは2問修正後に実行する安全な順序を決める。"
     depends_on:
@@ -3922,6 +3922,91 @@ tasks:
       - "2問それぞれのreview scope/dataPath/note/expectedOutcome"
       - "次Worker objective、allowed_files、verify、stop_if"
       - "Group Bとartifact syncへ戻る順序"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "Group A成功3問は採用する。残る2問は新reviewを保存後、T063の保留再整備で同一runに含める。この経路だけが問題別block理由を05へ継承する。成功後にreview承認、Group B、artifact syncへ逐次進む。追加承認不要。"
+      evidence:
+        - "CLF201C005、CLF202C020、CLF203C011はT063 Group Aで全6工程validated。"
+        - "CLF204C012はchoiceTextList[3]の公式KPI『推定削減額（%）』から%表記が欠落。"
+        - "Ping-t 39481は既存顧客条件がなく、Refactor Spacesの提供条件を一意化できない。"
+        - "readOnly reviewは選択field/dataPath/note/expectedOutcomeを保存できるが、standalone review patchは24契約でfail-closed。"
+        - "T063の『保留を再整備』だけがblockedReworkFromと問題別priorValidationFeedbackを05へ渡す。"
+      next_allowed_task: T065
+      missing_evidence:
+        - "2件のreview JSON/prompt"
+        - "T063由来exact 2問blocked-rework receipt"
+        - "2問の修正後field値とreview承認"
+        - "Group B exact 4問terminal receipt"
+        - "両group artifact sync、879問upload-ready、quality gate、upload dry-run"
+        - "Firestore/Storage 0、00_source/ID不変、clean/0 0"
+      required_board_updates:
+        - "T065をreview保存→2問blocked-rework→review承認→Group B→artifact sync/publication dry-runのWorkerとして実行する。"
+        - "T999はT065完了までblockedを維持する。"
+  - id: T065
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常の問題整備UIだけを使う。最初にCLF204C012とPing-t 39481のreadOnly詳細から指定文字列を選択し、下記note・expectedOutcomeをcurrent_question reviewとして保存してreview JSONとpromptをreadbackする。standalone review patchは実行しない。次にT063 runの『保留を再整備』でexact 2問を05→01→02→02a→03→04へ収束する。修正内容確認後reviewを承認し、Group B exact 4問を02→02a→03→04で実行する。最後に両group artifact sync、332/547 upload-ready、quality gate、upload dry-runを完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持する。"
+    depends_on:
+      - T064
+    review_inputs:
+      - question_id: 2e68f0e5133f3922acf2e2eb
+        label: CLF204C012
+        field: choiceTextList
+        dataPath: "choiceTextList[3]"
+        selectedText: "推定削減額"
+        note: "選択肢4『推定削減額』は、公式KPI名『推定削減額（%）』から『（%）』が欠けています。金額か割合かが曖昧になり、公式解答2と正答精査が一意に整合しません。05で選択肢4だけを『推定削減額（%）』へ最小修正し、問題文、他の3肢、既存IDを維持してください。"
+        expectedOutcome: "choiceTextList[3]が『推定削減額（%）』である。選択肢2だけが間違いで、選択肢1・3・4は正しい。正解2と整合し、解説4も割合のKPIであることを明示する。05→01→02→02a→03→04がvalidatedになる。"
+      - question_id: cf8b427c132c94642d3b43f7
+        label: "Ping-t 39481"
+        field: questionBodyText
+        dataPath: questionBodyText
+        selectedText: "ある企業は、オンプレミス環境の基幹システムをAWSへ移行しようとしている。"
+        note: "AWS Migration Hubは2025年11月7日以降、新規顧客へ提供されず、新規移行プロジェクトにはAWS Transformが推奨されています。現行問題文はこれから移行する企業が既存顧客かを示していません。05で『2025年11月7日より前からAWS Migration Hubを利用し、Migration Hub Refactor Spacesを引き続き利用できる既存顧客』という条件を明記し、選択肢と既存IDを維持してください。"
+        expectedOutcome: "questionBodyTextにRefactor Spacesを引き続き利用できる既存顧客条件と段階的モダナイズ要件が明記される。選択肢1だけが正答となり、03は既存顧客と新規顧客の提供条件を混同せず問題共通の解説1件で説明する。05→01→02→02a→03→04がvalidatedになる。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-cloud-practitioner.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/{reviews,prompts}/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/{reviews,prompts}/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/{2e68f0e5133f3922acf2e2eb,3655597d3df014eada6e299d,3bbf07b77a937251794cfc57,7c4da075c6a91c1e471e8b1b,c1ae79ed057973a4a023db5c}.json"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/cf8b427c132c94642d3b43f7.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags}/question_keepitup-{CLF204C012,CLF201C002,CLF201C022,CLF202C059,CLF204C011}_*"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags}/question_ping-t-76_39481_*"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/keepitup-aws-clf-c02_*"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/ping-t-aws-clf-c02_*"
+      - "output/aws-cloud-practitioner/reports/**"
+    verify:
+      - "各review JSON/promptが1件だけで、questionId、current_question、field、dataPath、selectedText、note、expectedOutcomeが上記と一致する。standalone patch runは開始しない。"
+      - "T063の保留再整備previewがexact 2問、blockedReworkFrom=20260811T073104040768-5964f58f、05/01/02/02a/03/04、Standard/auto_max、画像なしである。"
+      - "evaluationFeedbackByQuestionへCLF204C012の『推定削減額（%）』不足と39481の既存顧客条件不足が問題別に入る。"
+      - "CLF204C012はchoiceTextList[3]=『推定削減額（%）』、正答は2のみ、select_incorrect、解説4件が全肢と整合する。"
+      - "39481は本文に2025年11月7日より前からの既存顧客かつRefactor Spaces継続利用条件があり、選択肢1だけ正答、group_choice解説は共通1件で新規projectのAWS Transform推奨境界を説明する。"
+      - "2問が05=2.9、01=6.0、02=4.0、02a=4.0、03=10.1、04=2.0でvalidated/current。内容確認後reviewStatus=approved、manual flag/post-fix review=0。"
+      - "Group B previewがexact 4問、KeepItUp、02/02a/03/04、05/01/画像なし、Standard/auto_maxで、4問がvalidated/current。CLF201C002 group_choice explanationTextは問題共通exactly-one。"
+      - "両group artifactSync=succeeded/current、requiredFieldWarnings・failedDeltaPaths・strictValidationWarnings=0。"
+      - "upload-readyはKeepItUp 332問、Ping-t 547問、合計879 unique IDで、同一hashのquality gateとupload dry-runが成功する。"
+      - "初回Luna/high、失敗retryだけSol/high。Firestore reads/writes=0、Storage upload=0、非dry-run upload=0。"
+      - "00_source、既存ID、Group A成功3問、39674、対象外問題・資格が不変。"
+      - "00_source immutability pass、対象変更だけmain commit/push、clean/0 0、process/listener/leaseなし。"
+    stop_if:
+      - "review/prompt未保存、field/dataPath不一致、又はstandalone review patchが開始する。"
+      - "blockedReworkFromと問題別feedbackを継承できない、又はpreviewがexact 2問・全6工程と一致しない。"
+      - "CLF204C012で肢4以外の内容変更が必要、又は公式KPI・公式解答の一意性が成立しない。"
+      - "39481の既存顧客継続条件を公式根拠から一意確定できない。"
+      - "Group A成功3問が再処理・変更対象になる。2問の一方がblockedならreview承認、Group B、syncへ進まない。"
+      - "Group B previewがexact 4問・02/02a/03/04以外になる。"
+      - "00_source、ID、対象外問題・資格、code/config/prompt/documentへ変更が及ぶ。"
+      - "Firestore/Storage access、external provider、API key、additional credit、direct API/CLI mutation、手編集が必要になる。"
+      - "artifact sync警告が対象6問以外、failed delta、unsafe rollback、lease conflict、新規run混入が発生する。"
     receipt: null
   - id: T999
     type: judge
@@ -3960,6 +4045,7 @@ tasks:
       - T062
       - T063
       - T064
+      - T065
       - T004
       - T005
     inputs:
