@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T060
+active_task: T061
 
 tasks:
   - id: T001
@@ -3604,7 +3604,7 @@ tasks:
   - id: T060
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常UIから開始済みのAWS CLF-C02 maintenance_flow run 20260811T020130995286-e6fd3234を、新規run・再起動・手編集なしで継続監視する。server/process/leaseを保護し、terminalまで進める。terminal成功後はT059契約どおり通常フローのartifact sync、merge、convert、upload-ready、quality gate、upload dry-runまで進め、Firestoreへは書かない。実行窓を越える場合はrunを停止せず、最新receiptと有効leaseを次の継続taskへ引き渡す。"
     depends_on:
@@ -3657,6 +3657,71 @@ tasks:
       - "Fast、credits、API key、外部provider、Firestore/Storage write、00_source又はallowed_files外変更が必要になる。"
       - "個別blocked/holdが出た場合は他問を継続し、terminal後にIDと理由を限定taskへ分離する。"
       - "artifact syncがblockedなら生成物を手編集せず、問題IDと不足fieldをreadbackして限定再整備taskへ分離する。"
+    receipt:
+      result: blocked
+      changed_files:
+        - "output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T020130995286-e6fd3234/**"
+        - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/**"
+        - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/**"
+        - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/10_questionType_fixed/**"
+        - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/10_questionType_fixed/**"
+        - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/**"
+      commands:
+        - cmd: "既存run heartbeat/process/lease監視"
+          status: pass
+          detail: "runId=20260811T020130995286-e6fd3234、heartbeat=2026-08-11T02:40:17+09:00、PID 49359/49378、lease PID一致、新規runなし"
+        - cmd: "queue/stage監視"
+          status: fail
+          detail: "completed=461/4385、pending=3924、preparing=1、committing=87、blocked/hold=0。terminal未到達"
+        - cmd: "model routing監視"
+          status: pass
+          detail: "Luna/high初回を維持。retryable failure 1件、Sol/high再試行はdeferred"
+        - cmd: "git status and main...origin/main"
+          status: pass
+          detail: "tracked差分なし、0 0"
+      summary: "同一runを停止・再起動・手編集せず継続監視した。進捗は248から461へ単調増加し、heartbeat/process/leaseは正常、新規run・blocked・hold・unsafe deltaはない。KeepItUp CLF203C070のcorrect_choiceで空白応答によるretryable failureが1件発生したが、正本書込み前停止・rollback不要で、他問は継続中。実行窓終了のためrunを保護したまま引き渡す。"
+      remaining_blockers:
+        - "runはrunningで3924 work itemがpending。"
+        - "questionId 938fd70ac645523c82da6b53のcorrect_choiceはSol/high再試行待ち。"
+        - "terminal receiptと公開前工程が未完了。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "実行窓を越えたため、稼働中run・server・leaseを停止せず次の継続taskへ引き渡す。"
+  - id: T061
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "同一AWS CLF-C02 maintenance_flow run 20260811T020130995286-e6fd3234を、新規run・再起動・手編集なしで継続監視する。server/process/leaseを保護し、deferredのCLF203C070 correct_choiceを含む失敗問題だけがSol/highで再試行されることを確認する。terminal成功後は通常フローのartifact sync、merge、convert、upload-ready、quality gate、upload dry-runまで進め、Firestoreへは書かない。実行窓を越える場合はrunを停止せず次の継続taskへ引き渡す。"
+    depends_on:
+      - T060
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-cloud-practitioner.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/**"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/keepitup-aws-clf-c02_*"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/ping-t-aws-clf-c02_*"
+      - "output/aws-cloud-practitioner/reports/**"
+    verify:
+      - "同じrunIdのheartbeat、process、listener、有効leaseが継続し、新規runがない。"
+      - "進捗が単調増加し、blocked/hold=0を維持する。deferred failureは失敗問題だけSol/highで再試行され、成功問題はLuna/highのままである。"
+      - "terminal parent manifestがstatus=succeeded、queueStatus=succeeded、receiptValidated=true、pending/preparing/prepared/committing/blocked/hold=0である。"
+      - "全879問の現行MAJOR、39717/39743/39768の必須field、39674不変を確認する。"
+      - "両group artifact sync、12/20/30/40、upload-ready 332/547、quality gate、upload dry-runが成功する。"
+      - "Firestore writes=0、Storage upload=0、00_source不変。必要tracked差分だけmainへcommit/pushし、終了時clean/0 0、process/listener/leaseなし。"
+    stop_if:
+      - "heartbeat停止、process消失、lease不一致、terminal不整合、unsafe delta、rollback不明、別operation競合が発生する。"
+      - "新規run、server再起動、manifest手編集、direct API又は問題整備システム外生成が必要になる。"
+      - "成功問題がSolへ送られる、又はretryがgpt-5.6-sol/high以外になる。"
+      - "Fast、credits、API key、外部provider、Firestore/Storage write、00_source、別資格、code/config/prompt/docs変更が必要になる。"
+      - "個別blocked/holdは他問を継続し、terminal後に限定taskへ分離する。artifact sync blocked時は手編集せず問題IDと不足fieldを記録する。"
     receipt: null
   - id: T999
     type: judge
@@ -3691,6 +3756,7 @@ tasks:
       - T058
       - T059
       - T060
+      - T061
       - T004
       - T005
     inputs:
