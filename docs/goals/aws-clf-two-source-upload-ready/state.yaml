@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T068
+active_task: T069
 
 tasks:
   - id: T001
@@ -3953,6 +3953,7 @@ tasks:
     depends_on:
       - T064
       - T067
+      - T069
     review_inputs:
       - question_id: 2e68f0e5133f3922acf2e2eb
         label: CLF204C012
@@ -3986,9 +3987,10 @@ tasks:
       - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/ping-t-aws-clf-c02_*"
       - "output/aws-cloud-practitioner/reports/**"
     verify:
-      - "各review JSON/promptが1件だけで、questionId、current_question、field、dataPath、selectedText、note、expectedOutcomeが上記と一致する。standalone patch runは開始しない。"
+      - "CLF204C012は既存2組のreview JSON/promptを保持し、268448がcanonical、263906がduplicateとしてUI/APIから監査でき、第三の組がない。39481はreview JSON/promptが1組だけで、questionId、current_question、field、dataPath、selectedText、note、expectedOutcomeが上記と一致する。standalone patch runは開始しない。"
       - "T063の保留再整備previewがexact 2問、blockedReworkFrom=20260811T073104040768-5964f58f、05/01/02/02a/03/04、Standard/auto_max、画像なしである。"
       - "evaluationFeedbackByQuestionへCLF204C012の『推定削減額（%）』不足と39481の既存顧客条件不足が問題別に入る。"
+      - "各問のevaluationFeedbackByQuestionはblocked_maintenanceとsame-state human_reviewを持ち、human_reviewのcanonical reviewId、note、expectedOutcome、selectionが保存reviewと一致する。"
       - "CLF204C012はchoiceTextList[3]=『推定削減額（%）』、正答は2のみ、select_incorrect、解説4件が全肢と整合する。"
       - "39481は本文に2025年11月7日より前からの既存顧客かつRefactor Spaces継続利用条件があり、選択肢1だけ正答、group_choice解説は共通1件で新規projectのAWS Transform推奨境界を説明する。"
       - "2問が05=2.9、01=6.0、02=4.0、02a=4.0、03=10.1、04=2.0でvalidated/current。内容確認後reviewStatus=approved、manual flag/post-fix review=0。"
@@ -4167,7 +4169,7 @@ tasks:
   - id: T068
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T065でchoiceTextList current_question review保存後にstandalone開始が422となり、同内容review/promptが各2件生成された原因をread-only監査する。review記録とstandalone整備開始を責務分離し、保護fieldのfail-closedを維持したままblocked-reworkへreview feedbackを渡せる最小UI/API修正、二重送信防止、既存重複履歴の監査可能な扱い、T065再開契約を確定する。"
     depends_on:
@@ -4189,6 +4191,67 @@ tasks:
       - "最小Worker objective、allowed_files、verify、stop_if"
       - "既存2 review/promptの採否とT065 verify修正"
       - "追加ユーザー承認要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "422はreview保存後に保護fieldのstandalone開始を検証する順序、重複はsubmit中mutex/idempotency不在による同一handlerの再入が原因。保護fieldを記録専用へ分離し、開始前fail-closed、永続idempotency、履歴上の重複表示、同一stateの最新reviewをserver側でblocked-reworkへ結合すれば安全に再開できる。外部書込みや権限拡張はなく追加承認不要。"
+      evidence:
+        - "static/app.jsは保護fieldでもawaiting_codexとstartCodex=trueを送り、submit disable、in-flight guard、submission keyがない。listenerは1本だけ。"
+        - "server.pyはReviewStore.create後にstart_reviewを呼ぶため、422でもreview/promptが残る。"
+        - "NON_AUTOMATED_CORRECTION_FIELDSと24_questionIssueCorrections専用workflowは既存testsでfail-closed。"
+        - "2 reviewは4.542ms差で実質差がIDと参照pathだけで、同内容POSTが2回通った。"
+        - "現行blocked-reworkはblocked_maintenanceだけを渡しhuman reviewを結合しない。"
+        - "ReviewStore.latest_forは268448を現行reviewとして返し263906はUIから見えない。両方を保持し268448をcanonical、263906を重複履歴として表示するのが最小。"
+        - "監査終了時main、origin/main同期0 0、git clean。"
+      next_allowed_task: T069
+      parallel_safety: "T069はserver、store、coordinator、単一app.js契約を同時に変更するため単独Workerのみ安全。"
+      blocked_tasks:
+        - T065
+        - T999
+      missing_evidence:
+        - "二度目のsubmitを発火した具体的なブラウザ操作は永続HTTPイベントログがないため特定不能。2 POSTと再入可能実装は確定済み。"
+      required_board_updates:
+        - "T069を限定修正Workerとして追加する。"
+        - "T065はT069成功までblockedを維持する。"
+        - "T065再開ではCLF204C012を再送信せず既存2件をcanonical/duplicateとして確認し、39481だけ1件保存する。"
+        - "blocked-reworkにblocked_maintenanceとsame-state human_reviewの双方を固定する。"
+        - "追加承認不要。"
+  - id: T069
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "問題整備通常UI/APIを限定修正する。questionBodyText/choiceTextListの選択reviewはneeds_review・startCodex=falseの記録専用として表示し、standalone開始と責務分離する。APIはstartCodex要求をreview保存前に既存NON_AUTOMATED_CORRECTION_FIELDS契約で拒否する。dialog単位submissionKey、UI in-flight mutex、ReviewStoreのlock内永続idempotencyにより同じ送信からreview/prompt又はrunを二重生成しない。詳細API/UIに全review履歴と同内容重複のcanonical/duplicateOfを表示し、既存268448をcanonical、263906を重複として無変更で監査可能にする。blocked-reworkではserverが各exact questionの最新current_question needs_reviewを解決し、projectedHashがplan target stateHashと一致する場合だけreviewId・note・expectedOutcome・selectionをhuman_review feedbackとして既存blocked_maintenanceへ追加し、preview tokenへ固定する。任意client feedbackは受け付けない。実装・tests・SSOT文書だけをcommit/pushし、T065成果物やrunは実行・変更しない。"
+    depends_on:
+      - T068
+    inputs:
+      - "T068 receipt"
+      - "T065で生成された既存2 review/prompt"
+      - "review save/start、blocked-rework、history API/UI実装"
+    allowed_files:
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/review_store.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_workflow.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_store.py"
+      - "tests/test_question_review_question_work_queue.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q tests/test_question_review_store.py tests/test_question_review_server.py tests/test_question_review_question_work_queue.py tests/test_question_review_qualification_identity.py tests/test_question_review_workflow.py"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+    stop_if:
+      - "保護fieldのrecord-only保存がstandalone runを開始する、又はstartCodex=trueがreview/prompt保存後に拒否される。"
+      - "同じsubmissionKeyの並行2 POSTが2組のreview/prompt又は2 runを作る、又は同じkeyで異なるquestion/payloadを再利用できる。"
+      - "blocked-reworkが任意client feedbackを受理する、reviewId/projectedHashをpreview tokenへ固定しない、又はstateHash不一致reviewを継承する。"
+      - "NON_AUTOMATED_CORRECTION_FIELDS、24_questionIssueCorrections専用workflow、00_source、Firestore/Storage、model policy、通常UI/current_question/blocked-rework以外の権限変更が必要になる。"
+      - "既存263906/268448のreview又はpromptを編集・削除・改名する必要がある。"
+      - "allowed_files外の変更、既存dirty差分、lease conflict、main以外のbranch、force pushが発生する。"
     receipt: null
   - id: T999
     type: judge
@@ -4229,6 +4292,9 @@ tasks:
       - T064
       - T065
       - T066
+      - T067
+      - T068
+      - T069
       - T004
       - T005
     inputs:
