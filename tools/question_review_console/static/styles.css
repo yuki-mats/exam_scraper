@@ -1014,6 +1014,8 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
   animation: loading-spin 850ms linear infinite;
 }
 .run-preview-count { color: var(--blue); font-size: 20px !important; }
+.run-preview-resume { display: flex; flex-wrap: wrap; gap: 4px 8px; color: #314a5f !important; }
+.run-preview-resume code { overflow-wrap: anywhere; }
 .run-preview-work-items { color: #314a5f !important; font-weight: 750; }
 .run-preview-groups { max-height: 58px; overflow-y: auto; }
 .run-preview-range, .run-preview-update-targets { color: #314a5f !important; font-weight: 700; }

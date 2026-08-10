@@ -3708,6 +3708,10 @@ function setQualificationRunPreviewState(status, message) {
   action.disabled = status !== "error";
 }
 
+function qualificationRunResumedFrom() {
+  return String(state.qualificationRunDialog.resumedFrom || "").trim();
+}
+
 async function previewQualificationRun() {
   const workflow = state.qualificationWorkflow;
   const stageId = state.qualificationWorkflowStageId;
@@ -3775,7 +3779,7 @@ async function previewQualificationRun() {
         questionIds: questionIds.length ? questionIds : undefined,
         evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
         blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
-        resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
+        resumedFrom: qualificationRunResumedFrom() || undefined,
       },
     });
     if (sequence !== state.qualificationRunDialog.previewSequence) return;
@@ -3806,6 +3810,15 @@ function renderQualificationRunPreview(preview) {
   container.replaceChildren();
   const simplified = state.qualificationRunDialog.simplified;
   const fieldFirst = state.qualificationRunDialog.fieldFirst;
+  const resumedFrom = qualificationRunResumedFrom();
+  if (resumedFrom) {
+    const resumeSource = element("span", "run-preview-resume");
+    resumeSource.append(
+      element("strong", "", "再開元run"),
+      element("code", "", resumedFrom),
+    );
+    container.append(resumeSource);
+  }
   if (!preview.targetCount) {
     container.append(
       element("strong", "", "この範囲に対象はありません"),
@@ -3931,7 +3944,7 @@ async function startQualificationRun(event) {
         evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
         blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
         previewToken: preview.previewToken,
-        resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
+        resumedFrom: qualificationRunResumedFrom() || undefined,
       },
     });
     if (!result.job) throw new Error("Codex App Serverのjobを開始できませんでした。");

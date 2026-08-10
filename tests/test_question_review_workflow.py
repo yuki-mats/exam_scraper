@@ -1358,6 +1358,39 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             '"click", retryBlockedQualificationRun)',
             javascript,
         )
+
+    def test_resume_preview_shows_the_same_run_id_sent_to_preview_and_start(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        renderer = javascript.split(
+            "function renderQualificationRunPreview", 1
+        )[1].split("async function startQualificationRun", 1)[0]
+        previewer = javascript.split(
+            "async function previewQualificationRun", 1
+        )[1].split("function renderQualificationRunPreview", 1)[0]
+        starter = javascript.split(
+            "async function startQualificationRun", 1
+        )[1].split("function setQualificationRunRunning", 1)[0]
+
+        self.assertIn(
+            'return String(state.qualificationRunDialog.resumedFrom || "").trim()',
+            javascript,
+        )
+        self.assertIn("const resumedFrom = qualificationRunResumedFrom()", renderer)
+        self.assertIn("if (resumedFrom)", renderer)
+        self.assertIn('element("strong", "", "再開元run")', renderer)
+        self.assertIn('element("code", "", resumedFrom)', renderer)
+        self.assertIn(
+            "resumedFrom: qualificationRunResumedFrom() || undefined",
+            previewer,
+        )
+        self.assertIn(
+            "resumedFrom: qualificationRunResumedFrom() || undefined",
+            starter,
+        )
+
     def test_resume_defaults_targets_when_compact_run_has_no_target_ids(self):
         root = Path(__file__).resolve().parents[1]
         app = root / "tools/question_review_console/static/app.js"
