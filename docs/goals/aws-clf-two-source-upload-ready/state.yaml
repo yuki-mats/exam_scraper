@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T062
+active_task: T063
 
 tasks:
   - id: T001
@@ -3764,7 +3764,7 @@ tasks:
   - id: T062
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T061終端receipt、保留9問、KeepItUp artifact sync必須field不足1問をread-only監査する。各問題のblock root cause、必要field、必要工程、現行05/01/02/02a/03/04、公式根拠、work versionを対応付け、問題整備システム通常UIだけで全9問を安全に収束する最大Worker packageを確定する。サービス提供終了・新規受付停止問題は05から、正答・出題意図不整合は必要な上流工程から再確定し、単一fieldの決め打ち補正をしない。"
     depends_on:
@@ -3786,6 +3786,97 @@ tasks:
       - "KeepItUp artifactSync不足1問との対応"
       - "next Worker objective、allowed_files、verify、stop_if"
       - "追加ユーザー承認要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "868問は確定したが9問とKeepItUp artifact syncが未完了。単一Workerが05起点5問、02起点4問を通常UIで逐次実行する。並列runは同一qualification lockと共有生成物が競合する。code/UI修正と追加承認は不要。"
+      evidence:
+        - "KeepItUp sync blockerはCLF201C002 qid=3655597d3df014eada6e299d、explanationText。group_choice explanationText must contain exactly one question-level item。"
+        - "Group A 05起点5問: CLF201C005、CLF202C020、CLF203C011、CLF204C012、Ping-t 39481。"
+        - "Group B 02起点4問: CLF201C002、CLF201C022、CLF202C059、CLF204C011。"
+        - "05は事実と条件を公式根拠から最小修正し、questionType、questionIntent、correctChoiceText、explanationText、questionSetを独立確定後に機械整合を確認する。"
+        - "Group A terminal確認後にGroup B、続いて両group artifact sync、332/547 upload-ready、quality gate、upload dry-runの順で実行する。"
+      next_allowed_task: T063
+      missing_evidence:
+        - "Group A/B exact previewとterminal receipts"
+        - "9問のcurrent fingerprints"
+        - "CLF201C002 requiredFieldWarning解消"
+        - "両group artifact sync、332/547 upload-ready、quality gate、upload dry-run"
+        - "最終Firestore/Storage 0、00_sourceとID不変、git clean/0 0"
+      required_board_updates:
+        - "T063を上記2 runの逐次Workerとして実行する。"
+        - "T999は公開前gateの証拠が揃うまでblockedを維持する。"
+  - id: T063
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常の問題整備UIだけを使い、AWS CLF-C02の保留9問を二つのgroup_refresh runで逐次修正する。先にGroup Aの05起点5問を完了し、そのterminal receiptを確認してからGroup Bの02起点4問を実行する。各fieldを公式根拠から独立確定し、機械整合、artifact sync、332/547のupload-ready再生成、quality gate、upload dry-runまで完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持し、対象変更だけをmainへcommit/pushする。"
+    depends_on:
+      - T062
+    execution_order:
+      - group: A
+        question_ids:
+          - 9fe4585cfd11b05c70ccd945
+          - bdafdb039f334c81a953d3c0
+          - 84228e256ac91b5b39b88234
+          - 2e68f0e5133f3922acf2e2eb
+          - cf8b427c132c94642d3b43f7
+        labels:
+          - CLF201C005
+          - CLF202C020
+          - CLF203C011
+          - CLF204C012
+          - "Ping-t 39481"
+        expected_stages: "05→01→02→02a→03→04"
+      - group: B
+        question_ids:
+          - 3655597d3df014eada6e299d
+          - 3bbf07b77a937251794cfc57
+          - 7c4da075c6a91c1e471e8b1b
+          - c1ae79ed057973a4a023db5c
+        labels:
+          - CLF201C002
+          - CLF201C022
+          - CLF202C059
+          - CLF204C011
+        expected_stages: "02→02a→03→04"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-cloud-practitioner.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/{3655597d3df014eada6e299d,3bbf07b77a937251794cfc57,7c4da075c6a91c1e471e8b1b,9fe4585cfd11b05c70ccd945,bdafdb039f334c81a953d3c0,84228e256ac91b5b39b88234,2e68f0e5133f3922acf2e2eb,c1ae79ed057973a4a023db5c}.json"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/cf8b427c132c94642d3b43f7.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags}/question_keepitup-{CLF201C002,CLF201C005,CLF201C022,CLF202C020,CLF202C059,CLF203C011,CLF204C011,CLF204C012}_*"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags}/question_ping-t-76_39481_*"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/{12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/{12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/keepitup-aws-clf-c02_*"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/ping-t-aws-clf-c02_*"
+      - "output/aws-cloud-practitioner/reports/**"
+    verify:
+      - "Group A previewがexact 5問・両group・画像targetなしで、05/01/02/02a/03/04の全対象工程、Standard/auto_maxである。"
+      - "Group Aのterminal receiptで5問すべてvalidated/current、05=2.9、01=6.0、02=4.0、02a=4.0、03=10.1、04=2.0、公式URL、既存ID維持を確認してからGroup Bを開始する。"
+      - "Group B previewがexact 4問・KeepItUpだけで、05/01/画像を除外し、02/02a/03/04、Standard/auto_maxである。"
+      - "Group Bのterminal receiptで4問すべてvalidated/currentを確認し、CLF201C002のgroup_choice explanationTextがquestion-level exactly-oneである。"
+      - "正答、questionIntent、questionType、問題文・選択肢、解説を各工程で独立確定し、最後に機械整合が通る。"
+      - "artifact sync readbackで両groupがsucceeded/current、requiredFieldWarnings・failedDeltaPaths・strictValidationWarningsが0である。"
+      - "12/20/30/40とupload-readyがKeepItUp 332問、Ping-t 547問で、quality gateとupload dry-runが成功する。"
+      - "初回Luna/high、失敗問題の再試行だけSol/high、Standard、Firestore writes=0、Storage uploads=0、非dry-run upload=0。"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "00_source、既存ID、39674内容が不変。必要tracked変更だけをmainへcommit/pushし、clean/0 0、process/listener/leaseなし。"
+    stop_if:
+      - "previewのquestion IDs、group IDs、update targets、stagesが契約と異なる。"
+      - "Group Aで05を起点にできない、又はGroup Bから05/01を除外できない。"
+      - "通常UI以外のdirect API・CLI・手編集、code/config/prompt/document変更が必要になる。"
+      - "00_source、既存ID、別資格、対象外問題のpatchへ変更が及ぶ。"
+      - "公式根拠が矛盾する、又はサービス利用条件を一意に確定できない場合はその問題だけholdし、推測で補正しない。"
+      - "最大再試行後も正答・intent・questionType・explanation不整合が残る。自動反転や手動patchをしない。"
+      - "Firestore/Storage write、外部provider、API key、追加creditが必要になる。"
+      - "artifact sync警告が9問以外へ及ぶ、failed delta、unsafe rollback、lease conflict、新規run混入が発生する。"
     receipt: null
   - id: T999
     type: judge
@@ -3822,6 +3913,7 @@ tasks:
       - T060
       - T061
       - T062
+      - T063
       - T004
       - T005
     inputs:
