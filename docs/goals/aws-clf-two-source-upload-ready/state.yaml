@@ -5,7 +5,7 @@ goal:
   slug: "aws-clf-two-source-upload-ready"
   kind: recovery
   tranche: "既存成果物を保持し、問題整備システムでCLF-C02全対象の未完了工程をfast収束してupload dry-runまで完了する"
-  status: blocked
+  status: active
   oracle:
     signal: "問題整備システムのCLF-C02全対象run、artifact sync、upload-ready、quality gate、upload dry-runが成功し、Firestore writes=0、00_source不変、blocking/hold/pending=0である"
     cadence: "after each Worker package and at final audit"
@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: null
+active_task: T025
 
 tasks:
   - id: T001
@@ -280,7 +280,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: blocked
+    status: queued
     reasoning_hint: medium
     objective: "T013で確定した879問の問題整備システム成果物だけを入力に、問題整備システム経由で両groupのartifact syncを成功させ、879 unique question IDを覆うupload-readyを生成する。同一artifact hashへquality gateとupload dry-runを実行し、Firestoreへ書かず公開直前状態へ収束する。"
     depends_on:
@@ -302,16 +302,12 @@ tasks:
       - "artifact sync、merged、convert、upload-readyの手編集又は直接生成が必要になる。"
       - "Firestore write又は本番反映フラグが必要になる。"
       - "upload-readyの件数、ID一意性、hash、quality gate、dry-runのいずれかが一致しない。"
-    receipt:
-      result: blocked
-      summary: "履歴run再開UIの追加実装が未承認でT018を再開できないため、artifact syncとupload-readyを開始できない。"
-      waiting_for_user_approval: true
-      required_reply: "履歴run再開UIの修正を承認します"
+    receipt: null
 
   - id: T005
     type: pm
     assignee: PM
-    status: blocked
+    status: queued
     reasoning_hint: medium
     objective: "関連成果物とGoalBuddy receiptsだけを最終検証し、mainへ内容別にコミットしてorigin/mainへpushする。"
     depends_on:
@@ -330,11 +326,7 @@ tasks:
       - "commit hashes"
       - "origin/main push readback"
       - "clean worktree"
-    receipt:
-      result: blocked
-      summary: "T025・T018・T004が未完了のため、最終commit・pushを開始できない。"
-      waiting_for_user_approval: true
-      required_reply: "履歴run再開UIの修正を承認します"
+    receipt: null
 
   - id: T006
     type: scout
@@ -1254,8 +1246,6 @@ tasks:
       needs_judge: false
       verification_attempts: 1
       stopped_because: "通常UIで指定旧runを再開できず、scope/resumedFrom不一致のstop_ifに該当するため"
-      waiting_for_user_approval: true
-      required_reply: "履歴run再開UIの修正を承認します"
   - id: T019
     type: judge
     assignee: Judge
@@ -1560,7 +1550,7 @@ tasks:
   - id: T025
     type: worker
     assignee: Worker
-    status: blocked
+    status: active
     reasoning_hint: medium
     objective: "問題整備メインUIの既存『作業履歴』にrun IDと、安全に再開可能な履歴runごとの『この未完了を再開』操作を追加する。クリックした履歴objectだけを既存retryBlockedQualificationRunへ渡し、preview/startのresumedFromがそのrun IDになることを回帰検証し、運用SSOTへ操作手順を追記する。monitor、API契約、再開バックエンド、manifestは変更しない。"
     depends_on:
@@ -1581,15 +1571,11 @@ tasks:
       - "active run、repository lease、recovery sidecar又は別operationとの競合をUIで安全に遮断できない。"
       - "指定旧runがrecent履歴から消れ、追加の履歴取得契約変更が必要になる。"
       - "許可ファイル外の変更又は既存ユーザー差分へ触れる必要が生じる。"
-    receipt:
-      result: blocked
-      summary: "通常UIの履歴行へrun ID付き再開操作を追加する最小実装は、01プロンプト修正の承認範囲外であるため開始していない。"
-      waiting_for_user_approval: true
-      required_reply: "履歴run再開UIの修正を承認します"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
-    status: blocked
+    status: queued
     reasoning_hint: high
     objective: "全receiptとlive readbackをoracleへ対応付け、CLF-C02全件が問題整備システム経由でupload dry-runまで完了したか最終監査する。"
     depends_on:
@@ -1613,11 +1599,7 @@ tasks:
       - "oracle evidence map"
       - "missing evidence"
       - "next task if not complete"
-    receipt:
-      result: blocked
-      summary: "T025・T018・T004・T005の完了証拠がなく、最終完了監査を実行できない。"
-      waiting_for_user_approval: true
-      required_reply: "履歴run再開UIの修正を承認します"
+    receipt: null
 
 checks:
   dirty_fingerprint: "main clean origin/main...HEAD=0 0 at prep"
