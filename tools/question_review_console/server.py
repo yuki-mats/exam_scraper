@@ -155,9 +155,6 @@ RECENT_RUN_DISPLAY_FIELDS = (
     "model",
     "serviceTier",
     "reasoningEffort",
-    "initialModel",
-    "retryModel",
-    "requestedReasoningEffort",
     "questionConcurrency",
     "speedMode",
     "requestedServiceTier",
@@ -957,7 +954,6 @@ class QuestionReviewApplication:
                     "questionConcurrency",
                     "speedMode",
                     "previewToken",
-                    "initialModel",
                 }
                 unknown_fields = sorted(set(body) - allowed_fields)
                 if unknown_fields:
@@ -1001,10 +997,6 @@ class QuestionReviewApplication:
                     "stage_ids": stage_ids,
                     "resumed_from": str(body.get("resumedFrom") or "") or None,
                 }
-                if "initialModel" in body:
-                    run_options["initial_model"] = str(
-                        body.get("initialModel") or ""
-                    ) or None
                 if body.get("blockedReworkFrom"):
                     run_options["blocked_rework_from"] = str(
                         body["blockedReworkFrom"]

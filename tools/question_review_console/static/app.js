@@ -228,7 +228,6 @@ const state = {
     updateTargetIds: [],
     questionIds: [],
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
-    initialModel: "",
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     previewController: null,
     fieldFirst: false,
@@ -1205,10 +1204,6 @@ function bindControls() {
   )) {
     node.addEventListener("change", previewQualificationRun);
   }
-  $("#qualification-run-initial-model").addEventListener("change", () => {
-    state.qualificationRunDialog.initialModel = selectedQualificationRunInitialModel();
-    previewQualificationRun();
-  });
   $("#workflow-guide-close").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-backdrop").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-action").addEventListener("click", executeWorkflowGuideAction);
@@ -3059,14 +3054,8 @@ function renderQualificationActiveRun() {
     : view.unverified
       ? "未承認理由: 完了検証を確認できないため、生成結果を承認していません。"
     : view.failed ? `停止理由: ${humanizeQualificationRunError(runError)}` : "";
-  const requestedModel = run.initialModel || state.codexStatus?.model || "自動選択";
-  const retryModel = run.retryModel || state.codexStatus?.retryModel || "自動選択";
-  const requestedEffort = run.requestedReasoningEffort
-    || state.codexStatus?.turnReasoningEffort
-    || "標準";
-  const actual = run.model
-    ? ` ・ 実績 ${run.model} / 推論 ${run.reasoningEffort || "不明"}`
-    : "";
+  const model = run.model || state.codexStatus?.model || "自動選択";
+  const effort = run.reasoningEffort || state.codexStatus?.turnReasoningEffort || "標準";
   let parallelLabel = "";
   if (run.workType === "maintenance_flow") {
     const modelWorkerLimit = Number(
@@ -3080,7 +3069,7 @@ function renderQualificationActiveRun() {
   } else {
     parallelLabel = " ・ 判断と保存は直列";
   }
-  $("#qualification-active-run-model").textContent = `初回 ${requestedModel}・失敗時 ${retryModel} / 推論 ${requestedEffort}${actual}${parallelLabel}`;
+  $("#qualification-active-run-model").textContent = `${model} / 推論 ${effort}${parallelLabel}`;
   $("#qualification-active-run-updated").textContent = qualificationRunUpdatedLabel(run, progress);
   action.hidden = false;
   action.textContent = view.active ? "進捗と出力を見る" : "この作業の出力を見る";
@@ -3103,38 +3092,6 @@ function selectedQualificationRunConcurrency() {
       || AUTO_QUESTION_CONCURRENCY,
   );
   return [1, 5, 10, 32, 64, 100].includes(value) ? value : AUTO_QUESTION_CONCURRENCY;
-}
-
-function selectedQualificationRunInitialModel() {
-  return String(
-    $("#qualification-run-initial-model").value
-      || state.qualificationWorkflow?.modelPolicy?.defaultInitialModel
-      || "",
-  );
-}
-
-function renderQualificationRunModelSelector(options = {}) {
-  const policy = state.qualificationWorkflow?.modelPolicy || {};
-  const select = $("#qualification-run-initial-model");
-  const values = Array.isArray(policy.initialModelOptions)
-    ? policy.initialModelOptions.filter(Boolean)
-    : [];
-  select.replaceChildren(...values.map((model) => {
-    const option = document.createElement("option");
-    option.value = model;
-    option.textContent = model;
-    return option;
-  }));
-  const initialModel = String(
-    options.initialModel || policy.defaultInitialModel || values[0] || "",
-  );
-  select.value = initialModel;
-  const resumed = Boolean(options.resumedFrom);
-  select.disabled = resumed;
-  state.qualificationRunDialog.initialModel = initialModel;
-  $("#qualification-run-model-note").textContent = resumed
-    ? `再開元runの ${initialModel} を固定継承します。`
-    : `失敗した問題の再試行だけ ${policy.retryModel || ""} / 推論 ${policy.requestedReasoningEffort || ""} 固定です。`;
 }
 
 function selectedQualificationRunSpeedMode() {
@@ -3648,7 +3605,6 @@ function openQualificationRunDialog(stage, options = {}) {
     updateTargetIds: selectedUpdateTargetIds,
     questionIds: selectedQuestionIds,
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
-    initialModel: options.initialModel || "",
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     previewController: null,
     simplified: options.simplified === true,
@@ -3698,8 +3654,6 @@ function openQualificationRunDialog(stage, options = {}) {
     state.qualificationWorkflow?.stages?.find((item) => item.id === selectedStageId)
       ?.kind === "human"
   ));
-  $("#qualification-run-model-fieldset").hidden = !supportsConcurrency;
-  renderQualificationRunModelSelector(options);
   $("#qualification-run-concurrency-fieldset").hidden = !supportsConcurrency;
   const requestedConcurrency = Number(
     options.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
@@ -3826,7 +3780,6 @@ async function previewQualificationRun() {
         evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
         blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
         resumedFrom: qualificationRunResumedFrom() || undefined,
-        initialModel: selectedQualificationRunInitialModel(),
       },
     });
     if (sequence !== state.qualificationRunDialog.previewSequence) return;
@@ -3912,11 +3865,6 @@ function renderQualificationRunPreview(preview) {
       container.append(
         element(
           "span",
-          "run-preview-model",
-          `初回 ${preview.initialModel} / 失敗時 ${preview.retryModel} / 推論 ${preview.requestedReasoningEffort}`,
-        ),
-        element(
-          "span",
           "run-preview-concurrency",
           `1問1model turnで最大${preview.questionConcurrency}問を同時整備・Standard（全資格合計100turn、検査と確定も1問ずつ）`,
         ),
@@ -3997,7 +3945,6 @@ async function startQualificationRun(event) {
         blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
         previewToken: preview.previewToken,
         resumedFrom: qualificationRunResumedFrom() || undefined,
-        initialModel: preview.initialModel,
       },
     });
     if (!result.job) throw new Error("Codex App Serverのjobを開始できませんでした。");
@@ -4554,7 +4501,6 @@ function enterQualificationProgressView(run) {
   $("#qualification-run-stage-fieldset").hidden = true;
   $("#qualification-run-group-fieldset").hidden = true;
   $("#qualification-run-mode-fieldset").hidden = true;
-  $("#qualification-run-model-fieldset").hidden = true;
   $("#qualification-run-concurrency-fieldset").hidden = true;
   $("#qualification-run-preview").hidden = true;
   $("#qualification-run-start").hidden = true;
@@ -4772,8 +4718,6 @@ async function retryBlockedQualificationRun(runOverride = null) {
     questionConcurrency: run.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     resumedFrom: blockedQuestionIds.length ? "" : run.runId,
-    initialModel: run.initialModel
-      || state.qualificationWorkflow?.modelPolicy?.defaultInitialModel,
     blockedReworkFrom: blockedQuestionIds.length ? run.runId : "",
     simplified: true,
     fieldFirst: blockedQuestionIds.length > 0,

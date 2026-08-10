@@ -474,15 +474,6 @@ class WorkflowCatalogTests(unittest.TestCase):
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
             {"model": "gpt-5.6-luna", "reasoningEffort": "high"},
         )
-        self.assertEqual(
-            catalog["modelPolicy"],
-            {
-                "initialModelOptions": ["gpt-5.6-luna", "gpt-5.6-sol"],
-                "defaultInitialModel": "gpt-5.6-luna",
-                "retryModel": "gpt-5.6-sol",
-                "requestedReasoningEffort": "high",
-            },
-        )
         self.assertTrue(
             all(
                 version == "1.0"

@@ -73,7 +73,7 @@
 
 ## 一問queueとsession
 
-`browser → Python server → Codex App Server（stdio）`の順に接続します。Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。整備開始時の初回modelは`gpt-5.6-luna`（既定）又は`gpt-5.6-sol`から選びます。候補生成又は機械検査に失敗した問題の再試行は、独立reviewと裁定を含むattempt全体を`gpt-5.6-sol`とします。推論強度は常に`high`です。成功した問題は再投入せず、再開時も失敗した問題だけに直前の検査feedbackを引き継ぎます。再開時は元runの初回modelを固定継承します。要求modelと返された実modelは分けてattemptとmanifestへ保存します。
+`browser → Python server → Codex App Server（stdio）`の順に接続します。Python serverはChatGPT app同梱の`codex app-server`を一つ管理します。PATH上の別binary、`codex exec`、OpenAI Platform API、外部model providerへfallbackしません。初回は`gpt-5.6-luna`、候補生成又は機械検査に失敗した問題の再試行は`gpt-5.6-sol`を使い、推論強度はどちらも`high`とします。成功した問題は再投入せず、再開時も失敗した問題だけに直前の検査feedbackを引き継ぎます。要求modelと返された実modelはattemptとmanifestへ保存します。評価、再整備、再評価は`gpt-5.6-luna`、推論強度`high`をturnごとに指定します。
 
 - GUIでは資格、年度又はフォルダ、整備する項目、処理する問題を指定し、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`、工程、update targetの組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。
 - serverは問題の現在projectionをrunごとの希望上限まで同時に準備し、一問を一つの独立したmodel turnへ渡す。1資格と全資格合計の上限は100問・100本とし、UIでは1、5、10、32、64、100から希望上限を選べる。複数資格の実行中は新しく取得するslotを公平に配分し、接続、認証又はcontrol-planeのprovider失敗時はadaptive schedulerが実行数を縮小して、成功に応じて回復する。一問だけの期限切れはその問だけを再試行する。control-plane RPCも全資格合計100本まで受け付け、処理中のrequestをtimeout失敗として重複投入しない。patch toolの待機はmodel turn枠を占有せず、複数のpatch toolが異なる実pathを並行処理する。
