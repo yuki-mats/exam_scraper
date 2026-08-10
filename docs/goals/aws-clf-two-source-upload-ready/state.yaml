@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T056
+active_task: T057
 
 tasks:
   - id: T001
@@ -3362,7 +3362,7 @@ tasks:
   - id: T056
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T055で問題39674のreadOnly review dialogがscope=current_question、dataPath=explanationText[0]、field=explanationTextだがchoiceIndexes=[]となった事実を、schema、UI保存処理、prompt生成、既存review、問題形式からread-only監査する。flash_cardの問題共通基本解説でchoiceIndexes=[]が正規表現なら、追加UI修正なしで安全に03限定再整備できるWorker契約を確定する。choiceIndexes=[0]が必須なら、最小の追加UI修正scopeを確定する。"
     depends_on:
@@ -3382,6 +3382,61 @@ tasks:
       - "choiceIndexesの正規契約と、空配列でもexplanationText[0]だけに限定される証拠"
       - "次Workerのobjective、allowed_files、verify、stop_if"
       - "追加のユーザー承認要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "choiceIndexes=[]はflash_cardの問題共通解説の正規表現であり、追加UI修正は不要。現行UIは問題共通解説へ意図的に空配列とdataPath=explanationText[0]を付ける。保存後routingはchoiceIndexesではなくcurrent_question、fields、record identityから問題39674の21 patch・99 flag・工程03 v10.1へ限定される。空配列はpromptへ全選択肢を判断材料として載せるだけで、他問題や他工程を許可しない。T055の既承認範囲内の再試行なので追加ユーザー承認も不要。"
+      evidence:
+        - "app.jsはflash_card/group_choiceの問題共通基本解説へfields=[explanationText]、choiceIndexes=[]、dataPath=explanationText[0]を明示設定する。"
+        - "flash_cardのexplanationTextは問題共通の1件だけであり、explanationText[0]は選択肢1専用ではない。"
+        - "review_storeは空のchoiceIndexesを正規化・保存でき、prompt_builderはcurrent_questionを維持する。"
+        - "qualification_runsはfields=explanationTextとrecord identityから問題39674の21 patch・99 flag・03 v10.1だけへ限定する。"
+      next_allowed_task: T057
+      missing_evidence:
+        - "問題39674の新規review JSONとpromptのreadback"
+        - "問題39674だけの03 v10.1 planとterminal receipt"
+        - "更新後解説、不変field、Firestore writes=0、00_source不変"
+      required_board_updates:
+        - "choiceIndexes=[]をflash_card問題共通解説の正規値として承認し、choiceIndexes=[0]要件と追加UI修正を撤回する。"
+        - "T057を次のWorkerとして実行する。"
+  - id: T057
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常review-uiのreadOnly問題詳細でPing-t問題39674の問題共通基本解説を実pointer dragし、『この箇所を確認』を開く。scope=current_question、dataPath=explanationText[0]、field=explanationText、choiceIndexes=[]を正規値として受理する。T055指定のnote・expectedOutcomeを入力して保存し、生成review/promptを直ちにreadbackする。そのまま問題39674だけの工程03 explanation v10.1 runを通常UI経由で終端化し、更新内容と不変fieldを確認する。コード修正、別問題、別工程、artifact sync、Firestore反映は行わない。"
+    depends_on:
+      - T056
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-cloud-practitioner.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/reviews/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/prompts/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/c03d8b25af6627419388375f.json"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/question_ping-t-76_39674_merged_explanationText_added.json"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/question_ping-t-76_39674_explanationText_needs_5_5_high_review.jsonl"
+    verify:
+      - "起動前後で競合process、TCP:8765 listener、有効lease、recovery sidecarが0である。"
+      - "実pointer dragでscope=current_question、dataPath=explanationText[0]、field=explanationText、choiceIndexes=[]、類似調査非表示を確認する。"
+      - "note・expectedOutcomeにKendra継続、Maintenance Mode、2026-06-30、2026-07-30、既存顧客サポート、公式availability URL、BMKBの新規検索アプリ推奨、BMKBにSlack・Dropbox直接connectorがあると説明しない条件を含める。"
+      - "保存されたreview JSONとpromptがdialog入力、dataPath、field、choiceIndexes=[]、current_questionと一致する。"
+      - "run planがtargetCount=1、問題39674のみ、policyVersions.explanation=10.1、allowedPatchDirsが21_explanationText_addedと99_model_review_flags、allowedPatchFilesが対象2ファイルだけである。"
+      - "manifest/resultがstatus=succeeded、queueStatus=succeeded、receiptValidated=trueである。"
+      - "explanationTextが1件だけで、既存Kendra継続、Maintenance Mode、両日付、既存顧客サポート、公式URL、BMKB推奨を含み、BMKBのSlack・Dropbox直接connectorを主張しない。"
+      - "05、10、15、23、22、選択肢、正答、ID、questionIntent、questionLearningPatternId、suggestedQuestionDetailsByChoice、00_sourceが不変である。explanationReferencesを変更する場合は確認済みAWS公式資料だけである。"
+      - "work versionのexplanation=10.1 current runが新runを参照する。初回Luna/high、失敗再試行だけSol/high、Standard、Firestore writes=0を確認する。"
+    stop_if:
+      - "dialogがcurrent_question、explanationText[0]、explanationText、choiceIndexes=[]の組合せにならない、又は類似調査が有効になる。"
+      - "保存review又はpromptが指定内容を欠く。既にjobが開始している場合も追加操作や手編集をせず、通常UIで状態を記録して停止する。"
+      - "planが問題39674以外、工程03 explanation 10.1以外、21 patchと対応99 flag以外を含む。"
+      - "生成結果が必須内容を欠く、BMKBの直接connectorを誤って主張する、又はexplanationTextが1件でなくなる。"
+      - "05、問題文、選択肢、正答、ID、questionType、questionIntent、questionLearningPatternId、補足質問、00_sourceへ差分が出る。"
+      - "code、prompt、config、server API、manifest手編集、direct API、artifact sync、Firestore write、allowed_files外変更が必要になる。"
+      - "別資格run、listener、有効lease、repository operationと競合する。"
     receipt: null
   - id: T999
     type: judge
@@ -3412,6 +3467,7 @@ tasks:
       - T054
       - T055
       - T056
+      - T057
       - T004
       - T005
     inputs:
