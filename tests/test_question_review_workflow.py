@@ -1936,6 +1936,20 @@ assert.deepEqual(
         self.assertIn('"selectionchange"', javascript)
         self.assertIn("selection: state.reviewSelection", javascript)
         self.assertIn('investigationScope: $("#review-scope").value', javascript)
+        selection_source = javascript[
+            javascript.index("function selectionCandidate") :
+            javascript.index("function openReview")
+        ]
+        self.assertIn("selection.rangeCount !== 1", selection_source)
+        self.assertIn("anchorTarget !== focusTarget", selection_source)
+        self.assertIn("anchorTarget.contains(range.commonAncestorContainer)", selection_source)
+        self.assertNotIn("state.auditView.readOnly && auditViewIsOpen()", selection_source)
+        self.assertIn('$("#selection-review-similar").hidden = state.auditView.readOnly', selection_source)
+        self.assertIn('state.auditView.readOnly ? "current_question" : investigationScope', selection_source)
+        self.assertIn(
+            "state.auditView.readOnly && Boolean(selection)",
+            javascript[javascript.index("function openReview") : javascript.index("function openOfficialSourceCorrection")],
+        )
         self.assertIn('"欠損をまとめて修正依頼"', javascript)
         self.assertNotIn('"監査パッチをまとめて修正依頼"', javascript)
         self.assertNotIn("function openLawAuditQualityReview", javascript)

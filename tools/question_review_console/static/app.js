@@ -7793,10 +7793,12 @@ function reviewTargetFromSelectionNode(node) {
 function selectionCandidate() {
   const selection = window.getSelection?.();
   const selectedText = selection?.toString().trim() || "";
-  if (!selection || selection.isCollapsed || !selectedText) return null;
+  if (!selection || selection.rangeCount !== 1 || selection.isCollapsed || !selectedText) return null;
   const anchorTarget = reviewTargetFromSelectionNode(selection.anchorNode);
   const focusTarget = reviewTargetFromSelectionNode(selection.focusNode);
   if (!anchorTarget || anchorTarget !== focusTarget) return null;
+  const range = selection.getRangeAt(0);
+  if (!anchorTarget.contains(range.commonAncestorContainer)) return null;
   const context = reviewTargetContexts.get(anchorTarget);
   if (!context) return null;
   return {
@@ -7806,10 +7808,6 @@ function selectionCandidate() {
 }
 
 function scheduleSelectionToolbar() {
-  if (state.auditView.readOnly && auditViewIsOpen()) {
-    clearSelectionToolbar();
-    return;
-  }
   window.clearTimeout(selectionToolbarTimer);
   selectionToolbarTimer = window.setTimeout(renderSelectionToolbar, 120);
 }
@@ -7826,6 +7824,8 @@ function renderSelectionToolbar() {
   state.selectionCandidate = candidate;
   $("#selection-toolbar-label").textContent = candidate.selection.targetLabel;
   $("#selection-toolbar-text").textContent = candidate.selection.selectedText;
+  $("#selection-review-current").textContent = "この箇所を確認";
+  $("#selection-review-similar").hidden = state.auditView.readOnly;
   toolbar.hidden = false;
 }
 
@@ -7841,7 +7841,12 @@ function openSelectionReview(investigationScope) {
   if (!candidate) return;
   const { selection, issueType } = candidate;
   clearSelectionToolbar(true);
-  openReview("awaiting_codex", selection, issueType, investigationScope);
+  openReview(
+    "awaiting_codex",
+    selection,
+    issueType,
+    state.auditView.readOnly ? "current_question" : investigationScope,
+  );
 }
 
 function openReview(
@@ -7872,7 +7877,8 @@ function openReview(
     : REVIEW_SCOPES.has(investigationScope)
       ? investigationScope
       : "current_question";
-  $("#review-scope-wrap").hidden = qualificationLawAudit;
+  $("#review-scope-wrap").hidden = qualificationLawAudit
+    || (state.auditView.readOnly && Boolean(selection));
 
   const selectionNode = $("#review-selection");
   selectionNode.hidden = !selection;
