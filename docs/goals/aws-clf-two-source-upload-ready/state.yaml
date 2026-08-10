@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T049
+active_task: T050
 
 tasks:
   - id: T001
@@ -2914,7 +2914,7 @@ tasks:
   - id: T049
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "T047でin-app Browserが利用不能だったため、利用可能なChrome連携から通常の問題整備UIをStandardで起動し、初回model selectorをlive readbackする。AWS CLFの開始dialogでcatalog由来Luna/Sol二択、既定Luna、Luna/Sol各preview、選択変更時のpreview無効化、歴史run再開のmodel固定を確認する。runは開始せず、終了時にUI processとlockを解放する。"
     depends_on:
@@ -2935,6 +2935,74 @@ tasks:
       - "previewだけでrun又は成果物が生成される。"
       - "resume modelが可変、Fast等が選択可能、又はFirestore/source code変更が必要になる。"
       - "別資格又はrepository operationとのlock競合がある。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - command: "chrome:control-chrome skill read"
+          status: pass
+        - command: "Chrome extension session start"
+          status: pass
+        - command: "review-ui --host 127.0.0.1 --port 8765 --no-browser"
+          status: pass
+        - command: "ChromeでAWS CLF選択"
+          status: pass
+        - command: "Chromeでkeepitup整備dialogを通常操作"
+          status: blocked
+        - command: "dialog DOM readback"
+          status: blocked
+        - command: "dialog cancel and Chrome/UI shutdown"
+          status: pass
+        - command: "git/status/process/listener/lock/output readback"
+          status: pass
+      summary: "Chrome extensionと通常review UIは利用でき、AWS CLF画面のbannerで初回Luna・再試行Sol・high・ChatGPT Pro Standardを確認した。しかし整備dialogの初回モデルcomboboxは選択肢0件で、注記もmodel名と推論強度が空だった。catalog由来Luna/Sol二択との不一致によりstop_ifで即時停止。preview・run開始なし。AWS run dirs 2077、files 46649は前後不変。review/prompt/plan生成なし、Firestore/model turnなし。終了時git clean、同期0 0、lock/listener/processなし。"
+      remaining_blockers:
+        - "qualification workflowのlive応答からmodelPolicyがUIへ届かず、model selectorが空になる。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "Chrome通常UIのmodel selectorがcatalog policyと一致せず、Luna/Sol選択肢が0件だったため。"
+  - id: T050
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "T049で通常Chrome UIの初回model selectorが0件となった原因をread-onlyで特定する。live catalog/qualification response、server serializer、workflow catalog、app state、dialog描画のfield pathとload timingを追い、bannerだけ正しくdialogが空になる差を説明する。最小修正候補、tests、allowed_files、stop_ifを証拠付きで返す。"
+    depends_on:
+      - T049
+    inputs:
+      - "T046 implementation receipt and commit 61b18ab82"
+      - "T049 blocked live Chrome receipt"
+      - "current server/catalog/UI implementation and tests"
+    constraints:
+      - "read-only。code、test、docs、output、board、Firestoreを変更しない。"
+      - "direct API又はmodel turnでUI成功を代替しない。"
+      - "model一覧の単一SSOT、Luna default、Sol retry/high、Standard境界を変えない。"
+    expected_output:
+      - "GoalBuddy Scout receipt"
+      - "root cause with exact field/data flow"
+      - "minimal fix candidate and regression tests"
+      - "allowed_files and stop_if candidates"
+    receipt: null
+  - id: T051
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "T050 root-cause receiptをread-only監査し、モデルselector空表示を直す最大安全な単一Worker packageをapprove又はrejectする。live catalog導出、dialog state初期化、preview token/start拘束、resume固定、actual欄分離、retry Sol/high、Standard/Firestore境界を維持する。"
+    depends_on:
+      - T050
+    inputs:
+      - "T049 blocked live Chrome receipt"
+      - "T050 Scout receipt"
+      - "T045 approved selector contract"
+    constraints:
+      - "read-only。実装しない。"
+      - "UIへmodel一覧を手書きするfixを承認しない。"
+      - "live browserで再確認できるverifyを必須とする。"
+    expected_output:
+      - "approve | reject"
+      - "exact Worker objective、allowed_files、verify、stop_if"
+      - "follow-up live readback contract"
     receipt: null
   - id: T048
     type: judge
@@ -2943,12 +3011,13 @@ tasks:
     reasoning_hint: high
     objective: "T046実装receiptとT047ブラウザreadbackをread-onlyで監査し、初回モデル選択UIの限定成果をaccept又はrejectする。単一SSOT、preview token/start拘束、fresh/retry routing、resume固定、actual欄分離、Standard/ChatGPT/credits無効/Firestore境界、Git同期を確認する。AWS全879問整備goalの完了とは分離する。"
     depends_on:
-      - T049
+      - T051
     inputs:
       - "T045 design receipt"
       - "T046 implementation receipt and commit 61b18ab82"
       - "T047 live UI readback receipt"
       - "T049 Chrome live UI recovery receipt"
+      - "T050/T051 live blocker diagnosis and approved recovery"
     constraints:
       - "read-only。code、test、docs、output、board、Firestoreを変更しない。"
       - "モデル選択UIの限定成果だけを判定し、AWS全件整備を完了扱いしない。"
@@ -2984,7 +3053,6 @@ tasks:
       - T044
       - T045
       - T046
-      - T049
       - T048
       - T004
       - T005
