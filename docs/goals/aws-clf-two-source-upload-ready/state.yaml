@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T065
+active_task: T068
 
 tasks:
   - id: T001
@@ -3947,7 +3947,7 @@ tasks:
   - id: T065
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。最初にCLF204C012とPing-t 39481のreadOnly詳細から指定文字列を選択し、下記note・expectedOutcomeをcurrent_question reviewとして保存してreview JSONとpromptをreadbackする。standalone review patchは実行しない。次にT063 runの『保留を再整備』でexact 2問を05→01→02→02a→03→04へ収束する。修正内容確認後reviewを承認し、Group B exact 4問を02→02a→03→04で実行する。最後に両group artifact sync、332/547 upload-ready、quality gate、upload dry-runを完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持する。"
     depends_on:
@@ -4010,28 +4010,35 @@ tasks:
       - "artifact sync警告が対象6問以外、failed delta、unsafe rollback、lease conflict、新規run混入が発生する。"
     receipt:
       result: blocked
-      changed_files: []
+      changed_files:
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T082720263906-ee0daadb.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T082720268448-ee0daadb.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T082720263906-ee0daadb.md
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T082720268448-ee0daadb.md
       commands:
-        - cmd: "通常review-uiでCLF204C012 readOnly詳細を表示しchoiceTextList[3]を実pointer選択"
+        - cmd: "通常review-uiでCLF204C012のchoiceTextList[3]を実pointer選択"
+          status: pass
+        - cmd: "current_question、choiceIndexes=[3]、note、expectedOutcomeを確認して保存操作"
           status: fail
-          detail: "選択成功、toolbar非表示"
-        - cmd: "app.js review target readback"
+          detail: "review保存後のstandalone開始がHTTP 422"
+        - cmd: "review JSON/prompt readback"
+          status: fail
+          detail: "同内容が各2件"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
           status: pass
-          detail: "choiceTextはreviewable-content未登録。correctChoiceTextとexplanationTextのみ登録"
-        - cmd: "review/prompt/run作成確認"
+          detail: "5799 files unchanged"
+        - cmd: "process/listener/lease/lock cleanup"
           status: pass
-          detail: "作成・開始なし"
-        - cmd: "git status and main...origin/main"
+        - cmd: "git status and origin/main...HEAD readback"
           status: pass
-          detail: "clean、0 0"
-        - cmd: "server/listener/process/lease cleanup"
-          status: pass
-      summary: "現行UIではchoiceTextList本文がreviewable-contentではないため、指定文字列を正確にpointer選択してもcurrent_question reviewを開けない。explanation側から開くとdataPathがexplanationText[3]となり契約違反になるため実施せず、review/prompt/runを作成しないまま停止した。"
+          detail: "clean 0 0"
+      summary: "CLF204C012の選択対象と入力内容は契約どおりだったが、通常UIの保存後、standalone実行がHTTP 422で拒否された。24_questionIssueCorrections専用fieldのため自動整備対象外との表示を確認。保存操作が2回送信され、同内容のreview JSONとpromptが各2件生成され、『各1件だけ』にも違反した。standalone runは未開始。指示どおり39481、保留再整備、review承認、Group B、artifact syncへ進まず停止した。00_source 5799 files不変、Git clean・同期0 0、process/listener/lease/lockなし。"
       remaining_blockers:
-        - "CLF204C012のchoiceTextList[3]をreadOnly詳細からreview対象にできるUI実装が必要"
-      needs_judge: false
+        - "choiceTextList review保存後のstandalone自動実行を開始せず、blocked-reworkへfeedbackだけを継承する通常UI経路がない"
+        - "CLF204C012のreview JSON/promptが各2件生成され、exactly-one条件を満たさない"
+      needs_judge: true
       verification_attempts: 1
-      stopped_because: "T065 stop_if: 指定field/dataPathのreview/promptを通常UIから保存できないため"
+      stopped_because: "T065 stop_if: standalone review patchが通常UIで拒否され、review JSON/promptも各1件ではなく重複生成されたため。"
   - id: T066
     type: judge
     assignee: Judge
@@ -4157,6 +4164,32 @@ tasks:
       remaining_blockers: []
       needs_judge: false
       verification_attempts: 1
+  - id: T068
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T065でchoiceTextList current_question review保存後にstandalone開始が422となり、同内容review/promptが各2件生成された原因をread-only監査する。review記録とstandalone整備開始を責務分離し、保護fieldのfail-closedを維持したままblocked-reworkへreview feedbackを渡せる最小UI/API修正、二重送信防止、既存重複履歴の監査可能な扱い、T065再開契約を確定する。"
+    depends_on:
+      - T065
+      - T067
+    inputs:
+      - "T065 blocked receipt"
+      - "T065で生成された2 review JSONと2 prompt"
+      - "review dialog submit、review save、human run start、blocked rework UI/API実装とtests/docs"
+    constraints:
+      - "Read-only。"
+      - "review/prompt/run/artifactを変更・削除しない。"
+      - "NON_AUTOMATED_CORRECTION_FIELDSと24_questionIssueCorrections専用workflowのfail-closedを維持する。"
+      - "通常UI、current_question review、blocked-rework以外の権限を広げない。"
+      - "Firestore/Storage、00_source、model policyを変更しない。"
+      - "既存重複履歴を手編集・削除せず、必要ならUIのstatus遷移など監査可能な通常経路を使う。"
+    expected_output:
+      - "Root cause: 422経路と2 POSTの発生源"
+      - "最小Worker objective、allowed_files、verify、stop_if"
+      - "既存2 review/promptの採否とT065 verify修正"
+      - "追加ユーザー承認要否"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
