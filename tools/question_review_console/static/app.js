@@ -221,6 +221,8 @@ const state = {
   },
   qualificationRunDialog: {
     preview: null,
+    previewStatus: "blocked",
+    previewSignature: "",
     running: false,
     previewSequence: 0,
     resumedFrom: "",
@@ -3607,6 +3609,8 @@ function openQualificationRunDialog(stage, options = {}) {
   const selectedQuestionIds = [...new Set(options.questionIds || [])].filter(Boolean);
   state.qualificationRunDialog = {
     preview: null,
+    previewStatus: "blocked",
+    previewSignature: "",
     running: false,
     previewSequence: state.qualificationRunDialog.previewSequence + 1,
     resumedFrom: options.resumedFrom || "",
@@ -3711,6 +3715,7 @@ function setQualificationRunPreviewState(status, message) {
   preview.classList.toggle("loading", status === "loading");
   preview.setAttribute("aria-busy", String(status === "loading"));
   state.qualificationRunDialog.preview = null;
+  state.qualificationRunDialog.previewStatus = status;
   if (status === "loading") {
     action.textContent = "確認中";
     action.disabled = true;
@@ -3718,6 +3723,10 @@ function setQualificationRunPreviewState(status, message) {
   }
   action.textContent = status === "error" ? "再確認" : "開始できません";
   action.disabled = status !== "error";
+}
+
+function qualificationRunPreviewSignature(value) {
+  return JSON.stringify(value);
 }
 
 function qualificationRunResumedFrom() {
@@ -3769,6 +3778,21 @@ async function previewQualificationRun() {
     return;
   }
   const controller = new AbortController();
+  const requestBody = {
+    qualification: workflow.qualification,
+    stageIds,
+    mode: selectedQualificationRunMode(),
+    questionConcurrency: selectedQualificationRunConcurrency(),
+    speedMode: selectedQualificationRunSpeedMode(),
+    listGroupIds: supportsScope ? listGroupIds : undefined,
+    updateTargetIds: availableUpdateTargets.length ? updateTargetIds : undefined,
+    questionIds: questionIds.length ? questionIds : undefined,
+    evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
+    blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
+    resumedFrom: qualificationRunResumedFrom() || undefined,
+  };
+  const signature = qualificationRunPreviewSignature(requestBody);
+  state.qualificationRunDialog.previewSignature = signature;
   state.qualificationRunDialog.previewController = controller;
   let timedOut = false;
   const timeoutId = window.setTimeout(() => {
@@ -3780,21 +3804,12 @@ async function previewQualificationRun() {
     const preview = await api("/api/qualification-runs/preview", {
       method: "POST",
       signal: controller.signal,
-      body: {
-        qualification: workflow.qualification,
-        stageIds,
-        mode: selectedQualificationRunMode(),
-        questionConcurrency: selectedQualificationRunConcurrency(),
-        speedMode: selectedQualificationRunSpeedMode(),
-        listGroupIds: supportsScope ? listGroupIds : undefined,
-        updateTargetIds: availableUpdateTargets.length ? updateTargetIds : undefined,
-        questionIds: questionIds.length ? questionIds : undefined,
-        evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
-        blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
-        resumedFrom: qualificationRunResumedFrom() || undefined,
-      },
+      body: requestBody,
     });
-    if (sequence !== state.qualificationRunDialog.previewSequence) return;
+    if (
+      sequence !== state.qualificationRunDialog.previewSequence
+      || signature !== state.qualificationRunDialog.previewSignature
+    ) return;
     if (
       state.qualificationRunDialog.authoritativeScope
       && (
@@ -3812,7 +3827,10 @@ async function previewQualificationRun() {
     state.qualificationRunDialog.preview = preview;
     renderQualificationRunPreview(preview);
   } catch (error) {
-    if (sequence !== state.qualificationRunDialog.previewSequence) return;
+    if (
+      sequence !== state.qualificationRunDialog.previewSequence
+      || signature !== state.qualificationRunDialog.previewSignature
+    ) return;
     const message = timedOut
       ? "確認に時間がかかっています。再確認してください。"
       : error.name === "AbortError"
@@ -3824,6 +3842,16 @@ async function previewQualificationRun() {
     if (state.qualificationRunDialog.previewController === controller) {
       state.qualificationRunDialog.previewController = null;
     }
+    if (
+      sequence === state.qualificationRunDialog.previewSequence
+      && signature === state.qualificationRunDialog.previewSignature
+      && state.qualificationRunDialog.previewStatus === "loading"
+    ) {
+      setQualificationRunPreviewState(
+        "error",
+        "確認結果を表示できませんでした。再確認してください。",
+      );
+    }
   }
 }
 
@@ -3832,8 +3860,12 @@ function renderQualificationRunPreview(preview) {
   container.classList.remove("loading");
   container.setAttribute("aria-busy", "false");
   container.replaceChildren();
+  state.qualificationRunDialog.previewStatus = "ready";
   const simplified = state.qualificationRunDialog.simplified;
   const fieldFirst = state.qualificationRunDialog.fieldFirst;
+  const questionWorkItemCount = Number(
+    preview.questionWorkItemCount || preview.workItemCount || 0,
+  );
   const resumedFrom = qualificationRunResumedFrom();
   if (resumedFrom) {
     const resumeSource = element("span", "run-preview-resume");
@@ -3849,16 +3881,17 @@ function renderQualificationRunPreview(preview) {
       element("span", "", "別の範囲を選ぶか、次の工程を確認してください。"),
     );
   } else {
-    const isMultiStage = preview.kind === "human" && preview.stageCount > 1;
+    const questionWork = ["human", "orchestration"].includes(preview.kind);
+    const isMultiStage = questionWork && preview.stageCount > 1;
     const questionUnit = ["refresh", "group_refresh"].includes(preview.mode)
       ? "問すべて"
       : "問";
-    if (fieldFirst && preview.kind === "human") {
+    if (fieldFirst && questionWork) {
       container.append(
         element("strong", "run-preview-count", `${preview.targetCount}問を整備`),
         element("span", "", "選んだ項目に必要な工程だけを自動で実行します。"),
       );
-    } else if (simplified && preview.kind === "human") {
+    } else if (simplified && questionWork) {
       container.append(
         element("strong", "run-preview-count", `未整備 ${preview.targetCount}問`),
         element("span", "", "問題ごとに必要な工程だけを順に整備します。"),
@@ -3881,11 +3914,11 @@ function renderQualificationRunPreview(preview) {
       );
       if (isMultiStage) {
         container.append(
-          element("span", "run-preview-work-items", `延べ${preview.workItemCount}工程判定`),
+          element("span", "run-preview-work-items", `延べ${questionWorkItemCount}工程判定`),
         );
       }
     }
-    if (preview.kind === "human") {
+    if (questionWork) {
       container.append(
         element(
           "span",
@@ -3908,6 +3941,23 @@ function renderQualificationRunPreview(preview) {
         ),
       );
     }
+    if (preview.groupSummary?.length) {
+      const groupNames = new Map(
+        (state.qualificationWorkflow?.groups || []).map((group) => [
+          group.listGroupId,
+          group.displayName || group.listGroupId,
+        ]),
+      );
+      container.append(
+        element(
+          "span",
+          "run-preview-group-summary",
+          preview.groupSummary.map((group) => (
+            `${groupNames.get(group.listGroupId) || group.listGroupId} ${group.questionCount}問・${group.workItemCount}工程`
+          )).join(" / "),
+        ),
+      );
+    }
     if (preview.questionIds?.length) {
       container.append(
         element("span", "run-preview-range", `指定問題 ${preview.questionIds.length}問`),
@@ -3924,10 +3974,10 @@ function renderQualificationRunPreview(preview) {
         ),
       );
     }
-    if ((simplified || fieldFirst) && preview.kind === "human") {
+    if ((simplified || fieldFirst) && questionWork) {
       container.append(
         element("span", "run-preview-stages", `工程 ${preview.stageIds.join(" → ")} / ${preview.stageCount}工程`),
-        element("span", "run-preview-work-items", `延べ${preview.workItemCount}工程判定`),
+        element("span", "run-preview-work-items", `延べ${questionWorkItemCount}工程判定`),
       );
     }
   }

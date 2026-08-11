@@ -37,6 +37,7 @@ from tools.question_review_console.qualification_runs import (
     _isolated_turn_timeout,
     _law_reference_discovery_plan,
     _prepared_candidate_envelope,
+    _question_work_preview_group_summary,
     _question_plan_list_group_id,
     _restore_resume_target_aliases,
     _resume_orchestration_selections_match,
@@ -68,6 +69,100 @@ from scripts.common.aggregate_answer_decomposition import (
 
 _BaseFlowAppServer = FlowAppServer
 _BasePerQuestionQueueAppServer = PerQuestionQueueAppServer
+
+
+class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
+    @staticmethod
+    def target(question_id, group_id):
+        return {
+            "id": question_id,
+            "questionKey": question_id,
+            "sourceQuestionKey": f"source:{question_id}",
+            "reviewQuestionId": f"review:{question_id}",
+            "sourceRecordRef": f"{group_id}.json#{question_id}",
+            "listGroupId": group_id,
+        }
+
+    def plan(self):
+        targets = [
+            self.target("keep-1", "keep"),
+            self.target("keep-2", "keep"),
+            self.target("ping-1", "ping"),
+        ]
+        return {
+            "kind": "orchestration",
+            "scopeListGroupIds": ["keep", "ping"],
+            "targetGroupIds": ["keep", "ping"],
+            "targetCount": 3,
+            "workItemCount": 6,
+            "stageCount": 2,
+            "stageIds": ["question_intent", "explanation"],
+            "progressTargets": targets,
+            "stagePlans": [
+                {"stageId": "question_intent", "progressTargets": targets},
+                {"stageId": "explanation", "progressTargets": targets},
+            ],
+        }
+
+    def test_summary_is_derived_from_existing_question_work_plan(self):
+        self.assertEqual(
+            _question_work_preview_group_summary(self.plan()),
+            [
+                {"listGroupId": "keep", "questionCount": 2, "workItemCount": 4},
+                {"listGroupId": "ping", "questionCount": 1, "workItemCount": 2},
+            ],
+        )
+
+    def test_summary_rejects_duplicate_unknown_and_mismatched_totals(self):
+        duplicate = self.plan()
+        duplicate["progressTargets"].append(self.target("keep-1", "keep"))
+        with self.assertRaises(QualificationRunError):
+            _question_work_preview_group_summary(duplicate)
+
+        unknown = self.plan()
+        unknown["progressTargets"][0]["listGroupId"] = "unknown"
+        with self.assertRaises(QualificationRunError):
+            _question_work_preview_group_summary(unknown)
+
+        mismatch = self.plan()
+        mismatch["targetCount"] = 4
+        with self.assertRaises(QualificationRunError):
+            _question_work_preview_group_summary(mismatch)
+
+    def test_summary_uses_real_queue_when_questions_start_at_different_stages(self):
+        keep_targets = [
+            self.target("keep-1", "keep"),
+            self.target("keep-2", "keep"),
+        ]
+        ping_targets = [
+            self.target("ping-1", "ping"),
+            self.target("ping-2", "ping"),
+        ]
+        plan = {
+            "kind": "orchestration",
+            "scopeListGroupIds": ["keep", "ping"],
+            "targetGroupIds": ["keep", "ping"],
+            "targetCount": 4,
+            "workItemCount": 4,
+            "progressTargets": [*keep_targets, *ping_targets],
+            "stageCount": 2,
+            "stageIds": ["question_intent", "explanation"],
+            "stagePlans": [
+                {"stageId": "question_intent", "progressTargets": keep_targets},
+                {
+                    "stageId": "explanation",
+                    "progressTargets": [*keep_targets, *ping_targets],
+                },
+            ],
+        }
+
+        self.assertEqual(
+            _question_work_preview_group_summary(plan),
+            [
+                {"listGroupId": "keep", "questionCount": 2, "workItemCount": 4},
+                {"listGroupId": "ping", "questionCount": 2, "workItemCount": 2},
+            ],
+        )
 
 
 class EvaluationReworkStageTests(unittest.TestCase):
@@ -3415,7 +3510,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertIn("組合せ対応表がないことだけを理由にblockedにしない", prompt)
         self.assertIn("否定語やquestionIntentを使って再反転しない", prompt)
-        self.assertIn("名詞句等の断片肢であることを理由に反転しない", prompt)
+        self.assertIn("名詞句等の断片肢では本文の述語を一度だけ補った完全命題を作り", prompt)
 
     def test_trusted_count_evidence_exposes_all_correct_sentinel_semantics(self):
         target = {

@@ -8326,6 +8326,90 @@ def _restore_resume_target_aliases(
         plan["stagePlans"] = restored_stage_plans
 
 
+def _question_work_preview_group_summary(
+    plan: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    """Summarize an existing question-work plan without changing its scope."""
+
+    if str(plan.get("kind") or "") not in {"human", "orchestration"}:
+        return []
+    group_ids = [
+        str(value)
+        for value in (
+            plan.get("scopeListGroupIds") or plan.get("targetGroupIds") or []
+        )
+        if value
+    ]
+    if len(group_ids) != len(set(group_ids)):
+        raise QualificationRunError("previewのgroup指定が重複しています。")
+    if len(group_ids) < 2:
+        return []
+    group_counts = {
+        group_id: {"questionCount": 0, "workItemCount": 0}
+        for group_id in group_ids
+    }
+    targets_by_id: dict[str, str] = {}
+    for raw_target in plan.get("progressTargets") or []:
+        if not isinstance(raw_target, Mapping):
+            raise QualificationRunError("previewの問題targetが不正です。")
+        question_id = str(
+            raw_target.get("id") or raw_target.get("questionKey") or ""
+        ).strip()
+        group_id = str(raw_target.get("listGroupId") or "").strip()
+        if not question_id or question_id in targets_by_id:
+            raise QualificationRunError("previewの問題targetが重複又は欠損しています。")
+        if group_id not in group_counts:
+            raise QualificationRunError(
+                f"previewの問題targetに未知のgroupがあります: {group_id or '-'}"
+            )
+        targets_by_id[question_id] = group_id
+        group_counts[group_id]["questionCount"] += 1
+    target_count = int(plan.get("targetCount") or 0)
+    if len(targets_by_id) != target_count:
+        raise QualificationRunError(
+            "previewの問題target集計が実行planと一致しません。"
+        )
+
+    try:
+        executions = build_question_executions(plan)
+    except QuestionWorkQueueError as exc:
+        raise QualificationRunError(str(exc)) from exc
+    queue_totals = queue_summary(executions)
+    seen_execution_ids: set[str] = set()
+    for execution in executions:
+        question_id = str(execution.get("questionId") or "").strip()
+        group_id = str(execution.get("listGroupId") or "").strip()
+        if not question_id or question_id in seen_execution_ids:
+            raise QualificationRunError("previewのqueue問題が重複又は欠損しています。")
+        if group_id not in group_counts:
+            raise QualificationRunError(
+                f"previewのqueueに未知のgroupがあります: {group_id or '-'}"
+            )
+        if targets_by_id.get(question_id) != group_id:
+            raise QualificationRunError(
+                "previewのqueueと問題groupが一致しません。"
+            )
+        seen_execution_ids.add(question_id)
+        group_counts[group_id]["workItemCount"] += len(
+            [stage for stage in execution.get("stages") or [] if isinstance(stage, Mapping)]
+        )
+    work_item_count = sum(
+        int(summary["workItemCount"]) for summary in group_counts.values()
+    )
+    if (
+        int(queue_totals.get("questionCount") or 0) != target_count
+        or seen_execution_ids != set(targets_by_id)
+        or work_item_count != int(queue_totals.get("workItemCount") or 0)
+    ):
+        raise QualificationRunError(
+            "previewのgroup集計が実queueと一致しません。"
+        )
+    return [
+        {"listGroupId": group_id, **group_counts[group_id]}
+        for group_id in group_ids
+    ]
+
+
 class QualificationRunCoordinator:
     def __init__(
         self,
@@ -8813,6 +8897,7 @@ class QualificationRunCoordinator:
         # 並列数は対象範囲を変えない実行設定であり、許可値はstart時にも
         # serverが検証する。切替のたびに高コストな対象計算をやり直さない。
         token_payload = {"plan": plan, "groupPreviews": group_previews}
+        group_summary = _question_work_preview_group_summary(plan)
         return {
             "qualification": qualification,
             "stageId": plan["stageId"],
@@ -8833,6 +8918,10 @@ class QualificationRunCoordinator:
                 plan.get("stageCount") or len(plan.get("stageIds") or [plan["stageId"]])
             ),
             "targetGroupIds": plan["targetGroupIds"],
+            "groupSummary": group_summary,
+            "questionWorkItemCount": sum(
+                int(group.get("workItemCount") or 0) for group in group_summary
+            ) or int(plan.get("workItemCount") or plan["targetCount"]),
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
             "questionIds": list(plan.get("questionIds") or []),
