@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T022
+active_task: T023
 
 tasks:
   - id: T001
@@ -1669,7 +1669,7 @@ tasks:
   - id: T022
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T021でblockedとなったQ45 question_set再保留と模擬⑥Q27 correct_choice公式解答衝突をread-onlyで別々に監査する。Q45はT014分類根拠、T015 context投影、実際の3 candidate outputsとprompt順序を照合し、なぜ決定要因ruleが適用されなかったか、分類正本から6-1を機械的・再現可能に確定する最小責務を決める。Q27は00_source本文・選択肢・answer_result、current patch、AWS公式一次資料を照合し、正答・問題文・取得元解答のどこが矛盾するかを独立確定する。確定済み34問と残り集合を保持する次Worker packageを返す。"
     inputs:
@@ -1692,6 +1692,109 @@ tasks:
       - "それぞれの人手承認・内容変更・source conflict扱いの要否"
       - "current system responsibility defectと最小修正範囲"
       - "T021からのexact unfinished set gateを含む次Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "Q45は6-1がFIFO・重複排除という決定要因を包含し、6-2はPub/Sub・ファンアウトだけなので一意である。再blockedは、完全なcontextより後ろへ旧『同等』feedbackを置き、現在ruleを再提示しないprompt組立責務の欠陥である。Q27はAWS Backup管理下とRDS標準機能を混同した誤判定で、取得元解答1がAWS一次資料と一致する。02aが要求する元解説をcorrect_choice promptへ投影していない別の責務欠陥である。両問とも内容変更、人手承認、source conflict処理は不要。"
+      evidence:
+        - "Q45の主学習目的はFIFOによる順序維持と重複排除。category 6-1だけがこれらをdescription/matchingHintsで包含し、6-2のPub/Sub・ファンアウトは設問要件にない。"
+        - "Q45のT021 3 candidatesは同一input fingerprintで旧『6-1/6-2同等』feedbackを反復した。現在rulesは巨大contextより前、stale feedbackは最終question JSON末尾で後置される。"
+        - "Q45の一般責務は、past feedbackを失敗症状として扱い、current decision rulesをfeedback後に再提示し、明示決定要因を全て覆う候補がサービス名だけ一致する候補を支配すること。"
+        - "Q27の00_source/05/10/15は本文・選択肢を維持し、answer_result_text=正解は1、correctChoiceText=[正しい,間違い,間違い,間違い]で一致する。"
+        - "AWS BackupのRDS契約: https://docs.aws.amazon.com/aws-backup/latest/devguide/rds-backup.html"
+        - "AWS Backup planのsnapshot/continuous retention: https://docs.aws.amazon.com/aws-backup/latest/devguide/plan-options-and-configuration.html"
+        - "AWS Backupは自動planとmanual on-demand backupの両方にlifecycleを設定できる: https://docs.aws.amazon.com/aws-backup/latest/devguide/creating-a-backup.html"
+        - "RDS標準のautomated backupは0-35日、manual snapshotは明示削除まで保持: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.BackupRetention.html"
+        - "Q27選択肢1が正しい。選択肢3は保持自体は可能でも手動削除負担・削除漏れがあり、最小コスト要件の最適解でない。選択肢4はRDS標準manual snapshotに自動保持期間を設定できない。"
+        - "qualification_runs.pyはsourceRecordをcorrect_choiceでも取得するがoriginalizationSource投影をoriginalize/explanationだけに限定し、元解説のAWS Backup/RDS標準区別を渡していない。"
+        - "T021はvalidated34、blocked2、queued28。unfinished30 hash=7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661、validated34 hash=10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5。"
+        - "planHash/selfHash/policy fingerprint有効、00_source 5799不変、clean main、origin parity 0/0。"
+      independent_decisions:
+        q45:
+          question_id: 6c74190a4ab7caf42ea941b4
+          question_set_id: aws_solutions_architect_associate_qs06_01_sqs_queues_dlq
+          content_change_required: false
+          human_approval_required: false
+          responsibility_defect: "current decision rulesがstale feedback後に再提示されない"
+        q27:
+          question_id: 0d98160c7d3a218a070d6465
+          correct_choice_index: 1
+          content_change_required: false
+          human_approval_required: false
+          source_conflict_required: false
+          responsibility_defect: "correct_choiceへimmutable source explanation/reference evidenceを投影しない"
+      exact_recovery_set_gate:
+        base_run: 20260811T201827949133-bcb65475
+        unfinished_count: 30
+        unfinished_work_item_count: 46
+        unfinished_sorted_newline_sha256: 7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661
+        validated_exclusion_count: 34
+        validated_sorted_newline_sha256: 10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5
+      next_allowed_task:
+        type: worker
+        objective: "T023へ転記済み。Q45のcontext-orderとQ27のsource evidence投影を別責務で修復し、runは禁止。"
+        allowed_files:
+          - tools/question_review_console/qualification_runs.py
+          - tests/test_question_review_qualification_runs.py
+        verify:
+          - "T023.verifyを正本とする"
+        stop_if:
+          - "T023.stop_ifを正本とする"
+        commit_push_authorized: false
+        start_authorized: false
+      parallel_safety:
+        safe: false
+        reason: "両修復は同じqualification_runs.pyとprompt生成testsへ順次変更する。"
+      blocked_tasks:
+        - "T021 recovery"
+        - T004
+        - T999
+      missing_evidence:
+        - "Q45 current rules再投影とdominance回帰。"
+        - "Q27 correct_choiceへのimmutable source explanation投影。"
+        - "実装Judge、scope commit/push、fresh exact30 preview/run、395/395。"
+      required_board_updates:
+        - "T022をdoneとして記録しT023をactivateする。"
+        - "T023後にread-only Judgeでgeneric性、prompt順序、source evidence非損失、unfinished30/validated34不変を監査する。"
+        - "Judge承認前はcommit/push、UI preview/start、問題artifact更新を禁止する。"
+  - id: T023
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "Q45とQ27を別責務としてqualification_runsのprompt投影だけを修復する。Q45はquestion_setの現在decision rulesをpreviousValidationFeedback後にも非損失で提示し、決定要因を全て覆う候補とサービス名だけ一致する候補を同等扱いしない一般contractを追加する。Q27はcorrect_choiceでも既に取得済みのimmutable 00_source recordから問題文・全選択肢・正答候補・元解説・referenceUrlsをoriginalizationSource相当の参照証拠として投影する。問題artifact、prompt SSOT、category、version、runは変更しない。"
+    inputs:
+      - "T022 Judge receiptのQ45/Q27独立判定"
+      - "current structured candidate prompt composition"
+      - "Q45 previousValidationFeedbackとquestion_set context"
+      - "Q27 sourceRecord/currentRecordとcorrect_choice context"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "git status --short、branch=main、origin/main parity=0/0を開始前に確認する。"
+      - "Q45回帰: stale previousValidationFeedbackを含むquestion_set promptで、native description/matchingHintsと現在decision rulesがfeedbackより後にも存在すること。"
+      - "Q45回帰: 問題の明示決定要因をdescription/matchingHintsで全て覆う候補と、サービス名だけ一致する候補を同等扱いしない一般ruleを確認する。資格名、SQS、SNS、Q45、questionId、questionSetIdのhardcodeを禁止する。"
+      - "Q27回帰: correct_choice stageだけでもsourceRecordのquestionBodyText、choiceTextList、correctChoiceText、answer_result_text、explanation_common_prefix、explanation_common_summary、explanation_choice_snippets、explanationText、referenceUrlsがallowlisted immutable evidenceとしてpromptへ入ること。"
+      - "Q27回帰: currentRecordとsource evidenceを分離し、source explanationをsetFieldsへ転載せず、correctChoiceTextを自動割当しないこと。"
+      - "originalize/explanation、trusted sourceAnswerEvidence、questionIssueCorrectionEvidence、aggregate evidenceの既存契約が不変であること。"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.StructuredCandidateStageContextTests"
+      - "python3 -m unittest tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog"
+      - "python3 -m unittest tests.test_question_review_question_run_recovery"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git diff --name-onlyがallowed_files exact 2件であること。"
+      - "T021 runのplanHash/selfHash、validated34 set hash=10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5、unfinished30 hash=7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661、policy fingerprintを再確認する。"
+      - "run/UI preview/startは行わず、実prompt fixture/readbackとdiffを次Judgeへ渡す。"
+    stop_if:
+      - "prompt/02a、prompt/04、category.json、workflow version又はpolicy fingerprintの変更が必要になる。"
+      - "Q45、Q27、AWS、SQS、SNS、RDS、AWS Backup又は特定ID/現在値をhardcodeする必要がある。"
+      - "previousValidationFeedbackを無条件破棄する、全stageで無効化する、又は機械検証を自動補正へ変える必要がある。"
+      - "00_source元解説を正答として自動コピーする、source/currentの独立判定を省略する、又は確認済み一次資料との衝突をholdできなくなる。"
+      - "問題artifact、22/23 patch、work version、checkpoint、review承認、run、UI、GoalBuddy control files、CLF-C02又はFirestoreの変更が必要になる。"
+      - "T021 validated34、unfinished30集合、Q45/Q27本文・選択肢・正答、policy fingerprintが変わる。"
+      - "allowed_files外のdiff又は対象testsの反復失敗がある。"
     receipt: null
   - id: T999
     type: judge
