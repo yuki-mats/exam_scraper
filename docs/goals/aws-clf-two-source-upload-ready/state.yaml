@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T072
+active_task: T073
 
 tasks:
   - id: T001
@@ -3955,6 +3955,7 @@ tasks:
       - T067
       - T069
       - T071
+      - T073
     review_inputs:
       - question_id: 2e68f0e5133f3922acf2e2eb
         label: CLF204C012
@@ -4422,7 +4423,7 @@ tasks:
   - id: T072
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Group B run 20260811T094157198997-bdcce066で02a保留となったCLF202C059、CLF201C002、CLF204C011をread-only精査する。各問の00_source、05/10/15/21/22/23、work version、T061/T062/T065 validation feedback、公式解答mapping、questionIntent、肢別正誤を独立に照合し、正しい内容と必要な最小再整備工程を問題別に確定する。通常UIで実行可能な単一/複数run契約とT065再開条件を示す。"
     depends_on:
@@ -4443,6 +4444,99 @@ tasks:
       - "通常UIのexact対象・工程・run分割・feedback継承条件"
       - "Worker allowed_files/verify/stop_if"
       - "追加承認要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "3問とも名詞句・組合せ肢へ否定述語を補う完全命題型であり、02が表面の否定語だけからselect_incorrectへしたことが原因。正しくは全てselect_correctで、既存公式番号と肢別正誤は一致する。各問へsame-state record-only feedbackを記録後、Group B partial runからexact 3問を02→02a→03→04で単一再整備する。追加承認不要。"
+      evidence:
+        - "CLF202C059はCodeArtifactだけが不適切でintent=select_correct、正答1。"
+        - "CLF201C002は第2組合せ肢だけが含まれずintent=select_correct、正答2。"
+        - "CLF204C011はS3だけが予約購入対象外でintent=select_correct、正答3。"
+        - "00_sourceの推定正答番号と共通prefixが順に1,2,3で一致する。"
+        - "05/10/本文/肢/公式番号は変更不要。"
+        - "C002だけgroup_choice explanationTextをexactly-oneへ再生成する必要がある。"
+        - "Group B partial runはreceiptValidated=trueで1問validated、対象3問blocked。"
+        - "対象3問にcurrent_question reviewは未作成。"
+        - "git clean、origin/main同期0 0。"
+      next_allowed_task: T073
+      parallel_safety: "同一qualification lockとblocked-rework feedback契約を共有するため単一Worker・単一runのみ安全。"
+      blocked_tasks:
+        - T065
+        - T999
+      missing_evidence:
+        - "T073 reviews、exact3 preview、terminal receipt、T065 downstream gates"
+      required_board_updates:
+        - "T073を限定Workerとして追加する。"
+        - "T065はT073依存とする。"
+        - "T073成功後T065は5 review承認後にsyncとdry-runへ進む。"
+        - "追加承認不要。"
+  - id: T073
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常の問題整備UIだけを使う。対象3問のreadOnly詳細で指定本文を選択し、review_inputsをsame-state current_question record-only reviewとして各1回だけ保存する。本文・選択肢の変更依頼ではなく、断片肢へ否定述語を一度補う評価基準と02/02aの期待値をfeedbackとして固定し、standalone runを開始しない。次にGroup B partial run 20260811T094157198997-bdcce066の『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの単一runを実行する。3問すべてvalidated/currentなら内容をreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
+    depends_on:
+      - T072
+    review_inputs:
+      - question_id: 7c4da075c6a91c1e471e8b1b
+        label: CLF202C059
+        field: questionBodyText
+        dataPath: questionBodyText
+        selectedText: "次のうち、AWS のコンプライアンス情報を収集する目的には適さないサービスを選択してください。"
+        note: "選択肢はサービス名の断片です。問題文の述語を一度だけ補い『サービスXはAWSのコンプライアンス情報を収集する目的には適さない』という完全命題で判定してください。AWS CodeArtifactだけが成立するため、本文・選択肢・公式解答を変えず、02はquestionIntent=select_correct、02aは[正しい,間違い,間違い,間違い]と確定してください。"
+        expectedOutcome: "questionBodyText、choiceTextList、answer_result_text=正解は1、questionType=group_choiceを維持する。questionIntent=select_correct、correctChoiceText=[正しい,間違い,間違い,間違い]、explanationTextは問題共通exactly-oneで各サービスとの差を説明し、02/02a/03/04がvalidated/currentになる。"
+      - question_id: 3655597d3df014eada6e299d
+        label: CLF201C002
+        field: questionBodyText
+        dataPath: questionBodyText
+        selectedText: "AWS Well-Architected Framework を構成する6本の柱に含まれない組み合わせはどれですか。"
+        note: "各選択肢は一つの組合せ肢です。問題文を補い『組合せXは6本の柱に含まれない』という完全命題で判定してください。第2肢だけが成立し、公式解答2はchoiceTextList[1]へ直接対応するため別の組合せmappingは不要です。本文・選択肢・公式解答を変えず、02はquestionIntent=select_correct、02aは[間違い,正しい,間違い,間違い]と確定してください。"
+        expectedOutcome: "questionBodyText、choiceTextList、answer_result_text=正解は2、questionType=group_choiceを維持する。questionIntent=select_correct、correctChoiceText=[間違い,正しい,間違い,間違い]、explanationTextは6本の柱と第2肢との差をまとめた問題共通exactly-oneとなり、02/02a/03/04がvalidated/currentになる。"
+      - question_id: c1ae79ed057973a4a023db5c
+        label: CLF204C011
+        field: questionBodyText
+        dataPath: questionBodyText
+        selectedText: "次のうち、リザーブド形式の事前購入の対象ではないサービスを選択してください。"
+        note: "選択肢はサービス名の断片です。問題文の述語を一度だけ補い『サービスXはリザーブド形式の事前購入の対象ではない』という完全命題で判定してください。Amazon S3だけが成立するため、本文・選択肢・公式解答を変えず、02はquestionIntent=select_correct、02aは[間違い,間違い,正しい,間違い]と確定してください。"
+        expectedOutcome: "questionBodyText、choiceTextList、answer_result_text=正解は3、questionType=true_falseを維持する。questionIntent=select_correct、correctChoiceText=[間違い,間違い,正しい,間違い]、解説4件が各サービスの予約購入可否と一致し、02/02a/03/04がvalidated/currentになる。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-cloud-practitioner.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/{7c4da075c6a91c1e471e8b1b,3655597d3df014eada6e299d,c1ae79ed057973a4a023db5c}.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_correctChoiceText_fixed.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_correctChoiceText_fixed.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_merged_explanationText_added.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/22_questionSetId_linked/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_questionSetId_linked.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/99_model_review_flags/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_*"
+    verify:
+      - "3問それぞれreview JSON/promptがexactly 1組だけ新規作成され、review_inputsと一致し、status=needs_review、standalone run=0。"
+      - "blocked-rework previewがblockedReworkFrom=20260811T094157198997-bdcce066、exact 3 questionIds、stageIds exact 02/02a/03/04、Standard/auto_max、画像なし。"
+      - "各問のevaluationFeedbackByQuestionにblocked_maintenanceとsame-state human_reviewがあり、human_review内容が保存reviewと一致する。"
+      - "C059はgroup_choice/select_correct/公式1/[正しい,間違い,間違い,間違い]/共通解説exact1。"
+      - "C002はgroup_choice/select_correct/公式2/[間違い,正しい,間違い,間違い]/共通解説exact1。"
+      - "C011はtrue_false/select_correct/公式3/[間違い,間違い,正しい,間違い]/肢別解説exact4。"
+      - "3問の02=4.0、02a=4.0、03=10.1、04=2.0がvalidated/currentでterminal status=succeeded、queueStatus=succeeded、receiptValidated=true、blocked/hold/pending=0。"
+      - "05、10、questionBodyText、choiceTextList、answer_result_text、IDs、questionSetIdは不変。"
+      - "初回Luna/high、失敗retryだけSol/high。Firestore reads/writes=0、Storage upload=0、非dry-run upload=0。"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check、対象tracked差分だけmainへcommit/push、clean/sync 0 0、process/listener/lock/leaseなし。"
+    stop_if:
+      - "record-only reviewがstandalone runを開始する、同一問でreview/promptが複数生成される、又はsame-state human_reviewが継承されない。"
+      - "previewがexact 3問、02/02a/03/04、blockedReworkFrom指定と一致しない、又は対象外問を含む。"
+      - "questionIntent=select_incorrect、公式番号変更、正答index変更が必要と判定される。"
+      - "C002公式2をchoiceTextList[1]へ直接対応できず、既存工程にないmapping又はcode/config変更が必要になる。"
+      - "05、10、問題文、選択肢、公式解答、ID、00_source変更が必要になる。"
+      - "C059/C002解説がexact1、C011解説がexact4にならない。"
+      - "1問でもblocked/hold。"
+      - "Firestore/Storage、external provider、API key、additional credit、direct API/CLI mutation、手編集、code/config/prompt/document変更が必要になる。"
+      - "failed delta、unsafe rollback、lease conflict、別run混入、allowed_files外変更が発生する。"
     receipt: null
   - id: T999
     type: judge
@@ -4489,6 +4583,7 @@ tasks:
       - T070
       - T071
       - T072
+      - T073
       - T004
       - T005
     inputs:
