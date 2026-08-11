@@ -2052,6 +2052,8 @@ def _structured_candidate_stage_context(
             "questionSetId": str(item.get("questionSetId") or ""),
             "name": str(item.get("name") or ""),
             "folderId": str(item.get("folderId") or ""),
+            "description": item.get("description"),
+            "matchingHints": item.get("matchingHints"),
         }
         for item in question_sets
         if isinstance(item, Mapping)
@@ -2063,6 +2065,7 @@ def _structured_candidate_stage_context(
             "questionSetIdだけを判定対象とし、questionSetIdListとchoiceQuestionSetIdsの新規生成は要求しない。",
             "現在値と同じ結論でも、問題全体と分類正本から独立に確定したquestionSetIdを明示して返す。",
             "allowedQuestionSetsにあるquestionSetIdだけを設定する。",
+            "問題に登場するサービスの数ではなく、問題全体で正答を決める要件・制約・主な判断軸を各分類のdescriptionとmatchingHintsに照らし、最も強い決定要因を持つ一つを選ぶ。",
         ],
         "allowedQuestionSets": options,
     }

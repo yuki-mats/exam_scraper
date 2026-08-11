@@ -1496,6 +1496,8 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
                                 "questionSetId": "set-1",
                                 "name": "基礎理論",
                                 "folderId": "folder-1",
+                                "description": "理論の原則を問う問題",
+                                "matchingHints": ["前提条件", "基本原則"],
                                 "isDeleted": False,
                             },
                             {
@@ -1522,6 +1524,8 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
                     "questionSetId": "set-1",
                     "name": "基礎理論",
                     "folderId": "folder-1",
+                    "description": "理論の原則を問う問題",
+                    "matchingHints": ["前提条件", "基本原則"],
                 }
             ],
         )
@@ -1530,6 +1534,9 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         )
         self.assertTrue(
             any("choiceQuestionSetIds" in rule for rule in context["rules"])
+        )
+        self.assertTrue(
+            any("決定要因" in rule and "数" in rule for rule in context["rules"])
         )
 
     def test_law_stage_context_prioritizes_existing_binding(self):
