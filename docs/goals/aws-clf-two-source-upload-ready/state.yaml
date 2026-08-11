@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T070
+active_task: T071
 
 tasks:
   - id: T001
@@ -3954,6 +3954,7 @@ tasks:
       - T064
       - T067
       - T069
+      - T071
     review_inputs:
       - question_id: 2e68f0e5133f3922acf2e2eb
         label: CLF204C012
@@ -4293,7 +4294,7 @@ tasks:
   - id: T070
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T069で追加したreview historyが通常readOnly question detailへ届かず0件表示となる原因をread-only監査する。question-content/detail API、cache、UI renderの経路を追い、既存268448 canonical/263906 duplicateを通常UIで監査できる最小修正契約を確定する。T069のrecord-only、idempotency、blocked-rework結合、保護field fail-closedを維持し、T065再開条件を示す。"
     depends_on:
@@ -4312,6 +4313,71 @@ tasks:
       - "Root cause and exact missing hop"
       - "最小Worker objective、allowed_files、verify、stop_if"
       - "T065再開条件と追加承認要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "通常readOnly詳細はmanage用decorateを通らず履歴なしcacheを直接返す。T069はmanage APIだけに履歴を追加した。UI rendererは正常。ReviewStoreからAPI応答へ動的overlayし、履歴versionでfingerprint/detailCacheを失効させる限定修正が安全。追加承認不要。"
+      evidence:
+        - "T069はserver.pyのdecorateへreviewHistoryを追加したがquestion-contentへ追加していない。"
+        - "readOnly UIは/api/question-content/:idを使いmanage用/api/questions/:idだけがdecorateを通る。"
+        - "question-contentはmaterialized raw contentを直接返す。"
+        - "実cache schema v1にはreviewHistory/reviewKeyがない。"
+        - "app.js rendererはreviewHistoryがあればcanonical/duplicateOfを表示できる。"
+        - "ReviewStore history lookupにはexact identity methodが必要。"
+        - "既存4ファイルのSHA-256を記録済み。"
+        - "git clean、origin/main同期0 0。"
+      next_allowed_task: T071
+      parallel_safety: "server、ReviewStore、app.jsの同一履歴契約を一体で変更するため単独Workerのみ安全。"
+      blocked_tasks:
+        - T065
+        - T999
+      missing_evidence: []
+      required_board_updates:
+        - "T071を限定Workerとして追加する。"
+        - "T065はT071成功までblockedを維持する。"
+        - "CLF204C012は既存履歴を再送信しない。"
+        - "39481保存後exactly 1 canonicalを確認する。"
+        - "追加承認不要。"
+  - id: T071
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常readOnly question detailの履歴表示だけを修正する。ReviewStoreへqualification、listGroupId、questionIdのexact identityで履歴を取得するread-only methodを追加する。serverの/api/question-content full応答では、materialized cacheとactive-run fallbackの双方へ、その履歴から表示に必要なreviewId、status、note、expectedOutcome、selection、createdAt、canonical、duplicateOfだけを動的overlayする。履歴をquestion detail cacheへ複製せず、reviewHistoryVersionをfull応答と/fingerprintへ返す。app.jsはfingerprintで履歴version変化を検出し、review作成・status更新成功後に対象detailCacheを削除して再取得する。既存268448をcanonical、263906をduplicateとして通常readOnly UIで表示確認する。T069のrecord-only、submission idempotency、same-state blocked-rework結合、保護field fail-closedは変更しない。対象実装・testsのみmainへcommit/pushする。"
+    depends_on:
+      - T070
+    inputs:
+      - "T070 receipt"
+      - "T069 implementation and tests"
+      - "既存CLF204C012 review/prompt 2組"
+    allowed_files:
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/review_store.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_store.py"
+      - "tests/test_question_review_workflow.py"
+      - "tests/test_question_review_question_detail_read_model.py"
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/cache/**"
+    verify:
+      - "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+      - "PYTEST_ADDOPTS=-p no:debugging PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q tests/test_question_review_store.py tests/test_question_review_server.py tests/test_question_review_question_detail_read_model.py tests/test_question_review_question_work_queue.py tests/test_question_review_qualification_identity.py tests/test_question_review_workflow.py"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "sha256sum output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T082720263906-ee0daadb.json output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T082720268448-ee0daadb.json output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T082720263906-ee0daadb.md output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T082720268448-ee0daadb.md"
+      - "git diff --check"
+      - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+      - "通常UIのreadOnly詳細で2e68f0e5133f3922acf2e2ebを開き、レビュー履歴がexactly 2件、268448がcanonical、263906がduplicate/268448と表示される。review保存、status更新、run開始は行わない。"
+    stop_if:
+      - "question detail materialized cacheへreview artifact本体を複製する、cache schema更新又は全group再構築が必要になる。"
+      - "qualification、listGroupId、questionIdのexact一致なしにreviewを帰属する、又は別問題・別groupの履歴が混入する。"
+      - "readOnly応答へprompt本文、絶対path、submissionHashなど表示不要な内部payloadを公開する。"
+      - "reviewHistoryVersionがfull応答とfingerprintで一致しない、又はreview保存後も古いdetailCacheが再表示される。"
+      - "既存263906/268448のreview/promptを編集・削除・改名する、第三のreview/promptを生成する、又はSHA-256が変わる。"
+      - "T069のrecord-only、idempotency、same-state human_review feedback、NON_AUTOMATED_CORRECTION_FIELDS、24_questionIssueCorrections fail-closedのtestが一つでも失敗する。"
+      - "Firestore/Storage、00_source、run/artifact、公開、model policy、通常readOnly履歴表示以外へ変更が及ぶ。"
+      - "allowed_files外の変更、既存dirty差分、lease/listener残留、main以外のbranch、force pushが発生する。"
     receipt: null
   - id: T999
     type: judge
@@ -4356,6 +4422,7 @@ tasks:
       - T068
       - T069
       - T070
+      - T071
       - T004
       - T005
     inputs:
