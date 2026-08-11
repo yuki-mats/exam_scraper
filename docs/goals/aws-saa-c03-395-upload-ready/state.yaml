@@ -5,7 +5,7 @@ goal:
   slug: "aws-saa-c03-395-upload-ready"
   kind: recovery
   tranche: "SAA-C03の現行状態を確定し、問題整備システムで395問を継続整備して公開直前まで収束する"
-  status: active
+  status: blocked
   oracle:
     signal: "QuestionInventoryでSAA-C03が395/395 local-readyとなり、終端run・artifact sync・quality gate・upload dry-runが成功し、hold/pending/blocked=0、Firestore writes=0、00_source不変である"
     cadence: "after each Worker package and at final audit"
@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T007
+active_task: null
 
 tasks:
   - id: T001
@@ -320,7 +320,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: queued
+    status: blocked
     reasoning_hint: high
     objective: "395問の公開前artifactを正規再生成し、quality gateとupload dry-runを閉じる。"
     allowed_files: []
@@ -331,7 +331,10 @@ tasks:
       - "Need files outside allowed_files."
       - "Firestore書込みを要求される。"
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: blocked
+      blocked_reason: "T003の問題整備runが認証・利用状況preflightで開始前停止しているため、公開前artifact確定へ進めない。"
+      summary: "T003成功後に再開する。T004自体は未実行で、成果物又はFirestoreへの変更はない。"
   - id: T005
     type: scout
     assignee: Scout
@@ -451,7 +454,7 @@ tasks:
   - id: T007
     type: pm
     assignee: PM
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "ユーザーがCodexの通常認証状態を更新した後、fresh Codex App Serverでaccount/read・account/rateLimits/readの非生成preflightを一度だけ実行し、成功時だけT003 recoveryを再度有効化する。"
     inputs:
@@ -466,11 +469,23 @@ tasks:
     expected_output:
       - "available/allowed/accountType/planType/creditsEnabled/standardMode/fastMode readback"
       - "passならT003 reactivation、failならblocked receipt"
-    receipt: null
+    receipt:
+      result: blocked
+      blocked_reason: "Codex account/rateLimitsの構造化readbackが取得できず、同一認証状態でのpreflight反復は禁止されている。限定リファクタリングもユーザー承認前のため実装できない。"
+      summary: "GitとGoalBuddy盤は健全で、SAA-C03・CLF-C02・00_source・Firestoreへの追加変更はない。認証状態更新後の非生成preflight又は限定リファクタリング実装の承認が必要。"
+      waiting_for_user_approval: true
+      required_reply: "Codexの認証を更新した。限定リファクタリングを先に実装して再開してよい。"
+      changed_files: []
+      commands:
+        - cmd: "git status --short --branch"
+          status: pass
+        - cmd: "check-goal-state.mjs docs/goals/aws-saa-c03-395-upload-ready"
+          status: pass
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: blocked
     reasoning_hint: high
     objective: "SAA-C03 395問とAWS全体1274問が元の依頼どおり準備済みになったか最終監査する。"
     inputs:
@@ -493,7 +508,10 @@ tasks:
       - "evidence mapping"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
+    receipt:
+      result: blocked
+      blocked_reason: "SAA-C03 395/395、AWS全体1274/1274、artifactSync、quality gate、upload dry-runの証拠が未取得であり、最終監査を実行できない。"
+      summary: "上流T003・T004完了後に最終監査を再開する。"
 
 checks:
   dirty_fingerprint: "clean main; origin/main...HEAD=0/0 at 2026-08-11 start"
