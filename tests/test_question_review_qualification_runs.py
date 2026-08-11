@@ -11,6 +11,7 @@ from tests.qualification_run_test_support import *  # noqa: F403
 from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
     CodexControlRequestTimeoutError,
+    CodexTerminalTurnFailedError,
     CodexTurnTimeoutError,
     SubscriptionGateError,
 )
@@ -6656,7 +6657,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(sorted(counts.values()), [1, 1, 1, 1, 1, 2])
         self.assertEqual(completed["adaptiveScheduler"]["parallelTurns"], 5)
 
-    def test_started_unresolved_review_slot_blocks_without_rerun(self):
+    def test_timeout_keeps_started_review_slot_and_blocks_without_rerun(self):
         class ReviewTimeoutAppServer(PerQuestionQueueAppServer):
             review_starts = 0
 
@@ -6674,7 +6675,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                         "thread-review-timeout",
                         "turn-review-timeout",
                     )
-                    raise CodexAppServerError("review turnが時間切れになりました。")
+                    raise CodexTurnTimeoutError("review turnが時間切れになりました。")
                 if "_aggregate_review_" in kwargs["work_type"]:
                     self.review_starts += 1
                 return super().run_turn(prompt, **kwargs)
@@ -6707,7 +6708,90 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         attempts = completed["questionExecutions"][0]["stages"][0][
             "validationAttempts"
         ]
-        self.assertEqual([value["status"] for value in attempts], ["interrupted", "blocked"])
+        self.assertEqual([value["status"] for value in attempts], ["failed", "blocked"])
+
+    def test_terminal_failed_review_slots_are_retried_without_losing_siblings(self):
+        class TerminalFailureAppServer(PerQuestionQueueAppServer):
+            def __init__(self):
+                super().__init__()
+                self.review_attempts = {}
+                self.failed_threads = {}
+
+            def run_turn(self, prompt, **kwargs):
+                work_type = kwargs["work_type"]
+                if "_aggregate_review_" not in work_type:
+                    return super().run_turn(prompt, **kwargs)
+                question_id = str(self._candidate_questions(prompt)[0]["questionId"])
+                review_number = int(work_type.rsplit("_", 2)[1])
+                key = (question_id, review_number)
+                attempt = self.review_attempts.get(key, 0) + 1
+                self.review_attempts[key] = attempt
+                should_fail = (
+                    question_id == "new-exam-2026-q2" and review_number == 1
+                ) or (
+                    question_id != "new-exam-2026-q2" and review_number == 2
+                )
+                if should_fail and attempt == 1:
+                    thread_id = f"failed-{question_id}-slot-{review_number}"
+                    turn_id = f"{thread_id}-turn"
+                    kwargs["on_thread_started"](thread_id, f"{thread_id}-session")
+                    kwargs["on_turn_started"](thread_id, turn_id)
+                    self.failed_threads[key] = thread_id
+                    raise CodexTerminalTurnFailedError(
+                        "terminal capacity failure",
+                        thread_id=thread_id,
+                        turn_id=turn_id,
+                        status="failed",
+                        error={"code": "model_at_capacity"},
+                    )
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = TerminalFailureAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                CountedSourceInventory(5),
+                ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 5)
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(result["queueStatus"], "succeeded")
+        self.assertEqual(completed["validatedQuestionCount"], 5)
+        self.assertEqual(completed["blockedQuestionCount"], 0)
+        for number in range(1, 6):
+            question_id = f"new-exam-2026-q{number}"
+            checkpoint = completed["aggregateReviewCheckpoints"][question_id]
+            self.assertEqual(set(checkpoint["slots"]), {"1", "2"})
+            self.assertTrue(
+                all(
+                    slot["status"] == "resolved"
+                    for slot in checkpoint["slots"].values()
+                )
+            )
+            failed_slot = 1 if number == 2 else 2
+            resolved_execution = checkpoint["slots"][str(failed_slot)]["execution"]
+            self.assertNotEqual(
+                resolved_execution["threadId"],
+                app_server.failed_threads[(question_id, failed_slot)],
+            )
+            self.assertEqual(
+                app_server.review_attempts[(question_id, failed_slot)],
+                2,
+            )
+            sibling_slot = 2 if failed_slot == 1 else 1
+            self.assertEqual(
+                app_server.review_attempts[(question_id, sibling_slot)],
+                1,
+            )
 
     def test_server_rebases_validated_candidate_into_canonical_patch(self):
         class ServerCandidateAppServer(PerQuestionQueueAppServer):

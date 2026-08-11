@@ -183,6 +183,25 @@ class CodexTurnTimeoutError(CodexAppServerError):
     """The deadline of one active model turn expired."""
 
 
+class CodexTerminalTurnFailedError(CodexAppServerError):
+    """The protocol reported that one model turn terminally failed."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        thread_id: str,
+        turn_id: str,
+        status: str,
+        error: Any,
+    ) -> None:
+        super().__init__(message)
+        self.thread_id = thread_id
+        self.turn_id = turn_id
+        self.status = status
+        self.error = copy.deepcopy(error)
+
+
 class SubscriptionGateError(CodexAppServerError):
     pass
 
@@ -1642,6 +1661,18 @@ class CodexAppServerClient:
             and not completed_message_interrupted
         ):
             detail = self._turn_error_message(state.error)
+            if (
+                state.status == "failed"
+                and state.protocol_finished_monotonic is not None
+            ):
+                raise CodexTerminalTurnFailedError(
+                    "Codex App Serverのturnを完了できませんでした"
+                    f"（{state.status}）{detail}",
+                    thread_id=thread_id,
+                    turn_id=turn_id,
+                    status=state.status,
+                    error=state.error,
+                )
             raise CodexAppServerError(
                 f"Codex App Serverのturnを完了できませんでした（{state.status}）{detail}"
             )

@@ -17,6 +17,7 @@ from tools.question_review_console.codex_app_server import (
     CodexAppServerClient,
     CodexControlRequestTimeoutError,
     CodexRequestTimeoutError,
+    CodexTerminalTurnFailedError,
     CodexTurnTimeoutError,
     DEFAULT_TURN_TIMEOUT_SECONDS,
     FAST_SPEED_MODE,
@@ -1313,6 +1314,50 @@ class ReceiptInterruptProtocolClient(ProtocolClient):
 
 
 class AppServerTurnTests(unittest.TestCase):
+    def test_protocol_terminal_failed_raises_typed_turn_failure(self):
+        class TerminalFailedClient(ProtocolClient):
+            def _request(self, method, params, *, timeout=None):
+                if method == "turn/start":
+                    self.calls.append((method, copy.deepcopy(params)))
+                    thread_id = params["threadId"]
+                    turn_id = thread_id.replace("thread", "turn")
+                    self._handle_turn_notification(
+                        {
+                            "method": "turn/completed",
+                            "params": {
+                                "threadId": thread_id,
+                                "turn": {
+                                    "id": turn_id,
+                                    "status": "failed",
+                                    "error": {"code": "model_at_capacity"},
+                                    "items": [],
+                                },
+                            },
+                        }
+                    )
+                    return {"turn": {"id": turn_id}}
+                return super()._request(method, params, timeout=timeout)
+
+        client = TerminalFailedClient()
+
+        with self.assertRaises(CodexTerminalTurnFailedError) as raised:
+            client.run_turn(
+                "question",
+                work_type="maintenance_question_type_aggregate_review_1_candidate",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                output_schema={"type": "object", "properties": {}},
+            )
+
+        self.assertEqual(raised.exception.thread_id, "thread-1")
+        self.assertEqual(raised.exception.turn_id, "turn-1")
+        self.assertEqual(raised.exception.status, "failed")
+        self.assertEqual(
+            raised.exception.error,
+            {"code": "model_at_capacity"},
+        )
+        self.assertEqual(client._turns, {})
+
     def test_structured_output_trailing_whitespace_stall_is_interrupted(self):
         class WhitespaceStallClient(ProtocolClient):
             def __init__(self):

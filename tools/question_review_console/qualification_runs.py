@@ -103,6 +103,7 @@ from tools.question_review_console.codex_app_server import (
     TURN_REASONING_EFFORT,
     CodexAppServerError,
     CodexControlRequestTimeoutError,
+    CodexTerminalTurnFailedError,
     CodexTurnTimeoutError,
     SubscriptionGateError,
     normalize_speed_mode,
@@ -4100,6 +4101,38 @@ class QualificationRunStore:
         ],
     ) -> None:
         """Cancel only slots reserved before a thread was started."""
+
+        self._cancel_started_aggregate_review_slots(
+            qualification,
+            parent_run_id,
+            cancellations,
+        )
+
+    def cancel_terminal_failed_aggregate_review_slots(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        cancellations: list[
+            tuple[str, Mapping[str, Any], int, Mapping[str, Any]]
+        ],
+    ) -> None:
+        """Cancel unresolved slots after a protocol-confirmed terminal failure."""
+
+        self._cancel_started_aggregate_review_slots(
+            qualification,
+            parent_run_id,
+            cancellations,
+        )
+
+    def _cancel_started_aggregate_review_slots(
+        self,
+        qualification: str,
+        parent_run_id: str,
+        cancellations: list[
+            tuple[str, Mapping[str, Any], int, Mapping[str, Any]]
+        ],
+    ) -> None:
+        """Atomically cancel exact started slots without touching siblings."""
 
         question_ids = [value[0] for value in cancellations]
         if len(question_ids) != len(set(question_ids)):
@@ -14327,6 +14360,29 @@ class QualificationRunCoordinator:
                                 phase="independent_review",
                             ),
                         )
+                    except CodexTerminalTurnFailedError:
+                        try:
+                            self.store.cancel_terminal_failed_aggregate_review_slots(
+                                qualification,
+                                parent_run_id,
+                                [
+                                    (
+                                        question_id,
+                                        signatures[question_id],
+                                        review_number,
+                                        reservations[question_id]["slot"],
+                                    )
+                                    for question_id in pending_ids
+                                ],
+                            )
+                        except QualificationRunError as cancellation_error:
+                            deterministic_error = QualificationRunError(
+                                "終端failedのaggregate review予約を"
+                                "原子的に取消できません。"
+                            )
+                            deterministic_error.add_note(str(cancellation_error))
+                            raise deterministic_error from None
+                        raise
                     except Exception as exc:  # noqa: BLE001
                         if not started_threads and _external_provider_failure(exc):
                             try:
