@@ -233,6 +233,7 @@ const state = {
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     previewController: null,
     fieldFirst: false,
+    authoritativeScope: false,
     evaluationRework: false,
     entryStageId: "",
     instructionDirty: false,
@@ -3101,6 +3102,9 @@ function selectedQualificationRunSpeedMode() {
 }
 
 function selectedQualificationRunStageIds() {
+  if (state.qualificationRunDialog.authoritativeScope) {
+    return [...state.qualificationRunDialog.stageIds];
+  }
   if (state.qualificationRunDialog.fieldFirst) {
     return qualificationRunStageIdsForUpdateTargetIds(
       selectedQualificationRunUpdateTargetIds(),
@@ -3576,21 +3580,26 @@ function updateQualificationRunHeading() {
 function openQualificationRunDialog(stage, options = {}) {
   cancelQualificationRunPreview();
   const fieldFirst = options.fieldFirst === true;
+  const authoritativeScope = options.authoritativeScope === true;
   const selectableTargetIds = qualificationRunSelectableUpdateTargets()
     .map((target) => target.selectionId);
-  const selectedUpdateTargetIds = fieldFirst
-    ? (
-      Object.prototype.hasOwnProperty.call(options, "updateTargetIds")
-        ? options.updateTargetIds
-        : selectableTargetIds
-    ).filter((targetId) => selectableTargetIds.includes(targetId))
-    : defaultQualificationRunUpdateTargetIds(
-      options.stageIds || defaultQualificationRunStageIds(stage),
-      options,
-    );
-  const selectedStageIds = fieldFirst
-    ? qualificationRunStageIdsForUpdateTargetIds(selectedUpdateTargetIds)
-    : options.stageIds || defaultQualificationRunStageIds(stage);
+  const selectedUpdateTargetIds = authoritativeScope
+    ? [...new Set(options.updateTargetIds || [])].filter(Boolean)
+    : fieldFirst
+      ? (
+        Object.prototype.hasOwnProperty.call(options, "updateTargetIds")
+          ? options.updateTargetIds
+          : selectableTargetIds
+      ).filter((targetId) => selectableTargetIds.includes(targetId))
+      : defaultQualificationRunUpdateTargetIds(
+        options.stageIds || defaultQualificationRunStageIds(stage),
+        options,
+      );
+  const selectedStageIds = authoritativeScope
+    ? [...new Set(options.stageIds || [])].filter(Boolean)
+    : fieldFirst
+      ? qualificationRunStageIdsForUpdateTargetIds(selectedUpdateTargetIds)
+      : options.stageIds || defaultQualificationRunStageIds(stage);
   const availableGroupIds = qualificationRunGroupIds();
   const selectedGroupIds = fieldFirst
     ? (options.listGroupIds || []).filter((groupId) => availableGroupIds.includes(groupId))
@@ -3611,6 +3620,7 @@ function openQualificationRunDialog(stage, options = {}) {
     previewController: null,
     simplified: options.simplified === true,
     fieldFirst,
+    authoritativeScope,
     evaluationRework: options.evaluationRework === true,
     entryStageId: stage.id,
     instructionDirty: Boolean(String(options.instruction || "").trim()),
@@ -3785,8 +3795,20 @@ async function previewQualificationRun() {
       },
     });
     if (sequence !== state.qualificationRunDialog.previewSequence) return;
+    if (
+      state.qualificationRunDialog.authoritativeScope
+      && (
+        JSON.stringify(preview.stageIds || []) !== JSON.stringify(stageIds)
+        || JSON.stringify(preview.selectedUpdateTargetIds || []) !== JSON.stringify(updateTargetIds)
+      )
+    ) {
+      throw new Error("保留再整備の工程又は更新項目がpreviewで変わったため開始できません。");
+    }
     preview.questionConcurrency = selectedQualificationRunConcurrency();
     preview.speedMode = selectedQualificationRunSpeedMode();
+    preview.evaluationRework = state.qualificationRunDialog.evaluationRework || undefined;
+    preview.blockedReworkFrom = state.qualificationRunDialog.blockedReworkFrom || undefined;
+    preview.resumedFrom = qualificationRunResumedFrom() || undefined;
     state.qualificationRunDialog.preview = preview;
     renderQualificationRunPreview(preview);
   } catch (error) {
@@ -3897,9 +3919,15 @@ function renderQualificationRunPreview(preview) {
           "span",
           "run-preview-update-targets",
           fieldFirst
-            ? `整備する項目 ${preview.selectedUpdateTargets.length}項目`
+            ? `整備する項目 ${preview.selectedUpdateTargets.map((target) => target.label).join("・")} (${(preview.selectedUpdateTargetIds || []).join("・")})`
             : `更新項目 ${preview.selectedUpdateTargets.map((target) => target.label).join("・")}`,
         ),
+      );
+    }
+    if ((simplified || fieldFirst) && preview.kind === "human") {
+      container.append(
+        element("span", "run-preview-stages", `工程 ${preview.stageIds.join(" → ")} / ${preview.stageCount}工程`),
+        element("span", "run-preview-work-items", `延べ${preview.workItemCount}工程判定`),
       );
     }
   }
@@ -3936,17 +3964,17 @@ async function startQualificationRun(event) {
         qualification: preview.qualification,
         stageIds: preview.stageIds,
         mode: preview.mode,
-        questionConcurrency: selectedQualificationRunConcurrency(),
-        speedMode: selectedQualificationRunSpeedMode(),
+        questionConcurrency: preview.questionConcurrency,
+        speedMode: preview.speedMode,
         listGroupIds: preview.scopeListGroupIds?.length ? preview.scopeListGroupIds : undefined,
         updateTargetIds: preview.selectedUpdateTargetIds?.length
           ? preview.selectedUpdateTargetIds
           : undefined,
         questionIds: preview.questionIds?.length ? preview.questionIds : undefined,
-        evaluationRework: state.qualificationRunDialog.evaluationRework || undefined,
-        blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
+        evaluationRework: preview.evaluationRework,
+        blockedReworkFrom: preview.blockedReworkFrom,
         previewToken: preview.previewToken,
-        resumedFrom: qualificationRunResumedFrom() || undefined,
+        resumedFrom: preview.resumedFrom,
       },
     });
     if (!result.job) throw new Error("Codex App Serverのjobを開始できませんでした。");
@@ -4697,13 +4725,19 @@ async function retryBlockedQualificationRun(runOverride = null) {
   const blockedQuestionIds = retryBlockedAsRepair
     ? qualificationRunBlockedQuestionIds(progress)
     : [];
-  const originalTargetIds = defaultQualificationRunUpdateTargetIds(stageIds, {
-    updateTargetIds: run.selectedUpdateTargetIds,
-  });
-  const updateTargetIds = blockedQuestionIds.length
-    ? qualificationRunDependencyUpdateTargetIds(originalTargetIds)
-    : originalTargetIds;
-  const retryStageIds = qualificationRunStageIdsForUpdateTargetIds(updateTargetIds);
+  const originalTargetIds = blockedQuestionIds.length
+    ? [...new Set(run.selectedUpdateTargetIds || [])].filter(Boolean)
+    : defaultQualificationRunUpdateTargetIds(stageIds, {
+      updateTargetIds: run.selectedUpdateTargetIds,
+    });
+  if (blockedQuestionIds.length && (!stageIds.length || !originalTargetIds.length)) {
+    toast("元runの工程又は更新項目を確認できないため、保留再整備を開始できません。", true);
+    return;
+  }
+  const updateTargetIds = originalTargetIds;
+  const retryStageIds = blockedQuestionIds.length
+    ? stageIds
+    : qualificationRunStageIdsForUpdateTargetIds(updateTargetIds);
   const firstStage = state.qualificationWorkflow?.stages?.find(
     (stage) => stage.id === retryStageIds[0],
   );
@@ -4723,6 +4757,7 @@ async function retryBlockedQualificationRun(runOverride = null) {
     blockedReworkFrom: blockedQuestionIds.length ? run.runId : "",
     simplified: true,
     fieldFirst: blockedQuestionIds.length > 0,
+    authoritativeScope: blockedQuestionIds.length > 0,
   });
 }
 

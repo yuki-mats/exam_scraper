@@ -1196,7 +1196,8 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn("理由付きで保留", view_state)
         self.assertIn("qualificationRunCanRetryBlocked(", retry)
         self.assertIn("qualificationRunViewState(run, progress)", retry)
-        self.assertIn("qualificationRunDependencyUpdateTargetIds", retry)
+        self.assertIn("const updateTargetIds = originalTargetIds", retry)
+        self.assertNotIn("qualificationRunDependencyUpdateTargetIds", retry)
         self.assertIn("qualificationRunBlockedQuestionIds", retry)
         self.assertIn('run.queueStatus === "partial"', retry)
         self.assertNotIn("progress?.blockedQuestionCount", retry)
@@ -1387,7 +1388,7 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
             previewer,
         )
         self.assertIn(
-            "resumedFrom: qualificationRunResumedFrom() || undefined",
+            "resumedFrom: preview.resumedFrom",
             starter,
         )
 
@@ -1524,6 +1525,34 @@ assert.deepEqual(
             capture_output=True,
             text=True,
         )
+
+    def test_blocked_partial_rework_keeps_authoritative_preview_scope(self):
+        root = Path(__file__).resolve().parents[1]
+        javascript = (
+            root / "tools/question_review_console/static/app.js"
+        ).read_text(encoding="utf-8")
+        retry = javascript.split("async function retryBlockedQualificationRun", 1)[1].split(
+            "async function resumeQualificationRun", 1
+        )[0]
+        preview = javascript.split("async function previewQualificationRun", 1)[1].split(
+            "function renderQualificationRunPreview", 1
+        )[0]
+        start = javascript.split("async function startQualificationRun", 1)[1].split(
+            "function setQualificationRunRunning", 1
+        )[0]
+
+        self.assertIn("? [...new Set(run.selectedUpdateTargetIds || [])]", retry)
+        self.assertIn("const updateTargetIds = originalTargetIds;", retry)
+        self.assertIn("? stageIds", retry)
+        self.assertIn("authoritativeScope: blockedQuestionIds.length > 0", retry)
+        self.assertNotIn("qualificationRunDependencyUpdateTargetIds(originalTargetIds)", retry)
+        self.assertIn("preview.stageIds || []", preview)
+        self.assertIn("preview.selectedUpdateTargetIds || []", preview)
+        self.assertIn('`工程 ${preview.stageIds.join(" → ")} / ${preview.stageCount}工程`', javascript)
+        self.assertIn('`延べ${preview.workItemCount}工程判定`', javascript)
+        self.assertIn("questionConcurrency: preview.questionConcurrency", start)
+        self.assertIn("blockedReworkFrom: preview.blockedReworkFrom", start)
+        self.assertIn("previewToken: preview.previewToken", start)
 
     def test_qualification_law_workflow_toggle_is_visible_and_persisted(self):
         root = Path(__file__).resolve().parents[1]
