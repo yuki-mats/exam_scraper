@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T024
+active_task: T025
 
 tasks:
   - id: T001
@@ -1837,7 +1837,7 @@ tasks:
   - id: T024
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T023のexact 2-file diffをread-onlyで監査する。Q45責務ではcurrent question_set rules/native allowedQuestionSetsがstale feedback後へ非損失で再提示され、決定要因dominanceが一般契約でhardcodeなしであることを確認する。Q27責務ではcorrect_choice source evidenceのallowlist、source/current分離、転載・自動割当禁止、一次資料衝突時hold維持を確認する。既存evidence contracts、tests、policy fingerprint、validated34/unfinished30、run/artifact不変を独立検証し、scope commit/push後のfresh exact30 recovery Worker packageを返す。"
     inputs:
@@ -1857,6 +1857,109 @@ tasks:
       - "tests、既存契約、exact set/policy不変"
       - "scope commit/push可否"
       - "fresh exact30 recoveryの単一Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T023のexact 2-file diffは、Q45のcurrent question_set rules/native allowedQuestionSetsをstale feedback後へ再提示する責務と、Q27のimmutable source evidenceをcorrect_choiceへsource/current分離で投影する責務を一般契約として実装している。特定資格、service、question ID、answerのhardcode、自動補正、一次資料衝突時holdの弱体化はない。scope commit/pushとfresh exact30 recoveryを承認する。"
+      evidence:
+        - "git diff --binary SHA-256=aff0a68c4e0a1ded77fc540eeaecbafe944008356b2d4882f6e813c391674b4b。"
+        - "qualification_runs.py SHA-256=8596bc0192c8590f455bffdef497b0e80c6eba57384a0cf6146c38ce7b75e4d5、test SHA-256=021b1db7e914a51a7412a70e439763f0f39896c503a0c03b1a9bc4931133c447。"
+        - "Q45 actual promptではpreviousValidationFeedbackを保持したまま、その全項目より後へcurrent rulesとnative allowedQuestionSetsが再提示される。description/matchingHintsのnative型も維持される。"
+        - "Q45の一般ruleは、明示された決定要因を全て覆う候補がservice名だけ一致する候補を支配する契約であり、SQS、SNS、Q45又は特定questionSetIdのhardcodeはない。"
+        - "Q27 actual promptではimmutable sourceRecordのallowlist evidenceとcurrentRecordが分離され、source evidenceはnative型を維持する。setFieldsへの転載又はcorrectChoiceTextの自動割当はない。"
+        - "一次資料とsource answerの衝突を検出した場合にblockedにする既存契約は維持される。"
+        - "StructuredCandidateStageContextTests 15、qualification_runs/workflow_catalog 182、question_run_recovery 7、00_source 5799は全てpass。git diff --checkもpass。"
+        - "T021 planHash=0b2415046381568f345c0c74b99c32887f8744b912d2f234b0abb6583952e1ec、policy fingerprint=dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596。"
+        - "unfinished30 hash=7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661、validated34 hash=10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5。"
+        - "partial orphan 20260811T192727620202-4940d23bのplanHash/selfHashとmanifest不在は不変。"
+      scope:
+        changed_files:
+          - tools/question_review_console/qualification_runs.py
+          - tests/test_question_review_qualification_runs.py
+        hardcode: false
+        auto_correction: false
+        content_change: false
+      exact_recovery_set_gate:
+        base_run: 20260811T201827949133-bcb65475
+        unfinished_count: 30
+        unfinished_work_item_count: 46
+        unfinished_sorted_newline_sha256: 7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661
+        validated_exclusion_count: 34
+        validated_sorted_newline_sha256: 10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5
+        policy_fingerprint: dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596
+      next_allowed_task:
+        task_id: T025
+        type: worker
+        objective: "exact 2-file diffだけをcommit/pushし、fresh UIでexact30をpreview後、一度だけstartしてterminal readbackまで進める。"
+        commit_push_authorized: true
+        start_authorized: true
+        verify:
+          - "T025.verifyを正本とする"
+        stop_if:
+          - "T025.stop_ifを正本とする"
+      parallel_safety:
+        safe: false
+        reason: "commit/push、UI start、single new runは単一Workerが順に所有する。"
+      blocked_tasks:
+        - T004
+        - T999
+      missing_evidence:
+        - "scope commit/pushのclean parity。"
+        - "fresh exact30 preview/startのrequest/responseとterminal result。"
+        - "Q45/Q27のvalidated artifact readback。"
+        - "SAA-C03 395/395 local-readyとFirestore writes=0。"
+      required_board_updates:
+        - "T024をdone、T025をactiveにする。"
+        - "T025完了後は395/395、artifactSync、upload-ready dry-runをJudge監査する。"
+  - id: T025
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "承認済みbinary diff SHA-256を再確認してexact 2ファイルだけをmainへ単一commitしorigin/mainへ通常pushする。clean parity後、fresh review-uiでT021 run 20260811T201827949133-bcb65475のexact unfinished30だけをpreviewし、全gate一致時にstartを一度だけ実行する。新runをterminalまで監視し、Q45/Q27、artifactSync、SAA-C03 395/395 local-ready、Firestore writes=0を現物readbackする。"
+    inputs:
+      - "T024 Judge receiptとcommit/start authorization"
+      - "T023 exact 2-file uncommitted diff"
+      - "base run 20260811T201827949133-bcb65475"
+      - "exact30/validated34/policy gates"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/<single-fresh-run-id>/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/<exact30-question-files>"
+      - "output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json"
+      - "output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+      - "fresh previewが宣言するexact30 IDs対応のallowedPatchFilesだけ"
+      - "canonical workflowがexact30について生成するmerge/convert/upload-ready local artifactsだけ"
+    verify:
+      - "commit前にgit diff --name-onlyが承認2ファイルexact、git diff --binary SHA-256=aff0a68c4e0a1ded77fc540eeaecbafe944008356b2d4882f6e813c391674b4b、file SHA-256がqualification_runs.py=8596bc0192c8590f455bffdef497b0e80c6eba57384a0cf6146c38ce7b75e4d5、test=021b1db7e914a51a7412a70e439763f0f39896c503a0c03b1a9bc4931133c447であること。"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.StructuredCandidateStageContextTests"
+      - "python3 -m unittest tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog"
+      - "python3 -m unittest tests.test_question_review_question_run_recovery"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "2ファイルだけを単一commitにしorigin/mainへpush後、main、clean、origin/main...HEAD=0/0を確認する。force pushは禁止。"
+      - "committed mainからfresh serverを起動し、previewでqualification、base run、exact30 ID配列/count/hash=7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661、workItemCount=46、validated34除外/hash=10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5、Q45/Q27含有、policy fingerprint=dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596を開始前に確認する。"
+      - "preview tokenとimmutable plan gateを維持したstartを一度だけ行い、request/response、新runId、planHashを保存する。"
+      - "new runのmanifest、全question states、summary、progress、resultをterminalまで監視し、succeeded、verified=true、target30/30 validated、blocked=0、artifactSync成功を確認する。"
+      - "Q45のquestion_set成果物でquestionSetId=aws_solutions_architect_associate_qs06_01_sqs_queues_dlqを確認する。Q27のcorrectChoiceText=[正しい,間違い,間違い,間違い]と後続explanation/question_set validatedを確認する。いずれもcandidate receiptと検証結果を読む。"
+      - "T021 validated34のinput/output fingerprintsとquestion states、T021 planHash/selfHash、orphan planHash/selfHash/manifest不在を開始前後で確認する。"
+      - "SAA-C03全395 questionIdをcanonical inventoryで全件readbackし395/395 local-ready、00_source不変、Firestore writes=0、外部upload/publishなしを確認する。"
+    stop_if:
+      - "commit対象、binary diff SHA-256又はfile hashが変わる。tests、immutability、diff check、branch又はparityが失敗する。"
+      - "fresh previewがexact30配列/count/hash、46 work items、validated34除外、Q45/Q27、policy fingerprintのいずれかと一致しない。"
+      - "preview後にtoken、plan、input、work version、policyが変化する。再previewによる補正や二度目のstartをしない。"
+      - "startが422その他で拒否される、responseが曖昧、runIdを一意に確定できない、又は二重startの可能性がある。"
+      - "timeout、接続断、checkpoint/readback失敗、schema/planHash/selfHash不一致が発生する。fallback、手動補正、gate緩和をしない。"
+      - "Q45又はQ27がblocked、人間content decision、source conflict又はreview承認を要求する。content fieldを自動補正しない。"
+      - "exact30外、validated34、T021 base run、既存orphan、00_source、CLF-C02、Firestore、GoalBuddy control filesへの変更が必要になる。"
+      - "API key、credit bypass、Fast、非公開header/URL固定、成功値捏造fallback、外部upload/publish又は別run/startが必要になる。"
     receipt: null
   - id: T999
     type: judge
