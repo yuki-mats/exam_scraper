@@ -286,8 +286,8 @@ class QuestionCandidateTest(unittest.TestCase):
                 "次の記述のうち、誤っているものはいくつあるか。"
             ),
             "choiceTextList": [
-                "細粒分が少ない土質の場合",
-                "土壌比抵抗が高い場合",
+                "細粒分が少ない土質では腐食速度が速まる。",
+                "土壌比抵抗が高いほど腐食速度が速まる。",
             ],
             "questionIntent": "select_correct",
         }
@@ -322,7 +322,7 @@ class QuestionCandidateTest(unittest.TestCase):
             "questionBodyText": (
                 "次の記述のうち、誤っているものはいくつあるか。"
             ),
-            "choiceTextList": ["条件Aの場合", "条件Bの場合"],
+            "choiceTextList": ["条件Aを満たす。", "条件Bを満たさない。"],
             "questionIntent": "select_correct",
         }
 
@@ -337,7 +337,7 @@ class QuestionCandidateTest(unittest.TestCase):
             errors,
         )
 
-    def test_question_intent_keeps_negative_predicate_for_fragment_choices(
+    def test_question_intent_validator_does_not_decide_fragment_choices(
         self,
     ):
         candidate, targets = self._question_intent_candidate("select_correct")
@@ -356,7 +356,7 @@ class QuestionCandidateTest(unittest.TestCase):
         )
 
         self.assertFalse(
-            any("記述の正誤方向を明示" in error for error in errors),
+            any("完結記述肢" in error for error in errors),
             errors,
         )
 
@@ -1218,8 +1218,9 @@ class QuestionCandidateTest(unittest.TestCase):
         description = target.prompt_value()["fieldRules"]["questionIntent"][
             "description"
         ]
-        self.assertIn("設備名、名詞句、数値、対象名などの断片", description)
-        self.assertIn("問題文が明示する選択方向を反転しない", description)
+        self.assertIn("設備名、名詞句、数値、対象名などの断片肢", description)
+        self.assertIn("本文の述語を一度だけ補った完全命題", description)
+        self.assertIn("曖昧な場合はblocked", description)
         self.assertIn(
             "各肢のcorrectChoiceText判定とquestionIntent判定を混ぜない",
             description,

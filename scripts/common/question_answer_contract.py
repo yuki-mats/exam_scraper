@@ -58,12 +58,35 @@ EXPLICIT_CORRECT_STATEMENT_REQUESTS = (
     "正しいもの",
     "適切なもの",
 )
+COMPLETE_STATEMENT_ENDING_PATTERN = re.compile(
+    r"(?:[。！？!?]|(?:である|ではない|となる|ならない|できる|できない|"
+    r"する|しない|される|されない|含む|含まない|該当する|該当しない))$"
+)
 
 
-def explicit_statement_question_intent(value: Any) -> str | None:
-    """Read an unambiguous correct/incorrect selection request."""
+def choices_are_complete_statements(choice_texts: Any) -> bool:
+    """Return true only when every choice is structurally a complete statement."""
 
-    if not isinstance(value, str):
+    if not isinstance(choice_texts, Sequence) or isinstance(
+        choice_texts, (str, bytes)
+    ):
+        return False
+    if not choice_texts or any(not isinstance(choice, str) for choice in choice_texts):
+        return False
+    normalized = ["".join(choice.split()) for choice in choice_texts]
+    return all(
+        choice and COMPLETE_STATEMENT_ENDING_PATTERN.search(choice)
+        for choice in normalized
+    )
+
+
+def explicit_statement_question_intent(
+    value: Any,
+    choice_texts: Any = None,
+) -> str | None:
+    """Read intent only for an unambiguous complete-statement choice structure."""
+
+    if not isinstance(value, str) or not choices_are_complete_statements(choice_texts):
         return None
     normalized = "".join(value.split())
     selects_incorrect = any(

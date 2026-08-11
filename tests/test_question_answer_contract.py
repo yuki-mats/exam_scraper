@@ -19,7 +19,8 @@ class QuestionAnswerContractTests(unittest.TestCase):
     ) -> None:
         self.assertEqual(
             explicit_statement_question_intent(
-                "次の記述のうち、不適切なものはどれか。"
+                "次の記述のうち、不適切なものはどれか。",
+                ["条件Aを満たす。", "条件Bを満たさない。"],
             ),
             "select_incorrect",
         )
@@ -29,29 +30,38 @@ class QuestionAnswerContractTests(unittest.TestCase):
     ) -> None:
         self.assertEqual(
             explicit_statement_question_intent(
-                "次の記述のうち、適切なものはどれか。"
+                "次の記述のうち、適切なものはどれか。",
+                ["条件Aを満たす。", "条件Bを満たさない。"],
             ),
             "select_correct",
         )
 
-    def test_explicit_intent_keeps_negative_direction_for_fragment_choices(
+    def test_explicit_intent_does_not_decide_fragment_choices(
         self,
     ) -> None:
-        self.assertEqual(
+        self.assertIsNone(
             explicit_statement_question_intent(
-                "次の設備のうち、この規定に該当しないものはどれか。"
+                "次の設備のうち、この規定に該当しないものはどれか。",
+                ["設備A", "設備B"],
             ),
-            "select_incorrect",
         )
 
-    def test_explicit_intent_reads_inappropriate_combination_as_incorrect(
+    def test_explicit_intent_does_not_decide_fragment_combination(
         self,
     ) -> None:
-        self.assertEqual(
+        self.assertIsNone(
             explicit_statement_question_intent(
-                "次の気体と材料の組合せとして、最も不適切なものはどれか。"
+                "次の気体と材料の組合せとして、最も不適切なものはどれか。",
+                ["気体Aと材料B", "気体Cと材料D"],
             ),
-            "select_incorrect",
+        )
+
+    def test_explicit_intent_does_not_decide_mixed_choice_structure(self) -> None:
+        self.assertIsNone(
+            explicit_statement_question_intent(
+                "次の記述のうち、誤っているものはどれか。",
+                ["条件Aを満たす。", "設備B"],
+            )
         )
 
     def test_question_level_cardinality_follows_select_incorrect(self) -> None:

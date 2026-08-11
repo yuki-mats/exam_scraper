@@ -1798,8 +1798,10 @@ def _structured_candidate_prompt(
             "確認した資料をsummaryへ要約してblockedにする。"
             "appliesToCurrentText=falseなら、source配列を現在値へ転記せず、現在の本文と"
             "選択肢から完全な命題を作り直す。各肢の正誤判定では本文と選択肢を"
-            "組み合わせるが、questionIntentは本文が明示する選択方向から独立に決め、"
-            "名詞句等の断片肢であることを理由に反転しない。"
+            "組み合わせる。完結記述肢では本文の正誤指示を選択方向だけに使う。"
+            "名詞句等の断片肢では本文の述語を一度だけ補った完全命題を作り、"
+            "その命題が成立する真偽側をquestionIntentとする。構造が曖昧なら"
+            "questionIntentを自動決定せずblockedにする。"
             "公式解答番号の意味はanswerResultSemanticsに従い、元の組合せ肢を指す場合は"
             "組合せ対応表がないことだけを理由にblockedにしない。"
             "証拠自体はsetFieldsへ転載しない。",

@@ -707,10 +707,12 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
             "type": "string",
             "allowedValues": ["select_correct", "select_incorrect"],
             "description": (
-                "設問が正しい、適切又は条件に合う側を選ばせるなら"
-                "select_correct、誤り、不適切又は該当しない側を選ばせるなら"
-                "select_incorrectとする。choiceTextListが設備名、名詞句、数値、"
-                "対象名などの断片でも、問題文が明示する選択方向を反転しない。"
+                "選択肢がそれだけで真偽判定できる完結記述なら、本文の正誤指示を"
+                "選択方向だけに使い、正しい側はselect_correct、誤り側は"
+                "select_incorrectとする。設備名、名詞句、数値、対象名などの"
+                "断片肢では、本文の述語を一度だけ補った完全命題を作り、"
+                "その命題が成立する真偽側をquestionIntentとする。"
+                "完結記述か断片肢か曖昧な場合はblockedとし、自動決定しない。"
                 "各肢のcorrectChoiceText判定とquestionIntent判定を混ぜない。"
                 "現在値、正答番号又はcorrectChoiceTextから逆算しない。"
             ),
@@ -1821,7 +1823,10 @@ def validate_candidate_content(
             "questionIntentがselect_correct又はselect_incorrectではありません。"
         )
     if "questionIntent" in changed_fields:
-        explicit_intent = explicit_statement_question_intent(question_body)
+        explicit_intent = explicit_statement_question_intent(
+            question_body,
+            choices,
+        )
         if (
             explicit_intent is not None
             and logical.get("questionIntent") != explicit_intent
@@ -1836,10 +1841,10 @@ def validate_candidate_content(
                 == explicit_intent
             )
             errors.append(
-                "questionBodyTextが選択方向を明示していますが、"
+                "完結記述肢に対してquestionBodyTextが選択方向を明示していますが、"
                 "questionIntent候補が一致しません。選択肢が短い又は"
-                "断片であることを理由に、明示された選択方向を"
-                "反転しないでください。"
+                "断片でないことを確認し、明示された選択方向を"
+                "適用してください。"
                 + (
                     "00_sourceの同一本文・選択肢に対するquestionIntentも"
                     "明示された方向と一致しています。"
