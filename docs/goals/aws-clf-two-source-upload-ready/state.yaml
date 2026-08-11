@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T073
+active_task: T074
 
 tasks:
   - id: T001
@@ -4474,7 +4474,7 @@ tasks:
   - id: T073
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。対象3問のreadOnly詳細で指定本文を選択し、review_inputsをsame-state current_question record-only reviewとして各1回だけ保存する。本文・選択肢の変更依頼ではなく、断片肢へ否定述語を一度補う評価基準と02/02aの期待値をfeedbackとして固定し、standalone runを開始しない。次にGroup B partial run 20260811T094157198997-bdcce066の『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの単一runを実行する。3問すべてvalidated/currentなら内容をreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
     depends_on:
@@ -4537,6 +4537,63 @@ tasks:
       - "1問でもblocked/hold。"
       - "Firestore/Storage、external provider、API key、additional credit、direct API/CLI mutation、手編集、code/config/prompt/document変更が必要になる。"
       - "failed delta、unsafe rollback、lease conflict、別run混入、allowed_files外変更が発生する。"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100031465989-a8d963e8.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T100031465989-a8d963e8.md
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100125123794-99a96ac4.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T100125123794-99a96ac4.md
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100224979477-ad6c2f77.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T100224979477-ad6c2f77.md
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T100819366640-3cce04b3/
+      commands:
+        - cmd: "通常Chrome UIで3問の指定本文をpointer選択しrecord-only reviewを各1回保存"
+          status: pass
+        - cmd: "通常Chrome UIで保留3問の再整備previewを確認・開始"
+          status: fail
+          detail: "preview 12工程に対し実run 18工程で05/01を含んだ"
+        - cmd: "run 20260811T100819366640-3cce04b3停止・readback"
+          status: pass
+          detail: "05 validated 3 changedFiles=0; 01 preparing no write; manifest running 3 validated 15 pending"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git status/branch/sync/process/lock/lease readback"
+          status: pass
+          detail: "clean main 0 0 no process/lock/lease"
+      summary: "3問のreview JSON/promptをexactly 1組ずつ保存し、same-state feedback継承を確認。run 20260811T100819366640-3cce04b3は開始後、契約外の05/01を含む3問×6工程=18工程と判明したため即停止。05は3件validatedだがchangedFiles=0、01はpreparingで書込なし。00_source不変、Git clean/sync 0 0、process/lock/leaseなし。"
+      remaining_blockers:
+        - "blocked-rework planが指定02/02a/03/04ではなく05・01を含む18工程へ拡大した"
+        - "停止run manifestはrunning/queueStatus=running、3 validated・15 pending"
+        - "3問の02/02a/03/04 validated/current未実施"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "preview契約に反してrunが05・01を含む18工程へ拡大したため直ちに停止した。"
+  - id: T074
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T073のblocked-rework previewが02/02a/03/04の12工程を表示したのに、start後planが05/01を含む18工程へ拡大した原因をread-only監査する。preview token、blocked-rework request、dependency closure、start plan生成、resume/recovery UIを追い、preview/startのexact parityを保証する最小コード修正と、中断run 20260811T100819366640-3cce04b3の安全な通常UI復旧・T073再開契約を確定する。"
+    depends_on:
+      - T073
+    inputs:
+      - "T073 blocked receipt"
+      - "run 20260811T100819366640-3cce04b3 preview/request/plan/manifest/progress"
+      - "blocked-rework UI/API and dependency planning code/tests/docs"
+    constraints:
+      - "Read-only。"
+      - "中断run、review/prompt、patch/work version/artifactを変更・削除しない。"
+      - "preview/start exact parityを正常フローの責務として直し、個別禁止や手動manifest修正で済ませない。"
+      - "00_source、Firestore/Storage、model policy、既存05/01成果物を変更しない。"
+      - "通常UI以外の復旧やdirect API/CLI mutationを許可しない。"
+    expected_output:
+      - "Root cause and exact preview/start divergence"
+      - "最小Worker objective、allowed_files、verify、stop_if"
+      - "中断runの採否・安全な通常UI recovery手順"
+      - "T073/T065再開条件と追加承認要否"
     receipt: null
   - id: T999
     type: judge
@@ -4584,6 +4641,7 @@ tasks:
       - T071
       - T072
       - T073
+      - T074
       - T004
       - T005
     inputs:
