@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T008
+active_task: T009
 
 tasks:
   - id: T001
@@ -500,7 +500,7 @@ tasks:
   - id: T008
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "run 20260811T162101744570-a7a2e0a1で集約回答レビュー保留になった5問をread-onlyで監査し、個別の人間承認が必要な内容判断か、正本を独立確定して機械整合確認へ進むべき問題整備システムの責務不備かを判定する。"
     inputs:
@@ -523,6 +523,132 @@ tasks:
       - "問題整備システムのシンプルな正常フロー"
       - "次の最大の安全なWorker packageのobjective、allowed_files、verify、stop_if"
       - "既存300問の確定成果を保持した再開条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "5問とも人間によるcontent承認は不要で、system responsibility defectである。全問の本文から生成される集約候補は0件で、正答・解説もsourceと整合する。実際の停止原因はmodel capacity失敗後もreview slotがstartedのまま残り、次attemptがこれをcontent上のinvalid_reviewへ変換したことにある。終端失敗が確認できた未確定slotだけを原子的に取消し、確定済みreviewを保持して不足slotを再実行する修復を先に行う。timeoutや接続断など終端不明時は従来どおりfail-closedとする。"
+      evidence:
+        - "run 20260811T162101744570-a7a2e0a1は395問中300問validated、5問blocked、25 work item blocked、234 pendingでinterrupted/partial。artifactSyncは未実行である。"
+        - "5問の第1attemptはすべてSelected model is at capacityでinterruptedになり、第2attemptがaggregateAnswerReview invalid_reviewをcontent holdとして確定した。"
+        - "問題55、問題50、問題65、問題12ではslot 1がapprove/non_targetでresolved、slot 2だけがstartedのまま残る。問題2ではslot 1がstartedのままで、いずれもconsensusはない。"
+        - "5問すべてで現在のquestionBodyTextからgenerate_statement_candidatesが返す候補数は0。集約回答型の原文span又は境界曖昧性は検出されない。"
+        - "現行実装は保存checkpointにstarted slotが一つでもあればcheckpoint_mismatchesへ入れ、その後reviewsが2件ないことをinvalid_review holdへ変換する。provider失敗とcontent判断を分離していない。"
+        - "現行実装の取消処理はstarted slotを原子的に削除できるが、review thread開始後の例外では呼ばれない。"
+        - "既存test test_started_unresolved_review_slot_blocks_without_rerunは、terminal failure後のstarted slotを再実行せずcontent blockにする現行不具合を期待値として固定している。"
+        - "正本文書は、二者の内容判断が不一致なら一度だけ裁定し、裁定不能・境界不明・hash不一致・証跡不正だけをholdにすると定義する。providerの終端失敗はcontent hold条件ではない。"
+        - "5問のquestion_type作業版はすべてv5.2で、現行v6.0による独立再判定が必要。ただし現在値、正答数又は他fieldからquestionTypeを自動決定してはならない。"
+        - "mainはorigin/mainと0/0で一致し、worktreeはclean。product code又は問題artifactの未コミット差分はない。"
+      question_audits:
+        - question_id: 8976432e9abf56e9b86032f6
+          label: "SAA-C03版模擬試験② 問題55"
+          source_record_ref: "question_udemy-4632478-055.json#0"
+          content_evidence: "SMBを維持した100TB超の移行要件、DataSyncとFSx for Windows File Serverの選択肢4、正答4、解説が一致する。集約候補0件で、第1reviewもapprove/non_target。"
+          classification: system_responsibility_defect
+          human_approval_required: false
+        - question_id: 4d7806c96ef7391631cf42e1
+          label: "SAA-C03版模擬試験③ 問題50"
+          source_record_ref: "question_udemy-4632480-050.json#0"
+          content_evidence: "同一リージョンのAurora高可用性・読取スケール要件、Auto ScalingとAuroraレプリカを選ぶ正答4、解説が一致する。現在のgroup_choiceはv6.0で独立再判定すべきだが、集約候補0件で第1reviewはapprove/non_target。"
+          classification: system_responsibility_defect
+          human_approval_required: false
+        - question_id: 0785029a3f6728b589f57ce7
+          label: "SAA-C03版模擬試験② 問題65"
+          source_record_ref: "question_udemy-4632478-065.json#0"
+          content_evidence: "AZ障害耐性を満たす各AZのNATゲートウェイ、正答1、解説が一致する。集約候補0件で、第1reviewもapprove/non_target。"
+          classification: system_responsibility_defect
+          human_approval_required: false
+        - question_id: c44ec7cfbf3c4e93ac707cf3
+          label: "SAA-C03版模擬試験③ 問題2"
+          source_record_ref: "question_udemy-4632480-002.json#0"
+          content_evidence: "プライベートEC2の安全な外向き通信、NATゲートウェイを選ぶ正答4、解説が一致する。集約候補0件。第1review開始後のcapacity失敗で内容判断自体が存在しない。"
+          classification: system_responsibility_defect
+          human_approval_required: false
+        - question_id: 9ef68ea999c949f828797f08
+          label: "SAA-C03版模擬試験③ 問題12"
+          source_record_ref: "question_udemy-4632480-012.json#0"
+          content_evidence: "スケールイン後のEBS保持、DeleteOnTerminationを選ぶ正答2、解説が一致する。集約候補0件で、第1reviewもapprove/non_target。"
+          classification: system_responsibility_defect
+          human_approval_required: false
+      normal_flow:
+        - "同一source snapshotからserverが集約候補とsignatureを決定する。"
+        - "二つの独立review slotを別threadで実行し、resolvedになったreviewだけを正本証拠として保持する。"
+        - "turnの終端failedが確認され、reviewをresolveする前に停止したslotだけを、同じsignatureと予約内容の照合後に原子的に取消す。resolved siblingは保持する。"
+        - "次attemptは不足slotだけを新しいthreadで実行する。timeout、接続断、取消readback失敗又はsignature不一致ではslotを推測で消さずfail-closedにする。"
+        - "二つのresolved reviewをserverが照合し、不一致時だけ独立裁定を一度実行する。真の境界不明だけをcontent holdにする。"
+        - "集約判定後、questionTypeとisCalculationQuestionを本文・全選択肢から独立確定する。後続fieldも各正本から独立確定し、最後の機械検証は矛盾検出だけを行う。"
+      parallel_safety:
+        safe: false
+        reason: "修復WorkerとT003 recoveryは同じqualification run実装・runtime contractを使う。修復とtestsが完了するまでSAA runを並列再開しない。"
+      worker_package:
+        objective: "第01工程の集約review transactionを修復する。Codex App Serverからturnの終端failedが構造的に確認され、review結果をcheckpointへresolveする前に停止した場合だけ、該当するstarted slotをsignature・予約内容照合付きで原子的に取消す。resolved済みの兄弟slotは保持し、次attemptでは不足slotだけを別threadで実行する。timeout、接続断、checkpoint不整合、resolve/readback失敗は従来どおりfail-closedとし、questionType・正答・解説又はreview承認を自動決定しない。問題2のslot 1失敗と他4問のslot 2失敗を再現するregression testsを追加する。"
+        allowed_files:
+          - tools/question_review_console/codex_app_server.py
+          - tools/question_review_console/qualification_runs.py
+          - tests/test_question_review_codex_app_server.py
+          - tests/test_question_review_qualification_runs.py
+          - document/operations/local_question_review_console.md
+        verify:
+          - ".venv/bin/python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_question_candidate"
+          - ".venv/bin/python -m unittest tests.test_aggregate_answer_decomposition"
+          - "python3 scripts/check/check_00_source_immutability.py"
+          - "git diff --check"
+          - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03 output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260811T162101744570-a7a2e0a1"
+          - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+        stop_if:
+          - "turnの終端failedをprotocol状態から構造的に識別できず、error messageの文字列一致が必要になる。"
+          - "CodexTurnTimeoutError、接続断、完了通知欠落又は生存可能性が残るturnのstarted slotを取消す必要がある。"
+          - "resolved済みreviewを削除、再実行又は別slotへ複製する必要がある。"
+          - "二つのreviewを同一threadで実行する、成功review数を2件超へ増やす、又は裁定を省略する必要がある。"
+          - "問題artifact、work version、aggregate checkpoint、review承認、00_source、config、prompt、CLF-C02又はFirestoreの変更が必要になる。"
+          - "current questionType、correctChoiceText、answer_result_text又は正答数から別fieldを自動補正する必要がある。"
+          - "SAA runの開始又は同じ入力での再試行が必要になる。"
+          - "Verification fails twice."
+      blocked_tasks:
+        - T003
+        - T004
+        - T999
+      missing_evidence:
+        - "terminal failedとtimeout・接続断を区別するtyped error又は同等の構造的protocol証拠。"
+        - "slot 1 terminal failure後にslot 1だけを再実行し、その後slot 2へ進むtest。"
+        - "slot 1 resolved・slot 2 terminal failure後にslot 1を保持し、slot 2だけを再実行してconsensusを確定するtest。"
+        - "取消readback失敗、resolve済みslot、signature不一致、timeoutではfail-closedを維持するtest。"
+        - "修復後の正規UI recoveryで既存300問を再投入せず、未完了95問だけをscopeにするpreviewと成功run。"
+        - "395/395 local-ready、artifactSync、upload dry-runの終端証拠。"
+      required_board_updates:
+        - "T008をdoneとして本receiptを記録する。"
+        - "上記worker_packageを新しい単一Worker taskへ転記し、T003は修復完了までblockedのまま保持する。"
+        - "修復Worker完了後、run 20260811T162101744570-a7a2e0a1の正規UI recovery previewで完了済み300問がscopeへ再追加されず、未完了95問だけが対象になることを確認してからT003相当を再開する。"
+        - "旧runのaggregate checkpoint又は5問の問題artifactを手動編集して保留解除しない。"
+        - "T004とT999はT003成功、artifactSync、395/395検証までblockedのまま保持する。"
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "第01工程の集約review transactionを修復する。Codex App Serverからturnの終端failedが構造的に確認され、review結果をcheckpointへresolveする前に停止した場合だけ、該当するstarted slotをsignature・予約内容照合付きで原子的に取消す。resolved済みの兄弟slotは保持し、次attemptでは不足slotだけを別threadで実行する。timeout、接続断、checkpoint不整合、resolve/readback失敗は従来どおりfail-closedとし、questionType・正答・解説又はreview承認を自動決定しない。問題2のslot 1失敗と他4問のslot 2失敗を再現するregression testsを追加する。"
+    allowed_files:
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_question_candidate"
+      - ".venv/bin/python -m unittest tests.test_aggregate_answer_decomposition"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03 output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260811T162101744570-a7a2e0a1"
+      - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+    stop_if:
+      - "turnの終端failedをprotocol状態から構造的に識別できず、error messageの文字列一致が必要になる。"
+      - "CodexTurnTimeoutError、接続断、完了通知欠落又は生存可能性が残るturnのstarted slotを取消す必要がある。"
+      - "resolved済みreviewを削除、再実行又は別slotへ複製する必要がある。"
+      - "二つのreviewを同一threadで実行する、成功review数を2件超へ増やす、又は裁定を省略する必要がある。"
+      - "問題artifact、work version、aggregate checkpoint、review承認、00_source、config、prompt、CLF-C02又はFirestoreの変更が必要になる。"
+      - "current questionType、correctChoiceText、answer_result_text又は正答数から別fieldを自動補正する必要がある。"
+      - "SAA runの開始又は同じ入力での再試行が必要になる。"
+      - "Verification fails twice."
     receipt: null
   - id: T999
     type: judge
