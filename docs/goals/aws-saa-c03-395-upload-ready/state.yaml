@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T028
+active_task: T029
 
 tasks:
   - id: T001
@@ -2164,7 +2164,7 @@ tasks:
   - id: T028
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T027 fresh previewが29/45 countsは返したがexact question IDs/workItemKeys/stage内訳を監査可能にreadbackできなかった責務境界をread-onlyで特定する。preview server response、UI client/read model、preview token/immutable plan registry、start requestの関係を追い、対象identityを再計算又はUI scrapingせずpreview responseの単一正本として返す最小一般契約を設計する。既存run/artifact不変を確認し、実装・test・Judge・single retryの直列packageを返す。"
     inputs:
@@ -2184,6 +2184,94 @@ tasks:
       - "preview token/plan hash/startのTOCTOU不変条件"
       - "最小allowed filesと回帰tests"
       - "実装Worker、read-only Judge、single fresh retryの順次package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "preview coordinatorが実対象identityをresponseへ投影せずrequest filterとcountsだけを返す契約欠落が直接原因である。UIもexact集合を表示しない。startはtoken照合後にplanを再計算しており狭いTOCTOUがある。server transportはresponseを透過するため主責務ではない。server由来identity、同一payloadのhash/token、照合済みplanの単回利用を実装後、独立Judgeを経てsingle retryできる。"
+      evidence:
+        - "T027はtargetCount=29、workItemCount=45、stageCount=6まで確認したがexact IDs/workItemKeysをreadbackできずstartせず停止した。終了済みserverのraw response/tokenは回収不能。"
+        - "qualification_runs previewは完全なplan/groupSummaryを検証するがresponse.questionIdsへrequest filterだけを返し、実queue identity、workItemKeys、stage summary、audit hashを返さない。"
+        - "build_question_executionsはplanのstagePlans/progressTargets/resumeWorkItemKeysからcanonical questionId/workItemKeyを一意に構成し重複をfail-closedにするためidentity正本として使える。"
+        - "UIはpreview responseをstateへ保持するがrendererはcounts、groupSummary、stageIdsだけを表示しexact identityの監査経路がない。"
+        - "server transportはpreview dictとpreviewTokenを透過しfield欠落の発生源ではない。"
+        - "startはprepared preview token照合後にplanを再度構築し、その二度目のplanでrunを作るため、照合planと実行planのobject identityが保証されない。"
+        - "最小契約はtargetIdentity、previewPlanHash、同一payloadのHMAC token、checked plan単回利用とimmutable planへのidentity/hash保存。"
+        - "UIはserver responseを再計算なしでcopy可能に表示し、request questionIdsはfilterのまま維持する。"
+        - "既存preview/UI contract 31 tests pass、clean main、origin parity 0/0、新run不在。"
+      next_allowed_task:
+        task_id: T029
+        type: worker
+        objective: "4 filesだけへtarget identity/readbackとchecked plan単回利用を実装しtestsを通す。"
+        allowed_files:
+          - tools/question_review_console/qualification_runs.py
+          - tools/question_review_console/static/app.js
+          - tests/test_question_review_qualification_runs.py
+          - tests/test_question_review_workflow.py
+        commit_push_authorized: false
+        run_start_authorized: false
+        verify:
+          - "T029.verifyを正本とする"
+        stop_if:
+          - "T029.stop_ifを正本とする"
+      followup_sequence:
+        - "T029 implementation Worker"
+        - "read-only diff Judge"
+        - "Judge承認後だけscope commit/pushとsingle fresh retry Worker"
+      parallel_safety:
+        safe: false
+        reason: "実装、diff監査、commit/push、single preview/startは同一契約とrun identityへ直列依存する。"
+      blocked_tasks:
+        - T004
+        - T027
+        - T999
+      missing_evidence:
+        - "T029 4-file implementation diff/tests。"
+        - "implementation後Judge承認。"
+        - "fresh response exact29/45 identity、single start、terminal、artifactSync、395/395、Firestore0。"
+      required_board_updates:
+        - "T028をdoneとしてT029をactivateする。"
+        - "T029直後にread-only Judgeを追加する。"
+  - id: T029
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "qualification previewの実queueから監査可能なtargetIdentityとpreviewPlanHashを返し、UIがresponseを非再計算で表示し、startがtoken照合済みplanを二度目のselectionなしで使用・永続化する最小一般契約を実装する。資格、ID、current countをhardcodeしない。UI起動、preview、start、runは禁止する。"
+    inputs:
+      - "T028 Judge receipt"
+      - "qualification preview/start coordinator"
+      - "question work queue canonical executions"
+      - "workflow UI preview renderer"
+      - "existing immutable plan/token tests"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow.py"
+    verify:
+      - "実queueからsorted exact questionIds/workItemKeys、UTF-8・辞書順・改行区切りSHA-256、stageSummaryを生成し、targetCount/workItemCount/stage totals、空値、重複、不明stageの不一致をfail-closedにする。"
+      - "targetIdentity={schemaVersion,hashFormat,questionIds,questionIdsHash,workItemKeys,workItemKeysHash,stageSummary}をserver response正本として返す。"
+      - "previewPlanHashはcanonical JSONのplan/groupPreviews/targetIdentityから生成し、previewTokenは同一payloadを署名する。いずれかが変われば両方が変わる。"
+      - "start時prepared planを一度だけ構築し、token照合後にworkflow._planを再度呼ばず、同じidentityとpreviewPlanHashをimmutable planへ保存する。selection変化はtoken mismatchでrun作成前に拒否する。"
+      - "start response/runのpreviewPlanHashとtargetIdentityがpreview responseと一致し、既存immutable planHash/selfHash検証を維持する。"
+      - "UIはserver responseのID、key、hash、stageSummaryをそのままcopy可能に表示し、client hash/target再計算を行わずpreviewTokenだけをstartへ送る。"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.QuestionWorkPreviewGroupSummaryTests"
+      - "python3 -m unittest tests.test_question_review_qualification_runs"
+      - "python3 -m unittest tests.test_question_review_workflow.WorkflowUiContractTests"
+      - "python3 -m unittest tests.test_question_review_workflow"
+      - "python3 -m unittest tests.test_question_review_server.QuestionReviewServerTests"
+      - "python3 -m unittest tests.test_question_review_qualification_flow_recovery"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git diff --name-onlyがallowed 4 filesだけであること。commit/pushは禁止。"
+    stop_if:
+      - "server.py、question_run_state.pyその他allowed外file変更が必要になる。"
+      - "preview/start requestへtarget identityのclient echo又はclient計算を要求する必要が生じる。"
+      - "token、schema、immutable planHash/selfHash、source/current、work-version又はselection gateを緩和する必要が生じる。"
+      - "特定資格、service、questionId、current count、Q45/Q27のhardcodeが必要になる。"
+      - "UI起動、preview、start、run、artifact、work version、review、00_source、CLF-C02、Firestore、GoalBuddy control fileの変更が必要になる。"
+      - "対象testsが反復失敗する、又は既存run/artifact/hash不変を確認できない。"
     receipt: null
   - id: T999
     type: judge
