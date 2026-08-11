@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T019
+active_task: T020
 
 tasks:
   - id: T001
@@ -1442,7 +1442,7 @@ tasks:
   - id: T019
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "immutable planの内容hash gateを維持したまま、初回読取りでinode・size・mtimeが同一かつctimeだけが変化した場合に限り、同じfileを直ちに一度だけ再読する。二度目のsignatureが安定し、schema、manifest expected planHash、payload planHash、canonical actual hashが全て一致した場合だけ受理する。inode・size・mtime変化、二度目も不安定、JSON/schema/hash不一致は従来どおりfail-closedとし、before/after signatureを診断可能にする回帰testを追加する。run、UI、既存orphan、問題artifactは変更しない。"
     inputs:
@@ -1476,6 +1476,57 @@ tasks:
       - "00_source、CLF-C02、Firestore又はallowed_files外の変更が必要になる。"
       - "exact 64-ID集合、validated 21問又はpolicy fingerprintが変わる。"
       - "対象testsが二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/question_run_state.py
+        - tests/test_question_review_question_run_state.py
+      commands:
+        - cmd: "python3 -m unittest tests.test_question_review_question_run_state; 10 tests"
+          status: pass
+        - cmd: "python3 -m unittest tests.test_question_review_question_run_recovery tests.test_question_review_qualification_runs; 167 tests"
+          status: pass
+        - cmd: "python3 scripts/check/check_00_source_immutability.py; 5799 files unchanged"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git diff --name-only exact scope check; exact two allowed files"
+          status: pass
+        - cmd: "orphan 20260811T192727620202-4940d23b integrity; planHash matched, 64 selfHash valid, manifest absent"
+          status: pass
+        - cmd: "T013 target/status/policy; unfinished64 hash matched, validated21 and policy fingerprint unchanged"
+          status: pass
+        - cmd: "git status/branch/parity; only allowed files modified, main, parity 0/0"
+          status: pass
+      summary: "Implemented one bounded reread only when inode, size, and mtime remain identical while ctime changes. Acceptance still requires a stable second signature, valid schema, manifest/payload planHash agreement, and canonical content hash agreement. Other signature changes, repeated instability, and all schema/hash failures remain fail-closed. Errors include before/after signatures. Added race, signature, hash, and 64-question initialization regressions. No UI, run, orphan, artifact, or control-file writes occurred."
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
+  - id: T020
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T019の2ファイル差分をread-onlyで監査し、ctime-only単発raceに限るbounded reread、二度目stable必須、inode/size/mtime変化即時拒否、schema・manifest expected/payload/canonical planHash三者照合、診断signature、orphan不変を独立検証する。gate緩和、sleep、無制限retry又はhidden fallbackがないことを確認し、scope commit/push後にfresh exact64 preview/startを一度だけ許可できる次Worker packageを返す。"
+    inputs:
+      - "T018 Judge receipt"
+      - "T019 Worker receipt"
+      - "tools/question_review_console/question_run_state.py diff"
+      - "tests/test_question_review_question_run_state.py diff"
+      - "orphan 20260811T192727620202-4940d23b"
+      - "T013 unfinished64/validated21/policy fingerprints"
+    constraints:
+      - "Read-only。code/test、UI、start、run、orphan、artifact、work version、checkpoint、review又はGoalBuddy control filesを変更しない。"
+      - "ctime-onlyを無条件無視、二回超read、sleep、hash/schema bypassを見逃さない。"
+      - "全signature分岐と全hash分岐をtestsと実装から現物確認する。"
+      - "00_source、CLF-C02、Firestoreを変更しない。"
+    expected_output:
+      - "bounded stable reread責務とgate非緩和判定"
+      - "race/signature/hash test readback"
+      - "orphan、64-ID、validated21、policy fingerprint不変"
+      - "scope commit/push可否"
+      - "fresh exact64 preview/startの単一Worker package"
     receipt: null
   - id: T999
     type: judge
