@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T011
+active_task: T012
 
 tasks:
   - id: T001
@@ -742,7 +742,7 @@ tasks:
   - id: T011
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "T009の承認済み5ファイルがmainへscope commit/pushされ、cleanかつorigin/main parity 0/0になった後、問題整備UIの作業履歴からrun 20260811T162101744570-a7a2e0a1の『この未完了を再開』を選ぶ。開始前previewでresumedFrom、SAA-C03単一group、元の6工程・10 update target、Standard/auto_maxを確認し、対象IDが旧runの未完了95問と完全一致し、validated済み300問を含まない場合だけ一度開始する。既存300問と全正本を保持して95問を収束させ、blocked・hold・pending=0、同一queue終端のartifactSync成功、SAA-C03 395/395 local-readyまで閉じる。Firestoreへは書き込まない。"
     allowed_files:
@@ -790,6 +790,48 @@ tasks:
       - "Fast、追加credits、外部API key又はFirestore書込みが必要になる。"
       - "artifactSyncがfailed又はinterruptedになる。確定patchを保持し、手動再生成せずT004へ送る。"
       - "Verification fails twice."
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          status: "passed: main clean, origin/main parity 0/0"
+        - cmd: ".venv/bin/python tools/question_bank/question_bank.py review-ui"
+          status: "passed: 正規UIを起動し、確認後にSIGINTで正常終了（exit 0）"
+        - cmd: "UI preview readback"
+          status: "blocked: resumedFrom、単一group、6工程、10 target、Standard、Firestore非反映は一致したが、targetQuestionCountは95ではなく85"
+        - cmd: "整備を開始"
+          status: not_executed
+      summary: "正規UIから指定runの『未完了の問題を再開』previewを読み取りました。再開元run、SAA-C03単一group、元の6工程、10 update target、Standard、Firestore非反映は一致しましたが、対象は必須の95問ではなく85問でした。明示stop条件に従い開始ボタンは押していません。run・artifact・checkpoint・work version・Firestoreは変更せず、UI serverを正常終了しました。lock fileは手動削除していません。"
+      remaining_blockers:
+        - "UI previewの対象数がT011契約の95問ではなく85問であり、旧run未完了95問との完全一致を確認できない。"
+      needs_judge: true
+      verification_attempts: 0
+      stopped_because: "previewの対象が95問でないため。"
+  - id: T012
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "run 20260811T162101744570-a7a2e0a1の未完了集合と正規UI previewの85問をread-onlyで照合し、95問想定との差10問、5問のaggregate review hold、validated/not_applicable/blocked/pendingの正しい集合関係を確定する。"
+    inputs:
+      - "T011 blocked receipt"
+      - "run 20260811T162101744570-a7a2e0a1 manifest・questionExecutions・recovery情報"
+      - "T011 UI preview readback又はserver response"
+      - "current work versionsとaggregate review checkpoints"
+      - "recovery preview selectionのcurrent implementationとtests"
+    constraints:
+      - "Read-only。run開始、product code、問題artifact、checkpoint、work version、review承認又はGoalBuddy control filesを変更しない。"
+      - "manifest summary数だけで判断せず、395問のquestionId集合を状態別に実読取する。"
+      - "85又は95を先に正しいと決め打ちしない。正本と現行selection contractから独立に確定する。"
+      - "旧checkpoint又は5問のholdを手動修正しない。"
+      - "00_source、CLF-C02、Firestoreを変更しない。"
+    expected_output:
+      - "395問の集合分解と85/95差分ID"
+      - "preview 85問の正当性又はselection defect判定"
+      - "5問のholdが再開集合に含まれるべきか"
+      - "次の最大の安全なWorker package"
+      - "開始前のexact target ID gate"
     receipt: null
   - id: T999
     type: judge
