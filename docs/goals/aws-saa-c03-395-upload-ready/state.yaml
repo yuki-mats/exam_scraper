@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T021
+active_task: T022
 
 tasks:
   - id: T001
@@ -1584,7 +1584,7 @@ tasks:
   - id: T021
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "現在のexact 2-file diffをscope commitしorigin/mainへpushする。clean parity確認後、committed mainからfresh review-ui serverを起動し、T013 unfinished exact64だけのpreviewをreadbackする。全gate一致時にstartを一度だけ実行し、new runをterminalまで監視する。64問の結果、artifactSync、SAA-C03 395/395 local-ready、Firestore writes=0を現物receiptとして返す。既存orphanは変更しない。"
     inputs:
@@ -1630,6 +1630,68 @@ tasks:
       - "timeout、接続断、checkpoint/readback失敗、blocked、人間content decision又はreview承認が必要になる。自動補正・手動artifact修正をしない。"
       - "既存orphan、validated21、00_source、CLF-C02、Firestore、GoalBuddy control filesへ変更が必要になる。"
       - "API key、credit bypass、非公開header/URL固定、成功値捏造fallback、別run/start又はuploadが必要になる。"
+    receipt:
+      result: blocked
+      changed_files:
+        - tools/question_review_console/question_run_state.py
+        - tests/test_question_review_question_run_state.py
+      commands:
+        - cmd: "git diff --binary -- question_run_state.py test_question_run_state.py | shasum -a 256"
+          status: "passed: 44a2a29cb0dcd631ac5219a1099c3b2341ca6c4690b587d68652258f141e1206"
+        - cmd: "python3 -m unittest tests.test_question_review_question_run_state"
+          status: "passed: 10 tests"
+        - cmd: "python3 -m unittest tests.test_question_review_question_run_recovery tests.test_question_review_qualification_runs"
+          status: "passed: 167 tests"
+        - cmd: "python3 scripts/check/check_00_source_immutability.py"
+          status: "passed before commit: 5799 files; final rerun was terminated after hanging without mutation"
+        - cmd: "git diff --check"
+          status: passed
+        - cmd: "git commit -m 'Handle bounded immutable plan ctime races'"
+          status: "passed: 2fc670342"
+        - cmd: "git push origin main"
+          status: "passed: origin/main updated without force"
+        - cmd: "UI preview/start for base 20260811T182911729697-cce7a06d"
+          status: "passed gate; started exactly once as 20260811T201827949133-bcb65475"
+        - cmd: "canonical UI recovery after stop condition"
+          status: "passed: run interrupted, queue partial, validatedQuestionCount=34, blockedQuestionCount=2, blockedWorkItemCount=4"
+        - cmd: "orphan and Firestore readback"
+          status: "passed: orphan planHash unchanged, 64/64 selfHashes valid, no manifest; no SAA publish-run files found"
+        - cmd: "git status --short && parity"
+          status: "passed: clean main, parity 0/0"
+      summary: "T019修復を検証・commit・push後、全preview条件を満たしたためUIから一度だけ開始しました。Q45のquestion_setがSQS/SNS同等で再blockedし、模擬⑥Q27も公式解答1と内容上の選択肢3が衝突してcorrect_choice以下がblockedになりました。T021 stop_if成立のため再試行・手動補正せず正規recoveryで安全停止しました。validated 34件を保持し、orphan不変、Firestore反映なし、Git clean/parity 0/0を確認しました。"
+      remaining_blockers:
+        - "6c74190a4ab7caf42ea941b4（模擬①Q45）question_set: 正答がSQS FIFOとSNS FIFOに同等に分かれ、6-1/6-2の主復習先を一つに確定不能"
+        - "0d98160c7d3a218a070d6465（模擬⑥Q27）correct_choice: 公式解答1と問題内容が示す選択肢3が衝突。explanation/question_setも下流blocked"
+        - "run 20260811T201827949133-bcb65475: interrupted/partial、workItemCount=126、validatedWorkItemCount=63、blockedWorkItemCount=4"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "Q45の再blockedと新規Q27 correct_choice衝突がT021 stop_ifを満たしたため。"
+  - id: T022
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T021でblockedとなったQ45 question_set再保留と模擬⑥Q27 correct_choice公式解答衝突をread-onlyで別々に監査する。Q45はT014分類根拠、T015 context投影、実際の3 candidate outputsとprompt順序を照合し、なぜ決定要因ruleが適用されなかったか、分類正本から6-1を機械的・再現可能に確定する最小責務を決める。Q27は00_source本文・選択肢・answer_result、current patch、AWS公式一次資料を照合し、正答・問題文・取得元解答のどこが矛盾するかを独立確定する。確定済み34問と残り集合を保持する次Worker packageを返す。"
+    inputs:
+      - "T021 blocked receiptとrun 20260811T201827949133-bcb65475 canonical artifacts"
+      - "Q45 6c74190a4ab7caf42ea941b4のT014 receipt、category context、3 candidate attempts"
+      - "Q27 0d98160c7d3a218a070d6465の00_source/current artifacts、answer_result、3 candidate attempts"
+      - "category.json・question_set prompt/workflow"
+      - "Q27に関するAWS公式RDS backup/snapshot一次資料"
+      - "T021 validated34とunfinished集合"
+    constraints:
+      - "Read-only。run、code、prompt、category、問題artifact、work version、checkpoint、review承認又はGoalBuddy control filesを変更しない。"
+      - "Q45とQ27を同じ原因又は同じpatchで扱わず、各fieldを正本と内容から独立に確定する。"
+      - "Q45を現在値へ自動補正せず、T015 ruleが実際のpromptで効かなかった責務を特定する。"
+      - "Q27はanswer_result番号、correctChoiceText現在値又はモデル多数決から逆算せず、問題の要件とAWS公式一次資料から各選択肢を判定する。"
+      - "00_source、既存ID、CLF-C02、Firestoreを変更しない。"
+      - "T021 validated34を再生成対象へ含めない。"
+    expected_output:
+      - "Q45の再blocked root causeと6-1確定の再現可能な基準"
+      - "Q27の本文要件、各選択肢、公式解答衝突の独立判定"
+      - "それぞれの人手承認・内容変更・source conflict扱いの要否"
+      - "current system responsibility defectと最小修正範囲"
+      - "T021からのexact unfinished set gateを含む次Worker package"
     receipt: null
   - id: T999
     type: judge
