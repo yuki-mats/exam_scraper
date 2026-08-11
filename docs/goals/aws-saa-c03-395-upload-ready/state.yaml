@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T013
+active_task: T014
 
 tasks:
   - id: T001
@@ -942,7 +942,7 @@ tasks:
   - id: T013
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "clean main・origin/main parity 0/0を再確認後、問題整備UIの作業履歴からrun 20260811T162101744570-a7a2e0a1の『この未完了を再開』を選ぶ。開始直前にcurrent selectionをread-onlyで再計算し、targetCount=85、workItemCount=245、sorted questionId hash=aa1b14e8341cebf476ad9f57bfa0fde06987f56ec7672ee17a0ca74e552c23c5、hold 5問を全て含み、差分10問とvalidated 300問を含まないことを確認する。UI previewのresumedFrom、単一group、6工程、10 update target、Standard/auto_max、Firestore非反映が一致する場合だけ一度開始する。旧checkpoint・work version・review承認を変更せず85問を収束させ、blocked・hold・pending=0、artifactSync成功、SAA-C03 395/395 local-readyまで閉じる。"
     inputs:
@@ -995,6 +995,68 @@ tasks:
       - "Fast、追加credits、外部API key又はFirestore書込みが必要になる。"
       - "artifactSyncがfailed又はinterruptedになる。確定patchを保持し、手動再生成せずT004へ送る。"
       - "Verification fails twice."
+    receipt:
+      result: blocked
+      changed_files:
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260811T182911729697-cce7a06d/**"
+        - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      commands:
+        - cmd: "開始直前read-only selection gate"
+          status: "passed: targetCount=85, workItemCount=245, target/hold5/excluded10 hashes matched; hold5 included; excluded10 and validated300 absent"
+        - cmd: "UI preview readback"
+          status: "passed: resumedFrom、単一group、6 stages、10 update targets、Standard/auto_max、Firestore非反映"
+        - cmd: "UI 整備を開始"
+          status: "passed once: run 20260811T182911729697-cce7a06d"
+        - cmd: "canonical run artifact readback"
+          status: "blocked: question 6c74190a4ab7caf42ea941b4, question_set, retryDeferred=false"
+        - cmd: "review-ui recovery startup"
+          status: "passed: run recovered to interrupted/partial"
+        - cmd: "review-ui shutdown"
+          status: "passed: exit 0"
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          status: "passed: main, origin parity 0/0"
+        - cmd: "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts"
+          status: passed
+        - cmd: "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate && test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
+          status: passed
+      summary: "85問recoveryを一度開始しましたが、模擬試験①問題45がquestion_set工程でblockedになりました。SQSとSNSへ論点が同等に分かれ、主な復習先を一つに確定できないという内容判断で、retryDeferred=falseです。blocked=0へ収束するには手動判断または内容補正が必要となるためstop_ifに従い停止しました。runは正規起動回収でinterrupted/partialへ確定し、UI serverは正常終了しました。Firestore書込みや手動補正、再試行は行っていません。"
+      remaining_blockers:
+        - "questionId 6c74190a4ab7caf42ea941b4のquestion_set分類が一意に確定できずblocked。T013では手動判断・内容field補正・同じ入力の再試行が禁止されている。"
+      needs_judge: true
+      verification_attempts: 0
+      stopped_because: "内容判断または手動補正が必要なretryDeferred=falseのquestion_set blockedを検出したため。"
+  - id: T014
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T013でquestion_set blockedとなったquestionId 6c74190a4ab7caf42ea941b4（SAA-C03版模擬試験① 問題45）について、問題内容、正答根拠、category/questionSetId正本、現行question_set工程、類似問題の分類をread-onlyで独立に照合する。SQSとSNSを含む問題の主復習先を現行基準から一意に確定できるか、内容変更又は人手決め打ちを要するか、単純な分類責務の修正が必要かを判定し、残り64問を守る最大の安全な次Worker packageを返す。"
+    inputs:
+      - "T013 blocked receiptとrun 20260811T182911729697-cce7a06dのcanonical artifacts"
+      - "questionId 6c74190a4ab7caf42ea941b4の00_sourceからcurrent convert/upload projectionまで"
+      - "category.json、questionSetId正本、question_set prompt/workflow implementation/tests"
+      - "同じSQS/SNS FIFO論点を扱う既存SAA-C03問題の現行分類"
+      - "T013で確定済み21問とpending 64問の状態"
+    constraints:
+      - "Read-only。run再開、問題内容・分類、code、prompt、category、work version、checkpoint、review承認又はGoalBuddy control filesを変更しない。"
+      - "SQS又はSNSを現在値や都合で選ばず、問題全体の主学習目的と分類正本から独立に判定する。"
+      - "複数serviceが正答であることだけを理由に内容を改変しない。分類工程の責務と一分類契約を先に確認する。"
+      - "00_source、既存ID、CLF-C02、Firestoreを変更しない。"
+      - "T013の確定済み21問と残り64問を再生成対象へ広げない。"
+    expected_output:
+      - "Q45の正答・主学習目的・分類候補の独立判定"
+      - "current question_set blockedの正当性又はsystem responsibility defect"
+      - "人手承認又は内容変更の要否"
+      - "必要なら最小の正本/実装修正範囲と回帰契約"
+      - "T013からのexact recovery set gateを含む次Worker package"
     receipt: null
   - id: T999
     type: judge
