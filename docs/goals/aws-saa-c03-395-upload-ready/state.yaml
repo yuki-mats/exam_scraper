@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T029
+active_task: T030
 
 tasks:
   - id: T001
@@ -2235,7 +2235,7 @@ tasks:
   - id: T029
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "qualification previewの実queueから監査可能なtargetIdentityとpreviewPlanHashを返し、UIがresponseを非再計算で表示し、startがtoken照合済みplanを二度目のselectionなしで使用・永続化する最小一般契約を実装する。資格、ID、current countをhardcodeしない。UI起動、preview、start、runは禁止する。"
     inputs:
@@ -2272,6 +2272,53 @@ tasks:
       - "特定資格、service、questionId、current count、Q45/Q27のhardcodeが必要になる。"
       - "UI起動、preview、start、run、artifact、work version、review、00_source、CLF-C02、Firestore、GoalBuddy control fileの変更が必要になる。"
       - "対象testsが反復失敗する、又は既存run/artifact/hash不変を確認できない。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "T029 allowed files verify stop_if readback"
+          status: pass
+        - cmd: "qualification-runs/start and previewToken routing inspection"
+          status: "blocked: current server requires qualification and stageIds"
+        - cmd: "worker partial diff cleanup and git diff check"
+          status: "pass: clean"
+        - cmd: "branch and origin parity"
+          status: "pass: main 0/0"
+      summary: "T029契約をpreviewToken-only startと解釈すると、現行server routeがqualificationとstageIdsを必須検証するためcoordinator到達前に拒否する。allowed外server.py変更が必要になるstop_ifに従い停止した。途中のallowed-file差分はWorker自身の変更分だけ戻し、code/test/run/UI/artifactを変更せずclean状態を維持した。"
+      evidence:
+        - "server start routeはqualificationとstageIdsを必須検証する。"
+        - "T029はpreviewTokenだけをstartへ送る契約とrouting必須fieldの関係が未確定。"
+        - "未完了の4-file差分はWorkerが自身の変更だけを戻し、main clean、origin parity 0/0。"
+        - "UI/preview/start/run/artifact/Firestore/upload/publish変更はない。"
+      deviations: []
+      remaining_blockers:
+        - "qualification/stageIdsをrouting fieldとして残すか、server APIをtoken-onlyへ変えるかの責務判定。"
+        - "判定後のminimal allowed filesとimplementation package。"
+      verification_attempts: 1
+      stopped_because: "previewToken-only UI start契約を満たすにはallowed_files外server.py変更が必要と判断しT029 stop_ifが成立した。"
+  - id: T030
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T029がpreviewToken-only start解釈ではserver.pyのqualification/stageIds必須routingと衝突すると停止したため、start requestのrouting identityとexecution-plan authorityをread-onlyで分離判定する。qualification/stageIdsをrouting/consistency fieldsとして残し、target questionIds/workItemKeys/plan authorityだけをserver-issued tokenとchecked prepared planへ一本化できるかを検証する。server.py変更の要否、最小allowed files、tests、次Worker packageを一意に返す。"
+    inputs:
+      - "T028 Judge receipt"
+      - "T029 blocked receipt"
+      - "server qualification-runs/start route"
+      - "qualification coordinator preview/start implementation"
+      - "UI start request builder and tests"
+    constraints:
+      - "Read-only。code、test、UI、preview、start、run、artifact、GoalBuddy control filesを変更しない。"
+      - "qualification/stageIdsを実行対象identityのclient echoとして扱わず、routing/consistency fieldとplan authorityを混同しない。"
+      - "server changeは、coordinatorのchecked-plan単回利用だけでは契約を満たせないことを示した場合に限る。"
+      - "特定資格、ID、current countをhardcodeしない。token/schema/planHash/selfHash gateを緩和しない。"
+    expected_output:
+      - "qualification/stageIdsをstart requestへ残す可否と責務"
+      - "previewTokenがauthorityとなるexact boundary"
+      - "server.py変更要否と根拠"
+      - "最小allowed files/testsを含む修正版Implementation Worker package"
+      - "その後のread-only Judgeとsingle retry sequence"
     receipt: null
   - id: T999
     type: judge
