@@ -1709,6 +1709,7 @@ def _structured_candidate_prompt(
                     "explanation_common_summary",
                     "explanation_choice_snippets",
                     "explanationText",
+                    "referenceUrls",
                 )
                 if field in originalization_source
             }
@@ -1726,6 +1727,18 @@ def _structured_candidate_prompt(
             "",
         ]
         if stage_context
+        else []
+    )
+    repeated_context_lines = (
+        [
+            "# previousValidationFeedback後の現行工程コンテキスト",
+            "",
+            "previousValidationFeedbackは再検証の材料であり、以下の現行rulesと"
+            "allowedQuestionSetsを上書きしない。現在の問題全体と分類正本から再判定する。",
+            json.dumps(stage_context, ensure_ascii=False, separators=(",", ":")),
+            "",
+        ]
+        if stage_id == "question_set" and stage_context
         else []
     )
     law_reference_contract_lines = (
@@ -1779,6 +1792,10 @@ def _structured_candidate_prompt(
             "originalizationSource内の解説候補はprompt内だけの参照資料である。"
             "元解説を材料に03の解説promptへ沿ったより分かりやすい独自解説を作る。"
             "正答理由と各誤答の理由を変えず、文面をsetFieldsへ転載しない。",
+            "correct_choice工程でoriginalizationSourceがある場合も、sourceの問題文、"
+            "全選択肢、正答候補、元解説各field、referenceUrlsは更新不能な参照証拠である。"
+            "currentRecordとは分離して独立に照合し、元解説又は元正答をsetFieldsへ転載せず、"
+            "correctChoiceTextをsource値から自動割当しない。確認済み根拠との衝突はblockedにする。",
             "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
             "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
             "sourceAnswerEvidenceがある場合、それは00_sourceから分離した更新不能な正答証拠である。"
@@ -1814,6 +1831,7 @@ def _structured_candidate_prompt(
             "",
             json.dumps(questions, ensure_ascii=False, separators=(",", ":")),
             "",
+            *repeated_context_lines,
         ]
     )
 
@@ -2066,6 +2084,7 @@ def _structured_candidate_stage_context(
             "現在値と同じ結論でも、問題全体と分類正本から独立に確定したquestionSetIdを明示して返す。",
             "allowedQuestionSetsにあるquestionSetIdだけを設定する。",
             "問題に登場するサービスの数ではなく、問題全体で正答を決める要件・制約・主な判断軸を各分類のdescriptionとmatchingHintsに照らし、最も強い決定要因を持つ一つを選ぶ。",
+            "問題の明示的な決定要因をdescriptionとmatchingHintsで全て覆う候補は、サービス名だけが一致し決定要因を覆わない候補より優先する。両者を同等候補として扱わない。",
         ],
         "allowedQuestionSets": options,
     }
@@ -11787,7 +11806,7 @@ class QualificationRunCoordinator:
                 copy.deepcopy(dict(spec["sourceRecord"]))
                 for spec in specs
                 if isinstance(spec.get("sourceRecord"), Mapping)
-                and stage_id in {"originalize", "explanation"}
+                and stage_id in {"originalize", "correct_choice", "explanation"}
             }
             source_answer_evidence_by_question = {
                 question_id: evidence

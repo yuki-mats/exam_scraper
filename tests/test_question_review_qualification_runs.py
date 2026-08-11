@@ -1538,6 +1538,98 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertTrue(
             any("決定要因" in rule and "数" in rule for rule in context["rules"])
         )
+        self.assertTrue(
+            any(
+                "全て覆う候補" in rule
+                and "サービス名だけ" in rule
+                and "同等候補" in rule
+                for rule in context["rules"]
+            )
+        )
+
+    def test_question_set_prompt_repeats_current_context_after_stale_feedback(self):
+        target = {"id": "question-1"}
+        candidate_target = CandidateTarget(
+            target_id="question-1:question-set",
+            role="question_set",
+            path="output/sample/22_questionSetId_linked/question.json",
+            allowed_fields=("questionSetId",),
+        )
+        context = {
+            "rules": ["問題全体の明示的な決定要因を比較する。"],
+            "allowedQuestionSets": [
+                {
+                    "questionSetId": "set-a",
+                    "description": "主要な制約を全て扱う。",
+                    "matchingHints": ["主要要件", "制約"],
+                }
+            ],
+        }
+
+        prompt = _structured_candidate_prompt(
+            "分類する。",
+            [target],
+            stage_id="question_set",
+            records_by_question={"question-1": {"questionBodyText": "設問"}},
+            candidate_targets_by_question={"question-1": (candidate_target,)},
+            feedback_by_question={
+                "question-1": [{"reason": "以前は複数候補を同等と判断した。"}]
+            },
+            stage_context=context,
+        )
+
+        feedback_position = prompt.index("以前は複数候補を同等と判断した")
+        repeated_position = prompt.rindex("問題全体の明示的な決定要因を比較する")
+        self.assertGreater(repeated_position, feedback_position)
+        repeated = prompt[repeated_position:]
+        self.assertIn('"description":"主要な制約を全て扱う。"', repeated)
+        self.assertIn('"matchingHints":["主要要件","制約"]', repeated)
+
+    def test_correct_choice_prompt_exposes_allowlisted_immutable_source_record(self):
+        target = {"id": "question-1"}
+        candidate_target = CandidateTarget(
+            target_id="question-1:correct-choice",
+            role="correct_choice",
+            path="output/sample/23_correctChoiceText_fixed/question.json",
+            allowed_fields=("correctChoiceText",),
+        )
+        source = {
+            "questionBodyText": "取得元の本文",
+            "choiceTextList": ["選択肢1", "選択肢2"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "answer_result_text": "正解は1です。",
+            "explanation_common_prefix": "共通説明",
+            "explanation_common_summary": "要約",
+            "explanation_choice_snippets": ["理由1", "理由2"],
+            "explanationText": "元解説",
+            "referenceUrls": ["https://example.test/reference"],
+            "internalOnly": "非公開",
+        }
+        prompt = _structured_candidate_prompt(
+            "正答を判定する。",
+            [target],
+            stage_id="correct_choice",
+            records_by_question={
+                "question-1": {
+                    "questionBodyText": "現在の本文",
+                    "choiceTextList": ["現在1", "現在2"],
+                    "correctChoiceText": ["間違い", "正しい"],
+                }
+            },
+            candidate_targets_by_question={"question-1": (candidate_target,)},
+            feedback_by_question={},
+            originalization_source_by_question={"question-1": source},
+        )
+
+        payload = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(payload["currentRecord"]["questionBodyText"], "現在の本文")
+        self.assertEqual(
+            payload["originalizationSource"],
+            {key: value for key, value in source.items() if key != "internalOnly"},
+        )
+        self.assertNotIn("internalOnly", payload["originalizationSource"])
+        self.assertIn("元解説又は元正答をsetFieldsへ転載せず", prompt)
+        self.assertIn("correctChoiceTextをsource値から自動割当しない", prompt)
 
     def test_law_stage_context_prioritizes_existing_binding(self):
         context = _structured_candidate_stage_context(
