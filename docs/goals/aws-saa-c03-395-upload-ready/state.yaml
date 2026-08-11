@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T012
+active_task: T013
 
 tasks:
   - id: T001
@@ -811,7 +811,7 @@ tasks:
   - id: T012
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "run 20260811T162101744570-a7a2e0a1の未完了集合と正規UI previewの85問をread-onlyで照合し、95問想定との差10問、5問のaggregate review hold、validated/not_applicable/blocked/pendingの正しい集合関係を確定する。"
     inputs:
@@ -832,6 +832,169 @@ tasks:
       - "5問のholdが再開集合に含まれるべきか"
       - "次の最大の安全なWorker package"
       - "開始前のexact target ID gate"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "preview 85問は正当でありselection defectではない。旧runのquestion-level未完了は90 queuedと5 blockedの計95問だが、現行needed planは作業版と適用条件を再評価し、既に現行targetを持たないqueued 10問を除外する。したがって再開集合は80 queuedと5 blockedの85問である。5 holdは全件含まれ、旧checkpointを変更せず新runで再処理すべきである。旧95件gateを85件のexact ID gateへ置換した正規UI recoveryを承認する。"
+      evidence:
+        - "question_summary.jsonの全395 questionIdはvalidated 300、queued 90、blocked 5に重複なく分解される。"
+        - "全1977 work itemsはvalidated 915、not_applicable 803、blocked 25、queued/pending 234であり、completed 1718は915+803に一致する。"
+        - "旧run未完了95問はqueued 90とblocked 5の和集合だが、現行needed planは85 questions・186 direct targets、resume_planは85 questions・245 work itemsである。"
+        - "preview 85はqueued 80とblocked 5で、validated 300を含まない。差分10問は旧runでqueuedだがcurrent needed stage targetが0件である。"
+        - "5 holdはpreview 85に全件含まれ、question_type work versionは旧5.2、current targetは6.0である。"
+        - "aggregate checkpoint 393件のうち388件はconsensus確定、未確定5件はhold 5問と完全一致する。旧checkpointは証跡として保持し、手動修正しない。"
+        - "preview85 sorted questionId SHA-256はaa1b14e8341cebf476ad9f57bfa0fde06987f56ec7672ee17a0ca74e552c23c5、差分10は0bcc8785d55436384ca8c1e20e215d648769bf573b332cecb8a92ca65f1f053b、hold5は0d19bafa4c28782d8616bea16378a2a4d410607fcdf3f48df7e091553337e7c4である。"
+        - "関連5 regression testsが成功し、00_source immutabilityは5799 files、clean main、origin/main parity 0/0である。"
+      set_decomposition:
+        question_count: 395
+        question_statuses:
+          validated:
+            count: 300
+            sorted_id_sha256: 86783075d25b5026951a8590c2c05c2f4138f0026d5ab8a6b4cbf7d245a2c30f
+          queued:
+            count: 90
+            sorted_id_sha256: dde784193709a0eb0e5afefeb4fde4b679896ca4c1faf8f20ac344748e0ea833
+          blocked:
+            count: 5
+            sorted_id_sha256: 0d19bafa4c28782d8616bea16378a2a4d410607fcdf3f48df7e091553337e7c4
+        work_item_statuses:
+          validated: 915
+          not_applicable: 803
+          blocked: 25
+          queued_pending: 234
+        old_run_unfinished:
+          count: 95
+          relation: "queued90 union blocked5"
+        current_recovery_selection:
+          count: 85
+          relation: "queued80 union blocked5"
+          work_item_count: 245
+        excluded_from_recovery:
+          count: 10
+          relation: "old queued but absent from every current needed stage target"
+      difference_10:
+        - question_id: 5a7bf93ae87d44141dad1086
+          label: "SAA-C03版模擬試験① 問題38"
+        - question_id: e1fc3d162578e799f4b37b5a
+          label: "SAA-C03版模擬試験④ 問題16"
+        - question_id: 1888000a7ef287f9a7ab0178
+          label: "SAA-C03版模擬試験② 問題26"
+        - question_id: ae38cefdde6944ce81f9e125
+          label: "SAA-C03版模擬試験④ 問題63"
+        - question_id: 3e4593340287ad7a7e8b0378
+          label: "SAA-C03版模擬試験② 問題6"
+        - question_id: a0a7b22c35c45602ee1eddca
+          label: "SAA-C03版模擬試験⑥ 問題63"
+        - question_id: 99a562044342859216a3e7ab
+          label: "SAA-C03版模擬試験④ 問題12"
+        - question_id: 4de0f0477e632427fdf63d80
+          label: "SAA-C03版模擬試験⑥ 問題28"
+        - question_id: 22087ea038e833d3b3f242af
+          label: "SAA-C03版模擬試験⑥ 問題49"
+        - question_id: bfd448b979c03e4422137871
+          label: "SAA-C03版模擬試験② 問題48"
+      aggregate_hold_5:
+        - question_id: 8976432e9abf56e9b86032f6
+          label: "SAA-C03版模擬試験② 問題55"
+          include_in_recovery: true
+        - question_id: 4d7806c96ef7391631cf42e1
+          label: "SAA-C03版模擬試験③ 問題50"
+          include_in_recovery: true
+        - question_id: 0785029a3f6728b589f57ce7
+          label: "SAA-C03版模擬試験② 問題65"
+          include_in_recovery: true
+        - question_id: c44ec7cfbf3c4e93ac707cf3
+          label: "SAA-C03版模擬試験③ 問題2"
+          include_in_recovery: true
+        - question_id: 9ef68ea999c949f828797f08
+          label: "SAA-C03版模擬試験③ 問題12"
+          include_in_recovery: true
+      exact_target_id_gate:
+        count: 85
+        work_item_count: 245
+        canonicalization: "questionIdを昇順sortし、各IDをLF区切り、末尾にもLFを付けてUTF-8 SHA-256"
+        sha256: aa1b14e8341cebf476ad9f57bfa0fde06987f56ec7672ee17a0ca74e552c23c5
+      parallel_safety:
+        safe: false
+        reason: "正規UI recoveryは同じSAA lease、current work versions、旧run selectionを使用する。別のSAA run又はartifact/work version更新を並列実行するとexact gateが失効する。"
+      worker_package:
+        objective: "T013へ転記済み。exact 85-ID gateを通過した場合だけ正規UI recoveryを一度開始し、Firestore非反映で395/395 local-readyまで閉じる。"
+        allowed_files:
+          - "T013.allowed_filesを正本とする"
+        verify:
+          - "T013.verifyを正本とする"
+        stop_if:
+          - "T013.stop_ifを正本とする"
+      blocked_tasks:
+        - T003
+        - T004
+        - T999
+      missing_evidence:
+        - "exact 85-ID gateを通過した正規UI recovery runの作成証拠。"
+        - "85問のterminal success、blocked・hold・pending=0、artifactSync成功。"
+        - "SAA-C03 395/395 local-ready、quality gate、upload dry-run、AWS全体1274/1274の最終証拠。"
+      required_board_updates:
+        - "T012をdoneとして記録しT013をactivateする。"
+        - "T011は95問gateで安全停止した履歴として保持する。"
+        - "旧checkpoint、5 holdのwork version又はreview承認を手動編集しない。"
+        - "T004とT999はrecovery成功までblockedのまま保持する。"
+  - id: T013
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "clean main・origin/main parity 0/0を再確認後、問題整備UIの作業履歴からrun 20260811T162101744570-a7a2e0a1の『この未完了を再開』を選ぶ。開始直前にcurrent selectionをread-onlyで再計算し、targetCount=85、workItemCount=245、sorted questionId hash=aa1b14e8341cebf476ad9f57bfa0fde06987f56ec7672ee17a0ca74e552c23c5、hold 5問を全て含み、差分10問とvalidated 300問を含まないことを確認する。UI previewのresumedFrom、単一group、6工程、10 update target、Standard/auto_max、Firestore非反映が一致する場合だけ一度開始する。旧checkpoint・work version・review承認を変更せず85問を収束させ、blocked・hold・pending=0、artifactSync成功、SAA-C03 395/395 local-readyまで閉じる。"
+    inputs:
+      - "T012 Judge receiptのexact_target_id_gate、difference_10、aggregate_hold_5"
+      - "run 20260811T162101744570-a7a2e0a1の正規UI recovery preview"
+      - "T009でmainへ統合済みのterminal failed aggregate slot recovery"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json"
+      - "output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+    verify:
+      - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+      - "開始直前read-only selection gate: targetCount=85、workItemCount=245、sorted target questionId SHA-256=aa1b14e8341cebf476ad9f57bfa0fde06987f56ec7672ee17a0ca74e552c23c5、hold5 hash=0d19bafa4c28782d8616bea16378a2a4d410607fcdf3f48df7e091553337e7c4、excluded10 hash=0bcc8785d55436384ca8c1e20e215d648769bf573b332cecb8a92ca65f1f053b"
+      - "UI preview readback: resumedFrom=20260811T162101744570-a7a2e0a1、scopeListGroupIds=[udemy-aws-saa-c03]、targetCount=85、元の6 stageIds・10 selectedUpdateTargetIds、Standard/auto_max、Firestore反映なし"
+      - "python3 -c 'import hashlib,json,pathlib; root=pathlib.Path(\"output/question_review_console/workflow_runs/aws-solutions-architect-associate\"); runs=[json.loads(p.read_text()) for p in root.glob(\"*/manifest.json\")]; new=max((r for r in runs if r.get(\"resumedFrom\")==\"20260811T162101744570-a7a2e0a1\"),key=lambda r:r[\"createdAt\"]); summary=json.loads((root/new[\"runId\"]/\"question_summary.json\").read_text()); ids=sorted(q[\"questionId\"] for q in summary[\"questions\"]); digest=hashlib.sha256((\"\\n\".join(ids)+\"\\n\").encode()).hexdigest(); assert new[\"targetCount\"]==85 and len(ids)==85 and digest==\"aa1b14e8341cebf476ad9f57bfa0fde06987f56ec7672ee17a0ca74e552c23c5\"; print(new[\"runId\"],digest)'"
+      - "jq -s -e '[.[] | select(.resumedFrom == \"20260811T162101744570-a7a2e0a1\")] | max_by(.createdAt) | .targetCount == 85 and .status == \"succeeded\" and .queueStatus == \"succeeded\" and .receiptValidated == true and .validatedQuestionCount == 85 and (.blockedQuestionCount // 0) == 0 and (.blockedWorkItemCount // 0) == 0 and (.questionExecutionSummary.pendingWorkItemCount // 0) == 0 and (.artifactSync.status == \"succeeded\" or .artifactSync.status == \"current\" or .artifactSync.status == \"not_required\")' output/question_review_console/workflow_runs/aws-solutions-architect-associate/*/manifest.json"
+      - "python3 -m tools.question_review_console.workflow_overview_builder --repo-root . --qualification aws-solutions-architect-associate | jq -e '.overallStatus == \"ready\" and .summary.questionCount == 395 and .summary.maintenanceProgress.currentCount == 395 and .summary.maintenanceProgress.requiredCount == 0 and .summary.holdQuestionCount == 0 and (.summary.issueCounts | length) == 0 and any(.groups[]; .listGroupId == \"udemy-aws-saa-c03\" and .questionCount == 395 and .localReady == true)'"
+      - "python3 -c 'from pathlib import Path; from tools.question_review_console.inventory import QuestionInventory; g=QuestionInventory(Path.cwd()).group(\"aws-solutions-architect-associate\",\"udemy-aws-saa-c03\"); assert g[\"questionCount\"]==395; assert not g.get(\"identityBlockers\"); assert not g.get(\"artifactResolutionBlockers\"); assert all(q[\"workflow\"][k]==\"match\" for q in g[\"questions\"] for k in (\"merge\",\"convert\",\"upload\")); assert all(not q.get(\"issues\") for q in g[\"questions\"]); print(\"SAA-C03 395/395 local-ready\")'"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts"
+      - "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate && test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
+    stop_if:
+      - "worktreeがclean mainでない、origin/main parityが0/0でない、又はT012確定後にSAA artifact・work version・workflow contractが変化している。"
+      - "review UI又はSAA leaseを別processが実際に保持する。lock fileは手動削除しない。"
+      - "開始直前selectionが85問・245 work items・exact hashと一致しない。"
+      - "5 holdのいずれかが対象外、差分10問又はvalidated 300問のいずれかが対象内になる。"
+      - "UI previewのresumedFrom、group、6工程、10 update target、Standard/auto_max又はFirestore非反映が一致しない。"
+      - "旧aggregate checkpoint、work version又はreview承認の手動変更が必要になる。"
+      - "同じ5問が再びaggregate review holdになる、terminal failed以外でslot取消しが起きる、又は内容fieldの自動補正が必要になる。同じ入力で再試行しない。"
+      - "00_source、既存ID、category.json、コード、設定、prompt、CLF-C02又はallowed_files外の変更が必要になる。"
+      - "failed delta、identityBlocker、artifactResolutionBlocker、独自画像不足、rollback不能又はretrySafe=falseを検出する。"
+      - "Fast、追加credits、外部API key又はFirestore書込みが必要になる。"
+      - "artifactSyncがfailed又はinterruptedになる。確定patchを保持し、手動再生成せずT004へ送る。"
+      - "Verification fails twice."
     receipt: null
   - id: T999
     type: judge
