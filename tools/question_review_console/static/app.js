@@ -8072,6 +8072,7 @@ async function submitReview(event) {
     } else {
       toast(recordOnly ? "保留再整備に引き継ぐ指摘を記録しました。" : "指摘を記録しました。");
     }
+    state.detailCache.delete(state.detail.id);
     await loadQuestions(true);
   } catch (error) {
     toast(error.message, true);
@@ -8089,6 +8090,7 @@ async function updateReviewStatus(status) {
       body: { status },
     });
     toast(`レビューを「${REVIEW_LABELS[status]}」に更新しました。`);
+    state.detailCache.delete(state.detail.id);
     await loadQuestions(true);
   } catch (error) {
     toast(error.message, true);
@@ -8377,6 +8379,7 @@ async function checkFingerprint() {
     if (fingerprint.loading === true) return;
     const contentChanged = fingerprint.detailVersion
       ? fingerprint.detailVersion !== current.detailVersion
+        || fingerprint.reviewHistoryVersion !== current.reviewHistoryVersion
       : (
         fingerprint.stateHash !== current.stateHash
         || fingerprint.reviewStatus !== current.reviewStatus

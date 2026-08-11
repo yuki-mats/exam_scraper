@@ -2087,6 +2087,8 @@ assert.deepEqual(
         self.assertIn("submissionKey: state.reviewSubmissionKey", javascript)
         self.assertIn("if (state.reviewSubmitting) return", javascript)
         self.assertIn("renderReviewHistory(question.reviewHistory)", javascript)
+        self.assertIn("fingerprint.reviewHistoryVersion !== current.reviewHistoryVersion", javascript)
+        self.assertEqual(javascript.count("state.detailCache.delete(state.detail.id);"), 2)
         self.assertIn("duplicate / ${review.duplicateOf}", javascript)
         self.assertIn('requestKind === "evaluation_rework"', javascript)
         self.assertIn("Codex App Server:", javascript)

@@ -280,9 +280,20 @@ class ReviewStore:
         }
 
     def history_for(self, question: Mapping[str, Any]) -> list[dict[str, Any]]:
-        qualification = str(question["qualification"])
-        list_group_id = str(question["listGroupId"])
-        review_key = str(question.get("reviewKey") or "")
+        return self.history_for_identity(
+            str(question["qualification"]),
+            str(question["listGroupId"]),
+            str(question["id"]),
+        )
+
+    def history_for_identity(
+        self,
+        qualification: str,
+        list_group_id: str,
+        question_id: str,
+    ) -> list[dict[str, Any]]:
+        """Return review history matching the complete public question identity."""
+
         directory = self.root / qualification / list_group_id / "reviews"
         entries: list[tuple[Path, dict[str, Any]]] = []
         for path in sorted(directory.glob("*.json")) if directory.is_dir() else []:
@@ -290,7 +301,11 @@ class ReviewStore:
                 payload = json.loads(path.read_text(encoding="utf-8"))
             except (OSError, json.JSONDecodeError):
                 continue
-            if str(payload.get("reviewKey") or "") == review_key:
+            if (
+                str(payload.get("qualification") or "") == qualification
+                and str(payload.get("listGroupId") or "") == list_group_id
+                and str(payload.get("questionId") or "") == question_id
+            ):
                 entries.append((path, payload))
         canonical_by_content: dict[str, str] = {}
         for _, payload in entries:

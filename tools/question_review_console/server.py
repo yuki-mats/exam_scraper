@@ -833,6 +833,7 @@ class QuestionReviewApplication:
                     "detailVersion": content["detailVersion"],
                     "stateHash": content.get("stateHash"),
                     "contentUpdatedAt": content.get("contentUpdatedAt"),
+                    "reviewHistoryVersion": content["reviewHistoryVersion"],
                     "loading": False,
                     "cache": copy.deepcopy(content.get("cache") or {}),
                 }
@@ -2212,7 +2213,7 @@ class QuestionReviewApplication:
                     "waitingForRun": True,
                     "refreshError": None,
                 }
-                return content
+                return self._overlay_review_history(content)
             return {
                 "id": question_id,
                 "loading": True,
@@ -2249,6 +2250,39 @@ class QuestionReviewApplication:
             )
         content["loading"] = False
         content["cache"] = copy.deepcopy(snapshot.get("cache") or {})
+        return self._overlay_review_history(content)
+
+    def _overlay_review_history(self, content: dict[str, Any]) -> dict[str, Any]:
+        """Overlay mutable review display data without materializing it in caches."""
+
+        history = self.reviews.history_for_identity(
+            str(content["qualification"]),
+            str(content["listGroupId"]),
+            str(content["id"]),
+        )
+        display_fields = (
+            "reviewId",
+            "status",
+            "note",
+            "expectedOutcome",
+            "selection",
+            "createdAt",
+            "canonical",
+            "duplicateOf",
+        )
+        projected = [
+            {field: copy.deepcopy(entry.get(field)) for field in display_fields}
+            for entry in history
+        ]
+        content["reviewHistory"] = projected
+        content["reviewHistoryVersion"] = hashlib.sha256(
+            json.dumps(
+                projected,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()[:16]
         return content
 
     def _question(

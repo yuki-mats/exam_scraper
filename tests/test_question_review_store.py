@@ -218,11 +218,19 @@ class QuestionReviewStoreTests(unittest.TestCase):
                 status="needs_review",
             )
             history = store.history_for(question)
+            exact_history = store.history_for_identity(
+                "sample-exam", "2026", "api-id"
+            )
+            wrong_group_history = store.history_for_identity(
+                "sample-exam", "2025", "api-id"
+            )
             latest = store.latest_current_question_needs_review(
                 "sample-exam", "api-id", "state-1", "2026"
             )
 
         self.assertEqual(history[0]["reviewId"], duplicate["reviewId"])
+        self.assertEqual(exact_history, history)
+        self.assertEqual(wrong_group_history, [])
         self.assertTrue(history[0]["canonical"])
         self.assertEqual(history[1]["duplicateOf"], duplicate["reviewId"])
         self.assertEqual(latest["reviewId"], duplicate["reviewId"])

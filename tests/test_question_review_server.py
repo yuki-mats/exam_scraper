@@ -2292,6 +2292,30 @@ class QuestionReviewServerTests(unittest.TestCase):
             app = QuestionReviewApplication(Path(directory))
             app.question_detail_read_models = QuestionDetails()
 
+            review_dir = (
+                Path(directory)
+                / "output/question_review_console/sample/2026/reviews"
+            )
+            review_dir.mkdir(parents=True)
+            (review_dir / "review-1.json").write_text(
+                json.dumps(
+                    {
+                        "reviewId": "review-1",
+                        "reviewKey": "sample:2026:q1",
+                        "questionId": "question-1",
+                        "qualification": "sample",
+                        "listGroupId": "2026",
+                        "status": "needs_review",
+                        "note": "display note",
+                        "expectedOutcome": "display expected",
+                        "selection": {"dataPath": "questionBodyText"},
+                        "createdAt": "2026-08-11T10:00:00+09:00",
+                        "internalSecret": "must not leak",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
             status, result = app.get(
                 "/api/question-content/question-1/fingerprint",
                 {
@@ -2301,17 +2325,10 @@ class QuestionReviewServerTests(unittest.TestCase):
             )
 
         self.assertEqual(status, 200)
-        self.assertEqual(
-            result,
-            {
-                "id": "question-1",
-                "detailVersion": "detail-version",
-                "stateHash": "state-hash",
-                "contentUpdatedAt": "2026-07-26T10:00:00+09:00",
-                "loading": False,
-                "cache": {},
-            },
-        )
+        self.assertEqual(result["id"], "question-1")
+        self.assertEqual(result["detailVersion"], "detail-version")
+        self.assertEqual(len(result["reviewHistoryVersion"]), 16)
+        self.assertNotIn("reviewHistory", result)
 
     def test_question_list_is_paginated(self):
         class Inventory:
