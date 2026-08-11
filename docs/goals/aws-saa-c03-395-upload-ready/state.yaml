@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T023
+active_task: T024
 
 tasks:
   - id: T001
@@ -1761,7 +1761,7 @@ tasks:
   - id: T023
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Q45とQ27を別責務としてqualification_runsのprompt投影だけを修復する。Q45はquestion_setの現在decision rulesをpreviousValidationFeedback後にも非損失で提示し、決定要因を全て覆う候補とサービス名だけ一致する候補を同等扱いしない一般contractを追加する。Q27はcorrect_choiceでも既に取得済みのimmutable 00_source recordから問題文・全選択肢・正答候補・元解説・referenceUrlsをoriginalizationSource相当の参照証拠として投影する。問題artifact、prompt SSOT、category、version、runは変更しない。"
     inputs:
@@ -1795,6 +1795,68 @@ tasks:
       - "問題artifact、22/23 patch、work version、checkpoint、review承認、run、UI、GoalBuddy control files、CLF-C02又はFirestoreの変更が必要になる。"
       - "T021 validated34、unfinished30集合、Q45/Q27本文・選択肢・正答、policy fingerprintが変わる。"
       - "allowed_files外のdiff又は対象testsの反復失敗がある。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - cmd: "StructuredCandidateStageContextTests; 15 tests"
+          status: pass
+        - cmd: "qualification_runs and workflow_catalog tests"
+          status: pass
+        - cmd: "question_run_recovery; 7 tests"
+          status: pass
+        - cmd: "00_source immutability"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git diff --name-only; allowed exact 2 files"
+          status: pass
+        - cmd: "forbidden hardcode diff scan"
+          status: pass
+        - cmd: "T021 hashes; validated34=10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5 unfinished30=7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661"
+          status: pass
+        - cmd: "T021 plan/policy; planHash=0b2415046381568f345c0c74b99c32887f8744b912d2f234b0abb6583952e1ec policyFingerprint=dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596"
+          status: pass
+        - cmd: "git status/branch/parity; exact two modified files, main, 0/0"
+          status: pass
+      summary: "A: question_setの現行rulesとnative allowedQuestionSetsをpreviousValidationFeedback後へ再提示し、全決定要因を覆う候補がサービス名だけ一致する候補を支配する一般contractを追加しました。B: correct_choiceでもimmutable sourceRecordの本文、全選択肢、正答候補、元解説各field、referenceUrlsをallowlist投影し、currentRecordとの分離、転載・自動割当禁止を明記しました。問題artifact・run・policy・validated34・unfinished30は不変です。"
+      responsibility_a:
+        stage: question_set
+        change: "current rules/native categoriesをpreviousValidationFeedback後に再提示しdeciding-factor dominanceを強制"
+        hardcode: false
+      responsibility_b:
+        stage: correct_choice
+        change: "immutable source question/choices/answer/explanations/referencesをallowlist evidenceとして投影"
+        auto_assignment: false
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T024
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T023のexact 2-file diffをread-onlyで監査する。Q45責務ではcurrent question_set rules/native allowedQuestionSetsがstale feedback後へ非損失で再提示され、決定要因dominanceが一般契約でhardcodeなしであることを確認する。Q27責務ではcorrect_choice source evidenceのallowlist、source/current分離、転載・自動割当禁止、一次資料衝突時hold維持を確認する。既存evidence contracts、tests、policy fingerprint、validated34/unfinished30、run/artifact不変を独立検証し、scope commit/push後のfresh exact30 recovery Worker packageを返す。"
+    inputs:
+      - "T022 Judge receipt"
+      - "T023 Worker receipt"
+      - "qualification_runs.pyとtestのuncommitted diff"
+      - "Q45/Q27 actual prompt fixtures"
+      - "T021 run state and hashes"
+    constraints:
+      - "Read-only。code/test、UI、start、run、artifact、work version、checkpoint、review又はGoalBuddy control filesを変更しない。"
+      - "Q45/Q27/AWS/service/特定ID hardcode、stale feedback破棄、source evidenceからの自動補正を見逃さない。"
+      - "prompt orderingとnative evidence値を現物から確認する。"
+      - "00_source、CLF-C02、Firestoreを変更しない。"
+    expected_output:
+      - "Q45 context-order/dominance責務の承認判定"
+      - "Q27 source evidence責務の承認判定"
+      - "tests、既存契約、exact set/policy不変"
+      - "scope commit/push可否"
+      - "fresh exact30 recoveryの単一Worker package"
     receipt: null
   - id: T999
     type: judge
