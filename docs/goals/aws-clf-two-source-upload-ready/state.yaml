@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T083
+active_task: T079
 
 tasks:
   - id: T001
@@ -4863,7 +4863,7 @@ tasks:
   - id: T079
     type: worker
     assignee: Worker
-    status: blocked
+    status: active
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。両groupの『整備が必要な問題だけ』で、02 policy 4.0が残るexact 876問（KeepItUp 329、Ping-t 547）を単一資格runとして02→02a→03→04、Standard/auto_max、画像なしで再整備する。T073で5.0/currentとなった3問は対象外に保つ。876/876・3504/3504 validatedの終端後、自動artifact syncで両groupの12/20/30/40/upload-ready、requirements check、upload dry-runを成功させる。通常UIで5 canonical reviewの修正後内容を確認してapprovedにし、CLF204C012 duplicateは変更しない。Firestore/Storageへ書かず、00_sourceと全IDを維持する。"
     depends_on:
@@ -5106,7 +5106,7 @@ tasks:
   - id: T083
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T081差分を継続し、qualification previewのquestionWorkItemCountとgroupSummaryを、積ではなくstartと同じbuild_question_executions(plan)及びqueue_summaryの読取結果から導出する。各executionのlistGroupIdごとにquestion数と実work item数を集計し、既知group、問題重複、全体target/work合計をfail-closedで検証する。T079の全876問が02から02a/03/04へ進むexact3504を維持し、開始工程が異なる一般planを過大表示しない。旧UI文字列期待2件と現policy5.0に対する旧prompt文言期待1件だけを現契約へ更新する。planning、token、start、prompt本文、run/review/artifact/00_sourceは変更しない。"
     depends_on:
@@ -5138,7 +5138,32 @@ tasks:
       - "許可外変更、run/review/artifact/00_source、Firestore/Storage/external writeが必要。"
       - "Chromeでrun/review/artifactを生成する。"
       - "全suiteにfailure/errorが残る。"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_workflow.py
+        - tests/test_question_review_qualification_runs.py
+        - document/operations/local_question_review_console.md
+      commands:
+        - cmd: "targeted unittest"
+          status: pass
+        - cmd: "full qualification workflow unittest"
+          status: pass
+        - cmd: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git commit/push"
+          status: pass
+      summary: "startと同じbuild_question_executions＋queue_summaryからgroup別問題数・実work数を導出し、重複・未知group・合計不一致をfail-closed化。全tests、node check、00_source成功。Chromeで876問、329/1316、547/2188、4工程、targets6、3504、Standard/auto_maxをstartせず確認し、race後もready。run/review/artifact hash不変。commit dce05d513をmainへpushし、clean/sync0 0、runtime clear。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
   - id: T999
     type: judge
     assignee: Judge
