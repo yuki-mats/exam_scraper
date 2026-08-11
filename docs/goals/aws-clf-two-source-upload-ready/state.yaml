@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T079
+active_task: T080
 
 tasks:
   - id: T001
@@ -4863,7 +4863,7 @@ tasks:
   - id: T079
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。両groupの『整備が必要な問題だけ』で、02 policy 4.0が残るexact 876問（KeepItUp 329、Ping-t 547）を単一資格runとして02→02a→03→04、Standard/auto_max、画像なしで再整備する。T073で5.0/currentとなった3問は対象外に保つ。876/876・3504/3504 validatedの終端後、自動artifact syncで両groupの12/20/30/40/upload-ready、requirements check、upload dry-runを成功させる。通常UIで5 canonical reviewの修正後内容を確認してapprovedにし、CLF204C012 duplicateは変更しない。Firestore/Storageへ書かず、00_sourceと全IDを維持する。"
     depends_on:
@@ -4927,6 +4927,48 @@ tasks:
       - "5 canonical review expectedOutcome不一致、duplicate更新、又は承認がstandalone/model runを開始する。"
       - "artifact sync警告・件数/identity/hash不一致、又は手編集/direct API/CLI mutationが必要。"
       - "00_source、ID、05/10、code/config/prompt/document、Firestore/Storage、外部providerへ変更又はwriteが必要。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "通常Chrome UIでAWS CLF-C02両group preview設定・再試行"
+          status: fail
+          detail: "HTTP 200後も確認中表示"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git diff/status/sync readback"
+          status: pass
+          detail: "clean 0 0"
+        - cmd: "listener/process/lock/lease cleanup"
+          status: pass
+      summary: "通常UIで両group、必要問題のみ、02/02a/03/04、targets6、Standard/auto_max、画像・05・01なしを設定。server preview HTTP200だがUIが確認中のままexact876・329/547・3504 workを表示できず、開始前停止。run/review/artifact0。"
+      remaining_blockers:
+        - "preview HTTP200 responseのUI render未完了"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "UIからexact previewを確認不能。"
+  - id: T080
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T079でqualification preview APIがHTTP 200を返した後も通常UIが『対象を確認しています／確認中』のまま完了しない原因をread-only監査する。大規模876問responseのfetch、state transition、renderQualificationRunPreview、例外処理、DOM負荷、cache/fingerprint、browser consoleを追い、exact件数を通常UIに表示できる最小修正とT079再開契約を確定する。"
+    depends_on:
+      - T079
+    inputs:
+      - "T079 blocked receipt"
+      - "preview API/server logs and response shape"
+      - "qualification preview UI state/render code/tests/docs"
+    constraints:
+      - "Read-only。"
+      - "run/review/artifact/00_sourceを変更しない。"
+      - "direct API start、response手編集、件数省略で回避しない。"
+      - "通常UIでauthoritative exact876/329/547/3504を開始前に確認できる正常フローを定義する。"
+      - "Firestore/Storage、model policy、qualification planning scopeを変更しない。"
+    expected_output:
+      - "Root cause and failing UI transition/exception"
+      - "Minimal Worker objective、allowed_files、verify、stop_if"
+      - "T079 restart and additional approval decision"
     receipt: null
   - id: T999
     type: judge
@@ -4979,6 +5021,7 @@ tasks:
       - T077
       - T078
       - T079
+      - T080
       - T004
       - T005
     inputs:
