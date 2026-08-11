@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T033
+active_task: T034
 
 tasks:
   - id: T001
@@ -2530,7 +2530,7 @@ tasks:
   - id: T033
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "T031 exact4 diffを保持したまま、actual targetIdentityのworkItemCount/stageCount宣言照合と不足fail-closed回帰testsだけを追加する。UI、server、run contract、hash/token、checked-plan処理は変更しない。実編集はqualification_runs.pyとそのtestだけに限定し、commit/push、UI、preview/startは禁止する。"
     inputs:
@@ -2568,6 +2568,54 @@ tasks:
       - "token/schema/planHash/selfHash、routing/authority、requested filter/actual identity、checked-plan単回利用を変更する必要が生じる。"
       - "UI、preview、start、run、artifact、work version、review、00_source、CLF-C02、Firestore又はGoalBuddy control fileの変更が必要になる。"
       - "指定testsが完了せず、又は反復失敗する。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "preserved app.js and workflow test hashes before and after"
+          status: pass
+        - cmd: QuestionWorkPreviewGroupSummaryTests
+          status: "blocked: repeated runs did not complete while Python read existing Google Drive pycache"
+        - cmd: "qualification queue safety regression test"
+          status: "blocked: repeated runs did not complete under same environment condition"
+        - cmd: "revert T033-only edits and git diff check"
+          status: pass
+        - cmd: "git diff name-only preserved T031 exact4"
+          status: pass
+      summary: "workItemCount/stageCount照合とdirect testsを一度実装したが、指定testが既存Google Drive pycache読込中に反復停止した。stop_ifに従い今回追加したT033差分だけを戻した。T031 exact4差分とapp.js/workflow testの指定hashは不変で、commit/push、UI、preview、start、runは未実行。"
+      evidence:
+        - "app.js hash=7ed20adbff9ec96f2b2bf34211447dbea1cea69bb5f264948e3894bfe453a649とworkflow test hash=c73fccec76d1956a93db632cb116d51626e52bab517801304c3a2e93c1adfd11を維持。"
+        - "指定testsはGoogle Drive上のrepo-local dataless pycache readで反復停止した。"
+        - "T033-only editsはWorkerが自身の変更だけを戻し、T031 exact4 uncommitted diffを維持。"
+        - "commit/push、UI、preview/start、run、artifact、Firestore、upload/publish変更はない。"
+      deviations: []
+      remaining_blockers:
+        - "repo-local dataless pycacheを読まないtest execution environmentが必要。"
+        - "環境迂回後に同じ2-file amendmentと全testsを再実行する必要がある。"
+      verification_attempts: 2
+      stopped_because: "指定testsがrepo-local dataless pycache読込で反復して完了しないstop_ifが成立した。"
+  - id: T034
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T033指定testsがGoogle Drive上のdataless repo-local pycache読込で反復停止した環境原因をread-onlyで監査する。source files、pycache flags、Python import/cache semanticsを確認し、repo-local cacheを削除又はhydrationせず、task-scoped temporary PYTHONPYCACHEPREFIXで既存pycacheのread/writeを迂回できるか判定する。T031 diff不変を確認し、T033 amendmentを再実行する最小Worker packageを返す。"
+    inputs:
+      - "T032 reject receipt"
+      - "T033 blocked receipt"
+      - "repo-local dataless pycache inventory"
+      - "Python test/import configuration"
+    constraints:
+      - "Read-only。repo file、pycache、code、test、UI、run、GoalBuddy control filesを変更・削除しない。"
+      - "Google Drive app restart、folder-wide pin/download、cache deletionを行わない。"
+      - "temporary cache prefixはrepo外のmktemp directoryに限定し、source import又はtest contractを変えない。"
+      - "test skip、timeout成功扱い、既存pycache手動補正を提案しない。"
+    expected_output:
+      - "反復停止したexact pycache/import pathとsource file状態"
+      - "PYTHONPYCACHEPREFIXによるrepo-local pycache迂回可否"
+      - "安全なtest command wrapperと終了条件"
+      - "T033 2-file amendmentを再実行するWorker package"
+      - "その後のread-only diff Judge sequence"
     receipt: null
   - id: T999
     type: judge
