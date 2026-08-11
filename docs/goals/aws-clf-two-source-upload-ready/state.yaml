@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T080
+active_task: T081
 
 tasks:
   - id: T001
@@ -4868,6 +4868,7 @@ tasks:
     objective: "通常の問題整備UIだけを使う。両groupの『整備が必要な問題だけ』で、02 policy 4.0が残るexact 876問（KeepItUp 329、Ping-t 547）を単一資格runとして02→02a→03→04、Standard/auto_max、画像なしで再整備する。T073で5.0/currentとなった3問は対象外に保つ。876/876・3504/3504 validatedの終端後、自動artifact syncで両groupの12/20/30/40/upload-ready、requirements check、upload dry-runを成功させる。通常UIで5 canonical reviewの修正後内容を確認してapprovedにし、CLF204C012 duplicateは変更しない。Firestore/Storageへ書かず、00_sourceと全IDを維持する。"
     depends_on:
       - T078
+      - T081
     inputs:
       - "T078 receipt"
       - "all AWS CLF-C02 879 work versions"
@@ -4950,7 +4951,7 @@ tasks:
   - id: T080
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T079でqualification preview APIがHTTP 200を返した後も通常UIが『対象を確認しています／確認中』のまま完了しない原因をread-only監査する。大規模876問responseのfetch、state transition、renderQualificationRunPreview、例外処理、DOM負荷、cache/fingerprint、browser consoleを追い、exact件数を通常UIに表示できる最小修正とT079再開契約を確定する。"
     depends_on:
@@ -4969,6 +4970,68 @@ tasks:
       - "Root cause and failing UI transition/exception"
       - "Minimal Worker objective、allowed_files、verify、stop_if"
       - "T079 restart and additional approval decision"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "HTTP200後の停止はpreviewSequence不一致時の無表示returnと最新request終端保証不足。orchestrationをhuman表示から除外し3504を表示せず、responseにgroup別329/547もない。group summaries、orchestration表示、最新request終端保証後にT079再開可能。追加承認不要。"
+      evidence:
+        - "T079はHTTP200後確認中のまま、run0。"
+        - "app.jsは旧request abort/sequence increment後、不一致を無表示return。"
+        - "loading timeoutは15分。"
+        - "DOMはO(1)でrender例外はcatchされるため負荷原因でない。"
+        - "human限定分岐でorchestrationはwork表示対象外。"
+        - "backend responseにgroup別target/work集計なし。"
+        - "cache-control no-store。"
+        - "git clean/sync0。"
+      parallel_safety:
+        safe: false
+        reason: "app/qualification preview/testsの一体変更。"
+      blocked_tasks:
+        - T079
+        - T999
+      missing_evidence:
+        - "T081 UI/test receipt"
+        - "T079 final run"
+      required_board_updates:
+        - "T081追加"
+        - "T079 depends T081"
+        - "追加承認不要"
+  - id: T081
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "資格runのpreviewを表示専用に修正する。backendが既存planからgroup別target/work summaryを返し、通常UIがhumanとorchestrationをquestion-work previewとして扱ってexact876問、KeepItUp329、Ping-t547、02→02a→03→04の4 stages、selected targets6、3504 work、Standard/auto_maxを表示できるようにする。preview requestはsignatureとsequenceを結び、最新requestが必ずready/blocked/errorで終端し、stale responseが上書き又はloadingを残さないようにする。planning/token/start/model routingは変更しない。"
+    depends_on:
+      - T080
+    allowed_files:
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_workflow.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow tests.test_question_review_qualification_runs"
+      - "node --check tools/question_review_console/static/app.js"
+      - "backend group summaryがexisting planからexact876/329/547/3504を導出し、重複・unknown group・集計不一致をfail-closedにする。"
+      - "planning、questionIds、stageIds、selectedUpdateTargetIds、preview token、start planは変更前と同一である。"
+      - "orchestration previewがquestion count、group別count、4 stages、targets6、work3504を表示する。"
+      - "race回帰でstale HTTP200が最新requestを上書きせず、latest requestがready/blocked/errorのいずれかへ必ず終端する。"
+      - "876問を個別DOMへ展開せず、bounded renderを維持する。"
+      - "通常Chrome UIでpreview exact876/329/547/3504、4 stages、targets6、Standard/auto_maxを確認する。開始ボタンは押さず、設定を繰り返し変更しても確認中に残らず、console error=0である。"
+      - "前後でworkflow run、review、artifact、00_sourceの変更が0である。"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check、許可ファイルだけをmainへcommit/push、clean/sync 0 0、process/listener/lock/leaseなし。"
+    stop_if:
+      - "qualification planning、token、start、model policy/routingのscope変更が必要になる。"
+      - "client側でgroup件数をhardcode又は推測する。"
+      - "backend summary不一致でもstart可能になる。"
+      - "stale responseが最新stateを上書きする、又はlatest requestのloadingが孤児化する。"
+      - "876問を個別DOMへ展開する。"
+      - "server.py、index.html、CSS、config、prompt又は許可外ファイル変更が必要になる。"
+      - "Chrome確認でrun、review、artifactを作成する。"
+      - "Firestore/Storage/external writeが必要になる。"
     receipt: null
   - id: T999
     type: judge
@@ -5022,6 +5085,7 @@ tasks:
       - T078
       - T079
       - T080
+      - T081
       - T004
       - T005
     inputs:
