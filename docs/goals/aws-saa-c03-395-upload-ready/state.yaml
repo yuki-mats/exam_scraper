@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T014
+active_task: T015
 
 tasks:
   - id: T001
@@ -1036,7 +1036,7 @@ tasks:
   - id: T014
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T013でquestion_set blockedとなったquestionId 6c74190a4ab7caf42ea941b4（SAA-C03版模擬試験① 問題45）について、問題内容、正答根拠、category/questionSetId正本、現行question_set工程、類似問題の分類をread-onlyで独立に照合する。SQSとSNSを含む問題の主復習先を現行基準から一意に確定できるか、内容変更又は人手決め打ちを要するか、単純な分類責務の修正が必要かを判定し、残り64問を守る最大の安全な次Worker packageを返す。"
     inputs:
@@ -1057,6 +1057,91 @@ tasks:
       - "人手承認又は内容変更の要否"
       - "必要なら最小の正本/実装修正範囲と回帰契約"
       - "T013からのexact recovery set gateを含む次Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "Q45の正答はSQS FIFOとSNS FIFOで、主学習目的はサービス数ではなく順序維持・重複排除である。分類正本では6-1だけがFIFO・重複排除を明示し、6-2はPub/Sub・ファンアウトを扱うため、主復習先は6-1へ一意に確定できる。現行工程はno-tool turnへcategory.jsonのdescriptionとmatchingHintsを渡さず、正本が要求する決定要因を欠落させた。hold自体は安全だったが、内容判断ではなくsystem responsibility defectである。問題内容や人手承認は不要で、分類contextの非損失化を先に修復する。"
+      evidence:
+        - "Q45の正答はAmazon SQS FIFOキューとAmazon SNS FIFOトピックで、主学習目的はFIFOによる順序維持と重複排除である。"
+        - "6-1 SQSのdescription/matchingHintsはFIFOキューと重複排除を明示するため採用。6-2 SNSはPub/Sub・ファンアウトが中心で設問要件にないため不採用。"
+        - "資格別正本は複数サービスの登場数ではなく正解を分ける決定要因で主分類を選ぶ。T013の3 attemptはサービス数を同等性の根拠にしていた。"
+        - "prompt/04はcategory.jsonのname、description、matchingHints、folderIdを合わせて読むよう要求するが、_structured_candidate_stage_contextはdescriptionとmatchingHintsを欠落させていた。"
+        - "Q45の内容変更と人手承認は不要。blockedはfail-closedとして安全だったが、同じ欠損contextでの再試行では解消しない。"
+        - "T013はvalidated 21、blocked 1、queued 63。unfinished 64-ID sorted-newline SHA-256は04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698。"
+        - "mainはorigin/mainと0/0、worktree clean。対象unit tests 2件と00_source immutabilityがpassした。"
+      q45_decision:
+        question_id: 6c74190a4ab7caf42ea941b4
+        question_set_id: aws_solutions_architect_associate_qs06_01_sqs_queues_dlq
+        human_approval_required: false
+        content_change_required: false
+        system_responsibility_defect: "category.jsonのdescriptionとmatchingHintsがno-tool structured candidate contextへ渡されていない"
+      exact_recovery_set_gate:
+        resumed_from: 20260811T182911729697-cce7a06d
+        target_count: 64
+        blocked_count: 1
+        queued_count: 63
+        validated_exclusion_count: 21
+        sorted_newline_sha256: 04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698
+        start_authorized: false
+      next_allowed_task:
+        type: worker
+        objective: "T015へ転記済み。classification contextを非損失化し、exact 64-ID recovery previewまで確認する。runは開始しない。"
+        allowed_files:
+          - tools/question_review_console/qualification_runs.py
+          - tests/test_question_review_qualification_runs.py
+        verify:
+          - "T015.verifyを正本とする"
+        stop_if:
+          - "T015.stop_ifを正本とする"
+      parallel_safety:
+        safe: false
+        reason: "実装修正、preview監査、live recoveryは同じquestion_set contextとT013状態へ依存する。"
+      blocked_tasks:
+        - "T013 recovery resume"
+        - T004
+        - T999
+      missing_evidence:
+        - "description・matchingHintsを非損失で渡す実装diffと回帰test。"
+        - "question_set policy fingerprintが変わらないreadback。"
+        - "正規UI recovery previewがexact 64-ID gateを満たす証拠。"
+        - "Q45が6-1へ確定され残り64問がvalidatedとなるrun receipt。"
+        - "395/395 local-ready、artifactSync、upload dry-run。"
+      required_board_updates:
+        - "T014をdoneとして記録しT015をactivateする。"
+        - "T015ではrun開始を禁止する。"
+        - "T015完了後にread-only Judgeでdiff、tests、policy fingerprint、exact 64-ID previewを監査する。"
+        - "Judge承認後だけexact 64問の正規UI recoveryを開始する。"
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "question_setのno-tool structured candidate contextを分類正本どおり非損失化し、各allowedQuestionSetsへcategory.jsonのdescriptionとmatchingHintsをnative型のまま渡す。複数サービスの数ではなく問題全体の決定要因を比較する共通ruleを追加し、資格固有IDやQ45をhardcodeせず回帰testを追加する。修正後は正規UIでrun 20260811T182911729697-cce7a06dのrecovery previewをreadbackし、exact 64-ID gateを確認するところまでとし、runは開始しない。"
+    inputs:
+      - "T014 Judge receiptのQ45分類判定とnext_allowed_task"
+      - "category.jsonのnative description・matchingHints"
+      - "current _structured_candidate_stage_contextと関連tests"
+      - "T013 unfinished 64-ID集合とvalidated exclusion 21-ID集合"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.StructuredCandidateStageContextTests"
+      - "python3 -m unittest tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog"
+      - "python3 -c 'from pathlib import Path; from tools.question_review_console.qualification_runs import _structured_candidate_stage_context; c=_structured_candidate_stage_context(Path.cwd(),\"aws-solutions-architect-associate\",\"question_set\"); q={x[\"questionSetId\"]:x for x in c[\"allowedQuestionSets\"]}; ids=(\"aws_solutions_architect_associate_qs06_01_sqs_queues_dlq\",\"aws_solutions_architect_associate_qs06_02_sns_pubsub_fanout\"); assert all(isinstance(q[i][\"description\"],str) and isinstance(q[i][\"matchingHints\"],list) for i in ids); assert any(\"決定要因\" in x and \"数\" in x for x in c[\"rules\"])'"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "正規UIでrun 20260811T182911729697-cce7a06dのrecovery previewを一度だけreadbackし、targetCount=64、blocked Q45を含むunfinished 64-ID集合、sorted-newline SHA-256=04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698、確定済み21-IDが0件であることを確認する。run開始操作はしない。"
+    stop_if:
+      - "category.json、資格別分類正本、共通prompt又はQ45の問題内容を変更する必要がある。"
+      - "SAA、SQS、SNS、Q45又は特定questionSetIdのhardcode、現在値への自動補正、人手承認が必要になる。"
+      - "description又はmatchingHintsを文字列化・要約し、category.jsonのnative値を保持できない。"
+      - "question_setのpolicy fingerprint又は既存21問の入力・出力fingerprintが変わる。"
+      - "recovery previewがexact 64-ID集合でない、21 validatedのいずれかを含む、Q45を欠く、又はrun開始なしに確認できない。"
+      - "問題artifact、run artifact、review承認、00_source、CLF-C02、Firestore又はGoalBuddy control filesへの変更が必要になる。"
+      - "unrelated dirty diff、main/origin parity不一致又は対象test失敗がある。"
     receipt: null
   - id: T999
     type: judge
