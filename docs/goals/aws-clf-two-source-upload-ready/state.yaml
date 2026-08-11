@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T071
+active_task: T065
 
 tasks:
   - id: T001
@@ -3947,7 +3947,7 @@ tasks:
   - id: T065
     type: worker
     assignee: Worker
-    status: blocked
+    status: active
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。CLF204C012は既存review 268448をcanonical、263906をduplicateとしてUI/APIで確認し、第三のreviewを送信しない。Ping-t 39481だけreadOnly詳細から指定文字列を選択し、下記note・expectedOutcomeをrecord-only current_question reviewとして1回保存してreview JSONとpromptをreadbackする。standalone review patchは実行しない。次にT063 runの『保留を再整備』でexact 2問を05→01→02→02a→03→04へ収束する。修正内容確認後reviewを承認し、Group B exact 4問を02→02a→03→04で実行する。最後に両group artifact sync、332/547 upload-ready、quality gate、upload dry-runを完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持する。"
     depends_on:
@@ -4342,7 +4342,7 @@ tasks:
   - id: T071
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "通常readOnly question detailの履歴表示だけを修正する。ReviewStoreへqualification、listGroupId、questionIdのexact identityで履歴を取得するread-only methodを追加する。serverの/api/question-content full応答では、materialized cacheとactive-run fallbackの双方へ、その履歴から表示に必要なreviewId、status、note、expectedOutcome、selection、createdAt、canonical、duplicateOfだけを動的overlayする。履歴をquestion detail cacheへ複製せず、reviewHistoryVersionをfull応答と/fingerprintへ返す。app.jsはfingerprintで履歴version変化を検出し、review作成・status更新成功後に対象detailCacheを削除して再取得する。既存268448をcanonical、263906をduplicateとして通常readOnly UIで表示確認する。T069のrecord-only、submission idempotency、same-state blocked-rework結合、保護field fail-closedは変更しない。対象実装・testsのみmainへcommit/pushする。"
     depends_on:
@@ -4378,7 +4378,44 @@ tasks:
       - "T069のrecord-only、idempotency、same-state human_review feedback、NON_AUTOMATED_CORRECTION_FIELDS、24_questionIssueCorrections fail-closedのtestが一つでも失敗する。"
       - "Firestore/Storage、00_source、run/artifact、公開、model policy、通常readOnly履歴表示以外へ変更が及ぶ。"
       - "allowed_files外の変更、既存dirty差分、lease/listener残留、main以外のbranch、force pushが発生する。"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/server.py
+        - tools/question_review_console/review_store.py
+        - tools/question_review_console/static/app.js
+        - tests/test_question_review_server.py
+        - tests/test_question_review_store.py
+        - tests/test_question_review_workflow.py
+      commands:
+        - cmd: "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: "PYTEST_ADDOPTS=-p no:debugging PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q tests/test_question_review_store.py tests/test_question_review_server.py tests/test_question_review_question_detail_read_model.py tests/test_question_review_question_work_queue.py tests/test_question_review_qualification_identity.py tests/test_question_review_workflow.py"
+          status: pass
+          detail: "171 tests and 19 subtests"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          detail: "5799 files unchanged"
+        - cmd: "sha256sum existing CLF204C012 reviews and prompts"
+          status: pass
+          detail: "all four unchanged"
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "通常Chromeで対象review history exactly 2 canonical/duplicate表示"
+          status: pass
+          detail: "save/status/run 0"
+        - cmd: "git commit -m fix(review-ui): overlay exact review history on details"
+          status: pass
+          detail: 40aebd69d
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "git status/branch/sync/listener/lock readback"
+          status: pass
+          detail: "clean main 0 0 no listener/lock"
+      summary: "exact identity履歴の動的overlay、表示項目制限、reviewHistoryVersion、detailCache失効を実装。171 tests・19 subtests、Node、00_source不変、SHAを確認。通常Chromeで対象IDを開き、履歴2件、268448 canonical、263906 duplicateを確認し、保存・status・runは0件。40aebd69dをorigin/mainへpushし、clean/sync 0 0、lock・listenerなし。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
   - id: T999
     type: judge
     assignee: Judge
