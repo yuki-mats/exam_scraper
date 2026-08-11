@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T069
+active_task: T065
 
 tasks:
   - id: T001
@@ -3947,9 +3947,9 @@ tasks:
   - id: T065
     type: worker
     assignee: Worker
-    status: blocked
+    status: active
     reasoning_hint: medium
-    objective: "通常の問題整備UIだけを使う。最初にCLF204C012とPing-t 39481のreadOnly詳細から指定文字列を選択し、下記note・expectedOutcomeをcurrent_question reviewとして保存してreview JSONとpromptをreadbackする。standalone review patchは実行しない。次にT063 runの『保留を再整備』でexact 2問を05→01→02→02a→03→04へ収束する。修正内容確認後reviewを承認し、Group B exact 4問を02→02a→03→04で実行する。最後に両group artifact sync、332/547 upload-ready、quality gate、upload dry-runを完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持する。"
+    objective: "通常の問題整備UIだけを使う。CLF204C012は既存review 268448をcanonical、263906をduplicateとしてUI/APIで確認し、第三のreviewを送信しない。Ping-t 39481だけreadOnly詳細から指定文字列を選択し、下記note・expectedOutcomeをrecord-only current_question reviewとして1回保存してreview JSONとpromptをreadbackする。standalone review patchは実行しない。次にT063 runの『保留を再整備』でexact 2問を05→01→02→02a→03→04へ収束する。修正内容確認後reviewを承認し、Group B exact 4問を02→02a→03→04で実行する。最後に両group artifact sync、332/547 upload-ready、quality gate、upload dry-runを完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持する。"
     depends_on:
       - T064
       - T067
@@ -4220,7 +4220,7 @@ tasks:
   - id: T069
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "問題整備通常UI/APIを限定修正する。questionBodyText/choiceTextListの選択reviewはneeds_review・startCodex=falseの記録専用として表示し、standalone開始と責務分離する。APIはstartCodex要求をreview保存前に既存NON_AUTOMATED_CORRECTION_FIELDS契約で拒否する。dialog単位submissionKey、UI in-flight mutex、ReviewStoreのlock内永続idempotencyにより同じ送信からreview/prompt又はrunを二重生成しない。詳細API/UIに全review履歴と同内容重複のcanonical/duplicateOfを表示し、既存268448をcanonical、263906を重複として無変更で監査可能にする。blocked-reworkではserverが各exact questionの最新current_question needs_reviewを解決し、projectedHashがplan target stateHashと一致する場合だけreviewId・note・expectedOutcome・selectionをhuman_review feedbackとして既存blocked_maintenanceへ追加し、preview tokenへ固定する。任意client feedbackは受け付けない。実装・tests・SSOT文書だけをcommit/pushし、T065成果物やrunは実行・変更しない。"
     depends_on:
@@ -4252,7 +4252,44 @@ tasks:
       - "NON_AUTOMATED_CORRECTION_FIELDS、24_questionIssueCorrections専用workflow、00_source、Firestore/Storage、model policy、通常UI/current_question/blocked-rework以外の権限変更が必要になる。"
       - "既存263906/268448のreview又はpromptを編集・削除・改名する必要がある。"
       - "allowed_files外の変更、既存dirty差分、lease conflict、main以外のbranch、force pushが発生する。"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/server.py
+        - tools/question_review_console/review_store.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_workflow.py
+        - tests/test_question_review_server.py
+        - tests/test_question_review_store.py
+        - tests/test_question_review_question_work_queue.py
+        - document/operations/local_question_review_console.md
+      commands:
+        - cmd: "/Users/yuki/.nvm/versions/node/v25.2.1/bin/node --check tools/question_review_console/static/app.js"
+          status: pass
+        - cmd: "PYTEST_ADDOPTS=-p no:debugging PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q tests/test_question_review_store.py tests/test_question_review_server.py tests/test_question_review_question_work_queue.py tests/test_question_review_qualification_identity.py tests/test_question_review_workflow.py"
+          status: pass
+          detail: "168 tests and 19 subtests"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          detail: "5799 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "ReviewStore history readback for existing 263906/268448"
+          status: pass
+          detail: "268448 canonical; 263906 duplicate"
+        - cmd: "git commit -m fix: make protected reviews record only"
+          status: pass
+          detail: 7a69c4e10
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          status: pass
+          detail: "clean main 0 0"
+      summary: "保護field reviewをrecord-only・保存前fail-closedへ分離し、UI mutex、submissionKey、store lock内idempotencyを実装した。全review履歴をcanonical/duplicateOf付きで表示し、既存268448をcanonical、263906をduplicateとして無変更確認した。blocked-reworkはsame-state最新current_question reviewだけをserver側でhuman_review feedbackへ結合しpreview tokenへ固定する。168 tests・19 subtests、JS、00_source 5799 files、diff検証合格。commit 7a69c4e10をorigin/mainへpushしclean・同期0 0、process/listener/leaseなし。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
   - id: T999
     type: judge
     assignee: Judge
