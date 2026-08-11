@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T027
+active_task: T028
 
 tasks:
   - id: T001
@@ -2090,7 +2090,7 @@ tasks:
   - id: T027
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "committed mainからfresh review-uiを起動し、base run 20260811T201827949133-bcb65475のcurrent unfinished exact29だけを一度previewする。全ID・45 work item・policy・収束除外が一致した場合だけstartを一度実行し、新runをterminalまで監視する。Q45/Q27、artifactSync、SAA-C03 395/395 local-ready、Firestore writes=0を現物readbackする。code変更又は追加commitは行わない。"
     inputs:
@@ -2129,6 +2129,61 @@ tasks:
       - "Q45/Q27を含む問題がblocked、人間content decision、source conflict又はreview承認を要求する。content fieldを自動補正しない。"
       - "exact29外、validated34、収束除外問、base run、orphan、00_source、CLF-C02、Firestore、GoalBuddy control files、product code/testへの変更が必要になる。"
       - "API key、credit bypass、Fast、非公開header/URL固定、成功値捏造fallback、外部upload/publish又は別run/startが必要になる。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "git clean main origin parity 0/0 and product commit presence"
+          status: pass
+        - cmd: "base validated34 unfinished30 exact29 hash readback"
+          status: pass
+        - cmd: "converged exclusion work version and artifact readback"
+          status: pass
+        - cmd: "fresh review-ui preview"
+          status: "blocked: 29 questions and 45 work items matched, but exact ID and workItemKey payload could not be read back"
+        - cmd: "UI start"
+          status: "not executed"
+        - cmd: "fresh run directory readback"
+          status: "pass: no new run created"
+        - cmd: "review-ui shutdown"
+          status: pass
+      summary: "committed mainのfresh UIでbase runを一度だけpreviewし、29問・45工程、6工程、Standard、Firestore非反映を確認した。しかしUI表示からexact ID配列と45 workItemKeysを取得できず、必須hash gateを確証できなかった。再previewは禁止のためstartせず、readback失敗のstop_ifに従い安全停止した。新run・code変更・外部反映はない。"
+      evidence:
+        - "base=20260811T201827949133-bcb65475、targetCount=29、workItemCount=45、6 stages、Standard/100、Firestore disabledは表示上確認した。"
+        - "preview responseのexact29 question IDsと45 workItemKeysを監査可能な形で保存又はreadbackできなかった。"
+        - "startは実行せず、新run directoryは作成されていない。"
+        - "main clean、origin parity 0/0、base/validated/converged exclusion gatesは開始前まで一致した。"
+        - "code、test、artifact、work version、Firestore、外部upload/publishの変更はない。"
+      deviations: []
+      remaining_blockers:
+        - "preview responseのexact29 ID配列/hashを保存・readbackできない。"
+        - "preview responseの45 workItemKeys/hashとstage内訳を保存・readbackできない。"
+        - "target identityをpreviewの単一正本から監査できる一般契約が必要。"
+      verification_attempts: 1
+      stopped_because: "必須preview payloadのID/workItemKeys readbackに失敗し、再preview禁止のためstart gateを満たせなかった。"
+  - id: T028
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T027 fresh previewが29/45 countsは返したがexact question IDs/workItemKeys/stage内訳を監査可能にreadbackできなかった責務境界をread-onlyで特定する。preview server response、UI client/read model、preview token/immutable plan registry、start requestの関係を追い、対象identityを再計算又はUI scrapingせずpreview responseの単一正本として返す最小一般契約を設計する。既存run/artifact不変を確認し、実装・test・Judge・single retryの直列packageを返す。"
+    inputs:
+      - "T027 blocked receipt"
+      - "qualification preview/start server and UI implementation"
+      - "preview token and immutable plan contracts/tests"
+      - "T026 exact29/45 gate"
+    constraints:
+      - "Read-only。code、test、UI、preview、start、run、artifact、cache、work version、GoalBuddy control filesを変更しない。"
+      - "同一preview tokenの存在又は内容を捏造せず、終了済みserverから回収できないものはmissing evidenceとして扱う。"
+      - "target identityをclient側で再計算、countsから推定、又はstart時に別planへ差し替えない。"
+      - "特定資格、questionId、29/45 current valueのhardcodeを提案しない。"
+      - "00_source、CLF-C02、Firestore、外部upload/publishを変更しない。"
+    expected_output:
+      - "exact identity readback不能の直接原因と責務owner"
+      - "preview responseで返すべき最小identity/hash/stage summary契約"
+      - "preview token/plan hash/startのTOCTOU不変条件"
+      - "最小allowed filesと回帰tests"
+      - "実装Worker、read-only Judge、single fresh retryの順次package"
     receipt: null
   - id: T999
     type: judge
