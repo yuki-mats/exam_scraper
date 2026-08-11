@@ -5,6 +5,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.question_review_console.question_run_state import (
     RUN_SCHEMA_VERSION,
@@ -174,6 +175,99 @@ class QuestionRunStateStoreTest(unittest.TestCase):
             )
             with self.assertRaisesRegex(QuestionRunStateError, "hash"):
                 store.load_plan(run_dir, manifest)
+
+    def test_plan_read_accepts_one_ctime_only_race_after_bounded_reread(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store, run_dir, _plan, manifest = self._initialize(root)
+            signatures = iter(((1, 100, 200, 300), (1, 100, 200, 301), (1, 100, 200, 301)))
+            with patch.object(store, "_file_signature", side_effect=lambda *_args, **_kwargs: next(signatures)), patch(
+                "tools.question_review_console.question_run_state._read_json",
+                wraps=lambda path, **_kwargs: json.loads(path.read_text(encoding="utf-8")),
+            ) as reads:
+                loaded = store.load_plan(run_dir, manifest)
+
+        self.assertEqual(loaded["qualification"], "gas")
+        self.assertEqual(reads.call_count, 2)
+
+    def test_sixty_four_question_initialization_survives_one_ctime_only_race(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            original_signature = QuestionRunStateStore._file_signature
+            plan_signature_reads = 0
+
+            def one_ctime_race(path, *, label):
+                nonlocal plan_signature_reads
+                signature = original_signature(path, label=label)
+                if path.name != "plan.json":
+                    return signature
+                plan_signature_reads += 1
+                if plan_signature_reads == 1:
+                    return (*signature[:3], signature[3] - 1)
+                return signature
+
+            with patch.object(
+                QuestionRunStateStore,
+                "_file_signature",
+                side_effect=one_ctime_race,
+            ):
+                store, run_dir, _plan, manifest = self._initialize(root, count=64)
+
+            hydrated = store.hydrate(run_dir, manifest)
+            summary = json.loads(
+                (run_dir / "question_summary.json").read_text(encoding="utf-8")
+            )
+            question_file_count = len(
+                list((run_dir / "questions").glob("*.json"))
+            )
+
+        self.assertEqual(hydrated["planHash"], manifest["planHash"])
+        self.assertGreaterEqual(plan_signature_reads, 3)
+        self.assertEqual(len(hydrated["questionExecutions"]), 64)
+        self.assertEqual(summary["questionCount"], 64)
+        self.assertEqual(question_file_count, 64)
+
+    def test_plan_read_rejects_non_ctime_signature_changes_without_reread(self):
+        changes = ((2, 100, 200, 300), (1, 101, 200, 300), (1, 100, 201, 300))
+        for changed in changes:
+            with self.subTest(changed=changed), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                store, run_dir, _plan, manifest = self._initialize(root)
+                signatures = iter(((1, 100, 200, 300), changed))
+                with patch.object(store, "_file_signature", side_effect=lambda *_args, **_kwargs: next(signatures)), patch(
+                    "tools.question_review_console.question_run_state._read_json",
+                    wraps=lambda path, **_kwargs: json.loads(path.read_text(encoding="utf-8")),
+                ) as reads, self.assertRaisesRegex(QuestionRunStateError, "before=.*after="):
+                    store.load_plan(run_dir, manifest)
+                self.assertEqual(reads.call_count, 1)
+
+    def test_plan_read_rejects_repeated_ctime_only_change_with_signatures(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store, run_dir, _plan, manifest = self._initialize(root)
+            signatures = iter(((1, 100, 200, 300), (1, 100, 200, 301), (1, 100, 200, 302)))
+            with patch.object(store, "_file_signature", side_effect=lambda *_args, **_kwargs: next(signatures)), self.assertRaisesRegex(
+                QuestionRunStateError,
+                r"before=\(1, 100, 200, 301\), after=\(1, 100, 200, 302\)",
+            ):
+                store.load_plan(run_dir, manifest)
+
+    def test_stable_plan_rejects_payload_manifest_and_canonical_hash_mismatch(self):
+        for mismatch in ("payload", "manifest", "canonical"):
+            with self.subTest(mismatch=mismatch), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                store, run_dir, _plan, manifest = self._initialize(root)
+                plan_path = run_dir / "plan.json"
+                payload = json.loads(plan_path.read_text(encoding="utf-8"))
+                if mismatch == "payload":
+                    payload["planHash"] = "0" * 64
+                elif mismatch == "manifest":
+                    manifest["planHash"] = "1" * 64
+                else:
+                    payload["plan"]["qualification"] = "changed"
+                plan_path.write_text(json.dumps(payload), encoding="utf-8")
+                with self.assertRaisesRegex(QuestionRunStateError, "hash"):
+                    store.load_plan(run_dir, manifest)
 
     def test_summary_is_rebuilt_from_question_states(self):
         with tempfile.TemporaryDirectory() as directory:

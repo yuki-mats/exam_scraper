@@ -351,10 +351,26 @@ class QuestionRunStateStore:
             ):
                 return cached[2]
         payload = _read_json(path, label="immutable plan")
-        if self._file_signature(path, label="immutable plan") != signature:
-            raise QuestionRunStateError(
-                "immutable planが読取中に変更されました。"
+        after_signature = self._file_signature(path, label="immutable plan")
+        if after_signature != signature:
+            diagnostic = (
+                f"before={signature}, after={after_signature}"
             )
+            if after_signature[:3] != signature[:3]:
+                raise QuestionRunStateError(
+                    "immutable planが読取中に変更されました。" + diagnostic
+                )
+            payload = _read_json(path, label="immutable plan")
+            retry_after_signature = self._file_signature(
+                path,
+                label="immutable plan",
+            )
+            if retry_after_signature != after_signature:
+                raise QuestionRunStateError(
+                    "immutable planのctime-only変化が再読中も続きました。"
+                    f"before={after_signature}, after={retry_after_signature}"
+                )
+            signature = retry_after_signature
         if payload.get("schemaVersion") != PLAN_SCHEMA_VERSION:
             raise QuestionRunStateError("immutable planのschemaVersionが不正です。")
         plan = payload.get("plan")
