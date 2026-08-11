@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T082
+active_task: T083
 
 tasks:
   - id: T001
@@ -4870,6 +4870,7 @@ tasks:
       - T078
       - T081
       - T082
+      - T083
     inputs:
       - "T078 receipt"
       - "all AWS CLF-C02 879 work versions"
@@ -5058,7 +5059,7 @@ tasks:
   - id: T082
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T081の未commit差分と最終unittest 2 failuresをread-only監査する。表示専用questionWorkItemCount=targetCount×selected stage countという3504契約が既存qualification plan/start契約を変えず妥当か、失敗が実装不具合か旧test期待値かを確定し、最小の継続Worker scopeを返す。"
     depends_on:
@@ -5077,6 +5078,66 @@ tasks:
       - "3504表示契約の妥当性"
       - "最小Worker objective、allowed_files、verify、stop_if"
       - "T079再開条件と追加承認要否"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "3 failuresはtest期待更新漏れだが、一律targetCount×stageCountは開始工程が異なる一般previewを過大表示する。startと同じbuild_question_executions及びqueue summaryからgroup/work集計を導出後にT079再開可能。追加承認不要。"
+      evidence:
+        - "T081 Chromeは876/329/547/4工程/targets6/Standard/auto_maxをready表示し開始0。"
+        - "workflow test 2件は旧workItemCount文字列期待。"
+        - "qualification test 1件はT081非起因の旧prompt期待。"
+        - "T079の876問は02から4工程なので3504が正しい。"
+        - "一律積は開始工程が異なる一般planを過大表示する。"
+        - "worktreeはT081の5許可ファイルだけ。"
+      parallel_safety:
+        safe: false
+        reason: "T081差分継続とT079は並行不可。"
+      blocked_tasks:
+        - T079
+        - T999
+      missing_evidence:
+        - "T083 tests/UI/commit receipt"
+        - "T079 final run"
+      required_board_updates:
+        - "T083追加"
+        - "T079 depends T083"
+        - "追加承認不要"
+  - id: T083
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "T081差分を継続し、qualification previewのquestionWorkItemCountとgroupSummaryを、積ではなくstartと同じbuild_question_executions(plan)及びqueue_summaryの読取結果から導出する。各executionのlistGroupIdごとにquestion数と実work item数を集計し、既知group、問題重複、全体target/work合計をfail-closedで検証する。T079の全876問が02から02a/03/04へ進むexact3504を維持し、開始工程が異なる一般planを過大表示しない。旧UI文字列期待2件と現policy5.0に対する旧prompt文言期待1件だけを現契約へ更新する。planning、token、start、prompt本文、run/review/artifact/00_sourceは変更しない。"
+    depends_on:
+      - T082
+    allowed_files:
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_workflow.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - "全問が第1工程から始まる3問×2工程のsummaryが6、group別4/2。"
+      - "開始工程が異なるplanは積8でなくbuild_question_executionsと同じ6、group別4/2。"
+      - "duplicate question、unknown group、target/work合計不一致をfail-closed。"
+      - "preview token payload、plan、questionIds、stageIds、selected targets、start再計画が不変。"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow.WorkflowUiContractTests.test_blocked_partial_rework_keeps_authoritative_preview_scope tests.test_question_review_workflow.WorkflowUiContractTests.test_dialog_controls_have_matching_javascript_handlers tests.test_question_review_qualification_runs.QuestionWorkPreviewGroupSummaryTests tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_structured_candidate_prompt_exposes_trusted_source_answer_evidence"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow tests.test_question_review_qualification_runs"
+      - "node --check tools/question_review_console/static/app.js"
+      - "通常Chrome UIでexact876/KeepItUp329/Ping-t547/4工程/targets6/3504/Standard/auto_maxを開始せず確認し、console error0、確認中残留0。"
+      - "Chrome前後でworkflow_runs/reviews/artifact/00_source変更0。"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check、5許可ファイルだけをmainへcommit/push、clean/sync0 0、runtime clear。"
+    stop_if:
+      - "T079 planをbuild_question_executionsすると876問又は3504 workにならない。"
+      - "planning、question scope、selected targets、token/start、model policy変更が必要。"
+      - "固定積、client hardcode又は推測値が残る。"
+      - "group合計と実queue不一致でもcanStartになる。"
+      - "production prompt又はpolicy5.0変更が必要。"
+      - "許可外変更、run/review/artifact/00_source、Firestore/Storage/external writeが必要。"
+      - "Chromeでrun/review/artifactを生成する。"
+      - "全suiteにfailure/errorが残る。"
     receipt: null
   - id: T999
     type: judge
@@ -5132,6 +5193,7 @@ tasks:
       - T080
       - T081
       - T082
+      - T083
       - T004
       - T005
     inputs:
