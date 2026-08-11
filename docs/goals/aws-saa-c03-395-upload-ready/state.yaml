@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T003
+active_task: T008
 
 tasks:
   - id: T001
@@ -234,7 +234,7 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "問題整備UIだけを入口に、run 20260803T034930552603-75bce750の『未完了を再開』をSAA-C03単一group・元の全update target・Standard/auto_maxで完了する。block/pending=0を確認後、udemy-aws-saa-c03を『整備が必要な問題だけ』で現行workflowへ再計画し、395問の全適用工程を現行MAJORへ収束させる。同一queue終端の自動artifactSyncでmerge・convert・upload-ready・upload dry-runまで完了し、Firestore反映・評価・CLF-C02変更は行わず、最後にUI serverを正常終了する。"
     allowed_files:
@@ -276,7 +276,55 @@ tasks:
       - "Fast、追加Codex credits、外部API key又はFirestore書込みが必要になる。"
       - "artifactSyncがfailed又はinterruptedになる。確定patchは保持し、手動再生成はT004へ送る。"
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: blocked
+      changed_files:
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260811T162101744570-a7a2e0a1/**"
+        - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      commands:
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          status: "passed: clean main, origin/main parity 0/0"
+        - cmd: ".venv/bin/python tools/question_bank/question_bank.py review-ui"
+          status: passed
+        - cmd: "UI: run 20260803T034930552603-75bce750 の未完了を再開 preview"
+          status: "passed: single group, original 6 stages and 10 update targets, Standard/auto_max"
+        - cmd: "UI: 整備を開始"
+          status: "passed: created 20260811T162101744570-a7a2e0a1"
+        - cmd: "UI/API and manifest progress observation"
+          status: "blocked: 5 questions blocked by 集約回答レビューを保留しました"
+        - cmd: "UI server SIGINT shutdown and regular startup recovery"
+          status: "passed: run finalized as interrupted/partial"
+        - cmd: "python3 scripts/check/check_00_source_immutability.py"
+          status: passed
+        - cmd: "terminal manifest verification"
+          status: failed
+        - cmd: "workflow overview 395/395 verification"
+          status: failed
+        - cmd: "QuestionInventory 395/395 local-ready verification"
+          status: failed
+        - cmd: "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts"
+          status: passed
+        - cmd: "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate"
+          status: passed
+        - cmd: "test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
+          status: passed
+      summary: "認証更新後、正規UIから旧runを一致するscope・全target・Standard/auto_maxで再開した。新runは300問まで進んだが、5問がquestion_typeで集約回答レビュー保留となり、後続を含む25 itemがblockした。review承認が必要なためstop条件に従い停止。起動時recoveryでrunをinterrupted/partialへ確定し、UI serverも終了した。00_source、コード、設定、CLF-C02、Firestoreは不変。"
+      deviations:
+        - "旧run収束前にreview承認必須のblockを検出したため、現行workflow再計画、artifactSync、upload dry-runは未実施。"
+        - "旧runの6問と同一根拠の再blockではなく、新たな5問が同じ集約回答レビュー保留理由でblockした。"
+      remaining_blockers:
+        - "SAA-C03版模擬試験② 問題55、③ 問題50、② 問題65、③ 問題2、③ 問題12の集約回答レビュー承認が必要。"
+        - "run 20260811T162101744570-a7a2e0a1 は interrupted/partial。"
+        - "artifactSync未実行、395/395 local-ready未達。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "review承認が必要な5問のblockを検出し、T003 stop_ifのreview承認が必要になる条件に該当したため。"
   - id: T004
     type: worker
     assignee: Worker
@@ -449,6 +497,33 @@ tasks:
         - cmd: "git diff --exit-code -- tools/question_review_console/codex_app_server.py tests/test_question_review_codex_app_server.py output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03"
           status: pass
       harness: codex
+  - id: T008
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "run 20260811T162101744570-a7a2e0a1で集約回答レビュー保留になった5問をread-onlyで監査し、個別の人間承認が必要な内容判断か、正本を独立確定して機械整合確認へ進むべき問題整備システムの責務不備かを判定する。"
+    inputs:
+      - "T003 blocked receipt"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260811T162101744570-a7a2e0a1/**"
+      - "該当5問の00_source・現行patch・work version・review sidecar"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/local_question_review_console.md"
+      - "config/question_maintenance_workflow.toml"
+      - "集約回答レビューのcurrent implementationとtests"
+    constraints:
+      - "Read-only。product code、問題artifact、review承認状態又はGoalBuddy control filesを変更しない。"
+      - "5問を一括で同じ結論にせず、問題文・全選択肢・正答・解説を正本に基づき独立に監査する。"
+      - "不整合検出を、一方のfieldへ自動補正する判定に置き換えない。"
+      - "00_source、既存ID、category、CLF-C02、Firestoreを変更しない。"
+      - "同じ入力のままrunを再試行しない。"
+    expected_output:
+      - "5問ごとの保留理由と正本の対応"
+      - "content decision | system responsibility defect の判定"
+      - "問題整備システムのシンプルな正常フロー"
+      - "次の最大の安全なWorker packageのobjective、allowed_files、verify、stop_if"
+      - "既存300問の確定成果を保持した再開条件"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
