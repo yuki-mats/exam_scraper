@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T030
+active_task: T031
 
 tasks:
   - id: T001
@@ -2299,7 +2299,7 @@ tasks:
   - id: T030
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T029がpreviewToken-only start解釈ではserver.pyのqualification/stageIds必須routingと衝突すると停止したため、start requestのrouting identityとexecution-plan authorityをread-onlyで分離判定する。qualification/stageIdsをrouting/consistency fieldsとして残し、target questionIds/workItemKeys/plan authorityだけをserver-issued tokenとchecked prepared planへ一本化できるかを検証する。server.py変更の要否、最小allowed files、tests、次Worker packageを一意に返す。"
     inputs:
@@ -2319,6 +2319,97 @@ tasks:
       - "server.py変更要否と根拠"
       - "最小allowed files/testsを含む修正版Implementation Worker package"
       - "その後のread-only Judgeとsingle retry sequence"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "qualification/stageIdsとselection fieldsはpreview再構築用routing/consistency情報として残せる。questionIdsは明示filterでactual targetではない。start時にserverがprepared planを一度だけ再構築し、実identityを含むpayloadのHMAC tokenと照合後、その同じplanを実行すればauthorityはserver側へ一本化される。新registryやserver.py変更は不要で現行routeを維持する方が単純で安全である。"
+      evidence:
+        - "T029のpreviewToken-only解釈はHTTP body全体へ適用しすぎていた。top-level questionIdsはrequest filterとして維持しtargetIdentity.questionIdsへ置換しない。"
+        - "server routeはqualification/stageIdsとselection fieldsを正規化して同じcoordinator APIへ透過し、preview responseを加工しない。"
+        - "qualification/stageIdsはworkflow routing/consistency、mode/scope/filter/resume fieldsはprepared plan再構築条件であり、token照合前のexecution authorityではない。"
+        - "plan全体にtargetIdentityを加えた同一payloadをhash/signすればfilter/current plan/actual identityの変化はtoken mismatchになる。"
+        - "必要修正はcoordinator内部でprepared helperのchecked planをそのまま使い、token照合後の二度目plan callを削除すること。server.py変更不要。"
+        - "UI start requestはrouting/selection/runtime fieldsとpreviewTokenを送り、actual targetIdentity/workItemKeysは送らない。"
+        - "responseへrequestedQuestionIdsを追加し既存questionIdsはcompat filter aliasにできる。"
+        - "opaque HMAC token単独化にはregistry又はsigned envelopeが必要で複雑さを増すため採用しない。"
+        - "既存token binding/UI scope testsとserver 68 tests pass、clean main、origin parity 0/0。"
+      next_allowed_task:
+        task_id: T031
+        type: worker
+        objective: "routingとauthorityを分離し4 filesだけへtargetIdentity/hash/token/checked-plan/UI readbackを実装する。"
+        allowed_files:
+          - tools/question_review_console/qualification_runs.py
+          - tools/question_review_console/static/app.js
+          - tests/test_question_review_qualification_runs.py
+          - tests/test_question_review_workflow.py
+        server_change_authorized: false
+        commit_push_authorized: false
+        ui_preview_start_authorized: false
+        verify:
+          - "T031.verifyを正本とする"
+        stop_if:
+          - "T031.stop_ifを正本とする"
+      parallel_safety:
+        safe: false
+        reason: "implementation、diff監査、commit/push、single preview/startは同一token/plan/runへ直列依存する。"
+      blocked_tasks:
+        - T004
+        - T027
+        - T029
+        - T999
+      missing_evidence:
+        - "T031 4-file implementation diff/tests。"
+        - "read-only Judgeによるrouting/authority/TOCTOU監査。"
+        - "fresh exact29/45 single start、terminal、artifactSync、395/395、Firestore0。"
+      required_board_updates:
+        - "T030をdoneとしてT031をactivateする。"
+        - "T031後にread-only Judgeを追加する。"
+  - id: T031
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "qualification/stageIdsとnormalized selection fieldsをrouting/preview再構築情報として維持しつつ、server由来actual targetIdentity、同一payloadのpreviewPlanHash/token、start内checked prepared plan単回利用、UIの非再計算readbackをexact 4 filesだけへ実装する。server.py、UI実行、commit/pushは禁止する。"
+    inputs:
+      - "T030 Judge receiptのrouting/authority分離契約"
+      - "qualification preview/start coordinator"
+      - "question work queue canonical executions"
+      - "workflow UI preview renderer/start request"
+      - "existing immutable plan/token tests"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow.py"
+    verify:
+      - "routing/consistency fieldsはqualification、stageIds、mode、listGroupIds、updateTargetIds、requested filterとしてのquestionIds、evaluationRework、blockedReworkFrom、resumedFrom。runtime-only fieldsはquestionConcurrency、speedModeとする。"
+      - "responseへrequestedQuestionIdsを追加し、既存questionIdsは互換filter aliasとして維持する。actual targetIdentityはbuild_question_executions(plan)だけから生成する。"
+      - "targetIdentity={schemaVersion,hashFormat,questionIds,questionIdsHash,workItemKeys,workItemKeysHash,stageSummary}を返し、空値、重複、不明stage、target/work/stage totals不一致をfail-closedにする。"
+      - "previewPlanHashはcanonical plan/groupPreviews/targetIdentity payloadのSHA-256、previewTokenは同一payloadのHMAC-SHA256とし、request filter、plan、group preview、actual identityの変更で両方が変わる。"
+      - "public previewはprepared helper responseを返す。startはrouting/selection fieldsからhelperを一度だけ呼びtoken照合後、同じchecked planへidentity/hashを付加して実行・永続化する。照合後の二度目selectionは禁止。"
+      - "start requestへtargetIdentity/workItemKeys/hashを送らず、body.questionIdsはrequestedQuestionIdsだけを使う。"
+      - "UIはresponseのactual IDs、keys、両hash、stage summary、previewPlanHashをcopy可能にそのまま表示しclient計算しない。"
+      - "requestedQuestionIdsとactual targetIdentity.questionIdsが異なるfixture、token binding、plan call count、immutable run identity、UI request/readback回帰を追加する。"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.QuestionWorkPreviewGroupSummaryTests"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.QualificationProgressObservabilityTests.test_question_ids_are_bound_to_preview_token_and_resume_scope"
+      - "python3 -m unittest tests.test_question_review_qualification_runs"
+      - "python3 -m unittest tests.test_question_review_workflow.WorkflowUiContractTests"
+      - "python3 -m unittest tests.test_question_review_workflow"
+      - "python3 -m unittest tests.test_question_review_server.QuestionReviewServerTests"
+      - "python3 -m unittest tests.test_question_review_qualification_flow_recovery"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git diff --name-onlyがallowed 4 filesだけであること。commit/pushは禁止。"
+    stop_if:
+      - "server.py、question_run_state.py又はallowed外file変更が必要になる。"
+      - "start成立にserver-side registry、token payload復号、targetIdentity client echo又はclient再計算が必要になる。"
+      - "requested filterとactual target identityを同一fieldへ統合する必要が生じる。"
+      - "token、schema、immutable planHash/selfHash、selection/current/work-version gateを緩和する必要が生じる。"
+      - "token照合後にplanを再selectionする、又はchecked plan以外をrunへ使う分岐が残る。"
+      - "特定資格、service、questionId、current count、Q45/Q27のhardcodeが必要になる。"
+      - "UI、preview、start、run、artifact、work version、review、00_source、CLF-C02、Firestore、GoalBuddy control fileの変更が必要になる。"
+      - "対象testsが反復失敗する、又は既存run/artifact/hash不変を確認できない。"
     receipt: null
   - id: T999
     type: judge
