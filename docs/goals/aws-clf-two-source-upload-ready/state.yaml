@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T073
+active_task: T078
 
 tasks:
   - id: T001
@@ -4474,7 +4474,7 @@ tasks:
   - id: T073
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。既存3 review（C059=20260811T100031465989-a8d963e8、C002=20260811T100125123794-99a96ac4、C011=20260811T100224979477-ad6c2f77）がreview_inputsどおり各1件・current-state current_question record-onlyであることをrefresh後に確認する。同一stateなら再送信しない。staleなら各問同一内容を1回だけ新規保存しstandalone runを開始しない。次に最新partial run 20260811T104025085065-b0df92bcの『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの新規単一runを実行する。02 policy=5.0で3問すべてvalidated/currentならauthoritative interpretationをreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
     depends_on:
@@ -4541,20 +4541,34 @@ tasks:
       - "failed delta、unsafe rollback、lease conflict、別run混入、allowed_files外変更が発生する。"
     receipt:
       result: blocked
-      changed_files: []
+      changed_files:
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T112449991453-76b7c4bb/
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/7c4da075c6a91c1e471e8b1b.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/3655597d3df014eada6e299d.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/c1ae79ed057973a4a023db5c.json
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/12_merged_questionType/
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/30_merged_2/
+        - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/40_convert/keepitup-aws-clf-c02_firestore_20260811_112703.json
       commands:
-        - cmd: "board T073 objective/verify/stop_if readback"
-          status: fail
-          detail: "objective latest partial differs from verify old partial"
-        - cmd: "git clean/sync readback"
+        - cmd: "通常Chrome UIでcurrent-state reviews確認"
           status: pass
-          detail: "clean 0 0"
-      summary: "objectiveは最新partial b0df92bc、verifyは旧partial bdcce066で同時充足不能。UI/review/run/change 0。"
+        - cmd: "通常Chrome UI run 20260811T112449991453-76b7c4bb"
+          status: pass
+          detail: "3/3 12/12 validated policy 5.0"
+        - cmd: "automatic artifact sync scope"
+          status: fail
+          detail: "12/30/40 outside T073 allowed_files"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git clean/sync/process/listener/lease readback"
+          status: pass
+          detail: "clean 0 0 no runtime"
+      summary: "新runはpolicy5.0 exact3問4工程12workで3/3 12/12 validated成功。内容、review、Luna/high、Firestore/Storage0、00_source不変。通常UI terminalの自動artifact syncがT073 allowed_files外12/30/40へ書いたため停止。手動削除・巻戻し・承認・dry-runなし。"
       remaining_blockers:
-        - "verify blockedReworkFromを最新partialへ訂正"
+        - "自動artifact sync成果物の採否をJudge確認"
       needs_judge: true
-      verification_attempts: 0
-      stopped_because: "objective/verify run ID conflict。"
+      verification_attempts: 1
+      stopped_because: "standard terminal artifact sync wrote outside T073 scope。"
   - id: T074
     type: judge
     assignee: Judge
@@ -4793,6 +4807,30 @@ tasks:
       remaining_blockers: []
       needs_judge: false
       verification_attempts: 2
+  - id: T078
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T073成功run 20260811T112449991453-76b7c4bbとterminal時の自動artifact syncをread-only監査する。3問12工程成果物の採用可否、12/30/40書込みが通常フロー由来で安全か、両groupのcurrent artifact/upload-ready状態、review承認可能性を確認し、T073 done採用とT065再開の正確な残作業契約を示す。"
+    depends_on:
+      - T073
+    inputs:
+      - "T073 latest blocked receipt"
+      - "run 20260811T112449991453-76b7c4bb manifest/result/states/artifactSync"
+      - "KeepItUp/Ping-t artifact outputs and upload-ready reports"
+      - "all five current reviews"
+    constraints:
+      - "Read-only。"
+      - "成果物、review、run、00_sourceを変更・削除しない。"
+      - "standard UI automatic syncと手編集・外部writeを区別する。"
+      - "Firestore/Storage write 0、identity/currentness/quality gateを証拠化する。"
+    expected_output:
+      - "Adopt/reject T073 run and automatic sync"
+      - "Current per-group artifact/upload-ready status"
+      - "Exact T065 remaining Worker contract and stop_if"
+      - "Additional approval decision"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
@@ -4843,6 +4881,7 @@ tasks:
       - T075
       - T076
       - T077
+      - T078
       - T004
       - T005
     inputs:
