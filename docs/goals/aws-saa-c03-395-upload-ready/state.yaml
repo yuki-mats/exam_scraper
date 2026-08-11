@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T015
+active_task: T016
 
 tasks:
   - id: T001
@@ -1115,7 +1115,7 @@ tasks:
   - id: T015
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "question_setのno-tool structured candidate contextを分類正本どおり非損失化し、各allowedQuestionSetsへcategory.jsonのdescriptionとmatchingHintsをnative型のまま渡す。複数サービスの数ではなく問題全体の決定要因を比較する共通ruleを追加し、資格固有IDやQ45をhardcodeせず回帰testを追加する。修正後は正規UIでrun 20260811T182911729697-cce7a06dのrecovery previewをreadbackし、exact 64-ID gateを確認するところまでとし、runは開始しない。"
     inputs:
@@ -1142,6 +1142,58 @@ tasks:
       - "recovery previewがexact 64-ID集合でない、21 validatedのいずれかを含む、Q45を欠く、又はrun開始なしに確認できない。"
       - "問題artifact、run artifact、review承認、00_source、CLF-C02、Firestore又はGoalBuddy control filesへの変更が必要になる。"
       - "unrelated dirty diff、main/origin parity不一致又は対象test失敗がある。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD; only two allowed files modified, main, origin parity 0/0"
+          status: pass
+        - cmd: "python3 -m unittest tests.test_question_review_qualification_runs.StructuredCandidateStageContextTests; 13 tests"
+          status: pass
+        - cmd: "python3 -m unittest tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog; 180 tests"
+          status: pass
+        - cmd: "structured context native value readback; descriptions are strings, matchingHints are lists, shared deciding-factor rule present"
+          status: pass
+        - cmd: "python3 scripts/check/check_00_source_immutability.py; 5799 files unchanged"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "正規UI recovery preview readback; resumedFrom=20260811T182911729697-cce7a06d, targetCount=64, run not started"
+          status: pass
+        - cmd: "unfinished 64-ID hash gate; 04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698, Q45 included, validated21 excluded"
+          status: pass
+      summary: "question_set context now passes category.json description strings and matchingHints lists without conversion. Added a qualification-neutral rule that compares each category against the whole question’s strongest deciding requirement instead of counting mentioned services. Regression coverage verifies native values and the shared deciding-factor rule. Only the two allowed code/test files changed; no policy/run/work-version artifacts changed, preserving existing 21 fingerprints. The canonical UI preview was read exactly once, confirmed the exact 64-ID recovery set and Q45 inclusion, and no run was started."
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T016
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T015の2ファイル差分をread-onlyで監査し、category.jsonのdescription・matchingHintsがnative型のまま非損失でquestion_set structured contextへ渡ること、決定要因ruleが資格横断で特定サービスをhardcodeしないこと、question_set policy fingerprintとT013 validated 21問のfingerprintが保持されること、正規UI recovery previewがexact 64-ID gateを満たすことを独立検証する。承認時はscope commit/push後に実行できる単一の64問recovery Worker packageを返す。"
+    inputs:
+      - "T014 Judge receipt"
+      - "T015 Worker receipt"
+      - "tools/question_review_console/qualification_runs.py diff"
+      - "tests/test_question_review_qualification_runs.py diff"
+      - "run 20260811T182911729697-cce7a06d manifest、question_summary、work versions"
+      - "T015 UI preview readback"
+    constraints:
+      - "Read-only。code、test、run、問題artifact、work version、classification、review承認又はGoalBuddy control filesを変更しない。"
+      - "資格名、SQS、SNS、Q45又は特定questionSetIdのhardcodeを見逃さない。"
+      - "context schema、policy fingerprint、既存21問のfingerprint、64-ID集合を現物から再計算する。"
+      - "runを開始しない。"
+      - "00_source、CLF-C02、Firestoreを変更しない。"
+    expected_output:
+      - "diffの責務・非損失性・hardcode不在の判定"
+      - "testsとpolicy/fingerprint readback"
+      - "exact 64-ID preview gateの独立監査"
+      - "scope commit/push可否"
+      - "承認時の単一64問recovery Worker package"
     receipt: null
   - id: T999
     type: judge
