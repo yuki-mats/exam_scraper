@@ -5,7 +5,7 @@ goal:
   slug: "aws-saa-c03-395-upload-ready"
   kind: recovery
   tranche: "SAA-C03の現行状態を確定し、問題整備システムで395問を継続整備して公開直前まで収束する"
-  status: blocked
+  status: active
   oracle:
     signal: "QuestionInventoryでSAA-C03が395/395 local-readyとなり、終端run・artifact sync・quality gate・upload dry-runが成功し、hold/pending/blocked=0、Firestore writes=0、00_source不変である"
     cadence: "after each Worker package and at final audit"
@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: null
+active_task: T003
 
 tasks:
   - id: T001
@@ -234,7 +234,7 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: blocked
+    status: active
     reasoning_hint: high
     objective: "問題整備UIだけを入口に、run 20260803T034930552603-75bce750の『未完了を再開』をSAA-C03単一group・元の全update target・Standard/auto_maxで完了する。block/pending=0を確認後、udemy-aws-saa-c03を『整備が必要な問題だけ』で現行workflowへ再計画し、395問の全適用工程を現行MAJORへ収束させる。同一queue終端の自動artifactSyncでmerge・convert・upload-ready・upload dry-runまで完了し、Firestore反映・評価・CLF-C02変更は行わず、最後にUI serverを正常終了する。"
     allowed_files:
@@ -276,47 +276,7 @@ tasks:
       - "Fast、追加Codex credits、外部API key又はFirestore書込みが必要になる。"
       - "artifactSyncがfailed又はinterruptedになる。確定patchは保持し、手動再生成はT004へ送る。"
       - "Verification fails twice."
-    receipt:
-      result: blocked
-      changed_files: []
-      commands:
-        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
-          status: passed
-        - cmd: ".venv/bin/python tools/question_bank/question_bank.py review-ui"
-          status: passed
-        - cmd: "UI: run 20260803T034930552603-75bce750 の未完了を再開 preview"
-          status: passed
-        - cmd: "UI: 整備を開始（2回）"
-          status: "blocked: account/rateLimits/read failed; HTTP 422; no new run created"
-        - cmd: "python3 scripts/check/check_00_source_immutability.py"
-          status: passed
-        - cmd: "jq terminal manifest verification"
-          status: failed
-        - cmd: "workflow overview 395/395 verification"
-          status: failed
-        - cmd: "QuestionInventory 395/395 local-ready verification"
-          status: failed
-        - cmd: "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts"
-          status: passed
-        - cmd: "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate"
-          status: passed
-        - cmd: "test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
-          status: passed
-        - cmd: "UI server: Ctrl-C normal shutdown"
-          status: passed
-      summary: "正規UI起動でstale lockを回収し、旧runのpreviewがSAA-C03単一group、元の6工程・全10 update target、Standard/auto_max、Firestore非反映で一致することを確認した。しかし開始時のCodex account/rateLimits readbackが2回とも失敗し、HTTP 422で開始前停止した。新run・patch・Firestore書込み・allowed_files内外の差分は作成されていない。UI serverは終了済み。"
-      deviations:
-        - "旧runの完了、現行workflow再計画、artifactSync、395/395収束は開始前エラーのため未実施。"
-        - "追加credits、API key、Fast、手動lock削除は使用していない。"
-      remaining_blockers:
-        - "Codex App Serverが https://chatgpt.com/backend-api/wham/usage のaccount/rateLimitsを取得できず、正規UI runを開始できない。"
-        - "成功runがないため、終端manifest、395/395 local-ready、artifactSync、upload dry-runのverifyが未達。"
-      spawned_tasks:
-        - T005
-      needs_judge: false
-      verification_attempts: 1
-      stopped_because: "正規UI開始が同じaccount/rateLimits/readエラーで2回失敗した。追加Codex creditsまたは外部API keyへの切替は禁止され、同じ入力の再試行を継続できないため。"
-      harness: codex
+    receipt: null
   - id: T004
     type: worker
     assignee: Worker
@@ -454,7 +414,7 @@ tasks:
   - id: T007
     type: pm
     assignee: PM
-    status: blocked
+    status: done
     reasoning_hint: medium
     objective: "ユーザーがCodexの通常認証状態を更新した後、fresh Codex App Serverでaccount/read・account/rateLimits/readの非生成preflightを一度だけ実行し、成功時だけT003 recoveryを再度有効化する。"
     inputs:
@@ -470,16 +430,23 @@ tasks:
       - "available/allowed/accountType/planType/creditsEnabled/standardMode/fastMode readback"
       - "passならT003 reactivation、failならblocked receipt"
     receipt:
-      result: blocked
-      blocked_reason: "Codex account/rateLimitsの構造化readbackが取得できず、同一認証状態でのpreflight反復は禁止されている。限定リファクタリングもユーザー承認前のため実装できない。"
-      summary: "GitとGoalBuddy盤は健全で、SAA-C03・CLF-C02・00_source・Firestoreへの追加変更はない。認証状態更新後の非生成preflight又は限定リファクタリング実装の承認が必要。"
-      waiting_for_user_approval: true
-      required_reply: "Codexの認証を更新した。限定リファクタリングを先に実装して再開してよい。"
-      changed_files: []
+      result: done
+      summary: "ユーザーのCodex通常認証更新後、fresh Codex App Serverの非生成preflightが一度で成功した。ChatGPT Pro、Standard利用可、Fast無効、追加credits不要を構造化readbackで確認し、T003 recoveryの再開を許可した。"
+      evidence:
+        - "available=true、allowed=true、accountType=chatgpt、planType=pro。"
+        - "creditsEnabled=false、standardMode=true、fastMode=false。"
+        - "account/read・account/rateLimits/readはfresh clientで成功し、SAA run、API key、Fast、Firestore書込みは実行していない。"
+        - "00_source 5799 filesは差分なし。Codex wrapper、tests、SAA問題artifactにも差分なし。"
+      changed_files:
+        - "docs/goals/aws-saa-c03-395-upload-ready/state.yaml"
       commands:
-        - cmd: "git status --short --branch"
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
           status: pass
-        - cmd: "check-goal-state.mjs docs/goals/aws-saa-c03-395-upload-ready"
+        - cmd: "fresh CodexAppServerClient public_status(refresh=True) structured preflight"
+          status: pass
+        - cmd: "python3 scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git diff --exit-code -- tools/question_review_console/codex_app_server.py tests/test_question_review_codex_app_server.py output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03"
           status: pass
       harness: codex
   - id: T999
