@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T073
+active_task: T076
 
 tasks:
   - id: T001
@@ -4474,7 +4474,7 @@ tasks:
   - id: T073
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。既存3 review（C059=20260811T100031465989-a8d963e8、C002=20260811T100125123794-99a96ac4、C011=20260811T100224979477-ad6c2f77）がreview_inputsどおり各1件・same-state current_question record-onlyであることを確認し、再送信しない。UI起動時に停止run 20260811T100819366640-3cce04b3をinterrupted/interruptedへstartup recoveryし、履歴保持するがresume・採用しない。次に元Group B partial run 20260811T094157198997-bdcce066の『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの新規単一runを実行する。3問すべてvalidated/currentなら内容をreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
     depends_on:
@@ -4541,37 +4541,36 @@ tasks:
     receipt:
       result: blocked
       changed_files:
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100031465989-a8d963e8.json
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T100031465989-a8d963e8.md
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100125123794-99a96ac4.json
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T100125123794-99a96ac4.md
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100224979477-ad6c2f77.json
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/20260811T100224979477-ad6c2f77.md
-        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T100819366640-3cce04b3/
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T104025085065-b0df92bc/
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/7c4da075c6a91c1e471e8b1b.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/3655597d3df014eada6e299d.json
+        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/c1ae79ed057973a4a023db5c.json
       commands:
-        - cmd: "通常Chrome UIで3問の指定本文をpointer選択しrecord-only reviewを各1回保存"
+        - cmd: "通常Chrome UIでstartup recoveryと既存run履歴を確認"
           status: pass
-        - cmd: "通常Chrome UIで保留3問の再整備previewを確認・開始"
+        - cmd: "通常Chrome UIで元partial runの保留再整備previewを確認・開始"
+          status: pass
+          detail: "exact 3 questions, 4 stages, 12 work"
+        - cmd: "run 20260811T104025085065-b0df92bc terminal readback"
           status: fail
-          detail: "preview 12工程に対し実run 18工程で05/01を含んだ"
-        - cmd: "run 20260811T100819366640-3cce04b3停止・readback"
+          detail: "02 validated 3; 02a/03/04 blocked 9; 0/3 questions"
+        - cmd: "model routing readback"
           status: pass
-          detail: "05 validated 3 changedFiles=0; 01 preparing no write; manifest running 3 validated 15 pending"
-        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          detail: "initial Luna/high; failed retries only Sol/high"
+        - cmd: "Chrome/UI server cleanup"
           status: pass
-        - cmd: "git diff --check"
+        - cmd: "git status and origin/main sync"
           status: pass
-        - cmd: "git status/branch/sync/process/lock/lease readback"
-          status: pass
-          detail: "clean main 0 0 no process/lock/lease"
-      summary: "3問のreview JSON/promptをexactly 1組ずつ保存し、same-state feedback継承を確認。run 20260811T100819366640-3cce04b3は開始後、契約外の05/01を含む3問×6工程=18工程と判明したため即停止。05は3件validatedだがchangedFiles=0、01はpreparingで書込なし。00_source不変、Git clean/sync 0 0、process/lock/leaseなし。"
+          detail: "clean 0 0"
+      summary: "startup recovery後の停止runは中断履歴として保持しresumeせず、既存reviewも再送信しなかった。新runはexact 3問・4工程・12 work・targets 6・feedback継承で開始。02は3件validated、02aで3問とも保留となり、03/04も前工程停止。初回Luna/high、失敗retryのみSol/high。後続停止、process/lock/leaseなし、Git clean/sync 0 0。"
       remaining_blockers:
-        - "blocked-rework planが指定02/02a/03/04ではなく05・01を含む18工程へ拡大した"
-        - "停止run manifestはrunning/queueStatus=running、3 validated・15 pending"
-        - "3問の02/02a/03/04 validated/current未実施"
+        - "C059: 正答3件、公式1と判定2,3,4不一致"
+        - "C002: 正答3件かつ公式2 mapping不足"
+        - "C011: 公式3と判定1,2,4不一致"
+        - "terminal partial 0/3"
       needs_judge: true
       verification_attempts: 1
-      stopped_because: "preview契約に反してrunが05・01を含む18工程へ拡大したため直ちに停止した。"
+      stopped_because: "3問すべて02aでblocked。"
   - id: T074
     type: judge
     assignee: Judge
@@ -4685,6 +4684,31 @@ tasks:
       remaining_blockers: []
       needs_judge: false
       verification_attempts: 2
+  - id: T076
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T073 exact run 20260811T104025085065-b0df92bcでsame-state human reviewがplanへ継承されたのに3問すべて02aで同じ反転判定になった原因をread-only監査する。実際の02 candidate prompt/output、02a independent-review/arbitration prompt/output、feedback projection、prompt SSOT、validator logicを追う。T072の完全命題解釈を正本・questionType/answer contractと再照合し、正しい解釈を確定したうえで、feedbackが失われた層または一般prompt/validator不足を最小修正するWorker契約とT073再開条件を示す。"
+    depends_on:
+      - T073
+    inputs:
+      - "run 20260811T104025085065-b0df92bc full plan/progress/attempt prompts/results"
+      - "T072 receipt and three record-only reviews"
+      - "02/02a prompt SSOT and qualification runner feedback projection/validation"
+      - "00_source and current 05/10/15/21/22/23/work versions for three questions"
+    constraints:
+      - "Read-only。"
+      - "T072結論を前提化せず、questionIntentとcorrectChoiceTextの正本契約から再検証する。"
+      - "個別値の決め打ちや機械validatorの片側への自動補正ではなく、生成・独立検査双方が同じ完全命題基準を使う正常フローを定義する。"
+      - "review/prompt/run/artifact/00_source、Firestore/Storageを変更しない。"
+      - "直接patch・手編集・direct API/CLI mutationを提案しない。"
+    expected_output:
+      - "Authoritative interpretation for all three questions"
+      - "Exact layer where human feedback or proposition rule is lost"
+      - "Minimal Worker objective、allowed_files、verify、stop_if"
+      - "T073/T065 restart and additional approval decision"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
@@ -4733,6 +4757,7 @@ tasks:
       - T073
       - T074
       - T075
+      - T076
       - T004
       - T005
     inputs:
