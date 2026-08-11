@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T078
+active_task: T079
 
 tasks:
   - id: T001
@@ -4474,7 +4474,7 @@ tasks:
   - id: T073
     type: worker
     assignee: Worker
-    status: blocked
+    status: done
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。既存3 review（C059=20260811T100031465989-a8d963e8、C002=20260811T100125123794-99a96ac4、C011=20260811T100224979477-ad6c2f77）がreview_inputsどおり各1件・current-state current_question record-onlyであることをrefresh後に確認する。同一stateなら再送信しない。staleなら各問同一内容を1回だけ新規保存しstandalone runを開始しない。次に最新partial run 20260811T104025085065-b0df92bcの『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの新規単一runを実行する。02 policy=5.0で3問すべてvalidated/currentならauthoritative interpretationをreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
     depends_on:
@@ -4512,11 +4512,24 @@ tasks:
       - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/**"
       - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/prompts/**"
       - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/{7c4da075c6a91c1e471e8b1b,3655597d3df014eada6e299d,c1ae79ed057973a4a023db5c}.json"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/7c4da075c6a91c1e471e8b1b.json"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/3655597d3df014eada6e299d.json"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/c1ae79ed057973a4a023db5c.json"
       - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_correctChoiceText_fixed.json"
       - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_correctChoiceText_fixed.json"
       - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_merged_explanationText_added.json"
       - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/22_questionSetId_linked/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_questionSetId_linked.json"
       - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/99_model_review_flags/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_*"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/40_convert/**"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/keepitup-aws-clf-c02_*"
     verify:
       - "3問それぞれreview JSON/promptがexactly 1組だけ新規作成され、review_inputsと一致し、status=needs_review、standalone run=0。"
       - "blocked-rework previewがblockedReworkFrom=20260811T104025085065-b0df92bc、exact 3 questionIds、stageIds exact 02/02a/03/04、Standard/auto_max、画像なし。"
@@ -4540,7 +4553,7 @@ tasks:
       - "Firestore/Storage、external provider、API key、additional credit、direct API/CLI mutation、手編集、code/config/prompt/document変更が必要になる。"
       - "failed delta、unsafe rollback、lease conflict、別run混入、allowed_files外変更が発生する。"
     receipt:
-      result: blocked
+      result: done
       changed_files:
         - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T112449991453-76b7c4bb/
         - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/7c4da075c6a91c1e471e8b1b.json
@@ -4549,26 +4562,13 @@ tasks:
         - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/12_merged_questionType/
         - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/30_merged_2/
         - output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/40_convert/keepitup-aws-clf-c02_firestore_20260811_112703.json
+      summary: "T078 Judgeによりrun 20260811T112449991453-76b7c4bbの3/3・12/12 validated成果物と通常terminal artifact syncを採用。scope超過は標準UIの自動syncであり、warning 0、Firestore/Storage write 0、00_source不変。"
       commands:
-        - cmd: "通常Chrome UIでcurrent-state reviews確認"
+        - cmd: "T078 independent terminal and artifact audit"
           status: pass
-        - cmd: "通常Chrome UI run 20260811T112449991453-76b7c4bb"
-          status: pass
-          detail: "3/3 12/12 validated policy 5.0"
-        - cmd: "automatic artifact sync scope"
-          status: fail
-          detail: "12/30/40 outside T073 allowed_files"
-        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
-          status: pass
-        - cmd: "git clean/sync/process/listener/lease readback"
-          status: pass
-          detail: "clean 0 0 no runtime"
-      summary: "新runはpolicy5.0 exact3問4工程12workで3/3 12/12 validated成功。内容、review、Luna/high、Firestore/Storage0、00_source不変。通常UI terminalの自動artifact syncがT073 allowed_files外12/30/40へ書いたため停止。手動削除・巻戻し・承認・dry-runなし。"
-      remaining_blockers:
-        - "自動artifact sync成果物の採否をJudge確認"
-      needs_judge: true
+      remaining_blockers: []
+      needs_judge: false
       verification_attempts: 1
-      stopped_because: "standard terminal artifact sync wrote outside T073 scope。"
   - id: T074
     type: judge
     assignee: Judge
@@ -4810,7 +4810,7 @@ tasks:
   - id: T078
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T073成功run 20260811T112449991453-76b7c4bbとterminal時の自動artifact syncをread-only監査する。3問12工程成果物の採用可否、12/30/40書込みが通常フロー由来で安全か、両groupのcurrent artifact/upload-ready状態、review承認可能性を確認し、T073 done採用とT065再開の正確な残作業契約を示す。"
     depends_on:
@@ -4830,6 +4830,103 @@ tasks:
       - "Current per-group artifact/upload-ready status"
       - "Exact T065 remaining Worker contract and stop_if"
       - "Additional approval decision"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T073の3問12工程と通常terminal自動syncは採用できる。両group artifact/upload-readyはcurrentでdry-run成功だが、02 policy 5.0に対し876問が旧4.0。通常UIで876問を02→02a→03→04へ収束し再同期後に5 canonical reviewを承認する。追加承認不要。"
+      evidence:
+        - "T073 runは3/3 12/12 validated succeeded/succeeded receiptValidated。"
+        - "3問は02=5.0でauthoritative interpretationに一致。"
+        - "terminal自動syncはstandard merge/requirements/convert/upload --dry-run、warning 0、actual upload 0。"
+        - "KeepItUpは332 parent、40/upload-ready同一hash、生成後patch0。"
+        - "Ping-tは547 parent、40/upload-ready同一hash、生成後patch0。"
+        - "計879 unique parent ID、Firestore/Storage write0、00_source差分0。"
+        - "work versionsは02=5.0が3、4.0が876（KeepItUp329、Ping-t547）。"
+        - "5 canonical reviewsは現行成果物と一致し承認可能、CLF204C012 duplicateは履歴保持。"
+      parallel_safety:
+        safe: false
+        reason: "単一資格runと両group sync/review approvalを直列実行。"
+      blocked_tasks:
+        - T999
+      missing_evidence:
+        - "876問terminal"
+        - "全879 currentness"
+        - "5 reviews approved"
+        - "final sync/dry-run"
+        - "external writes0"
+      required_board_updates:
+        - "T073をdone採用。"
+        - "T079をexact876 final Workerとして追加。"
+        - "T999はT079完了までblocked。"
+        - "追加承認不要。"
+  - id: T079
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "通常の問題整備UIだけを使う。両groupの『整備が必要な問題だけ』で、02 policy 4.0が残るexact 876問（KeepItUp 329、Ping-t 547）を単一資格runとして02→02a→03→04、Standard/auto_max、画像なしで再整備する。T073で5.0/currentとなった3問は対象外に保つ。876/876・3504/3504 validatedの終端後、自動artifact syncで両groupの12/20/30/40/upload-ready、requirements check、upload dry-runを成功させる。通常UIで5 canonical reviewの修正後内容を確認してapprovedにし、CLF204C012 duplicateは変更しない。Firestore/Storageへ書かず、00_sourceと全IDを維持する。"
+    depends_on:
+      - T078
+    inputs:
+      - "T078 receipt"
+      - "all AWS CLF-C02 879 work versions"
+      - "five canonical review IDs and one duplicate review ID"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-cloud-practitioner.lock"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/runtime_observations/aws-cloud-practitioner/**"
+      - "output/question_review_console/workflow_runs/aws-cloud-practitioner/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/**"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/work_versions/**"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T082720268448-ee0daadb.json"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100031465989-a8d963e8.json"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100125123794-99a96ac4.json"
+      - "output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/reviews/20260811T100224979477-ad6c2f77.json"
+      - "output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/reviews/20260811T093035663812-f93f3318.json"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/40_convert/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/15_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/21_explanationText_added/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/22_questionSetId_linked/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/23_correctChoiceText_fixed/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/99_model_review_flags/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/12_merged_questionType/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/20_merged_1/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/30_merged_2/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/40_convert/**"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/keepitup-aws-clf-c02_*"
+      - "output/aws-cloud-practitioner/questions_json/upload_to_firestore/ping-t-aws-clf-c02_*"
+      - "output/aws-cloud-practitioner/reports/**"
+    verify:
+      - "preview exact876問、KeepItUp329/Ping-t547で、T073の3 IDsだけ除外。"
+      - "preview/startは02/02a/03/04、selected targets6、3504 work、Standard/auto_max、画像なし。05/01を含めない。"
+      - "terminal status=succeeded、queueStatus=succeeded、receiptValidated=true、876/876 questions・3504/3504 work validated、pending/blocked/hold=0。"
+      - "全879 work versionsが02=5.0、02a=4.0、03=10.1、04=2.0。01=6.0、05 MAJOR2を維持。"
+      - "5 canonical reviewのexpectedOutcome一致後にapproved。duplicate 20260811T082720263906-ee0daadbは不変。"
+      - "39481はflash_card、既存顧客条件、正答1、問題共通exactly-one解説を維持。"
+      - "両group artifactSync=succeeded/current、warnings/invalid/answer欠損=0。"
+      - "upload-ready 332+547=879 unique parent IDs、各40_convertと同一hash、quality/requirements gateとupload --dry-run成功。"
+      - "Firestore reads/writes=0、Storage upload=0、非dry-run upload=0。00_source/IDs/対象外資格不変。"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check、対象差分だけmainへcommit/push、clean/sync 0 0、process/listener/lock/leaseなし。"
+    stop_if:
+      - "previewがexact876・329/547・4 stages・3504 workと一致しない、又はT073の3問、05/01、対象外資格を含む。"
+      - "preview/start scope不一致、Standard/auto_max以外、画像、Fast又は追加creditが必要。"
+      - "1問でもblocked/hold、failed delta、unsafe rollback、lease conflict、対象外run混入。"
+      - "policy5.0適用で公式解答・正答index・questionType・protected field変更が必要と判定される。"
+      - "39481、CLF204C012、T073 3問、39674又は既存成功問題が後退する。"
+      - "5 canonical review expectedOutcome不一致、duplicate更新、又は承認がstandalone/model runを開始する。"
+      - "artifact sync警告・件数/identity/hash不一致、又は手編集/direct API/CLI mutationが必要。"
+      - "00_source、ID、05/10、code/config/prompt/document、Firestore/Storage、外部providerへ変更又はwriteが必要。"
     receipt: null
   - id: T999
     type: judge
@@ -4868,7 +4965,6 @@ tasks:
       - T062
       - T063
       - T064
-      - T065
       - T066
       - T067
       - T068
@@ -4882,6 +4978,7 @@ tasks:
       - T076
       - T077
       - T078
+      - T079
       - T004
       - T005
     inputs:
