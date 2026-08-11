@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T020
+active_task: T021
 
 tasks:
   - id: T001
@@ -1506,7 +1506,7 @@ tasks:
   - id: T020
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T019の2ファイル差分をread-onlyで監査し、ctime-only単発raceに限るbounded reread、二度目stable必須、inode/size/mtime変化即時拒否、schema・manifest expected/payload/canonical planHash三者照合、診断signature、orphan不変を独立検証する。gate緩和、sleep、無制限retry又はhidden fallbackがないことを確認し、scope commit/push後にfresh exact64 preview/startを一度だけ許可できる次Worker packageを返す。"
     inputs:
@@ -1527,6 +1527,109 @@ tasks:
       - "orphan、64-ID、validated21、policy fingerprint不変"
       - "scope commit/push可否"
       - "fresh exact64 preview/startの単一Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T019差分はctime-onlyの初回競合だけを1回再読し、二度目のfull signature安定を必須とする。inode・size・mtime変化は即時拒否され、schemaとmanifest expected・payload・canonical planHashの一致条件、question selfHash検証は維持されている。sleep、無制限retry、hidden fallback、gate緩和はない。指定177 tests、00_source検査、orphanとexact64集合の独立検証が成功したため、exact diffのcommit/push後にfresh preview/startを一度だけ許可できる。"
+      evidence:
+        - "未コミット差分はallowed_files exact 2件、113 insertions/3 deletions。diff SHA256=44a2a29cb0dcd631ac5219a1099c3b2341ca6c4690b587d68652258f141e1206。"
+        - "初回signature差でinode/size/mtime同一の場合だけJSONをもう1回読み、二度目のfull signature不一致はfail-closed。"
+        - "inode・size・mtime各変化は再読せず拒否され、signature例外にbefore/after tupleを含む。ctime-only無条件無視はない。"
+        - "安定後もschema、manifest expected planHash、payload planHash、canonical actual hashの一致を全検証する。question selfHash検証も不変。"
+        - "race/signature/hash/64問初期化の新規testsを含む10 testsと関連167 testsが成功。sleep、二回超read、fallback、例外握り潰しなし。"
+        - "orphan planHash/selfHash全件有効、manifest/summary/result/progress不在。"
+        - "T013はvalidated21、blocked1、queued63。unfinished64 hash=04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698、Q45含有、policy fingerprint不変。"
+        - "00_source immutability 5799 files、main/origin parity 0/0。"
+      scope_commit_push:
+        authorized: true
+        diff_sha256: 44a2a29cb0dcd631ac5219a1099c3b2341ca6c4690b587d68652258f141e1206
+        paths:
+          - tools/question_review_console/question_run_state.py
+          - tests/test_question_review_question_run_state.py
+        branch: main
+        remote: origin/main
+        force: false
+      exact_recovery_set_gate:
+        base_run: 20260811T182911729697-cce7a06d
+        target_count: 64
+        work_item_count: 126
+        sorted_newline_sha256: 04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698
+        required_question_id: 6c74190a4ab7caf42ea941b4
+        validated_exclusion_count: 21
+        policy_fingerprint: dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596
+      next_allowed_task:
+        type: worker
+        objective: "T021へ転記済み。scope commit/push後、fresh exact64 preview/startを一度だけ行いterminalと395/395まで監視する。"
+        allowed_files:
+          - "T021.allowed_filesを正本とする"
+        verify:
+          - "T021.verifyを正本とする"
+        stop_if:
+          - "T021.stop_ifを正本とする"
+      parallel_safety:
+        safe: false
+        reason: "commit/push、fresh server、preview、single start、terminal監視は同じ実装とrun identityへ直列依存する。"
+      blocked_tasks:
+        - T004
+        - T999
+      missing_evidence:
+        - "2ファイルscope commit/push。"
+        - "fresh exact64 preview/tokenとsingle start/new canonical run。"
+        - "64問terminal success、Q45、artifactSync、395/395、upload dry-run。"
+      required_board_updates:
+        - "T020をdoneとして記録しT021をactivateする。"
+        - "T021 receiptにcommit、preview、single start、terminal、artifactSync、395 readbackを必須化する。"
+        - "T021後にread-only JudgeでT004/T999解除可否を判定する。"
+  - id: T021
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "現在のexact 2-file diffをscope commitしorigin/mainへpushする。clean parity確認後、committed mainからfresh review-ui serverを起動し、T013 unfinished exact64だけのpreviewをreadbackする。全gate一致時にstartを一度だけ実行し、new runをterminalまで監視する。64問の結果、artifactSync、SAA-C03 395/395 local-ready、Firestore writes=0を現物receiptとして返す。既存orphanは変更しない。"
+    inputs:
+      - "T020 Judge receiptとdiff SHA-256 authorization"
+      - "T019 exact 2-file uncommitted diff"
+      - "base run 20260811T182911729697-cce7a06d"
+      - "orphan 20260811T192727620202-4940d23b preservation contract"
+      - "unfinished64/validated21/policy fingerprint gates"
+    allowed_files:
+      - "tools/question_review_console/question_run_state.py"
+      - "tests/test_question_review_question_run_state.py"
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/<single-fresh-run-id>/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/<exact64-question-files>"
+      - "output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json"
+      - "output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+      - "fresh previewが宣言するexact64 IDs対応のallowedPatchFilesだけ"
+      - "canonical workflowがexact64について生成するmerge/convert/upload local artifactsだけ"
+    verify:
+      - "commit前にgit diff --name-onlyが承認2ファイルだけ、git diff --binary SHA256が44a2a29cb0dcd631ac5219a1099c3b2341ca6c4690b587d68652258f141e1206であること。"
+      - "python3 -m unittest tests.test_question_review_question_run_state"
+      - "python3 -m unittest tests.test_question_review_question_run_recovery tests.test_question_review_qualification_runs"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "2ファイルだけを単一commitにしorigin/mainへpush後、main、clean、origin/main...HEAD=0/0を確認する。"
+      - "fresh serverのpreviewでqualification=aws-solutions-architect-associate、base run=20260811T182911729697-cce7a06d、targetCount=64、workItemCount=126、ID hash=04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698、Q45含有、validated21との交差0、policy fingerprint=dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596を開始前に再確認する。"
+      - "preview tokenとimmutable plan gateを保ったUI startを一度だけ行い、request/response、new runId、planHash、signature診断を保存する。"
+      - "new run manifest、question states、summary、progress、resultをterminalまで監視し、timeout・接続断・readback失敗時はfail-closedで停止する。"
+      - "terminal succeeded、verified=true、blocked=0、全64 target questions完了、artifactSync成功を確認する。"
+      - "Q45の22_questionSetId_linked成果物でquestionSetId=aws_solutions_architect_associate_qs06_01_sqs_queues_dlqを確認する。"
+      - "SAA-C03全395問のcanonical inventoryを全件readbackし395/395 local-ready、00_source不変、Firestore writes=0を確認する。"
+      - "orphan 20260811T192727620202-4940d23bのplanHash、64 selfHash、manifest不在を開始前後で再確認する。"
+    stop_if:
+      - "commit対象又はdiff SHA256が変わる、tests/immutability/parityが失敗する、allowed_files外の変更がある。"
+      - "fresh previewがexact64 gate、validated21除外、Q45、126 work items又はpolicy fingerprintのいずれかと一致しない。"
+      - "preview後にplan/token/input/work version/policyが変化する。再previewで補正して開始しない。"
+      - "startが422その他で拒否される、responseが曖昧、runIdを確定できない、又は二重startの可能性がある。startを再試行しない。"
+      - "inode・size・mtime変化、二度目もctime不安定、schema/hash/selfHash mismatchが出る。gateを緩和せず停止する。"
+      - "timeout、接続断、checkpoint/readback失敗、blocked、人間content decision又はreview承認が必要になる。自動補正・手動artifact修正をしない。"
+      - "既存orphan、validated21、00_source、CLF-C02、Firestore、GoalBuddy control filesへ変更が必要になる。"
+      - "API key、credit bypass、非公開header/URL固定、成功値捏造fallback、別run/start又はuploadが必要になる。"
     receipt: null
   - id: T999
     type: judge
