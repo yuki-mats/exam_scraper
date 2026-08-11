@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T018
+active_task: T019
 
 tasks:
   - id: T001
@@ -1354,10 +1354,16 @@ tasks:
       needs_judge: true
       verification_attempts: 1
       stopped_because: "The only authorized start attempt failed the immutable-plan consistency gate; retrying the same input would exceed the one-start contract."
+      orphan_partial_run:
+        run_id: "20260811T192727620202-4940d23b"
+        canonical_run_created: false
+        files: "plan.json、prompt.md、64 question states。manifest/summary/result/progressなし。"
+        plan_hash: "58ce983022abd334d9ca4b55c1b0ad52a3021ad0f2eb6627da8a35e9d438a494"
+        preservation: "pre-manifest証拠として変更・削除しない。"
   - id: T018
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T017のfresh exact 64-ID preview後、唯一のstartがHTTP 422『immutable planが読取中に変更されました。』でrun作成前に拒否された原因をread-onlyで特定する。preview response/request、start request、server-side immutable plan再計算、plan hashの構成field、runtime logを照合し、実際に変化したfield/hash、変更主体、T015のclassification context修正との関係、同じ入力を再試行せず直せる最小責務を確定する。"
     inputs:
@@ -1378,6 +1384,98 @@ tasks:
       - "gateを保った単純な正常フロー"
       - "必要なら最小の実装/test/doc範囲"
       - "fresh preview/startの次Worker packageと一度だけ再試行できる条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "422はpreview planのsemantic差やhash不一致ではない。startはtoken照合を通過し、exact 64問の新run stateを作成した後、manifest保存前のplan安定読取りで停止した。保存済みplanHashと64 question selfHashは全て有効で、JSON field差は0件である。新規65ファイルにはcom.apple.provenanceが付与され、mtime後にctimeだけが更新されている。現行signatureがctimeを内容変更と同列に扱うため、macOS metadata付与と2.5MB読取りが競合した。hash gateを維持したbounded stable rereadを実装・監査後にだけ、fresh startを一度再許可できる。"
+      evidence:
+        - "preview POST 200は2026-08-11 19:26:55 JST、唯一のstart POST 422は19:27:28 JST。並行start、手動artifact write、Firestore writeはなかった。"
+        - "partial initialization 20260811T192727620202-4940d23bにはplan.json、prompt.md、64 question statesがあり、manifest/summary/result/progressはない。"
+        - "declared/recomputed planHashは58ce983022abd334d9ca4b55c1b0ad52a3021ad0f2eb6627da8a35e9d438a494で一致し、64 question planHash/selfHashも全件有効、semantic field diffは0件。"
+        - "plan targetCount=64、workItemCount=126、ID hash=04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698、Q45含有、policy fingerprint不変。"
+        - "例外文言は_validated_planのread前後file signature差だけで送出され、schema/planHash不一致とは別経路である。"
+        - "新規plan.jsonと64 question state全65ファイルにcom.apple.provenance xattrがあり、inode/size/mtimeは安定、birth/mtime後にctimeだけが遅れて更新された。"
+        - "application writeは初期化時atomic writeだけで、その後writerなし。ctime-only metadata raceが唯一整合する最小原因。"
+        - "f82e78207はclassification contextだけを変更しQuestionRunStateStore/signature/planHashへ触れないため直接因果関係なし。"
+        - "既存5 testsは成功するがctime-only変化、bounded reread、連続不安定fail-closedのtestがない。"
+      partial_initialization:
+        run_id: 20260811T192727620202-4940d23b
+        plan_hash: 58ce983022abd334d9ca4b55c1b0ad52a3021ad0f2eb6627da8a35e9d438a494
+        question_state_count: 64
+        manifest_present: false
+        preserve_unchanged: true
+      normal_flow:
+        - "atomic writeでplan.jsonとquestion stateを作る。"
+        - "初回stable readを試みる。"
+        - "ctime-only raceなら内部readを一度だけやり直す。"
+        - "安定したbytesをschemaと三者一致hashで検証する。"
+        - "summaryとmanifestを保存して初めてrunを公開する。"
+        - "以後もfull signature cacheとcryptographic hashで改変をfail-closedにする。"
+      next_allowed_task:
+        type: worker
+        objective: "T019へ転記済み。ctime-only raceだけを一度bounded rereadし、全hash gateを維持する。UI/startは禁止。"
+        allowed_files:
+          - tools/question_review_console/question_run_state.py
+          - tests/test_question_review_question_run_state.py
+        verify:
+          - "T019.verifyを正本とする"
+        stop_if:
+          - "T019.stop_ifを正本とする"
+        start_authorized_now: false
+      parallel_safety:
+        safe: false
+        reason: "stable-read修正、監査、commit/push、fresh preview/startは同一QuestionRunStateStore契約へ順番に依存する。"
+      blocked_tasks:
+        - "T017 recovery"
+        - T004
+        - T999
+      missing_evidence:
+        - "read前後signature完全tuple、raw HTTP body、server tracebackは未永続化。"
+        - "bounded stable reread実装diffとrace regression tests。"
+        - "diff Judge監査、scope commit/push、fresh exact64 start。"
+        - "64問terminal success、Q45 6-1、artifactSync、395/395、upload dry-run。"
+      required_board_updates:
+        - "T018をdoneとして記録しT019をactivateする。"
+        - "T017 receiptへpre-manifest orphanを補足する。"
+        - "T019中はUI/startを禁止し、後続Judge承認後だけfresh startを再許可する。"
+  - id: T019
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "immutable planの内容hash gateを維持したまま、初回読取りでinode・size・mtimeが同一かつctimeだけが変化した場合に限り、同じfileを直ちに一度だけ再読する。二度目のsignatureが安定し、schema、manifest expected planHash、payload planHash、canonical actual hashが全て一致した場合だけ受理する。inode・size・mtime変化、二度目も不安定、JSON/schema/hash不一致は従来どおりfail-closedとし、before/after signatureを診断可能にする回帰testを追加する。run、UI、既存orphan、問題artifactは変更しない。"
+    inputs:
+      - "T018 Judge receiptとnormal_flow"
+      - "QuestionRunStateStore._validated_planとfile signature契約"
+      - "existing question run state/recovery tests"
+      - "orphan run 20260811T192727620202-4940d23bのread-only証拠"
+    allowed_files:
+      - "tools/question_review_console/question_run_state.py"
+      - "tests/test_question_review_question_run_state.py"
+    verify:
+      - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+      - "追加test: 初回だけctimeが変化し二度目が安定する場合、bounded reread後にvalid planを受理する。"
+      - "追加test: inode、size又はmtimeが変化した場合は再読で受理せず即時fail-closedとする。"
+      - "追加test: ctime-only変化が二度続く場合はfail-closedとし、診断にbefore/after signatureを残す。"
+      - "追加test: stable fileでもpayload planHash、manifest expected hash又はcanonical actual hashが不一致なら拒否する。"
+      - "追加test: maintenance flow初期化中の単発ctime raceを模擬し、manifest、question_summary、64 question stateが一貫して作られる。"
+      - "python3 -m unittest tests.test_question_review_question_run_state"
+      - "python3 -m unittest tests.test_question_review_question_run_recovery tests.test_question_review_qualification_runs"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git diff --name-onlyがallowed_files exact 2件であることを確認する。"
+      - "既存orphan 20260811T192727620202-4940d23bのplanHash=58ce983022abd334d9ca4b55c1b0ad52a3021ad0f2eb6627da8a35e9d438a494、64 question selfHash、manifest不在を再確認し、一切変更しない。"
+      - "T013 unfinished 64-ID hash=04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698、validated 21 exclusion、question_set policy fingerprintを再確認する。"
+    stop_if:
+      - "planHash検証、manifest expected hash照合、schema検証又はselfHash検証を無効化・固定・緩和する必要がある。"
+      - "ctime差を無条件で無視する、inode・size・mtime変化を受理する、sleep、無制限retry又は二回を超えるreadを導入する。"
+      - "現在値への補正、partial planの再利用、既存orphanの削除・改変・manifest捏造が必要になる。"
+      - "qualification_runs.py、classification context、prompt、category、問題artifact、work version、checkpoint、review又はGoalBuddy control filesの変更が必要になる。"
+      - "Worker中にUI preview、start、review-ui起動又はrun作成が必要になる。"
+      - "00_source、CLF-C02、Firestore又はallowed_files外の変更が必要になる。"
+      - "exact 64-ID集合、validated 21問又はpolicy fingerprintが変わる。"
+      - "対象testsが二回失敗する。"
     receipt: null
   - id: T999
     type: judge
