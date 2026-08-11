@@ -4524,7 +4524,7 @@ tasks:
       - "C059はgroup_choice/select_correct/公式1/[正しい,間違い,間違い,間違い]/共通解説exact1。"
       - "C002はgroup_choice/select_correct/公式2/[間違い,正しい,間違い,間違い]/共通解説exact1。"
       - "C011はtrue_false/select_correct/公式3/[間違い,間違い,正しい,間違い]/肢別解説exact4。"
-      - "3問の02=4.0、02a=4.0、03=10.1、04=2.0がvalidated/currentでterminal status=succeeded、queueStatus=succeeded、receiptValidated=true、blocked/hold/pending=0。"
+      - "3問の02=5.0、02a=4.0、03=10.1、04=2.0がvalidated/currentでterminal status=succeeded、queueStatus=succeeded、receiptValidated=true、blocked/hold/pending=0。"
       - "05、10、questionBodyText、choiceTextList、answer_result_text、IDs、questionSetIdは不変。"
       - "初回Luna/high、失敗retryだけSol/high。Firestore reads/writes=0、Storage upload=0、非dry-run upload=0。"
       - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
@@ -4541,37 +4541,20 @@ tasks:
       - "failed delta、unsafe rollback、lease conflict、別run混入、allowed_files外変更が発生する。"
     receipt:
       result: blocked
-      changed_files:
-        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T104025085065-b0df92bc/
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/7c4da075c6a91c1e471e8b1b.json
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/3655597d3df014eada6e299d.json
-        - output/question_review_console/aws-cloud-practitioner/keepitup-aws-clf-c02/work_versions/c1ae79ed057973a4a023db5c.json
+      changed_files: []
       commands:
-        - cmd: "通常Chrome UIでstartup recoveryと既存run履歴を確認"
-          status: pass
-        - cmd: "通常Chrome UIで元partial runの保留再整備previewを確認・開始"
-          status: pass
-          detail: "exact 3 questions, 4 stages, 12 work"
-        - cmd: "run 20260811T104025085065-b0df92bc terminal readback"
+        - cmd: "board T073 contract readback"
           status: fail
-          detail: "02 validated 3; 02a/03/04 blocked 9; 0/3 questions"
-        - cmd: "model routing readback"
+          detail: "objective policy 5.0 versus verify 4.0"
+        - cmd: "git status/branch/origin sync"
           status: pass
-          detail: "initial Luna/high; failed retries only Sol/high"
-        - cmd: "Chrome/UI server cleanup"
-          status: pass
-        - cmd: "git status and origin/main sync"
-          status: pass
-          detail: "clean 0 0"
-      summary: "startup recovery後の停止runは中断履歴として保持しresumeせず、既存reviewも再送信しなかった。新runはexact 3問・4工程・12 work・targets 6・feedback継承で開始。02は3件validated、02aで3問とも保留となり、03/04も前工程停止。初回Luna/high、失敗retryのみSol/high。後続停止、process/lock/leaseなし、Git clean/sync 0 0。"
+          detail: "main clean 0 0"
+      summary: "開始前確認でboard内契約衝突を検出。objectiveは02 policy=5.0、verifyは02=4.0で同時充足不能。UI/review/run/file change 0。"
       remaining_blockers:
-        - "C059: 正答3件、公式1と判定2,3,4不一致"
-        - "C002: 正答3件かつ公式2 mapping不足"
-        - "C011: 公式3と判定1,2,4不一致"
-        - "terminal partial 0/3"
+        - "T073 verifyの02=4.0をpolicy正本5.0へ訂正する"
       needs_judge: true
-      verification_attempts: 1
-      stopped_because: "3問すべて02aでblocked。"
+      verification_attempts: 0
+      stopped_because: "GoalBuddy Worker hard contract conflict。"
   - id: T074
     type: judge
     assignee: Judge
