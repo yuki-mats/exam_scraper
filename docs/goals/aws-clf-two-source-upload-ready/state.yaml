@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T065
+active_task: T072
 
 tasks:
   - id: T001
@@ -3947,7 +3947,7 @@ tasks:
   - id: T065
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。CLF204C012は既存review 268448をcanonical、263906をduplicateとしてUI/APIで確認し、第三のreviewを送信しない。Ping-t 39481だけreadOnly詳細から指定文字列を選択し、下記note・expectedOutcomeをrecord-only current_question reviewとして1回保存してreview JSONとpromptをreadbackする。standalone review patchは実行しない。次にT063 runの『保留を再整備』でexact 2問を05→01→02→02a→03→04へ収束する。修正内容確認後reviewを承認し、Group B exact 4問を02→02a→03→04で実行する。最後に両group artifact sync、332/547 upload-ready、quality gate、upload dry-runを完了する。Firestore/Storageへ書かず、00_sourceと既存IDを維持する。"
     depends_on:
@@ -4013,35 +4013,38 @@ tasks:
       - "artifact sync警告が対象6問以外、failed delta、unsafe rollback、lease conflict、新規run混入が発生する。"
     receipt:
       result: blocked
-      changed_files: []
+      changed_files:
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/reviews/20260811T093035663812-f93f3318.json
+        - output/question_review_console/aws-cloud-practitioner/ping-t-aws-clf-c02/prompts/20260811T093035663812-f93f3318.md
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T093152471440-8a558e17/
+        - output/question_review_console/workflow_runs/aws-cloud-practitioner/20260811T094157198997-bdcce066/
       commands:
-        - cmd: "通常review-uiでAWS CLF-C02 / KeepItUp / CLF204C012 readOnly詳細を表示"
+        - cmd: "通常Chrome UIでCLF204C012既存履歴exact2件を確認"
           status: pass
-        - cmd: "review-history DOM readback"
+        - cmd: "通常Chrome UIでPing-t 39481のrecord-only reviewを1回保存"
+          status: pass
+        - cmd: "通常Chrome UIでT063保留2問を再整備"
+          status: pass
+          detail: "2/2 12/12 validated; run 20260811T093152471440-8a558e17"
+        - cmd: "通常Chrome UIでGroup B exact4問を02→02a→03→04実行"
           status: fail
-          detail: "0件"
-        - cmd: "review-ui server GET log readback"
-          status: pass
-        - cmd: "既存CLF204C012 review件数readback"
-          status: pass
-          detail: "2組保持"
-        - cmd: "Ping-t 39481新規review件数readback"
-          status: pass
-          detail: "0件"
+          detail: "CLF201C022のみvalidated; 3問02a blocked; run 20260811T094157198997-bdcce066"
         - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
           status: pass
-          detail: "5799 files unchanged"
-        - cmd: "process/listener/lease/lock cleanup"
+        - cmd: "sha256sum 既存CLF204C012 review/prompt 4ファイル"
           status: pass
-        - cmd: "git status and origin/main...HEAD readback"
+        - cmd: "git status/branch/sync/process/lock/lease readback"
           status: pass
-          detail: "clean 0 0"
-      summary: "最初のgateで停止した。通常UIのCLF204C012 readOnly詳細ではreview履歴が0件で、既存268448 canonical／263906 duplicateをUI/API監査できなかった。question-content APIはGET成功だが履歴表示へ届いていない。第三reviewは送信せず、既存2組を保持した。39481 review、blocked-rework、Group B、artifact syncは未開始。00_source 5799 files不変、Git clean・同期0 0、process/listener/lease/lockなし。"
+          detail: "clean main 0 0 no process/lock/lease"
+      summary: "39481 review/promptをexact1組保存。2問runは2/2・12/12 validated。Group B runはCLF201C022のみvalidated、他3問が02aで保留したため後続を停止。review承認、artifact sync、quality gate、upload dry-runは未実行。00_sourceと既存4 SHA不変、Git clean/sync 0 0、process/lock/leaseなし。"
       remaining_blockers:
-        - "readOnly question-detail API/cacheがreviewHistoryを返さず、既存canonical/duplicate履歴を通常UIで監査できない"
+        - "CLF202C059: group_choice正答3件かつ公式解答[1]と判定[2,3,4]が不一致"
+        - "CLF201C002: group_choice正答3件かつ公式解答番号との検証済みmappingなし"
+        - "CLF204C011: 公式解答3と肢別判定は一致するがquestionIntent=select_incorrectと不整合"
+        - "3問保留のためreview承認、両group artifact sync、upload-ready、quality gate、upload dry-run未実行"
       needs_judge: true
       verification_attempts: 1
-      stopped_because: "T065開始条件である既存CLF204C012 review履歴のUI/API監査が成立せず、解消にはT065 allowed_files外のコード変更が必要なため。"
+      stopped_because: "Group B exact4問のうち3問が02aでblockedとなり、4/4 validated/currentの必須条件を満たさなかったため。"
   - id: T066
     type: judge
     assignee: Judge
@@ -4416,6 +4419,31 @@ tasks:
       remaining_blockers: []
       needs_judge: false
       verification_attempts: 1
+  - id: T072
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "Group B run 20260811T094157198997-bdcce066で02a保留となったCLF202C059、CLF201C002、CLF204C011をread-only精査する。各問の00_source、05/10/15/21/22/23、work version、T061/T062/T065 validation feedback、公式解答mapping、questionIntent、肢別正誤を独立に照合し、正しい内容と必要な最小再整備工程を問題別に確定する。通常UIで実行可能な単一/複数run契約とT065再開条件を示す。"
+    depends_on:
+      - T065
+    inputs:
+      - "run 20260811T094157198997-bdcce066"
+      - "CLF202C059 qid=7c4da075c6a91c1e471e8b1b"
+      - "CLF201C002 qid=3655597d3df014eada6e299d"
+      - "CLF204C011 qid=c1ae79ed057973a4a023db5c"
+      - "current source/patch/work version and validation evidence"
+    constraints:
+      - "Read-only。"
+      - "正答、questionIntent、問題形式を決め打ちせず正本と肢別事実から独立確定する。"
+      - "00_source、review/prompt、run/artifact、Firestore/Storageを変更しない。"
+      - "direct API/CLI mutation、手編集、code/config/prompt変更を提案しない。通常UIの既存工程で不足する場合だけ明示する。"
+    expected_output:
+      - "3問それぞれのroot causeと正しいquestionIntent/correct choice mapping"
+      - "通常UIのexact対象・工程・run分割・feedback継承条件"
+      - "Worker allowed_files/verify/stop_if"
+      - "追加承認要否"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
@@ -4460,6 +4488,7 @@ tasks:
       - T069
       - T070
       - T071
+      - T072
       - T004
       - T005
     inputs:
