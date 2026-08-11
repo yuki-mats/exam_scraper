@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T026
+active_task: T027
 
 tasks:
   - id: T001
@@ -2007,7 +2007,7 @@ tasks:
   - id: T026
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T025 fresh previewがT021 unfinished30/46に対して29/45を返した理由をread-onlyで特定する。UIを再起動又は再previewせず、base/parent run plan・question states・current work versions・selection/recovery code・cache/read modelからmissing questionIdとmissing work itemを一意に確定する。正しい収束除外かsystem responsibility defectかを判定し、既存30/34集合、Q45/Q27、plan/selfHash、orphan、00_source、Firestore非反映を再確認して次の単一Worker packageを返す。"
     inputs:
@@ -2027,6 +2027,108 @@ tasks:
       - "正しい収束除外かselection/read model責務欠陥かの判定"
       - "Q45/Q27を含む現在の未完了集合とhash"
       - "次の最小Worker package、allowed files、verify、stop_if、commit/start authorization"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "欠落は模擬試験2 Q47のquestion_set 1件だけである。T021ではUI停止によりqueuedへ戻ったが、同一policy v2.0のvalidated work versionとartifactが存在し、現行projected inputの全read fieldもartifactと一致する。T021で変わったのはexplanation責務でquestion_set入力は不変であるため、current planのallCurrent判定による除外は正しい収束でありselection defectではない。exact29/45を新gateとしてsingle startを承認する。"
+      evidence:
+        - "T025 previewとbase unfinished30/46の差はquestionId=3b2aacd64e71f2ef907737a9、模擬試験2 Q47、stage=question_set、workItemKey=79fe46f79b654fbbd4a3132aの1件だけ。"
+        - "T021 stateではexplanation=validated、question_set=queued。question_set attemptはUI停止でinterruptedとなりcandidate transaction、validated receipt、work-version書込みはない。"
+        - "current work versionは全6工程current。question_set version=2.0、policy fingerprint=dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596、source=validated_run。"
+        - "question_set artifactとT021 projected inputの5 read fieldsは完全一致しcanonical JSON SHA-256=ff7c600ca679f66bce114579d8de43748c5b46a0e094039605925e5e26275b3e。"
+        - "T021で同問に新規確定したのはexplanation v10.1だけで、question_set readFieldsにexplanation responsibility fieldsは含まれない。"
+        - "mode=neededはwork-version非currentだけをtarget化するため、全工程currentの同問を除外する。base queuedは履歴状態でありcurrent work必要性の正本ではない。"
+        - "current cacheはSAA-C03 total=395、current=366、required=29、completedWorkItemCount=2325/2369でT025 preview 29問と一致する。"
+        - "current unfinished29 hash=4f9cab5fa56d427cc58bb2347d26935c1de921d6f87fb59ff5a21daf8fc923cc。Q45/Q27を含む。"
+        - "45 workItemKeys hash=cd71c17421d2796941c86a1d6ac26d6efae7888a446aba78cf8d1651e6e559d7。stage内訳はoriginalize 1、question_type 1、question_intent 1、correct_choice 3、explanation 10、question_set 29。"
+        - "base planHash/selfHash、validated34 hash、orphan planHash/selfHash/manifest不在は不変。00_source 5799 pass、新run/Firestore write/upload/publishは0。"
+        - "question_work_queueとqualification_workflowの関連70 testsが成功し、current targetによるresume縮小とscope拡張禁止を確認した。"
+      exact_target_gate:
+        base_run: 20260811T201827949133-bcb65475
+        target_count: 29
+        target_sorted_newline_sha256: 4f9cab5fa56d427cc58bb2347d26935c1de921d6f87fb59ff5a21daf8fc923cc
+        work_item_count: 45
+        work_item_keys_sorted_newline_sha256: cd71c17421d2796941c86a1d6ac26d6efae7888a446aba78cf8d1651e6e559d7
+        stage_counts:
+          originalize: 1
+          question_type: 1
+          question_intent: 1
+          correct_choice: 3
+          explanation: 10
+          question_set: 29
+        converged_exclusion:
+          question_id: 3b2aacd64e71f2ef907737a9
+          stage_id: question_set
+          work_item_key: 79fe46f79b654fbbd4a3132a
+        validated_exclusion_count: 34
+        validated_sorted_newline_sha256: 10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5
+        question_set_policy_fingerprint: dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596
+      next_allowed_task:
+        task_id: T027
+        type: worker
+        objective: "fresh UIでexact29/45を一度previewし、全gate一致時だけ一度startしてterminalまで監視する。"
+        commit_push_authorized: false
+        start_authorized: "fresh previewの全exact29 gate一致時に一度だけ"
+        verify:
+          - "T027.verifyを正本とする"
+        stop_if:
+          - "T027.stop_ifを正本とする"
+      parallel_safety:
+        safe: false
+        reason: "fresh server、single preview token、single start、run監視、artifactSyncは同一run identityへ直列依存する。"
+      blocked_tasks:
+        - T004
+        - T999
+      missing_evidence:
+        - "fresh exact29/45 preview tokenとsingle start response、新runId。"
+        - "Q45/Q27を含む29/29 terminal validated、blocked=0、artifactSync成功。"
+        - "SAA-C03 395/395 local-readyとFirestore writes=0。"
+      required_board_updates:
+        - "T026をdoneとしてT027をactivateする。"
+        - "T027後にread-only最終JudgeでT004/T999解除と395/395を監査する。"
+  - id: T027
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "committed mainからfresh review-uiを起動し、base run 20260811T201827949133-bcb65475のcurrent unfinished exact29だけを一度previewする。全ID・45 work item・policy・収束除外が一致した場合だけstartを一度実行し、新runをterminalまで監視する。Q45/Q27、artifactSync、SAA-C03 395/395 local-ready、Firestore writes=0を現物readbackする。code変更又は追加commitは行わない。"
+    inputs:
+      - "T026 Judge receiptとsingle-start authorization"
+      - "committed main product commit b4dcb327556cc966ed5b0f929577088e77d6d0b2"
+      - "base run 20260811T201827949133-bcb65475"
+      - "exact29/45、validated34、converged exclusion、policy gates"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/<single-fresh-run-id>/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/<exact29-question-files>"
+      - "output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json"
+      - "output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+      - "fresh previewが宣言するexact29 IDs対応のallowedPatchFilesだけ"
+      - "canonical workflowがexact29について生成するmerge/convert/upload-ready local artifactsだけ"
+    verify:
+      - "開始前にgit status clean、branch=main、origin/main parity=0/0、product commit b4dcb327556cc966ed5b0f929577088e77d6d0b2が履歴にあることを確認する。"
+      - "base unfinished30/hash=7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661、validated34/hash=10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5を再計算し、収束除外3b2aacd64e71f2ef907737a9だけを引いたexact29/hash=4f9cab5fa56d427cc58bb2347d26935c1de921d6f87fb59ff5a21daf8fc923ccを確認する。"
+      - "収束除外問のquestion_set work version v2.0、policy fingerprint=dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596、artifact存在、5 read field hash=ff7c600ca679f66bce114579d8de43748c5b46a0e094039605925e5e26275b3eを開始前後で確認する。"
+      - "fresh serverの一度だけのpreviewでbase run、targetCount=29、exact ID配列/hash、workItemCount=45、workItemKeys hash=cd71c17421d2796941c86a1d6ac26d6efae7888a446aba78cf8d1651e6e559d7、stage内訳 originalize=1/question_type=1/question_intent=1/correct_choice=3/explanation=10/question_set=29、Q45/Q27含有、validated34と交差0、収束除外問不在、policy fingerprint一致を確認する。"
+      - "preview tokenとimmutable plan gateを維持したstartを一度だけ行い、request/response、新runId、planHashを保存する。"
+      - "new runのmanifest、全question states、summary、progress、resultをterminalまで監視し、succeeded、verified=true、29/29 validated、blocked=0、artifactSync成功を確認する。"
+      - "Q45成果物のquestionSetId=aws_solutions_architect_associate_qs06_01_sqs_queues_dlqを確認する。Q27のcorrectChoiceText=[正しい,間違い,間違い,間違い]と後続explanation/question_set validatedを確認する。"
+      - "base planHash/selfHash、validated34 fingerprints、収束除外問artifact/work version、orphan planHash/selfHash/manifest不在を開始前後で確認する。"
+      - "SAA-C03全395 questionIdをcanonical inventoryで全件readbackし395/395 local-ready、00_source 5799不変、Firestore writes=0、外部upload/publishなしを確認する。"
+    stop_if:
+      - "開始前のexact29、45 work items、stage内訳、validated34、収束除外問のcurrent根拠又はpolicy fingerprintが変化する。"
+      - "previewがexact29配列/hash、45 workItemKeys/hash、Q45/Q27、validated34除外、収束除外のいずれかと一致しない。29を30へ強制追加しない。"
+      - "preview後にtoken、plan、input、work version又はpolicyが変化する。再previewや二度目のstartで補正しない。"
+      - "startが422その他で拒否される、responseが曖昧、runIdを一意に確定できない、又は二重startの可能性がある。"
+      - "timeout、接続断、checkpoint/readback、schema/planHash/selfHash検証が失敗する。fallback又はgate緩和をしない。"
+      - "Q45/Q27を含む問題がblocked、人間content decision、source conflict又はreview承認を要求する。content fieldを自動補正しない。"
+      - "exact29外、validated34、収束除外問、base run、orphan、00_source、CLF-C02、Firestore、GoalBuddy control files、product code/testへの変更が必要になる。"
+      - "API key、credit bypass、Fast、非公開header/URL固定、成功値捏造fallback、外部upload/publish又は別run/startが必要になる。"
     receipt: null
   - id: T999
     type: judge
