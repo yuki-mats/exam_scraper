@@ -4519,7 +4519,7 @@ tasks:
       - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/99_model_review_flags/question_keepitup-{CLF202C059,CLF201C002,CLF204C011}_*"
     verify:
       - "3問それぞれreview JSON/promptがexactly 1組だけ新規作成され、review_inputsと一致し、status=needs_review、standalone run=0。"
-      - "blocked-rework previewがblockedReworkFrom=20260811T094157198997-bdcce066、exact 3 questionIds、stageIds exact 02/02a/03/04、Standard/auto_max、画像なし。"
+      - "blocked-rework previewがblockedReworkFrom=20260811T104025085065-b0df92bc、exact 3 questionIds、stageIds exact 02/02a/03/04、Standard/auto_max、画像なし。"
       - "各問のevaluationFeedbackByQuestionにblocked_maintenanceとsame-state human_reviewがあり、human_review内容が保存reviewと一致する。"
       - "C059はgroup_choice/select_correct/公式1/[正しい,間違い,間違い,間違い]/共通解説exact1。"
       - "C002はgroup_choice/select_correct/公式2/[間違い,正しい,間違い,間違い]/共通解説exact1。"
@@ -4543,18 +4543,18 @@ tasks:
       result: blocked
       changed_files: []
       commands:
-        - cmd: "board T073 contract readback"
+        - cmd: "board T073 objective/verify/stop_if readback"
           status: fail
-          detail: "objective policy 5.0 versus verify 4.0"
-        - cmd: "git status/branch/origin sync"
+          detail: "objective latest partial differs from verify old partial"
+        - cmd: "git clean/sync readback"
           status: pass
-          detail: "main clean 0 0"
-      summary: "開始前確認でboard内契約衝突を検出。objectiveは02 policy=5.0、verifyは02=4.0で同時充足不能。UI/review/run/file change 0。"
+          detail: "clean 0 0"
+      summary: "objectiveは最新partial b0df92bc、verifyは旧partial bdcce066で同時充足不能。UI/review/run/change 0。"
       remaining_blockers:
-        - "T073 verifyの02=4.0をpolicy正本5.0へ訂正する"
+        - "verify blockedReworkFromを最新partialへ訂正"
       needs_judge: true
       verification_attempts: 0
-      stopped_because: "GoalBuddy Worker hard contract conflict。"
+      stopped_because: "objective/verify run ID conflict。"
   - id: T074
     type: judge
     assignee: Judge
