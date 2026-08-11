@@ -71,6 +71,55 @@ class ReviewStore:
         if status not in REVIEW_STATUSES:
             raise ValueError(f"unsupported review status: {status}")
         request = normalize_law_audit_review_fields(request)
+        submission_key = str(request.get("submissionKey") or "").strip()
+        if submission_key:
+            _safe_segment(submission_key)
+        submission_hash = _hash(
+            {
+                "questionId": question["id"],
+                "reviewKey": question["reviewKey"],
+                "status": status,
+                "request": {
+                    key: copy.deepcopy(value)
+                    for key, value in request.items()
+                    if key != "submissionKey"
+                },
+            }
+        )
+        with self._lock:
+            if submission_key:
+                existing = self._by_submission_key(submission_key)
+                if existing is not None:
+                    path, payload = existing
+                    if str(payload.get("submissionHash") or "") != submission_hash:
+                        raise ValueError(
+                            "同じsubmissionKeyを異なるreview送信に再利用できません。"
+                        )
+                    prompt_path = path.parent.parent / "prompts" / f"{path.stem}.md"
+                    return {
+                        **copy.deepcopy(payload),
+                        "idempotentReplay": True,
+                        "reviewPath": str(path),
+                        "promptPath": str(prompt_path),
+                        "prompt": prompt_path.read_text(encoding="utf-8"),
+                    }
+            return self._create_locked(
+                question,
+                request,
+                status=status,
+                submission_key=submission_key,
+                submission_hash=submission_hash,
+            )
+
+    def _create_locked(
+        self,
+        question: Mapping[str, Any],
+        request: Mapping[str, Any],
+        *,
+        status: str,
+        submission_key: str,
+        submission_hash: str,
+    ) -> dict[str, Any]:
         qualification = _safe_segment(str(question["qualification"]))
         list_group_id = _safe_segment(str(question["listGroupId"]))
         now = iso_now()
@@ -199,6 +248,9 @@ class ReviewStore:
             "createdAt": now,
             "updatedAt": now,
         }
+        if submission_key:
+            payload["submissionKey"] = submission_key
+            payload["submissionHash"] = submission_hash
         if request_kind:
             payload["requestKind"] = request_kind
         evaluation_snapshot = request.get("evaluationSnapshot")
@@ -221,10 +273,97 @@ class ReviewStore:
         self._invalidate(qualification, list_group_id)
         return {
             **payload,
+            "idempotentReplay": False,
             "reviewPath": str(review_path),
             "promptPath": str(prompt_path),
             "prompt": prompt,
         }
+
+    def history_for(self, question: Mapping[str, Any]) -> list[dict[str, Any]]:
+        qualification = str(question["qualification"])
+        list_group_id = str(question["listGroupId"])
+        review_key = str(question.get("reviewKey") or "")
+        directory = self.root / qualification / list_group_id / "reviews"
+        entries: list[tuple[Path, dict[str, Any]]] = []
+        for path in sorted(directory.glob("*.json")) if directory.is_dir() else []:
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if str(payload.get("reviewKey") or "") == review_key:
+                entries.append((path, payload))
+        canonical_by_content: dict[str, str] = {}
+        for _, payload in entries:
+            canonical_by_content[self._content_hash(payload)] = str(payload["reviewId"])
+        history: list[dict[str, Any]] = []
+        for path, payload in reversed(entries):
+            canonical_id = canonical_by_content[self._content_hash(payload)]
+            history.append(
+                {
+                    **copy.deepcopy(payload),
+                    "canonical": str(payload["reviewId"]) == canonical_id,
+                    "duplicateOf": (
+                        None if str(payload["reviewId"]) == canonical_id else canonical_id
+                    ),
+                    "reviewPath": str(path),
+                    "promptPath": str(path.parent.parent / "prompts" / f"{path.stem}.md"),
+                }
+            )
+        return history
+
+    def latest_current_question_needs_review(
+        self,
+        qualification: str,
+        question_id: str,
+        state_hash: str,
+        list_group_id: str = "",
+    ) -> dict[str, Any] | None:
+        candidates: list[tuple[str, dict[str, Any]]] = []
+        group_pattern = _safe_segment(list_group_id) if list_group_id else "*"
+        for path in self.root.glob(
+            f"{_safe_segment(qualification)}/{group_pattern}/reviews/*.json"
+        ):
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if (
+                str(payload.get("questionId") or "") == question_id
+                and str(payload.get("status") or "") == "needs_review"
+                and str(payload.get("investigationScope") or "") == "current_question"
+                and str(payload.get("snapshots", {}).get("projectedHash") or "")
+                == state_hash
+            ):
+                candidates.append((path.name, payload))
+        if not candidates:
+            return None
+        return copy.deepcopy(max(candidates, key=lambda item: item[0])[1])
+
+    def _by_submission_key(
+        self, submission_key: str
+    ) -> tuple[Path, dict[str, Any]] | None:
+        matches: list[tuple[Path, dict[str, Any]]] = []
+        for path in self.root.glob("*/*/reviews/*.json"):
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if str(payload.get("submissionKey") or "") == submission_key:
+                matches.append((path, payload))
+        if len(matches) > 1:
+            raise ValueError("submissionKeyに複数のreviewが存在します。")
+        return matches[0] if matches else None
+
+    @staticmethod
+    def _content_hash(payload: Mapping[str, Any]) -> str:
+        ignored = {
+            "reviewId",
+            "createdAt",
+            "updatedAt",
+            "submissionKey",
+            "submissionHash",
+        }
+        return _hash({key: value for key, value in payload.items() if key not in ignored})
 
     def latest_for(self, question: Mapping[str, Any]) -> dict[str, Any] | None:
         qualification = str(question["qualification"])

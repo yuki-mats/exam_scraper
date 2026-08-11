@@ -145,13 +145,13 @@ const REVIEW_FIELDS = [
   "lawReferences",
   "lawRevisionFacts",
 ];
-
 const LAW_REVIEW_ISSUES = new Set([
   "law_audit_metadata_incomplete",
   "law_audit_verdict_mismatch",
   "law_hold",
   "law_basis_missing",
 ]);
+const RECORD_ONLY_REVIEW_FIELDS = new Set(["questionBodyText", "choiceTextList"]);
 
 const LAW_REVIEW_REQUIRED_FIELDS = [
   "explanationText",
@@ -180,6 +180,8 @@ const state = {
   detailCache: new Map(),
   detailRequestSequence: 0,
   detailRefreshTimer: null,
+  reviewSubmitting: false,
+  reviewSubmissionKey: "",
   questionContentApiVersion: 0,
   questionListRequestSequence: 0,
   questionListRefreshTimer: null,
@@ -5759,6 +5761,7 @@ function renderDetail() {
   ) {
     pane.append(renderReferenceSection(publication.record, question.isLawRelated));
   }
+  if (question.reviewHistory?.length) pane.append(renderReviewHistory(question.reviewHistory));
   if (!state.auditView.readOnly) pane.append(renderQuestionAdminDetails(question));
 }
 
@@ -7680,6 +7683,24 @@ function renderReviewSection(question) {
   return node;
 }
 
+function renderReviewHistory(history) {
+  const node = section("レビュー履歴");
+  const list = element("ol", "review-history");
+  for (const review of history) {
+    const relation = review.canonical
+      ? "canonical"
+      : `duplicate / ${review.duplicateOf}`;
+    const item = element("li", "review-history-item");
+    item.append(
+      element("strong", "", `${review.reviewId} / ${relation}`),
+      element("p", "", review.note || "（指摘なし）"),
+    );
+    list.append(item);
+  }
+  node.append(list);
+  return node;
+}
+
 function structuredValueSummary(value) {
   if (Array.isArray(value)) return `${value.length}件`;
   if (value && typeof value === "object") return `${Object.keys(value).length}項目`;
@@ -7876,13 +7897,23 @@ function openReview(
   state.reviewMode = mode;
   state.reviewRequestKind = requestKind;
   state.reviewSelection = selection;
+  state.reviewSubmitting = false;
+  state.reviewSubmissionKey = crypto.randomUUID?.()
+    || `review-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   const rework = requestKind === "evaluation_rework";
+  const recordOnly = (selection?.fields || []).some((field) => (
+    RECORD_ONLY_REVIEW_FIELDS.has(field)
+  ));
   $("#review-dialog-title").textContent = rework
     ? "再整備を開始"
     : selection
       ? "選択した箇所を整備"
       : "整備を開始";
-  $("#review-submit").textContent = rework ? "再整備を開始" : "整備を開始";
+  $("#review-submit").textContent = recordOnly
+    ? "指摘を記録"
+    : rework
+      ? "再整備を開始"
+      : "整備を開始";
   const firstIssue = issueType || state.detail.issueCodes[0] || "other";
   $("#review-issue").value = ISSUE_LABELS[firstIssue] ? firstIssue : "other";
   $("#review-note").value = "";
@@ -7997,15 +8028,22 @@ function checkbox(id, label, value, checked = false) {
 
 async function submitReview(event) {
   event.preventDefault();
+  if (state.reviewSubmitting) return;
   const choiceIndexes = [...$("#review-choice-list").querySelectorAll("input:checked")].map((node) => Number(node.value));
   const fields = [...$("#review-field-list").querySelectorAll("input:checked")].map((node) => node.value);
+  const recordOnly = fields.some((field) => RECORD_ONLY_REVIEW_FIELDS.has(field));
+  const requestedStatus = recordOnly ? "needs_review" : state.reviewMode;
+  const startCodex = !recordOnly && state.reviewMode === "awaiting_codex";
+  state.reviewSubmitting = true;
+  $("#review-submit").disabled = true;
   try {
     const review = await api("/api/reviews", {
       method: "POST",
       body: {
         questionId: state.detail.id,
-        status: state.reviewMode,
-        startCodex: state.reviewMode === "awaiting_codex",
+        status: requestedStatus,
+        startCodex,
+        submissionKey: state.reviewSubmissionKey,
         review: {
           choiceIndexes,
           fields,
@@ -8032,11 +8070,14 @@ async function submitReview(event) {
         showWorkflowError(error);
       }
     } else {
-      toast("指摘を記録しました。");
+      toast(recordOnly ? "保留再整備に引き継ぐ指摘を記録しました。" : "指摘を記録しました。");
     }
     await loadQuestions(true);
   } catch (error) {
     toast(error.message, true);
+  } finally {
+    state.reviewSubmitting = false;
+    $("#review-submit").disabled = false;
   }
 }
 

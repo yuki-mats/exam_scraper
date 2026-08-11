@@ -8336,6 +8336,7 @@ class QualificationRunCoordinator:
         store: QualificationRunStore | None = None,
         app_server: Any | None = None,
         work_versions: QuestionWorkVersionStore | None = None,
+        reviews: Any | None = None,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.workflow = workflow
@@ -8344,6 +8345,7 @@ class QualificationRunCoordinator:
         self.secret = secret.encode("utf-8")
         self.store = store or QualificationRunStore(self.repo_root)
         self.app_server = app_server
+        self.reviews = reviews
         self.work_versions = (
             work_versions
             or getattr(workflow, "work_versions", None)
@@ -8705,6 +8707,42 @@ class QualificationRunCoordinator:
                 "保留理由を確認できない問題が含まれています: "
                 + ", ".join(sorted(missing))
             )
+        targets_by_question = {
+            str(target.get("id") or target.get("uiQuestionId") or ""): target
+            for stage_plan in (
+                plan.get("stagePlans")
+                if isinstance(plan.get("stagePlans"), list)
+                else [plan]
+            )
+            if isinstance(stage_plan, Mapping)
+            for target in stage_plan.get("progressTargets") or []
+            if isinstance(target, Mapping)
+            and (target.get("id") or target.get("uiQuestionId"))
+        }
+        reviews = getattr(self, "reviews", None)
+        if reviews is not None:
+            for question_id in sorted(requested_question_ids):
+                target = targets_by_question.get(question_id)
+                state_hash = str(target.get("stateHash") or "") if target else ""
+                review = reviews.latest_current_question_needs_review(
+                    qualification,
+                    question_id,
+                    state_hash,
+                    str(target.get("listGroupId") or "") if target else "",
+                )
+                if review is None:
+                    continue
+                feedback_by_question[question_id].append(
+                    {
+                        "source": "human_review",
+                        "status": "needs_review",
+                        "reviewId": str(review.get("reviewId") or ""),
+                        "stateHash": state_hash,
+                        "note": str(review.get("note") or ""),
+                        "expectedOutcome": str(review.get("expectedOutcome") or ""),
+                        "selection": copy.deepcopy(review.get("selection")),
+                    }
+                )
         plan.update(
             blockedReworkFrom=blocked_rework_from,
             evaluationFeedbackByQuestion={

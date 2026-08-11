@@ -258,6 +258,16 @@ class QuestionWorkQueueTests(unittest.TestCase):
         }
         coordinator = object.__new__(QualificationRunCoordinator)
         coordinator.store = SimpleNamespace(get=lambda _qualification, _run_id: previous)
+        coordinator.reviews = SimpleNamespace(
+            latest_current_question_needs_review=lambda qualification, question_id, state_hash, list_group_id: {
+                "reviewId": "review-q1",
+                "note": "人間の指摘",
+                "expectedOutcome": "期待結果",
+                "selection": {"dataPath": "choiceTextList[3]"},
+            }
+            if qualification == "sample" and question_id == "q1" and state_hash == "state-1"
+            else None
+        )
 
         coordinator._apply_blocked_rework_plan(plan, "run-partial")
         executions = build_question_executions(plan)
@@ -270,6 +280,10 @@ class QuestionWorkQueueTests(unittest.TestCase):
         feedback = executions[0]["stages"][0]["priorValidationFeedback"][0]
         self.assertEqual(feedback["source"], "blocked_maintenance")
         self.assertIn("現行仕様", feedback["summary"])
+        human_feedback = executions[0]["stages"][0]["priorValidationFeedback"][1]
+        self.assertEqual(human_feedback["source"], "human_review")
+        self.assertEqual(human_feedback["reviewId"], "review-q1")
+        self.assertEqual(human_feedback["stateHash"], "state-1")
 
     def test_builds_placeholder_for_later_dynamic_stage(self) -> None:
         later = stage_plan("law_audit", [self.targets[1]])

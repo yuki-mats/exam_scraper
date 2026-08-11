@@ -87,6 +87,7 @@ from tools.question_review_console.question_list_read_model import (
 from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.qualification_runs import (
     LAW_PATCH_DIR_NAMES,
+    NON_AUTOMATED_CORRECTION_FIELDS,
     QualificationRunCoordinator,
     QualificationRunError,
     QualificationRunStore,
@@ -440,6 +441,7 @@ class QuestionReviewApplication:
             store=self.run_store,
             app_server=self.app_server,
             work_versions=self.work_versions,
+            reviews=self.reviews,
         )
         self.live_results: dict[str, dict[str, Any]] = {}
         self._live_lock = threading.RLock()
@@ -1350,6 +1352,22 @@ class QuestionReviewApplication:
             if requested_status not in {"needs_review", "awaiting_codex"}:
                 raise ApiError(HTTPStatus.BAD_REQUEST, "review作成状態が不正です。")
             start_codex = body.get("startCodex") is True
+            selection = request.get("selection")
+            requested_fields = list(request.get("fields") or [])
+            if isinstance(selection, Mapping):
+                requested_fields.extend(selection.get("fields") or [])
+            protected_fields = {
+                str(value) for value in requested_fields
+            } & NON_AUTOMATED_CORRECTION_FIELDS
+            if start_codex and protected_fields:
+                raise ApiError(
+                    HTTPStatus.UNPROCESSABLE_ENTITY,
+                    "問題文・選択肢は記録専用reviewです。保留再整備から実行してください: "
+                    + ", ".join(sorted(protected_fields)),
+                )
+            submission_key = str(body.get("submissionKey") or "").strip()
+            if submission_key:
+                request["submissionKey"] = submission_key
             request_kind = str(request.get("requestKind") or "")
             if request_kind == "evaluation_rework":
                 evaluation = question.get("evaluation")
@@ -1375,7 +1393,12 @@ class QuestionReviewApplication:
                     self.app_server.assert_subscription_access(force=False)
                 except Exception as exc:  # noqa: BLE001
                     raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
-            review = self.reviews.create(question, request, status=requested_status)
+            try:
+                review = self.reviews.create(question, request, status=requested_status)
+            except ValueError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+            if review.get("idempotentReplay") is True:
+                return HTTPStatus.CREATED, review
             if start_codex and requested_status == "awaiting_codex":
                 try:
                     started = self.qualification_runs.start_review(
@@ -2289,6 +2312,7 @@ class QuestionReviewApplication:
         question = copy.deepcopy(dict(raw))
         machine_issue_codes = list(question.get("issueCodes") or [])
         review = self.reviews.latest_for(question)
+        review_history = self.reviews.history_for(question)
         review_status = str(review.get("status") if review else "unreviewed")
         issues = list(question.get("issues") or [])
         codes = {str(issue.get("code")) for issue in issues}
@@ -2341,6 +2365,7 @@ class QuestionReviewApplication:
         )
         question["issueCodes"] = [issue["code"] for issue in question["issues"]]
         question["review"] = review
+        question["reviewHistory"] = review_history
         question["reviewStatus"] = review_status
         live = self._live_result_for(question)
         question["liveReadback"] = live

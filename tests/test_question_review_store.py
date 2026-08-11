@@ -1,6 +1,7 @@
 import json
 import tempfile
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from tools.question_review_console.prompt_builder import (
@@ -163,6 +164,68 @@ class QuestionReviewStoreTests(unittest.TestCase):
 
         self.assertEqual(latest["status"], "approved")
         self.assertEqual(latest["snapshots"]["projectedHash"], "state-2")
+
+    def test_submission_key_is_idempotent_and_history_marks_duplicates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = ReviewStore(root)
+            question = {
+                "id": "api-id",
+                "reviewKey": "sample:2026:file:q1",
+                "qualification": "sample-exam",
+                "listGroupId": "2026",
+                "sourceQuestionKey": "sample:2026:q1",
+                "originalQuestionId": "q1",
+                "stateHash": "state-1",
+                "body": "問題",
+                "projected": {"choiceTextList": ["A"]},
+                "source": {},
+                "uploadReadyDocs": [],
+                "paths": {"source": "output/source.json", "patches": []},
+            }
+            request = {
+                "submissionKey": "submission-1",
+                "fields": ["choiceTextList"],
+                "note": "選択肢を確認",
+                "investigationScope": "current_question",
+            }
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                first, second = list(
+                    executor.map(
+                        lambda _: store.create(
+                            question, request, status="needs_review"
+                        ),
+                        range(2),
+                    )
+                )
+            self.assertEqual(first["reviewId"], second["reviewId"])
+            self.assertEqual(
+                sorted([first["idempotentReplay"], second["idempotentReplay"]]),
+                [False, True],
+            )
+            self.assertEqual(len(list(store.root.glob("*/*/reviews/*.json"))), 1)
+            self.assertEqual(len(list(store.root.glob("*/*/prompts/*.md"))), 1)
+            with self.assertRaisesRegex(ValueError, "異なるreview送信"):
+                store.create(
+                    question,
+                    {**request, "note": "別の内容"},
+                    status="needs_review",
+                )
+
+            duplicate = store.create(
+                question,
+                {**request, "submissionKey": "submission-2"},
+                status="needs_review",
+            )
+            history = store.history_for(question)
+            latest = store.latest_current_question_needs_review(
+                "sample-exam", "api-id", "state-1", "2026"
+            )
+
+        self.assertEqual(history[0]["reviewId"], duplicate["reviewId"])
+        self.assertTrue(history[0]["canonical"])
+        self.assertEqual(history[1]["duplicateOf"], duplicate["reviewId"])
+        self.assertEqual(latest["reviewId"], duplicate["reviewId"])
 
     def test_qualification_law_audit_prompt_is_compact_and_requires_per_choice_review(self):
         with tempfile.TemporaryDirectory() as directory:

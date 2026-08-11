@@ -977,6 +977,89 @@ class QuestionReviewServerTests(unittest.TestCase):
             ("review-conflict-1", "needs_review", "state-current"),
         )
 
+    def test_protected_review_start_is_rejected_before_persistence(self):
+        class Reviews:
+            def create(self, *args, **kwargs):
+                raise AssertionError("review must not be persisted")
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.reviews = Reviews()
+            app._question = lambda question_id, query: {
+                "id": question_id,
+                "qualification": "sample",
+                "listGroupId": "2026",
+                "stateHash": "state-current",
+            }
+            app._decorate = lambda question: question
+            with self.assertRaises(ApiError) as caught:
+                app.post(
+                    "/api/reviews",
+                    {
+                        "questionId": "question-1",
+                        "status": "awaiting_codex",
+                        "startCodex": True,
+                        "submissionKey": "submission-1",
+                        "review": {
+                            "fields": ["choiceTextList"],
+                            "note": "選択肢を確認",
+                        },
+                    },
+                )
+
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("記録専用review", str(caught.exception))
+
+    def test_idempotent_review_replay_does_not_start_second_run(self):
+        class Gate:
+            def assert_subscription_access(self, *, force=True):
+                return {"allowed": True}
+
+        class Reviews:
+            calls = 0
+
+            def create(self, question, request, *, status):
+                self.calls += 1
+                return {
+                    "reviewId": "review-1",
+                    "qualification": question["qualification"],
+                    "prompt": "prompt",
+                    "idempotentReplay": self.calls > 1,
+                }
+
+        class Runs:
+            calls = 0
+
+            def start_review(self, question, review, *, work_type):
+                self.calls += 1
+                return {"job": {"jobId": "job-1"}}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.app_server = Gate()
+            app.reviews = Reviews()
+            app.qualification_runs = Runs()
+            app._question = lambda question_id, query: {
+                "id": question_id,
+                "qualification": "sample",
+                "listGroupId": "2026",
+                "stateHash": "state-current",
+            }
+            app._decorate = lambda question: question
+            payload = {
+                "questionId": "question-1",
+                "status": "awaiting_codex",
+                "startCodex": True,
+                "submissionKey": "submission-1",
+                "review": {"fields": ["explanationText"], "note": "確認"},
+            }
+            first_status, _ = app.post("/api/reviews", payload)
+            second_status, _ = app.post("/api/reviews", payload)
+
+        self.assertEqual(first_status, 202)
+        self.assertEqual(second_status, 201)
+        self.assertEqual(app.qualification_runs.calls, 1)
+
     def test_evaluation_rework_starts_fresh_codex_job_with_server_snapshot(self):
         class Gate:
             def assert_subscription_access(self, *, force=True):
