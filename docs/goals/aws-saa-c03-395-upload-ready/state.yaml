@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T025
+active_task: T026
 
 tasks:
   - id: T001
@@ -1915,7 +1915,7 @@ tasks:
   - id: T025
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "承認済みbinary diff SHA-256を再確認してexact 2ファイルだけをmainへ単一commitしorigin/mainへ通常pushする。clean parity後、fresh review-uiでT021 run 20260811T201827949133-bcb65475のexact unfinished30だけをpreviewし、全gate一致時にstartを一度だけ実行する。新runをterminalまで監視し、Q45/Q27、artifactSync、SAA-C03 395/395 local-ready、Firestore writes=0を現物readbackする。"
     inputs:
@@ -1960,6 +1960,73 @@ tasks:
       - "Q45又はQ27がblocked、人間content decision、source conflict又はreview承認を要求する。content fieldを自動補正しない。"
       - "exact30外、validated34、T021 base run、既存orphan、00_source、CLF-C02、Firestore、GoalBuddy control filesへの変更が必要になる。"
       - "API key、credit bypass、Fast、非公開header/URL固定、成功値捏造fallback、外部upload/publish又は別run/startが必要になる。"
+    receipt:
+      result: blocked
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - cmd: "approved binary diff SHA-256 and file SHA-256"
+          status: pass
+        - cmd: "StructuredCandidateStageContextTests; 15 tests"
+          status: pass
+        - cmd: "qualification_runs and workflow_catalog tests"
+          status: pass
+        - cmd: "question_run_recovery; 7 tests"
+          status: pass
+        - cmd: "00_source immutability"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "commit b4dcb327556cc966ed5b0f929577088e77d6d0b2 and normal push origin/main"
+          status: pass
+        - cmd: "fresh review-ui preview from 20260811T201827949133-bcb65475"
+          status: "blocked: returned 29 questions and 45 work items instead of required 30 and 46"
+        - cmd: "base run and orphan readback"
+          status: pass
+        - cmd: "git clean main origin parity 0/0"
+          status: pass
+        - cmd: "review-ui shutdown"
+          status: pass
+      summary: "承認済み2-file diffを検証し、commit b4dcb3275をorigin/mainへ通常pushした。committed mainのfresh UIで指定base runを一度だけpreviewしたが、正本の30問・46工程に対し29問・45工程だった。stop_ifに従いstart、再preview、手動補正を行わず安全停止した。baseのvalidated34/unfinished30、planHash、orphanは不変で、新runや外部publishは作成していない。"
+      evidence:
+        - "binary diff SHA-256=aff0a68c4e0a1ded77fc540eeaecbafe944008356b2d4882f6e813c391674b4b。"
+        - "file hashesはqualification_runs.py=8596bc0192c8590f455bffdef497b0e80c6eba57384a0cf6146c38ce7b75e4d5、test=021b1db7e914a51a7412a70e439763f0f39896c503a0c03b1a9bc4931133c447。"
+        - "commit b4dcb327556cc966ed5b0f929577088e77d6d0b2をorigin/mainへ通常pushし、main clean、parity 0/0。"
+        - "fresh previewは29 questions、45 work itemsを返したため、T025 stop_ifに従いstartを実行しなかった。"
+        - "validated34 hash=10c9509e46899441bfa8b2193354e810daf7256f13da4c0a8f4c8bffdb3b33c5、unfinished30 hash=7b69d712d33a0c97ff68aa87d80731bbfdb5b0027abfb6673fd4001e1d0ec661は不変。"
+        - "base planHashとorphan planHashは不変、orphan manifest不在、新run不在。"
+        - "Firestore writeと外部upload/publishは0。"
+      deviations: []
+      remaining_blockers:
+        - "fresh previewの対象が要求されたexact unfinished30ではなく29問だった。"
+        - "fresh previewのworkItemCountが要求46ではなく45だった。"
+        - "preview対象の1問欠落原因をread-only Judgeで特定する必要がある。"
+      verification_attempts: 1
+      stopped_because: "fresh previewがexact30 count/hashおよび46 work items gateと一致しないT025 stop_ifが成立したため。"
+  - id: T026
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T025 fresh previewがT021 unfinished30/46に対して29/45を返した理由をread-onlyで特定する。UIを再起動又は再previewせず、base/parent run plan・question states・current work versions・selection/recovery code・cache/read modelからmissing questionIdとmissing work itemを一意に確定する。正しい収束除外かsystem responsibility defectかを判定し、既存30/34集合、Q45/Q27、plan/selfHash、orphan、00_source、Firestore非反映を再確認して次の単一Worker packageを返す。"
+    inputs:
+      - "T025 blocked receipt"
+      - "base run 20260811T201827949133-bcb65475"
+      - "base parent run chain and current work versions"
+      - "qualification recovery preview/selection implementation"
+      - "exact unfinished30、validated34、policy gates"
+    constraints:
+      - "Read-only。code、test、UI、preview、start、run、artifact、cache、work version、GoalBuddy control filesを変更しない。"
+      - "T025のsingle-preview safety contractを維持し、同じ又は新しいserverへのpreview/startを行わない。"
+      - "base stateとcurrent stateを独立に比較し、29件を30件へ自動補正又はtargetへ強制追加しない。"
+      - "00_source、CLF-C02、Firestore、外部upload/publishを変更しない。"
+    expected_output:
+      - "missing questionIdとstage/work itemのexact特定"
+      - "base unfinished30に含まれfresh previewから除外された直接条件"
+      - "正しい収束除外かselection/read model責務欠陥かの判定"
+      - "Q45/Q27を含む現在の未完了集合とhash"
+      - "次の最小Worker package、allowed files、verify、stop_if、commit/start authorization"
     receipt: null
   - id: T999
     type: judge
