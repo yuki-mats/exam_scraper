@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T077
+active_task: T073
 
 tasks:
   - id: T001
@@ -4474,9 +4474,9 @@ tasks:
   - id: T073
     type: worker
     assignee: Worker
-    status: blocked
+    status: active
     reasoning_hint: medium
-    objective: "通常の問題整備UIだけを使う。既存3 review（C059=20260811T100031465989-a8d963e8、C002=20260811T100125123794-99a96ac4、C011=20260811T100224979477-ad6c2f77）がreview_inputsどおり各1件・same-state current_question record-onlyであることを確認し、再送信しない。UI起動時に停止run 20260811T100819366640-3cce04b3をinterrupted/interruptedへstartup recoveryし、履歴保持するがresume・採用しない。次に元Group B partial run 20260811T094157198997-bdcce066の『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの新規単一runを実行する。3問すべてvalidated/currentなら内容をreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
+    objective: "通常の問題整備UIだけを使う。既存3 review（C059=20260811T100031465989-a8d963e8、C002=20260811T100125123794-99a96ac4、C011=20260811T100224979477-ad6c2f77）がreview_inputsどおり各1件・current-state current_question record-onlyであることをrefresh後に確認する。同一stateなら再送信しない。staleなら各問同一内容を1回だけ新規保存しstandalone runを開始しない。次に最新partial run 20260811T104025085065-b0df92bcの『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの新規単一runを実行する。02 policy=5.0で3問すべてvalidated/currentならauthoritative interpretationをreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
     depends_on:
       - T072
       - T075
@@ -4743,7 +4743,7 @@ tasks:
   - id: T077
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "02の生成規則、構造化fieldRule、共通candidate prompt、機械validatorをquestion_field_contract.mdの完全命題契約へ統一する。完結記述肢では本文の正誤指示を選択方向にだけ使い、断片肢では本文述語を一度補った命題の真偽側をquestionIntentとする。validatorはchoice構造を見ず否定語だけで断片問題をselect_incorrectへ固定せず、明白な完結記述だけを検査し、曖昧なら値を自動決定しない。02 policyを5.0へ上げ、human_reviewを含むpromptと生成・validatorが同じ規則になる回帰テストを追加する。02aの独立命題判定、公式解答照合、fail-closed、不変field保護は維持する。"
     depends_on:
@@ -4775,7 +4775,41 @@ tasks:
       - "question_field_contract.md既存完全命題契約自体を変更する必要がある。"
       - "run/review/prompt成果物、patch/work version、00_source、Firestore/Storage又はallowed_files外へ触れる必要がある。"
       - "既存ユーザー差分又は別Worker変更と競合する。"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - config/question_maintenance_workflow.toml
+        - prompt/02_prompt_fix_questionIntent.md
+        - scripts/common/question_answer_contract.py
+        - tools/question_review_console/question_candidate.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_answer_contract.py
+        - tests/test_question_review_question_candidate.py
+        - tests/test_question_review_workflow_catalog.py
+      commands:
+        - cmd: "main unittest groups"
+          status: pass
+          detail: "102 tests"
+        - cmd: "qualification safety regression"
+          status: pass
+          detail: "2 tests"
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          detail: "5799 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git commit -m fix: align question intent with proposition contract"
+          status: pass
+          detail: 0cfb17051
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "git clean/sync readback"
+          status: pass
+          detail: "clean 0 0"
+      summary: "02のprompt、fieldRule、共通candidate prompt、validatorを完全命題契約へ統一。完結記述肢だけ本文方向を機械検査し、断片・混在構造は自動決定しない。policy 5.0へ更新し、02a alignmentとfail-closedを維持。主群102件・安全回帰2件成功、00_source 5799件不変。commit 0cfb17051をorigin/mainへpushしclean/sync 0 0。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
   - id: T999
     type: judge
     assignee: Judge
