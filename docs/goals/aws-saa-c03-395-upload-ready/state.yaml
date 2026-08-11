@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T016
+active_task: T017
 
 tasks:
   - id: T001
@@ -1172,7 +1172,7 @@ tasks:
   - id: T016
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T015の2ファイル差分をread-onlyで監査し、category.jsonのdescription・matchingHintsがnative型のまま非損失でquestion_set structured contextへ渡ること、決定要因ruleが資格横断で特定サービスをhardcodeしないこと、question_set policy fingerprintとT013 validated 21問のfingerprintが保持されること、正規UI recovery previewがexact 64-ID gateを満たすことを独立検証する。承認時はscope commit/push後に実行できる単一の64問recovery Worker packageを返す。"
     inputs:
@@ -1194,6 +1194,130 @@ tasks:
       - "exact 64-ID preview gateの独立監査"
       - "scope commit/push可否"
       - "承認時の単一64問recovery Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T015差分は指定2ファイルの10追加行だけで、category.jsonのdescriptionとmatchingHintsを変換せず渡し、資格横断の決定要因ruleを追加している。資格名、SAA、SQS、SNS、Q45、特定IDのhardcodeはない。13件・180件のtests、00_source 5799件、diff checkは成功した。question_set policy fingerprint、validated 21問の状態とfingerprint、unfinished exact 64-ID集合も保持されている。2ファイルのscope commit/pushを承認し、その完了後だけ単一64問の正規UI recoveryを許可する。"
+      evidence:
+        - "未コミット差分はqualification_runs.pyとtest_question_review_qualification_runs.pyだけで10 insertions、削除なし。"
+        - "descriptionとmatchingHintsはnative値を直接渡し、SAA category.json有効64分類すべてで元値・型との完全一致を確認した。投影SHA-256はc4cb96b6e0ed07c391442c226e4814ae09c479f4d80035aeaf2fa3f93e849b35。"
+        - "追加ruleに資格名、SAA、SQS、SNS、Q45、questionId又は特定questionSetIdのhardcodeはない。"
+        - "StructuredCandidateStageContextTests 13件と関連180件が成功し、git diff --checkも成功した。"
+        - "question_set policyVersion=2.0、policyFingerprint=dd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596でT013と一致する。"
+        - "validated 21問はstatusとinput/output/policy fingerprintを保持し、21 stage fingerprint SHA-256はc3b9f9dbd2d18a4c13a0577a5169ba392d737e843f71bc6b7b524cb0029dc56b。"
+        - "T013はvalidated 21、blocked 1、queued 63。unfinished 64-ID sorted-newline SHA-256は04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698でQ45を含みvalidated21との積集合は空。"
+        - "00_source immutabilityは5799 filesで成功した。"
+      scope_commit_push:
+        authorized: true
+        paths:
+          - tools/question_review_console/qualification_runs.py
+          - tests/test_question_review_qualification_runs.py
+        branch: main
+        remote: origin/main
+        force: false
+      exact_recovery_set_gate:
+        resumed_from: 20260811T182911729697-cce7a06d
+        target_count: 64
+        work_item_count: 126
+        blocked_count: 1
+        queued_count: 63
+        validated_exclusion_count: 21
+        sorted_newline_sha256: 04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698
+        required_question_id: 6c74190a4ab7caf42ea941b4
+        start_authorized_after_commit_push_and_fresh_preview: true
+      next_allowed_task:
+        type: worker
+        objective: "T017へ転記済み。監査済み2ファイルをscope commit/pushし、fresh exact 64-ID gate後に正規UI recoveryを一度開始して395/395まで閉じる。"
+        allowed_files:
+          - "T017.allowed_filesを正本とする"
+        verify:
+          - "T017.verifyを正本とする"
+        stop_if:
+          - "T017.stop_ifを正本とする"
+      parallel_safety:
+        safe: false
+        reason: "scope commit/push、fresh preview、単一recovery runは同じmainとT013 stateへ順番に依存する。"
+      blocked_tasks:
+        - T004
+        - T999
+      missing_evidence:
+        - "監査済み2ファイルのscope commit SHAとpush parity。"
+        - "fresh exact 64問・126 work items preview。"
+        - "64問recovery terminal successとQ45 6-1 readback。"
+        - "artifactSync成功とSAA-C03 395/395 local-ready。"
+        - "T004 upload dry-runとAWS全体1274/1274。"
+      required_board_updates:
+        - "T016をdoneとして記録しT017をactivateする。"
+        - "T015の2ファイルscope commit/pushを承認済みとして記録する。"
+        - "T017成功後にT004をactivateし、T999は最終証拠までblockedのまま保持する。"
+  - id: T017
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "T015の監査済み2ファイル差分を変更せず再検証し、exact scopeでmainへcommitしてorigin/mainへ通常pushする。push後に正規UIからrun 20260811T182911729697-cce7a06dの『この未完了を再開』を選び、開始直前previewがexact 64問・126 work itemsを満たす場合だけ一度開始する。既存validated 21問を保持し、64問を収束させ、artifactSyncとSAA-C03 395/395 local-readyまで閉じる。Firestoreへは書き込まない。"
+    inputs:
+      - "T016 Judge receiptとscope commit/push authorization"
+      - "T015のexact 2-file uncommitted diff"
+      - "run 20260811T182911729697-cce7a06d recovery"
+      - "unfinished 64-ID gateとvalidated exclusion 21-ID fingerprints"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json"
+      - "output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+    verify:
+      - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+      - "git diff --name-onlyがtools/question_review_console/qualification_runs.pyとtests/test_question_review_qualification_runs.pyのexact 2件であることを確認する。"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.StructuredCandidateStageContextTests"
+      - "python3 -m unittest tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog"
+      - "python3 scripts/check/check_00_source_immutability.py && git diff --check"
+      - "上記2ファイルだけをstageし、cached scopeをreadbackしてからmainへ単一commitを作成し、forceなしでorigin/mainへpushする。push後にworktree clean、main、origin/main...HEAD=0/0を確認する。"
+      - "開始直前の正規UI previewでresumedFrom=20260811T182911729697-cce7a06d、scopeListGroupIds=[udemy-aws-saa-c03]、targetCount=64、workItemCount=126、unfinished sorted-newline SHA-256=04c1b06410e59a60acc9f37df0d34eb54cbbbec8b4fe5bc6961c604e81f58698、Q45含有、validated 21問除外を確認する。"
+      - "UI previewでstageIds=[originalize,question_type,question_intent,correct_choice,explanation,question_set]、既存10 selectedUpdateTargetIds、Standard、auto_max、Firestore非反映を確認する。"
+      - "新runのquestion_summaryから64-ID hashを再計算し、targetCount=64、validatedQuestionCount=64、blockedQuestionCount=0、blockedWorkItemCount=0、pendingWorkItemCount=0、status=succeeded、queueStatus=succeeded、receiptValidated=trueを確認する。"
+      - "Q45の22_questionSetId_linked成果物をreadbackし、questionSetId=aws_solutions_architect_associate_qs06_01_sqs_queues_dlqであることを確認する。"
+      - "artifactSync.statusがsucceeded、current又はnot_requiredであることを確認する。"
+      - "python3 -m tools.question_review_console.workflow_overview_builder --repo-root . --qualification aws-solutions-architect-associate | jq -e '.overallStatus == \"ready\" and .summary.questionCount == 395 and .summary.maintenanceProgress.currentCount == 395 and .summary.maintenanceProgress.requiredCount == 0 and .summary.holdQuestionCount == 0 and (.summary.issueCounts | length) == 0 and any(.groups[]; .listGroupId == \"udemy-aws-saa-c03\" and .questionCount == 395 and .localReady == true)'"
+      - "python3 -c 'from pathlib import Path; from tools.question_review_console.inventory import QuestionInventory; g=QuestionInventory(Path.cwd()).group(\"aws-solutions-architect-associate\",\"udemy-aws-saa-c03\"); assert g[\"questionCount\"]==395; assert not g.get(\"identityBlockers\"); assert not g.get(\"artifactResolutionBlockers\"); assert all(q[\"workflow\"][k]==\"match\" for q in g[\"questions\"] for k in (\"merge\",\"convert\",\"upload\")); assert all(not q.get(\"issues\") for q in g[\"questions\"]); print(\"SAA-C03 395/395 local-ready\")'"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts tests"
+      - "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate && test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
+    stop_if:
+      - "commit前の差分がexact 2ファイルでない、差分内容がT016監査時から変わる、対象testsが失敗する、又はcached scopeに別ファイルが入る。"
+      - "main/originの競合、non-fast-forward、force push、別branch又は履歴上書きが必要になる。"
+      - "push後にworktree clean、main、origin/main parity 0/0を満たさない。"
+      - "review UI又はSAA leaseを別processが実際に保持する。lock fileは手動削除しない。"
+      - "開始直前previewがexact 64問・126 work items・指定hashと一致しない、Q45を欠く、又はvalidated 21問を含む。"
+      - "previewのresumedFrom、単一group、6工程、10 update target、Standard、auto_max又はFirestore非反映が一致しない。"
+      - "question_set policy fingerprintがdd0f050a99108560d0559cd628f3f21dda71fee8ec49253b1ba7d6aec40c9596から変わる。"
+      - "既存validated 21問のstatus、inputFingerprint又はoutputFingerprintが変わる。"
+      - "Q45が再度blockedになる、6-1以外へ現在値で補正する必要が生じる、人手承認又は問題内容変更が必要になる。同じ入力で再試行しない。"
+      - "任意の問題でretrySafe=false、failed delta、identityBlocker、artifactResolutionBlocker、rollback不能、内容fieldの自動補正又は新たなholdを検出する。"
+      - "00_source、既存ID、category.json、prompt、CLF-C02、Firestore又はallowed_files外の変更が必要になる。"
+      - "Fast、追加credits、外部API key又はFirestore書込みが必要になる。"
+      - "artifactSyncがfailed又はinterruptedになる。確定済みpatchを保持し、手動再生成せずT004へ送る。"
+      - "Verification fails twice."
     receipt: null
   - id: T999
     type: judge
