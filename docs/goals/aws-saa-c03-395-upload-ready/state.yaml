@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T031
+active_task: T032
 
 tasks:
   - id: T001
@@ -2368,7 +2368,7 @@ tasks:
   - id: T031
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "qualification/stageIdsとnormalized selection fieldsをrouting/preview再構築情報として維持しつつ、server由来actual targetIdentity、同一payloadのpreviewPlanHash/token、start内checked prepared plan単回利用、UIの非再計算readbackをexact 4 filesだけへ実装する。server.py、UI実行、commit/pushは禁止する。"
     inputs:
@@ -2410,6 +2410,71 @@ tasks:
       - "特定資格、service、questionId、current count、Q45/Q27のhardcodeが必要になる。"
       - "UI、preview、start、run、artifact、work version、review、00_source、CLF-C02、Firestore、GoalBuddy control fileの変更が必要になる。"
       - "対象testsが反復失敗する、又は既存run/artifact/hash不変を確認できない。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/static/app.js
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_workflow.py
+      commands:
+        - cmd: "QuestionWorkPreviewGroupSummaryTests; 5 tests"
+          status: pass
+        - cmd: "question IDs preview token and resume scope test"
+          status: pass
+        - cmd: "qualification_runs; 164 tests"
+          status: pass
+        - cmd: "WorkflowUiContractTests; 28 tests"
+          status: pass
+        - cmd: "question_review_workflow; 50 tests"
+          status: pass
+        - cmd: "QuestionReviewServerTests; 68 tests"
+          status: pass
+        - cmd: "qualification_flow_recovery; 33 tests"
+          status: pass
+        - cmd: "00_source immutability; 5799 files"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git diff --name-only; allowed exact 4 files"
+          status: pass
+        - cmd: "main origin parity 0/0"
+          status: pass
+      summary: "実queue由来のtargetIdentity、sorted-newline SHA-256、stageSummaryを追加し、不正identityをfail-closedにした。previewPlanHashとpreviewTokenはplan/groupPreviews/actual identityの同一canonical payloadへ結合した。startはrouting fieldsからplanを一度だけ構築し、token照合後も同じchecked planを永続化する。UIはserver responseをそのままcopy可能表示し、startにはrequestedQuestionIdsだけを送る。UI/run/commit/pushは未実行。"
+      implementation:
+        server_authority: "actual targetIdentityはbuild_question_executions(plan)由来"
+        hashing: "sorted newline SHA-256とcanonical preview plan payload"
+        start: "prepared checked planの単回利用、照合後reselectionなし"
+        ui: "server responseのcopyable表示、client hash/target再計算なし"
+        routing: "qualification/stageIds/selection fieldsを維持しrequestedQuestionIdsだけをecho"
+      deviations: []
+      remaining_blockers: []
+      verification_attempts: 2
+      stopped_because: null
+  - id: T032
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T031 exact 4-file uncommitted diffをread-onlyで監査する。actual targetIdentityが実queue正本だけから生成されfail-closedであること、previewPlanHash/tokenが同一canonical payloadへ結合されること、startがtoken照合済みchecked planを二度目selectionなしで永続化すること、UIがserver responseを非再計算で表示しrequested filterだけをstartへ送ることを独立確認する。server.py不変、tests、既存run/artifact/hash不変を検証し、scope commit/pushとfresh exact29/45 single retry可否を返す。"
+    inputs:
+      - "T030 Judge receipt"
+      - "T031 Worker receipt"
+      - "exact 4-file uncommitted diff"
+      - "existing preview/token/immutable plan/UI contracts"
+      - "T026 exact29/45 and converged exclusion gates"
+    constraints:
+      - "Read-only。code、test、UI、preview、start、run、artifact、work version、GoalBuddy control filesを変更しない。"
+      - "server.py変更、client target echo/recompute、registry、token decode、token照合後のreselectionを見逃さない。"
+      - "特定資格、ID、current count hardcode、gate緩和、自動補正を見逃さない。"
+      - "00_source、CLF-C02、Firestore、外部upload/publishを変更しない。"
+    expected_output:
+      - "4-file scopeとbinary/file hashes"
+      - "targetIdentity/hash/fail-closed契約の承認判定"
+      - "routing/authority/token/checked-plan単回利用の承認判定"
+      - "UI非再計算readback/request filter分離の承認判定"
+      - "testsと既存run/artifact不変"
+      - "scope commit/pushとfresh exact29/45 single retry Worker package"
     receipt: null
   - id: T999
     type: judge
