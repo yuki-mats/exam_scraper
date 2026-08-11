@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T017
+active_task: T018
 
 tasks:
   - id: T001
@@ -1254,7 +1254,7 @@ tasks:
   - id: T017
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "T015の監査済み2ファイル差分を変更せず再検証し、exact scopeでmainへcommitしてorigin/mainへ通常pushする。push後に正規UIからrun 20260811T182911729697-cce7a06dの『この未完了を再開』を選び、開始直前previewがexact 64問・126 work itemsを満たす場合だけ一度開始する。既存validated 21問を保持し、64問を収束させ、artifactSyncとSAA-C03 395/395 local-readyまで閉じる。Firestoreへは書き込まない。"
     inputs:
@@ -1318,6 +1318,66 @@ tasks:
       - "Fast、追加credits、外部API key又はFirestore書込みが必要になる。"
       - "artifactSyncがfailed又はinterruptedになる。確定済みpatchを保持し、手動再生成せずT004へ送る。"
       - "Verification fails twice."
+    receipt:
+      result: blocked
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - cmd: "git diff --name-only"
+          status: "passed: exact two T015 files"
+        - cmd: "python3 -m unittest tests.test_question_review_qualification_runs.StructuredCandidateStageContextTests"
+          status: "passed: 13 tests"
+        - cmd: "python3 -m unittest tests.test_question_review_qualification_runs tests.test_question_review_workflow_catalog"
+          status: "passed: 180 tests"
+        - cmd: "python3 scripts/check/check_00_source_immutability.py && git diff --check"
+          status: "passed: 5799 files unchanged"
+        - cmd: "git diff --cached --name-only && git diff --cached --check"
+          status: "passed: exact two files"
+        - cmd: "git commit -m 'Preserve question set matching context'"
+          status: "passed: f82e78207"
+        - cmd: "git push origin main"
+          status: "passed: normal push, no force"
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          status: "passed: clean main, parity 0/0"
+        - cmd: "正規UI recovery preview"
+          status: "passed: 64 questions, 126 work items, specified hash, Q45 included, validated21 excluded, one group, six stages, ten targets, Standard/auto_max, Firestore disabled, policy fingerprint matched"
+        - cmd: "正規UI 整備を開始"
+          status: "failed once: HTTP 422, immutable planが読取中に変更されました。"
+        - cmd: "new run readback"
+          status: "passed: no resumed run was created"
+        - cmd: "review-ui shutdown"
+          status: "passed: exit 0"
+      summary: "The audited two-file T015 change was committed as f82e78207 and pushed normally; main is clean and at origin parity. Fresh UI preview satisfied every 64-question gate. The single authorized start attempt was rejected with HTTP 422 because the immutable plan changed during read; no new run was created. A second start would violate the one-start contract and repeat the same input, so execution stopped safely. No artifacts, Firestore data, or protected files changed during the failed start."
+      remaining_blockers:
+        - "The canonical UI could not create the recovery run because immutable plan consistency failed between preview and start. A fresh second start requires Judge direction/new Worker authorization."
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "The only authorized start attempt failed the immutable-plan consistency gate; retrying the same input would exceed the one-start contract."
+  - id: T018
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T017のfresh exact 64-ID preview後、唯一のstartがHTTP 422『immutable planが読取中に変更されました。』でrun作成前に拒否された原因をread-onlyで特定する。preview response/request、start request、server-side immutable plan再計算、plan hashの構成field、runtime logを照合し、実際に変化したfield/hash、変更主体、T015のclassification context修正との関係、同じ入力を再試行せず直せる最小責務を確定する。"
+    inputs:
+      - "T017 blocked receipt"
+      - "T017正規UI preview/startのHTTP request/responseとruntime logs"
+      - "run 20260811T182911729697-cce7a06d recovery preview payload"
+      - "qualification_runs immutable plan生成・検証実装とtests"
+      - "commit f82e78207 diff"
+    constraints:
+      - "Read-only。start再試行、UI起動、code/test、run、artifact、work version、checkpoint、review承認又はGoalBuddy control filesを変更しない。"
+      - "422文言だけで原因を推定せず、preview planとstart時recomputed planのfield/hash差を現物又は実装契約から特定する。"
+      - "immutable gateを無効化、hashを固定、現在値へ自動補正又はstart契約を緩和しない。"
+      - "00_source、CLF-C02、Firestoreを変更しない。"
+      - "再開集合64問とvalidated21を変更しない。"
+    expected_output:
+      - "immutable plan mismatchのexact diff又は証拠付き最小原因"
+      - "f82e78207との因果関係"
+      - "gateを保った単純な正常フロー"
+      - "必要なら最小の実装/test/doc範囲"
+      - "fresh preview/startの次Worker packageと一度だけ再試行できる条件"
     receipt: null
   - id: T999
     type: judge
