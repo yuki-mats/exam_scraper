@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T075
+active_task: T073
 
 tasks:
   - id: T001
@@ -4474,9 +4474,9 @@ tasks:
   - id: T073
     type: worker
     assignee: Worker
-    status: blocked
+    status: active
     reasoning_hint: medium
-    objective: "通常の問題整備UIだけを使う。対象3問のreadOnly詳細で指定本文を選択し、review_inputsをsame-state current_question record-only reviewとして各1回だけ保存する。本文・選択肢の変更依頼ではなく、断片肢へ否定述語を一度補う評価基準と02/02aの期待値をfeedbackとして固定し、standalone runを開始しない。次にGroup B partial run 20260811T094157198997-bdcce066の『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの単一runを実行する。3問すべてvalidated/currentなら内容をreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
+    objective: "通常の問題整備UIだけを使う。既存3 review（C059=20260811T100031465989-a8d963e8、C002=20260811T100125123794-99a96ac4、C011=20260811T100224979477-ad6c2f77）がreview_inputsどおり各1件・same-state current_question record-onlyであることを確認し、再送信しない。UI起動時に停止run 20260811T100819366640-3cce04b3をinterrupted/interruptedへstartup recoveryし、履歴保持するがresume・採用しない。次に元Group B partial run 20260811T094157198997-bdcce066の『保留を再整備』からexact 3問、02→02a→03→04、Standard/auto_max、画像なしの新規単一runを実行する。3問すべてvalidated/currentなら内容をreadbackして終了し、review承認、artifact sync、quality gate、upload dry-runはT065再開へ残す。"
     depends_on:
       - T072
       - T075
@@ -4628,7 +4628,7 @@ tasks:
   - id: T075
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "blocked partial runの『保留を再整備』では元runのselectedUpdateTargetIdsと対応stageIdsをそのまま新規previewへ渡し、readFieldsのproducerを更新対象へ追加しない。簡略・field-first previewにもAPI応答のstageIds/stageCount/workItemCount/selectedUpdateTargetIdsを明示し、開始requestが表示済みpreviewとtokenの同一scopeだけを使うことを回帰固定する。通常UI運用SSOTへ、停止した契約外runはstartup recovery後もresumeせず元partial runから新規再整備する手順を追記する。"
     depends_on:
@@ -4655,7 +4655,36 @@ tasks:
       - "readFields参照、same-state feedback、protected-field fail-closed、record-only idempotencyを弱める必要がある。"
       - "停止run、review/prompt、patch、work version、artifact、00_source、Firestore/Storageへ触れる必要がある。"
       - "allowed_files外又は既存ユーザー差分へ触れる必要がある。"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/static/app.js
+        - tests/test_question_review_workflow.py
+        - document/operations/local_question_review_console.md
+      commands:
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_workflow"
+          status: pass
+          detail: "50 tests"
+        - cmd: "preview token/resume scope unittest"
+          status: pass
+        - cmd: "startup recovery manifest unittest"
+          status: pass
+        - cmd: "queue failed-stage resume unittest"
+          status: pass
+        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+          status: pass
+          detail: "5799 files unchanged"
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git commit -m fix: preserve blocked rework scope"
+          status: pass
+          detail: 8f7c8ae05
+        - cmd: "git push origin main"
+          status: pass
+      summary: "blocked partial reworkの元stageIds・selectedUpdateTargetIdsを依存展開せずexact保持し、preview不一致をfail-closed化。簡略previewへ工程・工程数・延べ判定数・更新対象を表示し、startをpreview/token scopeへ固定。運用手順も追記した。全検証成功、00_source 5799件不変。commit 8f7c8ae05をorigin/mainへpushし、clean/sync 0 0を確認。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
   - id: T999
     type: judge
     assignee: Judge
