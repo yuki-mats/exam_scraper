@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T032
+active_task: T033
 
 tasks:
   - id: T001
@@ -2454,7 +2454,7 @@ tasks:
   - id: T032
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T031 exact 4-file uncommitted diffをread-onlyで監査する。actual targetIdentityが実queue正本だけから生成されfail-closedであること、previewPlanHash/tokenが同一canonical payloadへ結合されること、startがtoken照合済みchecked planを二度目selectionなしで永続化すること、UIがserver responseを非再計算で表示しrequested filterだけをstartへ送ることを独立確認する。server.py不変、tests、既存run/artifact/hash不変を検証し、scope commit/pushとfresh exact29/45 single retry可否を返す。"
     inputs:
@@ -2475,6 +2475,99 @@ tasks:
       - "UI非再計算readback/request filter分離の承認判定"
       - "testsと既存run/artifact不変"
       - "scope commit/pushとfresh exact29/45 single retry Worker package"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "scope、server不変、identity生成、同一payload hash/token、routing分離、checked-plan単回利用、UI非再計算は概ね正しい。しかしtargetIdentityは実work item数をplan.workItemCountと、宣言stage数をplan.stageCountと照合せず、不正planを署名・開始可能にする。workItemCount=999、stageCount=99を実queue 6件・2工程のまま受理することを独立実証したためcommit/pushとsingle retryを拒否し、2-file amendmentを要求する。"
+      evidence:
+        - "dirty scopeはT031 allowed exact4 filesだけ。binary diff SHA-256=f4aa00b80dd90f4257e685dfa8529ccfe65c00aa8efbb4f2d4144cbc8853ee0b。"
+        - "working hashes: qualification_runs.py=f55f94d404b753b7c6bb5649b3fe61e4ca57cee3f179696e4e744b4103bcef24、app.js=7ed20adbff9ec96f2b2bf34211447dbea1cea69bb5f264948e3894bfe453a649、qualification test=4f8e612b1130902164bd0a59a6e0644b4f5633ce56ccd2a2cfe1cf3454e2318b、workflow test=c73fccec76d1956a93db632cb116d51626e52bab517801304c3a2e93c1adfd11。"
+        - "server.py working/HEAD hash=2062df3c702c331c213703ec97f1c1592d798261b0244c18174adfad32115938で不変。"
+        - "targetIdentityはbuild_question_executions(plan)だけからactual IDs/keysを得て空値、重複、未知stage、targetCount不一致を拒否する。hardcodeなし。"
+        - "previewPlanHashとpreviewTokenはcanonical plan/groupPreviews/targetIdentityの同一payloadへ結合する。"
+        - "startはplanを一度構築しtoken照合後に同じchecked planへidentity/hashを付加し旧reselectionを削除している。"
+        - "UIはresponseをcopy表示しclient再計算せず、start body.questionIdsはrequestedQuestionIds由来でactual identityを送らない。"
+        - "重大不足はactual workItemKeys数とdeclared workItemCount、declared unique stages数とstageCountの照合がないこと。"
+        - "独立実証でworkItemCount=999、stageCount=99、actual work items=6、actual stages=2が例外なく受理された。"
+        - "追加testsはworkItemCount/stageCount mismatch、空値、重複key、未知stageを直接網羅していない。"
+        - "T031 Worker suitesと00_source 5799はpass。Judge再実行はdataless explanation_quality.py読込で停止したためfull-suite独立証拠は未取得。"
+        - "base run/planHashとorphanは不変、新run不在。"
+      next_allowed_task:
+        task_id: T033
+        type: worker
+        objective: "既存exact4 diffを保持し2 editable filesだけへdeclared work/stage count fail-closed検証と直接testsを追加する。"
+        allowed_files:
+          - tools/question_review_console/qualification_runs.py
+          - tools/question_review_console/static/app.js
+          - tests/test_question_review_qualification_runs.py
+          - tests/test_question_review_workflow.py
+        editable_files:
+          - tools/question_review_console/qualification_runs.py
+          - tests/test_question_review_qualification_runs.py
+        commit_push_authorized: false
+        ui_preview_start_authorized: false
+        verify:
+          - "T033.verifyを正本とする"
+        stop_if:
+          - "T033.stop_ifを正本とする"
+      parallel_safety:
+        safe: false
+        reason: "existing exact4 amendment、re-Judge、commit/push、single retryは同一diff/token/runへ直列依存する。"
+      blocked_tasks:
+        - T004
+        - T027
+        - T029
+        - T031
+        - T999
+      missing_evidence:
+        - "workItemCount/stageCount mismatch amendmentとdirect tests。"
+        - "Drive dataless停止を解消したJudge full-suite。"
+        - "amended diff re-Judge approval、scope commit/push、fresh exact29/45 terminal proof。"
+      required_board_updates:
+        - "T032をdoneとしてT033をactivateしT031 diff commit/pushを許可しない。"
+        - "T033後にread-only Judgeを追加する。"
+  - id: T033
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "T031 exact4 diffを保持したまま、actual targetIdentityのworkItemCount/stageCount宣言照合と不足fail-closed回帰testsだけを追加する。UI、server、run contract、hash/token、checked-plan処理は変更しない。実編集はqualification_runs.pyとそのtestだけに限定し、commit/push、UI、preview/startは禁止する。"
+    inputs:
+      - "T032 Judge reject receipt"
+      - "T031 exact4 uncommitted diff"
+      - "targetIdentity helper and tests"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow.py"
+    editable_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "app.js SHA-256=7ed20adbff9ec96f2b2bf34211447dbea1cea69bb5f264948e3894bfe453a649とtest_question_review_workflow.py SHA-256=c73fccec76d1956a93db632cb116d51626e52bab517801304c3a2e93c1adfd11を開始前後で維持する。"
+      - "actual workItemKeys件数をdeclared workItemCountと比較し不一致をQualificationRunErrorで拒否する。互換fallbackはint(plan.get('workItemCount') or plan['targetCount'])とする。"
+      - "declared unique stageIds数をint(plan.get('stageCount') or len(declared_stage_ids))と比較し不一致を拒否する。stageSummary workItemCount総和もactual workItemKeys件数と一致させる。"
+      - "workItemCount不一致とstageCount不一致を別testsで検証する。"
+      - "空questionId/workItemKey/stageId、重複questionId/workItemKey、未知stage、targetCount不一致を独立又はtable-driven testで直接検証する。"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.QuestionWorkPreviewGroupSummaryTests"
+      - "python3 -m unittest tests.test_question_review_qualification_runs.QualificationProgressObservabilityTests.test_question_ids_are_bound_to_preview_token_and_resume_scope"
+      - "python3 -m unittest tests.test_question_review_qualification_runs"
+      - "python3 -m unittest tests.test_question_review_workflow.WorkflowUiContractTests"
+      - "python3 -m unittest tests.test_question_review_workflow"
+      - "python3 -m unittest tests.test_question_review_server.QuestionReviewServerTests"
+      - "python3 -m unittest tests.test_question_review_qualification_flow_recovery"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git diff --name-onlyがT031 exact4 filesだけであること。commit/pushは禁止。"
+    stop_if:
+      - "app.js又はtest_question_review_workflow.pyのpreserved hashが変わる。"
+      - "server.py、question_run_state.py又はallowed外file変更が必要になる。"
+      - "workItemCount/stageCount不一致を補正、無視又はwarning化する必要が生じる。必ずpreviewをfail-closedにする。"
+      - "token/schema/planHash/selfHash、routing/authority、requested filter/actual identity、checked-plan単回利用を変更する必要が生じる。"
+      - "UI、preview、start、run、artifact、work version、review、00_source、CLF-C02、Firestore又はGoalBuddy control fileの変更が必要になる。"
+      - "指定testsが完了せず、又は反復失敗する。"
     receipt: null
   - id: T999
     type: judge
