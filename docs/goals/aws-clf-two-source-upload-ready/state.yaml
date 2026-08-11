@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T076
+active_task: T077
 
 tasks:
   - id: T001
@@ -4480,6 +4480,7 @@ tasks:
     depends_on:
       - T072
       - T075
+      - T077
     review_inputs:
       - question_id: 7c4da075c6a91c1e471e8b1b
         label: CLF202C059
@@ -4687,7 +4688,7 @@ tasks:
   - id: T076
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T073 exact run 20260811T104025085065-b0df92bcでsame-state human reviewがplanへ継承されたのに3問すべて02aで同じ反転判定になった原因をread-only監査する。実際の02 candidate prompt/output、02a independent-review/arbitration prompt/output、feedback projection、prompt SSOT、validator logicを追う。T072の完全命題解釈を正本・questionType/answer contractと再照合し、正しい解釈を確定したうえで、feedbackが失われた層または一般prompt/validator不足を最小修正するWorker契約とT073再開条件を示す。"
     depends_on:
@@ -4708,6 +4709,72 @@ tasks:
       - "Exact layer where human feedback or proposition rule is lost"
       - "Minimal Worker objective、allowed_files、verify、stop_if"
       - "T073/T065 restart and additional approval decision"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T072解釈はfield正本と一致。human_reviewは実promptまで保持され02a候補も正しい配列を返した。失敗は02 prompt、fieldRule、共通prompt、明示方向validatorが断片肢でも否定述語をselect_incorrectへ固定し、02a正解を反転拒否したこと。一般命題規則とvalidatorを統一し02 policyを更新後、通常UI再整備する。追加承認不要。"
+      evidence:
+        - "question_field_contractは断片肢へ本文述語を一度補った完全命題の真偽を正本とする。"
+        - "3問のauthoritative interpretationはselect_correctと正答1,2,3。"
+        - "00_source、05、10、21、22も同じ解釈を保持し、T104 runの15だけがselect_incorrect。"
+        - "human_reviewはplan、stage state、actual 02/02a promptまで欠落なし。"
+        - "02 prompt/fieldRule/common promptが断片でも否定方向を反転しないと逆強制。"
+        - "explicit_statement validatorはchoice構造を見ず否定語だけでselect_incorrectに固定。"
+        - "02a Luna/Sol候補は正しい配列を返したが02 intentとのcross-field validatorで拒否。"
+        - "aggregate review非実行は通常choice問題のため正常。"
+      parallel_safety:
+        safe: false
+        reason: "prompt/policy/validator/testsの同一契約変更。"
+      blocked_tasks:
+        - T073
+        - T065
+        - T999
+      missing_evidence:
+        - "T077 code receipt"
+        - "current-state reviews"
+        - "new 12/12 run"
+        - "T065 final gates"
+      required_board_updates:
+        - "T077 code Workerを追加。"
+        - "成功後current-state reviewを確認・必要なら各1件再記録。"
+        - "run 20260811T104025085065-b0df92bcの保留再整備からexact3問4工程。"
+        - "追加承認不要。"
+  - id: T077
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "02の生成規則、構造化fieldRule、共通candidate prompt、機械validatorをquestion_field_contract.mdの完全命題契約へ統一する。完結記述肢では本文の正誤指示を選択方向にだけ使い、断片肢では本文述語を一度補った命題の真偽側をquestionIntentとする。validatorはchoice構造を見ず否定語だけで断片問題をselect_incorrectへ固定せず、明白な完結記述だけを検査し、曖昧なら値を自動決定しない。02 policyを5.0へ上げ、human_reviewを含むpromptと生成・validatorが同じ規則になる回帰テストを追加する。02aの独立命題判定、公式解答照合、fail-closed、不変field保護は維持する。"
+    depends_on:
+      - T076
+    inputs:
+      - "T076 receipt"
+      - "question_field_contract.md existing complete-proposition contract"
+      - "run 20260811T104025085065-b0df92bc prompts/results"
+    allowed_files:
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "config/question_maintenance_workflow.toml"
+      - "scripts/common/question_answer_contract.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_answer_contract.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_workflow_catalog.py"
+    verify:
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_answer_contract tests.test_question_review_question_candidate tests.test_question_review_workflow_catalog"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_structured_candidate_prompt_drops_obsolete_field_scope_feedback tests.test_question_review_qualification_runs.QualificationQueueSafetyRegressionTests.test_downstream_prompt_omits_aggregate_evidence_for_ordinary_question"
+      - "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git status --short && git rev-list --left-right --count main...origin/main"
+    stop_if:
+      - "特定3問、AWS又は公式番号に依存する例外、値の決め打ち、自動反転でしか通せない。"
+      - "完結記述肢と断片肢を区別せず全て一方へ寄せる必要がある。"
+      - "02a correctChoiceText、公式alignment、questionType又はprotected-field fail-closedを弱める必要がある。"
+      - "question_field_contract.md既存完全命題契約自体を変更する必要がある。"
+      - "run/review/prompt成果物、patch/work version、00_source、Firestore/Storage又はallowed_files外へ触れる必要がある。"
+      - "既存ユーザー差分又は別Worker変更と競合する。"
     receipt: null
   - id: T999
     type: judge
@@ -4758,6 +4825,7 @@ tasks:
       - T074
       - T075
       - T076
+      - T077
       - T004
       - T005
     inputs:
