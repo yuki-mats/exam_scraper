@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T009
+active_task: T011
 
 tasks:
   - id: T001
@@ -624,7 +624,7 @@ tasks:
   - id: T009
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "第01工程の集約review transactionを修復する。Codex App Serverからturnの終端failedが構造的に確認され、review結果をcheckpointへresolveする前に停止した場合だけ、該当するstarted slotをsignature・予約内容照合付きで原子的に取消す。resolved済みの兄弟slotは保持し、次attemptでは不足slotだけを別threadで実行する。timeout、接続断、checkpoint不整合、resolve/readback失敗は従来どおりfail-closedとし、questionType・正答・解説又はreview承認を自動決定しない。問題2のslot 1失敗と他4問のslot 2失敗を再現するregression testsを追加する。"
     allowed_files:
@@ -648,6 +648,147 @@ tasks:
       - "問題artifact、work version、aggregate checkpoint、review承認、00_source、config、prompt、CLF-C02又はFirestoreの変更が必要になる。"
       - "current questionType、correctChoiceText、answer_result_text又は正答数から別fieldを自動補正する必要がある。"
       - "SAA runの開始又は同じ入力での再試行が必要になる。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/codex_app_server.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_codex_app_server.py
+        - tests/test_question_review_qualification_runs.py
+        - document/operations/local_question_review_console.md
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_question_review_codex_app_server tests.test_question_review_qualification_runs tests.test_question_review_validation_feedback tests.test_question_review_question_candidate"
+          status: pass
+        - cmd: ".venv/bin/python -m unittest tests.test_aggregate_answer_decomposition"
+          status: pass
+        - cmd: "python3 scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03 output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260811T162101744570-a7a2e0a1"
+          status: pass
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          status: pass
+      summary: "Protocol-confirmed terminal failed turns now raise a structured exception. The aggregate-review coordinator atomically cancels only exact matching started slots, preserves resolved siblings, and retries only missing slots in new threads. Timeout and checkpoint/readback failures remain fail-closed. Added protocol, timeout, and five-question slot-failure regressions and updated the canonical operations document. No SAA run or protected artifact changes were made."
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T010
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T009の集約review transaction修復をread-onlyで監査し、終端failedだけを構造的に扱い、未確定slotだけを取消し、resolved siblingとfail-closed境界を保持しているかを検証する。"
+    inputs:
+      - "T008 Judge receipt"
+      - "T009 Worker receipt"
+      - "T009のcurrent diff"
+      - "T009 verify results"
+      - "5問のcapacity failure再現契約"
+    constraints:
+      - "Read-only。実装、問題artifact、run、review承認又はGoalBuddy control filesを変更しない。"
+      - "error message文字列一致、timeout取消し、resolved review削除、内容fieldの自動補正を承認しない。"
+      - "5問の旧checkpoint又はwork versionを手動修正する案を承認しない。"
+      - "次のrunは既存300問を再投入せず未完了95問だけを対象とする契約にする。"
+    expected_output:
+      - "approved | rejected"
+      - "scope・protocol・transaction・test・doc監査"
+      - "full_outcome_complete: false"
+      - "修正が必要ならexact Worker package"
+      - "承認時は正規UI recovery再開条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T009を承認する。typed例外はprotocol終端時刻を伴うstatus=failedだけに限定され、timeout・接続断・完了通知欠落は対象外である。取消処理はsignature、slot番号、started状態、予約全体の一致を全件確認してから該当slotだけを削除し、resolved siblingを保持する。5問回帰は問題2のslot 1と他4問のslot 2だけを新threadで再実行し、関連222 testsも通過した。内容fieldの補正はない。次は正規UI previewが未完了95問だけと証明できる場合に限り再開できる。"
+      evidence:
+        - "T009のproduct差分は許可されたcodex_app_server.py、qualification_runs.py、対応する2 test、正本documentの5ファイルだけで、問題artifact・work version・既存runには差分がない。"
+        - "CodexTerminalTurnFailedErrorはstate.status=failedかつprotocol_finished_monotonicが存在する場合だけ送出される。timeoutと接続断はtyped経路へ入らない。"
+        - "coordinatorの取消catchはCodexTerminalTurnFailedError専用で、その他の例外ではstarted slotを取消さずfail-closedを維持する。"
+        - "取消処理はsignature、slot、status=started、予約内容完全一致をlock下で全件検証し、該当keyだけを削除する。兄弟slotは変更しない。"
+        - "5問回帰は問題2のslot 1と他4問のslot 2 terminal failureを再現し、失敗slotだけattempt=2、新thread、兄弟slotattempt=1、最終2 slot resolvedを検証する。"
+        - "timeout、取消readback、resolve readback、signature・予約不一致はfail-closedである。"
+        - "Judge再実行の関連2 suiteは222 testsが全件成功し、T009の追加suiteも成功している。"
+        - "正本文書はterminal failed時だけの取消、resolved sibling保持、不足slotの新thread、その他fail-closedを明記する。"
+        - "current runはvalidated=300、blocked questions=5、pending work items=234、artifactSync未実行である。"
+        - "00_source 5799 files不変、mainとorigin/mainは0/0。T009差分とboard更新は未コミットである。"
+      parallel_safety:
+        safe: false
+        reason: "T009差分のmain統合と正規UI recoveryは同じ実装・SAA lease・runtimeを使うため、scope commit/pushとclean parity確認前に並列開始しない。"
+      worker_package:
+        objective: "T009の承認済み5ファイルをmainへscope commit/pushしclean parityを確認後、正規UIでrun 20260811T162101744570-a7a2e0a1を未完了95問だけ再開し、既存300問を保持したまま395/395 local-readyとartifactSyncまで収束する。"
+        allowed_files:
+          - "T011 task card参照"
+        verify:
+          - "T011 task card参照"
+        stop_if:
+          - "T011 task card参照"
+      blocked_tasks:
+        - T003
+        - T004
+        - T999
+      missing_evidence:
+        - "T009のscope commit/pushとclean parity。"
+        - "正規UI previewが未完了95問だけで既存300問を含まないreadback。"
+        - "recovery run terminal success、blocked・hold・pending=0、artifactSync成功。"
+        - "SAA-C03 395/395 local-ready、quality gate、upload dry-run、AWS全体1274/1274。"
+      required_board_updates:
+        - "T010をdoneとして記録する。"
+        - "T009の許可5ファイルだけをmainへscope commit/pushする。"
+        - "T011を単一の正規UI recovery Workerとしてactivateする。"
+        - "T004とT999はT011成功までblockedのまま保持する。"
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "T009の承認済み5ファイルがmainへscope commit/pushされ、cleanかつorigin/main parity 0/0になった後、問題整備UIの作業履歴からrun 20260811T162101744570-a7a2e0a1の『この未完了を再開』を選ぶ。開始前previewでresumedFrom、SAA-C03単一group、元の6工程・10 update target、Standard/auto_maxを確認し、対象IDが旧runの未完了95問と完全一致し、validated済み300問を含まない場合だけ一度開始する。既存300問と全正本を保持して95問を収束させ、blocked・hold・pending=0、同一queue終端のartifactSync成功、SAA-C03 395/395 local-readyまで閉じる。Firestoreへは書き込まない。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json"
+      - "output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+    verify:
+      - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+      - "UI preview readback: resumedFrom=20260811T162101744570-a7a2e0a1、scopeListGroupIds=[udemy-aws-saa-c03]、targetQuestionCount=95、元の6 stageIds・10 selectedUpdateTargetIds、Standard/auto_max、Firestore反映なし"
+      - "python3 -c 'import json,pathlib; root=pathlib.Path(\"output/question_review_console/workflow_runs/aws-solutions-architect-associate\"); old=json.loads((root/\"20260811T162101744570-a7a2e0a1\"/\"manifest.json\").read_text()); runs=[json.loads(p.read_text()) for p in root.glob(\"*/manifest.json\")]; new=max((r for r in runs if r.get(\"resumedFrom\")==old[\"runId\"]),key=lambda r:r[\"createdAt\"]); unfinished={q[\"questionId\"] for q in old[\"questionExecutions\"] if any(s.get(\"status\") not in {\"validated\",\"not_applicable\"} for s in q.get(\"stages\",[]))}; ids={q[\"questionId\"] for q in new[\"questionExecutions\"]}; assert len(unfinished)==95 and ids==unfinished and new[\"targetCount\"]==95; print(new[\"runId\"])'"
+      - "jq -s -e '[.[] | select(.resumedFrom == \"20260811T162101744570-a7a2e0a1\")] | max_by(.createdAt) | .targetCount == 95 and .status == \"succeeded\" and .queueStatus == \"succeeded\" and .receiptValidated == true and .validatedQuestionCount == 95 and (.blockedQuestionCount // 0) == 0 and (.blockedWorkItemCount // 0) == 0 and (.questionExecutionSummary.pendingWorkItemCount // 0) == 0 and (.artifactSync.status == \"succeeded\" or .artifactSync.status == \"current\" or .artifactSync.status == \"not_required\")' output/question_review_console/workflow_runs/aws-solutions-architect-associate/*/manifest.json"
+      - "python3 -m tools.question_review_console.workflow_overview_builder --repo-root . --qualification aws-solutions-architect-associate | jq -e '.overallStatus == \"ready\" and .summary.questionCount == 395 and .summary.maintenanceProgress.currentCount == 395 and .summary.maintenanceProgress.requiredCount == 0 and .summary.holdQuestionCount == 0 and (.summary.issueCounts | length) == 0 and any(.groups[]; .listGroupId == \"udemy-aws-saa-c03\" and .questionCount == 395 and .localReady == true)'"
+      - "python3 -c 'from pathlib import Path; from tools.question_review_console.inventory import QuestionInventory; g=QuestionInventory(Path.cwd()).group(\"aws-solutions-architect-associate\",\"udemy-aws-saa-c03\"); assert g[\"questionCount\"]==395; assert not g.get(\"identityBlockers\"); assert not g.get(\"artifactResolutionBlockers\"); assert all(q[\"workflow\"][k]==\"match\" for q in g[\"questions\"] for k in (\"merge\",\"convert\",\"upload\")); assert all(not q.get(\"issues\") for q in g[\"questions\"]); print(\"SAA-C03 395/395 local-ready\")'"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts"
+      - "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate && test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
+    stop_if:
+      - "T009承認済み差分がscope commit/pushされていない、mainがcleanでない、又はorigin/main parityが0/0でない。"
+      - "review UI又はSAA leaseを別processが実際に保持する。lock fileは手動削除しない。"
+      - "正規UIがrun 20260811T162101744570-a7a2e0a1のrecoveryを提示しない。"
+      - "previewの対象が95問でない、旧runの未完了ID集合と完全一致しない、又はvalidated済み300問を一問でも含む。"
+      - "previewのgroup、6工程、10 update target、Standard/auto_max又はFirestore非反映契約が元runと一致しない。"
+      - "同じ5問が再びaggregate review holdになる、terminal failed以外でslot取消しが起きる、又はresolved siblingの削除が必要になる。同じ入力で再試行しない。"
+      - "questionType、正答、解説、review承認、旧checkpoint又はwork versionを手動補正する必要がある。"
+      - "00_source、既存ID、category.json、コード、設定、prompt、CLF-C02又はallowed_files外の変更が必要になる。"
+      - "failed delta、identityBlocker、artifactResolutionBlocker、独自画像不足、rollback不能又はretrySafe=falseを検出する。"
+      - "Fast、追加credits、外部API key又はFirestore書込みが必要になる。"
+      - "artifactSyncがfailed又はinterruptedになる。確定patchを保持し、手動再生成せずT004へ送る。"
       - "Verification fails twice."
     receipt: null
   - id: T999
