@@ -1,0 +1,328 @@
+version: 2
+
+goal:
+  title: "AWS SAA-C03 残り395問の整備・upload-ready収束"
+  slug: "aws-saa-c03-395-upload-ready"
+  kind: recovery
+  tranche: "SAA-C03の現行状態を確定し、問題整備システムで395問を継続整備して公開直前まで収束する"
+  status: active
+  oracle:
+    signal: "QuestionInventoryでSAA-C03が395/395 local-readyとなり、終端run・artifact sync・quality gate・upload dry-runが成功し、hold/pending/blocked=0、Firestore writes=0、00_source不変である"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "対象資格・list group・全395問の終端manifest、verified receipt、artifact sync、upload-ready hash、quality gate、upload dry-run、Firestore非書込、00_source hash、AWS全体1274/1274 inventory、Git push readback"
+  intake:
+    original_request: "CLF-C02 879問完了後に残るSAA-C03 395問を整備し、AWS系1274問を準備済みにしてほしい。"
+    interpreted_outcome: "SAA-C03の残り395問を正規workflowで整備し、Firestoreへ書かず公開直前まで全件を準備済みにする。"
+    input_shape: recovery
+    audience: "SAA-C03を学習する受験者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "395問の必要工程、公開前artifact、gate、dry-run、非書込み、00_source不変、AWS全体inventoryが一致する。"
+    likely_misfire: "ファイル生成数だけで完了扱いする、workflowを迂回する、05又は03で止める、local-readyとlive公開を混同する、又はFirestoreへ書く。"
+    blind_spots_considered:
+      - "既存runとrepository-wide lock"
+      - "Udemy由来問題の05独自問題化と独自画像gate"
+      - "category.jsonと04"
+      - "既存IDと00_source保護"
+      - "hold・pending・blockedの再開"
+      - "artifact syncと公開版互換"
+      - "Fast利用可否と実測速度"
+      - "Firestore書込み境界"
+    existing_plan_facts:
+      - "CLF-C02は879問完了として変更しない。"
+      - "SAA-C03の対象は395問である。"
+      - "AWS系全体の目標件数は1274問である。"
+      - "問題整備システムを正規入口にする。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
+
+active_task: T003
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "SAA-C03 395問の現行inventory、source/patch/artifact、run/lock、必要工程、正規実行入口、検証と非書込み境界をread-onlyで確定する。"
+    inputs:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/original_question_authoring_workflow.md"
+      - "document/operations/delivery_workflow.md"
+      - "document/operations/local_question_review_console.md"
+      - "config/question_maintenance_workflow.toml"
+      - "config/qualification_rules.json"
+      - "tools/question_review_console/inventory.py"
+      - "output/aws-solutions-architect-associate/**"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "docs/goals/aws-clf-two-source-upload-ready/state.yaml"
+    constraints:
+      - "Read-only。GoalBuddy control files以外を編集しない。"
+      - "00_source、既存ID、CLF-C02成果物を変更しない。"
+      - "既存runがactiveならrestart又は重複runを開始しない。"
+      - "Firestoreへ書き込まない。"
+      - "過去の879/395集計を現行確認なしに正本扱いしない。"
+    expected_output:
+      - "qualification/listGroupId/source件数と現行local-ready内訳"
+      - "最新run ID、status、phase、target/pending/blocked/validated、heartbeat、artifactSync、lock状態"
+      - "395問に必要な工程と既存成果物の再利用可否"
+      - "正規の開始又は再開方法、Fast利用可否、推定work item数"
+      - "次の最大の安全なWorker packageのallowed_files、verify、stop_if候補"
+    receipt:
+      result: done
+      summary: "現行inventoryはSAA-C03 / udemy-aws-saa-c03の395問で、local-readyは0問。最新runはinterruptedで、1735/1978 work item検証済み、pending 223、blocked 20、artifactSync未実行。既存patchは大部分を再利用できるが、全問でmerge・convert・upload-readyがmissing判定である。正規経路は問題整備UIの『未完了を再開』。Fastは禁止され、standard＋auto_maxを使う。Firestoreへは書き込まない。"
+      evidence:
+        - "QuestionInventory実測: qualification=aws-solutions-architect-associate、listGroupId=udemy-aws-saa-c03、sourceFileCount=395、questionCount=395、identityBlockers=0、artifactResolutionBlockers=0。"
+        - "現行local-readyは0/395。workflow内訳は全395問がmerge=missing、convert=missing、upload=missing。"
+        - "inventory issue内訳はidentity_mismatch=395、merge_stale=395、required_field_missing=62。"
+        - "source/patch実数は00_source=395、05_originalized=393、10_questionType_fixed=393、15_correctChoiceText_fixed=393、23_correctChoiceText_fixed=391、21_explanationText_added=333、22_questionSetId_linked=238。"
+        - "最新runは20260803T034930552603-75bce750、status=interrupted、executionPhase=interrupted、queueStatus=partial、scope=udemy-aws-saa-c03。"
+        - "最新runはtarget=395問、workItemCount=1978、validatedQuestionCount=238、blockedQuestionCount=6、validatedWorkItemCount=1735、pendingWorkItemCount=223、blockedWorkItemCount=20。"
+        - "最新runのheartbeatAtは2026-08-03T09:55:48+09:00、finishedAtは2026-08-09T17:58:32+09:00、receiptValidated=false、artifactSync=null、retrySafe=true。"
+        - "最新runの工程は05→01→02→02a→03→04。qualification_rulesではSAA-C03のlaw_workflow_enabled=falseで、02b・03bは不要。"
+        - "category/category.jsonは存在し、既存04成果物238問分とともに再利用候補。ただし現在projectionとの一致は再開時の現行workflow検査で確定する必要がある。"
+        - "review-ui lockはpid=27793、SAA run leaseはpid=29893を記録するが、両pidとも現存しない。lockファイルは残存しているため、手作業で削除せず通常のUI起動・recovery経路に委ねる。"
+        - "正規操作はUIの対象カード又は作業履歴から『未完了を再開』を選び、run IDと未完了scopeをpreviewして開始する。新規の『整備・洗い替え』はresumedFromを持たない。"
+        - "問題整備仕様はFast service tierを拒否する。最速の許可設定はspeedMode=standard、throughputMode=auto_maxである。"
+      facts:
+        - "既存patchの再利用可能範囲は現行runで検証済みの1735 work item。ただし再開時に現行workflow・作業版から再計画し、古い成果物を無条件に正本扱いしない。"
+        - "現行run基準の残作業推定はpending 223 work itemにblocked 20 work itemを加えた最大243 work item。再計画でpolicy fingerprint又は先行工程差分が見つかれば増加し得る。"
+        - "最大の安全なWorker package候補は、問題整備UIの通常recoveryで古いlock/run状態を回収し、run 20260803T034930552603-75bce750を『未完了を再開』で05・01・02・02a・03・04へ収束させ、artifactSyncの終端まで実行する単一資格scope。"
+        - "allowed_files候補はoutput/question_review_console/aws-solutions-architect-associate/**、output/question_review_console/workflow_runs/aws-solutions-architect-associate/**、output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/{05_originalized,10_questionType_fixed,15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,12_merged_questionType,20_merged_1,30_merged_2,40_convert}/**、output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**。00_source、category、CLF-C02、コード、設定は除外する。"
+        - "verify候補は395 sourceの再読込、終端manifest status=succeededかつreceiptValidated=true、pending/blocked/hold=0、395/395で必要工程が現行MAJOR、artifactSync=succeeded、merge/convert/upload-ready一致、quality gate・upload dry-run成功、Firestore writes=0、00_source hash/git diff不変。"
+        - "stop_if候補は通常recoveryで古いlockを安全に回収できない、別process又は資格runが実際にlockを保持する、blocked 20件の根拠不足を解消できない、00_source・既存ID・category・CLF-C02・コード設定の変更が必要、Fast又はFirestore書込みが必要、独自画像gateを満たせない場合。"
+      contradictions:
+        - "patchは最大393問まで存在し、最新runも1735 work itemを検証済みだが、現行inventoryでは全395問のmerge・convert・upload-readyがmissingでlocal-readyは0問である。"
+        - "run leaseとreview-ui lockファイルは存在する一方、記録されたpidは両方とも現存せず、最新runもinterruptedである。ファイル存在だけをactive lockと扱えない。"
+        - "Goalで想定されるFast利用は現行仕様と両立しない。許可される最速設定はStandard service tierとauto_max throughputである。"
+      ambiguity_requiring_judge:
+        - "inventoryのidentity_mismatch=395が、正常な未生成artifactによる派生表示なのか、再開前に別のidentity修復が必要な停止条件なのかをWorker開始前にJudgeが確定する必要がある。"
+        - "blocked 6問・20 work itemとrequired_field_missing 62件の具体的原因が、通常再開で解消可能か、独自画像又は入力資料の追加判断を要するか未確定。"
+        - "残存lockファイルを通常UI起動が安全に回収できるか。手動削除又はmanifest編集が必要ならWorkerを停止すべき。"
+        - "T003にartifactSyncとupload-readyまで含めるか、patch収束後のT004へ厳密に分離するかは、同一runの自動artifactSync境界を踏まえてJudge判断が必要。"
+      commands:
+        - "QuestionInventoryの資格・list group現行読取"
+        - "SAA groupの395問inventory・workflow・issue集計"
+        - "source/patch件数、manifest、lock、pid、Fast仕様のread-only確認"
+      note_needed: false
+      harness: codex
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T001の現物証拠を監査し、既存成果物を保持して395問を収束させる最大の安全なWorker packageを確定する。"
+    inputs:
+      - "T001 receipt"
+      - "Current git status and origin/main parity"
+      - "Canonical workflow and delivery contracts"
+    constraints:
+      - "Read-only。実装又はrun開始をしない。"
+      - "問題整備システムを迂回するpackageを承認しない。"
+      - "Firestore書込みを含めない。"
+      - "完了済みCLF-C02をscopeへ入れない。"
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "Blocked or deferred tasks"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T003は単一Workerで承認する。identity_mismatch=395は40_convert欠損に伴う派生判定で、identity自体の修復は不要。62件は未完了03、6問20 itemは正規recoveryの再計画対象である。ただし同じ根拠で再度blockした場合は停止する。現行policyは旧runから4工程更新されているため、未完了再開後に『整備が必要な問題だけ』を全395問へ適用する。artifactSyncはqueue終端の自動処理なのでT003に含め、T004は独立quality gateへ分離する。"
+      worker_package:
+        objective: "問題整備UIだけを入口に、run 20260803T034930552603-75bce750の『未完了を再開』をSAA-C03単一group・元の全update target・Standard/auto_maxで完了する。block/pending=0を確認後、udemy-aws-saa-c03を『整備が必要な問題だけ』で現行workflowへ再計画し、395問の全適用工程を現行MAJORへ収束させる。同一queue終端の自動artifactSyncでmerge・convert・upload-ready・upload dry-runまで完了し、Firestore反映・評価・CLF-C02変更は行わず、最後にUI serverを正常終了する。"
+        allowed_files:
+          - output/question_review_console/.review-ui.lock
+          - output/question_review_console/run_leases/aws-solutions-architect-associate.lock
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+          - output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json
+          - output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json
+          - output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json
+          - output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+          - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+        verify:
+          - "python3 scripts/check/check_00_source_immutability.py"
+          - "jq -s -e '[.[] | select(.createdAt >= \"2026-08-11T00:00:00+09:00\" and .scopeListGroupIds == [\"udemy-aws-saa-c03\"])] as $runs | ($runs | length) >= 2 and any($runs[]; .resumedFrom == \"20260803T034930552603-75bce750\") and all($runs[]; .status == \"succeeded\" and .queueStatus == \"succeeded\" and .receiptValidated == true and (.blockedQuestionCount // 0) == 0 and (.blockedWorkItemCount // 0) == 0 and (.questionExecutionSummary.pendingWorkItemCount // 0) == 0 and (.artifactSync.status == \"succeeded\" or .artifactSync.status == \"current\" or .artifactSync.status == \"not_required\"))' output/question_review_console/workflow_runs/aws-solutions-architect-associate/*/manifest.json"
+          - "python3 -m tools.question_review_console.workflow_overview_builder --repo-root . --qualification aws-solutions-architect-associate | jq -e '.overallStatus == \"ready\" and .summary.questionCount == 395 and .summary.maintenanceProgress.currentCount == 395 and .summary.maintenanceProgress.requiredCount == 0 and .summary.holdQuestionCount == 0 and (.summary.issueCounts | length) == 0 and any(.groups[]; .listGroupId == \"udemy-aws-saa-c03\" and .questionCount == 395 and .localReady == true)'"
+          - "python3 -c 'from pathlib import Path; from tools.question_review_console.inventory import QuestionInventory; g=QuestionInventory(Path.cwd()).group(\"aws-solutions-architect-associate\",\"udemy-aws-saa-c03\"); assert g[\"questionCount\"]==395; assert not g.get(\"identityBlockers\"); assert not g.get(\"artifactResolutionBlockers\"); assert all(q[\"workflow\"][k]==\"match\" for q in g[\"questions\"] for k in (\"merge\",\"convert\",\"upload\")); assert all(not q.get(\"issues\") for q in g[\"questions\"]); print(\"SAA-C03 395/395 local-ready\")'"
+          - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts"
+          - "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate"
+          - "test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
+        stop_if:
+          - "問題整備UI又はSAA資格leaseを別processが実際に保持している。lock fileは手動削除せず停止する。"
+          - "UIがrun 20260803T034930552603-75bce750の正規recoveryを提示しない、又はpreviewのscope、stageIds、selectedUpdateTargetIdsが元runと一致しない。"
+          - "再開後も同じ根拠で6問のいずれかがblock又はholdになる。同じ入力のまま再試行しない。"
+          - "00_source、既存ID、category.json、review承認、コード、設定、CLF-C02又はallowed_files外の変更が必要になる。"
+          - "failed delta、identityBlocker、artifactResolutionBlocker、独自画像不足、rollback不能又はretrySafe=falseを検出する。"
+          - "Fast、追加Codex credits、外部API key又はFirestore書込みが必要になる。"
+          - "artifactSyncがfailed又はinterruptedになる。確定patchは保持し、手動再生成はT004へ送る。"
+          - "Verification fails twice."
+      evidence:
+        - "現行branchはmain、ローカルorigin/main...HEADは0/0。作業差分は未追跡のdocs/goals/aws-saa-c03-395-upload-ready/だけである。"
+        - "QuestionInventory実読取は395問、identityBlockers=0、artifactResolutionBlockers=0。全395問がmerge/convert/upload missingである。"
+        - "inventory.pyは選択肢数と40_convert document数が違う場合にidentity_mismatchを付ける。40_convertが全件欠損しているため395件となっており、source identity修復を示さない。"
+        - "required_field_missingは62問各1件で、すべてprojected explanationTextがlist[str]でない欠損。通常の03再開対象である。"
+        - "旧runの6問20 blocked itemは05が2問、02aが1問、03が2問、04が1問の先頭停止と依存後続である。source identity又は画像不足ではない。"
+        - "旧runの工程版は現行より古く、未完了再開だけでは完了済み238問を現行MAJORへ上げられない。"
+        - "lockの記録pidは現存せず、lsofでもholderなし。通常UI起動時のlease取得・上書きが安全境界である。"
+        - "正本文書はqueue終端にgroup単位で物理Merge、Convert、upload-ready、upload dry-runを自動実行すると定義する。"
+      next_allowed_task: T003
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks:
+        - T004
+      missing_evidence:
+        - "T003の正規recovery preview tokenと実際の新run ID。"
+        - "6問の停止原因が現行policy再計画で解消した終端receipt。"
+        - "395問の現行MAJOR、artifactSync、local-readyの実行後readback。"
+        - "T004で行う独立quality-gate、再upload dry-run、AWS全体1274問inventory。"
+        - "最終commit、origin/main push readback及びFirestore writes=0の最終監査。"
+      required_board_updates:
+        - "T002へ本receiptを記録してdoneにする。"
+        - "worker_packageをT003へ転記しT003だけをactiveにする。"
+        - "T004はT003成功後の独立quality-gate・upload dry-run・AWS全体inventory確認としてqueuedのまま保持する。"
+        - "T003開始前にGoalBuddy control filesをmainへ限定commit・origin/mainへpushし、作業ツリーをcleanにする。"
+      harness: codex
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "問題整備UIだけを入口に、run 20260803T034930552603-75bce750の『未完了を再開』をSAA-C03単一group・元の全update target・Standard/auto_maxで完了する。block/pending=0を確認後、udemy-aws-saa-c03を『整備が必要な問題だけ』で現行workflowへ再計画し、395問の全適用工程を現行MAJORへ収束させる。同一queue終端の自動artifactSyncでmerge・convert・upload-ready・upload dry-runまで完了し、Firestore反映・評価・CLF-C02変更は行わず、最後にUI serverを正常終了する。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json"
+      - "output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+    verify:
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "jq -s -e '[.[] | select(.createdAt >= \"2026-08-11T00:00:00+09:00\" and .scopeListGroupIds == [\"udemy-aws-saa-c03\"])] as $runs | ($runs | length) >= 2 and any($runs[]; .resumedFrom == \"20260803T034930552603-75bce750\") and all($runs[]; .status == \"succeeded\" and .queueStatus == \"succeeded\" and .receiptValidated == true and (.blockedQuestionCount // 0) == 0 and (.blockedWorkItemCount // 0) == 0 and (.questionExecutionSummary.pendingWorkItemCount // 0) == 0 and (.artifactSync.status == \"succeeded\" or .artifactSync.status == \"current\" or .artifactSync.status == \"not_required\"))' output/question_review_console/workflow_runs/aws-solutions-architect-associate/*/manifest.json"
+      - "python3 -m tools.question_review_console.workflow_overview_builder --repo-root . --qualification aws-solutions-architect-associate | jq -e '.overallStatus == \"ready\" and .summary.questionCount == 395 and .summary.maintenanceProgress.currentCount == 395 and .summary.maintenanceProgress.requiredCount == 0 and .summary.holdQuestionCount == 0 and (.summary.issueCounts | length) == 0 and any(.groups[]; .listGroupId == \"udemy-aws-saa-c03\" and .questionCount == 395 and .localReady == true)'"
+      - "python3 -c 'from pathlib import Path; from tools.question_review_console.inventory import QuestionInventory; g=QuestionInventory(Path.cwd()).group(\"aws-solutions-architect-associate\",\"udemy-aws-saa-c03\"); assert g[\"questionCount\"]==395; assert not g.get(\"identityBlockers\"); assert not g.get(\"artifactResolutionBlockers\"); assert all(q[\"workflow\"][k]==\"match\" for q in g[\"questions\"] for k in (\"merge\",\"convert\",\"upload\")); assert all(not q.get(\"issues\") for q in g[\"questions\"]); print(\"SAA-C03 395/395 local-ready\")'"
+      - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts"
+      - "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate"
+      - "test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
+    stop_if:
+      - "問題整備UI又はSAA資格leaseを別processが実際に保持している。lock fileは手動削除せず停止する。"
+      - "UIがrun 20260803T034930552603-75bce750の正規recoveryを提示しない、又はpreviewのscope、stageIds、selectedUpdateTargetIdsが元runと一致しない。"
+      - "再開後も同じ根拠で6問のいずれかがblock又はholdになる。同じ入力のまま再試行しない。"
+      - "00_source、既存ID、category.json、review承認、コード、設定、CLF-C02又はallowed_files外の変更が必要になる。"
+      - "failed delta、identityBlocker、artifactResolutionBlocker、独自画像不足、rollback不能又はretrySafe=falseを検出する。"
+      - "Fast、追加Codex credits、外部API key又はFirestore書込みが必要になる。"
+      - "artifactSyncがfailed又はinterruptedになる。確定patchは保持し、手動再生成はT004へ送る。"
+      - "Verification fails twice."
+    receipt: null
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "395問の公開前artifactを正規再生成し、quality gateとupload dry-runを閉じる。"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T003が全必要工程を完了していない。"
+      - "hold、pending又はblockedが残る。"
+      - "Need files outside allowed_files."
+      - "Firestore書込みを要求される。"
+      - "Verification fails twice."
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "SAA-C03 395問とAWS全体1274問が元の依頼どおり準備済みになったか最終監査する。"
+    inputs:
+      - "All done task receipts"
+      - "Final SAA-C03 and AWS QuestionInventory"
+      - "Terminal run manifest and artifact sync"
+      - "Quality gate and upload dry-run"
+      - "Firestore writes=0 evidence"
+      - "00_source immutability check"
+      - "Git origin/main parity"
+    constraints:
+      - "Read-only。実装しない。"
+      - "SAA-C03が395/395 local-readyでなければ完了を拒否する。"
+      - "AWS全体が1274/1274準備済みでなければ完了を拒否する。"
+      - "local-readyをFirestore公開済みと表現しない。"
+      - "必須Worker taskがqueued又はactiveなら完了を拒否する。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "evidence mapping"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "clean main; origin/main...HEAD=0/0 at 2026-08-11 start"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
