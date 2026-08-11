@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T003
+active_task: T007
 
 tasks:
   - id: T001
@@ -234,7 +234,7 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "問題整備UIだけを入口に、run 20260803T034930552603-75bce750の『未完了を再開』をSAA-C03単一group・元の全update target・Standard/auto_maxで完了する。block/pending=0を確認後、udemy-aws-saa-c03を『整備が必要な問題だけ』で現行workflowへ再計画し、395問の全適用工程を現行MAJORへ収束させる。同一queue終端の自動artifactSyncでmerge・convert・upload-ready・upload dry-runまで完了し、Firestore反映・評価・CLF-C02変更は行わず、最後にUI serverを正常終了する。"
     allowed_files:
@@ -276,7 +276,47 @@ tasks:
       - "Fast、追加Codex credits、外部API key又はFirestore書込みが必要になる。"
       - "artifactSyncがfailed又はinterruptedになる。確定patchは保持し、手動再生成はT004へ送る。"
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - cmd: "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          status: passed
+        - cmd: ".venv/bin/python tools/question_bank/question_bank.py review-ui"
+          status: passed
+        - cmd: "UI: run 20260803T034930552603-75bce750 の未完了を再開 preview"
+          status: passed
+        - cmd: "UI: 整備を開始（2回）"
+          status: "blocked: account/rateLimits/read failed; HTTP 422; no new run created"
+        - cmd: "python3 scripts/check/check_00_source_immutability.py"
+          status: passed
+        - cmd: "jq terminal manifest verification"
+          status: failed
+        - cmd: "workflow overview 395/395 verification"
+          status: failed
+        - cmd: "QuestionInventory 395/395 local-ready verification"
+          status: failed
+        - cmd: "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source config category document prompt tools scripts"
+          status: passed
+        - cmd: "test ! -d output/question_review_console/publish_runs/aws-solutions-architect-associate"
+          status: passed
+        - cmd: "test ! -d output/question_review_console/publish_queue_runs/aws-solutions-architect-associate"
+          status: passed
+        - cmd: "UI server: Ctrl-C normal shutdown"
+          status: passed
+      summary: "正規UI起動でstale lockを回収し、旧runのpreviewがSAA-C03単一group、元の6工程・全10 update target、Standard/auto_max、Firestore非反映で一致することを確認した。しかし開始時のCodex account/rateLimits readbackが2回とも失敗し、HTTP 422で開始前停止した。新run・patch・Firestore書込み・allowed_files内外の差分は作成されていない。UI serverは終了済み。"
+      deviations:
+        - "旧runの完了、現行workflow再計画、artifactSync、395/395収束は開始前エラーのため未実施。"
+        - "追加credits、API key、Fast、手動lock削除は使用していない。"
+      remaining_blockers:
+        - "Codex App Serverが https://chatgpt.com/backend-api/wham/usage のaccount/rateLimitsを取得できず、正規UI runを開始できない。"
+        - "成功runがないため、終端manifest、395/395 local-ready、artifactSync、upload dry-runのverifyが未達。"
+      spawned_tasks:
+        - T005
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "正規UI開始が同じaccount/rateLimits/readエラーで2回失敗した。追加Codex creditsまたは外部API keyへの切替は禁止され、同じ入力の再試行を継続できないため。"
+      harness: codex
   - id: T004
     type: worker
     assignee: Worker
@@ -291,6 +331,141 @@ tasks:
       - "Need files outside allowed_files."
       - "Firestore書込みを要求される。"
       - "Verification fails twice."
+    receipt: null
+  - id: T005
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "Codex account/rateLimits readのHTTP 422をread-onlyで診断し、追加credits・外部API key・Fast・Firestore書込みなしで正規UI runを開始できる最小の安全な回復策を確定する。"
+    inputs:
+      - "T003 blocked receipt"
+      - "Codex App Server logs and account/rateLimits implementation"
+      - "Current account/service tier readback"
+      - "Existing review-ui and qualification run start contracts"
+      - "Relevant tests and prior goal receipts"
+    constraints:
+      - "Read-only。GoalBuddy control filesを含めて編集しない。"
+      - "SAA-C03 runを開始又は再試行しない。"
+      - "追加credits、外部API key、Fast又はFirestore書込みを要求しない。"
+      - "422を単なる一時障害と決め打ちしない。"
+    expected_output:
+      - "Exact failing request and response evidence"
+      - "Local defect | account state | transient external state の分類"
+      - "Safe retry condition or bounded Worker fix"
+      - "allowed_files、verify、stop_if候補"
+    receipt:
+      result: done
+      summary: "確認できた422はwham/usageのHTTP応答ではなく、ローカル開始APIがApp Serverの送信失敗を422へ変換したもの。StandardはcreditsなしProを既に許可し、Fastも要求していない。最小回復策は認証refreshを1回だけ行うbounded修正後、account/readとrateLimits/readの非生成preflight成功を開始条件にすること。"
+      evidence:
+        - "POST /api/qualification-runs/startが422を返し、内側の原因はfailed to fetch codex rate limits: error sending request for wham/usage。wham側HTTP status/body/headersは記録されていない。"
+        - "同じpreviewから2回開始し、いずれも新run作成前に同一エラーで停止した。previewはSAA単一group、6工程、全update target、Standard/auto_max、Firestore非反映。"
+        - "codex_app_server.pyはaccount/read refreshToken=falseの後にaccount/rateLimits/read params=nullを送る。URLとheadersは同梱Codex binaryが所有する。"
+        - "各readは3回の指数backoff再試行を行うため、UIの1回の失敗は単発通信失敗一回ではない。"
+        - "既存testはChatGPT Pro、credits.hasCredits=false、Standardをallowed=trueとする。"
+        - "現行SPEED_MODESはstandardのみでserviceTier=null。FastやAPI keyは失敗経路と無関係。"
+      facts:
+        - "local request-shape defectではない可能性が高く、account/session state又はtransient external stateのどちらかに未確定。"
+        - "allowStandardWithoutCredits相当の挙動は既存gateにあり、credit bypass flagは不要。"
+        - "最小bounded fix候補はrateLimits/readのtransport送信失敗時だけaccount/read(refreshToken=true)を一度実行し、rateLimits/readを一度再試行する。成功値は捏造せず再失敗はfail-closed。"
+        - "allowed_files候補はtools/question_review_console/codex_app_server.pyとtests/test_question_review_codex_app_server.pyのみ。"
+        - "safe retry条件はfresh App Serverでinitialize後、account/readがPro、account/rateLimits/readが構造化応答を返す非生成preflightが1回成功すること。"
+      contradictions:
+        - "T003 receiptはwham/usageのHTTP 422と読めるが、実証された422はローカル開始APIのstatusでありwham側statusは不明。"
+        - "UIはChatGPT Pro Standardと表示したが、live rate-limit確認は失敗したため表示だけで利用可能性は確定しない。"
+        - "credits不足が疑われたが、Pro Standardはcreditsなしで許可される。"
+      ambiguity_requiring_judge:
+        - "認証refreshで解消するaccount/session stateか、同梱binary又はwham側の一時障害かは未確定。"
+        - "bounded Worker fixを先に行うか、通常サインイン更新後にread-only preflightだけを行うか。"
+        - "同梱Codex binaryのversion差を原因とする証拠はない。"
+      commands:
+        - "T003/T005 board receiptと正本workflowの読取"
+        - "Codex App Server実装、subscription gate tests、関連run契約の検索"
+        - "T003 rolloutから開始API statusと画面エラーのreadback"
+        - "公式OpenAI文書でApp Server rate-limit公開契約を検索"
+      spawned_tasks:
+        - T006
+      note_needed: false
+      harness: codex
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T005の422診断を監査し、認証refreshのbounded fail-closed修復を実装するか、コード変更なしのpreflight待ちにするかを決定する。"
+    inputs:
+      - "T003 blocked receipt"
+      - "T005 receipt"
+      - "Codex App Server implementation and tests"
+      - "Current worktree and origin/main parity"
+    constraints:
+      - "Read-only。実装又はSAA run開始をしない。"
+      - "成功値を捏造するfallback、credit bypass、API key、Fast、公開されていないwham headers/URL固定を承認しない。"
+      - "修復する場合はtransport送信失敗だけに限定し、refreshはexactly once、再失敗はfail-closedとする。"
+    expected_output:
+      - "Decision"
+      - "Local fix vs external-state wait"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "コード修復は承認せず、外部認証状態の変化後に行う非生成preflightだけを承認する。現行App Serverの公開RPC面にはrefreshTokenが存在するが、観測エラーをtransport送信失敗だけに構造判定する情報をwrapperが保持していない。文言やwham URLへの依存は不可である。既存処理は各readを3回再試行済みで、同一状態の追加再試行にも根拠がない。fresh preflight成功前はT003をblockedのまま維持する。"
+      evidence:
+        - "T003は同じpreviewから2回開始を試み、各回とも新run作成前のローカルHTTP 422で停止した。wham側HTTP status/body/headersは未観測。"
+        - "App Serverの公開RPC schemaにはaccount/readのrefreshTokenフィールドがあるが、安定した回復意味論は確定していない。"
+        - "現行wrapperはJSON-RPC errorからmessageだけを平坦化し、code/data/error typeを保持しないためtransport固有識別ができない。"
+        - "error sending request又はwham/usageの文字列一致はtransport-only境界と非公開URL非固定の制約を満たさない。"
+        - "mainはorigin/mainと一致し、product code差分はない。"
+      next_allowed_task: null
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "preflightとT003は同じCodex App Server認証・利用上限状態を共有するため並列実行しない。"
+      worker_package:
+        objective: "ユーザー又は通常のChatGPT/Codex認証フローによる外部session更新後、fresh CodexAppServerClientでaccount/read・account/rateLimits/readの非生成preflightを一度だけ実行し、構造化成功値の場合だけT003再開を許可する。"
+        allowed_files: []
+        verify:
+          - "git status --short && git branch --show-current && git rev-list --left-right --count origin/main...HEAD"
+          - ".venv/bin/python -c 'import json; from pathlib import Path; from tools.question_review_console.codex_app_server import CodexAppServerClient; c=CodexAppServerClient(Path.cwd()); s=c.public_status(refresh=True); c.close(); safe={k:s.get(k) for k in (\"available\",\"allowed\",\"accountType\",\"planType\",\"creditsEnabled\",\"standardMode\",\"fastMode\")}; print(json.dumps(safe, ensure_ascii=False, sort_keys=True)); assert safe == {\"available\": True, \"allowed\": True, \"accountType\": \"chatgpt\", \"planType\": \"pro\", \"creditsEnabled\": False, \"standardMode\": True, \"fastMode\": False}'"
+          - "python3 scripts/check/check_00_source_immutability.py"
+        stop_if:
+          - "通常認証状態が更新された現物確認がない。同一外部状態でpreflightを反復しない。"
+          - "fresh preflightが一度で所定の構造化成功値を返さない。"
+          - "非公開wham URL/header、成功値fallback、credit bypass、API key、Fast又はFirestore書込みが必要になる。"
+      blocked_tasks:
+        - T003
+        - T004
+      missing_evidence:
+        - "外部認証状態更新後のfresh account/read・account/rateLimits/read成功receipt。"
+        - "T003の成功run、395/395 local-ready、artifactSync、upload dry-run証拠。"
+      required_board_updates:
+        - "T006をdoneとして記録する。"
+        - "認証refreshコード変更は未承認とする。"
+        - "外部認証状態変化を待つ非生成preflight task T007を追加する。"
+        - "preflight成功時だけT003を再activeにし、T004はT003成功までqueuedにする。"
+      harness: codex
+  - id: T007
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "ユーザーがCodexの通常認証状態を更新した後、fresh Codex App Serverでaccount/read・account/rateLimits/readの非生成preflightを一度だけ実行し、成功時だけT003 recoveryを再度有効化する。"
+    inputs:
+      - "T006 receipt"
+      - "User confirmation that Codex authentication was refreshed"
+      - "Fresh Codex App Server public status"
+    constraints:
+      - "認証状態更新の確認前にpreflightを反復しない。"
+      - "SAA runを開始しない。成功時はT003の再開許可だけを記録する。"
+      - "コード、test、問題artifact、00_source、CLF-C02、Firestoreを変更しない。"
+      - "非公開wham URL/header、成功値fallback、credit bypass、API key、Fastを使用しない。"
+    expected_output:
+      - "available/allowed/accountType/planType/creditsEnabled/standardMode/fastMode readback"
+      - "passならT003 reactivation、failならblocked receipt"
     receipt: null
   - id: T999
     type: judge
