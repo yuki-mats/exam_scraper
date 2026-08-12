@@ -643,7 +643,7 @@ class OfficialSourceCorrectionService:
                 "stateHash": state_hash,
                 "evidenceHash": evidence_hash,
             },
-            require_resume_consensus=resume_metadata is not None,
+            require_resume_consensus=True,
         )
         decision = str(challenge.get("decision") or "")
         if decision != "fix":

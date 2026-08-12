@@ -444,7 +444,10 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             )
             source_before = source_path.read_bytes()
 
+            review_runner_options = []
+
             def review_runner(work_item, **options):
+                review_runner_options.append(options)
                 candidate = work_item["caseSnapshots"][0]["canonicalSnapshot"][
                     "officialEvidenceCandidates"
                 ][0]
@@ -522,6 +525,10 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             )
             self.assertEqual(source_path.read_bytes(), source_before)
             self.assertEqual(len(verifier_calls), 1)
+            self.assertEqual(len(review_runner_options), 1)
+            self.assertIs(
+                review_runner_options[0]["require_resume_consensus"], True
+            )
 
     def test_pdf_evidence_is_rendered_to_the_locator_page_before_review(
         self,
