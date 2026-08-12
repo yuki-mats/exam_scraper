@@ -11,7 +11,8 @@ import stat
 import threading
 import time
 import uuid
-from collections import deque
+from collections import OrderedDict, deque
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -44,6 +45,24 @@ DISK_FAILURE_CATEGORIES = (
     "snapshot",
     "rotation",
 )
+PROJECTION_COALESCIBLE_METHODS = frozenset(
+    {
+        "item/agentMessage/delta",
+        "item/reasoning/summaryTextDelta",
+    }
+)
+PROJECTION_COALESCED_MAX_CHARS = 4096
+PROJECTION_COALESCED_MAX_FRAGMENTS = 512
+
+
+@dataclass
+class _CoalescedProjectionNotification:
+    ordinal: int
+    message: dict[str, Any]
+    observed_at: float
+    stream_key: tuple[str, ...]
+    deltas: list[str]
+    delta_chars: int
 
 
 class DiskPersistenceError(OSError):
@@ -274,11 +293,19 @@ class MonitorEventStore:
         self.monitor_model_requests = 0
         self._queue_capacity = max(1, queue_capacity)
         self._replay_capacity = max(1, replay_capacity)
-        self._queue: queue.Queue[
-            tuple[int, dict[str, Any], float]
-        ] = queue.Queue(
+        self._queue: queue.Queue[Any] = queue.Queue(
             maxsize=self._queue_capacity
         )
+        self._pending_projection_streams: OrderedDict[
+            tuple[str, ...],
+            _CoalescedProjectionNotification,
+        ] = OrderedDict()
+        self._projection_coalesced_notifications = 0
+        self._projection_coalesced_by_method = {
+            method: 0 for method in sorted(PROJECTION_COALESCIBLE_METHODS)
+        }
+        self._projection_queue_peak = 0
+        self._projection_enqueue_lock = threading.Lock()
         self._events: deque[dict[str, Any]] = deque(maxlen=self._replay_capacity)
         self._run_events: dict[tuple[str, str], deque[dict[str, Any]]] = {}
         self._bindings: dict[str, dict[str, Any]] = {}
@@ -355,21 +382,67 @@ class MonitorEventStore:
         except Exception:
             self._record_drop()
             return
-        with self._drop_lock:
-            if self._closed.is_set():
-                return
-            self._next_notification_ordinal += 1
-            ordinal = self._next_notification_ordinal
-            try:
-                self._queue.put_nowait(
-                    (ordinal, notification, received_at)
-                )
-                self._last_accepted_notification_ordinal = ordinal
-            except Exception:
-                self._record_drop_locked(
-                    count=1,
-                    boundary=self._last_accepted_notification_ordinal,
-                )
+        with self._projection_enqueue_lock:
+            with self._drop_lock:
+                if self._closed.is_set():
+                    return
+                coalescing = self._projection_coalescing_stream(notification)
+                if coalescing is not None:
+                    stream_key, delta = coalescing
+                    pending = self._pending_projection_streams.get(stream_key)
+                    if pending is not None:
+                        if (
+                            len(pending.deltas)
+                            < PROJECTION_COALESCED_MAX_FRAGMENTS
+                            and pending.delta_chars + len(delta)
+                            <= PROJECTION_COALESCED_MAX_CHARS
+                        ):
+                            pending.observed_at = received_at
+                            pending.deltas.append(delta)
+                            pending.delta_chars += len(delta)
+                            self._pending_projection_streams.move_to_end(stream_key)
+                            self._projection_coalesced_notifications += 1
+                            self._projection_coalesced_by_method[
+                                stream_key[0]
+                            ] += 1
+                            return
+                        self._pending_projection_streams.pop(stream_key, None)
+                else:
+                    self._pending_projection_streams.clear()
+                self._next_notification_ordinal += 1
+                ordinal = self._next_notification_ordinal
+                try:
+                    if coalescing is None:
+                        entry = (
+                            "notification",
+                            ordinal,
+                            notification,
+                            received_at,
+                        )
+                    else:
+                        stream_key, delta = coalescing
+                        aggregate = _CoalescedProjectionNotification(
+                            ordinal=ordinal,
+                            message=notification,
+                            observed_at=received_at,
+                            stream_key=stream_key,
+                            deltas=[delta],
+                            delta_chars=len(delta),
+                        )
+                        entry = ("coalesced_notification", aggregate)
+                    self._queue.put_nowait(entry)
+                    if coalescing is not None:
+                        self._pending_projection_streams[stream_key] = aggregate
+                    self._last_accepted_notification_ordinal = ordinal
+                    self._projection_queue_peak = max(
+                        self._projection_queue_peak,
+                        self._queue.qsize(),
+                    )
+                except Exception:
+                    self._record_drop_locked(
+                        count=1,
+                        boundary=self._last_accepted_notification_ordinal,
+                    )
 
     def observe(self, message: Mapping[str, Any]) -> None:
         """Compatibility alias; it retains the same non-blocking contract."""
@@ -384,11 +457,16 @@ class MonitorEventStore:
     ) -> None:
         """Record a drop in an upstream bounded adapter without blocking it."""
 
-        self._record_drop(
-            count=max(1, int(count)),
-            affected_routes=affected_routes,
-            scope_truncated=scope_truncated,
-        )
+        with self._projection_enqueue_lock, self._drop_lock:
+            # A known upstream gap is an ordering boundary. Later deltas must
+            # never merge into an aggregate accepted before that gap.
+            self._pending_projection_streams.clear()
+            self._record_drop_locked(
+                count=max(1, int(count)),
+                boundary=None,
+                affected_routes=affected_routes,
+                scope_truncated=scope_truncated,
+            )
         with self._condition:
             self._materialize_pending_gap_locked()
 
@@ -542,7 +620,7 @@ class MonitorEventStore:
         # Admission and closure share the drop lock. An event is therefore
         # either accepted before this boundary and drained, or rejected after
         # it; it cannot be stranded behind an already exited worker.
-        with self._drop_lock:
+        with self._projection_enqueue_lock, self._drop_lock:
             self._closed.set()
         with self._condition:
             self._materialize_pending_gap_locked()
@@ -677,24 +755,37 @@ class MonitorEventStore:
             "coalescedByMethod": copy.deepcopy(
                 self._lossless_coalesced_by_method
             ),
+            "projectionQueueCapacity": self._queue_capacity,
+            "projectionQueuePeak": self._projection_queue_peak,
+            "projectionCoalescedNotifications": (
+                self._projection_coalesced_notifications
+            ),
+            "projectionCoalescedByMethod": copy.deepcopy(
+                self._projection_coalesced_by_method
+            ),
         }
 
     def process_pending_for_test(self) -> None:
         while True:
             try:
-                ordinal, message, observed_at = self._queue.get_nowait()
+                entry = self._queue.get_nowait()
             except queue.Empty:
                 with self._condition:
                     self._materialize_pending_gap_locked()
                 return
+            ordinal: int | None = None
             try:
+                ordinal, message, observed_at = (
+                    self._claim_projection_notification(entry)
+                )
                 self._process(
                     message,
                     notification_ordinal=ordinal,
                     observed_at=observed_at,
                 )
             except Exception:
-                self._handle_processing_failure(ordinal)
+                if ordinal is not None:
+                    self._handle_processing_failure(ordinal)
             finally:
                 self._queue.task_done()
 
@@ -716,10 +807,13 @@ class MonitorEventStore:
                 with self._condition:
                     self._materialize_pending_gap_locked()
                 try:
-                    ordinal, message, observed_at = self._queue.get(timeout=0.05)
+                    entry = self._queue.get(timeout=0.05)
                 except queue.Empty:
                     continue
                 try:
+                    ordinal, message, observed_at = (
+                        self._claim_projection_notification(entry)
+                    )
                     try:
                         self._process(
                             message,
@@ -735,6 +829,79 @@ class MonitorEventStore:
                     self._queue.task_done()
         except BaseException as exc:
             self._record_projection_worker_failure(exc)
+
+    def _claim_projection_notification(
+        self,
+        entry: Any,
+    ) -> tuple[int, dict[str, Any], float]:
+        kind, *payload = entry
+        if kind == "notification":
+            ordinal, message, observed_at = payload
+            return int(ordinal), message, float(observed_at)
+        if kind != "coalesced_notification" or len(payload) != 1:
+            raise RuntimeError("unknown monitor projection queue entry")
+        aggregate = payload[0]
+        if not isinstance(aggregate, _CoalescedProjectionNotification):
+            raise RuntimeError("invalid coalesced monitor projection entry")
+        with self._projection_enqueue_lock, self._drop_lock:
+            if (
+                self._pending_projection_streams.get(aggregate.stream_key)
+                is aggregate
+            ):
+                self._pending_projection_streams.pop(
+                    aggregate.stream_key,
+                    None,
+                )
+            observed_at = aggregate.observed_at
+            deltas = tuple(aggregate.deltas)
+        message = dict(aggregate.message)
+        params = message.get("params")
+        if not isinstance(params, Mapping):
+            raise RuntimeError("coalesced projection notification has no params")
+        joined_params = dict(params)
+        joined_params["delta"] = "".join(deltas)
+        message["params"] = joined_params
+        return aggregate.ordinal, message, observed_at
+
+    @classmethod
+    def _projection_coalescing_stream(
+        cls,
+        message: Mapping[str, Any],
+    ) -> tuple[tuple[str, ...], str] | None:
+        method = str(message.get("method") or "")
+        if method not in PROJECTION_COALESCIBLE_METHODS:
+            return None
+        params = message.get("params")
+        if not isinstance(params, Mapping):
+            return None
+        delta = params.get("delta")
+        if not isinstance(delta, str):
+            return None
+        turn = params.get("turn")
+        item = params.get("item")
+        thread_id = cls._thread_id(params)
+        turn_id = _public_id(
+            params.get("turnId")
+            or (turn.get("id") if isinstance(turn, Mapping) else "")
+            or (item.get("turnId") if isinstance(item, Mapping) else "")
+        )
+        if not thread_id or not turn_id:
+            return None
+        item_id = _public_id(
+            params.get("itemId")
+            or (item.get("id") if isinstance(item, Mapping) else "")
+        )
+        summary_index = cls._nonnegative_int(params.get("summaryIndex"))
+        return (
+            (
+                method,
+                thread_id,
+                turn_id,
+                item_id,
+                "" if summary_index is None else str(summary_index),
+            ),
+            delta,
+        )
 
     def _process(
         self,

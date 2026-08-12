@@ -57,12 +57,70 @@ class MonitorEventStoreTests(unittest.TestCase):
                     "item/agentMessage/delta": 12,
                     "item/reasoning/summaryTextDelta": 7,
                 },
+                "projectionQueueCapacity": 4096,
+                "projectionQueuePeak": 0,
+                "projectionCoalescedNotifications": 0,
+                "projectionCoalescedByMethod": {
+                    "item/agentMessage/delta": 0,
+                    "item/reasoning/summaryTextDelta": 0,
+                },
             },
         )
         self.assertEqual(
             store.snapshot()["observation"]["inputCoalescing"],
             health["inputCoalescing"],
         )
+        store.close()
+
+    def test_100_stream_projection_burst_is_losslessly_coalesced_and_bounded(self):
+        store = MonitorEventStore(start_worker=False, queue_capacity=4096)
+        bind_store(store, qualification="sample", runId="run")
+        for delta_index in range(300):
+            for stream_index in range(100):
+                store.observe(
+                    {
+                        "method": "item/agentMessage/delta",
+                        "params": {
+                            "threadId": "thread-1",
+                            "turnId": "turn-1",
+                            "itemId": f"item-{stream_index}",
+                            "delta": str(delta_index % 10),
+                        },
+                    }
+                )
+        store.observe(
+            {
+                "method": "turn/completed",
+                "params": {
+                    "threadId": "thread-1",
+                    "turnId": "turn-1",
+                },
+            }
+        )
+
+        store.process_pending_for_test()
+
+        replay = store.replay()
+        health = store.health()["observationHealth"]
+        streams = [
+            event
+            for event in replay["events"]
+            if event["type"] == "agentMessage"
+        ]
+        self.assertEqual(len(streams), 100)
+        self.assertEqual(replay["events"][-1]["type"], "turnState")
+        self.assertEqual(
+            {event["payload"]["text"] for event in streams},
+            {"0123456789" * 30},
+        )
+        self.assertEqual(health["status"], "healthy")
+        self.assertEqual(health["droppedNotifications"], 0)
+        telemetry = health["inputCoalescing"]
+        self.assertEqual(
+            telemetry["projectionCoalescedNotifications"],
+            29_900,
+        )
+        self.assertLess(telemetry["projectionQueuePeak"], 4096)
         store.close()
 
     def test_100_stream_disk_coalescing_is_bounded_auditable_and_terminal_ordered(self):
@@ -98,10 +156,14 @@ class MonitorEventStoreTests(unittest.TestCase):
             self.assertEqual(events[-1]["type"], "turnState")
             for event in streams:
                 self.assertEqual(event["payload"]["text"], "0123456789" * 30)
-                self.assertEqual(event["diskCoalescing"]["coalescedCount"], 299)
                 self.assertLess(*event["diskCoalescing"]["sequenceRange"])
             telemetry = hub.health()["observationHealth"]["diskTelemetry"]
-            self.assertEqual(telemetry["coalescedEvents"], 29_900)
+            input_telemetry = hub.health()["observationHealth"]["inputCoalescing"]
+            self.assertEqual(
+                telemetry["coalescedEvents"]
+                + input_telemetry["projectionCoalescedNotifications"],
+                29_900,
+            )
             self.assertEqual(telemetry["pendingStreams"], 0)
             self.assertLess(telemetry["queuePeak"], 4096)
             health = hub.health()["observationHealth"]
@@ -445,8 +507,8 @@ class MonitorEventStoreTests(unittest.TestCase):
         events = store.replay()["events"]
         public_texts = [event["payload"]["text"] for event in events]
         serialized = json.dumps(events, ensure_ascii=False)
-        self.assertEqual(public_texts[0], "公開文 sk-ABC")
-        self.assertIn("<redacted>", public_texts[1])
+        self.assertEqual(len(public_texts), 1)
+        self.assertIn("<redacted>", public_texts[0])
         self.assertNotIn("DEFGHIJK", serialized)
         self.assertNotIn("private-material", serialized)
         self.assertNotIn("-----END PRIVATE KEY-----", serialized)
@@ -1927,17 +1989,24 @@ class MonitorEventStoreTests(unittest.TestCase):
             event["type"] == "agentMessage" for event in first["events"]
         )
         dropped = first["observation"]["droppedNotifications"]
+        coalesced = first["observation"]["inputCoalescing"][
+            "projectionCoalescedNotifications"
+        ]
         gaps = [
             event
             for event in first["events"]
             if event["type"] == "observationGap"
         ]
-        self.assertEqual(accepted + dropped, 64 * 100)
+        self.assertEqual(accepted + coalesced + dropped, 64 * 100)
         self.assertEqual(
             sum(event["payload"]["droppedNotifications"] for event in gaps),
             dropped,
         )
-        self.assertGreater(dropped, 0)
+        self.assertEqual(dropped, 0)
+        self.assertLess(
+            first["observation"]["inputCoalescing"]["projectionQueuePeak"],
+            128,
+        )
         self.assertLess(producer_elapsed, 2.0)
 
         store.put_nowait(
