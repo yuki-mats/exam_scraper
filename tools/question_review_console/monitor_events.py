@@ -33,6 +33,8 @@ MAX_RUN_OBSERVATION_METRICS = (
 )
 DEFAULT_EVENT_LIFECYCLE_TIMEOUT_SECONDS = 5.0
 MAX_DISK_BATCH_SIZE = 256
+MAX_PENDING_DISK_STREAMS = 512
+MAX_DISK_STREAM_SEQUENCE_AGE = 256
 DISK_FAILURE_CATEGORIES = (
     "queue_full",
     "batch_setup",
@@ -1723,6 +1725,11 @@ class MonitorEventHub(MonitorEventStore):
         self._disk_worker: threading.Thread | None = None
         self._disk_worker_failure: BaseException | None = None
         self._disk_queue_peak = 0
+        self._disk_coalesce_lock = threading.Lock()
+        self._pending_disk_streams: dict[tuple[Any, ...], dict[str, Any]] = {}
+        self._disk_coalesced_events = 0
+        self._disk_coalesced_by_type = {"agentMessage": 0, "reasoningSummary": 0}
+        self._disk_coalesce_flush_count = 0
         self._last_disk_batch_size = 0
         self._last_disk_batch_duration_ms = 0.0
         self._last_disk_lock_hold_ms = 0.0
@@ -2302,7 +2309,40 @@ class MonitorEventHub(MonitorEventStore):
             self._mark_disk_failure(event)
             return
         try:
-            self._disk_queue.put_nowait(copy.deepcopy(dict(event)))
+            disk_event = copy.deepcopy(dict(event))
+            key = self._disk_stream_key(disk_event)
+            with self._disk_coalesce_lock:
+                self._flush_aged_disk_streams_locked(int(disk_event["sequence"]))
+                if key is None:
+                    self._flush_pending_disk_streams_locked()
+                else:
+                    pending = self._pending_disk_streams.get(key)
+                    if pending is not None:
+                        first_sequence = pending["diskCoalescing"]["sequenceRange"][0]
+                        first_time = pending["diskCoalescing"]["observedAtRange"][0]
+                        count = pending["diskCoalescing"]["coalescedCount"] + 1
+                        pending.clear()
+                        pending.update(disk_event)
+                        pending["diskCoalescing"] = {
+                            "coalescedCount": count,
+                            "sequenceRange": [first_sequence, disk_event["sequence"]],
+                            "observedAtRange": [first_time, disk_event["observedAt"]],
+                        }
+                        self._disk_coalesced_events += 1
+                        self._disk_coalesced_by_type[str(disk_event["type"])] += 1
+                        return
+                    if len(self._pending_disk_streams) >= MAX_PENDING_DISK_STREAMS:
+                        self._pending_disk_streams.pop(
+                            next(iter(self._pending_disk_streams))
+                        )
+                        self._disk_coalesce_flush_count += 1
+                    disk_event["diskCoalescing"] = {
+                        "coalescedCount": 0,
+                        "sequenceRange": [disk_event["sequence"]] * 2,
+                        "observedAtRange": [disk_event["observedAt"]] * 2,
+                    }
+                    self._pending_disk_streams[key] = disk_event
+                self._disk_queue.put_nowait(disk_event)
             with self._condition:
                 self._disk_queue_peak = max(
                     self._disk_queue_peak,
@@ -2313,17 +2353,64 @@ class MonitorEventHub(MonitorEventStore):
         except Exception as exc:
             self._mark_disk_failure(event, "batch_setup", exc)
 
+    @staticmethod
+    def _disk_stream_key(event: Mapping[str, Any]) -> tuple[Any, ...] | None:
+        event_type = event.get("type")
+        payload = event.get("payload")
+        correlation = event.get("correlation")
+        if (event_type not in {"agentMessage", "reasoningSummary"}
+                or not isinstance(payload, Mapping) or "state" in payload
+                or not isinstance(correlation, Mapping)):
+            return None
+        return (
+            event_type,
+            correlation.get("qualification"),
+            correlation.get("runId"),
+            correlation.get("parentRunId"),
+            correlation.get("childRunId"),
+            correlation.get("questionId"),
+            correlation.get("workItemKey"),
+            correlation.get("threadId"),
+            correlation.get("turnId"),
+            correlation.get("itemId"),
+            payload.get("summaryIndex") if event_type == "reasoningSummary" else None,
+        )
+
+    def _flush_pending_disk_streams_locked(self) -> None:
+        if self._pending_disk_streams:
+            self._pending_disk_streams.clear()
+            self._disk_coalesce_flush_count += 1
+
+    def _flush_aged_disk_streams_locked(self, sequence: int) -> None:
+        oldest_allowed = sequence - MAX_DISK_STREAM_SEQUENCE_AGE
+        aged = [
+            key
+            for key, event in self._pending_disk_streams.items()
+            if int(event["sequence"]) <= oldest_allowed
+        ]
+        for key in aged:
+            del self._pending_disk_streams[key]
+            self._disk_coalesce_flush_count += 1
+
+    def _claim_disk_event(self, event: dict[str, Any]) -> dict[str, Any]:
+        with self._disk_coalesce_lock:
+            key = self._disk_stream_key(event)
+            if key is not None and self._pending_disk_streams.get(key) is event:
+                del self._pending_disk_streams[key]
+                self._disk_coalesce_flush_count += 1
+            return copy.deepcopy(event)
+
     def _run_disk_writer(self) -> None:
         try:
             while not self._disk_closed.is_set() or not self._disk_queue.empty():
                 try:
-                    event = self._disk_queue.get(timeout=0.05)
+                    event = self._claim_disk_event(self._disk_queue.get(timeout=0.05))
                 except queue.Empty:
                     continue
                 batch = [event]
                 while len(batch) < MAX_DISK_BATCH_SIZE:
                     try:
-                        batch.append(self._disk_queue.get_nowait())
+                        batch.append(self._claim_disk_event(self._disk_queue.get_nowait()))
                     except queue.Empty:
                         break
                 try:
@@ -2403,6 +2490,12 @@ class MonitorEventHub(MonitorEventStore):
             "queueCapacity": self._disk_queue.maxsize,
             "queueDepth": self._disk_queue.qsize(),
             "queuePeak": self._disk_queue_peak,
+            "coalescedEvents": self._disk_coalesced_events,
+            "coalescedByType": copy.deepcopy(self._disk_coalesced_by_type),
+            "pendingStreams": len(self._pending_disk_streams),
+            "pendingStreamLimit": MAX_PENDING_DISK_STREAMS,
+            "maxPendingSequenceAge": MAX_DISK_STREAM_SEQUENCE_AGE,
+            "flushCount": self._disk_coalesce_flush_count,
             "batchMax": MAX_DISK_BATCH_SIZE,
             "lastBatchSize": self._last_disk_batch_size,
             "lastBatchDurationMs": self._last_disk_batch_duration_ms,

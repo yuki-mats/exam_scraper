@@ -30,6 +30,49 @@ def bind_store(store, thread_id="thread-1", **context):
 
 
 class MonitorEventStoreTests(unittest.TestCase):
+    def test_100_stream_disk_coalescing_is_bounded_auditable_and_terminal_ordered(self):
+        class PausedDiskHub(MonitorEventHub):
+            disk_gate = threading.Event()
+
+            def _run_disk_writer(self):
+                self.disk_gate.wait(timeout=60)
+                return super()._run_disk_writer()
+
+        with tempfile.TemporaryDirectory() as directory:
+            hub = PausedDiskHub(Path(directory), queue_capacity=4096)
+            hub.bind_runtime({"qualification": "sample", "runId": "run"}, "thread", "turn")
+            for delta_index in range(300):
+                for stream_index in range(100):
+                    hub.observe({"method": "item/agentMessage/delta", "params": {
+                        "threadId": "thread", "turnId": "turn",
+                        "itemId": f"item-{stream_index}", "delta": str(delta_index % 10),
+                    }})
+                hub.process_pending_for_test()
+            hub.observe({"method": "turn/completed", "params": {
+                "threadId": "thread", "turnId": "turn",
+            }})
+            hub.process_pending_for_test()
+            hub.disk_gate.set()
+            hub.drain(timeout=15)
+            hub.close(timeout=15)
+
+            path = Path(directory) / "output/question_review_console/runtime_observations/sample/run/events.jsonl"
+            events = [json.loads(line) for line in path.read_text().splitlines()]
+            streams = [event for event in events if event["type"] == "agentMessage"]
+            self.assertEqual(len(streams), 100)
+            self.assertEqual(events[-1]["type"], "turnState")
+            for event in streams:
+                self.assertEqual(event["payload"]["text"], "0123456789" * 30)
+                self.assertEqual(event["diskCoalescing"]["coalescedCount"], 299)
+                self.assertLess(*event["diskCoalescing"]["sequenceRange"])
+            telemetry = hub.health()["observationHealth"]["diskTelemetry"]
+            self.assertEqual(telemetry["coalescedEvents"], 29_900)
+            self.assertEqual(telemetry["pendingStreams"], 0)
+            self.assertLess(telemetry["queuePeak"], 4096)
+            health = hub.health()["observationHealth"]
+            self.assertEqual(health["diskFailures"], 0)
+            self.assertEqual(health["droppedNotifications"], 0)
+
     def test_300_producer_disk_batches_are_bounded_ordered_and_durable(self):
         class RecordingHub(MonitorEventHub):
             batch_sizes = []
