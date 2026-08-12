@@ -111,6 +111,24 @@ class QuestionRunStateStoreTest(unittest.TestCase):
             ):
                 store.hydrate(run_dir, mismatched)
 
+    def test_initialize_builds_summary_without_reopening_question_states(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            QuestionRunStateStore,
+            "load_executions",
+            side_effect=AssertionError("initialize must not rescan states"),
+        ):
+            root = Path(directory)
+            _store, run_dir, _plan, manifest = self._initialize(root, count=64)
+            summary = json.loads(
+                (run_dir / "question_summary.json").read_text(encoding="utf-8")
+            )
+        self.assertEqual(summary["planHash"], manifest["planHash"])
+        self.assertEqual(summary["questionCount"], 64)
+        self.assertEqual(
+            summary["queueSummary"],
+            manifest["questionExecutionSummary"],
+        )
+
     def test_updates_only_target_question_and_rejects_stale_revision(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -190,7 +208,7 @@ class QuestionRunStateStoreTest(unittest.TestCase):
         self.assertEqual(loaded["qualification"], "gas")
         self.assertEqual(reads.call_count, 2)
 
-    def test_sixty_four_question_initialization_survives_one_ctime_only_race(self):
+    def test_sixty_four_question_initialization_does_not_reread_plan(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             original_signature = QuestionRunStateStore._file_signature
@@ -222,7 +240,7 @@ class QuestionRunStateStoreTest(unittest.TestCase):
             )
 
         self.assertEqual(hydrated["planHash"], manifest["planHash"])
-        self.assertGreaterEqual(plan_signature_reads, 3)
+        self.assertEqual(plan_signature_reads, 0)
         self.assertEqual(len(hydrated["questionExecutions"]), 64)
         self.assertEqual(summary["questionCount"], 64)
         self.assertEqual(question_file_count, 64)

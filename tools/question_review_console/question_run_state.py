@@ -254,7 +254,15 @@ class QuestionRunStateStore:
             workVersionRecordedCount=self._receipt_count_from_plan(plan),
             sharedWorkVersionReceipts=[],
         )
-        summary = self.rebuild_summary(run_dir, compact_parent)
+        # initialize owns the exact executions that were just written.  Build
+        # the replaceable summary from that in-memory source instead of
+        # reopening every question state before the run can start.  Runtime
+        # hydration still validates each independently persisted state.
+        summary = self._write_summary_from_executions(
+            run_dir,
+            compact_parent,
+            executions,
+        )
         compact_parent.update(
             questionExecutionSummary=copy.deepcopy(summary["queueSummary"]),
             blockedQuestionCount=int(
@@ -565,6 +573,18 @@ class QuestionRunStateStore:
     ) -> dict[str, Any]:
         plan = self.load_plan(run_dir, manifest)
         executions = self.load_executions(run_dir, manifest, plan=plan)
+        return self._write_summary_from_executions(
+            run_dir,
+            manifest,
+            executions,
+        )
+
+    def _write_summary_from_executions(
+        self,
+        run_dir: Path,
+        manifest: Mapping[str, Any],
+        executions: list[dict[str, Any]],
+    ) -> dict[str, Any]:
         compact_questions = [
             self._compact_execution(execution) for execution in executions
         ]

@@ -1350,12 +1350,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 resumed_from=None,
                 question_concurrency=None,
                 speed_mode=None,
+                hydrate_result=True,
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 self.speed_mode = speed_mode
+                self.hydrate_result = hydrate_result
                 return {
                     "run": {"runId": "run-1", "qualification": qualification},
                     "prompt": "依頼",
@@ -1453,6 +1455,7 @@ class QuestionReviewServerTests(unittest.TestCase):
         )
         self.assertEqual(runs.question_ids, ["q2", "q10"])
         self.assertEqual(runs.question_concurrency, 10)
+        self.assertFalse(runs.hydrate_result)
         self.assertEqual(runs.speed_mode, "standard")
         self.assertEqual(start_status, 201)
         self.assertEqual(started["run"]["runId"], "run-1")

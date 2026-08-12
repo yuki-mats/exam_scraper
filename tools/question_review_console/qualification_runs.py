@@ -3248,6 +3248,7 @@ class QualificationRunStore:
         prompt: str | None = None,
         resumed_from: str | None = None,
         append_receipt_contract: bool = True,
+        hydrate_result: bool = True,
     ) -> dict[str, Any]:
         qualification = _safe_segment(str(plan["qualification"]))
         run_id = f"{datetime.now().strftime('%Y%m%dT%H%M%S%f')}-{secrets.token_hex(4)}"
@@ -3664,7 +3665,11 @@ class QualificationRunStore:
                 except QuestionRunStateError as exc:
                     raise QualificationRunError(str(exc)) from exc
             self._write_manifest(manifest_path, manifest)
-        return self._hydrate_question_run(manifest_path, manifest)
+        return (
+            self._hydrate_question_run(manifest_path, manifest)
+            if hydrate_result
+            else self._public(manifest)
+        )
 
     def append_technical_log(
         self,
@@ -9541,6 +9546,7 @@ class QualificationRunCoordinator:
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
         blocked_rework_from: str | None = None,
+        hydrate_result: bool = True,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
@@ -9753,6 +9759,7 @@ class QualificationRunCoordinator:
                     prompt=prompt,
                     resumed_from=resumed_from,
                     append_receipt_contract=False,
+                    hydrate_result=hydrate_result,
                 )
                 try:
                     job = self.jobs.start(
@@ -9776,12 +9783,16 @@ class QualificationRunCoordinator:
                     self.store.update(
                         qualification,
                         run["runId"],
+                        hydrate_result=hydrate_result,
                         status="failed",
                         error="この資格で別の整備処理が実行中です。",
                     )
                     raise
                 run = self.store.update(
-                    qualification, run["runId"], jobId=job["jobId"]
+                    qualification,
+                    run["runId"],
+                    hydrate_result=hydrate_result,
+                    jobId=job["jobId"],
                 )
                 return {"run": run, "prompt": None, "job": job}
             run = self.store.create(
@@ -9789,6 +9800,7 @@ class QualificationRunCoordinator:
                 status="queued",
                 prompt=prompt,
                 resumed_from=resumed_from,
+                hydrate_result=hydrate_result,
             )
             saved_prompt = self.store.prompt(qualification, run["runId"])
             try:
@@ -9815,17 +9827,24 @@ class QualificationRunCoordinator:
                 self.store.update(
                     qualification,
                     run["runId"],
+                    hydrate_result=hydrate_result,
                     status="failed",
                     error="この資格で別の整備処理が実行中です。",
                 )
                 raise
             run = self.store.update(
-                qualification, run["runId"], jobId=job["jobId"]
+                qualification,
+                run["runId"],
+                hydrate_result=hydrate_result,
+                jobId=job["jobId"],
             )
             return {"run": run, "prompt": None, "job": job}
 
         run = self.store.create(
-            plan, status="queued", resumed_from=resumed_from
+            plan,
+            status="queued",
+            resumed_from=resumed_from,
+            hydrate_result=hydrate_result,
         )
         try:
             job = self.jobs.start(
@@ -9846,12 +9865,16 @@ class QualificationRunCoordinator:
             self.store.update(
                 qualification,
                 run["runId"],
+                hydrate_result=hydrate_result,
                 status="failed",
                 error="この資格で別の出力処理が実行中です。",
             )
             raise
         run = self.store.update(
-            qualification, run["runId"], jobId=job["jobId"]
+            qualification,
+            run["runId"],
+            hydrate_result=hydrate_result,
+            jobId=job["jobId"],
         )
         return {"run": run, "prompt": None, "job": job}
 

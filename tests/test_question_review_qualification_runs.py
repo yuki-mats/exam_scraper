@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from dataclasses import replace
 from datetime import datetime, timezone
 import hashlib
+import threading
 import time
 from pathlib import Path
 
@@ -1083,13 +1084,24 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 preview["targetIdentity"]["questionIds"],
                 ["new-exam-2026-q1", "new-exam-2026-q2"],
             )
+            hydrate_threads = []
+            original_hydrate = coordinator.store._hydrate_question_run
+
+            def track_hydrate(*args, **kwargs):
+                hydrate_threads.append(threading.current_thread().name)
+                return original_hydrate(*args, **kwargs)
+
             with patch.object(
                 coordinator, "_plan", wraps=coordinator._plan
             ) as plan_builder, patch.object(
                 coordinator.store,
                 "update_question_stages",
                 wraps=coordinator.store.update_question_stages,
-            ) as update_question_stages:
+            ) as update_question_stages, patch.object(
+                coordinator.store,
+                "_hydrate_question_run",
+                side_effect=track_hydrate,
+            ):
                 started = coordinator.start(
                     "new-exam",
                     preview["stageId"],
@@ -1097,8 +1109,11 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                     preview["previewToken"],
                     stage_ids=["question_type", "question_intent"],
                     list_group_ids=["2026"],
+                    hydrate_result=False,
                 )
                 self.assertEqual(plan_builder.call_count, 0)
+                self.assertNotIn(threading.main_thread().name, hydrate_threads)
+                self.assertNotIn("questionExecutions", started["run"])
                 QualificationRunTestSupport()._wait_for_job(
                     jobs,
                     started["job"]["jobId"],

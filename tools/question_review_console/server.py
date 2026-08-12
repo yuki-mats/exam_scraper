@@ -1034,6 +1034,7 @@ class QuestionReviewApplication:
                     stage_id,
                     mode,
                     str(body.get("previewToken") or ""),
+                    hydrate_result=False,
                     **run_options,
                 )
                 return (
