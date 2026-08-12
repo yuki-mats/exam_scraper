@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from dataclasses import replace
 from datetime import datetime, timezone
 import hashlib
+import time
 from pathlib import Path
 
 from tests.qualification_run_test_support import *  # noqa: F403
@@ -1097,7 +1098,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                     stage_ids=["question_type", "question_intent"],
                     list_group_ids=["2026"],
                 )
-                self.assertEqual(plan_builder.call_count, 1)
+                self.assertEqual(plan_builder.call_count, 0)
                 QualificationRunTestSupport()._wait_for_job(
                     jobs,
                     started["job"]["jobId"],
@@ -1171,6 +1172,107 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 ("new-exam-2026-q2", "question_intent"),
             },
         )
+
+    def test_preview_reuses_exact_prepared_plan_and_keeps_execution_settings_out_of_token(self):
+        class CountingWorkflow(FakeWorkflow):
+            def __init__(self):
+                super().__init__()
+                self.plan_calls = 0
+
+            def plan(self, *args, **kwargs):
+                self.plan_calls += 1
+                return super().plan(*args, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = CountingWorkflow()
+            coordinator = QualificationRunCoordinator(
+                Path(directory), workflow, FakeSynchronizer(), JobManager(), "secret"
+            )
+            first = coordinator.preview(
+                "sample",
+                "explanation",
+                "refresh",
+                question_concurrency=10,
+            )
+            second = coordinator.preview(
+                "sample",
+                "explanation",
+                "refresh",
+                question_concurrency=100,
+            )
+
+        self.assertEqual(workflow.plan_calls, 1)
+        self.assertEqual(first["previewToken"], second["previewToken"])
+        self.assertEqual(first["questionConcurrency"], 10)
+        self.assertEqual(second["questionConcurrency"], 100)
+
+    def test_concurrent_identical_preview_uses_single_flight_plan(self):
+        class SlowWorkflow(FakeWorkflow):
+            def __init__(self):
+                super().__init__()
+                self.plan_calls = 0
+
+            def plan(self, *args, **kwargs):
+                self.plan_calls += 1
+                time.sleep(0.05)
+                return super().plan(*args, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = SlowWorkflow()
+            coordinator = QualificationRunCoordinator(
+                Path(directory), workflow, FakeSynchronizer(), JobManager(), "secret"
+            )
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                previews = list(
+                    executor.map(
+                        lambda _index: coordinator.preview(
+                            "sample", "explanation", "refresh"
+                        ),
+                        range(2),
+                    )
+                )
+
+        self.assertEqual(workflow.plan_calls, 1)
+        self.assertEqual(
+            previews[0]["previewToken"], previews[1]["previewToken"]
+        )
+
+    def test_prepared_preview_is_not_used_after_canonical_scope_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            canonical_root = root / "output" / "sample"
+            canonical_root.mkdir(parents=True)
+            coordinator = QualificationRunCoordinator(
+                root, FakeWorkflow(), FakeSynchronizer(), JobManager(), "secret"
+            )
+            preview = coordinator.preview("sample", "explanation", "refresh")
+            (canonical_root / "external-change.json").write_text(
+                "{}\n", encoding="utf-8"
+            )
+            request_key = coordinator._prepared_preview_request_key(
+                "sample",
+                "explanation",
+                "refresh",
+                stage_ids=None,
+                list_group_ids=None,
+                update_target_ids=None,
+                question_ids=None,
+                resumed_from=None,
+                evaluation_rework_snapshots=None,
+                blocked_rework_from=None,
+            )
+
+            prepared = coordinator._take_prepared_preview(
+                request_key,
+                preview["previewToken"],
+                source_stamp=coordinator._prepared_preview_source_stamp(
+                    "sample", None
+                ),
+                question_concurrency=100,
+                speed_mode="standard",
+            )
+
+        self.assertIsNone(prepared)
 
 
 class ResumePolicyCompatibilityTests(unittest.TestCase):

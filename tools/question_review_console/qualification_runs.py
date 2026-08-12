@@ -14,7 +14,7 @@ import tempfile
 import threading
 import time
 import weakref
-from collections import deque
+from collections import OrderedDict, deque
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, as_completed, wait
 from contextlib import ExitStack, nullcontext
 from dataclasses import dataclass
@@ -8562,6 +8562,20 @@ def _question_work_preview_group_summary(
     ]
 
 
+PREPARED_PREVIEW_CACHE_MAX_ENTRIES = 2
+PREPARED_PREVIEW_CACHE_TTL_SECONDS = 30 * 60
+
+
+@dataclass
+class _PreparedPreviewEntry:
+    request_key: str
+    preview_token: str
+    plan: dict[str, Any]
+    preview: dict[str, Any]
+    source_stamp: str
+    stored_at: float
+
+
 class QualificationRunCoordinator:
     def __init__(
         self,
@@ -8592,6 +8606,275 @@ class QualificationRunCoordinator:
         self.primary_law_evidence = PrimaryLawEvidenceResolver(self.repo_root)
         self._parent_heartbeat_lock = threading.Lock()
         self._parent_heartbeat_monotonic: dict[tuple[str, str], float] = {}
+        self._prepared_preview_lock = threading.Condition(threading.Lock())
+        self._prepared_previews: OrderedDict[str, _PreparedPreviewEntry] = (
+            OrderedDict()
+        )
+        self._prepared_preview_tokens: dict[str, str] = {}
+        self._preparing_preview_keys: set[str] = set()
+
+    def _prepared_preview_source_stamp(
+        self,
+        qualification: str,
+        resumed_from: str | None,
+    ) -> str:
+        canonical_roots = [
+            self.repo_root / "output" / qualification,
+            self.repo_root / "prompt",
+            self.repo_root / "config" / "question_maintenance_workflow.toml",
+            self.store.root / qualification,
+        ]
+        evidence: dict[str, Any] = {
+            "qualification": qualification,
+            "resumedFrom": resumed_from,
+            "roots": [],
+        }
+
+        def stat_value(path: Path) -> list[Any]:
+            try:
+                value = path.stat()
+            except OSError:
+                return [str(path.relative_to(self.repo_root)), None]
+            return [
+                str(path.relative_to(self.repo_root)),
+                int(value.st_mtime_ns),
+                int(value.st_size),
+                int(value.st_mode),
+            ]
+
+        evidence["roots"] = [stat_value(path) for path in canonical_roots]
+        if resumed_from:
+            evidence["resumeManifest"] = stat_value(
+                self.store._manifest_path(qualification, resumed_from)
+            )
+
+        # canonical scopeがGit管理下なら、clean/dirty path集合とdirty fileの
+        # stat、index identityをbindする。既にdirtyなfileの再変更もmtime/size
+        # で検出し、cache利用時は現行plan再計算へfail closedする。
+        if not (self.repo_root / ".git").exists():
+            evidence["gitRepository"] = False
+            return _canonical_json_hash(evidence)
+        try:
+            inside = subprocess.run(
+                ["git", "rev-parse", "--is-inside-work-tree"],
+                cwd=self.repo_root,
+                check=True,
+                capture_output=True,
+                timeout=30,
+            )
+            if inside.stdout.strip() == b"true":
+                head = subprocess.run(
+                    ["git", "rev-parse", "HEAD"],
+                    cwd=self.repo_root,
+                    check=True,
+                    capture_output=True,
+                    timeout=30,
+                ).stdout.strip()
+                evidence["gitHead"] = head.decode(
+                    "ascii", errors="surrogateescape"
+                )
+                pathspecs = [
+                    str(path.relative_to(self.repo_root))
+                    for path in canonical_roots
+                ]
+                status = subprocess.run(
+                    [
+                        "git",
+                        "status",
+                        "--porcelain=v1",
+                        "-z",
+                        "--untracked-files=all",
+                        "--",
+                        *pathspecs,
+                    ],
+                    cwd=self.repo_root,
+                    check=True,
+                    capture_output=True,
+                    timeout=30,
+                ).stdout
+                dirty_paths: list[str] = []
+                for record in status.split(b"\0"):
+                    if len(record) < 4:
+                        continue
+                    decoded = record.decode("utf-8", errors="surrogateescape")
+                    path_value = decoded[3:]
+                    if path_value:
+                        dirty_paths.append(path_value)
+                evidence["gitStatusHash"] = hashlib.sha256(status).hexdigest()
+                evidence["dirtyPaths"] = [
+                    stat_value(self.repo_root / path)
+                    for path in sorted(set(dirty_paths))
+                ]
+                staged = subprocess.run(
+                    [
+                        "git",
+                        "diff",
+                        "--cached",
+                        "--raw",
+                        "-z",
+                        "--",
+                        *pathspecs,
+                    ],
+                    cwd=self.repo_root,
+                    check=True,
+                    capture_output=True,
+                    timeout=30,
+                ).stdout
+                evidence["gitCachedHash"] = hashlib.sha256(staged).hexdigest()
+        except (OSError, subprocess.SubprocessError):
+            # unit-test用の非Git一時repoではroot statだけを使う。本番Git repoで
+            # 一時的にGit照合不能ならstampが変わりcache missとなる。
+            evidence["gitUnavailableAt"] = time.monotonic_ns()
+        return _canonical_json_hash(evidence)
+
+    @staticmethod
+    def _prepared_preview_request_key(
+        qualification: str,
+        stage_id: str,
+        mode: str,
+        *,
+        stage_ids: list[str] | None,
+        list_group_ids: list[str] | None,
+        update_target_ids: list[str] | None,
+        question_ids: list[str] | None,
+        resumed_from: str | None,
+        evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None,
+        blocked_rework_from: str | None,
+    ) -> str:
+        # 同時処理数とspeedは対象scopeを変えずpreview tokenにも含まれない。
+        # 一方、順序を含む選択scopeと再開元はexactにbindする。
+        selected_stage_ids = list(dict.fromkeys(stage_ids or [stage_id]))
+        return _canonical_json_hash(
+            {
+                "qualification": qualification,
+                "stageIds": selected_stage_ids,
+                "mode": mode,
+                "listGroupIds": list_group_ids,
+                "updateTargetIds": update_target_ids,
+                "questionIds": question_ids,
+                "resumedFrom": resumed_from,
+                "evaluationReworkSnapshots": evaluation_rework_snapshots,
+                "blockedReworkFrom": blocked_rework_from,
+            }
+        )
+
+    def _purge_prepared_previews_locked(self, now: float) -> None:
+        expired = [
+            request_key
+            for request_key, entry in self._prepared_previews.items()
+            if now - entry.stored_at > PREPARED_PREVIEW_CACHE_TTL_SECONDS
+        ]
+        for request_key in expired:
+            entry = self._prepared_previews.pop(request_key)
+            self._prepared_preview_tokens.pop(entry.preview_token, None)
+
+    @staticmethod
+    def _preview_with_execution_settings(
+        preview: Mapping[str, Any],
+        *,
+        question_concurrency: int,
+        speed_mode: str,
+    ) -> dict[str, Any]:
+        result = copy.deepcopy(dict(preview))
+        result["questionConcurrency"] = question_concurrency
+        result["speedMode"] = speed_mode
+        return result
+
+    def _begin_prepared_preview(
+        self,
+        request_key: str,
+        *,
+        source_stamp: str,
+        question_concurrency: int,
+        speed_mode: str,
+    ) -> dict[str, Any] | None:
+        # 同じ巨大projectionの同時再計算をsingle-flightにする。clientが先に
+        # timeoutしてもserver側の最初の計算が完了すれば次回は同じ結果を返す。
+        with self._prepared_preview_lock:
+            while True:
+                self._purge_prepared_previews_locked(time.monotonic())
+                cached = self._prepared_previews.get(request_key)
+                if cached is not None:
+                    if not hmac.compare_digest(cached.source_stamp, source_stamp):
+                        self._prepared_previews.pop(request_key, None)
+                        self._prepared_preview_tokens.pop(
+                            cached.preview_token, None
+                        )
+                        continue
+                    self._prepared_previews.move_to_end(request_key)
+                    return self._preview_with_execution_settings(
+                        cached.preview,
+                        question_concurrency=question_concurrency,
+                        speed_mode=speed_mode,
+                    )
+                if request_key not in self._preparing_preview_keys:
+                    self._preparing_preview_keys.add(request_key)
+                    return None
+                self._prepared_preview_lock.wait()
+
+    def _finish_prepared_preview(
+        self,
+        request_key: str,
+        plan: dict[str, Any],
+        preview: dict[str, Any],
+        source_stamp: str,
+    ) -> None:
+        entry = _PreparedPreviewEntry(
+            request_key=request_key,
+            preview_token=str(preview["previewToken"]),
+            plan=plan,
+            preview=copy.deepcopy(preview),
+            source_stamp=source_stamp,
+            stored_at=time.monotonic(),
+        )
+        with self._prepared_preview_lock:
+            previous = self._prepared_previews.pop(request_key, None)
+            if previous is not None:
+                self._prepared_preview_tokens.pop(previous.preview_token, None)
+            self._prepared_previews[request_key] = entry
+            self._prepared_preview_tokens[entry.preview_token] = request_key
+            while len(self._prepared_previews) > PREPARED_PREVIEW_CACHE_MAX_ENTRIES:
+                _, evicted = self._prepared_previews.popitem(last=False)
+                self._prepared_preview_tokens.pop(evicted.preview_token, None)
+            self._preparing_preview_keys.discard(request_key)
+            self._prepared_preview_lock.notify_all()
+
+    def _abort_prepared_preview(self, request_key: str) -> None:
+        with self._prepared_preview_lock:
+            self._preparing_preview_keys.discard(request_key)
+            self._prepared_preview_lock.notify_all()
+
+    def _take_prepared_preview(
+        self,
+        request_key: str,
+        preview_token: str,
+        *,
+        source_stamp: str,
+        question_concurrency: int,
+        speed_mode: str,
+    ) -> tuple[dict[str, Any], dict[str, Any]] | None:
+        with self._prepared_preview_lock:
+            self._purge_prepared_previews_locked(time.monotonic())
+            bound_request_key = self._prepared_preview_tokens.get(preview_token)
+            if bound_request_key != request_key:
+                return None
+            entry = self._prepared_previews.pop(request_key, None)
+            if entry is None or not hmac.compare_digest(
+                entry.preview_token, preview_token
+            ) or not hmac.compare_digest(entry.source_stamp, source_stamp):
+                self._prepared_preview_tokens.pop(preview_token, None)
+                if entry is not None and entry.preview_token != preview_token:
+                    self._prepared_preview_tokens.pop(entry.preview_token, None)
+                return None
+            self._prepared_preview_tokens.pop(entry.preview_token, None)
+        return (
+            entry.plan,
+            self._preview_with_execution_settings(
+                entry.preview,
+                question_concurrency=question_concurrency,
+                speed_mode=speed_mode,
+            ),
+        )
 
     @staticmethod
     def _monitor_context(
@@ -9006,6 +9289,119 @@ class QualificationRunCoordinator:
         blocked_rework_from: str | None = None,
         _prepared_plan: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
+        if _prepared_plan is not None:
+            return self._preview_uncached(
+                qualification,
+                stage_id,
+                mode,
+                stage_ids=stage_ids,
+                list_group_ids=list_group_ids,
+                update_target_ids=update_target_ids,
+                question_ids=question_ids,
+                resumed_from=resumed_from,
+                question_concurrency=question_concurrency,
+                speed_mode=speed_mode,
+                evaluation_rework_snapshots=evaluation_rework_snapshots,
+                blocked_rework_from=blocked_rework_from,
+                _prepared_plan=_prepared_plan,
+            )
+
+        normalized_concurrency = normalize_question_concurrency(
+            question_concurrency
+        )
+        normalized_speed = normalize_speed_mode(speed_mode)
+        request_key = self._prepared_preview_request_key(
+            qualification,
+            stage_id,
+            mode,
+            stage_ids=stage_ids,
+            list_group_ids=list_group_ids,
+            update_target_ids=update_target_ids,
+            question_ids=question_ids,
+            resumed_from=resumed_from,
+            evaluation_rework_snapshots=evaluation_rework_snapshots,
+            blocked_rework_from=blocked_rework_from,
+        )
+        source_stamp = self._prepared_preview_source_stamp(
+            qualification,
+            resumed_from,
+        )
+        cached = self._begin_prepared_preview(
+            request_key,
+            source_stamp=source_stamp,
+            question_concurrency=normalized_concurrency,
+            speed_mode=normalized_speed,
+        )
+        if cached is not None:
+            return cached
+        try:
+            plan = self._plan(
+                qualification,
+                stage_id,
+                mode,
+                resumed_from,
+                stage_ids=stage_ids,
+                list_group_ids=list_group_ids,
+                update_target_ids=update_target_ids,
+                question_ids=question_ids,
+            )
+            self._apply_evaluation_rework_plan(
+                plan,
+                evaluation_rework_snapshots,
+            )
+            self._apply_blocked_rework_plan(plan, blocked_rework_from)
+            preview = self._preview_uncached(
+                qualification,
+                stage_id,
+                mode,
+                stage_ids=stage_ids,
+                list_group_ids=list_group_ids,
+                update_target_ids=update_target_ids,
+                question_ids=question_ids,
+                resumed_from=resumed_from,
+                question_concurrency=normalized_concurrency,
+                speed_mode=normalized_speed,
+                evaluation_rework_snapshots=evaluation_rework_snapshots,
+                blocked_rework_from=blocked_rework_from,
+                _prepared_plan=plan,
+            )
+            # 計算中にcanonical scope又はresume manifestが更新された場合は、
+            # 完成planをcacheへ入れず次回の現行再計算へ送る。
+            completed_source_stamp = self._prepared_preview_source_stamp(
+                qualification,
+                resumed_from,
+            )
+            if not hmac.compare_digest(source_stamp, completed_source_stamp):
+                self._abort_prepared_preview(request_key)
+                return preview
+            self._finish_prepared_preview(
+                request_key,
+                plan,
+                preview,
+                completed_source_stamp,
+            )
+            return preview
+        except BaseException:
+            self._abort_prepared_preview(request_key)
+            raise
+
+    def _preview_uncached(
+        self,
+        qualification: str,
+        stage_id: str,
+        mode: str,
+        *,
+        stage_ids: list[str] | None = None,
+        list_group_ids: list[str] | None = None,
+        update_target_ids: list[str] | None = None,
+        question_ids: list[str] | None = None,
+        resumed_from: str | None = None,
+        question_concurrency: int = DEFAULT_QUESTION_CONCURRENCY,
+        speed_mode: str = STANDARD_SPEED_MODE,
+        evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
+        blocked_rework_from: str | None = None,
+        _prepared_plan: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
         if _prepared_plan is None:
@@ -9025,7 +9421,9 @@ class QualificationRunCoordinator:
             )
             self._apply_blocked_rework_plan(plan, blocked_rework_from)
         else:
-            plan = copy.deepcopy(dict(_prepared_plan))
+            # 呼出し元がこのpreview専用に所有するplan。previewは読み取り専用で
+            # 扱い、100MB級projectionの不要なdeepcopyを避ける。
+            plan = dict(_prepared_plan)
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
         if plan["kind"] == "machine":
@@ -9146,22 +9544,7 @@ class QualificationRunCoordinator:
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
-        plan = self._plan(
-            qualification,
-            stage_id,
-            mode,
-            resumed_from,
-            stage_ids=stage_ids,
-            list_group_ids=list_group_ids,
-            update_target_ids=update_target_ids,
-            question_ids=question_ids,
-        )
-        self._apply_evaluation_rework_plan(
-            plan,
-            evaluation_rework_snapshots,
-        )
-        self._apply_blocked_rework_plan(plan, blocked_rework_from)
-        preview = self.preview(
+        request_key = self._prepared_preview_request_key(
             qualification,
             stage_id,
             mode,
@@ -9170,12 +9553,52 @@ class QualificationRunCoordinator:
             update_target_ids=update_target_ids,
             question_ids=question_ids,
             resumed_from=resumed_from,
-            question_concurrency=question_concurrency,
-            speed_mode=speed_mode,
             evaluation_rework_snapshots=evaluation_rework_snapshots,
             blocked_rework_from=blocked_rework_from,
-            _prepared_plan=plan,
         )
+        prepared = self._take_prepared_preview(
+            request_key,
+            preview_token,
+            source_stamp=self._prepared_preview_source_stamp(
+                qualification,
+                resumed_from,
+            ),
+            question_concurrency=question_concurrency,
+            speed_mode=speed_mode,
+        )
+        if prepared is not None:
+            plan, preview = prepared
+        else:
+            plan = self._plan(
+                qualification,
+                stage_id,
+                mode,
+                resumed_from,
+                stage_ids=stage_ids,
+                list_group_ids=list_group_ids,
+                update_target_ids=update_target_ids,
+                question_ids=question_ids,
+            )
+            self._apply_evaluation_rework_plan(
+                plan,
+                evaluation_rework_snapshots,
+            )
+            self._apply_blocked_rework_plan(plan, blocked_rework_from)
+            preview = self.preview(
+                qualification,
+                stage_id,
+                mode,
+                stage_ids=stage_ids,
+                list_group_ids=list_group_ids,
+                update_target_ids=update_target_ids,
+                question_ids=question_ids,
+                resumed_from=resumed_from,
+                question_concurrency=question_concurrency,
+                speed_mode=speed_mode,
+                evaluation_rework_snapshots=evaluation_rework_snapshots,
+                blocked_rework_from=blocked_rework_from,
+                _prepared_plan=plan,
+            )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
         if not preview["canStart"]:
