@@ -1553,6 +1553,13 @@ assert.deepEqual(
         self.assertIn("questionConcurrency: preview.questionConcurrency", start)
         self.assertIn("blockedReworkFrom: preview.blockedReworkFrom", start)
         self.assertIn("previewToken: preview.previewToken", start)
+        self.assertIn("preview.requestedQuestionIds?.length", start)
+        self.assertNotIn("targetIdentity:", start)
+        self.assertIn("server確定対象identity（コピー可能）", javascript)
+        self.assertIn("questionIdsHash: identity.questionIdsHash", javascript)
+        self.assertIn("workItemKeysHash: identity.workItemKeysHash", javascript)
+        self.assertIn("stageSummary: identity.stageSummary", javascript)
+        self.assertIn("previewPlanHash: preview.previewPlanHash", javascript)
 
     def test_qualification_law_workflow_toggle_is_visible_and_persisted(self):
         root = Path(__file__).resolve().parents[1]

@@ -3963,6 +3963,26 @@ function renderQualificationRunPreview(preview) {
         element("span", "run-preview-range", `指定問題 ${preview.questionIds.length}問`),
       );
     }
+    if (preview.targetIdentity) {
+      const identity = preview.targetIdentity;
+      const details = document.createElement("details");
+      details.className = "run-preview-target-identity";
+      const summary = document.createElement("summary");
+      summary.textContent = "server確定対象identity（コピー可能）";
+      const payload = document.createElement("pre");
+      payload.textContent = JSON.stringify({
+        schemaVersion: identity.schemaVersion,
+        hashFormat: identity.hashFormat,
+        questionIds: identity.questionIds,
+        questionIdsHash: identity.questionIdsHash,
+        workItemKeys: identity.workItemKeys,
+        workItemKeysHash: identity.workItemKeysHash,
+        stageSummary: identity.stageSummary,
+        previewPlanHash: preview.previewPlanHash,
+      }, null, 2);
+      details.append(summary, payload);
+      container.append(details);
+    }
     if (preview.selectedUpdateTargets?.length) {
       container.append(
         element(
@@ -4020,7 +4040,9 @@ async function startQualificationRun(event) {
         updateTargetIds: preview.selectedUpdateTargetIds?.length
           ? preview.selectedUpdateTargetIds
           : undefined,
-        questionIds: preview.questionIds?.length ? preview.questionIds : undefined,
+        questionIds: preview.requestedQuestionIds?.length
+          ? preview.requestedQuestionIds
+          : undefined,
         evaluationRework: preview.evaluationRework,
         blockedReworkFrom: preview.blockedReworkFrom,
         previewToken: preview.previewToken,

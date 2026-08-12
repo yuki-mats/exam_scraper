@@ -1120,6 +1120,98 @@ def _canonical_json_hash(value: Any) -> str:
     ).hexdigest()
 
 
+def _sorted_newline_sha256(values: list[str]) -> str:
+    return hashlib.sha256(
+        "".join(f"{value}\n" for value in sorted(values)).encode("utf-8")
+    ).hexdigest()
+
+
+def _question_work_selection_count(plan: Mapping[str, Any]) -> int:
+    stage_plans = [
+        stage_plan
+        for stage_plan in plan.get("stagePlans") or []
+        if isinstance(stage_plan, Mapping)
+    ]
+    if not stage_plans:
+        return int(plan.get("targetCount") or 0)
+    scoped_stage_plans = [
+        stage_plan for stage_plan in stage_plans if "progressTargets" in stage_plan
+    ]
+    if not scoped_stage_plans:
+        return int(plan.get("targetCount") or 0)
+    return sum(
+        len(stage_plan.get("progressTargets") or [])
+        for stage_plan in scoped_stage_plans
+    )
+
+
+def _question_work_target_identity(plan: Mapping[str, Any]) -> dict[str, Any]:
+    try:
+        executions = build_question_executions(plan)
+    except QuestionWorkQueueError as exc:
+        raise QualificationRunError(str(exc)) from exc
+    question_ids = [str(item.get("questionId") or "") for item in executions]
+    stages = [
+        stage
+        for item in executions
+        for stage in item.get("stages") or []
+        if isinstance(stage, Mapping)
+    ]
+    work_item_keys = [str(stage.get("workItemKey") or "") for stage in stages]
+    actual_stage_ids = [str(stage.get("stageId") or "") for stage in stages]
+    declared_stage_ids = list(
+        dict.fromkeys(
+            str(value)
+            for value in plan.get("stageIds") or [plan.get("stageId")]
+            if value
+        )
+    )
+    if any(not value for value in question_ids + work_item_keys + actual_stage_ids):
+        raise QualificationRunError("preview対象identityに空値があります。")
+    if len(question_ids) != len(set(question_ids)):
+        raise QualificationRunError("preview対象のquestionIdが重複しています。")
+    if len(work_item_keys) != len(set(work_item_keys)):
+        raise QualificationRunError("preview対象のworkItemKeyが重複しています。")
+    unknown = sorted(set(actual_stage_ids) - set(declared_stage_ids))
+    if unknown:
+        raise QualificationRunError(
+            "preview対象に不明なstageがあります: " + ", ".join(unknown)
+        )
+    if len(question_ids) != int(plan.get("targetCount") or 0):
+        raise QualificationRunError("preview対象のquestion totalが一致しません。")
+    declared_work_item_count = int(
+        plan.get("workItemCount") or plan["targetCount"]
+    )
+    if declared_work_item_count != _question_work_selection_count(plan):
+        raise QualificationRunError("preview対象のworkItemCountが一致しません。")
+    declared_stage_count = int(
+        plan.get("stageCount") or len(declared_stage_ids)
+    )
+    if declared_stage_count != len(declared_stage_ids):
+        raise QualificationRunError("preview対象のstageCountが一致しません。")
+    stage_summary = [
+        {
+            "stageId": stage_id,
+            "workItemCount": actual_stage_ids.count(stage_id),
+        }
+        for stage_id in declared_stage_ids
+        if stage_id in actual_stage_ids
+    ]
+    if sum(item["workItemCount"] for item in stage_summary) != len(stages):
+        raise QualificationRunError("preview対象のstage totalが一致しません。")
+    return {
+        "schemaVersion": "question-work-target-identity/v1",
+        "hashFormat": "utf-8-sorted-newline-sha256/v1",
+        "questionIds": sorted(question_ids),
+        "questionIdsHash": _sorted_newline_sha256(question_ids),
+        "workItemKeys": sorted(work_item_keys),
+        "workItemKeysHash": _sorted_newline_sha256(work_item_keys),
+        "workItemCount": len(work_item_keys),
+        "stageCount": len(stage_summary),
+        "stageSummary": stage_summary,
+    }
+
+
 def _validated_projected_input_path(
     repo_root: Path,
     parent_run_directory: Path,
@@ -3352,6 +3444,8 @@ class QualificationRunStore:
             "status": status,
             "targetCount": int(plan["targetCount"]),
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
+            "targetIdentity": copy.deepcopy(plan.get("targetIdentity")),
+            "previewPlanHash": plan.get("previewPlanHash"),
             "targetGroupIds": list(plan.get("targetGroupIds") or []),
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
@@ -8907,24 +9001,28 @@ class QualificationRunCoordinator:
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
         blocked_rework_from: str | None = None,
+        _prepared_plan: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
-        plan = self._plan(
-            qualification,
-            stage_id,
-            mode,
-            resumed_from,
-            stage_ids=stage_ids,
-            list_group_ids=list_group_ids,
-            update_target_ids=update_target_ids,
-            question_ids=question_ids,
-        )
-        self._apply_evaluation_rework_plan(
-            plan,
-            evaluation_rework_snapshots,
-        )
-        self._apply_blocked_rework_plan(plan, blocked_rework_from)
+        if _prepared_plan is None:
+            plan = self._plan(
+                qualification,
+                stage_id,
+                mode,
+                resumed_from,
+                stage_ids=stage_ids,
+                list_group_ids=list_group_ids,
+                update_target_ids=update_target_ids,
+                question_ids=question_ids,
+            )
+            self._apply_evaluation_rework_plan(
+                plan,
+                evaluation_rework_snapshots,
+            )
+            self._apply_blocked_rework_plan(plan, blocked_rework_from)
+        else:
+            plan = copy.deepcopy(dict(_prepared_plan))
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
         if plan["kind"] == "machine":
@@ -8951,8 +9049,24 @@ class QualificationRunCoordinator:
                 )
         # 並列数は対象範囲を変えない実行設定であり、許可値はstart時にも
         # serverが検証する。切替のたびに高コストな対象計算をやり直さない。
-        token_payload = {"plan": plan, "groupPreviews": group_previews}
+        target_identity = (
+            _question_work_target_identity(plan)
+            if plan["kind"] != "machine"
+            and bool(plan.get("progressTargets") or plan.get("stagePlans"))
+            else None
+        )
+        token_payload = {
+            "plan": plan,
+            "groupPreviews": group_previews,
+            "targetIdentity": target_identity,
+        }
+        preview_plan_hash = _canonical_json_hash(token_payload)
         group_summary = _question_work_preview_group_summary(plan)
+        actual_work_item_count = (
+            len(target_identity["workItemKeys"])
+            if target_identity is not None
+            else int(plan.get("workItemCount") or plan["targetCount"])
+        )
         return {
             "qualification": qualification,
             "stageId": plan["stageId"],
@@ -8976,9 +9090,10 @@ class QualificationRunCoordinator:
             "groupSummary": group_summary,
             "questionWorkItemCount": sum(
                 int(group.get("workItemCount") or 0) for group in group_summary
-            ) or int(plan.get("workItemCount") or plan["targetCount"]),
+            ) or actual_work_item_count,
             "scopeListGroupId": plan.get("scopeListGroupId"),
             "scopeListGroupIds": list(plan.get("scopeListGroupIds") or []),
+            "requestedQuestionIds": list(plan.get("questionIds") or []),
             "questionIds": list(plan.get("questionIds") or []),
             "updateTargets": list(plan.get("updateTargets") or []),
             "selectedUpdateTargets": list(
@@ -9004,6 +9119,8 @@ class QualificationRunCoordinator:
             "blockingWarnings": blocking_warnings[:20],
             "isProductionWrite": False,
             "evaluationRework": bool(plan.get("evaluationRework")),
+            "targetIdentity": target_identity,
+            "previewPlanHash": preview_plan_hash,
             "previewToken": self._token(token_payload),
         }
 
@@ -9026,6 +9143,21 @@ class QualificationRunCoordinator:
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
+        plan = self._plan(
+            qualification,
+            stage_id,
+            mode,
+            resumed_from,
+            stage_ids=stage_ids,
+            list_group_ids=list_group_ids,
+            update_target_ids=update_target_ids,
+            question_ids=question_ids,
+        )
+        self._apply_evaluation_rework_plan(
+            plan,
+            evaluation_rework_snapshots,
+        )
+        self._apply_blocked_rework_plan(plan, blocked_rework_from)
         preview = self.preview(
             qualification,
             stage_id,
@@ -9039,6 +9171,7 @@ class QualificationRunCoordinator:
             speed_mode=speed_mode,
             evaluation_rework_snapshots=evaluation_rework_snapshots,
             blocked_rework_from=blocked_rework_from,
+            _prepared_plan=plan,
         )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
@@ -9055,21 +9188,11 @@ class QualificationRunCoordinator:
                 raise QualificationRunError("必須field不足があるため開始できません。")
             raise QualificationRunError("選択した範囲に対象はありません。")
 
-        plan = self._plan(
-            qualification,
-            stage_id,
-            mode,
-            resumed_from,
-            stage_ids=stage_ids,
-            list_group_ids=list_group_ids,
-            update_target_ids=update_target_ids,
-            question_ids=question_ids,
-        )
-        self._apply_evaluation_rework_plan(
-            plan,
-            evaluation_rework_snapshots,
-        )
-        self._apply_blocked_rework_plan(plan, blocked_rework_from)
+        plan = {
+            **plan,
+            "targetIdentity": copy.deepcopy(preview["targetIdentity"]),
+            "previewPlanHash": str(preview["previewPlanHash"]),
+        }
         if plan["kind"] == "human":
             selected_stage_ids = list(plan.get("stageIds") or [stage_id])
             prompt_scope = {}
@@ -9137,6 +9260,27 @@ class QualificationRunCoordinator:
                 question_executions = build_question_executions(plan)
             except QuestionWorkQueueError as exc:
                 raise QualificationRunError(str(exc)) from exc
+            actual_target_identity = _question_work_target_identity(plan)
+            if plan.get("targetIdentity") != actual_target_identity:
+                raise QualificationRunError(
+                    "preview対象identityと開始時queueが一致しません。"
+                )
+            actual_queue_summary = queue_summary(question_executions)
+            if (
+                int(actual_target_identity.get("workItemCount") or 0)
+                != int(actual_queue_summary.get("workItemCount") or 0)
+                or int(actual_target_identity.get("stageCount") or 0)
+                != len(actual_target_identity.get("stageSummary") or [])
+                or sum(
+                    int(item.get("workItemCount") or 0)
+                    for item in actual_target_identity.get("stageSummary") or []
+                    if isinstance(item, Mapping)
+                )
+                != int(actual_queue_summary.get("workItemCount") or 0)
+            ):
+                raise QualificationRunError(
+                    "preview対象identityのqueue集計が一致しません。"
+                )
             if len(maintenance_phases) > 1 or question_executions:
                 phase_executions = [
                     {
@@ -9158,9 +9302,7 @@ class QualificationRunCoordinator:
                 ]
                 flow_plan = {
                     **plan,
-                    "workItemCount": queue_summary(question_executions)[
-                        "workItemCount"
-                    ],
+                    "workItemCount": actual_queue_summary["workItemCount"],
                     "kind": "orchestration",
                     "workType": "maintenance_flow",
                     "questionConcurrency": question_concurrency,

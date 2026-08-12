@@ -39,6 +39,7 @@ from tools.question_review_console.qualification_runs import (
     _law_reference_discovery_plan,
     _prepared_candidate_envelope,
     _question_work_preview_group_summary,
+    _question_work_target_identity,
     _question_plan_list_group_id,
     _restore_resume_target_aliases,
     _resume_orchestration_selections_match,
@@ -113,6 +114,95 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
                 {"listGroupId": "ping", "questionCount": 1, "workItemCount": 2},
             ],
         )
+
+    def test_target_identity_is_derived_from_actual_queue(self):
+        identity = _question_work_target_identity(self.plan())
+
+        self.assertEqual(identity["questionIds"], ["keep-1", "keep-2", "ping-1"])
+        self.assertEqual(len(identity["workItemKeys"]), 6)
+        self.assertEqual(identity["workItemCount"], 6)
+        self.assertEqual(identity["stageCount"], 2)
+        self.assertEqual(
+            identity["questionIdsHash"],
+            hashlib.sha256(b"keep-1\nkeep-2\nping-1\n").hexdigest(),
+        )
+        self.assertEqual(
+            identity["stageSummary"],
+            [
+                {"stageId": "question_intent", "workItemCount": 3},
+                {"stageId": "explanation", "workItemCount": 3},
+            ],
+        )
+
+    def test_target_identity_fails_closed_on_declared_total_mismatch(self):
+        plan = self.plan()
+        plan["targetCount"] = 4
+        with self.assertRaises(QualificationRunError):
+            _question_work_target_identity(plan)
+
+    def test_target_identity_fails_closed_on_work_item_count_mismatch(self):
+        plan = self.plan()
+        plan["workItemCount"] = 5
+        with self.assertRaises(QualificationRunError):
+            _question_work_target_identity(plan)
+
+    def test_target_identity_fails_closed_on_stage_count_mismatch(self):
+        plan = self.plan()
+        plan["stageCount"] = 3
+        with self.assertRaises(QualificationRunError):
+            _question_work_target_identity(plan)
+
+    def test_target_identity_keeps_selection_and_actual_queue_counts_separate(self):
+        plan = self.plan()
+        plan["workItemCount"] = 3
+        plan["stagePlans"][1]["targetCount"] = 0
+        plan["stagePlans"][1]["progressTargets"] = []
+
+        identity = _question_work_target_identity(plan)
+
+        self.assertEqual(plan["workItemCount"], 3)
+        self.assertEqual(identity["workItemCount"], 6)
+        self.assertEqual(identity["stageCount"], 2)
+
+    def test_target_identity_fails_closed_on_invalid_queue_identity(self):
+        base = [
+            {
+                "questionId": "q1",
+                "stages": [{"workItemKey": "w1", "stageId": "question_intent"}],
+            },
+            {
+                "questionId": "q2",
+                "stages": [{"workItemKey": "w2", "stageId": "explanation"}],
+            },
+        ]
+        cases = {
+            "empty question id": (0, "questionId", ""),
+            "empty work item key": (0, "workItemKey", ""),
+            "empty stage id": (0, "stageId", ""),
+            "duplicate question id": (1, "questionId", "q1"),
+            "duplicate work item key": (1, "workItemKey", "w1"),
+            "unknown stage": (0, "stageId", "unknown_stage"),
+        }
+        plan = self.plan()
+        plan.update(
+            targetCount=2,
+            workItemCount=2,
+            stagePlans=[
+                {"stageId": "question_intent", "targetCount": 1},
+                {"stageId": "explanation", "targetCount": 1},
+            ],
+        )
+        for label, (index, field, value) in cases.items():
+            executions = copy.deepcopy(base)
+            if field == "questionId":
+                executions[index][field] = value
+            else:
+                executions[index]["stages"][0][field] = value
+            with self.subTest(label=label), patch(
+                "tools.question_review_console.qualification_runs.build_question_executions",
+                return_value=executions,
+            ), self.assertRaises(QualificationRunError):
+                _question_work_target_identity(plan)
 
     def test_summary_rejects_duplicate_unknown_and_mismatched_totals(self):
         duplicate = self.plan()
@@ -971,7 +1061,14 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 stage_ids=["question_type", "question_intent"],
                 list_group_ids=["2026"],
             )
+            self.assertEqual(preview["requestedQuestionIds"], [])
+            self.assertEqual(
+                preview["targetIdentity"]["questionIds"],
+                ["new-exam-2026-q1", "new-exam-2026-q2"],
+            )
             with patch.object(
+                coordinator, "_plan", wraps=coordinator._plan
+            ) as plan_builder, patch.object(
                 coordinator.store,
                 "update_question_stages",
                 wraps=coordinator.store.update_question_stages,
@@ -984,6 +1081,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                     stage_ids=["question_type", "question_intent"],
                     list_group_ids=["2026"],
                 )
+                self.assertEqual(plan_builder.call_count, 1)
                 QualificationRunTestSupport()._wait_for_job(
                     jobs,
                     started["job"]["jobId"],
@@ -1000,6 +1098,8 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
 
         batches = [call.args[2] for call in update_question_stages.call_args_list]
         self.assertEqual(run["queueStatus"], "succeeded")
+        self.assertEqual(run["targetIdentity"], preview["targetIdentity"])
+        self.assertEqual(run["previewPlanHash"], preview["previewPlanHash"])
         self.assertEqual(run["validatedWorkItemCount"], 4)
         self.assertEqual(run["modelBatchSize"], 1)
         self.assertEqual(len(children), 4)
