@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import copy
 import hashlib
+import json
 import mimetypes
 import os
 import re
@@ -31,6 +33,7 @@ from tools.question_bank.question_issue_reports import (
     sha256_json,
     utc_now_text,
     verify_patch_against_record,
+    write_append_only_private_json,
     write_private_json,
 )
 from tools.question_review_console.projection import PROJECTED_COMPARE_FIELDS
@@ -68,6 +71,7 @@ class AppServerReviewExecutor(ReviewExecutor):
         evidence_relative_path: str,
         evidence_verified_at: str,
         emit: Callable[[str], None],
+        work_dir: Path | None = None,
     ):
         super().__init__(
             command=None,
@@ -81,6 +85,8 @@ class AppServerReviewExecutor(ReviewExecutor):
         self.evidence_hash = evidence_hash
         self.evidence_title = evidence_title
         self.evidence_verified_at = evidence_verified_at
+        self.work_dir = (work_dir or repo_root / ".official_source_attempts").resolve()
+        self._pending_attempts: dict[str, dict[str, Any]] = {}
         self.canonical_evidence_locator = (
             f"{evidence_relative_path} / {evidence_locator}"
         )
@@ -94,7 +100,7 @@ class AppServerReviewExecutor(ReviewExecutor):
         prompt: str,
         replacements: Mapping[str, Any],
     ) -> dict[str, Any]:
-        del replacements
+        attempt_binding = dict(replacements.get("$ATTEMPT_BINDING") or {})
         self.emit(f"{phase}: 公式資料との独立照合を開始します。")
         result = self.app_server.run_turn(
             prompt,
@@ -115,20 +121,91 @@ class AppServerReviewExecutor(ReviewExecutor):
             raise OfficialSourceCorrectionError(
                 f"{phase}のread-only reviewがfile変更を報告しました。"
             )
-        payload = _extract_json_text(str(getattr(result, "final_message", "") or ""))
-        self._normalize_review_payload(payload, phase=phase)
+        raw = str(getattr(result, "final_message", "") or "")
+        parsed: dict[str, Any] | None = None
+        normalized: dict[str, Any] | None = None
+        removed_noop_fields: list[str] = []
+        identity = {
+            key: getattr(result, key, None)
+            for key in ("session_id", "thread_id", "turn_id")
+        }
+        try:
+            parsed = _extract_json_text(raw)
+            normalized = copy.deepcopy(parsed)
+            removed_noop_fields = self._normalize_review_payload(
+                normalized, phase=phase
+            )
+        except Exception as exc:
+            received = {
+                "binding": attempt_binding,
+                "raw": raw,
+                "parsed": parsed,
+                "normalized": normalized,
+                "removedNoopFields": removed_noop_fields,
+                **identity,
+            }
+            received["receiptHash"] = sha256_json(received)
+            received_path = write_append_only_private_json(
+                self.work_dir / "attempts", f"{phase}_received", received
+            )
+            write_append_only_private_json(
+                self.work_dir / "attempts",
+                f"{phase}_validation",
+                {
+                    "receivedReceipt": str(received_path),
+                    "receivedReceiptHash": received["receiptHash"],
+                    "validation": "failed",
+                    "error": str(exc),
+                },
+            )
+            raise
+        self._pending_attempts[phase] = {
+            "binding": attempt_binding,
+            "raw": raw,
+            "parsed": parsed,
+            "normalized": normalized,
+            "removedNoopFields": removed_noop_fields,
+            **identity,
+        }
+        received = self._pending_attempts[phase]
+        received["receiptHash"] = sha256_json(received)
+        received_path = write_append_only_private_json(
+            self.work_dir / "attempts", f"{phase}_received", received
+        )
+        self._pending_attempts[phase] = {
+            "receivedReceipt": str(received_path),
+            "receivedReceiptHash": received["receiptHash"],
+        }
         self.emit(f"{phase}: 構造化結果を受領しました。")
-        return payload
+        return normalized
+
+    def finish_attempt(self, *, phase: str, validation_error: str | None) -> None:
+        attempt = self._pending_attempts.pop(phase, None)
+        if attempt is None:
+            return
+        write_append_only_private_json(
+            self.work_dir / "attempts",
+            f"{phase}_validation",
+            {
+                **attempt,
+                "validation": "failed" if validation_error else "validated",
+                "error": validation_error,
+            },
+        )
 
     def _normalize_review_payload(
         self,
         payload: dict[str, Any],
         *,
         phase: str,
-    ) -> None:
+    ) -> list[str]:
         change_field = "changes" if phase == "challenge" else "proposedChanges"
         changes = payload.get(change_field)
+        removed: list[str] = []
         if isinstance(changes, Mapping):
+            removed = [
+                key for key, value in changes.items() if self.current_record.get(key) == value
+            ]
             payload[change_field] = {
                 key: value
                 for key, value in changes.items()
@@ -136,7 +213,7 @@ class AppServerReviewExecutor(ReviewExecutor):
             }
         evidence = payload.get("evidence")
         if not isinstance(evidence, list):
-            return
+            return sorted(removed)
         for item in evidence:
             if (
                 isinstance(item, dict)
@@ -146,6 +223,7 @@ class AppServerReviewExecutor(ReviewExecutor):
                 item["title"] = self.evidence_title
                 item["locator"] = self.canonical_evidence_locator
                 item["verifiedAt"] = self.evidence_verified_at
+        return sorted(removed)
 
 
 class OfficialSourceCorrectionService:
@@ -251,6 +329,111 @@ class OfficialSourceCorrectionService:
         match = matches[0]
         return dict(projected), match.path, match.identity
 
+    def _resume_work_directory(
+        self,
+        value: str,
+        *,
+        expected_work_id: str,
+        qualification: str,
+        list_group_id: str,
+        original_question_id: str,
+        state_hash: str,
+        category: str,
+        evidence_hash: str,
+        evidence_title: str,
+        evidence_locator: str,
+        evidence_transcription: str,
+        evidence_relative_path: str,
+    ) -> tuple[Path, dict[str, str]]:
+        raw = Path(str(value).strip())
+        if not str(raw) or any(part in {"*", "?", "[", "]"} for part in raw.parts):
+            raise OfficialSourceCorrectionError("resumeWorkDirectoryはexact pathが必要です。")
+        path = (raw if raw.is_absolute() else self.repo_root / raw).absolute()
+        root = (
+            self.repo_root / "output/question_issue_reports/ui_official_source"
+        ).resolve()
+        if not path.is_relative_to(self.repo_root):
+            raise OfficialSourceCorrectionError("resumeWorkDirectoryがrepo外です。")
+        component = self.repo_root
+        for part in path.relative_to(self.repo_root).parts:
+            component = component / part
+            if component.is_symlink():
+                raise OfficialSourceCorrectionError("resumeWorkDirectoryにsymlinkは使用できません。")
+        path = path.resolve()
+        if not path.is_relative_to(root) or path.name != expected_work_id:
+            raise OfficialSourceCorrectionError("resumeWorkDirectoryが対象question work dirではありません。")
+        if not path.parent.name.startswith("ui-qir-") or not path.is_dir():
+            raise OfficialSourceCorrectionError("resumeWorkDirectoryは既存batchのexact work dirに限ります。")
+        blind_path = path / "blind_input.json"
+        b_path = path / "blind_b.json"
+        if not blind_path.is_file() or not b_path.is_file() or (path / "blind_a.json").exists():
+            raise OfficialSourceCorrectionError("resume対象はB保存済み・A欠落work dirに限ります。")
+        blind = json.loads(blind_path.read_text(encoding="utf-8"))
+        current = blind.get("currentLocalRecord")
+        if not isinstance(current, Mapping):
+            raise OfficialSourceCorrectionError("resume current recordがありません。")
+        if (
+            blind.get("qualificationId") != qualification
+            or blind.get("listGroupId") != list_group_id
+            or blind.get("originalQuestionId") != original_question_id
+            or blind.get("reviewScope") != category
+            or sha256_json(
+                {field: current.get(field) for field in PROJECTED_COMPARE_FIELDS}
+            ) != state_hash
+        ):
+            raise OfficialSourceCorrectionError("resume work identity/state mismatchです。")
+        snapshots = blind.get("currentFirestoreSnapshots") or []
+        if len(snapshots) != 1 or not isinstance(snapshots[0], Mapping):
+            raise OfficialSourceCorrectionError("resume snapshotを一意に解決できません。")
+        candidates = snapshots[0].get("officialEvidenceCandidates") or []
+        if len(candidates) != 1 or not isinstance(candidates[0], Mapping):
+            raise OfficialSourceCorrectionError("resume evidenceを一意に解決できません。")
+        saved = candidates[0]
+        requested = {
+            "contentHash": evidence_hash,
+            "title": evidence_title,
+            "locator": evidence_locator,
+            "verifiedTranscription": evidence_transcription,
+            "localSourcePath": evidence_relative_path,
+        }
+        if any(saved.get(key) != expected for key, expected in requested.items()):
+            raise OfficialSourceCorrectionError("resume evidence metadata mismatchです。")
+        blind_b = json.loads(b_path.read_text(encoding="utf-8"))
+        b_evidence = blind_b.get("evidence") or []
+        if len(b_evidence) != 1 or not isinstance(b_evidence[0], Mapping):
+            raise OfficialSourceCorrectionError("resume B evidenceを一意に解決できません。")
+        canonical_locator = f"{evidence_relative_path} / {evidence_locator}"
+        b_item = b_evidence[0]
+        if (
+            b_item.get("title") != evidence_title
+            or b_item.get("locator") != canonical_locator
+            or b_item.get("contentHash") != evidence_hash
+            or not isinstance(b_item.get("verifiedAt"), str)
+            or not b_item["verifiedAt"]
+        ):
+            raise OfficialSourceCorrectionError("resume B canonical evidence mismatchです。")
+        identity_seed = {
+            "qualification": qualification,
+            "listGroupId": list_group_id,
+            "originalQuestionId": original_question_id,
+            "stateHash": state_hash,
+            "category": category,
+            "evidenceHash": evidence_hash,
+            "locator": evidence_locator,
+            "transcription": evidence_transcription,
+        }
+        rebuilt_hash = sha256_json(identity_seed)
+        rebuilt_timestamp = re.sub(r"[^0-9]", "", b_item["verifiedAt"])[:14]
+        rebuilt_batch_id = f"ui-qir-{rebuilt_timestamp}-{rebuilt_hash[:10]}"
+        if path.parent.name != rebuilt_batch_id:
+            raise OfficialSourceCorrectionError("resume batchId provenance mismatchです。")
+        return path, {
+            "title": evidence_title,
+            "canonicalLocator": canonical_locator,
+            "contentHash": evidence_hash,
+            "verifiedAt": b_item["verifiedAt"],
+        }
+
     def run(
         self,
         question: Mapping[str, Any],
@@ -262,6 +445,7 @@ class OfficialSourceCorrectionService:
         evidence_locator: str,
         verified_transcription: str,
         emit: Callable[[str], None],
+        resume_work_directory: str = "",
     ) -> dict[str, Any]:
         qualification = self._required_text(question, "qualification")
         list_group_id = self._required_text(question, "listGroupId")
@@ -306,7 +490,7 @@ class OfficialSourceCorrectionService:
         case_id = f"ui-official-{input_hash[:20]}"
         work_id = f"official-{self._safe_id(original_question_id)}"
         batch_id = f"ui-qir-{timestamp}-{input_hash[:10]}"
-        work_dir = (
+        fresh_work_dir = (
             self.repo_root
             / "output"
             / "question_issue_reports"
@@ -314,6 +498,26 @@ class OfficialSourceCorrectionService:
             / batch_id
             / work_id
         )
+        resume_metadata: dict[str, str] | None = None
+        if str(resume_work_directory or "").strip():
+            work_dir, resume_metadata = self._resume_work_directory(
+                resume_work_directory,
+                expected_work_id=work_id,
+                qualification=qualification,
+                list_group_id=list_group_id,
+                original_question_id=original_question_id,
+                state_hash=state_hash,
+                category=category_id,
+                evidence_hash=evidence_hash,
+                evidence_title=title,
+                evidence_locator=locator,
+                evidence_transcription=transcription,
+                evidence_relative_path=evidence_relative_path,
+            )
+            created_at = resume_metadata["verifiedAt"]
+            batch_id = work_dir.parent.name
+        else:
+            work_dir = fresh_work_dir
         rendered_evidence = self._prepare_rendered_evidence(
             resolved_evidence,
             locator=locator,
@@ -347,6 +551,14 @@ class OfficialSourceCorrectionService:
                 }
             ],
         }
+        if resume_metadata is not None:
+            saved_blind_input = json.loads(
+                (work_dir / "blind_input.json").read_text(encoding="utf-8")
+            )
+            saved_snapshots = saved_blind_input.get("currentFirestoreSnapshots")
+            if not isinstance(saved_snapshots, list) or not saved_snapshots:
+                raise OfficialSourceCorrectionError("resume blind input snapshotがありません。")
+            canonical_snapshot = copy.deepcopy(saved_snapshots[0])
         work_item = {
             "workId": work_id,
             "qualificationId": qualification,
@@ -412,10 +624,11 @@ class OfficialSourceCorrectionService:
             qualification=qualification,
             current_record=current_record,
             evidence_hash=evidence_hash,
-            evidence_title=title,
+            evidence_title=(resume_metadata or {}).get("title", title),
             evidence_locator=locator,
             evidence_relative_path=evidence_relative_path,
-            evidence_verified_at=created_at,
+            evidence_verified_at=(resume_metadata or {}).get("verifiedAt", created_at),
+            work_dir=work_dir,
             emit=emit,
         )
         blind_a, blind_b, challenge = self.review_runner(
@@ -426,6 +639,11 @@ class OfficialSourceCorrectionService:
             executor=executor,
             work_dir=work_dir,
             config=self.config,
+            resume_binding={
+                "stateHash": state_hash,
+                "evidenceHash": evidence_hash,
+            },
+            require_resume_consensus=resume_metadata is not None,
         )
         decision = str(challenge.get("decision") or "")
         if decision != "fix":

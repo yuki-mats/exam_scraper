@@ -96,6 +96,20 @@ def write_private_json(path: Path, value: Any) -> None:
     path.chmod(0o600)
 
 
+def write_append_only_private_json(directory: Path, stem: str, value: Any) -> Path:
+    directory.mkdir(parents=True, exist_ok=True)
+    for attempt in range(1, 10_000):
+        path = directory / f"{stem}_{attempt:04d}.json"
+        try:
+            with path.open("x", encoding="utf-8") as stream:
+                stream.write(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+            path.chmod(0o600)
+            return path
+        except FileExistsError:
+            continue
+    raise RuntimeError(f"append-only attempt namespace exhausted: {directory}/{stem}")
+
+
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> dict[str, Any]:
     payload = load_json(path)
     if (
@@ -835,6 +849,41 @@ def _prompt(
     )
 
 
+def validate_resume_blind_consensus(
+    blind_a: Mapping[str, Any], blind_b: Mapping[str, Any]
+) -> None:
+    evidence_fields = (
+        "sourceClass",
+        "title",
+        "locator",
+        "contentHash",
+        "verifiedAt",
+    )
+
+    def consensus_evidence(review: Mapping[str, Any]) -> list[dict[str, Any]]:
+        evidence = review.get("evidence")
+        if not isinstance(evidence, list) or not evidence:
+            raise ValueError("resume blind consensus requires official evidence")
+        normalized = []
+        for item in evidence:
+            if not isinstance(item, Mapping) or item.get("sourceClass") != "official":
+                raise ValueError("resume blind consensus requires official evidence")
+            normalized.append({field: item.get(field) for field in evidence_fields})
+        return normalized
+
+    changes_a = blind_a.get("proposedChanges")
+    changes_b = blind_b.get("proposedChanges")
+    if (
+        blind_a.get("conclusion") != "problem_found"
+        or blind_b.get("conclusion") != "problem_found"
+        or not isinstance(changes_a, Mapping)
+        or not changes_a
+        or changes_a != changes_b
+        or consensus_evidence(blind_a) != consensus_evidence(blind_b)
+    ):
+        raise ValueError("resume blind consensus mismatch before Challenge")
+
+
 def run_objective_review(
     work_item: Mapping[str, Any],
     *,
@@ -844,6 +893,8 @@ def run_objective_review(
     executor: ReviewExecutor,
     work_dir: Path,
     config: Mapping[str, Any],
+    resume_binding: Mapping[str, str] | None = None,
+    require_resume_consensus: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     workflow_contracts, workflow_contract_text = routed_workflow_contracts(
         config,
@@ -862,27 +913,55 @@ def run_objective_review(
         workflow_contracts=workflow_contracts,
     )
     blind_input_hash = sha256_json(blind_input)
-    write_private_json(work_dir / "blind_input.json", blind_input)
+    blind_input_path = work_dir / "blind_input.json"
+    encoded_blind_input = json.dumps(blind_input, ensure_ascii=False, indent=2) + "\n"
+    if blind_input_path.exists():
+        if blind_input_path.read_text(encoding="utf-8") != encoded_blind_input:
+            raise ValueError("existing blind_input.json does not match current input")
+    else:
+        write_private_json(blind_input_path, blind_input)
 
-    def run_blind(slot: str) -> dict[str, Any]:
+    contract_hash = sha256_json(workflow_contract_hashes)
+
+    def slot_binding(slot: str) -> dict[str, str]:
+        binding = {
+            "workDirectory": str(work_dir.resolve()),
+            "inputHash": blind_input_hash,
+            "stateHash": str((resume_binding or {}).get("stateHash") or ""),
+            "evidenceHash": str((resume_binding or {}).get("evidenceHash") or ""),
+            "contractHash": contract_hash,
+            "slot": slot,
+        }
+        binding["slotHash"] = sha256_json(binding)
+        return binding
+
+    binding_path = work_dir / "blind_resume_binding.json"
+    resume_manifest = {
+        "schemaVersion": "question-issue-blind-resume/v1",
+        "slots": {slot: slot_binding(slot) for slot in ("A", "B")},
+    }
+    if binding_path.exists():
+        if load_json(binding_path) != resume_manifest:
+            raise ValueError("blind resume binding mismatch")
+    elif resume_binding is not None:
+        write_private_json(binding_path, resume_manifest)
+
+    def finish_attempt(phase: str, error: Exception | None) -> None:
+        finish = getattr(executor, "finish_attempt", None)
+        if callable(finish):
+            finish(phase=phase, validation_error=str(error) if error else None)
+
+    def validated_existing(slot: str) -> dict[str, Any] | None:
         phase = f"blind_{slot.lower()}"
-        result = executor.execute(
-            work_id=str(work_item["workId"]),
-            phase=phase,
-            prompt=_prompt(
-                "01_blind_review.md",
-                {
-                    "reviewerSlot": slot,
-                    "inputHash": blind_input_hash,
-                    "input": blind_input,
-                },
-                workflow_contract_text=workflow_contract_text,
-            ),
-            replacements={
-                "$BLIND_INPUT_HASH": blind_input_hash,
-                "$WORKFLOW_CONTRACT_HASHES": workflow_contract_hashes,
-            },
-        )
+        path = work_dir / f"{phase}.json"
+        if not path.exists():
+            return None
+        if resume_binding is None:
+            raise ValueError("validated blind resume requires an exact resume binding")
+        original_bytes = path.read_bytes()
+        result = load_json(path)
+        if not isinstance(result, dict):
+            raise ValueError(f"existing {phase} must be an object")
         validate_blind_review(
             result,
             slot=slot,
@@ -891,14 +970,91 @@ def run_objective_review(
             category=category,
             config=config,
         )
+        evidence_hashes = {
+            str(item.get("contentHash") or "")
+            for item in result.get("evidence") or []
+            if isinstance(item, Mapping)
+        }
+        if evidence_hashes != {resume_binding.get("evidenceHash")}:
+            raise ValueError(f"existing {phase} evidence hash mismatch")
+        if path.read_bytes() != original_bytes:
+            raise ValueError(f"existing {phase} changed during validation")
+        return result
+
+    def run_blind(slot: str) -> dict[str, Any]:
+        phase = f"blind_{slot.lower()}"
+        existing = validated_existing(slot)
+        if existing is not None:
+            return existing
+        try:
+            result = executor.execute(
+                work_id=str(work_item["workId"]),
+                phase=phase,
+                prompt=_prompt(
+                    "01_blind_review.md",
+                    {
+                        "reviewerSlot": slot,
+                        "inputHash": blind_input_hash,
+                        "input": blind_input,
+                    },
+                    workflow_contract_text=workflow_contract_text,
+                ),
+                replacements={
+                    "$BLIND_INPUT_HASH": blind_input_hash,
+                    "$WORKFLOW_CONTRACT_HASHES": workflow_contract_hashes,
+                    "$ATTEMPT_BINDING": slot_binding(slot),
+                },
+            )
+            validate_blind_review(
+                result,
+                slot=slot,
+                input_hash=blind_input_hash,
+                workflow_contract_hashes=workflow_contract_hashes,
+                category=category,
+                config=config,
+            )
+        except Exception as exc:
+            finish_attempt(phase, exc)
+            raise
+        finish_attempt(phase, None)
         write_private_json(work_dir / f"{phase}.json", result)
         return result
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
-        future_a = pool.submit(run_blind, "A")
-        future_b = pool.submit(run_blind, "B")
-        blind_a = future_a.result()
-        blind_b = future_b.result()
+    if resume_binding is not None and (work_dir / "blind_resume_claim.json").exists():
+        raise ValueError("blind resume was already claimed")
+    existing_a = validated_existing("A")
+    existing_b = validated_existing("B")
+    missing = [slot for slot, value in (("A", existing_a), ("B", existing_b)) if value is None]
+    if len(missing) == 1:
+        existing_slot = "B" if missing[0] == "A" else "A"
+        existing_path = work_dir / f"blind_{existing_slot.lower()}.json"
+        claim = {
+            "schemaVersion": "question-issue-blind-resume-claim/v1",
+            "binding": slot_binding(missing[0]),
+            "missingSlot": missing[0],
+            "existingSlot": existing_slot,
+            "existingSlotContentHash": sha256_json(load_json(existing_path)),
+        }
+        claim["claimHash"] = sha256_json(claim)
+        claim_path = work_dir / "blind_resume_claim.json"
+        try:
+            with claim_path.open("x", encoding="utf-8") as stream:
+                stream.write(json.dumps(claim, ensure_ascii=False, indent=2) + "\n")
+            claim_path.chmod(0o600)
+        except FileExistsError as exc:
+            raise ValueError("blind resume was already claimed") from exc
+    if len(missing) == 2:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+            future_a = pool.submit(run_blind, "A")
+            future_b = pool.submit(run_blind, "B")
+            blind_a = future_a.result()
+            blind_b = future_b.result()
+    else:
+        blind_a = existing_a or run_blind("A")
+        blind_b = existing_b or run_blind("B")
+
+    if require_resume_consensus:
+        validate_resume_blind_consensus(blind_a, blind_b)
 
     blind_hashes = [sha256_json(blind_a), sha256_json(blind_b)]
     claims = []
@@ -926,26 +1082,41 @@ def run_objective_review(
         "$BLIND_A_HASH": blind_hashes[0],
         "$BLIND_B_HASH": blind_hashes[1],
     }
-    challenge = executor.execute(
-        work_id=str(work_item["workId"]),
-        phase="challenge",
-        prompt=_prompt(
-            "02_challenge_review.md",
-            {
-                "inputHash": challenge_input_hash,
-                "input": challenge_input,
-            },
-        ),
-        replacements=replacements,
-    )
-    validate_challenge_review(
-        challenge,
-        input_hash=challenge_input_hash,
-        blind_reviews=[blind_a, blind_b],
-        blind_hashes=blind_hashes,
-        category=category,
-        config=config,
-    )
+    challenge_binding = {
+        "workDirectory": str(work_dir.resolve()),
+        "inputHash": challenge_input_hash,
+        "stateHash": str((resume_binding or {}).get("stateHash") or ""),
+        "evidenceHash": str((resume_binding or {}).get("evidenceHash") or ""),
+        "contractHash": contract_hash,
+        "slot": "Challenge",
+    }
+    challenge_binding["slotHash"] = sha256_json(challenge_binding)
+    replacements["$ATTEMPT_BINDING"] = challenge_binding
+    try:
+        challenge = executor.execute(
+            work_id=str(work_item["workId"]),
+            phase="challenge",
+            prompt=_prompt(
+                "02_challenge_review.md",
+                {
+                    "inputHash": challenge_input_hash,
+                    "input": challenge_input,
+                },
+            ),
+            replacements=replacements,
+        )
+        validate_challenge_review(
+            challenge,
+            input_hash=challenge_input_hash,
+            blind_reviews=[blind_a, blind_b],
+            blind_hashes=blind_hashes,
+            category=category,
+            config=config,
+        )
+    except Exception as exc:
+        finish_attempt("challenge", exc)
+        raise
+    finish_attempt("challenge", None)
     write_private_json(work_dir / "challenge.json", challenge)
     return blind_a, blind_b, challenge
 

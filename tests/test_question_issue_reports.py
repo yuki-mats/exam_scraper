@@ -29,8 +29,10 @@ from tools.question_bank.question_issue_reports import (
     retry_publish_job,
     retry_pending_publishes,
     routed_workflow_contracts,
+    run_objective_review,
     sha256_json,
     validate_challenge_review,
+    validate_resume_blind_consensus,
 )
 
 
@@ -42,6 +44,145 @@ class QuestionIssueReportWorkflowTests(unittest.TestCase):
     def setUp(self) -> None:
         self.config = load_config()
         self.store = FixtureReportStore(FIXTURE_ROOT / "report_fixture.json")
+
+    def test_resume_reuses_validated_b_byte_identically_and_runs_only_a(self):
+        manifest = build_batch_manifest(
+            self.store.list_cases(), category="question_content", config=self.config
+        )
+        work_item = manifest["workItems"][0]
+        current_payload = json.loads(
+            (FIXTURE_ROOT / "question_bank_output/sample-qualification/questions_json/2026/30_merged_2/question_2026_merged.json").read_text()
+        )
+        current_record = current_payload["question_bodies"][0]
+        fixture = ReviewExecutor(
+            command=None,
+            recorded_results_dir=FIXTURE_ROOT / "reviews",
+            allow_fixture_placeholders=True,
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            work_dir = Path(directory)
+            contracts, _text = routed_workflow_contracts(self.config, "question_content")
+            blind_input = build_blind_input(
+                work_item,
+                current_record,
+                category="question_content",
+                allowed_change_fields=self.config["categories"]["question_content"]["allowedChangeFields"],
+                workflow_contracts=contracts,
+            )
+            input_hash = sha256_json(blind_input)
+            contract_hashes = [item["contentHash"] for item in contracts]
+            blind_b = fixture.execute(
+                work_id=str(work_item["workId"]), phase="blind_b", prompt="",
+                replacements={"$BLIND_INPUT_HASH": input_hash, "$WORKFLOW_CONTRACT_HASHES": contract_hashes},
+            )
+            blind_b["evidence"][0]["sourceClass"] = "official"
+            (work_dir / "blind_input.json").write_text(
+                json.dumps(blind_input, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+            b_path = work_dir / "blind_b.json"
+            b_path.write_text(json.dumps(blind_b, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            before = b_path.read_bytes()
+            calls = []
+
+            class CountingExecutor:
+                def execute(self, **kwargs):
+                    calls.append(kwargs["phase"])
+                    result = fixture.execute(**kwargs)
+                    if result.get("evidence") is not None:
+                        result["evidence"] = json.loads(json.dumps(blind_b["evidence"]))
+                    return result
+
+            run_objective_review(
+                work_item,
+                category="question_content",
+                current_record=current_record,
+                store=self.store,
+                executor=CountingExecutor(),
+                work_dir=work_dir,
+                config=self.config,
+                resume_binding={"stateHash": "a" * 64, "evidenceHash": blind_b["evidence"][0]["contentHash"]},
+                require_resume_consensus=True,
+            )
+            self.assertEqual(calls[:1], ["blind_a"])
+            self.assertNotIn("blind_b", calls)
+            self.assertEqual(calls.count("challenge"), 1)
+            self.assertEqual(b_path.read_bytes(), before)
+            calls.clear()
+            with self.assertRaisesRegex(ValueError, "already claimed"):
+                run_objective_review(
+                    work_item, category="question_content", current_record=current_record,
+                    store=self.store, executor=CountingExecutor(), work_dir=work_dir,
+                    config=self.config,
+                    resume_binding={"stateHash": "a" * 64, "evidenceHash": blind_b["evidence"][0]["contentHash"]},
+                    require_resume_consensus=True,
+                )
+            self.assertEqual(calls, [])
+
+    def test_resume_consensus_rejects_nonproblem_changes_and_evidence_drift(self):
+        base = {
+            "conclusion": "problem_found",
+            "proposedChanges": {"questionBodyText": "fixed"},
+            "evidence": [{
+                "sourceClass": "official", "title": "Guide", "locator": "bundle / p1",
+                "contentHash": "a" * 64, "verifiedAt": "2026-08-12T00:00:00Z",
+            }],
+        }
+        validate_resume_blind_consensus(base, json.loads(json.dumps(base)))
+        variants = [
+            {**base, "conclusion": "no_problem", "proposedChanges": {}},
+            {**base, "conclusion": "insufficient_evidence", "proposedChanges": {}},
+            {**base, "proposedChanges": {"questionBodyText": "other"}},
+            {**base, "evidence": [{**base["evidence"][0], "contentHash": "b" * 64}]},
+        ]
+        for candidate in variants:
+            with self.subTest(candidate=candidate), self.assertRaisesRegex(ValueError, "consensus mismatch"):
+                validate_resume_blind_consensus(candidate, base)
+
+    def test_resume_consensus_mismatch_stops_before_challenge(self):
+        manifest = build_batch_manifest(self.store.list_cases(), category="question_content", config=self.config)
+        work_item = manifest["workItems"][0]
+        payload = json.loads((FIXTURE_ROOT / "question_bank_output/sample-qualification/questions_json/2026/30_merged_2/question_2026_merged.json").read_text())
+        current_record = payload["question_bodies"][0]
+        fixture = ReviewExecutor(command=None, recorded_results_dir=FIXTURE_ROOT / "reviews", allow_fixture_placeholders=True)
+        contracts, _text = routed_workflow_contracts(self.config, "question_content")
+        blind_input = build_blind_input(
+            work_item, current_record, category="question_content",
+            allowed_change_fields=self.config["categories"]["question_content"]["allowedChangeFields"],
+            workflow_contracts=contracts,
+        )
+        input_hash = sha256_json(blind_input)
+        hashes = [item["contentHash"] for item in contracts]
+        blind_b = fixture.execute(
+            work_id=str(work_item["workId"]), phase="blind_b", prompt="",
+            replacements={"$BLIND_INPUT_HASH": input_hash, "$WORKFLOW_CONTRACT_HASHES": hashes},
+        )
+        calls = []
+
+        class MismatchExecutor:
+            def execute(self, **kwargs):
+                calls.append(kwargs["phase"])
+                if kwargs["phase"] == "challenge":
+                    raise AssertionError("Challenge must not run")
+                result = fixture.execute(**kwargs)
+                result["proposedChanges"] = {"questionBodyText": "different valid change"}
+                return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            work_dir = Path(directory)
+            (work_dir / "blind_input.json").write_text(json.dumps(blind_input, ensure_ascii=False, indent=2) + "\n")
+            (work_dir / "blind_b.json").write_text(json.dumps(blind_b, ensure_ascii=False, indent=2) + "\n")
+            with self.assertRaisesRegex(ValueError, "consensus mismatch"):
+                run_objective_review(
+                    work_item, category="question_content", current_record=current_record,
+                    store=self.store, executor=MismatchExecutor(), work_dir=work_dir,
+                    config=self.config,
+                    resume_binding={"stateHash": "a" * 64, "evidenceHash": blind_b["evidence"][0]["contentHash"]},
+                    require_resume_consensus=True,
+                )
+            self.assertEqual(calls, ["blind_a"])
+            self.assertTrue((work_dir / "blind_a.json").is_file())
+            self.assertFalse((work_dir / "challenge_input.json").exists())
+            self.assertFalse((work_dir / "challenge.json").exists())
 
     @staticmethod
     def _output_with_source(root: Path) -> Path:

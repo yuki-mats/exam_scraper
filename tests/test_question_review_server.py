@@ -257,6 +257,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "evidenceTitle": "公式問題冊子",
                     "evidenceLocator": "問1",
                     "verifiedTranscription": "公式転記",
+                    "resumeWorkDirectory": "output/question_issue_reports/ui_official_source/ui-qir-fixed/official-q1",
                 },
             )
             result = jobs.worker(lambda _message: None)
@@ -269,6 +270,10 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(service.question["id"], "ui-q1")
         self.assertEqual(service.options["category"], "correct_answer")
         self.assertEqual(service.options["evidence_title"], "公式問題冊子")
+        self.assertEqual(
+            service.options["resume_work_directory"],
+            "output/question_issue_reports/ui_official_source/ui-qir-fixed/official-q1",
+        )
         self.assertEqual(result["decision"], "no_change")
 
     def test_question_lookup_reuses_loaded_inventory_snapshot(self):

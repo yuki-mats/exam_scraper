@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -160,6 +161,86 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                     list_group_id="2026",
                     state_hash=question["stateHash"],
                 )
+
+    def test_resume_work_directory_is_exact_and_identity_bound(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            current = {"questionBodyText": "current", "choiceTextList": ["A"]}
+            state_hash = sha256_json(
+                {field: current.get(field) for field in PROJECTED_COMPARE_FIELDS}
+            )
+            verified_at = "2026-08-12T03:53:29Z"
+            evidence_path = "evidence/bundle.png"
+            title = "Official Guide"
+            locator = "PDF page 1"
+            transcription = "verified text"
+            seed = {
+                "qualification": "sample", "listGroupId": "2026",
+                "originalQuestionId": "q1", "stateHash": state_hash,
+                "category": "question_content", "evidenceHash": "e" * 64,
+                "locator": locator, "transcription": transcription,
+            }
+            batch = f"ui-qir-20260812035329-{sha256_json(seed)[:10]}"
+            work = root / "output/question_issue_reports/ui_official_source" / batch / "official-q1"
+            work.mkdir(parents=True)
+            candidate = {"contentHash": "e" * 64, "title": title, "locator": locator,
+                         "verifiedTranscription": transcription, "localSourcePath": evidence_path}
+            blind = {
+                "reviewScope": "question_content", "qualificationId": "sample",
+                "listGroupId": "2026", "originalQuestionId": "q1",
+                "currentLocalRecord": current,
+                "currentFirestoreSnapshots": [{"officialEvidenceCandidates": [candidate]}],
+            }
+            (work / "blind_input.json").write_text(json.dumps(blind))
+            (work / "blind_b.json").write_text(json.dumps({"evidence": [{
+                "contentHash": "e" * 64, "title": title,
+                "locator": f"{evidence_path} / {locator}", "verifiedAt": verified_at,
+            }]}))
+            service = OfficialSourceCorrectionService(root, app_server=object(), config_path=CONFIG_PATH)
+            resolved, metadata = service._resume_work_directory(
+                str(work.resolve()), expected_work_id="official-q1", qualification="sample",
+                list_group_id="2026", original_question_id="q1", state_hash=state_hash,
+                category="question_content", evidence_hash="e" * 64, evidence_title=title,
+                evidence_locator=locator, evidence_transcription=transcription,
+                evidence_relative_path=evidence_path,
+            )
+            self.assertEqual(resolved, work.resolve())
+            self.assertEqual(metadata["verifiedAt"], verified_at)
+            evidence_arguments = {
+                "evidence_hash": "e" * 64, "evidence_title": title,
+                "evidence_locator": locator, "evidence_transcription": transcription,
+                "evidence_relative_path": evidence_path,
+            }
+            for field in ("evidence_title", "evidence_locator", "evidence_transcription", "evidence_relative_path"):
+                mismatched = {**evidence_arguments, field: evidence_arguments[field] + "-other"}
+                with self.subTest(field=field), self.assertRaises(OfficialSourceCorrectionError):
+                    service._resume_work_directory(
+                        str(work.resolve()), expected_work_id="official-q1", qualification="sample",
+                        list_group_id="2026", original_question_id="q1", state_hash=state_hash,
+                        category="question_content", **mismatched,
+                    )
+            for candidate, question_id in ((str(work.parent / "official-q2"), "official-q1"), (str(work / "*"), "official-q1"), (str(work), "official-q2")):
+                with self.subTest(candidate=candidate, question_id=question_id), self.assertRaises(OfficialSourceCorrectionError):
+                    service._resume_work_directory(
+                        candidate, expected_work_id=question_id, qualification="sample",
+                        list_group_id="2026", original_question_id="q1", state_hash=state_hash,
+                        category="question_content", evidence_hash="e" * 64, evidence_title=title,
+                        evidence_locator=locator, evidence_transcription=transcription,
+                        evidence_relative_path=evidence_path,
+                    )
+            clone = work.parent.parent / "ui-qir-20260812035329-cloned" / "official-q1"
+            shutil.copytree(work, clone)
+            alias = work.parent.parent / "ui-qir-alias"
+            alias.symlink_to(work.parent, target_is_directory=True)
+            for rejected in (clone, alias / "official-q1"):
+                with self.assertRaises(OfficialSourceCorrectionError):
+                    service._resume_work_directory(
+                        str(rejected), expected_work_id="official-q1", qualification="sample",
+                        list_group_id="2026", original_question_id="q1", state_hash=state_hash,
+                        category="question_content", evidence_hash="e" * 64, evidence_title=title,
+                        evidence_locator=locator, evidence_transcription=transcription,
+                        evidence_relative_path=evidence_path,
+                    )
     def test_app_server_executor_uses_dedicated_read_only_turn(self) -> None:
         class AppServer:
             def run_turn(self, prompt, **options):
@@ -184,6 +265,7 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 evidence_relative_path="tmp/official.png",
                 evidence_verified_at="2026-07-28T00:00:00Z",
                 emit=logs.append,
+                work_dir=Path(directory),
             )
 
             result = executor.execute(
@@ -199,6 +281,75 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
         self.assertEqual(app_server.options["sandbox"], "read-only")
         self.assertEqual(app_server.options["turn_group"], "sample")
         self.assertTrue(logs)
+
+    def test_app_server_executor_persists_invalid_attempt_before_validation(self):
+        class AppServer:
+            def run_turn(self, _prompt, **_options):
+                return SimpleNamespace(
+                    final_message=json.dumps({"proposedChanges": {"questionBodyText": "same"}}),
+                    changed_files=(),
+                    session_id="session-1",
+                    thread_id="thread-1",
+                    turn_id="turn-1",
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            work_dir = Path(directory)
+            executor = AppServerReviewExecutor(
+                AppServer(), repo_root=work_dir, qualification="sample",
+                current_record={"questionBodyText": "same"}, evidence_hash="a" * 64,
+                evidence_title="official", evidence_locator="p1",
+                evidence_relative_path="bundle.png", evidence_verified_at="2026-08-12T00:00:00Z",
+                emit=lambda _message: None, work_dir=work_dir,
+            )
+            executor.execute(
+                work_id="work-1", phase="blind_a", prompt="review",
+                replacements={"$ATTEMPT_BINDING": {"slot": "A", "slotHash": "b" * 64}},
+            )
+            executor.finish_attempt(
+                phase="blind_a", validation_error="problem_found requires non-empty proposedChanges"
+            )
+            received = list((work_dir / "attempts").glob("blind_a_received_*.json"))
+            validations = list((work_dir / "attempts").glob("blind_a_validation_*.json"))
+            self.assertEqual((len(received), len(validations)), (1, 1))
+            attempt = json.loads(received[0].read_text())
+            self.assertIn("proposedChanges", attempt["raw"])
+            self.assertEqual(attempt["parsed"]["proposedChanges"], {"questionBodyText": "same"})
+            self.assertEqual(attempt["normalized"]["proposedChanges"], {})
+            self.assertEqual(attempt["removedNoopFields"], ["questionBodyText"])
+            self.assertEqual((attempt["session_id"], attempt["thread_id"], attempt["turn_id"]), ("session-1", "thread-1", "turn-1"))
+            self.assertRegex(attempt["receiptHash"], r"^[0-9a-f]{64}$")
+            validation = json.loads(validations[0].read_text())
+            self.assertEqual(validation["receivedReceiptHash"], attempt["receiptHash"])
+            self.assertIn("non-empty", validation["error"])
+
+    def test_challenge_attempt_has_separate_received_and_validation_receipts(self):
+        class AppServer:
+            def run_turn(self, _prompt, **_options):
+                return SimpleNamespace(
+                    final_message=json.dumps({"decision": "hold", "changes": {}}),
+                    changed_files=(), session_id="s", thread_id="t", turn_id="u",
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            work_dir = Path(directory)
+            executor = AppServerReviewExecutor(
+                AppServer(), repo_root=work_dir, qualification="sample",
+                current_record={}, evidence_hash="a" * 64, evidence_title="Guide",
+                evidence_locator="p1", evidence_relative_path="bundle.png",
+                evidence_verified_at="2026-08-12T00:00:00Z",
+                emit=lambda _message: None, work_dir=work_dir,
+            )
+            executor.execute(
+                work_id="w", phase="challenge", prompt="review",
+                replacements={"$ATTEMPT_BINDING": {"slot": "Challenge"}},
+            )
+            executor.finish_attempt(phase="challenge", validation_error="challenge invalid")
+            received = json.loads(next((work_dir / "attempts").glob("challenge_received_*.json")).read_text())
+            validation = json.loads(next((work_dir / "attempts").glob("challenge_validation_*.json")).read_text())
+            self.assertEqual(validation["receivedReceiptHash"], received["receiptHash"])
+            self.assertEqual(validation["validation"], "failed")
+            self.assertFalse((work_dir / "challenge.json").exists())
 
     def test_app_server_executor_removes_noop_changes_and_normalizes_evidence(
         self,
@@ -227,6 +378,8 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                     changed_files=(),
                 )
 
+        attempt_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(attempt_directory.cleanup)
         executor = AppServerReviewExecutor(
             AppServer(),
             repo_root=REPO_ROOT,
@@ -241,6 +394,7 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             evidence_relative_path="tmp/official.png",
             evidence_verified_at="2026-07-28T00:00:00Z",
             emit=lambda _message: None,
+            work_dir=Path(attempt_directory.name),
         )
 
         result = executor.execute(

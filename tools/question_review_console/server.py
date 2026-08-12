@@ -2574,6 +2574,9 @@ class QuestionReviewApplication:
             verified_transcription=str(
                 request.get("verifiedTranscription") or ""
             ),
+            resume_work_directory=str(
+                request.get("resumeWorkDirectory") or ""
+            ),
             emit=emit,
         )
         if not result.get("patchPath"):
