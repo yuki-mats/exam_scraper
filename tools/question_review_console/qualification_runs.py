@@ -1179,10 +1179,11 @@ def _question_work_target_identity(plan: Mapping[str, Any]) -> dict[str, Any]:
         )
     if len(question_ids) != int(plan.get("targetCount") or 0):
         raise QualificationRunError("preview対象のquestion totalが一致しません。")
-    declared_work_item_count = int(
-        plan.get("workItemCount") or plan["targetCount"]
+    declared_work_item_count = int(plan.get("workItemCount") or plan["targetCount"])
+    declared_selection_count = int(
+        plan.get("selectionWorkItemCount") or declared_work_item_count
     )
-    if declared_work_item_count != _question_work_selection_count(plan):
+    if declared_selection_count != _question_work_selection_count(plan):
         raise QualificationRunError("preview対象のworkItemCountが一致しません。")
     declared_stage_count = int(
         plan.get("stageCount") or len(declared_stage_ids)
@@ -1199,6 +1200,8 @@ def _question_work_target_identity(plan: Mapping[str, Any]) -> dict[str, Any]:
     ]
     if sum(item["workItemCount"] for item in stage_summary) != len(stages):
         raise QualificationRunError("preview対象のstage totalが一致しません。")
+    if "selectionWorkItemCount" in plan and declared_work_item_count != len(stages):
+        raise QualificationRunError("preview対象のqueue workItemCountが一致しません。")
     return {
         "schemaVersion": "question-work-target-identity/v1",
         "hashFormat": "utf-8-sorted-newline-sha256/v1",

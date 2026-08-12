@@ -419,6 +419,77 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
         self.assertEqual(resumed["policyTargets"], {"law_audit": ["q2"]})
 
+    def test_resume_separates_selection_count_from_pending_queue_total(self) -> None:
+        targets = [target(f"q{index}", index) for index in range(1, 844)]
+        stage_ids = [f"stage_{index}" for index in range(1, 7)]
+        saved_stage_plans = [stage_plan(stage_id, targets) for stage_id in stage_ids]
+        saved_plan = {
+            **saved_stage_plans[0],
+            "stageId": "multi",
+            "stageIds": stage_ids,
+            "stagePlans": saved_stage_plans,
+            "targetCount": 843,
+            "workItemCount": 5058,
+        }
+        stage_plans = [stage_plan(stage_ids[0], targets[:841])]
+        stage_plans.extend(
+            stage_plan(stage_id, targets)
+            for stage_id in stage_ids[1:5]
+        )
+        stage_plans.append(stage_plan(stage_ids[5], []))
+        plan = {
+            **stage_plan("multi", targets),
+            "stageId": "multi",
+            "stageIds": stage_ids,
+            "stagePlans": stage_plans,
+            "targetCount": 843,
+            "workItemCount": 4213,
+        }
+        executions = build_question_executions(saved_plan)
+        self.assertEqual(queue_summary(executions)["workItemCount"], 5058)
+        completed_stages = [executions[-2]["stages"][0], executions[-1]["stages"][0]]
+        for index, stage in enumerate(completed_stages, start=1):
+            stage.update(
+                status="validated",
+                childRunIds=[f"validated-child-{index}"],
+                attempts=1,
+            )
+
+        resumed = resume_plan(plan, executions, unfinished_only=True)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(resumed["targetCount"], 843)
+        self.assertEqual(resumed["selectionWorkItemCount"], 4213)
+        self.assertEqual(resumed["workItemCount"], 5056)
+        self.assertEqual(queue_summary(rebuilt)["workItemCount"], 5056)
+        rebuilt_keys = {
+            stage["workItemKey"]
+            for question in rebuilt
+            for stage in question["stages"]
+        }
+        self.assertNotIn(executions[-2]["stages"][0]["workItemKey"], rebuilt_keys)
+        self.assertNotIn(executions[-1]["stages"][0]["workItemKey"], rebuilt_keys)
+        self.assertEqual(
+            [stage["childRunIds"] for stage in completed_stages],
+            [["validated-child-1"], ["validated-child-2"]],
+        )
+        self.assertEqual([stage["attempts"] for stage in completed_stages], [1, 1])
+
+    def test_resume_preserves_not_applicable_work_item(self) -> None:
+        executions = build_question_executions(self.plan)
+        executions[0]["stages"][0]["status"] = "not_applicable"
+        executions[0]["stages"][1]["status"] = "blocked"
+        for stage in executions[1]["stages"]:
+            stage["status"] = "validated"
+
+        resumed = resume_plan(self.plan, executions, unfinished_only=True)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(
+            [stage["stageId"] for stage in rebuilt[0]["stages"]],
+            ["law_audit"],
+        )
+
     def test_resume_marks_only_previously_failed_item_for_retry_model(self) -> None:
         executions = build_question_executions(self.plan)
         for question in executions:

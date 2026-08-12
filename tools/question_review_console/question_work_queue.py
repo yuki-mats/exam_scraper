@@ -854,7 +854,7 @@ def resume_plan(
                             and str(previous_policy) != current_policy
                         )
                 elif previous_status == "not_applicable":
-                    needs_resume = current_target_exists
+                    needs_resume = False
                 else:
                     needs_resume = True
             if needs_resume:
@@ -950,7 +950,15 @@ def resume_plan(
         raise QuestionWorkQueueError("再実行が必要な問題を現在の入力から解決できません。")
     candidate = subset_question_plan(candidate, pending_ids)
     candidate["stagePlans"] = filtered_stage_plans
+    # The runnable queue may be larger than the explicit stage selection
+    # because a question that first appears in a later stage inherits
+    # subsequent stages through its canonical identity. Keep both contracts.
     candidate["workItemCount"] = len(explicit_question_keys)
+    candidate["selectionWorkItemCount"] = sum(
+        len(stage_plan.get("progressTargets") or [])
+        for stage_plan in filtered_stage_plans
+        if "progressTargets" in stage_plan
+    )
     candidate["policyTargets"] = {
         str(stage_id): list(targets)
         for stage_plan in filtered_stage_plans

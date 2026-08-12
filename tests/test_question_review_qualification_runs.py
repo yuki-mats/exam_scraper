@@ -164,6 +164,22 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
         self.assertEqual(identity["workItemCount"], 6)
         self.assertEqual(identity["stageCount"], 2)
 
+    def test_target_identity_validates_explicit_resume_selection_and_queue(self):
+        plan = self.plan()
+        plan["selectionWorkItemCount"] = 3
+        plan["stagePlans"][1]["targetCount"] = 0
+        plan["stagePlans"][1]["progressTargets"] = []
+
+        identity = _question_work_target_identity(plan)
+
+        self.assertEqual(plan["selectionWorkItemCount"], 3)
+        self.assertEqual(plan["workItemCount"], 6)
+        self.assertEqual(identity["workItemCount"], 6)
+
+        plan["workItemCount"] = 5
+        with self.assertRaisesRegex(QualificationRunError, "queue workItemCount"):
+            _question_work_target_identity(plan)
+
     def test_target_identity_fails_closed_on_invalid_queue_identity(self):
         base = [
             {
@@ -4374,6 +4390,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertEqual(preview["targetCount"], 1)
         self.assertEqual(preview["workItemCount"], 1)
+        self.assertTrue(preview["canStart"])
+        self.assertEqual(preview["resumedFrom"], parent["runId"])
+        self.assertEqual(resumed["resumedFrom"], parent["runId"])
         self.assertEqual(
             [question["questionId"] for question in resumed["questionExecutions"]],
             [second["questionId"]],
