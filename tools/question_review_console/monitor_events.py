@@ -33,6 +33,26 @@ MAX_RUN_OBSERVATION_METRICS = (
 )
 DEFAULT_EVENT_LIFECYCLE_TIMEOUT_SECONDS = 5.0
 MAX_DISK_BATCH_SIZE = 256
+DISK_FAILURE_CATEGORIES = (
+    "queue_full",
+    "batch_setup",
+    "lock_timeout",
+    "open",
+    "append",
+    "snapshot",
+    "rotation",
+)
+
+
+class DiskPersistenceError(OSError):
+    def __init__(
+        self,
+        category: str,
+        message: str,
+        cause: BaseException | None = None,
+    ) -> None:
+        super().__init__(getattr(cause, "errno", None), message)
+        self.category = category
 EVENT_LIFECYCLE_WAIT_SLICE_SECONDS = 0.05
 MAX_RUN_OBSERVATION_BYTES = (
     MAX_RUN_EVENT_LOG_BYTES * (1 + RUN_EVENT_LOG_BACKUPS)
@@ -290,6 +310,10 @@ class MonitorEventStore:
         self._scope_truncated = False
         self._scope_truncated_drops = 0
         self._disk_failures = 0
+        self._disk_failure_categories = {
+            category: {"count": 0, "last": None}
+            for category in DISK_FAILURE_CATEGORIES
+        }
         self._run_dropped: dict[tuple[str, str], int] = {}
         self._run_disk_failures: dict[tuple[str, str], int] = {}
         self._run_metric_order: deque[tuple[str, str]] = deque()
@@ -1698,6 +1722,10 @@ class MonitorEventHub(MonitorEventStore):
         self._disk_closed = threading.Event()
         self._disk_worker: threading.Thread | None = None
         self._disk_worker_failure: BaseException | None = None
+        self._disk_queue_peak = 0
+        self._last_disk_batch_size = 0
+        self._last_disk_batch_duration_ms = 0.0
+        self._last_disk_lock_hold_ms = 0.0
         super().__init__(
             queue_capacity=queue_capacity,
             replay_capacity=replay_capacity,
@@ -1775,6 +1803,7 @@ class MonitorEventHub(MonitorEventStore):
             events = list(self._run_events.get(key, ()))
             result = self._replay_locked(events, None, 5000)
             result["observation"] = self._run_observation_locked(key, events)
+            result["observation"]["diskTelemetry"] = self._disk_telemetry_locked()
             result["serverInstanceId"] = self.server_instance_id
             result["bindings"] = copy.deepcopy(
                 {
@@ -1786,6 +1815,18 @@ class MonitorEventHub(MonitorEventStore):
                 }
             )
             return result
+
+    def health(
+        self,
+        qualification: str | None = None,
+        run_id: str | None = None,
+    ) -> dict[str, Any]:
+        result = super().health(qualification, run_id)
+        with self._condition:
+            result["observationHealth"]["diskTelemetry"] = (
+                self._disk_telemetry_locked()
+            )
+        return result
 
     def events(
         self,
@@ -2262,8 +2303,15 @@ class MonitorEventHub(MonitorEventStore):
             return
         try:
             self._disk_queue.put_nowait(copy.deepcopy(dict(event)))
-        except Exception:
-            self._mark_disk_failure(event)
+            with self._condition:
+                self._disk_queue_peak = max(
+                    self._disk_queue_peak,
+                    self._disk_queue.qsize(),
+                )
+        except queue.Full as exc:
+            self._mark_disk_failure(event, "queue_full", exc)
+        except Exception as exc:
+            self._mark_disk_failure(event, "batch_setup", exc)
 
     def _run_disk_writer(self) -> None:
         try:
@@ -2279,6 +2327,9 @@ class MonitorEventHub(MonitorEventStore):
                     except queue.Empty:
                         break
                 try:
+                    batch_started = time.monotonic()
+                    with self._condition:
+                        self._last_disk_batch_size = len(batch)
                     try:
                         # Keep the single-event seam for fault-injection tests and
                         # callers which intentionally replace it on the instance.
@@ -2287,18 +2338,24 @@ class MonitorEventHub(MonitorEventStore):
                                 try:
                                     self._write_disk_event(item)
                                 except Exception:
-                                    self._mark_disk_failure(item)
+                                    self._mark_disk_failure(item, "append")
                         else:
                             self._write_disk_batch(batch)
-                    except Exception:
+                    except Exception as exc:
+                        category = getattr(exc, "category", "batch_setup")
                         for item in batch:
-                            self._mark_disk_failure(item)
+                            self._mark_disk_failure(item, category, exc)
                 except BaseException as exc:
                     with self._condition:
                         self._disk_worker_failure = exc
                         self._condition.notify_all()
                     return
                 finally:
+                    with self._condition:
+                        self._last_disk_batch_duration_ms = round(
+                            (time.monotonic() - batch_started) * 1000,
+                            3,
+                        )
                     for _item in batch:
                         self._disk_queue.task_done()
         except BaseException as exc:
@@ -2306,9 +2363,33 @@ class MonitorEventHub(MonitorEventStore):
                 self._disk_worker_failure = exc
                 self._condition.notify_all()
 
-    def _mark_disk_failure(self, event: Mapping[str, Any]) -> None:
+    def _mark_disk_failure(
+        self,
+        event: Mapping[str, Any],
+        category: str = "append",
+        error: BaseException | None = None,
+    ) -> None:
         with self._condition:
             self._disk_failures += 1
+            if category not in self._disk_failure_categories:
+                category = "append"
+            metadata = self._disk_failure_categories[category]
+            metadata["count"] += 1
+            correlation = event.get("correlation")
+            route = None
+            if isinstance(correlation, Mapping):
+                qualification = self._safe_disk_id(correlation.get("qualification"))
+                run_id = self._safe_disk_id(
+                    correlation.get("parentRunId") or correlation.get("runId")
+                )
+                if qualification is not None and run_id is not None:
+                    route = f"{qualification}/{run_id}"
+            metadata["last"] = {
+                "errno": getattr(error, "errno", None),
+                "time": time.time(),
+                "sequence": int(event.get("sequence") or 0),
+                "route": route,
+            }
             self._track_event_disk_failure_locked(event)
             for route in self._route_keys(event):
                 self._run_disk_failures[route] = (
@@ -2316,6 +2397,18 @@ class MonitorEventHub(MonitorEventStore):
                 )
                 self._touch_run_metric_locked(route)
             self._condition.notify_all()
+
+    def _disk_telemetry_locked(self) -> dict[str, Any]:
+        return {
+            "queueCapacity": self._disk_queue.maxsize,
+            "queueDepth": self._disk_queue.qsize(),
+            "queuePeak": self._disk_queue_peak,
+            "batchMax": MAX_DISK_BATCH_SIZE,
+            "lastBatchSize": self._last_disk_batch_size,
+            "lastBatchDurationMs": self._last_disk_batch_duration_ms,
+            "lastLockHoldMs": self._last_disk_lock_hold_ms,
+            "failureCategories": copy.deepcopy(self._disk_failure_categories),
+        }
 
     @classmethod
     def _open_observation_lock_fd(cls, observation_fd: int) -> int:
@@ -2597,8 +2690,15 @@ class MonitorEventHub(MonitorEventStore):
                 parent_fd = child_fd
             observation_fd = parent_fd
             lock_fd = self._open_observation_lock_fd(observation_fd)
-            self._acquire_observation_lock(lock_fd)
+            try:
+                self._acquire_observation_lock(lock_fd)
+            except Exception as exc:
+                raise DiskPersistenceError(
+                    "lock_timeout", "monitor observation lock unavailable", exc
+                ) from exc
+            lock_acquired = time.monotonic()
             last_sequence_by_route: dict[tuple[str, str], int] = {}
+            events_by_route: dict[tuple[str, str], list[Mapping[str, Any]]] = {}
             for event in events:
                 correlation = event.get("correlation")
                 if not isinstance(correlation, Mapping):
@@ -2609,7 +2709,9 @@ class MonitorEventHub(MonitorEventStore):
                 )
                 if qualification is None or run_id is None:
                     raise OSError("monitor event has unsafe disk correlation")
-                last_sequence_by_route[(qualification, run_id)] = int(event["sequence"])
+                route = (qualification, run_id)
+                last_sequence_by_route[route] = int(event["sequence"])
+                events_by_route.setdefault(route, []).append(event)
             self._disk_batch_context = {
                 "observation_fd": observation_fd,
                 "last_sequence_by_route": last_sequence_by_route,
@@ -2618,11 +2720,18 @@ class MonitorEventHub(MonitorEventStore):
                     set(last_sequence_by_route),
                 ),
             }
-            for event in events:
+            for route, route_events in events_by_route.items():
                 try:
-                    self._write_disk_event(event)
-                except Exception:
-                    self._mark_disk_failure(event)
+                    self._write_disk_route_batch(route, route_events)
+                except Exception as exc:
+                    category = getattr(exc, "category", "append")
+                    for event in route_events:
+                        self._mark_disk_failure(event, category, exc)
+            with self._condition:
+                self._last_disk_lock_hold_ms = round(
+                    (time.monotonic() - lock_acquired) * 1000,
+                    3,
+                )
         finally:
             self.__dict__.pop("_disk_batch_context", None)
             if lock_fd is not None:
@@ -2630,5 +2739,158 @@ class MonitorEventHub(MonitorEventStore):
                     fcntl.flock(lock_fd, fcntl.LOCK_UN)
                 finally:
                     os.close(lock_fd)
+            for descriptor in reversed(opened):
+                os.close(descriptor)
+
+    def _write_disk_route_batch(
+        self,
+        route: tuple[str, str],
+        events: list[Mapping[str, Any]],
+    ) -> None:
+        """Encode and append one route together, then replace one snapshot."""
+
+        qualification, run_id = route
+        context = self._disk_batch_context
+        observation_fd = context["observation_fd"]
+        opened: list[int] = []
+        temporary_name: str | None = None
+        run_fd: int | None = None
+        try:
+            try:
+                qualification_fd = self._open_directory_at(
+                    observation_fd, qualification, create=True
+                )
+                opened.append(qualification_fd)
+                expected = context["expected_identities"][route]
+                run_fd = self._open_run_directory_at(
+                    qualification_fd, run_id, expected_identity=expected
+                )
+                opened.append(run_fd)
+                if expected is None:
+                    run_stat = os.fstat(run_fd)
+                    context["expected_identities"][route] = (
+                        run_stat.st_dev,
+                        run_stat.st_ino,
+                    )
+                self._cleanup_snapshot_temporaries_fd(run_fd)
+            except Exception as exc:
+                raise DiskPersistenceError("open", "route setup failed", exc) from exc
+
+            encoded = [
+                (
+                    json.dumps(
+                        event,
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                    )
+                    + "\n"
+                ).encode("utf-8")
+                for event in events
+            ]
+            index = 0
+            while index < len(encoded):
+                try:
+                    current_size = os.stat(
+                        "events.jsonl",
+                        dir_fd=run_fd,
+                        follow_symlinks=False,
+                    ).st_size
+                except FileNotFoundError:
+                    current_size = 0
+                available = MAX_RUN_EVENT_LOG_BYTES - current_size
+                if available < len(encoded[index]):
+                    try:
+                        self._prepare_run_event_log_fd(run_fd, len(encoded[index]))
+                    except Exception as exc:
+                        raise DiskPersistenceError("rotation", "rotation failed", exc) from exc
+                    available = MAX_RUN_EVENT_LOG_BYTES
+                end = index
+                chunk_size = 0
+                while end < len(encoded) and chunk_size + len(encoded[end]) <= available:
+                    chunk_size += len(encoded[end])
+                    end += 1
+                chunk = b"".join(encoded[index:end])
+                flags = (
+                    os.O_APPEND
+                    | os.O_CREAT
+                    | os.O_WRONLY
+                    | getattr(os, "O_CLOEXEC", 0)
+                    | getattr(os, "O_NOFOLLOW", 0)
+                )
+                try:
+                    fd = os.open("events.jsonl", flags, 0o600, dir_fd=run_fd)
+                except Exception as exc:
+                    raise DiskPersistenceError("open", "event log open failed", exc) from exc
+                try:
+                    opened_stat = os.fstat(fd)
+                    if not stat.S_ISREG(opened_stat.st_mode) or opened_stat.st_nlink != 1:
+                        raise DiskPersistenceError("open", "unsafe event log")
+                    original_size = opened_stat.st_size
+                    try:
+                        remaining = memoryview(chunk)
+                        while remaining:
+                            written = os.write(fd, remaining)
+                            if written <= 0:
+                                raise OSError("event append made no progress")
+                            remaining = remaining[written:]
+                        os.fsync(fd)
+                        if os.fstat(fd).st_size != original_size + len(chunk):
+                            raise OSError("event append size mismatch")
+                    except Exception as exc:
+                        os.ftruncate(fd, original_size)
+                        os.fsync(fd)
+                        raise DiskPersistenceError("append", "event append failed", exc) from exc
+                finally:
+                    os.close(fd)
+                index = end
+
+            last_event = events[-1]
+            with self._condition:
+                observation = self._run_observation_locked(
+                    route, list(self._run_events.get(route, ()))
+                )
+                observation["diskTelemetry"] = self._disk_telemetry_locked()
+            snapshot = {
+                "schemaVersion": SCHEMA_VERSION,
+                "serverInstanceId": self.server_instance_id,
+                "cursor": self._cursor(int(last_event["sequence"])),
+                "monitorModelRequests": 0,
+                "observation": observation,
+            }
+            snapshot_bytes = json.dumps(
+                snapshot, ensure_ascii=False, separators=(",", ":")
+            ).encode("utf-8")
+            if len(snapshot_bytes) > MAX_RUN_SNAPSHOT_BYTES:
+                raise DiskPersistenceError("snapshot", "snapshot exceeds limit")
+            temporary_name = f".snapshot.{self.server_instance_id}.{uuid.uuid4().hex}.tmp"
+            flags = (
+                os.O_CREAT
+                | os.O_EXCL
+                | os.O_WRONLY
+                | getattr(os, "O_NOFOLLOW", 0)
+            )
+            try:
+                snapshot_fd = os.open(temporary_name, flags, 0o600, dir_fd=run_fd)
+                try:
+                    remaining = memoryview(snapshot_bytes)
+                    while remaining:
+                        written = os.write(snapshot_fd, remaining)
+                        if written <= 0:
+                            raise OSError("snapshot write made no progress")
+                        remaining = remaining[written:]
+                    os.fsync(snapshot_fd)
+                finally:
+                    os.close(snapshot_fd)
+                os.replace(temporary_name, "snapshot.json", src_dir_fd=run_fd, dst_dir_fd=run_fd)
+                temporary_name = None
+                os.fsync(run_fd)
+            except Exception as exc:
+                raise DiskPersistenceError("snapshot", "snapshot replace failed", exc) from exc
+        finally:
+            if temporary_name is not None and run_fd is not None:
+                try:
+                    os.unlink(temporary_name, dir_fd=run_fd)
+                except OSError:
+                    pass
             for descriptor in reversed(opened):
                 os.close(descriptor)

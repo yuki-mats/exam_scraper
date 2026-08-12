@@ -10,6 +10,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.question_review_console.monitor_events import (
+    DISK_FAILURE_CATEGORIES,
+    DiskPersistenceError,
     MAX_DISK_BATCH_SIZE,
     MAX_MONITOR_BINDINGS,
     MAX_PENDING_GAP_SEGMENTS,
@@ -38,11 +40,12 @@ class MonitorEventStoreTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as directory:
             hub = RecordingHub(Path(directory), queue_capacity=4096)
-            hub.bind_runtime(
-                {"qualification": "sample", "runId": "run"},
-                "thread",
-                "turn",
-            )
+            for route in range(3):
+                hub.bind_runtime(
+                    {"qualification": f"sample-{route}", "runId": "run"},
+                    f"thread-{route}",
+                    "turn",
+                )
             barrier = threading.Barrier(300)
 
             def produce(index):
@@ -51,7 +54,7 @@ class MonitorEventStoreTests(unittest.TestCase):
                     {
                         "method": "item/agentMessage/delta",
                         "params": {
-                            "threadId": "thread",
+                            "threadId": f"thread-{index % 3}",
                             "turnId": "turn",
                             "itemId": f"item-{index}",
                             "delta": str(index),
@@ -66,18 +69,63 @@ class MonitorEventStoreTests(unittest.TestCase):
 
             self.assertTrue(hub.batch_sizes)
             self.assertLessEqual(max(hub.batch_sizes), MAX_DISK_BATCH_SIZE)
-            path = (
+            observation_root = (
                 Path(directory)
                 / "output/question_review_console/runtime_observations"
-                / "sample/run/events.jsonl"
             )
-            events = [json.loads(line) for line in path.read_text().splitlines()]
+            events = []
+            for route in range(3):
+                path = observation_root / f"sample-{route}/run/events.jsonl"
+                route_events = [
+                    json.loads(line) for line in path.read_text().splitlines()
+                ]
+                self.assertEqual(len(route_events), 100)
+                self.assertEqual(
+                    [event["sequence"] for event in route_events],
+                    sorted(event["sequence"] for event in route_events),
+                )
+                snapshot = json.loads(path.with_name("snapshot.json").read_text())
+                self.assertIn("diskTelemetry", snapshot["observation"])
+                events.extend(route_events)
             sequences = [event["sequence"] for event in events]
-            self.assertEqual(sequences, sorted(sequences))
             self.assertEqual(len(events), 300)
-            snapshot = json.loads(path.with_name("snapshot.json").read_text())
-            self.assertTrue(snapshot["cursor"].endswith(f":{sequences[-1]}"))
-            self.assertEqual(hub.health()["observationHealth"]["diskFailures"], 0)
+            health = hub.health()["observationHealth"]
+            telemetry = health["diskTelemetry"]
+            self.assertEqual(health["diskFailures"], 0)
+            self.assertEqual(health["droppedNotifications"], 0)
+            self.assertLess(telemetry["queuePeak"], 4096)
+            self.assertLessEqual(telemetry["lastBatchSize"], MAX_DISK_BATCH_SIZE)
+            self.assertGreaterEqual(telemetry["lastBatchDurationMs"], 0)
+            self.assertGreaterEqual(telemetry["lastLockHoldMs"], 0)
+
+    def test_disk_failure_categories_are_bounded_and_distinct(self):
+        sample = {
+            "schemaVersion": "monitor-event/v1",
+            "eventId": "server:7",
+            "sequence": 7,
+            "correlation": {"qualification": "sample", "runId": "run"},
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            hub = MonitorEventHub(Path(directory), queue_capacity=1)
+            for category in DISK_FAILURE_CATEGORIES:
+                error = DiskPersistenceError(category, f"injected {category}")
+                hub._mark_disk_failure(sample, category, error)
+            telemetry = hub.health()["observationHealth"]["diskTelemetry"]
+            self.assertEqual(
+                set(telemetry["failureCategories"]),
+                set(DISK_FAILURE_CATEGORIES),
+            )
+            for category in DISK_FAILURE_CATEGORIES:
+                failure = telemetry["failureCategories"][category]
+                self.assertEqual(failure["count"], 1)
+                self.assertEqual(failure["last"]["sequence"], 7)
+                self.assertEqual(failure["last"]["route"], "sample/run")
+                self.assertEqual(
+                    set(failure["last"]),
+                    {"errno", "time", "sequence", "route"},
+                )
+            self.assertEqual(len(telemetry["failureCategories"]), 7)
+            hub.close()
 
     def test_delta_events_are_append_only_and_publish_redacted_replacements(self):
         store = MonitorEventStore(start_worker=False, server_instance_id="server")
