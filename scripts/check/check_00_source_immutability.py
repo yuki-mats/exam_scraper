@@ -220,16 +220,31 @@ def main(argv: list[str] | None = None) -> int:
 
     root = args.root.resolve()
     manifest_path = args.manifest if args.manifest.is_absolute() else root / args.manifest
-    current = source_hashes(root)
     try:
         if args.initialize:
             if manifest_path.exists() and manifest_path.stat().st_size:
                 raise ValueError("既存manifestは再初期化できません")
+            current = source_hashes(root)
             save_manifest(manifest_path, current)
             print(f"[OK] manifest初期化: {len(current)} files")
             return 0
 
         manifest = load_manifest(manifest_path)
+        if args.check_staged:
+            changes = staged_source_changes(root)
+            violations = staged_source_change_violations(changes)
+            if violations:
+                print(
+                    "[BLOCKED] 既存00_sourceの内容・ファイル名変更はできません",
+                    file=sys.stderr,
+                )
+                for violation in violations:
+                    print(f"  - {violation}", file=sys.stderr)
+                return 1
+            print(f"[OK] staged 00_source親ディレクトリ移動: {len(changes)} files")
+            return 0
+
+        current = source_hashes(root)
         diff = differences(manifest, current)
         if args.record_moves:
             updated = record_parent_moves(manifest, current, diff)
@@ -263,19 +278,6 @@ def main(argv: list[str] | None = None) -> int:
         if any(diff.values()):
             show_differences(diff)
             return 1
-        if args.check_staged:
-            changes = staged_source_changes(root)
-            violations = staged_source_change_violations(changes)
-            if violations:
-                print(
-                    "[BLOCKED] 既存00_sourceの内容・ファイル名変更はできません",
-                    file=sys.stderr,
-                )
-                for violation in violations:
-                    print(f"  - {violation}", file=sys.stderr)
-                return 1
-            print(f"[OK] staged 00_source親ディレクトリ移動: {len(changes)} files")
-            return 0
         print(f"[OK] 00_source差分なし: {len(manifest)} files")
         return 0
     except (OSError, ValueError, json.JSONDecodeError, subprocess.SubprocessError) as exc:

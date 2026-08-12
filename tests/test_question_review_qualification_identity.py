@@ -1030,7 +1030,8 @@ class QualificationIdentityContractTests(QualificationRunTestSupport):
             preview = coordinator.preview(
                 "sample", "law_audit", "remaining"
             )
-            started = coordinator.start(
+            started = self._start_direct_maintenance(
+                coordinator,
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
             start_resolvable = started["run"]["resolvableFailedDeltaPaths"]

@@ -189,7 +189,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("function rerunProgressQuestion", javascript)
         self.assertIn("questionIds: [event.questionId]", javascript)
         self.assertIn(
-            "questionIds: preview.questionIds?.length ? preview.questionIds : undefined",
+            "questionIds: questionIds.length ? questionIds : undefined",
             javascript,
         )
 

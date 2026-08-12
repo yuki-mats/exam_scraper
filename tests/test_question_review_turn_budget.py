@@ -24,10 +24,23 @@ class GlobalTurnBudgetTest(unittest.TestCase):
                 row["group"]: row["allocation"]
                 for row in budget.snapshot()["groups"]
             }
-        self.assertEqual(allocations, {"aws": 50, "gas": 50})
+        self.assertEqual(allocations, {"aws": 150, "gas": 150})
 
-    def test_default_capacity_is_one_hundred(self) -> None:
-        self.assertEqual(GlobalTurnBudget().snapshot()["capacity"], 100)
+    def test_default_capacity_is_three_hundred(self) -> None:
+        self.assertEqual(GlobalTurnBudget().snapshot()["capacity"], 300)
+
+    def test_three_qualifications_receive_one_hundred_slots_each(self) -> None:
+        budget = GlobalTurnBudget(GLOBAL_TURN_CAPACITY)
+        with (
+            budget.register("gas"),
+            budget.register("aws"),
+            budget.register("third"),
+        ):
+            allocations = {
+                row["group"]: row["allocation"]
+                for row in budget.snapshot()["groups"]
+            }
+        self.assertEqual(allocations, {"aws": 100, "gas": 100, "third": 100})
 
     def test_three_qualifications_share_all_slots(self) -> None:
         budget = GlobalTurnBudget(32)

@@ -104,7 +104,7 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
         self.assertIn(expected_group / "99_model_review_flags", roots)
         self.assertNotIn(expected_group / "23_correctChoiceText_fixed", roots)
         self.assertNotIn(root / "output/sample/category", roots)
-        self.assertEqual(run["policyVersions"], {"explanation": "10.0"})
+        self.assertEqual(run["policyVersions"], {"explanation": "10.1"})
         self.assertEqual(run["parallelWorkerLimit"], 1)
         self.assertEqual(run["writeWorkerLimit"], 1)
 
@@ -199,7 +199,8 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
                 snapshots
             )
             preview = coordinator.preview("sample", "law_audit", "remaining")
-            started = coordinator.start(
+            started = self._start_direct_maintenance(
+                coordinator,
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
             job = self._wait_for_job(
@@ -221,7 +222,7 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
         self.assertIsNone(run["serviceTier"])
         self.assertEqual(run["reasoningEffort"], "high")
         self.assertEqual(run["parallelStrategy"], "read_only_research")
-        self.assertEqual(run["parallelWorkerLimit"], 1)
+        self.assertEqual(run["parallelWorkerLimit"], 3)
         self.assertEqual(run["writeWorkerLimit"], 1)
         self.assertEqual(run["researchStatus"], "succeeded")
         self.assertEqual(run["researchThreadId"], "thread-research-1")
@@ -347,7 +348,8 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
                 snapshots
             )
             preview = coordinator.preview("sample", "law_audit", "remaining")
-            started = coordinator.start(
+            started = self._start_direct_maintenance(
+                coordinator,
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
             job = self._wait_for_job(
@@ -514,7 +516,8 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
 
             coordinator._record_work_versions = fail_version_recording
             preview = coordinator.preview("sample", "law_audit", "remaining")
-            started = coordinator.start(
+            started = self._start_direct_maintenance(
+                coordinator,
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
             job = self._wait_for_job(
@@ -640,7 +643,8 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
                 snapshots
             )
             preview = coordinator.preview("sample", "law_audit", "remaining")
-            started = coordinator.start(
+            started = self._start_direct_maintenance(
+                coordinator,
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
             job = self._wait_for_job(
@@ -702,7 +706,8 @@ class QualificationWriteSafetyReceiptTests(QualificationRunTestSupport):
 
             coordinator._repository_file_fingerprints = snapshots
             preview = coordinator.preview("sample", "law_audit", "remaining")
-            started = coordinator.start(
+            started = self._start_direct_maintenance(
+                coordinator,
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
             job = self._wait_for_job(

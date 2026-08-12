@@ -34,6 +34,18 @@ class FakeWorkflow:
     def plan(self, qualification, stage_id, mode="remaining"):
         machine = stage_id == "delivery"
         groups = ["2025", "2026"] if machine else ["2026"]
+        progress_targets = [] if machine else [
+            {
+                "id": "new-exam-2026-q1",
+                "questionKey": "new-exam:2026:q1",
+                "reviewQuestionId": "new-exam-2026-q1",
+                "sourceQuestionKey": "new-exam:2026:q1",
+                "sourceRecordRef": "question_2026_1.json#0",
+                "qualification": qualification,
+                "listGroupId": "2026",
+                "stateHash": "fake-workflow-state-1",
+            }
+        ]
         return {
             "qualification": qualification,
             "stageId": stage_id,
@@ -43,8 +55,12 @@ class FakeWorkflow:
             "kind": "machine" if machine else "human",
             "mode": mode,
             "modeLabel": "全問題を再整備" if mode == "refresh" else "未作業のみ",
-            "targetCount": len(groups) if machine else 3,
+            "targetCount": len(groups) if machine else 1,
             "targetGroupIds": groups,
+            "progressTargets": progress_targets,
+            "progressStages": (
+                [] if machine else [{"id": stage_id, "label": "現行法監査"}]
+            ),
             "sourceFiles": ["output/sample/questions_json/2026/00_source"],
             "outputFiles": [
                 "output/sample/questions_json/2026/"
@@ -1394,6 +1410,64 @@ class QualificationWorkflow(_QualificationWorkflow):
 class QualificationRunTestSupport(unittest.TestCase):
 
     @staticmethod
+    def _start_direct_maintenance(
+        coordinator,
+        qualification,
+        stage_id,
+        mode,
+        preview_token,
+    ):
+        """Exercise production _run_human without the top-level flow wrapper."""
+        preview = coordinator.preview(qualification, stage_id, mode)
+        if preview["previewToken"] != preview_token:
+            raise AssertionError("direct-maintenance preview token changed")
+        plan = coordinator._plan(qualification, stage_id, mode, None)
+        plan.pop("progressTargets", None)
+        plan.pop("progressStages", None)
+        plan["targetCount"] = 3
+        prompt = coordinator.workflow.prompt(qualification, stage_id, mode)[
+            "prompt"
+        ]
+        plan = {
+            **plan,
+            "targetIdentity": copy.deepcopy(preview["targetIdentity"]),
+            "previewPlanHash": str(preview["previewPlanHash"]),
+            "workType": "maintenance",
+            "sandbox": "workspace-write",
+            "provider": coordinator.app_server.provider,
+            "parallelStrategy": "read_only_research",
+            "parallelWorkerLimit": 3,
+            "writeWorkerLimit": 1,
+            "speedMode": "standard",
+            "requestedServiceTier": None,
+        }
+        run = coordinator.store.create(plan, status="queued", prompt=prompt)
+        saved_prompt = coordinator.store.prompt(qualification, run["runId"])
+        job = coordinator.jobs.start(
+            kind="codex-maintenance-direct-test",
+            key=f"qualification:{qualification}",
+            worker=lambda emit: coordinator._run_in_turn_group(
+                qualification,
+                lambda: coordinator._run_with_technical_log(
+                    qualification,
+                    run["runId"],
+                    emit,
+                    lambda logged_emit: coordinator._run_human(
+                        qualification,
+                        run["runId"],
+                        saved_prompt,
+                        "maintenance",
+                        logged_emit,
+                    ),
+                ),
+            ),
+        )
+        run = coordinator.store.update(
+            qualification, run["runId"], jobId=job["jobId"]
+        )
+        return {"run": run, "prompt": None, "job": job}
+
+    @staticmethod
     def _write_aggregate_checkpoint(
         store,
         qualification,
@@ -1541,7 +1615,8 @@ class QualificationRunTestSupport(unittest.TestCase):
                 snapshots
             )
             preview = coordinator.preview("sample", "law_audit", "remaining")
-            started = coordinator.start(
+            started = self._start_direct_maintenance(
+                coordinator,
                 "sample", "law_audit", "remaining", preview["previewToken"]
             )
             job = self._wait_for_job(

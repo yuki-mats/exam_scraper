@@ -1611,7 +1611,7 @@ class AppServerTurnTests(unittest.TestCase):
             )
         self.assertEqual(client.hook_requests, 2)
 
-    def test_control_plane_is_bounded_while_100_model_turns_stay_active(self):
+    def test_control_plane_is_bounded_while_300_model_turns_stay_active(self):
         class BoundedControlPlaneClient(ProtocolClient):
             CONTROL_METHODS = {
                 "hooks/list",
@@ -1679,7 +1679,7 @@ class AppServerTurnTests(unittest.TestCase):
                     turn_id = thread_id.replace("thread", "turn")
                     with self.control_lock:
                         self.started_turns.append((thread_id, turn_id))
-                        if len(self.started_turns) == 100:
+                        if len(self.started_turns) == 300:
                             self.all_turns_started.set()
                     self._handle_message(
                         {
@@ -1733,7 +1733,7 @@ class AppServerTurnTests(unittest.TestCase):
                     )
 
         client = BoundedControlPlaneClient()
-        with ThreadPoolExecutor(max_workers=100) as executor:
+        with ThreadPoolExecutor(max_workers=300) as executor:
             futures = [
                 executor.submit(
                     client.run_turn,
@@ -1743,7 +1743,7 @@ class AppServerTurnTests(unittest.TestCase):
                     emit=lambda _line: None,
                     turn_group="gas-shunin-otsu",
                 )
-                for index in range(100)
+                for index in range(300)
             ]
             self.assertTrue(client.all_turns_started.wait(10))
             turn_budget = client.turn_budget.snapshot()
@@ -1751,10 +1751,10 @@ class AppServerTurnTests(unittest.TestCase):
             model_turns = client._model_turn_snapshot()
             public_status = client.public_status(refresh=False)
             client.complete_all()
-            self.assertEqual(turn_budget["inFlight"], 100)
-            self.assertEqual(turn_budget["peakInFlight"], 100)
-            self.assertEqual(model_turns["inFlight"], 100)
-            self.assertEqual(model_turns["peakInFlight"], 100)
+            self.assertEqual(turn_budget["inFlight"], 300)
+            self.assertEqual(turn_budget["peakInFlight"], 300)
+            self.assertEqual(model_turns["inFlight"], 300)
+            self.assertEqual(model_turns["peakInFlight"], 300)
             self.assertEqual(
                 control_budget["capacity"],
                 APP_SERVER_CONTROL_PLANE_CAPACITY,
@@ -1772,21 +1772,21 @@ class AppServerTurnTests(unittest.TestCase):
             self.assertEqual(public_status["modelTurns"], model_turns)
             results = [future.result(timeout=5) for future in futures]
 
-        self.assertEqual(len({result.thread_id for result in results}), 100)
+        self.assertEqual(len({result.thread_id for result in results}), 300)
         self.assertEqual(client._model_turn_snapshot()["inFlight"], 0)
-        self.assertEqual(client._model_turn_snapshot()["peakInFlight"], 100)
+        self.assertEqual(client._model_turn_snapshot()["peakInFlight"], 300)
         self.assertTrue(
             all(result.final_message == '{"status":"ok"}' for result in results)
         )
         self.assertEqual(
             client.subscription_forces,
-            [(False, "standard")] * 100,
+            [(False, "standard")] * 300,
         )
         methods = [method for method, _params in client.calls]
         for method in BoundedControlPlaneClient.CONTROL_METHODS:
             self.assertEqual(
                 methods.count(method),
-                1 if method == "hooks/list" else 100,
+                1 if method == "hooks/list" else 300,
             )
 
     def test_model_turn_snapshot_uses_protocol_lifecycle_notifications(self):
@@ -1803,7 +1803,7 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertEqual(
             client._model_turn_snapshot(),
-            {"capacity": 100, "inFlight": 1, "peakInFlight": 1},
+            {"capacity": 300, "inFlight": 1, "peakInFlight": 1},
         )
         started_at, started_monotonic = client._notified_turn_started[
             ("thread-early", "turn-early")
@@ -1828,7 +1828,7 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertEqual(
             client._model_turn_snapshot(),
-            {"capacity": 100, "inFlight": 0, "peakInFlight": 1},
+            {"capacity": 300, "inFlight": 0, "peakInFlight": 1},
         )
         self.assertEqual(
             [
@@ -1889,7 +1889,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual(events[1]["durationSeconds"], 3.0)
         self.assertEqual(
             client._model_turn_snapshot(),
-            {"capacity": 100, "inFlight": 0, "peakInFlight": 1},
+            {"capacity": 300, "inFlight": 0, "peakInFlight": 1},
         )
         client.close()
 

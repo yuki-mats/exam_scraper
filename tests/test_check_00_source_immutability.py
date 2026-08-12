@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+import subprocess
+import json
+import hashlib
 from pathlib import Path
 
 from scripts.check.check_00_source_immutability import (
@@ -62,6 +65,74 @@ class SourceImmutabilityTest(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.temp_dir.cleanup()
+
+    def initialize_git_with_partial_residency(self) -> None:
+        missing_path = "output/not-resident/00_source/question_2.json"
+        with self.manifest.open("a", encoding="utf-8") as manifest:
+            manifest.write(
+                json.dumps(
+                    {
+                        "path": missing_path,
+                        "sha256": hashlib.sha256(b"not resident\n").hexdigest(),
+                    },
+                    separators=(",", ":"),
+                )
+                + "\n"
+            )
+        subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
+        subprocess.run(["git", "config", "user.name", "Test"], cwd=self.root, check=True)
+        subprocess.run(
+            ["git", "config", "user.email", "test@example.com"], cwd=self.root, check=True
+        )
+        subprocess.run(["git", "add", "output"], cwd=self.root, check=True)
+        subprocess.run(["git", "commit", "-qm", "fixture"], cwd=self.root, check=True)
+
+    def check_staged(self) -> int:
+        return main(
+            [
+                "--root",
+                str(self.root),
+                "--manifest",
+                str(self.manifest),
+                "--check-staged",
+            ]
+        )
+
+    def test_check_staged_ignores_nonresident_manifest_paths(self) -> None:
+        self.initialize_git_with_partial_residency()
+
+        self.assertEqual(self.check_staged(), 0)
+
+    def test_check_staged_rejects_partial_residency_source_modification(self) -> None:
+        self.initialize_git_with_partial_residency()
+        self.source.write_text('{"value":"changed"}\n', encoding="utf-8")
+        subprocess.run(["git", "add", str(self.source)], cwd=self.root, check=True)
+
+        self.assertEqual(self.check_staged(), 1)
+
+    def test_check_staged_rejects_partial_residency_source_deletion(self) -> None:
+        self.initialize_git_with_partial_residency()
+        self.source.unlink()
+        subprocess.run(["git", "add", "-u", "output"], cwd=self.root, check=True)
+
+        self.assertEqual(self.check_staged(), 1)
+
+    def test_check_staged_rejects_partial_residency_filename_change(self) -> None:
+        self.initialize_git_with_partial_residency()
+        renamed = self.source.with_name("renamed.json")
+        self.source.rename(renamed)
+        subprocess.run(["git", "add", "-A", "output"], cwd=self.root, check=True)
+
+        self.assertEqual(self.check_staged(), 1)
+
+    def test_check_staged_allows_partial_residency_parent_move(self) -> None:
+        self.initialize_git_with_partial_residency()
+        moved = self.root / "output/moved/00_source/question_1.json"
+        moved.parent.mkdir(parents=True)
+        self.source.rename(moved)
+        subprocess.run(["git", "add", "-A", "output"], cwd=self.root, check=True)
+
+        self.assertEqual(self.check_staged(), 0)
 
     def test_unchanged_passes(self) -> None:
         self.assertEqual(main(["--root", str(self.root), "--manifest", str(self.manifest)]), 0)
