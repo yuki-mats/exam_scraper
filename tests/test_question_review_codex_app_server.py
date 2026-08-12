@@ -693,6 +693,94 @@ class MonitorObserverTests(unittest.TestCase):
         self.assertEqual(observer.messages, [1, 2])
         self.assertEqual(adapter._queue.unfinished_tasks, 0)
 
+    def test_100_stream_delta_burst_is_losslessly_coalesced_before_queue_overflow(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class Observer:
+            def __init__(self):
+                self.messages = []
+                self.gaps = 0
+                self.coalesced = 0
+
+            def put_observed_nowait(self, message, _observed_at):
+                self.messages.append(copy.deepcopy(message))
+                if len(self.messages) == 1:
+                    entered.set()
+                    release.wait(timeout=10)
+
+            def record_observation_gap(self, count=1, **_kwargs):
+                self.gaps += count
+
+            def record_lossless_coalescing(self, count, *, method, **_telemetry):
+                self.assert_method = method
+                self.coalesced += count
+
+        observer = Observer()
+        adapter = _NonBlockingObserverAdapter(observer, capacity=4096)
+        adapter.put_nowait(
+            {
+                "method": "item/agentMessage/delta",
+                "params": {
+                    "threadId": "thread",
+                    "turnId": "turn",
+                    "itemId": "item-0",
+                    "delta": "0",
+                },
+            }
+        )
+        self.assertTrue(entered.wait(timeout=1))
+        for stream_index in range(1, 100):
+            adapter.put_nowait(
+                {
+                    "method": "item/agentMessage/delta",
+                    "params": {
+                        "threadId": "thread",
+                        "turnId": "turn",
+                        "itemId": f"item-{stream_index}",
+                        "delta": "0",
+                    },
+                }
+            )
+        for delta_index in range(1, 300):
+            for stream_index in range(100):
+                adapter.put_nowait(
+                    {
+                        "method": "item/agentMessage/delta",
+                        "params": {
+                            "threadId": "thread",
+                            "turnId": "turn",
+                            "itemId": f"item-{stream_index}",
+                            "delta": str(delta_index % 10),
+                        },
+                    }
+                )
+        adapter.put_nowait(
+            {
+                "method": "turn/completed",
+                "params": {"threadId": "thread", "turnId": "turn"},
+            }
+        )
+
+        telemetry = adapter.telemetry()
+        self.assertEqual(telemetry["coalescedNotifications"], 29_899)
+        self.assertLess(telemetry["queuePeak"], 4096)
+        release.set()
+        self.assertTrue(adapter.drain_for_test(timeout=10))
+        adapter.close(timeout=10)
+
+        self.assertEqual(observer.gaps, 0)
+        self.assertEqual(observer.coalesced, 29_899)
+        self.assertEqual(observer.messages[-1]["method"], "turn/completed")
+        streams = {}
+        for message in observer.messages[:-1]:
+            params = message["params"]
+            streams[params["itemId"]] = (
+                streams.get(params["itemId"], "") + params["delta"]
+            )
+        self.assertEqual(len(streams), 100)
+        self.assertEqual(set(streams.values()), {"0123456789" * 30})
+
     def test_monitor_enabled_and_disabled_keep_model_rpcs_and_usage_identical(self):
         class UsageProtocolClient(ProtocolClient):
             def __init__(self, **kwargs):

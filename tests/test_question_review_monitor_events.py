@@ -30,6 +30,41 @@ def bind_store(store, thread_id="thread-1", **context):
 
 
 class MonitorEventStoreTests(unittest.TestCase):
+    def test_lossless_input_coalescing_is_reported_without_degrading_health(self):
+        store = MonitorEventStore(start_worker=False)
+
+        store.record_lossless_coalescing(
+            12,
+            method="item/agentMessage/delta",
+            queue_capacity=4096,
+            queue_peak=101,
+        )
+        store.record_lossless_coalescing(
+            7,
+            method="item/reasoning/summaryTextDelta",
+        )
+
+        health = store.health()["observationHealth"]
+        self.assertEqual(health["status"], "healthy")
+        self.assertEqual(health["droppedNotifications"], 0)
+        self.assertEqual(
+            health["inputCoalescing"],
+            {
+                "queueCapacity": 4096,
+                "queuePeak": 101,
+                "coalescedNotifications": 19,
+                "coalescedByMethod": {
+                    "item/agentMessage/delta": 12,
+                    "item/reasoning/summaryTextDelta": 7,
+                },
+            },
+        )
+        self.assertEqual(
+            store.snapshot()["observation"]["inputCoalescing"],
+            health["inputCoalescing"],
+        )
+        store.close()
+
     def test_100_stream_disk_coalescing_is_bounded_auditable_and_terminal_ordered(self):
         class PausedDiskHub(MonitorEventHub):
             disk_gate = threading.Event()

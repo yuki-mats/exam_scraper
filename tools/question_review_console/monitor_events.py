@@ -311,6 +311,10 @@ class MonitorEventStore:
         self._gap_overflow_boundary = 0
         self._scope_truncated = False
         self._scope_truncated_drops = 0
+        self._lossless_coalesced_notifications = 0
+        self._lossless_coalesced_by_method: dict[str, int] = {}
+        self._input_queue_capacity = 0
+        self._input_queue_peak = 0
         self._disk_failures = 0
         self._disk_failure_categories = {
             category: {"count": 0, "last": None}
@@ -387,6 +391,35 @@ class MonitorEventStore:
         )
         with self._condition:
             self._materialize_pending_gap_locked()
+
+    def record_lossless_coalescing(
+        self,
+        count: int,
+        *,
+        method: str,
+        queue_capacity: int = 0,
+        queue_peak: int = 0,
+    ) -> None:
+        """Record lossless upstream delta aggregation for health telemetry."""
+
+        resolved_count = max(0, int(count))
+        resolved_method = str(method or "")
+        if not resolved_count or not resolved_method:
+            return
+        with self._condition:
+            self._lossless_coalesced_notifications += resolved_count
+            self._lossless_coalesced_by_method[resolved_method] = (
+                self._lossless_coalesced_by_method.get(resolved_method, 0)
+                + resolved_count
+            )
+            self._input_queue_capacity = max(
+                self._input_queue_capacity,
+                max(0, int(queue_capacity)),
+            )
+            self._input_queue_peak = max(
+                self._input_queue_peak,
+                max(0, int(queue_peak)),
+            )
 
     def observation_routes_snapshot(
         self,
@@ -598,6 +631,7 @@ class MonitorEventStore:
                     "scopeTruncated": scope_truncated,
                     "scopeTruncatedDrops": self._scope_truncated_drops,
                     "eventCount": event_count,
+                    "inputCoalescing": self._input_coalescing_telemetry_locked(),
                 },
                 "monitorModelRequests": self.monitor_model_requests,
             }
@@ -632,6 +666,17 @@ class MonitorEventStore:
             "scopeTruncated": self._scope_truncated,
             "scopeTruncatedDrops": self._scope_truncated_drops,
             "eventCount": len(events),
+            "inputCoalescing": self._input_coalescing_telemetry_locked(),
+        }
+
+    def _input_coalescing_telemetry_locked(self) -> dict[str, Any]:
+        return {
+            "queueCapacity": self._input_queue_capacity,
+            "queuePeak": self._input_queue_peak,
+            "coalescedNotifications": self._lossless_coalesced_notifications,
+            "coalescedByMethod": copy.deepcopy(
+                self._lossless_coalesced_by_method
+            ),
         }
 
     def process_pending_for_test(self) -> None:
@@ -1688,6 +1733,7 @@ class MonitorEventStore:
                 "scopeTruncated": self._scope_truncated,
                 "scopeTruncatedDrops": self._scope_truncated_drops,
                 "eventCount": len(events),
+                "inputCoalescing": self._input_coalescing_telemetry_locked(),
             },
             "monitorModelRequests": self.monitor_model_requests,
         }

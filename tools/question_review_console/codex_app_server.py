@@ -433,6 +433,25 @@ OBSERVER_ADAPTER_BINDING_CAPACITY = 512
 OBSERVER_ADAPTER_GAP_CAPACITY = 64
 OBSERVER_ADAPTER_CONTROL_BATCH_SIZE = 16
 OBSERVER_ADAPTER_CLOSE_TIMEOUT_SECONDS = 5.0
+OBSERVER_ADAPTER_COALESCED_MAX_CHARS = 4096
+OBSERVER_ADAPTER_COALESCED_MAX_FRAGMENTS = 512
+OBSERVER_ADAPTER_COALESCIBLE_METHODS = frozenset(
+    {
+        "item/agentMessage/delta",
+        "item/reasoning/summaryTextDelta",
+    }
+)
+
+
+@dataclass
+class _CoalescedObserverNotification:
+    ordinal: int
+    message: Mapping[str, Any]
+    observed_at: float
+    inline_binding: tuple[dict[str, Any], str, str | None] | None
+    stream_key: tuple[str, ...]
+    deltas: list[str]
+    delta_chars: int
 
 
 class _NonBlockingObserverAdapter:
@@ -478,6 +497,15 @@ class _NonBlockingObserverAdapter:
         self._active_callbacks = 0
         self._worker_busy = False
         self._worker_failure: BaseException | None = None
+        self._pending_coalesced: OrderedDict[
+            tuple[str, ...],
+            _CoalescedObserverNotification,
+        ] = OrderedDict()
+        self._coalesced_notifications = 0
+        self._coalesced_by_method = {
+            method: 0 for method in sorted(OBSERVER_ADAPTER_COALESCIBLE_METHODS)
+        }
+        self._queue_peak = 0
         self._closed = threading.Event()
         self._worker: threading.Thread | None = None
         if observer is not None:
@@ -518,25 +546,59 @@ class _NonBlockingObserverAdapter:
                 # attribute its observation gap to the completed route.
                 self._thread_route_groups.pop(thread_id, None)
                 self._refresh_route_snapshot_locked()
+            coalescing = self._coalescing_stream(message)
+            if coalescing is not None and inline_binding is None:
+                stream_key, delta = coalescing
+                pending = self._pending_coalesced.get(stream_key)
+                if pending is not None:
+                    if (
+                        len(pending.deltas)
+                        < OBSERVER_ADAPTER_COALESCED_MAX_FRAGMENTS
+                        and pending.delta_chars + len(delta)
+                        <= OBSERVER_ADAPTER_COALESCED_MAX_CHARS
+                    ):
+                        pending.observed_at = observed_at
+                        pending.deltas.append(delta)
+                        pending.delta_chars += len(delta)
+                        self._pending_coalesced.move_to_end(stream_key)
+                        self._coalesced_notifications += 1
+                        self._coalesced_by_method[stream_key[0]] += 1
+                        self._work_event.set()
+                        return
+                    self._pending_coalesced.pop(stream_key, None)
+            else:
+                # A lifecycle/control notification is an ordering boundary.
+                # Existing queue entries remain ahead of it, but later deltas
+                # must start a new aggregate after this notification.
+                self._pending_coalesced.clear()
             self._next_notification_ordinal += 1
             ordinal = self._next_notification_ordinal
             try:
-                self._queue.put_nowait(
-                    # Do not iterate, normalize, serialize, or persist on the
-                    # App Server stdout reader thread. The parsed notification
-                    # becomes immutable-by-convention after dispatch and is
-                    # copied/redacted only by the monitor worker.
-                    (
+                if coalescing is None:
+                    entry = (
                         "notification",
-                        (
-                            ordinal,
-                            message,
-                            observed_at,
-                            inline_binding,
-                        ),
+                        (ordinal, message, observed_at, inline_binding),
                     )
-                )
+                else:
+                    stream_key, delta = coalescing
+                    aggregate = _CoalescedObserverNotification(
+                        ordinal=ordinal,
+                        message=message,
+                        observed_at=observed_at,
+                        inline_binding=inline_binding,
+                        stream_key=stream_key,
+                        deltas=[delta],
+                        delta_chars=len(delta),
+                    )
+                    entry = ("coalesced_notification", aggregate)
+                # Do not normalize, serialize, or persist on the App Server
+                # stdout reader thread. Lossless delta joining is also left to
+                # the monitor worker.
+                self._queue.put_nowait(entry)
+                if coalescing is not None:
+                    self._pending_coalesced[stream_key] = aggregate
                 self._last_accepted_notification_ordinal = ordinal
+                self._queue_peak = max(self._queue_peak, self._queue.qsize())
             except Exception:
                 boundary = self._last_accepted_notification_ordinal
                 self._record_gap_locked(
@@ -548,6 +610,17 @@ class _NonBlockingObserverAdapter:
                     self._pending_bindings[thread_id] = inline_binding
                     self._pending_bindings.move_to_end(thread_id)
         self._work_event.set()
+
+    def telemetry(self) -> dict[str, Any]:
+        with self._gap_lock:
+            return {
+                "queueCapacity": self._queue.maxsize,
+                "queueDepth": self._queue.qsize(),
+                "queuePeak": self._queue_peak,
+                "coalescedNotifications": self._coalesced_notifications,
+                "coalescedByMethod": dict(self._coalesced_by_method),
+                "pendingStreams": len(self._pending_coalesced),
+            }
 
     def bind_runtime(
         self,
@@ -691,18 +764,35 @@ class _NonBlockingObserverAdapter:
                 notification_ordinal: int | None = None
                 try:
                     kind, payload = entry
-                    if kind != "notification":
+                    coalesced_count = 0
+                    coalesced_method = ""
+                    if kind == "coalesced_notification":
+                        (
+                            notification_ordinal,
+                            notification,
+                            observed_at,
+                            inline_binding,
+                            coalesced_count,
+                            coalesced_method,
+                        ) = self._claim_coalesced_notification(payload)
+                    elif kind == "notification":
+                        (
+                            notification_ordinal,
+                            notification,
+                            observed_at,
+                            inline_binding,
+                        ) = payload
+                    else:
                         raise RuntimeError(
                             f"unknown observer adapter entry: {kind}"
                         )
-                    (
-                        notification_ordinal,
-                        notification,
-                        observed_at,
-                        inline_binding,
-                    ) = payload
                     if inline_binding is not None:
                         self._deliver_binding(inline_binding)
+                    if coalesced_count:
+                        self._record_lossless_coalescing(
+                            coalesced_count,
+                            coalesced_method,
+                        )
                     self._deliver_notification(notification, observed_at)
                 except Exception:
                     pass
@@ -734,6 +824,65 @@ class _NonBlockingObserverAdapter:
                 )
                 bindings.append(binding)
         return bindings
+
+    def _claim_coalesced_notification(
+        self,
+        aggregate: _CoalescedObserverNotification,
+    ) -> tuple[
+        int,
+        dict[str, Any],
+        float,
+        tuple[dict[str, Any], str, str | None] | None,
+        int,
+        str,
+    ]:
+        with self._gap_lock:
+            if self._pending_coalesced.get(aggregate.stream_key) is aggregate:
+                self._pending_coalesced.pop(aggregate.stream_key, None)
+            observed_at = aggregate.observed_at
+            deltas = tuple(aggregate.deltas)
+        notification = dict(aggregate.message)
+        params = notification.get("params")
+        if not isinstance(params, Mapping):
+            raise RuntimeError("coalesced notification has no params")
+        joined_params = dict(params)
+        joined_params["delta"] = "".join(deltas)
+        notification["params"] = joined_params
+        return (
+            aggregate.ordinal,
+            notification,
+            observed_at,
+            aggregate.inline_binding,
+            max(0, len(deltas) - 1),
+            aggregate.stream_key[0],
+        )
+
+    def _record_lossless_coalescing(self, count: int, method: str) -> None:
+        try:
+            record = getattr(
+                self._observer,
+                "record_lossless_coalescing",
+                None,
+            )
+        except Exception:
+            return
+        if not callable(record):
+            return
+        self._callback_started()
+        try:
+            try:
+                record(
+                    count,
+                    method=method,
+                    queue_capacity=self._queue.maxsize,
+                    queue_peak=self._queue_peak,
+                )
+            except TypeError:
+                record(count, method=method)
+        except Exception:
+            pass
+        finally:
+            self._callback_finished()
 
     def _deliver_binding(
         self,
@@ -806,6 +955,7 @@ class _NonBlockingObserverAdapter:
         with self._gap_lock:
             return bool(
                 self._pending_bindings
+                or self._pending_coalesced
                 or self._gap_segments
                 or self._gap_overflow_count
                 or self._active_callbacks
@@ -818,6 +968,7 @@ class _NonBlockingObserverAdapter:
         with self._gap_lock:
             return not (
                 self._pending_bindings
+                or self._pending_coalesced
                 or self._gap_segments
                 or self._gap_overflow_count
                 or self._active_callbacks
@@ -898,6 +1049,55 @@ class _NonBlockingObserverAdapter:
         return not (
             isinstance(params, Mapping)
             and params.get("willRetry") is True
+        )
+
+    @classmethod
+    def _coalescing_stream(
+        cls,
+        message: Mapping[str, Any],
+    ) -> tuple[tuple[str, ...], str] | None:
+        method = str(message.get("method") or "")
+        if method not in OBSERVER_ADAPTER_COALESCIBLE_METHODS:
+            return None
+        params = message.get("params")
+        if not isinstance(params, Mapping):
+            return None
+        delta = params.get("delta")
+        if not isinstance(delta, str):
+            return None
+        turn = params.get("turn")
+        item = params.get("item")
+        turn_id = str(
+            params.get("turnId")
+            or (turn.get("id") if isinstance(turn, Mapping) else "")
+            or (item.get("turnId") if isinstance(item, Mapping) else "")
+            or ""
+        )
+        item_id = str(
+            params.get("itemId")
+            or (item.get("id") if isinstance(item, Mapping) else "")
+            or ""
+        )
+        thread_id = cls._notification_thread_id(message)
+        if not thread_id or not turn_id:
+            return None
+        summary_index = params.get("summaryIndex")
+        public_summary_index = (
+            str(summary_index)
+            if isinstance(summary_index, int)
+            and not isinstance(summary_index, bool)
+            and summary_index >= 0
+            else ""
+        )
+        return (
+            (
+                method,
+                thread_id,
+                turn_id,
+                item_id,
+                public_summary_index,
+            ),
+            delta,
         )
 
     def _record_gap_locked(
