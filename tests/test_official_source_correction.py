@@ -12,10 +12,13 @@ from scripts.common.question_identity import (
     SourceIdentityBinding,
     SourceRecordIdentity,
 )
+from tools.question_bank.question_issue_reports import sha256_json
 from tools.question_review_console.official_source_correction import (
     AppServerReviewExecutor,
+    OfficialSourceCorrectionError,
     OfficialSourceCorrectionService,
 )
+from tools.question_review_console.projection import PROJECTED_COMPARE_FIELDS
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +26,140 @@ CONFIG_PATH = REPO_ROOT / "config" / "question_issue_reports.json"
 
 
 class OfficialSourceCorrectionTests(unittest.TestCase):
+    @staticmethod
+    def _projected_question(record):
+        projected = dict(record)
+        state_hash = sha256_json(
+            {field: projected.get(field) for field in PROJECTED_COMPARE_FIELDS}
+        )
+        return {
+            "id": "ui-q1",
+            "qualification": "sample",
+            "listGroupId": "2026",
+            "originalQuestionId": "q1",
+            "sourceQuestionKey": "sample:2026:q1",
+            "reviewQuestionId": "q1",
+            "sourceRecordRef": "question_2026.json#0",
+            "projected": projected,
+            "stateHash": state_hash,
+        }
+
+    def test_server_owned_projected_record_works_without_merged_directories(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = root / "output/sample/questions_json/2026/00_source"
+            source_dir.mkdir(parents=True)
+            record = {
+                "original_question_id": "q1",
+                "questionBodyText": "projected current",
+                "choiceTextList": ["A", "B"],
+            }
+            (source_dir / "question_2026.json").write_text(
+                json.dumps({"question_bodies": [record]}), encoding="utf-8"
+            )
+            question = self._projected_question(record)
+            service = OfficialSourceCorrectionService(
+                root, app_server=object(), config_path=CONFIG_PATH
+            )
+            current, path, identity = service._server_owned_current_record(
+                question,
+                qualification="sample",
+                list_group_id="2026",
+                state_hash=question["stateHash"],
+            )
+            self.assertEqual(current["questionBodyText"], "projected current")
+            self.assertEqual(path.name, "question_2026.json")
+            self.assertEqual(
+                identity.binding.source_record_ref,
+                "question_2026.json#0",
+            )
+
+    def test_server_owned_projected_record_rejects_stale_missing_and_identity_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = root / "output/sample/questions_json/2026/00_source"
+            source_dir.mkdir(parents=True)
+            record = {
+                "sourceQuestionKey": "sample:2026:q1",
+                "reviewQuestionId": "q1",
+                "sourceRecordRef": "question_2026.json#0",
+                "original_question_id": "q1",
+                "questionBodyText": "current",
+                "choiceTextList": ["A"],
+            }
+            (source_dir / "question_2026.json").write_text(
+                json.dumps({"question_bodies": [record]}), encoding="utf-8"
+            )
+            service = OfficialSourceCorrectionService(
+                root, app_server=object(), config_path=CONFIG_PATH
+            )
+            question = self._projected_question(record)
+            cases = []
+            missing = dict(question)
+            missing.pop("projected")
+            cases.append(missing)
+            stale = dict(question)
+            stale["stateHash"] = "f" * 64
+            cases.append(stale)
+            mismatch = dict(question)
+            mismatch["projected"] = {
+                **record,
+                "original_question_id": "q2",
+            }
+            cases.append(mismatch)
+            hash_mismatch = dict(question)
+            hash_mismatch["projected"] = {
+                **record,
+                "questionBodyText": "changed",
+            }
+            cases.append(hash_mismatch)
+            for candidate in cases:
+                with self.subTest(candidate=candidate), self.assertRaises(
+                    OfficialSourceCorrectionError
+                ):
+                    service._server_owned_current_record(
+                        candidate,
+                        qualification="sample",
+                        list_group_id="2026",
+                        state_hash=question["stateHash"],
+                    )
+
+    def test_server_owned_projected_record_rejects_duplicate_source_binding(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_dir = root / "output/sample/questions_json/2026/00_source"
+            source_dir.mkdir(parents=True)
+            record = {
+                "original_question_id": "q1",
+                "questionBodyText": "current",
+                "choiceTextList": ["A"],
+            }
+            source_path = source_dir / "question_2026.json"
+            source_path.write_text(
+                json.dumps({"question_bodies": [record]}), encoding="utf-8"
+            )
+            question = self._projected_question(record)
+            service = OfficialSourceCorrectionService(
+                root, app_server=object(), config_path=CONFIG_PATH
+            )
+            binding = SourceIdentityBinding.from_mapping(question)
+            identity = SourceRecordIdentity(
+                binding=binding,
+                aliases=frozenset(binding.as_tuple()),
+                source_stem="question_2026",
+            )
+            entry = SimpleNamespace(identity=identity, path=source_path)
+            with patch(
+                "tools.question_review_console.official_source_correction."
+                "load_source_record_inventory",
+                return_value=(entry, entry),
+            ), self.assertRaises(OfficialSourceCorrectionError):
+                service._server_owned_current_record(
+                    question,
+                    qualification="sample",
+                    list_group_id="2026",
+                    state_hash=question["stateHash"],
+                )
     def test_app_server_executor_uses_dedicated_read_only_turn(self) -> None:
         class AppServer:
             def run_turn(self, prompt, **options):
@@ -139,25 +276,6 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 / "output/sample/questions_json/2026/00_source/question_2026.json"
             )
             source_path.parent.mkdir(parents=True)
-            source_path.write_text('{"source":"immutable"}\n', encoding="utf-8")
-            source_before = source_path.read_bytes()
-            current_path = (
-                root
-                / "output/sample/questions_json/2026/30_merged_2/"
-                "question_2026_merged.json"
-            )
-            current_path.parent.mkdir(parents=True)
-            current_path.write_text("{}\n", encoding="utf-8")
-            binding = SourceIdentityBinding.from_values(
-                "sample:2026:q1",
-                "q1",
-                "question_2026.json#0",
-            )
-            source_identity = SourceRecordIdentity(
-                binding=binding,
-                aliases=frozenset(binding.as_tuple()),
-                source_stem="question_2026",
-            )
             current_record = {
                 "original_question_id": "q1",
                 "public_question_id": "q1",
@@ -167,13 +285,10 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 "questionIntent": "select_correct",
                 "correctChoiceText": ["間違い", "正しい"],
             }
-            finder_calls: list[dict[str, object]] = []
-
-            def record_finder(work_item, *, output_root):
-                finder_calls.append(
-                    {"workItem": work_item, "outputRoot": output_root}
-                )
-                return current_record, current_path, source_identity
+            source_path.write_text(
+                json.dumps({"question_bodies": [current_record]}), encoding="utf-8"
+            )
+            source_before = source_path.read_bytes()
 
             def review_runner(work_item, **options):
                 candidate = work_item["caseSnapshots"][0]["canonicalSnapshot"][
@@ -218,20 +333,12 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 app_server=object(),
                 config_path=CONFIG_PATH,
                 review_runner=review_runner,
-                record_finder=record_finder,
                 patch_verifier=patch_verifier,
             )
+            question = self._projected_question(current_record)
             result = service.run(
-                {
-                    "id": "ui-q1",
-                    "qualification": "sample",
-                    "listGroupId": "2026",
-                    "originalQuestionId": "q1",
-                    "sourceQuestionKey": "sample:2026:q1",
-                    "sourceRecordRef": "question_2026.json#0",
-                    "stateHash": "a" * 64,
-                },
-                state_hash="a" * 64,
+                question,
+                state_hash=question["stateHash"],
                 evidence_path=str(evidence_path),
                 evidence_title="2026年度 公式問題冊子",
                 evidence_locator="問1",
@@ -255,8 +362,11 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 patch["entries"][0]["sourceRecordRef"],
                 "question_2026.json#0",
             )
+            self.assertRegex(
+                patch["entries"][0]["expectedBeforeHash"],
+                r"^[0-9a-f]{64}$",
+            )
             self.assertEqual(source_path.read_bytes(), source_before)
-            self.assertEqual(len(finder_calls), 1)
             self.assertEqual(len(verifier_calls), 1)
 
     def test_pdf_evidence_is_rendered_to_the_locator_page_before_review(

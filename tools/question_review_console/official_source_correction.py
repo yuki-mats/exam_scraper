@@ -13,6 +13,11 @@ from scripts.common.image_storage_urls import (
     build_public_storage_url,
     build_storage_object_path,
 )
+from scripts.common.question_identity import (
+    SourceIdentityBinding,
+    SourceRecordIdentity,
+    load_source_record_inventory,
+)
 from scripts.upload.upload_question_images_to_storage import make_storage_bucket
 from tools.question_bank.question_issue_reports import (
     DEFAULT_CONFIG_PATH,
@@ -28,6 +33,7 @@ from tools.question_bank.question_issue_reports import (
     verify_patch_against_record,
     write_private_json,
 )
+from tools.question_review_console.projection import PROJECTED_COMPARE_FIELDS
 
 
 ALLOWED_EVIDENCE_SUFFIXES = {".pdf", ".png", ".jpg", ".jpeg", ".webp"}
@@ -163,9 +169,87 @@ class OfficialSourceCorrectionService:
         self.config = load_config(self.config_path)
         self.review_runner = review_runner
         self.record_finder = record_finder
+        self._uses_server_owned_projection = record_finder is find_current_question_record
         self.patch_verifier = patch_verifier
         self.page_renderer = page_renderer or self._render_pdf_page
         self.image_publisher = image_publisher or self._publish_question_image
+
+    def _server_owned_current_record(
+        self,
+        question: Mapping[str, Any],
+        *,
+        qualification: str,
+        list_group_id: str,
+        state_hash: str,
+    ) -> tuple[dict[str, Any], Path, SourceRecordIdentity]:
+        projected = question.get("projected")
+        if not isinstance(projected, Mapping):
+            raise OfficialSourceCorrectionError(
+                "server生成のprojected問題がないため公式資料を照合できません。"
+            )
+        current_state_hash = self._required_text(question, "stateHash")
+        if state_hash != current_state_hash:
+            raise OfficialSourceCorrectionError(
+                "画面表示後に問題内容が更新されました。問題を開き直してください。"
+            )
+        projected_hash = sha256_json(
+            {field: projected.get(field) for field in PROJECTED_COMPARE_FIELDS}
+        )
+        if projected_hash != current_state_hash:
+            raise OfficialSourceCorrectionError(
+                "server生成のprojected問題hashがstateHashと一致しません。"
+            )
+        requested_binding = SourceIdentityBinding.from_mapping(question)
+        if not requested_binding.is_complete():
+            raise OfficialSourceCorrectionError(
+                "要求されたsource identityが完全ではありません。"
+            )
+        projected_identity_values = {
+            "sourceQuestionKey": str(projected.get("sourceQuestionKey") or ""),
+            "reviewQuestionId": str(
+                projected.get("reviewQuestionId")
+                or projected.get("original_question_id")
+                or ""
+            ),
+            "sourceRecordRef": str(projected.get("sourceRecordRef") or ""),
+        }
+        requested_identity_values = requested_binding.as_mapping()
+        if any(
+            value and value != requested_identity_values[field]
+            for field, value in projected_identity_values.items()
+        ):
+            raise OfficialSourceCorrectionError(
+                "server生成のprojected問題identityが要求identityと矛盾します。"
+            )
+        source_dir = (
+            self.repo_root
+            / "output"
+            / qualification
+            / "questions_json"
+            / list_group_id
+            / "00_source"
+        )
+        try:
+            source_inventory = load_source_record_inventory(
+                source_dir,
+                qualification=qualification,
+                list_group_id=list_group_id,
+            )
+        except ValueError as exc:
+            raise OfficialSourceCorrectionError(
+                "00_source inventoryを一意に検証できません。"
+            ) from exc
+        matches = [
+            entry
+            for entry in source_inventory
+            if entry.identity.binding == requested_binding
+        ]
+        if len(matches) != 1:
+            raise OfficialSourceCorrectionError(
+                "要求identityが00_sourceのexact one recordへ解決できません。"
+            )
+        match = matches[0]
+        return dict(projected), match.path, match.identity
 
     def run(
         self,
@@ -183,10 +267,6 @@ class OfficialSourceCorrectionService:
         list_group_id = self._required_text(question, "listGroupId")
         original_question_id = self._required_text(question, "originalQuestionId")
         current_state_hash = self._required_text(question, "stateHash")
-        if state_hash != current_state_hash:
-            raise OfficialSourceCorrectionError(
-                "画面表示後に問題内容が更新されました。問題を開き直してください。"
-            )
         category_id = str(category or "").strip()
         if category_id not in {"question_content", "correct_answer", "image"}:
             raise OfficialSourceCorrectionError(
@@ -297,9 +377,18 @@ class OfficialSourceCorrectionService:
             "workItems": [work_item],
         }
 
-        current_record, current_path, source_identity = self.record_finder(
-            work_item,
-            output_root=self.repo_root / "output",
+        current_record, current_path, source_identity = (
+            self._server_owned_current_record(
+                question,
+                qualification=qualification,
+                list_group_id=list_group_id,
+                state_hash=state_hash,
+            )
+            if self._uses_server_owned_projection
+            else self.record_finder(
+                work_item,
+                output_root=self.repo_root / "output",
+            )
         )
         image_publication: dict[str, Any] | None = None
         if category_id == "image":
