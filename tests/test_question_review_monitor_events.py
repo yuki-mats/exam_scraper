@@ -10,6 +10,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.question_review_console.monitor_events import (
+    MAX_DISK_BATCH_SIZE,
     MAX_MONITOR_BINDINGS,
     MAX_PENDING_GAP_SEGMENTS,
     MonitorEventHub,
@@ -27,6 +28,57 @@ def bind_store(store, thread_id="thread-1", **context):
 
 
 class MonitorEventStoreTests(unittest.TestCase):
+    def test_300_producer_disk_batches_are_bounded_ordered_and_durable(self):
+        class RecordingHub(MonitorEventHub):
+            batch_sizes = []
+
+            def _write_disk_batch(self, events):
+                self.batch_sizes.append(len(events))
+                return super()._write_disk_batch(events)
+
+        with tempfile.TemporaryDirectory() as directory:
+            hub = RecordingHub(Path(directory), queue_capacity=4096)
+            hub.bind_runtime(
+                {"qualification": "sample", "runId": "run"},
+                "thread",
+                "turn",
+            )
+            barrier = threading.Barrier(300)
+
+            def produce(index):
+                barrier.wait()
+                hub.observe(
+                    {
+                        "method": "item/agentMessage/delta",
+                        "params": {
+                            "threadId": "thread",
+                            "turnId": "turn",
+                            "itemId": f"item-{index}",
+                            "delta": str(index),
+                        },
+                    }
+                )
+
+            with ThreadPoolExecutor(max_workers=300) as executor:
+                list(executor.map(produce, range(300)))
+            hub.drain(timeout=10)
+            hub.close(timeout=10)
+
+            self.assertTrue(hub.batch_sizes)
+            self.assertLessEqual(max(hub.batch_sizes), MAX_DISK_BATCH_SIZE)
+            path = (
+                Path(directory)
+                / "output/question_review_console/runtime_observations"
+                / "sample/run/events.jsonl"
+            )
+            events = [json.loads(line) for line in path.read_text().splitlines()]
+            sequences = [event["sequence"] for event in events]
+            self.assertEqual(sequences, sorted(sequences))
+            self.assertEqual(len(events), 300)
+            snapshot = json.loads(path.with_name("snapshot.json").read_text())
+            self.assertTrue(snapshot["cursor"].endswith(f":{sequences[-1]}"))
+            self.assertEqual(hub.health()["observationHealth"]["diskFailures"], 0)
+
     def test_delta_events_are_append_only_and_publish_redacted_replacements(self):
         store = MonitorEventStore(start_worker=False, server_instance_id="server")
         bind_store(store, runId="run-1", questionId="question-1")

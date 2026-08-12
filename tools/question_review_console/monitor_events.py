@@ -32,6 +32,7 @@ MAX_RUN_OBSERVATION_METRICS = (
     MAX_MONITOR_BINDINGS * MAX_RUN_ROUTES_PER_BINDING
 )
 DEFAULT_EVENT_LIFECYCLE_TIMEOUT_SECONDS = 5.0
+MAX_DISK_BATCH_SIZE = 256
 EVENT_LIFECYCLE_WAIT_SLICE_SECONDS = 0.05
 MAX_RUN_OBSERVATION_BYTES = (
     MAX_RUN_EVENT_LOG_BYTES * (1 + RUN_EVENT_LOG_BACKUPS)
@@ -2135,6 +2136,49 @@ class MonitorEventHub(MonitorEventStore):
         return current_candidate[4], current_candidate[5]
 
     @classmethod
+    def _ensure_observation_batch_capacity_fd(
+        cls,
+        observation_fd: int,
+        routes: set[tuple[str, str]],
+    ) -> dict[tuple[str, str], tuple[int, int] | None]:
+        """Reserve all batch routes from one capacity-directory scan."""
+
+        candidates = cls._observation_candidates_fd(observation_fd)
+        retained = list(candidates)
+        for candidate in sorted(candidates, key=lambda item: item[:3]):
+            route = (candidate[1], candidate[2])
+            if not candidate[3] or route in routes:
+                continue
+            cls._prune_observation_run_fd(
+                observation_fd,
+                candidate[1],
+                candidate[2],
+                expected_identity=(candidate[4], candidate[5]),
+            )
+            retained.remove(candidate)
+        existing_routes = {(item[1], item[2]) for item in retained}
+        required = len(retained) + len(routes - existing_routes)
+        prune_count = max(0, required - max(1, MAX_OBSERVATION_RUNS))
+        safe_candidates = sorted(
+            (item for item in retained if (item[1], item[2]) not in routes),
+            key=lambda item: (item[0], item[1], item[2]),
+        )
+        if len(safe_candidates) < prune_count:
+            raise OSError("no safe monitor observation run can be pruned")
+        for candidate in safe_candidates[:prune_count]:
+            cls._prune_observation_run_fd(
+                observation_fd,
+                candidate[1],
+                candidate[2],
+                expected_identity=(candidate[4], candidate[5]),
+            )
+            retained.remove(candidate)
+        identities = {
+            (item[1], item[2]): (item[4], item[5]) for item in retained
+        }
+        return {route: identities.get(route) for route in routes}
+
+    @classmethod
     def _cleanup_snapshot_temporaries_fd(cls, run_fd: int) -> None:
         for name in os.listdir(run_fd):
             if not (
@@ -2228,18 +2272,35 @@ class MonitorEventHub(MonitorEventStore):
                     event = self._disk_queue.get(timeout=0.05)
                 except queue.Empty:
                     continue
+                batch = [event]
+                while len(batch) < MAX_DISK_BATCH_SIZE:
+                    try:
+                        batch.append(self._disk_queue.get_nowait())
+                    except queue.Empty:
+                        break
                 try:
                     try:
-                        self._write_disk_event(event)
+                        # Keep the single-event seam for fault-injection tests and
+                        # callers which intentionally replace it on the instance.
+                        if "_write_disk_event" in self.__dict__:
+                            for item in batch:
+                                try:
+                                    self._write_disk_event(item)
+                                except Exception:
+                                    self._mark_disk_failure(item)
+                        else:
+                            self._write_disk_batch(batch)
                     except Exception:
-                        self._mark_disk_failure(event)
+                        for item in batch:
+                            self._mark_disk_failure(item)
                 except BaseException as exc:
                     with self._condition:
                         self._disk_worker_failure = exc
                         self._condition.notify_all()
                     return
                 finally:
-                    self._disk_queue.task_done()
+                    for _item in batch:
+                        self._disk_queue.task_done()
         except BaseException as exc:
             with self._condition:
                 self._disk_worker_failure = exc
@@ -2325,30 +2386,39 @@ class MonitorEventHub(MonitorEventStore):
         run_fd: int | None = None
         temporary_name: str | None = None
         try:
-            repo_fd = os.open(self.repo_root, self._directory_flags())
-            opened.append(repo_fd)
-            parent_fd = repo_fd
-            for part in (
-                "output",
-                "question_review_console",
-                "runtime_observations",
-            ):
-                child_fd = self._open_directory_at(
-                    parent_fd,
-                    part,
-                    create=True,
-                )
-                opened.append(child_fd)
-                parent_fd = child_fd
-            observation_fd = parent_fd
-            lock_fd = self._open_observation_lock_fd(observation_fd)
-            self._acquire_observation_lock(lock_fd)
+            batch_context = getattr(self, "_disk_batch_context", None)
+            if batch_context is None:
+                repo_fd = os.open(self.repo_root, self._directory_flags())
+                opened.append(repo_fd)
+                parent_fd = repo_fd
+                for part in (
+                    "output",
+                    "question_review_console",
+                    "runtime_observations",
+                ):
+                    child_fd = self._open_directory_at(
+                        parent_fd,
+                        part,
+                        create=True,
+                    )
+                    opened.append(child_fd)
+                    parent_fd = child_fd
+                observation_fd = parent_fd
+                lock_fd = self._open_observation_lock_fd(observation_fd)
+                self._acquire_observation_lock(lock_fd)
+            else:
+                observation_fd = batch_context["observation_fd"]
 
-            expected_run_identity = self._ensure_observation_run_capacity_fd(
-                observation_fd,
-                qualification,
-                run_id,
-            )
+            if batch_context is None:
+                expected_run_identity = self._ensure_observation_run_capacity_fd(
+                    observation_fd,
+                    qualification,
+                    run_id,
+                )
+            else:
+                expected_run_identity = batch_context["expected_identities"][
+                    (qualification, run_id)
+                ]
             qualification_fd = self._open_directory_at(
                 observation_fd,
                 qualification,
@@ -2361,6 +2431,12 @@ class MonitorEventHub(MonitorEventStore):
                 expected_identity=expected_run_identity,
             )
             opened.append(run_fd)
+            if batch_context is not None and expected_run_identity is None:
+                run_stat = os.fstat(run_fd)
+                batch_context["expected_identities"][(qualification, run_id)] = (
+                    run_stat.st_dev,
+                    run_stat.st_ino,
+                )
             self._cleanup_snapshot_temporaries_fd(run_fd)
             line = json.dumps(event, ensure_ascii=False, separators=(",", ":")) + "\n"
             encoded_line = line.encode("utf-8")
@@ -2426,6 +2502,10 @@ class MonitorEventHub(MonitorEventStore):
                         self._run_events.get((qualification, run_id), ())
                     ),
                 }
+            if batch_context is not None and int(event["sequence"]) != batch_context[
+                "last_sequence_by_route"
+            ][(qualification, run_id)]:
+                return
             snapshot = {
                 "schemaVersion": SCHEMA_VERSION,
                 "serverInstanceId": self.server_instance_id,
@@ -2497,3 +2577,58 @@ class MonitorEventHub(MonitorEventStore):
                     os.close(descriptor)
                 except OSError:
                     pass
+
+    def _write_disk_batch(self, events: list[Mapping[str, Any]]) -> None:
+        """Persist one bounded batch under one repository observation lock."""
+
+        opened: list[int] = []
+        lock_fd: int | None = None
+        try:
+            repo_fd = os.open(self.repo_root, self._directory_flags())
+            opened.append(repo_fd)
+            parent_fd = repo_fd
+            for part in (
+                "output",
+                "question_review_console",
+                "runtime_observations",
+            ):
+                child_fd = self._open_directory_at(parent_fd, part, create=True)
+                opened.append(child_fd)
+                parent_fd = child_fd
+            observation_fd = parent_fd
+            lock_fd = self._open_observation_lock_fd(observation_fd)
+            self._acquire_observation_lock(lock_fd)
+            last_sequence_by_route: dict[tuple[str, str], int] = {}
+            for event in events:
+                correlation = event.get("correlation")
+                if not isinstance(correlation, Mapping):
+                    raise OSError("monitor event has no disk correlation")
+                qualification = self._safe_disk_id(correlation.get("qualification"))
+                run_id = self._safe_disk_id(
+                    correlation.get("parentRunId") or correlation.get("runId")
+                )
+                if qualification is None or run_id is None:
+                    raise OSError("monitor event has unsafe disk correlation")
+                last_sequence_by_route[(qualification, run_id)] = int(event["sequence"])
+            self._disk_batch_context = {
+                "observation_fd": observation_fd,
+                "last_sequence_by_route": last_sequence_by_route,
+                "expected_identities": self._ensure_observation_batch_capacity_fd(
+                    observation_fd,
+                    set(last_sequence_by_route),
+                ),
+            }
+            for event in events:
+                try:
+                    self._write_disk_event(event)
+                except Exception:
+                    self._mark_disk_failure(event)
+        finally:
+            self.__dict__.pop("_disk_batch_context", None)
+            if lock_fd is not None:
+                try:
+                    fcntl.flock(lock_fd, fcntl.LOCK_UN)
+                finally:
+                    os.close(lock_fd)
+            for descriptor in reversed(opened):
+                os.close(descriptor)
