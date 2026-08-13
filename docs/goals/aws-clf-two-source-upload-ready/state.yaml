@@ -4,21 +4,21 @@ goal:
   title: "AWS CLF全件 fast整備・upload-ready収束"
   slug: "aws-clf-two-source-upload-ready"
   kind: recovery
-  tranche: "既存成果物を保持し、問題整備システムでCLF-C02全対象の未完了工程をfast収束してupload dry-runまで完了する"
+  tranche: "既存成果物を保持し、CLF-C02の公開可能な確定問題を先に本番反映してTailscale Webで学習開始まで確認し、未完了問題は別管理で収束を続ける"
   status: active
   oracle:
-    signal: "問題整備システムのCLF-C02全対象run、artifact sync、upload-ready、quality gate、upload dry-runが成功し、Firestore writes=0、00_source不変、blocking/hold/pending=0である"
+    signal: "CLF-C02の公開対象が現行工程・評価・upload-ready・quality gateを通り、Firestoreへ限定反映され、資格一覧の正式名・カタカナ検索・Tailscale Webの学習開始がlive readbackで一致する。未公開問題は理由付きで対象外に残り、00_sourceは不変である"
     cadence: "after each Worker package and at final audit"
-    final_proof: "対象資格・全list group・全問題件数、終端manifest、verified receipt、artifact sync、upload-ready hash、quality gate、upload dry-run、Firestore非書込、00_source hash、Git push readback"
+    final_proof: "公開対象ID・件数、終端manifest、verified receipt、artifact SHA、quality gate、Firestore追加/更新件数と直後readback、資格一覧・カタカナ検索・学習開始のTailscale画面、00_source hash、両repositoryのGit push readback"
   intake:
     original_request: "aws過去問を整備しておいて。現在ローカルにあるCLF-C02全件を、Firestore反映直前まで、fastモードで最速、問題整備システム経由で実行する。"
-    interpreted_outcome: "CLF-C02の全ローカル対象を問題整備システムでfast収束し、Firestoreへ書かずupload-readyとdry-run合格まで閉じる。"
+    interpreted_outcome: "当初のupload-readyまでという境界は、ユーザーの最新指示でCLF-C02の公開可能な確定問題に限りFirestore本番反映まで拡張された。AWSは一つの正式資格名へ統一し、カタカナ検索とTailscale Webの学習開始まで閉じる。"
     input_shape: recovery
     audience: "AWS Certified Cloud Practitionerを学習する受験者"
     authority: requested
     proof_type: artifact
-    completion_proof: "全対象の終端run、公開前artifact、quality gate、upload dry-run、Firestore非書込、00_source不変のreceiptが一致する。"
-    likely_misfire: "問題整備システムを迂回する、03だけで完了扱いする、片方の取得元だけ処理する、fastモードを理由に検証を省略する、又はFirestoreへ書く。"
+    completion_proof: "公開対象の終端run、現行評価、公開artifact、quality gate、限定Firestore writeとreadback、Web実画面、00_source不変のreceiptが一致する。"
+    likely_misfire: "未完了問題を公開対象へ混ぜる、問題整備システムを迂回する、取得元ごとに別資格表示する、検索データだけ直して実画面を確認しない、又はreadbackなしでFirestore反映を完了扱いする。"
     blind_spots_considered:
       - "既存runとrepository lock"
       - "前回03成果物の現行性"
@@ -32,6 +32,8 @@ goal:
       - "問題整備システム経由だけで実行する。"
       - "fastモードで最速化する。"
       - "Firestore反映直前のupload-ready・dry-runまでで止める。"
+      - "最新指示により、公開条件を満たしたCLF-C02問題だけはFirestore本番反映を許可された。"
+      - "資格一覧はAWS Certified Cloud Practitioner (CLF-C02)へ統一し、カタカナ検索とTailscale Web確認を行う。"
       - "既存のAWS 03整備goalは完了済みだが、現行状態を再確認する。"
 
 rules:
@@ -67,7 +69,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-clf-two-source-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/docs/goals/aws-clf-two-source-upload-ready"
 
-active_task: T079
+active_task: T114
 
 tasks:
   - id: T001
@@ -4863,7 +4865,7 @@ tasks:
   - id: T079
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "通常の問題整備UIだけを使う。両groupの『整備が必要な問題だけ』で、02 policy 4.0が残るexact 876問（KeepItUp 329、Ping-t 547）を単一資格runとして02→02a→03→04、Standard/auto_max、画像なしで再整備する。T073で5.0/currentとなった3問は対象外に保つ。876/876・3504/3504 validatedの終端後、自動artifact syncで両groupの12/20/30/40/upload-ready、requirements check、upload dry-runを成功させる。通常UIで5 canonical reviewの修正後内容を確認してapprovedにし、CLF204C012 duplicateは変更しない。Firestore/Storageへ書かず、00_sourceと全IDを維持する。"
     depends_on:
@@ -4871,6 +4873,7 @@ tasks:
       - T081
       - T082
       - T083
+      - T086
     inputs:
       - "T078 receipt"
       - "all AWS CLF-C02 879 work versions"
@@ -4934,22 +4937,17 @@ tasks:
       result: blocked
       changed_files: []
       commands:
-        - cmd: "通常Chrome UIでAWS CLF-C02両group preview設定・再試行"
+        - cmd: "ps -axo pid,ppid,etime,state,command | rg \"(git (add|status)|review-ui|question_review|aws-solutions-architect-associate|aws-cloud-practitioner)\""
           status: fail
-          detail: "HTTP 200後も確認中表示"
-        - cmd: "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check/check_00_source_immutability.py"
-          status: pass
-        - cmd: "git diff/status/sync readback"
-          status: pass
-          detail: "clean 0 0"
-        - cmd: "listener/process/lock/lease cleanup"
-          status: pass
-      summary: "通常UIで両group、必要問題のみ、02/02a/03/04、targets6、Standard/auto_max、画像・05・01なしを設定。server preview HTTP200だがUIが確認中のままexact876・329/547・3504 workを表示できず、開始前停止。run/review/artifact0。"
+          detail: "PID 34292のgit addが.git/index.lockを保持し、PID 50545の別git statusも長時間残存しているため、Git状態を安全に確認できない。プロセス停止・lock削除は未実施。"
+      summary: "起動前安全確認で、SAA state.yamlを対象とするgit addが.git/index.lockを保持し、別のgit statusも残存していることを確認した。Git状態を安全に確認できないため、T079のUI起動、run開始、review承認、artifact sync、dry-run、編集、commit、pushを行わず停止した。"
       remaining_blockers:
-        - "preview HTTP200 responseのUI render未完了"
-      needs_judge: true
-      verification_attempts: 1
-      stopped_because: "UIからexact previewを確認不能。"
+        - "PID 34292のgit addと.git/index.lockが残存している。"
+        - "PID 50545の別git statusが残存している。"
+        - "Git状態を安全に確認できる状態でT079を再実行する必要がある。"
+      needs_judge: false
+      verification_attempts: 0
+      stopped_because: "既存git addが.git/index.lockを保持し、別git statusも残存しているため、T079のGit安全確認を完了できない。"
   - id: T080
     type: judge
     assignee: Judge
@@ -5164,6 +5162,1381 @@ tasks:
       needs_judge: false
       verification_attempts: 1
       stopped_because: null
+  - id: T084
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "T079を止めている既存Git処理をread-onlyで監査する。PID 34292のSAA state.yaml git add、PID 50545のgit status、.git/index.lockの所有関係・進行有無・親process・open file・経過時間を確定し、他者の作業を停止又は破壊せずにCLF T079の安全なGit事前確認へ戻れる最小経路を示す。"
+    inputs:
+      - "T079 blocked receipt"
+      - ".git/index.lock"
+      - "current git process tree and open files"
+      - "current HEAD and origin/main refs"
+    constraints:
+      - "Read-only。"
+      - "git processへsignalを送らない。"
+      - ".git/index.lockを削除・移動・変更しない。"
+      - "index、worktree、goal board、runtime、review、artifact、00_sourceを変更しない。"
+      - "別clone又は別資格の作業を引き継いだり巻き戻したりしない。"
+    expected_output:
+      - "各Git processのPID、親、cwd、開始時刻、待機対象、open file、進行有無"
+      - "index.lockの作成元と安全に解消される条件"
+      - "Git statusを待つべきか、所有者確認が必要か、又は別の非破壊readbackでT079を再開可能か"
+      - "T079を再開するためのexact条件と次のPM/Worker action"
+    receipt:
+      result: done
+      summary: "両Git処理はDrive candidate実体で長時間停止中。34292はSAA state.yamlをadd中にindex.lockを所有し、50545はstatus中。双方ともpack indexのmmapで停止しCPU時間不変。T079は再開不可。所有者確認後、処理が自然終了しlock消失、または所有者が停止を承認して残存lockを別作業で安全確認・解消した後、通常git status完了を必須条件とする。"
+      evidence:
+        - item: "PID 34292"
+          detail: "PPID 1、PGID 34292、開始2026-08-11 22:54:16 +0900、経過約2時間10分、cwdはDrive candidate。git add docs/goals/aws-saa-c03-395-upload-ready/state.yaml。FD 4で対象state.yamlをread、FD 3で.git/index.lockをwrite-open。"
+        - item: "PID 34292 wait"
+          detail: "sampleではadd_to_index→freshen_packed_object→open_pack_index→mmapで全sample停止。2秒間のCPU timeは0:00.12のまま、経過時間だけ増加した。"
+        - item: "PID 50545"
+          detail: "PPID 50543、PGID 50543、開始2026-08-11 23:31:48 +0900、経過約1時間32分、cwdは同じDrive candidate。git status --short。"
+        - item: "PID 50545 parent"
+          detail: "50543はPPID 1のorphan zshで、stat後にgit status --short、git diff --name-onlyを逐次実行するコマンド。status未完了のためdiffには進んでいない。"
+        - item: "PID 50545 wait"
+          detail: "sampleではcmd_status→setup_revisions→open_pack_index→mmapで全sample停止。2秒間のCPU timeは0:00.26のまま、経過時間だけ増加した。"
+        - item: "index.lock"
+          detail: "inode 178540877、size 0、作成・更新2026-08-11 22:54:17 +0900。lsofで34292のFD 3uだけが所有。"
+        - item: "repository identity"
+          detail: "/Users/yuki/development/exam_scraperはDrive candidate実体へ解決され、両processのcwdと一致。HEADとorigin/mainはいずれも5df9ebaec52c402c81d0110a2d123d41dd2a27c0。"
+      facts:
+        - "34292はliveなlock ownerであり、現在のindex.lockをstale扱いして削除できない。"
+        - "両processは同じpack index mmapで停止しており、観測区間に進行はない。Google Drive配下のpack index mmap完了待ちと判断できる。"
+        - "50545はindex.lock待ちではなく、read-only status自身が同じmmap箇所で停止している。"
+        - "安全な自然解消は34292がmmapを抜け、git addが正常完了してlockをindexへrenameして終了し、50545も完了すること。"
+        - "所有者が34292の停止を選ぶ場合、signal送信は本Scoutの範囲外。停止確認後もlockが残るなら、全Git writer不在・lock owner不在・index存在を再確認し、所有者承認を得た別Workerだけがstale lockを解消する。"
+        - "T079再開のexact条件は、34292・50543・50545が不存在、lsofでindex.lock ownerなし、index.lock不存在、通常のgit status --shortが有限時間で完了、branch main、HEAD=origin/main、作業ツリー状態を確認できること。"
+        - "次のPM actionは、34292を起動したSAA作業の所有者へ継続待機か停止かを確認すること。次のWorker actionは、承認された解消後に上記exact条件をreadbackし、T079を再実行すること。"
+      contradictions:
+        - claim: "待てば直ちにGit事前確認へ戻れる可能性"
+          evidence: "34292は約2時間10分、50545は約1時間32分停止し、CPU time不変かつ双方がmmap内に固定されているため、単純待機だけを安全な短期経路とは評価できない。"
+        - claim: "別の非破壊readbackだけでT079を再開可能"
+          evidence: "refs一致は直接確認できるが、index/worktree状態と進行中addの最終結果は確定できない。通常git status完了なしではGit安全事前確認を代替できない。"
+      ambiguity_requiring_judge: []
+      commands:
+        - "rg -n -A28 -B6 'T084|34292|50545|index.lock' docs/goals/aws-clf-two-source-upload-ready/state.yaml"
+        - "ps/lsof/statによるPID 34292・50545、cwd、標準FD、index.lock所有確認"
+        - "ps/lsofによるPID 1・34292・50543・50545の親子関係、CPU time、open file確認"
+        - "pwd -P、git rev-parse、stat、2秒間隔psによるrepository identity・refs・進行確認"
+        - "sample 34292 1 1; sample 50545 1 1 による待機stack確認"
+      note_needed: false
+  - id: T085
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T084のGit process監査を基に、別資格SAAのorphan git add/statusを保護しつつCLF T079を再開する安全境界を決める。自然待機、明示停止、別clone利用、又はユーザー承認待ちを比較し、破壊的操作を含まない最大の次Worker packageと、必要ならexact approval phraseを確定する。"
+    inputs:
+      - "T079 blocked receipt"
+      - "T084 receipt"
+      - "goal oracle and Git operation constraints"
+    constraints:
+      - "Read-only。"
+      - "processへsignalを送らない。"
+      - "index.lock、index、worktree、別clone、board、runtime、artifactを変更しない。"
+      - "SAA作業の所有権をCLF goalへ勝手に移さない。"
+      - "Git安全確認を省略してT079を開始しない。"
+    expected_output:
+      - "Decision"
+      - "Safest next action and rejected alternatives"
+      - "Exact Worker objective、allowed_files、verify、stop_if"
+      - "Human approvalが必要か。必要ならexact required reply"
+      - "T079再開条件"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "T079の即時再開は不承認。自然待機は最も安全だが、2時間超無進行のため単独策として弱い。別cloneは共有index・SAA未完了差分を解決せず、停止は別資格の所有権に触れる。ユーザーの明示承認後、SIGTERMとownerless lockの可逆隔離だけを行う専用Workerを先行させ、clean・main同期を確認してからT079を再審査する。"
+      evidence:
+        - "T084: PID 34292はSAA state.yamlのgit addでindex.lock inode 178540877をwrite-openし、PPID 1、約2時間10分、CPU time不変でpack index mmap内に停止。"
+        - "T084: PID 50545はgit status中、親PID 50543もorphan shellで、約1時間32分、同じpack index mmap内に停止。"
+        - "T084: 両processのcwdは現repo実体で、HEADとorigin/mainは5df9ebaec52c402c81d0110a2d123d41dd2a27c0。"
+        - "T084: 通常git statusが完了しないため、index/worktree状態とgit addの最終結果は未確定。"
+        - "T079: Git安全確認に失敗した時点でUI起動、run、review承認、artifact sync、dry-run、編集、commit、pushを一切開始していない。"
+        - "自然終了にはlock ownerのgit addが正常完了する必要があるが、観測区間で進行がなく、無期限待機ではT079再開条件を証明できない。"
+        - "別cloneは現在の共有index、SAA差分、CLF成果物の正本状態を確定せず、mainへの競合経路を増やすため不承認。"
+        - "SAA processの停止をCLF goalだけで決定すると、別資格作業の所有権を無断で移すため不承認。"
+      parallel_safety:
+        safe: false
+        reason: "repository-globalなGit process、index、index.lockを扱うため、SAA・CLFを含むGit操作との並列実行は安全でない。"
+        required_order:
+          - "ユーザーのexact approval"
+          - "専用Git recovery Worker"
+          - "SAA未完了差分の所有者処理"
+          - "clean・main同期readback"
+          - "T079"
+      blocked_tasks:
+        - "T079: Git process不存在、index.lock不存在、通常git status完了、clean、main、HEAD=origin/mainが揃うまで再開不可。"
+        - "T999: T079の終端receiptと後続oracle証拠がないため開始不可。"
+      missing_evidence:
+        - "SAA process停止とownerless stale lock隔離に対するユーザーの明示承認。"
+        - "実行直前のPID、PGID、開始時刻、cwd、command、lock inode・owner再確認。"
+        - "SIGTERM後のPID 34292、50543、50545不存在。"
+        - "全Git writer不在、index.lock owner不在、残存lockの可逆隔離readback。"
+        - "通常git status --shortとgit diff --cached --name-onlyの有限時間完了。"
+        - "worktree/index clean、branch main、HEAD=origin/main、ahead/behind=0/0。"
+        - "SAA state.yamlを含む未完了差分が残る場合、その所有者による検証・commit・push完了。"
+      required_board_updates:
+        - update: "T085をdone、T079をblockedのまま維持し、承認前はGit recovery Workerをactiveにしない。"
+        - exact_required_reply: "SAAの中断中Git処理（PID 34292、process group 50543〔PID 50545を含む〕）をSIGTERMで安全停止してください。全Git processとindex.lock ownerの不在を確認後、同一inode 178540877の残存index.lockは削除せず隔離し、index/worktreeを変更・破棄せずに通常のgit statusまで復旧してください。"
+        - t079_restart_conditions:
+            - "PID 34292、50543、50545とrepo対象Git processが不存在。"
+            - "index.lock ownerなし、index.lock不存在。"
+            - "通常git status --shortが有限時間で完了して空。"
+            - "git diff --cached --name-onlyが空。"
+            - "branch main、HEAD=origin/main、ahead/behind=0/0。"
+            - "SAAを含む他者所有の未コミット・未push変更がない。"
+            - "question-review runtime、repository lock、qualification lease競合がない。"
+  - id: T086
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "exact approval受領後、実行直前にPID 34292、PGID 50543、PID 50545のidentity、cwd、開始時刻、command、open file、index.lock inode・ownerを再確認する。一致時だけ親shell側process group 50543とPID 34292へSIGTERMを送り、30秒以内の自然終了を待つ。SIGKILLは使わない。全Git process・lock owner不在後も同一inode 178540877のindex.lockが残る場合だけ、削除せず指定先へ原子的に隔離する。通常git status、index/worktree、branch、HEAD/originをreadbackし、SAA差分には触れずreceiptを返す。T079は開始しない。"
+    depends_on:
+      - T085
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/.git/index.lock"
+      - "/Users/yuki/development/exam_scraper/.git/index.lock.goalbuddy-quarantine-178540877"
+    verify:
+      - "exact approvalが記録されている。"
+      - "signal前のPID、PGID、cwd、開始時刻、commandがT084証拠と一致する。"
+      - "SIGTERM後30秒以内にPID 34292、50543、50545が不存在となる。"
+      - "他のGit writer・readerとindex.lock ownerが0である。"
+      - "隔離する場合、元lockはinode 178540877、size 0、ownerなしであり、隔離先に同一inode・内容が保存される。"
+      - "通常git status --shortとgit diff --cached --name-onlyが有限時間で完了する。"
+      - "branch main、HEAD=origin/main、ahead/behind=0/0をreadbackする。"
+      - "reset、checkout、clean、SIGKILL、lock削除、index置換、commit、push、board/worktree編集を行っていない。"
+    stop_if:
+      - "exact approvalがない。"
+      - "PID、PGID、cwd、開始時刻、command又はlock inodeがT084証拠と異なる。"
+      - "別のGit writer又はlock ownerが存在する。"
+      - "SIGTERM後30秒で一つでもprocessが残る。SIGKILLへ進まない。"
+      - "index.lockにownerが残る、inodeが変わる、sizeが0でない、又は隔離の安全性を証明できない。"
+      - "通常git statusが完了しない。"
+      - "SAA又は他者の差分、staged変更、dirty worktreeが見つかる。変更・commit・巻き戻しを行わず所有者へ返す。"
+      - "mainでない、HEADとorigin/mainが一致しない、又はahead/behindが0/0でない。"
+    receipt:
+      result: blocked
+      waiting_for_user_approval: true
+      required_reply: "SAAの中断中Git処理（PID 34292、process group 50543〔PID 50545を含む〕）をSIGTERMで安全停止してください。全Git processとindex.lock ownerの不在を確認後、同一inode 178540877の残存index.lockは削除せず隔離し、index/worktreeを変更・破棄せずに通常のgit statusまで復旧してください。"
+      summary: "別資格SAAの孤立Git処理を停止し、所有者のいないロックを可逆隔離するには、既存作業の所有権境界を越えるためユーザーの明示承認が必要。"
+  - id: T087
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "孤立Git processとindex.lockが自然解消した後もgit statusを止めているdataless pack indexをread-onlyで監査する。pack-091aaedb6d346702525bae2d6fa7a180d16e9789.idxと対応packのinode、size、flags、pack trailer hash、Git object参照状況、Google Drive materialization状態を確定し、既存Git履歴・index・worktreeを変更せずに復旧する最大の安全なWorker packageを示す。"
+    inputs:
+      - "T084 and T085 receipts"
+      - ".git/objects/pack/pack-091aaedb6d346702525bae2d6fa7a180d16e9789.idx"
+      - ".git/objects/pack/pack-091aaedb6d346702525bae2d6fa7a180d16e9789.pack"
+      - "git status mmap failure"
+    constraints:
+      - "Read-only。"
+      - "pack、idx、index、refs、worktree、boardを変更しない。"
+      - "Google Drive又はGit processを再起動・停止しない。"
+      - "別cloneのdirty差分を採用・変更しない。"
+    expected_output:
+      - "pack/indexの正確な状態とpack integrity evidence"
+      - "materialization待ち、temp再構築、可逆隔離、fresh clone利用の比較"
+      - "Exact Worker objective、allowed_files、verify、stop_if"
+      - "SAA/CLF再開条件"
+    receipt:
+      result: done
+      summary: "対象pack本体は完全で、PACK v2・2276 objects、計算SHA-1・trailer・filenameがすべて091aaed…e9789で一致した。一方idxはinode 115995746、論理64800 bytes、物理0 blocks、compressed,datalessのDrive placeholderで、複数のgit/file readerが同inodeを開いたまま停止する。packから一時idxを再構築・検証し、owner不在時だけ旧idxを可逆隔離して原子的に置換するWorker packageが最大安全範囲。"
+      evidence:
+        - "実体repositoryは/Users/yuki/development/exam_scraperからDrive candidate checkoutへ解決される。"
+        - "対象idxはinode=115995746、size=64800、blocks=0、compressed,dataless。対応packはinode=115995741、size=36718917、blocks=71720でmaterialized。"
+        - "pack headerはPACK v2、objects=2276。pack payload SHA-1、trailer hash、filename hashはいずれも091aaedb6d346702525bae2d6fa7a180d16e9789。"
+        - "repository indexとHEADはmaterialized、index.lockは不在。通常Git操作はdataless idxのopenで停止する。"
+      facts:
+        - "materialized packだけからderived idxをtemp再構築でき、Git履歴、refs、repository index、worktreeを変更しない。"
+        - "旧idxは削除せずGit探索外の固定recovery領域へ可逆隔離し、検証済みidxを最終pathへatomic renameできる。"
+        - "fresh cloneはremote history検証には使えるが現checkoutのSAA/CLF差分を保持しないため代替にしない。"
+        - "SAA/CLF再開条件は復旧verify成功、通常git status反復完走、既存差分の所有範囲確定、Git/runtime lockなし、branch・HEAD/origin・00_source不変。"
+      contradictions:
+        - "pack本体のcryptographic integrityは確認済みだが、対応idxはDrive placeholderでGit object storeとして利用不能。"
+        - "index.lockはないがread-only git status自体がdataless idxで停止する。"
+      ambiguity_requiring_judge:
+        - "旧idxを.git/recovery/T087へ可逆隔離し、packから再構築したidxへatomic置換する操作をderived metadata recoveryとして承認するか。"
+        - "対象idxを開くreaderが自然終了しない場合、今回の目標が開始したreaderをSIGTERM清掃してよいか。"
+      commands:
+        - "stat、ls -lO@、xattrによるidx/pack監査"
+        - "Python streaming SHA-1によるpack payload/trailer/filename一致検証"
+        - "PythonによるPACK header/version/object count読取"
+        - "ps/lsofによるidx open owner・Git process監査"
+      note_needed: false
+  - id: T088
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T087の証拠を監査し、完全性が証明されたmaterialized packからdataless idxだけを再構築する操作をderived metadata recoveryとして承認できるか判断する。今回のgoalが開始してdataless idxで停止したreaderだけのSIGTERM清掃、旧idxの可逆隔離、atomic置換、rollback、fsck/status gateを含む最小Worker packageを確定する。"
+    inputs:
+      - "T087 receipt"
+      - "T084/T085 process ownership boundary"
+      - "Git and 00_source invariants"
+    constraints:
+      - "Read-only。"
+      - "pack、idx、index、refs、worktree、board、processを変更しない。"
+      - "今回のgoal以前から存在するprocess又は別作業processの停止を承認しない。"
+      - "旧idxを削除せずrollback可能性を維持する。"
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective、allowed_files、verify、stop_if"
+      - "今回spawn readerの安全なcleanup境界"
+      - "SAA/CLF board再開順序"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T087はmaterialized pack全体についてPACK v2、2276 objects、payload SHA-1、trailer、filename hashの一致を証明している。したがってidx再構築は履歴変更ではなくderived metadata recoveryとして承認できる。ただし変更は対象idxと専用recovery領域だけに限定し、旧idxを保持する。process清掃は今回のgoal起動を厳密に証明できるread-only readerへの個別SIGTERMだけとし、復旧後のverify-pack、fsck、反復status、00_source不変確認が失敗すればrollbackする。"
+      evidence:
+        - "T087: packはmaterializedでPACK v2、2276 objects、payload SHA-1、trailer、filename hashが一致。"
+        - "T087: idxはinode=115995746、size=64800、blocks=0、compressed,datalessで通常Git操作停止の原因。"
+        - "repository indexとHEADはmaterialized、index.lockは不在。"
+        - "既存SAA Git writer・readerの停止は別作業の所有権境界であり、無断停止不可。"
+      parallel_safety:
+        safe: false
+        reason: "pack indexはrepository-globalであり、rename中のGit reader/writer、SAA/CLF run、review-ui、stage/commit/pushとの並列実行は安全でない。"
+        required_order:
+          - "専用derived metadata recovery Workerを単独実行"
+          - "verify-pack・fsck・反復status・00_source不変の成功"
+          - "既存dirty/staged差分の所有者確定"
+          - "SAA boardを先に再開"
+          - "clean main同期後にCLF T079を再審査"
+      blocked_tasks:
+        - "SAA board: derived metadata recoveryとGit gate成功まで問題整備、stage、commit、pushを開始不可。"
+        - "CLF T079: recovery成功、SAA既存差分の所有者処理、clean main同期まで再開不可。"
+        - "SAA/CLF並列runは不承認。"
+      missing_evidence:
+        - "rebuilt idxのmaterialized状態、2276 objects、pack checksum、self-checksum。"
+        - "atomic隔離・置換と旧idx inode保持のreadback。"
+        - "verify-pack、fsck、反復statusの成功。"
+        - "index、refs、worktree、pack、00_source不変。"
+  - id: T089
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "repository-globalなGit操作とSAA/CLF runを止めた単独実行で、pack-091aaedb6d346702525bae2d6fa7a180d16e9789.packの完全性を再確認する。対象dataless idxにownerがなく、pack・idx・recovery領域が事前条件どおりの場合だけ、専用recovery領域にGit index-packでmaterialized idxを生成して構造・object count・checksumを検証する。旧idxは削除せず同一filesystem上の固定名へatomic renameで隔離し、検証済みidxを最終pathへatomic renameする。verify-pack、fsck、反復status、index/refs/worktree/00_source不変を確認する。失敗時はowner不在を再確認して旧idxをatomic rollbackし、T079、SAA/CLF整備、stage、commit、pushは開始しない。"
+    depends_on:
+      - T088
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/.git/objects/pack/pack-091aaedb6d346702525bae2d6fa7a180d16e9789.idx"
+      - "/Users/yuki/development/exam_scraper/.git/recovery/T087/**"
+    constraints:
+      - "refs、.git/index、worktree、pack、rev、00_sourceを変更しない。"
+      - "今回のgoal以前から存在するprocess、別作業process、Google Drive processへsignalを送らない。"
+      - "SIGTERMは今回のgoalがspawnしたことをPID・PPID・PGID・cwd・argvで証明でき、対象idxをread-onlyで開きwrite FDを持たない停止readerだけに個別送信できる。"
+      - "SIGKILLとprocess group全体へのsignalは禁止。SIGTERM後30秒残存したら停止する。"
+      - "stage、commit、push、fetch、reset、checkout、clean、board編集を行わない。"
+    verify:
+      - "変更前にpack inode=115995741・materialized、idx inode=115995746・size=64800・blocks=0・compressed,dataless、ownerなし、Git writerなしを再確認する。"
+      - "pack header=PACK、version=2、objects=2276、payload SHA-1=trailer=filename hash=091aaedb6d346702525bae2d6fa7a180d16e9789。"
+      - ".git/index、HEAD、refs、worktree、00_sourceのbaseline hash・inodeを記録する。"
+      - "original_idx、recovery directory、rebuilt_tempが同一st_devで固定pathが存在しない。"
+      - "git index-pack --no-rev-index --index-version=2で専用recovery領域へidxを生成し、pack/object storeへの書込み0。"
+      - "rebuilt idxはblocks>0、datalessでなく、git show-index行数=2276、idx v2、fanout最終値=2276、pack checksumとself-checksum一致。"
+      - "全Git processと対象idx ownerが0の状態で旧idxを固定隔離pathへatomic renameし、同一inode 115995746を確認する。"
+      - "fsync済みrebuilt idxを最終pathへatomic renameし、検証済みtempと同一である。"
+      - "GIT_OPTIONAL_LOCKS=0 git verify-pack -vが成功し2276 objectsとpack okを示す。"
+      - "GIT_OPTIONAL_LOCKS=0 git fsck --full --strictがexit 0でmissing/corrupt object=0。"
+      - "GIT_OPTIONAL_LOCKS=0 git status --shortを3回実行し、有限時間内に同一結果。cached/unstaged diffも完走する。"
+      - "branch main、HEAD=origin/main、ahead/behind=0/0。"
+      - "変更前後で.git/index、HEAD、refs、worktree、pack、00_sourceのhash・inodeが不変。00_source checker合格。"
+      - "成功時も旧idx隔離物を削除せずrollback可能に保持する。"
+    stop_if:
+      - "pack完全性、object count又はhashが一致しない。"
+      - "旧idxのinode・size・blocks・flagsが変化、又は既にmaterializedしている場合は無変更で再監査へ返す。"
+      - "index.lock、Git writer、repository operation、review-ui、qualification run、又は別資格作業が存在する。"
+      - "対象idx readerが今回のgoal spawnと証明できない、write FDを持つ、又はSIGTERM後30秒残る。"
+      - "recovery固定path競合、st_dev不一致、atomic rename又はfsyncを保証できない。"
+      - "index-packがallowed_files外へ書く、終了しない、又は2276 objects/checksumを証明できない。"
+      - "旧idx隔離後に最終pathが予期せず再出現する。"
+      - "verify-pack、fsck、statusが失敗・期限超過した場合は許可境界内でrollbackする。"
+      - "index、refs、worktree、pack、00_sourceのbaselineに変化がある。"
+      - "rollback安全性又は旧idx inodeの復元を証明できない。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - "rg/sedでT089契約を確認"
+        - "ps/find/stat/lsofでGit process、lock、pack/idx状態を確認"
+      summary: "事前条件確認で停止。既存Git status PID 4754・5898・5986が稼働し、PID 5986は対象dataless idxをread-onlyで保持していた。PID 4876のfileも対象idxを保持中だった。いずれも今回のWorkerがspawnしたprocessではないためsignal不可。pack/idxのinode・size・blocks・flagsは期待値どおりで、変更は行っていない。"
+      remaining_blockers:
+        - "repository operationが存在する。"
+        - "今回spawnと証明できない対象idx readerが存在する。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "Git repository operationが存在し、対象idxを今回のgoal spawnと証明できないreaderが保持しているため。"
+  - id: T090
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T089を止めたPID 4754、4876、5898、5986について、開始時刻、PPID/PGID、cwd、argv、open FD、CPU進行、現Goal turnのtool/subagent実行記録を照合し、今回のgoalがspawnしたread-only readerかをPID単位で判定する。厳密に一致するPIDだけ個別SIGTERM可能とし、T089契約を継承する単一recovery Worker packageを返す。"
+    inputs:
+      - "T087/T088/T089 receipts"
+      - "current process table and lsof"
+      - "current goal turn tool and subagent commands"
+    constraints:
+      - "Read-only。"
+      - "process、pack、idx、index、refs、worktree、boardを変更しない。"
+      - "名前だけの一致、開始時刻だけの一致、又は推測でsignal対象を承認しない。"
+      - "今回のgoal以前、別task、Google Drive、write FD保有processを承認しない。"
+    expected_output:
+      - "PID別provenance decision"
+      - "Exact allowed process actions"
+      - "T089を継承するWorker objective、allowed_files、verify、stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "指定4 PIDは全て消滅済みでidentity再検証不能のためsignal不承認。現在は別Git statusが対象idxを保持するため直ちに復旧せず、signalなしで自然終了を待つ。外部Git process・idx ownerが2秒間隔3回連続0となった場合だけT089の可逆idx再構築を継承する。"
+      evidence:
+        - "PID 4754、4876、5898、5986は全て消滅済みでsignal不承認。"
+        - "観測時のPID 6523・6529はChatGPT親のgit statusで、6529が対象idxをread-only保持。現Goal tool/subagentとの厳密対応がないためsignal不承認。"
+        - "対象idxはinode=115995746、size=64800、blocks=0、compressed,datalessのまま。"
+        - "T087/T088のpack integrityとderived metadata recovery承認は維持。"
+      parallel_safety:
+        safe: false
+        reason: "pack indexはrepository-globalであり、全外部Git reader/writer、SAA/CLF run、review-ui、stage、commit、pushと並列実行できない。"
+        required_order:
+          - "T091単独recovery"
+          - "verify-pack・fsck・反復status・00_source不変"
+          - "既存dirty/staged差分の所有者確定"
+          - "SAA board再開"
+          - "clean main同期"
+          - "CLF T079再審査"
+      blocked_tasks:
+        - "SAA整備はidx recoveryとGit gate成功まで開始不可。"
+        - "CLF T079はrecovery成功、SAA既存差分処理、clean main同期まで開始不可。"
+        - "SAA/CLF並列runは不承認。"
+  - id: T091
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "既存processへsignalを送らず、外部Git process、対象idx owner、index.lock、review-ui、qualification runの自然終了を最大30秒待つ。これらが2秒間隔で3回連続0であり、pack・idx・recovery領域がT089事前条件どおりの場合だけ、T089契約を継承してmaterialized packから専用recovery領域へidx v2を生成・検証する。旧dataless idxを削除せず同一filesystemの固定名へatomic renameで隔離し、fsync済みrebuilt idxを最終pathへatomic renameする。verify-pack、fsck、反復status、index/refs/worktree/pack/00_source不変を確認する。失敗時はowner不在を再確認して旧idxをatomic rollbackし、SAA/CLF整備、stage、commit、pushは開始しない。"
+    depends_on:
+      - T090
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/.git/objects/pack/pack-091aaedb6d346702525bae2d6fa7a180d16e9789.idx"
+      - "/Users/yuki/development/exam_scraper/.git/recovery/T087/**"
+    constraints:
+      - "既存PID及び外部processへのsignalは禁止。"
+      - "process group signal、SIGKILL、ChatGPT、Xcode、Google Driveの停止は禁止。"
+      - "Worker自身のindex-pack、verify-pack、fsck、statusも期限超過時にsignal清掃せず停止する。"
+      - "refs、.git/index、worktree、pack、rev、00_source、boardを変更しない。"
+    verify:
+      - "外部Git process、repository operation、対象idx owner、index.lock、review-ui、qualification runが2秒間隔で3回連続0。"
+      - "pack inode=115995741・materialized、idx inode=115995746・size=64800・blocks=0・compressed,dataless。"
+      - "PACK v2、objects=2276、payload SHA-1=trailer=filename hash=091aaedb6d346702525bae2d6fa7a180d16e9789。"
+      - ".git/index、HEAD、refs、worktree、pack、00_sourceのbaseline hash・inodeを記録。"
+      - "recovery固定path不存在、同一st_dev、atomic renameとfsync可能。"
+      - "git index-packで専用recovery領域だけへidx v2を生成し、blocks>0、datalessでない、2276 objects、fanout=2276、pack/self checksum一致。"
+      - "rename直前にも外部Git processと対象idx ownerが0。"
+      - "旧idxを固定隔離pathへatomic renameしinode=115995746を保持。"
+      - "fsync済みrebuilt idxを最終pathへatomic renameし検証済みtempと同一。"
+      - "verify-pack成功、2276 objects、pack ok。"
+      - "fsck --full --strict成功、missing/corrupt object=0。"
+      - "status --shortを3回実行して有限時間内に同一結果、cached/unstaged diffも完走。"
+      - "branch main、HEAD=origin/main、ahead/behind=0/0。"
+      - "index、HEAD、refs、worktree、pack、00_source不変、00_source checker合格。"
+      - "旧idx隔離物を削除せず保持。"
+    stop_if:
+      - "30秒以内に外部Git process、対象idx owner、index.lock、review-ui又はqualification runが3回連続0にならない。"
+      - "既存又は外部processの停止が必要になる。"
+      - "pack完全性、object count、hash、inode又はmaterialization状態が一致しない。"
+      - "旧idxのinode、size、blocks、flagsが変化又は既にmaterialized。"
+      - "recovery path競合、st_dev不一致、atomic rename又はfsyncを保証できない。"
+      - "index-packがallowed_files外へ書く、期限超過、又は2276 objects/checksumを証明できない。"
+      - "recovery中に外部Git process、対象idx owner、repository operationが出現。"
+      - "旧idx隔離後に最終pathが予期せず再出現。"
+      - "verify-pack、fsck、statusが失敗又は期限超過。"
+      - "index、refs、worktree、pack、00_source baselineに変化。"
+      - "owner不在でのatomic rollbackと旧idx inode復元を証明できない。"
+    receipt:
+      result: blocked
+      summary: "30秒の観測中、対象idx owner、index.lock、review-ui、qualification runは0だったが、外部Git processが全11回で3〜4件存在した。3回連続の全条件0を満たさなかったためderived metadata recoveryは開始していない。signal送信、idx変更、rollback、SAA/CLF run、stage、commit、push、board編集はいずれも行っていない。"
+      remaining_blockers:
+        - "外部Git processが自然終了せず、2秒間隔3回連続0の開始条件を満たさない。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "30秒以内に外部Git processを含む全安全条件が3回連続0にならなかったため。"
+  - id: T092
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T091後も残るPID 7113・7114について、現Goal turnのtool実行記録、PPID/PGID、cwd、argv、open FD、CPU進行を照合し、今回のgoalが起動した停止済みagent由来のread-only診断processかを厳密に判定する。該当する場合だけ個別SIGTERMの可否と、その後にT091復旧契約を継承する単一Worker packageを決定する。"
+    inputs:
+      - "T087-T091 receipts"
+      - "現Goal turnのtool command記録"
+      - "PID 7113・7114のcurrent process tableとopen FD"
+    constraints:
+      - "Read-only。"
+      - "process、pack、idx、index、refs、worktree、boardを変更しない。"
+      - "PID identity、argv、cwd、parent、tool commandの完全一致がないprocessへのsignalを承認しない。"
+      - "ChatGPT本体、Google Drive、外部Git process、process group、SIGKILLを承認しない。"
+    expected_output:
+      - "PID別provenance decision"
+      - "Exact allowed individual process actions"
+      - "T091を継承するWorker objective、allowed_files、verify、stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "PID 7113/7114は現Goal turnで記録されたexact read-only command、PPID=Codex app-server、cwd=canonical repo、argvが完全一致した。T092担当Judgeが同じcommandを再実行して生じたPID 7959/7960も同条件で一致したため、PMが個別child GitだけへSIGTERMを送り、親shellは自然終了した。process group、SIGKILL、ChatGPT本体、Google Drive、外部Gitへのsignalは0。対象idx ownerは終了後0。"
+      evidence:
+        - "7113/7114 argvは現Goal turnのexact commandと一致し、7113 PPID=2176 Codex app-server、7114 PPID=7113、cwd=canonical repo。"
+        - "7959/7960はT092 Judge turn中に同一exact commandとして出現し、7959 PPID=2176、7960 PPID=7959。"
+        - "個別SIGTERM後、4 PIDは全て不在。process group signal、SIGKILL、外部process signalは未実行。"
+        - "終了後の対象idx lsof ownerは0。"
+      parallel_safety:
+        safe: false
+        reason: "pack index recoveryはrepository-global。T093単独で実施する。"
+  - id: T093
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "外部Git process、対象idx owner、index.lock、review-ui、qualification runが2秒間隔3回連続0であり、pack・idx・recovery領域がT091事前条件どおりの場合だけ、materialized packから専用recovery領域へidx v2を生成・検証する。旧dataless idxを削除せず固定名へatomic renameで隔離し、fsync済みrebuilt idxを最終pathへatomic renameする。verify-pack、fsck、反復status、index/refs/worktree/pack/00_source不変を確認する。失敗時はowner不在を再確認して旧idxをatomic rollbackし、SAA/CLF整備、stage、commit、pushは開始しない。"
+    depends_on:
+      - T092
+    allowed_files:
+      - "/Users/yuki/development/exam_scraper/.git/objects/pack/pack-091aaedb6d346702525bae2d6fa7a180d16e9789.idx"
+      - "/Users/yuki/development/exam_scraper/.git/recovery/T087/**"
+    constraints:
+      - "全processへのsignal、process group signal、SIGKILL、ChatGPT、Xcode、Google Driveの停止は禁止。"
+      - "refs、.git/index、worktree、pack、rev、00_source、boardを変更しない。"
+      - "SAA/CLF run、review UI、stage、commit、pushを開始しない。"
+    verify:
+      - "外部Git process、repository operation、対象idx owner、index.lock、review-ui、qualification runが2秒間隔3回連続0。"
+      - "pack inode=115995741・materialized、idx inode=115995746・size=64800・blocks=0・compressed,dataless。"
+      - "PACK v2、objects=2276、payload SHA-1=trailer=filename hash=091aaedb6d346702525bae2d6fa7a180d16e9789。"
+      - "recovery固定path不存在、同一st_dev、atomic renameとfsync可能。"
+      - "rebuilt idxはblocks>0、datalessでない、2276 objects、fanout=2276、pack/self checksum一致。"
+      - "旧idxを固定隔離pathへatomic renameしinode=115995746を保持。"
+      - "verify-pack成功、2276 objects、pack ok。"
+      - "fsck --full --strict成功、missing/corrupt object=0。"
+      - "status --shortを3回実行して同一結果、cached/unstaged diffも完走。"
+      - "branch main、HEAD=origin/main、ahead/behind=0/0。"
+      - "index、HEAD、refs、worktree、pack、00_source不変、00_source checker合格。"
+      - "旧idx隔離物を削除せず保持。"
+    stop_if:
+      - "外部Git process、対象idx owner、index.lock、review-ui又はqualification runが3回連続0にならない。"
+      - "pack完全性、object count、hash、inode、materialization状態が一致しない。"
+      - "recovery path競合、st_dev不一致、atomic rename又はfsyncを保証できない。"
+      - "recovery中に外部Git process、対象idx owner、repository operationが出現。"
+      - "verify-pack、fsck、statusが失敗又は期限超過。"
+      - "index、refs、worktree、pack、00_source baselineに変化。"
+      - "owner不在でのatomic rollbackと旧idx inode復元を証明できない。"
+    receipt:
+      result: blocked
+      superseded: true
+      superseded_reason: "対象idx inode 115995746が同一inodeのままblocks=128・datalessなしへ自然materializeしたため、dataless idxのrename・隔離・再構築契約は不要かつ再実行禁止。"
+      summary: "T093 Workerは開始時にAGENTS既定のgit statusを実行して自己競合したため中断し、exact child processだけを個別SIGTERMで清掃した。その後PMがsignalなし・Gitなしの3回連続開始gateを試したが、Codex本体の自動Git監視2件と既存main reflog lock 1件を観測して停止した。idx再生成、rename、rollback、Git index/refs/worktree/pack、00_source、SAA/CLF run、stage、commit、pushは変更していない。"
+      remaining_blockers:
+        - "Codex本体の自動Git statusがDrive repositoryを継続走査し、repository-global recoveryの無操作窓を作れない。"
+        - "Google Drive上のSAA対象611 JSON+51 imagesとCLF対象多数がdatalessで、単一canary readも30秒で完了しない。"
+        - "Chrome接続は利用不可、Codex in-app BrowserはGoogleログインが必要。"
+      needs_judge: false
+      verification_attempts: 3
+      stopped_because: "外部Git process/repository operation 0の開始条件とDrive source residency条件を満たさないため。"
+  - id: T094
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "ユーザーの再開依頼時点で、CLFを止めるrepository-global Git/Drive blockerの現状をread-onlyで再監査する。Git commandを新たに起動せず、既存process、対象pack idx residency、index.lock、review UI/run、CLF source canary residencyを確認し、無操作窓でT093相当の復旧を再開できるかを確定する。"
+    inputs:
+      - "T087-T093 receipts"
+      - ".git/objects/pack/pack-091aaedb6d346702525bae2d6fa7a180d16e9789.idx"
+      - "CLF-C02 current run and source residency"
+    constraints:
+      - "Read-only。git command、signal、download、hydration、rename、lock操作、board編集を行わない。"
+      - "Google Drive、Codex、ChatGPT、review UI、qualification runを開始・停止しない。"
+      - "PIDやinodeは過去receiptを流用せずlive readbackする。"
+    expected_output:
+      - "既存Git processと対象idx ownerのlive一覧"
+      - "対象idx/packとindex.lockのresidency・inode・flags"
+      - "review UI/runとCLF source canaryのresidency"
+      - "T093 recovery再開可否と最大の安全な次task"
+    receipt:
+      result: done
+      summary: "対象idxは同一inodeのままblocks=128となり、dataless flagも消えてmaterialized済み。ただしXcodeの既存git status PID 31776とCodex由来のGit待機shell PID 7364が残るため無操作窓はなく、T093 recoveryは再開不可かつ旧idx置換は不要。review UIはlistener/processなし、残存lockはPID不在のstale候補。最新CLF runはinterrupted。CLF 00_source canaryのlive residencyは確証不足。最大安全な次taskはGit/Driveを操作しない再監査である。"
+      evidence:
+        - "既存Git process: PID 31776、PPID 1569、Xcode git status --porcelain。PID 7364、PPID 2176はgit status等を含むCodex shellとして継続中。"
+        - "対象idx ownerはlsofで0件。対応pack ownerも0件。"
+        - ".git/index.lockは不存在。"
+        - "対象idxはinode=115995746、size=64800、blocks=128、flags表示-。T087時のblocks=0・datalessからlive状態が変化した。"
+        - "対応packはinode=115995741、size=36718917、blocks=71720、flags表示-でmaterialized。"
+        - ".git/indexはinode=178422002、size=1668070、blocks=3264。"
+        - "review UIの8765 listenerと該当processは0件。"
+        - ".review-ui.lockは存在し、PID 5261・acquiredAt=2026-08-11T21:31:16+09:00を記録するが、PID 5261はprocess snapshotに不存在。"
+        - "最新CLF run 20260811T130404554689-3c1df762はstatus/queueStatus=interrupted、receiptValidated=false、artifactSync=null。"
+        - "最新manifest内でKeepItUpのCLF201C022・CLF204C012関連成果物参照は確認できたが、00_source canary実体のblocks/flagsは今回確定できなかった。"
+      facts:
+        - "T093のdataless idx再構築・renameは現状態では実行対象外。T093 stop_ifの既にmaterializedに該当する候補である。"
+        - "repository-global Git processが存在するため、2秒間隔3回連続0の開始gateは現時点で不成立。"
+        - "最大安全な次task候補は、Git commandなしで既存Git process自然終了、idx materialization維持、idx owner/index.lock不在、CLF 00_source exact canaryのblocks/flagsを再確認する単一read-only Scout。"
+        - "その再監査で全条件0かつCLF canary materializedを確認後、JudgeがT093を取消してmaterialized idxの非破壊整合性確認へ置換するのが安全候補。"
+      contradictions:
+        - "T093はidxをblocks=0・datalessとして再構築する契約だが、live idxは同一inodeでblocks=128・dataless flagなし。"
+        - "idx ownerとindex.lockは0だが、repository-global Git processは0ではない。"
+        - "review UI process/listenerは0だが、PID不在の.review-ui.lockが残る。"
+      ambiguity_requiring_judge:
+        - "同一inodeのidxがGoogle Driveによって自然materializeされたとみなし、T093のrename recoveryを取消すか。"
+        - "idxの内容整合性をGit commandなしでは確定できないため、無操作窓成立後にどの非破壊検証契約へ切り替えるか。"
+        - "CLF 00_source exact canaryのlive residency未確定を、recovery前の独立必須gateとして追加するか。"
+      commands:
+        - "rg/sedでT087-T094 receiptと契約を読取"
+        - "ps/awkで既存Git・review UI・qualification関連processを監査"
+        - "lsofでidx・pack ownerとindex.lockを監査"
+        - "stat/ls/xattrでidx・pack・indexのinode、size、blocks、flagsを監査"
+        - "ls/sed/lsofでreview UI lock・listenerを監査"
+        - "ls/jq/rgで最新CLF run状態とmanifest参照を監査"
+        - "find/lsでCLF source配置をread-only探索"
+      note_needed: false
+  - id: T095
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T094のlive readbackを監査し、自然materialize済みのpack idxに対するT093 rename recoveryを取消すか判定する。既存Git processへsignalせず、idx・index・worktreeを変更せずに実行できる非破壊検証と、CLF 00_source canary residency gateを含む最大の安全な次Worker又はapproval-wait契約を返す。"
+    depends_on:
+      - T094
+    inputs:
+      - "T087-T094 receipts"
+      - "同一inode 115995746、blocks=128、datalessなしのlive idx"
+      - "既存Xcode/Codex Git processとstale review-ui lock"
+      - "interrupted CLF run 20260811T130404554689-3c1df762"
+    constraints:
+      - "Read-only。process、Git metadata、lock、Drive、source、review、run、boardを変更しない。"
+      - "過去PIDへのsignal、idx再構築・rename、stale lock削除を承認なしに進めない。"
+      - "現在のidx materializationをdataless前提の旧契約へ押し戻さない。"
+    expected_output:
+      - "Decision"
+      - "T093 rename recovery取消可否"
+      - "非破壊Git整合性検証とCLF canary residencyの正確な次契約"
+      - "既存Git process/stale review-ui lockの扱い"
+      - "CLF 322問再開までの順序又はexact human approval条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "同一inodeのidxはblocks=128かつdatalessなしで自然materialize済みのため、T093 rename recoveryは取消す。既存processと並行して許可できるのは明示pack/idxのread-only検証とsource metadata監査だけである。現在322件中79件の00_sourceがdatalessなので再開不可。自然materializeを待ち、必要なら限定hydrationの明示承認を得る。"
+      evidence:
+        - "live idxはinode=115995746、size=64800、blocks=128、dataless flagなし。packはinode=115995741、blocks=71720で、idx/pack owner=0、index.lock不存在。"
+        - "T087では同一idx inodeがblocks=0・compressed,datalessだったため、renameを伴わずGoogle Drive側で自然materializeしたと判断できる。"
+        - "live processにはXcodeのgit status PID 32640・32699と、Codex shell PID 7364配下の00_source immutability checker PID 16659が存在した。signalは送っていない。"
+        - "8765 listenerとreview-ui processは0。.review-ui.lockはPID 5261を記録するが同PIDは不在で、stale候補である。"
+        - "run 20260811T130404554689-3c1df762はinterrupted、target=876、validated=554、未完了=322、pending work item=1277、committing=0、blocked=0、receiptValidated=false、artifactSync=null。"
+        - "未完了322問はKeepItUp 12問、Ping-t 310問。metadata-only全件監査では243ファイルがblocks>0、79ファイルがblocks=0だった。"
+        - "fast-fail canaryはKeepItUp question_keepitup-CLF101C006.jsonがblocks=0・compressed,datalessで失敗、Ping-t question_ping-t-76_39545.jsonはblocks=16・datalessなしで成功。"
+        - "元oracleは879問だが現run対象は876問であり、322問再開・完了だけでは全879問の完了証明にならない。"
+      next_allowed_task: T096
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "T096前半の明示pack/idx読取は既存read-only processと共存できるが、repository全体検証、review-ui起動、322問再開は既存Git/immutability operationと並列不可。"
+        required_order:
+          - "T093をsupersededとして再実行禁止"
+          - "T096で明示pack/idxの非破壊整合性検証"
+          - "322件の00_source residencyをmetadata-onlyでfast-fail canary後に全件確認"
+          - "外部Git・Codex checker・idx owner・index.lockが2秒間隔3回連続0"
+          - "repository全体のread-only Git gateと00_source immutability checker"
+          - "通常launcherによるstale review-ui lockの正規recovery"
+          - "問題整備システムの未完了を再開で322問をstandard＋auto_max再開"
+          - "終端後に879問inventoryとの差3問を別途reconcile"
+      blocked_tasks:
+        - "T093: idxが既にmaterializedしているためrename・隔離・再構築を永久に再開しない。"
+        - "322問再開: exact 322 sourceのうち79件がblocks=0・datalessのため禁止。"
+        - "review-ui起動: repository operationの3回連続0、全322 source residency、Git gate成功まで禁止。"
+        - "stale lock手動削除: 通常launcherのPID identity確認付きrecoveryが失敗し、別途明示承認されるまで禁止。"
+        - "T999: 876問runの322問収束だけでなく、879問inventory、artifact sync、upload-ready、quality gate、dry-run等の証拠が揃うまで禁止。"
+      missing_evidence:
+        - "materialized idxのv2構造、fanout=2276、pack checksum、自身のchecksum、verify-pack成功。"
+        - "未完了322件すべての00_sourceがblocks>0かつdatalessなしであるreadback。現在79件が未達。"
+        - "既存Xcode Git、Codex checker、idx owner、index.lockが2秒間隔3回連続0。"
+        - "fsck --full --strict、status反復、cached/unstaged diff、00_source checkerの有限時間内成功。"
+        - "通常review-ui起動がPID不在のstale lockを手動削除なしで正規回収できる証拠。"
+        - "322問再開後のsucceeded、receiptValidated=true、pending/committing/blocked/hold=0。"
+        - "現run対象876問とoracle対象879問との差3問の説明と収束証拠。"
+  - id: T096
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "process・Git metadata・Drive・source・lock・runを変更せず、まずmaterialized idxとpackを明示pathだけで検証する。次にinterrupted runの未完了322 questionIdをplanのsourceRecordRefへ結合し、2 groupのexact canaryをfast-fail確認後、322 source全件をstat/flagsだけで監査する。全件residentかつ既存repository operationが3回連続0の場合だけrepository全体のread-only Git gateを実行し、322問再開可否を返す。"
+    depends_on:
+      - T095
+    allowed_files:
+      - "/private/tmp/clf-t096/**"
+    constraints:
+      - "Read-only。allowed_filesを含めfileを作成・変更しない。"
+      - "processへのsignal、content openによるhydration、download、lock操作、idx rename/rebuild、review-ui起動、run再開を行わない。"
+      - "repository全体Git gateは既存operationが2秒間隔3回連続0かつ全322 source residentの場合だけ実行する。"
+    verify:
+      - "stat及びls -lO@でidx inode=115995746、size=64800、blocks>0、datalessなしを3回確認する。"
+      - "cd /private/tmpからGIT_OPTIONAL_LOCKS=0 git show-index < absolute-idxを実行し2276 entriesを確認する。"
+      - "cd /private/tmpからGIT_OPTIONAL_LOCKS=0 git verify-pack -v absolute-idxを実行し2276 objectsとpack okを確認する。"
+      - "idx v2 fanout最終値=2276、idx内pack checksum=091aaedb6d346702525bae2d6fa7a180d16e9789、idx self-checksum一致をread-only parserで確認する。"
+      - "KeepItUp canary question_keepitup-CLF101C006.jsonとPing-t canary question_ping-t-76_39545.jsonを内容openせずstatし、blocks>0かつdatalessなしを要求する。"
+      - "question_summaryの非validated 322 questionIdをplan.questionExecutionsへ結合し、12+310=322 unique source pathすべてをmetadata-only監査する。"
+      - "全322 source resident後、既存Git/Codex checker/idx owner/index.lock/review-ui/qualification runが2秒間隔3回連続0である。"
+      - "process-zero後だけGIT_OPTIONAL_LOCKS=0 git fsck --full --strict、status --short 3回、diff --cached、diff、00_source checkerを実行する。"
+      - "repository全体検証の前後でidx、pack、.git/index、HEAD、refs、worktree、00_sourceが不変である。"
+    stop_if:
+      - "idx inode、size、blocks又はflagsが変化する、datalessへ戻る、又はowner/write lockが出現する。"
+      - "pack/idxのstructure、object count又はchecksumが一致しない。"
+      - "322 sourceの一件でもmissing、blocks=0又はdatalessなら内容をopenせずapproval-waitへ返す。"
+      - "既存Xcode、Codex、Google Drive又は外部processへのsignalが必要になる。"
+      - "既存repository operationが3回連続0にならない場合、repository全体Git commandを開始しない。"
+      - "検証がGit metadata、source residency、lock、worktree又はrunを変更する可能性がある。"
+      - "stale review-ui lockの手動削除が必要になる。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - "stat -f / ls -liO@ を対象idxへ2秒間隔で3回実行"
+        - "cd /private/tmp && GIT_OPTIONAL_LOCKS=0 git show-index < absolute-idx"
+        - "cd /private/tmp && GIT_OPTIONAL_LOCKS=0 git verify-pack -v absolute-idx"
+        - "dd / xxd / shasumによるidx v2 fanout・pack checksum・self-checksum検証"
+        - "stat -f / ls -liO@による2 group canary検証"
+        - "jqでquestion_summary非validated 322件をplan.questionExecutions.sourceRecordRefへ結合し、stat flags/blocksのみで全件監査"
+      summary: "pack/idxは正常。idxは3回ともinode=115995746、size=64800、blocks=128、datalessなし。show-indexとverify-packは2276 objects、pack ok、fanout=2276、pack checksum=091aaedb6d346702525bae2d6fa7a180d16e9789、self-checksum一致。未完了322件はKeepItUp 12件、Ping-t 310件へ一意に結合できたが、metadata-only監査でresident 243件、blocks=0かつcompressed,dataless 79件、missing 0件だった。stop_ifに従いrepository全体Git gateへ進まず停止した。"
+      remaining_blockers:
+        - "未完了322 sourceのうち79件がblocks=0かつcompressed,datalessであり、全件resident条件を満たさない。"
+        - "repository全体Git gate、00_source checker、review-ui起動、run再開は未実行。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "322 sourceの1件以上がdatalessなら内容をopenせずapproval-waitへ返すstop_ifに該当したため。"
+  - id: T097
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: low
+    objective: "CLF未完了322問が参照するexact 00_sourceをGoogle Driveでオフライン利用可能にするhuman gateを待つ。承認・resident化の完了前にcontent hydration、Git gate、review-ui、runを開始しない。"
+    depends_on:
+      - T096
+    constraints:
+      - "Human gate。Google Drive/File Provider設定とCodex app-server配下のprocessを承認前に変更・停止しない。"
+      - "00_source内容・ファイル名を変更せず、未完了322問が参照するsourceのresident化だけを対象にする。"
+      - "signal、自動content-open、手動lock削除、idx操作、review-ui、run開始を行わない。"
+    expected_output:
+      - "未完了322問が参照する00_sourceをGoogle Driveでオフライン利用可能にすることへの明示承認と実施完了。"
+      - "resident化後にCodex app-server配下のread-only repository operationが自然終了したことの確認。"
+      - "再開後に79件を含む322/322 resident、repository operation 0、Git gate成功のreadback。"
+    receipt:
+      result: done
+      changed_files: []
+      commands: []
+      summary: "2026-08-13、ユーザーから指定された完全一致文言で、CLF未完了322問が参照する00_sourceだけをGoogle Driveでオフライン利用可能にする明示承認を受領した。対象の内容・ファイル名・IDを変えない条件でT098を開始できる。"
+      evidence:
+        - "承認文言: CLF未完了322問が参照する00_sourceだけをGoogle Driveでオフライン利用可能にすることを許可します。"
+  - id: T098
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "承認済みのCLF未完了322問に結合したexact 00_sourceだけをGoogle Driveの正規File Provider経路でオフライン利用可能にする。内容・ファイル名・IDを変えず322/322 residentを確認し、既存repository operationの自然終了後にGit整合性と00_source不変gateを通す。"
+    depends_on:
+      - T097
+    allowed_files:
+      - "output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/00_source/**"
+      - "output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/00_source/**"
+    constraints:
+      - "オフライン化対象はrun 20260811T130404554689-3c1df762の未validated 322問からplan.sourceRecordRefで一意に得たexact pathだけとする。"
+      - "00_sourceのbytes、ファイル名、ID、ディレクトリ構成を変えない。"
+      - "既存Xcode・Codex・Google Drive processへsignalを送らない。lock、idx、manifest、runを手編集しない。"
+      - "このtaskでreview-ui及びqualification runを開始しない。"
+    verify:
+      - "未完了322 questionIdとsourceRecordRefがKeepItUp 12件、Ping-t 310件、合計322 unique pathに一意結合する。"
+      - "322/322件がmissing=0、blocks>0、datalessなし、isDownloaded=true又はisKeepDownloaded=true相当となる。"
+      - "オフライン化前後でsource path一覧、size、Git tracked identityが一致する。"
+      - "既存repository operation、idx owner、index.lock、review-ui、qualification runが2秒間隔3回連続0になる。"
+      - "process-zero後だけGIT_OPTIONAL_LOCKS=0 git fsck --full --strict、status --short 3回、diff --cached、diff、check_00_source_immutability.pyが成功する。"
+    stop_if:
+      - "exact 322 path以外をオフライン化する操作しか使えない。"
+      - "プロバイダがファイル内容又は名前を変更する、missingが出る、又は全件resident化できない。"
+      - "既存processへのsignal、lock手動削除、Git metadata変更、review-ui開始が必要になる。"
+      - "Git整合性又は00_source不変検査が失敗する。"
+    receipt:
+      result: blocked
+      changed_files: []
+      commands:
+        - "metadata-only join of nonvalidated question_summary rows to plan.sourceFiles"
+        - "whole-byte reads through the normal Google Drive File Provider path for exact dataless sources"
+        - "fileproviderctl evaluate on exact CLF source canaries"
+        - "read-only Google Drive and macOS File Provider log inspection"
+      summary: "The unresolved run still maps uniquely to 322 exact source paths: KeepItUp 12 and Ping-t 310. Initially 243 were resident and 79 were dataless. Normal File Provider reads materialized 3 sources without changing their names, sizes, IDs, or bytes, leaving 246 resident and 76 dataless. Both concurrent and single-file retries then stalled. The provider repeatedly returned fetchContentsForItemWithID errors (Cocoa 3072, DFSFileProviderErrorDomain 24), while each remaining canary stayed isDownloadRequested=1, isDownloading=1, isDownloaded=0 under Effective Content Policy 3. T098 stop_if forbids signaling or restarting the existing Google Drive process, so hydration, Git gates, review UI, and the qualification run stop here pending a new human gate."
+      evidence:
+        - "Exact scope readback: total=322, keepitup-aws-clf-c02=12, ping-t-aws-clf-c02=310, missing=0."
+        - "Initial residency: resident=243, dataless=79. Latest residency: resident=246, dataless=76; total logical bytes=1738275."
+        - "Remaining canary metadata: isDownloadRequested=1, isDownloading=1, isDownloaded=0, ACTION_UNPIN=1, Content Policy=3, Inherited Content Policy=3, Effective Content Policy=3."
+        - "Provider errors observed at 2026-08-13 07:54:07 and 07:55:58 JST for fetchContentsForItemWithID: Cocoa 3072 with DFSFileProviderErrorDomain 24."
+        - "Disk free space was approximately 22 GiB, far above the remaining source payload, so the observed stop was not caused by the 1.7 MB CLF source scope exceeding local capacity."
+        - "No Google Drive, DFSFileProviderExtension, fileproviderd, Xcode, Codex, review-ui, or qualification-run process was signaled or restarted; only the PM-owned hydration readers were terminated after repeated provider errors."
+      remaining_blockers:
+        - "76 exact CLF source files remain dataless because Google Drive File Provider cancels their content fetches."
+        - "A graceful Google Drive for desktop restart affects the existing provider process and requires an explicit new human approval under T098 stop_if."
+        - "The 322/322 resident gate, process-zero gate, Git fsck/status/diff checks, and 00_source immutability check have not run."
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: "Normal exact-path hydration could not reach 322/322 resident and the next recovery action would require restarting an existing Google Drive process, both explicit T098 stop_if conditions."
+  - id: T099
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: low
+    objective: "Google Drive for desktopの正常終了・再起動によりFile Providerの取得エラーを解消し、CLF未完了322問が参照するexact 00_sourceのうち残り76件だけを再取得するhuman gateを待つ。"
+    depends_on:
+      - T098
+    constraints:
+      - "Human gate。承認前にGoogle Drive本体、DFSFileProviderExtension、fileproviderdを終了・再起動しない。"
+      - "承認後も強制終了を使わず、未送信の同期がないことを確認してからGoogle Drive for desktopだけを正常終了・再起動する。"
+      - "他のファイルの内容、同期設定、オフライン設定を変更せず、再起動後のcontent-openはexact残76 pathに限定する。"
+      - "00_sourceのbytes、ファイル名、ID、ディレクトリ構成を変えない。"
+    expected_output:
+      - "Google Drive for desktopを一度正常終了して再起動し、CLF未完了322問が参照する00_sourceの残り76件のオフライン取得を再試行することへの明示承認。"
+      - "承認後の実行前にGoogle Driveの未送信同期なし、対象path 322 unique、resident 246、dataless 76を再確認する。"
+      - "再起動後はT098の322/322 resident、process-zero、Git整合性、00_source不変gateへ戻る。"
+    receipt:
+      result: done
+      changed_files: []
+      commands: []
+      summary: "2026-08-13、ユーザーから完全一致文言で、Google Drive for desktopを一度正常終了して再起動し、CLF未完了322問が参照す00_sourceの残り76件のオフライン取得を再試行する明示承認を受領した。強制終了なし、他ファイルや同期設定の変更なし、00_sourceの内容・名前・ID不変を条件にT100を開始できる。"
+      evidence:
+        - "承認文言: Google Drive for desktopを一度正常終了して再起動し、CLF未完了322問が参照す00_sourceの残り76件のオフライン取得を再試行することを許可します。"
+      harness: codex
+  - id: T100
+    type: pm
+    assignee: PM
+    status: blocked
+    reasoning_hint: high
+    objective: "承認済みの範囲でGoogle Drive for desktopの未送信同期がないことを確認し、強制終了なしで正常終了・再起動する。run 20260811T130404554689-3c1df762の未validated 322問から一意に導くexact 00_sourceの残り76 pathだけを正規File Provider経路で再取得し、322/322 resident、source不変、process-zero、Git整合性、00_source不変gateまで閉じる。"
+    depends_on:
+      - T099
+    constraints:
+      - "Google Driveの正常終了前に未送信のupload/syncなしをread-only確認する。確認できない場合は終了しない。"
+      - "強制終了、SIGKILL、fileproviderdの手動終了、account disconnect、cache削除、sync設定変更を行わない。"
+      - "再起動後のcontent-openは再集計でdatalessのexact pathだけに限定し、322 path以外は読まない。"
+      - "00_sourceのbytes、size、ファイル名、ID、ディレクトリ構成を変えない。"
+      - "既存Xcode・Codex・review-ui・Git処理へsignalを送らず、lock、idx、manifest、runを手編集しない。"
+      - "このtaskでqualification run、Firestore、Storage、publishを開始しない。"
+    expected_output:
+      - "Google Drive for desktopの正常終了・再起動identityと、再起動後のsync active状態のreadback。"
+      - "KeepItUp 12、Ping-t 310、合計322 unique、missing=0、resident=322、dataless=0、対象pathとsize不変の機械検証。"
+      - "既存repository operation、idx owner、index.lock、review-ui、qualification runの2秒間隔3回連続0。"
+      - "process-zero後のGIT_OPTIONAL_LOCKS=0 git fsck --full --strict、status --short 3回、diff --cached、diff、check_00_source_immutability.py成功。"
+    stop_if:
+      - "未送信同期が残る、又はGoogle Driveの正常終了ができない。"
+      - "再起動後もexact 76 pathの取得がプロバイダエラーで収束しない。"
+      - "source内容・size・名前・IDの変更、missing、exact scope外のcontent-openが必要になる。"
+      - "強制終了、cache削除、lock/idx操作、既存他processへのsignalが必要になる。"
+      - "Git整合性又は00_source不変検査が失敗する。"
+    receipt:
+      result: blocked
+      blocked_reason: "Google Drive for desktopへ正常終了を1回だけ要求したが、Google Drive自身がapplicationShouldTerminate=NSTerminateCancelで終了を取り消した。強制終了・再送・cache操作は許可範囲外のため停止した。"
+      changed_files:
+        - docs/goals/aws-clf-two-source-upload-ready/state.yaml
+      commands:
+        - cmd: "Google Drive for desktopへ通常のquit AppleEventを1回送信"
+          status: "blocked: user canceled (-128) / NSTerminateCancel"
+        - cmd: "CLF未完了322問のexact source resident/dataless再集計"
+          status: "pass: resident=246, dataless=76, missing=0"
+        - cmd: "Google Drive remote metadataをexact 76 item IDで照合"
+          status: "pass: id/name/size=76/76 match, metadata errors=0"
+        - cmd: "remote raw content fetchを代表1件で検証"
+          status: "pass: application/json, 5651 bytes"
+      summary: "正常終了・再起動経路はDrive自身による終了取消しで停止した。Google Drive processへ強制signalを送らず、再起動・cache削除・00_source変更は行っていない。追加のread-only監査により残り76件は同期前から存在しないファイルではなく、Drive remote上に全件存在し、local側だけがdataless placeholderであると確定した。安全な非Drive checkoutへ整理するT101へ移行する。"
+      evidence:
+        - "正常終了要求のログはQuit initiatedの直後にapplicationShouldTerminate: NSTerminateCancel、App termination canceledを記録した。"
+        - "exact scopeはKeepItUp 12、Ping-t 310、合計322 uniqueで、resident 246、dataless 76、missing 0。"
+        - "dataless 76件には76 unique Google Drive item IDがあり、remote metadataのID、name、sizeは76/76一致した。"
+        - "remote MIME typeは76/76 application/jsonで、parentはKeepItUpとPing-tの正規2 directoryだけだった。"
+        - "代表ファイルquestion_keepitup-CLF203C044.jsonはremote raw fetchに成功し、5651 bytesでlocal placeholderのlogical sizeと一致した。"
+        - "/Users/yuki/development/exam_scraperはDrive candidateへのsymlinkであり独立backupではなく、既存exam_scraper_localにはexact 76のcopyがなかった。"
+      spawned_tasks:
+        - T101
+      harness: codex
+  - id: T101
+    type: pm
+    assignee: PM
+    status: blocked
+    reasoning_hint: high
+    objective: "CLF未完了322問の参照元を安全に整理する。Drive上で残り76件の実体・ID・名前・sizeが存在することを確定し、現在のDrive candidateを変更せず、非Drive領域の新規CLF専用checkoutへGitHub mainの正規ファイルを取得する。322件すべてがresidentで、現Drive版とremote Drive metadataに矛盾がないことを検証してから、以後のCLF整備を新checkoutへ移せる状態にする。"
+    depends_on:
+      - T100
+    constraints:
+      - "現在のDrive candidate内の00_sourceを移動、改名、削除、上書き又は手動復元しない。"
+      - "既存の/Users/yuki/development/exam_scraper_localは稼働中processが参照しているため変更しない。"
+      - "新規checkoutは未使用の/Users/yuki/development/exam_scraper_clf_localにmain単一branchで作り、origin/mainから取得する。"
+      - "GitHub mainにexact sourceがない、remote Drive metadataとname/sizeが一致しない、又は新規pathが既存・dirtyの場合は停止する。"
+      - "00_sourceの手作業生成、Drive API本文のcanonical sourceへの直接書込み、scraper外更新を行わない。"
+      - "このtaskではqualification run、Firestore、Storage、publishを開始しない。"
+    expected_output:
+      - "Drive remote上の残り76件についてitem ID、name、size、parentが76/76一致するreadback。"
+      - "新規CLF専用checkoutのpath、main/origin main identity、clean status。"
+      - "未完了322問が参照する00_sourceがKeepItUp 12、Ping-t 310、合計322 unique、missing=0、resident=322、dataless=0である機械検証。"
+      - "GitHub checkoutのexact 76件とDrive remote metadataのname/size一致、および現在のDrive candidateを変更していない証拠。"
+    stop_if:
+      - "GitHub mainからexact 76件を取得できない、又はDrive remote metadataとname/sizeが一致しない。"
+      - "新規checkout pathが既に存在する、既存processが参照する、又は上書き・削除が必要になる。"
+      - "現在のDrive candidate又は既存local checkoutを変更しないと進められない。"
+      - "00_sourceの手動復元、File Providerの強制終了、cache削除又は既存processへのsignalが必要になる。"
+    receipt:
+      result: blocked
+      blocked_reason: "origin/mainの新規checkoutは正常に作成できたが、AWS question source dataはGit管理対象外であり、exact 76件を含むquestions_json/00_sourceが存在しなかった。T101のstop_ifに従いGitHubからの復元を停止した。"
+      changed_files:
+        - docs/goals/aws-clf-two-source-upload-ready/state.yaml
+      commands:
+        - cmd: "git clone --branch main --single-branch origin /Users/yuki/development/exam_scraper_clf_local"
+          status: pass
+        - cmd: "branch/HEAD/origin main/clean parity readback"
+          status: "pass: main, HEAD=origin/main=1375b1966e98a3db5aaf99deff9b3ea109e2e0ab, +0/-0, clean"
+        - cmd: "origin/main treeでCLF 00_sourceを検索"
+          status: "blocked: output/aws-cloud-practitioner/questions_json is absent"
+      summary: "既存環境を触らず、非Drive領域にcleanなmain checkoutを作成した。コードと運用文書は取得できたが、CLFの00_sourceはGitHub mainに含まれないため、Git履歴を正本とする案は採用できない。Drive remote raw bytesからexact 322件だけを複製するT102へ移行する。"
+      evidence:
+        - "新checkoutは/Users/yuki/development/exam_scraper_clf_local。"
+        - "branch=main、HEAD=origin/main=1375b1966e98a3db5aaf99deff9b3ea109e2e0ab、ahead/behind=0/0、worktree clean。"
+        - "checkoutは9570 filesを正常展開した。"
+        - "output/aws-cloud-practitionerにはcategoryだけがあり、questions_jsonとCLF 00_sourceはGit treeに存在しない。"
+        - "Drive candidate、既存exam_scraper_local、Google Drive process、00_sourceへ変更又はsignalを加えていない。"
+      spawned_tasks:
+        - T102
+      harness: codex
+  - id: T102
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "ユーザーがオフライン利用を許可したCLF未完了322問のexact 00_sourceだけを、正規Drive remote bytesから非DriveのCLF専用checkoutへ同一path・同一nameで複製する。resident 246件は現Drive snapshotからbyte-for-byte copyし、dataless 76件は対応するGoogle Drive item IDのraw downloadを用いる。322件すべてのsize、JSON、question参照、dataless=0を検証し、Drive candidate不変を証明する。"
+    depends_on:
+      - T101
+    constraints:
+      - "対象はrun 20260811T130404554689-3c1df762で未validatedの322問から一意に導く322 source pathだけとする。"
+      - "現在のDrive candidateと既存exam_scraper_localを変更、移動、改名、削除、上書きしない。"
+      - "source本文を生成・修正せず、resident copy又はGoogle Drive files.downloadのraw bytesをそのまま保存する。"
+      - "各dataless fileはlocal placeholderのDrive item ID、name、logical sizeとremote readbackが一致したものだけ取得する。"
+      - "exact scope外の00_sourceを読込み又は複製しない。"
+      - "このtaskではqualification run、Firestore、Storage、publish、Git commit/pushを開始しない。"
+    expected_output:
+      - "KeepItUp 12、Ping-t 310、合計322 uniqueのsource manifestと、resident copy 246、remote raw download 76の内訳。"
+      - "新checkoutで322/322 regular resident、missing=0、dataless=0、size mismatch=0、invalid JSON=0。"
+      - "question_summaryの322未validated questionがexact 322 sourceへ一対一で解決する検証。"
+      - "Drive candidateのexact 322についてpath、logical size、item ID/xattrを含む事前・事後不変readback。"
+    stop_if:
+      - "remote raw downloadが1件でも失敗、空、name/size不一致又はJSON不正になる。"
+      - "322以外のsource copy、source本文の変換、生成、修正又は名前変更が必要になる。"
+      - "新checkout内の対象pathが既に存在し、安全な新規作成でなくなる。"
+      - "Drive candidate、既存local checkout又はGoogle Drive processへの変更・signalが必要になる。"
+    receipt:
+      result: done
+      changed_files:
+        - docs/goals/aws-clf-two-source-upload-ready/state.yaml
+        - "/Users/yuki/development/exam_scraper_clf_local/output/aws-cloud-practitioner/questions_json/keepitup-aws-clf-c02/00_source/*.json"
+        - "/Users/yuki/development/exam_scraper_clf_local/output/aws-cloud-practitioner/questions_json/ping-t-aws-clf-c02/00_source/*.json"
+      commands:
+        - cmd: "question_summaryから未validated source pathを一意化"
+          status: "pass: 322 unique = KeepItUp 12 + Ping-t 310"
+        - cmd: "resident sourceをexact scopeだけcp -pXしcmp検証"
+          status: "pass: 246 copied, cmp mismatch=0"
+        - cmd: "Google Drive item IDごとにraw downloadしname/size/JSON検証"
+          status: "pass: 76/76, 410981 bytes"
+        - cmd: "新checkoutの322 sourceを全件検証"
+          status: "pass: missing=0, dataless=0, size mismatch=0, invalid JSON=0"
+        - cmd: "元Drive placeholderのitem ID/size/blocks事後照合"
+          status: "pass: 76/76 unchanged"
+      summary: "CLF未完了322問が参照するexact 00_sourceだけを、非DriveのCLF専用checkoutへ同一path・同一name・同一bytesで整理した。本文取得済み246件は元snapshotからコピーし、残り76件は各Google Drive item IDのraw bytesを取得した。新checkoutは322/322 residentで、元Drive candidateは変更していない。"
+      evidence:
+        - "保存先: /Users/yuki/development/exam_scraper_clf_local/output/aws-cloud-practitioner/questions_json/{keepitup-aws-clf-c02,ping-t-aws-clf-c02}/00_source/"
+        - "scope=322、KeepItUp=12、Ping-t=310、target directory内exact files=322。"
+        - "resident copy=246、Drive remote raw download=76。"
+        - "missing=0、dataless=0、size mismatch=0、invalid JSON=0、resident cmp mismatch=0。"
+        - "322件のlogical total size=1738275 bytes。"
+        - "pathと各file SHA-256から計算したset SHA-256=29ce561318a44171d8029d6216829f1ca1b42b851d34acd9013e15a9452011b7。"
+        - "元Driveの76 placeholderはitem ID、logical size、blocks=0が事前readbackと一致し、移動・改名・上書き・削除なし。"
+        - "新checkoutのGit branchはmain、HEAD=origin/main=1375b1966e98a3db5aaf99deff9b3ea109e2e0ab、ahead/behind=0/0。source dataは既存.gitignoreのoutput/対象で、tracked worktreeはclean。"
+        - "Google Drive for desktop、既存exam_scraper_local、qualification run、Firestore、Storage、publishへ操作なし。"
+      spawned_tasks:
+        - T103
+      harness: codex
+  - id: T103
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "CLF専用checkoutで未完了322問の整備を正規再開するために必要な既存run、qualification state、work version、patch/output artifactの最小集合をread-onlyで確定する。Drive candidateを変更せず、対象外sourceをオフライン化せず、正規resumeがexact 322問だけを扱える移行契約を作る。"
+    depends_on:
+      - T102
+    constraints:
+      - "Read-only。CLF専用checkoutへ追加copyせず、server、run、Firestore、Storage、publishを開始しない。"
+      - "現在のDrive candidate、既存exam_scraper_local、Google Drive process、lock、manifestを変更しない。"
+      - "未完了322問以外の00_sourceを読込み・複製する前提にしない。"
+      - "正規resumeが全876又は879 sourceのローカル実体を必須とする場合は停止し、追加scopeを明示する。"
+    expected_output:
+      - "resume API/runnerが読むrun artifactとqualification stateの正確なfile dependency。"
+      - "run 20260811T130404554689-3c1df762からexact 322問だけを再開できるかの結論。"
+      - "CLF専用checkoutへ複製が必要な非source artifactのpath、件数、resident/dataless状態、size。"
+      - "次の最大安全taskのobjective、allowed paths、verify、stop_if。"
+    stop_if:
+      - "正規resumeにexact 322以外の00_source本文が必要になる。"
+      - "run/manifest手編集、ID変更、source生成、Firestore write又は既存processへのsignalが必要になる。"
+      - "必要な非source artifactもDrive remoteから取得不能又はidentity不明である。"
+    receipt:
+      result: done
+      changed_files:
+        - docs/goals/aws-clf-two-source-upload-ready/state.yaml
+      commands:
+        - cmd: "current qualification workflow plan_manyをCLF専用checkoutでread-only実行"
+          status: "pass: target=322, workItems=1288, sourceFiles=322"
+        - cmd: "旧run hydration dependency監査"
+          status: "pass: immutable plan + manifest + 876 question statesが必須、questions dataless=148"
+        - cmd: "server/port/process競合readback"
+          status: "pass: 8765/8766 listenerなし、新checkout参照processなし"
+      summary: "旧876問runの移植・resumeは876問state全件を要求し、148 stateがdatalessのため採用しない。CLF専用checkoutの現行workflowは、既存artifactを移植せず、exact 322 sourceだけから正規のfresh needed planを作成できる。4工程を全件再検証する1288 work itemとして開始するT104を確定した。"
+      evidence:
+        - "fresh plan kind=human、mode=needed、targetCount=322、workItemCount=1288、sourceFiles=322、outputFiles=1288。"
+        - "stage別targetはquestion_intent=322、correct_choice=322、explanation=322、question_set=322。"
+        - "scopeListGroupIdsはkeepitup-aws-clf-c02とping-t-aws-clf-c02だけ。"
+        - "selectedUpdateTargetIdsはintent、correct_answer、learning_pattern、basic_explanation、supplementary_questions、question_setの6項目。"
+        - "旧runはquestion-maintenance-run/v2でquestionStateCount=876。正規get/resumeはimmutable planを検証し、plan中の876 question stateを全件hydrateする。"
+        - "旧run questionsは876 files・118207778 bytesで、148 files・20991799 bytesがdataless。旧run移植はscopeと取得量を広げるため不採用。"
+        - "fresh planは旧run、qualification state、work version、patch artifactの事前copyを必要とせず、exact 322 sourceだけで一意に生成できた。"
+        - "8765/8766 listenerはなく、新checkoutを参照する既存processもなかった。既存PID29759は別checkoutのprocessであり変更していない。"
+        - "診断用に自身が起動して残留したjq PID47319だけをidentity照合後SIGTERMで正常終了し、他processへsignalなし。"
+      spawned_tasks:
+        - T104
+      harness: codex
+  - id: T104
+    type: pm
+    assignee: PM
+    status: blocked
+    reasoning_hint: high
+    objective: "非DriveのCLF専用checkoutで問題整備サーバーを単一起動し、KeepItUp 12問とPing-t 310問のexact 322問を、question_intent・correct_choice・explanation・question_setの4工程、全6 update target、standard/auto_max、questionConcurrency=100で新規runとして開始する。resumedFromは設定せず、runを終端まで監視してpending/committing/blocked/hold=0、receiptValidated=trueへ収束させる。"
+    depends_on:
+      - T103
+    constraints:
+      - "repoは/Users/yuki/development/exam_scraper_clf_localに固定し、Drive candidateと既存exam_scraper_localを変更しない。"
+      - "previewでtargetCount=322、sourceFiles=322、workItemCount=1288、KeepItUp=12、Ping-t=310を確認してからstartを1回だけ送る。"
+      - "resumedFrom、blockedReworkFrom、evaluationReworkを指定せず、旧876問runを移植又は再開しない。"
+      - "speedMode=standard、throughputMode=auto_max、questionConcurrency=100を維持し、Fast service tierを使わない。"
+      - "00_sourceの移動・改名・削除・上書き、Firestore、Storage、publish、artifact sync、uploadを行わない。"
+      - "start応答timeout時は新run identityをmanifest/APIで照合し、存在すれば再送しない。"
+      - "monitor diskFailures、droppedNotifications、retry storm、heartbeat停止、source mismatch又は別run競合を検出したら追加mutationを止める。"
+    expected_output:
+      - "単一serverのPID/session/port/repo identityとprocess lease。"
+      - "previewのtargetCount=322、workItemCount=1288、sourceFiles=322、stage別322、canStart=true。"
+      - "fresh run ID、resumedFrom=null、100/standard/auto_max、scope 2 groupsのstart readback。"
+      - "終端manifest status=succeeded、queueStatus=succeeded、receiptValidated=true、pending/queued/committing/blocked/hold=0。"
+      - "322問すべての4工程がvalidated又は正規not_applicableで、source 322件が不変。"
+    stop_if:
+      - "previewが322問・1288 work item・322 sourceからずれる、又はcanStart=false。"
+      - "既存listener、process lease、別qualification run又はrepository operationと競合する。"
+      - "start identityを一意に確定できず再送が必要になる。"
+      - "monitor diskFailures/droppedNotificationsが増加、heartbeatが停止、retryが収束しない、又はsource不変が崩れる。"
+      - "Firestore/Storage/publish、旧run移植、scope外source又は手編集が必要になる。"
+    receipt:
+      result: blocked
+      blocked_reason: "fresh runは終端しreceiptValidated=trueだが、322問中13問・25 work itemが内容矛盾又は分類正本不足を理由に正規blockedとなり、T104のpending/committing/blocked/hold=0完了条件を満たさなかった。"
+      changed_files:
+        - docs/goals/aws-clf-two-source-upload-ready/state.yaml
+        - "/Users/yuki/development/exam_scraper_clf_local/output/question_review_console/workflow_runs/aws-cloud-practitioner/20260813T083457602773-1ca13093/**"
+        - "/Users/yuki/development/exam_scraper_clf_local/output/aws-cloud-practitioner/questions_json/{keepitup-aws-clf-c02,ping-t-aws-clf-c02}/{15_correctChoiceText_fixed,21_explanationText_added,22_questionSetId_linked,23_correctChoiceText_fixed,99_model_review_flags}/**"
+        - "/Users/yuki/development/exam_scraper_clf_local/output/question_review_console/aws-cloud-practitioner/**"
+      commands:
+        - cmd: "CLF専用serverを127.0.0.1:8765で単一起動"
+          status: "pass: PID47942, cwd=/Users/yuki/development/exam_scraper_clf_local"
+        - cmd: "qualification run preview"
+          status: "pass: canStart=true, target=322, workItems=1288, sources=322, concurrency=100, standard"
+        - cmd: "qualification run startを1回だけ送信"
+          status: "pass: HTTP202, run=20260813T083457602773-1ca13093, fresh resumedFrom=null"
+        - cmd: "terminal manifest/monitor readback"
+          status: "partial: succeeded/partial, validated=1263, blocked=25, pending=0, receiptValidated=true, diskFailures=0, droppedNotifications=0"
+      summary: "exact 322 sourceだけのfresh runを正規問題整備システムで完走した。309問を確定し、13問を理由付きで保留した。未処理・準備中・確定中は0、run receiptは検証済み、monitor保存失敗・通知欠落は0。保留13問を責務別に再整備するT105へ移行する。"
+      evidence:
+        - "run ID=20260813T083457602773-1ca13093、job ID=6_Djrqkpn7f_dlKi。"
+        - "fresh run: resumedFrom=null、scopeListGroupIds=[keepitup-aws-clf-c02,ping-t-aws-clf-c02]、targetCount=322、questionStateCount=322。"
+        - "workItemCount=1288、questionConcurrency=100、speedMode=standard、throughputMode=auto_max、requestedServiceTier=null。"
+        - "terminal status=succeeded、queueStatus=partial、executionPhase=done、receiptValidated=true、finishedAt=2026-08-13T09:58:10+09:00。"
+        - "validatedQuestionCount=309、blockedQuestionCount=13、validatedWorkItemCount=1263、blockedWorkItemCount=25。"
+        - "pending/preparing/prepared/committing work itemはすべて0。"
+        - "blockedはKeepItUp 1問、Ping-t 12問。stage内訳はcorrect_choice 3、explanation 9、question_set 13。"
+        - "monitorは全監視期間でdroppedNotifications=0、diskFailures=0。eventCountはbounded上限20000まで到達したがfailureなし。"
+        - "Firestore、Storage、publish、artifact sync、upload、旧run移植、00_source変更は行っていない。"
+      spawned_tasks:
+        - T105
+      harness: codex
+  - id: T105
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "fresh run 20260813T083457602773-1ca13093で理由付き保留になった13問・25 work itemをread-only監査し、問題ごとに最初に戻すべき責務をquestion_intent、originalize、correct_choice、category_setupへ一意に分類する。13問だけを問題整備システムで再整備する最大安全scopeと逐次順序を確定する。"
+    depends_on:
+      - T104
+    constraints:
+      - "Read-only。serverは維持するがpreview/start、patch変更、category変更、Firestore、Storage、publishを行わない。"
+      - "00_sourceを変更しない。保留理由を無視して後続工程だけ再実行しない。"
+      - "現行AWS公式仕様と問題表現の衝突、分類正本不足、工程間field矛盾を別責務として扱う。"
+      - "一つの一括手編集で13問を閉じず、正常工程順に再整備する。"
+    expected_output:
+      - "13問のquestion ID、sourceRef、blocked stage、root responsibility、最初の再整備工程。"
+      - "originalizeが必要な問題、correct_choiceだけで足りる問題、category_setup正本更新が必要な問題の集合。"
+      - "各集合の問題整備システム上の正確なstageIds、updateTargetIds、mode、questionIds、verify、stop_if。"
+      - "再整備後にexplanation・question_setを再実行する逐次順序。"
+    stop_if:
+      - "13問以外のsource又は成果物を変更する必要がある。"
+      - "分類正本更新と問題内容更新を同じ責務で混ぜる必要がある。"
+      - "00_source手編集、run/manifest手編集、Firestore/Storage/publish又は既存processへのsignalが必要になる。"
+    receipt:
+      result: done
+      changed_files:
+        - docs/goals/aws-clf-two-source-upload-ready/state.yaml
+      commands:
+        - cmd: "terminal question_summaryから13問のblocked stageと初発errorを抽出"
+          status: "pass: 13 questions, 25 blocked work items"
+        - cmd: "13問の00_source・現行patch・field契約・category.jsonをread-only照合"
+          status: "pass: category_setup=4, originalize=8, correct_choice=1, question_intent=0"
+        - cmd: "CLF専用server/processと元run終端状態のreadback"
+          status: "pass: PID47942/listener維持, run succeeded/partial, pending=0"
+      summary: "13問を最初に戻す責務で分類した。分類正本不足4問は03cを先行し、問題内容の陣腐化・多義性・公式解答衝突8問は05から、Trusted Advisorの断片肢1問は現行契約に従い02aだけから再開する。各集合を分け、03c→05→02a→後続工程の順に逐次実行する。"
+      evidence:
+        - "category_setup先行4問: 8b591ff0014eddbd94074142(SaaS/PaaS/IaaS), e54dbb0bfd564c9ccdbfa91b(IAMベストプラクティス横断), e9ba8db04ad0ccd32ad4d3ca(IaaS/PaaS/SaaS/CaaS), 37598debdf2887cad7b5dcb6(AWS Managed Services)。"
+        - "originalize先行8問: fabede8ddc2d87e9ea55d732(Tape Gateway), 6877f011d174c6335030a88d(Snowball Edge), 692aa7925344cf1ac370d912(Shield Advanced/WAF), 823706121db80fa3a684b3e2(IaaS利用料金の公式解答衝突), cf8b427c132c94642d3b43f7(Refactor Spaces), ba66981e592455854e7b9c97(CloudTrail data event), c03d8b25af6627419388375f(Kendra), cfc847ce31f28779d3b9e90a(S3 Glacier名称と比較条件)。"
+        - "correct_choice先行1問: 4bc2e4bfaafe63038358d32d。選択肢は名詞句なので『XはTrusted Advisorの検査項目に含まれない』と補完する。questionIntent=select_correctは正しく、correctChoiceTextだけを[間違い,間違い,間違い,正しい]へ確定する。"
+        - "question_intentから戻す問題は0問。4bc2e4...の02出力select_correctはquestion_field_contractの断片肢契約と一致する。"
+        - "03cは既存10 folder/35 questionSetのIDを維持し、サービスモデル、IAM横断、運用代行の分類境界だけを最小追加する。"
+        - "05の8問はcontentだけを更新し、後続はquestion_type→question_intent→correct_choice→explanation→question_setを再判定する。"
+        - "分類4問は03c終了後にquestion_setだけ、Trusted Advisor 1問はcorrect_choice→explanation→question_setだけを実行する。"
+        - "00_source、Drive candidate、Firestore、Storage、publishは不変。server PID47942は維持し、preview/startはT105で未実行。"
+      spawned_tasks:
+        - T106
+        - T107
+        - T108
+        - T109
+      harness: codex
+  - id: T106
+    type: pm
+    assignee: PM
+    status: blocked
+    reasoning_hint: high
+    objective: "CLF専用checkoutの通常問題整備システムで03c category_setupを資格単位で実行する。現行10 folder・35 questionSetと既存IDを維持し、保留4問に必要なサービスモデル、IAMベストプラクティス横断、AWS Managed Services運用代行の学習境界を最小追加する。schema-only dry-runとdiffを確認し、問題側04は開始しない。"
+    depends_on:
+      - T105
+    constraints:
+      - "repoは/Users/yuki/development/exam_scraper_clf_localに固定し、Drive candidateと既存exam_scraper_localを変更しない。"
+      - "category_setupはqualification scopeでありquestionIdsを指定しない。現行category.jsonと資格別正本を基準にする。"
+      - "既存folder/questionSet IDの削除、改名、付け替えを行わない。追加は4問の分類不足を解消する最小数に限る。"
+      - "00_source、問題patch、Firestore、Storage、publishを変更しない。"
+      - "previewをreadbackしてからstartを1回だけ送る。timeout時はidentityを照合し、新runがあれば再送しない。"
+    expected_output:
+      - "category_setup preview/start/terminalのrun identity、standard、resumedFrom=null。"
+      - "既存10 folderと35 questionSet IDの完全包含、追加IDの一意性、参照整合。"
+      - "3種の不足主題が一意に収容され、folderCountExpected/questionSetCountExpectedが実体と一致する。"
+      - "schema-only dry-run成功、実アップロードなし。"
+    stop_if:
+      - "既存IDの削除・改名・付け替え、公式分野mappingの欠落、又は4問と無関係な大幅taxonomy変更が生じる。"
+      - "category_setupが部分sourceを全資格と誤認し、既存taxonomyを縮小する。"
+      - "question側04、00_source、Firestore、Storage、publishへの変更が必要になる。"
+      - "server、repository lease、別runと競合する。"
+    receipt:
+      result: blocked
+      blocked_reason: "category_setupのpreviewが、資格スコープ工程の空progressTargetsを複数groupの問題workとして集計し『targetCountと一致しない』と停止した。T106のコード変更禁止に従い、startせず停止した。"
+      changed_files:
+        - docs/goals/aws-clf-two-source-upload-ready/state.yaml
+      commands:
+        - cmd: "POST /api/qualification-runs/preview category_setup refresh"
+          status: "blocked: previewの問題target集計が実行planと一致しません"
+        - cmd: "run list、category.json、資格別docの事後readback"
+          status: "pass: activeRun=null, new run=0, category/docs diff=0"
+      summary: "category_setupは開始前previewでfail-closedし、taxonomy・問題・sourceは不変。原因は表示用groupSummaryがquestion-work planではないqualification-scope planへも適用される回帰と確定し、コード修正T110と再試行T111へ分離する。"
+      evidence:
+        - "QualificationWorkflowのcategory_setup planはprogressTargets=[]とする契約で、問題ごとのqueueを持たない。"
+        - "_preview_uncachedは_question_work_preview_group_summary(plan)を無条件呼出し、helperは2 group以上のhuman planを通過させるため、空progressTargetsとtargetCountの不一致で停止した。"
+        - "server PID47942、元run、category.json、03_category_preparation.md、00_source、Firestore/Storage/publishは不変。"
+      spawned_tasks:
+        - T110
+        - T111
+      harness: codex
+  - id: T110
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "qualification-scopeのsetup/category_setupのようにprogressTargetsを持たないplanでは、question-work用groupSummaryを作らず空配列とする。通常の複数group question-work planの実queue集計とfail-closed契約は維持する。回帰testを追加し、対象差分だけをmainへcommit/pushする。"
+    depends_on:
+      - T106
+    allowed_files:
+      - tools/question_review_console/qualification_runs.py
+      - tests/test_question_review_qualification_runs.py
+    verify:
+      - "追加testでkind=human、2 group、targetCount>0、progressTargets=[]のqualification-scope planがgroupSummary=[]になる。"
+      - "QuestionWorkPreviewGroupSummaryTestsの既存queue集計・重複・未知group・合計不一致testが全て通る。"
+      - "category_setupのpreview APIが修正後serverでHTTP 200まで進むことはT111でlive確認する。"
+      - "main→origin/mainのscoped commit/push、対象外tracked diff=0。"
+    stop_if:
+      - "planning、token、start、queue生成、モデルrouting又は通常question-workの集計仕様を変更する必要がある。"
+      - "allowed_files外の変更、既存未コミット差分、又はpublish操作が必要になる。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - cmd: "python3.14 -m unittest tests.test_question_review_qualification_runs.QuestionWorkPreviewGroupSummaryTests (11 tests)"
+          status: pass
+        - cmd: "python3.14 -m unittest tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow (219 tests)"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git commit -m 'Fix category setup preview summary' (6594135d3)"
+          status: pass
+        - cmd: "git push origin main; clean parity readback (HEAD=origin/main=6594135d3f6f9fe15df62aaddbd34b8c660a8138, ahead/behind=0/0)"
+          status: pass
+      summary: "question-level progressTargetsを持たないqualification-scope human planではgroupSummaryを空にし、category_setup previewを通常question-workの合計検査から分離した。progressTargetsの不正型は引き続fail-closedとし、既存の実queue集計契約を維持した。"
+      evidence:
+        - "実装差分はqualification_runs.pyの表示用helperとその回帰testの2ファイルだけ。"
+        - "空progressTargets・2 group・targetCount=322・category_setupのplanがgroupSummary=[]になる回帰を追加。"
+        - "通常の複数group planは問題数・work item数を実queueから集計し、重複・未知group・合計不一致・不正型を拒否するテストが全て通過。"
+        - "run、category.json、問題成果物、00_source、Firestore/Storage/publishは未変更。"
+      harness: codex
+  - id: T111
+    type: pm
+    assignee: PM
+    status: blocked
+    reasoning_hint: high
+    objective: "T110の修正済みmainからCLF専用serverを安全に再起動し、T106と同じcategory_setup refreshをpreview/start各1回で実行する。既存IDを維持し、3種の不足境界だけを最小追加してschema-only dry-runを通す。"
+    depends_on:
+      - T110
+    constraints:
+      - "T106のconstraints、expected_output、stop_ifをすべて継承する。"
+      - "PID47942はactive job・model turn・committingが0の安全点を3回確認してから通常終了し、新しいmainで単一serverを起動する。"
+      - "強制終了、二重server、preview/start再送、run/manifest手編集を行わない。"
+    expected_output:
+      - "T106のexpected_output一式。"
+      - "旧/新serverのPID、listener、process lease、HEAD=origin/main identity。"
+    stop_if:
+      - "T106のstop_if一式。"
+      - "旧serverの安全点を確認できない、通常終了できない、又は新serverのidentityが一意でない。"
+    receipt:
+      result: blocked
+      blocked_reason: "T110修正後のpreviewはHTTP 200・1件・1 work itemで成功したが、start時がtargetIdentity=nullのqualification-scope planへもquestion queue identityを再生成し『question totalが一致しない』と停止した。startは422でfail-closedし、runとファイルは作成されていない。"
+      changed_files:
+        - docs/goals/aws-clf-two-source-upload-ready/state.yaml
+      commands:
+        - cmd: "旧server PID47942のactive runなしを3回確認後、Ctrl-Cを1回送信"
+          status: "pass: exit 0, listener/child解放"
+        - cmd: "修正済みmainでserver単一起動"
+          status: "pass: PID97983, HEAD=origin/main=6594135d3"
+        - cmd: "POST category_setup preview"
+          status: "pass: HTTP 200, target=1, work=1, groupSummary=[], source=322, canStart=true"
+        - cmd: "POST category_setup startを1回送信"
+          status: "blocked: preview対象のquestion totalが一致しません"
+        - cmd: "run listとcategory/docs diffを事後確認"
+          status: "pass: activeRun=null, new run=0, category/docs diff=0"
+      summary: "表示側のqualification-scope分離は有効だった。残った停止点はstart側が無条件で_question_work_target_identityを呼ぶ一か所で、previewと同じtargetIdentity有無の契約へ揃えるT112と再試行T113へ分離する。"
+      evidence:
+        - "preview readback: stageIds=[category_setup], targetCount=1, workItemCount=1, targetIdentity=null, groupSummary=[], canStart=true。"
+        - "startはrun作成前の_question_work_target_identity(plan)で停止した。"
+        - "category.json、03_category_preparation.md、問題patch、00_source、Firestore/Storage/publishは不変。"
+      spawned_tasks:
+        - T112
+        - T113
+      harness: codex
+  - id: T112
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "start時のquestion queue構築・target identity照合を関数化し、previewがtargetIdentity=nullと固定したqualification-scope direct human planでは空queueを使う。question-work planでは従来どおり実queueとpreview identityの完全一致をfail-closed検証する。回帰test後、対象差分だけをmainへcommit/pushする。"
+    depends_on:
+      - T111
+    allowed_files:
+      - tools/question_review_console/qualification_runs.py
+      - tests/test_question_review_qualification_runs.py
+    verify:
+      - "targetIdentity=null、progressTargets=[]、stagePlansなしのqualification-scope planが空queue・workItemCount=0としてstart検証を通る。"
+      - "question-work planはtargetIdentity欠落・queue不一致を拒否し、通常の一致planは実queueを返す。"
+      - "QualificationRun関連testとworkflow testが成功する。"
+      - "main→origin/mainのscoped commit/push、clean parity。"
+    stop_if:
+      - "preview token、plan・queue内容、実行対象、モデルrouting、通常question-workのidentity契約を緩和する必要がある。"
+      - "allowed_files外の変更が必要になる。"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_qualification_runs.py
+      commands:
+        - cmd: "python3.14 -m unittest tests.test_question_review_qualification_runs.QuestionWorkPreviewGroupSummaryTests (13 tests)"
+          status: pass
+        - cmd: "python3.14 -m unittest tests.test_question_review_qualification_runs tests.test_question_review_qualification_workflow (221 tests)"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git commit -m 'Fix qualification-scope run start' (5abba109a)"
+          status: pass
+        - cmd: "git push origin main; clean parity (HEAD=origin/main=5abba109a684588df0bd2d6bb9784ff4f4dde7e2, ahead/behind=0/0)"
+          status: pass
+      summary: "start時のquestion queue再構築とpreview identity検証を1関数へ切り出した。question-level targetのないqualification-scope direct human planは空queueで開始し、question-work planは従来どおりpreviewのquestion/work identityと実queueの完全一致を検証する。"
+      evidence:
+        - "targetIdentity=null、progressTargets=[]、stagePlansなしのqualification-scope planはexecutions=[]、queue summary=0/0として受理する。"
+        - "question-work planはtargetIdentity欠落を拒否し、一致時だけ実queueを返す回帰testを追加。"
+        - "planning、preview token、queue内容、model routing、run、category、問題成果物、00_sourceは変更していない。"
+      harness: codex
+  - id: T113
+    type: pm
+    assignee: PM
+    status: blocked
+    reasoning_hint: high
+    objective: "T112の修正済みmainからserverを安全に再起動し、T106/T111と同じcategory_setup refreshを新しいpreview tokenでpreview/start各1回実行する。既存taxonomyとIDを維持し、3種の不足境界を最小追加してschema-only dry-runを通す。"
+    depends_on:
+      - T112
+    constraints:
+      - "T106のconstraints、expected_output、stop_ifをすべて継承する。"
+      - "PID97983をactive run・job・model turnなしの安全点後に通常終了し、修正済みmainで単一serverを起動する。"
+      - "前回preview tokenを再利用せず、修正後planを新規previewする。"
+    expected_output:
+      - "T106のexpected_output一式。"
+      - "旧/新serverのPID、listener、HEAD=origin/main identity。"
+    stop_if:
+      - "T106のstop_if一式。"
+      - "preview/startのidentity不一致が再発する。"
+    receipt:
+      result: blocked
+      summary: "category_setupは正本内容を変更せず、既存10 folder・35 questionSetで3種の不足境界を収容できると判断した。schema、ID一意性、folder参照、公式分類対応、00_source 322件不変は合格したが、専用checkoutに指定された.venv/bin/pythonが存在せず、正本のschema-only dry-runがexit 127となったためrunはfailedで安全にrollbackした。共通Python 3.14環境で同じ正本dry-runを再実行すると合格した。"
+      evidence:
+        - "run 20260813T102530658801-a05f8def: failed、receiptValidated=false、changedFiles=[]、rollback済み。"
+        - "失敗理由は/Users/yuki/development/exam_scraper_clf_local/.venv/bin/python不在だけで、category内容の不整合ではない。"
+        - "/Users/yuki/development/exam_scraper_venv/bin/python3.14 scripts/upload/upload_category_to_firestore.py output/aws-cloud-practitioner/category/category.json は完了。"
+        - "00_source、category、資格別準備文書、Firestore、Storage、publishに変更なし。"
+      remaining_blockers:
+        - "run receipt自体はfailedのためT113を成功へ書き換えない。公開taskでは合格した正本dry-runと後続artifact件数を使ってcategory本番反映前に再previewする。"
+      stopped_because: "正本指定Python path不在でrun内の必須検証を実行できなかったため。"
+  - id: T114
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "ユーザーの最新依頼を一つの垂直sliceで完了する。T104で確定した309問へ不足する01を限定整備し、公開artifactを生成できる最小範囲だけ後続整備・現行評価する。dry-runと対象IDを固定してcategoryと公開可能問題だけをFirestoreへ反映し、直後readbackする。同時にRepaso資格一覧をAWS Certified Cloud Practitioner (CLF-C02)へ統一し、旧AWS認定資格をalias移行、エーダブリューエス／クラウドプラクティショナー検索を追加する。最後にTailscale /ankiplus/で資格検索、公式フォルダ、問題集、実問題の学習開始を確認する。"
+    depends_on:
+      - T113
+    constraints:
+      - "00_source、既存Firestore ID、既存ユーザー、subscription、RevenueCatを変更しない。"
+      - "公開対象は現行工程・機械検証・別session評価に合格した問題だけとし、未完了又は保留問題を黙って含めない。"
+      - "categoryとquestionsはpreview/dry-run、project ID、artifact SHA、追加・更新件数を固定してから本番反映し、直後に同一documentをreadbackする。"
+      - "取得元KeepItUp/Ping-tはprovenanceとして保持し、資格表示とqualificationIdだけをCLF-C02へ統一する。"
+      - "Repaso既存dirty差分を巻き込まず、今回の3ファイルだけをscoped commit/pushする。"
+      - "協調subagentは起動せず、問題整備runも対象を固定して再送しない。"
+    expected_output:
+      - "公開対象のexact question IDs・件数、terminal run、現行work version、evaluation、artifact SHA、quality gate。"
+      - "categoryとquestionsのFirestore preview、限定write、直後readback一致。"
+      - "資格一覧にAWS Certified Cloud Practitioner (CLF-C02)が一件だけ存在し、旧AWS認定資格がalias移行される。"
+      - "カタカナのエーダブリューエスとクラウドプラクティショナーの両方で検索できる。"
+      - "Tailscale Webで資格選択、公式問題集、実問題表示、学習開始を確認する。"
+      - "00_source不変、両repositoryのscoped commit/push、clean/parity readback。"
+    stop_if:
+      - "公開artifactを作るために保留問題を未検証のまま含める、又は公開可能問題を一意に抽出できない。"
+      - "Firestore previewと再previewで対象ID、artifact SHA、project ID、追加・更新件数が変わる。"
+      - "既存documentの資格・元問題ID・作成日時・isDeleted状態が一致しない。"
+      - "category IDの削除・rename、00_source変更、取得元別の重複資格作成、既存ユーザー又はsubscription変更が必要になる。"
+      - "Tailscale Web実画面で資格・問題集・実問題のいずれかを確認できない。"
+    receipt:
+      summary: "現行工程と独立評価に合格したCLF-C02 125問だけを本番Firestoreへ公開した。125 source questionは532 learning documentへ展開され、10 folder・35 questionSet（active 33）として資格一覧とライブラリへ反映された。Repasoの表示名をAWS Certified Cloud Practitioner (CLF-C02)へ統一し、クラウドプラクティショナー／エーダブリューエスの両検索で同資格一件だけがヒットすることをTailscale Webで確認した。AWS実データ4問を使う匿名実ブラウザ試験でfolder→questionSet→answer→回答操作まで合格した。"
+      completed_at: "2026-08-13T13:20:00+09:00"
+      publication_receipt: "/Users/yuki/development/exam_scraper_clf_local/document/temporary/2026-08-13_aws_clf_c02_initial_publication_receipt.json"
+      evidence:
+        - cmd: "309問のcurrent-policy originalize run"
+          status: "pass: run=20260813T123509338072-49db6926, validated=309/309, blocked=0"
+        - cmd: "独立評価"
+          status: "pass: job=lXytgmrz-8R_dDpz, selected=174, passed=125, needs_rework=48, inconclusive=1, failed=0"
+        - cmd: "question publish batch 1"
+          status: "pass: job=B93RUNusBhwJmCOl, queueRun=20260813T125404503187-1a2e0291, 100 questions/429 documents, readback mismatch=0"
+        - cmd: "question publish batch 2"
+          status: "pass: job=LkhVhW7nwl2X66Vk, queueRun=20260813T125657782544-224c9e4d, 25 questions/103 documents, readback mismatch=0"
+        - cmd: "category upload and live Firestore readback"
+          status: "pass: project=repaso-rbaqy4, folders=10, questionSets=35, active=33, documents=532, sourceQuestions=125, field issues=0"
+        - cmd: "Repaso qualification search tests and Tailscale Web"
+          status: "pass: formal name one row; クラウドプラクティショナー and エーダブリューエス each returned only CLF-C02"
+        - cmd: "AWS live Web library journey"
+          status: "pass: folder=aws_cloud_practitioner_f01_cloud_value_design, questionSet=aws_cloud_practitioner_qs01_02_availability_elasticity_agility, questions=4, folder=1254ms, questionSet=795ms, answer=777ms, limit=10000ms"
+        - cmd: "published question ID set comparison"
+          status: "pass: evaluation passed IDs = publisher batch IDs = durable receipt IDs, 125 unique"
+      commits:
+        - "exam_scraper_clf_local a81a643e5 Gate partial publication by validated receipts"
+        - "exam_scraper_clf_local d178841ee Update AWS CLF-C02 published question counts"
+        - "exam_scraper_clf_local d989e342b Align AWS CLF-C02 categories with published questions"
+        - "repaso d9ca1903 Add AWS CLF-C02 qualification search"
+      invariants:
+        - "00_source change=0; existing Firestore IDs preserved; no subscription or RevenueCat operation."
+        - "Repasoの既存dirty差分は未変更。AWS実ブラウザ試験の一時target差し替えは終了後に完全復元しdiff=0。"
+        - "未公開197問は黙って含めず、評価前148問・要再整備48問・評価未完了1問として残した。"
+  - id: T107
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: "T105でoriginalize責務と確定したPing-t 8問だけを05 originalize.contentで再整備する。現行公式仕様で成立する最小な問題文・選択肢・正答に整え、IDと学習論点を維持する。"
+    depends_on:
+      - T113
+    constraints:
+      - "exact questionIdsはfabede8ddc2d87e9ea55d732、6877f011d174c6335030a88d、692aa7925344cf1ac370d912、823706121db80fa3a684b3e2、cf8b427c132c94642d3b43f7、ba66981e592455854e7b9c97、c03d8b25af6627419388375f、cfc847ce31f28779d3b9e90a。"
+      - "stageIds=[originalize]、updateTargetIds=[originalize.content]、mode=group_refresh、listGroupIds=[ping-t-aws-clf-c02]、blockedReworkFrom=20260813T083457602773-1ca13093。"
+      - "画像は対象外。00_source、ID、対象外問題、Firestore、Storage、publishを変更しない。"
+    expected_output:
+      - "8問/8 work item validated、blocked/hold/pending/committing=0。"
+      - "対象外8問の05差分と公式根拠、問題表現・正答・IDの整合。"
+    stop_if:
+      - "8問以外への変更、学習論点・難易度の実質変更、又は問題整備システム外の手修正が必要になる。"
+    receipt: null
+  - id: T108
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: "KeepItUp問題4bc2e4bfaafe63038358d32dだけに断片肢の完全命題契約をhuman review feedbackとして記録し、02a correct_choice.correct_answerから再整備する。questionIntent=select_correctを維持し、correctChoiceTextを[間違い,間違い,間違い,正しい]へ確定する。"
+    depends_on:
+      - T107
+    constraints:
+      - "questionBodyText、choiceTextList、questionIntent、answer_result_text、IDを変更しない。"
+      - "human reviewはcurrent_question・correctChoiceTextの同一stateへ1回だけ記録し、standaloneではなくblocked reworkへ継承する。"
+      - "stageIds=[correct_choice]、updateTargetIds=[correct_choice.correct_answer]、mode=group_refresh、questionIds=[4bc2e4bfaafe63038358d32d]、blockedReworkFrom=20260813T083457602773-1ca13093。"
+    expected_output:
+      - "02a 1問/1 work item validated、correctChoiceText配列と公式解答4番の整合。"
+      - "05・02・00_source・ID・対象外問題不変。"
+    stop_if:
+      - "questionIntent又は問題内容の変更が必要と再判定される。"
+      - "同一reviewの二重作成、standalone run、又は対象外差分が生じる。"
+    receipt: null
+  - id: T109
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: "T106〜T108の上流修正後、13問の必要後続工程を責務別の3 runで逐次再整備する。originalize 8問は01→02→02a→03→04、Trusted Advisor 1問は03→04、category 4問は04だけを実行し、13/13、blocked/hold/pending/committing=0へ収束する。"
+    depends_on:
+      - T108
+    constraints:
+      - "3 runは各terminal receiptを確認してから次を開始し、並列実行しない。"
+      - "各runのquestionIdsとstageIdsをT105分類から広げない。standard/auto_max、最大100、画像なしを維持する。"
+      - "00_source、ID、対象外問題、Firestore、Storage、publishを変更しない。"
+    expected_output:
+      - "13問の各工程terminal receiptと、最終blocked/hold/pending/committing=0。"
+      - "T104で309問確定済みの成果を維持し、322/322を完了扱いできるreadback。"
+    stop_if:
+      - "上流修正が反映されない、13問以外が対象に入る、新しい内容矛盾が生じる。"
+      - "artifact sync、upload-ready、Firestore/Storage/publishが自動で開始される。"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
