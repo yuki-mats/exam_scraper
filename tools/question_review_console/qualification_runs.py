@@ -8490,6 +8490,16 @@ def _question_work_preview_group_summary(
 
     if str(plan.get("kind") or "") not in {"human", "orchestration"}:
         return []
+    progress_targets = plan.get("progressTargets")
+    if progress_targets is None:
+        # setup/category_setup are qualification-scope human work. They may
+        # reference every source and group, but they do not enqueue one work
+        # item per question and therefore have no question-level group summary.
+        return []
+    if not isinstance(progress_targets, list):
+        raise QualificationRunError("previewの問題target形式が不正です。")
+    if not progress_targets:
+        return []
     group_ids = [
         str(value)
         for value in (
@@ -8506,7 +8516,7 @@ def _question_work_preview_group_summary(
         for group_id in group_ids
     }
     targets_by_id: dict[str, str] = {}
-    for raw_target in plan.get("progressTargets") or []:
+    for raw_target in progress_targets:
         if not isinstance(raw_target, Mapping):
             raise QualificationRunError("previewの問題targetが不正です。")
         question_id = str(

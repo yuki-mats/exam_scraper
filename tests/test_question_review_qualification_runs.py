@@ -117,6 +117,19 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
             ],
         )
 
+    def test_summary_skips_qualification_scope_without_question_targets(self):
+        plan = {
+            "kind": "human",
+            "scopeListGroupIds": [],
+            "targetGroupIds": ["keep", "ping"],
+            "targetCount": 322,
+            "workItemCount": 1,
+            "stageIds": ["category_setup"],
+            "progressTargets": [],
+        }
+
+        self.assertEqual(_question_work_preview_group_summary(plan), [])
+
     def test_target_identity_is_derived_from_actual_queue(self):
         identity = _question_work_target_identity(self.plan())
 
@@ -223,6 +236,11 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
                 _question_work_target_identity(plan)
 
     def test_summary_rejects_duplicate_unknown_and_mismatched_totals(self):
+        malformed = self.plan()
+        malformed["progressTargets"] = {}
+        with self.assertRaises(QualificationRunError):
+            _question_work_preview_group_summary(malformed)
+
         duplicate = self.plan()
         duplicate["progressTargets"].append(self.target("keep-1", "keep"))
         with self.assertRaises(QualificationRunError):
