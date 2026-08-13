@@ -51,6 +51,7 @@ from tools.question_review_console.qualification_runs import (
     _structured_candidate_prompt,
     _trusted_source_answer_evidence,
     _validated_prepared_candidate,
+    _validated_question_work_queue,
     _validated_projected_input_path,
     prepare_question_items_concurrently,
 )
@@ -148,6 +149,31 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
                 {"stageId": "explanation", "workItemCount": 3},
             ],
         )
+
+    def test_start_queue_skips_qualification_scope_without_question_work(self):
+        executions, summary = _validated_question_work_queue(
+            {
+                "stageIds": ["category_setup"],
+                "targetIdentity": None,
+                "targetCount": 1,
+                "workItemCount": 1,
+                "progressTargets": [],
+            }
+        )
+
+        self.assertEqual(executions, [])
+        self.assertEqual(summary, {"questionCount": 0, "workItemCount": 0})
+
+    def test_start_queue_requires_preview_identity_for_question_work(self):
+        plan = self.plan()
+        with self.assertRaisesRegex(QualificationRunError, "identity"):
+            _validated_question_work_queue(plan)
+
+        plan["targetIdentity"] = _question_work_target_identity(plan)
+        executions, summary = _validated_question_work_queue(plan)
+
+        self.assertEqual(len(executions), 3)
+        self.assertEqual(summary["workItemCount"], 6)
 
     def test_target_identity_fails_closed_on_declared_total_mismatch(self):
         plan = self.plan()

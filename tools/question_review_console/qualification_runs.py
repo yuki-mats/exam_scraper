@@ -1215,6 +1215,50 @@ def _question_work_target_identity(plan: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _validated_question_work_queue(
+    plan: Mapping[str, Any],
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """Rebuild and verify the question queue bound into a preview."""
+
+    has_question_work = bool(
+        plan.get("progressTargets") or plan.get("stagePlans")
+    )
+    expected_identity = plan.get("targetIdentity")
+    if not has_question_work:
+        if expected_identity is not None:
+            raise QualificationRunError(
+                "preview対象identityに対応するquestion queueがありません。"
+            )
+        return [], {"questionCount": 0, "workItemCount": 0}
+
+    try:
+        question_executions = build_question_executions(plan)
+    except QuestionWorkQueueError as exc:
+        raise QualificationRunError(str(exc)) from exc
+    actual_target_identity = _question_work_target_identity(plan)
+    if expected_identity != actual_target_identity:
+        raise QualificationRunError(
+            "preview対象identityと開始時queueが一致しません。"
+        )
+    actual_queue_summary = queue_summary(question_executions)
+    if (
+        int(actual_target_identity.get("workItemCount") or 0)
+        != int(actual_queue_summary.get("workItemCount") or 0)
+        or int(actual_target_identity.get("stageCount") or 0)
+        != len(actual_target_identity.get("stageSummary") or [])
+        or sum(
+            int(item.get("workItemCount") or 0)
+            for item in actual_target_identity.get("stageSummary") or []
+            if isinstance(item, Mapping)
+        )
+        != int(actual_queue_summary.get("workItemCount") or 0)
+    ):
+        raise QualificationRunError(
+            "preview対象identityのqueue集計が一致しません。"
+        )
+    return question_executions, actual_queue_summary
+
+
 def _validated_projected_input_path(
     repo_root: Path,
     parent_run_directory: Path,
@@ -9698,31 +9742,9 @@ class QualificationRunCoordinator:
                 "requestedServiceTier": None,
             }
             maintenance_phases = _maintenance_session_phases(plan)
-            try:
-                question_executions = build_question_executions(plan)
-            except QuestionWorkQueueError as exc:
-                raise QualificationRunError(str(exc)) from exc
-            actual_target_identity = _question_work_target_identity(plan)
-            if plan.get("targetIdentity") != actual_target_identity:
-                raise QualificationRunError(
-                    "preview対象identityと開始時queueが一致しません。"
-                )
-            actual_queue_summary = queue_summary(question_executions)
-            if (
-                int(actual_target_identity.get("workItemCount") or 0)
-                != int(actual_queue_summary.get("workItemCount") or 0)
-                or int(actual_target_identity.get("stageCount") or 0)
-                != len(actual_target_identity.get("stageSummary") or [])
-                or sum(
-                    int(item.get("workItemCount") or 0)
-                    for item in actual_target_identity.get("stageSummary") or []
-                    if isinstance(item, Mapping)
-                )
-                != int(actual_queue_summary.get("workItemCount") or 0)
-            ):
-                raise QualificationRunError(
-                    "preview対象identityのqueue集計が一致しません。"
-                )
+            question_executions, actual_queue_summary = (
+                _validated_question_work_queue(plan)
+            )
             if len(maintenance_phases) > 1 or question_executions:
                 phase_executions = [
                     {
