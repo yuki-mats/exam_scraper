@@ -83,87 +83,87 @@
       "対象サービス一覧は変更される可能性があるため、分類境界はサービス名だけでなく用途と判断軸で定義する。"
     ]
   },
-  "updatedAt": "2026-08-13T03:23:49Z",
+  "updatedAt": "2026-08-13T03:58:41Z",
   "folders": [
     {
       "folderId": "aws_cloud_practitioner_f01_cloud_value_design",
       "name": "01_【分野1】クラウドの価値と設計",
       "description": "AWSクラウドの価値、高可用性・伸縮性・俊敏性の利点、AWS Well-Architectedフレームワークを扱う。移行の進め方とクラウドエコノミクスは02へ分ける。",
-      "questionCount": 70,
+      "questionCount": 27,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f02_adoption_migration_economics",
       "name": "02_【分野1】導入・移行・クラウドエコノミクス",
       "description": "AWS CAF、クラウド導入・移行戦略、移行支援リソース、固定費と変動費、適正サイジングなどクラウド移行の判断を扱う。個別の料金モデルと請求ツールは09へ分ける。",
-      "questionCount": 68,
+      "questionCount": 48,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f03_shared_responsibility_identity_access",
       "name": "03_【分野2】責任共有・ID・アクセス管理",
       "description": "AWS責任共有モデル、IAM、ルートユーザー、認証、認可、最小権限、認証情報とシークレットの管理を扱う。暗号化、監査、脅威検出などのセキュリティサービスは04へ分ける。",
-      "questionCount": 152,
+      "questionCount": 109,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f04_security_governance_compliance",
       "name": "04_【分野2】セキュリティ・ガバナンス・コンプライアンス",
       "description": "暗号化、コンプライアンス情報、モニタリングと監査、脅威検出、セキュリティ態勢、ネットワーク・アプリケーション保護を扱う。IAMによる利用者・権限管理は03へ分ける。",
-      "questionCount": 120,
+      "questionCount": 86,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f05_infrastructure_compute",
       "name": "05_【分野3】クラウド運用・グローバル基盤・コンピューティング",
       "description": "AWSへのアクセス方法、デプロイモデル、IaC、リージョンとアベイラビリティーゾーン、EC2、Auto Scaling、ロードバランシング、コンテナ、サーバーレスを扱う。ネットワーク接続は06、料金上の購入オプションは09へ分ける。",
-      "questionCount": 119,
+      "questionCount": 66,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f06_network_content_delivery",
       "name": "06_【分野3】ネットワーク・コンテンツ配信",
       "description": "Amazon VPCの構成と保護、DNS、コンテンツ配信、エッジ配信、AWSへのハイブリッド接続を扱う。リージョンとアベイラビリティーゾーンの基本構造は05へ分ける。",
-      "questionCount": 52,
+      "questionCount": 24,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f07_database_storage",
       "name": "07_【分野3】データベース・ストレージ",
       "description": "リレーショナル・NoSQL・インメモリデータベース、データベース移行、オブジェクト・ブロック・ファイル・ハイブリッドストレージ、バックアップを扱う。分析サービスは08へ分ける。",
-      "questionCount": 107,
+      "questionCount": 64,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f08_ai_analytics_application_services",
       "name": "08_【分野3】AI・分析・アプリケーションサービス",
       "description": "AI・機械学習、データ分析、アプリケーション統合、開発者ツール、ビジネスアプリケーション、エンドユーザーコンピューティング、フロントエンド・モバイル、IoTを扱う。主要なコンピューティング、ネットワーク、データベース、ストレージは05〜07へ分ける。",
-      "questionCount": 83,
+      "questionCount": 53,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f09_pricing_billing_cost",
       "name": "09_【分野4】料金・請求・コスト管理",
       "description": "コンピューティング購入オプション、ストレージとデータ転送料金、料金見積り、予算、コスト分析、一括請求、コスト配分を扱う。固定費と変動費などクラウドエコノミクスの原則は02へ分ける。",
-      "questionCount": 77,
+      "questionCount": 42,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "folderId": "aws_cloud_practitioner_f10_support_resources_partners",
       "name": "10_【分野4】サポート・技術リソース・パートナー",
       "description": "AWSサポートプラン、Support Center、AWS Health、Trusted Advisor、公式ドキュメント、技術支援、AWSパートナー、AWS Marketplaceを扱う。Marketplace上のセキュリティ製品そのものは04へ分ける。",
-      "questionCount": 33,
+      "questionCount": 13,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     }
   ],
   "questionSets": [
@@ -183,9 +183,9 @@
       "officialTaskStatementIds": [
         "1.1"
       ],
-      "questionCount": 6,
-      "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "questionCount": 0,
+      "isDeleted": true,
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs01_02_availability_elasticity_agility",
@@ -203,9 +203,9 @@
       "officialTaskStatementIds": [
         "1.1"
       ],
-      "questionCount": 6,
+      "questionCount": 4,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs01_03_well_architected",
@@ -224,9 +224,9 @@
       "officialTaskStatementIds": [
         "1.2"
       ],
-      "questionCount": 58,
+      "questionCount": 23,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs02_01_cloud_adoption_caf",
@@ -245,9 +245,9 @@
       "officialTaskStatementIds": [
         "1.3"
       ],
-      "questionCount": 37,
+      "questionCount": 31,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs02_02_migration_strategies",
@@ -266,9 +266,9 @@
       "officialTaskStatementIds": [
         "1.3"
       ],
-      "questionCount": 13,
+      "questionCount": 4,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs02_03_cloud_economics",
@@ -288,9 +288,9 @@
       "officialTaskStatementIds": [
         "1.4"
       ],
-      "questionCount": 18,
+      "questionCount": 13,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs03_01_shared_responsibility",
@@ -310,9 +310,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 86,
+      "questionCount": 60,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs03_02_iam_permissions",
@@ -333,9 +333,9 @@
       "officialTaskStatementIds": [
         "2.3"
       ],
-      "questionCount": 30,
+      "questionCount": 24,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs03_03_authentication_root_federation",
@@ -354,9 +354,9 @@
       "officialTaskStatementIds": [
         "2.3"
       ],
-      "questionCount": 18,
+      "questionCount": 16,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs03_04_credentials_secrets",
@@ -376,9 +376,9 @@
       "officialTaskStatementIds": [
         "2.3"
       ],
-      "questionCount": 18,
+      "questionCount": 9,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs04_01_encryption_data_protection",
@@ -397,9 +397,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 13,
+      "questionCount": 9,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs04_02_compliance_artifact",
@@ -419,9 +419,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 14,
+      "questionCount": 13,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs04_03_governance_monitoring_audit",
@@ -442,9 +442,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 38,
+      "questionCount": 27,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs04_04_threat_detection_security_posture",
@@ -466,9 +466,9 @@
         "2.2",
         "2.4"
       ],
-      "questionCount": 22,
+      "questionCount": 12,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs04_05_network_application_protection",
@@ -488,9 +488,9 @@
       "officialTaskStatementIds": [
         "2.4"
       ],
-      "questionCount": 33,
+      "questionCount": 25,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs05_01_access_provisioning_iac",
@@ -511,9 +511,9 @@
       "officialTaskStatementIds": [
         "3.1"
       ],
-      "questionCount": 18,
+      "questionCount": 13,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs05_02_global_infrastructure",
@@ -534,9 +534,9 @@
       "officialTaskStatementIds": [
         "3.2"
       ],
-      "questionCount": 23,
+      "questionCount": 13,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs05_03_ec2_instance_types",
@@ -558,9 +558,9 @@
       "officialTaskStatementIds": [
         "3.3"
       ],
-      "questionCount": 27,
+      "questionCount": 16,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs05_04_auto_scaling_load_balancing",
@@ -579,9 +579,9 @@
       "officialTaskStatementIds": [
         "3.3"
       ],
-      "questionCount": 33,
+      "questionCount": 8,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs05_05_containers_serverless",
@@ -602,9 +602,9 @@
       "officialTaskStatementIds": [
         "3.3"
       ],
-      "questionCount": 18,
+      "questionCount": 16,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs06_01_vpc_network_security",
@@ -624,9 +624,9 @@
       "officialTaskStatementIds": [
         "3.5"
       ],
-      "questionCount": 32,
+      "questionCount": 20,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs06_02_dns_content_delivery_connectivity",
@@ -649,9 +649,9 @@
         "3.2",
         "3.5"
       ],
-      "questionCount": 20,
+      "questionCount": 4,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs07_01_databases_cache_migration",
@@ -674,9 +674,9 @@
       "officialTaskStatementIds": [
         "3.4"
       ],
-      "questionCount": 52,
+      "questionCount": 35,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs07_02_s3_object_storage",
@@ -695,9 +695,9 @@
       "officialTaskStatementIds": [
         "3.6"
       ],
-      "questionCount": 20,
+      "questionCount": 5,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs07_03_block_file_hybrid_backup",
@@ -718,9 +718,9 @@
       "officialTaskStatementIds": [
         "3.6"
       ],
-      "questionCount": 35,
+      "questionCount": 24,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs08_01_ai_ml_services",
@@ -743,9 +743,9 @@
       "officialTaskStatementIds": [
         "3.7"
       ],
-      "questionCount": 17,
+      "questionCount": 12,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs08_02_analytics_data_processing",
@@ -767,9 +767,9 @@
       "officialTaskStatementIds": [
         "3.7"
       ],
-      "questionCount": 18,
+      "questionCount": 8,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs08_03_app_integration_developer_tools",
@@ -791,9 +791,9 @@
       "officialTaskStatementIds": [
         "3.8"
       ],
-      "questionCount": 42,
+      "questionCount": 29,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs08_04_business_euc_frontend_iot",
@@ -815,9 +815,9 @@
       "officialTaskStatementIds": [
         "3.8"
       ],
-      "questionCount": 6,
+      "questionCount": 4,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs09_01_compute_purchasing",
@@ -837,9 +837,9 @@
       "officialTaskStatementIds": [
         "4.1"
       ],
-      "questionCount": 34,
+      "questionCount": 13,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs09_02_storage_data_transfer_pricing",
@@ -858,9 +858,9 @@
       "officialTaskStatementIds": [
         "4.1"
       ],
-      "questionCount": 23,
+      "questionCount": 17,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs09_03_estimates_budgets_cost_analysis",
@@ -879,9 +879,9 @@
       "officialTaskStatementIds": [
         "4.2"
       ],
-      "questionCount": 20,
+      "questionCount": 12,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs09_04_billing_organizations_reports",
@@ -925,9 +925,9 @@
       "officialTaskStatementIds": [
         "4.3"
       ],
-      "questionCount": 24,
+      "questionCount": 9,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     },
     {
       "questionSetId": "aws_cloud_practitioner_qs10_02_docs_experts_partners_marketplace",
@@ -951,9 +951,9 @@
       "officialTaskStatementIds": [
         "4.3"
       ],
-      "questionCount": 9,
+      "questionCount": 4,
       "isDeleted": false,
-      "updatedAt": "2026-08-13T03:23:49Z"
+      "updatedAt": "2026-08-13T03:58:41Z"
     }
   ]
 }
