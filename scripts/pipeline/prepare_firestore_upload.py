@@ -193,6 +193,20 @@ def partition_requirement_errors(
     return allowed, blocked
 
 
+def merged_requirement_files(
+    group_dir: Path,
+    *,
+    allow_unuploadable_records: bool,
+) -> list[Path]:
+    files: list[Path] = []
+    for subdir in ("20_merged_1", "30_merged_2"):
+        for path in sorted((group_dir / subdir).glob("*.json")):
+            if allow_unuploadable_records and path.name.endswith("_invalid.json"):
+                continue
+            files.append(path)
+    return files
+
+
 def count_unuploadable_questions_from_invalid_merged2(*, base_dir: Path, list_group_id: str) -> tuple[int, list[str]]:
     """
     30_merged_2 配下の *_invalid.json に外出しされた（=アップロード対象外）question_bodies を数える。
@@ -228,6 +242,7 @@ def process_list_group(
     exam_name: str | None,
     skip_merge: bool,
     allow_missing_answer_result: bool,
+    allow_unuploadable_records: bool,
     skip_qset_check: bool,
     questionset_only: bool,
     requirements_path: Path,
@@ -282,9 +297,10 @@ def process_list_group(
             record_array="question_bodies",
             qualification=qualification,
         )
-        merged_files: list[Path] = []
-        for subdir in ("20_merged_1", "30_merged_2"):
-            merged_files.extend(sorted((group_dir / subdir).glob("*.json")))
+        merged_files = merged_requirement_files(
+            group_dir,
+            allow_unuploadable_records=allow_unuploadable_records,
+        )
         errors: list[str] = []
         for merged_file in merged_files:
             try:
@@ -323,6 +339,8 @@ def process_list_group(
         convert_cmd.extend(["--exam-name", exam_name])
     if allow_missing_answer_result:
         convert_cmd.append("--skip-intent-correct-choice-check")
+    elif allow_unuploadable_records:
+        convert_cmd.append("--allow-excluded-invalid-records")
     run_step(f"convert ({list_group_id})", convert_cmd, dry_run)
 
     print(f"\n[STEP] locate outputs ({list_group_id})")
@@ -539,6 +557,15 @@ def main(argv: list[str] | None = None) -> int:
         ),
     )
     parser.add_argument(
+        "--allow-unuploadable-records",
+        action="store_true",
+        help=(
+            "30_merged_2の*_invalid.jsonへ隔離された未完了レコードを明示的に"
+            "公開対象外とし、validレコードだけをupload-readyへ進める。"
+            "隔離件数は実行サマリへ必ず表示する"
+        ),
+    )
+    parser.add_argument(
         "--skip-qset-check",
         action="store_true",
         help="check_questionSetId.py をスキップ",
@@ -619,6 +646,7 @@ def main(argv: list[str] | None = None) -> int:
                     exam_name=args.exam_name,
                     skip_merge=args.skip_merge,
                     allow_missing_answer_result=args.allow_missing_answer_result,
+                    allow_unuploadable_records=args.allow_unuploadable_records,
                     skip_qset_check=args.skip_qset_check,
                     questionset_only=args.questionset_only,
                     requirements_path=args.requirements,

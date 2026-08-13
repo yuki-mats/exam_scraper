@@ -1478,6 +1478,14 @@ def main(argv: list[str] | None = None):
         action="store_true",
         help="既存Firestore由来など answer_result_text がない変換で questionIntent/correctChoiceText 分布チェックをスキップする",
     )
+    parser.add_argument(
+        "--allow-excluded-invalid-records",
+        action="store_true",
+        help=(
+            "*_invalid.jsonへ隔離済みの未完了レコードだけを正誤検査の対象外とし、"
+            "公開対象のmergedレコードは通常どおり厳格検査する"
+        ),
+    )
     
     args = parser.parse_args(argv)
     
@@ -1502,7 +1510,11 @@ def main(argv: list[str] | None = None):
             if not args.skip_intent_correct_choice_check:
                 raise_on_question_intent_correct_choice_violations(payload=merged_data, source_path=input_path)
             invalid_path = input_path.with_name(f"{input_path.stem}_invalid{input_path.suffix}")
-            if invalid_path.exists() and not args.skip_intent_correct_choice_check:
+            if (
+                invalid_path.exists()
+                and not args.skip_intent_correct_choice_check
+                and not args.allow_excluded_invalid_records
+            ):
                 with open(invalid_path, "r", encoding="utf-8") as f:
                     invalid_data = json.load(f)
                 raise_on_question_intent_correct_choice_violations(payload=invalid_data, source_path=invalid_path)

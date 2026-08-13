@@ -213,6 +213,65 @@ class PrepareFirestoreUploadTest(unittest.TestCase):
         self.assertEqual(len(blocked), 1)
         self.assertIn("questionSetId", blocked[0])
 
+    def test_allow_unuploadable_records_excludes_only_invalid_sidecars(self) -> None:
+        group_dir = self.make_group_dir("85010")
+        merged1 = group_dir / "20_merged_1"
+        merged2 = group_dir / "30_merged_2"
+        merged1.mkdir()
+        merged2.mkdir()
+        valid1 = merged1 / "question_a_merged.json"
+        invalid1 = merged1 / "question_a_merged_invalid.json"
+        valid2 = merged2 / "question_b_merged.json"
+        invalid2 = merged2 / "question_b_merged_invalid.json"
+        for path in (valid1, invalid1, valid2, invalid2):
+            path.write_text("{}", encoding="utf-8")
+
+        self.assertEqual(
+            module.merged_requirement_files(
+                group_dir,
+                allow_unuploadable_records=True,
+            ),
+            [valid1, valid2],
+        )
+        self.assertEqual(
+            module.merged_requirement_files(
+                group_dir,
+                allow_unuploadable_records=False,
+            ),
+            [valid1, invalid1, valid2, invalid2],
+        )
+
+    def test_allow_unuploadable_records_keeps_valid_intent_check(self) -> None:
+        self.make_group_dir("85010")
+        commands: list[tuple[str, list[str], bool]] = []
+
+        def fake_run_step(name: str, command: list[str], dry_run: bool) -> None:
+            commands.append((name, command, dry_run))
+
+        with mock.patch.object(module, "run_step", side_effect=fake_run_step):
+            exit_code = module.main(
+                [
+                    "85010",
+                    "--base-dir",
+                    str(self.base_dir),
+                    "--category-json",
+                    str(self.category_path),
+                    "--allow-unuploadable-records",
+                    "--skip-requirements-check",
+                    "--skip-update-category-counts",
+                    "--dry-run",
+                ]
+            )
+
+        self.assertEqual(exit_code, 0)
+        convert_command = next(
+            command
+            for name, command, _ in commands
+            if name == "convert (85010)"
+        )
+        self.assertIn("--allow-excluded-invalid-records", convert_command)
+        self.assertNotIn("--skip-intent-correct-choice-check", convert_command)
+
 
 if __name__ == "__main__":
     unittest.main()
