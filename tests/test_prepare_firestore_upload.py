@@ -272,6 +272,132 @@ class PrepareFirestoreUploadTest(unittest.TestCase):
         self.assertIn("--allow-excluded-invalid-records", convert_command)
         self.assertNotIn("--skip-intent-correct-choice-check", convert_command)
 
+    def test_validated_question_summaries_use_intersection(self) -> None:
+        first = self.root / "first_question_summary.json"
+        second = self.root / "second_question_summary.json"
+        first.write_text(
+            json.dumps(
+                {
+                    "questions": [
+                        {
+                            "listGroupId": "85010",
+                            "reviewQuestionId": "q1",
+                            "status": "validated",
+                        },
+                        {
+                            "listGroupId": "85010",
+                            "reviewQuestionId": "q2",
+                            "status": "validated",
+                        },
+                    ]
+                }
+            ),
+            encoding="utf-8",
+        )
+        second.write_text(
+            json.dumps(
+                {
+                    "questions": [
+                        {
+                            "listGroupId": "85010",
+                            "reviewQuestionId": "q1",
+                            "status": "validated",
+                        },
+                        {
+                            "listGroupId": "85010",
+                            "reviewQuestionId": "q2",
+                            "status": "blocked",
+                        },
+                    ]
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        self.assertEqual(
+            module.load_validated_question_keys([first, second]),
+            {("85010", "q1")},
+        )
+
+    def test_partial_publication_filters_both_outputs_by_validated_question(self) -> None:
+        group_dir = self.make_group_dir("85010")
+        upload_dir = self.base_dir / "upload_to_firestore"
+        upload_dir.mkdir()
+        converted_path = group_dir / "40_convert" / "85010_firestore_20260813_120000.json"
+        copied_path = upload_dir / "85010_firestore_20260813_120000.json"
+        payload = {
+            "questions": [
+                {"questionId": "q1-choice-1", "originalQuestionId": "q1"},
+                {"questionId": "q1-choice-2", "originalQuestionId": "q1"},
+                {"questionId": "q2-choice-1", "originalQuestionId": "q2"},
+            ]
+        }
+        for path in (converted_path, copied_path):
+            path.write_text(json.dumps(payload), encoding="utf-8")
+        summary_path = self.root / "question_summary.json"
+        summary_path.write_text(
+            json.dumps(
+                {
+                    "questions": [
+                        {
+                            "listGroupId": "85010",
+                            "reviewQuestionId": "q1",
+                            "status": "validated",
+                        }
+                    ]
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        excluded_questions, excluded_documents, details = (
+            module.filter_outputs_to_validated_questions(
+                list_group_id="85010",
+                converted_path=converted_path,
+                copied_path=copied_path,
+                validated_question_keys={("85010", "q1")},
+                summary_paths=[summary_path],
+            )
+        )
+
+        self.assertEqual(excluded_questions, 1)
+        self.assertEqual(excluded_documents, 1)
+        self.assertTrue(any("1問" in detail for detail in details))
+        for path in (converted_path, copied_path):
+            questions = json.loads(path.read_text(encoding="utf-8"))["questions"]
+            self.assertEqual(
+                [question["questionId"] for question in questions],
+                ["q1-choice-1", "q1-choice-2"],
+            )
+        reports = list((group_dir / "40_convert" / "publication_exclusions").glob("*.json"))
+        self.assertEqual(len(reports), 1)
+        report = json.loads(reports[0].read_text(encoding="utf-8"))
+        self.assertEqual(report["excludedOriginalQuestionCount"], 1)
+        self.assertEqual(report["excludedQuestions"][0]["originalQuestionId"], "q2")
+
+    def test_partial_publication_fails_if_validated_question_was_not_converted(self) -> None:
+        group_dir = self.make_group_dir("85010")
+        upload_dir = self.base_dir / "upload_to_firestore"
+        upload_dir.mkdir()
+        converted_path = group_dir / "40_convert" / "85010_firestore_20260813_120000.json"
+        copied_path = upload_dir / "85010_firestore_20260813_120000.json"
+        payload = {
+            "questions": [
+                {"questionId": "q1-choice-1", "originalQuestionId": "q1"}
+            ]
+        }
+        for path in (converted_path, copied_path):
+            path.write_text(json.dumps(payload), encoding="utf-8")
+
+        with self.assertRaisesRegex(RuntimeError, "公開成果物に見つかりません"):
+            module.filter_outputs_to_validated_questions(
+                list_group_id="85010",
+                converted_path=converted_path,
+                copied_path=copied_path,
+                validated_question_keys={("85010", "missing")},
+                summary_paths=[self.root / "question_summary.json"],
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

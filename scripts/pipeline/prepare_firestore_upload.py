@@ -232,6 +232,171 @@ def count_unuploadable_questions_from_invalid_merged2(*, base_dir: Path, list_gr
     return total, details
 
 
+def load_validated_question_keys(summary_paths: list[Path]) -> set[tuple[str, str]]:
+    """複数のquestion_summaryで全てvalidatedの問題だけを公開allowlistにする。"""
+    if not summary_paths:
+        return set()
+
+    validated_sets: list[set[tuple[str, str]]] = []
+    for summary_path in summary_paths:
+        try:
+            payload = json.loads(summary_path.read_text(encoding="utf-8"))
+        except Exception as exc:  # noqa: BLE001
+            raise RuntimeError(
+                f"validated question summaryを読み込めません: {summary_path} ({exc})"
+            ) from exc
+
+        questions = payload.get("questions")
+        if not isinstance(questions, list):
+            raise RuntimeError(
+                f"validated question summaryのquestionsが配列ではありません: {summary_path}"
+            )
+
+        validated: set[tuple[str, str]] = set()
+        for question in questions:
+            if not isinstance(question, dict) or question.get("status") != "validated":
+                continue
+            list_group_id = str(question.get("listGroupId") or "").strip()
+            review_question_id = str(question.get("reviewQuestionId") or "").strip()
+            if not list_group_id or not review_question_id:
+                raise RuntimeError(
+                    "validated question summaryのvalidated行に"
+                    f"listGroupId/reviewQuestionIdがありません: {summary_path}"
+                )
+            validated.add((list_group_id, review_question_id))
+
+        if not validated:
+            raise RuntimeError(
+                f"validated question summaryにvalidated問題がありません: {summary_path}"
+            )
+        validated_sets.append(validated)
+
+    return set.intersection(*validated_sets)
+
+
+def _write_json_atomically(path: Path, payload: dict) -> None:
+    temp_path = path.with_name(f".{path.name}.tmp")
+    temp_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    temp_path.replace(path)
+
+
+def filter_outputs_to_validated_questions(
+    *,
+    list_group_id: str,
+    converted_path: Path,
+    copied_path: Path,
+    validated_question_keys: set[tuple[str, str]],
+    summary_paths: list[Path],
+) -> tuple[int, int, list[str]]:
+    """整備runでvalidatedになった元問題だけを、2つの公開成果物へ同じ順序で残す。"""
+    allowed_ids = {
+        question_id
+        for group_id, question_id in validated_question_keys
+        if group_id == list_group_id
+    }
+    if not allowed_ids:
+        raise RuntimeError(
+            f"validated question summaryに対象groupがありません: {list_group_id}"
+        )
+
+    loaded: list[tuple[Path, dict, list[dict]]] = []
+    original_ids_by_path: dict[Path, set[str]] = {}
+    for output_path in (converted_path, copied_path):
+        payload = json.loads(output_path.read_text(encoding="utf-8"))
+        questions = payload.get("questions")
+        if not isinstance(questions, list) or not all(
+            isinstance(question, dict) for question in questions
+        ):
+            raise RuntimeError(f"公開成果物のquestionsが不正です: {output_path}")
+        records = list(questions)
+        original_ids = {
+            str(question.get("originalQuestionId") or "").strip()
+            for question in records
+        }
+        if "" in original_ids:
+            raise RuntimeError(
+                f"公開成果物にoriginalQuestionIdがない問題があります: {output_path}"
+            )
+        loaded.append((output_path, payload, records))
+        original_ids_by_path[output_path] = original_ids
+
+    converted_ids = original_ids_by_path[converted_path]
+    copied_ids = original_ids_by_path[copied_path]
+    if converted_ids != copied_ids:
+        raise RuntimeError(
+            "40_convertとupload_to_firestoreの元問題集合が一致しません: "
+            f"{list_group_id}"
+        )
+
+    missing_allowed_ids = sorted(allowed_ids - converted_ids)
+    if missing_allowed_ids:
+        preview = ", ".join(missing_allowed_ids[:10])
+        raise RuntimeError(
+            "validated問題が公開成果物に見つかりません: "
+            f"{list_group_id} count={len(missing_allowed_ids)} ids={preview}"
+        )
+
+    excluded_ids = sorted(converted_ids - allowed_ids)
+    excluded_document_count = 0
+    included_document_count: int | None = None
+    for output_path, payload, records in loaded:
+        included = [
+            question
+            for question in records
+            if str(question.get("originalQuestionId") or "").strip() in allowed_ids
+        ]
+        excluded_count = len(records) - len(included)
+        if output_path == copied_path:
+            excluded_document_count = excluded_count
+        if included_document_count is None:
+            included_document_count = len(included)
+        elif included_document_count != len(included):
+            raise RuntimeError(
+                "40_convertとupload_to_firestoreのdocument件数が一致しません: "
+                f"{list_group_id}"
+            )
+        payload["questions"] = included
+        _write_json_atomically(output_path, payload)
+
+    report_dir = converted_path.parent / "publication_exclusions"
+    report_dir.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    report_path = report_dir / f"{list_group_id}_{timestamp}.json"
+    report = {
+        "schemaVersion": 1,
+        "generatedAt": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "listGroupId": list_group_id,
+        "validatedQuestionSummaryPaths": [str(path) for path in summary_paths],
+        "includedOriginalQuestionCount": len(allowed_ids),
+        "includedDocumentCount": included_document_count or 0,
+        "excludedOriginalQuestionCount": len(excluded_ids),
+        "excludedDocumentCount": excluded_document_count,
+        "excludedQuestions": [
+            {
+                "originalQuestionId": question_id,
+                "reason": "not_validated_in_all_question_summaries",
+            }
+            for question_id in excluded_ids
+        ],
+    }
+    _write_json_atomically(report_path, report)
+    details = [
+        f"validated summary交差で公開対象外: {len(excluded_ids)}問 / "
+        f"{excluded_document_count} documents",
+        f"receipt: {report_path}",
+    ]
+    print(f"\n[STEP] filter to validated questions ({list_group_id})")
+    print(
+        f"公開対象: {len(allowed_ids)}問 / {included_document_count or 0} documents, "
+        f"対象外: {len(excluded_ids)}問 / {excluded_document_count} documents"
+    )
+    print(f"除外receipt: {report_path}")
+    return len(excluded_ids), excluded_document_count, details
+
+
 def process_list_group(
     *,
     python_cmd: str,
@@ -243,13 +408,15 @@ def process_list_group(
     skip_merge: bool,
     allow_missing_answer_result: bool,
     allow_unuploadable_records: bool,
+    validated_question_keys: set[tuple[str, str]],
+    validated_question_summary_paths: list[Path],
     skip_qset_check: bool,
     questionset_only: bool,
     requirements_path: Path,
     skip_requirements_check: bool,
     requirements_warn_only: bool,
     dry_run: bool,
-) -> tuple[Path, list[str]]:
+) -> tuple[Path, list[str], int, list[str]]:
     group_dir = (base_dir / list_group_id).resolve()
 
     print(f"\n[STEP] check missing answers in source ({list_group_id})")
@@ -359,6 +526,21 @@ def process_list_group(
         print(f"convert output: {converted_path}")
         print(f"upload output : {copied_path}")
 
+    excluded_question_count = 0
+    exclusion_details: list[str] = []
+    if validated_question_summary_paths and not dry_run:
+        (
+            excluded_question_count,
+            _,
+            exclusion_details,
+        ) = filter_outputs_to_validated_questions(
+            list_group_id=list_group_id,
+            converted_path=converted_path,
+            copied_path=copied_path,
+            validated_question_keys=validated_question_keys,
+            summary_paths=validated_question_summary_paths,
+        )
+
     run_step(
         f"count summary ({list_group_id})",
         [python_cmd, str(SCRIPT_COUNT), "--source", str(copied_path)],
@@ -429,7 +611,7 @@ def process_list_group(
         else:
             print("[OK] requirements check passed (firestore)")
 
-    return copied_path, missing_answers
+    return copied_path, missing_answers, excluded_question_count, exclusion_details
 
 
 def update_category_counts(*, python_cmd: str, category_json: Path, base_dir: Path, dry_run: bool) -> None:
@@ -476,6 +658,7 @@ def print_execution_summary(
     unuploadable_total: int,
     unuploadable_missing_answers_total: int,
     unuploadable_invalid_total: int,
+    unuploadable_validated_summary_total: int,
 ) -> None:
     print("\n=== 実行サマリ ===")
     if successes:
@@ -507,8 +690,9 @@ def print_execution_summary(
     print(f"合計: {unuploadable_total}")
     print(f"  - 00_source answer_result_text 欠損: {unuploadable_missing_answers_total}")
     print(f"  - 30_merged_2/*_invalid.json 外出し: {unuploadable_invalid_total}")
+    print(f"  - validated question summaryの交差外: {unuploadable_validated_summary_total}")
     if unuploadable_report:
-        print("内訳（30_merged_2/*_invalid.json 由来）:")
+        print("内訳:")
         for list_group_id, details in sorted(unuploadable_report.items()):
             if not details:
                 continue
@@ -560,9 +744,19 @@ def main(argv: list[str] | None = None) -> int:
         "--allow-unuploadable-records",
         action="store_true",
         help=(
-            "30_merged_2の*_invalid.jsonへ隔離された未完了レコードを明示的に"
-            "公開対象外とし、validレコードだけをupload-readyへ進める。"
-            "隔離件数は実行サマリへ必ず表示する"
+            "未完了レコードを明示的に公開対象外とし、validレコードだけを"
+            "upload-readyへ進める。*_invalid.jsonと、指定したvalidated question "
+            "summaryの交差外件数を実行サマリへ必ず表示する"
+        ),
+    )
+    parser.add_argument(
+        "--validated-question-summary",
+        action="append",
+        type=Path,
+        default=[],
+        help=(
+            "部分公開時に使うquestion_summary.json。複数回指定した場合は、"
+            "全summaryでstatus=validatedの問題だけを公開成果物へ残す"
         ),
     )
     parser.add_argument(
@@ -614,6 +808,21 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        if args.validated_question_summary and not args.allow_unuploadable_records:
+            raise RuntimeError(
+                "--validated-question-summaryは--allow-unuploadable-recordsと一緒に指定してください。"
+            )
+        validated_question_summary_paths = [
+            (
+                path.expanduser().resolve()
+                if path.expanduser().is_absolute()
+                else (ROOT_DIR / path).resolve()
+            )
+            for path in args.validated_question_summary
+        ]
+        validated_question_keys = load_validated_question_keys(
+            validated_question_summary_paths
+        )
         python_cmd = sys.executable
         base_dir, list_group_ids, bulk_mode = resolve_targets(args.target_id, args.base_dir)
         upload_dir = (
@@ -633,11 +842,17 @@ def main(argv: list[str] | None = None) -> int:
         unuploadable_total = 0
         unuploadable_missing_answers_total = 0
         unuploadable_invalid_total = 0
+        unuploadable_validated_summary_total = 0
         last_copied_path: Path | None = None
 
         for list_group_id in list_group_ids:
             try:
-                copied_path, missing_answers = process_list_group(
+                (
+                    copied_path,
+                    missing_answers,
+                    excluded_question_count,
+                    exclusion_details,
+                ) = process_list_group(
                     python_cmd=python_cmd,
                     list_group_id=list_group_id,
                     base_dir=base_dir,
@@ -647,6 +862,8 @@ def main(argv: list[str] | None = None) -> int:
                     skip_merge=args.skip_merge,
                     allow_missing_answer_result=args.allow_missing_answer_result,
                     allow_unuploadable_records=args.allow_unuploadable_records,
+                    validated_question_keys=validated_question_keys,
+                    validated_question_summary_paths=validated_question_summary_paths,
                     skip_qset_check=args.skip_qset_check,
                     questionset_only=args.questionset_only,
                     requirements_path=args.requirements,
@@ -659,6 +876,11 @@ def main(argv: list[str] | None = None) -> int:
                     unuploadable_missing_answers_total += len(missing_answers)
                 last_copied_path = copied_path
                 successes.append((list_group_id, copied_path))
+                unuploadable_validated_summary_total += excluded_question_count
+                if exclusion_details:
+                    unuploadable_report.setdefault(list_group_id, []).extend(
+                        exclusion_details
+                    )
 
                 # 30_merged_2 の invalid 外出し件数を集計（「アップロードできる状態にできなかった件数」）
                 count, details = count_unuploadable_questions_from_invalid_merged2(
@@ -667,7 +889,7 @@ def main(argv: list[str] | None = None) -> int:
                 )
                 unuploadable_invalid_total += count
                 if details:
-                    unuploadable_report[list_group_id] = details
+                    unuploadable_report.setdefault(list_group_id, []).extend(details)
             except Exception as exc:  # noqa: BLE001
                 failures.append((list_group_id, str(exc)))
                 print(f"[ERROR] list_group_id={list_group_id}: {exc}", file=sys.stderr)
@@ -717,7 +939,11 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 print("Firestoreアップロードをスキップしました。")
 
-        unuploadable_total = unuploadable_missing_answers_total + unuploadable_invalid_total
+        unuploadable_total = (
+            unuploadable_missing_answers_total
+            + unuploadable_invalid_total
+            + unuploadable_validated_summary_total
+        )
 
         print_execution_summary(
             successes=successes,
@@ -728,6 +954,7 @@ def main(argv: list[str] | None = None) -> int:
             unuploadable_total=unuploadable_total,
             unuploadable_missing_answers_total=unuploadable_missing_answers_total,
             unuploadable_invalid_total=unuploadable_invalid_total,
+            unuploadable_validated_summary_total=unuploadable_validated_summary_total,
         )
 
         print("\n=== 完了 ===")
