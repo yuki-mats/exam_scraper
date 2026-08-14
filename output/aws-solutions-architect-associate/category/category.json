@@ -94,126 +94,143 @@
       "対象サービス一覧は網羅的ではなく変更されるため、新サービス一つだけを理由にquestionSetを増やさない。"
     ]
   },
-  "updatedAt": "2026-07-18T17:26:37+09:00",
+  "updatedAt": "2026-08-14T14:42:20Z",
   "folders": [
     {
       "folderId": "aws_solutions_architect_associate_f01_identity_multi_account",
       "name": "01_【分野1】ID・アクセス・マルチアカウント",
       "description": "IAM、フェデレーション、クロスアカウントアクセス、Organizations、SCP、Control Towerなど、AWSリソースへ安全にアクセスする設計を扱う。ネットワーク境界は02、アプリケーション防御は03へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 57,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f02_secure_network_connectivity",
       "name": "02_【分野1】セキュアなネットワーク・接続",
       "description": "VPCのセグメンテーション、トラフィック制御、プライベートアクセス、オンプレミス接続の保護を扱う。WAFや脅威検出は03、ネットワーク性能は12へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 57,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f03_application_threat_protection",
       "name": "03_【分野1】アプリケーション保護・脅威検出・監査",
       "description": "DDoSやWeb攻撃への防御、脅威・脆弱性の検出、セキュリティ態勢、監査ログを扱う。暗号鍵、証明書、データ分類は04へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 17,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f04_data_protection_encryption",
       "name": "04_【分野1】データ保護・暗号化・鍵管理",
       "description": "保存時・転送時の暗号化、鍵管理、証明書、シークレット、データ分類・保持・バックアップを扱う。可用性を目的とする複製とDRは07へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 40,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f05_scalable_workload_delivery",
       "name": "05_【分野2】スケーラブルなワークロード・配信",
       "description": "EC2、Auto Scaling、ELB、サーバーレス、コンテナ、多層構成など、需要変動へ追随する設計を扱う。サービス間の疎結合化は06へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 73,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f06_decoupled_event_driven",
       "name": "06_【分野2】疎結合・イベント駆動・ワークフロー",
       "description": "キュー、Pub/Sub、イベントルーティング、ワークフロー、マネージドメッセージングを使って障害を分離する設計を扱う。コンピューティング自体の伸縮は05へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 24,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f07_high_availability_disaster_recovery",
       "name": "07_【分野2】高可用性・データ耐久性・DR",
       "description": "マルチAZ・マルチリージョン、フェイルオーバー、データ複製、バックアップ、RTO・RPO、DR戦略、可観測性を扱う。単純な性能向上は09〜13へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 37,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f08_workload_specific_managed_services",
       "name": "08_【分野2】ワークロード特化型マネージドサービス",
       "description": "AI・機械学習、フロントエンド、モバイル、メディアなど、固有要件をマネージドサービスで満たす判断を扱う。データ基盤としての分析処理は13へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 16,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f09_storage_performance",
       "name": "09_【分野3】高性能ストレージ",
       "description": "オブジェクト、ブロック、ファイル、ハイブリッドストレージを、IOPS、スループット、レイテンシー、共有方式から選ぶ設計を扱う。料金最適化は14へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 9,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f10_compute_performance",
       "name": "10_【分野3】高性能コンピューティング",
       "description": "EC2のタイプ・サイズ、サーバーレス、コンテナ、バッチ、分散配置を性能・伸縮性要件から選ぶ設計を扱う。購入オプションと料金は15へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f11_database_cache_performance",
       "name": "11_【分野3】高性能データベース・キャッシュ",
       "description": "アクセスパターン、キャパシティー、レプリカ、プロキシ、キャッシュ、データモデルからデータベースを選ぶ設計を扱う。料金最適化は16へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 24,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f12_network_edge_performance",
       "name": "12_【分野3】高性能ネットワーク・エッジ配信",
       "description": "VPCトポロジ、ロードバランシング、DNS、CDN、グローバル配信、ハイブリッド接続を性能と拡張性から選ぶ設計を扱う。通信費最適化は17へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 28,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f13_data_ingestion_analytics",
       "name": "13_【分野3】データ取り込み・変換・分析",
       "description": "バッチ・ストリーミング転送、データレイク、ETL、クエリ、ウェアハウス、可視化を、量・速度・形式・鮮度から選ぶ設計を扱う。トランザクションDBは11へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 44,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f14_storage_cost_optimization",
       "name": "14_【分野4】ストレージのコスト最適化",
       "description": "S3ストレージクラスとライフサイクル、EBS・EFS・FSxの選択、バックアップ・アーカイブ・転送方法を費用対効果から設計する。性能優先の選択は09へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 10,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f15_compute_cost_optimization",
       "name": "15_【分野4】コンピューティングのコスト最適化",
       "description": "購入オプション、適正サイジング、稼働率、Auto Scaling、サーバーレス・コンテナ化を使ってコンピューティング費用を最適化する。性能優先の選択は10へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 26,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f16_database_cost_optimization",
       "name": "16_【分野4】データベースのコスト最適化",
       "description": "データベース種別、キャパシティー、サーバーレス、キャッシュ、レプリカ、保持・移行を費用対効果から設計する。性能優先の選択は11へ分ける。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 8,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "folderId": "aws_solutions_architect_associate_f17_network_cost_governance",
       "name": "17_【分野4】ネットワーク・横断コスト管理",
       "description": "データ転送、NAT、接続方式、CDNなどのネットワーク費用と、Cost Explorer、Budgets、CUR、タグによる横断的なコスト可視化・統制を扱う。",
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     }
   ],
   "questionSets": [
@@ -234,7 +251,8 @@
         "1.1"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs01_02_iam_identities_policies",
@@ -252,8 +270,9 @@
       "officialTaskStatementIds": [
         "1.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 19,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs01_03_sts_cross_account_resource_policies",
@@ -271,8 +290,9 @@
       "officialTaskStatementIds": [
         "1.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 8,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs01_04_federation_identity_services",
@@ -290,8 +310,9 @@
       "officialTaskStatementIds": [
         "1.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 21,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs01_05_organizations_scp_control_tower",
@@ -309,8 +330,9 @@
       "officialTaskStatementIds": [
         "1.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 9,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs02_01_vpc_segmentation_subnets",
@@ -328,8 +350,9 @@
       "officialTaskStatementIds": [
         "1.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 7,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs02_02_security_groups_nacls_egress",
@@ -347,8 +370,9 @@
       "officialTaskStatementIds": [
         "1.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 40,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs02_03_endpoints_privatelink_private_access",
@@ -366,8 +390,9 @@
       "officialTaskStatementIds": [
         "1.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 8,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs02_04_hybrid_connectivity_security",
@@ -385,8 +410,9 @@
       "officialTaskStatementIds": [
         "1.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 2,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs03_01_waf_shield_firewalls",
@@ -404,8 +430,9 @@
       "officialTaskStatementIds": [
         "1.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 12,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs03_02_guardduty_detective_threats",
@@ -424,7 +451,8 @@
         "1.2"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs03_03_inspector_security_hub_posture",
@@ -443,7 +471,8 @@
         "1.2"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs03_04_cloudtrail_config_cloudwatch_audit",
@@ -461,8 +490,9 @@
       "officialTaskStatementIds": [
         "1.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs03_05_secure_application_access",
@@ -480,8 +510,9 @@
       "officialTaskStatementIds": [
         "1.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 4,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs04_01_kms_envelope_key_policies",
@@ -499,8 +530,9 @@
       "officialTaskStatementIds": [
         "1.3"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 10,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs04_02_cloudhsm_key_ownership",
@@ -519,7 +551,8 @@
         "1.3"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs04_03_tls_acm_secrets",
@@ -537,8 +570,9 @@
       "officialTaskStatementIds": [
         "1.3"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 9,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs04_04_data_classification_access_backup",
@@ -556,8 +590,9 @@
       "officialTaskStatementIds": [
         "1.3"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 21,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs05_01_ec2_autoscaling_scalability",
@@ -575,8 +610,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 14,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs05_02_elb_routing_health_sessions",
@@ -594,8 +630,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 2,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs05_03_lambda_api_gateway_serverless",
@@ -613,8 +650,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 35,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs05_04_ecs_eks_fargate_containers",
@@ -632,8 +670,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 12,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs05_05_multi_tier_stateless_cache",
@@ -651,8 +690,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 10,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs06_01_sqs_queues_dlq",
@@ -670,8 +710,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 15,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs06_02_sns_pubsub_fanout",
@@ -689,8 +730,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 3,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs06_03_eventbridge_event_routing",
@@ -708,8 +750,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs06_04_step_functions_orchestration",
@@ -727,8 +770,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 3,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs06_05_mq_managed_integration",
@@ -746,8 +790,9 @@
       "officialTaskStatementIds": [
         "2.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 2,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs07_01_regions_az_route53_failover",
@@ -765,8 +810,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 4,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs07_02_compute_ha_quotas_health",
@@ -784,8 +830,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 3,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs07_03_storage_durability_replication_backup",
@@ -803,8 +850,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 6,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs07_04_database_high_availability",
@@ -822,8 +870,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 11,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs07_05_dr_rto_rpo_strategies",
@@ -842,7 +891,8 @@
         "2.2"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs07_06_well_architected_observability_automation",
@@ -860,8 +910,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 13,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs08_01_ai_ml_managed_services",
@@ -879,8 +930,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 15,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs08_02_frontend_mobile_media_services",
@@ -898,8 +950,9 @@
       "officialTaskStatementIds": [
         "2.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs09_01_s3_performance_scalability",
@@ -917,8 +970,9 @@
       "officialTaskStatementIds": [
         "3.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 2,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs09_02_ebs_instance_store_performance",
@@ -936,8 +990,9 @@
       "officialTaskStatementIds": [
         "3.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 2,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs09_03_efs_fsx_hybrid_storage_performance",
@@ -955,8 +1010,9 @@
       "officialTaskStatementIds": [
         "3.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 5,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs10_01_ec2_types_placement_performance",
@@ -975,7 +1031,8 @@
         "3.2"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs10_02_serverless_container_batch_compute",
@@ -994,7 +1051,8 @@
         "3.2"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs10_03_scaling_metrics_distributed_compute",
@@ -1012,8 +1070,9 @@
       "officialTaskStatementIds": [
         "3.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs11_01_rds_aurora_performance",
@@ -1031,8 +1090,9 @@
       "officialTaskStatementIds": [
         "3.3"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 14,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs11_02_dynamodb_capacity_indexes_dax",
@@ -1050,8 +1110,9 @@
       "officialTaskStatementIds": [
         "3.3"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 9,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs11_03_cache_specialized_databases",
@@ -1069,8 +1130,9 @@
       "officialTaskStatementIds": [
         "3.3"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs12_01_vpc_topology_addressing_routing",
@@ -1088,8 +1150,9 @@
       "officialTaskStatementIds": [
         "3.4"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs12_02_elb_route53_cloudfront_global_accelerator",
@@ -1107,8 +1170,9 @@
       "officialTaskStatementIds": [
         "3.4"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 20,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs12_03_direct_connect_vpn_transit_privatelink",
@@ -1126,8 +1190,9 @@
       "officialTaskStatementIds": [
         "3.4"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 7,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs13_01_data_transfer_migration",
@@ -1145,8 +1210,9 @@
       "officialTaskStatementIds": [
         "3.5"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 19,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs13_02_streaming_kinesis_firehose_msk",
@@ -1164,8 +1230,9 @@
       "officialTaskStatementIds": [
         "3.5"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 11,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs13_03_data_lake_glue_emr_lake_formation",
@@ -1183,8 +1250,9 @@
       "officialTaskStatementIds": [
         "3.5"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 11,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs13_04_athena_redshift_opensearch_visualization",
@@ -1202,8 +1270,9 @@
       "officialTaskStatementIds": [
         "3.5"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 3,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs14_01_s3_storage_classes_lifecycle_cost",
@@ -1221,8 +1290,9 @@
       "officialTaskStatementIds": [
         "4.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 9,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs14_02_ebs_efs_fsx_cost",
@@ -1240,8 +1310,9 @@
       "officialTaskStatementIds": [
         "4.1"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs14_03_backup_archive_transfer_cost",
@@ -1260,7 +1331,8 @@
         "4.1"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs15_01_ec2_purchase_options",
@@ -1278,8 +1350,9 @@
       "officialTaskStatementIds": [
         "4.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 22,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs15_02_rightsizing_compute_optimizer",
@@ -1297,8 +1370,9 @@
       "officialTaskStatementIds": [
         "4.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs15_03_elastic_serverless_container_cost",
@@ -1316,8 +1390,9 @@
       "officialTaskStatementIds": [
         "4.2"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 3,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs16_01_database_type_capacity_cost",
@@ -1335,8 +1410,9 @@
       "officialTaskStatementIds": [
         "4.3"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 6,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs16_02_serverless_cache_replica_cost",
@@ -1354,8 +1430,9 @@
       "officialTaskStatementIds": [
         "4.3"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 2,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs16_03_database_backup_retention_migration_cost",
@@ -1374,7 +1451,8 @@
         "4.3"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs17_01_data_transfer_edge_cost",
@@ -1392,8 +1470,9 @@
       "officialTaskStatementIds": [
         "4.4"
       ],
-      "questionCount": 0,
-      "isDeleted": false
+      "questionCount": 1,
+      "isDeleted": false,
+      "updatedAt": "2026-08-14T14:09:49Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs17_02_nat_hybrid_connectivity_cost",
@@ -1412,7 +1491,8 @@
         "4.4"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:42:20Z"
     },
     {
       "questionSetId": "aws_solutions_architect_associate_qs17_03_cost_explorer_budgets_cur_allocation",
@@ -1434,7 +1514,8 @@
         "4.4"
       ],
       "questionCount": 0,
-      "isDeleted": false
+      "isDeleted": true,
+      "updatedAt": "2026-08-14T14:09:49Z"
     }
   ]
 }

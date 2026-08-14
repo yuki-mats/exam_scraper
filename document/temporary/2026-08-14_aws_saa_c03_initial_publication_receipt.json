@@ -1,0 +1,234 @@
+{
+  "schemaVersion": "aws-saa-c03-initial-publication-receipt/v1",
+  "qualificationId": "aws-solutions-architect-associate",
+  "listGroupId": "udemy-aws-saa-c03",
+  "licenseName": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+  "completedAt": "2026-08-15T00:02:24+09:00",
+  "sourceScope": {
+    "totalQuestionCount": 395,
+    "sourceMutationCount": 0,
+    "terminalValidatedCount": 382,
+    "evaluationSelectedCount": 369,
+    "evaluationPassedCount": 266,
+    "evaluationNeedsReworkCount": 103,
+    "evaluationInconclusiveCount": 0,
+    "evaluationFailedCount": 0,
+    "currentPublishedCount": 266,
+    "currentNeedsReworkCount": 116,
+    "currentMaintenanceCount": 13,
+    "remainingUnpublishedCount": 129,
+    "preparedArtifactExcludedSourceCount": 13,
+    "excludedRequiredQuestionCount": 2,
+    "excludedRequiredQuestions": [
+      {
+        "label": "Q23",
+        "questionId": "ef1709053138009d",
+        "stableQuestionId": "8129a5b1f6fd9d433b759b4a"
+      },
+      {
+        "label": "Q29",
+        "questionId": "f5e85e2971aa914c",
+        "stableQuestionId": "bde2d99f85e0f552350aa651"
+      }
+    ]
+  },
+  "evaluation": {
+    "jobId": "6n1gNl0-I9HQR-zH",
+    "status": "succeeded",
+    "concurrency": 100,
+    "reasoningMode": "standard",
+    "startedAt": "2026-08-14T23:19:38+09:00",
+    "finishedAt": "2026-08-14T23:30:00+09:00",
+    "selectedCount": 369,
+    "completedCount": 369,
+    "passedCount": 266,
+    "needsReworkCount": 103,
+    "inconclusiveCount": 0,
+    "failedCount": 0,
+    "skippedCount": 0
+  },
+  "qualityGates": {
+    "requiredModePassed": true,
+    "firestoreModePassed": true,
+    "includedExplanationCheckedCount": 382,
+    "includedExplanationFailureCount": 0,
+    "fullGroupGatePassed": false,
+    "fullGroupGateFailureScope": "今回の公開対象外であるQ23、Q29及び非terminal問題だけ"
+  },
+  "artifacts": [
+    {
+      "path": "output/question_review_console/publication_scopes/aws-solutions-architect-associate/2026-08-14_saa_c03_validated_union/question_summary.json",
+      "sha256": "8fd4c9ad9ec44dc90ae30fcde9a1f076f29776f873f095da7286b83d1e1f1653",
+      "sourceQuestionCount": 382
+    },
+    {
+      "path": "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_20260814_230948.json",
+      "sha256": "e7bece31b12caf7bccd7d7e2d61aca726ad58cf33abc4d911b49b6c8981e6fac",
+      "preparedSourceQuestionCount": 382,
+      "preparedDocumentCount": 1612,
+      "questionSetCount": 60
+    },
+    {
+      "path": "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/publication_exclusions/udemy-aws-saa-c03_20260814_230949.json",
+      "sha256": "e81a9fc0f0e50e169d0e1f5c9b1c2cbe79aadf4cf8c8cff08221c5bd6ad0314d",
+      "excludedSourceQuestionCount": 13,
+      "excludedDocumentCount": 53
+    },
+    {
+      "path": "output/aws-solutions-architect-associate/questions_json/publication_scopes/2026-08-14_saa_c03_published_firestore_266/udemy-aws-saa-c03_firestore_published.json",
+      "sha256": "7406cfce02194eb18e471b80c9b4212b987b65290a6745ae825e914acad7b719",
+      "publishedSourceQuestionCount": 266,
+      "publishedDocumentCount": 1115,
+      "activeQuestionSetCount": 53
+    },
+    {
+      "path": "output/aws-solutions-architect-associate/category/category.json",
+      "sha256": "ed1ac54c7169e66c9c620300c3e447783b3e6d22e4b65039a565a93e753c35f7",
+      "folderCount": 17,
+      "questionSetCount": 64,
+      "activeQuestionSetCount": 53,
+      "learningItemCount": 472
+    }
+  ],
+  "publication": {
+    "publishedSourceQuestionCount": 266,
+    "publishedDocumentCount": 1115,
+    "failedSourceQuestionCount": 0,
+    "readbackMismatchCount": 0,
+    "batches": [
+      {
+        "jobId": "nTH-5oMU3aZmc71z",
+        "queueRunId": "20260814T233223226302-e64382e0",
+        "sourceQuestionCount": 100,
+        "documentCount": 417,
+        "previewMissingCount": 417,
+        "previewUpdateCount": 0,
+        "readbackMismatchCount": 0,
+        "finishedAt": "2026-08-14T23:35:09+09:00"
+      },
+      {
+        "jobId": "jEu3rnzm7yc9uVrF",
+        "queueRunId": "20260814T233552524450-9c9acfa4",
+        "sourceQuestionCount": 100,
+        "documentCount": 419,
+        "previewMissingCount": 419,
+        "previewUpdateCount": 0,
+        "readbackMismatchCount": 0,
+        "finishedAt": "2026-08-14T23:38:38+09:00"
+      },
+      {
+        "jobId": "dpvfBOZVuk3Dxkrw",
+        "queueRunId": "20260814T233912357370-94140e2a",
+        "sourceQuestionCount": 66,
+        "documentCount": 279,
+        "previewMissingCount": 279,
+        "previewUpdateCount": 0,
+        "readbackMismatchCount": 0,
+        "finishedAt": "2026-08-14T23:41:22+09:00"
+      }
+    ],
+    "questionDocumentIdSetSha256": "d0fe3f771dbd428e9593777973e67e9ac3ae26ab00c812fcd0d453e86e7a0278",
+    "originalQuestionIdSetSha256": "ceb0ce1d83f481c7493f8b44cc2c1d9e4fec1caf53b33a9229327cc480b6955d"
+  },
+  "firestoreReadback": {
+    "projectId": "repaso-rbaqy4",
+    "folderCount": 17,
+    "activeFolderCount": 17,
+    "questionSetCount": 64,
+    "activeQuestionSetCount": 53,
+    "questionDocumentCount": 1115,
+    "sourceQuestionCount": 266,
+    "folderMismatchCount": 0,
+    "questionSetMismatchCount": 0,
+    "questionFieldOrActiveSetIssueCount": 0
+  },
+  "clfC02NonRegressionReadback": {
+    "qualificationId": "aws-cloud-practitioner",
+    "folderCount": 10,
+    "questionSetCount": 35,
+    "activeQuestionSetCount": 33,
+    "questionDocumentCount": 532,
+    "sourceQuestionCount": 125
+  },
+  "licenseCatalog": {
+    "formalNames": [
+      "AWS Certified Cloud Practitioner (CLF-C02)",
+      "AWS Certified Solutions Architect - Associate (SAA-C03)"
+    ],
+    "saaSearchTerms": [
+      "ソリューションアーキテクト",
+      "ソリューションズアーキテクト",
+      "エスエーエー",
+      "エーダブリューエス"
+    ],
+    "flutterTestCount": 11,
+    "flutterTestsPassed": true,
+    "flutterAnalyzePassed": true,
+    "catalogCommit": "4837f30190ec4da89195a65630c72d8ab2e7b013",
+    "tailscaleStartupCommit": "84a886afd519fa39599c0fb0101931343e1fe53a"
+  },
+  "tailscaleVerification": {
+    "url": "https://macbook-air.tail53d594.ts.net/ankiplus/",
+    "previewAssetVersion": "1786718757",
+    "localHttpReady": true,
+    "tailscaleHttpsReady": true,
+    "runtimeRouteGateCount": 2,
+    "runtimeRouteGatesPassed": true,
+    "browserConsoleErrorCount": 0,
+    "searchResults": [
+      {
+        "query": "ソリューションアーキテクト",
+        "resultCount": 1,
+        "matchedLicense": "AWS Certified Solutions Architect - Associate (SAA-C03)"
+      },
+      {
+        "query": "エスエーエー",
+        "resultCount": 1,
+        "matchedLicense": "AWS Certified Solutions Architect - Associate (SAA-C03)"
+      },
+      {
+        "query": "エーダブリューエス",
+        "resultCount": 2,
+        "matchedLicenses": [
+          "AWS Certified Cloud Practitioner (CLF-C02)",
+          "AWS Certified Solutions Architect - Associate (SAA-C03)"
+        ]
+      }
+    ],
+    "liveJourneys": [
+      {
+        "qualificationId": "aws-cloud-practitioner",
+        "folderId": "aws_cloud_practitioner_f01_cloud_value_design",
+        "questionSetId": "aws_cloud_practitioner_qs01_02_availability_elasticity_agility",
+        "questionCount": 4,
+        "folderDisplayMs": 860,
+        "questionSetDisplayMs": 592,
+        "answerDisplayMs": 601,
+        "broadProfileFolderDisplayMs": 1042,
+        "maximumInitialDisplayMs": 10000,
+        "answerInteractionPassed": true,
+        "ephemeralTestUserCleaned": true
+      },
+      {
+        "qualificationId": "aws-solutions-architect-associate",
+        "folderId": "aws_solutions_architect_associate_f01_identity_multi_account",
+        "questionSetId": "aws_solutions_architect_associate_qs01_02_iam_identities_policies",
+        "questionCount": 40,
+        "folderDisplayMs": 939,
+        "questionSetDisplayMs": 687,
+        "answerDisplayMs": 586,
+        "broadProfileFolderDisplayMs": 944,
+        "maximumInitialDisplayMs": 10000,
+        "answerInteractionPassed": true,
+        "ephemeralTestUserCleaned": true
+      }
+    ]
+  },
+  "sourceIntegrity": {
+    "path": "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source",
+    "fileCountBefore": 395,
+    "fileCountAfter": 395,
+    "aggregateSha256Before": "bc76ba8ea294c920246ab74666b255d7c24eb600b7f43aaa7aa79b6bef0217cb",
+    "aggregateSha256After": "bc76ba8ea294c920246ab74666b255d7c24eb600b7f43aaa7aa79b6bef0217cb"
+  }
+}

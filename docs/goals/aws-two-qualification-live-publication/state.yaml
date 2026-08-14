@@ -1,0 +1,172 @@
+version: 2
+
+goal:
+  title: "AWS 2資格の学習公開"
+  slug: "aws-two-qualification-live-publication"
+  kind: recovery
+  tranche: "CLF-C02の既存公開を保ち、SAA-C03の評価合格分を公開して、両資格の検索から回答までを実証する"
+  status: active
+  oracle:
+    signal: "本番Firestoreの資格別readbackと、Tailscale経由の検索・開始・問題表示・回答がCLF-C02とSAA-C03の両方で成功する"
+    cadence: "after publication and at final audit"
+    final_proof: "評価receipt、upload dry-run、本番readback、資格一覧・カタカナ検索、実学習journey、00_source不変、GitHub parity"
+  intake:
+    original_request: "AWSの資格2種ともにアップして、学習できるようにしてほしい。SAA-C03はアップしている気がする。"
+    interpreted_outcome: "CLF-C02とSAA-C03を本番資格一覧から検索でき、実際に問題を開始・回答できる状態へそろえる。"
+    input_shape: recovery
+    audience: "AWS資格を学習する受験者"
+    authority: approved
+    proof_type: demo
+    completion_proof: "両資格の本番件数readbackとTailscale学習journeyが成功する。"
+    likely_misfire: "upload-readyを公開済みと誤認する、未評価問題を公開する、又は一覧表示だけで学習動作を未確認にする。"
+    blind_spots_considered:
+      - "SAA-C03のQ23/Q29は未整備で追加照合権限がない"
+      - "CLF-C02は既存公開を変更しない"
+      - "本番重複と既存ID"
+      - "00_source不変"
+      - "資格正式名と日本語・カタカナ検索"
+      - "repasoの他者dirty差分"
+    existing_plan_facts:
+      - "CLF-C02は本番へ532学習ドキュメント公開済み。"
+      - "SAA-C03は本番0件で未公開。"
+      - "SAA-C03は395問中393問が整備済みで、Q23/Q29は今回除外する。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/aws-two-qualification-live-publication/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-two-qualification-live-publication"
+
+active_task: T999
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "CLF-C02の本番公開を保全し、SAA-C03の整備済み393問から独立評価合格分だけを本番公開し、資格一覧・検索・実学習まで直列に完了する。"
+    inputs:
+      - "SAA-C03 395問の既存source・patch・work versions・terminal receipts"
+      - "CLF-C02初回公開receiptと本番readback"
+      - "repaso資格一覧とTailscale web"
+    allowed_files:
+      - "output/aws-solutions-architect-associate/** (except 00_source)"
+      - "output/question_review_console/**"
+      - "output/question_evaluation_console/**"
+      - "output/firestore_upload/**"
+      - "output/aws-solutions-architect-associate/category/category.json"
+      - "document/temporary/2026-08-14_aws_saa_c03_initial_publication_receipt.json"
+      - "docs/goals/aws-two-qualification-live-publication/**"
+      - "/Users/yuki/StudioProjects/repaso/lib/data/license_items.dart"
+      - "/Users/yuki/StudioProjects/repaso/test/data/license_items_test.dart"
+      - "/Users/yuki/StudioProjects/repaso/test/features/settings/license_select_page_test.dart"
+      - "/Users/yuki/StudioProjects/repaso/scripts/run_web_tailscale_server.sh"
+      - "/Users/yuki/StudioProjects/repaso/test/web/tailscale_live_journey_gate_test.mjs"
+      - "Firestore: folders/questionSets/questions scoped to aws-solutions-architect-associate"
+    verify:
+      - "SAA-C03の対象からQ23/Q29を除外し、公開候補が393問以下であること。"
+      - "独立評価のpassed IDだけをupload artifactへ含めること。"
+      - "question quality gate、upload dry-run、本番write、readbackが成功すること。"
+      - "CLF-C02の本番件数が非退行であること。"
+      - "資格一覧の正式名・日本語・カタカナ検索testが成功すること。"
+      - "Tailscale経由で両資格の検索・開始・問題表示・回答が成功すること。"
+      - "00_source 395件と事前aggregate hashを維持すること。"
+      - "対象変更だけをmainへcommit・origin/mainへpushし、parityを確認すること。"
+    stop_if:
+      - "00_source、Q23、Q29又は他資格の既存公開を変更する必要がある。"
+      - "評価不合格・未評価問題を公開する必要がある。"
+      - "Firestoreの資格scopeが固定できない、又はdry-runと実writeが一致しない。"
+      - "repasoの既存dirty差分を変更・破棄する必要がある。"
+      - "資格ID又は既存Firestore IDを変更する必要がある。"
+    receipt:
+      result: done
+      summary:
+        - "SAA-C03の本番は作業前0件だった。395問中、既存terminal receiptで382問を確定し、現行基準で評価可能な369問を独立評価した。"
+        - "独立評価は369問完了、合格266問、要再整備103問、評価未完了0問。合格266問だけを100・100・66問の3便で公開した。"
+        - "本番へ1115 question documentsを追加し、既存更新0、公開失敗0、問別readback不一致0。"
+        - "SAA分類は17 folders、64 questionSets、うち53 activeへ反映し、local categoryとのfield mismatchは0件。"
+        - "CLF-C02は532 documents、125 source questions、10 folders、35 questionSetsの既存公開を維持した。"
+        - "資格一覧へSAA-C03正式名とカタカナ検索語を追加し、Tailscale画面でAWS 2資格の検索を確認した。"
+        - "一時利用者を使う実地検査で、CLF-C02とSAA-C03のフォルダ、問題集、回答画面をそれぞれ確認し、一時利用者を削除した。"
+        - "00_sourceは395 files、aggregate SHA-256 bc76ba8e...を維持した。"
+      evidence:
+        - "document/temporary/2026-08-14_aws_saa_c03_initial_publication_receipt.json"
+        - "evaluation job 6n1gNl0-I9HQR-zH"
+        - "publication jobs nTH-5oMU3aZmc71z, jEu3rnzm7yc9uVrF, dpvfBOZVuk3Dxkrw"
+        - "https://macbook-air.tail53d594.ts.net/ankiplus/"
+        - "repaso commits 4837f30190ec4da89195a65630c72d8ab2e7b013 and 84a886afd519fa39599c0fb0101931343e1fe53a"
+      changed_files:
+        - "output/aws-solutions-architect-associate/category/category.json"
+        - "document/temporary/2026-08-14_aws_saa_c03_initial_publication_receipt.json"
+        - "docs/goals/aws-two-qualification-live-publication/goal.md"
+        - "docs/goals/aws-two-qualification-live-publication/state.yaml"
+        - "/Users/yuki/StudioProjects/repaso/lib/data/license_items.dart"
+        - "/Users/yuki/StudioProjects/repaso/test/data/license_items_test.dart"
+        - "/Users/yuki/StudioProjects/repaso/test/features/settings/license_select_page_test.dart"
+        - "/Users/yuki/StudioProjects/repaso/scripts/run_web_tailscale_server.sh"
+        - "/Users/yuki/StudioProjects/repaso/test/web/tailscale_live_journey_gate_test.mjs"
+      remaining:
+        - "未公開129問は、現行UI分類で要再整備116問・maintenance 13問。今回の依頼では未合格のため公開しない。"
+  - id: T999
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "AWS 2資格の本番学習公開が元の依頼どおり完了したか最終監査する。"
+    inputs:
+      - "T001 receipt"
+      - "本番Firestore readback"
+      - "Tailscale学習journey"
+      - "GitHub parityとdirty scope"
+    allowed_files:
+      - "docs/goals/aws-two-qualification-live-publication/state.yaml"
+    verify:
+      - "CLF-C02とSAA-C03の本番資格一覧・検索・学習journeyをcurrent stateで確認する。"
+      - "評価receipt、公開対象、Firestore readback、00_source不変、Git parityを相互照合する。"
+      - "check-goal-state.mjsとcheck-can-stop.mjsを通す。"
+    stop_if:
+      - "元の依頼を満たさない証拠又は未解決の安全上の不整合がある。"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "exam_scraper_local main clean at 53aba8347; repaso master has unrelated preserved dirty files at start"
+  last_verification:
+    result: pass
+    task: T001
+    commands:
+      - "SAA evaluation 369 completed: passed=266, needsRework=103, inconclusive=0, failed=0"
+      - "SAA publication 3 batches: source=266, documents=1115, failures=0, readback mismatches=0"
+      - "SAA Firestore readback: folders=17, questionSets=64, active=53, documents=1115, source=266, field mismatches=0"
+      - "CLF Firestore non-regression: folders=10, questionSets=35, active=33, documents=532, source=125"
+      - "repaso Flutter focused tests: 11 passed; analyze: no issues"
+      - "Tailscale startup tests: 4 passed; local HTTP and Tailscale HTTPS ready"
+      - "CLF live journey and SAA live journey: passed; ephemeral users cleaned"
+      - "00_source: 395 files and aggregate SHA-256 unchanged"
