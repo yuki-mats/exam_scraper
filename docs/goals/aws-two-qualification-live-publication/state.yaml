@@ -5,7 +5,7 @@ goal:
   slug: "aws-two-qualification-live-publication"
   kind: recovery
   tranche: "CLF-C02の既存公開を保ち、SAA-C03の評価合格分を公開して、両資格の検索から回答までを実証する"
-  status: active
+  status: done
   oracle:
     signal: "本番Firestoreの資格別readbackと、Tailscale経由の検索・開始・問題表示・回答がCLF-C02とSAA-C03の両方で成功する"
     cadence: "after publication and at final audit"
@@ -60,11 +60,11 @@ agents:
 visual_board:
   selected: local
   local:
-    status: live
-    url: "http://goalbuddy.localhost:41737/aws-two-qualification-live-publication/"
+    status: generated
+    url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-two-qualification-live-publication"
 
-active_task: T999
+active_task: null
 
 tasks:
   - id: T001
@@ -138,7 +138,7 @@ tasks:
   - id: T999
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "AWS 2資格の本番学習公開が元の依頼どおり完了したか最終監査する。"
     inputs:
@@ -154,13 +154,35 @@ tasks:
       - "check-goal-state.mjsとcheck-can-stop.mjsを通す。"
     stop_if:
       - "元の依頼を満たさない証拠又は未解決の安全上の不整合がある。"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary:
+        - "CLF-C02は既存の125 source questions・532 question documentsを維持し、SAA-C03は独立評価合格266問・1115 question documentsを新規公開した。"
+        - "SAA-C03の未公開129問は要再整備116問・maintenance 13問であり、未合格問題を本番へ混ぜていない。"
+        - "本番FirestoreはSAA-C03 17 folders・64 questionSets（53 active）、CLF-C02 10 folders・35 questionSets（33 active）で、参照不整合は0件。"
+        - "資格一覧には両資格の正式名を表示し、ソリューションアーキテクト・エスエーエー・エーダブリューエスのカタカナ検索を実地確認した。"
+        - "Tailscale経由の一時利用者journeyで、CLF-C02とSAA-C03のフォルダ、問題集、問題表示、回答まで成功し、一時利用者を削除した。"
+        - "SAA-C03の00_sourceは395 files・aggregate SHA-256 bc76ba8ea294c920246ab74666b255d7c24eb600b7f43aaa7aa79b6bef0217cbを維持した。"
+        - "公開記録をexam_scraper mainの29c56744869229249a78201347465c3dbea3328dへ反映し、origin/main parity 0/0を確認した。"
+        - "資格一覧とTailscale起動修正をrepaso masterの4837f30190ec4da89195a65630c72d8ab2e7b013・84a886afd519fa39599c0fb0101931343e1fe53aへ反映し、origin/master parity 0/0を確認した。"
+      oracle_evidence_map:
+        - "公開対象: evaluation job 6n1gNl0-I9HQR-zHのpassed 266問だけをpublication jobs 3件で公開。"
+        - "本番readback: SAA-C03 266 source・1115 documents、CLF-C02 125 source・532 documents。"
+        - "一覧・検索: Tailscale資格一覧で正式名と3種類のカタカナ検索を確認。"
+        - "学習動作: 両資格の実地journeyで問題表示・回答に成功。"
+        - "安全: 00_source限定hash不変、Firestore失敗0、readback mismatch 0、既存CLF非退行。"
+        - "Git反映: exam_scraper 29c567448、repaso 4837f301・84a886afdを各originへpush済み。"
+      missing_evidence: []
+      remaining_tasks:
+        - "SAA-C03の未公開129問は別途再整備対象であり、今回の品質合格分公開には含めない。"
 
 checks:
-  dirty_fingerprint: "exam_scraper_local main clean at 53aba8347; repaso master has unrelated preserved dirty files at start"
+  dirty_fingerprint: "exam_scraper_local main at 29c567448 before final ledger commit; repaso master at 84a886afd with unrelated pre-existing dirty files preserved"
   last_verification:
     result: pass
-    task: T001
+    task: T999
     commands:
       - "SAA evaluation 369 completed: passed=266, needsRework=103, inconclusive=0, failed=0"
       - "SAA publication 3 batches: source=266, documents=1115, failures=0, readback mismatches=0"
@@ -170,3 +192,5 @@ checks:
       - "Tailscale startup tests: 4 passed; local HTTP and Tailscale HTTPS ready"
       - "CLF live journey and SAA live journey: passed; ephemeral users cleaned"
       - "00_source: 395 files and aggregate SHA-256 unchanged"
+      - "exam_scraper origin/main parity: 0/0 at 29c567448"
+      - "repaso origin/master parity: 0/0 at 84a886afd"
