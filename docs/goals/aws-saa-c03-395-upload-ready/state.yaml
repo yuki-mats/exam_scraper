@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T034
+active_task: T040
 
 tasks:
   - id: T001
@@ -2597,7 +2597,7 @@ tasks:
   - id: T034
     type: judge
     assignee: Judge
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "T033指定testsがGoogle Drive上のdataless repo-local pycache読込で反復停止した環境原因をread-onlyで監査する。source files、pycache flags、Python import/cache semanticsを確認し、repo-local cacheを削除又はhydrationせず、task-scoped temporary PYTHONPYCACHEPREFIXで既存pycacheのread/writeを迂回できるか判定する。T031 diff不変を確認し、T033 amendmentを再実行する最小Worker packageを返す。"
     inputs:
@@ -2616,6 +2616,418 @@ tasks:
       - "安全なtest command wrapperと終了条件"
       - "T033 2-file amendmentを再実行するWorker package"
       - "その後のread-only diff Judge sequence"
+    receipt:
+      result: blocked
+      summary: "Google Drive上のpycache停止を前提にした旧taskは、CloudStorage外のresident local cloneへ実行場所を移したことで環境前提が解消した。その後2026-08-15までに382/395 local-ready・266問公開の別goalが完了し、T031/T033時点のdiffとrun計画は現行状態ではないため再実行せず終了する。"
+      evidence:
+        - "/Users/yuki/development/exam_scraper_local はmain・origin/main parity 0/0、worktree clean。"
+        - "現行QuestionInventoryはSAA-C03 382/395 local-ready、maintenance 13問。"
+        - "2026-08-14 publication receiptは未公開129問を要再整備116問・maintenance 13問と確定。"
+      stopped_because: "taskの環境前提と対象diffが後続の実行・公開によって失効した。"
+  - id: T035
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "2026-08-15のSAA-C03初回公開後の現行状態をread-onlyで統合し、maintenance 13問と要再整備116問を正規workflowで再開するためのexact対象、feedback正本、API/UI入口、artifact保存先、検証境界を確定する。"
+    inputs:
+      - "document/temporary/2026-08-14_aws_saa_c03_initial_publication_receipt.json"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/**"
+      - "output/question_review_console/** evaluation/rework artifacts"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/delivery_workflow.md"
+      - "現行QuestionInventoryとevaluation/publisher実装"
+    constraints:
+      - "Read-only。問題artifact、run、evaluation、Firestore、GoalBuddy control filesを変更しない。"
+      - "00_sourceと既存IDを変更しない。"
+      - "266問の既存合格・公開結果を再実行又は上書きしない。"
+      - "maintenance 13問と要再整備116問を混同せず、各正本と再開入口を分けて示す。"
+      - "同じ入力で失敗runを再試行しない。"
+    expected_output:
+      - "13問と116問のexact ID集合・hash・issue/feedback内訳"
+      - "feedbackと再整備対象fieldの正本artifact"
+      - "正規のpreview/start又はevaluation rework入口"
+      - "最大の安全な次Worker packageのallowed_files、verify、stop_if"
+      - "395/395 local-readyと全件評価合格へ至る直列工程"
+    receipt:
+      result: done
+      summary: "現行は382/395 local-ready。13問中、実整備不足はQ23・Q29の2問、残る11問は現行patch済みだが初回公開scopeでterminal未検証のためconvert対象外。公開済み266問を除く116問は、評価要再整備91・未評価13・評価合格未公開12に分かれ、『116問すべて要再整備』は現行状態と矛盾する。次はexact2の通常maintenanceを正規preview/startし、artifactSyncで395/395を検証するのが最大の安全なpackage。"
+      evidence:
+        - source: document/temporary/2026-08-14_aws_saa_c03_initial_publication_receipt.json
+          fact: "初回receiptはtotal=395、terminalValidated=382、published=266、currentNeedsRework=116、maintenance=13、source mutation=0を記録する。"
+        - source: "QuestionInventory current readback"
+          fact: "395問中382問がmerge/convert/upload matchかつissueなし。13問はconvert/upload missingでidentity_mismatch、うちQ23・Q29だけrequired_field_missing(explanationText)を併発する。"
+        - source: "workflow_overview_builder current readback"
+          fact: "maintenanceProgressはcurrent=393、required=2、2362/2370 work item。required stage IDsはoriginalize,question_type,question_intent,correct_choice,explanation,question_set。"
+        - source: 40_convert/publication_exclusions/udemy-aws-saa-c03_20260814_230949.json
+          fact: "13問すべての除外理由はnot_validated_in_all_question_summaries。11問は全6 patchが存在し、Q23は05のみ、Q29は05/10/15/23まで存在する。"
+        - source: "evaluations/*.json current projections"
+          fact: "369現行評価はpassed=278、needs_rework=91。初回receiptの266/103から12問が合格へ進んでいる。"
+        - source: "published_firestore_266 artifact + current inventory"
+          fact: "公開済みoriginalQuestionId 266を除くlocal-ready問題はexact116。内訳はneeds_rework=91、評価なし=13、passed未公開=12。"
+        - source: "current needs_rework projections"
+          fact: "91問のreworkItemsは03=91件、02a=63件、01=7件、02=7件。質問単位では03=85問、02a=63問、01=7問、02=7問。answerMappingMatched=falseは72問。"
+        - source: local_question_review_console.md
+          fact: "要再整備は複数選択し、現行stateHashと評価projectionを照合して必要工程だけを新規qualification runへ渡す。内容変更後は新しい評価sessionが必須。"
+        - source: "server.py + app.js"
+          fact: "bulk再整備の正規入口はPOST /api/qualification-runs/preview→/start、evaluationRework=true、exact questionIds。serverがevaluation snapshotからstageIds/updateTargetIdsを確定する。"
+        - source: "evaluation projection contract"
+          fact: "feedback正本はoutput/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/<reviewKeyHash>.json のcurrentValid。summary,criticalIssues,choiceEvaluations,reworkItems,stateHash,resultHashをserverがsnapshot化する。"
+        - source: "source integrity receipt"
+          fact: "00_sourceは395 files、aggregate SHA-256 bc76ba8ea294c920246ab74666b255d7c24eb600b7f43aaa7aa79b6bef0217cbで初回公開前後不変。"
+      facts:
+        - name: maintenance_13_question_ids_sorted
+          value: "1888000a7ef287f9a7ab0178,22087ea038e833d3b3f242af,3b2aacd64e71f2ef907737a9,3e4593340287ad7a7e8b0378,4de0f0477e632427fdf63d80,5a7bf93ae87d44141dad1086,8129a5b1f6fd9d433b759b4a,99a562044342859216a3e7ab,a0a7b22c35c45602ee1eddca,ae38cefdde6944ce81f9e125,bde2d99f85e0f552350aa651,bfd448b979c03e4422137871,e1fc3d162578e799f4b37b5a"
+        - name: maintenance_13_question_id_set_sha256
+          value: b887ebdb59583225b81c2b6ed6dedaff70f79cbf85a06551182df433a37838ab
+          canonicalization: "sorted UTF-8 IDs joined by LF with trailing LF"
+        - name: maintenance_13_original_question_id_set_sha256
+          value: f62c6e94b9266472475c84604f52815dc97b011acf1a854b7b569c67ace7af2e
+        - name: actual_required_maintenance_2
+          value: "[object Object],[object Object]"
+        - name: unpublished_local_ready_116_question_id_set_sha256
+          value: 36f223c5cd142dc96243af61b19a322d1f5a233ad57c482f55deb07c1ce80ae7
+          canonicalization: "sorted UTF-8 IDs joined by LF with trailing LF"
+          derivation: "current local-ready 382 minus originalQuestionId set in published_firestore_266 artifact"
+        - name: remaining_129_question_id_set_sha256
+          value: 27cd52d131812f5ffd1d2ea81692654c91cc357eb3d940035dda6166a8ec4540
+        - name: unpublished_116_current_partition
+          value: "[object Object],[object Object],[object Object]"
+        - name: next_worker_package
+          value: "[object Object]"
+        - name: serial_path_after_next_worker
+          value: "exact2 maintenance and artifactSync -> 395/395 local-ready,evaluate the 26 questions with no current evaluation (13 formerly local-ready plus 13 newly local-ready),bulk evaluationRework for exact current needs_rework set via evaluationRework=true; re-evaluate changed questions in fresh sessions until needs_rework=0,retain 12 passed-unpublished and all newly passed results; publish only after separate explicit Firestore gate,final readback: 395 current evaluations passed, 395 published if authorized, 00_source/IDs unchanged, AWS inventory 1274/1274"
+      contradictions:
+        - claim: "要再整備116問"
+          current_evidence: "現行116問はneeds_rework 91、評価なし13、passed未公開12。全116問をevaluationRework入口へ渡すとserverは25問を拒否する。"
+        - claim: "maintenance 13問"
+          current_evidence: "artifact/local-ready上は13問不足だが、workflow maintenance requiredはQ23/Q29の2問だけ。残り11問は全patch currentで、初回publication scopeのterminal summary非包含が原因。"
+        - claim: "初回評価266合格・103要再整備"
+          current_evidence: "現行projectionは278合格・91要再整備。初回receiptは履歴証拠であり現行評価正本ではない。"
+      ambiguity_requiring_judge:
+        - question: "次Worker exact2の通常artifactSyncが、初回publication-scope除外11問もgroup current artifactへ再包含して395/395にする契約を実装上確認するか。もしartifactSyncがterminal summary exact2だけを対象にするなら、11問を内容再生成せずterminal validationへ載せる正規入口を別packageに分ける必要がある。"
+        - question: "最終目標の『仕上げ終了』がFirestoreへ残り129問を公開する明示承認を含むか。元board oracleはFirestore writes=0だが、現状説明とユーザー発言は公開完了までを期待している可能性があるため、公開前にJudge/PMが境界を確定する必要がある。"
+        - question: "91問の評価再整備は最大100問bulk packageに収まるが、評価feedbackの多様性と再評価を同一Workerに含めるか、再整備完了後に独立評価packageへ分けるか。正本文書上は新しい評価sessionが必須。"
+      commands:
+        - "state.yaml T034-T035 receipt/contract inspection"
+        - "canonical pipeline manual inspection"
+        - "initial publication receipt JSON inspection"
+        - "evaluation/rework artifact directory inventory"
+        - "evaluation projection schema sampling and console docs search"
+        - "current QuestionInventory readback"
+        - "maintenance exact ID/hash and evaluation status aggregation"
+        - "published266 artifact and validated-union schema inspection"
+        - "evaluation rework API/UI implementation inspection"
+        - "bulk selection and stage mapping implementation inspection"
+        - "workflow overview current readback"
+        - "publication exclusions and patch coverage inspection"
+      note_needed: false
+  - id: T036
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T035の現行partitionを監査し、Q23/Q29 exact2の通常maintenanceとartifactSyncだけでpatch済み11問を内容再生成せず395/395 local-readyへ包含できるかを実装契約から判定し、最初の最大安全Worker packageを確定する。"
+    inputs:
+      - "T035 receipt"
+      - "workflow_runner.py、qualification_runs.py、qualification_workflow.pyのartifactSync実装"
+      - "現行QuestionInventory 382/395とworkflow overview current=393 required=2"
+      - "publication exclusions exact13とQ23/Q29 patch coverage"
+      - "fresh Codex App Server public status: available=true, allowed=false"
+    constraints:
+      - "Read-only。code、problem artifact、run、evaluation、Firestore、GoalBuddy control filesを変更しない。"
+      - "公開済み266問と現行評価projection369件を再実行・変更しない。"
+      - "00_source、既存ID、category、merged/convert/upload-readyを直接変更しない。"
+      - "元goalのFirestore writes=0境界を維持し、公開可否はこのpackageへ含めない。"
+      - "認証状態がrun開始条件を満たさない場合は、同じpreflightを反復せずexact user gateを示す。"
+    expected_output:
+      - "exact2 artifactSyncで11問も再包含されるかのapprove/reject"
+      - "最初のWorker package objective、allowed_files、verify、stop_if"
+      - "認証preflight gate"
+      - "395/395後の評価13＋再整備91＋再評価への直列境界"
+      - "full_outcome_complete=falseと残る証拠"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "単純な再ログイン要求は撤回する。codex login statusはChatGPTログイン済みを証明する一方、public_statusのallowed=falseとnull項目は、認証失効だけでなくaccount/read、rateLimits/read、schema、quota/credits、App Server初期化又はruntime契約の全失敗で同じ形になる。既存reason・同一試行stderr・binary/runtime情報をread-onlyで分類するのが先である。artifactSync判定は変わらず、exact2成功後はgroup全体を再構築してpatch済み11問を内容再生成なしで395/395へ包含できる。"
+      evidence:
+        - "PMの一度だけのcodex login statusはexit 0かつLogged in using ChatGPT。少なくともCLIが通常のChatGPT認証情報を認識しているため、現在証拠だけで再ログインを要求する根拠はない。"
+        - "fresh CodexAppServerClient public_status(refresh=True)はavailable=true、allowed=falseで、accountType、planType、creditsEnabled、standardMode等がnull。binary発見までは成功したが、subscription gate成功位置には到達していない。"
+        - "codex_app_server.pyのpublic_statusは、_ensure_started、account/read、account/rateLimits/read、validate_subscription_accessのどこでCodexAppServerErrorが発生しても、available=true、allowed=false、reasonだけを返す。null account fieldsは失敗箇所を識別しない。"
+        - "assert_subscription_accessはaccount/read(refreshToken=false)の後にaccount/rateLimits/read(params=null)を実行し、各RPCを最大3回再試行する。今回のfresh call自体が既にbounded retryを内包するため、同一外部状態で再callしても新しい判定にならない。"
+        - "validate_subscription_accessは非ChatGPT認証、未知又は従量課金plan、account/rate-limit plan不一致、schema欠損、利用上限到達、credits有効、補助limit不正をすべてfail-closedにする。allowed=falseだけでは認証、rate-limit、API contractを区別できない。"
+        - "App Serverはsource CODEX_HOMEのauth.jsonを一時隔離runtimeへコピーし、forced_login_method=chatgptで起動する。CLIログイン成功は必要条件だが、隔離runtimeのinitializeとaccount/rateLimits RPC成功までは証明しない。"
+        - "過去T005-T007 receiptでも、同じrateLimits送信失敗は認証/session state又はtransient external stateのどちらか未確定とされ、reason文字列や非公開wham URLに依存した修復は不承認だった。"
+        - "T035 current readback: SAA-C03は382/395 local-ready、maintenance current=393/395。実整備対象は8129a5b1f6fd9d433b759b4aとbde2d99f85e0f552350aa651のexact2。"
+        - "qualification_runs.pyはvalidated workのconfirmedGroupIdsからgroup単位でsync_after_patch_updateを呼び、exact question IDsを同期範囲として渡さない。"
+        - "workflow_runner.pyはforce=trueでlistGroup全体をpreview/runし、prepare_firestore_upload.pyへvalidated-question-summaryを渡さない。同期後も全395問のlocalReadyを再検査するため、exact2が必須fieldを満たせばpatch済み11問はmodel再投入なしで再包含される。"
+      next_allowed_task:
+        task_id: T037
+        type: scout
+        objective: "新しいpublic_status RPCを呼ばず、PMが既に取得したfresh public_statusの完全なreason、同一client試行のstderr、選択されたCodex binaryのpath/version、現行RPC/validation実装とtestsだけをread-onlyで照合する。失敗をauth/session、account/read transport、rateLimits transport、RPC method/schema contract、quota/credits、App Server initialize/runtime mismatchのいずれかへ、証拠が許す範囲で分類する。単純再ログイン、コード修正、run開始は行わない。"
+        allowed_files: []
+        verify:
+          - "PMが既に取得したpublic_statusオブジェクトからreason全文を読み、available/allowed/null fieldsと同じ試行の値であることを確認する。新しいpublic_status(refresh=True)は呼ばない。"
+          - "同一試行で保持されたCodexAppServerClient stderr又は例外記録をread-onlyで確認し、account/read前、account/read、account/rateLimits/read、validationのどこまで到達したかを判定する。保持されていなければ欠落証拠として明示する。"
+          - "CodexAppServerClientが選択したbinary pathとversion、app-server起動引数、account/read及びaccount/rateLimits/readの現行request shapeをread-onlyで照合する。auth.json内容やtokenは表示しない。"
+          - "reasonを現行実装の発生箇所へ対応付ける。quota/credits/schemaの明示message、RPC method-not-found、transport failure、initialize/config failureを混同しない。"
+          - "codex login statusの既存receiptを必要条件の証拠として使い、再実行や再ログインを診断代替にしない。"
+          - "git diffを発生させず、SAA run、preview/start、evaluation、artifactSync、Firestoreを実行しない。"
+        stop_if:
+          - "既存public_statusのreason全文又は同一試行stderrが保持されておらず、失敗層を識別できない。新しいpreflightで穴埋めせずmissing evidenceとして停止する。"
+          - "診断にauth.json/token/cookie内容、非公開wham URL/header、API key、Fast、credits bypass又は外部state変更が必要になる。"
+          - "複数分類が残り、認証失効を一意に証明できない。再ログインを推奨せずJudgeへ戻す。"
+      downstream_worker_package:
+        task_id: T038
+        type: worker
+        activation_condition: "T037で原因を分類し、必要な外部状態変化又は承認済みbounded修復の後に行った一度だけのfresh public_statusがavailable=true、allowed=true、accountType=chatgpt、standardMode=true、fastMode=false、creditsEnabled=falseを返した場合だけactiveにする。"
+        objective: "ローカルSSD workspaceで通常qualification previewを使い、SAA-C03 exact2だけを確定する。同一token/planでstartを一度だけ行い、2問をterminal validatedへ収束させる。queue終端のcanonical artifactSyncでpatch済み11問をmodel再投入せずgroup全395問のMerge・Convert・upload-readyへ再包含する。266公開済み、評価projection369件、Firestoreを変更しない。"
+        verify:
+          - "開始前にGoalBuddy control filesをPMがcommit/pushし、main、origin/main parity=0/0、worktree cleanを確認する。"
+          - "activation_conditionを満たしたfresh status receiptを読み、T038内で同じpreflightを再callしない。"
+          - "previewのqualification、scopeListGroupIds=[udemy-aws-saa-c03]、targetCount=2、questionIds exact2、questionId hash=bb7b92e94e68f0b39b4c7e838ff43b7b52b06ccdcfa9c6ff7194f58eec6927a3、必要stage/update targets、Standard/auto_maxを確認する。"
+          - "preview tokenとimmutable planを維持してstartを一度だけ行い、新run IDを一意に保存する。"
+          - "terminal manifest/result/question statesでstatus=succeeded、queueStatus=succeeded、receiptValidated=true、validatedQuestionCount=2、pending/blocked/hold=0、artifactSync.status=succeeded、group=udemy-aws-saa-c03を確認する。"
+          - "QuestionInventoryで395問すべてのmerge/convert/upload=match、issuesなし、identityBlockers=0、artifactResolutionBlockers=0を確認する。旧maintenance exact13も全件matchであることを個別確認する。"
+          - "patch済み11問の全patch bytes hashを開始前後で比較し不変を確認する。model turnとwork-version更新はexact2以外0件であることを確認する。"
+          - "00_source 395 files・aggregate SHA-256 bc76ba8ea294c920246ab74666b255d7c24eb600b7f43aaa7aa79b6bef0217cb、既存ID、categoryを開始前後で確認する。"
+          - "published_firestore_266 artifactと評価projection369件のfile集合・bytes hashを開始前後で比較し不変を確認する。publish/publish-queue run新規作成なし、Firestore writes=0を確認する。"
+          - "allowed_files外の差分がなく、canonical upload dry-runが成功したことを確認する。"
+        stop_if:
+          - "T037の分類とactivation_conditionを証明するreceiptがない。"
+          - "previewがexact2、単一SAA group、必要工程、Standard/auto_maxのいずれかと一致しない。"
+          - "Q23/Q29以外のmodel再生成、patch更新又はwork-version更新が計画される。"
+          - "Q23/Q29にsource conflict、人間content decision、hold、blocked、独自画像不足が発生する。"
+          - "artifactSyncがblocked/failed/interrupted、又は同期後に旧11問を含む395/395 local-readyを証明できない。手動でmerged/convert/upload-readyを編集しない。"
+          - "公開済み266問、評価projection369件、00_source、既存ID、category、CLF-C02、code/config/docs、Firestore又は外部publishの変更が必要になる。"
+          - "allowed_files外の変更、rollback不能、retrySafe=false、API key、Fast、credits bypass又は成功値fallbackが必要になる。"
+      parallel_safety:
+        safe: false
+        reason: "失敗分類、必要な外部状態変化又はruntime修復、single status gate、exact2 run、artifactSyncは同じApp Server/runtimeとcurrent projectionへ直列依存する。"
+      blocked_tasks:
+        - "T038 exact2 maintenanceはT037分類とallowed=true receiptまでblocked"
+        - "395/395後の未評価26問評価"
+        - "現行needs_rework集合の再整備"
+        - "変更問のfresh再評価とneeds_rework=0収束"
+        - "T999最終監査"
+      missing_evidence:
+        - "既に取得済みpublic_statusのreason全文と同一試行stderr。"
+        - "失敗層がauth/session、rateLimits transport、RPC/schema、quota/credits又はruntimeのどれかを示すread-only分類receipt。"
+        - "原因に対応した外部状態変化又は承認済みbounded修復後のsingle allowed=true receipt。"
+        - "exact2 preview identity、single start、新run terminal receipt。"
+        - "patch済み11問不変のままSAA-C03 395/395 local-readyとなったreadback。"
+        - "26問の新規評価、現行needs_rework集合の再整備、fresh再評価。"
+        - "395問すべてのcurrent evaluation passed、AWS全体1274/1274、quality gate、upload dry-run、Firestore writes=0、commit/pushの最終証拠。"
+      required_board_updates:
+        - "先のT036案にあった即時の再ログインuser gateを破棄し、本修正版receiptで置換してT036をdoneにする。"
+        - "T037をread-only failure-classification Scoutとしてactiveにする。新しいpublic_status RPCは呼ばない。"
+        - "T038 exact2 Workerはblockedで登録し、T037分類後もactivation_conditionを満たすまでactiveにしない。"
+        - "T037がauth/session失効を一意に証明した場合だけ通常再認証をuser gateへ追加する。rateLimit/API/runtime原因を再ログインへ読み替えない。"
+        - "T038成功後は、未評価26問の評価、現行needs_rework集合の再整備、変更問のfresh再評価を別taskとして直列化する。"
+        - "Firestore公開は本packageへ含めず、元のwrites=0境界を維持する。"
+  - id: T037
+    type: scout
+    assignee: Scout
+    status: blocked
+    reasoning_hint: low
+    objective: "新しいpublic_status RPCを呼ばず、PMが既に取得したfresh public_statusのreason、同一client試行のstderr、選択Codex binaryのpath/version、現行RPC/validation実装とtestsだけをread-onlyで照合し、失敗層を分類する。"
+    inputs:
+      - "T036 receipt"
+      - "PMが取得済みのfresh public_status objectと同一試行の保持情報"
+      - "tools/question_review_console/codex_app_server.pyとtests"
+      - "既存codex login status receipt"
+    constraints:
+      - "Read-only。新しいpublic_status(refresh=True)を呼ばない。"
+      - "再ログイン、コード変更、preview/start、run、evaluation、artifactSync、Firestoreを実行しない。"
+      - "auth.json、token、cookie、非公開wham URL/headerを表示しない。"
+      - "複数分類が残る場合は認証失効へ決め打ちしない。"
+    expected_output:
+      - "保存済みreason全文と同一試行stderrの有無"
+      - "失敗層の分類と根拠"
+      - "再認証、外部状態待ち、又はbounded runtime修復のいずれをJudgeへ送るべきか"
+      - "T038 activation conditionを満たすための最小の次task"
+    receipt:
+      result: blocked
+      summary: "既存fresh試行はsafe fieldsだけが保持され、reason全文と同一試行stderrは保存されていない。現行実装ではallowed=false/nullだけからinitialize、account/read、rateLimits/read、schema、quota/creditsを識別できない。CLIログイン済みは再ログイン決め打ちを否定するが、隔離runtime内の認証成功までは証明しない。T038は原因対応とsingle allowed=true receiptまで開始不可。"
+      evidence:
+        - "state.yamlのT036/T037にはfresh statusのsafe fieldsだけがあり、reason全文・同一試行stderrはmissing_evidenceとして記録されている。"
+        - "workspace、document/temporary、output/question_review_console、直近/private/tmp・/tmpを検索したが、当該試行のreason又はstderr保存物は見つからなかった。"
+        - "アプリ端末の保持出力は空で、当該試行の追加情報を回収できなかった。"
+        - "Codex binaryは既存path /Users/yuki/.nvm/versions/node/v25.2.1/bin/codex、ローカルversionはcodex-cli 0.145.0。"
+        - "public_statusはconfiguredならavailable=trueとし、_ensure_started以降のCodexAppServerErrorをすべてallowed=false＋reasonへ畳み込む。available=trueはinitialize成功を意味しない。"
+        - "assert_subscription_accessはinitialize後、account/read(refreshToken=false)、account/rateLimits/read(params省略)を順番に実行する。"
+        - "RPC errorならreasonにmethod名とerrorが入る実装だが、そのreasonが保持されていないため到達点を復元できない。"
+        - "validate_subscription_accessは認証種別、plan/schema不整合、利用上限、credits、補助limitを別messageで拒否するが、message欠落により分類不能。"
+        - "stderrはclient内deque最大80行にだけ保持され、永続化処理はない。client終了後に同一試行stderrを復元できるartifactは確認できない。"
+        - "既存receiptのcodex login status成功はsource CLIがChatGPT認証を認識する証拠だが、一時CODEX_HOMEへ複製された隔離runtimeのinitialize/RPC成功は証明しない。"
+      facts:
+        - "失敗分類はauth/session、account/read transport、rateLimits transport、RPC/schema、quota/credits、initialize/runtime mismatchの複数候補が残る。"
+        - "再ログインを原因対応として要求できる一意な証拠はない。"
+        - "T038 activation conditionを満たす証拠は現時点で存在しない。"
+        - "次の診断では秘密値を扱わず、reasonと到達RPC層を安全に永続化できるbounded observability又は外部状態変化後のsingle status receiptが候補となる。"
+      contradictions:
+        - "CLIはLogged in using ChatGPTだが、fresh public_statusはallowed=false/null。ただし両者はsource CLI認証と隔離App Server runtimeという異なる境界を観測するため、認証失効を直接証明する矛盾ではない。"
+      ambiguity_requiring_judge:
+        - "既存証拠欠落のまま、boundedな安全診断を先に承認するか、外部状態変化を待ってsingle fresh statusを取得するか。"
+        - "原因未分類のため、再認証・外部状態待ち・runtime修復のどれを採るべきかはJudge判断が必要。"
+      commands:
+        - "rgでT036/T037 board・notes参照箇所を確認"
+        - "sed/rgでT036 receipt、T037契約、public_status関連実装とtestsを確認"
+        - "rg --filesでworkspace内の候補artifact名を探索"
+        - "codex_app read_thread_terminalで保持端末出力を確認"
+        - "sedでvalidation、public_status、startup、testsを確認"
+        - "sed/rgとcodex --versionでcommand、stderr保持、binary versionを確認"
+        - "findで直近workspace/tmp保持ファイルを確認"
+        - "find/rgで直近Codexログと既知error文字列を確認"
+        - "sed/rgで_request error伝播と当該safe status保存物を確認"
+      note_needed: false
+  - id: T038
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: low
+    objective: "T037で原因を分類し、必要な外部状態変化又は承認済みbounded修復後の一度だけのfresh public_statusが許可条件を満たした場合に限り、SAA-C03 exact2を正規qualification preview/startで整備し、group artifactSyncで395/395 local-readyへ収束する。"
+    inputs:
+      - "T035 receipt exact2 and exact13 hashes"
+      - "T036 downstream_worker_package"
+      - "T037 classification receipt"
+      - "activation条件を満たすsingle fresh public status receipt"
+    constraints:
+      - "T037分類とallowed=true receiptが揃うまで実行しない。"
+      - "exact2以外をmodel再生成しない。"
+      - "00_source、既存ID、category、公開済み266問、評価projection369件、Firestoreを変更しない。"
+      - "Standard/auto_maxのみを使い、Fast、credits bypass、API keyを使わない。"
+    expected_output:
+      - "exact2 preview identityとsingle start receipt"
+      - "terminal succeeded、validated=2、pending/blocked/hold=0"
+      - "artifactSync succeeded/currentと395/395 local-ready readback"
+      - "patch済み11問、00_source、公開済み266問、評価369件、Firestore writes=0の不変証拠"
+    receipt:
+      result: blocked
+      blocked_reason: "T037の失敗分類と、必要な状態変化又は承認済み修復後のsingle public status success receiptが未取得。"
+      activation_condition: "available=true、allowed=true、accountType=chatgpt、standardMode=true、fastMode=false、creditsEnabled=falseのfresh receiptをT037後に一度だけ取得する。"
+  - id: T039
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T037のmissing-evidence停止を監査し、同一状態の盲目的再試行を避けながら、秘密値を保存せず失敗層を確定できる最小のbounded observability修復を承認するか、外部状態変化待ちにするかを決定する。"
+    inputs:
+      - "T036 amended receipt"
+      - "T037 blocked receipt"
+      - "tools/question_review_console/codex_app_server.pyとtests"
+      - "codex-cli 0.145.0、CLI logged-in receipt、fresh safe status fields"
+    constraints:
+      - "Read-only。実装、public_status再呼出し、preview/start、run、evaluation、artifactSync、Firestoreを実行しない。"
+      - "認証失効へ決め打ちせず、再ログインを診断代替にしない。"
+      - "auth.json/token/cookie、非公開wham URL/header、API key、credits bypass、Fastを扱わない。"
+      - "コード修復を承認する場合はdiagnostic observabilityに限定し、成功値fallback又はsubscription gate緩和を含めない。"
+    expected_output:
+      - "approve_next | reject | user_gate"
+      - "bounded observability Worker又は外部状態待ちのexact package"
+      - "allowed_files、tests、single diagnostic preflight条件、stop_if"
+      - "T038 activationまでの直列境界"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "外部状態変化を待つだけでは原因も再試行条件も増えないため、最小のbounded observability実装を先に承認する。現行public_statusは起動、account/read、rateLimits/read、validationの全失敗をallowed=falseへ畳み、既存stderrも非永続なので分類不能である。次Workerは安全なstage/error enumだけを返すdiagnostic code/testに限定し、gate、retry、成功判定を変更しない。実装監査・commit後に一度だけ診断し、結果別に直列routingする。現時点でユーザー操作は不要である。"
+      evidence:
+        - "T037は既存fresh試行のreason全文と同一試行stderrが保存されていないことを確認し、auth/session、transport、RPC/schema、quota/credits、runtimeの複数候補を残して停止した。"
+        - "codex-cli 0.145.0のsource CLIはLogged in using ChatGPTだが、隔離App Server runtimeのinitialize又はRPC成功は証明しないため、再ログインへ決め打ちできない。"
+        - "CodexAppServerClient.public_statusはCodexAppServerErrorをavailable=true、allowed=false、reasonへ畳み、accountType等のnullだけでは失敗stageを識別できない。"
+        - "assert_subscription_accessはinitialize後にaccount/read、account/rateLimits/read、validate_subscription_accessを順番に実行するため、各境界を診断専用経路で区別できる。"
+        - "_requestは現在RPC errorのmessageへ平坦化し、stderrは最大80行のmemory dequeだけに保持するため、秘密値を出さずに使える構造化診断情報が不足している。"
+        - "validate_subscription_accessはChatGPT認証、既知subscription、schema、利用上限、credits、Standard modeをfail-closedで既に検証しており、診断成功時もこの同じvalidatorを正本にできる。"
+      next_allowed_task:
+        task_id: T040
+        type: worker
+        objective: "Codex App Serverのsubscription preflightへ診断専用のdiagnose_subscription_accessを追加する。binary/runtime_initialize/account_read/rate_limits_read/subscription_validation/completeのstage、固定failureKind、RPC method、数値又は固定文字列のRPC code、dataの型だけを安全なallowlist projectionとして返す。raw message、raw data、stderr、URL、header、token、cookie、email、auth pathは返さない。各RPCは診断内で最大1回とし、既存public_status、assert_subscription_access、validation、retry、cache、成功判定を変更しない。mock testsまで実装し、live diagnostic、commit、pushは行わない。"
+        allowed_files:
+          - tools/question_review_console/codex_app_server.py
+          - tests/test_question_review_codex_app_server.py
+        prerequisites:
+          - "PMがGoalBuddy control filesを先にcommit/pushし、main、origin/main parity=0/0、worktree cleanを確認する。"
+        verify:
+          - ".venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+          - ".venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+          - "mockでruntime initialize、account/read、account/rateLimits/read、subscription validation、completeの各stageを個別に再現し、account/readとrateLimits/readがそれぞれ最大1回であることを確認する。"
+          - "RPC code=-32601/-32602、timeout、process exit、SubscriptionGateErrorを固定failureKindへ分類し、失敗結果は常にallowed=falseであることを確認する。"
+          - "error message/data/stderrへsecret sentinel、https URL、Authorization、Cookie、email、auth.json pathを入れ、json.dumpsした診断結果に一切現れない回帰testを通す。"
+          - "成功caseは既存validate_subscription_accessの戻り値だけからallowed=true、accountType、planType、creditsEnabled、standardMode、fastModeを得て、fallback又は推測値を使わないことを確認する。"
+          - "既存public_statusとassert_subscription_accessのtestsを無変更の期待値で通す。"
+          - "git diff --name-onlyがallowed_files exact 2件だけであることを確認する。"
+        stop_if:
+          - "server.py、qualification_runs.py、workflow、UI、run artifact、GoalBuddy control file又はallowed_files外の変更が必要になる。"
+          - "診断結果へraw exception message、RPC data value、stderr本文、URL、header、token、cookie、email又はauth pathを保存・表示する必要がある。"
+          - "subscription gate、Standard/Fast判定、credits拒否、retry回数、cache又は既存public_status成功条件を変更する必要がある。"
+          - "allowed=falseをallowed=trueへ補正するfallback、未知schemaの許容、API key、Fast又はcredits bypassが必要になる。"
+          - "live public_status、diagnose_subscription_access、account/read又はaccount/rateLimits/readを実行してしまう。"
+          - "対象testsが反復失敗する、又は既存挙動への回帰がある。"
+      parallel_safety:
+        safe: false
+        reason: "T040実装、T041 read-only diff監査、scope commit/push、T042 single diagnostic preflight、原因別対応、T038 activationは同一App Server契約と一回限りの診断証拠へ直列依存する。"
+      blocked_tasks:
+        - "T038 exact2 maintenanceはT040実装、T041監査、commit/push、T042 single diagnostic successまでblocked。"
+        - "未評価26問の評価、現行needs_rework集合の再整備、fresh再評価は395/395 local-readyまでblocked。"
+        - "T999最終監査は全品質証拠までblocked。"
+      missing_evidence:
+        - "T040 diagnostic-only exact2-file implementationと全回帰tests。"
+        - "T041によるsecret非漏洩、gate不変、single-call保証のread-only diff監査。"
+        - "監査済みdiffのorigin/main commit/pushとclean parity。"
+        - "T042で一度だけ取得するsanitized diagnostic receipt。"
+        - "診断成功又は原因別状態変化後のT038 exact2 terminal runと395/395 artifactSync。"
+        - "全395問のcurrent evaluation passed、AWS全体1274/1274、quality gate、upload dry-run、Firestore writes=0の最終証拠。"
+      required_board_updates:
+        - "T039へ本receiptを記録してdoneにする。"
+        - "GoalBuddy control filesをscope commit/pushしclean parity確認後、T040 Workerをactiveにする。"
+        - "T040はcode/testのみとし、live diagnostic、commit、pushを禁止する。"
+        - "T040完了後にT041 Judgeを追加し、exact diff、secret非漏洩、既存gate不変、各RPC最大1回をread-onlyで監査する。"
+        - "T041承認後だけ、別Worker T042でexact2-file diffをcommit/pushし、committed mainのfresh clientからdiagnose_subscription_accessを一度だけ実行する。同じWorker又は後続taskでpublic_statusを重ねて呼ばない。"
+        - "T042結果がstage=complete、allowed=true、accountType=chatgpt、creditsEnabled=false、standardMode=true、fastMode=falseの場合だけ、そのreceiptをT038 activation証拠として使い、T038内でstatus preflightを再呼出ししない。"
+        - "failureKind=auth_required又はsession_expiredが構造化RPC証拠で一意なら、ユーザーへcodex loginを実行してChatGPT認証を完了し、Codex再認証完了と返信してくださいとだけ依頼する。"
+        - "failure stage=runtime_initialize又はfailureKind=runtime_mismatch/process_exitならruntime compatibility Judgeへ、rpc_method_not_found/invalid_params/schema_mismatchならRPC contract Judgeへ送る。"
+        - "timeout/service_unavailable/transport_failureなら外部状態変化を待ち、同一状態で再試行しない。quota_reachedならreset evidenceまで待ち、credits_enabledならcredits無効化の外部確認までT038をblockedにする。"
+        - "unknown又は複数分類が残る場合はT038をactiveにせずJudgeへ戻し、診断の反復や再ログインへ読み替えない。"
+  - id: T040
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "Codex App Serverのsubscription preflightへ診断専用diagnose_subscription_accessを追加し、秘密値を含めずstageと固定failureKindだけを返す。既存gate、retry、cache、成功判定は変更しない。"
+    inputs:
+      - "T039 receipt"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tests/test_question_review_codex_app_server.py"
+    constraints:
+      - "allowed_filesはcode/test exact 2件だけ。"
+      - "binary/runtime_initialize/account_read/rate_limits_read/subscription_validation/completeのstageを固定schemaで返す。"
+      - "raw message/data/stderr、URL、header、token、cookie、email、auth pathを返さない。"
+      - "各RPCは診断内で最大1回。既存public_status、assert_subscription_access、validation、retry、cache、成功判定を変更しない。"
+      - "live diagnostic、public_status、account RPC、preview/start、run、evaluation、artifactSync、Firestore、commit、pushを実行しない。"
+    allowed_files:
+      - tools/question_review_console/codex_app_server.py
+      - tests/test_question_review_codex_app_server.py
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+      - ".venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+      - "mockで全stageを個別再現し、account/readとaccount/rateLimits/readがそれぞれ最大1回であることを確認する。"
+      - "RPC code、timeout、process exit、SubscriptionGateErrorを固定failureKindへ分類し、失敗時は常にallowed=falseを確認する。"
+      - "secret sentinel、URL、Authorization、Cookie、email、auth pathが診断JSONへ現れない回帰testを通す。"
+      - "既存public_statusとassert_subscription_accessのtestsを無変更の期待値で通す。"
+      - "git diff --name-onlyがallowed_files exact 2件だけであることを確認する。"
+    stop_if:
+      - "allowed_files外の変更が必要になる。"
+      - "raw exception message、RPC data value、stderr本文、URL、header、token、cookie、email又はauth pathを保存・表示する必要がある。"
+      - "subscription gate、Standard/Fast判定、credits拒否、retry、cache又は既存public_status成功条件を変更する必要がある。"
+      - "fallback、未知schema許容、API key、Fast又はcredits bypassが必要になる。"
+      - "live public_status、diagnose_subscription_access、account/read又はaccount/rateLimits/readを実行してしまう。"
+      - "対象testsが反復失敗する、又は既存挙動への回帰がある。"
+    expected_output:
+      - "exact 2-file diffとtests receipt"
+      - "固定schema・stage・failureKindとsecret非漏洩test"
+      - "既存gate不変と各RPC最大1回の回帰証拠"
     receipt: null
   - id: T999
     type: judge
