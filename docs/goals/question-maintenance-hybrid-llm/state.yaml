@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T037
+active_task: T038
 
 tasks:
   - id: T001
@@ -1707,7 +1707,7 @@ tasks:
   - id: T037
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "後工程を前工程の正本保存に依存させる現在のplannerを監査し、未保存virtual recordから同一target/stateHash/applicabilityを決定できる最小workspace-aware planning契約、又は3分方式の実装不可能性を確定する。"
     inputs:
@@ -1723,6 +1723,53 @@ tasks:
       - "Exact pure planning input/output contract and reusable functions"
       - "Complexity/risk judgment against three-minute practical goal"
       - "One final Worker package or explicit infeasibility recommendation"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      summary: "virtual recordだけではcanonical projection同等性を保証できず、完全化にはshadow filesystemと第二の状態機械が必要なため、hybrid precommit実装を継続しない。"
+      evidence:
+        - "projected_input_for_stageは00_source、全patch層、issue index、identity、工程固有補正を再構築する。"
+        - "単純set/unset overlayではpatch適用順、answer owner、aggregate compatibilityを再現できない。"
+        - "workspace root差だけでもappliedPatchFilesを含むprojectedInputHashが変わる。"
+        - "qwen3:14bは約8.5分級、qwen3.5:27bは1200秒timeoutで180秒を満たさない。"
+      outcome:
+        - "local_generate_codex_auditはoperational=falseの実験profileに固定する。"
+        - "運用候補は同じ既存pipelineのcodex_onlyだけとする。"
+      next_task: T038
+
+  - id: T038
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "既存codex_only pipelineを固定7問へ隔離実行し、queue admissionからterminalまでの一問180秒SLA、工程別時間、品質、安全、LLM同時呼出し1を実測する。"
+    inputs:
+      - "T006/T025 fixed seven representative questions and blind oracle"
+      - "Current codex_only operational profile"
+      - "T037 rejection decision"
+    constraints:
+      - "コード、正本patch、00_source、Firestore、外部公開を変更しない。"
+      - "oracleをmodel promptへ渡さない。"
+      - "一問3分を平均でなくadmission-to-terminalの各問上限として判定する。"
+      - "LLM呼出しと問題処理は各1並列。"
+    expected_output:
+      - "Per-question admission/turn/stage/terminal timing receipt"
+      - "Seven-question quality and hold outcome"
+      - "180-second pass/fail and bottleneck classification"
+      - "No-write and peak-concurrency evidence"
+    allowed_files:
+      - "docs/goals/question-maintenance-hybrid-llm/notes/T038-artifacts/**"
+      - "OS一時directory内の隔離repo copyとrun artifacts"
+    verify:
+      - "固定7問すべてのterminal statusとadmitted-to-terminal秒を機械集計する。"
+      - "重大事故0、passed又は根拠付きholdへ閉じる。"
+      - "LLM同時呼出しpeak 1、問題処理peak 1、Firestore/publication write 0。"
+      - "実repoの00_sourceとproduction patch差分0。"
+    stop_if:
+      - "実repoの正本、00_source、Firestore又は外部公開へwriteが必要になる。"
+      - "Codex subscription gateがallowed=trueにならない。"
+      - "同一の環境原因を二回是正しても実測を開始できない。"
     receipt: null
 
   - id: T009
