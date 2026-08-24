@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T063
+active_task: T068
 
 tasks:
   - id: T001
@@ -4563,7 +4563,7 @@ tasks:
   - id: T063
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "承認済みT061 code/testをcommit・pushしたmain上で、stable 5a7bf93ae87d44141dad1086のexplanationだけを正規review/reworkし、10TB/72時間の一般式・代入・途中計算・最終値をflutter_math_fork対応の表示数式へ収束させ、full quality gateを通す。"
     inputs:
@@ -4609,6 +4609,240 @@ tasks:
     expected_output:
       - "Q38 exact explanation rework terminal receipt"
       - "full quality gate/upload dry-run/00_source/inventory/invariant receipt"
+    receipt:
+      result: blocked
+      changed_files:
+        - "Q38 review/work/run artifacts"
+        - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/question_udemy-4699792-038_merged_explanationText_added.json
+        - "SAA merge/convert/upload-ready artifacts"
+      commands:
+        - "POST review 20260824T112259001627-406a2b30"
+        - "preview exact1 explanation-only"
+        - "single start run 20260824T112319227939-36621ba4"
+        - "terminal and patch readback"
+      summary: "Q38 exact1/explanation-only previewはquestion hash e126333d、work1、Standard、Firestore false。single runはvalidated1/work1、blocked/pending0、artifactSync succeeded。数式は一般式、秒換算、代入、約309Mbit/sを表示数式で示した。一方、modelがexplanationReferencesを既存3件から新3件へ変更したため事前stop_ifに従い停止した。"
+      remaining_blockers:
+        - "変更された公式資料リストと本文主張の一次資料対応をJudge監査する。"
+        - "reviewはneeds_reviewのまま。full quality gate以降は未実行。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "既存referencesをmodelが変更するstop_ifに該当した。"
+  - id: T064
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T063のQ38 exact explanation runをread-only監査し、数式追加の正確性、既存非所有field不変、変更されたexplanationReferencesと本文主張の一次資料対応を確認して、成果採用又は最小再整備packageを決定する。"
+    inputs:
+      - "T063 run 20260824T112319227939-36621ba4"
+      - "review 20260824T112259001627-406a2b30"
+      - "Q38 before projected stateHash 4ea62251d7ce1a1c13144c3a7915e7bd848a1e6ef76882a77202ac63e5989d81"
+      - "Q38 final 21 patch and official AWS references"
+    constraints:
+      - "Read-only。patch、review、run、source、board以外を変更しない。"
+      - "T063成功runと数式を巻き戻さない。"
+      - "references変更を未監査のまま承認しない。"
+      - "AWS主張は公式一次資料で確認する。"
+      - "Firestoreへ書き込まない。"
+    expected_output:
+      - "T063 accept/rejectと理由"
+      - "数式・field ownership・reference coverage監査"
+      - "次taskのallowed_files/verify/stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T063成果を採用する。references変更は事前stop_ifに該当したため停止が正しかったが、独立監査で、変更対象はexplanation工程が所有するexplanationReferencesだけで、3件とも現在のAWS公式一次資料であり、本文のVPN、Direct Connect、Snowballの判断根拠を直接支えることを確認した。非所有fieldのprojectionは不変で、数式も正確である。"
+      evidence:
+        - "Q38 projectedは本文、4肢、正答3、answer、questionType、questionIntent、isCalculationQuestion=true、questionSetIdがT063前と同一。"
+        - "10TB=10×10^12 bytes、72h=259200s、8D/t=3.0864×10^8bit/s=308.6Mbit/sで、出力の約309Mbit/sは正確。"
+        - "Site-to-Site VPN公式ページはIPsec、オンプレミス-VPC接続、標準1.25Gbpsを明示する。"
+        - "Direct Connect公式ページは専用接続にpartner/circuitが必要で、AWSのrequest reviewとport provisionに最大72 business hoursを明示する。"
+        - "Snowball Edge公式ページはorder、prepare、ship、receive、returnのworkflowとprepare最大4週間を明示する。"
+        - "explanationReferencesは判断に必要な公式一次資料3件で、03 promptの1-3件契約内。"
+        - "run 20260824T112319227939-36621ba4はsingle start、validated1/work1、blocked/pending0、receiptValidated、artifactSync succeeded。"
+      next_allowed_task: T065
+      blocked_tasks:
+        - T999
+        - "evaluation missing"
+        - needs_rework
+        - "Firestore publish"
+      missing_evidence:
+        - "full quality gate"
+        - "upload dry-run"
+        - "review approved"
+        - "final 395/395 invariant"
+  - id: T065
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: low
+    objective: "監査承認済みのQ38成果を保持し、reviewを現行stateHashでapprovedへ更新したうえで、full quality gate、upload dry-run、00_source immutability、395/395 inventoryと保護対象不変を検証してT063を閉じる。"
+    inputs:
+      - "T064 Judge receipt"
+      - "T063 run 20260824T112319227939-36621ba4"
+      - "review 20260824T112259001627-406a2b30"
+    constraints:
+      - "Q38 patch内容を追加変更しない。"
+      - "quality gateやupload dry-runをskipしない。"
+      - "reviewは全検証成功後だけapprovedにする。"
+      - "Firestoreへ書き込まない。"
+    allowed_files:
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/reviews/20260824T112259001627-406a2b30.json"
+      - "output/question_review_console/cache/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_*.json"
+    verify:
+      - "full quality gate成功。"
+      - "upload dry-run成功、実書込み0。"
+      - "check_00_source_immutability成功。"
+      - "Q38 projected非解説field不変、数式3block、isCalculationQuestion=true、workflow all match/issues0。"
+      - "review approved/current projectedHash/manual flagなし。"
+      - "SAA source/patch/merge/convert/upload各395 match、local-ready395/395、issues0。"
+      - "Q23/Q29/11問、公開266、評価369、CLF、Firestore writes0不変。"
+    stop_if:
+      - "いずれかのgateが失敗する。"
+      - "review approvalがstale stateHashで拒否される。"
+      - "Q38又は保護対象に追加変更が必要になる。"
+      - "Firestore書込み又はallowed_files外の変更が生じる。"
+    expected_output:
+      - "full gate、dry-run、source、inventory、review approval receipt"
+    receipt:
+      result: blocked
+      changed_files:
+        - output/aws-solutions-architect-associate/category/category.json
+        - "SAA regenerated merge/convert/upload-ready artifacts"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+      commands:
+        - "full question quality gate"
+        - "prepare_firestore_upload --upload-dry-run"
+        - "repo-wide check_00_source_immutability"
+      summary: "full quality gateは395問のpatch coverageとFirestore dry-runを含め成功した。追加prepare_firestore_uploadもFirestore実書込み0で成功したが、category countを自動更新する副作用を発生させた。repo-wide 00_source checkはSAA外の既存消失4609 filesで失敗した一方、SAA 395 filesのaggregate SHA-256は開始時と同じbc76ba8e...である。"
+      remaining_blockers:
+        - "今回のコマンドが作成したcategory差分を安全に復旧する。"
+        - "SAA scopeだけをmanifestと照合して00_source不変を証明する。"
+        - "review approvalとfinal inventoryを完了する。"
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: "allowed_files外category差分とrepo-wide immutability gate失敗のstop_ifに該当した。"
+  - id: T066
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T065のfull quality成功後に判明したprepare_firestore_upload副作用とrepo-wide 00_source既存欠損をread-only監査し、category復旧とSAA scoped immutability証明の安全なpackageを決定する。"
+    inputs:
+      - "T065 command outputs"
+      - "tracked category.json diff"
+      - "00_source manifest and SAA aggregate hash"
+      - "quality gate passed receipt"
+    constraints:
+      - "Read-only。category、source、board以外を変更しない。"
+      - "自動生成差分を正当化せず所有範囲を確定する。"
+      - "repo-wide既存欠損をSAA差分と混同しない。"
+      - "Firestoreへ書き込まない。"
+    expected_output:
+      - "category差分のownershipと復旧可否"
+      - "SAA 00_source immutabilityのexact verification"
+      - "次Worker allowed_files/verify/stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "category差分はT065で実行したprepare_firestore_uploadがcategory count writerを呼んだ副作用で、開始時に保護対象としていたtracked正本との差分である。HEADが直前のcommitted正本なので今回差分だけの機械的復旧を承認する。repo-wide 00_source失敗4609件はSAA外の既存manifest欠損で、SAA prefixはmanifest/current各395、missing/new/changed 0、aggregate hashも開始時と同一である。"
+      evidence:
+        - "git tracked差分はboardとcategory.jsonだけ。category diffはupdatedAt、questionCount、isDeletedの自動count更新。"
+        - "category current hash 321946a8、HEAD hash ed1ac54cで、HEADはT065開始前の正本。"
+        - "SAA 00_source manifest=395/current=395/missing=0/new=0/changed=0。"
+        - "SAA 00_source aggregate SHA-256 bc76ba8ea294c920246ab74666b255d7c24eb600b7f43aaa7aa79b6bef0217cbは開始時と一致。"
+        - "full quality gateは全patch coverageと直接Firestore dry-runを含めpassed。追加prepare commandは証明として冗長で、再実行しない。"
+      next_allowed_task: T067
+      blocked_tasks:
+        - T999
+        - "evaluation missing"
+        - needs_rework
+        - "Firestore publish"
+      missing_evidence:
+        - "category復旧"
+        - "review approved"
+        - "final 395/395 inventory"
+  - id: T067
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "T065が生成したcategory.jsonのtracked差分だけをHEADへ機械的に復旧し、SAA scoped 00_sourceをmanifestと照合して不変を証明する。その後、Q38 reviewを現行stateHashでapprovedへ更新し、395/395 inventoryと保護対象をreadbackする。"
+    inputs:
+      - "T066 Judge receipt"
+      - "HEAD category hash ed1ac54c..."
+      - "SAA 00_source aggregate hash bc76ba8e..."
+      - "quality gate passed"
+    constraints:
+      - "今回生成したcategory tracked diff以外を復旧・削除しない。"
+      - "00_source manifestを更新しない。"
+      - "再度prepare_firestore_uploadを実行しない。"
+      - "review approval以外のAPI書込みとFirestore書込みを行わない。"
+    allowed_files:
+      - "output/aws-solutions-architect-associate/category/category.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/reviews/20260824T112259001627-406a2b30.json"
+      - "output/question_review_console/cache/**"
+    verify:
+      - "category.jsonはgit diffなし、SHA-256 ed1ac54c7169e66c9c620300c3e447783b3e6d22e4b65039a565a93e753c35f7。"
+      - "manifest/currentのSAA prefixは各395、missing/new/changed 0、aggregate bc76ba8e...。"
+      - "Q38 review approved、projectedHashが現行stateHash、manual flagなし。"
+      - "SAA source/patch/merge/convert/upload各395 match、issues0、local-ready395/395。"
+      - "Q23/Q29/11問、公開266、評価369、CLF、Firestore writes0不変。"
+      - "tracked diffはboardだけ。"
+    stop_if:
+      - "categoryのtracked差分がT065自動count更新以外を含む。"
+      - "SAA prefixにmissing/new/changedが1件でもある。"
+      - "review approvalがstale又はQ38にmanual flagが残る。"
+      - "SAA inventoryが395/395でない。"
+      - "Firestore又は保護対象に差分が出る。"
+    expected_output:
+      - "category recovery、SAA source、review approval、395/395 receipt"
+    receipt:
+      result: done
+      changed_files:
+        - output/aws-solutions-architect-associate/category/category.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/reviews/20260824T112259001627-406a2b30.json
+      commands:
+        - cmd: "reverse exact category tracked diff"
+          status: pass
+        - cmd: "SAA 00_source manifest/current prefix audit"
+          status: pass
+        - cmd: "review status approved API"
+          status: pass
+        - cmd: "QuestionInventory and question API readback"
+          status: pass
+      summary: "T065のcategory count副作用だけを復旧しHEAD hash ed1ac54c...へ戻した。SAA 00_sourceはmanifest/current各395、missing/new/changed0、aggregate bc76ba8e...不変。Q38 reviewはcurrent stateHash c0c902d3...でapproved、manual flagなし。SAA source/patch/merge/convert/upload各395 match、issues0、local-ready395/395。full quality gateとdirect Firestore dry-runは成功済み、Firestore writes0。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T068
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "content maintenance完了後のSAA評価状態をread-only監査し、未公開129問のnot_started 12とneeds_rework 117を全件passedへ収束する最大の安全なevaluation packageを決定する。"
+    inputs:
+      - "T067 completion receipt"
+      - "current question API evaluationCounts"
+      - "369 evaluation artifacts and published266 state"
+      - "evaluation/rework workflow contracts"
+    constraints:
+      - "Read-only。evaluation、review、run、patch、board以外を変更しない。"
+      - "published266を再評価・再公開しない。"
+      - "not_startedとneeds_reworkを同じ意味に扱わない。"
+      - "Firestoreへ書き込まない。"
+    expected_output:
+      - "exact current evaluation partition and identity/hash"
+      - "stale/needs_rework/not_started root classification"
+      - "次Worker objective/allowed_files/verify/stop_if"
     receipt: null
   - id: T999
     type: judge
