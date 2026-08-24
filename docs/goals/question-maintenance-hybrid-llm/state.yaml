@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T041
+active_task: T042
 
 tasks:
   - id: T001
@@ -1859,7 +1859,7 @@ tasks:
   - id: T041
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "今回の実装・実モデル試験・architecture rejection・codex_only部分SLA・既存85003 blockerを最終監査し、運用可能範囲、未承認範囲、goal dispositionを厳密に確定する。"
     inputs:
@@ -1875,6 +1875,51 @@ tasks:
       - "Final operational/rejected matrix"
       - "Exact implemented and verified scope"
       - "Goal status and smallest separate follow-up, if any"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      summary: "利用者が180秒要件を撤回。codex_onlyは品質・安全確認済みで運用可。local_generate_codex_auditは切替基盤実装済みだが品質とクラウド削減未証明のためexperimentalのまま。"
+      user_requirement_change:
+        - "一問3分は必須条件から除外し、速度を合否条件にしない。"
+      evidence:
+        - "T025 codex_onlyは6 validated・根拠hold 1・重大事故0。"
+        - "qwen3:14bは4問中、全指定工程をfallbackなしでlocal完了できたのが1問。"
+        - "qwen3.5:27bは観測3問でlocal final pass 0、品質未証明。"
+        - "codex_only operational=true、local_generate_codex_audit operational=false。"
+        - "保存前shadow workflowは第二状態機械になるため却下を維持する。"
+      next_task: T042
+
+  - id: T042
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "却下済みの未接続precommit draft/audit/repair契約と専用testだけを削除し、既存stage-by-stage単一pipeline、profile切替、operational gate、Codex audit micro-batchを維持して単純化する。"
+    inputs:
+      - "T041 final architecture disposition"
+      - "commit dc2ddf2dc unused precommit contract additions"
+    constraints:
+      - "既存runtime参照がないことを先に確認する。"
+      - "stage-by-stage処理、profile gate、validator、stateHash、保存、公開境界を変更しない。"
+      - "allowed_files外を変更しない。"
+    expected_output:
+      - "Unused precommit schemas/parsers removed"
+      - "Focused and related regression pass"
+      - "Scoped commit"
+    allowed_files:
+      - "tools/question_review_console/question_candidate.py"
+      - "tests/test_question_review_question_candidate.py"
+    verify:
+      - "unused symbol rg confirms no runtime references"
+      - "model backend/candidate/hybrid focused tests"
+      - "qualification/evaluation/server/workflow related tests"
+      - "git diff --check and clean status"
+    stop_if:
+      - "削除対象にtests以外のruntime参照がある。"
+      - "allowed_files外変更が必要になる。"
+      - "既存pipeline又は安全境界の変更が必要になる。"
+      - "同一原因で検証が二回失敗する。"
     receipt: null
 
   - id: T009
