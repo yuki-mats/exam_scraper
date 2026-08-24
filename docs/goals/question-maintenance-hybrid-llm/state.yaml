@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T005
+active_task: T017
 
 tasks:
   - id: T001
@@ -480,7 +480,7 @@ tasks:
   - id: T005
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "最大5問・120,000 input bytesを初期上限とする独立cloud監査micro-batchを実装し、問題別検証・receipt・部分再試行・resumeを完成させる。"
     inputs:
@@ -519,6 +519,91 @@ tasks:
       - "一問receipt又は独立判定を維持できない。"
       - "batch化により一問評価との判定差が解消できない。"
       - "検証が二回失敗し、原因がslice外にある。"
+    receipt:
+      result: blocked
+      full_outcome_complete: false
+      changed_files:
+        - "tools/question_review_console/evaluation.py"
+        - "tests/test_question_review_evaluation.py"
+        - "document/operations/local_question_review_console.md"
+      summary: "semantic micro-batch初稿を実装したが、repository直下code.pyとstdlib codeの衝突により規定verifyを完了できず停止した。"
+      commands:
+        - cmd: "python -m py_compile evaluation.py and unittest evaluation"
+          status: fail
+        - cmd: "unittest focused suite"
+          status: fail
+        - cmd: "pytest focused suite"
+          status: fail
+      remaining_blockers:
+        - "既知のstdlib code preload runnerで独立検証が必要。"
+        - "server/UI/profile伝播を含むT005契約の充足監査が必要。"
+        - "commitとpushは未実施。"
+      needs_judge: true
+
+  - id: T016
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T005初稿を既知のstdlib code preload runnerで独立監査し、semantic batch契約の不足と次の最大安全rework sliceを確定する。"
+    inputs:
+      - "T004 receipt"
+      - "T005 blocked receipt and current diff"
+      - "Known stdlib code preload test runner from T014"
+    constraints:
+      - "Read-only。"
+      - "test起動障害とproduct不具合を分離する。"
+      - "部分実装を推測で承認しない。"
+    expected_output:
+      - "approve_rework | reject"
+      - "Contract gap list"
+      - "Exact Worker allowed_files and verify"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "focused testsは起動方法を直せば通るが、profile固定、正確なsession数、extra ID、bytes/grouping、model開始前の問題別run予約が未検証かつ未実装でfalse-green。"
+      evidence:
+        - "stdlib code preload focused: 189 passed, 61 subtests passed。"
+        - "sessionCountは問題数のまま、evaluationConcurrencyLimitは1へ固定されている。"
+        - "batch model call後に各問runを作るためmodel実行中の問題別manifest・attempt・resume証跡がない。"
+        - "単問byte超過は単問経路でなく全体raise、extra IDは無視される。"
+        - "evaluation preview/start/run_turnへmodelProfileが伝播しない。"
+        - "UIと運用文書に旧100/300並列契約が残る。"
+      next_task: T017
+
+  - id: T017
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "T005をreworkし、profile固定semantic batch、model前の問題別run予約、部分成功・再試行・resume、正確なUIと文書を完成させる。"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "tests/test_question_review_evaluation.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - "stdlib code preload focused evaluation/server/hybrid/workflow/documentation tests"
+      - "stdlib code preload related full regression"
+      - "5/6問、120000 bytes、qualification/policy/law/image grouping、入力順"
+      - "missing/duplicate/extra/stateHash/choice coverageのfail-closedと必要問だけsingle retry"
+      - "transport failureはsingle fan-outしない"
+      - "model前の問題別active/run/attempt予約、失敗resume、artifact parity"
+      - "profile preview/start/token/run_turn/manifest一致と両profile audit=Codex"
+      - "node --check app.js、git diff --check、00_source差分なし"
+    stop_if:
+      - "model前に問題別run/attemptを予約できずresume可能に閉じられない。"
+      - "schema不正とtransport失敗を共通pipeline内で分離できない。"
+      - "有効兄弟commit、stateHash又はpublication gateを維持できない。"
+      - "secret又は現在正答を外部へ出す必要がある。"
+      - "allowed_files外の変更が必要になる。"
+      - "同じ原因の検証失敗を二回修正しても解消しない。"
     receipt: null
 
   - id: T015
