@@ -340,6 +340,9 @@ def project_merge_record(
                 patch.entry,
                 patch.path,
                 expected_hash_fields=patch.expected_hash_fields,
+                allow_current_value_certification=(
+                    patch.allows_current_value_certification
+                ),
             )
         except (RuntimeError, ValueError) as exc:
             errors.append(str(exc))

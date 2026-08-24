@@ -763,6 +763,30 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         self.assertTrue(result.errors)
         self.assertEqual(result.applied_paths, ())
 
+    def test_question_issue_layer_accepts_certified_current_correct_answer(self):
+        base = {
+            "original_question_id": "q1",
+            "questionType": "multiple_choice",
+            "correctChoiceText": ["A"],
+        }
+        certification = QuestionIssueCorrectionEntry(
+            Path("certification.json"),
+            {
+                "original_question_id": "q1",
+                "expectedBeforeHash": question_record_hash(base),
+                "changes": {"correctChoiceText": ["A"]},
+                "certifiesCurrentValues": True,
+            },
+            allows_current_value_certification=True,
+        )
+
+        result = project_merge_record(base, question_issues=(certification,))
+
+        self.assertEqual(result.merged2, base)
+        self.assertEqual(result.update_counts["question_issue"], 1)
+        self.assertEqual(result.errors, ())
+        self.assertEqual(result.applied_paths, (Path("certification.json"),))
+
     def test_explanation_prefix_matches_normalized_verdict(self):
         self.assertTrue(explanation_prefix_matches("○", "正しい。条文の通り。"))
         self.assertTrue(explanation_prefix_matches("誤り", "間違い。文言が異なる。"))
