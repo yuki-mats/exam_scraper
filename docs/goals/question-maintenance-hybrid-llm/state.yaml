@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T036
+active_task: T037
 
 tasks:
   - id: T001
@@ -1647,7 +1647,7 @@ tasks:
   - id: T036
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "問題単位envelope state machineを既存coordinatorへ接続し、一回draft、EDF監査batch、最大一回repair、全stage recoverable transaction、write-once resume、180秒terminal制御、評価昇格を完成させる。"
     inputs:
@@ -1694,6 +1694,35 @@ tasks:
       - "全stage pathを同じlock/baseline/rollback範囲へ収められない。"
       - "別pipeline、provider/model分岐、local retry/fallback、二回目監査が必要になる。"
       - "allowed_files外、00_source、Firestore又は外部公開の変更が必要になる。"
+    receipt:
+      result: blocked
+      summary: "後工程target/stateHash/law_audit applicabilityは前工程のvalidated receiptとchangedFilesを確認後に正本から再計画されるため、監査前write 0では安全に確定できず停止した。"
+      changed_files: []
+      evidence:
+        - "_question_stage_specは前工程validated後に_dynamic_question_phase_planと_project_question_nowを呼ぶ。"
+        - "未保存workspace projectionから後工程planを作る正式契約がない。"
+      remaining_blockers:
+        - "_dynamic_question_phase_planとinventory.projected_input_for_stageのworkspace-aware planning契約。"
+
+  - id: T037
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "後工程を前工程の正本保存に依存させる現在のplannerを監査し、未保存virtual recordから同一target/stateHash/applicabilityを決定できる最小workspace-aware planning契約、又は3分方式の実装不可能性を確定する。"
+    inputs:
+      - "T036 blocker"
+      - "_question_stage_spec, _dynamic_question_phase_plan, _project_question_now"
+      - "inventory.projected_input_for_stage and stage applicability contracts"
+    constraints:
+      - "Read-only。"
+      - "正本とvirtual projectionで同一入力なら同一planになる決定性を要求する。"
+      - "禁止条件の追加やprovider/model分岐で解決しない。"
+      - "複雑化が大きい場合は実装継続を承認しない。"
+    expected_output:
+      - "Exact pure planning input/output contract and reusable functions"
+      - "Complexity/risk judgment against three-minute practical goal"
+      - "One final Worker package or explicit infeasibility recommendation"
     receipt: null
 
   - id: T009
