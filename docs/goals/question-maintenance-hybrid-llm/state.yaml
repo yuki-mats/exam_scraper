@@ -12,7 +12,7 @@ goal:
     final_proof: "実run manifest、問題別receipt、比較表、対象回帰、00_source不変、Firestore write 0、scoped Git readback"
   intake:
     original_request: "複雑化を避けてハイブリッドLLM化を計画し、Codex App Serverのみの構成も選べるように実装・実動テストする"
-    interpreted_outcome: "役割ごとのLLMを設定で交換できる一つの問題整備pipelineが、1並列と一問安全境界を守り、ローカル生成・クラウド監査で公開可能品質へ収束する"
+    interpreted_outcome: "役割ごとのLLMと三つの処理上限を設定で交換できる一つの問題整備pipelineが、初期値1と一問安全境界を守り、将来の並列拡張を妨げず、ローカル生成・クラウド監査で公開可能品質へ収束する"
     input_shape: existing_plan
     audience: "問題整備システムの運用者と受験者"
     authority: approved
@@ -27,7 +27,8 @@ goal:
       - "法令・画像・計算・大きいprompt"
       - "fallback常用によるローカル化の実益不足"
     existing_plan_facts:
-      - "全model呼出しは同時実行数1"
+      - "初期運用と受入runはquestion_parallelism=1、llm_call_concurrency=1だが、設定から将来増やせる"
+      - "audit_batch_questions初期値5はsemantic batch問数であり、問題又はLLM呼出しの並列数とは別軸"
       - "codex_onlyも同じprofile機構を使う"
       - "maintenanceとauditの二役だけを初期実装する"
       - "codex_app_serverとopenai_compatible_httpの二backendだけを初期実装する"
@@ -67,13 +68,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T001
+active_task: T002
 
 tasks:
   - id: T001
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "現行実装、未コミット差分、既存run、今回の計画を再監査し、最小backend/profile契約と最初の安全なWorker sliceを確定する。"
     inputs:
@@ -97,31 +98,80 @@ tasks:
       - "Legacy run compatibility decision"
       - "First Worker objective, allowed_files, verify, stop_if"
       - "Deferred scope"
-    receipt: null
-
+    receipt:
+      result: done
+      decision: rejected
+      full_outcome_complete: false
+      rationale: "契約は確定できるが、主要接続点と回帰testが大規模dirtyで、所有者・基準commit・baseline testが不明なままT002へ進めない。計画の恒久1固定も追加合意と矛盾するため、並列設定を修正し、先にdirty変更を内容別に監査する。"
+      worker_package:
+        objective: "dirty worktree解消後、二役・二backend・名前付きprofile・fingerprint・設定可能なquestion_parallelism・llm_call_concurrency・audit_batch_questionsを定義し、既存CodexAppServerClientを変更せず包むcodex_only adapterを追加する。"
+        allowed_files:
+          - config/question_maintenance_llm.toml
+          - tools/question_review_console/model_backend.py
+          - tests/test_question_review_model_backend.py
+        verify:
+          - ".venv/bin/python -m pytest tests/test_question_review_model_backend.py -q"
+          - ".venv/bin/python -m pytest tests/test_question_review_codex_app_server.py tests/test_question_review_question_candidate.py -q"
+          - ".venv/bin/python -m pytest tests/test_question_review_evaluation.py -q"
+          - "git diff --check -- config/question_maintenance_llm.toml tools/question_review_console/model_backend.py tests/test_question_review_model_backend.py"
+          - "git status --short"
+        stop_if:
+          - "pre-existing dirty変更が内容別に検証・commit・pushされていない。"
+          - "allowed_filesが既にdirtyで所有者を確認できない。"
+          - "既存Codex App Serverの認証・課金・provider・model・structured output gateを迂回する必要がある。"
+          - "旧manifestを書き換える必要がある。"
+      evidence:
+        - "goal.mdはLLM並列数を恒久1へ固定しており追加合意と矛盾した。"
+        - "現行SSOTと実装はCodex App Server専用かつ最大100 turnを規定している。"
+        - "CodexAppServerClientは公式provider・認証・model照合・structured output gateを所有するため変更せずadapterで包む。"
+        - "evaluation.pyの複数選択は一問ずつのThreadPoolでsemantic micro-batchではない。"
+        - "mainはorigin/mainに対して46 behind・4 aheadで、主要接続点と関連testsがdirtyである。"
+        - "旧runはprofile fieldを持たないためreadbackではoptional、新規又はresume先runではrequiredとする。"
+      blocked_tasks:
+        - T002
+      missing_evidence:
+        - "既存dirty変更の所有者と意図"
+        - "既存dirty変更のbaseline test結果"
+        - "内容別commitとorigin/main同期方針"
+      required_board_updates:
+        - "三つの処理設定の意味と初期値をgoal.mdとstate.yamlへ反映する。"
+        - "T002を新規三ファイルだけの契約sliceへ限定する。"
+        - "dirty変更の内容別監査T009を先に実行する。"
   - id: T002
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
-    objective: "Judgeが確定した範囲で、共通backend契約とCodex App Server adapter、codex_only profile、1並列を一つの互換vertical sliceとして実装する。"
+    objective: "dirty worktree解消後、二役・二backend・名前付きprofile・fingerprint・三つの設定可能な処理上限を定義し、既存CodexAppServerClientを変更せず包むcodex_only adapterを追加する。"
     inputs:
       - "T001 receipt"
     constraints:
+      - "初期値はquestion_parallelism=1、llm_call_concurrency=1、audit_batch_questions=5、audit_batch_input_bytes=120000とし、1をコードへ固定しない。"
       - "現行Codex認証、Standard、追加credits無効、structured output、model照合を維持する。"
-      - "provider別workflowを作らない。"
-      - "既存dirty変更を破棄又は一括commitしない。"
+      - "provider別workflowを作らず、既存CodexAppServerClientを変更しない。"
+      - "既存pipelineへの接続、HTTP送信、UI、manifest変更はこのsliceへ含めない。"
     expected_output:
-      - "Working codex_only vertical slice"
-      - "Unit and integration tests"
-      - "SSOT documentation update"
+      - "Validated backend/profile/config contract"
+      - "Codex-only adapter wrapping the existing client"
+      - "Focused contract and regression tests"
       - "Scoped commit and push receipt"
-    allowed_files: []
-    verify: []
+    allowed_files:
+      - "config/question_maintenance_llm.toml"
+      - "tools/question_review_console/model_backend.py"
+      - "tests/test_question_review_model_backend.py"
+    verify:
+      - ".venv/bin/python -m pytest tests/test_question_review_model_backend.py -q"
+      - ".venv/bin/python -m pytest tests/test_question_review_codex_app_server.py tests/test_question_review_question_candidate.py -q"
+      - ".venv/bin/python -m pytest tests/test_question_review_evaluation.py -q"
+      - "git diff --check -- config/question_maintenance_llm.toml tools/question_review_console/model_backend.py tests/test_question_review_model_backend.py"
+      - "git status --short"
+      - "git diff --name-only HEAD -- config/question_maintenance_llm.toml tools/question_review_console/model_backend.py tests/test_question_review_model_backend.py"
     stop_if:
-      - "T001がallowed_files又は契約を確定していない。"
-      - "対象ファイルの既存dirty変更を安全に分離できない。"
-      - "旧run互換を壊す必要がある。"
+      - "現在のpre-existing dirty変更が内容別に検証・commit・pushされておらず、作業ツリーがcleanでない。"
+      - "allowed_filesのいずれかが既に存在又はdirtyで、所有者を確認できない。"
+      - "adapter実装にcodex_app_server.py、evaluation.py、qualification_runs.py、question_candidate.py又は既存testの編集が必要になる。"
+      - "既存Codex App Serverの認証、課金、provider、model又はstructured output gateを迂回する必要がある。"
+      - "profile fingerprintへsecretを含める、又は旧manifestを書き換える必要がある。"
       - "検証が二回失敗し、原因がslice外にある。"
     receipt: null
 
@@ -184,7 +234,7 @@ tasks:
     inputs:
       - "T004 receipt"
     constraints:
-      - "全model呼出しの同時実行数は1。"
+      - "受入runではllm_call_concurrency=1とする。実装は設定値を使用し、1をハードコードしない。"
       - "問題別stateHash、合否、rework、公開可否を維持する。"
       - "欠落、重複、余分なID、全選択肢不足をfail-closedにする。"
       - "有効な問題結果だけを保存し、不正な問題だけを再試行する。"
@@ -280,6 +330,139 @@ tasks:
       - "検証が二回失敗し、原因がslice外にある。"
     receipt: null
 
+  - id: T009
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "現在のdirty worktreeとorigin/mainとの差分を、既存goal・commit・receipt・テストへ対応付け、破棄せずに内容別commitへ閉じられる単位と検証方法を特定する。"
+    inputs:
+      - "current git status, diff, log, and origin/main divergence"
+      - "docs/goals/question-maintenance-system-optimization"
+      - "docs/goals/boiler2-local-maintenance-resume"
+      - "modified source, tests, prompts, config, and SSOT files"
+    constraints:
+      - "Read-only。"
+      - "既存変更を編集、stage、commit、stash、rebase、merge又は破棄しない。"
+      - "変更を一括して今回goalの所有物と推定しない。"
+      - "各scopeについて根拠、関連receipt、必要なverify、push前提を示す。"
+    expected_output:
+      - "Dirty scopes with file ownership evidence"
+      - "Baseline and verification status per scope"
+      - "Safe commit ordering and origin/main synchronization options"
+      - "Exact next Judge or Worker package"
+    receipt:
+      result: done
+      summary: "dirty 34 trackedと3 untracked filesを5 scopeへ分解した。hybrid計画差分だけは今回goalの所有根拠がある。boiler2、AWS、既存問題整備runtimeの差分は別goal又は所有不明で、origin/mainの46 commit中18ファイルと競合する。現状の一括commit・同期は不安全である。"
+      evidence:
+        - "hybrid-plan: goal.mdとstate.yamlはHEAD 290237248と今回の利用者合意に対応する。"
+        - "boiler2-active-recovery: T079が未完了でhybrid goal所有ではない。"
+        - "aws-saa-artifact-ledger: working T087 approval-waitとorigin c542afcb4完了が矛盾する。"
+        - "question-maintenance-runtime-and-contract: optimization T048-T050のorigin実装をworking diffが大幅に戻しており、意図的rollbackか判定不能。"
+        - "immutability-and-deleted-tests: checkerと複数test削除の所有根拠を特定できない。"
+        - "mainはorigin/mainにahead 4、behind 46。dirtyとincomingの重複は18ファイル。"
+        - "T002の新規3ファイルは未存在だが、T002 stop_ifはworktree全体cleanを要求する。"
+      facts:
+        - "今回goalが明確に所有するdirty差分はhybrid goal.mdとstate.yamlだけ。"
+        - "optimization T048の3 commitsはorigin/main祖先であり、その機能を削るworking差分を新規成果としてcommitできない。"
+        - "git diff --checkは成功したが、現working treeのbaseline test証拠はない。"
+        - "stash、破棄、force push、履歴上書きは安全な同期手段ではない。"
+      contradictions:
+        - "AWS working board T087 approval-wait vs origin c542afcb4 goal完了。"
+        - "optimization T050全回帰合格 vs working diffのruntime・tests大幅削除。"
+        - "boiler2 T079未完了 vs origin/mainも同goal filesを変更。"
+      ambiguity_requiring_judge:
+        - "AWS scopeの正本選択には所有者判断が必要。"
+        - "runtime/contract差分が意図的rollbackか一時snapshotか所有者判断が必要。"
+        - "boiler2 T079をこのcheckoutで継続するか別正本へ委ねるか判断が必要。"
+        - "T010で各scopeをproceed又はneeds_owner_decisionへ分類する。"
+      commands:
+        - "git status/log/divergence and incoming overlap inspection"
+        - "goal receipt and commit ancestry inspection"
+        - "targeted dirty diff ownership inspection"
+        - "git diff --check"
+  - id: T010
+    type: judge
+    assignee: Judge
+    status: blocked
+    reasoning_hint: high
+    objective: "T009のdirty-scope監査から、既存変更を安全に閉じる実行package又は利用者確認が必要な境界を決定する。"
+    inputs:
+      - "T001 receipt"
+      - "T009 receipt"
+      - "current git status and origin/main divergence"
+    constraints:
+      - "Read-only。"
+      - "所有根拠のない既存変更を今回goalの変更として扱わない。"
+      - "破棄、force push、履歴上書きを提案しない。"
+    expected_output:
+      - "proceed | needs_owner_decision"
+      - "Exact Worker objective, allowed_files, verify, stop_if if safe"
+      - "Required owner decision if unsafe"
+    receipt:
+      result: blocked
+      decision: rejected
+      full_outcome_complete: false
+      rationale: "T002の新規3ファイル自体は未変更だが、mainはorigin/mainより4 ahead・46 behindで、34 tracked変更と3 untracked fileが残る。runtime、boiler2、AWSの正本判断なしに内容別commit・同期・baseline確定はできず、clean worktreeを要求するT002を安全に開始できない。"
+      evidence:
+        - "T001はpre-existing dirty変更の内容別検証・commit・pushをT002開始条件とした。"
+        - "T009は今回goalが所有すると証明できる差分をhybrid goal.mdとstate.yamlだけに限定した。"
+        - "current git statusは34 tracked変更とboiler2 notes 3 untracked fileを示す。"
+        - "HEADはorigin/mainに対して4 ahead・46 behindで、dirtyとincomingの重複は18ファイルである。"
+        - "論理cwd exam_scraperと物理cwd exam_scraper_workは同じworktreeで、別のclean正本は存在しない。"
+      blocked_tasks:
+        - T002
+      missing_evidence:
+        - "runtime・contract・checker・削除test差分が意図的rollbackか未完了の前進実装か。"
+        - "boiler2 T079をこのcheckoutで継続するか別の正本へ委ねるか。"
+        - "AWSはworking T087とorigin/main c542afcb4のどちらが正本か。"
+      required_board_updates:
+        - "利用者の三判断をT011で記録する。"
+        - "判断後、各scopeを所有元goal・allowed_files・verify・stop_if付きの直列Worker packageへ分ける。"
+        - "全scopeのcommit/pushとorigin/main同期readback後にT002を再審査する。"
+  - id: T011
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "利用者から既存dirty scopeの三つの正本判断を受け取り、各scopeの所有元と安全な直列Worker packageをboardへ反映する。"
+    inputs:
+      - "T009 receipt"
+      - "T010 receipt"
+      - "User decisions for runtime, boiler2, and AWS scopes"
+    constraints:
+      - "利用者回答前にproduct fileを編集、stage、commit、stash、merge、rebase又は破棄しない。"
+      - "選ばれなかった側の差分を自動で破棄しない。"
+      - "各scopeを独立したallowed_filesとverifyへ分ける。"
+    expected_output:
+      - "Recorded owner decisions"
+      - "Next safe Worker task or explicit remaining blocker"
+    progress_evidence:
+      - "pytestのrepo直下code.pyとstdlib codeの名前衝突を、stdlib codeを先にloadして/tmpから実行する非変更runnerで回避した。"
+      - "tests/test_question_review_codex_app_server.py: 64 passed, 20 subtests passed。"
+      - "qualification_runsは_validated_question_work_queueが現行moduleに存在せず、test collectionでImportError。runtime差分とtest差分が不整合。"
+      - "qualification_runsを除く主要回帰: 249 passed, 79 subtests passed, 4 failed。法令監査契約3件とserver startのhydrate_result引数契約1件が不整合。"
+      - "00_source・upload準備・issue report・文書構造: 49 passed, 3 failed。失敗は文書行数2件とworkflow policy_version 1件で、00_source保護又はFirestore writeの失敗は観測されなかった。"
+      - "上記は既存dirty scopeが意図的rollbackか未完了前進実装かを一意に決めないため、利用者の三判断なしにproduct fileを修正しない。"
+    receipt:
+      result: done
+      decision: approved_discard_existing
+      full_outcome_complete: false
+      rationale: "利用者が既存変更を保護せず、過去差分に引きずられない単純化を明示承認した。origin/mainを実装正本とし、今回goalの二文書だけを残して古いdirty差分、未追跡物、無関係なlocal-only commitsを整理してT002を開始する。"
+      user_authorization:
+        - "既存変更は保護しない。"
+        - "過去の変更に引きずられて複雑化せず、この機にシンプルにする。"
+      cleanup_boundary:
+        keep:
+          - "docs/goals/question-maintenance-hybrid-llm/goal.md"
+          - "docs/goals/question-maintenance-hybrid-llm/state.yaml"
+        discard:
+          - "今回goal以外のtracked dirty差分"
+          - "boiler2のuntracked notes"
+          - "hybrid計画commit以外のorigin/main非祖先local commits"
+        canonical_base: "origin/main"
+      next_task: T002
+
   - id: T999
     type: judge
     assignee: Judge
@@ -310,6 +493,10 @@ tasks:
 checks:
   dirty_fingerprint: "pre-existing-large-dirty-worktree-observed-2026-08-24"
   last_verification:
-    result: unknown
-    task: null
-    commands: []
+    result: blocked_baseline_recorded
+    task: T011
+    commands:
+      - "stdlib code preload runner: test_question_review_codex_app_server.py -> 64 passed, 20 subtests passed"
+      - "stdlib code preload runner: qualification_runs collection -> ImportError _validated_question_work_queue"
+      - "stdlib code preload runner excluding qualification_runs -> 249 passed, 79 subtests passed, 4 failed"
+      - "stdlib code preload runner safety group -> 49 passed, 3 failed"

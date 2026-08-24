@@ -19,7 +19,8 @@
 - Likely misfire: providerごとにworkflowを複製する、従来方式を別pipelineとして残す、複数問監査を一括合否にする、評価へ現在の正答ラベルを渡す、ローカルLLMの低品質を機械検査の緩和で隠す、又はモックだけで完了とすること。
 - Blind spots considered: 未コミット変更との競合、旧runのreadbackとresume互換、認証・課金境界、API key秘匿、ローカルendpoint停止、model差替え時の再現性、batchの欠落・重複・部分失敗、大きいprompt、法令・画像・計算問題、評価者と生成者の独立性、実機速度、fallbackが常用されてローカル化の効果が失われること。
 - Existing plan facts:
-  - LLM呼出しは全体で同時実行数1とする。
+  - 初期運用と受入テストでは`question_parallelism=1`、`llm_call_concurrency=1`とするが、どちらもコードへ固定せず、profile設定から将来増やせるようにする。
+  - `audit_batch_questions`は一回の監査呼出しへ含める問題数であり、問題並列数又はLLM呼出し並列数とは別に扱う。初期値は5問とする。
   - ハイブリッド方式は一つのpipelineであり、役割ごとの実行先を設定する。
   - `codex_only`は整備・再試行・再整備・評価をCodex App Serverで実行する。
   - `local_generate_codex_audit`は整備をローカルLLM、独立評価をCodex App Serverで実行する。
@@ -74,7 +75,9 @@ provider固有のworkflow、model固有の条件分岐、`local`と`cloud`を表
 ### 実行と監査の境界
 
 - modelは現在と同じ意味判断JSONだけを返す。ID、対象path、`stateHash`、patch適用、atomic保存、version、receipt、公開可否はserverが所有する。
-- 全backendを合わせた実model呼出しの同時実行数は1とする。一問の中でも工程は直列に進める。
+- `question_parallelism`は同時に進行させる問題数、`llm_call_concurrency`は同時に実行するmodel呼出し数、`audit_batch_questions`は一回の監査呼出しへ含める問題数とする。三つを混同しない。
+- 初期運用と受入テストでは`question_parallelism=1`、`llm_call_concurrency=1`とする。実装はprofileの設定値を使い、1をハードコードしない。将来は実測と品質検証を通した設定だけを段階的に引き上げられるようにする。
+- 同じ問の中では工程を直列に進め、並列値を増やしても一問の保存、`stateHash`、receiptを共有しない。
 - `audit`は同じ資格、同じ評価policy fingerprint、同じ法令・画像モードの問題だけをまとめる。
 - 初期値は最大5問かつ入力120,000 bytes以下とし、先に達した方で区切る。上限は設定可能にする。一問だけで上限を超える場合はその問を単独監査する。
 - batch出力は問題ごとの配列とし、serverは要求した`questionId`と`stateHash`の完全一致、欠落0、重複0、全選択肢評価、根拠、statusとscoreの整合を検査する。
@@ -85,7 +88,7 @@ provider固有のworkflow、model固有の条件分岐、`local`と`cloud`を表
 ### 旧runと失敗時の扱い
 
 - 既存manifestとreceiptは書き換えない。新しいprovider metadataがない旧runもreadbackできる。
-- 旧runを再開する時は、完了済み問題を保持し、新しいattemptに`codex_only`互換設定とfingerprintを記録してから未完了だけを続行する。暗黙に別modelへ切り替えない。
+- 旧runを再開する時は、完了済み問題と旧artifactを保持する。profile fieldの欠損は旧runのreadbackでは許容し、新規run又はresume先の新しいrunだけに`codex_only`の解決済みprofileとfingerprintを必須記録して、未完了だけを続行する。暗黙に別modelへ切り替えない。
 - ローカルendpoint停止、timeout、schema不一致、context超過は問題又はbatch単位の明示失敗とする。検査を緩めず、設定された再試行又はfallbackだけを使う。
 - fallbackを使った問は、ローカル生成成功として数えない。品質だけでなく、ローカル候補がそのまま採用された率、再試行率、fallback率、所要時間も比較する。
 
@@ -101,13 +104,13 @@ provider固有のworkflow、model固有の条件分岐、`local`と`cloud`を表
 
 1. providerに依存しない最小request/result契約を追加する。
 2. 現行Codex App Server呼出しをadapter化し、候補生成と一問評価の出力、model照合、Standard・追加credits無効・tool制限を維持する。
-3. `codex_only`を既定profileとして接続し、同時実行数1で候補生成、再試行、評価、再整備、再評価、resumeが現行契約どおり動くことを先に証明する。
+3. `codex_only`を既定profileとして接続し、初期設定の`question_parallelism=1`、`llm_call_concurrency=1`で候補生成、再試行、評価、再整備、再評価、resumeが現行契約どおり動くことを先に証明する。並列値を1へ固定しないことも検査する。
 
 ### Phase 3: 交換可能なHTTP backendとprofile選択
 
 1. OpenAI互換HTTP backendを追加し、endpoint、model、timeout、structured JSONの送受信を共通化する。
 2. loopbackは無認証又は環境変数認証、外部endpointは環境変数認証を必須とし、URL中credential、設定へのsecret直書き、receiptへのsecret保存を拒否する。
-3. UIで名前付きprofileを選び、利用する整備model・監査model、1並列、監査batch上限、fallback有無を確認してからrunを開始する。
+3. UIで名前付きprofileを選び、利用する整備model・監査model、問題並列数、LLM呼出し並列数、監査batch上限、fallback有無を確認してからrunを開始する。
 4. planとmanifestへ解決済みprofileとfingerprintを固定し、resume時の差異を検出する。
 
 ### Phase 4: 複数問の独立クラウド監査
@@ -131,7 +134,8 @@ provider固有のworkflow、model固有の条件分岐、`local`と`cloud`を表
 
 - UIで`codex_only`と`local_generate_codex_audit`を選択でき、選択内容を開始前に確認できる。
 - backend又はmodel名の変更は設定だけで行え、prompt、workflow、保存処理のコード変更を必要としない。
-- 全model呼出しの実同時実行数が1を超えない。
+- 受入runでは問題並列数とLLM呼出し並列数がともに1を超えず、実装がprofile設定値を使用して1をハードコードしていない。
+- 問題並列数、LLM呼出し並列数、監査batch問数を独立に設定でき、実際の同時実行数が設定値を超えない。
 - Codex App Serverだけの構成は、別実装へ分岐せず同じprofile機構で動く。
 - 監査は複数問を一回で処理できるが、結果、retry、保存、公開可否は一問単位である。
 
@@ -160,7 +164,7 @@ provider固有のworkflow、model固有の条件分岐、`local`と`cloud`を表
 
 - `00_source`、既存question ID、既存patch、既存run成果物を移行書換えしない。
 - 一問の工程順、決定的なserver検査、atomic patch確定、問題別`stateHash`、receipt、独立評価、明示的Firestore公開を維持する。
-- 全model呼出しの同時実行数を1に固定する。micro-batchは一つのmodel呼出しへ複数問を入れる機能であり、並列実行ではない。
+- 初期運用と受入runでは`question_parallelism=1`、`llm_call_concurrency=1`とするが、実装へ1を固定しない。micro-batchは一つのmodel呼出しへ複数問を入れる機能であり、並列実行ではない。
 - 従来方式を別pipelineとして温存せず、`codex_only` profileとして同じ実装へ統合する。
 - 初期実装の役割は`maintenance`と`audit`、backendは`codex_app_server`と`openai_compatible_http`に限定する。
 - model出力検査をproviderごとに緩めない。localの構造化出力が弱い場合も、再試行又はfallbackで処理する。
