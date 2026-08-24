@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T094
+active_task: T095
 
 tasks:
   - id: T001
@@ -6528,7 +6528,7 @@ tasks:
   - id: T094
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "exact6問をpolicy5.2で再評価し、failed/inconclusive0で終端させる。"
     inputs:
@@ -6548,6 +6548,41 @@ tasks:
       - "failed/inconclusive remains。"
     expected_output:
       - "terminal evaluation6 result"
+    receipt:
+      result: done
+      summary: "exact6問をpolicy5.2で再評価し、3問passed、3問needs_rework、failed/inconclusive0で終端した。"
+      evidence:
+        - "evaluation job VzIBvYmAiGv_JXxCは2026-08-24T13:57:31+09:00にsucceeded。"
+        - "selected6、completed6、passed3、needs_rework3、failed0、inconclusive0。"
+        - "remaining normal3は56afb06bc80fb02777b88963、586de13b95921e5e50d54029、8f05cbfe48316f933f01dff8。"
+        - "残り全体はpassed382、normal3、official correction10。"
+        - "problem data、00_source、category、Firestore writes0不変。"
+      commands:
+        - cmd: "evaluation job VzIBvYmAiGv_JXxC"
+          status: pass
+        - cmd: "remaining3 evaluation detail readback"
+          status: pass
+      spawned_tasks:
+        - T095
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T095
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "remaining normal3をread-only監査し、evaluation feedbackに対応するexact再整備packageを確定する。"
+    inputs:
+      - "T094 evaluation receipt"
+      - "current remaining3 details"
+      - "evaluation rework preview"
+    constraints:
+      - "Read-only。runを開始しない。"
+      - "official correction10を混ぜない。"
+    expected_output:
+      - "exact3 preview/hashes"
+      - "next Worker package"
     receipt: null
   - id: T999
     type: judge
