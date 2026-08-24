@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T089
+active_task: T090
 
 tasks:
   - id: T001
@@ -6282,7 +6282,7 @@ tasks:
   - id: T089
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "artifactSync後のevaluate31問をread-only監査し、source差分又は公式補正待ち10問を混ぜず、exact31を別session評価へ送れるか判定する。"
     inputs:
@@ -6297,6 +6297,65 @@ tasks:
       - "evaluation31 preview and digests"
       - "next evaluation Worker package"
       - "deferred official correction10 set"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "artifactSync後のexact31問は全件machineReadyで、評価previewは31/31 evaluable、blocked0である。maintain10、published266、passed未公開88は含まれないため、単一evaluation batchで安全に再評価できる。"
+      evidence:
+        - "evaluate31はstale18とnot_started13。exact digestは2fca5846b94896d082fe888857bcf9cdcd3b76d3d93891b092a9924838ccdab2、IDs hashはec5c0571940ab89480564baa959917089b5821bdd525e7469e156efde7e9b392。"
+        - "evaluation previewはselected31、evaluable31、blocked0、session31、canStart true、policy5.2、Codex App Server、concurrency limit100。"
+        - "全31問はworkflow artifact current、machineReady true、blockingIssues0。"
+        - "maintain10はpreview対象外。published266とpassed未公開88も対象外。"
+      worker_package:
+        objective: "exact31問を一問一session、policy5.2で再評価し、全件をpassed又は理由付きneeds_reworkへ終端させる。"
+        allowed_files:
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+          - "output/question_review_console/cache/**"
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "preview selected31/evaluable31/blocked0/canStart true。"
+          - "31/31 completed、failed0、inconclusive0。"
+          - "policy5.2、currentValid、stateHash一致。"
+          - "maintain10、published354、problem data、00_source、category、Firestore writes0不変。"
+        stop_if:
+          - "count/digest/stateHash mismatch。"
+          - "maintain10又はpublished354がscopeに入る。"
+          - "failed/inconclusiveが通常retry後も残る。"
+      next_allowed_task: T090
+      blocked_tasks:
+        - "official correction10"
+        - T999
+      note_needed: false
+      harness: codex
+  - id: T090
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "exact31問を一問一session、policy5.2で再評価し、全件をpassed又は理由付きneeds_reworkへ終端させる。"
+    inputs:
+      - "T089 Judge receipt"
+      - "digest 2fca5846b94896d082fe888857bcf9cdcd3b76d3d93891b092a9924838ccdab2"
+      - "IDs hash ec5c0571940ab89480564baa959917089b5821bdd525e7469e156efde7e9b392"
+    constraints:
+      - "exact31 only、一問一session、policy5.2。"
+      - "maintain10、published354、problem data、Firestoreを変更しない。"
+    allowed_files:
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+      - "output/question_review_console/cache/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "31 terminal、failed0、inconclusive0。"
+      - "protected scope unchanged。"
+    stop_if:
+      - "target mismatch。"
+      - "failed/inconclusive remains after retry。"
+      - "protected scope change required。"
+    expected_output:
+      - "terminal exact31 evaluation result"
     receipt: null
   - id: T999
     type: judge
