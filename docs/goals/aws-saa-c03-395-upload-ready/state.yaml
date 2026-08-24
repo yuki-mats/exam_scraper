@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T075
+active_task: T077
 
 tasks:
   - id: T001
@@ -5333,7 +5333,7 @@ tasks:
   - id: T075
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "現行machine-ready非合格107問を固定した100問＋7問の2 batchでpolicy 5.2評価し、問題内容欠陥を05へ配送できるfresh passed又はneeds_rework projectionへ全件更新する。"
     inputs:
@@ -5371,6 +5371,141 @@ tasks:
       - "Verification fails twice."
     expected_output:
       - "two terminal evaluation jobs and 107 fresh policy 5.2 projections"
+    receipt:
+      result: blocked
+      blocked_reason: "第1 batchはjobとしてsucceededし100/100問を処理したが、最終集計がpassed32、needs_rework67、inconclusive1、failed0となり、T075のstop_ifに到達したため第2 batch 7問を開始せず停止した。inconclusiveの5a7bf93ae87d44141dad1086には、同じbatch内で先に確定したfresh policy 5.2 needs_rework currentValidが保持されているため、その採用可否をJudgeへ送る。"
+      changed_files:
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+        - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      commands:
+        - cmd: "preview policy 5.2 exact batch1 100 questions"
+          status: pass
+        - cmd: "evaluation job 86kyM4KAYuQk9Bu3 terminal convergence"
+          status: fail
+        - cmd: "100 currentValid projection readback"
+          status: pass
+        - cmd: "published/source-difference/protected-data boundary readback"
+          status: pass
+      summary: "batch1 previewはselected100、evaluable100、blocked0、policy5.2。job 86kyM4KAYuQk9Bu3はsucceeded、completed100、passed32、needs_rework67、inconclusive1、failed0。100問のcurrentValidはpassed32＋needs_rework68ですべてpolicy5.2・現行stateHash一致。5a7bf93ae87d44141dad1086だけlatestAttemptはinconclusiveだが、直前attemptのneeds_rework currentValidが保持され、05と03のreworkItemsを持つ。published266 aggregateとsource difference14 projection不在は不変。"
+      evidence:
+        - "job 86kyM4KAYuQk9Bu3: startedAt 2026-08-24T12:19:32+09:00、finishedAt 12:27:01、status succeeded、completed100。"
+        - "currentValid内訳はpassed policy5.2 32、needs_rework policy5.2 68で、全100問が現行stateHash一致。"
+        - "5a7bf93ae87d44141dad1086 currentValidはrun 20260824T121936853999-f64727bb、needs_rework、verified2/4、stage05と03。latestAttempt run 20260824T122238614971-67a9a22dはinconclusive、verified0/4でpromotionされていない。"
+        - "published266 evaluation aggregate SHA-256は23fa20a4f1586f94a149e637d974fe32d8468730834f1d58cfbaefd02f4daf26で不変。"
+        - "source answer difference14問のevaluation projection fileは0件のまま。"
+        - "第2 batch 7問は開始していない。review-ui serverは正常終了した。"
+      spawned_tasks:
+        - T076
+      verification_attempts: 1
+      stopped_because: "T075 stop_if: job result contained one inconclusive evaluation"
+      harness: codex
+  - id: T076
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T075第1 batchのjob-level inconclusive 1問と、その問に保持されたfresh policy 5.2 currentValidをread-only監査し、再評価が必要か、残り7問へ安全に進めるかを決定する。"
+    inputs:
+      - "job 86kyM4KAYuQk9Bu3 receipt"
+      - "question 5a7bf93ae87d44141dad1086 evaluation projection and two attempt manifests"
+      - "remaining batch2 identity ee2bc130..."
+    constraints:
+      - "Read-only。評価、再整備又はdata変更を開始しない。"
+      - "currentValidとlatestAttemptを混同しない。"
+      - "published266、source answer difference14、Firestoreを変更しない。"
+    expected_output:
+      - "accept currentValid or require exact1 retry"
+      - "remaining evaluation Worker package"
+      - "allowed_files, verify, stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "5a7bf93ae87d44141dad1086は1回目の評価でverified2/4のneeds_reworkをpolicy5.2・現行stateHashへpromotionし、05と03の具体的reworkItemsを確定した。その後、全肢根拠確認を補う仕様上の自動再試行がverified0/4のinconclusiveになったが、projection契約どおりlatestAttemptだけを進め、fresh currentValidを保持している。これは評価未実施ではなく、再整備へ安全に進められる現行評価である。exact1の追加評価は不要で、未開始の残り7問だけを同じpolicy5.2で評価する。"
+      worker_package:
+        objective: "T075で未開始のexact7問だけをpolicy 5.2で評価し、7問すべてに現行stateHash一致のfresh passed又はneeds_rework currentValidを確定する。"
+        allowed_files:
+          - output/question_review_console/.review-ui.lock
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+          - output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json
+          - output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json
+        verify:
+          - "exact7 digest and preview"
+          - "terminal completed7 failed0"
+          - "7 fresh policy5.2 currentValid"
+          - "excluded scope and protected data boundary"
+        stop_if:
+          - "identity drift"
+          - "job failure or incomplete count"
+          - "missing fresh currentValid"
+          - "excluded scope mutation"
+          - "repeated auth or network failure"
+      evidence:
+        - "run_manyはverifiedChoiceCountがchoiceCount未満なら最大2回実行し、2回目の結果をjob集計へ返す。"
+        - "EvaluationStoreはinconclusiveをpromotionせず、以前のcurrentValidを保持する。status_forもlatest inconclusiveとcurrentValidの併存を明示的に扱う。"
+        - "5a7bf93ae87d44141dad1086 currentValidはrun 20260824T121936853999-f64727bb、needs_rework、policy5.2、現行stateHash一致、rework stage05と03。"
+        - "latestAttempt run 20260824T122238614971-67a9a22dはinconclusiveでpromotionされず、currentValidを変更していない。"
+        - "T075 batch1の100問はcurrentValidとしてpassed32＋needs_rework68へ全件確定済み。"
+        - "現行SAA partitionはpublished266、publishReady40、needsRework89、unreviewed0。このneedsRework89はbatch1 fresh68、未開始batch2旧評価7、source difference未承認14である。"
+        - "未開始batch2はexact7、identity SHA-256 ee2bc130c743833209eb430cdf0d4959283abe9c084bf2a23fe48274646eee9b。"
+      blocked_tasks:
+        - T999
+        - "post-evaluation mixed rework"
+        - "14 official answer-difference approvals"
+      missing_evidence:
+        - "exact7 fresh policy5.2 evaluation"
+        - "fresh rework stage partition"
+        - "rework convergence"
+        - "14 official answer-difference approvals"
+        - "all395 passed final audit"
+      next_allowed_task: T077
+      note_needed: false
+      harness: codex
+  - id: T077
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "T075で未開始のexact7問だけをpolicy 5.2で評価し、7問すべてに現行stateHash一致のfresh passed又はneeds_rework currentValidを確定する。"
+    inputs:
+      - "T076 Judge receipt"
+      - "batch2 identity SHA-256 ee2bc130c743833209eb430cdf0d4959283abe9c084bf2a23fe48274646eee9b"
+      - "evaluation policy 5.2"
+    constraints:
+      - "question ID昇順でf6ba2f7077ea099d2098aab8からffd1e2ff1e6516e0005d8cdcまでのexact7問だけを評価する。"
+      - "T075 batch1の100問、published266、publishReady40、source answer difference14を評価しない。"
+      - "問題data、00_source、category、Firestoreを変更しない。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+    verify:
+      - "開始前exact7 identity SHA-256 ee2bc130...が一致する。"
+      - "previewはselected7、evaluable7、blocked0、policy5.2、canStart trueである。"
+      - "jobはterminal succeeded、completed7、failed0である。"
+      - "7問すべてに今回run windowでpromoteされたpolicy5.2・現行stateHash一致のpassed又はneeds_rework currentValidがある。latest inconclusiveがあってもこのcurrentValidを失効させない。"
+      - "published266 aggregate 23fa20a4...、source difference14 projection不在、問題data、00_source、category、Firestore writes0が不変である。"
+    stop_if:
+      - "exact7 identity又はpreviewが一致しない。"
+      - "job failed、completed7未満又はfailedCountが1以上になる。"
+      - "7問のいずれかにfresh currentValidが確定しない。"
+      - "除外scope又はprotected dataへ変更が及ぶ。"
+      - "認証又は通信失敗が一度の通常retryで解消しない。"
+      - "Verification fails twice."
+    expected_output:
+      - "terminal exact7 evaluation job and 7 fresh policy 5.2 currentValid projections"
     receipt: null
   - id: T999
     type: judge
