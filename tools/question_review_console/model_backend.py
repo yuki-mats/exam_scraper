@@ -499,9 +499,17 @@ class ProfileModelRouter:
         backend = self.backend_for(profile_name, role)
         if role == "maintenance" and attempt_route is not None:
             if not isinstance(attempt_route, MaintenanceAttemptRoute):
-                raise ValueError("maintenance attempt routeが不正です。")
+                raise ModelBackendError("invalid_attempt_route", retryable=False)
             if attempt_route.profile_name != profile_name:
-                raise ValueError("maintenance attempt routeのprofileが一致しません。")
+                raise ModelBackendError("profile_name_mismatch", retryable=False)
+            expected_fingerprint = str(
+                self.snapshot_for(profile_name)["fingerprint"]
+            )
+            if attempt_route.profile_fingerprint != expected_fingerprint:
+                raise ModelBackendError(
+                    "profile_fingerprint_mismatch",
+                    retryable=False,
+                )
             backend = self._instances[attempt_route.backend]
             kwargs["model"] = attempt_route.requested_model
         with self._call_slots:

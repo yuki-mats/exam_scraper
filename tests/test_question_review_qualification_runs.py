@@ -67,6 +67,8 @@ from tools.question_review_console.question_candidate import (
 from tools.question_review_console.model_backend import (
     MaintenanceAttemptRoute,
     ModelBackendError,
+    ProfileModelRouter,
+    parse_model_backend_config,
 )
 from scripts.common.question_identity import SourceIdentityBinding
 from scripts.common.aggregate_answer_decomposition import (
@@ -4703,6 +4705,127 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertFalse(attempts[0]["retryable"])
         self.assertFalse(attempts[0]["fallbackUsed"])
         self.assertEqual(run["modelAttemptMetrics"]["localSuccessCount"], 0)
+
+    @staticmethod
+    def _real_profile_router(codex_client):
+        config = parse_model_backend_config(
+            {
+                "version": 1,
+                "limits": {
+                    "question_parallelism": 1,
+                    "llm_call_concurrency": 1,
+                    "audit_batch_questions": 5,
+                    "audit_batch_input_bytes": 120000,
+                },
+                "backends": {
+                    "codex": {"kind": "codex_app_server"},
+                    "local": {
+                        "kind": "openai_compatible_http",
+                        "endpoint": "http://127.0.0.1:11434/v1/chat/completions",
+                        "model": "local-primary",
+                        "retry_model": "local-retry",
+                    },
+                },
+                "profiles": {
+                    "codex_only": {
+                        "roles": {
+                            "maintenance": {"backend": "codex"},
+                            "audit": {"backend": "codex"},
+                        }
+                    },
+                    "local_generate_codex_audit": {
+                        "roles": {
+                            "maintenance": {
+                                "backend": "local",
+                                "local_attempts_before_fallback": 2,
+                                "fallback_backend": "codex",
+                            },
+                            "audit": {"backend": "codex"},
+                        }
+                    },
+                },
+            }
+        )
+        router = ProfileModelRouter(config, codex_client)
+
+        class LocalBackend:
+            provider = "OpenAI-compatible HTTP"
+            configured = True
+
+            def __init__(self):
+                self.calls = 0
+
+            def run_turn(self, prompt, **kwargs):
+                work_type = str(kwargs.get("work_type") or "")
+                if work_type.endswith("_candidate") and "_aggregate_" not in work_type:
+                    self.calls += 1
+                return codex_client.run_turn(prompt, **kwargs)
+
+        local = LocalBackend()
+        router._instances["local"] = local
+        return router, local
+
+    def test_real_profile_router_inherits_parent_snapshot_and_counts_valid_local(self):
+        with tempfile.TemporaryDirectory() as directory:
+            router, local = self._real_profile_router(PerQuestionQueueAppServer())
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                Path(directory),
+                SourceOnlyInventory(),
+                ["question_type"],
+                app_server=router,
+                model_profile="local_generate_codex_audit",
+                question_concurrency=1,
+            )
+            coordinator._run_maintenance_flow(
+                "new-exam", parent["runId"], lambda _message: None
+            )
+            run = coordinator.store.get("new-exam", parent["runId"])
+            attempt = run["questionExecutions"][0]["stages"][0][
+                "validationAttempts"
+            ][0]
+            child = coordinator.store.get("new-exam", attempt["childRunId"])
+
+        self.assertEqual(local.calls, 1)
+        self.assertTrue(attempt["localSuccess"])
+        self.assertEqual(run["modelAttemptMetrics"]["localSuccessCount"], 1)
+        self.assertEqual(attempt["profileName"], "local_generate_codex_audit")
+        self.assertEqual(
+            attempt["profileFingerprint"],
+            run["llmProfile"]["fingerprint"],
+        )
+        self.assertEqual(child["llmProfile"], run["llmProfile"])
+        self.assertIsNot(child["llmProfile"], run["llmProfile"])
+
+    @unittest.mock.patch.object(ProfileModelRouter, "resolve_maintenance_attempt")
+    def test_coordinator_profile_fingerprint_mismatch_is_one_nonretryable_attempt(
+        self, resolve_attempt
+    ):
+        with tempfile.TemporaryDirectory() as directory:
+            router, local = self._real_profile_router(PerQuestionQueueAppServer())
+            resolve_attempt.return_value = MaintenanceAttemptRoute(
+                "local_generate_codex_audit",
+                "wrong-fingerprint",
+                "local_primary",
+                "local",
+                "openai_compatible_http",
+                "local-primary",
+                False,
+            )
+            run = self._run_hybrid_route(Path(directory), router)
+        attempts = run["questionExecutions"][0]["stages"][0]["validationAttempts"]
+        self.assertEqual(len(attempts), 1)
+        self.assertFalse(attempts[0]["retryable"])
+        self.assertEqual(attempts[0]["backendErrorCode"], "profile_fingerprint_mismatch")
+        self.assertEqual(local.calls, 0)
+        self.assertEqual(
+            run["modelAttemptMetrics"],
+            {
+                "localPrimaryCount": 1,
+                "localRetryCount": 0,
+                "fallbackCount": 0,
+                "localSuccessCount": 0,
+            },
+        )
 
     @staticmethod
     def _write_valid_category(root):

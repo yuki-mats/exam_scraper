@@ -11,6 +11,7 @@ from unittest.mock import patch
 import pytest
 
 from tools.question_review_console.model_backend import (
+    MaintenanceAttemptRoute,
     ModelBackendError,
     ProfileModelRouter,
     parse_model_backend_config,
@@ -215,6 +216,47 @@ def test_http_identity_is_non_empty_unique_and_matches_callbacks():
             assert all((result.thread_id, result.session_id, result.turn_id))
             identities.append((result.thread_id, result.session_id, result.turn_id))
     assert identities[0] != identities[1]
+
+
+@pytest.mark.parametrize(
+    ("profile_name", "fingerprint", "error_code"),
+    [
+        ("codex_only", "wrong-fingerprint", "profile_fingerprint_mismatch"),
+        ("local_generate_codex_audit", "wrong-fingerprint", "profile_name_mismatch"),
+    ],
+)
+def test_attempt_route_identity_mismatch_stops_before_backend_call(
+    profile_name, fingerprint, error_code
+):
+    router = ProfileModelRouter(_config(), _Codex())
+
+    class CountingBackend:
+        calls = 0
+
+        def run_turn(self, *_args, **_kwargs):
+            self.calls += 1
+
+    backend = CountingBackend()
+    router._instances["codex"] = backend
+    route = MaintenanceAttemptRoute(
+        profile_name="codex_only",
+        profile_fingerprint=fingerprint,
+        attempt_mode="primary",
+        backend="codex",
+        backend_kind="codex_app_server",
+        requested_model="gpt-workflow",
+        fallback_used=False,
+    )
+    with pytest.raises(ModelBackendError) as exc_info:
+        router.run_turn(
+            "x",
+            model_profile=profile_name,
+            work_type="maintenance_candidate",
+            maintenance_attempt=route,
+        )
+    assert exc_info.value.code == error_code
+    assert exc_info.value.retryable is False
+    assert backend.calls == 0
 
 
 def test_attempt_route_is_pure_primary_retry_then_codex_fallback():

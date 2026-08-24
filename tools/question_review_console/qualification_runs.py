@@ -2868,6 +2868,10 @@ class QualificationRunStore:
         attempt_dir.mkdir(parents=True, exist_ok=False)
         now = _now()
         attempt_plan = copy.deepcopy(dict(plan))
+        # The parent run selected and fingerprinted the profile at start time.
+        # Every child attempt must inherit that immutable snapshot verbatim;
+        # recalculating it here could silently switch providers on resume.
+        attempt_plan["llmProfile"] = copy.deepcopy(parent.get("llmProfile"))
         attempt_plan["progressStages"] = [
             {
                 "id": str(stage.get("stageId") or ""),
@@ -14801,6 +14805,27 @@ class QualificationRunCoordinator:
             if isinstance(llm_profile, Mapping) and llm_profile.get("name")
             else "codex_only"
         )
+        if (
+            isinstance(maintenance_attempt, MaintenanceAttemptRoute)
+            and isinstance(llm_profile, Mapping)
+        ):
+            expected_fingerprint = str(
+                llm_profile.get("fingerprint") or ""
+            )
+            if maintenance_attempt.profile_name != model_profile_name:
+                raise ModelBackendError(
+                    "profile_name_mismatch",
+                    retryable=False,
+                )
+            if (
+                not expected_fingerprint
+                or maintenance_attempt.profile_fingerprint
+                != expected_fingerprint
+            ):
+                raise ModelBackendError(
+                    "profile_fingerprint_mismatch",
+                    retryable=False,
+                )
         child = self.store.update(
             qualification,
             run_id,
