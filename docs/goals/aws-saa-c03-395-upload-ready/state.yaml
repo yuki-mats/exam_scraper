@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T072
+active_task: T073
 
 tasks:
   - id: T001
@@ -5127,7 +5127,7 @@ tasks:
   - id: T072
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T071の64問blockをread-onlyで根本分析し、評価指摘が問題文・選択肢修正を要求する場合も正しい05工程へ流れ、異種stage混在runもpreviewできる単純な再整備契約と次Workerを決定する。"
     inputs:
@@ -5144,6 +5144,90 @@ tasks:
       - "minimal code/test/doc/config changes"
       - "post-fix recovery sequence"
       - "次Worker objective/allowed_files/verify/stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T071の64 blocked中60問はcorrect_choiceで停止し、58問はevaluationのanswerMappingMatched=falseである。評価feedbackは問題文、選択肢、前提条件又は出題時点の修正を求めているが、evaluation schema/validator/promptは05を許可せず、02aはcorrectChoiceTextだけを所有するため正常に停止した。これは問題別例外でなく工程配送契約の欠落である。評価に05を追加し、問題内容欠陥は05、正答対応だけの欠陥は02a、解説は03へ分ける。05は02a/03より先に実行する。さらにmixed preview失敗はevaluation reworkが実queue workItemCountを更新する一方、元selectionWorkItemCountを記録しないためであり、安全検査を弱めず両countを明示すれば直る。policyは5.2 minorにしてpublished266のmajor互換を維持する。"
+      worker_package:
+        objective: "評価が問題文・選択肢・成立条件の修正を要求する場合を05 originalizeへ明示的に配送し、異種rework stage混在planのselection countと実queue countを分離して単一previewを成立させる。評価policyはminor 5.2へ更新し、回帰テストと正本文書を整合させる。"
+        allowed_files:
+          - config/question_maintenance_workflow.toml
+          - tools/question_review_console/evaluation.py
+          - tools/question_review_console/evaluation_result.schema.json
+          - tools/question_review_console/qualification_runs.py
+          - document/operations/local_question_review_console.md
+          - tests/test_question_review_evaluation.py
+          - tests/test_question_review_qualification_runs.py
+          - tests/test_question_review_server.py
+        verify:
+          - "05 routing/schema/prompt tests"
+          - "mixed-stage selection vs queue count regression"
+          - "evaluation/qualification/server suites"
+          - "protected data diff"
+        stop_if:
+          - "field ownership expansion outside 05"
+          - "evaluation major bump"
+          - "identity validation weakening"
+          - "out-of-scope data change"
+      evidence:
+        - "T071: 77 targets, 13 validated, 64 blocked, 30 validated items, 124 blocked items, artifactSync succeeded"
+        - "60 of 64 blocked questions stopped in correct_choice; 58 have answerMappingMatched=false"
+        - "blocked feedback repeatedly asks to add or clarify conditions, repair choices, or make the answer unique"
+        - "evaluation_result schema and ALLOWED_REWORK_STAGES omit 05; prompt lists only 01 through 03b"
+        - "REWORK_POLICY_STAGE_IDS omits 05 although workflow originalize owns questionBodyText, choiceTextList, correctChoiceText, questionIntent and answer_result_text"
+        - "mixed107 preview rejects because selectionWorkItemCount defaults to specialized workItemCount while stagePlans still represent the original selection"
+        - "existing target identity validation already supports distinct selectionWorkItemCount and queue workItemCount"
+      blocked_tasks:
+        - T999
+        - "post-fix reevaluation107"
+        - "14 official answer-difference approvals"
+        - "Firestore publish"
+      missing_evidence:
+        - "T073 tests"
+        - "post-fix mixed preview"
+        - "107 recovery convergence"
+        - "129 passed"
+  - id: T073
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "評価が問題文・選択肢・成立条件の修正を要求する場合を05 originalizeへ明示的に配送し、異種rework stage混在planのselection countと実queue countを分離して単一previewを成立させる。評価policyはminor 5.2へ更新し、回帰テストと正本文書を整合させる。"
+    inputs:
+      - "T072 Judge receipt"
+      - "run 20260824T115520487349-9bf6a14f blocked feedback"
+      - "current evaluation/rework implementation and tests"
+    constraints:
+      - "個別問題ID、文言又は資格だけの例外を追加しない。"
+      - "05/01/02/02a/02b/03/03bのfield ownershipを明示し、05以外から問題文・選択肢を変更しない。"
+      - "evaluation majorは5のままにし、published266のpassedをstale化しない。"
+      - "問題data、00_source、category、Firestoreを変更しない。"
+    allowed_files:
+      - "config/question_maintenance_workflow.toml"
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/evaluation_result.schema.json"
+      - "tools/question_review_console/qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_evaluation.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_server.py"
+    verify:
+      - "evaluation schema/validator/promptが05を許可し、問題文・選択肢・成立条件の修正を05へ、正答対応だけを02aへ割り当てる。"
+      - "05 reworkはoriginalizeを先頭にし、answer mismatchなら02a、両者に連動する03を含める。"
+      - "heterogeneous targetStageIdsByQuestionでselectionWorkItemCountは元selection、workItemCountは実queueとなりtarget identity検証を通る。"
+      - "policy_version=5.2でsame major互換を維持する。"
+      - "python -m unittest tests.test_question_review_evaluation tests.test_question_review_qualification_runs tests.test_question_review_server"
+      - "git diff --check"
+      - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source output/aws-solutions-architect-associate/category/category.json"
+    stop_if:
+      - "05以外の工程に問題文・選択肢の書込み権限を持たせる必要がある。"
+      - "evaluation major bump又はpublished266の再評価が必要になる。"
+      - "既存target identity安全検査を弱めないとmixed previewを通せない。"
+      - "問題data、00_source、category又はallowed_files外の変更が必要になる。"
+      - "Verification fails twice."
+    expected_output:
+      - "simple rework routing/counting implementation with regression tests"
     receipt: null
   - id: T999
     type: judge
