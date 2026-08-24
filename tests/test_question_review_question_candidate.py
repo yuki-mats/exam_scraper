@@ -12,7 +12,79 @@ from tools.question_review_console.question_candidate import (
     validate_candidate_content,
     aggregate_answer_review_schema,
     parse_aggregate_answer_reviews,
+    parse_question_maintenance_draft,
+    isolate_precommit_audit_decisions,
 )
+
+
+def test_all_stage_draft_requires_exact_order_and_field_coverage():
+    payload = {
+        "schemaVersion": "question-maintenance-draft/v1",
+        "questionId": "q1",
+        "inputStateHash": "state-1",
+        "stageDrafts": [
+            {
+                "stageId": "question_type",
+                "decision": "candidate",
+                "summary": "判定",
+                "update": {
+                    "setFields": [{"field": "questionType", "value": "true_false"}],
+                    "unsetFields": ["isCalculationQuestion"],
+                },
+            },
+            {
+                "stageId": "explanation",
+                "decision": "blocked",
+                "summary": "根拠不足",
+                "update": {"setFields": [], "unsetFields": []},
+            },
+        ],
+    }
+    parsed = parse_question_maintenance_draft(
+        payload,
+        question_id="q1",
+        input_state_hash="state-1",
+        stage_fields={
+            "question_type": ["questionType", "isCalculationQuestion"],
+            "explanation": ["explanationText"],
+        },
+    )
+    assert [row["stageId"] for row in parsed["stageDrafts"]] == [
+        "question_type", "explanation"
+    ]
+
+    payload["stageDrafts"][0]["update"]["unsetFields"] = []
+    with unittest.TestCase().assertRaisesRegex(QuestionCandidateError, "過不足"):
+        parse_question_maintenance_draft(
+            payload,
+            question_id="q1",
+            input_state_hash="state-1",
+            stage_fields={
+                "question_type": ["questionType", "isCalculationQuestion"],
+                "explanation": ["explanationText"],
+            },
+        )
+
+
+def test_precommit_audit_isolates_duplicate_and_missing_siblings():
+    row = {
+        "questionId": "q1",
+        "inputStateHash": "s1",
+        "draftHash": "d1",
+        "decision": "passed",
+        "summary": "ok",
+        "evaluation": {},
+        "aggregateAnswerReview": None,
+    }
+    valid, failures = isolate_precommit_audit_decisions(
+        {
+            "schemaVersion": "question-maintenance-precommit-audit/v1",
+            "decisions": [row, dict(row)],
+        },
+        {"q1": ("s1", "d1"), "q2": ("s2", "d2")},
+    )
+    assert valid == {}
+    assert failures == {"q1": "duplicate", "q2": "missing"}
 
 
 class QuestionCandidateTest(unittest.TestCase):

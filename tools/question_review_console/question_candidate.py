@@ -54,6 +54,140 @@ class QuestionCandidateError(ValueError):
     pass
 
 
+DRAFT_SCHEMA_VERSION = "question-maintenance-draft/v1"
+AUDIT_SCHEMA_VERSION = "question-maintenance-precommit-audit/v1"
+REPAIR_SCHEMA_VERSION = "question-maintenance-repair/v1"
+
+
+def _closed_mapping(value: Any, fields: set[str], label: str) -> Mapping[str, Any]:
+    if not isinstance(value, Mapping) or set(value) != fields:
+        raise QuestionCandidateError(f"{label}のfieldがschemaと一致しません。")
+    return value
+
+
+def parse_question_maintenance_draft(
+    value: str | Mapping[str, Any],
+    *,
+    question_id: str,
+    input_state_hash: str,
+    stage_fields: Mapping[str, Iterable[str]],
+) -> dict[str, Any]:
+    """Parse one all-stage draft without relaxing any stage field contract."""
+
+    try:
+        payload = json.loads(value) if isinstance(value, str) else dict(value)
+    except (TypeError, json.JSONDecodeError) as exc:
+        raise QuestionCandidateError("一括draftをJSONとして読み取れません。") from exc
+    _closed_mapping(
+        payload,
+        {"schemaVersion", "questionId", "inputStateHash", "stageDrafts"},
+        "一括draft",
+    )
+    if (
+        payload.get("schemaVersion") != DRAFT_SCHEMA_VERSION
+        or payload.get("questionId") != question_id
+        or payload.get("inputStateHash") != input_state_hash
+    ):
+        raise QuestionCandidateError("一括draftのbindingが一致しません。")
+    rows = payload.get("stageDrafts")
+    expected_stage_ids = tuple(stage_fields)
+    if not isinstance(rows, list) or len(rows) != len(expected_stage_ids):
+        raise QuestionCandidateError("一括draftの工程数が一致しません。")
+    parsed: list[dict[str, Any]] = []
+    for index, (row, expected_stage_id) in enumerate(zip(rows, expected_stage_ids)):
+        _closed_mapping(
+            row,
+            {"stageId", "decision", "summary", "update"},
+            f"stageDrafts[{index}]",
+        )
+        if row.get("stageId") != expected_stage_id:
+            raise QuestionCandidateError("一括draftの工程順又は工程IDが一致しません。")
+        decision = row.get("decision")
+        if decision not in {"candidate", "blocked", "not_applicable"}:
+            raise QuestionCandidateError("一括draftのdecisionが不正です。")
+        if not isinstance(row.get("summary"), str):
+            raise QuestionCandidateError("一括draftのsummaryが文字列ではありません。")
+        update = _closed_mapping(
+            row.get("update"), {"setFields", "unsetFields"}, "一括draft更新"
+        )
+        set_fields = update.get("setFields")
+        unset_fields = update.get("unsetFields")
+        if not isinstance(set_fields, list) or not isinstance(unset_fields, list):
+            raise QuestionCandidateError("一括draftの更新field形式が不正です。")
+        seen: list[str] = []
+        normalized_set: list[dict[str, Any]] = []
+        for item in set_fields:
+            _closed_mapping(item, {"field", "value"}, "一括draft setFields")
+            field = item.get("field")
+            if not isinstance(field, str):
+                raise QuestionCandidateError("一括draftのfield名が不正です。")
+            seen.append(field)
+            normalized_set.append(dict(item))
+        if not all(isinstance(field, str) for field in unset_fields):
+            raise QuestionCandidateError("一括draftのunset field名が不正です。")
+        seen.extend(unset_fields)
+        expected_fields = tuple(str(field) for field in stage_fields[expected_stage_id])
+        if decision == "candidate":
+            if len(seen) != len(set(seen)) or set(seen) != set(expected_fields):
+                raise QuestionCandidateError("candidateは選択fieldを過不足なく確定してください。")
+        elif seen:
+            raise QuestionCandidateError("blocked/not_applicableは更新を含められません。")
+        parsed.append(
+            {
+                "stageId": expected_stage_id,
+                "decision": decision,
+                "summary": row["summary"],
+                "update": {"setFields": normalized_set, "unsetFields": list(unset_fields)},
+            }
+        )
+    return {**dict(payload), "stageDrafts": parsed}
+
+
+def isolate_precommit_audit_decisions(
+    value: str | Mapping[str, Any],
+    expected_bindings: Mapping[str, tuple[str, str]],
+) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
+    """Keep valid siblings while isolating missing, duplicate, or stale decisions."""
+
+    try:
+        payload = json.loads(value) if isinstance(value, str) else dict(value)
+    except (TypeError, json.JSONDecodeError):
+        return {}, {question_id: "invalid_json" for question_id in expected_bindings}
+    if set(payload) != {"schemaVersion", "decisions"} or payload.get(
+        "schemaVersion"
+    ) != AUDIT_SCHEMA_VERSION or not isinstance(payload.get("decisions"), list):
+        return {}, {question_id: "schema_mismatch" for question_id in expected_bindings}
+    valid: dict[str, dict[str, Any]] = {}
+    failures: dict[str, str] = {}
+    for raw in payload["decisions"]:
+        if not isinstance(raw, Mapping):
+            continue
+        question_id = str(raw.get("questionId") or "")
+        if question_id not in expected_bindings:
+            continue
+        if question_id in valid or question_id in failures:
+            valid.pop(question_id, None)
+            failures[question_id] = "duplicate"
+            continue
+        state_hash, draft_hash = expected_bindings[question_id]
+        required = {
+            "questionId", "inputStateHash", "draftHash", "decision", "summary",
+            "evaluation", "aggregateAnswerReview",
+        }
+        if set(raw) != required:
+            failures[question_id] = "schema_mismatch"
+        elif raw.get("inputStateHash") != state_hash or raw.get("draftHash") != draft_hash:
+            failures[question_id] = "binding_mismatch"
+        elif raw.get("decision") not in {"passed", "repair", "hold"}:
+            failures[question_id] = "invalid_decision"
+        else:
+            valid[question_id] = dict(raw)
+    for question_id in expected_bindings:
+        if question_id not in valid and question_id not in failures:
+            failures[question_id] = "missing"
+    return valid, failures
+
+
 def aggregate_answer_review_schema(
     expected_question_ids: Iterable[str],
     candidate_ids_by_question: Mapping[str, Iterable[str]] | None = None,

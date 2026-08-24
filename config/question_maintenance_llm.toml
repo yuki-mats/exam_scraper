@@ -1,4 +1,4 @@
-version = 1
+version = 2
 
 [limits]
 question_parallelism = 1
@@ -16,16 +16,20 @@ model = "qwen3:14b"
 retry_model = "qwen3:14b"
 timeout_seconds = 600
 
+[profiles.codex_only]
+operational = true
+
 [profiles.codex_only.roles.maintenance]
 backend = "codex_app_server"
 
 [profiles.codex_only.roles.audit]
 backend = "codex_app_server"
 
+[profiles.local_generate_codex_audit]
+operational = false
+
 [profiles.local_generate_codex_audit.roles.maintenance]
 backend = "openai_compatible_http"
-local_attempts_before_fallback = 2
-fallback_backend = "codex_app_server"
 
 [profiles.local_generate_codex_audit.roles.audit]
 backend = "codex_app_server"

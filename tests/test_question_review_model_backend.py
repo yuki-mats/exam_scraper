@@ -50,13 +50,15 @@ def test_repository_config_defines_profiles_backends_roles_and_initial_limits():
     }
     assert set(config.profile("codex_only").roles) == {"maintenance", "audit"}
     hybrid = config.profile("local_generate_codex_audit")
+    assert config.profile("codex_only").operational is True
+    assert hybrid.operational is False
     assert hybrid.roles["maintenance"].backend == "openai_compatible_http"
     assert hybrid.roles["audit"].backend == "codex_app_server"
     local = config.backends["openai_compatible_http"]
     assert local.model == local.retry_model == "qwen3:14b"
     assert local.timeout_seconds == 600
-    assert hybrid.roles["maintenance"].local_attempts_before_fallback == 2
-    assert hybrid.roles["maintenance"].fallback_backend == "codex_app_server"
+    assert hybrid.roles["maintenance"].local_attempts_before_fallback == 1
+    assert hybrid.roles["maintenance"].fallback_backend is None
     assert config.limits.question_parallelism == 1
     assert config.limits.llm_call_concurrency == 1
     assert config.limits.audit_batch_questions == 5

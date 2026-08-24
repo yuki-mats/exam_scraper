@@ -471,3 +471,45 @@ def test_missing_auth_stops_before_http_call(monkeypatch):
     assert captured.value.code == "missing_auth"
     assert captured.value.retryable is False
     call.assert_not_called()
+
+
+def test_http_turn_timeout_is_capped_by_remaining_deadline():
+    backend = ProfileModelRouter(_config(), _Codex()).backend_for(
+        "local_generate_codex_audit", "maintenance"
+    )
+
+    class Response:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *_args): return None
+        def read(self, _limit):
+            return json.dumps({
+                "model": "replaceable-local-model",
+                "choices": [{"message": {"content": json.dumps({"ok": True})}}],
+            }).encode()
+
+    with patch("urllib.request.urlopen", return_value=Response()) as call:
+        backend.run_turn(
+            "x",
+            output_schema={
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["ok"],
+                "properties": {"ok": {"type": "boolean"}},
+            },
+            turn_timeout=49.5,
+        )
+    assert call.call_args.kwargs["timeout"] == 49.5
+
+
+def test_non_operational_profile_is_hidden_and_rejected():
+    raw = _raw_config()
+    raw["version"] = 2
+    raw["profiles"]["codex_only"]["operational"] = True
+    raw["profiles"]["local_generate_codex_audit"]["operational"] = False
+    router = ProfileModelRouter(parse_model_backend_config(raw), _Codex())
+    router.codex_client.public_status = lambda refresh=False: {"allowed": True}
+
+    assert set(router.public_status()["modelProfiles"]) == {"codex_only"}
+    with pytest.raises(ValueError, match="運用許可"):
+        router.assert_profile_operational("local_generate_codex_audit")

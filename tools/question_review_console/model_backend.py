@@ -91,6 +91,7 @@ class ModelBackendError(RuntimeError):
 @dataclass(frozen=True)
 class ModelProfile:
     name: str
+    operational: bool
     roles: Mapping[str, RoleBinding]
 
 
@@ -220,6 +221,9 @@ def parse_model_backend_config(raw: Mapping[str, Any]) -> ModelBackendConfig:
     for name, value in raw_profiles.items():
         if not isinstance(value, Mapping) or not isinstance(value.get("roles"), Mapping):
             raise ValueError(f"profile {name} のrolesを設定してください。")
+        operational = value.get("operational", True if version == 1 else None)
+        if not isinstance(operational, bool):
+            raise ValueError(f"profile {name} のoperationalを真偽値で指定してください。")
         raw_roles = value["roles"]
         if set(raw_roles) != set(ROLE_NAMES):
             raise ValueError(
@@ -254,7 +258,9 @@ def parse_model_backend_config(raw: Mapping[str, Any]) -> ModelBackendConfig:
                 local_attempts_before_fallback=int(local_attempts),
                 fallback_backend=(str(fallback_backend) if fallback_backend else None),
             )
-        profiles[str(name)] = ModelProfile(name=str(name), roles=roles)
+        profiles[str(name)] = ModelProfile(
+            name=str(name), operational=operational, roles=roles
+        )
 
     return ModelBackendConfig(
         version=version,
@@ -400,7 +406,18 @@ class OpenAICompatibleHTTPBackend:
             headers=headers, method="POST",
         )
         try:
-            with urllib.request.urlopen(request, timeout=self.definition.timeout_seconds) as response:
+            turn_timeout = kwargs.get("turn_timeout")
+            if turn_timeout is not None and (
+                isinstance(turn_timeout, bool)
+                or not isinstance(turn_timeout, (int, float))
+                or turn_timeout <= 0
+            ):
+                raise ModelBackendError("invalid_timeout", retryable=False)
+            timeout_seconds = min(
+                self.definition.timeout_seconds,
+                float(turn_timeout) if turn_timeout is not None else self.definition.timeout_seconds,
+            )
+            with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
                 if response.status < 200 or response.status >= 300:
                     status = int(response.status)
                     raise ModelBackendError(
@@ -486,6 +503,11 @@ class ProfileModelRouter:
         if binding is None:
             raise ValueError(f"未定義のLLM roleです: {role}")
         return self._instances[binding.backend]
+
+    def assert_profile_operational(self, profile_name: str) -> None:
+        profile = self.config.profile(profile_name)
+        if not profile.operational:
+            raise ValueError(f"LLM profileは運用許可されていません: {profile_name}")
 
     def run_turn(self, prompt: str, **kwargs: Any) -> Any:
         profile_name = str(kwargs.pop("model_profile", "") or "")
@@ -582,6 +604,7 @@ class ProfileModelRouter:
 
         snapshot = {
             "name": profile_name,
+            "operational": profile.operational,
             "limits": {
                 "questionParallelism": self.config.limits.question_parallelism,
                 "llmCallConcurrency": self.config.limits.llm_call_concurrency,
@@ -632,7 +655,9 @@ class ProfileModelRouter:
     def public_status(self, *, refresh: bool = False) -> dict[str, Any]:
         status = dict(self.codex_client.public_status(refresh=refresh))
         status["modelProfiles"] = {
-            name: self.snapshot_for(name) for name in self.config.profiles
+            name: self.snapshot_for(name)
+            for name, profile in self.config.profiles.items()
+            if profile.operational
         }
         status["modelLimits"] = self.snapshot_for(
             next(iter(self.config.profiles))

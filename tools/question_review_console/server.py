@@ -1013,6 +1013,11 @@ class QuestionReviewApplication:
                     "resumed_from": str(body.get("resumedFrom") or "") or None,
                 }
                 model_profile = str(body.get("modelProfile") or "codex_only")
+                assert_operational = getattr(
+                    self.app_server, "assert_profile_operational", None
+                )
+                if callable(assert_operational):
+                    assert_operational(model_profile)
                 snapshot_for = getattr(self.app_server, "snapshot_for", None)
                 if callable(snapshot_for):
                     snapshot = snapshot_for(model_profile)
@@ -1201,6 +1206,11 @@ class QuestionReviewApplication:
                 ]
             try:
                 model_profile = str(body.get("modelProfile") or "codex_only")
+                assert_operational = getattr(
+                    self.app_server, "assert_profile_operational", None
+                )
+                if callable(assert_operational):
+                    assert_operational(model_profile)
                 preview = self.evaluations.preview_many(
                     questions,
                     continuous_queue=continuous_queue,
@@ -1237,11 +1247,21 @@ class QuestionReviewApplication:
             try:
                 if action == "evaluation-preview":
                     model_profile = str(body.get("modelProfile") or "codex_only")
+                    assert_operational = getattr(
+                        self.app_server, "assert_profile_operational", None
+                    )
+                    if callable(assert_operational):
+                        assert_operational(model_profile)
                     return HTTPStatus.OK, self.evaluations.preview(
                         question, model_profile=model_profile
                     )
                 if action == "evaluation":
                     model_profile = str(body.get("modelProfile") or "codex_only")
+                    assert_operational = getattr(
+                        self.app_server, "assert_profile_operational", None
+                    )
+                    if callable(assert_operational):
+                        assert_operational(model_profile)
                     preview = self.evaluations.preview(
                         question, model_profile=model_profile
                     )
