@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T040
+active_task: T041
 
 tasks:
   - id: T001
@@ -1813,7 +1813,7 @@ tasks:
   - id: T040
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "新規隔離repoのserver起動前に85003・AWS group全体と両category正本を配置し、残り3問をcodex_only直列実測して全7問SLA・品質・安全を統合する。"
     inputs:
@@ -1845,6 +1845,36 @@ tasks:
       - "Codex subscription allowed=trueでない。"
       - "製品コード/API/正本/T038証跡の変更が必要になる。"
       - "外部write、並列peak超過、重大品質事故が発生する。"
+    receipt:
+      result: blocked
+      summary: "起動前fixtureを完全配置しinventory 85003=67問、AWS=154問を確認したが、85003の既存explanation artifact 35件がsource recordへ対応せずpreview 422で停止した。"
+      changed_files: []
+      evidence:
+        - "85003 group hash 133dce41、AWS group hash 763f0043は正本と一致。"
+        - "製品、正本、T038、T040証跡の変更0。"
+      remaining_blockers:
+        - "85003 artifact_identity_unmatchedの別scope整合性修復。"
+        - "残り3問と全7問SLA分類。"
+
+  - id: T041
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "今回の実装・実モデル試験・architecture rejection・codex_only部分SLA・既存85003 blockerを最終監査し、運用可能範囲、未承認範囲、goal dispositionを厳密に確定する。"
+    inputs:
+      - "T031-T040 receipts and commits"
+      - "T038 timing artifacts"
+      - "Current config operational flags and tests"
+    constraints:
+      - "Read-only。"
+      - "4/7を全7問SLA合格にしない。"
+      - "既存data blockerをLLM architecture成果へ混ぜない。"
+      - "追加のshadow workflow又はvalidator緩和を承認しない。"
+    expected_output:
+      - "Final operational/rejected matrix"
+      - "Exact implemented and verified scope"
+      - "Goal status and smallest separate follow-up, if any"
     receipt: null
 
   - id: T009
