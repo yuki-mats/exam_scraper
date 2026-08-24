@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T088
+active_task: T089
 
 tasks:
   - id: T001
@@ -6223,7 +6223,7 @@ tasks:
   - id: T088
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "exact26問をevaluation feedback付きの新経路で再整備し、05→01/02a→03の64 work itemを一問単位で終端させる。"
     inputs:
@@ -6255,6 +6255,48 @@ tasks:
       - "unknown or protected delta。"
     expected_output:
       - "terminal exact26 rework receipt"
+    receipt:
+      result: done
+      summary: "exact26問・64 work itemを新経路で実行し、21問・52 work itemを確定、5問・12 work itemを理由付き保留へ終端した。確定済みpatchは公開用成果物まで自動同期された。"
+      evidence:
+        - "run 20260824T133757395209-b9152b58、job TIZ-LZPZWrmCNzUiは2026-08-24T13:41:31+09:00にsucceeded。"
+        - "target26、validated21、blocked5、work64、validated52、blocked12、pending0、unknown delta0、receiptValidated true。"
+        - "artifactSyncはudemy-aws-saa-c03でsucceeded。"
+        - "blocked5は0d98160c7d3a218a070d6465、7eb40b542d4c1a9662263377、dd47cf11bcf2c057c013785c、f49f141490bc1e58aa52b074、2a86dd01c011f4e69ed9ae0d。すべて取得元正答とAWS一次根拠の衝突又は正答変更前提のため推測確定せず停止した。"
+        - "run後partitionはpublished266、passed未公開88、evaluate31、maintain10。"
+        - "maintain10のうちsource difference6は30f5eae0001b444444cb392e、343461753aef77b0241bc6ad、79f53359ed09ca31e8a5b034、8129a5b1f6fd9d433b759b4a、d92928c3a329802e6a71f967、fd73285675016aee66f68461。残る4問も公式根拠との衝突理由付きである。"
+        - "evaluate31は今回確定後stale18と正答比較誤検知解消後not_started13。"
+        - "00_source、categoryのgit差分なし、Firestore writes0。"
+      commands:
+        - cmd: "qualification maintenance run 20260824T133757395209-b9152b58"
+          status: pass
+        - cmd: "question_summary blocked reason readback"
+          status: pass
+        - cmd: "post-run SAA inventory partition readback"
+          status: pass
+      spawned_tasks:
+        - T089
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T089
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "artifactSync後のevaluate31問をread-only監査し、source差分又は公式補正待ち10問を混ぜず、exact31を別session評価へ送れるか判定する。"
+    inputs:
+      - "T088 terminal run receipt"
+      - "current SAA inventory and evaluation states"
+      - "evaluation policy5.2"
+    constraints:
+      - "Read-only。評価又は補正を開始しない。"
+      - "maintain10、published266、passed未公開88を除外する。"
+      - "exact IDs、stateHash、preview identityを固定する。"
+    expected_output:
+      - "evaluation31 preview and digests"
+      - "next evaluation Worker package"
+      - "deferred official correction10 set"
     receipt: null
   - id: T999
     type: judge
