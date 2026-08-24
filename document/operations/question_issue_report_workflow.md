@@ -86,6 +86,7 @@ export QUESTION_ISSUE_REVIEW_COMMAND="your-reviewer --json --read-prompt-from-st
 2. 資料名、問番号を含むlocator、画像で確認した問題文・選択肢の転記を入力する。
 3. 画面から開始すると、Codex App Serverのread-only別threadでBlind A/Bを並列実行し、その後Challengeを実行する。
 4. A/Bの変更完全値が一致し、Challengeが画面で固定した資料名・locator・SHA-256を保持した`fix`だけ、`24_questionIssueCorrections`へ保存する。`correct_answer`だけは、現在の正答が既に公式資料と一致してA/BとChallengeが`no_change`で一致した場合も、`certifiesCurrentValues: true`の証明overlayを保存する。このoverlayは`correctChoiceText`を変更せず、取得元との差異を公式根拠で承認するためだけに使う。
+   - 中断再開はA又はBの片側完了、A/B両側完了かつChallenge未完了のどちらも、保存済みinput・state hash・evidence hash・locator・転記・各Blind evidenceを再検証して続行する。完了済みBlindを再実行しない。`problem_found`は変更完全値と公式根拠、`no_problem`は空変更と公式根拠がA/Bで一致した場合だけChallengeへ進む。
 5. `no_change`、`hold`、`app_update`はpatchを作らない。`00_source`はどの判断でも変更しない。
 
 この操作は、利用者報告の取込、case状態更新、Git commit/push、Firestore反映を代替しない。保存後は通常の問題整備工程で正答・解説など影響する後続fieldを再生成し、公開前検査、評価、明示的なFirestore反映へ進む。

@@ -118,7 +118,7 @@ class QuestionIssueReportWorkflowTests(unittest.TestCase):
                 )
             self.assertEqual(calls, [])
 
-    def test_resume_consensus_rejects_nonproblem_changes_and_evidence_drift(self):
+    def test_resume_consensus_accepts_matching_fix_or_no_change_only(self):
         base = {
             "conclusion": "problem_found",
             "proposedChanges": {"questionBodyText": "fixed"},
@@ -128,8 +128,17 @@ class QuestionIssueReportWorkflowTests(unittest.TestCase):
             }],
         }
         validate_resume_blind_consensus(base, json.loads(json.dumps(base)))
+        no_problem = {
+            **base,
+            "conclusion": "no_problem",
+            "proposedChanges": {},
+        }
+        validate_resume_blind_consensus(
+            no_problem,
+            json.loads(json.dumps(no_problem)),
+        )
         variants = [
-            {**base, "conclusion": "no_problem", "proposedChanges": {}},
+            no_problem,
             {**base, "conclusion": "insufficient_evidence", "proposedChanges": {}},
             {**base, "proposedChanges": {"questionBodyText": "other"}},
             {**base, "evidence": [{**base["evidence"][0], "contentHash": "b" * 64}]},

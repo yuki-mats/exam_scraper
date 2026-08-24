@@ -871,14 +871,25 @@ def validate_resume_blind_consensus(
             normalized.append({field: item.get(field) for field in evidence_fields})
         return normalized
 
+    conclusion_a = blind_a.get("conclusion")
+    conclusion_b = blind_b.get("conclusion")
     changes_a = blind_a.get("proposedChanges")
     changes_b = blind_b.get("proposedChanges")
+    matching_problem = (
+        conclusion_a == conclusion_b == "problem_found"
+        and isinstance(changes_a, Mapping)
+        and bool(changes_a)
+        and changes_a == changes_b
+    )
+    matching_no_problem = (
+        conclusion_a == conclusion_b == "no_problem"
+        and isinstance(changes_a, Mapping)
+        and isinstance(changes_b, Mapping)
+        and not changes_a
+        and not changes_b
+    )
     if (
-        blind_a.get("conclusion") != "problem_found"
-        or blind_b.get("conclusion") != "problem_found"
-        or not isinstance(changes_a, Mapping)
-        or not changes_a
-        or changes_a != changes_b
+        not (matching_problem or matching_no_problem)
         or consensus_evidence(blind_a) != consensus_evidence(blind_b)
     ):
         raise ValueError("resume blind consensus mismatch before Challenge")

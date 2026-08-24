@@ -366,9 +366,19 @@ class OfficialSourceCorrectionService:
         if not path.parent.name.startswith("ui-qir-") or not path.is_dir():
             raise OfficialSourceCorrectionError("resumeWorkDirectoryは既存batchのexact work dirに限ります。")
         blind_path = path / "blind_input.json"
-        b_path = path / "blind_b.json"
-        if not blind_path.is_file() or not b_path.is_file() or (path / "blind_a.json").exists():
-            raise OfficialSourceCorrectionError("resume対象はB保存済み・A欠落work dirに限ります。")
+        blind_paths = [
+            candidate
+            for candidate in (path / "blind_a.json", path / "blind_b.json")
+            if candidate.is_file()
+        ]
+        if (
+            not blind_path.is_file()
+            or not blind_paths
+            or (path / "challenge.json").exists()
+        ):
+            raise OfficialSourceCorrectionError(
+                "resume対象は検証済みBlind結果がありChallenge未完了のwork dirに限ります。"
+            )
         blind = json.loads(blind_path.read_text(encoding="utf-8"))
         current = blind.get("currentLocalRecord")
         if not isinstance(current, Mapping):
@@ -399,20 +409,33 @@ class OfficialSourceCorrectionService:
         }
         if any(saved.get(key) != expected for key, expected in requested.items()):
             raise OfficialSourceCorrectionError("resume evidence metadata mismatchです。")
-        blind_b = json.loads(b_path.read_text(encoding="utf-8"))
-        b_evidence = blind_b.get("evidence") or []
-        if len(b_evidence) != 1 or not isinstance(b_evidence[0], Mapping):
-            raise OfficialSourceCorrectionError("resume B evidenceを一意に解決できません。")
         canonical_locator = f"{evidence_relative_path} / {evidence_locator}"
-        b_item = b_evidence[0]
-        if (
-            b_item.get("title") != evidence_title
-            or b_item.get("locator") != canonical_locator
-            or b_item.get("contentHash") != evidence_hash
-            or not isinstance(b_item.get("verifiedAt"), str)
-            or not b_item["verifiedAt"]
-        ):
-            raise OfficialSourceCorrectionError("resume B canonical evidence mismatchです。")
+        verified_at_values: set[str] = set()
+        for result_path in blind_paths:
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            evidence = result.get("evidence") or []
+            if len(evidence) != 1 or not isinstance(evidence[0], Mapping):
+                raise OfficialSourceCorrectionError(
+                    f"resume {result_path.stem} evidenceを一意に解決できません。"
+                )
+            item = evidence[0]
+            verified_at = item.get("verifiedAt")
+            if (
+                item.get("title") != evidence_title
+                or item.get("locator") != canonical_locator
+                or item.get("contentHash") != evidence_hash
+                or not isinstance(verified_at, str)
+                or not verified_at
+            ):
+                raise OfficialSourceCorrectionError(
+                    f"resume {result_path.stem} canonical evidence mismatchです。"
+                )
+            verified_at_values.add(verified_at)
+        if len(verified_at_values) != 1:
+            raise OfficialSourceCorrectionError(
+                "resume Blind evidence verifiedAt mismatchです。"
+            )
+        verified_at = next(iter(verified_at_values))
         identity_seed = {
             "qualification": qualification,
             "listGroupId": list_group_id,
@@ -424,7 +447,7 @@ class OfficialSourceCorrectionService:
             "transcription": evidence_transcription,
         }
         rebuilt_hash = sha256_json(identity_seed)
-        rebuilt_timestamp = re.sub(r"[^0-9]", "", b_item["verifiedAt"])[:14]
+        rebuilt_timestamp = re.sub(r"[^0-9]", "", verified_at)[:14]
         rebuilt_batch_id = f"ui-qir-{rebuilt_timestamp}-{rebuilt_hash[:10]}"
         if path.parent.name != rebuilt_batch_id:
             raise OfficialSourceCorrectionError("resume batchId provenance mismatchです。")
@@ -432,7 +455,7 @@ class OfficialSourceCorrectionService:
             "title": evidence_title,
             "canonicalLocator": canonical_locator,
             "contentHash": evidence_hash,
-            "verifiedAt": b_item["verifiedAt"],
+            "verifiedAt": verified_at,
         }
 
     def run(

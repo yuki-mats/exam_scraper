@@ -206,6 +206,16 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             )
             self.assertEqual(resolved, work.resolve())
             self.assertEqual(metadata["verifiedAt"], verified_at)
+            shutil.copyfile(work / "blind_b.json", work / "blind_a.json")
+            both_resolved, both_metadata = service._resume_work_directory(
+                str(work.resolve()), expected_work_id="official-q1", qualification="sample",
+                list_group_id="2026", original_question_id="q1", state_hash=state_hash,
+                category="question_content", evidence_hash="e" * 64, evidence_title=title,
+                evidence_locator=locator, evidence_transcription=transcription,
+                evidence_relative_path=evidence_path,
+            )
+            self.assertEqual(both_resolved, work.resolve())
+            self.assertEqual(both_metadata["verifiedAt"], verified_at)
             evidence_arguments = {
                 "evidence_hash": "e" * 64, "evidence_title": title,
                 "evidence_locator": locator, "evidence_transcription": transcription,
