@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T069
+active_task: T070
 
 tasks:
   - id: T001
@@ -4886,7 +4886,7 @@ tasks:
   - id: T069
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "現行APIでnot_startedかつmachine-readyのSAA-C03 12問だけを、評価batch 1回で独立評価し、全12問の現行stateHashに結び付いたpassed又はneeds_rework projectionを確定する。"
     inputs:
@@ -4942,6 +4942,73 @@ tasks:
       - "Verification fails twice."
     expected_output:
       - "12問のpassed/needs_rework結果とrun/projection receipt"
+    receipt:
+      result: done
+      changed_files:
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/e1fc3d162578e799f4b37b5a.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/ae38cefdde6944ce81f9e125.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/99a562044342859216a3e7ab.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/4de0f0477e632427fdf63d80.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/1888000a7ef287f9a7ab0178.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/bfd448b979c03e4422137871.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/a0a7b22c35c45602ee1eddca.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/3e4593340287ad7a7e8b0378.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/22087ea038e833d3b3f242af.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/3b2aacd64e71f2ef907737a9.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/bde2d99f85e0f552350aa651.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/5a7bf93ae87d44141dad1086.json
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/<12 exact questionIds>.md"
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/e1fc3d162578e799f4b37b5a.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/ae38cefdde6944ce81f9e125.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/99a562044342859216a3e7ab.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/4de0f0477e632427fdf63d80.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/1888000a7ef287f9a7ab0178.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/bfd448b979c03e4422137871.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/a0a7b22c35c45602ee1eddca.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/3e4593340287ad7a7e8b0378.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/22087ea038e833d3b3f242af.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/3b2aacd64e71f2ef907737a9.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/bde2d99f85e0f552350aa651.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/5a7bf93ae87d44141dad1086.json
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260824T114440*/**"
+        - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/20260824T114440*/**"
+      commands:
+        - cmd: "POST /api/evaluations/preview exact 12 questionIds"
+          status: pass
+        - cmd: "POST /api/evaluations/start and poll job iLSqem8PttB22W9L"
+          status: pass
+        - cmd: "verify 12 projection/v2 currentValid against current stateHash"
+          status: pass
+        - cmd: "verify API counts, inventory, run manifests, source aggregate and protected git diff"
+          status: pass
+      summary: "未評価12問をexact batchで評価し、completed12・failed0・inconclusive0・skipped0で完了した。8問passed、4問needs_rework。全12 projectionはv2/currentValidで現行stateHash一致、各runはsucceededかつevaluation work versionを1件記録した。APIはunreviewed0、needsRework121、publishReady8、published266。SAA local-ready395/395、issues0、00_source aggregate bc76ba8e...、category、Firestore writes0は不変。"
+      remaining_blockers:
+        - "current needs_rework107"
+        - source_answer_difference_unapproved14
+        - "final passed129"
+        - "T999 final audit"
+      verification_attempts: 1
+      stopped_because: null
+  - id: T070
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T069後のSAA-C03評価状態を監査し、current needs_rework 107問とsource answer difference未承認14問を正しい工程へ分離して、次の最大の安全な再整備packageを決定する。"
+    inputs:
+      - "T068 Judge receipt"
+      - "T069 completion receipt"
+      - "current evaluation projections and source-answer comparisons"
+      - "evaluation rework and official-source correction contracts"
+    constraints:
+      - "Read-only。board以外を変更しない。"
+      - "published266と新規passed8を再評価・再整備しない。"
+      - "source_answer_difference_unapprovedを通常evaluation reworkへ混ぜない。"
+      - "Firestoreへ書き込まない。"
+    expected_output:
+      - "exact 107 rework identities/stage combinations"
+      - "exact 14 source-difference identities and evidence requirements"
+      - "次Worker objective/allowed_files/verify/stop_if"
     receipt: null
   - id: T999
     type: judge
