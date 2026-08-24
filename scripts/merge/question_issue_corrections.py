@@ -286,6 +286,39 @@ def question_issue_correction_target(
     return f"{path.resolve()}::{identity}"
 
 
+def is_stale_current_value_certification(
+    question: Mapping[str, Any],
+    entry: Mapping[str, Any],
+    *,
+    expected_hash_fields: Iterable[str] | None = None,
+    allow_current_value_certification: bool = False,
+) -> bool:
+    """Return whether a certification is bound to an older question input.
+
+    A current-value certification never changes question content.  When an
+    upstream maintenance layer changes its hash-bound input, the certification
+    must stop approving that newer question, but it must not prevent the normal
+    maintenance flow from producing the newer question.  Ordinary correction
+    patches remain fail-closed through ``apply_question_issue_correction_entry``.
+    """
+
+    if entry.get("certifiesCurrentValues") is not True:
+        return False
+    changes = entry.get("changes")
+    if (
+        not allow_current_value_certification
+        or not isinstance(changes, Mapping)
+        or set(changes) != {"correctChoiceText"}
+    ):
+        return False
+    expected_hash = str(entry.get("expectedBeforeHash") or "").strip()
+    actual_hash = question_record_hash(
+        question,
+        fields=expected_hash_fields,
+    )
+    return expected_hash != actual_hash
+
+
 def apply_question_issue_correction_entry(
     question: dict[str, Any],
     entry: Mapping[str, Any],
@@ -463,6 +496,7 @@ def apply_question_issue_correction_paths(
 def ensure_all_question_issue_corrections_applied(
     patch_paths: Iterable[Path],
     applied_targets: set[str],
+    stale_current_value_certification_targets: Iterable[str] = (),
 ) -> None:
     required_targets: set[str] = set()
     for patch_path in patch_paths:
@@ -473,7 +507,8 @@ def ensure_all_question_issue_corrections_applied(
             required_targets.add(
                 question_issue_correction_target(patch_path, entry)
             )
-    missing = sorted(required_targets - applied_targets)
+    stale_targets = set(stale_current_value_certification_targets)
+    missing = sorted(required_targets - applied_targets - stale_targets)
     if missing:
         raise RuntimeError(
             "question issue correction targets not found in merged inputs: "

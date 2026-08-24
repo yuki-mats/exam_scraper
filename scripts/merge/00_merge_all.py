@@ -369,6 +369,7 @@ def merge_all(
 
     update_counts: dict[str, int] = {}
     applied_question_issue_targets: set[str] = set()
+    stale_question_issue_certification_targets: set[str] = set()
     prepared_records: list[tuple[Path, dict, dict, Path, Path]] = []
     for base_path in base_files:
         source_data = load_json(base_path)
@@ -407,6 +408,9 @@ def merge_all(
                 update_counts[key] = update_counts.get(key, 0) + int(value)
             applied_question_issue_targets.update(
                 projection.applied_question_issue_targets
+            )
+            stale_question_issue_certification_targets.update(
+                projection.stale_question_issue_certification_targets
             )
         merged1_data = copy.deepcopy(source_data)
         merged1_data["question_bodies"] = merged1_questions
@@ -453,6 +457,7 @@ def merge_all(
     ensure_all_question_issue_corrections_applied(
         question_issue_paths,
         applied_question_issue_targets,
+        stale_question_issue_certification_targets,
     )
 
     archived_counts = commit_prepared_outputs(

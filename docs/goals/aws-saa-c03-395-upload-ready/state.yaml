@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T102
+active_task: T103
 
 tasks:
   - id: T001
@@ -6006,6 +6006,11 @@ tasks:
       - "terminal evaluation results for exact65"
     receipt:
       result: done
+      changed_files:
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+        - "output/question_review_console/cache/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
       summary: "exact65問をpolicy5.2で再評価し、49問がpassed、16問が理由付きneeds_reworkへ終端した。failed/inconclusiveは0で、対象外のpublished266問、既存needs_rework25問、問題data、patch、artifact、00_source、category及びFirestoreは変更していない。"
       evidence:
         - "evaluation job e_IERXsGVYCRG2w1は2026-08-24T13:21:21+09:00にsucceeded。"
@@ -6257,6 +6262,15 @@ tasks:
       - "terminal exact26 rework receipt"
     receipt:
       result: done
+      changed_files:
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+        - "output/question_review_console/cache/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
       summary: "exact26問・64 work itemを新経路で実行し、21問・52 work itemを確定、5問・12 work itemを理由付き保留へ終端した。確定済みpatchは公開用成果物まで自動同期された。"
       evidence:
         - "run 20260824T133757395209-b9152b58、job TIZ-LZPZWrmCNzUiは2026-08-24T13:41:31+09:00にsucceeded。"
@@ -6358,6 +6372,11 @@ tasks:
       - "terminal exact31 evaluation result"
     receipt:
       result: done
+      changed_files:
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+        - "output/question_review_console/cache/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
       summary: "exact31問をpolicy5.2で再評価し、初回batchで24問合格・6問needs_rework・1問形式失敗となった。形式失敗1問を単問の通常retryで再評価し合格へ収束させたため、最終結果は合格25、needs_rework6、failed/inconclusive0である。"
       evidence:
         - "batch job oBLrymh4vTmwb7B6はselected31、completed30、passed24、needs_rework6、inconclusive0、failed1。失敗は4d7806c96ef7391631cf42e1のchoiceIndex重複という評価応答形式エラー。"
@@ -6466,6 +6485,14 @@ tasks:
       - "terminal normal6 rework receipt"
     receipt:
       result: done
+      changed_files:
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+        - "output/question_review_console/cache/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
       summary: "normal6問・12 work itemをevaluation feedback付き05→02a→03で再整備し、全6問を保留0で確定、公開用成果物まで同期した。"
       evidence:
         - "run 20260824T135139228360-ecf5ef8b、job uNqdmTTuM0zIcYLWは2026-08-24T13:53:17+09:00にsucceeded。"
@@ -6550,6 +6577,11 @@ tasks:
       - "terminal evaluation6 result"
     receipt:
       result: done
+      changed_files:
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+        - "output/question_review_console/cache/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
       summary: "exact6問をpolicy5.2で再評価し、3問passed、3問needs_rework、failed/inconclusive0で終端した。"
       evidence:
         - "evaluation job VzIBvYmAiGv_JXxCは2026-08-24T13:57:31+09:00にsucceeded。"
@@ -6643,6 +6675,14 @@ tasks:
       - "terminal exact3 receipt"
     receipt:
       result: done
+      changed_files:
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+        - "output/question_review_console/cache/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
       summary: "exact3問・7 work itemを再整備し、2問・6 work itemを確定、1問の解説だけを理由付き保留へ終端した。確定済みpatchは公開用成果物まで同期した。"
       evidence:
         - "run 20260824T135940635703-ebed14f7、job h7zi51nufLVzbsc7は2026-08-24T14:01:34+09:00にsucceeded。"
@@ -6741,6 +6781,20 @@ tasks:
       - "corrected question and synced artifacts"
     receipt:
       result: done
+      changed_files:
+        - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/question_udemy-4632480-016_originalized.json
+        - "output/question_review_console/cache/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+        - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+      commands:
+        - cmd: "question detail readback for 586de13b95921e5e50d54029"
+          status: pass
+        - cmd: "group sync job cekYlbzCgXExOWS-"
+          status: pass
       full_outcome_complete: false
       summary: "05 questionBodyTextへコンテナ化禁止と同一実行環境のままのリホスト要件を追加し、395問のartifact syncを成功させた。"
       evidence:
@@ -6768,10 +6822,23 @@ tasks:
     constraints:
       - "exact3 only。official correction10を評価対象へ混ぜない。"
       - "問題データ、00_source、category、Firestoreを変更しない。"
+    allowed_files:
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+      - "output/question_review_console/cache/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
     expected_output:
       - "3 evaluation receipts"
     receipt:
       result: done
+      changed_files:
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+        - "output/question_review_console/cache/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+      commands:
+        - cmd: "evaluation job f1CczlnOp5QdoFAH readback"
+          status: pass
       full_outcome_complete: false
       summary: "evaluation job f1CczlnOp5QdoFAHでexact3問を評価し、3/3合格、要再整備0、失敗0で収束した。"
       evidence:
@@ -6870,6 +6937,26 @@ tasks:
       - "minimal implementation, tests, docs, receipt"
     receipt:
       result: done
+      changed_files:
+        - tools/question_review_console/official_source_correction.py
+        - tools/question_bank/question_issue_reports.py
+        - scripts/check/check_question_issue_correction_patch.py
+        - scripts/merge/question_issue_corrections.py
+        - tests/test_official_source_correction.py
+        - tests/test_question_issue_reports.py
+        - tests/test_question_review_inventory.py
+        - document/operations/question_issue_report_workflow.md
+        - document/reference/question_field_contract.md
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+      commands:
+        - cmd: "python -m unittest tests.test_question_issue_correction_patch tests.test_official_source_correction tests.test_question_review_inventory"
+          status: pass
+        - cmd: "python -m unittest tests.test_question_review_server tests.test_merge_source_identity tests.test_question_review_qualification_identity tests.test_question_review_progress_output_ui tests.test_question_review_workflow"
+          status: pass
+        - cmd: "python -m py_compile changed Python modules"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
       full_outcome_complete: false
       summary: "correct_answerのBlind A/BとChallengeがno_changeで一致した場合、現在のcorrectChoiceTextを変更せず公式根拠付きで証明保存するcurrent-value certification overlayを追加した。"
       evidence:
@@ -6890,7 +6977,7 @@ tasks:
   - id: T102
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "AWS一次資料10件を使い、official correction10へcorrect_answerのBlind A/B/Challengeを順次実行し、fix又はcurrent-value certificationを24_questionIssueCorrectionsへ保存してsyncする。"
     inputs:
@@ -6928,6 +7015,73 @@ tasks:
       - "protected delta又はidentity mismatch。"
     expected_output:
       - "10 official correction receipts and synced artifacts"
+    receipt:
+      result: done
+      changed_files:
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/24_questionIssueCorrections/**"
+        - "output/question_issue_reports/ui_official_source/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+        - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+      commands:
+        - cmd: "10件のofficial-source-correction job終端をreadback"
+          status: pass
+        - cmd: "各jobのartifact syncでMerge・Convert・upload-ready一致を確認"
+          status: pass
+        - cmd: "00_source不変、Firestore実書込み0件を確認"
+          status: pass
+      summary: "AWS一次資料10件をBlind A/B/Challengeで照合し、10件すべてを24_questionIssueCorrectionsへ保存してupload-readyまで同期した。"
+  - id: T103
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "上流再整備で入力が変わったcurrent-value certificationを安全に失効扱いとして通常workflowを継続できるようにし、保留4問を再整備・再認証する。"
+    inputs:
+      - "T102 official correction overlays"
+      - "run 20260824T152813654927-028ba4de のinputHash mismatch 4問"
+      - "evaluation rework 5問のうち1問確定・4問保留というreceipt"
+    constraints:
+      - "通常correction patchのstale inputHashは従来どおりfail-closedとする。"
+      - "stale current-value certificationは内容へ適用せず、承認済みtargetにも数えない。"
+      - "失効後はsource answer difference gateで再認証を要求し、公開可能と誤判定しない。"
+      - "00_source、category、Firestoreを変更しない。"
+      - "問題ごとの再整備、再評価、必要な公式再認証を最後まで実行する。"
+    allowed_files:
+      - scripts/merge/question_issue_corrections.py
+      - scripts/merge/record_projection.py
+      - scripts/merge/00_merge_all.py
+      - tests/test_question_issue_correction_patch.py
+      - tests/test_merge_source_identity.py
+      - tests/test_record_projection.py
+      - tools/question_review_console/qualification_runs.py
+      - tests/test_question_review_qualification_runs.py
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/24_questionIssueCorrections/**"
+      - "output/question_issue_reports/ui_official_source/**"
+      - "output/question_review_console/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "stale certification regression、通常stale correction fail-closed regression。"
+      - "保留4問を含む再整備runでtarget5、blocked0。"
+      - "再評価10問passed、SAA-C03 395/395 local-ready。"
+      - "quality gate、upload dry-run、00_source不変、Firestore writes0。"
+    stop_if:
+      - "通常correctionまで黙って無効化される。"
+      - "失効certificationがsource answer difference approvalとして残る。"
+      - "protected delta又はidentity mismatch。"
+    expected_output:
+      - "stale certification invalidation implementation and regression tests"
+      - "4 rework receipts, recertification receipts, final evaluation receipts"
     receipt: null
   - id: T999
     type: judge

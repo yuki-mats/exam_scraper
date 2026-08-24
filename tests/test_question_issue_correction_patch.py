@@ -9,14 +9,17 @@ from pathlib import Path
 from scripts.check.check_question_issue_correction_patch import validate_patch
 from scripts.common.question_identity import SourceIdentityBinding, SourceRecordIdentity
 from scripts.merge.question_issue_corrections import (
+    QuestionIssueCorrectionEntry,
     apply_question_issue_correction_index,
     apply_question_issue_correction_patch,
     apply_question_issue_correction_paths,
     build_question_issue_correction_index,
     ensure_all_question_issue_corrections_applied,
+    expected_before_hash_fields,
     question_issue_record_hash,
     sha256_json,
 )
+from scripts.merge.record_projection import project_merge_record
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -111,6 +114,47 @@ class QuestionIssueCorrectionPatchTests(unittest.TestCase):
             )
 
         self.assertEqual(data["question_bodies"][0], record)
+
+    def test_upstream_change_invalidates_certification_without_blocking_projection(self) -> None:
+        record = current_record()
+        patch = valid_patch(record)
+        patch["category"] = "correct_answer"
+        entry = patch["entries"][0]
+        entry["expectedBeforeHash"] = question_issue_record_hash(
+            record,
+            CATEGORY_CONFIGS["correct_answer"],
+        )
+        entry["changes"] = {"correctChoiceText": record["correctChoiceText"]}
+        entry["certifiesCurrentValues"] = True
+        changed_upstream = {**record, "questionBodyText": "再整備後の問題文"}
+        patch_path = Path("stale-certification.json")
+
+        projection = project_merge_record(
+            changed_upstream,
+            question_issues=(
+                QuestionIssueCorrectionEntry(
+                    path=patch_path,
+                    entry=entry,
+                    expected_hash_fields=expected_before_hash_fields(
+                        CATEGORY_CONFIGS["correct_answer"]
+                    ),
+                    allows_current_value_certification=True,
+                ),
+            ),
+        )
+
+        self.assertEqual(projection.errors, ())
+        self.assertEqual(projection.merged2["questionBodyText"], "再整備後の問題文")
+        self.assertEqual(projection.applied_question_issue_targets, ())
+        self.assertEqual(
+            len(projection.stale_question_issue_certification_targets),
+            1,
+        )
+        self.assertEqual(
+            projection.update_counts["stale_question_issue_certification"],
+            1,
+        )
+        self.assertNotIn(patch_path, projection.applied_paths)
 
     def test_current_value_certification_is_rejected_outside_correct_answer(self) -> None:
         record = current_record()

@@ -26,6 +26,7 @@ from scripts.merge.patch_views import (
 from scripts.merge.question_issue_corrections import (
     QuestionIssueCorrectionEntry,
     apply_question_issue_correction_entry,
+    is_stale_current_value_certification,
     question_issue_correction_target,
 )
 
@@ -51,6 +52,7 @@ class RecordMergeProjection:
     applied_paths: tuple[Path, ...]
     update_counts: Mapping[str, int]
     applied_question_issue_targets: tuple[str, ...] = ()
+    stale_question_issue_certification_targets: tuple[str, ...] = ()
     errors: tuple[str, ...] = ()
 
 
@@ -331,9 +333,22 @@ def project_merge_record(
 
     issue_base = copy.deepcopy(merged2)
     applied_issue_targets: list[str] = []
+    stale_certification_targets: list[str] = []
+    applied_issue_patches: list[QuestionIssueCorrectionEntry] = []
     errors: list[str] = []
     issue_updates = 0
     for patch in question_issues:
+        patch_target = question_issue_correction_target(patch.path, patch.entry)
+        if is_stale_current_value_certification(
+            merged2["question_bodies"][0],
+            patch.entry,
+            expected_hash_fields=patch.expected_hash_fields,
+            allow_current_value_certification=(
+                patch.allows_current_value_certification
+            ),
+        ):
+            stale_certification_targets.append(patch_target)
+            continue
         try:
             changed = apply_question_issue_correction_entry(
                 merged2["question_bodies"][0],
@@ -348,13 +363,16 @@ def project_merge_record(
             errors.append(str(exc))
             merged2 = issue_base
             applied_issue_targets = []
+            applied_issue_patches = []
             issue_updates = 0
             break
-        applied_issue_targets.append(
-            question_issue_correction_target(patch.path, patch.entry)
-        )
+        applied_issue_targets.append(patch_target)
+        applied_issue_patches.append(patch)
         issue_updates += int(changed)
     counts["question_issue"] = issue_updates
+    counts["stale_question_issue_certification"] = len(
+        stale_certification_targets
+    )
 
     used_candidates = (
         *originalized,
@@ -364,7 +382,7 @@ def project_merge_record(
         *law_context,
         *explanation,
         *question_set,
-        *(question_issues if not errors else ()),
+        *(applied_issue_patches if not errors else ()),
     )
     return RecordMergeProjection(
         merged1=merged1["question_bodies"][0],
@@ -372,5 +390,8 @@ def project_merge_record(
         applied_paths=tuple(dict.fromkeys(candidate.path for candidate in used_candidates)),
         update_counts=counts,
         applied_question_issue_targets=tuple(applied_issue_targets),
+        stale_question_issue_certification_targets=tuple(
+            stale_certification_targets
+        ),
         errors=tuple(errors),
     )

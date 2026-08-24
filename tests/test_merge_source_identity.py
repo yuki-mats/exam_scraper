@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest import mock
 
 from scripts.common.question_identity import load_source_record_inventory
+from scripts.merge.question_issue_corrections import question_issue_record_hash
 from tools.question_review_console.projection import (
     build_question_issue_index,
     build_stage_maps,
@@ -379,6 +380,76 @@ class MergeSourceIdentityTests(unittest.TestCase):
                 self.assertTrue(path.exists())
                 self.assertIn(path.parent.name, path.read_text(encoding="utf-8"))
                 self.assertFalse((path.parent / "old" / path.name).exists())
+
+    def test_stale_current_value_certification_does_not_block_upstream_rework(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base_dir = Path(directory)
+            group_dir = base_dir / "2026"
+            source_dir = group_dir / "00_source"
+            source_dir.mkdir(parents=True)
+            source = self._source_record("key-1")
+            source["correctChoiceText"] = ["正しい"]
+            (source_dir / "question_1.json").write_text(
+                json.dumps({"question_bodies": [source]}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            binding = self._binding("question_1.json", "key-1")
+            self._write_patch(
+                group_dir / "05_originalized",
+                "question_1_originalized.json",
+                [
+                    {
+                        **binding,
+                        "original_question_id": "shared-review-id",
+                        "questionBodyText": "再整備後の問題文",
+                        "choiceTextList": ["選択肢"],
+                        "questionIntent": "select_correct",
+                        "correctChoiceText": ["正しい"],
+                        "answer_result_text": "正解は1です。",
+                    }
+                ],
+            )
+            config = json.loads(
+                (
+                    Path(__file__).resolve().parents[1]
+                    / "config/question_issue_reports.json"
+                ).read_text(encoding="utf-8")
+            )["categories"]["correct_answer"]
+            self._write_patch(
+                group_dir / "24_questionIssueCorrections",
+                "stale-certification.json",
+                {
+                    "schemaVersion": "question-issue-correction/v1",
+                    "origin": "user_problem_report",
+                    "category": "correct_answer",
+                    "entries": [
+                        {
+                            **binding,
+                            "original_question_id": "shared-review-id",
+                            "expectedBeforeHash": question_issue_record_hash(
+                                source,
+                                config,
+                            ),
+                            "changes": {"correctChoiceText": ["正しい"]},
+                            "certifiesCurrentValues": True,
+                            "rationale": "旧入力に対する正答認証",
+                            "evidence": [],
+                        }
+                    ],
+                },
+            )
+
+            merge_all("2026", base_dir, require_answer_result_text=False)
+
+            merged_path = next(
+                (group_dir / "30_merged_2").glob("question_1_merged_*.json")
+            )
+            merged = json.loads(merged_path.read_text())
+
+        self.assertEqual(
+            merged["question_bodies"][0]["questionBodyText"],
+            "再整備後の問題文",
+        )
 
     def test_output_write_failure_rolls_back_all_three_artifact_directories(self):
         with tempfile.TemporaryDirectory() as directory:
