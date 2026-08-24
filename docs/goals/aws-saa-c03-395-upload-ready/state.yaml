@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T038
+active_task: T057
 
 tasks:
   - id: T001
@@ -2885,7 +2885,7 @@ tasks:
   - id: T038
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "T054のsingle成功診断を再利用し、SAA-C03 exact2を正規qualification preview/startで整備してterminal validatedへ収束させ、group artifactSyncでpatch済み11問も内容再生成せず395/395 local-readyへ包含する。"
     inputs:
@@ -2949,7 +2949,30 @@ tasks:
       - "terminal succeeded、validated=2、pending/blocked/hold=0"
       - "artifactSync succeeded/currentと395/395 local-ready readback"
       - "patch済み11問、00_source、公開済み266問、評価369件、Firestore writes=0の不変証拠"
-    receipt: null
+    receipt:
+      result: blocked
+      changed_files:
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260824T094506735083-6c0fee8b/**"
+        - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/question_udemy-4841536-029_merged_explanationText_added.json
+        - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/question_udemy-4841536-029_questionSetId_linked.json
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/bde2d99f85e0f552350aa651.json
+      commands:
+        - "git status/branch/HEAD and T038 contract readback"
+        - "review-ui start on local port"
+        - "workflow catalog and qualification overview readback"
+        - "POST qualification preview exact2"
+        - "POST qualification start exact1"
+        - "qualification run progress and terminal artifact readback"
+        - "review-ui graceful stop"
+        - "post-run git status and changed-file inspection"
+      summary: "PreviewはSAA単一group、exact2、hash bb7b92、必要6工程・8 work item、Standard/auto_maxで一致し、同一token/planからstartを1回だけ実行した。Q29は解説・問題集割当を確定したが、Q23はEKS管理API用VPCエンドポイントとKubernetes APIサーバー接続の混同が疑われ、取得元の正答1・2・4を確定できずblocked。terminalはreceiptValidated=trueだがvalidated=1、blocked=1、queue=partial、artifactSync=blocked。stop_ifに従い再試行せず停止した。"
+      remaining_blockers:
+        - "Q23の正答を公式仕様に基づいて人間または別の根拠確定工程で判断する必要がある。"
+        - "artifactSyncは必須field不足1問によりblockedで、395/395 local-readyを証明できない。"
+        - "terminal集計はvalidatedQuestionCount=1、blockedQuestionCount=1、validatedWorkItemCount=2、blockedWorkItemCount=6。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "stop_ifのsource conflict、人間content decision、hold、blocked及びartifactSync blockedに該当したため。"
   - id: T039
     type: judge
     assignee: Judge
@@ -3952,6 +3975,188 @@ tasks:
       needs_judge: false
       verification_attempts: 1
       stopped_because: null
+  - id: T055
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "T038でblockedになったSAA-C03 Q23をread-only監査し、問題文・全選択肢・取得元正答1/2/4・現行work version・blocked evidenceをAWS公式一次資料と照合して、正答を確定できるか、問題文/選択肢修正が必要かを判定する。"
+    inputs:
+      - "T038 blocked receipt and run 20260824T094506735083-6c0fee8b"
+      - "Q23 source/patch/work-version artifacts"
+      - "AWS official EKS endpoint and PrivateLink documentation"
+    constraints:
+      - "Read-only。00_source、patch、work version、run、boardを変更しない。"
+      - "AWS公式一次資料を根拠にし、非公式解説を正本にしない。"
+      - "EKS管理API endpointとKubernetes API server endpointを区別する。"
+      - "取得元正答又は現行値へ自動補正しない。"
+      - "公開済み266、評価、Firestoreを変更しない。"
+    expected_output:
+      - "Q23全文・選択肢・取得元正答・blocked理由の構造化監査"
+      - "選択肢1/2/4ごとの公式根拠と正誤"
+      - "content decision可能 | source conflict継続"
+      - "次Worker package又はhuman gate"
+    receipt:
+      result: done
+      summary: "Q23はAWS公式仕様で確定可能。取得元正答1・2・4のうち1と4は正しく、2はEKS管理API用PrivateLinkとKubernetes API server private endpointを混同。3と5も不適合で、現行「3つ選択」に正答が1・4の2つしかない誤植。05で「2つ選択」へ独自問題化し、正答1・4として後続5工程を生成するのが最小修正。"
+      evidence:
+        - "source Q23はprivate subnet EC2 nodesをEKSへ参加させる手順を3つ要求し、source correct choices 1/2/4。"
+        - "現行05も3つ選択と1/2/4を継承し、choice2をcontrol plane接続用interface endpointと説明。"
+        - "T038はoriginalizeを3回検証しchoice2混同で停止、Q23 work version0/変更0、後続5工程blocked。"
+        - "https://docs.aws.amazon.com/eks/latest/userguide/vpc-interface-endpoints.html はEKS PrivateLink endpointがEKS API actions用でKubernetes APIs非対応と明記。"
+        - "https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html はcluster private endpointがKubernetes API server用で、private access有効時ノード/API server通信がVPC内に留まることを説明。"
+        - "https://docs.aws.amazon.com/eks/latest/userguide/private-clusters.html はprivate clusterでcluster endpoint private accessがnode registrationに必須と説明。"
+        - "https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html はnode IAM roleがnode起動・登録前に必要と説明。"
+      facts:
+        - "identity stable=8129a5b1f6fd9d433b759b4a original=ef1709053138009d source=question_udemy-4709805-023.json"
+        - "choice1 correct: node IAM role/policies are required"
+        - "choice2 incorrect: EKS management API PrivateLink is not Kubernetes API server connection"
+        - "choice3 incorrect: private cluster endpoint is not a gateway VPC endpoint"
+        - "choice4 correct: private enabled/public disabled meets private-only requirement"
+        - "choice5 incorrect: public-only violates private-only requirement"
+        - "content decision: correct choices 1/4, source instruction 3 choices is erroneous"
+        - "worker candidate: exact1 Q23 stages 05/01/02/02a/03/04, change to 2 choices, retain choices, explain endpoint distinction, source/IDs unchanged"
+      contradictions:
+        - "source correct1/2/4 vs AWS PrivateLink spec"
+        - "3-choice instruction vs only two correct choices"
+        - "current05 explanation vs official cluster endpoint role"
+      ambiguity_requiring_judge:
+        - "minimal 2-choice correction vs large rewrite of choice2 to preserve 3 choices"
+        - "whether to lightly polish choice1 wording without changing correctness"
+      commands:
+        - "local Q23 source/patch/run readback"
+        - "AWS official documentation research"
+      note_needed: false
+  - id: T056
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T055のAWS公式監査を審査し、Q23を「2つ選択・正答1/4」へ最小修正するか、3つ選択を維持して選択肢を大幅改稿するかを決定し、fresh exact1 maintenanceとartifactSyncの安全packageを確定する。"
+    inputs:
+      - "T038 blocked receipt"
+      - "T055 Scout receipt and AWS official docs"
+      - "Q23 source/05/current run evidence"
+      - "original question authoring and source-conflict contracts"
+    constraints:
+      - "Read-only。artifact、run、boardを変更しない。"
+      - "00_sourceと既存IDを維持する。"
+      - "取得元誤植を正答fieldだけの自動補正で済ませない。"
+      - "問題意図を変える大幅な選択肢改稿は、最小修正より明確に優れる場合だけ承認する。"
+      - "Q23以外、公開済み266、評価369、Firestoreを変更しない。"
+    expected_output:
+      - "approve exact edit or human gate"
+      - "Q23 exact stages/content decision"
+      - "allowed_files、verify、stop_if"
+      - "395/395 artifactSync and invariants"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T055の公式根拠で正誤は一意に確定できる。choice2を新しい正答へ大幅改稿すると新論点を追加し取得元の判断構造を変える。現行5肢を維持し、設問を2つ選択、正答1・4へ直す方が最小かつ正確。同じ保留の再発防止にはEKS endpoint区別を資格別正本へ追記してfresh exact1 runを行う。人間gate不要。"
+      evidence:
+        - "T038はQ29 validated、Q23 6 items source conflict blocked、artifactSync blocked。"
+        - "AWS公式はEKS interface endpointがmanagement API actions用でKubernetes API非対応、Kubernetes API serverはcluster private endpointと説明。"
+        - "node IAM roleはnode登録前に必要。"
+        - "choice1 true,2 false,3 false,4 true,5 false。"
+        - "現行05は独自化済みでchoices維持のためinstruction 3→2とcorrect同期が最小。"
+        - "前回blockedは資格別正本に確認済み方針なしも理由に含み、01_exam_profileへ一般化追記が必要。"
+      next_allowed_task:
+        task_id: T057
+        type: worker
+        objective: "資格別正本へEKS endpoint区別を追記し、Q23 exact1 fresh6 stagesで2つ選択/正答1・4へ収束、artifactSyncで395/395。"
+        allowed_files:
+          - prompt/qualification_docs/aws-solutions-architect-associate/01_exam_profile.md
+          - "Q23 exact patch/work/run files"
+          - "group generated artifacts"
+        verify:
+          - "exact1 preview/start/terminal"
+          - "Q23 exact edit"
+          - 395/395
+          - "quality/upload dry-run"
+          - "all invariants"
+        stop_if:
+          - "scope mismatch"
+          - "new content branch"
+          - "Q23 reblocked"
+          - "Q29/11 mutation"
+          - "artifactSync failure"
+          - "protected data change"
+      parallel_safety:
+        safe: false
+        reason: "qualification doc、Q23 run、group artifactsは直列依存。"
+      blocked_tasks:
+        - "T038旧worker"
+        - evaluation26
+        - needs_rework
+        - T999
+      missing_evidence:
+        - "qualification doc diff"
+        - "Q23 exact1 terminal"
+        - 395/395/invariants
+        - "evaluation/final quality"
+  - id: T057
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "SAA資格別正本へEKS管理API endpointとKubernetes API server private endpoint、node IAM roleの公式区別を最小追記し、Q23 exact1をfresh 05→01→02→02a→03→04で「2つ選択・正答1/4」へ収束させ、group artifactSyncで395/395 local-readyにする。"
+    inputs:
+      - "T055 AWS official audit"
+      - "T056 approved edit/package"
+      - "T038 Q29 validated partial run"
+      - "T054 Codex success receipt"
+    constraints:
+      - "Q23以外をmodel再生成しない。"
+      - "00_source、ID、category、Q29、patch済み11問、公開266、評価369、Firestore不変。"
+      - "Q23はquestion instruction 3→2、choices維持、correct1/4だけの最小edit。"
+      - "T038 blocked runを再利用せずfresh exact1。"
+      - "Standard/auto_max、single start、no preflight repeat。"
+    allowed_files:
+      - prompt/qualification_docs/aws-solutions-architect-associate/01_exam_profile.md
+      - output/question_review_console/.review-ui.lock
+      - output/question_review_console/run_leases/aws-solutions-architect-associate.lock
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json
+      - output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json
+      - output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json
+      - output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json
+      - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/8129a5b1f6fd9d433b759b4a.json
+      - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/question_udemy-4709805-023_originalized.json
+      - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/question_udemy-4709805-023_questionType_fixed.json
+      - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/question_udemy-4709805-023_correctChoiceText_fixed.json
+      - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/question_udemy-4709805-023_merged_explanationText_added.json
+      - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/question_udemy-4709805-023_questionSetId_linked.json
+      - output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/question_udemy-4709805-023_correctChoiceText_fixed.json
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_*.json"
+    verify:
+      - "資格正本追記は一般化3事実、AWS公式URL、確認日だけ。Q23 ID/答え/本文を複製しない。"
+      - "preview exact1 8129a5b1f6fd9d433b759b4a、hash185fb1e02a2e0605f9301452fc84ff0a2e86bfccf320bb2665b965a48a82c5fa、6 stages/6 work item、Standard auto_max。"
+      - "single start、terminal succeeded/queue succeeded/receiptValidated/validated1/block0/work6/pending hold0/artifactSync succeeded/current。"
+      - "05は3→2だけ、choices同一、correct [正,誤,誤,正,誤]、answer1/4、questionIntent select_correct。"
+      - "21はchoices全件とEKS endpoint区別/node role/公式referencesを説明。"
+      - "quality gate、upload dry-run、QuestionInventory395/395、00_source immutability成功。"
+      - "Q29/11問/公開266/評価369/category/既存run hash不変、Firestore writes0。"
+    stop_if:
+      - "資格正本へ問題固有回答又は公式3事実外の設計変更が必要。"
+      - "preview exact1/単一group/6 stages/6 items/Standard auto_max不一致。"
+      - "05がinstruction/correct/answer以外の本文・choices・ID・imageを変更。"
+      - "3 choices維持のため新論点を追加。"
+      - "Q23が再びsource conflict/hold/blocked。"
+      - "Q29/11問のmodel/patch/work-version更新。"
+      - "artifactSync失敗又は395/395不可。"
+      - "00_source/ID/category/公開266/評価369/CLF/Firestore/既存run/allowed_files外変更が必要。"
+      - "二重start、retrySafe=false、Fast、credits/API key、Firestore writeが必要。"
+    expected_output:
+      - "qualification doc diff、Q23 exact1 terminal receipt、395/395 inventory"
+      - "quality/upload dry-run/invariant evidence"
+    receipt: null
   - id: T999
     type: judge
     assignee: Judge
