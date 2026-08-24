@@ -1760,6 +1760,36 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
             ("reviewNotes",),
         )
 
+    def test_stage_commit_unsets_non_owned_legacy_answer_fields(self):
+        intent = CandidateTarget(
+            target_id="q1:question_intent",
+            role="question_intent",
+            path="output/sample/15_correctChoiceText_fixed/q1.json",
+            allowed_fields=("questionIntent",),
+        )
+        correct = CandidateTarget(
+            target_id="q1:correct_choice",
+            role="correct_choice",
+            path="output/sample/23_correctChoiceText_fixed/q1.json",
+            allowed_fields=("correctChoiceText",),
+        )
+
+        self.assertEqual(
+            _candidate_unset_fields(intent, {"questionIntent": "select_correct"}, ()),
+            (
+                "answer_result_inferred_correct_choice_numbers",
+                "answer_result_text",
+                "correctChoiceText",
+            ),
+        )
+        self.assertEqual(
+            _candidate_unset_fields(correct, {"correctChoiceText": ["正しい"]}, ()),
+            (
+                "answer_result_inferred_correct_choice_numbers",
+                "answer_result_text",
+            ),
+        )
+
     def test_question_set_context_includes_options_and_no_op_rule(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

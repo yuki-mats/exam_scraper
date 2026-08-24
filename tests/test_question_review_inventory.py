@@ -549,6 +549,49 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertIn("05_originalized", question_type_input.applied_files[0])
         self.assertIn("10_questionType_fixed", question_type_input.applied_files[-1])
 
+    def test_correct_choice_projection_uses_originalized_answer_owner(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            write_json(
+                group / "00_source" / "question.json",
+                {"question_bodies": [{
+                    "original_question_id": "q1",
+                    "questionBodyText": "正しいものを選べ。",
+                    "choiceTextList": ["A。", "B。"],
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "answer_result_text": "正解は 1 です。",
+                    "answer_result_inferred_correct_choice_numbers": [1],
+                }]},
+            )
+            write_json(group / "05_originalized" / "question_originalized.json", [{
+                "original_question_id": "q1",
+                "answer_result_text": "正解は1、2です。",
+                "answer_result_inferred_correct_choice_numbers": [1, 2],
+            }])
+            write_json(group / "15_correctChoiceText_fixed" / "question_correctChoiceText_fixed.json", [{
+                "original_question_id": "q1",
+                "questionIntent": "select_correct",
+                "answer_result_text": "正解は 2 です。",
+                "answer_result_inferred_correct_choice_numbers": [2],
+            }])
+            write_json(group / "23_correctChoiceText_fixed" / "question_correctChoiceText_fixed.json", [{
+                "original_question_id": "q1",
+                "correctChoiceText": ["正しい", "間違い"],
+                "answer_result_text": "正解は 2 です。",
+                "answer_result_inferred_correct_choice_numbers": [2],
+            }])
+            projected = QuestionInventory(root).projected_input_for_stage(
+                "sample-exam", "2026", "question.json#0", "correct_choice"
+            )
+
+        self.assertEqual(projected.record["answer_result_text"], "正解は1、2です。")
+        self.assertEqual(
+            projected.record["answer_result_inferred_correct_choice_numbers"],
+            [1, 2],
+        )
+        self.assertEqual(projected.record["correctChoiceText"], ["正しい", "間違い"])
+
     def test_projected_input_rejects_an_unmatched_patch_like_physical_merge(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -11,7 +11,7 @@ QUESTION_LEVEL_TYPES = frozenset({"flash_card", "group_choice"})
 CORRECT_LABELS = frozenset({"正解", "正しい"})
 INCORRECT_LABELS = frozenset({"不正解", "間違い", "誤り"})
 ANSWER_RESULT_PATTERN = re.compile(
-    r"正解は\s*([0-9０-９]+(?:\s*,\s*[0-9０-９]+)*)\s*です。"
+    r"正解は\s*([0-9０-９]+(?:\s*[,\u3001，]\s*[0-9０-９]+)*)\s*です。"
 )
 FULLWIDTH_DIGIT_TRANSLATION = str.maketrans("０１２３４５６７８９", "0123456789")
 SELECTED_CHOICE_COUNT_PATTERNS = (
@@ -168,7 +168,7 @@ def parse_official_answer_numbers(value: Any) -> tuple[int, ...]:
     if match is None:
         return ()
     numbers: list[int] = []
-    for part in match.group(1).split(","):
+    for part in re.split(r"[,\u3001，]", match.group(1)):
         number = int(part.strip())
         if number not in numbers:
             numbers.append(number)

@@ -1610,6 +1610,21 @@ def _candidate_unset_fields(
     """Keep the per-choice field as the sole explanation-patch authority."""
 
     unset_fields = set(requested_unset_fields)
+    if target.role == "question_intent":
+        unset_fields.update(
+            {
+                "correctChoiceText",
+                "answer_result_text",
+                "answer_result_inferred_correct_choice_numbers",
+            }
+        )
+    elif target.role == "correct_choice":
+        unset_fields.update(
+            {
+                "answer_result_text",
+                "answer_result_inferred_correct_choice_numbers",
+            }
+        )
     if (
         target.role == "explanation"
         and "suggestedQuestionDetailsByChoice" in set_fields

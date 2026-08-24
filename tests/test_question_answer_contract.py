@@ -7,6 +7,7 @@ from scripts.common.question_answer_contract import (
     asks_for_selected_choice_count,
     explicit_statement_question_intent,
     official_answer_alignment_issue,
+    parse_official_answer_numbers,
     question_level_answer_cardinality_issue,
     uses_official_firestore_statement_answers,
     uses_trusted_gassyunin_judge_answers,
@@ -14,6 +15,11 @@ from scripts.common.question_answer_contract import (
 
 
 class QuestionAnswerContractTests(unittest.TestCase):
+    def test_parse_official_answer_numbers_accepts_japanese_separators(self) -> None:
+        self.assertEqual(parse_official_answer_numbers("正解は 1, 4 です。"), (1, 4))
+        self.assertEqual(parse_official_answer_numbers("正解は1、4です。"), (1, 4))
+        self.assertEqual(parse_official_answer_numbers("正解は１，４です。"), (1, 4))
+
     def test_explicit_statement_intent_reads_inappropriate_as_incorrect(
         self,
     ) -> None:

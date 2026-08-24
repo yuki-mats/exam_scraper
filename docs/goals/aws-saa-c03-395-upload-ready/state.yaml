@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T061
+active_task: T063
 
 tasks:
   - id: T001
@@ -4427,7 +4427,7 @@ tasks:
   - id: T061
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "field ownershipを正本どおり修復し、correct_choice stage projectionは05/00_sourceのanswerをread-only参照、15/23の非所有legacy answer fieldsをserver-owned migrationでunset、日本語読点parserを追加する。tests後、既存reviewでQ23 exact1 fresh runを一度だけ実行し395/395、review approvedまで収束する。"
     inputs:
@@ -4489,6 +4489,126 @@ tasks:
     expected_output:
       - "ownership/parser code+tests receipt"
       - "Q23 fresh run/new input hash/semantic/395/395/review approved/invariants"
+    receipt:
+      result: blocked
+      changed_files:
+        - scripts/common/question_answer_contract.py
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_answer_contract.py
+        - tests/test_question_review_inventory.py
+        - tests/test_question_review_qualification_runs.py
+        - "Q23 review/work/run/patch/group artifacts"
+      commands:
+        - "focused 5 test modules"
+        - "Japanese separator consistency audit"
+        - "preview exact1/6/6"
+        - "single start"
+        - "job/run/semantic readback"
+        - "review approved API"
+        - "full quality gate"
+      summary: "ownership/parser修復と327 tests成功。日本語separator矛盾0。Q23 run 20260824T105434842054-70157b79 validated1/work6、block/pending0、artifactSync成功。correct_choice input hash更新/answer1・4、15/23非所有field除去、Q23 semantic exact、review approved完了。quality gateはupload dry-run成功後、既存計算問題1件の基本解説にflutter_math_fork対応途中式なしで失敗。"
+      remaining_blockers:
+        - "quality gate index1: 計算問題の基本解説にflutter_math_fork対応数式の途中式なし。"
+      needs_judge: true
+      verification_attempts: 3
+      stopped_because: "quality gateが同一既存計算問題解説エラーで2回失敗。"
+  - id: T062
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T061 ownership/parser修復とQ23成功証拠をread-only監査し、quality gateで残った既存計算問題1件をexact identity・field・published/evaluation状態まで特定して、今回回帰か既存未整備か、最小再整備packageとcode diff承認可否を決定する。"
+    inputs:
+      - "T060/T061 receipts"
+      - "T061 6-file code/test diff"
+      - "Q23 run 20260824T105434842054-70157b79 and approved review"
+      - "quality gate exact failure output"
+      - "SAA calculation question artifacts/evaluations/publication state"
+    constraints:
+      - "Read-only。code、artifact、review、run、board変更禁止。"
+      - "Q23成功成果とownership fixを巻き戻さない。"
+      - "quality gate失敗を無視・skip・false successにしない。"
+      - "計算問題でないものへ途中式を捏造しない。"
+      - "公開済み266、評価369、Firestoreを変更しない。"
+    expected_output:
+      - "T061 diff approve/reject"
+      - "395/395・Q23 semantic/review/invariant監査"
+      - "quality failure exact question/root cause"
+      - "次Worker allowed_files/verify/stop_ifとcommit sequence"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T061の6-file diffは一般化され327 tests成功。SAAは395/395、Q23はrun成功・review approved・manual flagなし。残件は既存の模擬1 Q38だけで、10TB/72時間の帯域計算なのに21解説へ表示数式がない。評価未作成・未公開なのでexact explanation reworkが安全。"
+      evidence:
+        - "T061 diffはQ23固有hardcodeなし。parserはASCII comma、日本語読点、全角commaを同じ番号列として扱い、自動補正なし。"
+        - "correct_choice projectionは05、なければ00_sourceのanswerをread-only参照し、15/23の非所有answer fieldsをunsetする。"
+        - "run 20260824T105434842054-70157b79はexact Q23、6/6 validated、blocked/pending 0、artifactSync succeeded。review approved。"
+        - "current inventoryはsource/patch/merge/convert/upload各395 match、issues0、local-ready 395/395。"
+        - "quality failureはstable 5a7bf93ae87d44141dad1086、original 9f0ddf4aa37a7844、source question_udemy-4699792-038.json#0、hash e126333df6b436178092270c860f8030168f9c8583648dfc36941ec9d91c3de8。"
+        - "Q38はisCalculationQuestion=trueで約310Mbpsを算出するが、21 explanationに数式segmentがない。同じerrorは2026-08-11にも記録済みで回帰ではない。"
+        - "評価369件と公開266件にQ38 identity一致なし。"
+      next_allowed_task: T063
+      blocked_tasks:
+        - T999
+        - evaluation26
+        - needs_rework
+        - "Firestore publish"
+      missing_evidence:
+        - "Q38 exact explanation rework terminal receipt"
+        - "full quality gate success"
+        - "post-rework upload dry-run success"
+        - "残るevaluation missing及びneeds_rework収束"
+  - id: T063
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "承認済みT061 code/testをcommit・pushしたmain上で、stable 5a7bf93ae87d44141dad1086のexplanationだけを正規review/reworkし、10TB/72時間の一般式・代入・途中計算・最終値をflutter_math_fork対応の表示数式へ収束させ、full quality gateを通す。"
+    inputs:
+      - "T062 Judge receipt"
+      - "stable 5a7bf93ae87d44141dad1086 / original 9f0ddf4aa37a7844 / source question_udemy-4699792-038.json#0"
+      - "exact1 hash e126333df6b436178092270c860f8030168f9c8583648dfc36941ec9d91c3de8"
+      - "T061 ownership/parser commit on main"
+    constraints:
+      - "explanation以外の本文・選択肢・正答・questionType・isCalculationQuestion・questionSetId・referencesを変更しない。"
+      - "手動21 patch、24 correction、quality skip/fallbackは禁止。"
+      - "exact1/explanation-onlyを一度だけstartし、Firestoreへ書き込まない。"
+      - "Q23/Q29/patch-ready11/公開266/評価369/00_source/CLFを変更しない。"
+    allowed_files:
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/reviews/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/prompts/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/5a7bf93ae87d44141dad1086.json"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/question_udemy-4699792-038_merged_explanationText_added.json"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/*4699792-038*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_*.json"
+    verify:
+      - "review前にidentity/hash/isCalculationQuestion=true/evaluation missing/unpublishedをreadback。"
+      - "review fields=[explanationText]で、10TB/72時間の式だけを追加。"
+      - "preview exact1/hash一致/stage explanation/work1/Standard auto_max/Firestore false/human review一致。"
+      - "single start terminal validated1/work1/block pending hold0/artifactSync success/current。"
+      - "21 explanationはblock mathと2個以上の等号を含み、10×8×10^12 ÷ (72×60×60) = 308641975 bit/s = 308.6 Mbit/s程度を追える。"
+      - "full quality gate、upload dry-run、00_source immutability成功。"
+      - "final inventory各395 match/issues0、Q23不変、公開266・評価369・Firestore writes0。"
+    stop_if:
+      - "isCalculationQuestion=falseへの変更又は計算問題でない判断が必要。"
+      - "手動patch/24/quality skip/途中式捏造が必要。"
+      - "identity/stateHash/expectedOutcome/preview exact1 explanation-only不一致。"
+      - "explanation以外をmodelが変更。"
+      - "same input hash再start又は二度目startが必要。"
+      - "blocked/hold/artifact failure/full gate又はdry-run失敗。"
+      - "保護対象、allowed_files外又はFirestore差分。"
+    expected_output:
+      - "Q38 exact explanation rework terminal receipt"
+      - "full quality gate/upload dry-run/00_source/inventory/invariant receipt"
     receipt: null
   - id: T999
     type: judge

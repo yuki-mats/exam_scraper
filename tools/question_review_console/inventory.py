@@ -1095,6 +1095,7 @@ class QuestionInventory:
             list_group_id,
             source_record_ref_value,
             validate_aggregate_question_type=True,
+            stage_id=None,
         )
 
     def projected_input_for_stage(
@@ -1111,6 +1112,7 @@ class QuestionInventory:
             list_group_id,
             source_record_ref_value,
             validate_aggregate_question_type=stage_id != "question_type",
+            stage_id=stage_id,
         )
 
     def source_input(
@@ -1150,6 +1152,7 @@ class QuestionInventory:
         source_record_ref_value: str,
         *,
         validate_aggregate_question_type: bool,
+        stage_id: str | None,
     ) -> ProjectionResult:
 
         qualification = _safe_segment(qualification)
@@ -1191,13 +1194,41 @@ class QuestionInventory:
             )
             + (("question issue correction", issue_index),)
         )
-        return project_record(
+        result = project_record(
             entry.record,
             set(entry.identity.aliases),
             stage_maps,
             issue_index,
             source_binding=entry.identity.binding,
             validate_aggregate_question_type=validate_aggregate_question_type,
+        )
+        if stage_id != "correct_choice":
+            return result
+
+        # correct_choice compares current verdict markers with the answer owned
+        # by 05_originalized (or immutable 00_source when 05 is absent).
+        answer_owner = entry.record
+        original = find_patch_entry(
+            stage_maps["originalized"],
+            entry.identity.aliases,
+            entry.identity.binding,
+        )
+        if original is not None:
+            answer_owner = {**entry.record, **original.entry}
+        record = copy.deepcopy(result.record)
+        for field in (
+            "answer_result_text",
+            "answer_result_inferred_correct_choice_numbers",
+        ):
+            if field in answer_owner:
+                record[field] = copy.deepcopy(answer_owner[field])
+            else:
+                record.pop(field, None)
+        return ProjectionResult(
+            record=record,
+            applied_files=result.applied_files,
+            errors=result.errors,
+            question_issue_evidence=result.question_issue_evidence,
         )
 
     @staticmethod
