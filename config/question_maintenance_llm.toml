@@ -12,8 +12,9 @@ kind = "codex_app_server"
 [backends.openai_compatible_http]
 kind = "openai_compatible_http"
 endpoint = "http://127.0.0.1:11434/v1/chat/completions"
-model = "local-model"
-timeout_seconds = 120
+model = "qwen3:14b"
+retry_model = "qwen3:14b"
+timeout_seconds = 600
 
 [profiles.codex_only.roles.maintenance]
 backend = "codex_app_server"
@@ -23,6 +24,8 @@ backend = "codex_app_server"
 
 [profiles.local_generate_codex_audit.roles.maintenance]
 backend = "openai_compatible_http"
+local_attempts_before_fallback = 2
+fallback_backend = "codex_app_server"
 
 [profiles.local_generate_codex_audit.roles.audit]
 backend = "codex_app_server"

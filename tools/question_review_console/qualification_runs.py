@@ -108,6 +108,10 @@ from tools.question_review_console.codex_app_server import (
     SubscriptionGateError,
     normalize_speed_mode,
 )
+from tools.question_review_console.model_backend import (
+    MaintenanceAttemptRoute,
+    ModelBackendError,
+)
 from tools.question_review_console.qualification_workflow import (
     LAW_WORKFLOW_STAGE_IDS,
     LAW_WORKFLOW_UPDATE_TARGET_IDS,
@@ -1535,6 +1539,17 @@ def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None
             current
             for current in chain
             if isinstance(current, (SubscriptionGateError, CodexAppServerError))
+        ),
+        None,
+    )
+
+
+def _model_backend_failure(exc: BaseException) -> ModelBackendError | None:
+    return next(
+        (
+            current
+            for current in _exception_chain(exc)
+            if isinstance(current, ModelBackendError)
         ),
         None,
     )
@@ -12424,6 +12439,49 @@ class QualificationRunCoordinator:
             requested_effort = str(
                 candidate_policy.get("reasoningEffort") or TURN_REASONING_EFFORT
             )
+            queue_stage = single_spec.get("queueStage") or {}
+            validation_attempts = [
+                dict(value)
+                for value in queue_stage.get("validationAttempts") or []
+                if isinstance(value, Mapping)
+            ]
+            profile_snapshot = parent_snapshot.get("llmProfile")
+            profile_name = (
+                str(profile_snapshot.get("name") or "codex_only")
+                if isinstance(profile_snapshot, Mapping)
+                else "codex_only"
+            )
+            route_resolver = getattr(
+                self.app_server,
+                "resolve_maintenance_attempt",
+                None,
+            )
+            attempt_route = (
+                route_resolver(
+                    profile_name,
+                    validation_attempts,
+                    workflow_model=requested_model,
+                )
+                if callable(route_resolver)
+                else None
+            )
+            route_metadata = (
+                attempt_route.as_mapping()
+                if isinstance(attempt_route, MaintenanceAttemptRoute)
+                else {
+                    "profileName": profile_name,
+                    "profileFingerprint": str(
+                        (profile_snapshot or {}).get("fingerprint") or ""
+                    ),
+                    "attemptMode": "primary" if not retrying else "retry",
+                    "backend": "codex_app_server",
+                    "backendKind": "codex_app_server",
+                    "requestedModel": requested_model,
+                    "fallbackUsed": False,
+                    "localSuccess": False,
+                }
+            )
+            requested_model = str(route_metadata["requestedModel"])
             batch_plan, target = self._question_plan_for_spec(
                 single_spec,
                 parent_run_id=run_id,
@@ -12433,6 +12491,7 @@ class QualificationRunCoordinator:
                 requestedModel=requested_model,
                 requestedReasoningEffort=requested_effort,
                 retryModelFallback=retrying,
+                modelAttempt=copy.deepcopy(route_metadata),
                 agentPolicy=agent_policy,
                 speedMode=normalize_speed_mode(
                     parent.get("speedMode") or STANDARD_SPEED_MODE
@@ -12610,7 +12669,6 @@ class QualificationRunCoordinator:
                 batch_prompt,
             )
             child_id = str(child["runId"])
-            queue_stage = single_spec.get("queueStage") or {}
             input_fingerprint_value = str(
                 queue_stage.get("inputFingerprint") or ""
             )
@@ -12622,11 +12680,6 @@ class QualificationRunCoordinator:
             )
             reused_from_attempt_id = ""
             reused_reason = ""
-            validation_attempts = [
-                dict(value)
-                for value in queue_stage.get("validationAttempts") or []
-                if isinstance(value, Mapping)
-            ]
             latest_attempt = (
                 validation_attempts[-1] if validation_attempts else {}
             )
@@ -12696,8 +12749,8 @@ class QualificationRunCoordinator:
             elif retrying:
                 emit(
                     f"{stage_id}: 失敗済み{len(targets)}問だけを"
-                    f"{QUESTION_MAINTENANCE_RETRY_MODEL} / 推論 "
-                    f"{TURN_REASONING_EFFORT}で再試行します。"
+                    f"{requested_model} / 推論 {requested_effort}で"
+                    f"{route_metadata['attemptMode']}として再試行します。"
                 )
             return {
                 "childId": child_id,
@@ -12712,6 +12765,8 @@ class QualificationRunCoordinator:
                 "candidateTargetsByQuestion": candidate_targets_by_question,
                 "requestedModel": requested_model,
                 "requestedReasoningEffort": requested_effort,
+                "attemptRoute": attempt_route,
+                "attemptMetadata": route_metadata,
                 "inputFingerprint": input_fingerprint_value,
                 "projectedInputHash": projected_input_hash,
                 "reusedPreparedCandidate": bool(reused_from_attempt_id),
@@ -12733,11 +12788,22 @@ class QualificationRunCoordinator:
                 if isinstance(value, Mapping)
             ]
             provider_failure = _external_provider_failure(exc)
+            backend_failure = _model_backend_failure(exc)
             isolated_failure = _isolated_turn_failure(exc)
             schema_failure = isinstance(exc, QuestionCandidateError) or (
                 "構造化候補" in str(exc)
                 or "JSON Schema" in str(exc)
             )
+            if backend_failure is not None:
+                self.store.update(
+                    qualification,
+                    child_id,
+                    backendErrorCode=backend_failure.code,
+                    retryable=backend_failure.retryable,
+                    actualModel=None,
+                    localSuccess=False,
+                )
+                child = self.store.refresh(qualification, child_id)
             return {
                 "childId": child_id,
                 "child": child,
@@ -12754,10 +12820,22 @@ class QualificationRunCoordinator:
                     }
                     for target in targets
                 ],
-                "providerFailure": provider_failure is not None,
+                "providerFailure": (
+                    provider_failure is not None
+                    or (backend_failure is not None and backend_failure.retryable)
+                ),
+                "backendFailure": backend_failure is not None,
+                "retryable": (
+                    backend_failure.retryable
+                    if backend_failure is not None
+                    else provider_failure is not None
+                ),
+                "backendErrorCode": (
+                    backend_failure.code if backend_failure is not None else None
+                ),
                 "schemaFailure": schema_failure,
                 "isolatedFailure": isolated_failure is not None,
-                "providerError": str(provider_failure or ""),
+                "providerError": str(backend_failure or provider_failure or ""),
             }
 
         def run_model(prepared: Mapping[str, Any]) -> dict[str, Any]:
@@ -12798,6 +12876,7 @@ class QualificationRunCoordinator:
                         prepared["candidateTargetsByQuestion"]
                     ),
                     model=str(prepared["requestedModel"]),
+                    maintenance_attempt=prepared.get("attemptRoute"),
                     reasoning_effort=str(
                         prepared["requestedReasoningEffort"]
                     ),
@@ -12926,6 +13005,9 @@ class QualificationRunCoordinator:
                 requested_effort = str(
                     prepared["requestedReasoningEffort"]
                 )
+                attempt_metadata = dict(
+                    prepared.get("attemptMetadata") or {}
+                )
                 for target in prepared.get("targets") or []:
                     question_id = str(
                         target.get("id")
@@ -12955,6 +13037,9 @@ class QualificationRunCoordinator:
                             "feedback": None,
                             "requestedModel": requested_model,
                             "requestedReasoningEffort": requested_effort,
+                            **copy.deepcopy(attempt_metadata),
+                            "actualModel": None,
+                            "retryable": None,
                             "startedAt": _now(),
                             "finishedAt": None,
                         }
@@ -13035,7 +13120,16 @@ class QualificationRunCoordinator:
                     )
                 attempts[attempt_index].update(
                     model=child.get("model"),
+                    actualModel=child.get("actualModel") or child.get("model"),
                     reasoningEffort=child.get("reasoningEffort"),
+                    backendErrorCode=outcome.get("backendErrorCode"),
+                    retryable=outcome.get("retryable"),
+                    fallbackUsed=bool(
+                        child.get("fallbackUsed")
+                        if child.get("fallbackUsed") is not None
+                        else attempts[attempt_index].get("fallbackUsed")
+                    ),
+                    localSuccess=bool(child.get("localSuccess")),
                 )
                 if str(raw_result.get("status") or "") == "succeeded":
                     accepted = {
@@ -13098,6 +13192,28 @@ class QualificationRunCoordinator:
                     )
                     continue
 
+                if outcome.get("backendFailure") and not outcome.get("retryable"):
+                    attempts[attempt_index].update(
+                        status="blocked",
+                        feedback=None,
+                        finishedAt=_now(),
+                    )
+                    stage_updates.append(
+                        {
+                            "questionId": question_id,
+                            "stageId": stage_id,
+                            "blockDependents": True,
+                            "changes": {
+                                "status": "blocked",
+                                "validationAttempts": attempts,
+                                "retryDeferred": False,
+                                "error": str(raw_result.get("summary") or ""),
+                                "finishedAt": _now(),
+                            },
+                        }
+                    )
+                    continue
+
                 if provider_failure:
                     attempts[attempt_index].update(
                         status="interrupted",
@@ -13126,7 +13242,14 @@ class QualificationRunCoordinator:
                             },
                         }
                     )
-                    if provider_attempts < provider_attempt_limit:
+                    model_attempt = child.get("modelAttempt")
+                    local_route_failure = bool(
+                        outcome.get("backendFailure")
+                        and isinstance(model_attempt, Mapping)
+                        and str(model_attempt.get("attemptMode") or "")
+                        in {"local_primary", "local_retry"}
+                    )
+                    if local_route_failure or provider_attempts < provider_attempt_limit:
                         next_ids.append(question_id)
                     else:
                         provider_waiting.add(question_id)
@@ -14085,6 +14208,39 @@ class QualificationRunCoordinator:
             )
         run_question_segment(question_segment)
 
+        metrics_source = self.store.get(qualification, run_id)
+        all_attempts = [
+            attempt
+            for execution in metrics_source.get("questionExecutions") or []
+            if isinstance(execution, Mapping)
+            for stage in execution.get("stages") or []
+            if isinstance(stage, Mapping)
+            for attempt in stage.get("validationAttempts") or []
+            if isinstance(attempt, Mapping)
+        ]
+        self.store.update(
+            qualification,
+            run_id,
+            modelAttemptMetrics={
+                "localPrimaryCount": sum(
+                    str(value.get("attemptMode") or "") == "local_primary"
+                    for value in all_attempts
+                ),
+                "localRetryCount": sum(
+                    str(value.get("attemptMode") or "") == "local_retry"
+                    for value in all_attempts
+                ),
+                "fallbackCount": sum(
+                    bool(value.get("fallbackUsed")) for value in all_attempts
+                ),
+                "localSuccessCount": sum(
+                    bool(value.get("localSuccess"))
+                    and not bool(value.get("fallbackUsed"))
+                    for value in all_attempts
+                ),
+            },
+        )
+
         self._finalize_question_phases(
             qualification,
             run_id,
@@ -14585,6 +14741,7 @@ class QualificationRunCoordinator:
         prepared_source_records: Mapping[str, Mapping[str, Any]] | None = None,
         prepared_targets: Mapping[str, tuple[CandidateTarget, ...]] | None = None,
         model: str = QUESTION_MAINTENANCE_MODEL,
+        maintenance_attempt: MaintenanceAttemptRoute | None = None,
         reasoning_effort: str = TURN_REASONING_EFFORT,
         input_fingerprint_value: str,
         projected_input_hash: str,
@@ -15608,6 +15765,7 @@ class QualificationRunCoordinator:
                         heartbeat=heartbeat,
                         cwd=self.repo_root,
                         model=model,
+                        maintenance_attempt=maintenance_attempt,
                         reasoning_effort=reasoning_effort,
                         speed_mode=speed_mode,
                         turn_group=qualification,
@@ -15634,6 +15792,7 @@ class QualificationRunCoordinator:
                     )
                     prepared_execution_metadata = {
                         "model": result.model,
+                        "actualModel": result.model,
                         "serviceTier": result.service_tier,
                         "reasoningEffort": result.reasoning_effort,
                         "turnCompletionMode": result.completion_mode,
@@ -15660,6 +15819,18 @@ class QualificationRunCoordinator:
                     self.store.update(
                         qualification,
                         run_id,
+                        actualModel=result.model,
+                        localSuccess=(
+                            isinstance(maintenance_attempt, MaintenanceAttemptRoute)
+                            and maintenance_attempt.backend_kind
+                            == "openai_compatible_http"
+                            and not maintenance_attempt.fallback_used
+                        ),
+                        fallbackUsed=(
+                            maintenance_attempt.fallback_used
+                            if isinstance(maintenance_attempt, MaintenanceAttemptRoute)
+                            else False
+                        ),
                         modelTurnTelemetry={
                             **prepared_execution_metadata,
                             "executorQueueWaitSeconds": round(
@@ -16541,6 +16712,21 @@ class QualificationRunCoordinator:
                 ],
                 "changedFiles": sorted(committed_files),
                 "resolvedFailedDeltaPaths": [],
+                "modelAttempt": {
+                    **copy.deepcopy(dict(child.get("modelAttempt") or {})),
+                    "requestedModel": child.get("requestedModel"),
+                    "actualModel": prepared_execution_metadata.get("actualModel"),
+                    "fallbackUsed": (
+                        maintenance_attempt.fallback_used
+                        if isinstance(maintenance_attempt, MaintenanceAttemptRoute)
+                        else False
+                    ),
+                    "localSuccess": (
+                        isinstance(maintenance_attempt, MaintenanceAttemptRoute)
+                        and maintenance_attempt.backend_kind == "openai_compatible_http"
+                        and not maintenance_attempt.fallback_used
+                    ),
+                },
                 **(
                     {
                         "aggregateReviewPromptContractVersion": (
@@ -16637,6 +16823,8 @@ class QualificationRunCoordinator:
                 "child": refreshed,
             }
         except Exception as exc:  # noqa: BLE001
+            backend_failure = _model_backend_failure(exc)
+            failed_runtime = self.store.get(qualification, run_id)
             self.store.write_result(
                 qualification,
                 run_id,
@@ -16645,6 +16833,24 @@ class QualificationRunCoordinator:
                     "summary": str(exc),
                     "commands": [],
                     "changedFiles": sorted(committed_files),
+                    "modelAttempt": {
+                        **copy.deepcopy(
+                            dict(failed_runtime.get("modelAttempt") or {})
+                        ),
+                        "requestedModel": failed_runtime.get("requestedModel"),
+                        "actualModel": None,
+                        "retryable": (
+                            backend_failure.retryable
+                            if backend_failure is not None
+                            else None
+                        ),
+                        "errorCode": (
+                            backend_failure.code
+                            if backend_failure is not None
+                            else None
+                        ),
+                        "localSuccess": False,
+                    },
                 },
             )
             self.store.refresh(qualification, run_id)

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import threading
 import time
+import urllib.error
 from concurrent.futures import ThreadPoolExecutor
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -10,6 +11,7 @@ from unittest.mock import patch
 import pytest
 
 from tools.question_review_console.model_backend import (
+    ModelBackendError,
     ProfileModelRouter,
     parse_model_backend_config,
 )
@@ -39,11 +41,12 @@ def _config(*, concurrency=1):
                     "kind": "openai_compatible_http",
                     "endpoint": "http://127.0.0.1:11434/v1/chat/completions",
                     "model": "replaceable-local-model",
+                    "retry_model": "replaceable-retry-model",
                 },
             },
             "profiles": {
                 "codex_only": {"roles": {"maintenance": {"backend": "codex"}, "audit": {"backend": "codex"}}},
-                "local_generate_codex_audit": {"roles": {"maintenance": {"backend": "local"}, "audit": {"backend": "codex"}}},
+                "local_generate_codex_audit": {"roles": {"maintenance": {"backend": "local", "local_attempts_before_fallback": 2, "fallback_backend": "codex"}, "audit": {"backend": "codex"}}},
             },
         }
     )
@@ -162,3 +165,174 @@ def test_http_identity_is_non_empty_unique_and_matches_callbacks():
             assert all((result.thread_id, result.session_id, result.turn_id))
             identities.append((result.thread_id, result.session_id, result.turn_id))
     assert identities[0] != identities[1]
+
+
+def test_attempt_route_is_pure_primary_retry_then_codex_fallback():
+    router = ProfileModelRouter(_config(), _Codex())
+    profile = "local_generate_codex_audit"
+    primary = router.resolve_maintenance_attempt(profile, [], workflow_model="gpt-workflow")
+    retry = router.resolve_maintenance_attempt(
+        profile,
+        [{**primary.as_mapping(), "retryable": True}],
+        workflow_model="gpt-workflow",
+    )
+    fallback = router.resolve_maintenance_attempt(
+        profile,
+        [
+            {**primary.as_mapping(), "retryable": True},
+            {**retry.as_mapping(), "retryable": True},
+        ],
+        workflow_model="gpt-workflow",
+    )
+    assert (primary.attempt_mode, primary.requested_model) == (
+        "local_primary", "replaceable-local-model"
+    )
+    assert (retry.attempt_mode, retry.requested_model) == (
+        "local_retry", "replaceable-retry-model"
+    )
+    assert (fallback.attempt_mode, fallback.requested_model) == (
+        "codex_fallback", "gpt-workflow"
+    )
+    assert fallback.fallback_used is True
+
+
+@pytest.mark.parametrize(
+    ("error", "code", "retryable"),
+    [
+        (urllib.error.HTTPError("http://local", 429, "busy", {}, None), "http_status", True),
+        (urllib.error.HTTPError("http://local", 500, "down", {}, None), "http_status", True),
+        (urllib.error.HTTPError("http://local", 503, "down", {}, None), "http_status", True),
+        (urllib.error.HTTPError("http://local", 400, "secret-body", {}, None), "http_status", False),
+        (urllib.error.HTTPError("http://local", 401, "secret-body", {}, None), "http_status", False),
+        (urllib.error.HTTPError("http://local", 404, "secret-body", {}, None), "http_status", False),
+        (urllib.error.URLError("secret-body"), "network", True),
+        (TimeoutError("secret-body"), "timeout", True),
+    ],
+)
+def test_http_failure_taxonomy_is_sanitized(error, code, retryable):
+    backend = ProfileModelRouter(_config(), _Codex()).backend_for(
+        "local_generate_codex_audit", "maintenance"
+    )
+    schema = {"type": "object"}
+    with patch("urllib.request.urlopen", side_effect=error):
+        with pytest.raises(ModelBackendError) as captured:
+            backend.run_turn("secret-prompt", output_schema=schema)
+    assert captured.value.code == code
+    assert captured.value.retryable is retryable
+    assert "secret-body" not in str(captured.value)
+
+
+def test_model_mismatch_is_nonretryable_and_request_uses_resolved_model():
+    router = ProfileModelRouter(_config(), _Codex())
+    route = router.resolve_maintenance_attempt(
+        "local_generate_codex_audit", [], workflow_model="gpt-workflow"
+    )
+    schema = {"type": "object"}
+
+    class Response:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *_args): return None
+        def read(self, _limit):
+            return json.dumps({"model": "wrong", "choices": []}).encode()
+
+    with patch("urllib.request.urlopen", return_value=Response()) as call:
+        with pytest.raises(ModelBackendError) as captured:
+            router.run_turn(
+                "x", model_profile="local_generate_codex_audit",
+                maintenance_attempt=route, work_type="maintenance_candidate",
+                output_schema=schema,
+            )
+    request_payload = json.loads(call.call_args.args[0].data)
+    assert request_payload["model"] == route.requested_model
+    assert captured.value.code == "model_mismatch"
+    assert captured.value.retryable is False
+
+
+@pytest.mark.parametrize(
+    ("body", "code"),
+    [
+        (b"secret invalid json", "invalid_json"),
+        (
+            json.dumps({
+                "model": "replaceable-local-model",
+                "choices": [{"message": {"content": json.dumps({"ok": "wrong"})}}],
+            }).encode(),
+            "schema_mismatch",
+        ),
+    ],
+)
+def test_invalid_json_and_schema_are_nonretryable_without_body_leak(body, code):
+    backend = ProfileModelRouter(_config(), _Codex()).backend_for(
+        "local_generate_codex_audit", "maintenance"
+    )
+
+    class Response:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *_args): return None
+        def read(self, _limit): return body
+
+    schema = {
+        "type": "object",
+        "properties": {"ok": {"type": "boolean"}},
+        "required": ["ok"],
+    }
+    with patch("urllib.request.urlopen", return_value=Response()):
+        with pytest.raises(ModelBackendError) as captured:
+            backend.run_turn("x", output_schema=schema)
+    assert captured.value.code == code
+    assert captured.value.retryable is False
+    assert "secret" not in str(captured.value)
+
+
+def test_safety_violation_stops_before_http_call():
+    backend = ProfileModelRouter(_config(), _Codex()).backend_for(
+        "local_generate_codex_audit", "maintenance"
+    )
+    with patch("urllib.request.urlopen") as call:
+        with pytest.raises(ModelBackendError) as captured:
+            backend.run_turn("x", output_schema={}, sandbox="workspace-write")
+    assert captured.value.code == "unsafe_request"
+    assert captured.value.retryable is False
+    call.assert_not_called()
+
+
+def test_response_limit_is_nonretryable():
+    backend = ProfileModelRouter(_config(), _Codex()).backend_for(
+        "local_generate_codex_audit", "maintenance"
+    )
+
+    class Response:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *_args): return None
+        def read(self, _limit): return b"x" * 2_000_001
+
+    with patch("urllib.request.urlopen", return_value=Response()):
+        with pytest.raises(ModelBackendError) as captured:
+            backend.run_turn("x", output_schema={})
+    assert captured.value.code == "response_too_large"
+    assert captured.value.retryable is False
+
+
+def test_missing_auth_stops_before_http_call(monkeypatch):
+    raw = _config()
+    local = raw.backends["local"]
+    secured = type(local)(
+        **{
+            **local.__dict__,
+            "auth_env": "LOCAL_LLM_SECRET",
+        }
+    )
+    backend = ProfileModelRouter(_config(), _Codex()).backend_for(
+        "local_generate_codex_audit", "maintenance"
+    )
+    backend.definition = secured
+    monkeypatch.delenv("LOCAL_LLM_SECRET", raising=False)
+    with patch("urllib.request.urlopen") as call:
+        with pytest.raises(ModelBackendError) as captured:
+            backend.run_turn("x", output_schema={})
+    assert captured.value.code == "missing_auth"
+    assert captured.value.retryable is False
+    call.assert_not_called()

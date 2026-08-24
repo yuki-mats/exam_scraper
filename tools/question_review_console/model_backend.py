@@ -41,6 +41,7 @@ class BackendDefinition:
     kind: str
     endpoint: str | None = None
     model: str | None = None
+    retry_model: str | None = None
     reasoning_effort: str | None = None
     timeout_seconds: float = 120.0
     auth_env: str | None = None
@@ -49,6 +50,42 @@ class BackendDefinition:
 @dataclass(frozen=True)
 class RoleBinding:
     backend: str
+    local_attempts_before_fallback: int = 1
+    fallback_backend: str | None = None
+
+
+@dataclass(frozen=True)
+class MaintenanceAttemptRoute:
+    profile_name: str
+    profile_fingerprint: str
+    attempt_mode: str
+    backend: str
+    backend_kind: str
+    requested_model: str
+    fallback_used: bool
+
+    def as_mapping(self) -> dict[str, Any]:
+        return {
+            "profileName": self.profile_name,
+            "profileFingerprint": self.profile_fingerprint,
+            "attemptMode": self.attempt_mode,
+            "backend": self.backend,
+            "backendKind": self.backend_kind,
+            "requestedModel": self.requested_model,
+            "fallbackUsed": self.fallback_used,
+            "localSuccess": False,
+        }
+
+
+class ModelBackendError(RuntimeError):
+    """Sanitized backend failure with stable retry semantics."""
+
+    def __init__(self, code: str, *, retryable: bool, status: int | None = None) -> None:
+        self.code = code
+        self.retryable = retryable
+        self.status = status
+        suffix = f" (status {status})" if status is not None else ""
+        super().__init__(f"LLM backend error: {code}{suffix}")
 
 
 @dataclass(frozen=True)
@@ -169,6 +206,7 @@ def parse_model_backend_config(raw: Mapping[str, Any]) -> ModelBackendConfig:
                 raise ValueError(f"backend {name} のtimeout_secondsが不正です。")
             backends[str(name)] = BackendDefinition(
                 name=str(name), kind=str(kind), endpoint=endpoint, model=model,
+                retry_model=str(value.get("retry_model") or model).strip(),
                 reasoning_effort=str(value.get("reasoning_effort") or "").strip() or None,
                 timeout_seconds=float(timeout), auth_env=auth_env,
             )
@@ -197,7 +235,25 @@ def parse_model_backend_config(raw: Mapping[str, Any]) -> ModelBackendConfig:
                 raise ValueError(
                     f"profile {name} の{role}が未定義backendを参照しています: {backend}"
                 )
-            roles[role] = RoleBinding(backend=str(backend))
+            fallback_backend = role_value.get("fallback_backend")
+            if fallback_backend is not None and fallback_backend not in backends:
+                raise ValueError(
+                    f"profile {name} の{role}が未定義fallback backendを参照しています: "
+                    f"{fallback_backend}"
+                )
+            local_attempts = role_value.get("local_attempts_before_fallback", 1)
+            if fallback_backend is not None:
+                local_attempts = _positive_int(
+                    local_attempts,
+                    f"profile {name} の{role}.local_attempts_before_fallback",
+                )
+                if backends[str(backend)].kind != "openai_compatible_http":
+                    raise ValueError("fallbackを持つroleのprimaryはHTTP backendで指定してください。")
+            roles[role] = RoleBinding(
+                backend=str(backend),
+                local_attempts_before_fallback=int(local_attempts),
+                fallback_backend=(str(fallback_backend) if fallback_backend else None),
+            )
         profiles[str(name)] = ModelProfile(name=str(name), roles=roles)
 
     return ModelBackendConfig(
@@ -315,18 +371,22 @@ class OpenAICompatibleHTTPBackend:
     def run_turn(self, prompt: str, **kwargs: Any) -> Any:
         sandbox = str(kwargs.get("sandbox") or "read-only")
         if sandbox != "read-only" or kwargs.get("tools") or kwargs.get("writable_roots") or kwargs.get("writableRoots"):
-            raise ValueError("HTTP backendはread-only JSON生成だけを許可します。")
+            raise ModelBackendError("unsafe_request", retryable=False)
         schema = kwargs.get("output_schema")
         if not isinstance(schema, Mapping):
-            raise ValueError("HTTP backendにはoutput_schemaが必要です。")
+            raise ModelBackendError("missing_output_schema", retryable=False)
+        requested_model = str(kwargs.get("model") or self.definition.model or "")
+        allowed_models = {self.definition.model, self.definition.retry_model}
+        if not requested_model or requested_model not in allowed_models:
+            raise ModelBackendError("unsafe_model_override", retryable=False)
         headers = {"Content-Type": "application/json", "Accept": "application/json"}
         if self.definition.auth_env:
             secret = os.environ.get(self.definition.auth_env)
             if not secret:
-                raise ValueError("HTTP backendの認証環境変数が設定されていません。")
+                raise ModelBackendError("missing_auth", retryable=False)
             headers["Authorization"] = f"Bearer {secret}"
         payload: dict[str, Any] = {
-            "model": self.definition.model,
+            "model": requested_model,
             "messages": [{"role": "user", "content": prompt}],
             "response_format": {
                 "type": "json_schema",
@@ -342,18 +402,34 @@ class OpenAICompatibleHTTPBackend:
         try:
             with urllib.request.urlopen(request, timeout=self.definition.timeout_seconds) as response:
                 if response.status < 200 or response.status >= 300:
-                    raise ValueError(f"HTTP backendが失敗しました (status {response.status})。")
+                    status = int(response.status)
+                    raise ModelBackendError(
+                        "http_status", retryable=status == 429 or status >= 500,
+                        status=status,
+                    )
                 raw = response.read(2_000_001)
         except urllib.error.HTTPError as exc:
-            raise ValueError(f"HTTP backendが失敗しました (status {exc.code})。") from None
-        except (urllib.error.URLError, TimeoutError, OSError):
-            raise ValueError("HTTP backendへ接続できませんでした。") from None
+            status = int(exc.code)
+            raise ModelBackendError(
+                "http_status", retryable=status == 429 or status >= 500,
+                status=status,
+            ) from None
+        except (TimeoutError,):
+            raise ModelBackendError("timeout", retryable=True) from None
+        except (urllib.error.URLError, OSError):
+            raise ModelBackendError("network", retryable=True) from None
         if len(raw) > 2_000_000:
-            raise ValueError("HTTP backendの応答が2MBを超えました。")
+            raise ModelBackendError("response_too_large", retryable=False)
         try:
             envelope = json.loads(raw)
-            if not isinstance(envelope, Mapping) or str(envelope.get("model") or "") != self.definition.model:
-                raise ValueError
+        except json.JSONDecodeError:
+            raise ModelBackendError("invalid_json", retryable=False) from None
+        if not isinstance(envelope, Mapping):
+            raise ModelBackendError("invalid_response", retryable=False)
+        actual_model = str(envelope.get("model") or "")
+        if actual_model != requested_model:
+            raise ModelBackendError("model_mismatch", retryable=False)
+        try:
             choices = envelope.get("choices")
             message = choices[0]["message"] if isinstance(choices, list) and len(choices) == 1 else None
             content = message.get("content") if isinstance(message, Mapping) else None
@@ -361,11 +437,11 @@ class OpenAICompatibleHTTPBackend:
             if not isinstance(result, Mapping):
                 raise ValueError
         except (KeyError, TypeError, json.JSONDecodeError, ValueError):
-            raise ValueError("HTTP backendの応答形式又はmodelが契約と一致しません。") from None
+            raise ModelBackendError("invalid_json", retryable=False) from None
         try:
             _validate_json_shape(result, schema)
         except ValueError:
-            raise ValueError("HTTP backendの応答JSONがschemaと一致しません。") from None
+            raise ModelBackendError("schema_mismatch", retryable=False) from None
         call_id = uuid.uuid4().hex
         thread_id = f"http-thread-{call_id}"
         session_id = f"http-session-{call_id}"
@@ -380,7 +456,7 @@ class OpenAICompatibleHTTPBackend:
         return SimpleNamespace(
             final_message=json.dumps(result, ensure_ascii=False), changed_files=[],
             thread_id=thread_id, session_id=session_id, turn_id=turn_id,
-            model=self.definition.model,
+            model=actual_model,
             service_tier=None, reasoning_effort=self.definition.reasoning_effort,
             completion_mode="final_message", model_turn_started_at=None,
             model_turn_finished_at=None,
@@ -413,14 +489,70 @@ class ProfileModelRouter:
 
     def run_turn(self, prompt: str, **kwargs: Any) -> Any:
         profile_name = str(kwargs.pop("model_profile", "") or "")
+        attempt_route = kwargs.pop("maintenance_attempt", None)
         work_type = str(kwargs.get("work_type") or "")
         if not profile_name and work_type.startswith("maintenance"):
             raise ValueError("model_profileを明示してください。")
         if not profile_name:
             profile_name = "codex_only"
         role = "audit" if "evaluation" in work_type or "audit" in work_type else "maintenance"
+        backend = self.backend_for(profile_name, role)
+        if role == "maintenance" and attempt_route is not None:
+            if not isinstance(attempt_route, MaintenanceAttemptRoute):
+                raise ValueError("maintenance attempt routeが不正です。")
+            if attempt_route.profile_name != profile_name:
+                raise ValueError("maintenance attempt routeのprofileが一致しません。")
+            backend = self._instances[attempt_route.backend]
+            kwargs["model"] = attempt_route.requested_model
         with self._call_slots:
-            return self.backend_for(profile_name, role).run_turn(prompt, **kwargs)
+            return backend.run_turn(prompt, **kwargs)
+
+    def resolve_maintenance_attempt(
+        self,
+        profile_name: str,
+        prior_attempts: Sequence[Mapping[str, Any]],
+        *,
+        workflow_model: str,
+    ) -> MaintenanceAttemptRoute:
+        """Purely resolve primary/retry/fallback from profile and persisted history."""
+        profile = self.config.profile(profile_name)
+        binding = profile.roles["maintenance"]
+        primary = self.config.backends[binding.backend]
+        fingerprint = str(self.snapshot_for(profile_name)["fingerprint"])
+        relevant = [
+            attempt for attempt in prior_attempts
+            if str(attempt.get("profileFingerprint") or fingerprint) == fingerprint
+        ]
+        if any(attempt.get("retryable") is False for attempt in relevant):
+            raise ModelBackendError("nonretryable_attempt", retryable=False)
+        local_count = sum(
+            str(attempt.get("attemptMode") or "") in {"local_primary", "local_retry"}
+            for attempt in relevant
+        )
+        if primary.kind != "openai_compatible_http":
+            return MaintenanceAttemptRoute(
+                profile_name, fingerprint, "primary", binding.backend,
+                primary.kind, workflow_model, False,
+            )
+        if local_count == 0:
+            backend_name = binding.backend
+            mode = "local_primary"
+            requested_model = str(primary.model or "")
+        elif local_count < binding.local_attempts_before_fallback:
+            backend_name = binding.backend
+            mode = "local_retry"
+            requested_model = str(primary.retry_model or primary.model or "")
+        else:
+            if not binding.fallback_backend:
+                raise ModelBackendError("local_attempts_exhausted", retryable=False)
+            backend_name = binding.fallback_backend
+            mode = "codex_fallback"
+            requested_model = workflow_model
+        definition = self.config.backends[backend_name]
+        return MaintenanceAttemptRoute(
+            profile_name, fingerprint, mode, backend_name, definition.kind,
+            requested_model, mode == "codex_fallback",
+        )
 
     def snapshot_for(self, profile_name: str) -> dict[str, Any]:
         profile = self.config.profile(profile_name)
@@ -437,8 +569,11 @@ class ProfileModelRouter:
                     "backend": binding.backend,
                     "kind": definition.kind,
                     "model": definition.model,
+                    "retryModel": definition.retry_model,
                     "reasoningEffort": definition.reasoning_effort,
                     "timeoutSeconds": definition.timeout_seconds,
+                    "localAttemptsBeforeFallback": binding.local_attempts_before_fallback,
+                    "fallbackBackend": binding.fallback_backend,
                 }
                 for role, binding in profile.roles.items()
                 for definition in [self.config.backends[binding.backend]]

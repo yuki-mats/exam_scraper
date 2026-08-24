@@ -7,6 +7,7 @@ import pytest
 
 from tools.question_review_console.model_backend import (
     CodexOnlyAdapter,
+    ModelBackendError,
     configuration_fingerprint,
     load_model_backend_config,
     parse_model_backend_config,
@@ -51,6 +52,11 @@ def test_repository_config_defines_profiles_backends_roles_and_initial_limits():
     hybrid = config.profile("local_generate_codex_audit")
     assert hybrid.roles["maintenance"].backend == "openai_compatible_http"
     assert hybrid.roles["audit"].backend == "codex_app_server"
+    local = config.backends["openai_compatible_http"]
+    assert local.model == local.retry_model == "qwen3:14b"
+    assert local.timeout_seconds == 600
+    assert hybrid.roles["maintenance"].local_attempts_before_fallback == 2
+    assert hybrid.roles["maintenance"].fallback_backend == "codex_app_server"
     assert config.limits.question_parallelism == 1
     assert config.limits.llm_call_concurrency == 1
     assert config.limits.audit_batch_questions == 5
@@ -157,3 +163,9 @@ def test_codex_only_adapter_rejects_unknown_role():
 
     with pytest.raises(ValueError, match="role"):
         adapter.backend_for("writer")
+
+
+def test_backend_error_is_stable_and_never_includes_lower_level_body():
+    error = ModelBackendError("http_status", retryable=True, status=503)
+    assert str(error) == "LLM backend error: http_status (status 503)"
+    assert error.retryable is True
