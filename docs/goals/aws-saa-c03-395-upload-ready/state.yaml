@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T095
+active_task: T096
 
 tasks:
   - id: T001
@@ -6570,7 +6570,7 @@ tasks:
   - id: T095
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "remaining normal3をread-only監査し、evaluation feedbackに対応するexact再整備packageを確定する。"
     inputs:
@@ -6583,6 +6583,64 @@ tasks:
     expected_output:
       - "exact3 preview/hashes"
       - "next Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "remaining normal3は公式補正gateを持たず、exact previewで05→02a→03の7 work itemとして開始可能である。"
+      evidence:
+        - "IDs hashは757dd8a456218618fa88b6fc8d06b5226da88c4b4f4b1ad0f488a5b3b557acd8、id/stateHash/resultHash digestは8431183d0a952e83df54955972a0e9b869d852245acab7a691c3d3b85681663e。"
+        - "preview target3、work7、canStart true、blockingWarnings0。stage summaryはoriginalize2、correct_choice2、explanation3。"
+        - "targetIdentity questionIdsHashは14d6534e5fe6aadb55ec13373272bb30283a89a610e8aa704a41aed8db1cd264、workItemKeysHashはaf1ee1eef6026696a3f785eec29566315110f099c3cfb71efb337e4974b49295。"
+        - "previewPlanHashは785afbb6099f57a1a4b931d565f67d25db2b19a44ca909c35715857e96b00f3d。"
+      worker_package:
+        objective: "exact3問・7 work itemをevaluation feedback付きで再整備し終端させる。"
+        allowed_files:
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/question_review_console/cache/**"
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "3/3 questions、7/7 work items terminal。"
+          - "official correction10、published382、protected data不変。"
+        stop_if:
+          - "target mismatch又はprotected delta。"
+      next_allowed_task: T096
+      blocked_tasks:
+        - "official correction10"
+        - T999
+      note_needed: false
+      harness: codex
+  - id: T096
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "exact3問・7 work itemをevaluation feedback付きで再整備し終端させる。"
+    inputs:
+      - "T095 Judge receipt"
+      - "previewPlanHash 785afbb6099f57a1a4b931d565f67d25db2b19a44ca909c35715857e96b00f3d"
+    constraints:
+      - "exact3 only。official correction10とpublished382を変更しない。"
+    allowed_files:
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "3/3 and7/7 terminal。"
+    stop_if:
+      - "identity mismatch or protected delta。"
+    expected_output:
+      - "terminal exact3 receipt"
     receipt: null
   - id: T999
     type: judge
