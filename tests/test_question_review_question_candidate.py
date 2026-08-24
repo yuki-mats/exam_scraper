@@ -1010,6 +1010,85 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertEqual(errors, ())
 
+    def test_originalize_candidate_rejects_answer_result_mismatch(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/independent/"
+                "05_originalized/q1.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "originalize": [
+                    "questionBodyText",
+                    "choiceTextList",
+                    "correctChoiceText",
+                    "questionIntent",
+                    "answer_result_text",
+                ]
+            },
+        }
+        targets = candidate_targets("q1", "originalize", plan)
+        candidate = _parse_prepared_candidates(
+            {
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "独自問題の正答表示を誤った番号のまま返した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:originalized",
+                                "setFields": [
+                                    {
+                                        "field": "questionBodyText",
+                                        "value": "独自問題として組み直した問題文",
+                                    },
+                                    {
+                                        "field": "choiceTextList",
+                                        "value": ["独自の正答", "独自の誤答"],
+                                    },
+                                    {
+                                        "field": "correctChoiceText",
+                                        "value": ["正しい", "間違い"],
+                                    },
+                                    {
+                                        "field": "questionIntent",
+                                        "value": "select_correct",
+                                    },
+                                    {
+                                        "field": "answer_result_text",
+                                        "value": "正解は2です。",
+                                    },
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        source = {
+            "questionType": "flash_card",
+            "questionBodyText": "取得元の問題文",
+            "choiceTextList": ["取得元A", "取得元B"],
+            "correctChoiceText": ["間違い", "正しい"],
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は2です。",
+        }
+
+        errors = validate_candidate_content(candidate, targets, source)
+
+        self.assertTrue(
+            any(
+                "05_originalizedのquestionIntent、correctChoiceText、"
+                "answer_result_textが一致していません" in error
+                for error in errors
+            )
+        )
+
     def test_originalize_candidate_allows_source_identical_choices_when_body_changes(
         self,
     ):

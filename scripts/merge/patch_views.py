@@ -27,6 +27,10 @@ from scripts.common.independent_question_images import (
     INDEPENDENT_IMAGE_REQUIRED_FIELD,
     validate_originalized_image_entry,
 )
+from scripts.common.question_answer_contract import (
+    official_answer_alignment_issue,
+    parse_official_answer_numbers,
+)
 from scripts.merge.merge_utils import (
     build_manual_output_path,
     maybe_split_for_manual_output,
@@ -599,6 +603,13 @@ def validate_originalized_entry(
         raise ValueError(
             "05_originalized.questionIntentはselect_correctまたはselect_incorrectが必要です。"
         )
+    answer_alignment_issue = official_answer_alignment_issue(dict(entry))
+    if answer_alignment_issue:
+        raise ValueError(
+            "05_originalizedのquestionIntent、correctChoiceText、"
+            "answer_result_textが一致していません: "
+            + answer_alignment_issue
+        )
 
     source_body = source.get("questionBodyText") or source.get(
         "originalQuestionBodyText"
@@ -650,6 +661,18 @@ def apply_originalized_fields(
             normalize_correct_choice_label(value)
             for value in question["correctChoiceText"]
         ]
+        inferred_answer_numbers = parse_official_answer_numbers(
+            question.get("answer_result_text")
+        )
+        if inferred_answer_numbers:
+            question["answer_result_inferred_correct_choice_numbers"] = list(
+                inferred_answer_numbers
+            )
+        else:
+            question.pop(
+                "answer_result_inferred_correct_choice_numbers",
+                None,
+            )
         question["examSource"] = INDEPENDENT_QUESTION_EXAM_SOURCE
         question.pop("examYear", None)
         question["originalQuestionBodyText"] = question["questionBodyText"]

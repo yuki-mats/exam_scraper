@@ -259,11 +259,17 @@ def project_merge_record(
             source_record,
             explanation,
         )
+    # 05_originalized is the publication-content owner, including its
+    # answer_result_text.  Legacy 15/23 records remain readable only when no
+    # 05 patch exists; they must not restore the immutable source answer after
+    # the question and choices have been independently rewritten.
+    answer_override_intent = () if originalized else intent_fallback
+    answer_override_strict = () if originalized else strict_correct
     counts["legacy_answer_result_override"] = _apply_candidates(
-        merged1, intent_fallback, apply_answer_result_overrides
+        merged1, answer_override_intent, apply_answer_result_overrides
     )
     counts["strict_answer_result_override"] = _apply_candidates(
-        merged1, strict_correct, apply_answer_result_overrides
+        merged1, answer_override_strict, apply_answer_result_overrides
     )
     counts["question_intent"] = _apply_candidates(
         merged1,
@@ -297,10 +303,10 @@ def project_merge_record(
         merged2, question_set, apply_question_set
     )
     counts["legacy_answer_result"] = _apply_candidates(
-        merged2, intent_fallback, apply_answer_result_overrides
+        merged2, answer_override_intent, apply_answer_result_overrides
     )
     counts["answer_result"] = _apply_candidates(
-        merged2, strict_correct, apply_answer_result_overrides
+        merged2, answer_override_strict, apply_answer_result_overrides
     )
     counts["question_intent_merged2"] = _apply_candidates(
         merged2,

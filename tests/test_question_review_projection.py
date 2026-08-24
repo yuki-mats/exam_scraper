@@ -338,6 +338,64 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         )
         self.assertEqual(projected.merged2["answer_result_text"], "正解は 2 です。")
 
+    def test_originalized_answer_owns_merge_and_refreshes_derived_numbers(self):
+        projected = project_merge_record(
+            {
+                "original_question_id": "q1",
+                "questionBodyText": "取得元の問題文",
+                "choiceTextList": ["取得元A", "取得元B"],
+                "correctChoiceText": ["間違い", "正しい"],
+                "questionIntent": "select_correct",
+                "answer_result_text": "正解は 2 です。",
+                "answer_result_inferred_correct_choice_numbers": [2],
+            },
+            originalized=(
+                PatchEntry(
+                    Path("05.json"),
+                    {
+                        "original_question_id": "q1",
+                        "questionBodyText": "独自問題の問題文",
+                        "choiceTextList": ["独自の正答", "独自の誤答"],
+                        "correctChoiceText": ["正しい", "間違い"],
+                        "questionIntent": "select_correct",
+                        "answer_result_text": "正解は1です。",
+                    },
+                ),
+            ),
+            intent_fallback=(
+                PatchEntry(
+                    Path("15.json"),
+                    {
+                        "original_question_id": "q1",
+                        "questionIntent": "select_correct",
+                        "answer_result_text": "正解は 2 です。",
+                        "answer_result_inferred_correct_choice_numbers": [2],
+                    },
+                ),
+            ),
+            strict_correct=(
+                PatchEntry(
+                    Path("23.json"),
+                    {
+                        "original_question_id": "q1",
+                        "correctChoiceText": ["正しい", "間違い"],
+                        "answer_result_text": "正解は 2 です。",
+                        "answer_result_inferred_correct_choice_numbers": [2],
+                    },
+                ),
+            ),
+        )
+
+        self.assertEqual(projected.merged2["answer_result_text"], "正解は1です。")
+        self.assertEqual(
+            projected.merged2["answer_result_inferred_correct_choice_numbers"],
+            [1],
+        )
+        self.assertEqual(
+            projected.merged2["correctChoiceText"],
+            ["正しい", "間違い"],
+        )
+
     def test_record_projection_ignores_empty_legacy_answer_result(self):
         projected = project_merge_record(
             {

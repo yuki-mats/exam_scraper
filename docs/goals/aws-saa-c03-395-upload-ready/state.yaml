@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T079
+active_task: T081
 
 tasks:
   - id: T001
@@ -5617,7 +5617,7 @@ tasks:
   - id: T079
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "policy5.2 currentValidと現行stateHashが一致する通常needs_rework75問を、単一mixed evaluationRework runで問題別の05・01・02a・03工程だけへ配送し、196 work itemsをartifactSyncまで収束させる。"
     inputs:
@@ -5664,6 +5664,145 @@ tasks:
       - "Verification fails twice."
     expected_output:
       - "terminal mixed evaluationRework run for 75 questions and 196 validated work items"
+    receipt:
+      result: blocked
+      blocked_reason: "mixed previewとrun開始は成功し、53問・163/196 work itemsを確定したが、22問・33 itemsが理由付き保留となりqueueStatus=partialになった。さらにartifactSyncはfd73285675016aee66f68461のquestionIntent、correctChoiceText、official answer mismatchをconvert検査で検出してfailedとなったため、T079のstop_ifに到達した。"
+      changed_files:
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260824T124133194582-d2db9c32/**"
+        - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+        - "output/question_review_console/cache/**"
+      commands:
+        - cmd: "mixed evaluationRework preview exact75"
+          status: pass
+        - cmd: "run 20260824T124133194582-d2db9c32 queue convergence"
+          status: fail
+        - cmd: "artifactSync merge/convert/upload-ready"
+          status: fail
+        - cmd: "inventory, source, category and Firestore boundary readback"
+          status: pass
+      summary: "previewはtarget75、selection300、queue196、stage summary originalize53/question_type1/correct_choice67/explanation75、canStart true。runはstatus succeeded、queueStatus partial、receiptValidated true、validatedQuestion53、blockedQuestion22、validatedItem163、blockedItem33、pending0、retrySafe true。artifactSync failed。現行inventoryはconvert_stale54問、source answer difference15、evaluationはmaintenance53/unreviewed11/needsRework25/publishReady40/published266。00_source aggregateとcategory、Firestore writes0は不変。"
+      evidence:
+        - "planはselectionWorkItemCount300とworkItemCount196を分離して保存し、mixed preview target identityを通過した。"
+        - "工程別は05:52 validated/1 blocked、01:1/0、02a:57/10、03:53/22。"
+        - "terminal run 20260824T124133194582-d2db9c32はreceiptValidated true、pending0、retrySafe true。"
+        - "artifactSync convertはoriginalQuestionId a7f8e743f22f2be0でintent=select_correct、official=[4]、independent current=[1]の不一致を検出し停止した。current question idはfd73285675016aee66f68461。"
+        - "inventoryは395問、identityBlockers0、artifactResolutionBlockers0、convert_stale54問、merge/upload match395。"
+        - "00_source aggregate SHA-256 bc76ba8ea294c920246ab74666b255d7c24eb600b7f43aaa7aa79b6bef0217cb、category差分なし。"
+        - "review-ui serverはterminal後に正常終了。"
+      spawned_tasks:
+        - T080
+      verification_attempts: 1
+      stopped_because: "T079 stop_if: queue partial and artifactSync failed"
+      harness: codex
+  - id: T080
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T079の22問33 work item保留とartifactSync失敗をread-onlyで監査し、根拠衝突、05方針不足、説明検査、validated成果のquestionIntent/official answer mismatchを分類して、成功53問を保持した最小の回復順を決定する。"
+    inputs:
+      - "run 20260824T124133194582-d2db9c32 manifest, question states, feedback, technical log"
+      - "fd73285675016aee66f68461 convert failure"
+      - "current inventory and evaluation/source-answer partitions"
+    constraints:
+      - "Read-only。run、sync、review、official correction又はdata変更を開始しない。"
+      - "成功した53問・163 work itemsを巻き戻さない。"
+      - "同じ入力でblocked runを再試行しない。"
+      - "00_source、category、Firestoreを変更しない。"
+    expected_output:
+      - "blocked reason categories and exact question counts"
+      - "artifactSync root cause and ownership gap"
+      - "system fix versus content/evidence work separation"
+      - "ordered next Worker packages with allowed_files, verify, stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "22問は、02aで取得元解答と独立判定が衝突した9問、03が問題文・選択肢・正答の一意性不足を検出した12問、05が終了済みサービスの置換条件を確定できなかった1問に分かれる。成功53問は保持できる。artifactSync失敗は、05が正答表示を正しく1へ更新した後にlegacy 15の正答表示4がmergeで再上書きされ、さらにanswer_result_inferred_correct_choice_numbersが05適用後も旧値4のまま残る工程責務の不一致である。検査は正しく停止しており、最初に05正本優先と派生値正規化を実装修正する。"
+      evidence:
+        - "blocked22問33 itemsの先頭工程は02a 9問、03 12問、05 1問。依存後続のblockを除くと全22問を一意に分類できる。"
+        - "02a 9問はAWS一次根拠で現在の設問に複数成立又は取得元解答との衝突を検出し、正答配列だけを推測変更しなかった。"
+        - "03 12問は解説工程の責務外である問題文・選択肢・正答の一意性不足を検出し、05再整備が必要と判断した。"
+        - "05 1問はAmazon Fraud Detectorの新規顧客提供終了後に使う置換サービス又は条件変更の承認根拠が不足した。"
+        - "fd73285675016aee66f68461の05 patchはcorrectChoiceText=[正しい,間違い,間違い,間違い]、answer_result_text=正解は1です。まで整合している。"
+        - "同問のlegacy 15 patchはanswer_result_text=正解は 4 です。を保持し、現行merge順が05適用後にlegacy answer overrideを再適用したため30_merged_2で4へ戻った。"
+        - "05 patch内のanswer_result_inferred_correct_choice_numbersも旧値[4]だが、このfieldはanswer_result_textから機械導出する派生値でありモデル判断の正本ではない。"
+        - "全395個の現行05 patchをread-only走査し、answer_result_textとquestionIntent/correctChoiceTextの不一致は0件。"
+        - "00_source aggregate、category、published266、Firestore writes0は不変。"
+      worker_package:
+        objective: "05独自問題化を正答表示の正本としてmerge全経路で優先し、answer_result_inferred_correct_choice_numbersを05のanswer_result_textから機械正規化する。05候補自身のquestionIntent・correctChoiceText・answer_result_text不一致を保存前に拒否し、既存の05なしlegacy互換は維持する。"
+        allowed_files:
+          - scripts/merge/patch_views.py
+          - scripts/merge/record_projection.py
+          - tests/test_question_review_projection.py
+          - tests/test_question_review_question_candidate.py
+          - document/reference/question_field_contract.md
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "05ありではlegacy 15/23のanswer_result_textが05正本を上書きしない回帰test。"
+          - "05適用時にanswer_result_inferred_correct_choice_numbersがanswer_result_textから再生成される回帰test。"
+          - "05候補の正答表示と正答配列が不一致なら保存前validationで拒否する回帰test。"
+          - "05なしのlegacy 15/23 answer override互換testが引き続き成功する。"
+          - "関連projection/candidate/merge test suite。"
+          - "00_sourceとSAA data artifact差分なし。"
+        stop_if:
+          - "検査を弱める又はofficial answer mismatchを許容しないと修正できない。"
+          - "05なし資格のlegacy互換を破壊する。"
+          - "正答を機械的に選ぶ必要が生じる。"
+          - "00_source、SAA patch又はFirestoreの変更が必要になる。"
+      next_allowed_task: T081
+      blocked_tasks:
+        - "artifact sync recovery"
+        - "22 content/evidence rework"
+        - "post-rework reevaluation"
+        - "14 source answer-difference approvals"
+        - T999
+      missing_evidence:
+        - "T081 system fix tests and push"
+        - "successful artifactSync preserving validated53"
+        - "22 questions rework convergence"
+        - "all395 final evaluation and delivery gates"
+      harness: codex
+  - id: T081
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "05独自問題化を正答表示の正本としてmerge全経路で優先し、answer_result_inferred_correct_choice_numbersを05のanswer_result_textから機械正規化する。05候補自身のquestionIntent・correctChoiceText・answer_result_text不一致を保存前に拒否し、既存の05なしlegacy互換は維持する。"
+    inputs:
+      - "T080 Judge receipt"
+      - "fd73285675016aee66f68461 artifactSync failure"
+      - "question field contract and current projection order"
+    constraints:
+      - "検査を弱めず、工程正本と処理順を直す。"
+      - "正答を推測又は自動選択しない。派生値だけを正本から機械生成する。"
+      - "05なしのlegacy 15/23読取互換を維持する。"
+      - "00_source、SAA data artifact、category、Firestoreを変更しない。"
+    allowed_files:
+      - scripts/merge/patch_views.py
+      - scripts/merge/record_projection.py
+      - tests/test_question_review_projection.py
+      - tests/test_question_review_question_candidate.py
+      - document/reference/question_field_contract.md
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "05正本優先、派生値再生成、05候補不一致拒否、05なしlegacy互換の回帰test。"
+      - "関連projection/candidate/merge test suite。"
+      - "00_sourceとSAA data artifact差分なし。"
+    stop_if:
+      - "検査緩和、正答の機械選択、legacy破壊又はdata変更が必要になる。"
+      - "Verification fails twice."
+    expected_output:
+      - "tested system fix committed and pushed to origin/main"
     receipt: null
   - id: T999
     type: judge
