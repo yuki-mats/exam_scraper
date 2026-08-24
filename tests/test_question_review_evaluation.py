@@ -175,9 +175,10 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             "load",
             "build_prompt",
             "run_create",
+            "profile_update",
             "reserve",
+            "running_update",
             "prompt_save",
-            "run_update",
             "model",
         )
         for stage in stages:
@@ -203,7 +204,8 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                     "run_create": (service.run_store, "create"),
                     "reserve": (service.store, "reserve_attempt"),
                     "prompt_save": (service.store, "save_prompt"),
-                    "run_update": (service.run_store, "update"),
+                    "profile_update": (service.run_store, "update"),
+                    "running_update": (service.run_store, "update"),
                 }.get(stage, (None, None))
                 original = getattr(owner, attribute) if owner is not None else None
                 if owner is not None:
@@ -211,7 +213,11 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
 
                     def fail_once(*args, **kwargs):
                         nonlocal failed
-                        if not failed:
+                        matches = (
+                            stage != "running_update"
+                            or kwargs.get("status") == "running"
+                        )
+                        if matches and not failed:
                             failed = True
                             raise RuntimeError(f"injected {stage} failure")
                         return original(*args, **kwargs)
@@ -245,6 +251,94 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 )
 
             self.assertEqual(completed["evaluation"]["status"], "passed")
+
+    def test_batch_transport_cleanup_failures_release_all_and_retry_without_duplicate_promotion(self):
+        cleanup_stages = ("write_result", "manifest", "projection")
+        for cleanup_stage in cleanup_stages:
+            with self.subTest(cleanup_stage=cleanup_stage), tempfile.TemporaryDirectory() as directory:
+                service = QuestionEvaluationService(
+                    Path(directory), "secret", result_runner=lambda _prompt: evaluation_result()
+                )
+                first = question_payload()
+                second = question_payload(
+                    question_id="api-q2", body="問題2", state_hash="state-2"
+                )
+                second["reviewKey"] = "sample:2026:question_2:api-q2"
+                questions = [first, second]
+                for question in questions:
+                    preview = service.preview(question)
+                    service.run(question, preview["previewToken"], lambda _line: None)
+                prior = {
+                    question["id"]: service.store.load_projection(question)["currentValid"]["runId"]
+                    for question in questions
+                }
+
+                def transport_failure(_prompt):
+                    raise RuntimeError("transport failed")
+
+                service.result_runner = transport_failure
+                owner, attribute = {
+                    "write_result": (service.run_store, "write_result"),
+                    "manifest": (service.run_store, "update"),
+                    "projection": (service.store, "record_attempt"),
+                }[cleanup_stage]
+                original = getattr(owner, attribute)
+
+                def fail_cleanup(*args, **kwargs):
+                    is_cleanup = (
+                        cleanup_stage == "write_result"
+                        or (cleanup_stage == "manifest" and kwargs.get("status") == "failed")
+                        or (cleanup_stage == "projection" and kwargs.get("status") == "failed")
+                    )
+                    if is_cleanup:
+                        raise OSError(f"injected {cleanup_stage} cleanup failure")
+                    return original(*args, **kwargs)
+
+                setattr(owner, attribute, fail_cleanup)
+                preview = service.preview_many(questions)
+                failed = service.run_many(
+                    questions, preview["previewToken"], lambda _line: None
+                )
+                setattr(owner, attribute, original)
+
+                self.assertEqual(failed["failedCount"], 2)
+                self.assertEqual(service._active, set())
+                for question in questions:
+                    projection = service.store.load_projection(question)
+                    self.assertEqual(
+                        projection["currentValid"]["runId"], prior[question["id"]]
+                    )
+
+                service.result_runner = lambda prompt: {
+                    "evaluations": [
+                        {
+                            "questionId": question["id"],
+                            "stateHash": question["stateHash"],
+                            "result": evaluation_result(),
+                        }
+                        for question in questions
+                        if f'"questionId": "{question["id"]}"' in prompt
+                    ]
+                }
+                retry_preview = service.preview_many(questions)
+                retried = service.run_many(
+                    questions, retry_preview["previewToken"], lambda _line: None
+                )
+                self.assertEqual(retried["completedCount"], 2)
+                self.assertEqual(service._active, set())
+                for question in questions:
+                    projection = service.store.load_projection(question)
+                    self.assertEqual(
+                        projection["promotedAttemptSequence"],
+                        projection["latestAttemptSequence"],
+                    )
+                    self.assertEqual(
+                        projection["currentValid"]["runId"],
+                        projection["latestAttempt"]["runId"],
+                    )
+                    self.assertNotEqual(
+                        projection["currentValid"]["runId"], prior[question["id"]]
+                    )
 
     def test_recovery_write_failure_releases_active_before_run_creation(self):
         calls = 0
@@ -1871,14 +1965,17 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(status["status"], "stale")
         self.assertFalse(status["publishReady"])
 
-    def test_batch_uses_a_separate_runner_call_per_question_and_continues_after_failure(self):
+    def test_batch_uses_one_semantic_turn_for_multiple_questions(self):
         calls = []
 
         def runner(prompt):
             calls.append(prompt)
-            if "問題2" in prompt:
-                raise RuntimeError("evaluation failed")
-            return evaluation_result()
+            return {
+                "evaluations": [
+                    {"questionId": "api-q1", "stateHash": "state-1", "result": evaluation_result()},
+                    {"questionId": "api-q2", "stateHash": "state-2", "result": evaluation_result()},
+                ]
+            }
 
         with tempfile.TemporaryDirectory() as directory:
             service = QuestionEvaluationService(
@@ -1893,35 +1990,47 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             result = service.run_many(
                 [first, second], preview["previewToken"], lambda _line: None
             )
+            manifests = [
+                json.loads(path.read_text(encoding="utf-8"))
+                for path in service.run_store.root.glob("sample/*/manifest.json")
+            ]
+            receipts = [
+                json.loads(path.read_text(encoding="utf-8"))
+                for path in service.run_store.root.glob("sample/*/result.json")
+            ]
 
-        self.assertEqual(preview["sessionCount"], 2)
-        self.assertEqual(preview["evaluationConcurrencyLimit"], 100)
+        self.assertEqual(preview["sessionCount"], 1)
+        self.assertEqual(preview["evaluationConcurrencyLimit"], 1)
+        self.assertEqual(preview["auditBatchQuestions"], 5)
+        self.assertEqual(preview["auditBatchInputBytes"], 120000)
         self.assertEqual(preview["qualification"], "sample")
         self.assertEqual(preview["listGroupIds"], ["2026"])
-        self.assertEqual(len(calls), 2)
-        self.assertEqual(result["completedCount"], 1)
-        self.assertEqual(result["failedCount"], 1)
-        self.assertEqual(result["passedCount"], 1)
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(result["completedCount"], 2)
+        self.assertEqual(result["failedCount"], 0)
+        self.assertEqual(result["passedCount"], 2)
+        self.assertEqual(
+            {tuple(row["auditBatchQuestionIds"]) for row in manifests},
+            {("api-q1", "api-q2")},
+        )
+        self.assertTrue(all(row["auditBatch"]["questionCount"] == 2 for row in receipts))
+        self.assertTrue(all(row["auditBatch"]["inputBytes"] > 0 for row in receipts))
 
-    def test_batch_runs_sessions_in_parallel_and_preserves_result_order(self):
-        active = 0
-        max_active = 0
-        lock = threading.Lock()
-        barrier = threading.Barrier(4)
+    def test_batch_splits_six_questions_and_preserves_result_order(self):
+        calls = []
 
-        def runner(_prompt):
-            nonlocal active, max_active
-            with lock:
-                active += 1
-                max_active = max(max_active, active)
-            barrier.wait(timeout=5)
-            time.sleep(0.01)
-            with lock:
-                active -= 1
-            return evaluation_result()
+        def runner(prompt):
+            calls.append(prompt)
+            ids = [f"api-q{index}" for index in range(1, 7) if f'"questionId": "api-q{index}"' in prompt]
+            return {
+                "evaluations": [
+                    {"questionId": question_id, "stateHash": f"state-{question_id[5:]}", "result": evaluation_result()}
+                    for question_id in ids
+                ]
+            }
 
         questions = []
-        for index in range(4):
+        for index in range(6):
             question = question_payload(
                 question_id=f"api-q{index + 1}",
                 body=f"問題{index + 1}",
@@ -1943,33 +2052,19 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 questions, preview["previewToken"], lambda _line: None
             )
 
-        self.assertEqual(max_active, 4)
+        self.assertEqual(len(calls), 2)
         self.assertEqual(
             [item["questionId"] for item in result["results"]],
             [question["id"] for question in questions],
         )
 
-    def test_continuous_queue_refills_workers_until_all_questions_finish(self):
-        active = 0
-        max_active = 0
+    def test_transport_failure_does_not_fan_out_to_single_turns(self):
         call_count = 0
-        lock = threading.Lock()
-        first_wave_started = threading.Event()
-        release = threading.Event()
 
         def runner(_prompt):
-            nonlocal active, max_active, call_count
-            with lock:
-                active += 1
-                call_count += 1
-                max_active = max(max_active, active)
-                if call_count >= 3:
-                    first_wave_started.set()
-            release.wait(timeout=5)
-            time.sleep(0.01)
-            with lock:
-                active -= 1
-            return evaluation_result()
+            nonlocal call_count
+            call_count += 1
+            raise RuntimeError("transport failed")
 
         questions = []
         for index in range(7):
@@ -1983,15 +2078,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             )
             questions.append(question)
 
-        with (
-            tempfile.TemporaryDirectory() as directory,
-            patch(
-                "tools.question_review_console.evaluation."
-                "MAX_EVALUATION_CONCURRENCY",
-                3,
-            ),
-            ThreadPoolExecutor(max_workers=1) as executor,
-        ):
+        with tempfile.TemporaryDirectory() as directory:
             service = QuestionEvaluationService(
                 Path(directory),
                 "secret",
@@ -2001,24 +2088,280 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 questions,
                 continuous_queue=True,
             )
-            future = executor.submit(
-                service.run_many,
+            result = service.run_many(
                 questions,
                 preview["previewToken"],
                 lambda _line: None,
                 continuous_queue=True,
             )
-            self.assertTrue(first_wave_started.wait(timeout=5))
-            self.assertEqual(max_active, 3)
-            release.set()
-            result = future.result(timeout=5)
 
         self.assertTrue(preview["continuousQueue"])
-        self.assertEqual(preview["evaluationConcurrencyLimit"], 3)
-        self.assertEqual(call_count, 7)
-        self.assertEqual(max_active, 3)
-        self.assertEqual(result["completedCount"], 7)
-        self.assertEqual(result["passedCount"], 7)
+        self.assertEqual(preview["evaluationConcurrencyLimit"], 1)
+        self.assertEqual(call_count, 2)
+        self.assertEqual(result["completedCount"], 0)
+        self.assertEqual(result["failedCount"], 7)
+
+    def test_invalid_batch_item_retries_only_that_question(self):
+        calls = []
+
+        def runner(prompt):
+            calls.append(prompt)
+            if len(calls) == 1:
+                return {
+                    "evaluations": [
+                        {"questionId": "api-q1", "stateHash": "state-1", "result": evaluation_result()},
+                        {"questionId": "api-q2", "stateHash": "wrong", "result": evaluation_result()},
+                    ]
+                }
+            self.assertIn("api-q2", prompt)
+            self.assertNotIn("api-q1", prompt)
+            return evaluation_result()
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=runner)
+            first = question_payload()
+            second = question_payload(question_id="api-q2", body="問題2", state_hash="state-2")
+            second["reviewKey"] = "sample:2026:question_2:api-q2"
+            preview = service.preview_many([first, second])
+            result = service.run_many([first, second], preview["previewToken"], lambda _line: None)
+
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(result["completedCount"], 2)
+        self.assertEqual([item["questionId"] for item in result["results"]], ["api-q1", "api-q2"])
+
+    def test_missing_duplicate_and_choice_coverage_retry_only_required_question(self):
+        first = question_payload()
+        second = question_payload(question_id="api-q2", body="問題2", state_hash="state-2")
+        second["reviewKey"] = "sample:2026:question_2:api-q2"
+        invalid_choice = evaluation_result()
+        invalid_choice["choiceEvaluations"] = invalid_choice["choiceEvaluations"][:1]
+        cases = {
+            "missing": [
+                {"questionId": "api-q1", "stateHash": "state-1", "result": evaluation_result()},
+            ],
+            "duplicate": [
+                {"questionId": "api-q1", "stateHash": "state-1", "result": evaluation_result()},
+                {"questionId": "api-q2", "stateHash": "state-2", "result": evaluation_result()},
+                {"questionId": "api-q2", "stateHash": "state-2", "result": evaluation_result()},
+            ],
+            "choice_coverage": [
+                {"questionId": "api-q1", "stateHash": "state-1", "result": evaluation_result()},
+                {"questionId": "api-q2", "stateHash": "state-2", "result": invalid_choice},
+            ],
+        }
+        for name, rows in cases.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                calls = []
+
+                def runner(prompt):
+                    calls.append(prompt)
+                    return {"evaluations": rows} if len(calls) == 1 else evaluation_result()
+
+                service = QuestionEvaluationService(Path(directory), "secret", result_runner=runner)
+                preview = service.preview_many([first, second])
+                result = service.run_many([first, second], preview["previewToken"], lambda _line: None)
+
+                self.assertEqual(len(calls), 2)
+                self.assertIn("api-q2", calls[1])
+                self.assertNotIn("api-q1", calls[1])
+                self.assertEqual(result["completedCount"], 2)
+
+    def test_extra_batch_id_retries_every_expected_question_alone(self):
+        calls = []
+
+        def runner(prompt):
+            calls.append(prompt)
+            if len(calls) == 1:
+                return {
+                    "evaluations": [
+                        {"questionId": "api-q1", "stateHash": "state-1", "result": evaluation_result()},
+                        {"questionId": "extra", "stateHash": "foreign", "result": evaluation_result()},
+                    ]
+                }
+            return evaluation_result()
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=runner)
+            first = question_payload()
+            second = question_payload(question_id="api-q2", body="問題2", state_hash="state-2")
+            second["reviewKey"] = "sample:2026:question_2:api-q2"
+            preview = service.preview_many([first, second])
+            result = service.run_many([first, second], preview["previewToken"], lambda _line: None)
+
+        self.assertEqual(len(calls), 3)
+        self.assertEqual(result["completedCount"], 2)
+        self.assertIn("api-q1", calls[1])
+        self.assertIn("api-q2", calls[2])
+
+    def test_batch_envelope_schema_failure_retries_expected_questions_alone(self):
+        calls = []
+
+        def runner(prompt):
+            calls.append(prompt)
+            return {} if len(calls) == 1 else evaluation_result()
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=runner)
+            first = question_payload()
+            second = question_payload(question_id="api-q2", body="問題2", state_hash="state-2")
+            second["reviewKey"] = "sample:2026:question_2:api-q2"
+            preview = service.preview_many([first, second])
+            result = service.run_many([first, second], preview["previewToken"], lambda _line: None)
+
+        self.assertEqual(len(calls), 3)
+        self.assertEqual(result["completedCount"], 2)
+        self.assertEqual(result["failedCount"], 0)
+
+    def test_oversize_single_uses_single_path_without_blocking_sibling(self):
+        calls = []
+
+        def runner(prompt):
+            calls.append(prompt)
+            return evaluation_result()
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=runner)
+            first = question_payload(body="日本語の長い問題" * 20)
+            second = question_payload(question_id="api-q2", body="問題2", state_hash="state-2")
+            second["reviewKey"] = "sample:2026:question_2:api-q2"
+            with patch.object(service, "_batch_limits", return_value=(5, 1)):
+                preview = service.preview_many([first, second])
+                result = service.run_many([first, second], preview["previewToken"], lambda _line: None)
+
+        self.assertEqual(preview["sessionCount"], 2)
+        self.assertEqual(len(calls), 2)
+        self.assertTrue(all("# 問題品質の独立batch監査" not in prompt for prompt in calls))
+        self.assertEqual(result["completedCount"], 2)
+
+    def test_batch_reserves_each_run_and_attempt_before_model_call_and_can_resume(self):
+        inspected = []
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            service = QuestionEvaluationService(root, "secret", result_runner=lambda _prompt: {})
+            first = question_payload()
+            second = question_payload(question_id="api-q2", body="問題2", state_hash="state-2")
+            second["reviewKey"] = "sample:2026:question_2:api-q2"
+
+            def failing_runner(_prompt):
+                manifests = [json.loads(path.read_text(encoding="utf-8")) for path in service.run_store.root.glob("sample/*/manifest.json")]
+                projections = [service.store.load_projection(question) for question in (first, second)]
+                inspected.append((manifests, projections))
+                raise RuntimeError("transport down")
+
+            service.result_runner = failing_runner
+            preview = service.preview_many([first, second])
+            failed = service.run_many([first, second], preview["previewToken"], lambda _line: None)
+            self.assertEqual(failed["failedCount"], 2)
+            self.assertEqual(len(inspected[0][0]), 2)
+            self.assertTrue(all(row["status"] == "running" for row in inspected[0][0]))
+            self.assertTrue(all(row["latestAttempt"]["status"] == "reserved" for row in inspected[0][1]))
+
+            service.result_runner = lambda prompt: {
+                "evaluations": [
+                    {"questionId": question["id"], "stateHash": question["stateHash"], "result": evaluation_result()}
+                    for question in (first, second)
+                    if f'"questionId": "{question["id"]}"' in prompt
+                ]
+            }
+            resumed_preview = service.preview_many([first, second])
+            resumed = service.run_many([first, second], resumed_preview["previewToken"], lambda _line: None)
+            self.assertEqual(resumed["completedCount"], 2)
+            self.assertTrue(
+                all(service.store.load_projection(question)["latestAttemptSequence"] == 2 for question in (first, second))
+            )
+
+    def test_batch_groups_law_and_image_modes_without_reordering(self):
+        questions = []
+        for index in range(4):
+            question = question_payload(
+                question_id=f"api-q{index + 1}", body=f"問題{index + 1}", state_hash=f"state-{index + 1}"
+            )
+            question["reviewKey"] = f"sample:2026:question_{index + 1}:api-q{index + 1}"
+            question["projected"]["isLawRelated"] = index >= 2
+            question["projected"]["questionImageStorageUrls"] = [] if index % 2 else ["https://example.invalid/image.png"]
+            questions.append(question)
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=lambda _prompt: evaluation_result())
+            preview = service.preview_many(questions)
+            batches = service._audit_batches(preview["items"], {question["id"]: question for question in questions})
+
+        self.assertEqual([[item[1]["questionId"] for item in batch] for batch in batches], [["api-q1"], ["api-q2"], ["api-q3"], ["api-q4"]])
+
+    def test_batch_byte_limit_uses_actual_utf8_prompt_bytes(self):
+        first = question_payload(body="日本語" * 100)
+        second = question_payload(question_id="api-q2", body="問題二" * 100, state_hash="state-2")
+        second["reviewKey"] = "sample:2026:question_2:api-q2"
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=lambda _prompt: evaluation_result())
+            combined = service._build_batch_prompt([first, second])
+            self.assertGreater(len(combined.encode("utf-8")), len(combined))
+            byte_limit = len(combined.encode("utf-8")) - 1
+            with patch.object(service, "_batch_limits", return_value=(5, byte_limit)):
+                preview = service.preview_many([first, second])
+
+        self.assertEqual(preview["sessionCount"], 2)
+
+    def test_hybrid_profile_is_fixed_in_preview_token_and_question_manifest(self):
+        class ProfileRouter:
+            configured = True
+            provider = "profiles"
+
+            @staticmethod
+            def snapshot_for(name):
+                return {
+                    "name": name,
+                    "fingerprint": f"fingerprint-{name}",
+                    "roles": {"audit": {"kind": "codex_app_server"}},
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                app_server=ProfileRouter(),
+                result_runner=lambda _prompt: evaluation_result(),
+            )
+            question = question_payload()
+            preview = service.preview_many(
+                [question], model_profile="local_generate_codex_audit"
+            )
+            with self.assertRaisesRegex(EvaluationError, "更新されました"):
+                service.run_many(
+                    [question],
+                    preview["previewToken"],
+                    lambda _line: None,
+                    model_profile="codex_only",
+                )
+            result = service.run_many(
+                [question],
+                preview["previewToken"],
+                lambda _line: None,
+                model_profile="local_generate_codex_audit",
+            )
+            self.assertEqual(result["completedCount"], 1)
+            manifest_path = next(service.run_store.root.glob("sample/*/manifest.json"))
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(preview["modelProfile"], "local_generate_codex_audit")
+        self.assertEqual(manifest["modelProfile"], "local_generate_codex_audit")
+        self.assertEqual(manifest["modelProfileFingerprint"], "fingerprint-local_generate_codex_audit")
+
+    def test_batch_prompt_never_sends_current_correct_choice(self):
+        captured = []
+
+        def runner(prompt):
+            captured.append(prompt)
+            return evaluation_result()
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=runner)
+            question = question_payload()
+            question["projected"]["correctChoiceText"] = ["CURRENT_CORRECT_SENTINEL", "間違い"]
+            preview = service.preview_many([question])
+            service.run_many([question], preview["previewToken"], lambda _line: None)
+
+        self.assertNotIn("CURRENT_CORRECT_SENTINEL", captured[0])
 
     def test_continuous_queue_can_exceed_manual_selection_limit(self):
         questions = []
@@ -2047,7 +2390,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             )
 
         self.assertEqual(preview["selectedCount"], 101)
-        self.assertEqual(preview["sessionCount"], 101)
+        self.assertEqual(preview["sessionCount"], 21)
         self.assertTrue(preview["continuousQueue"])
 
     def test_batch_retries_once_when_all_choice_evidence_is_incomplete(self):

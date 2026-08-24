@@ -7005,14 +7005,16 @@ async function openEvaluationDialog(
   state.workflowDialog.continuousQueue = continuousQueue;
   state.workflowDialog.qualification = state.qualification;
   state.workflowDialog.listGroupId = state.listGroupId;
+  const modelProfile = $("#qualification-run-model-profile")?.value || "codex_only";
   try {
     const requestBody = continuousQueue
       ? {
         continuousQueue: true,
         qualification: state.qualification,
         listGroupId: state.listGroupId,
+        modelProfile,
       }
-      : { questionIds: selected };
+      : { questionIds: selected, modelProfile };
     const preview = await api("/api/evaluations/preview", {
       method: "POST",
       body: requestBody,
@@ -7025,12 +7027,13 @@ async function openEvaluationDialog(
       summaryMetric(continuousQueue ? "評価queue" : "選択", `${preview.selectedCount}問`),
       summaryMetric("評価可能", `${preview.evaluableCount}問`, preview.evaluableCount ? "good" : "danger"),
       summaryMetric(
-        continuousQueue ? "予定セッション" : "別セッション",
+        "予定監査セッション",
         `${preview.sessionCount}回`,
         preview.sessionCount ? "warning" : "",
       ),
       summaryMetric("評価前整備", `${preview.blockedCount}問`, preview.blockedCount ? "warning" : "good"),
       summaryMetric("実行方式", preview.provider || "未設定"),
+      summaryMetric("LLM profile", preview.modelProfile || "codex_only"),
     );
     if (!preview.canStart) {
       $("#workflow-dialog-message").textContent =
@@ -7040,11 +7043,12 @@ async function openEvaluationDialog(
       $("#workflow-execute").disabled = false;
       return;
     }
-    $("#workflow-dialog-message").textContent = continuousQueue
-      ? `評価待ちqueueから最大${preview.evaluationConcurrencyLimit}問を常時稼働させ、完了した枠へ次の問題を自動補充します。一問が遅延又は失敗しても他の問題は続行します。`
-      : preview.blockedCount
-        ? `評価可能な問題だけを、独立した新しい別セッションで最大${preview.evaluationConcurrencyLimit}問同時に評価します。整備が必要な問題はスキップします。`
-        : `選択した各問題を、独立した新しい別セッションで最大${preview.evaluationConcurrencyLimit}問同時に評価します。一問が遅延又は失敗しても他の問題は続行します。`;
+    $("#workflow-dialog-message").textContent =
+      `LLM呼出しは${preview.evaluationConcurrencyLimit}並列です。` +
+      `同じ監査条件の問題を最大${preview.auditBatchQuestions}問・` +
+      `${preview.auditBatchInputBytes} UTF-8 bytesごとにCodexで監査します。` +
+      "保存、stateHash検証、失敗と再試行は問題ごとに独立します。" +
+      (preview.blockedCount ? "整備が必要な問題はスキップします。" : "");
     $("#workflow-execute").textContent = `${preview.evaluableCount}問の評価を開始`;
     $("#workflow-execute").disabled = false;
   } catch (error) {
@@ -7169,8 +7173,13 @@ async function startWorkflowExecution() {
           qualification,
           listGroupId,
           previewToken: preview.previewToken,
+          modelProfile: preview.modelProfile || "codex_only",
         }
-        : { questionIds, previewToken: preview.previewToken };
+        : {
+          questionIds,
+          previewToken: preview.previewToken,
+          modelProfile: preview.modelProfile || "codex_only",
+        };
     } else if (mode === "publication") {
       path = "/api/publications/start";
       body = {

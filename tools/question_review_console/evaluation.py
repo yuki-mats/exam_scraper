@@ -8,7 +8,6 @@ import secrets
 import tempfile
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
@@ -38,7 +37,8 @@ SCHEMA_VERSION = "question-evaluation/v1"
 PROJECTION_SCHEMA_VERSION = "question-evaluation-projection/v2"
 PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
-MAX_EVALUATION_CONCURRENCY = 100
+DEFAULT_AUDIT_BATCH_QUESTIONS = 5
+DEFAULT_AUDIT_BATCH_INPUT_BYTES = 120_000
 MAX_INCOMPLETE_EVALUATION_ATTEMPTS = 2
 ALLOWED_REWORK_STAGES = {"05", "01", "02", "02a", "02b", "03", "03b"}
 TRUE_LABELS = {"正しい", "正解", "○", "〇", "true"}
@@ -46,6 +46,12 @@ FALSE_LABELS = {"間違い", "不正解", "誤り", "×", "false"}
 
 
 class EvaluationError(RuntimeError):
+    pass
+
+
+class BatchSchemaError(EvaluationError):
+    """The provider replied, but the semantic batch envelope is unusable."""
+
     pass
 
 
@@ -331,6 +337,7 @@ class EvaluationStore:
         work_type: str = "evaluation",
         policy_version: str,
         policy_fingerprint: str,
+        audit_batch: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         validated = self._validate_result(question, worker_result)
         payload = {
@@ -353,6 +360,8 @@ class EvaluationStore:
             "evaluatedAt": _now(),
             **validated,
         }
+        if audit_batch:
+            payload["auditBatch"] = copy.deepcopy(dict(audit_batch))
         payload["resultHash"] = _json_hash(payload)
         return payload
 
@@ -761,6 +770,14 @@ class QuestionEvaluationService:
         self._active: set[str] = set()
         self._active_lock = threading.RLock()
 
+    def _batch_limits(self) -> tuple[int, int]:
+        config = getattr(self.app_server, "config", None)
+        limits = getattr(config, "limits", None)
+        return (
+            int(getattr(limits, "audit_batch_questions", DEFAULT_AUDIT_BATCH_QUESTIONS)),
+            int(getattr(limits, "audit_batch_input_bytes", DEFAULT_AUDIT_BATCH_INPUT_BYTES)),
+        )
+
     @property
     def configured(self) -> bool:
         return self.result_runner is not None or bool(
@@ -775,8 +792,26 @@ class QuestionEvaluationService:
                 self._policy_checked_at = now
             return copy.deepcopy(self._policy)
 
-    def preview(self, question: Mapping[str, Any]) -> dict[str, Any]:
+    def _profile_snapshot(self, model_profile: str) -> dict[str, Any]:
+        snapshot_for = getattr(self.app_server, "snapshot_for", None)
+        if callable(snapshot_for):
+            snapshot = dict(snapshot_for(model_profile))
+            audit = snapshot.get("roles", {}).get("audit", {})
+            if audit.get("kind") != "codex_app_server":
+                raise EvaluationError("品質監査roleはCodex App Serverである必要があります。")
+            return snapshot
+        if model_profile != "codex_only":
+            raise EvaluationError("model profileを解決できません。")
+        return {"name": model_profile, "fingerprint": "legacy-codex-only"}
+
+    def preview(
+        self,
+        question: Mapping[str, Any],
+        *,
+        model_profile: str = "codex_only",
+    ) -> dict[str, Any]:
         policy = self.current_policy()
+        model_snapshot = self._profile_snapshot(model_profile)
         status = self.status_for(question)
         can_evaluate = bool(self.configured and status["machineReady"])
         token_payload = {
@@ -786,6 +821,8 @@ class QuestionEvaluationService:
             "provider": self.provider,
             "policyVersion": normalize_policy_version(policy["policyVersion"]),
             "policyFingerprint": str(policy["policyFingerprint"]),
+            "modelProfile": model_profile,
+            "modelProfileFingerprint": str(model_snapshot["fingerprint"]),
         }
         reason = ""
         if not self.configured:
@@ -798,6 +835,8 @@ class QuestionEvaluationService:
             "reviewKey": str(question["reviewKey"]),
             "questionLabel": str(question.get("questionLabel") or ""),
             "provider": self.provider,
+            "modelProfile": model_profile,
+            "modelProfileFingerprint": str(model_snapshot["fingerprint"]),
             "canEvaluate": can_evaluate,
             "reason": reason,
             "previewToken": self._token(token_payload),
@@ -812,6 +851,7 @@ class QuestionEvaluationService:
         questions: list[Mapping[str, Any]],
         *,
         continuous_queue: bool = False,
+        model_profile: str = "codex_only",
     ) -> dict[str, Any]:
         unique: list[Mapping[str, Any]] = []
         seen: set[str] = set()
@@ -832,8 +872,11 @@ class QuestionEvaluationService:
         list_group_ids = sorted(
             {str(question.get("listGroupId") or "") for question in unique}
         )
-        items = [self.preview(question) for question in unique]
+        model_snapshot = self._profile_snapshot(model_profile)
+        items = [self.preview(question, model_profile=model_profile) for question in unique]
         evaluable = [item for item in items if item["canEvaluate"]]
+        by_id = {str(question["id"]): question for question in unique}
+        audit_batches = self._audit_batches(evaluable, by_id)
         token_payload = {
             "items": [
                 {
@@ -842,7 +885,9 @@ class QuestionEvaluationService:
                     "previewToken": item["previewToken"],
                 }
                 for item in items
-            ]
+            ],
+            "modelProfile": model_profile,
+            "modelProfileFingerprint": str(model_snapshot["fingerprint"]),
         }
         return {
             "qualification": qualifications[0],
@@ -850,11 +895,15 @@ class QuestionEvaluationService:
             "selectedCount": len(items),
             "evaluableCount": len(evaluable),
             "blockedCount": len(items) - len(evaluable),
-            "sessionCount": len(evaluable),
-            "evaluationConcurrencyLimit": MAX_EVALUATION_CONCURRENCY,
+            "sessionCount": len(audit_batches),
+            "evaluationConcurrencyLimit": 1,
+            "auditBatchQuestions": self._batch_limits()[0],
+            "auditBatchInputBytes": self._batch_limits()[1],
             "continuousQueue": continuous_queue,
             "canStart": bool(evaluable),
             "provider": self.provider,
+            "modelProfile": model_profile,
+            "modelProfileFingerprint": str(model_snapshot["fingerprint"]),
             "items": items,
             "previewToken": self._token(token_payload),
         }
@@ -866,10 +915,12 @@ class QuestionEvaluationService:
         emit: Callable[[str], None],
         *,
         continuous_queue: bool = False,
+        model_profile: str = "codex_only",
     ) -> dict[str, Any]:
         preview = self.preview_many(
             questions,
             continuous_queue=continuous_queue,
+            model_profile=model_profile,
         )
         if not self.token_matches(preview, preview_token):
             raise EvaluationError("確認後に選択問題の内容が更新されました。")
@@ -877,10 +928,13 @@ class QuestionEvaluationService:
         completed: list[dict[str, Any]] = []
         failures: list[dict[str, str]] = []
         eligible_items = [item for item in preview["items"] if item["canEvaluate"]]
-        def evaluate(
-            positioned_item: tuple[int, Mapping[str, Any]],
+        def evaluate_single(
+            position: int,
+            item: Mapping[str, Any],
+            *,
+            prepared: tuple[Mapping[str, Any], Mapping[str, Any]] | None = None,
+            reservation: Mapping[str, Any] | None = None,
         ) -> tuple[dict[str, Any] | None, dict[str, str] | None]:
-            position, item = positioned_item
             question_id = str(item["questionId"])
             emit(
                 f"評価 {position}/{len(eligible_items)}: "
@@ -890,12 +944,25 @@ class QuestionEvaluationService:
                 result = None
                 retry_feedback: Mapping[str, Any] | None = None
                 for attempt in range(1, MAX_INCOMPLETE_EVALUATION_ATTEMPTS + 1):
-                    result = self.run(
-                        by_id[question_id],
-                        str(item["previewToken"]),
-                        emit,
-                        retry_feedback=retry_feedback,
-                    )
+                    if attempt == 1:
+                        result = self.run(
+                            by_id[question_id],
+                            str(item["previewToken"]),
+                            emit,
+                            prepared_worker_result=prepared[0] if prepared else None,
+                            prepared_metadata=prepared[1] if prepared else None,
+                            model_profile=model_profile,
+                            _reserved_run=reservation,
+                            _active_reserved=reservation is not None,
+                        )
+                    else:
+                        result = self.run(
+                            by_id[question_id],
+                            str(item["previewToken"]),
+                            emit,
+                            retry_feedback=retry_feedback,
+                            model_profile=model_profile,
+                        )
                     evaluation = result["evaluation"]
                     if (
                         evaluation["verifiedChoiceCount"]
@@ -938,18 +1005,72 @@ class QuestionEvaluationService:
                 "explanationScore": evaluation["explanationScore"],
             }, None
 
-        positioned_items = list(enumerate(eligible_items, start=1))
-        if positioned_items:
-            with ThreadPoolExecutor(
-                max_workers=min(
-                    MAX_EVALUATION_CONCURRENCY,
-                    len(positioned_items),
-                ),
-                thread_name_prefix="question-evaluation",
-            ) as executor:
-                outcomes = list(executor.map(evaluate, positioned_items))
-        else:
-            outcomes = []
+        outcomes = []
+        for batch in self._audit_batches(eligible_items, by_id):
+            batch_questions = [by_id[str(item["questionId"])] for _, item in batch]
+            if len(self._build_batch_prompt(batch_questions).encode("utf-8")) > self._batch_limits()[1]:
+                # A question that cannot fit the batch envelope uses the existing
+                # single-question path. It must not block later siblings.
+                for position, item in batch:
+                    outcomes.append(evaluate_single(position, item))
+                continue
+            reserved: dict[str, Mapping[str, Any]] = {}
+            runnable: list[tuple[int, Mapping[str, Any]]] = []
+            for position, item in batch:
+                question_id = str(item["questionId"])
+                try:
+                    reserved[question_id] = self._reserve_batch_question(
+                        by_id[question_id], model_profile=model_profile, emit=emit
+                    )
+                    runnable.append((position, item))
+                except Exception as exc:  # noqa: BLE001
+                    outcomes.append((None, {"questionId": question_id, "error": str(exc)}))
+            if not runnable:
+                continue
+            try:
+                batch_results, metadata = self._run_batch_result(
+                    [by_id[str(item["questionId"])] for _, item in runnable], emit,
+                    model_profile=model_profile,
+                )
+            except BatchSchemaError as exc:
+                emit(f"監査batch形式不正のため単問再試行: {exc}")
+                for position, item in runnable:
+                    question_id = str(item["questionId"])
+                    outcomes.append(
+                        evaluate_single(
+                            position, item, reservation=reserved[question_id]
+                        )
+                    )
+                continue
+            except Exception as exc:  # transport failure: do not fan out into single calls.
+                error = str(exc)
+                for _, item in runnable:
+                    question_id = str(item["questionId"])
+                    self._fail_reserved_question(
+                        by_id[question_id], reserved[question_id], error
+                    )
+                    emit(f"監査batch失敗: {item.get('questionLabel') or question_id} / {error}")
+                    outcomes.append((None, {"questionId": question_id, "error": error}))
+                continue
+            for position, item in runnable:
+                question_id = str(item["questionId"])
+                worker_result = batch_results.get(question_id)
+                if worker_result is None:
+                    # A malformed item is retried alone; valid siblings keep their batch result.
+                    outcomes.append(
+                        evaluate_single(
+                            position, item, reservation=reserved[question_id]
+                        )
+                    )
+                else:
+                    outcomes.append(
+                        evaluate_single(
+                            position,
+                            item,
+                            prepared=(worker_result, metadata),
+                            reservation=reserved[question_id],
+                        )
+                    )
         for completed_item, failure in outcomes:
             if completed_item is not None:
                 completed.append(completed_item)
@@ -981,6 +1102,54 @@ class QuestionEvaluationService:
             "failures": failures,
             "message": message,
         }
+
+    def _audit_batches(
+        self,
+        items: list[Mapping[str, Any]],
+        by_id: Mapping[str, Mapping[str, Any]],
+    ) -> list[list[tuple[int, Mapping[str, Any]]]]:
+        max_questions, max_bytes = self._batch_limits()
+        batches: list[list[tuple[int, Mapping[str, Any]]]] = []
+        current: list[tuple[int, Mapping[str, Any]]] = []
+        current_key: tuple[Any, ...] | None = None
+        for position, item in enumerate(items, start=1):
+            question = by_id[str(item["questionId"])]
+            projected = question.get("projected")
+            projected = projected if isinstance(projected, Mapping) else {}
+            has_images = bool(
+                projected.get("questionImageStorageUrls")
+                or projected.get("originalQuestionChoiceImageUrls")
+                or question.get("questionImageStorageUrls")
+                or question.get("originalQuestionChoiceImageUrls")
+            )
+            key = (
+                str(question.get("qualification") or ""),
+                str(self.current_policy().get("policyFingerprint") or ""),
+                bool(projected.get("isLawRelated")),
+                has_images,
+            )
+            candidate = [*current, (position, item)]
+            candidate_questions = [by_id[str(value[1]["questionId"])] for value in candidate]
+            too_large = len(self._build_batch_prompt(candidate_questions).encode("utf-8")) > max_bytes
+            if not current and too_large:
+                batches.append([(position, item)])
+                current = []
+                current_key = None
+                continue
+            if current and (key != current_key or len(candidate) > max_questions or too_large):
+                batches.append(current)
+                current = [(position, item)]
+                current_key = key
+                if len(self._build_batch_prompt([question]).encode("utf-8")) > max_bytes:
+                    batches.append(current)
+                    current = []
+                    current_key = None
+            else:
+                current = candidate
+                current_key = key
+        if current:
+            batches.append(current)
+        return batches
 
     def _work_version_evaluation_record(
         self,
@@ -1241,8 +1410,13 @@ class QuestionEvaluationService:
         emit: Callable[[str], None],
         *,
         retry_feedback: Mapping[str, Any] | None = None,
+        prepared_worker_result: Mapping[str, Any] | None = None,
+        prepared_metadata: Mapping[str, Any] | None = None,
+        model_profile: str = "codex_only",
+        _reserved_run: Mapping[str, Any] | None = None,
+        _active_reserved: bool = False,
     ) -> dict[str, Any]:
-        preview = self.preview(question)
+        preview = self.preview(question, model_profile=model_profile)
         if not self.token_matches(preview, preview_token):
             raise EvaluationError("確認後に問題内容が更新されました。")
         if not preview.get("canEvaluate"):
@@ -1256,61 +1430,92 @@ class QuestionEvaluationService:
             raise EvaluationError("確認後に評価版又は正本文書が更新されました。")
         review_key = str(question["reviewKey"])
         with self._active_lock:
-            if review_key in self._active:
+            if review_key in self._active and not _active_reserved:
                 raise EvaluationError("この問題は別の評価runで実行中です。")
-            self._active.add(review_key)
+            if not _active_reserved:
+                self._active.add(review_key)
         try:
             return self._run_active(
                 question,
                 emit,
                 run_policy=run_policy,
                 retry_feedback=retry_feedback,
+                prepared_worker_result=prepared_worker_result,
+                prepared_metadata=prepared_metadata,
+                model_profile=model_profile,
+                reserved_run=_reserved_run,
             )
         finally:
             with self._active_lock:
                 self._active.discard(review_key)
 
-    def _run_active(
+    def _reserve_batch_question(
         self,
         question: Mapping[str, Any],
-        emit: Callable[[str], None],
         *,
-        run_policy: Mapping[str, Any],
-        retry_feedback: Mapping[str, Any] | None,
+        model_profile: str,
+        emit: Callable[[str], None],
     ) -> dict[str, Any]:
+        """Persist the per-question run and attempt before the shared model call."""
+        preview = self.preview(question, model_profile=model_profile)
+        if not preview.get("canEvaluate"):
+            raise EvaluationError(str(preview.get("reason") or "評価を開始できません。"))
+        run_policy = self.current_policy()
+        review_key = str(question["reviewKey"])
+        with self._active_lock:
+            if review_key in self._active:
+                raise EvaluationError("この問題は別の評価runで実行中です。")
+            self._active.add(review_key)
         started_at = _now()
-        session_id = "evaluation-" + secrets.token_urlsafe(12)
-        self._recover_projection(question)
         previous = self.store.load(question)
         work_type = "reevaluation" if previous is not None else "evaluation"
-        prompt = self._build_prompt(
+        prompt = self._build_prompt(question)
+        plan = self._evaluation_run_plan(
             question,
-            retry_feedback=retry_feedback,
+            work_type=work_type,
+            model_profile=model_profile,
+            run_policy=run_policy,
         )
+        try:
+            reservation = self._persist_run_reservation(
+                question,
+                plan=plan,
+                prompt=prompt,
+                started_at=started_at,
+            )
+            emit(f"監査待機runを予約: {question.get('questionLabel') or question['id']}")
+            emit(f"評価inputを保存: {reservation['promptPath'].relative_to(self.repo_root)}")
+            return {**reservation, "runPolicy": run_policy}
+        except Exception:
+            with self._active_lock:
+                self._active.discard(review_key)
+            raise
+
+    def _evaluation_run_plan(
+        self,
+        question: Mapping[str, Any],
+        *,
+        work_type: str,
+        model_profile: str,
+        run_policy: Mapping[str, Any],
+    ) -> dict[str, Any]:
         question_id = str(question["id"])
+        review_key = str(question["reviewKey"])
         run_target = {
             "id": question_id,
             "uiQuestionId": question_id,
-            "questionKey": str(
-                question.get("sourceQuestionKey")
-                or question.get("reviewKey")
-                or question_id
-            ),
+            "questionKey": str(question.get("sourceQuestionKey") or review_key or question_id),
             "reviewQuestionId": str(question.get("originalQuestionId") or ""),
             "sourceQuestionKey": str(question.get("sourceQuestionKey") or ""),
             "sourceRecordRef": str(question.get("sourceRecordRef") or ""),
             "aliases": sorted(target_identity_aliases(question)),
         }
-        plan = {
+        return {
             "qualification": str(question["qualification"]),
             "stageId": work_type,
             "stageIds": [work_type],
             "stageCode": "再評価" if work_type == "reevaluation" else "評価",
-            "stageLabel": str(
-                question.get("questionLabel")
-                or question.get("sourceQuestionKey")
-                or question["id"]
-            ),
+            "stageLabel": str(question.get("questionLabel") or question.get("sourceQuestionKey") or question_id),
             "mode": "question",
             "modeLabel": "元問題1問",
             "kind": "evaluation",
@@ -1327,80 +1532,198 @@ class QuestionEvaluationService:
             "stateHash": str(question["stateHash"]),
             "sandbox": "read-only",
             "provider": self.provider,
+            "modelProfile": model_profile,
+            "modelProfileFingerprint": str(self._profile_snapshot(model_profile)["fingerprint"]),
             "canonicalDocs": list(run_policy.get("canonicalDocs") or []),
-            "policyVersions": {
-                "evaluation": normalize_policy_version(run_policy["policyVersion"])
-            },
-            "policyFingerprints": {
-                "evaluation": str(run_policy["policyFingerprint"])
-            },
+            "policyVersions": {"evaluation": normalize_policy_version(run_policy["policyVersion"])},
+            "policyFingerprints": {"evaluation": str(run_policy["policyFingerprint"])},
             "policyTargets": {"evaluation": [question_id]},
         }
-        run = self.run_store.create(
-            plan,
-            status="queued",
-            prompt=prompt,
-            append_receipt_contract=False,
-        )
+    def _persist_run_reservation(
+        self,
+        question: Mapping[str, Any],
+        *,
+        plan: Mapping[str, Any],
+        prompt: str,
+        started_at: str,
+    ) -> dict[str, Any]:
         qualification = str(question["qualification"])
-        run_id = str(run["runId"])
+        run_id: str | None = None
+        sequence: int | None = None
         try:
-            attempt_sequence = self.store.reserve_attempt(
-                question,
-                run_id=run_id,
+            run = self.run_store.create(
+                plan, status="queued", prompt=prompt, append_receipt_contract=False
             )
-        except Exception as exc:
-            self.run_store.write_result(
-                qualification,
-                run_id,
-                {"status": "failed", "summary": str(exc)},
-            )
+            run_id = str(run["runId"])
             self.run_store.update(
                 qualification,
                 run_id,
-                status="failed",
-                error=str(exc),
+                modelProfile=plan["modelProfile"],
+                modelProfileFingerprint=plan["modelProfileFingerprint"],
             )
-            raise
-        commit_point_reached = False
-        validated_result_written = False
-        try:
+            sequence = self.store.reserve_attempt(question, run_id=run_id)
             self.run_store.update(
                 qualification, run_id, status="running", startedAt=started_at
             )
             prompt_path = self.store.save_prompt(question, prompt)
+            return {
+                "runId": run_id,
+                "attemptSequence": sequence,
+                "startedAt": started_at,
+                "promptPath": prompt_path,
+            }
+        except Exception as exc:
+            if run_id is not None:
+                self._best_effort_fail_question(
+                    question,
+                    run_id=run_id,
+                    attempt_sequence=sequence,
+                    error=str(exc),
+                    release_active=False,
+                )
+            raise
+
+    def _best_effort_fail_question(
+        self,
+        question: Mapping[str, Any],
+        *,
+        run_id: str,
+        attempt_sequence: int | None,
+        error: str,
+        release_active: bool = True,
+    ) -> None:
+        qualification = str(question["qualification"])
+        try:
+            self.run_store.write_result(
+                qualification, run_id, {"status": "failed", "summary": error}
+            )
+        except Exception:
+            pass
+        try:
+            self.run_store.update(
+                qualification, run_id, status="failed", error=error
+            )
+        except Exception:
+            pass
+        if attempt_sequence is not None:
+            try:
+                self.store.record_attempt(
+                    question,
+                    sequence=attempt_sequence,
+                    run_id=run_id,
+                    status="failed",
+                    result=None,
+                    promote=False,
+                )
+            except Exception:
+                pass
+        if release_active:
+            with self._active_lock:
+                self._active.discard(str(question["reviewKey"]))
+
+    def _fail_reserved_question(
+        self,
+        question: Mapping[str, Any],
+        reservation: Mapping[str, Any],
+        error: str,
+    ) -> None:
+        self._best_effort_fail_question(
+            question,
+            run_id=str(reservation["runId"]),
+            attempt_sequence=int(reservation["attemptSequence"]),
+            error=error,
+        )
+
+    def _run_active(
+        self,
+        question: Mapping[str, Any],
+        emit: Callable[[str], None],
+        *,
+        run_policy: Mapping[str, Any],
+        retry_feedback: Mapping[str, Any] | None,
+        prepared_worker_result: Mapping[str, Any] | None,
+        prepared_metadata: Mapping[str, Any] | None,
+        model_profile: str,
+        reserved_run: Mapping[str, Any] | None,
+    ) -> dict[str, Any]:
+        started_at = str((reserved_run or {}).get("startedAt") or _now())
+        session_id = "evaluation-" + secrets.token_urlsafe(12)
+        self._recover_projection(question)
+        previous = self.store.load(question)
+        work_type = "reevaluation" if previous is not None else "evaluation"
+        prompt = self._build_prompt(
+            question,
+            retry_feedback=retry_feedback,
+        )
+        question_id = str(question["id"])
+        qualification = str(question["qualification"])
+        if reserved_run is None:
+            plan = self._evaluation_run_plan(
+                question,
+                work_type=work_type,
+                model_profile=model_profile,
+                run_policy=run_policy,
+            )
+            reservation = self._persist_run_reservation(
+                question,
+                plan=plan,
+                prompt=prompt,
+                started_at=started_at,
+            )
+            run_id = str(reservation["runId"])
+            attempt_sequence = int(reservation["attemptSequence"])
+            prompt_path = reservation["promptPath"]
             emit(f"別セッションを開始: {question.get('questionLabel') or question.get('sourceQuestionKey')}")
             emit(f"評価inputを保存: {prompt_path.relative_to(self.repo_root)}")
-            worker_result, metadata = self._run_result(
-                prompt,
-                emit,
-                lambda thread_id, session_id: self.run_store.update(
+        else:
+            run_id = str(reserved_run["runId"])
+            attempt_sequence = int(reserved_run["attemptSequence"])
+        commit_point_reached = False
+        validated_result_written = False
+        try:
+            if prepared_worker_result is not None:
+                worker_result = prepared_worker_result
+                metadata = dict(prepared_metadata or {})
+            else:
+                worker_result, metadata = self._run_result(
+                    prompt,
+                    emit,
+                    lambda thread_id, session_id: self.run_store.update(
+                        qualification,
+                        run_id,
+                        threadId=thread_id,
+                        sessionId=session_id,
+                    ),
+                    lambda thread_id, turn_id: self.run_store.update(
+                        qualification,
+                        run_id,
+                        threadId=thread_id,
+                        turnId=turn_id,
+                    ),
+                    work_type,
+                    {
+                        "qualification": qualification,
+                        "runId": run_id,
+                        "questionId": question_id,
+                        "questionIds": [question_id],
+                        "workItemKey": question_id,
+                        "workItemKeys": [question_id],
+                        "listGroupIds": [str(question["listGroupId"])],
+                        "stageId": work_type,
+                        "workType": work_type,
+                        "phase": "evaluation",
+                    },
+                    choice_count=int(question.get("choiceCount") or 0),
+                    model_profile=model_profile,
+                )
+            if metadata.get("threadId") or metadata.get("sessionId"):
+                self.run_store.update(
                     qualification,
                     run_id,
-                    threadId=thread_id,
-                    sessionId=session_id,
-                ),
-                lambda thread_id, turn_id: self.run_store.update(
-                    qualification,
-                    run_id,
-                    threadId=thread_id,
-                    turnId=turn_id,
-                ),
-                work_type,
-                {
-                    "qualification": qualification,
-                    "runId": run_id,
-                    "questionId": question_id,
-                    "questionIds": [question_id],
-                    "workItemKey": question_id,
-                    "workItemKeys": [question_id],
-                    "listGroupIds": [str(question["listGroupId"])],
-                    "stageId": work_type,
-                    "workType": work_type,
-                    "phase": "evaluation",
-                },
-                choice_count=int(question.get("choiceCount") or 0),
-            )
+                    threadId=metadata.get("threadId"),
+                    sessionId=metadata.get("sessionId"),
+                    turnId=metadata.get("turnId"),
+                )
             thread_id = str(metadata.get("threadId") or "") or None
             app_server_session_id = str(metadata.get("sessionId") or "") or None
             turn_id = str(metadata.get("turnId") or "") or None
@@ -1411,6 +1734,9 @@ class QuestionEvaluationService:
                     model=str(metadata.get("model") or ""),
                     serviceTier=metadata.get("serviceTier"),
                     reasoningEffort=str(metadata.get("reasoningEffort") or ""),
+                    auditBatchQuestionIds=list(metadata.get("auditBatchQuestionIds") or []),
+                    auditBatchQuestionCount=int(metadata.get("auditBatchQuestionCount") or 0),
+                    auditBatchInputBytes=int(metadata.get("auditBatchInputBytes") or 0),
                 )
             if app_server_session_id:
                 session_id = app_server_session_id
@@ -1436,6 +1762,15 @@ class QuestionEvaluationService:
                 work_type=work_type,
                 policy_version=normalize_policy_version(run_policy["policyVersion"]),
                 policy_fingerprint=str(run_policy["policyFingerprint"]),
+                audit_batch=(
+                    {
+                        "questionIds": list(metadata.get("auditBatchQuestionIds") or []),
+                        "questionCount": int(metadata.get("auditBatchQuestionCount") or 0),
+                        "inputBytes": int(metadata.get("auditBatchInputBytes") or 0),
+                    }
+                    if metadata.get("auditBatchQuestionIds")
+                    else None
+                ),
             )
             self.run_store.write_result(qualification, run_id, result)
             validated_result_written = True
@@ -1517,29 +1852,34 @@ class QuestionEvaluationService:
         except Exception as exc:  # noqa: BLE001
             if commit_point_reached:
                 raise
-            if not validated_result_written:
-                self.run_store.write_result(
-                    qualification,
-                    run_id,
-                    {"status": "failed", "summary": str(exc)},
-                )
-            self.run_store.update(
-                qualification,
-                run_id,
-                status="failed",
-                error=str(exc),
-            )
-            try:
-                self.store.record_attempt(
+            # A validated result is not overwritten by a failed cleanup receipt,
+            # but manifest/projection cleanup must remain independent and best-effort.
+            if validated_result_written:
+                try:
+                    self.run_store.update(
+                        qualification, run_id, status="failed", error=str(exc)
+                    )
+                except Exception:
+                    pass
+                try:
+                    self.store.record_attempt(
+                        question,
+                        sequence=attempt_sequence,
+                        run_id=run_id,
+                        status="failed",
+                        result=None,
+                        promote=False,
+                    )
+                except Exception:
+                    pass
+            else:
+                self._best_effort_fail_question(
                     question,
-                    sequence=attempt_sequence,
                     run_id=run_id,
-                    status="failed",
-                    result=None,
-                    promote=False,
+                    attempt_sequence=attempt_sequence,
+                    error=str(exc),
+                    release_active=False,
                 )
-            except Exception:
-                pass
             raise
 
     def status_for(
@@ -1804,6 +2144,7 @@ class QuestionEvaluationService:
         monitor_context: Mapping[str, Any],
         *,
         choice_count: int,
+        model_profile: str = "codex_only",
     ) -> tuple[Mapping[str, Any], dict[str, Any]]:
         if self.result_runner is not None:
             result = self.result_runner(prompt)
@@ -1829,6 +2170,7 @@ class QuestionEvaluationService:
                 on_turn_started=on_turn_started,
                 cwd=Path(directory),
                 monitor_context=monitor_context,
+                model_profile=model_profile,
             )
         if len(turn.final_message.encode("utf-8")) > 2_000_000:
             raise EvaluationError("Codex App Serverの出力が2MBを超えました。")
@@ -1840,6 +2182,146 @@ class QuestionEvaluationService:
             "serviceTier": turn.service_tier,
             "reasoningEffort": turn.reasoning_effort,
         }
+
+    def _build_batch_prompt(self, questions: list[Mapping[str, Any]]) -> str:
+        entries = [
+            {
+                "questionId": str(question["id"]),
+                "stateHash": str(question["stateHash"]),
+                "evaluationPrompt": self._build_prompt(question),
+            }
+            for question in questions
+        ]
+        return (
+            "# 問題品質の独立batch監査\n\n"
+            "各evaluationPromptを独立した1問として監査してください。問題間で根拠や判定を流用せず、"
+            "入力順のままevaluationsへ返してください。questionIdとstateHashは入力値をそのまま返し、"
+            "各resultにはevaluationPromptが要求する1問分のJSONだけを入れてください。\n\n"
+            "```json\n"
+            + json.dumps({"questions": entries}, ensure_ascii=False, indent=2)
+            + "\n```"
+        )
+
+    def _run_batch_result(
+        self,
+        questions: list[Mapping[str, Any]],
+        emit: Callable[[str], None],
+        *,
+        model_profile: str = "codex_only",
+    ) -> tuple[dict[str, Mapping[str, Any]], dict[str, Any]]:
+        prompt = self._build_batch_prompt(questions)
+        expected = {
+            str(question["id"]): str(question["stateHash"]) for question in questions
+        }
+        if self.result_runner is not None:
+            raw = self.result_runner(prompt)
+            metadata: dict[str, Any] = {}
+        else:
+            if self.app_server is None:
+                raise EvaluationError("Codex App Serverが設定されていません。")
+            result_schema = json.loads(self.schema_path.read_text(encoding="utf-8"))
+            schema = {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["evaluations"],
+                "properties": {
+                    "evaluations": {
+                        "type": "array",
+                        "minItems": len(questions),
+                        "maxItems": len(questions),
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": ["questionId", "stateHash", "result"],
+                            "properties": {
+                                "questionId": {"type": "string"},
+                                "stateHash": {"type": "string"},
+                                "result": result_schema,
+                            },
+                        },
+                    }
+                },
+            }
+            with tempfile.TemporaryDirectory(prefix="question-objective-audit-batch-") as directory:
+                turn = self.app_server.run_turn(
+                    prompt,
+                    work_type="evaluation_batch",
+                    sandbox="read-only",
+                    output_schema=schema,
+                    emit=emit,
+                    cwd=Path(directory),
+                    monitor_context={
+                        "qualification": str(questions[0]["qualification"]),
+                        "questionIds": list(expected),
+                        "workItemKeys": list(expected),
+                        "listGroupIds": sorted(
+                            {str(question["listGroupId"]) for question in questions}
+                        ),
+                        "stageId": "evaluation",
+                        "workType": "evaluation_batch",
+                        "phase": "evaluation",
+                    },
+                    model_profile=model_profile,
+                )
+            try:
+                raw = _extract_json(turn.final_message)
+            except EvaluationError as exc:
+                raise BatchSchemaError(str(exc)) from exc
+            metadata = {
+                "threadId": turn.thread_id,
+                "sessionId": turn.session_id,
+                "turnId": turn.turn_id,
+                "model": turn.model,
+                "serviceTier": turn.service_tier,
+                "reasoningEffort": turn.reasoning_effort,
+            }
+        if not isinstance(raw, Mapping):
+            raise BatchSchemaError("監査batch結果がJSON objectではありません。")
+        rows = raw.get("evaluations")
+        if rows is None and len(questions) == 1:
+            rows = [
+                {
+                    "questionId": str(questions[0]["id"]),
+                    "stateHash": str(questions[0]["stateHash"]),
+                    "result": raw,
+                }
+            ]
+        if not isinstance(rows, list):
+            raise BatchSchemaError("監査batch結果のevaluationsが配列ではありません。")
+        metadata.update(
+            auditBatchQuestionIds=list(expected),
+            auditBatchQuestionCount=len(expected),
+            auditBatchInputBytes=len(prompt.encode("utf-8")),
+        )
+        valid: dict[str, Mapping[str, Any]] = {}
+        invalid_ids: set[str] = set()
+        if any(
+            isinstance(row, Mapping)
+            and str(row.get("questionId") or "") not in expected
+            for row in rows
+        ):
+            return {}, metadata
+        for row in rows:
+            if not isinstance(row, Mapping):
+                continue
+            question_id = str(row.get("questionId") or "")
+            if question_id not in expected:
+                continue
+            if question_id in valid or question_id in invalid_ids:
+                valid.pop(question_id, None)
+                invalid_ids.add(question_id)
+                continue
+            worker_result = row.get("result")
+            question = next(q for q in questions if str(q["id"]) == question_id)
+            try:
+                if str(row.get("stateHash") or "") != expected[question_id]:
+                    raise EvaluationError("stateHashが一致しません。")
+                EvaluationStore._validate_result(question, worker_result)
+            except (EvaluationError, TypeError):
+                invalid_ids.add(question_id)
+                continue
+            valid[question_id] = worker_result
+        return valid, metadata
 
     def _build_prompt(
         self,

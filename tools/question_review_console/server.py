@@ -1200,9 +1200,11 @@ class QuestionReviewApplication:
                     self._question(question_id, {}) for question_id in question_ids
                 ]
             try:
+                model_profile = str(body.get("modelProfile") or "codex_only")
                 preview = self.evaluations.preview_many(
                     questions,
                     continuous_queue=continuous_queue,
+                    model_profile=model_profile,
                 )
                 if path.endswith("/preview"):
                     return HTTPStatus.OK, preview
@@ -1219,6 +1221,7 @@ class QuestionReviewApplication:
                         token,
                         emit,
                         continuous_queue=continuous_queue,
+                        model_profile=model_profile,
                     ),
                 )
                 return HTTPStatus.ACCEPTED, job
@@ -1233,9 +1236,15 @@ class QuestionReviewApplication:
             question = self._question(question_id, {})
             try:
                 if action == "evaluation-preview":
-                    return HTTPStatus.OK, self.evaluations.preview(question)
+                    model_profile = str(body.get("modelProfile") or "codex_only")
+                    return HTTPStatus.OK, self.evaluations.preview(
+                        question, model_profile=model_profile
+                    )
                 if action == "evaluation":
-                    preview = self.evaluations.preview(question)
+                    model_profile = str(body.get("modelProfile") or "codex_only")
+                    preview = self.evaluations.preview(
+                        question, model_profile=model_profile
+                    )
                     token = str(body.get("previewToken") or "")
                     if not self.evaluations.token_matches(preview, token):
                         raise EvaluationError("確認後に問題内容が更新されました。")
@@ -1247,7 +1256,7 @@ class QuestionReviewApplication:
                         kind="question-evaluation",
                         key=REPOSITORY_OPERATION_KEY,
                         worker=lambda emit: self._run_evaluation_job(
-                            question_id, token, emit
+                            question_id, token, emit, model_profile=model_profile
                         ),
                     )
                     return HTTPStatus.ACCEPTED, job
@@ -2582,9 +2591,13 @@ class QuestionReviewApplication:
         question_id: str,
         preview_token: str,
         emit: Any,
+        *,
+        model_profile: str = "codex_only",
     ) -> dict[str, Any]:
         question = self._question(question_id, {})
-        return self.evaluations.run(question, preview_token, emit)
+        return self.evaluations.run(
+            question, preview_token, emit, model_profile=model_profile
+        )
 
     def _run_official_source_correction_job(
         self,
@@ -2673,6 +2686,7 @@ class QuestionReviewApplication:
         emit: Any,
         *,
         continuous_queue: bool = False,
+        model_profile: str = "codex_only",
     ) -> dict[str, Any]:
         questions = [self._question(question_id, {}) for question_id in question_ids]
         return self.evaluations.run_many(
@@ -2680,6 +2694,7 @@ class QuestionReviewApplication:
             preview_token,
             emit,
             continuous_queue=continuous_queue,
+            model_profile=model_profile,
         )
 
     def _evaluation_queue_questions(

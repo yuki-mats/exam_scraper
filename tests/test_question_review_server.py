@@ -18,6 +18,65 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_evaluation_profile_is_forwarded_from_preview_through_job(self):
+        class Inventory:
+            @staticmethod
+            def question(question_id):
+                return {
+                    "id": question_id,
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                }
+
+        class Evaluations:
+            def preview_many(self, questions, *, continuous_queue=False, model_profile="codex_only"):
+                self.preview_profile = model_profile
+                return {
+                    "canStart": True,
+                    "previewToken": f"token-{model_profile}",
+                    "items": [],
+                }
+
+            @staticmethod
+            def token_matches(preview, token):
+                return preview["previewToken"] == token
+
+            def run_many(self, questions, token, emit, *, continuous_queue=False, model_profile="codex_only"):
+                self.run_profile = model_profile
+                return {"completedCount": len(questions)}
+
+        class Jobs:
+            def start(self, *, kind, key, worker):
+                self.worker = worker
+                return {"jobId": "job-1", "status": "queued"}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            evaluations = Evaluations()
+            jobs = Jobs()
+            app.evaluations = evaluations
+            app.jobs = jobs
+            status, preview = app.post(
+                "/api/evaluations/preview",
+                {"questionIds": ["q1"], "modelProfile": "local_generate_codex_audit"},
+            )
+            start_status, _ = app.post(
+                "/api/evaluations/start",
+                {
+                    "questionIds": ["q1"],
+                    "modelProfile": "local_generate_codex_audit",
+                    "previewToken": preview["previewToken"],
+                },
+            )
+            result = jobs.worker(lambda _line: None)
+
+        self.assertEqual(status, 200)
+        self.assertEqual(start_status, 202)
+        self.assertEqual(evaluations.preview_profile, "local_generate_codex_audit")
+        self.assertEqual(evaluations.run_profile, "local_generate_codex_audit")
+        self.assertEqual(result["completedCount"], 1)
+
     def test_publication_preview_uses_only_explicit_ids_in_normalized_order(self):
         class Inventory:
             def question(self, question_id):
