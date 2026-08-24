@@ -23,9 +23,11 @@ from tools.question_review_console.codex_app_server import (
     CodexTerminalTurnFailedError,
     CodexTurnTimeoutError,
     DEFAULT_TURN_TIMEOUT_SECONDS,
+    DISABLED_EXTERNAL_FEATURES,
     FAST_SPEED_MODE,
     MIN_APP_SERVER_FILE_DESCRIPTORS,
     QUESTION_MAINTENANCE_RETRY_MODEL,
+    RUNTIME_DIAGNOSTIC_PAIRS,
     RESEARCH_AGENT_CONFIG,
     RESEARCH_AGENT_CONFIG_FILENAME,
     RESEARCH_AGENT_ROLE,
@@ -293,6 +295,8 @@ class SubscriptionGateTests(unittest.TestCase):
                 "rpcMethod": None,
                 "rpcCode": None,
                 "rpcDataType": None,
+                "runtimePhase": None,
+                "runtimeRule": None,
                 "accountType": "chatgpt",
                 "planType": "pro",
                 "creditsEnabled": False,
@@ -301,6 +305,297 @@ class SubscriptionGateTests(unittest.TestCase):
             },
         )
         self.assertEqual(calls, ["account/read", "account/rateLimits/read"])
+
+    def test_diagnostic_reports_fixed_runtime_rules_without_secret_values(self):
+        sentinels = (
+            "raw-message-secret",
+            "https://private.invalid/path",
+            "Authorization: bearer-secret",
+            "Cookie: cookie-secret",
+            "person@example.com",
+            "/Users/person/.codex/auth.json",
+        )
+        cases = (
+            ("runtime_environment", "auth_isolation"),
+            ("protocol", "initialize_response"),
+            ("config", "config_layers"),
+            ("authentication", "login_method"),
+            ("provider", "model_provider"),
+            ("host_integration", "notify"),
+            ("telemetry", "analytics"),
+            ("telemetry", "otel"),
+            ("capabilities", "features"),
+            ("runtime_environment", "shell_environment"),
+            ("capabilities", "mcp"),
+        )
+        for phase, rule in cases:
+            with self.subTest(rule=rule):
+                client = self.diagnostic_client()
+
+                def fail_runtime():
+                    client._mark_runtime_diagnostic(phase, rule)
+                    raise SubscriptionGateError(" ".join(sentinels))
+
+                client._ensure_started = fail_runtime
+                calls = []
+                client._request = lambda method, _params: calls.append(method)
+
+                result = client.diagnose_subscription_access()
+                serialized = json.dumps(result)
+
+                self.assertEqual(result["stage"], "runtime_initialize")
+                self.assertEqual(
+                    result["failureKind"], "subscription_validation_failed"
+                )
+                self.assertEqual(result["runtimePhase"], phase)
+                self.assertEqual(result["runtimeRule"], rule)
+                self.assertEqual(calls, [])
+                for sentinel in sentinels:
+                    self.assertNotIn(sentinel, serialized)
+
+    def test_diagnostic_rejects_non_allowlisted_runtime_pair_without_echoing_it(self):
+        client = self.diagnostic_client()
+        client._ensure_started = lambda: client._mark_runtime_diagnostic(
+            "private-phase-secret", "private-rule-secret"
+        )
+        calls = []
+        client._request = lambda method, _params: calls.append(method)
+
+        result = client.diagnose_subscription_access()
+        serialized = json.dumps(result)
+
+        self.assertEqual(result["stage"], "runtime_initialize")
+        self.assertEqual(result["failureKind"], "subscription_validation_failed")
+        self.assertIsNone(result["runtimePhase"])
+        self.assertIsNone(result["runtimeRule"])
+        self.assertNotIn("private-phase-secret", serialized)
+        self.assertNotIn("private-rule-secret", serialized)
+        self.assertEqual(calls, [])
+
+    def test_diagnostic_runtime_auth_isolation_branch_sets_exact_rule(self):
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        client._prepare_isolated_codex_home = lambda: (_ for _ in ()).throw(
+            SubscriptionGateError("raw-auth-secret")
+        )
+
+        result = client.diagnose_subscription_access()
+
+        self.assertEqual(
+            (result["runtimePhase"], result["runtimeRule"]),
+            ("runtime_environment", "auth_isolation"),
+        )
+        self.assertNotIn("raw-auth-secret", json.dumps(result))
+
+    def test_diagnostic_runtime_initialize_response_branch_sets_exact_rule(self):
+        class RunningProcess:
+            stdin = io.StringIO()
+            stdout = io.StringIO()
+            stderr = io.StringIO()
+
+            @staticmethod
+            def poll():
+                return None
+
+            @staticmethod
+            def kill():
+                return None
+
+            @staticmethod
+            def wait(timeout=None):
+                return 0
+
+        class InertThread:
+            def __init__(self, *args, **kwargs):
+                pass
+
+            @staticmethod
+            def start():
+                return None
+
+        cases = (
+            (
+                "initialize_rpc",
+                lambda _method, _params: (_ for _ in ()).throw(
+                    SubscriptionGateError("raw-initialize-rpc-secret")
+                ),
+            ),
+            (
+                "initialize_response",
+                lambda method, _params: [] if method == "initialize" else {},
+            ),
+        )
+        for expected_rule, request in cases:
+            with self.subTest(rule=expected_rule):
+                client = CodexAppServerClient(
+                    Path.cwd(), binary_path=Path("/bin/echo")
+                )
+                client._prepare_isolated_codex_home = lambda: Path.cwd()
+                client._request = request
+                with patch(
+                    "tools.question_review_console.codex_app_server.subprocess.Popen",
+                    return_value=RunningProcess(),
+                ), patch(
+                    "tools.question_review_console.codex_app_server.threading.Thread",
+                    InertThread,
+                ), patch(
+                    "tools.question_review_console.codex_app_server."
+                    "ensure_app_server_file_descriptor_capacity"
+                ):
+                    result = client.diagnose_subscription_access()
+
+                self.assertEqual(
+                    (result["runtimePhase"], result["runtimeRule"]),
+                    ("protocol", expected_rule),
+                )
+                self.assertNotIn("secret", json.dumps(result))
+
+    def test_diagnostic_runtime_config_branches_set_exact_rules(self):
+        safe_config = {
+            "forced_login_method": "chatgpt",
+            "model_provider": "openai",
+            "model_providers": {},
+            "notify": [],
+            "analytics": {"enabled": False},
+            "otel": {
+                "exporter": "none",
+                "metrics_exporter": "none",
+                "trace_exporter": "none",
+                "log_user_prompt": False,
+            },
+            "features": {
+                **{name: False for name in DISABLED_EXTERNAL_FEATURES},
+                "multi_agent": False,
+            },
+            "shell_environment_policy": {
+                "inherit": "none",
+                "set": {"PATH": SAFE_SHELL_PATH},
+            },
+            "mcp_servers": {},
+        }
+        cases = (
+            (
+                "config_shape",
+                lambda response: response.update({"config": []}),
+            ),
+            (
+                "config_layers",
+                lambda response: response.update(
+                    {"layers": [{"name": {"type": "user"}}]}
+                ),
+            ),
+            (
+                "custom_agents",
+                lambda response: response["config"].update(
+                    {"agents": {"private-role-secret": {}}}
+                ),
+            ),
+            (
+                "official_endpoint",
+                lambda response: response["config"].update(
+                    {"openai_base_url": "private-endpoint-secret"}
+                ),
+            ),
+            (
+                "login_method",
+                lambda response: response["config"].update(
+                    {"forced_login_method": "api"}
+                ),
+            ),
+            (
+                "model_provider",
+                lambda response: response["config"].update(
+                    {"model_provider": "private-secret-provider"}
+                ),
+            ),
+            (
+                "model_provider",
+                lambda response: response["config"].update(
+                    {"model_providers": {"private-provider-secret": {}}}
+                ),
+            ),
+            ("notify", lambda response: response["config"].update({"notify": ["secret"]})),
+            (
+                "analytics",
+                lambda response: response["config"].update(
+                    {"analytics": {"enabled": True}}
+                ),
+            ),
+            (
+                "otel",
+                lambda response: response["config"]["otel"].update(
+                    {"exporter": "secret-endpoint"}
+                ),
+            ),
+            (
+                "features",
+                lambda response: response["config"]["features"].update(
+                    {"plugins": True}
+                ),
+            ),
+            (
+                "shell_environment",
+                lambda response: response["config"].update(
+                    {"shell_environment_policy": {"inherit": "all"}}
+                ),
+            ),
+            (
+                "mcp",
+                lambda response: response["config"].update(
+                    {"mcp_servers": {"secret-server": {"enabled": True}}}
+                ),
+            ),
+        )
+        config_read = self.diagnostic_client()
+        config_read._ensure_started = config_read._assert_official_chatgpt_endpoint
+        config_read._request = lambda _method, _params: (_ for _ in ()).throw(
+            SubscriptionGateError("raw-config-read-secret")
+        )
+        config_read_result = config_read.diagnose_subscription_access()
+        self.assertEqual(config_read_result["runtimeRule"], "config_read")
+        self.assertNotIn("secret", json.dumps(config_read_result))
+
+        for expected_rule, mutate in cases:
+            with self.subTest(rule=expected_rule):
+                response = {
+                    "layers": [
+                        {"name": {"type": "sessionFlags"}},
+                        {"name": {"type": "system"}},
+                    ],
+                    "config": copy.deepcopy(safe_config),
+                }
+                mutate(response)
+                client = self.diagnostic_client()
+                client._request = lambda _method, _params: response
+                client._ensure_started = client._assert_official_chatgpt_endpoint
+
+                result = client.diagnose_subscription_access()
+                serialized = json.dumps(result)
+
+                self.assertEqual(result["runtimeRule"], expected_rule)
+                self.assertEqual(result["stage"], "runtime_initialize")
+                self.assertNotIn("secret", serialized)
+
+        self.assertEqual(
+            RUNTIME_DIAGNOSTIC_PAIRS,
+            {
+                ("runtime_environment", "auth_isolation"),
+                ("protocol", "initialize_rpc"),
+                ("protocol", "initialize_response"),
+                ("config", "config_read"),
+                ("config", "config_layers"),
+                ("config", "config_shape"),
+                ("config", "custom_agents"),
+                ("config", "official_endpoint"),
+                ("authentication", "login_method"),
+                ("provider", "model_provider"),
+                ("host_integration", "notify"),
+                ("telemetry", "analytics"),
+                ("telemetry", "otel"),
+                ("capabilities", "features"),
+                ("runtime_environment", "shell_environment"),
+                ("capabilities", "mcp"),
+            },
+        )
 
     def test_diagnostic_classifies_rpc_codes_without_leaking_secrets(self):
         sentinels = (

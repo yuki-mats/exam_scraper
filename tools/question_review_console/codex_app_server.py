@@ -70,6 +70,26 @@ KNOWN_SUBSCRIPTION_PLANS = {
     "edu",
 }
 APP_SERVER_PROVIDER = "Codex App Server"
+RUNTIME_DIAGNOSTIC_PAIRS = frozenset(
+    {
+        ("runtime_environment", "auth_isolation"),
+        ("protocol", "initialize_rpc"),
+        ("protocol", "initialize_response"),
+        ("config", "config_read"),
+        ("config", "config_layers"),
+        ("config", "config_shape"),
+        ("config", "custom_agents"),
+        ("config", "official_endpoint"),
+        ("authentication", "login_method"),
+        ("provider", "model_provider"),
+        ("host_integration", "notify"),
+        ("telemetry", "analytics"),
+        ("telemetry", "otel"),
+        ("capabilities", "features"),
+        ("runtime_environment", "shell_environment"),
+        ("capabilities", "mcp"),
+    }
+)
 DISABLED_EXTERNAL_FEATURES = (
     "apps",
     "auth_elicitation",
@@ -1311,6 +1331,19 @@ class CodexAppServerClient:
         self._runtime_home_context: tempfile.TemporaryDirectory[str] | None = None
         self._runtime_home: Path | None = None
         self._isolated_model_workspace: Path | None = None
+        self._runtime_diagnostic_phase: str | None = None
+        self._runtime_diagnostic_rule: str | None = None
+
+    def _mark_runtime_diagnostic(self, phase: str, rule: str) -> None:
+        """Record only fixed, non-sensitive startup diagnostic identifiers."""
+        if (phase, rule) not in RUNTIME_DIAGNOSTIC_PAIRS:
+            self._runtime_diagnostic_phase = None
+            self._runtime_diagnostic_rule = None
+            raise SubscriptionGateError(
+                "起動診断の固定識別子を安全に確認できません。"
+            )
+        self._runtime_diagnostic_phase = phase
+        self._runtime_diagnostic_rule = rule
 
     @property
     def configured(self) -> bool:
@@ -1393,6 +1426,8 @@ class CodexAppServerClient:
             "rpcMethod": None,
             "rpcCode": None,
             "rpcDataType": None,
+            "runtimePhase": None,
+            "runtimeRule": None,
         }
         if not self.configured:
             return {**base, "failureKind": "binary_missing"}
@@ -1447,6 +1482,18 @@ class CodexAppServerClient:
         rpc_data_type = (
             error.data_type if isinstance(error, CodexRpcError) else None
         )
+        runtime_phase = (
+            self._runtime_diagnostic_phase
+            if stage == "runtime_initialize"
+            and isinstance(error, SubscriptionGateError)
+            else None
+        )
+        runtime_rule = (
+            self._runtime_diagnostic_rule
+            if stage == "runtime_initialize"
+            and isinstance(error, SubscriptionGateError)
+            else None
+        )
         if isinstance(error, CodexProcessExitError):
             failure_kind = "process_exit"
         elif isinstance(error, CodexRequestTimeoutError):
@@ -1474,6 +1521,8 @@ class CodexAppServerClient:
             "rpcMethod": rpc_method,
             "rpcCode": rpc_code,
             "rpcDataType": rpc_data_type,
+            "runtimePhase": runtime_phase,
+            "runtimeRule": runtime_rule,
         }
 
     def _model_turn_snapshot(self) -> dict[str, int]:
@@ -2268,6 +2317,7 @@ class CodexAppServerClient:
             env = dict(os.environ)
             for key in API_CREDENTIAL_ENV_VARS:
                 env.pop(key, None)
+            self._mark_runtime_diagnostic("runtime_environment", "auth_isolation")
             runtime_home = self._prepare_isolated_codex_home()
             env["CODEX_HOME"] = str(runtime_home)
             ensure_app_server_file_descriptor_capacity()
@@ -2305,6 +2355,7 @@ class CodexAppServerClient:
             self._reader.start()
             self._stderr_reader.start()
             try:
+                self._mark_runtime_diagnostic("protocol", "initialize_rpc")
                 initialize_result = self._request(
                     "initialize",
                     {
@@ -2319,6 +2370,7 @@ class CodexAppServerClient:
                         },
                     },
                 )
+                self._mark_runtime_diagnostic("protocol", "initialize_response")
                 _as_mapping(initialize_result, "initialize response")
                 self._send({"method": "initialized"})
                 self._initialized = True
@@ -2489,6 +2541,7 @@ class CodexAppServerClient:
             raise SubscriptionGateError("shell環境変数の遮断を確認できません。")
 
     def _assert_official_chatgpt_endpoint(self) -> None:
+        self._mark_runtime_diagnostic("config", "config_read")
         response = _as_mapping(
             self._request(
                 "config/read",
@@ -2499,18 +2552,24 @@ class CodexAppServerClient:
             ),
             "Codex config",
         )
+        self._mark_runtime_diagnostic("config", "config_layers")
         self._assert_isolated_config_layers(response)
+        self._mark_runtime_diagnostic("config", "config_shape")
         config = _as_mapping(response.get("config"), "Codex effective config")
+        self._mark_runtime_diagnostic("config", "custom_agents")
         self._assert_no_custom_agent_config(config)
+        self._mark_runtime_diagnostic("config", "official_endpoint")
         for key in ("openai_base_url", "chatgpt_base_url"):
             if config.get(key) is not None:
                 raise SubscriptionGateError(
                     "公式ChatGPT以外の接続先設定があるため実行しません。"
                 )
+        self._mark_runtime_diagnostic("authentication", "login_method")
         if config.get("forced_login_method") != "chatgpt":
             raise SubscriptionGateError(
                 "ChatGPTログイン経路への固定を確認できません。"
             )
+        self._mark_runtime_diagnostic("provider", "model_provider")
         if config.get("model_provider") not in {None, "openai"}:
             raise SubscriptionGateError("外部model provider設定があるため実行しません。")
         model_providers = _as_mapping(
@@ -2518,11 +2577,14 @@ class CodexAppServerClient:
         )
         if model_providers:
             raise SubscriptionGateError("追加model provider設定があるため実行しません。")
+        self._mark_runtime_diagnostic("host_integration", "notify")
         if config.get("notify") != []:
             raise SubscriptionGateError("host通知commandの無効化を確認できません。")
+        self._mark_runtime_diagnostic("telemetry", "analytics")
         analytics = _as_mapping(config.get("analytics"), "analytics設定")
         if analytics.get("enabled") is not False:
             raise SubscriptionGateError("analyticsの無効化を確認できません。")
+        self._mark_runtime_diagnostic("telemetry", "otel")
         otel = _as_mapping(config.get("otel"), "OpenTelemetry設定")
         if (
             otel.get("exporter") != "none"
@@ -2531,12 +2593,15 @@ class CodexAppServerClient:
             or otel.get("log_user_prompt") is not False
         ):
             raise SubscriptionGateError("OpenTelemetryの無効化を確認できません。")
+        self._mark_runtime_diagnostic("capabilities", "features")
         features = _as_mapping(config.get("features"), "Codex feature設定")
         if any(features.get(name) is not False for name in DISABLED_EXTERNAL_FEATURES):
             raise SubscriptionGateError("外部作用機能の無効化を確認できません。")
         if features.get("multi_agent") is not False:
             raise SubscriptionGateError("multi-agent機能の無効化を確認できません。")
+        self._mark_runtime_diagnostic("runtime_environment", "shell_environment")
         self._assert_safe_shell_environment(config)
+        self._mark_runtime_diagnostic("capabilities", "mcp")
         servers = _as_mapping(config.get("mcp_servers"), "MCP設定")
         expected_names = set(self._configured_mcp_names())
         if set(str(name) for name in servers) != expected_names:

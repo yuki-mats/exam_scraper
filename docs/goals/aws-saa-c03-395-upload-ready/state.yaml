@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T044
+active_task: T050
 
 tasks:
   - id: T001
@@ -3247,7 +3247,7 @@ tasks:
   - id: T044
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: low
     objective: "監査済みboardとexact2 code/testをmainへcommit/pushしclean parityとなった後、committed CodexAppServerClientのdiagnose_subscription_accessを一度だけ実行し、sanitized JSONだけをreceiptへ保存して固定routingへ送る。"
     inputs:
@@ -3276,6 +3276,361 @@ tasks:
       - "single sanitized diagnostic receipt"
       - "呼出し回数exact1とno file writesの証拠"
       - "固定routingとT038 activation可否"
+    receipt:
+      result: done
+      summary: "監査済みexact2診断コードとGoalBuddy boardをmainへcommit/pushしclean parity・hash一致を確認した後、committed fresh CodexAppServerClientのdiagnose_subscription_accessをexact1回だけ実行した。sanitized結果はstage=runtime_initialize、allowed=false、failureKind=subscription_validation_failed、RPC metadata null。public_status、別account RPC、二度目のdiagnose、run、問題artifact、Firestoreは実行又は変更していない。"
+      diagnostic:
+        stage: runtime_initialize
+        allowed: false
+        failureKind: subscription_validation_failed
+        rpcMethod: null
+        rpcCode: null
+        rpcDataType: null
+      changed_files: []
+      commands:
+        - cmd: "git commit and push audited board plus exact2 diagnostic code/test"
+          status: pass
+        - cmd: "single CodexAppServerClient.diagnose_subscription_access call with finally close"
+          status: pass
+        - cmd: "git status, branch main, origin/main parity readback"
+          status: pass
+      evidence:
+        - "commit a0b7bb5dcをorigin/mainへpushし、実行前後ともmain、origin/main parity=0/0、worktree clean。"
+        - "committed hashはcodex_app_server.py=ade4b78316b343325cf6d7ce8ca99b60641d6d30a105bcee1b74079c12a14c5a、test=9991256d4be5fa34731591cf23e797949e33e57b511a30b49ec4e3a9ab1583d0。"
+        - "diagnose_subscription_access呼出しはfresh clientでexact1回、exit 0、finally close。"
+        - "出力は固定sanitized keysのみでraw message/data/reason/stderr/URL/header/token/cookie/email/auth pathを含まない。"
+        - "problem artifact、run、evaluation、Firestore writes=0。"
+      remaining_blockers:
+        - "stage=runtime_initializeかつfailureKind=subscription_validation_failedのexact発生経路と原因対応が未監査。"
+        - "T038 activationのcomplete/allowed=true条件を満たしていない。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T045
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T044 single diagnosticのstage=runtime_initialize、failureKind=subscription_validation_failed、RPC metadata nullをread-onlyで監査し、この組合せの発生経路をcommitted実装・tests・Codex CLI/runtime設定から確定する。再診断せず、最小の安全なruntime compatibility修復又は外部state gateを選ぶ。"
+    inputs:
+      - "T043 approve receipt"
+      - "T044 single sanitized diagnostic receipt"
+      - "committed codex_app_server.pyとtests"
+      - "codex-cli 0.145.0と隔離runtime起動設定"
+    constraints:
+      - "Read-only。code、board、runtime、auth、problem artifactを変更しない。"
+      - "public_status、diagnose_subscription_access、account RPCを再実行しない。"
+      - "auth.json/token/cookie、raw stderr、非公開URL/headerを読まない・表示しない。"
+      - "再ログイン、quota、credits、RPC mismatchへ証拠なく読み替えない。"
+    expected_output:
+      - "構造化結果のexact発生経路"
+      - "diagnostic分類bugか実runtime初期化不整合かの判定"
+      - "次のbounded Worker package又はexact human gate"
+      - "T038 activationへ戻るための検証条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "現結果はsubscription実検証の失敗ではない。実検証はaccount 2 RPC後のstage=subscription_validationだけで行われる一方、runtime_initializeではauth隔離準備、initialize応答検証、config/read後の安全設定検証も同じSubscriptionGateErrorを使い、診断が一律subscription_validation_failedへ誤分類する。RPC metadata nullとも整合する。CLI 0.145.0 schemaは現initialize/config/read引数を受理するためRPC不一致の証拠もない。現在のsanitized出力だけでは内部branchを一意化できず、固定rule IDによる非漏洩分類修復を先に承認する。"
+      evidence:
+        - "commit a0b7bb5dcのdiagnose_subscription_accessは_ensure_started中のCodexAppServerErrorをstage=runtime_initializeへ送り、_subscription_diagnostic_failureは全SubscriptionGateErrorを文脈非依存でsubscription_validation_failedへ分類する。"
+        - "実際のsubscription検証validate_subscription_accessはaccount/readとaccount/rateLimits/readの後だけ呼ばれ、失敗stageはsubscription_validationである。T044は両RPC metadataがnullのため、その経路へ到達していない。"
+        - "_ensure_started内では_process起動前の_prepare_isolated_codex_home、initialize response検証、起動後の安全設定検証がSubscriptionGateErrorを返し得る。"
+        - "現診断schemaは複数branchを同一runtime_initialize/subscription_validation_failed/nullへ潰すため、特定config invariant、auth準備又はinitialize応答を選ぶことは不可能。"
+        - "codex-cli 0.145.0のschemaは現initialize/config read request shapeを支持し、RPC contract mismatchの証拠はない。"
+        - "現コードのfail-closed検証結果を知るにはraw responseではなく固定rule IDが必要。"
+        - "T043の17/68 testsは非漏洩と単回RPCを確認したが、runtime内の複数SubscriptionGateError branchを区別するtestはない。"
+      next_allowed_task:
+        task_id: T046
+        type: worker
+        objective: "Codex startupの安全gateを変更せず、runtime_initialize中のSubscriptionGateErrorを固定・非機密のphase/rule IDで分類する。auth隔離準備、initialize応答形、config layer、login method、provider、notify、analytics、OTEL、features、shell環境、MCPなどを文字列解析なしで識別し、diagnose_subscription_accessがexact branchをsanitized schemaで返す回帰testsを追加する。public_status、account RPC、live diagnosticは実行しない。"
+        allowed_files:
+          - tools/question_review_console/codex_app_server.py
+          - tests/test_question_review_codex_app_server.py
+        verify:
+          - "既存exception messageとstartup gate、retry、cache、成功判定を維持し、診断用固定分類だけが増えたことを確認する。"
+          - "各runtime branchの固定runtimeRuleと秘密非漏洩をmock testsで確認する。"
+          - "initialize RPC error、process exit、timeoutの既存分類を維持する。"
+          - "runtime failure時account RPC 0回、到達時も各最大1回。"
+          - "SubscriptionGateTestsとmodule全体、git diff --check、product差分exact2を確認する。"
+        stop_if:
+          - "固定allowlistではなくmessage/stderr解析が必要になる。"
+          - "秘密値、raw RPC data/stderr又は非公開endpointを扱う必要がある。"
+          - "live RPC、run、Firestore又はallowed_files外変更が必要になる。"
+          - "既存gate、retry、cache、成功条件を緩和する必要がある。"
+      parallel_safety:
+        safe: false
+        reason: "分類修復、Judge監査、scope commit/push、single diagnostic、T038再有効化は同じcommitted codeと一回限りの外部証拠へ直列依存する。"
+      blocked_tasks:
+        - "T038はT046実装、後続Judge承認、scope commit/push、clean parity後のsingle sanitized diagnosticが完全成功条件を満たすまでblocked。"
+        - "T999はSAA-C03 395/395 local-ready、品質評価、upload dry-run、AWS 1274/1274の証拠が揃うまでblocked。"
+      missing_evidence:
+        - "runtime_initialize内で失敗した固定phase/rule ID。"
+        - "T046 exact2差分のJudge承認、commit/push、clean parity。"
+        - "修復済みcommitted codeによるfresh client exact1回のsanitized diagnostic。"
+        - "T038へ戻す条件はstage=complete、allowed=true、accountType=chatgpt、creditsEnabled=false、standardMode=true、fastMode=falseの全一致。"
+        - "SAA-C03 exact2 terminal run、group artifactSync、395/395 local-ready、品質評価、upload dry-run、Firestore writes=0、00_source不変、最終Git parity。"
+  - id: T046
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "Codex startupの安全gateを変えず、runtime_initialize中のSubscriptionGateErrorを固定・非機密phase/rule IDで分類し、diagnose_subscription_accessがexact branchをsanitized schemaで返すtestsを追加する。"
+    inputs:
+      - "T044 single diagnostic receipt"
+      - "T045 Judge receipt"
+      - "committed diagnostic implementation/tests"
+    constraints:
+      - "allowed_files exact2だけ。"
+      - "exception message又はstderrの文字列解析を使わない。"
+      - "auth内容、raw RPC data/stderr、URL/header/token/cookie/email/pathを読まない・表示しない。"
+      - "既存gate、retry、cache、subscription成功条件を変えない。"
+      - "live public_status、diagnose、account RPC、run、Firestore、commit、pushを実行しない。"
+    allowed_files:
+      - tools/question_review_console/codex_app_server.py
+      - tests/test_question_review_codex_app_server.py
+    verify:
+      - "各runtime branch mockで固定runtimeRuleを確認し、秘密値がJSONへ出ない。"
+      - "initialize RPC error、process exit、timeoutの既存分類を維持する。"
+      - "runtime failure時account RPC 0回、到達時も各最大1回。"
+      - "PYTHONPATH=/Users/yuki/development/exam_scraper_local /Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+      - "PYTHONPATH=/Users/yuki/development/exam_scraper_local /Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+      - "git diff --check、product差分exact2。"
+    stop_if:
+      - "固定allowlistではなくmessage/stderr解析が必要になる。"
+      - "秘密値、raw response又は非公開endpointを扱う必要がある。"
+      - "live RPC、run、Firestore又はallowed_files外変更が必要になる。"
+      - "既存gate、retry、cache、成功条件を緩和する必要がある。"
+    expected_output:
+      - "exact2 diffとtests receipt"
+      - "固定runtimeRule分類、秘密非漏洩、gate不変証拠"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/codex_app_server.py
+        - tests/test_question_review_codex_app_server.py
+      commands:
+        - cmd: "PYTHONPATH=/Users/yuki/development/exam_scraper_local /Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+          status: pass
+        - cmd: "PYTHONPATH=/Users/yuki/development/exam_scraper_local /Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git diff --name-only -- tools/question_review_console/codex_app_server.py tests/test_question_review_codex_app_server.py"
+          status: pass
+        - cmd: "git status --short"
+          status: pass
+      summary: "startup gateを変えず、runtime_initialize中のSubscriptionGateErrorへ固定runtimePhase/runtimeRuleを付与した。auth隔離、initialize応答、config layer、login method、provider、notify、analytics、OTEL、features、shell環境、MCPを分類する。診断schemaは固定識別子のみを返し、raw message/data/stderr、URL、header、token、cookie、email、pathを出力しない。runtime失敗時のaccount RPC 0回、既存initialize RPC error・process exit・timeout分類を維持。対象19件、全module 70件、diff checkが成功し、product差分はexact2。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T047
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T046 exact2 runtimeRule診断差分をread-only監査し、startup gate不変、固定rule allowlist、秘密非漏洩、runtime失敗時account RPC 0回、既存分類維持、19/70 testsを確認してcommit＋single diagnosticを承認又は拒否する。"
+    inputs:
+      - "T045 receipt"
+      - "T046 done receipt"
+      - "exact2 uncommitted product diffとGoalBuddy board diff"
+    constraints:
+      - "Read-only。diff、board、runtimeを変更しない。"
+      - "live public_status、diagnose、account RPCを実行しない。"
+      - "秘密値を読まない・表示しない。"
+      - "既存gate、retry、cache、成功条件の変更を承認しない。"
+    expected_output:
+      - "approve_next | reject_next"
+      - "exact diffとtests監査"
+      - "scope commit/push後のsingle diagnostic package"
+      - "runtimeRule別routingとT038 activation条件"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "exact2差分、startup gate不変、文字列解析なし、runtime失敗時account RPC 0回、既存分類、19/70 tests成功は確認した。しかしruntimePhase/runtimeRuleは任意文字列を受け取り、そのまま診断JSONへ出せるため、固定allowlistとして強制されていない。実際、追加testは任意pairを直接設定して出力できることを示す。またauth_isolation、initialize_response、config_shape、custom_agents、official_endpointの実branch mappingを通す回帰testがない。秘密非漏洩境界とrule別routingの証拠が不足するため、commitとlive single diagnosticはまだ承認しない。"
+      evidence:
+        - "product差分はexact2で、git diff --check成功。"
+        - "SubscriptionGateTests 19件、module全体70件がread-only再実行で成功。"
+        - "public_status、assert、validator、retry、cache、成功条件は不変。"
+        - "runtime initialize例外はaccount/read前にreturnし、account RPC 0回。既存優先分類も維持。"
+        - "_mark_runtime_diagnosticはphase/ruleを検証せず保存し、診断がその値を無条件で返す。"
+        - "追加testはmarkerへpairを直接渡し、実callsiteとallowlist強制を検証していない。"
+        - "auth_isolation、initialize_response、config_shape、custom_agents、official_endpoint等の実branch mappingが未検証。"
+      next_allowed_task:
+        task_id: T048
+        type: worker
+        objective: "exact2差分を修正し、runtimePhase/runtimeRuleをコード上の固定pair allowlistとして強制する。非allowlist値は診断JSONへ出さずfail-closedに扱う。全SubscriptionGateError startup branchが期待pairへ到達する実経路testを追加する。startup gateと既存挙動は変えない。"
+        allowed_files:
+          - tools/question_review_console/codex_app_server.py
+          - tests/test_question_review_codex_app_server.py
+        verify:
+          - "非allowlist値がsanitized JSONへ現れない。"
+          - "全固定pairが実startup branch又は明示RPC境界から設定される。"
+          - "秘密非漏洩、account RPC単回、既存分類を確認する。"
+          - "SubscriptionGateTestsとmodule全体、git diff --check、product差分exact2。"
+        stop_if:
+          - "message/raw data/stderr文字列解析が必要になる。"
+          - "秘密値、非公開endpoint又はauth内容が必要になる。"
+          - "live RPC、run、Firestore、commit/push又はallowed_files外変更が必要になる。"
+          - "既存gate、retry、cache、RPC回数又は成功条件変更が必要になる。"
+      parallel_safety:
+        safe: false
+        reason: "T048修正、再Judge監査、scope commit/push、clean parity、committed single diagnostic、rule別routingは直列依存する。"
+      blocked_tasks:
+        - T038
+        - "live diagnostic"
+        - T999
+      missing_evidence:
+        - "固定pair allowlist強制と非allowlist非漏洩test。"
+        - "全startup branch実経路test。"
+        - "T048差分のJudge承認。"
+        - "commit/pushとsingle sanitized diagnostic。"
+        - "SAA-C03 395/395と最終品質証拠。"
+  - id: T048
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "runtimePhase/runtimeRuleを固定pair allowlistとして強制し、非allowlist値を診断JSONへ出さずfail-closedにする。未検証startup branchを含む全SubscriptionGateError branchの実経路testsを追加する。"
+    inputs:
+      - "T046 done receipt"
+      - "T047 reject receipt"
+      - "現行exact2 uncommitted diff"
+    constraints:
+      - "allowed_files exact2。"
+      - "message/raw data/stderr文字列解析禁止。"
+      - "秘密値、非公開endpoint、auth内容を読まない・表示しない。"
+      - "既存startup gate、public_status、assert、validator、retry、cache、RPC回数、成功条件を変えない。"
+      - "live RPC、run、Firestore、commit、push禁止。"
+    allowed_files:
+      - tools/question_review_console/codex_app_server.py
+      - tests/test_question_review_codex_app_server.py
+    verify:
+      - "非allowlist pairがsanitized JSONへ現れない。"
+      - "全固定pairが実startup branch又は明示RPC境界から設定される。"
+      - "raw message/data/stderr/path/URL/header/token/cookie/email非漏洩。"
+      - "runtime failure account RPC 0、到達後も各最大1回。"
+      - "既存initialize error、process_exit、timeout、quota、credits分類維持。"
+      - "SubscriptionGateTestsとmodule全体、git diff --check、product差分exact2。"
+    stop_if:
+      - "文字列解析、秘密値又は非公開endpointが必要になる。"
+      - "live RPC、run、Firestore、commit、push又はallowed_files外変更が必要になる。"
+      - "既存gate、retry、cache、RPC回数又は成功条件変更が必要になる。"
+    expected_output:
+      - "allowlist強制と全branch実経路tests receipt"
+      - "exact2 diff、全tests、非漏洩証拠"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/codex_app_server.py
+        - tests/test_question_review_codex_app_server.py
+      commands:
+        - cmd: "PYTHONPATH=. /Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+          status: pass
+        - cmd: "PYTHONPATH=. /Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "ASTによる固定pair allowlistとcallsiteの完全一致検証"
+          status: pass
+        - cmd: "product差分exact2検証"
+          status: pass
+      summary: "runtimePhase/runtimeRuleを16組の固定allowlistで強制し、非allowlist pairは内部状態を消去してfail-closedにした。auth_isolation、initialize_rpc/response、config_read/shape/layers、custom_agents、official_endpointを含む全固定pairを実経路または明示RPC境界で検証。秘密値非漏洩とruntime失敗時account RPC 0回を維持した。SubscriptionGateTests 22件、全module 73件、diff check、allowlist/callsite完全一致、product exact2が成功した。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
+  - id: T049
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T048 exact2 allowlist差分をread-only最終監査し、16固定pair強制、全callsite一致、全startup branch実経路、未知pair非漏洩fail-closed、gate不変、22/73 testsを確認してcommit＋single diagnosticを承認又は拒否する。"
+    inputs:
+      - "T047 reject receipt"
+      - "T048 done receipt"
+      - "exact2 uncommitted diffとboard diff"
+    constraints:
+      - "Read-only。変更、live RPC、secret readを行わない。"
+      - "既存startup gate、public_status、assert、validator、retry、cache、RPC回数、成功条件の変更を承認しない。"
+    expected_output:
+      - "approve_next | reject_next"
+      - "allowlist/callsite/tests/gate監査証拠"
+      - "scope commit/push後のsingle diagnostic PM task"
+      - "runtimeRule別の最小修復routeとT038 activation条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "exact2差分は16固定pairをfrozensetで強制し、未知pairを内部状態消去後に固定例外でfail-closedにする。AST監査でallowlist 16組と実callsite 16か所が一対一一致した。auth隔離、initialize RPC/response、config全ruleの実経路test、秘密非漏洩、runtime失敗時account RPC 0回、既存分類を確認した。product変更は追加のみでpublic_status、assert、validator、gate、retry、cache、RPC回数、成功条件は不変。22/73 testsとdiff checkも再成功したため、scope commit/push後のcommitted single diagnosticを承認する。"
+      evidence:
+        - "main、origin parity0/0、HEAD a0b7bb5dc、dirty scopeはboardとexact2。"
+        - "product差分はcode +65、test +295の追加のみ。既存gate系の削除・置換なし。"
+        - "AST監査はallowlist_count=16、call_count=16、unique=16、missing/unknown/duplicateなし。"
+        - "非allowlist pairは両値をNoneへ消去後、固定SubscriptionGateErrorでfail-closed。"
+        - "実経路testはauth隔離、initialize RPC/response、config read/layers/shape、custom agents、official endpoint、login、provider、notify、analytics、OTEL、features、shell、MCPを通す。"
+        - "runtime failureはaccount RPC 0回。既存process_exit、timeout、RPC、quota、credits分類維持。"
+        - "秘密sentinelはsanitized JSONへ現れない。"
+        - "SubscriptionGateTests 22件、全73件、git diff check成功。"
+      next_allowed_task:
+        task_id: T050
+        type: pm
+        objective: "T049 receiptを含むboardとexact2だけをmainへscope commit/pushし、clean parity後にcommitted diagnoseをexact1回実行して固定routingへ送る。"
+        allowed_files: []
+        verify:
+          - "commit前22/73 tests、diff check、AST 16対16、dirty exact3。"
+          - "push後main、clean、parity0/0、hash readback。"
+          - "diagnostic exact1回、finally close、固定sanitized schema。"
+          - "complete success条件全一致時だけT038 active。"
+        stop_if:
+          - "scope/tests/hash/parity不一致。"
+          - "秘密値、raw response又はschema外情報が必要。"
+          - "診断が例外、unknown、複数分類又は矛盾。"
+          - "追加RPC、run、Firestoreが必要。"
+      parallel_safety:
+        safe: false
+        reason: "commit、single diagnostic、routing、T038 activationは直列依存。"
+      blocked_tasks:
+        - "T038はT050 successまでblocked"
+        - "T999は最終品質証拠までblocked"
+      missing_evidence:
+        - "exact3 commit/push clean parity"
+        - "single diagnostic"
+        - "T038 exact2 run and 395/395"
+        - "final quality evidence"
+  - id: T050
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "T049 receiptを含むboardと監査済みexact2だけをmainへscope commit/pushし、clean parity後にcommitted diagnose_subscription_accessをfresh clientでexact1回実行して固定routingへ送る。"
+    inputs:
+      - "T049 approve receipt"
+      - "board + exact2 dirty scope"
+      - "16 pair allowlist/callsite証拠"
+    constraints:
+      - "commit scope exact3だけ。"
+      - "diagnostic fresh client exact1回、finally close。"
+      - "public_status、assert、追加account RPC、二度目のdiagnose禁止。"
+      - "固定sanitized schema外、秘密値、raw response、非公開endpointを表示・保存しない。"
+      - "problem artifact、run、evaluation、Firestoreを変更しない。"
+    allowed_files: []
+    verify:
+      - "commit前に22/73 tests、diff check、allowlist/callsite 16対16、dirty exact3を確認する。"
+      - "push後main、clean、origin parity0/0、committed exact2 hashを確認する。"
+      - "single diagnostic outputが固定schema内であることを確認する。"
+      - "完全success条件一致時だけT038をactiveにする。"
+    stop_if:
+      - "scope、tests、hash、branch、parityが不一致。"
+      - "秘密値又はschema外情報が必要になる。"
+      - "診断が例外、unknown、複数分類又は矛盾を返す。二度目は禁止。"
+      - "別RPC、run、artifactSync、evaluation、Firestoreが必要になる。"
+    expected_output:
+      - "exact3 commit/push/clean parity receipt"
+      - "single sanitized diagnostic"
+      - "runtimeRule別route又はT038 activation"
     receipt: null
   - id: T999
     type: judge
