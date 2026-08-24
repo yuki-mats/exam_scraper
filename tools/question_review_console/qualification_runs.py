@@ -645,6 +645,7 @@ ISSUE_PATCH_DIR_NAMES = {
     "law_hold": LAW_PATCH_DIR_NAMES,
 }
 REWORK_STAGE_PATCH_DIR_NAMES = {
+    "05": STAGE_PATCH_DIR_NAMES["originalize"],
     "01": STAGE_PATCH_DIR_NAMES["question_type"],
     "02": STAGE_PATCH_DIR_NAMES["question_intent"],
     "02a": STAGE_PATCH_DIR_NAMES["correct_choice"],
@@ -654,6 +655,7 @@ REWORK_STAGE_PATCH_DIR_NAMES = {
     "04": STAGE_PATCH_DIR_NAMES["question_set"],
 }
 REWORK_POLICY_STAGE_IDS = {
+    "05": "originalize",
     "01": "question_type",
     "02": "question_intent",
     "02a": "correct_choice",
@@ -9129,6 +9131,7 @@ class QualificationRunCoordinator:
             raise QualificationRunError(
                 "再整備する評価結果がありません。"
             )
+        selection_work_item_count = _question_work_selection_count(plan)
         selected_stage_ids = {
             str(value)
             for value in plan.get("stageIds") or [plan.get("stageId")]
@@ -9230,6 +9233,7 @@ class QualificationRunCoordinator:
             targetStageIdsByQuestion=target_stage_ids,
             evaluationFeedbackByQuestion=feedback_by_question,
             targetCount=len(target_stage_ids),
+            selectionWorkItemCount=selection_work_item_count,
             workItemCount=sum(
                 len(stage_ids) for stage_ids in target_stage_ids.values()
             ),

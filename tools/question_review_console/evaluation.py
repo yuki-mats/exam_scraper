@@ -40,7 +40,7 @@ PASSING_EXPLANATION_SCORE = 90
 MAX_BATCH_SIZE = 100
 MAX_EVALUATION_CONCURRENCY = 100
 MAX_INCOMPLETE_EVALUATION_ATTEMPTS = 2
-ALLOWED_REWORK_STAGES = {"01", "02", "02a", "02b", "03", "03b"}
+ALLOWED_REWORK_STAGES = {"05", "01", "02", "02a", "02b", "03", "03b"}
 TRUE_LABELS = {"正しい", "正解", "○", "〇", "true"}
 FALSE_LABELS = {"間違い", "不正解", "誤り", "×", "false"}
 
@@ -1925,6 +1925,7 @@ class QuestionEvaluationService:
 
 ## 再整備stageの責務
 
+- 05: 問題文、選択肢又は成立条件を必要最小限に直し、正答を一意に成立させる。正答対応だけを変えれば足りる場合は05へ入れない
 - 01: questionType又はisCalculationQuestionの分類
 - 02: questionIntentだけ
 - 02a: 正誤対応又はcorrectChoiceText
@@ -1932,7 +1933,7 @@ class QuestionEvaluationService:
 - 03: explanationTextだけ。法令監査結果が正しく、解説の引用条文、表現又は説明だけを直す場合も含む
 - 03b: lawReferences、lawRevisionFacts、出題時法令と現行法の判定又は法令監査結果。これに連動する解説修正も含める
 
-法令の根拠、改正、現行法判定の問題を02へ入れないでください。複数責務にまたがる場合だけreworkItemsを分けてください。
+問題文・選択肢・成立条件の欠陥を02aへ入れないでください。02aは現在の問題文と選択肢を維持したまま正誤対応だけを直す工程です。法令の根拠、改正、現行法判定の問題を02へ入れないでください。複数責務にまたがる場合だけreworkItemsを分けてください。
 
 内部思考過程は出力せず、指定JSON schemaに一致する結果だけを返してください。choiceIndexは0始まりで、0から{max(int(question.get('choiceCount') or 0) - 1, 0)}までを重複なく全件返してください。
 {retry_section}

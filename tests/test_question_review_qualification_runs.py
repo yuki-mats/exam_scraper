@@ -205,6 +205,43 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
         self.assertEqual(identity["workItemCount"], 6)
         self.assertEqual(identity["stageCount"], 2)
 
+    def test_evaluation_rework_keeps_mixed_selection_and_queue_counts_separate(self):
+        plan = self.plan()
+        for target in plan["progressTargets"]:
+            target["stateHash"] = f"state-{target['id']}"
+        snapshots = {
+            "keep-1": {
+                "status": "needs_rework",
+                "stateHash": "state-keep-1",
+                "reworkItems": [
+                    {"stage": "02", "message": "設問意図を直す", "choiceIndexes": []}
+                ],
+            },
+            "keep-2": {
+                "status": "needs_rework",
+                "stateHash": "state-keep-2",
+                "reworkItems": [
+                    {"stage": "03", "message": "解説を直す", "choiceIndexes": []}
+                ],
+            },
+            "ping-1": {
+                "status": "needs_rework",
+                "stateHash": "state-ping-1",
+                "reworkItems": [
+                    {"stage": "02", "message": "設問意図を直す", "choiceIndexes": []},
+                    {"stage": "03", "message": "解説を直す", "choiceIndexes": []},
+                ],
+            },
+        }
+        coordinator = object.__new__(QualificationRunCoordinator)
+
+        coordinator._apply_evaluation_rework_plan(plan, snapshots)
+        identity = _question_work_target_identity(plan)
+
+        self.assertEqual(plan["selectionWorkItemCount"], 6)
+        self.assertEqual(plan["workItemCount"], 4)
+        self.assertEqual(identity["workItemCount"], 4)
+
     def test_target_identity_validates_explicit_resume_selection_and_queue(self):
         plan = self.plan()
         plan["selectionWorkItemCount"] = 3
@@ -319,6 +356,22 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
 
 
 class EvaluationReworkStageTests(unittest.TestCase):
+    def test_content_rework_runs_originalize_before_answer_and_explanation(self):
+        stages = evaluation_rework_stage_codes(
+            {
+                "answerMappingMatched": False,
+                "reworkItems": [
+                    {
+                        "stage": "05",
+                        "message": "問題文の条件を直す",
+                        "choiceIndexes": [0],
+                    }
+                ],
+            }
+        )
+
+        self.assertEqual(stages, ["05", "02a", "03"])
+
     def test_correct_answer_rework_also_rebuilds_explanation(self):
         stages = evaluation_rework_stage_codes(
             {

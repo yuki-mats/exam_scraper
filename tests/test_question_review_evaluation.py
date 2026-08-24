@@ -1680,9 +1680,44 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.1")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.2")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
+
+    def test_content_defect_routes_to_originalize_rework(self):
+        captured_prompts = []
+
+        def runner(prompt):
+            captured_prompts.append(prompt)
+            result = evaluation_result(status="needs_rework")
+            result["criticalIssues"] = ["問題文の条件が不足している。"]
+            result["reworkItems"] = [
+                {
+                    "stage": "05",
+                    "message": "問題文へ正答を一意にする条件を追加する。",
+                    "choiceIndexes": [0, 1],
+                }
+            ]
+            return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(
+                Path(directory),
+                "secret",
+                result_runner=runner,
+            )
+            question = question_payload()
+            preview = service.preview(question)
+            result = service.run(
+                question,
+                preview["previewToken"],
+                lambda _line: None,
+            )["evaluation"]
+
+        self.assertEqual(result["status"], "needs_rework")
+        self.assertEqual(result["reworkItems"][0]["stage"], "05")
+        self.assertIn("問題文、選択肢又は成立条件", captured_prompts[0])
+        self.assertIn("正答対応だけを変えれば足りる場合は05へ入れない", captured_prompts[0])
 
     def test_unapproved_source_answer_difference_blocks_publication(self):
         with tempfile.TemporaryDirectory() as directory:
