@@ -5212,12 +5212,13 @@ tasks:
       - "tests/test_question_review_evaluation.py"
       - "tests/test_question_review_qualification_runs.py"
       - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow_catalog.py"
     verify:
       - "evaluation schema/validator/promptが05を許可し、問題文・選択肢・成立条件の修正を05へ、正答対応だけを02aへ割り当てる。"
       - "05 reworkはoriginalizeを先頭にし、answer mismatchなら02a、両者に連動する03を含める。"
       - "heterogeneous targetStageIdsByQuestionでselectionWorkItemCountは元selection、workItemCountは実queueとなりtarget identity検証を通る。"
       - "policy_version=5.2でsame major互換を維持する。"
-      - "python -m unittest tests.test_question_review_evaluation tests.test_question_review_qualification_runs tests.test_question_review_server"
+      - "python -m unittest tests.test_question_review_evaluation tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow_catalog"
       - "git diff --check"
       - "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source output/aws-solutions-architect-associate/category/category.json"
     stop_if:
