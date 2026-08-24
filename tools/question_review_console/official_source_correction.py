@@ -212,18 +212,18 @@ class AppServerReviewExecutor(ReviewExecutor):
                 for key, value in changes.items()
                 if self.current_record.get(key) != value
             }
-        evidence = payload.get("evidence")
-        if not isinstance(evidence, list):
-            return sorted(removed)
-        for item in evidence:
-            if (
-                isinstance(item, dict)
-                and item.get("sourceClass") == "official"
-                and item.get("contentHash") == self.evidence_hash
-            ):
-                item["title"] = self.evidence_title
-                item["locator"] = self.canonical_evidence_locator
-                item["verifiedAt"] = self.evidence_verified_at
+        # Evidence provenance is fixed by the server before the model turn. The
+        # reviewer owns only the conclusion and proposed changes; it must not be
+        # able to add, omit, or mistype evidence metadata and its hashes.
+        payload["evidence"] = [
+            {
+                "sourceClass": "official",
+                "title": self.evidence_title,
+                "locator": self.canonical_evidence_locator,
+                "verifiedAt": self.evidence_verified_at,
+                "contentHash": self.evidence_hash,
+            }
+        ]
         return sorted(removed)
 
 

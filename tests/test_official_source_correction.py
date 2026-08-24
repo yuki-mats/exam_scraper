@@ -285,7 +285,19 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 replacements={},
             )
 
-        self.assertEqual(result, {"decision": "hold"})
+        self.assertEqual(result["decision"], "hold")
+        self.assertEqual(
+            result["evidence"],
+            [
+                {
+                    "sourceClass": "official",
+                    "title": "公式問題",
+                    "locator": "tmp/official.png / 問1",
+                    "verifiedAt": "2026-07-28T00:00:00Z",
+                    "contentHash": "a" * 64,
+                }
+            ],
+        )
         self.assertEqual(app_server.prompt, "review this")
         self.assertEqual(app_server.options["work_type"], "official_source_review")
         self.assertEqual(app_server.options["sandbox"], "read-only")
@@ -380,7 +392,14 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                                     "locator": "表記ゆれ",
                                     "verifiedAt": "2026-07-28T00:00:01Z",
                                     "contentHash": "a" * 64,
-                                }
+                                },
+                                {
+                                    "sourceClass": "official",
+                                    "title": "モデルが追加した資料",
+                                    "locator": "追加URL",
+                                    "verifiedAt": "2026-07-28T00:00:01Z",
+                                    "contentHash": "not-a-hash",
+                                },
                             ],
                         },
                         ensure_ascii=False,
@@ -427,6 +446,8 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
             result["evidence"][0]["verifiedAt"],
             "2026-07-28T00:00:00Z",
         )
+        self.assertEqual(len(result["evidence"]), 1)
+        self.assertEqual(result["evidence"][0]["contentHash"], "a" * 64)
 
     def test_fix_writes_one_verified_24_patch_without_changing_source(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
