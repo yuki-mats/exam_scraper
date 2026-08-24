@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T054
+active_task: T038
 
 tasks:
   - id: T001
@@ -2885,28 +2885,71 @@ tasks:
   - id: T038
     type: worker
     assignee: Worker
-    status: blocked
+    status: active
     reasoning_hint: low
-    objective: "T037で原因を分類し、必要な外部状態変化又は承認済みbounded修復後の一度だけのfresh public_statusが許可条件を満たした場合に限り、SAA-C03 exact2を正規qualification preview/startで整備し、group artifactSyncで395/395 local-readyへ収束する。"
+    objective: "T054のsingle成功診断を再利用し、SAA-C03 exact2を正規qualification preview/startで整備してterminal validatedへ収束させ、group artifactSyncでpatch済み11問も内容再生成せず395/395 local-readyへ包含する。"
     inputs:
       - "T035 receipt exact2 and exact13 hashes"
       - "T036 downstream_worker_package"
-      - "T037 classification receipt"
-      - "activation条件を満たすsingle fresh public status receipt"
+      - "T054 complete/allowed=true single diagnostic receipt"
     constraints:
-      - "T037分類とallowed=true receiptが揃うまで実行しない。"
+      - "T054成功receiptを使い、このtaskでpublic_status又はdiagnoseを再呼出ししない。"
       - "exact2以外をmodel再生成しない。"
       - "00_source、既存ID、category、公開済み266問、評価projection369件、Firestoreを変更しない。"
       - "Standard/auto_maxのみを使い、Fast、credits bypass、API keyを使わない。"
+    allowed_files:
+      - output/question_review_console/.review-ui.lock
+      - output/question_review_console/run_leases/aws-solutions-architect-associate.lock
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json
+      - output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json
+      - output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json
+      - output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json
+      - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/8129a5b1f6fd9d433b759b4a.json
+      - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/bde2d99f85e0f552350aa651.json
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/*4841536-029*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/*4841536-029*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/*4841536-029*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/*4841536-029*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/*4841536-029*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/*4841536-029*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/*4841536-029*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_*.json"
+    verify:
+      - "preview qualification/SAA単一group/targetCount2/questionIds exact2/hash bb7b92e94e68f0b39b4c7e838ff43b7b52b06ccdcfa9c6ff7194f58eec6927a3/必要stage/Standard auto_maxを確認する。"
+      - "preview tokenとplanを維持しstart exact1回。"
+      - "terminal succeeded、queue succeeded、receiptValidated=true、validated=2、pending/blocked/hold=0、artifactSync succeeded/current。"
+      - "QuestionInventory 395全問merge/convert/upload match、issues/blockers0。"
+      - "patch済み11問bytes不変、model/work-version更新exact2以外0。"
+      - "00_source395 hash不変、既存ID/category不変。"
+      - "公開済み266 artifactと評価369 file/hash不変、publish run新規なし、Firestore writes0。"
+      - "canonical upload dry-run成功、allowed_files外差分なし。"
+    stop_if:
+      - "previewがexact2/SAA単一group/必要stage/Standard auto_maxと不一致。"
+      - "token/plan/projection/policyがstart前に変化又は二重start懸念。"
+      - "exact2以外のmodel再生成/patch/work-version更新が計画される。"
+      - "source conflict、人間content decision、hold、blocked、独自画像不足。"
+      - "artifactSync failed/interrupted又は395/395を証明できない。"
+      - "00_source、ID、category、公開266、評価369、CLF、code/config/docs、Firestore変更が必要。"
+      - "allowed_files外変更、rollback不能、retrySafe=false、Fast/credits/API key/fallbackが必要。"
     expected_output:
       - "exact2 preview identityとsingle start receipt"
       - "terminal succeeded、validated=2、pending/blocked/hold=0"
       - "artifactSync succeeded/currentと395/395 local-ready readback"
       - "patch済み11問、00_source、公開済み266問、評価369件、Firestore writes=0の不変証拠"
-    receipt:
-      result: blocked
-      blocked_reason: "T037の失敗分類と、必要な状態変化又は承認済み修復後のsingle public status success receiptが未取得。"
-      activation_condition: "available=true、allowed=true、accountType=chatgpt、standardMode=true、fastMode=false、creditsEnabled=falseのfresh receiptをT037後に一度だけ取得する。"
+    receipt: null
   - id: T039
     type: judge
     assignee: Judge
@@ -3845,7 +3888,7 @@ tasks:
   - id: T054
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T053 receiptを含むboardと監査済みexact2をmainへscope commit/pushしてclean parity後、committed diagnose_subscription_accessをfresh clientでexact1回実行し固定routingする。"
     inputs:
@@ -3870,7 +3913,45 @@ tasks:
     expected_output:
       - "exact3 commit/push clean receipt"
       - "single sanitized diagnosticとroute"
-    receipt: null
+    receipt:
+      result: done
+      summary: "T053 receipt、board、endpoint provenance exact2をmainへscope commitしてorigin/mainへpushし、clean parityとhashを確認した。committed fresh clientからdiagnose_subscription_accessをexact1回実行し、stage=complete、allowed=true、accountType=chatgpt、planType=pro、creditsEnabled=false、standardMode=true、fastMode=falseを得た。failure/RPC/runtime metadataは全てnull。T038 activation条件を完全に満たす。"
+      diagnostic:
+        stage: complete
+        allowed: true
+        failureKind: null
+        rpcMethod: null
+        rpcCode: null
+        rpcDataType: null
+        runtimePhase: null
+        runtimeRule: null
+        accountType: chatgpt
+        planType: pro
+        creditsEnabled: false
+        standardMode: true
+        fastMode: false
+      changed_files: []
+      commands:
+        - cmd: "SubscriptionGateTests22 and full75"
+          status: pass
+        - cmd: "scope commit 34b6b1fac and push origin/main"
+          status: pass
+        - cmd: "single committed diagnose with finally close"
+          status: pass
+        - cmd: "post-diagnostic clean parity"
+          status: pass
+      evidence:
+        - "commit 34b6b1fac、main、origin parity0/0、worktree clean。"
+        - "committed code hash 6b119d9590621f06897c64a8d5b77ba7f77e991b13b73b7c7dc22ab03727c0d7、test hash 6725f55f37755f82eac3a83bd9bbbc13033d0805fc7483eacbb856972c72a6f0。"
+        - "fresh diagnose exact1回、exit0、finally close。"
+        - "固定sanitized schemaのみ。secret/raw endpoint/reason/message/data/stderrなし。"
+        - "problem artifact、run、evaluation、Firestore writes0。"
+      remaining_blockers:
+        - "T038 exact2 maintenance、artifactSync、395/395 local-ready。"
+        - "未評価26、needs_rework再整備、全件fresh評価。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
   - id: T999
     type: judge
     assignee: Judge
