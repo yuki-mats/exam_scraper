@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T035
+active_task: T036
 
 tasks:
   - id: T001
@@ -1617,7 +1617,7 @@ tasks:
   - id: T035
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T034基礎実装と現行coordinatorを監査し、既存atomic primitiveを再利用して保存前監査・全stage一括commitへ接続する最小の実行可能Worker packageを確定する。"
     inputs:
@@ -1632,6 +1632,68 @@ tasks:
       - "Exact coordinator replacement seam and transaction boundary"
       - "Exact files/functions and tests for one Worker"
       - "Feasibility or explicit hard blocker"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      summary: "既存の全path lock・baseline・lock解放前rollback・起動時回復を再利用するrecoverable transactionとして、問題単位coordinatorを実装可能。"
+      evidence:
+        - "現行阻害点は_run_question_queueの一問一工程prepareと生成直後applyである。"
+        - "IsolatedQuestionPatchWorkspaceとcanonical_transactionは全stage patch/work-version pathを同一lockへ収められる。"
+        - "write_baseline、rollback_baseline、_recover_question_runを複数stageへ再利用できる。"
+        - "評価projectionは正本commit後のstateHash一致時に保存済み監査結果から昇格させ、transactionへ混ぜない。"
+      next_task: T036
+
+  - id: T036
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "問題単位envelope state machineを既存coordinatorへ接続し、一回draft、EDF監査batch、最大一回repair、全stage recoverable transaction、write-once resume、180秒terminal制御、評価昇格を完成させる。"
+    inputs:
+      - "T033 exact contract"
+      - "T035 exact primitive and coordinator seam receipt"
+      - "commit dc2ddf2dc"
+    constraints:
+      - "既存QuestionCandidate/content/record scope/stateHash/evaluation/publication validatorを維持する。"
+      - "別pipeline、provider/model分岐、local retry、Codex fallback、二回目監査を追加しない。"
+      - "監査passed又はpassed repair前のcanonical/evaluation/publication writeは0。"
+      - "真のmulti-file atomicityではなく既存lock/baseline/rollback/recovery契約として表現する。"
+    expected_output:
+      - "Question-level state machine and write-once artifacts"
+      - "180-second EDF scheduler and audit partial flush"
+      - "Recoverable all-stage commit and stateHash readback"
+      - "Saved audit evaluation promotion without another LLM call"
+      - "Focused, recovery, write-safety and deadline tests"
+    allowed_files:
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/server.py"
+      - "prompt/local_maintenance_draft.md"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_qualification_flow_recovery.py"
+      - "tests/test_question_review_qualification_record_scope.py"
+      - "tests/test_question_review_qualification_write_safety.py"
+      - "tests/test_question_review_evaluation.py"
+      - "tests/test_question_review_server.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/operations/artifact_contract.md"
+    verify:
+      - "focused candidate/hybrid/evaluation tests"
+      - "qualification run/recovery/record-scope/write-safety/server tests"
+      - "fake clock 180-second and max-turn assertions"
+      - "fault injection rollback/recovery and precommit zero-write assertions"
+      - "git diff --check and 00_source path diff 0"
+    stop_if:
+      - "前工程の正本commitなしに後工程targetを安全に確定できない。"
+      - "既存validator又はpublication gateを緩める必要がある。"
+      - "監査合格前writeが必要になる。"
+      - "全stage pathを同じlock/baseline/rollback範囲へ収められない。"
+      - "別pipeline、provider/model分岐、local retry/fallback、二回目監査が必要になる。"
+      - "allowed_files外、00_source、Firestore又は外部公開の変更が必要になる。"
     receipt: null
 
   - id: T009
