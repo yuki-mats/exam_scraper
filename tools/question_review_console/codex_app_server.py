@@ -175,6 +175,27 @@ class CodexRequestTimeoutError(CodexAppServerError):
     """One JSON-RPC response did not arrive before its request deadline."""
 
 
+class CodexProcessExitError(CodexAppServerError):
+    """The App Server process exited while its runtime was initialized."""
+
+
+class CodexRpcError(CodexAppServerError):
+    """JSON-RPC failure with only diagnostic-safe metadata retained."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        method: str,
+        code: int | str | None,
+        data_type: str | None,
+    ) -> None:
+        super().__init__(message)
+        self.method = method
+        self.code = code
+        self.data_type = data_type
+
+
 class CodexControlRequestTimeoutError(CodexAppServerError):
     """A question-scoped control-plane RPC exceeded its deadline."""
 
@@ -1362,6 +1383,99 @@ class CodexAppServerClient:
                 "modelTurns": self._model_turn_snapshot(),
             }
 
+    def diagnose_subscription_access(self) -> dict[str, Any]:
+        """Run one fail-closed subscription diagnostic without raw error data."""
+
+        base: dict[str, Any] = {
+            "stage": "binary",
+            "allowed": False,
+            "failureKind": None,
+            "rpcMethod": None,
+            "rpcCode": None,
+            "rpcDataType": None,
+        }
+        if not self.configured:
+            return {**base, "failureKind": "binary_missing"}
+
+        try:
+            self._ensure_started()
+        except CodexAppServerError as exc:
+            return self._subscription_diagnostic_failure(
+                "runtime_initialize", exc
+            )
+
+        try:
+            account = self._request("account/read", {"refreshToken": False})
+        except CodexAppServerError as exc:
+            return self._subscription_diagnostic_failure("account_read", exc)
+
+        try:
+            rate_limits = self._request("account/rateLimits/read", None)
+        except CodexAppServerError as exc:
+            return self._subscription_diagnostic_failure(
+                "rate_limits_read", exc
+            )
+
+        try:
+            status = validate_subscription_access(
+                _as_mapping(account, "Codex account response"),
+                _as_mapping(rate_limits, "Codex rate limit response"),
+            )
+        except SubscriptionGateError as exc:
+            return self._subscription_diagnostic_failure(
+                "subscription_validation", exc
+            )
+
+        return {
+            **base,
+            "stage": "complete",
+            "allowed": True,
+            "accountType": status["accountType"],
+            "planType": status["planType"],
+            "creditsEnabled": status["creditsEnabled"],
+            "standardMode": status["standardMode"],
+            "fastMode": status["fastMode"],
+        }
+
+    def _subscription_diagnostic_failure(
+        self,
+        stage: str,
+        error: CodexAppServerError,
+    ) -> dict[str, Any]:
+        rpc_method = error.method if isinstance(error, CodexRpcError) else None
+        rpc_code = error.code if isinstance(error, CodexRpcError) else None
+        rpc_data_type = (
+            error.data_type if isinstance(error, CodexRpcError) else None
+        )
+        if isinstance(error, CodexProcessExitError):
+            failure_kind = "process_exit"
+        elif isinstance(error, CodexRequestTimeoutError):
+            failure_kind = "timeout"
+        elif isinstance(error, SubscriptionGateError):
+            failure_kind = "subscription_validation_failed"
+        elif rpc_code == -32601:
+            failure_kind = "rpc_method_not_found"
+        elif rpc_code == -32602:
+            failure_kind = "invalid_params"
+        elif rpc_code in {"auth_required", "session_expired"}:
+            failure_kind = str(rpc_code)
+        elif rpc_code == "service_unavailable":
+            failure_kind = "service_unavailable"
+        elif rpc_code == "quota_reached":
+            failure_kind = "quota_reached"
+        elif rpc_code == "credits_enabled":
+            failure_kind = "credits_enabled"
+        else:
+            failure_kind = "transport_failure"
+        return {
+            "stage": stage,
+            "allowed": False,
+            "failureKind": failure_kind,
+            "rpcMethod": rpc_method,
+            "rpcCode": rpc_code,
+            "rpcDataType": rpc_data_type,
+        }
+
     def _model_turn_snapshot(self) -> dict[str, int]:
         with self._state_lock:
             return {
@@ -2213,11 +2327,14 @@ class CodexAppServerClient:
                     self._hook_check_cache.clear()
                     self._hook_check_locks.clear()
                 self._assert_official_chatgpt_endpoint()
-            except BaseException:
+            except BaseException as exc:
+                process_exited = process.poll() is not None
                 self._process = None
                 self._stdin = None
                 self._initialized = False
                 self._stop_process(process, process.stdin)
+                if process_exited and isinstance(exc, CodexAppServerError):
+                    raise CodexProcessExitError(str(exc)) from exc
                 raise
 
     def _app_server_command(self) -> list[str]:
@@ -2578,8 +2695,45 @@ class CodexAppServerClient:
                     f"Codex App Serverの{method}が時間切れになりました。"
                 )
             if pending.error is not None:
-                raise CodexAppServerError(
-                    f"Codex App Serverの{method}に失敗しました: {self._rpc_error(pending.error)}"
+                rpc_error = pending.error
+                code = rpc_error.get("code") if isinstance(rpc_error, Mapping) else None
+                safe_code = (
+                    code
+                    if (
+                        isinstance(code, int)
+                        and not isinstance(code, bool)
+                    )
+                    or code
+                    in {
+                        "auth_required",
+                        "credits_enabled",
+                        "quota_reached",
+                        "service_unavailable",
+                        "session_expired",
+                    }
+                    else None
+                )
+                data = rpc_error.get("data") if isinstance(rpc_error, Mapping) else None
+                data_type = (
+                    "null"
+                    if data is None
+                    else "boolean"
+                    if isinstance(data, bool)
+                    else "number"
+                    if isinstance(data, (int, float))
+                    else "string"
+                    if isinstance(data, str)
+                    else "object"
+                    if isinstance(data, Mapping)
+                    else "array"
+                    if isinstance(data, (list, tuple))
+                    else "unknown"
+                )
+                raise CodexRpcError(
+                    f"Codex App Serverの{method}に失敗しました: {self._rpc_error(rpc_error)}",
+                    method=method,
+                    code=safe_code,
+                    data_type=data_type,
                 )
             return pending.result
         finally:

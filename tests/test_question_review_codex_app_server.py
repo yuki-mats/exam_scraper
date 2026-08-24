@@ -1,4 +1,6 @@
 import copy
+import io
+import json
 import os
 import tempfile
 import threading
@@ -17,6 +19,7 @@ from tools.question_review_console.codex_app_server import (
     CodexAppServerClient,
     CodexControlRequestTimeoutError,
     CodexRequestTimeoutError,
+    CodexRpcError,
     CodexTerminalTurnFailedError,
     CodexTurnTimeoutError,
     DEFAULT_TURN_TIMEOUT_SECONDS,
@@ -203,6 +206,215 @@ def rate_limit_response(plan="pro"):
 
 
 class SubscriptionGateTests(unittest.TestCase):
+    def diagnostic_client(self):
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        client._ensure_started = lambda: None
+        return client
+
+    def test_diagnostic_reports_each_stage_and_calls_each_rpc_at_most_once(self):
+        stages = (
+            ("account/read", "account_read"),
+            ("account/rateLimits/read", "rate_limits_read"),
+        )
+        for failing_method, expected_stage in stages:
+            with self.subTest(stage=expected_stage):
+                client = self.diagnostic_client()
+                calls = []
+
+                def request(method, _params):
+                    calls.append(method)
+                    if method == failing_method:
+                        raise CodexRpcError(
+                            "secret sentinel https://private.invalid person@example.com",
+                            method=method,
+                            code=-32601,
+                            data_type="object",
+                        )
+                    return account_response()
+
+                client._request = request
+                result = client.diagnose_subscription_access()
+
+                self.assertEqual(result["stage"], expected_stage)
+                self.assertFalse(result["allowed"])
+                self.assertEqual(result["failureKind"], "rpc_method_not_found")
+                self.assertEqual(result["rpcMethod"], failing_method)
+                self.assertEqual(result["rpcCode"], -32601)
+                self.assertEqual(result["rpcDataType"], "object")
+                self.assertLessEqual(calls.count("account/read"), 1)
+                self.assertLessEqual(calls.count("account/rateLimits/read"), 1)
+
+    def test_diagnostic_reports_binary_runtime_validation_and_complete(self):
+        missing = CodexAppServerClient(Path.cwd(), binary_path=Path("/missing"))
+        missing.binary_path = None
+        self.assertEqual(
+            missing.diagnose_subscription_access()["failureKind"],
+            "binary_missing",
+        )
+
+        runtime = self.diagnostic_client()
+        runtime._ensure_started = lambda: (_ for _ in ()).throw(
+            CodexRequestTimeoutError("secret sentinel")
+        )
+        runtime_result = runtime.diagnose_subscription_access()
+        self.assertEqual(runtime_result["stage"], "runtime_initialize")
+        self.assertEqual(runtime_result["failureKind"], "timeout")
+
+        invalid = self.diagnostic_client()
+        invalid._request = lambda method, _params: (
+            account_response("unknown")
+            if method == "account/read"
+            else rate_limit_response("unknown")
+        )
+        invalid_result = invalid.diagnose_subscription_access()
+        self.assertEqual(invalid_result["stage"], "subscription_validation")
+        self.assertEqual(
+            invalid_result["failureKind"], "subscription_validation_failed"
+        )
+        self.assertFalse(invalid_result["allowed"])
+
+        complete = self.diagnostic_client()
+        calls = []
+        complete._request = lambda method, _params: (
+            calls.append(method)
+            or (
+                account_response()
+                if method == "account/read"
+                else rate_limit_response()
+            )
+        )
+        complete_result = complete.diagnose_subscription_access()
+        self.assertEqual(
+            complete_result,
+            {
+                "stage": "complete",
+                "allowed": True,
+                "failureKind": None,
+                "rpcMethod": None,
+                "rpcCode": None,
+                "rpcDataType": None,
+                "accountType": "chatgpt",
+                "planType": "pro",
+                "creditsEnabled": False,
+                "standardMode": True,
+                "fastMode": False,
+            },
+        )
+        self.assertEqual(calls, ["account/read", "account/rateLimits/read"])
+
+    def test_diagnostic_classifies_rpc_codes_without_leaking_secrets(self):
+        sentinels = (
+            "secret sentinel",
+            "https://private.invalid/path",
+            "Authorization",
+            "Cookie",
+            "person@example.com",
+            "/Users/person/.codex/auth.json",
+        )
+        cases = (
+            (-32602, "invalid_params"),
+            ("auth_required", "auth_required"),
+            ("session_expired", "session_expired"),
+            ("service_unavailable", "service_unavailable"),
+        )
+        for code, failure_kind in cases:
+            with self.subTest(code=code):
+                client = self.diagnostic_client()
+                client._request = lambda method, _params: (_ for _ in ()).throw(
+                    CodexRpcError(
+                        " ".join(sentinels),
+                        method=method,
+                        code=code,
+                        data_type="string",
+                    )
+                )
+
+                result = client.diagnose_subscription_access()
+                serialized = __import__("json").dumps(result)
+
+                self.assertFalse(result["allowed"])
+                self.assertEqual(result["failureKind"], failure_kind)
+                for sentinel in sentinels:
+                    self.assertNotIn(sentinel, serialized)
+
+    def test_diagnostic_preserves_process_exit_after_initialize_cleanup(self):
+        class ExitedProcess:
+            stdin = io.StringIO()
+            stdout = io.StringIO()
+            stderr = io.StringIO()
+
+            @staticmethod
+            def poll():
+                return 7
+
+            @staticmethod
+            def kill():
+                return None
+
+        class InertThread:
+            def __init__(self, *args, **kwargs):
+                pass
+
+            @staticmethod
+            def start():
+                return None
+
+        client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
+        client._prepare_isolated_codex_home = lambda: Path.cwd()
+        client._request = lambda method, _params: (_ for _ in ()).throw(
+            CodexAppServerError("initialize failed")
+        )
+        with patch(
+            "tools.question_review_console.codex_app_server.subprocess.Popen",
+            return_value=ExitedProcess(),
+        ), patch(
+            "tools.question_review_console.codex_app_server.threading.Thread",
+            InertThread,
+        ), patch(
+            "tools.question_review_console.codex_app_server."
+            "ensure_app_server_file_descriptor_capacity"
+        ):
+            result = client.diagnose_subscription_access()
+
+        self.assertEqual(result["stage"], "runtime_initialize")
+        self.assertEqual(result["failureKind"], "process_exit")
+        self.assertFalse(result["allowed"])
+        self.assertIsNone(client._process)
+
+    def test_actual_request_error_and_stderr_are_not_in_diagnostic_json(self):
+        sentinels = (
+            "raw-message-secret",
+            "raw-data-secret",
+            "raw-stderr-secret",
+        )
+        for code in ("quota_reached", "credits_enabled"):
+            with self.subTest(code=code):
+                client = self.diagnostic_client()
+                client._stderr_lines.append(sentinels[2])
+
+                def respond(message):
+                    client._handle_message(
+                        {
+                            "id": message["id"],
+                            "error": {
+                                "code": code,
+                                "message": sentinels[0],
+                                "data": {"secret": sentinels[1]},
+                            },
+                        }
+                    )
+
+                client._send = respond
+                result = client.diagnose_subscription_access()
+                serialized = json.dumps(result)
+
+                self.assertEqual(result["stage"], "account_read")
+                self.assertEqual(result["failureKind"], code)
+                self.assertFalse(result["allowed"])
+                self.assertEqual(result["rpcDataType"], "object")
+                for sentinel in sentinels:
+                    self.assertNotIn(sentinel, serialized)
+
     def test_allows_chatgpt_subscription_without_credits(self):
         status = validate_subscription_access(account_response(), rate_limit_response())
 

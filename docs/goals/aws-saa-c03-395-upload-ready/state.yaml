@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T040
+active_task: T044
 
 tasks:
   - id: T001
@@ -2993,7 +2993,7 @@ tasks:
   - id: T040
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "Codex App Serverのsubscription preflightへ診断専用diagnose_subscription_accessを追加し、秘密値を含めずstageと固定failureKindだけを返す。既存gate、retry、cache、成功判定は変更しない。"
     inputs:
@@ -3028,6 +3028,254 @@ tasks:
       - "exact 2-file diffとtests receipt"
       - "固定schema・stage・failureKindとsecret非漏洩test"
       - "既存gate不変と各RPC最大1回の回帰証拠"
+    receipt:
+      result: blocked
+      changed_files:
+        - tools/question_review_console/codex_app_server.py
+        - tests/test_question_review_codex_app_server.py
+      commands:
+        - ".venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+        - "python3 -m py_compile tools/question_review_console/codex_app_server.py tests/test_question_review_codex_app_server.py"
+        - "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+        - "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+        - "git diff --name-only"
+      summary: "診断専用メソッドと安全なRPCメタデータ射影、全stage・固定failureKind・単一RPC・秘密非漏洩の回帰テストをexact 2ファイルへ追加した。既存venvではSubscriptionGateTests 15件、全66件が成功し、diffもexact 2ファイル。ただしboard指定の.venv/bin/pythonが作業場所に存在せず、必須コマンドをそのまま完遂できないためblocked。"
+      remaining_blockers:
+        - "/Users/yuki/development/exam_scraper_local/.venv/bin/pythonが存在せず、board記載の必須verifyコマンドがexit 127になる。"
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: "Required verification executable .venv/bin/python is missing; creating an environment link would require a file outside allowed_files."
+  - id: T041
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T040 exact2-file diagnostic差分をread-onlyで監査し、秘密非漏洩・gate不変・各RPC最大1回を確認する。local clone直下に.venvがない検証停止について、既存の別checkout venvをlocal source/testへ使用した成功証拠が同等か、又は追加の安全なverifyが必要かを判定する。"
+    inputs:
+      - "T039 receipt"
+      - "T040 blocked receipt"
+      - "T040 exact2-file uncommitted diff"
+      - "local cloneとlegacy checkoutのPython environment/read-only dependency facts"
+    constraints:
+      - "Read-only。diff、venv、symlink、board、problem artifact、runを変更しない。"
+      - "live public_status、diagnose_subscription_access、account RPCを実行しない。"
+      - "秘密値を読む・表示するtest又は実通信を承認しない。"
+      - "gate、retry、cache、成功判定の変更を承認しない。"
+    expected_output:
+      - "approve | reject とexact diff監査"
+      - "既存venvによる66 tests成功を採用できるか"
+      - "不足する場合の最小amendment/verification package"
+      - "承認時のT042 commit/push＋single diagnostic package"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "別checkoutのvenvはlocal sourceをimportし、15件・66件が成功したため同等の検証環境として採用できる。差分は概ねdiagnostic-onlyで、固定stage/failureKind、各account RPC単回、既存gate不変を満たす。ただし_process_exit判定は実経路で到達不能である。_ensure_startedは例外時にself._processをNoneへ戻してから再送出するため、後段のpoll判定は成立しない。また秘密非漏洩testはraw RPC dataとstderr経路を通していない。T042 single live diagnostic前にexact2内の最小amendmentと再監査が必要である。"
+      evidence:
+        - "git diff上のproduct差分はtools/question_review_console/codex_app_server.pyとtests/test_question_review_codex_app_server.pyのexact 2件で、別途GoalBuddy board変更だけが存在する。"
+        - "diagnose_subscription_accessはbinary/runtime_initialize/account_read/rate_limits_read/subscription_validation/completeだけを使用し、失敗結果はallowed=false、成功値は既存validate_subscription_accessの戻り値だけから生成する。"
+        - "account/readとaccount/rateLimits/readは診断本体で各1回だけ呼ばれ、成功testでもcallsはexact 2 method、失敗testでも各method最大1回を確認している。"
+        - "public_status、assert_subscription_access、validate_subscription_access、retry/cache本体に直接差分はない。_requestの失敗例外はCodexAppServerErrorのsubclass化であり、全66件の既存testは成功した。"
+        - "/Users/yuki/development/exam_scraper/.venv/bin/pythonからimportしたmodule pathは/Users/yuki/development/exam_scraper_local/tools/question_review_console/codex_app_server.pyで、SubscriptionGateTests 15件とmodule全66件が成功した。"
+        - "_ensure_startedのexcept経路はself._process=Noneへ変更してから例外を再送出する。一方_process_exit分類は後段でself._process is not Noneかつpoll() is not Noneを要求するため、実際の初期化失敗経路ではprocess_exitにならない。"
+        - "新規秘密非漏洩testはCodexRpcErrorのmessage sentinelを検査するが、pending.errorのraw data valueや_stderr_linesを経由しておらず、T039が要求したdata/stderr非漏洩の回帰証拠を満たしていない。"
+        - "git diff --checkは成功した。"
+      next_allowed_task:
+        task_id: T042
+        type: worker
+        objective: "exact 2-file diagnostic実装を最小修正する。runtime initialize中の実process終了を、self._process cleanup後も固定failureKind=process_exitとして識別できる安全な構造化例外又は同等の非文字列signalで保持する。既存exception message、public_status、assert_subscription_access、validator、retry、cache、成功条件は変えない。actual _request pending.errorのraw message/dataとstderr sentinelを通す非漏洩test、process_exit実経路test、quota_reached・credits_enabled固定分類testを追加する。live RPC、commit、pushは禁止する。"
+        allowed_files:
+          - tools/question_review_console/codex_app_server.py
+          - tests/test_question_review_codex_app_server.py
+        verify:
+          - "/Users/yuki/development/exam_scraper/.venv/bin/pythonからlocal source pathを確認する。"
+          - "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+          - "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+          - "process終了を伴うmocked initialize経路がstage=runtime_initialize、failureKind=process_exit、allowed=falseを返すことを確認する。"
+          - "actual _requestのpending.errorへraw message/data sentinelを入れ、_stderr_linesにもsentinelを置いた結果をjson.dumpsして秘密値が現れないことを確認する。"
+          - "quota_reachedとcredits_enabledが固定failureKindへ分類され、失敗結果がallowed=falseであることを確認する。"
+          - "code/test差分がallowed_files exact2、git diff --check成功を確認する。"
+        stop_if:
+          - "process終了判定にraw stderr又はexception messageの文字列解析が必要になる。"
+          - "既存public_status、assert_subscription_access、validator、retry、cache、成功条件又はRPC回数を変更する必要がある。"
+          - "allowed_files外の変更、live RPC、run、Firestore、commit又はpushが必要になる。"
+          - "秘密値をtest output、diagnostic result、log又はartifactへ保存・表示する必要がある。"
+          - "15件又は全66件が失敗する。"
+      parallel_safety:
+        safe: false
+        reason: "T042 amendment、T043 read-only再監査、scope commit/push、single live diagnosticは同一exact2差分と一回限りの外部診断へ直列依存する。"
+      blocked_tasks:
+        - "T038 exact2 maintenanceはamendment、再監査、commit/push、single sanitized diagnostic successまでblocked。"
+        - "single live diagnostic taskは現差分のprocess_exit分類と秘密非漏洩test不足が解消されるまでblocked。"
+        - "T999最終監査は395/395 local-readyと全品質証拠までblocked。"
+      missing_evidence:
+        - "実process終了経路でfailureKind=process_exitとなる回帰test。"
+        - "raw pending.error dataと_stderr_linesを通した秘密非漏洩test。"
+        - "quota_reached・credits_enabled固定分類test。"
+        - "amended exact2 diffのread-only Judge承認。"
+        - "承認後のscope commit/push、clean origin/main parity、committed codeによる一度だけのsanitized diagnostic receipt。"
+  - id: T042
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "T040 exact2-file診断実装を最小修正し、runtime initialize中のprocess exitを非文字列signalで固定分類できるようにする。raw pending.error dataとstderrを通す非漏洩test、process_exit実経路、quota_reached・credits_enabled分類testを追加する。"
+    inputs:
+      - "T040 blocked receipt"
+      - "T041 reject receipt"
+      - "現行exact2-file uncommitted diff"
+    constraints:
+      - "allowed_files exact 2件だけ。"
+      - "process exit判定にraw stderr又はexception messageの文字列解析を使わない。"
+      - "既存public_status、assert_subscription_access、validator、retry、cache、成功条件、RPC回数を変更しない。"
+      - "live public_status、diagnose_subscription_access、account RPC、preview/start、run、Firestore、commit、pushを実行しない。"
+    allowed_files:
+      - tools/question_review_console/codex_app_server.py
+      - tests/test_question_review_codex_app_server.py
+    verify:
+      - "/Users/yuki/development/exam_scraper/.venv/bin/python -c 'from tools.question_review_console import codex_app_server as m; print(m.__file__)' でlocal source pathを確認する。"
+      - "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+      - "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+      - "process終了を伴うmocked initialize経路がstage=runtime_initialize、failureKind=process_exit、allowed=falseを返す。"
+      - "actual _request pending.error raw message/dataと_stderr_linesのsentinelが診断JSONへ現れない。"
+      - "quota_reachedとcredits_enabledが固定failureKind、allowed=falseとなる。"
+      - "code/test差分がallowed_files exact2、git diff --check成功。"
+    stop_if:
+      - "process終了判定にraw stderr又はexception messageの文字列解析が必要になる。"
+      - "既存gate、retry、cache、成功条件又はRPC回数を変更する必要がある。"
+      - "allowed_files外の変更、live RPC、run、Firestore、commit又はpushが必要になる。"
+      - "秘密値をtest output、diagnostic result、log又はartifactへ保存・表示する必要がある。"
+      - "15件又は全66件が失敗する。"
+    expected_output:
+      - "amended exact2 diffと全tests receipt"
+      - "process_exit実経路・raw data/stderr非漏洩・quota/credits分類証拠"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/codex_app_server.py
+        - tests/test_question_review_codex_app_server.py
+      commands:
+        - cmd: "/Users/yuki/development/exam_scraper/.venv/bin/python -c 'from tools.question_review_console import codex_app_server as m; print(m.__file__)'"
+          status: pass
+        - cmd: "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests"
+          status: pass
+        - cmd: "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server"
+          status: pass
+        - cmd: "/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest tests.test_question_review_codex_app_server.SubscriptionGateTests.test_diagnostic_preserves_process_exit_after_initialize_cleanup tests.test_question_review_codex_app_server.SubscriptionGateTests.test_actual_request_error_and_stderr_are_not_in_diagnostic_json"
+          status: pass
+        - cmd: "git diff --check -- tools/question_review_console/codex_app_server.py tests/test_question_review_codex_app_server.py"
+          status: pass
+        - cmd: "git diff --name-only -- tools/question_review_console/codex_app_server.py tests/test_question_review_codex_app_server.py"
+          status: pass
+      summary: "runtime initialize中の実process終了を専用例外型でcleanup後も保持し、固定failureKind=process_exitへ分類した。actual _requestのraw message/dataとstderr sentinelが診断JSONへ漏れないこと、quota_reached・credits_enabledが固定分類かつallowed=falseになることを追加テストで確認。local sourceを使用し、SubscriptionGateTests 17件・全68件・対象回帰2件が成功。差分は許可されたexact2のみでdiff --checkも成功。"
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T043
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T042 amended exact2-file差分をread-onlyで最終監査し、process_exit実経路、raw RPC data/stderr非漏洩、quota/credits固定分類、既存gate不変、各RPC単回、17/68 testsを確認してcommitとsingle live diagnosticを承認又は拒否する。"
+    inputs:
+      - "T041 reject receipt"
+      - "T042 done receipt"
+      - "amended exact2-file uncommitted diff"
+    constraints:
+      - "Read-only。diff、board、problem artifactを変更しない。"
+      - "live public_status、diagnose_subscription_access、account RPCを実行しない。"
+      - "秘密値を読まない・表示しない。"
+      - "gate、retry、cache、成功判定の変更を承認しない。"
+    expected_output:
+      - "approve_next | reject_next"
+      - "exact diffとtests監査証拠"
+      - "承認時のscope commit/push＋single diagnostic task package"
+      - "diagnostic結果別routingとT038 activation条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T042差分は診断専用のexact2ファイルに限定され、process終了を文字列解析なしでcleanup後も保持する。actual pending.errorのraw data/messageとstderrは診断JSONへ出ず、quota/credits RPC codeは固定分類される。診断内のaccount RPCは各最大1回で、既存public_status、assert、validator、retry、cache、成功条件は不変。local sourceで17/68 testsとdiff checkが成功したため、scope commit/push後のcommitted codeによるsingle diagnosticを承認する。"
+      evidence:
+        - "product diffはtools/question_review_console/codex_app_server.pyとtests/test_question_review_codex_app_server.pyのexact2件。別差分はGoalBuddy state.yamlだけ。"
+        - "CodexProcessExitErrorは_ensure_startedの実process poll結果から生成され、self._process cleanup後もruntime_initialize/process_exitへ分類される。文字列解析はない。"
+        - "actual _request経路へraw message/data sentinelを注入し、_stderr_linesにもsentinelを置いた回帰testで、json.dumpsした診断結果への非漏洩を確認した。"
+        - "failure stageはbinary、runtime_initialize、account_read、rate_limits_read、subscription_validation、completeの固定集合。failureKindも固定分岐で、unknown raw valueを返さない。"
+        - "account/readとaccount/rateLimits/readはdiagnose_subscription_access内で各1回だけ呼ばれ、成功caseはexact2 RPC、各失敗caseは到達済みRPCのみを単回実行する。"
+        - "public_status、assert_subscription_access、validate_subscription_access、retry、cache本体に差分はない。_requestの例外は既存基底型のsubclass化でfail-closedを維持する。"
+        - "/Users/yuki/development/exam_scraper/.venv/bin/pythonはlocal source /Users/yuki/development/exam_scraper_local/tools/question_review_console/codex_app_server.pyをimportした。"
+        - "SubscriptionGateTestsは17件、module全体は68件成功。git diff --checkも成功。"
+        - "現行file SHA-256はcodex_app_server.py=ade4b78316b343325cf6d7ce8ca99b60641d6d30a105bcee1b74079c12a14c5a、test=9991256d4be5fa34731591cf23e797949e33e57b511a30b49ec4e3a9ab1583d0、exact2 binary diff=e043a5967826911b30b3d34e334fb590bf4cbca38408b639511f1cad510cf90a。"
+      next_allowed_task:
+        task_id: T044
+        type: worker
+        objective: "PMがT043 receiptをboardへ記録し、GoalBuddy boardと監査済みexact2 code/testだけをmainへscope commitしてorigin/mainへ通常pushし、clean parityを確認した後、committed mainのfresh CodexAppServerClientからdiagnose_subscription_accessを一度だけ実行する。sanitized JSONだけをreceiptへ保存し、同task又は後続taskでpublic_status、account/read、account/rateLimits/read、diagnose_subscription_accessを重ねて呼ばない。結果を固定routingへ送り、成功条件を完全に満たす場合だけT038 activation証拠とする。"
+        allowed_files: []
+        verify:
+          - "実行直前にgit status、branch、origin/main parity、exact2 file hashをread-only確認する。"
+          - "legacy venvからlocal committed module pathを確認する。"
+          - "fresh clientを1個だけ生成し、try/finallyでcloseしながらdiagnose_subscription_accessをexact1回呼ぶ。"
+          - "実行中と実行後にpublic_status、assert_subscription_access、account RPC又は二度目のdiagnoseを呼ばない。"
+          - "出力JSONをsanitized固定schemaへ限定する。"
+        routing:
+          - "stage=complete、allowed=true、accountType=chatgpt、creditsEnabled=false、standardMode=true、fastMode=falseの全条件一致時だけT038をactiveにする。"
+          - "auth_required又はsession_expiredは構造化RPC codeとして一意な場合だけユーザー再認証gateへ送る。"
+          - "runtime_initialize/process_exitはruntime compatibility Judgeへ送る。"
+          - "rpc_method_not_found又はinvalid_paramsはRPC contract Judgeへ送る。"
+          - "timeout、service_unavailable、transport_failureは外部状態変化待ちとする。"
+          - "quota_reachedはreset evidence待ち、credits_enabledはcredits無効化確認待ち。"
+          - "subscription_validation_failed又はcomplete値不一致はsubscription/schema Judgeへ送る。"
+        stop_if:
+          - "commit/push後のworktreeがcleanでない、main/origin parityが0/0でない、又はexact2 hashが変化している。"
+          - "診断前後にpublic_status又は別account RPCを呼ぶ必要が生じる。"
+          - "秘密値、raw error、stderr本文又は非公開endpointの読取・表示が必要になる。"
+          - "診断が例外でsanitized resultを返さない。二度目を実行しない。"
+          - "診断結果がschema外、複数分類又はunknownである。"
+          - "run、problem artifact又はFirestore変更が必要になる。"
+      parallel_safety:
+        safe: false
+        reason: "board記録、exact2 scope commit/push、clean parity、single live diagnostic、結果routing、T038 activationは同一committed stateと一回限りの外部証拠へ直列依存する。"
+      blocked_tasks:
+        - "T038はT044が完全成功条件を返すまでblocked。"
+        - "SAA-C03評価・再整備とT999最終監査は395/395 local-readyまでblocked。"
+      missing_evidence:
+        - "T043 board receiptを含むscope commitとorigin/main push readback。"
+        - "clean committed mainからのsingle sanitized diagnostic receipt。"
+        - "T038 exact2 terminal run、artifactSync、SAA-C03 395/395 local-ready。"
+        - "全395問の品質評価、upload dry-run、AWS 1274/1274、Firestore writes=0、00_source不変、最終Git parity。"
+  - id: T044
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: low
+    objective: "監査済みboardとexact2 code/testをmainへcommit/pushしclean parityとなった後、committed CodexAppServerClientのdiagnose_subscription_accessを一度だけ実行し、sanitized JSONだけをreceiptへ保存して固定routingへ送る。"
+    inputs:
+      - "T043 approve receipt"
+      - "committed exact2 hashes"
+      - "main/origin clean parity"
+    constraints:
+      - "allowed_filesなし。診断でworkspace fileを変更しない。"
+      - "fresh client一つ、diagnose_subscription_access exact1回、finally close。"
+      - "public_status、assert_subscription_access、別account RPC又は二度目のdiagnoseを呼ばない。"
+      - "raw message/data/reason/stderr、URL/header/token/cookie/email/auth path、環境変数値を表示・保存しない。"
+      - "preview/start、run、artifactSync、evaluation、Firestore、問題artifactを変更しない。"
+    allowed_files: []
+    verify:
+      - "実行直前にworktree clean、branch main、origin/main parity 0/0、exact2 hash一致を確認する。"
+      - "legacy venvからlocal committed module pathを確認する。"
+      - "sanitized output keyを固定schemaに限定する。"
+      - "complete success条件が全て一致する場合だけT038 activation証拠とする。"
+    stop_if:
+      - "worktree、branch、parity又はhashが前提と一致しない。"
+      - "診断前後にpublic_status又は別account RPCが必要になる。"
+      - "秘密値又は非公開endpointの読取・表示が必要になる。"
+      - "診断が例外、schema外、複数分類又はunknownを返す。二度目は実行しない。"
+      - "問題artifact、run、evaluation、Firestore変更が必要になる。"
+    expected_output:
+      - "single sanitized diagnostic receipt"
+      - "呼出し回数exact1とno file writesの証拠"
+      - "固定routingとT038 activation可否"
     receipt: null
   - id: T999
     type: judge
