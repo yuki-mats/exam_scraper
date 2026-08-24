@@ -480,7 +480,7 @@ class SubscriptionGateTests(unittest.TestCase):
             (
                 "config_layers",
                 lambda response: response.update(
-                    {"layers": [{"name": {"type": "user"}}]}
+                    {"layers": [{"name": {"type": "user"}, "config": {}}]}
                 ),
             ),
             (
@@ -491,8 +491,14 @@ class SubscriptionGateTests(unittest.TestCase):
             ),
             (
                 "official_endpoint",
-                lambda response: response["config"].update(
-                    {"openai_base_url": "private-endpoint-secret"}
+                lambda response: response["origins"].update(
+                    {"openai_base_url": {"private-endpoint-secret": True}}
+                ),
+            ),
+            (
+                "official_endpoint",
+                lambda response: response["layers"][0]["config"].update(
+                    {"chatgpt_base_url": {"private-endpoint-secret": True}}
                 ),
             ),
             (
@@ -557,15 +563,22 @@ class SubscriptionGateTests(unittest.TestCase):
         for expected_rule, mutate in cases:
             with self.subTest(rule=expected_rule):
                 response = {
+                    "origins": {},
                     "layers": [
-                        {"name": {"type": "sessionFlags"}},
-                        {"name": {"type": "system"}},
+                        {"name": {"type": "sessionFlags"}, "config": {}},
+                        {"name": {"type": "system"}, "config": {}},
                     ],
                     "config": copy.deepcopy(safe_config),
                 }
                 mutate(response)
                 client = self.diagnostic_client()
-                client._request = lambda _method, _params: response
+                requests = []
+
+                def request(method, _params):
+                    requests.append(method)
+                    return response
+
+                client._request = request
                 client._ensure_started = client._assert_official_chatgpt_endpoint
 
                 result = client.diagnose_subscription_access()
@@ -574,6 +587,7 @@ class SubscriptionGateTests(unittest.TestCase):
                 self.assertEqual(result["runtimeRule"], expected_rule)
                 self.assertEqual(result["stage"], "runtime_initialize")
                 self.assertNotIn("secret", serialized)
+                self.assertEqual(requests, ["config/read"])
 
         self.assertEqual(
             RUNTIME_DIAGNOSTIC_PAIRS,
@@ -3224,18 +3238,57 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertNotIn("thread/start", [method for method, _params in client.calls])
 
-    def test_custom_base_url_is_rejected(self):
+    def test_endpoint_provenance_allows_builtin_default_without_override(self):
         client = ProtocolClient()
-        client._request = lambda method, params: {
-            "config": {
-                "openai_base_url": "https://router.example/v1",
-                "chatgpt_base_url": None,
-                "forced_login_method": "chatgpt",
-            }
-        }
+        client._assert_official_endpoint_provenance(
+            {
+                "origins": {},
+                "layers": [
+                    {"name": {"type": "system"}, "config": {}},
+                ],
+            },
+            {"openai_base_url": "builtin-default-sentinel"},
+        )
 
-        with self.assertRaises(SubscriptionGateError):
-            client._assert_official_chatgpt_endpoint()
+    def test_endpoint_provenance_rejects_explicit_override_without_leaking_value(self):
+        client = ProtocolClient()
+        sentinel = {"private-endpoint-secret": True}
+        cases = (
+            {
+                "origins": {"openai_base_url": sentinel},
+                "layers": [{"name": {"type": "system"}, "config": {}}],
+            },
+            {
+                "origins": {},
+                "layers": [
+                    {
+                        "name": {"type": "system"},
+                        "config": {"chatgpt_base_url": sentinel},
+                    }
+                ],
+            },
+        )
+
+        for response in cases:
+            with self.subTest(response=list(response)):
+                with self.assertRaises(SubscriptionGateError) as context:
+                    client._assert_official_endpoint_provenance(response, {})
+                self.assertNotIn("private-endpoint-secret", str(context.exception))
+
+    def test_endpoint_provenance_rejects_invalid_schema(self):
+        client = ProtocolClient()
+        cases = (
+            ({"origins": [], "layers": []}, {}),
+            ({"origins": {}, "layers": {}}, {}),
+            ({"origins": {}, "layers": [None]}, {}),
+            ({"origins": {}, "layers": [{"config": []}]}, {}),
+            ({"origins": {}, "layers": [{"config": {}}]}, {"openai_base_url": []}),
+        )
+
+        for response, config in cases:
+            with self.subTest(response=response, config=config):
+                with self.assertRaises(SubscriptionGateError):
+                    client._assert_official_endpoint_provenance(response, config)
 
     def test_unexpected_approval_requests_are_declined(self):
         client = ProtocolClient()

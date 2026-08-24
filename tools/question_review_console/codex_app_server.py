@@ -2515,6 +2515,41 @@ class CodexAppServerClient:
                 )
 
     @staticmethod
+    def _assert_official_endpoint_provenance(
+        response: Mapping[str, Any], config: Mapping[str, Any]
+    ) -> None:
+        endpoint_keys = ("openai_base_url", "chatgpt_base_url")
+        origins = response.get("origins")
+        layers = response.get("layers")
+        if not isinstance(origins, Mapping) or not isinstance(layers, list):
+            raise SubscriptionGateError("Codex endpoint provenanceを確認できません。")
+        if any(key in origins for key in endpoint_keys):
+            raise SubscriptionGateError(
+                "公式ChatGPT以外の接続先設定があるため実行しません。"
+            )
+        for layer in layers:
+            if not isinstance(layer, Mapping):
+                raise SubscriptionGateError(
+                    "Codex endpoint provenanceを確認できません。"
+                )
+            layer_config = layer.get("config")
+            if not isinstance(layer_config, Mapping):
+                raise SubscriptionGateError(
+                    "Codex endpoint provenanceを確認できません。"
+                )
+            if any(key in layer_config for key in endpoint_keys):
+                raise SubscriptionGateError(
+                    "公式ChatGPT以外の接続先設定があるため実行しません。"
+                )
+        for key in endpoint_keys:
+            if key in config and config[key] is not None and not isinstance(
+                config[key], str
+            ):
+                raise SubscriptionGateError(
+                    "Codex effective endpoint設定を確認できません。"
+                )
+
+    @staticmethod
     def _assert_no_custom_agent_config(config: Mapping[str, Any]) -> None:
         agents = config.get("agents")
         if agents is None:
@@ -2559,11 +2594,7 @@ class CodexAppServerClient:
         self._mark_runtime_diagnostic("config", "custom_agents")
         self._assert_no_custom_agent_config(config)
         self._mark_runtime_diagnostic("config", "official_endpoint")
-        for key in ("openai_base_url", "chatgpt_base_url"):
-            if config.get(key) is not None:
-                raise SubscriptionGateError(
-                    "公式ChatGPT以外の接続先設定があるため実行しません。"
-                )
+        self._assert_official_endpoint_provenance(response, config)
         self._mark_runtime_diagnostic("authentication", "login_method")
         if config.get("forced_login_method") != "chatgpt":
             raise SubscriptionGateError(

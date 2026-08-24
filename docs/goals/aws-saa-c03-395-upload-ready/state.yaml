@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T050
+active_task: T054
 
 tasks:
   - id: T001
@@ -3603,7 +3603,7 @@ tasks:
   - id: T050
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T049 receiptを含むboardと監査済みexact2だけをmainへscope commit/pushし、clean parity後にcommitted diagnose_subscription_accessをfresh clientでexact1回実行して固定routingへ送る。"
     inputs:
@@ -3631,6 +3631,245 @@ tasks:
       - "exact3 commit/push/clean parity receipt"
       - "single sanitized diagnostic"
       - "runtimeRule別route又はT038 activation"
+    receipt:
+      result: done
+      summary: "T049 receipt、board、監査済みexact2をmainへscope commitしてorigin/mainへpushし、clean parityとhash一致を確認した。committed fresh CodexAppServerClientのdiagnose_subscription_accessをexact1回実行し、runtimePhase=config、runtimeRule=official_endpoint、stage=runtime_initialize、allowed=false、failureKind=subscription_validation_failedを得た。別RPC、二度目の診断、問題artifact、run、evaluation、Firestore変更はない。"
+      diagnostic:
+        stage: runtime_initialize
+        allowed: false
+        failureKind: subscription_validation_failed
+        rpcMethod: null
+        rpcCode: null
+        rpcDataType: null
+        runtimePhase: config
+        runtimeRule: official_endpoint
+      changed_files: []
+      commands:
+        - cmd: "SubscriptionGateTests 22 and full module 73"
+          status: pass
+        - cmd: "git diff check and exact3 scope"
+          status: pass
+        - cmd: "scope commit f9a2e2ad1 and push origin/main"
+          status: pass
+        - cmd: "single committed diagnose_subscription_access with finally close"
+          status: pass
+        - cmd: "post diagnostic clean parity readback"
+          status: pass
+      evidence:
+        - "commit f9a2e2ad1をorigin/mainへpushし、main、parity0/0、worktree clean。"
+        - "committed hash code=456af0aac2377e5e4eb199b5bd2f0e3045ddead3030c7d056b300a4b859b514b、test=997cfcc65a0b3ff92ca23c97fbb233f2268b040625ee1122dadd5a47edd62fef。"
+        - "single diagnostic exit0、fresh client exact1回、finally close。"
+        - "sanitized固定schemaだけを保存し、raw endpoint/reason/message/data/stderr/secretは出力していない。"
+        - "diagnostic前後のGit差分0、Firestore writes=0。"
+      remaining_blockers:
+        - "official_endpoint ruleの構造差又はoverride混入元のread-only監査。"
+        - "T038 complete/allowed=true activation条件未達。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+  - id: T051
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T050のruntimePhase=config、runtimeRule=official_endpointをread-only監査し、秘密のendpoint値を表示せず、隔離設定生成・CLI 0.145.0 config schema・official endpoint gateのどの構造差が誤判定を起こしたか確定して最小conformance修復を選ぶ。"
+    inputs:
+      - "T049 receipt"
+      - "T050 single sanitized diagnostic"
+      - "committed codex_app_server.py/tests"
+      - "Codex CLI 0.145.0 local config schema and parser artifacts"
+    constraints:
+      - "Read-only。code、config、auth、board、runtimeを変更しない。"
+      - "public_status、diagnose、account RPCを再実行しない。"
+      - "raw endpoint、URL、header、token、cookie、email、auth内容を読まない・表示しない。"
+      - "公式endpoint gateを緩和せず、非公式provider/overrideを許容しない。"
+    expected_output:
+      - "exact structural mismatch and source layer"
+      - "false positiveか実override混入かの判定"
+      - "最小Worker package allowed_files/verify/stop_if又はhuman gate"
+      - "修復後single diagnosticとT038 activation条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "official_endpointは実overrideではなくfalse positiveである。隔離homeはauthだけを複製し、endpoint環境変数を除去し、起動flagsにもendpoint指定がなく、system configも存在しない。CLI 0.145.0のconfig/readはlayer入力とは別に組み立て済みeffective configを返すため、組込み公式defaultも非nullになる。現行gateは非nullだけでoverrideと誤認する。値比較ではなくconfig/readのorigins/layersで明示overrideを拒否する最小修復を承認する。"
+      evidence:
+        - "T050はconfig/official_endpointでaccount RPC前に停止。"
+        - "隔離homeはauthとmodel workspaceだけを生成し、source config/agentsを複製しない。"
+        - "起動環境からendpoint envを除去し、commandにもendpoint overrideなし。"
+        - "CLI 0.145.0 parserはendpoint fieldsとConfigReadResponse config/origins/layersを持つ。"
+        - "組込みdefault用layerはなく、layer由来でないeffective endpointはCLI内部default。"
+        - "system/managed configは不存在で、外部layerなら既存config_layers gateが先に止める。"
+        - "現testはeffective configだけを改変しprovenance境界を再現していない。"
+      next_allowed_task:
+        task_id: T052
+        type: worker
+        objective: "official endpoint gateをCLI 0.145.0 config/read provenance conformanceへ置換し、origins又は各layer.configにendpoint keyがあれば値を読まず拒否し、外部layer由来がないeffective endpointだけをCLI組込み公式defaultとして許可する。"
+        allowed_files:
+          - tools/question_review_console/codex_app_server.py
+          - tests/test_question_review_codex_app_server.py
+        verify:
+          - "built-in effective endpointはprovenance keyなしなら通過。"
+          - "任意layer/origins endpoint keyは値を読まず拒否。"
+          - "schema型不一致fail-closed。"
+          - "秘密非漏洩と既存gate/routing維持。"
+          - "SubscriptionGateTests、全module、diff check、exact2。"
+        stop_if:
+          - "endpoint値又は公式URL literal比較が必要。"
+          - "provenanceで構造区別不能。"
+          - "非公式override許容又は既存gate緩和が必要。"
+          - "live RPC、run、Firestore、commit/push又はallowed_files外変更が必要。"
+      parallel_safety:
+        safe: false
+        reason: "T052、監査、commit、single diagnostic、T038は直列依存。"
+      blocked_tasks:
+        - T038
+        - T999
+      missing_evidence:
+        - "T052 exact2 tests"
+        - "Judge approval/commit/single diagnostic"
+        - "395/395 and final quality"
+  - id: T052
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "official endpoint gateをeffective値のnull判定からCLI 0.145.0 config/read provenance conformanceへ置換し、origins又は各layer.configにendpoint keyがある明示overrideだけを値を読まずfail-closedで拒否する。"
+    inputs:
+      - "T050 official_endpoint receipt"
+      - "T051 false-positive Judge receipt"
+      - "committed diagnostic code/tests"
+    constraints:
+      - "allowed_files exact2。"
+      - "endpoint値、公式URL literal、raw config/auth内容を読まない・比較しない。"
+      - "origins/layers/config型不一致をfail-closed。"
+      - "非公式provider/override、既存gate、validator、retry、cache、RPC回数、success条件を緩和しない。"
+      - "live RPC、run、Firestore、commit、push禁止。"
+    allowed_files:
+      - tools/question_review_console/codex_app_server.py
+      - tests/test_question_review_codex_app_server.py
+    verify:
+      - "effective endpoint非nullでもprovenance keyなしなら組込みdefaultとして通過。"
+      - "任意origins/layer.configにendpoint keyがあれば値を読まず拒否。"
+      - "origins/layers/layer.config/effective endpoint型不正をfail-closed。"
+      - "秘密sentinel非漏洩、全runtimeRule routing、account RPC 0回を維持。"
+      - "SubscriptionGateTests、全module、diff check、product差分exact2。"
+    stop_if:
+      - "endpoint値又は公式URL literal比較が必要になる。"
+      - "provenanceでoverride/defaultを構造的に区別できない。"
+      - "非公式provider/override許容、既存gate緩和が必要になる。"
+      - "live RPC、run、Firestore、commit/push又はallowed_files外変更が必要になる。"
+    expected_output:
+      - "provenance conformance exact2 diffとtests receipt"
+      - "explicit override拒否とbuilt-in default許可の構造証拠"
+    receipt:
+      result: done
+      changed_files:
+        - tools/question_review_console/codex_app_server.py
+        - tests/test_question_review_codex_app_server.py
+      commands:
+        - cmd: "python -m unittest SubscriptionGateTests CodexAppServerTests"
+          status: pass
+        - cmd: "python -m unittest tests.test_question_review_codex_app_server"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git diff --name-only"
+          status: pass
+        - cmd: "git status --short"
+          status: pass
+        - cmd: "git diff --stat"
+          status: pass
+      summary: "official endpoint gateをconfig/read provenance準拠へ変更。originsまたは各layer.configにendpoint keyが存在すれば値を比較せず拒否し、外部由来のない文字列型effective endpointは組込みdefaultとして許可する。origins/layers/layer.config/effective endpointの型不正はfail-closed。秘密非漏洩、runtimeRule routing、account RPC 0回をテストし、全75件成功。product差分はallowed_files exact2。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+  - id: T053
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T052 endpoint provenance exact2差分をread-only監査し、built-in default許可、explicit override/型不正拒否、値非読取、秘密非漏洩、gate不変、全75 testsを確認してcommit＋single diagnosticを承認又は拒否する。"
+    inputs:
+      - "T051 receipt"
+      - "T052 done receipt"
+      - "exact2 uncommitted diff + board diff"
+    constraints:
+      - "Read-only。変更、live RPC、secret/endpoint値読取禁止。"
+      - "非公式provider/override許容又は既存gate緩和を承認しない。"
+    expected_output:
+      - "approve_next | reject_next"
+      - "provenance/schema/tests/gate監査"
+      - "scope commit/push後single diagnostic PM task"
+      - "T038 activation又は次runtimeRule route"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T052 exact2差分は、origins又は各layer.configのendpoint keyを値参照なしのmembershipで拒否し、外部provenanceがない非null文字列effective endpointだけを組込みdefaultとして許可する。型不正はfail-closed。後続gateは不変で、URL literal及びaccount RPC参照の追加もない。22/75 testsとdiff checkが再成功し、dirty scope exact3のためscope commit/push後のsingle committed diagnosticを承認する。"
+      evidence:
+        - "provenance構造による判定を実装。"
+        - "origins/layers/layer.configを必須Mapping/listとして検証しendpoint key存在を値参照なしで拒否。"
+        - "effective endpointは非nullならstring型だけ許可。"
+        - "model provider等後続gate不変。"
+        - "URL literal/account RPC参照追加なし。"
+        - "SubscriptionGateTests22、全75、diff check成功。"
+        - "product exact2、全dirty exact3。"
+      next_allowed_task:
+        task_id: T054
+        type: pm
+        objective: "boardとexact2をscope commit/pushしclean parity後、committed diagnoseをexact1回実行し固定routingする。"
+        allowed_files: []
+        verify:
+          - "commit前22/75/diff/exact3"
+          - "push後clean parity/hash"
+          - "fresh exact1 diagnose"
+          - "success全一致時だけT038"
+        stop_if:
+          - "scope/tests/hash/parity不一致"
+          - "secret/raw/schema外必要"
+          - "例外/unknown/矛盾"
+          - "別RPC/二度目/run/Firestore必要"
+      parallel_safety:
+        safe: false
+        reason: "commit、single diagnostic、routing、T038は直列依存。"
+      blocked_tasks:
+        - T038
+        - T999
+      missing_evidence:
+        - "exact3 commit/push"
+        - "single diagnostic"
+        - 395/395
+        - "final quality"
+  - id: T054
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "T053 receiptを含むboardと監査済みexact2をmainへscope commit/pushしてclean parity後、committed diagnose_subscription_accessをfresh clientでexact1回実行し固定routingする。"
+    inputs:
+      - "T053 approve receipt"
+      - "board + endpoint provenance exact2 diff"
+    constraints:
+      - "commit scope exact3。"
+      - "diagnostic exact1回、finally close。別RPC・二度目禁止。"
+      - "固定sanitized schema外、endpoint値、secret、raw responseを表示・保存しない。"
+      - "problem artifact、run、evaluation、Firestore変更禁止。"
+    allowed_files: []
+    verify:
+      - "commit前22/75 tests、diff check、dirty exact3。"
+      - "push後main、clean、parity0/0、hash readback。"
+      - "single diagnostic exact1と固定schema。"
+      - "complete success全一致時だけT038 active。"
+    stop_if:
+      - "scope/tests/hash/branch/parity不一致。"
+      - "endpoint値、secret、raw response又はschema外情報が必要。"
+      - "診断が例外、unknown、複数分類又は矛盾。"
+      - "別RPC、二度目のdiagnose、run、Firestoreが必要。"
+    expected_output:
+      - "exact3 commit/push clean receipt"
+      - "single sanitized diagnosticとroute"
     receipt: null
   - id: T999
     type: judge
