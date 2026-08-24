@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T077
+active_task: T079
 
 tasks:
   - id: T001
@@ -5471,7 +5471,7 @@ tasks:
   - id: T077
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "T075で未開始のexact7問だけをpolicy 5.2で評価し、7問すべてに現行stateHash一致のfresh passed又はneeds_rework currentValidを確定する。"
     inputs:
@@ -5506,6 +5506,164 @@ tasks:
       - "Verification fails twice."
     expected_output:
       - "terminal exact7 evaluation job and 7 fresh policy 5.2 currentValid projections"
+    receipt:
+      result: done
+      summary: "T075で未開始だったexact7問だけをpolicy5.2で評価した。previewはselected7、evaluable7、blocked0。job 9NfePFEa-1LgEGnoはsucceeded、completed7、needs_rework7、passed0、inconclusive0、failed0。全7問に現行stateHash一致のfresh policy5.2 currentValidを確定し、除外scopeと保護対象の不変を確認した。"
+      evidence:
+        - "batch2 identity SHA-256はee2bc130c743833209eb430cdf0d4959283abe9c084bf2a23fe48274646eee9b、first f6ba2f7077ea099d2098aab8、last ffd1e2ff1e6516e0005d8cdc。"
+        - "previewはselectedCount7、evaluableCount7、blockedCount0、sessionCount7、policyVersion5.2、canStart true。"
+        - "job 9NfePFEa-1LgEGnoは2026-08-24T12:31:45+09:00開始、12:35:59終了、status succeeded。"
+        - "job結果はcompleted7、passed0、needs_rework7、inconclusive0、failed0。"
+        - "7 projectionすべてcurrentValid status needs_rework、policyVersion5.2、現行stateHash一致、latestAttempt needs_rework。"
+        - "現行SAA evaluation countsはpublished266、publishReady40、needsRework89、unreviewed0、maintenance0。needsRework89中14問はsource answer difference未承認で、通常rework対象は75問。"
+        - "published266 aggregate SHA-256 23fa20a4f1586f94a149e637d974fe32d8468730834f1d58cfbaefd02f4daf26、source difference14 projection file0件は不変。"
+        - "SAAは395/395 local-ready、issues0。00_sourceとcategory差分なし、Firestore writes0。review-ui serverは正常終了。"
+      changed_files:
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+        - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      commands:
+        - cmd: "preview exact7 policy5.2"
+          status: pass
+        - cmd: "evaluation job 9NfePFEa-1LgEGno terminal convergence"
+          status: pass
+        - cmd: "7 currentValid projection readback"
+          status: pass
+        - cmd: "published/source-difference/local-ready/protected-data boundary readback"
+          status: pass
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T078
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "policy5.2評価が確定した通常needs_rework75問をread-only監査し、05を含む問題別stage組合せ、対象identity、mixed previewの期待件数を固定して、単一evaluationRework Worker packageを決定する。"
+    inputs:
+      - "T075 and T077 evaluation receipts"
+      - "75 currentValid needs_rework projections"
+      - "evaluation rework stage routing policy 5.2"
+    constraints:
+      - "Read-only。preview、再整備run又はdata変更を開始しない。"
+      - "source answer difference未承認14問をscopeへ入れない。"
+      - "published266、publishReady40、Firestoreを変更しない。"
+      - "問題ごとの評価snapshotと現行stateHash一致を必須にする。"
+    expected_output:
+      - "exact75 target digest and stage-combination counts"
+      - "selectionWorkItemCount and actual workItemCount"
+      - "single mixed evaluationRework Worker package"
+      - "allowed_files, verify, stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "通常needs_rework75問はすべてcurrentValid policy5.2・現行stateHash一致で、source answer difference未承認14問と完全に分離できる。問題別stage組合せは5群だが、T073でselection countと実queue countを分離したため、union4工程の元selection300を保持しつつ実queue196だけを単一runで進められる。05が問題内容、02aが正答対応、03が解説を所有し、必要な1問だけ01を先行する正常な工程順である。"
+      worker_package:
+        objective: "policy5.2 currentValidと現行stateHashが一致する通常needs_rework75問を、単一mixed evaluationRework runで問題別の05・01・02a・03工程だけへ配送し、196 work itemsをartifactSyncまで収束させる。"
+        allowed_files:
+          - output/question_review_console/.review-ui.lock
+          - output/question_review_console/run_leases/aws-solutions-architect-associate.lock
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+          - "output/question_review_console/cache/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+          - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+        verify:
+          - "mixed preview target75 selection300 queue196"
+          - "stage summary 53/1/67/75"
+          - "terminal succeeded queue and artifactSync"
+          - "75 current question state changes only"
+          - "excluded scope and protected data boundary"
+        stop_if:
+          - "preview identity or count mismatch"
+          - "stale evaluation snapshot"
+          - "blocked or hold convergence"
+          - "terminal or artifactSync failure"
+          - "excluded scope mutation"
+          - "repeated auth or network failure"
+      evidence:
+        - "exact targetは75問。id/stateHash/resultHash/stage配列のSHA-256は72055a81f95567017c40909ad6fe41084ed7e78bf4b8987ca16a230f1f779ea0、questionIdsHashは92e5ec9c5a022fc3df17716510276f71753658bbe4180e870cd699e374c81dd4。"
+        - "stage code組合せは03のみ7、02a+03が15、05+03が1、05+02a+03が51、05+01+02a+03が1。"
+        - "workflow stage集計はoriginalize53、question_type1、correct_choice67、explanation75。実workItemCountは196。"
+        - "union stageはoriginalize、question_type、correct_choice、explanationの4工程で、元selectionWorkItemCountは75×4=300。"
+        - "全75問はevaluation status needs_rework、machineReady true、source answer difference false、currentValid policy5.2・現行stateHash一致。"
+        - "除外はpublished266、publishReady40、source answer difference未承認14。SAAは395/395 local-ready、issues0。"
+      blocked_tasks:
+        - T999
+        - "post-rework reevaluation"
+        - "14 official answer-difference approvals"
+      missing_evidence:
+        - "mixed preview readback"
+        - "terminal 75-question rework run"
+        - "post-rework evaluation convergence"
+        - "14 official answer-difference approvals"
+        - "all395 passed final audit"
+      next_allowed_task: T079
+      note_needed: false
+      harness: codex
+  - id: T079
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "policy5.2 currentValidと現行stateHashが一致する通常needs_rework75問を、単一mixed evaluationRework runで問題別の05・01・02a・03工程だけへ配送し、196 work itemsをartifactSyncまで収束させる。"
+    inputs:
+      - "T078 Judge receipt"
+      - "target identity digest 72055a81f95567017c40909ad6fe41084ed7e78bf4b8987ca16a230f1f779ea0"
+      - "questionIdsHash 92e5ec9c5a022fc3df17716510276f71753658bbe4180e870cd699e374c81dd4"
+    constraints:
+      - "対象はsource answer difference=falseのcurrent needs_rework exact75問だけ。"
+      - "問題ごとのevaluation snapshotが指定する工程以外を実行しない。"
+      - "published266、publishReady40、source answer difference14をscopeへ入れない。"
+      - "Standard、auto_max、questionConcurrency100を使い、Firestoreへ書き込まない。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/cache/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+    verify:
+      - "previewはtarget75、stageIds originalize/question_type/correct_choice/explanation、selectionWorkItemCount300、workItemCount196、canStart true、warning0である。"
+      - "target stage summaryはoriginalize53、question_type1、correct_choice67、explanation75である。"
+      - "runはstatus succeeded、queueStatus succeeded、validated75、pending/blocked/hold0、receiptValidated true、artifactSync succeeded/currentである。"
+      - "各問は固定evaluation stateHashから指定stageだけを実行し、196/196 work itemsがvalidatedである。"
+      - "SAAは395/395 local-ready、issues0。published266、publishReady40、source difference14、Firestore writes0が不変である。"
+      - "00_source aggregate bc76ba8e...とcategory tracked正本が不変である。"
+    stop_if:
+      - "preview target、identity、stage count、selection300又はqueue196が一致しない。"
+      - "評価snapshotがstale、未対応stage又は対象外questionを含む。"
+      - "同じ根拠でblock/holdになり通常retryで解消しない。"
+      - "run failed/interrupted、queue partial、receipt invalid又はartifactSync failedになる。"
+      - "除外scope、00_source、category、Firestore又はallowed_files外の変更が必要になる。"
+      - "認証又は通信失敗が一度の通常retryで解消しない。"
+      - "Verification fails twice."
+    expected_output:
+      - "terminal mixed evaluationRework run for 75 questions and 196 validated work items"
     receipt: null
   - id: T999
     type: judge
