@@ -1952,7 +1952,7 @@ class AppServerTurnTests(unittest.TestCase):
         with self.assertRaises(CodexTerminalTurnFailedError) as raised:
             client.run_turn(
                 "question",
-                work_type="maintenance_question_type_aggregate_review_1_candidate",
+                work_type="maintenance_question_type_aggregate_review_1_audit_candidate",
                 sandbox="read-only",
                 emit=lambda _line: None,
                 output_schema={"type": "object", "properties": {}},

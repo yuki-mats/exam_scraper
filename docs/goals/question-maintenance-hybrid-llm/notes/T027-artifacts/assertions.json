@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "question-maintenance-hybrid-llm-t027-assertions/v1",
+  "fixedQuestionsMatchT025Q3Q4": true,
+  "aggregateReviewOneAndTwoUsedCodex": true,
+  "aggregateReviewWorkTypesContainAudit": true,
+  "aggregateReviewWorkTypesPreserveAggregateReviewIdentity": true,
+  "candidateOnlyUsedLocalMaintenanceBeforeFallback": true,
+  "fallbackFollowedConfiguredAttemptOrder": true,
+  "unsafeModelOverrideCount": 0,
+  "bothQuestionRunsSucceeded": true,
+  "questionParallelismAtMostOne": true,
+  "llmCallConcurrencyAtMostOne": true,
+  "sourceSnapshotUnchanged": true,
+  "firestoreWriteCount": 0,
+  "publicationCallCount": 0,
+  "productionPatchWriteCount": 0,
+  "secretsIncluded": false
+}

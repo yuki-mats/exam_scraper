@@ -4754,11 +4754,13 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
             def __init__(self):
                 self.calls = 0
+                self.work_types = []
 
             def run_turn(self, prompt, **kwargs):
                 work_type = str(kwargs.get("work_type") or "")
                 if work_type.endswith("_candidate") and "_aggregate_" not in work_type:
                     self.calls += 1
+                self.work_types.append(work_type)
                 return codex_client.run_turn(prompt, **kwargs)
 
         local = LocalBackend()
@@ -4767,7 +4769,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
     def test_real_profile_router_inherits_parent_snapshot_and_counts_valid_local(self):
         with tempfile.TemporaryDirectory() as directory:
-            router, local = self._real_profile_router(PerQuestionQueueAppServer())
+            codex = PerQuestionQueueAppServer()
+            router, local = self._real_profile_router(codex)
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 Path(directory),
                 SourceOnlyInventory(),
@@ -4786,6 +4789,27 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             child = coordinator.store.get("new-exam", attempt["childRunId"])
 
         self.assertEqual(local.calls, 1)
+        self.assertEqual(local.work_types, ["maintenance_question_type_candidate"])
+        self.assertEqual(
+            [
+                kwargs["work_type"]
+                for _question_id, _prompt, kwargs in codex.aggregate_review_calls
+            ],
+            [
+                "maintenance_question_type_aggregate_review_1_audit_candidate",
+                "maintenance_question_type_aggregate_review_2_audit_candidate",
+            ],
+        )
+        self.assertTrue(
+            all(
+                "_aggregate_review_" in value and "_audit_" in value
+                for value in (
+                    kwargs["work_type"]
+                    for _question_id, _prompt, kwargs
+                    in codex.aggregate_review_calls
+                )
+            )
+        )
         self.assertTrue(attempt["localSuccess"])
         self.assertEqual(run["modelAttemptMetrics"]["localSuccessCount"], 1)
         self.assertEqual(attempt["profileName"], "local_generate_codex_audit")
@@ -5843,9 +5867,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 in app_server.aggregate_review_calls
             ],
             [
-                "maintenance_question_type_aggregate_review_1_candidate",
-                "maintenance_question_type_aggregate_review_2_candidate",
-                "maintenance_question_type_aggregate_review_3_adjudication",
+                "maintenance_question_type_aggregate_review_1_audit_candidate",
+                "maintenance_question_type_aggregate_review_2_audit_candidate",
+                "maintenance_question_type_aggregate_review_3_audit_adjudication",
             ],
         )
         checkpoint = completed["aggregateReviewCheckpoints"][question_id]
@@ -7501,7 +7525,9 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 if "_aggregate_review_" not in work_type:
                     return super().run_turn(prompt, **kwargs)
                 question_id = str(self._candidate_questions(prompt)[0]["questionId"])
-                review_number = int(work_type.rsplit("_", 2)[1])
+                review_number = int(
+                    work_type.split("_aggregate_review_", 1)[1].split("_", 1)[0]
+                )
                 key = (question_id, review_number)
                 attempt = self.review_attempts.get(key, 0) + 1
                 self.review_attempts[key] = attempt

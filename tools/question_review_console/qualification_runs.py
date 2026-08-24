@@ -15233,7 +15233,7 @@ class QualificationRunCoordinator:
                             model_profile=model_profile_name,
                             work_type=(
                                 f"maintenance_{stage_id}_aggregate_review_"
-                                f"{review_number}_candidate"
+                                f"{review_number}_audit_candidate"
                             ),
                             sandbox="read-only",
                             emit=emit,
@@ -15263,7 +15263,7 @@ class QualificationRunCoordinator:
                             on_model_turn_event=model_turn_callback(
                                 (
                                     f"maintenance_{stage_id}_aggregate_review_"
-                                    f"{review_number}_candidate"
+                                    f"{review_number}_audit_candidate"
                                 )
                             ),
                             heartbeat=heartbeat,
@@ -15282,7 +15282,7 @@ class QualificationRunCoordinator:
                                 stage_id=stage_id,
                                 work_type=(
                                     f"maintenance_{stage_id}_aggregate_review_"
-                                    f"{review_number}_candidate"
+                                    f"{review_number}_audit_candidate"
                                 ),
                                 phase="independent_review",
                             ),
@@ -15519,7 +15519,7 @@ class QualificationRunCoordinator:
                         model_profile=model_profile_name,
                         work_type=(
                             f"maintenance_{stage_id}_aggregate_review_"
-                            "3_adjudication"
+                            "3_audit_adjudication"
                         ),
                         sandbox="read-only",
                         emit=emit,
@@ -15549,7 +15549,7 @@ class QualificationRunCoordinator:
                         on_model_turn_event=model_turn_callback(
                             (
                                 f"maintenance_{stage_id}_aggregate_review_"
-                                "3_adjudication"
+                                "3_audit_adjudication"
                             )
                         ),
                         heartbeat=heartbeat,
@@ -15568,7 +15568,7 @@ class QualificationRunCoordinator:
                             stage_id=stage_id,
                             work_type=(
                                 f"maintenance_{stage_id}_aggregate_review_"
-                                "3_adjudication"
+                                "3_audit_adjudication"
                             ),
                             phase="review_adjudication",
                         ),

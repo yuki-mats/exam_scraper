@@ -218,6 +218,22 @@ def test_http_identity_is_non_empty_unique_and_matches_callbacks():
     assert identities[0] != identities[1]
 
 
+def test_unsafe_model_override_is_nonretryable_before_http_call():
+    backend = ProfileModelRouter(_config(), _Codex()).backend_for(
+        "local_generate_codex_audit", "maintenance"
+    )
+    with patch("urllib.request.urlopen") as call:
+        with pytest.raises(ModelBackendError) as captured:
+            backend.run_turn(
+                "x",
+                model="gpt-5.6-luna",
+                output_schema={"type": "object"},
+            )
+    assert captured.value.code == "unsafe_model_override"
+    assert captured.value.retryable is False
+    call.assert_not_called()
+
+
 @pytest.mark.parametrize(
     ("profile_name", "fingerprint", "error_code"),
     [

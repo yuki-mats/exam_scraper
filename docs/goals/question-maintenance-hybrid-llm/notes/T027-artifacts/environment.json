@@ -1,0 +1,26 @@
+{
+  "capturedAt": "2026-08-25T03:50:42+09:00",
+  "isolationRoot": "/tmp/question-hybrid-t027.<redacted>",
+  "ollama": {
+    "model": "qwen3:14b",
+    "digest": "bdbd181c33f2",
+    "endpoint": "http://127.0.0.1:11434/v1/chat/completions"
+  },
+  "codex": {
+    "accountType": "chatgpt",
+    "planType": "pro",
+    "subscriptionAllowed": true,
+    "auditModel": "gpt-5.6-luna",
+    "fallbackModel": "gpt-5.6-sol"
+  },
+  "sourceSnapshot": {
+    "path": "output/2nd-class-kenchikushi/questions_json/85010/00_source/question_85010_3.json",
+    "repositorySha256": "739562d2865f5f48db55cbeac2abfbb24ef1951c45fc30078f830d50052b4eb9",
+    "isolatedSha256AfterProbe": "739562d2865f5f48db55cbeac2abfbb24ef1951c45fc30078f830d50052b4eb9"
+  },
+  "externalWrites": {
+    "firestoreCalls": 0,
+    "publicationCalls": 0,
+    "productionPatchWrites": 0
+  }
+}
