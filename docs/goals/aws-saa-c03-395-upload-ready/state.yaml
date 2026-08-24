@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T068
+active_task: T069
 
 tasks:
   - id: T001
@@ -4826,7 +4826,7 @@ tasks:
   - id: T068
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "content maintenance完了後のSAA評価状態をread-only監査し、未公開129問のnot_started 12とneeds_rework 117を全件passedへ収束する最大の安全なevaluation packageを決定する。"
     inputs:
@@ -4843,6 +4843,105 @@ tasks:
       - "exact current evaluation partition and identity/hash"
       - "stale/needs_rework/not_started root classification"
       - "次Worker objective/allowed_files/verify/stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "未公開129問の現行状態は、未評価12、現行needs_rework projection 103、元正答との差分未承認14に分かれる。未評価12問は評価artifactがなく全件machine-readyであり、最大100問のbatch上限内なので単一評価packageを承認する。103問は全件currentValid.stateHashが現行一致し、通常のevaluation-rework対象である。14問はprojection欠損かつmachineReady=falseで、24_questionIssueCorrectionsのofficial correct_answer承認が必要なため通常評価又はevaluation-reworkへ混ぜない。published266は現行passed/stateHash一致なので再評価しない。"
+      worker_package:
+        objective: "現行APIでnot_startedかつmachine-readyのSAA-C03 12問だけを、評価batch 1回で独立評価し、全12問の現行stateHashに結び付いたpassed又はneeds_rework projectionを確定する。"
+        allowed_files:
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/<exact 12 questionIds>.json"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/<exact 12 questionIds>.json"
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+        verify:
+          - "preview exact12/evaluable12/blocked0"
+          - "batch completed12/failed0/inconclusive0"
+          - "12 projection v2 current stateHash and passed or needs_rework"
+          - "published266/local-ready395/issues0/Firestore writes0/00_source hash unchanged"
+        stop_if:
+          - "preview identity/count mismatch"
+          - "authentication or utilization denied"
+          - "failed or inconclusive after internal retry"
+          - "out-of-scope or Firestore write required"
+      evidence:
+        - "current API counts: published266, unreviewed12, needsRework117, publishReady0, maintenance0"
+        - "unreviewed12 are not_started, machineReady=true, no valid evaluation file"
+        - "needsRework103 have projection/v2 currentValid=needs_rework with current stateHash and machineReady=true"
+        - "103 rework stage references: 03=91, 02a=75, 01=7, 02=7"
+        - "remaining14 are source_answer_difference_unapproved, machineReady=false, and have no valid evaluation projection"
+        - "published266 have projection/v2 currentValid=passed with current stateHash and machineReady=true"
+      blocked_tasks:
+        - T999
+        - "103 evaluation rework"
+        - "14 official answer-difference approvals"
+        - "Firestore publish"
+      missing_evidence:
+        - "12 initial evaluation results"
+        - "103 rework convergence"
+        - "14 verified correct-answer correction patches"
+        - "final 129 passed"
+  - id: T069
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "現行APIでnot_startedかつmachine-readyのSAA-C03 12問だけを、評価batch 1回で独立評価し、全12問の現行stateHashに結び付いたpassed又はneeds_rework projectionを確定する。"
+    inputs:
+      - "T068 Judge receipt"
+      - "現行evaluationStatus=unreviewedのexact 12 questionIds/stateHashes"
+      - "evaluation policy v5.1 and local review console"
+    constraints:
+      - "published266、既存needs_rework117を再評価しない。"
+      - "評価はread-only model sessionで実行し、問題patchを変更しない。"
+      - "Firestoreへ書き込まない。"
+      - "評価結果がneeds_reworkでも本文をこのtask内で直さない。"
+    allowed_files:
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/e1fc3d162578e799f4b37b5a.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/ae38cefdde6944ce81f9e125.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/99a562044342859216a3e7ab.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/4de0f0477e632427fdf63d80.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/1888000a7ef287f9a7ab0178.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/bfd448b979c03e4422137871.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/a0a7b22c35c45602ee1eddca.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/3e4593340287ad7a7e8b0378.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/22087ea038e833d3b3f242af.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/3b2aacd64e71f2ef907737a9.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/bde2d99f85e0f552350aa651.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/5a7bf93ae87d44141dad1086.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/e1fc3d162578e799f4b37b5a.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/ae38cefdde6944ce81f9e125.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/99a562044342859216a3e7ab.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/4de0f0477e632427fdf63d80.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/1888000a7ef287f9a7ab0178.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/bfd448b979c03e4422137871.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/a0a7b22c35c45602ee1eddca.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/3e4593340287ad7a7e8b0378.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/22087ea038e833d3b3f242af.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/3b2aacd64e71f2ef907737a9.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/bde2d99f85e0f552350aa651.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/5a7bf93ae87d44141dad1086.json"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+    verify:
+      - "評価previewがexact 12問、evaluable 12、blocked 0である。"
+      - "batch結果がcompleted 12、failed 0、inconclusive 0である。"
+      - "12 projectionがv2・currentValidあり・stateHash現行一致・status passed又はneeds_reworkである。"
+      - "12問がAPI上not_started/stale/running/inconclusiveでなく、各runがsucceededである。"
+      - "published266、SAA local-ready395/395、issues0、Firestore writes0、00_source aggregate hash bc76ba8e...が不変である。"
+      - "変更はallowed_filesとboardだけである。"
+    stop_if:
+      - "previewがexact 12問又はevaluable 12でない。"
+      - "ChatGPT認証・利用上限確認が通らない。"
+      - "評価がfailed又はinconclusiveのまま内部retryを使い切る。"
+      - "問題patch、00_source、category、published266又はallowed_files外へ変更が出る。"
+      - "Firestore書込みが必要になる。"
+      - "Verification fails twice."
+    expected_output:
+      - "12問のpassed/needs_rework結果とrun/projection receipt"
     receipt: null
   - id: T999
     type: judge
