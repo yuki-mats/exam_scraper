@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T002
+active_task: T005
 
 tasks:
   - id: T001
@@ -140,7 +140,7 @@ tasks:
   - id: T002
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "dirty worktree解消後、二役・二backend・名前付きprofile・fingerprint・三つの設定可能な処理上限を定義し、既存CodexAppServerClientを変更せず包むcodex_only adapterを追加する。"
     inputs:
@@ -173,12 +173,88 @@ tasks:
       - "既存Codex App Serverの認証、課金、provider、model又はstructured output gateを迂回する必要がある。"
       - "profile fingerprintへsecretを含める、又は旧manifestを書き換える必要がある。"
       - "検証が二回失敗し、原因がslice外にある。"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "config/question_maintenance_llm.toml"
+        - "tools/question_review_console/model_backend.py"
+        - "tests/test_question_review_model_backend.py"
+      summary: "二役、二backend、名前付きprofile、secret排除fingerprint、可変のquestion_parallelism・llm_call_concurrency・audit_batch_questions・audit_batch_input_bytesを追加した。codex_only adapterは既存CodexAppServerClientへそのまま委譲し、認証・課金・provider・model・structured output gateを維持する。"
+      evidence:
+        - "独立回帰: 190 passed, 129 subtests passed。"
+        - "秘密fieldはMappingだけでなくlist/tuple内でもindex path付きで拒否する。"
+        - "初期値1,1,5,120000はTOML設定で、別の正整数をparseできる。"
+        - "scoped commit 00950d117。"
+        - "pushはGitHub HTTPS認証情報がないため未反映。"
+      commands:
+        - cmd: "stdlib code preload runner: test_question_review_model_backend.py test_question_review_codex_app_server.py test_question_review_question_candidate.py test_question_review_evaluation.py -q"
+          status: pass
+          summary: "190 passed, 129 subtests passed"
+        - cmd: "git diff --check -- config/question_maintenance_llm.toml tools/question_review_console/model_backend.py tests/test_question_review_model_backend.py"
+          status: pass
+        - cmd: "git status --short"
+          status: pass
+          summary: "T002 commit前はallowed_files 3件のみ。commit 00950d117後はstate.yamlだけがPM変更。"
+      remaining_blockers:
+        - "origin/main push readback"
+
+  - id: T012
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T002の最小契約と現行pipelineを読み取り専用で監査し、OpenAI互換HTTP、profile固定、manifest readback、UI選択を一つの単純なvertical sliceへ接続するT003のexact packageを確定する。"
+    inputs:
+      - "T002 receipt and commit 00950d117"
+      - "config/question_maintenance_llm.toml"
+      - "tools/question_review_console/model_backend.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "related manifests and tests"
+    constraints:
+      - "Read-only。"
+      - "既存pipelineを複製せず、backend固有分岐を接続境界より内側へ漏らさない。"
+      - "初期profileはcodex_onlyとlocal_generate_codex_auditの二つだけにする。"
+      - "secretは環境変数からのみ解決し、設定、fingerprint、manifest、receipt、log、UIへ出さない。"
+      - "旧runはprofile metadata欠損でもreadback可能、新runとresume先だけprofile固定を必須にする。"
+      - "問題別stateHash、保存、評価、公開境界を変更しない。"
+    expected_output:
+      - "proceed | rework"
+      - "T003 exact allowed_files"
+      - "Request/result and HTTP error contract"
+      - "Profile lock and legacy manifest rules"
+      - "Focused and regression verify commands"
+      - "Deferred batch scope"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "現行pipelineは共通run_turn、RunStore.create、_plan resume、server routeへ集約されている。Server組立時にprofile routerを注入し、runごとのprofile snapshotからmaintenance/audit backendを選べばpipeline複製は不要。"
+      evidence:
+        - "qualification_runs.pyとevaluation.pyは共通run_turn interfaceへ依存し、候補検査と保存はprovider非依存。"
+        - "QualificationRunStore.createが新規manifest、QualificationRunCoordinator._planがresume照合の接続点。"
+        - "question_candidate.pyの厳格検証は変更不要。"
+        - "UIの既定100並列はprofileのquestion_parallelismへ置換が必要。"
+      decision_contract:
+        - "OpenAI互換chat-completionsへstrict json_schema requestを送る。"
+        - "loopback以外はauthEnv必須。secret実値は設定、fingerprint、manifest、receipt、log、UI、例外へ含めない。"
+        - "profile snapshotはname、fingerprint、limits、roleごとの公開backend/model/reasoning/timeoutだけを保存する。"
+        - "profile付きresumeはfingerprint完全一致。profile欠損の旧runはreadback可能で、resume先をcodex_onlyとして新規固定する。"
+        - "HTTP backendはworkspace-write、tool実行、writableRootsを拒否する。"
+      deferred_scope:
+        - "semantic micro-batch"
+        - "batch部分成功と問題別batch retry"
+      next_task: T003
 
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: blocked
     reasoning_hint: medium
     objective: "OpenAI互換HTTP backend、名前付きprofile、設定fingerprint、UI選択、secret境界を実装し、local_generate_codex_auditの一問評価vertical sliceを動かす。"
     inputs:
@@ -194,19 +270,182 @@ tasks:
       - "Fake compatible endpoint tests"
       - "Profile UI and manifest readback"
       - "Scoped commit and push receipt"
-    allowed_files: []
-    verify: []
+    allowed_files:
+      - "config/question_maintenance_llm.toml"
+      - "config/question_maintenance_workflow.toml"
+      - "tools/question_review_console/model_backend.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_model_backend.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_evaluation.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "tests/test_question_review_workflow_catalog.py"
+    verify:
+      - "stdlib code preload runner: tests/test_question_review_model_backend.py tests/test_question_review_hybrid_llm.py -q"
+      - "stdlib code preload runner: Codex, candidate, qualification_runs, evaluation, server, workflow, workflow_catalog regression -q"
+      - ".venv/bin/python -m pytest tests/test_documentation_structure.py -q"
+      - "git diff --check -- T003 allowed_files"
+      - "git status --short"
     stop_if:
       - "T002の共通契約が未完了。"
       - "HTTP互換仕様をprovider固有分岐なしで表せない。"
       - "secretがlog又はartifactへ出る。"
+      - "HTTP backendでworkspace-write又はtool実行を模倣する必要がある。"
+      - "profileをpreview token、manifest、resume照合へ固定できない。"
+      - "既存manifest、stateHash、候補検査、atomic patch、評価結果又は公開gateの変更が必要になる。"
+      - "allowed_files外の変更が必要になる。"
       - "検証が二回失敗し、原因がslice外にある。"
-    receipt: null
+    receipt:
+      result: blocked
+      full_outcome_complete: false
+      changed_files:
+        - "config/question_maintenance_llm.toml"
+        - "tools/question_review_console/model_backend.py"
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/server.py"
+        - "tools/question_review_console/static/app.js"
+        - "tools/question_review_console/static/index.html"
+        - "tests/test_question_review_model_backend.py"
+        - "tests/test_question_review_hybrid_llm.py"
+        - "tests/test_question_review_workflow.py"
+      summary: "HTTP backend、公開profile snapshot、manifest/preview token固定、UI選択の初稿を実装した。focused 13件と関連回帰494件は合格したが、旧100並列UI assertionが残り、独立レビューでprocess-global profile切替、LLM call semaphore欠損、HTTP result identity欠損を検出したため完成を拒否した。"
+      commands:
+        - cmd: "stdlib code preload runner: tests/test_question_review_model_backend.py tests/test_question_review_hybrid_llm.py -q"
+          status: pass
+          summary: "13 passed"
+        - cmd: "stdlib code preload runner: Codex, candidate, qualification_runs, evaluation, server, workflow, workflow_catalog regression -q"
+          status: fail
+          summary: "494 passed, 1 failed。旧100並列UI assertion。"
+      remaining_blockers:
+        - "process-global select_profileをrun固定のdispatchへ置換する。"
+        - "llm_call_concurrencyをbackend共通semaphoreで実強制する。"
+        - "HTTP resultへ一意なthread/session/turn identityを持たせる。"
+        - "選択profileだけの公開snapshotからfingerprintを生成する。"
+        - "旧100/300並列文言と契約testを初期1並列へ整合する。"
+      needs_judge: true
+      verification_attempts: 3
+      stopped_because: "二回の修正後も回帰失敗し、独立レビューでrun固定と実並列制御の不足を検出した。"
+
+  - id: T013
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T003初稿を読み取り専用で再監査し、process-global profile変更を排除し、run固定dispatch、LLM共通semaphore、HTTP identity、profile固有fingerprintを最小差分で完成させるrework packageを確定する。"
+    inputs:
+      - "T003 partial receipt and current diff"
+      - "T012 contract"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_workflow.py failure at line 2060"
+    constraints:
+      - "Read-only。"
+      - "UIだけ直して合格扱いにしない。"
+      - "選択profileはprocess-global mutable stateにしない。"
+      - "llm_call_concurrencyはCodexとHTTPを合わせた実呼出し上限として強制する。"
+      - "一問保存、stateHash、候補検査、公開境界を変更しない。"
+    expected_output:
+      - "approve_rework | reject"
+      - "Exact T014 Worker allowed_files and verify"
+      - "Per-run dispatch contract"
+      - "Concurrency and HTTP identity tests"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "process-global profile、共通semaphore欠損、空HTTP identity、全profile fingerprintを修復すれば、pipelineを複製せずrun分離を証明できる。"
+      required_rework:
+        - "mutable select_profileを削除し、preview/start引数とmanifest snapshotから各maintenance callを明示dispatchする。"
+        - "CodexとHTTPが共有するBoundedSemaphoreでllm_call_concurrencyを実強制する。"
+        - "HTTP callごとに非空・一意でcallbackと一致するthread/session/turn IDを生成する。"
+        - "選択profileのlimitsとrole公開設定だけからfingerprintを生成する。"
+        - "backend instanceはkindでなくbackend定義名ごとに保持する。"
+        - "UIの旧100/300文言と100既定を除去し、serverでも設定上限を強制する。"
+      next_task: T014
+
+  - id: T014
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "T003初稿をreworkし、run固定profile dispatch、CodexとHTTP共通semaphore、HTTP identity、profile固有fingerprint、設定由来の並列UIを完成させる。"
+    allowed_files:
+      - "config/question_maintenance_llm.toml"
+      - "tools/question_review_console/model_backend.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "tests/test_question_review_model_backend.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+    verify:
+      - "focused model_backend, hybrid_llm, qualification_runs, server, workflow tests"
+      - "llm_call_concurrency=1と2のactive counter実測"
+      - "codex_onlyとhybrid同時runのbackend/fingerprint非混線test"
+      - "HTTP identity非空・一意・callback一致test"
+      - "未選択profile変更で選択fingerprint不変test"
+      - "Codex, candidate, evaluation, qualification_runs, server, workflow, catalog regression"
+      - "git diff --check -- T014 allowed_files"
+      - "git status --short"
+    stop_if:
+      - "新規runのmodel callをpreview token又はmanifest snapshotへ結び付けられない。"
+      - "Codex又はHTTPが共通semaphoreを迂回する。"
+      - "pipeline複製、stateHash、候補検査、atomic保存、receipt又は公開gate変更が必要になる。"
+      - "secret実値がsnapshot、fingerprint、manifest、receipt、log、UI又は例外へ出る。"
+      - "allowed_files外の変更が必要になる。"
+      - "検証を二回修正してもslice外原因で失敗する。"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "config/question_maintenance_llm.toml"
+        - "tools/question_review_console/model_backend.py"
+        - "tools/question_review_console/qualification_runs.py"
+        - "tools/question_review_console/server.py"
+        - "tools/question_review_console/static/app.js"
+        - "tools/question_review_console/static/index.html"
+        - "tests/test_question_review_hybrid_llm.py"
+        - "tests/test_question_review_qualification_runs.py"
+        - "tests/test_question_review_server.py"
+        - "tests/test_question_review_workflow.py"
+      summary: "runごとのprofile固定dispatch、Codex/HTTP共通semaphore、HTTP identity、選択profile固有fingerprint、設定由来の並列UIとserver上限制約を完成させた。"
+      commands:
+        - cmd: "focused model_backend, hybrid_llm, qualification_runs, server, workflow tests"
+          status: pass
+          summary: "317 passed, 33 subtests passed"
+        - cmd: "Codex, candidate, evaluation, qualification_runs, server, workflow, catalog regression"
+          status: pass
+          summary: "498 passed, 197 subtests passed"
+        - cmd: "git diff --check and 00_source scope check"
+          status: pass
+          summary: "whitespace errorなし、00_source変更なし"
+      evidence:
+        - "llm_call_concurrency=1と2のactive counterを実測した。"
+        - "codex_onlyとhybridの同時runでbackendとfingerprintが混線しないことを確認した。"
+        - "HTTP identityが非空・一意でcallbackと一致することを確認した。"
+        - "未選択profile変更では選択profile fingerprintが変わらないことを確認した。"
+        - "旧runはcodex_onlyとしてのみ安全にresumeできることを確認した。"
+        - "commit 3cd469593"
+      remaining_blockers:
+        - "cloud監査micro-batchと問題別部分再試行は未実装。"
+        - "local HTTPのretry/fallback分類は未実装。"
+        - "運用文書には旧100/300並列とCodex-only記述が残る。"
+        - "実local modelと実Codexの比較試験は未実施。"
+        - "GitHub認証切れによりorigin/mainへ未push。"
 
   - id: T004
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "Codex互換化とHTTP profile sliceを監査し、複数問監査を追加しても一問安全境界を壊さない最大のWorker sliceを確定する。"
     inputs:
@@ -223,12 +462,25 @@ tasks:
       - "Grouping and byte-limit rules"
       - "Partial-success and retry rules"
       - "Exact Worker allowed_files and verify"
-    receipt: null
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "profile routerと共通semaphoreは再利用できる。旧100並列・一問一turn評価だけをsemantic micro-batchへ置換し、結果を既存の問題別commit境界へ戻す構成が最小で安全。"
+      evidence:
+        - "両profileのaudit roleはCodex App Serverへ解決される。"
+        - "現行run_manyはMAX_EVALUATION_CONCURRENCY=100の単問ThreadPoolでsemantic batchではない。"
+        - "既存build_result、work version、projection promotionが問題別stateHash・receipt・公開境界の再利用点である。"
+        - "評価promptは現在の正答labelを渡していない。"
+      next_task: T005
+      deferred:
+        - "HTTP retry taxonomyとmaintenance fallbackは独立責務としてT015へ分離する。"
+        - "実local model比較はT006で行う。"
 
   - id: T005
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "最大5問・120,000 input bytesを初期上限とする独立cloud監査micro-batchを実装し、問題別検証・receipt・部分再試行・resumeを完成させる。"
     inputs:
@@ -244,12 +496,55 @@ tasks:
       - "Partial failure and resume tests"
       - "Telemetry and receipts"
       - "Scoped commit and push receipt"
-    allowed_files: []
-    verify: []
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_evaluation.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - "focused evaluation, server, hybrid_llm, workflow, documentation tests"
+      - "5問1turn、6問count split、120000 byte split、qualification/policy/law/image grouping、入力順維持"
+      - "missing、duplicate、extra、wrong stateHash、choice欠落、部分成功、invalid問だけsingle retry"
+      - "transport失敗でsingle fan-outしない"
+      - "各問stateHash、runId、resultHash、manifest、work-version、projection、publishReadyと一問parity"
+      - "現在正答sentinel非送信、両profile audit=Codex、profile preview/start/manifest一致、llm_call_concurrency=1"
+      - "related full regression"
+      - "git diff --check and 00_source scope check"
     stop_if:
       - "T004がschemaとallowed_filesを確定していない。"
       - "一問receipt又は独立判定を維持できない。"
       - "batch化により一問評価との判定差が解消できない。"
+      - "検証が二回失敗し、原因がslice外にある。"
+    receipt: null
+
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "local maintenanceのretry_model・fallbackとretryable/non-retryable error分類を、共通pipelineを増やさず完成させる。"
+    inputs:
+      - "T005 receipt"
+      - "T004 deferred findings"
+    constraints:
+      - "provider別workflowを作らない。"
+      - "HTTP transport・429・5xxだけをretryableとし、schema・安全設定・4xxはfail-closedにする。"
+      - "fallback使用をmanifestとreceiptで識別できるようにする。"
+      - "secretをlog、例外、manifestへ出さない。"
+    expected_output:
+      - "Configurable retry_model and fallback"
+      - "Typed sanitized errors"
+      - "Retry/fallback/fail-closed tests"
+      - "Scoped commit and push receipt"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "既存pipelineの複製が必要になる。"
+      - "secret又は未検証resultを保存する必要がある。"
       - "検証が二回失敗し、原因がslice外にある。"
     receipt: null
 
@@ -260,7 +555,7 @@ tasks:
     reasoning_hint: medium
     objective: "実ローカルendpointと基準modelを用意し、固定代表問題集合でsmoke、故障注入、codex_only比較、ハイブリッド品質受入を実行して証拠を保存する。"
     inputs:
-      - "T005 receipt"
+      - "T015 receipt"
       - "Acceptance Criteria in goal.md"
       - "Current representative qualification fixtures"
     constraints:
