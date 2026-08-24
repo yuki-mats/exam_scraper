@@ -675,8 +675,14 @@ def evaluation_rework_stage_codes(snapshot: Mapping[str, Any]) -> list[str]:
             if isinstance(item, Mapping) and item.get("stage")
         )
     )
-    if snapshot.get("answerMappingMatched") is False and "02a" not in requested:
-        requested.append("02a")
+    if snapshot.get("answerMappingMatched") is False:
+        # 02a can verify the conflict but cannot repair an ambiguous or stale
+        # question body/choice.  Put 05 first so the normal path can restore a
+        # unique, source-grounded answer before 02a and 03 revalidate it.
+        if "05" not in requested:
+            requested.append("05")
+        if "02a" not in requested:
+            requested.append("02a")
     # A law audit can only verify revisions after the law-context stage has
     # independently classified the question and discovered its references.
     # Do not let a stale isLawRelated=false value skip that prerequisite.

@@ -195,11 +195,12 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
 
     def test_evaluation_rework_plan_adds_correct_choice_for_mapping_mismatch(self) -> None:
+        originalize = stage_plan("originalize", self.targets)
         correct_choice = stage_plan("correct_choice", self.targets)
         plan = {
             **self.plan,
-            "stageIds": ["correct_choice", "explanation", "law_audit"],
-            "stagePlans": [correct_choice, self.first, self.second],
+            "stageIds": ["originalize", "correct_choice", "explanation", "law_audit"],
+            "stagePlans": [originalize, correct_choice, self.first, self.second],
         }
         coordinator = object.__new__(QualificationRunCoordinator)
 
@@ -218,7 +219,7 @@ class QuestionWorkQueueTests(unittest.TestCase):
 
         self.assertEqual(
             plan["targetStageIdsByQuestion"]["q1"],
-            ["correct_choice", "explanation"],
+            ["originalize", "correct_choice", "explanation"],
         )
         feedback = plan["evaluationFeedbackByQuestion"]["q1"][0]
         self.assertFalse(feedback["answerMappingMatched"])

@@ -1576,6 +1576,12 @@ class QuestionReviewServerTests(unittest.TestCase):
                 return {
                     "stages": [
                         {
+                            "id": "originalize",
+                            "updateTargets": [
+                                {"selectionId": "originalize.content"}
+                            ],
+                        },
+                        {
                             "id": "question_intent",
                             "updateTargets": [
                                 {"selectionId": "question_intent.intent"}
@@ -1686,6 +1692,12 @@ class QuestionReviewServerTests(unittest.TestCase):
                 return {
                     "stages": [
                         {
+                            "id": "originalize",
+                            "updateTargets": [
+                                {"selectionId": "originalize.content"}
+                            ],
+                        },
+                        {
                             "id": "correct_choice",
                             "updateTargets": [
                                 {"selectionId": "correct_choice.correct_answer"}
@@ -1729,14 +1741,15 @@ class QuestionReviewServerTests(unittest.TestCase):
                 },
             )
 
-        self.assertEqual(runs.stage_id, "correct_choice")
+        self.assertEqual(runs.stage_id, "originalize")
         self.assertEqual(
             runs.options["stage_ids"],
-            ["correct_choice", "explanation"],
+            ["originalize", "correct_choice", "explanation"],
         )
         self.assertEqual(
             runs.options["update_target_ids"],
             [
+                "originalize.content",
                 "correct_choice.correct_answer",
                 "explanation.basic_explanation",
             ],

@@ -257,6 +257,59 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertTrue(changed["different"])
         self.assertEqual(changed["changedChoiceIndexes"], [0])
 
+    def test_correct_choice_comparison_aligns_reordered_choice_content(self):
+        comparison = correct_choice_comparison(
+            {
+                "questionIntent": "select_correct",
+                "choiceTextList": ["ホットシャードをマージする", "コールドシャードをマージする"],
+                "correctChoiceText": ["間違い", "正しい"],
+            },
+            {
+                "questionIntent": "select_correct",
+                "choiceTextList": ["コールドシャードをマージする", "ホットシャードをマージする"],
+                "correctChoiceText": ["正しい", "間違い"],
+            },
+        )
+
+        self.assertFalse(comparison["different"])
+        self.assertEqual(comparison["comparisonBasis"], "aligned_choice_content")
+        self.assertEqual(comparison["currentToSourceChoiceIndexes"], [1, 0])
+
+    def test_correct_choice_comparison_accounts_for_question_intent(self):
+        comparison = correct_choice_comparison(
+            {
+                "questionIntent": "select_incorrect",
+                "choiceTextList": ["安全な構成", "危険な構成"],
+                "correctChoiceText": ["正しい", "間違い"],
+            },
+            {
+                "questionIntent": "select_correct",
+                "choiceTextList": ["安全な構成", "危険な構成"],
+                "correctChoiceText": ["間違い", "正しい"],
+            },
+        )
+
+        self.assertFalse(comparison["different"])
+        self.assertEqual(comparison["sourceSelectedChoiceIndexes"], [1])
+        self.assertEqual(comparison["currentSelectedChoiceIndexes"], [1])
+
+    def test_correct_choice_comparison_rejects_ambiguous_content_mapping(self):
+        comparison = correct_choice_comparison(
+            {
+                "questionIntent": "select_correct",
+                "choiceTextList": ["S3の読み取り権限A", "S3の読み取り権限B"],
+                "correctChoiceText": ["間違い", "正しい"],
+            },
+            {
+                "questionIntent": "select_correct",
+                "choiceTextList": ["S3の読み取り専用権限", "S3の完全アクセス権限"],
+                "correctChoiceText": ["正しい", "間違い"],
+            },
+        )
+
+        self.assertTrue(comparison["different"])
+        self.assertEqual(comparison["comparisonBasis"], "choice_position")
+
     def test_source_answer_difference_requires_exact_verified_answer_patch(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

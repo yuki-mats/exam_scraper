@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import difflib
 import hashlib
 import json
 import re
@@ -386,6 +387,96 @@ def _aligned_choice_values(value: Any, choices: list[Any]) -> list[Any] | None:
     return value
 
 
+def _selected_choice_indexes(record: Mapping[str, Any], verdicts: list[str]) -> set[int]:
+    selected_verdict = (
+        "間違い"
+        if str(record.get("questionIntent") or "") == "select_incorrect"
+        else "正しい"
+    )
+    return {
+        index
+        for index, verdict in enumerate(verdicts)
+        if verdict == selected_verdict
+    }
+
+
+def _choice_similarity_text(value: Any) -> str:
+    return re.sub(r"[\W_]+", "", normalize_text(value)).casefold()
+
+
+def _choice_content_alignment(
+    source_choices: Any,
+    current_choices: Any,
+) -> list[int] | None:
+    """Map each current choice to one source choice when the relation is unique.
+
+    05 may reorder choices and make small terminology edits.  Answer drift must
+    therefore compare the selected choice content, not the array position.  A
+    mapping is accepted only for equal-size, one-to-one lists.  Exact matches
+    are fixed first; remaining near-exact matches require both a conservative
+    similarity floor and an unambiguous best candidate.
+    """
+
+    if (
+        not isinstance(source_choices, list)
+        or not isinstance(current_choices, list)
+        or not source_choices
+        or len(source_choices) != len(current_choices)
+    ):
+        return None
+    source_texts = [_choice_similarity_text(value) for value in source_choices]
+    current_texts = [_choice_similarity_text(value) for value in current_choices]
+    if not all(source_texts) or not all(current_texts):
+        return None
+
+    mapping: list[int | None] = [None] * len(current_texts)
+    available = set(range(len(source_texts)))
+    for current_index, current_text in enumerate(current_texts):
+        exact = [
+            source_index
+            for source_index in available
+            if source_texts[source_index] == current_text
+        ]
+        if len(exact) == 1:
+            mapping[current_index] = exact[0]
+            available.remove(exact[0])
+
+    pending: list[tuple[int, int, float, float]] = []
+    for current_index, current_text in enumerate(current_texts):
+        if mapping[current_index] is not None:
+            continue
+        scored = sorted(
+            (
+                difflib.SequenceMatcher(
+                    None,
+                    current_text,
+                    source_texts[source_index],
+                    autojunk=False,
+                ).ratio(),
+                source_index,
+            )
+            for source_index in available
+        )
+        if not scored:
+            return None
+        best_score, best_source_index = scored[-1]
+        second_score = scored[-2][0] if len(scored) > 1 else 0.0
+        if best_score < 0.58 or (
+            len(scored) > 1 and best_score - second_score < 0.10
+        ):
+            return None
+        pending.append(
+            (current_index, best_source_index, best_score, second_score)
+        )
+    if len({item[1] for item in pending}) != len(pending):
+        return None
+    for current_index, source_index, _best, _second in pending:
+        mapping[current_index] = source_index
+    if any(value is None for value in mapping):
+        return None
+    return [int(value) for value in mapping]
+
+
 def correct_choice_comparison(
     source: Mapping[str, Any],
     projected: Mapping[str, Any],
@@ -401,21 +492,39 @@ def correct_choice_comparison(
     )
     source_normalized = [normalize_verdict(value) for value in source_values]
     current_normalized = [normalize_verdict(value) for value in current_values]
-    changed_indexes = [
-        index
-        for index in range(max(len(source_normalized), len(current_normalized)))
-        if (
-            source_normalized[index] if index < len(source_normalized) else None
-        ) != (
-            current_normalized[index] if index < len(current_normalized) else None
-        )
-    ]
+    source_selected = _selected_choice_indexes(source, source_normalized)
+    current_selected = _selected_choice_indexes(projected, current_normalized)
+    choice_alignment = _choice_content_alignment(
+        source.get("choiceTextList"),
+        projected.get("choiceTextList"),
+    )
+    if choice_alignment is not None:
+        changed_indexes = [
+            current_index
+            for current_index, source_index in enumerate(choice_alignment)
+            if (current_index in current_selected)
+            != (source_index in source_selected)
+        ]
+        comparison_basis = "aligned_choice_content"
+    else:
+        changed_indexes = [
+            index
+            for index in range(max(len(source_normalized), len(current_normalized)))
+            if (index in source_selected) != (index in current_selected)
+        ]
+        comparison_basis = "choice_position"
     return {
         "comparable": comparable,
         "different": comparable and bool(changed_indexes),
         "source": source_values,
         "current": current_values,
         "changedChoiceIndexes": changed_indexes if comparable else [],
+        "comparisonBasis": comparison_basis,
+        "currentToSourceChoiceIndexes": (
+            choice_alignment if comparable and choice_alignment is not None else []
+        ),
+        "sourceSelectedChoiceIndexes": sorted(source_selected) if comparable else [],
+        "currentSelectedChoiceIndexes": sorted(current_selected) if comparable else [],
     }
 
 

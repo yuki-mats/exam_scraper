@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T084
+active_task: T087
 
 tasks:
   - id: T001
@@ -5976,7 +5976,7 @@ tasks:
   - id: T084
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "現行stateHashに対してevaluation staleとなったexact65問を、一問一sessionの別セッション評価batchでpolicy5.2により再評価し、全65件をpassed又は理由付きneeds_reworkへ終端させる。"
     inputs:
@@ -6004,6 +6004,180 @@ tasks:
       - "excluded scope又はproblem data変更が必要になる。"
     expected_output:
       - "terminal evaluation results for exact65"
+    receipt:
+      result: done
+      summary: "exact65問をpolicy5.2で再評価し、49問がpassed、16問が理由付きneeds_reworkへ終端した。failed/inconclusiveは0で、対象外のpublished266問、既存needs_rework25問、問題data、patch、artifact、00_source、category及びFirestoreは変更していない。"
+      evidence:
+        - "evaluation job e_IERXsGVYCRG2w1は2026-08-24T13:21:21+09:00にsucceeded。"
+        - "selected65、completed65、passed49、needs_rework16、inconclusive0、failed0、skipped0。"
+        - "通常retry対象1問もterminal evaluationへ収束し、未終端recordは0。"
+        - "再評価後の全395問partitionはpassed354、needs_rework41、stale0。"
+        - "nextActionはcomplete266、publish88、maintain41。"
+        - "needs_rework41は通常再整備可能26問とsource_answer_difference_unapproved15問に分離できる。"
+        - "00_sourceとcategoryのgit差分なし、Firestore writes0。"
+      commands:
+        - cmd: "problem maintenance evaluation preview for exact65"
+          status: pass
+        - cmd: "evaluation job e_IERXsGVYCRG2w1"
+          status: pass
+        - cmd: "post-evaluation partition readback"
+          status: pass
+      spawned_tasks:
+        - T085
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T085
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "needs_rework41問を、通常再整備可能26問、過去と同じcorrect-choice競合を再発させる対象、及びsource answer difference15問に分け、05による独自問題化後の回答ownershipと公式資料照合workflowの適用条件を監査して、同一失敗入力を再実行しない安全な次packageを決める。"
+    inputs:
+      - "T084 evaluation receipt"
+      - "current needs_rework41 question details"
+      - "T079 blocked22 receipt"
+      - "official source correction implementation and UI contract"
+      - "sourceCorrectChoiceComparison implementation"
+    constraints:
+      - "Read-only。再整備run、source correction、patch又はdata変更を開始しない。"
+      - "同じstateHashと同じ根拠で失敗済みのwork itemをそのまま再実行しない。"
+      - "source answer difference gateを弱めない。"
+      - "05がanswer表示を所有する場合も、取得元との差異を黙って承認しない。"
+    expected_output:
+      - "exact partitions and digests"
+      - "root cause and normal-flow decision"
+      - "next Worker package with allowed_files, verify and stop_if"
+      - "deferred source correction package if required"
+    receipt:
+      result: done
+      decision: approve_refactor
+      full_outcome_complete: false
+      rationale: "source answer difference15問のうち13問は、05で選択肢順又は設問形式を変えた後も同じ正答内容を選んでおり、配列indexだけを比較する現行実装の誤検知である。残る2問だけが実質的な正答変更で、公式根拠による24補正が必要である。また通常26問のうちanswer mapping不一致18問は、02aだけでは取得元正答とAWS一次根拠の競合を解消できず、T079で8問が同じ理由により3回失敗している。曖昧な問題文・選択肢を05で先に直せる正常経路へ変更する。"
+      evidence:
+        - "needs_rework41は通常26問とsource answer difference15問。"
+        - "source difference13問は、取得元と現行の選択肢を対応付けると選択対象の内容が一致する。内訳はexactな並べ替え9問、select_incorrectからselect_correctへの形式正規化2問、用語修正を伴う一意な並べ替え2問。"
+        - "実質差分は8129a5b1f6fd9d433b759b4aとfd73285675016aee66f68461の2問。"
+        - "T079でcorrect_choice競合により3回失敗した現行normal対象は8問あり、同じstateHash/根拠の02a再実行は禁止する。"
+        - "通常26問の現行canonical再整備は05=5、01=1、02a=18、03=26だが、answerMappingMatched=falseの18問は05を先行させる必要がある。"
+        - "公式資料照合workflowはrepository内の公式PDF又は画像、資料名、locator、確認済み転記を要求し、Blind A/B/Challenge一致時だけ24_questionIssueCorrectionsへ保存する。"
+      worker_package:
+        objective: "正答差異比較を選択肢index比較から正答内容の対応比較へ直し、answer mapping不一致の評価再整備を05→02a→03へ流す。SAA実データで誤検知13問だけが解消され、実質差分2問と他の安全ゲートが残ることを検証する。"
+        allowed_files:
+          - tools/question_review_console/inventory.py
+          - tools/question_review_console/qualification_runs.py
+          - tools/question_review_console/evaluation.py
+          - tools/question_review_console/question_work_queue.py
+          - tools/question_review_console/server.py
+          - tests/test_question_review_inventory.py
+          - tests/test_question_review_server.py
+          - tests/test_question_review_question_work_queue.py
+          - document/reference/question_field_contract.md
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "選択肢の一意なexact/保守的near-exact対応とquestionIntentを考慮して選択対象を比較する。"
+          - "対応不能又は実質的な正答変更はdifferent=trueを維持する。"
+          - "SAAのsource differenceは15から2だけへ減り、解消13問のIDが固定集合と一致する。"
+          - "answerMappingMatched=falseの通常再整備はoriginalize、correct_choice、explanationの順になる。"
+          - "関連unit/integration tests、全395 inventory、00_source/category不変、Firestore writes0。"
+        stop_if:
+          - "Q8129又はQ25の実質差分まで自動承認される。"
+          - "曖昧なchoice対応がsame answerとして扱われる。"
+          - "別資格の既存安全契約又は00_sourceを変更する必要がある。"
+      next_allowed_task: T086
+      blocked_tasks:
+        - "normal26 rework run"
+        - "substantive source difference2 official correction"
+        - T999
+      note_needed: false
+      harness: codex
+  - id: T086
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "正答差異比較を選択肢index比較から正答内容の対応比較へ直し、answer mapping不一致の評価再整備を05→02a→03へ流す。SAA実データで誤検知13問だけが解消され、実質差分2問と他の安全ゲートが残ることを検証する。"
+    inputs:
+      - "T085 Judge receipt"
+      - "current source difference15 details"
+      - "current evaluation rework routing"
+    constraints:
+      - "誤検知だけを解消し、実質正答差分の承認gateを弱めない。"
+      - "choice対応は一意で保守的な場合に限る。"
+      - "問題data、patch、00_source、category、Firestoreを変更しない。"
+    allowed_files:
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/qualification_runs.py
+      - tools/question_review_console/evaluation.py
+      - tools/question_review_console/question_work_queue.py
+      - tools/question_review_console/server.py
+      - tests/test_question_review_inventory.py
+      - tests/test_question_review_server.py
+      - tests/test_question_review_question_work_queue.py
+      - document/reference/question_field_contract.md
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "unit and integration tests pass。"
+      - "SAA source difference exact2。"
+      - "normal answer mismatch routes through05 before02a/03。"
+      - "protected data unchanged and Firestore writes0。"
+    stop_if:
+      - "substantive difference2が解消される。"
+      - "ambiguous choice mapping is accepted。"
+      - "protected data modification is required。"
+    expected_output:
+      - "implemented normal-flow refactor with tests and SAA readback"
+    receipt:
+      result: done
+      summary: "source正答差異を、配列indexではなくquestionIntentで選ばれる選択肢内容の一対一対応により比較するよう変更した。05の並べ替え・保守的な用語修正・select_incorrect正規化を正答変更と誤認せず、対応不能又は選択内容が変わる2問は従来どおり停止する。評価でanswer mapping不一致の問題は05を先行し、02a、03へ進む経路に変更した。"
+      changed_files:
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/qualification_runs.py
+        - tests/test_question_review_inventory.py
+        - tests/test_question_review_question_work_queue.py
+        - tests/test_question_review_server.py
+        - document/reference/question_field_contract.md
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+      evidence:
+        - "SAA395問のsourceAnswerDifferenceCountは15から2へ減少した。"
+        - "残るexact2は8129a5b1f6fd9d433b759b4aとfd73285675016aee66f68461で、前者は選択対象の実質変更、後者はchoice対応不能としてgateを維持する。"
+        - "解消13問はneeds_reworkからunreviewed/evaluateへ戻り、評価partitionはpublished266、publishReady88、unreviewed13、needsRework28。"
+        - "answerMappingMatched=falseのrework stage codesは05、02a、03の順になる。"
+        - "inventory、question work queue、serverの関連144 unittestが全件pass。"
+        - "git diff --checkとcompileall pass。問題data、patch、00_source、categoryの差分なし、Firestore writes0。"
+      commands:
+        - cmd: "python -m unittest tests.test_question_review_inventory tests.test_question_review_question_work_queue tests.test_question_review_server"
+          status: pass
+        - cmd: "SAA inventory readback after server restart"
+          status: pass
+        - cmd: "git diff --check and compileall"
+          status: pass
+      spawned_tasks:
+        - T087
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T087
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "リファクタリング後のSAA評価partitionをread-only監査し、通常needs_rework26問を05→02a→03で再整備するexact packageと、評価待ち13問、公式正答補正2問を分離する。"
+    inputs:
+      - "T086 refactor receipt"
+      - "current SAA question inventory"
+      - "current evaluation rework preview"
+      - "T079 repeated failure IDs"
+    constraints:
+      - "Read-only。run、評価、公式補正又はdata変更を開始しない。"
+      - "source answer difference2問を通常再整備へ混ぜない。"
+      - "評価待ち13問を再整備へ混ぜない。"
+      - "exact IDs、stateHash、evaluation resultHashを固定する。"
+    expected_output:
+      - "exact26 rework preview and digests"
+      - "new-flow coverage for repeated8"
+      - "next Worker package with verify and stop_if"
+      - "separate evaluation13 and official correction2 packages"
     receipt: null
   - id: T999
     type: judge
