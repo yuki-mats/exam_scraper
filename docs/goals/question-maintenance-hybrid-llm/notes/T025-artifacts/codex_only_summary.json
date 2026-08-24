@@ -1,0 +1,17 @@
+{
+  "profile": "codex_only",
+  "profileFingerprint": "sha256:d25f88a857e68fd54026268653c349fdd1baa5c553469d0764d80881cb4d5eb9",
+  "fixedSetCount": 7,
+  "validatedCount": 6,
+  "evidenceHoldCount": 1,
+  "modelTurnPeak": 1,
+  "questions": [
+    {"originalQuestionId":"dd07b4977677b7bb","stages":["explanation"],"status":"validated","models":["gpt-5.6-luna","gpt-5.6-sol"]},
+    {"originalQuestionId":"3239d392acd6236c","stages":["correct_choice"],"status":"validated","models":["gpt-5.6-luna"]},
+    {"originalQuestionId":"64032ef7f4bac816","stages":["question_type"],"status":"validated","models":["gpt-5.6-luna"]},
+    {"originalQuestionId":"64bd269e44533561","stages":["question_type","explanation"],"status":"validated","models":["gpt-5.6-luna","gpt-5.6-luna"]},
+    {"originalQuestionId":"3b24e06367db4222","stages":["law_context","law_audit","explanation"],"status":"hold","models":["gpt-5.6-sol","gpt-5.6-sol","gpt-5.6-luna","gpt-5.6-luna"],"reason":"試験時点法令本文とexamAsOfSource不足のため現行法との差分を確定できない"},
+    {"originalQuestionId":"ed7d14b661421a12","stages":["question_type","explanation"],"status":"validated","models":["gpt-5.6-luna","gpt-5.6-sol","gpt-5.6-luna"]},
+    {"originalQuestionId":"754c574d738ad390","stages":["originalize","explanation"],"status":"validated","models":["gpt-5.6-luna","gpt-5.6-luna"]}
+  ]
+}

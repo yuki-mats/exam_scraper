@@ -1,0 +1,59 @@
+{
+  "profile": "local_generate_codex_audit",
+  "profileFingerprint": "sha256:faacb9830c4213a54ca36fa8317cf7edae3ec36f6622a6270bfa0873772c44e1",
+  "result": "blocked",
+  "stopConditions": [
+    "profile継承又はroute/fingerprint不一致が再発してproduct code変更が必要になる",
+    "fallbackなしlocal最終合格5/7未満"
+  ],
+  "completedQuestions": 4,
+  "fallbackFreeLocalAccepted": 1,
+  "maximumPossibleFallbackFreeLocalAcceptedAfterRemainingThree": 4,
+  "requiredFallbackFreeLocalAccepted": 5,
+  "questions": [
+    {
+      "originalQuestionId": "dd07b4977677b7bb",
+      "status": "blocked",
+      "attempts": [
+        {"mode":"local_primary","backend":"openai_compatible_http","requestedModel":"qwen3:14b","status":"failed","fallbackUsed":false,"localSuccess":false,"reason":"candidate required fields incomplete"},
+        {"mode":"local_retry","backend":"openai_compatible_http","requestedModel":"qwen3:14b","status":"failed","fallbackUsed":false,"localSuccess":false,"reason":"candidate required fields incomplete"},
+        {"mode":"codex_fallback","backend":"codex_app_server","requestedModel":"gpt-5.6-sol","actualModel":"gpt-5.6-sol","status":"succeeded","fallbackUsed":true,"localSuccess":false}
+      ]
+    },
+    {
+      "originalQuestionId": "3239d392acd6236c",
+      "status": "validated",
+      "attempts": [
+        {"mode":"local_primary","backend":"openai_compatible_http","requestedModel":"qwen3:14b","actualModel":"qwen3:14b","status":"succeeded","fallbackUsed":false,"localSuccess":true}
+      ]
+    },
+    {
+      "originalQuestionId": "64032ef7f4bac816",
+      "status": "blocked",
+      "attempts": [
+        {"mode":"local_primary","backend":"openai_compatible_http","requestedModel":"qwen3:14b","status":"failed","fallbackUsed":false,"localSuccess":false,"backendErrorCode":"unsafe_model_override"}
+      ]
+    },
+    {
+      "originalQuestionId": "64bd269e44533561",
+      "status": "blocked",
+      "attempts": [
+        {"mode":"local_primary","backend":"openai_compatible_http","requestedModel":"qwen3:14b","status":"failed","fallbackUsed":false,"localSuccess":false,"backendErrorCode":"unsafe_model_override"}
+      ]
+    }
+  ],
+  "routeEvidence": {
+    "unsafeOverrideQuestionsHaveExpectedProfileName": true,
+    "unsafeOverrideQuestionsHaveExpectedProfileFingerprint": true,
+    "unsafeOverrideQuestionsHavePlanRequestedModelQwen3_14b": true,
+    "unsafeOverrideBackendCallCount": 0,
+    "unsafeOverrideRetryCount": 0,
+    "unsafeOverrideFallbackCount": 0
+  },
+  "notRunAfterStop": [
+    "remaining hybrid questions",
+    "batch=5 versus batch=1 audit parity",
+    "fault injection",
+    "resume safety"
+  ]
+}

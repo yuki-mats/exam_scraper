@@ -1,0 +1,7 @@
+# T025 実モデル再受入
+
+`e80b4427d`の隔離copyを二つ作り、固定7問を実Codex App Serverと実Ollama `qwen3:14b`へ直列投入した。正答oracleはpromptへ含めず、実行後の確認にだけ使う条件を維持した。
+
+`codex_only`は6問がvalidated、法令1問は試験時点根拠不足によるholdだった。hybridは、1問がfallbackなしlocal primaryでvalidated、1問がlocal 2回後Codex fallback、続く2問がexpected profile/fingerprint/modelを持つにもかかわらずbackend call前の`unsafe_model_override`で停止した。残り3問がすべてlocal合格しても4/7であり、必要な5/7へ届かない。route不整合の再発とlocal受入閾値未達が確定したため、boardの停止条件に従って残りの実run、監査parity、故障注入、resume試験を開始しなかった。
+
+全API呼出しは隔離環境の資格runに限定した。Firestore、publication、production patchへの呼出しは0で、実repoの`00_source`と既存成果物は変更していない。
