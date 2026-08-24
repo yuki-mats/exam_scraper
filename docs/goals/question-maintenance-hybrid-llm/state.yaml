@@ -1,0 +1,315 @@
+version: 2
+
+goal:
+  title: "問題整備システムのハイブリッドLLM化"
+  slug: "question-maintenance-hybrid-llm"
+  kind: existing_plan
+  tranche: "一つのLLM切替pipelineを実装し、Codex単独とローカル生成・Codex監査を実動検証する"
+  status: active
+  oracle:
+    signal: "固定代表問題集合で codex_only と local_generate_codex_audit が安全・品質・再開・batch監査の受入基準を満たす"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "実run manifest、問題別receipt、比較表、対象回帰、00_source不変、Firestore write 0、scoped Git readback"
+  intake:
+    original_request: "複雑化を避けてハイブリッドLLM化を計画し、Codex App Serverのみの構成も選べるように実装・実動テストする"
+    interpreted_outcome: "役割ごとのLLMを設定で交換できる一つの問題整備pipelineが、1並列と一問安全境界を守り、ローカル生成・クラウド監査で公開可能品質へ収束する"
+    input_shape: existing_plan
+    audience: "問題整備システムの運用者と受験者"
+    authority: approved
+    proof_type: test
+    completion_proof: "Codex単独とローカル生成・Codex監査の実runが受入基準を満たし、最終監査が full_outcome_complete: true を記録する"
+    likely_misfire: "provider別workflowを作る、batchを一括合否にする、検査を緩める、又はモック成功だけで完了する"
+    blind_spots_considered:
+      - "未コミット変更と実行中run"
+      - "旧runのreadbackとresume互換"
+      - "secretと課金境界"
+      - "batch部分失敗とstateHash"
+      - "法令・画像・計算・大きいprompt"
+      - "fallback常用によるローカル化の実益不足"
+    existing_plan_facts:
+      - "全model呼出しは同時実行数1"
+      - "codex_onlyも同じprofile機構を使う"
+      - "maintenanceとauditの二役だけを初期実装する"
+      - "codex_app_serverとopenai_compatible_httpの二backendだけを初期実装する"
+      - "cloud auditは同期micro-batchとし、問題別判定とreceiptを維持する"
+      - "実装後は実local modelとCodex App Serverで比較runを行う"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "現行実装、未コミット差分、既存run、今回の計画を再監査し、最小backend/profile契約と最初の安全なWorker sliceを確定する。"
+    inputs:
+      - "docs/goals/question-maintenance-hybrid-llm/goal.md"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/local_question_review_console.md"
+      - "config/question_maintenance_workflow.toml"
+      - "tools/question_review_console/codex_app_server.py"
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "current git diff and workflow run manifests"
+    constraints:
+      - "Read-only。"
+      - "実装開始前に既存dirty変更の所有範囲と競合を明示する。"
+      - "役割又はbackendを計画より増やす場合は、必要性と単純化できない理由を示す。"
+      - "現在の一問保存、stateHash、独立評価、公開境界を維持する。"
+    expected_output:
+      - "Current path and dirty-scope evidence"
+      - "Validated or corrected backend/profile contract"
+      - "Legacy run compatibility decision"
+      - "First Worker objective, allowed_files, verify, stop_if"
+      - "Deferred scope"
+    receipt: null
+
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "Judgeが確定した範囲で、共通backend契約とCodex App Server adapter、codex_only profile、1並列を一つの互換vertical sliceとして実装する。"
+    inputs:
+      - "T001 receipt"
+    constraints:
+      - "現行Codex認証、Standard、追加credits無効、structured output、model照合を維持する。"
+      - "provider別workflowを作らない。"
+      - "既存dirty変更を破棄又は一括commitしない。"
+    expected_output:
+      - "Working codex_only vertical slice"
+      - "Unit and integration tests"
+      - "SSOT documentation update"
+      - "Scoped commit and push receipt"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T001がallowed_files又は契約を確定していない。"
+      - "対象ファイルの既存dirty変更を安全に分離できない。"
+      - "旧run互換を壊す必要がある。"
+      - "検証が二回失敗し、原因がslice外にある。"
+    receipt: null
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "OpenAI互換HTTP backend、名前付きprofile、設定fingerprint、UI選択、secret境界を実装し、local_generate_codex_auditの一問評価vertical sliceを動かす。"
+    inputs:
+      - "T002 receipt"
+      - "Validated profile schema"
+    constraints:
+      - "backendはcodex_app_serverとopenai_compatible_httpの二つに限定する。"
+      - "secretは環境変数からだけ読み、artifactへ保存しない。"
+      - "model名とendpointは設定で交換可能にする。"
+      - "run開始後のprofile変更を拒否する。"
+    expected_output:
+      - "Working local_generate_codex_audit one-question slice"
+      - "Fake compatible endpoint tests"
+      - "Profile UI and manifest readback"
+      - "Scoped commit and push receipt"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T002の共通契約が未完了。"
+      - "HTTP互換仕様をprovider固有分岐なしで表せない。"
+      - "secretがlog又はartifactへ出る。"
+      - "検証が二回失敗し、原因がslice外にある。"
+    receipt: null
+
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Codex互換化とHTTP profile sliceを監査し、複数問監査を追加しても一問安全境界を壊さない最大のWorker sliceを確定する。"
+    inputs:
+      - "T002 receipt"
+      - "T003 receipt"
+      - "Current diff and tests"
+    constraints:
+      - "Read-only。"
+      - "semantic batchと並列実行を混同しない。"
+      - "評価者へ現在の正答判定を渡さない。"
+    expected_output:
+      - "Proceed or rework decision"
+      - "Batch request/result schema"
+      - "Grouping and byte-limit rules"
+      - "Partial-success and retry rules"
+      - "Exact Worker allowed_files and verify"
+    receipt: null
+
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "最大5問・120,000 input bytesを初期上限とする独立cloud監査micro-batchを実装し、問題別検証・receipt・部分再試行・resumeを完成させる。"
+    inputs:
+      - "T004 receipt"
+    constraints:
+      - "全model呼出しの同時実行数は1。"
+      - "問題別stateHash、合否、rework、公開可否を維持する。"
+      - "欠落、重複、余分なID、全選択肢不足をfail-closedにする。"
+      - "有効な問題結果だけを保存し、不正な問題だけを再試行する。"
+    expected_output:
+      - "Working micro-batch audit"
+      - "One-question parity tests"
+      - "Partial failure and resume tests"
+      - "Telemetry and receipts"
+      - "Scoped commit and push receipt"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T004がschemaとallowed_filesを確定していない。"
+      - "一問receipt又は独立判定を維持できない。"
+      - "batch化により一問評価との判定差が解消できない。"
+      - "検証が二回失敗し、原因がslice外にある。"
+    receipt: null
+
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "実ローカルendpointと基準modelを用意し、固定代表問題集合でsmoke、故障注入、codex_only比較、ハイブリッド品質受入を実行して証拠を保存する。"
+    inputs:
+      - "T005 receipt"
+      - "Acceptance Criteria in goal.md"
+      - "Current representative qualification fixtures"
+    constraints:
+      - "model名をコードへ固定しない。"
+      - "通常、問題形式、計算、法令、画像、独自問題を代表集合へ含める。"
+      - "Firestoreへ書き込まずupload dry-runまでとする。"
+      - "fallback使用問をローカル成功へ数えない。"
+      - "モック成功だけで完了しない。"
+    expected_output:
+      - "Real local model run manifests"
+      - "codex_only and hybrid comparison table"
+      - "Failure injection receipts"
+      - "Quality audit with critical errors, local acceptance, retry and fallback rates"
+      - "Scoped commit and push receipt for test artifacts and docs"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "実ローカルmodelの利用に破壊的操作又は未承認課金が必要。"
+      - "代表問題の正答又は根拠が事前確定できない。"
+      - "重大品質事故が1件以上ある。"
+      - "ローカル候補のfallbackなし最終合格率が70%未満。"
+      - "一問監査とmicro-batch監査の最終判定に差がある。"
+    receipt: null
+
+  - id: T007
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "実model受入結果を厳しく評価し、品質・安全性・実益の未達があればmodel、prompt入力、工程分担、batch sizeのどこを直すかを決める。"
+    inputs:
+      - "T006 receipt"
+      - "Run manifests and per-question receipts"
+      - "Comparison table"
+    constraints:
+      - "Read-only。"
+      - "passed表示だけを信用せず、代表問題の正答、全選択肢、根拠、日本語を確認する。"
+      - "fallback常用で見かけ上合格した構成を実用的と判定しない。"
+    expected_output:
+      - "accept | rework"
+      - "Quality and operational gaps"
+      - "If rework, one largest safe Worker task with allowed_files and verify"
+      - "If accept, evidence mapping for final audit"
+    receipt: null
+
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "T007が未達を示した場合だけ、指摘された一つの最大安全sliceを修正し、同じ代表問題集合で再検証する。"
+    inputs:
+      - "T007 receipt"
+    constraints:
+      - "検査を緩めて合格率を上げない。"
+      - "個別問題だけの禁止条件で再発防止しない。"
+      - "不要ならPMがskipped相当のdone receiptを残し、実装しない。"
+    expected_output:
+      - "Corrective implementation or no-op justification"
+      - "Repeated acceptance evidence"
+      - "Scoped commit and push receipt when changed"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T007が修正範囲を確定していない。"
+      - "修正がgoalの二役・二backend境界を超える。"
+      - "検証が二回失敗し、原因がslice外にある。"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全task receiptと実run証拠をGoal Oracleへ対応付け、Codex単独とハイブリッド構成が安全かつ実用品質で完成したか最終監査する。"
+    inputs:
+      - "All done task receipts"
+      - "Current source and documentation"
+      - "Full relevant regression results"
+      - "Real provider/model run manifests"
+      - "Per-question receipts and comparison table"
+      - "Git and origin/main readback"
+    constraints:
+      - "Do not implement。"
+      - "required Workerがqueued又はactiveなら完了を拒否する。"
+      - "実ローカルmodel証拠、重大品質事故0、00_source不変、Firestore write 0がなければ完了を拒否する。"
+      - "ローカル候補のfallbackなし最終合格率70%以上を確認する。"
+      - "正本文書と実装が一致し、goal文書が恒久仕様の唯一の記載になっていないことを確認する。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "Oracle evidence map"
+      - "Missing evidence"
+      - "Next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "pre-existing-large-dirty-worktree-observed-2026-08-24"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
