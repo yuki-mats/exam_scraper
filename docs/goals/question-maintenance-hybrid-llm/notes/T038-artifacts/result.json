@@ -1,0 +1,210 @@
+{
+  "classification": "blocked_partial_not_full",
+  "sourceCommit": "437cb70497483c9bdc15fe71ba620b4fdecd95c4",
+  "profile": "codex_only",
+  "fixedSetCount": 7,
+  "completedQuestionCount": 4,
+  "unmeasuredQuestionCount": 3,
+  "allSevenSlaResult": "not_classified",
+  "completedQuestionsSla180Passed": true,
+  "maximumObservedAdmissionToTerminalSeconds": 86.462587,
+  "questionProcessingPeak": 1,
+  "llmCallPeak": 1,
+  "criticalIncidents": 0,
+  "firestoreWrites": 0,
+  "publicationWrites": 0,
+  "productionPatchWrites": 0,
+  "blocker": "85003 preview returned 対象年度がありません twice after isolated category correction; stop_if reached.",
+  "questions": [
+    {
+      "originalQuestionId": "dd07b4977677b7bb",
+      "stageIds": [
+        "explanation"
+      ],
+      "admittedAt": "2026-08-25T08:08:39.586761+09:00",
+      "terminalAt": "2026-08-25T08:09:47.181516+09:00",
+      "admissionToTerminalSeconds": 67.594755,
+      "terminalStatus": "validated",
+      "jobStatus": "succeeded",
+      "sla180Passed": true,
+      "qualityOracleResult": "not_fully_assessed_in_partial_run",
+      "qualityEvidence": "工程の決定的検査はvalidated。全7問終了後のblind oracle比較は未完了。",
+      "stages": [
+        {
+          "stageId": "explanation",
+          "status": "validated",
+          "finishedAt": "2026-08-25T08:09:46+09:00",
+          "attempts": [
+            {
+              "questionId": "dd07b4977677b7bb",
+              "stageId": "explanation",
+              "attempt": 1,
+              "attemptMode": "primary",
+              "startedAt": "2026-08-25T08:08:39+09:00",
+              "finishedAt": "2026-08-25T08:09:46+09:00",
+              "wallSeconds": 67.0,
+              "modelTurnDurationSeconds": 67.185516,
+              "modelExecutorQueueWaitSeconds": 5.7e-05,
+              "appServerQueueWaitSeconds": 0.025259,
+              "backend": "codex_app_server",
+              "actualModel": "gpt-5.6-luna",
+              "reasoningEffort": "high",
+              "status": "validated",
+              "fallbackUsed": false,
+              "localSuccess": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "originalQuestionId": "3239d392acd6236c",
+      "stageIds": [
+        "correct_choice"
+      ],
+      "admittedAt": "2026-08-25T08:09:47.243376+09:00",
+      "terminalAt": "2026-08-25T08:09:55.039053+09:00",
+      "admissionToTerminalSeconds": 7.795677,
+      "terminalStatus": "validated",
+      "jobStatus": "succeeded",
+      "sla180Passed": true,
+      "qualityOracleResult": "passed",
+      "qualityEvidence": "選択肢3のみ間違いとのaccepted feedbackがblind oracleと一致。",
+      "stages": [
+        {
+          "stageId": "correct_choice",
+          "status": "validated",
+          "finishedAt": "2026-08-25T08:09:54+09:00",
+          "attempts": [
+            {
+              "questionId": "3239d392acd6236c",
+              "stageId": "correct_choice",
+              "attempt": 1,
+              "attemptMode": "primary",
+              "startedAt": "2026-08-25T08:09:48+09:00",
+              "finishedAt": "2026-08-25T08:09:54+09:00",
+              "wallSeconds": 6.0,
+              "modelTurnDurationSeconds": 6.80389,
+              "modelExecutorQueueWaitSeconds": 5.4e-05,
+              "appServerQueueWaitSeconds": 0.015927,
+              "backend": "codex_app_server",
+              "actualModel": "gpt-5.6-luna",
+              "reasoningEffort": "high",
+              "status": "validated",
+              "fallbackUsed": false,
+              "localSuccess": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "originalQuestionId": "64032ef7f4bac816",
+      "stageIds": [
+        "question_type"
+      ],
+      "admittedAt": "2026-08-25T08:09:55.081940+09:00",
+      "terminalAt": "2026-08-25T08:10:18.949682+09:00",
+      "admissionToTerminalSeconds": 23.867742,
+      "terminalStatus": "validated",
+      "jobStatus": "succeeded",
+      "sla180Passed": true,
+      "qualityOracleResult": "not_fully_assessed_in_partial_run",
+      "qualityEvidence": "工程の決定的検査はvalidated。全7問終了後のblind oracle比較は未完了。",
+      "stages": [
+        {
+          "stageId": "question_type",
+          "status": "validated",
+          "finishedAt": "2026-08-25T08:10:18+09:00",
+          "attempts": [
+            {
+              "questionId": "64032ef7f4bac816",
+              "stageId": "question_type",
+              "attempt": 1,
+              "attemptMode": "primary",
+              "startedAt": "2026-08-25T08:09:55+09:00",
+              "finishedAt": "2026-08-25T08:10:18+09:00",
+              "wallSeconds": 23.0,
+              "modelTurnDurationSeconds": 6.85854,
+              "modelExecutorQueueWaitSeconds": 5.1e-05,
+              "appServerQueueWaitSeconds": 0.586086,
+              "backend": "codex_app_server",
+              "actualModel": "gpt-5.6-luna",
+              "reasoningEffort": "high",
+              "status": "validated",
+              "fallbackUsed": false,
+              "localSuccess": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "originalQuestionId": "64bd269e44533561",
+      "stageIds": [
+        "question_type",
+        "explanation"
+      ],
+      "admittedAt": "2026-08-25T08:10:19.018729+09:00",
+      "terminalAt": "2026-08-25T08:11:45.481316+09:00",
+      "admissionToTerminalSeconds": 86.462587,
+      "terminalStatus": "validated",
+      "jobStatus": "succeeded",
+      "sla180Passed": true,
+      "qualityOracleResult": "not_fully_assessed_in_partial_run",
+      "qualityEvidence": "工程の決定的検査はvalidated。全7問終了後のblind oracle比較は未完了。",
+      "stages": [
+        {
+          "stageId": "question_type",
+          "status": "validated",
+          "finishedAt": "2026-08-25T08:10:59+09:00",
+          "attempts": [
+            {
+              "questionId": "64bd269e44533561",
+              "stageId": "question_type",
+              "attempt": 1,
+              "attemptMode": "primary",
+              "startedAt": "2026-08-25T08:10:19+09:00",
+              "finishedAt": "2026-08-25T08:10:59+09:00",
+              "wallSeconds": 40.0,
+              "modelTurnDurationSeconds": 21.236236,
+              "modelExecutorQueueWaitSeconds": 5.1e-05,
+              "appServerQueueWaitSeconds": 0.579504,
+              "backend": "codex_app_server",
+              "actualModel": "gpt-5.6-luna",
+              "reasoningEffort": "high",
+              "status": "validated",
+              "fallbackUsed": false,
+              "localSuccess": false
+            }
+          ]
+        },
+        {
+          "stageId": "explanation",
+          "status": "validated",
+          "finishedAt": "2026-08-25T08:11:45+09:00",
+          "attempts": [
+            {
+              "questionId": "64bd269e44533561",
+              "stageId": "explanation",
+              "attempt": 1,
+              "attemptMode": "primary",
+              "startedAt": "2026-08-25T08:10:59+09:00",
+              "finishedAt": "2026-08-25T08:11:45+09:00",
+              "wallSeconds": 46.0,
+              "modelTurnDurationSeconds": 44.919065,
+              "modelExecutorQueueWaitSeconds": 3e-05,
+              "appServerQueueWaitSeconds": 0.804611,
+              "backend": "codex_app_server",
+              "actualModel": "gpt-5.6-luna",
+              "reasoningEffort": "high",
+              "status": "validated",
+              "fallbackUsed": false,
+              "localSuccess": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

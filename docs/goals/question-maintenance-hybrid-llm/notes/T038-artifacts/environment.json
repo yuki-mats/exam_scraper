@@ -1,0 +1,63 @@
+{
+  "codex": {
+    "available": true,
+    "allowed": true,
+    "accountType": "chatgpt",
+    "planType": "pro",
+    "model": "gpt-5.6-luna"
+  },
+  "profile": {
+    "name": "codex_only",
+    "operational": true,
+    "limits": {
+      "questionParallelism": 1,
+      "llmCallConcurrency": 1,
+      "auditBatchQuestions": 5,
+      "auditBatchInputBytes": 120000
+    },
+    "roles": {
+      "maintenance": {
+        "backend": "codex_app_server",
+        "kind": "codex_app_server",
+        "endpoint": null,
+        "model": null,
+        "retryModel": null,
+        "reasoningEffort": null,
+        "timeoutSeconds": 120.0,
+        "authEnv": null,
+        "localAttemptsBeforeFallback": 1,
+        "fallbackBackend": null,
+        "fallback": null
+      },
+      "audit": {
+        "backend": "codex_app_server",
+        "kind": "codex_app_server",
+        "endpoint": null,
+        "model": null,
+        "retryModel": null,
+        "reasoningEffort": null,
+        "timeoutSeconds": 120.0,
+        "authEnv": null,
+        "localAttemptsBeforeFallback": 1,
+        "fallbackBackend": null,
+        "fallback": null
+      }
+    },
+    "fingerprint": "sha256:8d700b61744a79a48bce4efcabadc00b882839379ec15145110ce491443a9a80"
+  },
+  "isolatedRepo": true,
+  "oraclePassedToModel": false,
+  "allowedApiFamilies": [
+    "session",
+    "codex/status",
+    "questions",
+    "qualification-runs/preview",
+    "qualification-runs/start",
+    "jobs",
+    "qualification-runs/questions"
+  ],
+  "forbiddenApiCalls": {
+    "firestore": 0,
+    "publication": 0
+  }
+}
