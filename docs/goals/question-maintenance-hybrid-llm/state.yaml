@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T034
+active_task: T035
 
 tasks:
   - id: T001
@@ -1551,7 +1551,7 @@ tasks:
   - id: T034
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "既存単一pipelineへquestion-maintenance-draft/v1、保存前audit/repair、180秒deadline、全工程一括commit、operational profile gateを実装し、回帰と隔離受入を行う。"
     inputs:
@@ -1601,6 +1601,37 @@ tasks:
       - "provider又はmodel固有のworkflow分岐が必要になる。"
       - "Codex又はHTTP turnへ残り時間timeoutを伝播できない。"
       - "allowed_files外、00_source又は外部writeを変更する必要がある。"
+    receipt:
+      result: blocked
+      summary: "operational gate、HTTP残時間timeout、全工程draft parser、監査batch問題別隔離を実装したが、stage別即時保存coordinatorのままでは保存前監査と一括transactionを接続できず停止した。"
+      commit: dc2ddf2dc
+      evidence:
+        - "focused contract tests: 105 passed, 18 subtests passed。"
+        - "related workflow tests: 364 passed, 89 subtests passed。"
+        - "変更差分に00_sourceはない。既存immutability baselineは3171件消失を報告する。"
+      remaining_blockers:
+        - "qualification_runsのstage別即時applyを問題単位workspaceへ置き換える正確な接続package。"
+        - "180秒scheduler、partial flush、最大一回repair、write-once resume。"
+        - "新runtimeでの固定7問実受入。"
+
+  - id: T035
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T034基礎実装と現行coordinatorを監査し、既存atomic primitiveを再利用して保存前監査・全stage一括commitへ接続する最小の実行可能Worker packageを確定する。"
+    inputs:
+      - "commit dc2ddf2dc"
+      - "T033 architecture and T034 blocker"
+      - "Current qualification_runs patch/write/recovery primitives"
+    constraints:
+      - "Read-only。"
+      - "別pipeline、provider/model分岐、field/evaluation/publication gate緩和を禁止する。"
+      - "既存atomic primitiveの再利用可能性を関数単位で示す。"
+    expected_output:
+      - "Exact coordinator replacement seam and transaction boundary"
+      - "Exact files/functions and tests for one Worker"
+      - "Feasibility or explicit hard blocker"
     receipt: null
 
   - id: T009
