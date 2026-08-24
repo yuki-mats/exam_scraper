@@ -1,0 +1,25 @@
+version = 1
+
+[limits]
+question_parallelism = 1
+llm_call_concurrency = 1
+audit_batch_questions = 5
+audit_batch_input_bytes = 120000
+
+[backends.codex_app_server]
+kind = "codex_app_server"
+
+[backends.openai_compatible_http]
+kind = "openai_compatible_http"
+
+[profiles.codex_only.roles.maintenance]
+backend = "codex_app_server"
+
+[profiles.codex_only.roles.audit]
+backend = "codex_app_server"
+
+[profiles.local_generate_codex_audit.roles.maintenance]
+backend = "openai_compatible_http"
+
+[profiles.local_generate_codex_audit.roles.audit]
+backend = "codex_app_server"
