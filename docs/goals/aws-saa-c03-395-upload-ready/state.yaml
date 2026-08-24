@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T071
+active_task: T072
 
 tasks:
   - id: T001
@@ -5049,7 +5049,7 @@ tasks:
   - id: T071
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "現行stateHash一致のneeds_rework 107問を、評価が要求する工程組合せごとの5群へ分け、問題整備UI/APIのevaluationRework正規経路で順番に再整備し、全runをartifactSyncまで成功させる。"
     inputs:
@@ -5096,6 +5096,54 @@ tasks:
       - "Verification fails twice."
     expected_output:
       - "5 terminal runsと107問の再整備・artifactSync receipt"
+    receipt:
+      result: blocked
+      blocked_reason: "5群中最初の02a+03群77問はterminal status=succeededとなったが、queueStatus=partialで64問・124 work itemsが理由付きblockとなり、T071のstop_ifに到達した。多くの評価指摘は問題文又は選択肢の修正を要求するのに、evaluation schemaが05を表現できず02aへ送るため、correct_choice工程が所有外fieldを変更せず正しく停止している。残り4群は開始していない。"
+      changed_files:
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+        - output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_20260824_120052.json
+        - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260824T115520487349-9bf6a14f/**"
+        - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      commands:
+        - cmd: "preview evaluationRework 02a+03 exact 77 questions"
+          status: pass
+        - cmd: "run 20260824T115520487349-9bf6a14f terminal queue convergence"
+          status: fail
+        - cmd: "artifactSync and receipt validation"
+          status: pass
+        - cmd: "SAA inventory/source/category/Firestore boundary readback"
+          status: pass
+      summary: "77問154 work itemsのうち13問・30 itemsを確定し、64問・124 itemsを理由付き保留した。terminal runはstatus=succeeded、queueStatus=partial、receiptValidated=true、artifactSync=succeeded、retrySafe=true。SAAは395/395 local-ready・issues0、APIはunreviewed13・needsRework108・publishReady8・published266、00_source aggregate bc76ba8e...、sourceAnswerDifference14、Firestore writes0。remaining 4 groupsは開始せず停止した。"
+      spawned_tasks:
+        - T072
+      verification_attempts: 1
+      stopped_because: "T071 stop_if: queue partial and blocked questions"
+  - id: T072
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T071の64問blockをread-onlyで根本分析し、評価指摘が問題文・選択肢修正を要求する場合も正しい05工程へ流れ、異種stage混在runもpreviewできる単純な再整備契約と次Workerを決定する。"
+    inputs:
+      - "T071 blocked receipt"
+      - "run 20260824T115520487349-9bf6a14f manifests and blocked feedback"
+      - "evaluation schema/prompt, rework stage mapping, mixed preview validator"
+    constraints:
+      - "Read-only。board以外を変更しない。"
+      - "64問へ個別の例外条件を増やす案を承認しない。"
+      - "00_source、published266、Firestoreを変更しない。"
+      - "既存evaluation majorを不要に上げてpublished266をstale化しない。"
+    expected_output:
+      - "root cause and normal flow definition"
+      - "minimal code/test/doc/config changes"
+      - "post-fix recovery sequence"
+      - "次Worker objective/allowed_files/verify/stop_if"
     receipt: null
   - id: T999
     type: judge
