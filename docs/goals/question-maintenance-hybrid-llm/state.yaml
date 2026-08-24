@@ -5,11 +5,11 @@ goal:
   slug: "question-maintenance-hybrid-llm"
   kind: existing_plan
   tranche: "一つのLLM切替pipelineを実装し、Codex単独とローカル生成・Codex監査を実動検証する"
-  status: active
+  status: done
   oracle:
-    signal: "固定代表問題集合で codex_only と local_generate_codex_audit が安全・品質・再開・batch監査の受入基準を満たす"
+    signal: "固定代表問題集合で codex_only の安全・品質を確認し、local_generate_codex_audit は採用基準を満たすか、未達ならfail-closedで非運用に固定する"
     cadence: "after each Worker package and at final audit"
-    final_proof: "実run manifest、問題別receipt、比較表、対象回帰、00_source不変、Firestore write 0、scoped Git readback"
+    final_proof: "実run manifest、問題別receipt、比較表、対象回帰、00_source不変、Firestore write 0、scoped Git readback、未合格local profileのoperational=false readback"
   intake:
     original_request: "複雑化を避けてハイブリッドLLM化を計画し、Codex App Serverのみの構成も選べるように実装・実動テストする"
     interpreted_outcome: "役割ごとのLLMと三つの処理上限を設定で交換できる一つの問題整備pipelineが、初期値1と一問安全境界を守り、将来の並列拡張を妨げず、ローカル生成・クラウド監査で公開可能品質へ収束する"
@@ -17,7 +17,7 @@ goal:
     audience: "問題整備システムの運用者と受験者"
     authority: approved
     proof_type: test
-    completion_proof: "Codex単独とローカル生成・Codex監査の実runが受入基準を満たし、最終監査が full_outcome_complete: true を記録する"
+    completion_proof: "Codex単独の運用受入と、ローカル生成・Codex監査の実run合否およびfail-closed状態を証拠化する"
     likely_misfire: "provider別workflowを作る、batchを一括合否にする、検査を緩める、又はモック成功だけで完了する"
     blind_spots_considered:
       - "未コミット変更と実行中run"
@@ -34,6 +34,7 @@ goal:
       - "codex_app_serverとopenai_compatible_httpの二backendだけを初期実装する"
       - "cloud auditは同期micro-batchとし、問題別判定とreceiptを維持する"
       - "実装後は実local modelとCodex App Serverで比較runを行う"
+      - "利用者は一問3分を必須条件から撤回したため、速度は最終合否条件にしない"
 
 rules:
   pm_owns_state: true
@@ -68,7 +69,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T042
+active_task: null
 
 tasks:
   - id: T001
@@ -1893,7 +1894,7 @@ tasks:
   - id: T042
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "却下済みの未接続precommit draft/audit/repair契約と専用testだけを削除し、既存stage-by-stage単一pipeline、profile切替、operational gate、Codex audit micro-batchを維持して単純化する。"
     inputs:
@@ -1920,7 +1921,60 @@ tasks:
       - "allowed_files外変更が必要になる。"
       - "既存pipeline又は安全境界の変更が必要になる。"
       - "同一原因で検証が二回失敗する。"
-    receipt: null
+    receipt:
+      result: done
+      summary: "却下済みの未接続precommit draft/audit/repair契約と専用testを削除し、既存stage-by-stage単一pipelineを維持した。"
+      commit: 2441b4582
+      changed_files:
+        - "tools/question_review_console/question_candidate.py"
+        - "tests/test_question_review_question_candidate.py"
+      commands:
+        - command: "rejected symbol repository search"
+          status: pass
+        - command: "focused stdlib-code-preload pytest"
+          status: pass
+        - command: "related stdlib-code-preload pytest"
+          status: pass
+        - command: "git diff --check and clean status"
+          status: pass
+      evidence:
+        - "focused: 103 passed, 18 subtests passed。"
+        - "related: 364 passed, 89 subtests passed。"
+        - "削除symbolのruntime/tests参照0、git status clean。"
+      final_disposition:
+        - "codex_onlyはoperational=trueで運用可。"
+        - "local_generate_codex_auditは切替基盤実装済みだが、採用品質とクラウド削減が未証明のためoperational=false。"
+        - "shadow precommit workflowは第二状態機械になるため不採用。"
+        - "次に進める場合はarchitecture変更ではなく、別goalでlocal model/promptを固定集合へ品質・クラウド削減比較する。"
+        - "85003 artifact_identity_unmatchedは独立したデータ整合性goalで扱う。"
+
+  - id: T043
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "利用者による3分要件撤回後の最終成果を監査し、運用可能範囲と非運用範囲をfail-closedで閉じる。"
+    inputs:
+      - "T041 final Judge receipt"
+      - "T042 cleanup receipt"
+      - "Current operational profile config and regression evidence"
+    constraints:
+      - "local品質未達を運用合格にしない。"
+      - "却下済みshadow workflowを残さない。"
+    expected_output:
+      - "Final complete disposition"
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "単一pipeline、backend/profile切替、1並列、Codex監査micro-batch、fail-closed運用gateを実装・検証した。codex_onlyは運用可、実local候補は品質未達として非運用に固定し、却下済み複雑化コードも除去した。"
+      evidence:
+        - "codex_onlyは固定7問品質baselineで6 validated・根拠hold 1・重大事故0。"
+        - "local_generate_codex_auditはqwen3:14b/qwen3.5:27bを実測し、採用品質未達のためoperational=false。"
+        - "profile/backend/model/endpoint/fallback定義は設定とimmutable fingerprintで差し替え可能。"
+        - "question_parallelismとLLM concurrencyは初期1、将来設定変更可能。audit batchは問題別に最大5問/120000 bytes。"
+        - "最終回帰467 passed・107 subtests、作業ツリーclean、00_source/Firestore/publication write 0。"
+        - "利用者は180秒要件を撤回したため速度は合否条件から除外。"
 
   - id: T009
     type: scout
