@@ -523,7 +523,11 @@ class ProfileModelRouter:
             attempt for attempt in prior_attempts
             if str(attempt.get("profileFingerprint") or fingerprint) == fingerprint
         ]
-        if any(attempt.get("retryable") is False for attempt in relevant):
+        if any(
+            attempt.get("backendErrorCode")
+            and attempt.get("retryable") is False
+            for attempt in relevant
+        ):
             raise ModelBackendError("nonretryable_attempt", retryable=False)
         local_count = sum(
             str(attempt.get("attemptMode") or "") in {"local_primary", "local_retry"}
@@ -556,6 +560,18 @@ class ProfileModelRouter:
 
     def snapshot_for(self, profile_name: str) -> dict[str, Any]:
         profile = self.config.profile(profile_name)
+
+        def public_backend(definition: BackendDefinition) -> dict[str, Any]:
+            return {
+                "kind": definition.kind,
+                "endpoint": definition.endpoint,
+                "model": definition.model,
+                "retryModel": definition.retry_model,
+                "reasoningEffort": definition.reasoning_effort,
+                "timeoutSeconds": definition.timeout_seconds,
+                "authEnv": definition.auth_env,
+            }
+
         snapshot = {
             "name": profile_name,
             "limits": {
@@ -567,13 +583,14 @@ class ProfileModelRouter:
             "roles": {
                 role: {
                     "backend": binding.backend,
-                    "kind": definition.kind,
-                    "model": definition.model,
-                    "retryModel": definition.retry_model,
-                    "reasoningEffort": definition.reasoning_effort,
-                    "timeoutSeconds": definition.timeout_seconds,
+                    **public_backend(definition),
                     "localAttemptsBeforeFallback": binding.local_attempts_before_fallback,
                     "fallbackBackend": binding.fallback_backend,
+                    "fallback": (
+                        public_backend(self.config.backends[binding.fallback_backend])
+                        if binding.fallback_backend
+                        else None
+                    ),
                 }
                 for role, binding in profile.roles.items()
                 for definition in [self.config.backends[binding.backend]]

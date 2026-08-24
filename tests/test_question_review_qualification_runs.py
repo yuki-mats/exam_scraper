@@ -64,6 +64,10 @@ from tools.question_review_console.question_candidate import (
     CandidateTarget,
     _semantic_field_rules,
 )
+from tools.question_review_console.model_backend import (
+    MaintenanceAttemptRoute,
+    ModelBackendError,
+)
 from scripts.common.question_identity import SourceIdentityBinding
 from scripts.common.aggregate_answer_decomposition import (
     candidate_set_hash,
@@ -4515,6 +4519,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         app_server=None,
         group_ids=None,
         question_concurrency=5,
+        model_profile="codex_only",
     ):
         selected_groups = list(group_ids or ["2026"])
         for group_id in selected_groups:
@@ -4556,6 +4561,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             stage_ids=stage_ids,
             list_group_ids=selected_groups,
             question_concurrency=question_concurrency,
+            model_profile=model_profile,
         )
         started = coordinator.start(
             "new-exam",
@@ -4565,9 +4571,138 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             stage_ids=preview["stageIds"],
             list_group_ids=preview["scopeListGroupIds"],
             question_concurrency=preview["questionConcurrency"],
+            model_profile=model_profile,
         )
         self.assertEqual(started["run"]["workType"], "maintenance_flow")
         return coordinator, synchronizer, app_server, started["run"]
+
+    class _HybridRouteAppServer(PerQuestionQueueAppServer):
+        def __init__(self, *, retryable_failures=0, nonretryable=False, invalid_first=False):
+            super().__init__()
+            self.retryable_failures = retryable_failures
+            self.nonretryable = nonretryable
+            self.invalid_first = invalid_first
+
+        @staticmethod
+        def snapshot_for(name):
+            return {
+                "name": name,
+                "fingerprint": "fingerprint:hybrid",
+                "limits": {
+                    "questionParallelism": 1,
+                    "llmCallConcurrency": 1,
+                    "auditBatchQuestions": 5,
+                    "auditBatchInputBytes": 120000,
+                },
+                "roles": {},
+            }
+
+        @staticmethod
+        def resolve_maintenance_attempt(profile_name, attempts, *, workflow_model):
+            if any(
+                value.get("backendErrorCode")
+                and value.get("retryable") is False
+                for value in attempts
+            ):
+                raise ModelBackendError("nonretryable_attempt", retryable=False)
+            local_count = sum(
+                value.get("attemptMode") in {"local_primary", "local_retry"}
+                for value in attempts
+            )
+            if local_count == 0:
+                mode, backend, kind, model = (
+                    "local_primary", "local", "openai_compatible_http", "local-primary"
+                )
+            elif local_count == 1:
+                mode, backend, kind, model = (
+                    "local_retry", "local", "openai_compatible_http", "local-retry"
+                )
+            else:
+                mode, backend, kind, model = (
+                    "codex_fallback", "codex", "codex_app_server", workflow_model
+                )
+            return MaintenanceAttemptRoute(
+                profile_name, "fingerprint:hybrid", mode, backend, kind, model,
+                mode == "codex_fallback",
+            )
+
+        def run_turn(self, prompt, **kwargs):
+            route = kwargs.get("maintenance_attempt")
+            if isinstance(route, MaintenanceAttemptRoute):
+                if self.nonretryable and route.attempt_mode == "local_primary":
+                    raise ModelBackendError("schema_mismatch", retryable=False)
+                if self.retryable_failures > 0:
+                    self.retryable_failures -= 1
+                    raise ModelBackendError("network", retryable=True)
+            result = super().run_turn(prompt, **kwargs)
+            if not isinstance(route, MaintenanceAttemptRoute):
+                return result
+            if self.invalid_first:
+                self.invalid_first = False
+                return replace(result, final_message="{}", model=route.requested_model)
+            return replace(result, model=route.requested_model)
+
+    def _run_hybrid_route(self, root, app_server):
+        coordinator, _sync, _server, parent = self._start_deferred_flow(
+            root,
+            SourceOnlyInventory(),
+            ["question_type"],
+            app_server=app_server,
+            model_profile="local_generate_codex_audit",
+            question_concurrency=1,
+        )
+        coordinator._run_maintenance_flow(
+            "new-exam", parent["runId"], lambda _message: None
+        )
+        return coordinator.store.get("new-exam", parent["runId"])
+
+    def test_hybrid_coordinator_routes_primary_retry_fallback_and_records_metrics(self):
+        with tempfile.TemporaryDirectory() as directory:
+            run = self._run_hybrid_route(
+                Path(directory), self._HybridRouteAppServer(retryable_failures=2)
+            )
+        attempts = run["questionExecutions"][0]["stages"][0]["validationAttempts"]
+        self.assertEqual(
+            [value["attemptMode"] for value in attempts],
+            ["local_primary", "local_retry", "codex_fallback"],
+        )
+        self.assertEqual(
+            [value["requestedModel"] for value in attempts[:2]],
+            ["local-primary", "local-retry"],
+        )
+        self.assertTrue(attempts[2]["requestedModel"].startswith("gpt-"))
+        self.assertEqual([value["localSuccess"] for value in attempts], [False] * 3)
+        self.assertEqual(
+            run["modelAttemptMetrics"],
+            {
+                "localPrimaryCount": 1,
+                "localRetryCount": 1,
+                "fallbackCount": 1,
+                "localSuccessCount": 0,
+            },
+        )
+
+    def test_hybrid_candidate_validation_failure_is_not_local_success(self):
+        with tempfile.TemporaryDirectory() as directory:
+            run = self._run_hybrid_route(
+                Path(directory), self._HybridRouteAppServer(invalid_first=True)
+            )
+        attempts = run["questionExecutions"][0]["stages"][0]["validationAttempts"]
+        self.assertEqual([value["attemptMode"] for value in attempts], ["local_primary", "local_retry"])
+        self.assertEqual([value["localSuccess"] for value in attempts], [False, True])
+        self.assertEqual(run["modelAttemptMetrics"]["localSuccessCount"], 1)
+
+    def test_hybrid_nonretryable_failure_stops_without_retry_or_fallback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            run = self._run_hybrid_route(
+                Path(directory), self._HybridRouteAppServer(nonretryable=True)
+            )
+        attempts = run["questionExecutions"][0]["stages"][0]["validationAttempts"]
+        self.assertEqual(len(attempts), 1)
+        self.assertEqual(attempts[0]["attemptMode"], "local_primary")
+        self.assertFalse(attempts[0]["retryable"])
+        self.assertFalse(attempts[0]["fallbackUsed"])
+        self.assertEqual(run["modelAttemptMetrics"]["localSuccessCount"], 0)
 
     @staticmethod
     def _write_valid_category(root):

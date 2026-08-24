@@ -25,9 +25,8 @@ class _Codex:
         return (prompt, kwargs)
 
 
-def _config(*, concurrency=1):
-    return parse_model_backend_config(
-        {
+def _raw_config(*, concurrency=1):
+    return {
             "version": 1,
             "limits": {
                 "question_parallelism": 1,
@@ -49,7 +48,10 @@ def _config(*, concurrency=1):
                 "local_generate_codex_audit": {"roles": {"maintenance": {"backend": "local", "local_attempts_before_fallback": 2, "fallback_backend": "codex"}, "audit": {"backend": "codex"}}},
             },
         }
-    )
+
+
+def _config(*, concurrency=1):
+    return parse_model_backend_config(_raw_config(concurrency=concurrency))
 
 
 def test_profile_router_keeps_backend_choice_behind_one_pipeline_client():
@@ -59,7 +61,55 @@ def test_profile_router_keeps_backend_choice_behind_one_pipeline_client():
     snapshot = router.snapshot_for("local_generate_codex_audit")
     assert snapshot["limits"]["questionParallelism"] == 1
     assert snapshot["roles"]["maintenance"]["model"] == "replaceable-local-model"
-    assert "endpoint" not in snapshot["roles"]["maintenance"]
+    assert snapshot["roles"]["maintenance"]["endpoint"].startswith(
+        "http://127.0.0.1:"
+    )
+    assert snapshot["roles"]["maintenance"]["fallback"]["kind"] == (
+        "codex_app_server"
+    )
+
+
+@pytest.mark.parametrize(
+    ("path", "value"),
+    [
+        (("backends", "local", "endpoint"), "http://127.0.0.1:1234/v1/chat/completions"),
+        (("backends", "local", "auth_env"), "LOCAL_LLM_TOKEN"),
+        (("backends", "local", "model"), "changed-primary"),
+        (("backends", "local", "retry_model"), "changed-retry"),
+        (("backends", "local", "timeout_seconds"), 321),
+        (("backends", "codex", "kind"), "openai_compatible_http"),
+    ],
+)
+def test_selected_resolved_backend_change_changes_profile_fingerprint(path, value):
+    raw = _raw_config()
+    if path == ("backends", "codex", "kind"):
+        raw["backends"]["codex"] = {
+            "kind": value,
+            "endpoint": "http://127.0.0.1:1235/v1/chat/completions",
+            "model": "fallback-model",
+        }
+    else:
+        raw[path[0]][path[1]][path[2]] = value
+    before = ProfileModelRouter(_config(), _Codex()).snapshot_for(
+        "local_generate_codex_audit"
+    )["fingerprint"]
+    after = ProfileModelRouter(
+        parse_model_backend_config(raw), _Codex()
+    ).snapshot_for("local_generate_codex_audit")["fingerprint"]
+    assert before != after
+
+
+def test_unselected_backend_connection_change_does_not_change_selected_fingerprint():
+    raw = _raw_config()
+    raw["backends"]["local"]["endpoint"] = (
+        "http://127.0.0.1:1234/v1/chat/completions"
+    )
+    raw["backends"]["local"]["auth_env"] = "LOCAL_LLM_TOKEN"
+    before = ProfileModelRouter(_config(), _Codex()).snapshot_for("codex_only")
+    after = ProfileModelRouter(
+        parse_model_backend_config(raw), _Codex()
+    ).snapshot_for("codex_only")
+    assert before["fingerprint"] == after["fingerprint"]
 
 
 def test_profiles_dispatch_without_mutating_pipeline_router():
@@ -194,6 +244,33 @@ def test_attempt_route_is_pure_primary_retry_then_codex_fallback():
         "codex_fallback", "gpt-workflow"
     )
     assert fallback.fallback_used is True
+
+
+def test_only_nonretryable_backend_error_stops_attempt_routing():
+    router = ProfileModelRouter(_config(), _Codex())
+    profile = "local_generate_codex_audit"
+    primary = router.resolve_maintenance_attempt(
+        profile, [], workflow_model="gpt-workflow"
+    )
+    retry = router.resolve_maintenance_attempt(
+        profile,
+        [{**primary.as_mapping(), "retryable": False}],
+        workflow_model="gpt-workflow",
+    )
+    assert retry.attempt_mode == "local_retry"
+    with pytest.raises(ModelBackendError) as captured:
+        router.resolve_maintenance_attempt(
+            profile,
+            [
+                {
+                    **primary.as_mapping(),
+                    "backendErrorCode": "schema_mismatch",
+                    "retryable": False,
+                }
+            ],
+            workflow_model="gpt-workflow",
+        )
+    assert captured.value.code == "nonretryable_attempt"
 
 
 @pytest.mark.parametrize(

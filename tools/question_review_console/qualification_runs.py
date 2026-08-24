@@ -12795,14 +12795,19 @@ class QualificationRunCoordinator:
                 or "JSON Schema" in str(exc)
             )
             if backend_failure is not None:
-                self.store.update(
-                    qualification,
-                    child_id,
-                    backendErrorCode=backend_failure.code,
-                    retryable=backend_failure.retryable,
-                    actualModel=None,
-                    localSuccess=False,
-                )
+                if str(child.get("status") or "") not in {
+                    "succeeded",
+                    "failed",
+                    "interrupted",
+                }:
+                    self.store.update(
+                        qualification,
+                        child_id,
+                        backendErrorCode=backend_failure.code,
+                        retryable=backend_failure.retryable,
+                        actualModel=None,
+                        localSuccess=False,
+                    )
                 child = self.store.refresh(qualification, child_id)
             return {
                 "childId": child_id,
@@ -12939,6 +12944,26 @@ class QualificationRunCoordinator:
                     raise QualificationRunError(
                         "patch反映対象に保存済み候補がありません。"
                     )
+                raw_attempt = child.get("modelAttempt")
+                attempt_route = (
+                    MaintenanceAttemptRoute(
+                        profile_name=str(raw_attempt.get("profileName") or ""),
+                        profile_fingerprint=str(
+                            raw_attempt.get("profileFingerprint") or ""
+                        ),
+                        attempt_mode=str(raw_attempt.get("attemptMode") or ""),
+                        backend=str(raw_attempt.get("backend") or ""),
+                        backend_kind=str(raw_attempt.get("backendKind") or ""),
+                        requested_model=str(
+                            raw_attempt.get("requestedModel")
+                            or child.get("requestedModel")
+                            or ""
+                        ),
+                        fallback_used=bool(raw_attempt.get("fallbackUsed")),
+                    )
+                    if isinstance(raw_attempt, Mapping)
+                    else None
+                )
                 outcome = self._run_structured_question(
                     qualification,
                     child_id,
@@ -12951,6 +12976,7 @@ class QualificationRunCoordinator:
                         child.get("requestedModel")
                         or QUESTION_MAINTENANCE_MODEL
                     ),
+                    maintenance_attempt=attempt_route,
                     reasoning_effort=str(
                         child.get("requestedReasoningEffort")
                         or TURN_REASONING_EFFORT
@@ -15820,12 +15846,7 @@ class QualificationRunCoordinator:
                         qualification,
                         run_id,
                         actualModel=result.model,
-                        localSuccess=(
-                            isinstance(maintenance_attempt, MaintenanceAttemptRoute)
-                            and maintenance_attempt.backend_kind
-                            == "openai_compatible_http"
-                            and not maintenance_attempt.fallback_used
-                        ),
+                        localSuccess=False,
                         fallbackUsed=(
                             maintenance_attempt.fallback_used
                             if isinstance(maintenance_attempt, MaintenanceAttemptRoute)
@@ -16752,6 +16773,11 @@ class QualificationRunCoordinator:
             execution_metadata = copy.deepcopy(
                 prepared_execution_metadata
             )
+            validated_local_success = (
+                isinstance(maintenance_attempt, MaintenanceAttemptRoute)
+                and maintenance_attempt.backend_kind == "openai_compatible_http"
+                and not maintenance_attempt.fallback_used
+            )
             persisted_attempt = self.store.get(qualification, run_id)
             persisted_rollback = persisted_attempt.get("rollback")
             final_rollback = (
@@ -16783,6 +16809,7 @@ class QualificationRunCoordinator:
                 unsafeChangedFiles=[],
                 rollback=final_rollback,
                 deltaUnknown=False,
+                localSuccess=validated_local_success,
                 error=None,
             )
             self.store.write_result(qualification, run_id, aggregate_receipt)
@@ -16805,6 +16832,7 @@ class QualificationRunCoordinator:
                 unsafeChangedFiles=[],
                 rollback=final_rollback,
                 deltaUnknown=False,
+                localSuccess=validated_local_success,
                 result=aggregate_receipt,
                 artifactSync={
                     "status": "deferred",
