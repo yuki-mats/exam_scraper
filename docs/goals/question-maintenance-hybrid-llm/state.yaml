@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T039
+active_task: T040
 
 tasks:
   - id: T001
@@ -1785,7 +1785,7 @@ tasks:
   - id: T039
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T038部分受入と85003隔離metadata blockerを監査し、製品変更なしで残り3問を測定できる正確なfixture補完、又は現証拠での最終運用判断を確定する。"
     inputs:
@@ -1799,6 +1799,52 @@ tasks:
     expected_output:
       - "Exact isolated fixture repair and final measurement package, or final evidence-based disposition"
       - "Operational recommendation for codex_only and local experimental profile"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      summary: "85003 blockerはserver起動後に固定されたinventory topology。対象group全体とcategory正本を起動前に配置する新規隔離repoなら製品変更なしで残り3問を測定できる。"
+      evidence:
+        - "inventoryは起動時に00_source存在からlistGroupIdsを構築してprocess cacheへ保存する。"
+        - "category.jsonはtaxonomyを検証するが年度group発見元ではない。"
+        - "85003は67問、AWS udemy groupは154問としてproduction inventoryで解決できる。"
+      next_task: T040
+
+  - id: T040
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "新規隔離repoのserver起動前に85003・AWS group全体と両category正本を配置し、残り3問をcodex_only直列実測して全7問SLA・品質・安全を統合する。"
+    inputs:
+      - "source commit 437cb70497483c9bdc15fe71ba620b4fdecd95c4"
+      - "T038 runner and partial result"
+      - "T025 quality baseline and blind oracle"
+    constraints:
+      - "製品コード、API、正本output、既存T038証跡を変更しない。"
+      - "正本category/groupをserver起動前に隔離copyへ置く。"
+      - "oracleをmodelへ渡さない。"
+      - "1問が180秒を超えても安全なら残りを続ける。"
+      - "question/LLM peakは各1、Firestore/publication呼出し0。"
+    expected_output:
+      - "Fixture topology readback"
+      - "Remaining three timings and blind oracle"
+      - "Integrated exact seven-question SLA classification"
+      - "No-write and peak-concurrency assertions"
+    allowed_files:
+      - "docs/goals/question-maintenance-hybrid-llm/notes/T040-artifacts/**"
+      - "OS一時directory内の隔離repoとraw artifacts"
+    verify:
+      - "起動後inventoryに85003とudemy-aws-saa-c03が存在する。"
+      - "残り3問をterminalへ閉じ、T038と統合して固定7 IDの欠落・重複0。"
+      - "allSevenSlaResultをpassed又はfailedへ確定する。"
+      - "重大事故0、peak各1、外部write 0、実repo正本差分0。"
+    stop_if:
+      - "起動前fixture hash又は必須pathが欠落する。"
+      - "正しい起動前配置でもinventory/previewが対象groupを拒否する。"
+      - "Codex subscription allowed=trueでない。"
+      - "製品コード/API/正本/T038証跡の変更が必要になる。"
+      - "外部write、並列peak超過、重大品質事故が発生する。"
     receipt: null
 
   - id: T009
