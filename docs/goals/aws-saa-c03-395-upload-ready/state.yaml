@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T083
+active_task: T084
 
 tasks:
   - id: T001
@@ -5912,7 +5912,7 @@ tasks:
   - id: T083
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "artifactSync後の評価partitionをread-only監査し、変更済み又は未評価のexact対象を再評価へ送る最大の安全なpackageと、source answer difference15及びblocked content残件を分離する。"
     inputs:
@@ -5930,6 +5930,80 @@ tasks:
       - "next evaluation Worker package"
       - "source answer difference and content rework deferred sets"
       - "allowed_files, verify, stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "artifactSync後は全395問のwork versionと配信用成果物がcurrentである。評価partitionはpublished266、passedかつ未公開39、stale65、needs_rework25。stale65は全問machineReadyで、別セッション評価previewも65/65 evaluable、blocked0であるため、exact65を単一batchで再評価する。needs_rework25はsource answer difference未承認15と通常10に分離し、この評価batchへ混ぜない。"
+      evidence:
+        - "全395問の評価状態はpassed305、stale65、needs_rework25。nextActionはcomplete266、publish39、evaluate65、maintain25。"
+        - "stale65はすべてmachineReady true、workVersions=current、workflow merge/convert/upload match、blockingIssues0。"
+        - "exact65のid/stateHash/status digestは0260d33b153dbcb9734e4fa0f065b1a2a1496ff8040abbfb0ed2a4b3451aaaf4、questionIdsHashは3ddc1ac4fd9a8ad550869684a796c277d7191924f2b2db4bf970237642daa54d。"
+        - "別セッション評価previewはselected65、evaluable65、blocked0、session65、canStart true、Codex App Server、concurrency limit100。"
+        - "T079 blocked22の現行partitionはstale11とneeds_rework11。stale11は今回再評価し、needs_rework11のうちfd73285675016aee66f68461はsource difference側、残り10は後続content rework側に保持する。"
+        - "source answer difference15はすべてneeds_rework、machineReady false、blockingIssues=source_answer_difference_unapprovedであり今回の評価対象外。"
+        - "published266とpassed未公開39は再評価対象外。"
+      worker_package:
+        objective: "現行stateHashに対してevaluation staleとなったexact65問を、一問一sessionの別セッション評価batchでpolicy5.2により再評価し、全65件をpassed又は理由付きneeds_reworkへ終端させる。"
+        allowed_files:
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+          - "output/question_review_console/cache/**"
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "preview selected65/evaluable65/blocked0/canStart true。"
+          - "target digestとquestionIdsHashがT083固定値に一致する。"
+          - "evaluation jobは65/65 completed、failed0、inconclusive0で終端する。"
+          - "全targetのevaluation policyVersion5.2、currentValid、stateHash一致。"
+          - "published266、source difference15、SAA patch/artifact、00_source、category、Firestore writes0不変。"
+        stop_if:
+          - "target count/digest、preview又はstateHash mismatch。"
+          - "評価失敗又はinconclusiveが通常retry後も残る。"
+          - "source difference15又はpublished266がscopeに入る。"
+          - "問題data又はFirestoreの変更が必要になる。"
+      next_allowed_task: T084
+      blocked_tasks:
+        - "post-evaluation content rework"
+        - "source answer difference15 approvals or ownership correction"
+        - T999
+      missing_evidence:
+        - "65 evaluation terminal results"
+        - "normal needs_rework content convergence"
+        - "source answer difference resolution"
+        - "all395 final gate"
+      note_needed: false
+      harness: codex
+  - id: T084
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "現行stateHashに対してevaluation staleとなったexact65問を、一問一sessionの別セッション評価batchでpolicy5.2により再評価し、全65件をpassed又は理由付きneeds_reworkへ終端させる。"
+    inputs:
+      - "T083 Judge receipt"
+      - "target digest 0260d33b153dbcb9734e4fa0f065b1a2a1496ff8040abbfb0ed2a4b3451aaaf4"
+      - "questionIdsHash 3ddc1ac4fd9a8ad550869684a796c277d7191924f2b2db4bf970237642daa54d"
+    constraints:
+      - "exact65 stale/machineReady questions only。"
+      - "一問一session、policy5.2、最大100 concurrencyを使う。"
+      - "published266、passed未公開39、needs_rework25をscopeへ入れない。"
+      - "評価だけを行い、問題data、patch、artifact、Firestoreを変更しない。"
+    allowed_files:
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+      - "output/question_review_console/cache/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "preview selected65/evaluable65/blocked0/canStart true。"
+      - "65/65 completed、failed0、inconclusive0。"
+      - "policy5.2 currentValid and stateHash exact match。"
+      - "excluded scope and protected data unchanged。"
+    stop_if:
+      - "target、preview、stateHash mismatch。"
+      - "failed/inconclusiveが通常retry後も残る。"
+      - "excluded scope又はproblem data変更が必要になる。"
+    expected_output:
+      - "terminal evaluation results for exact65"
     receipt: null
   - id: T999
     type: judge
