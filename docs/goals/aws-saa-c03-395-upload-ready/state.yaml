@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T092
+active_task: T093
 
 tasks:
   - id: T001
@@ -6436,7 +6436,7 @@ tasks:
   - id: T092
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "normal6問をevaluation feedback付き05→02a→03で再整備し、12 work itemを終端させる。"
     inputs:
@@ -6464,6 +6464,41 @@ tasks:
       - "protected scope change。"
     expected_output:
       - "terminal normal6 rework receipt"
+    receipt:
+      result: done
+      summary: "normal6問・12 work itemをevaluation feedback付き05→02a→03で再整備し、全6問を保留0で確定、公開用成果物まで同期した。"
+      evidence:
+        - "run 20260824T135139228360-ecf5ef8b、job uNqdmTTuM0zIcYLWは2026-08-24T13:53:17+09:00にsucceeded。"
+        - "question6/6 validated、work12/12 validated、blocked0、pending0、unknown delta0、receiptValidated true。"
+        - "artifactSyncはudemy-aws-saa-c03でsucceeded。"
+        - "run後partitionはpublished266、passed未公開113、evaluate6、official correction待ち10。"
+        - "00_source、categoryのgit差分なし、Firestore writes0。"
+      commands:
+        - cmd: "qualification maintenance run 20260824T135139228360-ecf5ef8b"
+          status: pass
+        - cmd: "post-run partition readback"
+          status: pass
+      spawned_tasks:
+        - T093
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T093
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "normal6再整備後のexact6問をread-only監査し、公式補正待ち10問を混ぜず別session評価へ送れるか判定する。"
+    inputs:
+      - "T092 receipt"
+      - "current evaluate6 inventory"
+      - "evaluation policy5.2"
+    constraints:
+      - "Read-only。評価又は公式補正を開始しない。"
+      - "maintain10とpublished379を除外する。"
+    expected_output:
+      - "evaluation6 preview and digests"
+      - "next Worker package"
     receipt: null
   - id: T999
     type: judge
