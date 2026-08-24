@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T103
+active_task: T999
 
 tasks:
   - id: T001
@@ -7036,7 +7036,7 @@ tasks:
   - id: T103
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "上流再整備で入力が変わったcurrent-value certificationを安全に失効扱いとして通常workflowを継続できるようにし、保留4問を再整備・再認証する。"
     inputs:
@@ -7069,6 +7069,7 @@ tasks:
       - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
       - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
       - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+      - output/aws-solutions-architect-associate/category/category.json
       - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
     verify:
       - "stale certification regression、通常stale correction fail-closed regression。"
@@ -7082,11 +7083,60 @@ tasks:
     expected_output:
       - "stale certification invalidation implementation and regression tests"
       - "4 rework receipts, recertification receipts, final evaluation receipts"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - scripts/merge/question_issue_corrections.py
+        - scripts/merge/record_projection.py
+        - scripts/merge/00_merge_all.py
+        - tests/test_question_issue_correction_patch.py
+        - tests/test_merge_source_identity.py
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/24_questionIssueCorrections/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+        - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+        - output/aws-solutions-architect-associate/category/category.json
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+      commands:
+        - cmd: "python -m unittest tests.test_question_issue_correction_patch tests.test_merge_source_identity"
+          status: pass
+        - cmd: "python -m unittest tests.test_question_review_qualification_runs"
+          status: pass
+        - cmd: "question_bank.py quality-gate --qualification aws-solutions-architect-associate --list-group-id udemy-aws-saa-c03"
+          status: pass
+        - cmd: "prepare_firestore_upload.py udemy-aws-saa-c03 -b output/aws-solutions-architect-associate/questions_json --upload-dry-run"
+          status: pass
+        - cmd: "SAA-C03 00_source manifest/current SHA-256 scope check"
+          status: pass
+      full_outcome_complete: false
+      summary: "上流変更後のstale current-value certificationだけを安全に失効させ、通常correctionのfail-closedを維持した。保留4問を再整備し、最終2問を96点・100点で再評価して、SAA-C03を395/395 local-readyへ収束した。"
+      evidence:
+        - "stale certificationは内容へ適用せず承認済みtargetにも数えない。通常correctionのstale inputHashは従来どおり例外で停止する。"
+        - "official correction job v5JR2dHSdLd6Zji6と8v2v9PO3bbeLYBbZが成功し、RDS AWS Backup問とEBS DR問を公式根拠付きで再認証した。"
+        - "最終evaluation batch ESY7rSGVNcxIF8eqは2問ともpassed。RDS問96点、EBS DR問100点。"
+        - "QuestionInventoryはquestionCount=395、published=266、publishReady=129、maintenance=0、unreviewed=0、needsRework=0。"
+        - "未公開129問は全件evaluation=passed、nextAction=publish、publishReady=true、blocking=0、failedDelta=0。"
+        - "quality gateは[OK]、最終prepare/upload dry-runはupload不能0件、変換後1665件、Firestore実書込み0件。"
+        - "categoryは最終prepareの決定的集計でfolder/questionSetとも741件へ同期し、手動の意味変更は行っていない。"
+        - "SAA-C03の00_sourceはmanifest=395、current=395、SHA-256 mismatch=0。repo-wide checkerの別資格4609件消失は候補checkout外の既存台帳差分で、対象SAAには影響しない。"
+        - "focused 21 testsとqualification run 178 testsが合格し、py_compileも合格した。"
+        - "実装commit a96477fb7はorigin/mainへpush済み。"
+      verification:
+        - cmd: "python -m unittest tests.test_question_issue_correction_patch tests.test_merge_source_identity"
+          result: "21 tests passed"
+        - cmd: "python -m unittest tests.test_question_review_qualification_runs"
+          result: "178 tests passed"
+        - cmd: "question_bank.py quality-gate --qualification aws-solutions-architect-associate --list-group-id udemy-aws-saa-c03"
+          result: "passed; upload dry-run included"
+        - cmd: "prepare_firestore_upload.py udemy-aws-saa-c03 -b output/aws-solutions-architect-associate/questions_json --upload-dry-run"
+          result: "passed; upload blockers=0; Firestore writes=0"
+        - cmd: "SAA-C03 00_source manifest/current SHA-256 scope check"
+          result: "manifest=395; current=395; mismatch=0"
+      next_allowed_task: T999
   - id: T999
     type: judge
     assignee: Judge
-    status: blocked
+    status: active
     reasoning_hint: high
     objective: "SAA-C03 395問とAWS全体1274問が元の依頼どおり準備済みになったか最終監査する。"
     inputs:
@@ -7109,10 +7159,7 @@ tasks:
       - "evidence mapping"
       - "missing evidence"
       - "next task if not complete"
-    receipt:
-      result: blocked
-      blocked_reason: "SAA-C03 395/395、AWS全体1274/1274、artifactSync、quality gate、upload dry-runの証拠が未取得であり、最終監査を実行できない。"
-      summary: "上流T003・T004完了後に最終監査を再開する。"
+    receipt: null
 
 checks:
   dirty_fingerprint: "clean main; origin/main...HEAD=0/0 at 2026-08-11 start"
