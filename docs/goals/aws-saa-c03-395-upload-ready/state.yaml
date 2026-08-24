@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T087
+active_task: T088
 
 tasks:
   - id: T001
@@ -6160,7 +6160,7 @@ tasks:
   - id: T087
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "リファクタリング後のSAA評価partitionをread-only監査し、通常needs_rework26問を05→02a→03で再整備するexact packageと、評価待ち13問、公式正答補正2問を分離する。"
     inputs:
@@ -6178,6 +6178,83 @@ tasks:
       - "new-flow coverage for repeated8"
       - "next Worker package with verify and stop_if"
       - "separate evaluation13 and official correction2 packages"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "リファクタリング後のpartitionは、通常再整備26、評価待ち13、実質source差分2に分離できる。通常26だけのevaluationRework previewは、過去に02aで反復失敗した8問を含めて05を先行し、全targetをexact64 work itemとして開始可能である。"
+      evidence:
+        - "current partitionはpublished266、passed未公開88、evaluate13、normal needs_rework26、source difference2。"
+        - "normal26 digestは5d5ad4c371991d4913ab72c97935653ad777599555c678eea2ede4698c393282、simple IDs hashはb71d04e4ea2460558872767e56d8f33bac0628969497b20fe58d1ee25dc30dfb。"
+        - "preview targetCount26、workItemCount64、canStart true、blockingWarnings0、scopeはudemy-aws-saa-c03だけ。"
+        - "stage summaryはoriginalize19、question_type1、correct_choice18、explanation26。"
+        - "targetIdentity.questionIdsHashはa37035d110847abbd694e4b6a455f3baf68429c6c6f53a9377f63f38bab03816、workItemKeysHashはe397cd8279e99489682b47044561d40c2292b870ab061944da13bb718bff4dc8。"
+        - "previewPlanHashは8557a14b13e221df8eef24c0ef36776a1583b08a1f6a95c28f95f890824b3d5d。"
+        - "過去反復失敗8問はすべてoriginalize→correct_choice→explanation対象となり、同じ02a単独入力ではない。"
+        - "評価待ち13のIDs hashは5fa4a13a096a597bfb65e9e08cf40cb8d3b23839c96d6dba086bf1c15c79c677。source difference2は8129a5b1f6fd9d433b759b4aとfd73285675016aee66f68461でpreview対象外。"
+      worker_package:
+        objective: "exact26問をevaluation feedback付きの新経路で再整備し、05→01/02a→03の64 work itemを一問単位で終端させる。"
+        allowed_files:
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/question_review_console/cache/**"
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "preview exact hashes and work counts match T087。"
+          - "run finishes with all64 work items terminal and no unknown delta。"
+          - "successful questions have current work versions; blocked items retain explicit terminal reasons。"
+          - "evaluate13、source difference2、published354、00_source、category、Firestore writes0 are excluded and unchanged。"
+        stop_if:
+          - "preview hash、target、work count又はstateHash mismatch。"
+          - "source difference2又はevaluate13がscopeに入る。"
+          - "unknown delta、identity mismatch、00_source/category/Firestore change。"
+      next_allowed_task: T088
+      blocked_tasks:
+        - "evaluate13"
+        - "official correction2"
+        - T999
+      note_needed: false
+      harness: codex
+  - id: T088
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "exact26問をevaluation feedback付きの新経路で再整備し、05→01/02a→03の64 work itemを一問単位で終端させる。"
+    inputs:
+      - "T087 Judge receipt"
+      - "previewPlanHash 8557a14b13e221df8eef24c0ef36776a1583b08a1f6a95c28f95f890824b3d5d"
+      - "questionIdsHash a37035d110847abbd694e4b6a455f3baf68429c6c6f53a9377f63f38bab03816"
+      - "workItemKeysHash e397cd8279e99489682b47044561d40c2292b870ab061944da13bb718bff4dc8"
+    constraints:
+      - "exact normal26 only。source difference2、evaluate13、published354を除外する。"
+      - "UI preview-token境界から開始する。"
+      - "00_source、category、Firestoreを変更しない。"
+    allowed_files:
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "exact preview identity。"
+      - "64 work items terminal。"
+      - "protected scope unchanged。"
+    stop_if:
+      - "target identity mismatch。"
+      - "excluded question enters scope。"
+      - "unknown or protected delta。"
+    expected_output:
+      - "terminal exact26 rework receipt"
     receipt: null
   - id: T999
     type: judge
