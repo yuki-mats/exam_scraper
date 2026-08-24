@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T091
+active_task: T092
 
 tasks:
   - id: T001
@@ -6382,7 +6382,7 @@ tasks:
   - id: T091
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "残り16問を通常content/explanation再整備6問と公式正答補正10問に分け、通常6問だけを現行evaluation feedbackから再整備するexact packageをread-onlyで確定する。"
     inputs:
@@ -6397,6 +6397,73 @@ tasks:
       - "normal6 preview and digests"
       - "official correction10 exact set"
       - "next Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "remaining16のうち6問はsource answer approval gateを持たない通常のcontent/explanation再整備で、残る10問は取得元正答とAWS一次根拠の衝突である。通常6だけのpreviewは05→02a→03の12 work itemで開始可能なため、公式補正と混ぜず先に収束させる。"
+      evidence:
+        - "normal6 IDs hashはdf45e9b2f4ec99f8083b1eb198f2668efbf2746c7650b393607e0aa2bb1b83a9、id/stateHash/resultHash digestはc0ead8bb3cb93614a313a7716463c7e9b8d082792685af7f3d634b9b720b17eb。"
+        - "preview target6、work12、canStart true、blockingWarnings0。stage summaryはoriginalize3、correct_choice3、explanation6。"
+        - "targetIdentity questionIdsHashは8db50617c6004a1b6fd05848022c98d8bc006086f9ed55abb516418f35d76365、workItemKeysHashは93bda9fe7fc3e9ac9cfe291d356215d55c53594dfb52b658e8faa651d0f67ebb。"
+        - "previewPlanHashは5ee7138fe60ae9a4caa70a9a49410086c2b410b4e931c8fddba1d16a90afe76b。"
+        - "official correction10は0d98160c7d3a218a070d6465、2a86dd01c011f4e69ed9ae0d、30f5eae0001b444444cb392e、343461753aef77b0241bc6ad、79f53359ed09ca31e8a5b034、7eb40b542d4c1a9662263377、8129a5b1f6fd9d433b759b4a、d92928c3a329802e6a71f967、f49f141490bc1e58aa52b074、fd73285675016aee66f68461。"
+      worker_package:
+        objective: "normal6問をevaluation feedback付き05→02a→03で再整備し、12 work itemを終端させる。"
+        allowed_files:
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+          - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/question_review_console/cache/**"
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "preview exact hashes and target/work counts。"
+          - "12 work items terminal、unknown delta0。"
+          - "official correction10、published379、00_source、category、Firestore writes0不変。"
+        stop_if:
+          - "target/hash mismatch。"
+          - "official correction10 enters scope。"
+          - "protected or unknown delta。"
+      next_allowed_task: T092
+      blocked_tasks:
+        - "official correction10"
+        - T999
+      note_needed: false
+      harness: codex
+  - id: T092
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "normal6問をevaluation feedback付き05→02a→03で再整備し、12 work itemを終端させる。"
+    inputs:
+      - "T091 Judge receipt"
+      - "previewPlanHash 5ee7138fe60ae9a4caa70a9a49410086c2b410b4e931c8fddba1d16a90afe76b"
+      - "questionIdsHash 8db50617c6004a1b6fd05848022c98d8bc006086f9ed55abb516418f35d76365"
+      - "workItemKeysHash 93bda9fe7fc3e9ac9cfe291d356215d55c53594dfb52b658e8faa651d0f67ebb"
+    constraints:
+      - "exact normal6 only。"
+      - "official correction10、published379、00_source、category、Firestoreを変更しない。"
+    allowed_files:
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "exact6/12 terminal。"
+      - "protected scope unchanged。"
+    stop_if:
+      - "identity mismatch。"
+      - "protected scope change。"
+    expected_output:
+      - "terminal normal6 rework receipt"
     receipt: null
   - id: T999
     type: judge
