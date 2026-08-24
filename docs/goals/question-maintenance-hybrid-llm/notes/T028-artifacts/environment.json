@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "question-maintenance-hybrid-llm-t028-environment/v1",
+  "capturedAt": "2026-08-25T04:36:18+09:00",
+  "isolationRoot": "/tmp/question-hybrid-t028.<redacted>",
+  "ollama": {
+    "model": "qwen3:14b",
+    "digest": "bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8",
+    "reportedSizeBytes": 9276198565,
+    "quantization": "Q4_K_M",
+    "endpoint": "http://127.0.0.1:11434/v1/chat/completions"
+  },
+  "codex": {
+    "provider": "Codex App Server",
+    "accountType": "chatgpt",
+    "planType": "pro",
+    "subscriptionAllowed": true,
+    "auditModel": "gpt-5.6-luna",
+    "fallbackModel": "gpt-5.6-sol"
+  },
+  "observedPeaks": {
+    "questionProcessing": 1,
+    "modelCalls": 1
+  },
+  "externalWrites": {
+    "firestoreCalls": 0,
+    "publicationCalls": 0,
+    "productionPatchWrites": 0
+  },
+  "sourceHashes": {
+    "output/2nd-class-kenchikushi/questions_json/85010/00_source/question_85010_3.json": "739562d2865f5f48db55cbeac2abfbb24ef1951c45fc30078f830d50052b4eb9",
+    "output/2nd-class-kenchikushi/questions_json/85003/00_source/question_85003_2.json": "763aff6633aea2aa6a17cacd93ca1f43ce48c36cb053fb9a272b1328ccdb2df2",
+    "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source/question_udemy-4632482-042.json": "34b78bef064ea8fe8993cdac9b92c45a4022bf98d1ccf5578cbb04c1cdb106d0"
+  },
+  "sourceHashesMatchRepository": true
+}

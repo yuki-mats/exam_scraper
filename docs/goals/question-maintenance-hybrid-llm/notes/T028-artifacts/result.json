@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "question-maintenance-hybrid-llm-t028/v1",
+  "sourceCommit": "6f8035b68",
+  "decision": "reject_current_local_model",
+  "stopReason": "After four completed questions, only one question had every requested stage validated locally without fallback. Even if all three remaining questions succeeded locally, the maximum would be 4/7, below the required 5/7.",
+  "limits": {
+    "questionParallelism": 1,
+    "llmCallConcurrency": 1,
+    "auditBatchQuestions": 5,
+    "auditBatchInputBytes": 120000
+  },
+  "completedQuestionCount": 4,
+  "localFinalPassCount": 1,
+  "fallbackQuestionCount": 3,
+  "maximumPossibleLocalFinalPassCount": 4,
+  "requiredLocalFinalPassCount": 5,
+  "questions": [
+    {
+      "questionId": "dd07b4977677b7bb",
+      "stages": ["explanation"],
+      "terminalStatus": "validated",
+      "localFinalPass": false,
+      "attemptModes": ["local_primary", "local_retry", "codex_fallback"],
+      "fallbackUsed": true
+    },
+    {
+      "questionId": "3239d392acd6236c",
+      "stages": ["correct_choice"],
+      "terminalStatus": "validated",
+      "localFinalPass": false,
+      "attemptModes": ["local_primary", "local_retry", "codex_fallback"],
+      "fallbackUsed": true
+    },
+    {
+      "questionId": "64032ef7f4bac816",
+      "stages": ["question_type"],
+      "terminalStatus": "validated",
+      "localFinalPass": true,
+      "attemptModes": ["local_primary"],
+      "fallbackUsed": false
+    },
+    {
+      "questionId": "64bd269e44533561",
+      "stages": ["question_type", "explanation"],
+      "terminalStatus": "validated",
+      "localFinalPass": false,
+      "attemptModes": ["local_primary", "local_retry", "codex_fallback"],
+      "fallbackUsed": true,
+      "note": "question_type passed locally; explanation required Codex fallback"
+    }
+  ],
+  "notRun": {
+    "remainingQuestions": 3,
+    "auditBatchParity": "fail_closed_after_quality_threshold_became_unreachable",
+    "faultInjection": "fail_closed_after_quality_threshold_became_unreachable",
+    "resumeProbe": "fail_closed_after_quality_threshold_became_unreachable"
+  },
+  "quality": {
+    "criticalAccidentCountInCompletedQuestions": 0,
+    "codexOnlyBaseline": "T025: 6 validated, 1 evidence hold",
+    "adoption": false
+  }
+}

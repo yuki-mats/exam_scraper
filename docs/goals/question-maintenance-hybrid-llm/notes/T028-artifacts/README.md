@@ -1,0 +1,9 @@
+# T028 ハイブリッド最終受入
+
+commit `6f8035b68`の新しい隔離コピーで、固定7問を実Ollama `qwen3:14b`と実Codex App Serverへ1問ずつ投入した。正答oracleはmodel入力へ含めず、実行後の確認だけに用いた。
+
+4問を完了した時点で、全指定工程をfallbackなしでlocal確定できたのは`64032ef7f4bac816`の1問だけだった。ほか3問は少なくとも一工程でCodex fallbackを必要とした。残り3問がすべてlocal合格しても最大4/7で、必要な5/7へ届かない。このためboardの停止条件に従い、5問目の開始直後に処理を中断した。
+
+品質閾値が既に到達不能な構成へ追加のクラウド監査費用を掛けないため、batch=5対1 parity、故障注入、resume試験はfail-closedで未実施とした。完了4問はdeterministic validationを通過し、確認範囲の重大品質事故は0件だった。問題処理とLLM呼出しの観測peakはいずれも1で、Firestore、publication、実repo production patchへの書込みは0件、対象`00_source` hashは開始前後で一致した。
+
+結論は、現在の`qwen3:14b`を問題整備のlocal生成modelとして採用しない、である。共通pipelineとCodex fallbackは機能したが、local最終合格率の受入条件を満たせない。
