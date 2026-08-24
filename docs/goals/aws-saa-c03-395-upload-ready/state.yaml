@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T090
+active_task: T091
 
 tasks:
   - id: T001
@@ -6332,7 +6332,7 @@ tasks:
   - id: T090
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "exact31問を一問一session、policy5.2で再評価し、全件をpassed又は理由付きneeds_reworkへ終端させる。"
     inputs:
@@ -6356,6 +6356,47 @@ tasks:
       - "protected scope change required。"
     expected_output:
       - "terminal exact31 evaluation result"
+    receipt:
+      result: done
+      summary: "exact31問をpolicy5.2で再評価し、初回batchで24問合格・6問needs_rework・1問形式失敗となった。形式失敗1問を単問の通常retryで再評価し合格へ収束させたため、最終結果は合格25、needs_rework6、failed/inconclusive0である。"
+      evidence:
+        - "batch job oBLrymh4vTmwb7B6はselected31、completed30、passed24、needs_rework6、inconclusive0、failed1。失敗は4d7806c96ef7391631cf42e1のchoiceIndex重複という評価応答形式エラー。"
+        - "single retry job oMlcAocG_sZHr25rは同1問を正誤4/4、解説95点でpassedへ終端した。"
+        - "net terminalは31/31、passed25、needs_rework6、failed0、inconclusive0。"
+        - "評価後partitionはpublished266、passed未公開113、needs_rework16、evaluate0。"
+        - "通常content rework6は100368ebb9a2dbc6f50e82a1、56afb06bc80fb02777b88963、586de13b95921e5e50d54029、8f05cbfe48316f933f01dff8、c580487cc5d96979e835a45f、dd47cf11bcf2c057c013785c。"
+        - "残る10問はsource difference6又はAWS一次根拠と取得元正答の衝突4で、通常content6と分離する。"
+        - "problem data、00_source、categoryのgit差分なし、Firestore writes0。"
+      commands:
+        - cmd: "evaluation job oBLrymh4vTmwb7B6"
+          status: pass
+        - cmd: "single evaluation retry oMlcAocG_sZHr25r"
+          status: pass
+        - cmd: "post-evaluation partition readback"
+          status: pass
+      spawned_tasks:
+        - T091
+      verification_attempts: 2
+      note_needed: false
+      harness: codex
+  - id: T091
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "残り16問を通常content/explanation再整備6問と公式正答補正10問に分け、通常6問だけを現行evaluation feedbackから再整備するexact packageをread-onlyで確定する。"
+    inputs:
+      - "T090 evaluation receipt"
+      - "current remaining16 question details"
+      - "evaluation rework preview"
+    constraints:
+      - "Read-only。再整備又は公式補正を開始しない。"
+      - "official correction10を通常6問packageへ混ぜない。"
+      - "exact IDs、stateHash、resultHash、stage routingを固定する。"
+    expected_output:
+      - "normal6 preview and digests"
+      - "official correction10 exact set"
+      - "next Worker package"
     receipt: null
   - id: T999
     type: judge
