@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T081
+active_task: T082
 
 tasks:
   - id: T001
@@ -5775,7 +5775,7 @@ tasks:
   - id: T081
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "05独自問題化を正答表示の正本としてmerge全経路で優先し、answer_result_inferred_correct_choice_numbersを05のanswer_result_textから機械正規化する。05候補自身のquestionIntent・correctChoiceText・answer_result_text不一致を保存前に拒否し、既存の05なしlegacy互換は維持する。"
     inputs:
@@ -5803,6 +5803,79 @@ tasks:
       - "Verification fails twice."
     expected_output:
       - "tested system fix committed and pushed to origin/main"
+    receipt:
+      result: done
+      summary: "05適用後はlegacy 15/23のanswer_result_textを再適用せず、05を正本として維持するようmerge順を修正した。answer_result_inferred_correct_choice_numbersは05のanswer_result_textから機械再生成し、05候補内のquestionIntent・correctChoiceText・answer_result_text不一致は保存前に拒否する。05なしのlegacy読取互換は維持した。"
+      changed_files:
+        - scripts/merge/patch_views.py
+        - scripts/merge/record_projection.py
+        - tests/test_question_review_projection.py
+        - tests/test_question_review_question_candidate.py
+        - document/reference/question_field_contract.md
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+      evidence:
+        - "焦点test 78件と、merge・inventory・artifact sync・qualification runを含む統合test 248件が成功した。"
+        - "実問fd73285675016aee66f68461の現行logical projectionはcorrectChoiceTextの正答1、answer_result_text=正解は1です。、derived numbers=[1]で一致する。"
+        - "05なしのlegacy answer override既存testは成功し、読取互換を維持した。"
+        - "全395個の05 patchの正答表示不一致0件を確認した。"
+        - "SAA data artifact、00_source、category、Firestoreに変更なし。"
+        - "commit 6ae65b062をorigin/mainへpush済み。"
+      commands:
+        - cmd: "python3 -m unittest tests.test_question_review_projection tests.test_question_review_question_candidate"
+          status: pass
+        - cmd: "temporary venv integrated unittest suite"
+          status: pass
+        - cmd: "actual SAA Q25 logical projection readback"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+      spawned_tasks:
+        - T082
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T082
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "問題整備システム画面の正規『公開用データを再生成』でudemy-aws-saa-c03だけを最新patchからMerge、Convert、upload-ready、upload dry-runへ同期し、T079の確定53問を保持したままartifactSyncを成功へ更新する。"
+    inputs:
+      - "T081 system fix commit 6ae65b062"
+      - "run 20260824T124133194582-d2db9c32 artifactSync failed"
+      - "current SAA inventory"
+    constraints:
+      - "問題整備システム画面からpreviewと実行を行う。"
+      - "scopeはaws-solutions-architect-associate / udemy-aws-saa-c03だけ。"
+      - "patchを再生成又は巻き戻さず、既存patchから配信用成果物だけを決定的に再生成する。"
+      - "Firestoreへ書き込まない。upload dry-runで止める。"
+      - "00_source、category、published266を変更しない。"
+    allowed_files:
+      - output/question_review_console/.review-ui.lock
+      - output/question_review_console/run_leases/aws-solutions-architect-associate.lock
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "画面previewはqualification/list group一致、questionCount395、Firestore書込みなし、canSync true。"
+      - "再生成jobはMerge、Convert、upload-ready、upload dry-run成功。"
+      - "T079 manifest artifactSyncは手動再生成でsucceededへ更新される。"
+      - "inventory merge/convert/uploadは全395問match、issues0。"
+      - "実問Q25の生成物は正答表示1、派生番号1、correctChoiceText正答1で一致する。"
+      - "00_source aggregate、category、published266、Firestore writes0不変。"
+    stop_if:
+      - "preview scope/count mismatch、canSync false又は必須field warning。"
+      - "failed delta reconciliationが必要又はpatch変更が必要。"
+      - "Merge、Convert、upload-ready、upload dry-runのいずれかが失敗する。"
+      - "Firestore書込み、00_source、category又はpublished変更が必要になる。"
+      - "Verification fails twice."
+    expected_output:
+      - "successful manual artifact sync for all395 and updated T079 artifact receipt"
     receipt: null
   - id: T999
     type: judge
