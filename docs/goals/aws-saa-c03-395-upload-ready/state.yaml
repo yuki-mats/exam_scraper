@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T070
+active_task: T071
 
 tasks:
   - id: T001
@@ -4992,7 +4992,7 @@ tasks:
   - id: T070
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T069後のSAA-C03評価状態を監査し、current needs_rework 107問とsource answer difference未承認14問を正しい工程へ分離して、次の最大の安全な再整備packageを決定する。"
     inputs:
@@ -5009,6 +5009,93 @@ tasks:
       - "exact 107 rework identities/stage combinations"
       - "exact 14 source-difference identities and evidence requirements"
       - "次Worker objective/allowed_files/verify/stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T069後はpublished266、publishReady8、current needs_rework107、source-answer未承認14で、unreviewed0。107問を一括previewすると異なる工程組合せを持つ問題のselectionWorkItemCount検査で停止するが、評価が要求する同一工程組合せの5群へ分けると全previewがcanStart=true、warning0となる。コード変更を先行せず、正規evaluationReworkを5 runで順次完了するpackageを承認する。14問は有効evaluation snapshotがなくmachineReady=falseで、official PDF/imageのexact file、資料名、locator、確認済み転記を入力し、category=correct_answerのblind-a-b-challenge/v1 24 patchを作る別工程へ残す。"
+      worker_package:
+        objective: "現行stateHash一致のneeds_rework 107問を、評価が要求する工程組合せごとの5群へ分け、問題整備UI/APIのevaluationRework正規経路で順番に再整備し、全runをartifactSyncまで成功させる。"
+        allowed_files:
+          - "SAA 01/02/02a/03 patch layers and 99 flags"
+          - "SAA merge/convert/upload-ready artifacts"
+          - "SAA work versions, workflow runs, runtime observations and cache"
+        verify:
+          - "five exact previews and terminal run manifests"
+          - "107 target identities and stage combinations"
+          - "SAA local-ready395/issues0/source and protected sets unchanged"
+        stop_if:
+          - "preview identity or count mismatch"
+          - "blocked, partial, failed, invalid receipt or artifact sync failure"
+          - "out-of-scope or Firestore write required"
+      evidence:
+        - "API after T069: maintenance0, unreviewed0, needsRework121, publishReady8, published266"
+        - "107 currentValid needs_rework projections all match current stateHash and are machineReady"
+        - "stage combinations: 03=14; 01+03=2; 02a+03=77; 01+02a+03=5; 02+02a+03=9"
+        - "stage totals: 03=107, 02a=91, 01=7, 02=9"
+        - "homogeneous previews: target/workItem 14/14, 2/4, 77/154, 5/15, 9/27; all canStart true and warning0"
+        - "mixed 107 preview rejects with preview workItemCount mismatch, so mixed run is not approved"
+        - "14 source-answer differences have no valid projection and require exact official evidence plus verified correct-answer 24 patch"
+      blocked_tasks:
+        - T999
+        - "14 official answer-difference approvals"
+        - "post-rework reevaluation"
+        - "Firestore publish"
+      missing_evidence:
+        - "five terminal rework runs"
+        - "107 post-rework evaluations"
+        - "14 correct-answer correction approvals"
+        - "129 passed"
+  - id: T071
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "現行stateHash一致のneeds_rework 107問を、評価が要求する工程組合せごとの5群へ分け、問題整備UI/APIのevaluationRework正規経路で順番に再整備し、全runをartifactSyncまで成功させる。"
+    inputs:
+      - "T070 Judge receipt"
+      - "03のみ14問、01+03が2問、02a+03が77問、01+02a+03が5問、02+02a+03が9問"
+      - "各問のcurrentValid evaluation snapshot"
+      - "current review console server"
+    constraints:
+      - "5群を混ぜた単一runにしない。各群のpreview identity/countを固定してから開始する。"
+      - "published266、新規passed8、source-answer未承認14をscopeへ入れない。"
+      - "evaluation snapshotが指定する工程とfields以外を変更しない。"
+      - "Firestoreへ書き込まない。"
+    allowed_files:
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/**"
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/run_leases/aws-solutions-architect-associate.lock"
+    verify:
+      - "5 previewsがtarget/workItem 14/14、2/4、77/154、5/15、9/27、canStart true、warning0である。"
+      - "5 runsがsucceeded、queueStatus succeeded、pending/blocked/hold0、receiptValidated true、artifactSync succeeded/currentである。"
+      - "各questionは評価snapshotのstateHashと開始時stateHashが一致し、指定工程だけが実行される。"
+      - "SAA inventoryは395/395 local-ready、issues0である。"
+      - "published266、新規passed8、source-answer未承認14、Firestore writes0が不変である。"
+      - "00_source aggregate SHA-256 bc76ba8e...とcategory tracked正本が不変である。"
+      - "変更はallowed_filesとboardだけである。"
+    stop_if:
+      - "previewが指定した5群のidentity、工程又はtarget/workItem countと一致しない。"
+      - "同じ根拠でblock又はholdとなり、通常retryで解消しない。"
+      - "runがfailed/interrupted、queue partial、receipt invalid又はartifactSync failedになる。"
+      - "00_source、category、published266、passed8、source-answer未承認14又はallowed_files外の変更が必要になる。"
+      - "Firestore書込み、Fast又は追加credentialが必要になる。"
+      - "Verification fails twice."
+    expected_output:
+      - "5 terminal runsと107問の再整備・artifactSync receipt"
     receipt: null
   - id: T999
     type: judge
