@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T100
+active_task: T101
 
 tasks:
   - id: T001
@@ -6786,7 +6786,7 @@ tasks:
   - id: T100
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "残るofficial correction10をread-only監査し、AWS一次資料、訂正正答、workflow入力、実行順をexact packageとして確定する。"
     inputs:
@@ -6803,6 +6803,71 @@ tasks:
       - "10問のcorrect-answer evidence matrix"
       - "official correction exact worker package"
       - "stop conditions"
+    receipt:
+      result: done
+      decision: require_system_refactor
+      full_outcome_complete: false
+      rationale: "10問のうち6問は現在の正答がAWS一次資料と一致する一方、00_sourceと異なる。現行official correctionはBlind A/Bがno_changeとした正しい現在値を24_questionIssueCorrectionsへ証明保存できず、source_answer_difference_unapprovedを解消不能にするため、訂正実行前にcurrent-value certificationを追加する必要がある。"
+      evidence:
+        - "AWS一次資料10件をoutput/pdf/aws-saa-c03-official-answer-evidenceへ固定し、各該当ページの本文抽出とPNG renderingを照合した。"
+        - "source difference6は30f5eae0001b444444cb392e、343461753aef77b0241bc6ad、79f53359ed09ca31e8a5b034、8129a5b1f6fd9d433b759b4a、d92928c3a329802e6a71f967、fd73285675016aee66f68461。"
+        - "OfficialSourceCorrectionServiceはchallenge decisionがfix以外ならpatchPath nullで返す。"
+        - "source_answer_difference_approvalは24_questionIssueCorrectionsのchanges.correctChoiceTextが現在値と一致するpatchだけを承認する。"
+        - "AppServerReviewExecutorは現行値と同じproposedChangesを除去し、patch checkerも通常patchのno-opを拒否するため、現在値が既に正しい6問は正規UIだけでは承認不能である。"
+      worker_package:
+        objective: "correct_answerのBlind A/Bがno_problemで一致した場合に限り、現在のcorrectChoiceTextを公式根拠付きで証明するno-op certification overlayを24_questionIssueCorrectionsへ保存できるようにする。"
+        allowed_files:
+          - tools/question_review_console/official_source_correction.py
+          - tools/question_bank/question_issue_reports.py
+          - scripts/check/check_question_issue_correction_patch.py
+          - scripts/merge/question_issue_corrections.py
+          - tests/test_official_source_correction.py
+          - tests/test_question_issue_reports.py
+          - tests/test_question_review_inventory.py
+          - document/operations/question_issue_report_workflow.md
+          - document/reference/question_field_contract.md
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "certificationはcategory correct_answer、challenge no_change、公式evidence、現在correctChoiceText完全一致に限定する。"
+          - "通常correctionのno-op拒否は維持する。"
+          - "certification適用は内容を変えずappliedFilesとsource answer approvalだけを更新する。"
+          - "関連tests、00_source不変、Firestore writes0。"
+        stop_if:
+          - "一般categoryのno-opを許す必要が生じる。"
+          - "Blind A/B/Challengeを迂回する。"
+      next_allowed_task: T101
+  - id: T101
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "公式正答照合で正しい現在値を証明できるcurrent-value certification overlayを追加し、source answer gateの反復停止を解消する。"
+    inputs:
+      - "T100 Judge receipt"
+      - "official_source_correction and correction patch contracts"
+    constraints:
+      - "correct_answer + challenge no_changeだけに限定する。"
+      - "通常patchのno-op拒否、00_source保護、Blind A/B/Challengeを維持する。"
+      - "問題data、category、Firestoreを変更しない。"
+    allowed_files:
+      - tools/question_review_console/official_source_correction.py
+      - tools/question_bank/question_issue_reports.py
+      - scripts/check/check_question_issue_correction_patch.py
+      - scripts/merge/question_issue_corrections.py
+      - tests/test_official_source_correction.py
+      - tests/test_question_issue_reports.py
+      - tests/test_question_review_inventory.py
+      - document/operations/question_issue_report_workflow.md
+      - document/reference/question_field_contract.md
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "targeted unit tests pass。"
+      - "certificationはcurrent contentを変更しない。"
+      - "source answer approvalがcertification patchを認識する。"
+    stop_if:
+      - "security boundary又は既存patch互換を弱める。"
+    expected_output:
+      - "minimal implementation, tests, docs, receipt"
     receipt: null
   - id: T999
     type: judge
