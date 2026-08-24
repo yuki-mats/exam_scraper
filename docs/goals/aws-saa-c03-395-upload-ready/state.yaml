@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T096
+active_task: T097
 
 tasks:
   - id: T001
@@ -6618,7 +6618,7 @@ tasks:
   - id: T096
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "exact3問・7 work itemをevaluation feedback付きで再整備し終端させる。"
     inputs:
@@ -6641,6 +6641,43 @@ tasks:
       - "identity mismatch or protected delta。"
     expected_output:
       - "terminal exact3 receipt"
+    receipt:
+      result: done
+      summary: "exact3問・7 work itemを再整備し、2問・6 work itemを確定、1問の解説だけを理由付き保留へ終端した。確定済みpatchは公開用成果物まで同期した。"
+      evidence:
+        - "run 20260824T135940635703-ebed14f7、job h7zi51nufLVzbsc7は2026-08-24T14:01:34+09:00にsucceeded。"
+        - "validated questions2、blocked1、validated work6、blocked work1、pending0、artifactSync succeeded。"
+        - "56afb06bc80fb02777b88963と8f05cbfe48316f933f01dff8は全工程validated。"
+        - "586de13b95921e5e50d54029は05と02aがvalidatedだが、03がMigration Hub Orchestratorのコンテナ化経路を明示排除できないとして停止した。"
+        - "現行問題文はWindows Server 2016実行環境を変更しないとするが、停止理由はコンテナ化しないこととリホスト比較軸の明文化を要求している。"
+        - "00_source、categoryのgit差分なし、Firestore writes0。"
+      commands:
+        - cmd: "qualification maintenance run 20260824T135940635703-ebed14f7"
+          status: pass
+        - cmd: "blocked question and current05 readback"
+          status: pass
+      spawned_tasks:
+        - T097
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T097
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "586de13b95921e5e50d54029の反復停止をread-only監査し、05所有fieldへ必要最小限の明文化を行うdirect correction packageを決める。"
+    inputs:
+      - "T096 blocked receipt"
+      - "current05 patch and projected question"
+      - "latest evaluation and explanation blocker"
+    constraints:
+      - "Read-only。dataを変更しない。"
+      - "正答、選択肢、ID、00_sourceを変更せず、設問条件の曖昧さだけを解消する。"
+      - "同じmodel inputを再実行しない。"
+    expected_output:
+      - "exact field change"
+      - "Worker allowed file and verification"
     receipt: null
   - id: T999
     type: judge
