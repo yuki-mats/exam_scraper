@@ -6903,6 +6903,7 @@ tasks:
       - "hold又はinsufficient_evidenceの問が出ても他問を継続し、同じ入力を反復しない。"
       - "00_source、category、Firestoreを変更しない。"
       - "一問ずつjob終端とartifact syncをreadbackする。"
+      - "実行中に証明overlayを阻む回復・consensus実装不備が確認された場合は、Blind A/B/Challenge境界を維持した最小修正と回帰testを同taskで行う。"
     allowed_files:
       - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/24_questionIssueCorrections/**"
       - "output/question_issue_reports/ui_official_source/**"
@@ -6912,6 +6913,11 @@ tasks:
       - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
       - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
       - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+      - tools/question_bank/question_issue_reports.py
+      - tools/question_review_console/official_source_correction.py
+      - tests/test_question_issue_reports.py
+      - tests/test_official_source_correction.py
+      - document/operations/question_issue_report_workflow.md
       - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
     verify:
       - "patch evidence hash、PDF page locator、current/source answer approval readback。"
