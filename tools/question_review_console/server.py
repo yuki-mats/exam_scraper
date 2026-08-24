@@ -35,6 +35,10 @@ from tools.question_review_console.codex_app_server import (
     CodexAppServerClient,
     normalize_speed_mode,
 )
+from tools.question_review_console.model_backend import (
+    ProfileModelRouter,
+    load_model_backend_config,
+)
 from tools.question_review_console.evaluation import (
     EvaluationError,
     QuestionEvaluationService,
@@ -347,9 +351,16 @@ class QuestionReviewApplication:
         self.firestore = FirestoreReadback()
         self.jobs = JobManager()
         self.monitor_event_hub = monitor_event_hub or MonitorEventHub(self.repo_root)
-        self.app_server = app_server or CodexAppServerClient(
+        raw_app_server = app_server or CodexAppServerClient(
             self.repo_root, observer=self.monitor_event_hub
         )
+        model_config_path = self.repo_root / "config/question_maintenance_llm.toml"
+        self.app_server = raw_app_server
+        if model_config_path.exists() and not isinstance(raw_app_server, ProfileModelRouter):
+            self.app_server = ProfileModelRouter(
+                load_model_backend_config(model_config_path),
+                raw_app_server,
+            )
         if app_server is not None:
             set_observer = getattr(self.app_server, "set_event_observer", None)
             if callable(set_observer):
@@ -957,6 +968,7 @@ class QuestionReviewApplication:
                     "questionConcurrency",
                     "speedMode",
                     "previewToken",
+                    "modelProfile",
                 }
                 unknown_fields = sorted(set(body) - allowed_fields)
                 if unknown_fields:
@@ -1000,6 +1012,21 @@ class QuestionReviewApplication:
                     "stage_ids": stage_ids,
                     "resumed_from": str(body.get("resumedFrom") or "") or None,
                 }
+                model_profile = str(body.get("modelProfile") or "codex_only")
+                snapshot_for = getattr(self.app_server, "snapshot_for", None)
+                if callable(snapshot_for):
+                    snapshot = snapshot_for(model_profile)
+                    max_concurrency = int(
+                        snapshot["limits"]["questionParallelism"]
+                    )
+                    requested_concurrency = int(
+                        body.get("questionConcurrency") or max_concurrency
+                    )
+                    if requested_concurrency > max_concurrency:
+                        raise ValueError(
+                            f"同時処理上限は設定上限{max_concurrency}以下で指定してください。"
+                        )
+                run_options["model_profile"] = model_profile
                 if body.get("blockedReworkFrom"):
                     run_options["blocked_rework_from"] = str(
                         body["blockedReworkFrom"]

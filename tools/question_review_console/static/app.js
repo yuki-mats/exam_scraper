@@ -5,7 +5,7 @@ const UI_CONTRACT_VERSION = "question-review-ui/v4";
 const QUALIFICATION_PREVIEW_TIMEOUT_MS = 900000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
-const AUTO_QUESTION_CONCURRENCY = 100;
+const AUTO_QUESTION_CONCURRENCY = 1;
 const MAX_PUBLICATION_QUEUE_SIZE = 100;
 const DEFAULT_QUALIFICATION_SPEED_MODE = "standard";
 const DEFAULT_QUESTION_SORT = "updated_desc";
@@ -959,6 +959,39 @@ function closeAuditView(options = {}) {
   updateUrl();
 }
 
+function configureQualificationModelOptions(codexStatus) {
+  const profiles = codexStatus?.modelProfiles || {};
+  const profileSelect = $("#qualification-run-model-profile");
+  if (profileSelect && Object.keys(profiles).length) {
+    profileSelect.replaceChildren(...Object.keys(profiles).map((name) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name === "codex_only"
+        ? "Codex App Serverのみ"
+        : name === "local_generate_codex_audit"
+          ? "ローカル生成 + Codex監査"
+          : name;
+      return option;
+    }));
+  }
+  const maximum = Math.max(1, Number(codexStatus?.modelLimits?.questionParallelism || 1));
+  const container = $("#qualification-run-concurrency-fieldset .run-concurrency-options");
+  if (container) {
+    container.replaceChildren(...[...new Set([1, maximum])].map((value) => {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "qualification-run-concurrency";
+      input.value = String(value);
+      input.checked = value === 1;
+      label.append(input, element("span", "", String(value)));
+      return label;
+    }));
+  }
+  $("#qualification-run-concurrency-note").textContent =
+    `現在の設定上限は${maximum}問並列です。検査と確定は一問単位です。`;
+}
+
 async function initialize() {
   bindControls();
   populateIssueControls();
@@ -989,6 +1022,7 @@ async function initialize() {
     );
     state.inventory = inventory;
     state.codexStatus = codexStatus;
+    configureQualificationModelOptions(codexStatus);
     state.evaluationEnabled = session.evaluationEnabled === true && codexStatus.allowed === true;
     const modelLabel = codexStatus.model || "自動選択";
     const retryModelLabel = codexStatus.retryModel || modelLabel;
@@ -3096,7 +3130,13 @@ function selectedQualificationRunConcurrency() {
     document.querySelector('input[name="qualification-run-concurrency"]:checked')?.value
       || AUTO_QUESTION_CONCURRENCY,
   );
-  return [1, 5, 10, 32, 64, 100].includes(value) ? value : AUTO_QUESTION_CONCURRENCY;
+  const maximum = Math.max(
+    1,
+    Number(state.codexStatus?.modelLimits?.questionParallelism || 1),
+  );
+  return Number.isInteger(value) && value >= 1 && value <= maximum
+    ? value
+    : AUTO_QUESTION_CONCURRENCY;
 }
 
 function selectedQualificationRunSpeedMode() {
@@ -3783,6 +3823,7 @@ async function previewQualificationRun() {
     stageIds,
     mode: selectedQualificationRunMode(),
     questionConcurrency: selectedQualificationRunConcurrency(),
+    modelProfile: $("#qualification-run-model-profile")?.value || "codex_only",
     speedMode: selectedQualificationRunSpeedMode(),
     listGroupIds: supportsScope ? listGroupIds : undefined,
     updateTargetIds: availableUpdateTargets.length ? updateTargetIds : undefined,
@@ -3923,7 +3964,7 @@ function renderQualificationRunPreview(preview) {
         element(
           "span",
           "run-preview-concurrency",
-          `1問1model turnで最大${preview.questionConcurrency}問を同時整備・Standard（全資格合計300turn、検査と確定も1問ずつ）`,
+          `1問1model turnで最大${preview.questionConcurrency}問を同時整備・Standard（設定上限内、検査と確定も1問ずつ）`,
         ),
       );
     }
@@ -4035,6 +4076,7 @@ async function startQualificationRun(event) {
         stageIds: preview.stageIds,
         mode: preview.mode,
         questionConcurrency: preview.questionConcurrency,
+        modelProfile: preview.modelProfile || "codex_only",
         speedMode: preview.speedMode,
         listGroupIds: preview.scopeListGroupIds?.length ? preview.scopeListGroupIds : undefined,
         updateTargetIds: preview.selectedUpdateTargetIds?.length
@@ -6956,7 +6998,7 @@ async function openEvaluationDialog(
   const requestSequence = resetWorkflowDialog(
     "evaluation",
     continuousQueue
-      ? "評価待ちを100問並列で連続評価"
+      ? "評価待ちを設定上限で連続評価"
       : "選択した問題を別セッションで評価",
   );
   state.workflowDialog.questionIds = selected;

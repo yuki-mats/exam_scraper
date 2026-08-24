@@ -1323,12 +1323,14 @@ class QuestionReviewServerTests(unittest.TestCase):
                 resumed_from=None,
                 question_concurrency=None,
                 speed_mode=None,
+                model_profile=None,
             ):
                 self.scope = list_group_ids
                 self.update_target_ids = update_target_ids
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 self.speed_mode = speed_mode
+                self.model_profile = model_profile
                 return {
                     "qualification": qualification,
                     "stageId": stage_id,
@@ -1350,6 +1352,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                 resumed_from=None,
                 question_concurrency=None,
                 speed_mode=None,
+                model_profile=None,
                 hydrate_result=True,
             ):
                 self.scope = list_group_ids
@@ -1357,6 +1360,7 @@ class QuestionReviewServerTests(unittest.TestCase):
                 self.question_ids = question_ids
                 self.question_concurrency = question_concurrency
                 self.speed_mode = speed_mode
+                self.model_profile = model_profile
                 self.hydrate_result = hydrate_result
                 return {
                     "run": {"runId": "run-1", "qualification": qualification},
@@ -1468,6 +1472,37 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(detailed_progress["questions"], [{"questionId": "q1"}])
         self.assertEqual(question_detail["questionId"], "question-1")
         self.assertEqual(question_detail["revision"], 7)
+
+    def test_qualification_run_rejects_concurrency_above_configured_limit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config_dir = root / "config"
+            config_dir.mkdir()
+            source_config = (
+                Path(__file__).resolve().parents[1]
+                / "config"
+                / "question_maintenance_llm.toml"
+            )
+            (config_dir / "question_maintenance_llm.toml").write_text(
+                source_config.read_text(encoding="utf-8"), encoding="utf-8"
+            )
+            app = QuestionReviewApplication(root)
+            try:
+                with self.assertRaises(ApiError) as caught:
+                    app.post(
+                        "/api/qualification-runs/preview",
+                        {
+                            "qualification": "sample",
+                            "stageIds": ["law_audit"],
+                            "modelProfile": "codex_only",
+                            "questionConcurrency": 2,
+                        },
+                    )
+            finally:
+                app.close()
+
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("設定上限1", str(caught.exception))
 
     def test_qualification_run_api_rejects_fast_before_coordinator(self):
         class Runs:

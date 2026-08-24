@@ -11,6 +11,9 @@ kind = "codex_app_server"
 
 [backends.openai_compatible_http]
 kind = "openai_compatible_http"
+endpoint = "http://127.0.0.1:11434/v1/chat/completions"
+model = "local-model"
+timeout_seconds = 120
 
 [profiles.codex_only.roles.maintenance]
 backend = "codex_app_server"

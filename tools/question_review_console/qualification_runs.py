@@ -3594,6 +3594,7 @@ class QualificationRunStore:
             "stateHash": plan.get("stateHash"),
             "sandbox": plan.get("sandbox"),
             "provider": plan.get("provider"),
+            "llmProfile": copy.deepcopy(plan.get("llmProfile")),
             "parallelStrategy": plan.get("parallelStrategy"),
             "throughputMode": plan.get("throughputMode"),
             "adaptiveScheduler": copy.deepcopy(plan.get("adaptiveScheduler")),
@@ -8822,6 +8823,7 @@ class QualificationRunCoordinator:
         resumed_from: str | None,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None,
         blocked_rework_from: str | None,
+        model_profile: str = "codex_only",
     ) -> str:
         # 同時処理数とspeedは対象scopeを変えずpreview tokenにも含まれない。
         # 一方、順序を含む選択scopeと再開元はexactにbindする。
@@ -8837,6 +8839,7 @@ class QualificationRunCoordinator:
                 "resumedFrom": resumed_from,
                 "evaluationReworkSnapshots": evaluation_rework_snapshots,
                 "blockedReworkFrom": blocked_rework_from,
+                "modelProfile": model_profile,
             }
         )
 
@@ -9371,6 +9374,7 @@ class QualificationRunCoordinator:
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
         blocked_rework_from: str | None = None,
+        model_profile: str = "codex_only",
         _prepared_plan: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         if _prepared_plan is not None:
@@ -9387,6 +9391,7 @@ class QualificationRunCoordinator:
                 speed_mode=speed_mode,
                 evaluation_rework_snapshots=evaluation_rework_snapshots,
                 blocked_rework_from=blocked_rework_from,
+                model_profile=model_profile,
                 _prepared_plan=_prepared_plan,
             )
 
@@ -9405,6 +9410,7 @@ class QualificationRunCoordinator:
             resumed_from=resumed_from,
             evaluation_rework_snapshots=evaluation_rework_snapshots,
             blocked_rework_from=blocked_rework_from,
+            model_profile=model_profile,
         )
         source_stamp = self._prepared_preview_source_stamp(
             qualification,
@@ -9447,8 +9453,10 @@ class QualificationRunCoordinator:
                 speed_mode=normalized_speed,
                 evaluation_rework_snapshots=evaluation_rework_snapshots,
                 blocked_rework_from=blocked_rework_from,
+                model_profile=model_profile,
                 _prepared_plan=plan,
             )
+            plan["llmProfile"] = copy.deepcopy(preview.get("llmProfile"))
             # 計算中にcanonical scope又はresume manifestが更新された場合は、
             # 完成planをcacheへ入れず次回の現行再計算へ送る。
             completed_source_stamp = self._prepared_preview_source_stamp(
@@ -9484,6 +9492,7 @@ class QualificationRunCoordinator:
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
         blocked_rework_from: str | None = None,
+        model_profile: str = "codex_only",
         _prepared_plan: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
@@ -9508,6 +9517,21 @@ class QualificationRunCoordinator:
             # 呼出し元がこのpreview専用に所有するplan。previewは読み取り専用で
             # 扱い、100MB級projectionの不要なdeepcopyを避ける。
             plan = dict(_prepared_plan)
+        snapshot_provider = getattr(self.app_server, "snapshot_for", None)
+        if callable(snapshot_provider):
+            snapshot = snapshot_provider(model_profile)
+            if resumed_from:
+                previous = self.store.get(qualification, resumed_from)
+                previous_snapshot = previous.get("llmProfile")
+                if previous_snapshot is None and model_profile != "codex_only":
+                    raise QualificationRunError(
+                        "LLM profile未記録の旧runはcodex_onlyでのみ再開できます。"
+                    )
+                if previous_snapshot is not None and previous_snapshot != snapshot:
+                    raise QualificationRunError(
+                        "再開元と現在のLLM profile fingerprintが一致しません。"
+                    )
+            plan["llmProfile"] = snapshot
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
         if plan["kind"] == "machine":
@@ -9566,6 +9590,12 @@ class QualificationRunCoordinator:
             "questionConcurrency": question_concurrency,
             "speedMode": speed_mode,
             "requestedServiceTier": None,
+            "modelProfile": (
+                str(plan["llmProfile"].get("name") or "codex_only")
+                if isinstance(plan.get("llmProfile"), Mapping)
+                else "codex_only"
+            ),
+            "llmProfile": copy.deepcopy(plan.get("llmProfile")),
             "targetCount": plan["targetCount"],
             "workItemCount": int(plan.get("workItemCount") or plan["targetCount"]),
             "stageCount": int(
@@ -9625,6 +9655,7 @@ class QualificationRunCoordinator:
         speed_mode: str = STANDARD_SPEED_MODE,
         evaluation_rework_snapshots: Mapping[str, Mapping[str, Any]] | None = None,
         blocked_rework_from: str | None = None,
+        model_profile: str = "codex_only",
         hydrate_result: bool = True,
     ) -> dict[str, Any]:
         question_concurrency = normalize_question_concurrency(question_concurrency)
@@ -9640,6 +9671,7 @@ class QualificationRunCoordinator:
             resumed_from=resumed_from,
             evaluation_rework_snapshots=evaluation_rework_snapshots,
             blocked_rework_from=blocked_rework_from,
+            model_profile=model_profile,
         )
         prepared = self._take_prepared_preview(
             request_key,
@@ -9682,8 +9714,10 @@ class QualificationRunCoordinator:
                 speed_mode=speed_mode,
                 evaluation_rework_snapshots=evaluation_rework_snapshots,
                 blocked_rework_from=blocked_rework_from,
+                model_profile=model_profile,
                 _prepared_plan=plan,
             )
+            plan["llmProfile"] = copy.deepcopy(preview.get("llmProfile"))
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
         if not preview["canStart"]:
@@ -9748,14 +9782,22 @@ class QualificationRunCoordinator:
                 saved_prompt = self.store.prompt(qualification, run["runId"])
                 return {"run": run, "prompt": saved_prompt, "job": None}
             try:
-                self.app_server.assert_subscription_access(force=False)
+                access_check = getattr(self.app_server, "assert_profile_access", None)
+                if callable(access_check):
+                    access_check(model_profile, force=False)
+                else:
+                    self.app_server.assert_subscription_access(force=False)
             except Exception as exc:  # noqa: BLE001
                 raise QualificationRunError(str(exc)) from exc
             plan = {
                 **plan,
                 "workType": "maintenance",
                 "sandbox": "workspace-write",
-                "provider": self.app_server.provider,
+                "provider": (
+                    self.app_server.provider_for(model_profile)
+                    if hasattr(self.app_server, "provider_for")
+                    else self.app_server.provider
+                ),
                 "parallelStrategy": "read_only_research",
                 "parallelWorkerLimit": (
                     MAINTENANCE_RESEARCH_WORKERS
@@ -14570,6 +14612,12 @@ class QualificationRunCoordinator:
                 "構造化候補pipelineは現行の一問attemptだけを処理します。"
             )
         existing_child = self.store.get(qualification, run_id)
+        llm_profile = existing_child.get("llmProfile")
+        model_profile_name = (
+            str(llm_profile["name"])
+            if isinstance(llm_profile, Mapping) and llm_profile.get("name")
+            else "codex_only"
+        )
         child = self.store.update(
             qualification,
             run_id,
@@ -14974,6 +15022,7 @@ class QualificationRunCoordinator:
                     try:
                         review_result = self.app_server.run_turn(
                             review_prompt,
+                            model_profile=model_profile_name,
                             work_type=(
                                 f"maintenance_{stage_id}_aggregate_review_"
                                 f"{review_number}_candidate"
@@ -15259,6 +15308,7 @@ class QualificationRunCoordinator:
 
                     adjudication_result = self.app_server.run_turn(
                         adjudication_prompt,
+                        model_profile=model_profile_name,
                         work_type=(
                             f"maintenance_{stage_id}_aggregate_review_"
                             "3_adjudication"
@@ -15541,6 +15591,7 @@ class QualificationRunCoordinator:
                     )
                     result = self.app_server.run_turn(
                         candidate_prompt,
+                        model_profile=model_profile_name,
                         work_type=f"maintenance_{stage_id}_candidate",
                         sandbox="read-only",
                         emit=emit,
@@ -16683,6 +16734,12 @@ class QualificationRunCoordinator:
             heartbeatAt=_now(),
         )
         run_at_start = self.store.get(qualification, run_id)
+        llm_profile = run_at_start.get("llmProfile")
+        model_profile_name = (
+            str(llm_profile["name"])
+            if isinstance(llm_profile, Mapping) and llm_profile.get("name")
+            else "codex_only"
+        )
         parent_run_id = str(run_at_start.get("parentRunId") or "")
         human_question_ids = [
             str(value)
@@ -16836,6 +16893,7 @@ class QualificationRunCoordinator:
                     ) as research_directory:
                         research_result = self.app_server.run_turn(
                             _maintenance_research_prompt(prompt),
+                            model_profile=model_profile_name,
                             work_type="maintenance_research",
                             sandbox="read-only",
                             emit=emit,
@@ -16946,6 +17004,7 @@ class QualificationRunCoordinator:
                     turn_workspace = Path(directory).resolve()
                     result = self.app_server.run_turn(
                         _maintenance_writer_prompt(prompt, research_summary),
+                        model_profile=model_profile_name,
                         work_type=work_type,
                         sandbox="workspace-write",
                         emit=emit,

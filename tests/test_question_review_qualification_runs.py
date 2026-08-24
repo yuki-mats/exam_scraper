@@ -205,6 +205,7 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
         self.assertEqual(identity["workItemCount"], 6)
         self.assertEqual(identity["stageCount"], 2)
 
+
     def test_evaluation_rework_keeps_mixed_selection_and_queue_counts_separate(self):
         plan = self.plan()
         for target in plan["progressTargets"]:
@@ -353,6 +354,64 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
                 {"listGroupId": "ping", "questionCount": 2, "workItemCount": 2},
             ],
         )
+
+
+class LegacyRunModelProfileResumeTests(unittest.TestCase):
+    @staticmethod
+    def app_server():
+        return SimpleNamespace(
+            configured=True,
+            snapshot_for=lambda name: {
+                "name": name,
+                "fingerprint": f"fingerprint:{name}",
+                "limits": {
+                    "questionParallelism": 1,
+                    "llmCallConcurrency": 1,
+                    "auditBatchQuestions": 5,
+                    "auditBatchInputBytes": 120000,
+                },
+                "roles": {},
+            },
+        )
+
+    def test_legacy_run_rejects_resume_with_non_codex_profile(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory), FakeWorkflow(), FakeSynchronizer(),
+                JobManager(), "secret", app_server=self.app_server(),
+            )
+            plan = FakeWorkflow().plan("sample", "explanation")
+            previous = coordinator.store.create(plan, status="interrupted")
+            with self.assertRaisesRegex(
+                QualificationRunError, "旧runはcodex_onlyでのみ",
+            ):
+                coordinator._preview_uncached(
+                    "sample", "explanation", "refresh",
+                    resumed_from=previous["runId"],
+                    model_profile="local_generate_codex_audit",
+                    _prepared_plan=plan,
+                )
+            self.assertIsNone(
+                coordinator.store.get("sample", previous["runId"])["llmProfile"]
+            )
+
+    def test_legacy_run_allows_codex_only_snapshot_without_rewriting_old_manifest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory), FakeWorkflow(), FakeSynchronizer(),
+                JobManager(), "secret", app_server=self.app_server(),
+            )
+            plan = FakeWorkflow().plan("sample", "explanation")
+            previous = coordinator.store.create(plan, status="interrupted")
+            preview = coordinator._preview_uncached(
+                "sample", "explanation", "refresh",
+                resumed_from=previous["runId"], model_profile="codex_only",
+                _prepared_plan=plan,
+            )
+            self.assertEqual(preview["llmProfile"]["name"], "codex_only")
+            self.assertIsNone(
+                coordinator.store.get("sample", previous["runId"])["llmProfile"]
+            )
 
 
 class EvaluationReworkStageTests(unittest.TestCase):

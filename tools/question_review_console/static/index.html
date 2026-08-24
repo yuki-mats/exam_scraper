@@ -212,7 +212,7 @@
                 </select>
               </label>
               <button id="bulk-evaluate-button" class="primary-button" type="button" disabled>選択した問題を評価</button>
-              <button id="continuous-evaluate-button" class="primary-button" type="button">評価待ちを100問並列で連続評価</button>
+              <button id="continuous-evaluate-button" class="primary-button" type="button">評価待ちを設定上限で連続評価</button>
               <div class="action-with-help">
                 <button id="bulk-readback-button" class="secondary-button" type="button" aria-label="資格のFirestoreを確認">Firestore確認</button>
                 <button id="bulk-readback-help" class="help-button" type="button" aria-label="資格のFirestore確認の説明">?</button>
@@ -303,14 +303,15 @@
           <fieldset id="qualification-run-concurrency-fieldset">
             <legend>同時処理上限</legend>
             <div class="run-concurrency-options">
-              <label><input type="radio" name="qualification-run-concurrency" value="1"><span>1</span></label>
-              <label><input type="radio" name="qualification-run-concurrency" value="5"><span>5</span></label>
-              <label><input type="radio" name="qualification-run-concurrency" value="10"><span>10</span></label>
-              <label><input type="radio" name="qualification-run-concurrency" value="32"><span>32</span></label>
-              <label><input type="radio" name="qualification-run-concurrency" value="64"><span>64</span></label>
-              <label><input type="radio" name="qualification-run-concurrency" value="100" checked><span>100</span></label>
+              <label><input type="radio" name="qualification-run-concurrency" value="1" checked><span>1</span></label>
             </div>
-            <small class="run-concurrency-note">一問を一つのmodel turnで整備し、1資格だけなら最大100問を同時に進めます。model turnは全資格合計300本を超えず、複数資格へ公平に配分します。検査と確定は一問単位です。</small>
+            <small id="qualification-run-concurrency-note" class="run-concurrency-note">現在の設定上限は1問並列です。検査と確定は一問単位です。</small>
+            <label>LLM構成
+              <select id="qualification-run-model-profile">
+                <option value="codex_only">Codex App Serverのみ</option>
+                <option value="local_generate_codex_audit">ローカル生成 + Codex監査</option>
+              </select>
+            </label>
           </fieldset>
           <p class="inline-notice">応答モードはStandard固定です。追加Codex creditsとAPI従量課金は使用しません。</p>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>
