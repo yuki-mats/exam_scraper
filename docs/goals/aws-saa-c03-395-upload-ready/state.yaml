@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T057
+active_task: T059
 
 tasks:
   - id: T001
@@ -4098,7 +4098,7 @@ tasks:
   - id: T057
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "SAA資格別正本へEKS管理API endpointとKubernetes API server private endpoint、node IAM roleの公式区別を最小追記し、Q23 exact1をfresh 05→01→02→02a→03→04で「2つ選択・正答1/4」へ収束させ、group artifactSyncで395/395 local-readyにする。"
     inputs:
@@ -4156,6 +4156,176 @@ tasks:
     expected_output:
       - "qualification doc diff、Q23 exact1 terminal receipt、395/395 inventory"
       - "quality/upload dry-run/invariant evidence"
+    receipt:
+      result: blocked
+      changed_files:
+        - prompt/qualification_docs/aws-solutions-architect-associate/01_exam_profile.md
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260824T100416969653-14116853/**"
+        - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/8129a5b1f6fd9d433b759b4a.json
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/Q23 patch files"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/generated group artifacts"
+        - output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_20260824_100800.json
+        - "output/question_review_console/cache/** SAA files"
+      commands:
+        - "開始前hash記録: Q29、既存run、評価369、00_source395、category"
+        - "apply_patch: 01_exam_profile.mdへEKS一般化3事実・AWS公式4 URL・確認日を追記"
+        - "preview exact1/hash/single group/6 stages/6 items/Standard auto_max"
+        - "start exact1"
+        - "job readback: queue succeeded, validated1/block0/work6, artifactSync succeeded"
+        - "Q23 patch/workflow meaning verification"
+        - "invariant hash recheck"
+      summary: "資格別正本追記とfresh exact1 runは実行済み。run自体はvalidated1/artifactSync successだが、Q23は3つ選択・正答1/2/4のままで、要求した2つ選択・正答1/4へ変わらない。overviewも394/395、Q23 required_field_missing/identity_mismatchのため成功扱いせず停止。Firestore、commit、pushなし。"
+      remaining_blockers:
+        - "Q23 05が3つ選択・正答1/2/4のまま。"
+        - "21もchoice2を正しいと説明しendpoint区別未反映。"
+        - "QuestionInventory394/395、Q23 identity_mismatch/required_field_missing。"
+        - "run mechanical successがcontent correctionを検証できていない。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "05が指定訂正を反映せず、Q23未収束かつ395/395不可。二重start・手動generated artifact編集を避けて停止。"
+  - id: T058
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T057がmechanical succeededにもかかわらずQ23訂正を反映しなかった原因をread-only監査し、資格別正本が05生成入力へ届いたか、既存candidate再利用/stateHash/policy、source-conflict決定carrierのどこが欠けたかを特定して、手動generated artifact編集なしの正規修復packageを選ぶ。"
+    inputs:
+      - "T055/T056 official content decision"
+      - "T057 blocked receipt and run 20260824T100416969653-14116853"
+      - "01_exam_profile.md diff"
+      - "Q23 source/05/work-version/model thread/prompt snapshot"
+      - "original question authoring and source conflict implementation/contracts"
+    constraints:
+      - "Read-only。code、prompt、artifact、run、boardを変更しない。"
+      - "05/21/23やmerged/convert/uploadを手動編集するpackageを承認しない。"
+      - "正答fieldだけの補正又は取得元値固定を承認しない。"
+      - "Q23固有の決定と一般資格正本の責務を分離する。"
+      - "Q29、11問、公開266、評価369、Firestoreを変更しない。"
+    expected_output:
+      - "mechanical success/content failureのroot cause"
+      - "正規のcontent-decision carrierまたは最小system fix"
+      - "allowed_files、tests、fresh run条件、stop_if"
+      - "395/395への最大安全package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "資格正本は05へ届いている。policy fingerprintは変わりfresh candidateはEKS区別を読んだ上でchoice2を別の正しい手順へ改稿した。T056のQ23固有決定だけがシステムへ記録されず、一般正本では許される別解を機械検証が承認した。既存のstateHash固定current_question reviewと保留再整備feedbackが正規carrierなので、コード追加や24 patchをせずexact reviewを登録して一度だけ再実行する。"
+      evidence:
+        - "T057 plan05 canonicalDocsに01_exam_profile含有、policyFingerprint更新済み。"
+        - "T057 originalizeはfresh baselineから新05/work versionを生成しcandidate reuseではない。"
+        - "candidateはchoice2を利用AWSサービス向けendpointへ改稿して3 choices/1,2,4を自己整合。T056決定と異なる。"
+        - "T057 runに2 choices/1,4又はT055/T056 decision記録なし。"
+        - "aggregate reviewはquestion_typeのみで05 content decisionを保持しない。"
+        - "questionIssueCorrectionEvidence空、24 correctionは本件用でなく偽造不可。"
+        - "ReviewStoreのrecord-only needs_review/current_question/stateHash reviewが正規carrier。"
+        - "Q23 current stateHash e4712fa1d5b97436d562d23dafef7f3e8d809bf5f1af1894547a46fb6a3f6205。"
+      next_allowed_task:
+        task_id: T059
+        type: worker
+        objective: "Review APIでexact decisionをstateHash固定し、T038保留再整備exact1/6をsingle start、395/395後review approved。"
+        allowed_files:
+          - reviews/prompts
+          - "Q23 patch/work/run"
+          - "group generated artifacts"
+        execution_contract:
+          - "stateHash exact precheck"
+          - "POST reviews record-only needs_review/current_question exact fields"
+          - "expectedOutcome baseline本文末尾3→2、choices同一、correct1/4"
+          - "blocked rework preview exact1/6/6 with human_review"
+          - "single start, no manual patch/24 correction"
+          - "success after exact semantic and 395/395 only then approved"
+        verify:
+          - "review readback"
+          - "terminal exact"
+          - "semantic exact"
+          - 395/395
+          - invariants
+          - "review approved"
+        stop_if:
+          - "stateHash drift"
+          - "review mismatch"
+          - "preview mismatch"
+          - "model decision mismatch"
+          - "blocked/artifact failure"
+          - "protected mutation"
+          - "manual/24/Fast/Firestore needed"
+      parallel_safety:
+        safe: false
+        reason: "review stateHash、preview、Q23 patch、artifactSync、approvalは直列依存。"
+      blocked_tasks:
+        - T999
+        - evaluation26
+        - needs_rework
+        - "Firestore publish"
+      missing_evidence:
+        - "review JSON/prompt"
+        - "preview human feedback"
+        - "Q23 terminal/exact content"
+        - 395/395/invariants
+        - "quality followups"
+  - id: T059
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "Q23 current stateHashへT055/T056 exact content decisionを正規Review APIでrecord-only needs_reviewとして固定し、T038の保留を再整備からexact1/6工程をsingle startして、旧5肢維持・2つ選択・正答1/4へ収束。artifactSync後395/395を検証しreviewをapprovedへ更新する。"
+    inputs:
+      - "T058 Judge receipt"
+      - "Q23 current stateHash e4712fa1d5b97436d562d23dafef7f3e8d809bf5f1af1894547a46fb6a3f6205"
+      - "T057 baseline protected fields"
+      - "T038 blocked run 20260824T094506735083-6c0fee8b"
+      - "T054 Codex success receipt"
+    constraints:
+      - "Review APIを使いreview/promptを手書きしない。"
+      - "startCodex=false、needs_review、current_question、exact fields/decision。"
+      - "T038 blocked reworkからexact1、6 stages/6 items、single start。"
+      - "manual patch/24 correction/再preview/二重start禁止。"
+      - "Q29/11問/公開266/評価369/00_source/ID/category/CLF/既存run/Firestore不変。"
+    allowed_files:
+      - output/question_review_console/.review-ui.lock
+      - output/question_review_console/run_leases/aws-solutions-architect-associate.lock
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/reviews/*.json"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/prompts/*.md"
+      - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/8129a5b1f6fd9d433b759b4a.json
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - output/question_review_console/cache/workflow_groups/aws-solutions-architect-associate/udemy-aws-saa-c03.json
+      - output/question_review_console/cache/workflow_overviews/aws-solutions-architect-associate.json
+      - output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json
+      - output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_*.json"
+    verify:
+      - "review作成前stateHash exact、API作成後needs_review/current_question/exact fields/note/expectedOutcome/source identityをreadback。"
+      - "expectedOutcomeはT057 baseline本文末尾3→2のみ、choices完全一致、correct[正誤誤正誤]、select_correct、answer1/4。"
+      - "blocked rework preview exact1/hash185fb1e0.../6 stages/6 items/hash192b5519...、human_review feedback exact review/stateHash。"
+      - "single start terminal succeeded/queue/receipt/validated1/work6/block pending hold0/artifactSync success/current。"
+      - "final05 exact content、21 choice explanations/endpoint distinction/AWS refs。"
+      - "workflow overview ready395/current395/issues0/localReady、Inventory395/395。"
+      - "00_source immutabilityとQ29/11/公開266/評価369/category/既存run/CLF hash不変、Firestore writes0。"
+      - "全成功後のみreview approved、projectedHash=final stateHash。"
+    stop_if:
+      - "review前stateHash変化。"
+      - "record-only review readbackがexact decision不一致。"
+      - "blockedRework/human review/preview identity不一致。"
+      - "modelがchoice2改稿、3つ選択維持、baseline外本文/choices、正答1/4外を返す。"
+      - "Q23 blocked/hold、artifactSync/semantic検証失敗。同じ入力で二度目start禁止。"
+      - "protected Q29/11/公開266/評価369/00_source/ID/category/CLF/既存run/allowed_files外変更。"
+      - "24 correction、manual generated edit、Fast/credits/API key/Firestoreが必要。"
+    expected_output:
+      - "server-generated review/prompt、preview/run/terminal exact evidence"
+      - "Q23 semantic exact edit、395/395、review approved/invariants"
     receipt: null
   - id: T999
     type: judge

@@ -12,6 +12,21 @@
 
 確認日: 2026-07-18
 
+## Amazon EKSのプライベート接続
+
+- Amazon EKSのVPCインターフェイスエンドポイント（AWS PrivateLink）は、クラスターの作成や説明など、Amazon EKS管理APIへのアクセスに使う。Kubernetes APIには対応していない。
+- Kubernetes API serverへVPC内から接続するには、EKSクラスターエンドポイントのプライベートアクセスを有効にする。プライベートクラスターでは、ノードがクラスターへ登録できるよう、このプライベートアクセスが必要になる。
+- ノードのIAMロールと必要な権限は、ノードを起動してクラスターへ登録する前に用意する。
+
+公式資料:
+
+- [Access Amazon EKS using an interface endpoint (AWS PrivateLink)](https://docs.aws.amazon.com/eks/latest/userguide/vpc-interface-endpoints.html)
+- [Cluster API server endpoint](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
+- [Deploy private clusters with limited internet access](https://docs.aws.amazon.com/eks/latest/userguide/private-clusters.html)
+- [Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html)
+
+確認日: 2026-08-24
+
 ## 試験の位置付け
 
 SAA-C03は、ソリューションアーキテクトの役割を担う受験者が、AWS Well-Architectedフレームワークに基づいてソリューションを設計できるかを確認するAssociateレベルの試験である。AWSサービスを使ったクラウドソリューション設計の実務経験が1年以上ある受験者を想定している。
