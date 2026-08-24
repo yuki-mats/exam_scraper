@@ -1,0 +1,25 @@
+{
+  "capturedAt": "2026-08-25T02:15:32+09:00",
+  "sourceCommit": "3c8ca51e891655de244dd055bad9c49ae7f7c10e",
+  "isolationRoot": "/tmp/question-hybrid-t006.IhizNe",
+  "ollama": {
+    "model": "qwen3:14b",
+    "digest": "bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8",
+    "sizeBytes": 9276198565,
+    "endpoint": "http://127.0.0.1:11434/v1/chat/completions"
+  },
+  "codex": {
+    "version": "0.145.0",
+    "login": "ChatGPT",
+    "subscriptionAllowed": true,
+    "planType": "pro",
+    "configuredModel": "gpt-5.6-luna",
+    "retryModel": "gpt-5.6-sol"
+  },
+  "limits": {
+    "questionParallelism": 1,
+    "llmCallConcurrency": 1,
+    "auditBatchQuestions": 5,
+    "auditBatchInputBytes": 120000
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "stopCondition": "ローカル候補のfallbackなし最終合格率が70%未満。",
+  "observed": {
+    "localAccepted": 0,
+    "representativeQuestions": 7,
+    "rate": 0.0,
+    "required": 0.7,
+    "allRunsUsedFallback": true
+  },
+  "whyRunStatusWasNotAcceptedAsQualityProof": [
+    "7 runはいずれもstatus=succeededだが、modelAttemptMetrics.localSuccessCountは0でfallbackCountは1。",
+    "各local_primary/local_retry attempt receiptはmaintenance attempt routeのprofile不一致でfailed。",
+    "delivery previewは必須field不整合でcanStart=false、従ってCodex auditを安全に開始できない。"
+  ],
+  "nextDecisionOwner": "T007 Judge"
+}

@@ -1,0 +1,38 @@
+{
+  "result": "blocked",
+  "codexOnly": {
+    "requestedQuestions": 7,
+    "terminalRuns": 7,
+    "succeededRuns": 7
+  },
+  "hybrid": {
+    "requestedQuestions": 7,
+    "terminalRuns": 7,
+    "runStatusSucceeded": 7,
+    "localPrimaryCount": 7,
+    "localRetryCount": 7,
+    "fallbackCount": 7,
+    "localSuccessCount": 0,
+    "fallbackFreeLocalAcceptanceCount": 0,
+    "fallbackFreeLocalAcceptanceRate": 0.0,
+    "requiredAcceptanceCount": 5,
+    "profileFingerprint": "sha256:faacb9830c4213a54ca36fa8317cf7edae3ec36f6622a6270bfa0873772c44e1",
+    "observedModelPendingPeak": 1,
+    "observedPipelinePendingPeak": 1
+  },
+  "failure": {
+    "code": "local_acceptance_threshold_failed",
+    "commonAttemptSummary": "maintenance attempt routeのprofileが一致しません。",
+    "deliveryCanStart": false,
+    "deliveryBlockingFields": ["explanationText", "choiceTextList"],
+    "auditCanStart": false,
+    "auditBlockedCount": 6,
+    "auditBlockingIssues": ["identity_mismatch", "required_field_missing"]
+  },
+  "thresholds": {
+    "localAcceptanceAtLeastFiveOfSeven": false,
+    "criticalIssuesZero": null,
+    "singleBatchParity": null,
+    "publishReadyDifferenceZero": null
+  }
+}
