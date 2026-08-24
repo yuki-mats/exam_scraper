@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T082
+active_task: T083
 
 tasks:
   - id: T001
@@ -5837,7 +5837,7 @@ tasks:
   - id: T082
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "問題整備システム画面の正規『公開用データを再生成』でudemy-aws-saa-c03だけを最新patchからMerge、Convert、upload-ready、upload dry-runへ同期し、T079の確定53問を保持したままartifactSyncを成功へ更新する。"
     inputs:
@@ -5876,6 +5876,60 @@ tasks:
       - "Verification fails twice."
     expected_output:
       - "successful manual artifact sync for all395 and updated T079 artifact receipt"
+    receipt:
+      result: done
+      summary: "問題整備システムのsync preview-token境界でSAA-C03単一groupを再生成した。Merge、Convert、upload-readyは395/395 match、upload dry-runは1,665 documents、書込み不能record0で成功し、T079 manifestのartifactSyncもsucceededへ更新された。"
+      changed_files:
+        - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/20260824T124133194582-d2db9c32/manifest.json"
+        - "output/question_review_console/cache/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+        - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+        - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+        - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+      evidence:
+        - "previewはqualification=aws-solutions-architect-associate、listGroupId=udemy-aws-saa-c03、questionCount395、needsSync/canSync true、requiredFieldWarnings0、failedDeltaPaths0。"
+        - "sync job L0lfBGfwi3eEd1S8は2026-08-24T13:12:07+09:00にsucceeded。"
+        - "job resultはmerge/convert/uploadがすべてmatch395、localReady true、needsSync false。"
+        - "upload dry-runはFirestore用1,665 documents、書込み不能record0、実際のuploadなし。"
+        - "T079 manifestはreceiptValidated trueを保持し、artifactSync.status=succeededへ更新された。"
+        - "実問fd73285675016aee66f68461の30_merged_2はcorrectChoiceText正答1、answer_result_text正解1、derived numbers[1]で一致する。"
+        - "QuestionInventoryは395問、identityBlockers0、artifactResolutionBlockers0、raw issues0、merge/convert/upload全問match。"
+        - "00_sourceとcategoryのgit差分なし、origin/main parity 0/0、Firestore writes0。"
+      commands:
+        - cmd: "problem maintenance sync preview and job L0lfBGfwi3eEd1S8"
+          status: pass
+        - cmd: "T079 manifest and inventory readback"
+          status: pass
+        - cmd: "Q25 physical artifact readback"
+          status: pass
+      spawned_tasks:
+        - T083
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T083
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "artifactSync後の評価partitionをread-only監査し、変更済み又は未評価のexact対象を再評価へ送る最大の安全なpackageと、source answer difference15及びblocked content残件を分離する。"
+    inputs:
+      - "T082 artifact sync receipt"
+      - "current question list evaluation states"
+      - "T079 blocked22 classification"
+      - "evaluation policy 5.2"
+    constraints:
+      - "Read-only。評価run、再整備、source correction又はdata変更を開始しない。"
+      - "published266を評価又は変更しない。"
+      - "source answer differenceと通常content reworkを混ぜない。"
+      - "現行stateHashとevaluation currentValidを問題ごとに確認する。"
+    expected_output:
+      - "evaluation partition and exact IDs/digest"
+      - "next evaluation Worker package"
+      - "source answer difference and content rework deferred sets"
+      - "allowed_files, verify, stop_if"
     receipt: null
   - id: T999
     type: judge
