@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "question-maintenance-hybrid-llm-t030/v1",
+  "sourceCommit": "6f8035b68",
+  "decision": "reject_qwen3_5_27b",
+  "operationalDefault": "codex_only",
+  "localProfileStatus": "experimental_unapproved_not_for_operation",
+  "speedOracleSecondsPerQuestion": 180,
+  "limits": {
+    "questionParallelism": 1,
+    "llmCallConcurrency": 1
+  },
+  "model": {
+    "name": "qwen3.5:27b",
+    "ollamaId": "7653528ba5cb",
+    "blobSha256": "d4b8b4f4c350f5d322dc8235175eeae02d32c6f3fd70bdb9ea481e3abb7d7fc4",
+    "parameters": "27.8B",
+    "quantization": "Q4_K_M",
+    "reportedSize": "17 GB"
+  },
+  "questions": [
+    {
+      "questionId": "dd07b4977677b7bb",
+      "stages": ["explanation"],
+      "localPrimarySeconds": 1201,
+      "localRetrySeconds": 1200,
+      "localFinalPass": false,
+      "fallbackUsed": true,
+      "terminalStatus": "hold",
+      "speedOraclePassed": false
+    },
+    {
+      "questionId": "3239d392acd6236c",
+      "stages": ["correct_choice"],
+      "localPrimarySeconds": 1200,
+      "localRetrySeconds": 937,
+      "localFinalPass": false,
+      "fallbackUsed": true,
+      "terminalStatus": "validated",
+      "speedOraclePassed": false
+    },
+    {
+      "questionId": "64032ef7f4bac816",
+      "stages": ["question_type"],
+      "observedSecondsBeforeSafeStop": 956,
+      "localFinalPass": false,
+      "fallbackUsed": false,
+      "terminalStatus": "interrupted_after_speed_oracle_failure",
+      "speedOraclePassed": false
+    }
+  ],
+  "quality": {
+    "completedQuestionCount": 2,
+    "localFinalPassCount": 0,
+    "criticalAccidentCount": 0,
+    "adoption": false
+  },
+  "notRun": {
+    "remainingQuestions": 4,
+    "auditBatchParity": "fail_closed_after_speed_oracle_failure",
+    "faultInjection": "fail_closed_after_speed_oracle_failure",
+    "resumeProbe": "fail_closed_after_speed_oracle_failure",
+    "additionalModelSearch": false
+  },
+  "externalWrites": {
+    "firestoreCalls": 0,
+    "publicationCalls": 0,
+    "productionPatchWrites": 0
+  }
+}

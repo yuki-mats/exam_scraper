@@ -66,9 +66,9 @@
 - 03bの工程版を記録する前に、工程03と同じ解説文の形式・日本語品質を検証する。加えて、`lawRevisionFacts`、正答対応、verified根拠、v2 sidecarの識別・分類・必須metadataをserverが検証する。どちらかに失敗した成功receiptは確定しない。
 
 判断内容と保存項目は[現行法監査](current_law_question_maintenance_workflow.md)と[03b prompt](../../prompt/03b_prompt_audit_current_law_and_patch.md)を正本とします。
-
 ## 一問queueとsession
 
+運用の既定profileはcodex_onlyであり、整備・監査ともCodex App Serverを使います。local_generate_codex_auditは差し替え可能性を検証する実験profileとして残しますが、現在は未承認で運用に使えません。qwen3:14bとqwen3.5:27bは固定7問の実測で品質・速度基準を満たさず、どちらも不採用です。一問の整備完了はおおむね3分以内を受入目安とし、別のlocal modelを使う場合は改めて実問受入を通します。
 model接続と上限の正本は[`config/question_maintenance_llm.toml`](../../config/question_maintenance_llm.toml)です。`codex_only`は整備・監査ともCodex App Server、`local_generate_codex_audit`は整備をOpenAI互換HTTP、監査をCodex App Serverへ送ります。profileはpreviewとstartで固定し、選択したprimaryとfallbackのkind、endpoint、model、timeout、認証環境変数名を含む公開設定とfingerprintをmanifestへ保存します。API keyの値は環境変数だけから読み、設定・manifest・receiptへ保存しません。初期設定は`question_parallelism=1`、`llm_call_concurrency=1`であり、将来値を上げても全backendは同じ共通semaphoreに従います。`local_generate_codex_audit`の初期設定は、`qwen3:14b`をprimaryとretryに使い、各600秒で最大2回試した後だけCodex App Serverへfallbackします。primary、retry、fallbackは別pipelineではなく、同じ一問queueのattempt履歴とprofile fingerprintから決定します。network、timeout、HTTP 429、HTTP 5xxだけを再試行できます。安全設定、認証環境変数欠損、HTTP 4xx、応答上限超過、HTTP応答のJSON又はschema不一致、応答model不一致はその問を直ちに保留し、retryもfallbackもしません。各attemptはbackend、要求model、検証済み実model、fallback有無を保存します。ローカル成功へ数えるのは、候補の決定的検査と問題別保存まで完了したattemptだけであり、候補検査失敗とfallback成功は含めません。
 
 - GUIでは資格、年度又はフォルダ、整備する項目、処理する問題を指定し、serverが`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`、工程、update targetの組へ分解する。一問だけ残る場合も同じqueueを使う。資格全体で一つだけ持つ方針・03c分類は問題patchではなく共有前提として分離し、失敗時は依存する問題工程だけを保留する。

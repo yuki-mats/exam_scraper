@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "question-maintenance-hybrid-llm-t030-assertions/v1",
+  "allPassed": true,
+  "assertions": {
+    "sourceCommitIsolated": true,
+    "fixedQuestionOrderPreserved": true,
+    "oracleExcludedFromModelInput": true,
+    "questionParallelismPeakAtMostOne": true,
+    "llmCallConcurrencyPeakAtMostOne": true,
+    "speedOracleSeconds": 180,
+    "speedOracleFailed": true,
+    "qwen3_14bRejected": true,
+    "qwen3_5_27bRejected": true,
+    "codexOnlyOperationalDefault": true,
+    "localProfileUnapproved": true,
+    "additionalModelSearchStopped": true,
+    "criticalAccidentCountZero": true,
+    "firestoreWriteCountZero": true,
+    "publicationCallCountZero": true,
+    "productionPatchWriteCountZero": true,
+    "sourceHashesUnchanged": true
+  }
+}

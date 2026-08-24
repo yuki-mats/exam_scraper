@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "question-maintenance-hybrid-llm-t030-environment/v1",
+  "sourceCommit": "6f8035b68",
+  "isolation": "new OS temporary directory; path redacted",
+  "ollama": {
+    "model": "qwen3.5:27b",
+    "ollamaId": "7653528ba5cb",
+    "blobSha256": "d4b8b4f4c350f5d322dc8235175eeae02d32c6f3fd70bdb9ea481e3abb7d7fc4",
+    "reportedSize": "17 GB",
+    "parameters": "27.8B",
+    "quantization": "Q4_K_M",
+    "processor": "100% GPU",
+    "context": 32768,
+    "minimumObservedMemoryFreePercent": 19,
+    "oomCount": 0,
+    "forcedTerminationCount": 0
+  },
+  "sourceHashes": {
+    "output/2nd-class-kenchikushi/questions_json/85010/00_source/question_85010_3.json": "739562d2865f5f48db55cbeac2abfbb24ef1951c45fc30078f830d50052b4eb9",
+    "output/2nd-class-kenchikushi/questions_json/85003/00_source/question_85003_2.json": "763aff6633aea2aa6a17cacd93ca1f43ce48c36cb053fb9a272b1328ccdb2df2",
+    "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source/question_udemy-4632482-042.json": "34b78bef064ea8fe8993cdac9b92c45a4022bf98d1ccf5578cbb04c1cdb106d0"
+  },
+  "sourceHashesMatchBeforeAfter": true
+}

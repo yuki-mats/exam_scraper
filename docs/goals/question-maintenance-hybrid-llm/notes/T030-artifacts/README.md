@@ -1,0 +1,9 @@
+# T030 qwen3.5:27b 受入結果
+
+commit 6f8035b68の新しい隔離copyで、固定7問の先頭から実Ollama qwen3.5:27b Q4_K_Mを直列実行した。正答oracleはmodel入力へ含めず、処理後の確認にだけ使う契約とした。問題処理とLLM呼出しの上限はどちらも1である。
+
+受入には、fallbackなしで全指定工程を合格することに加え、一問の整備完了をおおむね3分以内とする速度oracleを適用した。q1とq2のlocal primaryはどちらも1200秒でtimeoutし、q1のlocal retryも1200秒でtimeoutした。q2のlocal retryは937秒後にnetwork errorとなった。q1は根拠不足hold、q2はvalidatedまでCodex fallbackで安全に閉じたが、どちらもlocal成功ではない。q3の単純なquestion_type工程も15分を超えて未完了だったため、追加の利用者要件に従い隔離serverを停止した。
+
+速度基準は3問連続で未達である。品質閾値の受入へ進む前提を満たさないため、qwen3.5:27bは不採用とし、残り4問、監査parity、故障注入、resume試験はfail-closedで実行しなかった。追加modelは探索しない。運用はcodex_onlyを既定とし、qwen3:14bとqwen3.5:27bはどちらも不採用、local profileは未承認の実験用とする。
+
+実リポジトリの00_source、production patch、workflow runは書き換えていない。Firestoreとpublication APIの呼出しは0回であり、対象3 source fileの開始前後hashは一致した。
