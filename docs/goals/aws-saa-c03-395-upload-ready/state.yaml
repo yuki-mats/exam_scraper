@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T059
+active_task: T061
 
 tasks:
   - id: T001
@@ -4267,7 +4267,7 @@ tasks:
   - id: T059
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "Q23 current stateHashへT055/T056 exact content decisionを正規Review APIでrecord-only needs_reviewとして固定し、T038の保留を再整備からexact1/6工程をsingle startして、旧5肢維持・2つ選択・正答1/4へ収束。artifactSync後395/395を検証しreviewをapprovedへ更新する。"
     inputs:
@@ -4326,6 +4326,169 @@ tasks:
     expected_output:
       - "server-generated review/prompt、preview/run/terminal exact evidence"
       - "Q23 semantic exact edit、395/395、review approved/invariants"
+    receipt:
+      result: blocked
+      changed_files:
+        - "review/prompt 20260824T102403861710-cb7e8e1d"
+        - "Q23 work version"
+        - "run 20260824T102518665628-03459384"
+        - "Q23 05/10/15/21/22/23 patches"
+        - "group generated artifacts and upload-ready"
+      commands:
+        - "GET Q23 stateHash precheck"
+        - "POST reviews needs_review record-only"
+        - "POST blocked rework preview exact1/6"
+        - "POST start single"
+        - "job/progress readback"
+        - "final Q23 semantic readback"
+      summary: "Review API記録とexact1/6 single start成功。run validated1/6、blocked0、artifactSync succeeded。本文末尾2つ選択、旧5肢、正誤1/4、解説choice2誤りまで収束したが、answer_result_textだけ正解1/2/4のまま。stop_ifで再実行せず停止しreview needs_review保持。"
+      remaining_blockers:
+        - "Q23 answer_result_textが期待の正解1/4と不一致。"
+        - "Q23 manual_flag残存でpublishReady=false。"
+        - "review未approved。"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "final semantic readbackでanswer_result_textがcorrect choice1/4と矛盾するmodel decision mismatch。"
+  - id: T060
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T059でcorrectChoiceText/本文/解説は1・4へ収束したがanswer_result_textだけ旧1・2・4を残してvalidatedになった原因をread-only監査し、field ownership、candidate commit、downstream validator、review expectedOutcome carrierのどこに欠落があるか確定して最小system fix又は正規rework packageを選ぶ。"
+    inputs:
+      - "T058/T059 receipts"
+      - "review 20260824T102403861710-cb7e8e1d"
+      - "run 20260824T102518665628-03459384"
+      - "Q23 work-version/05/23/final question readback"
+      - "originalize/correctChoice/validation implementation and tests"
+    constraints:
+      - "Read-only。code、artifact、review、run、board変更禁止。"
+      - "answer_result_textだけの手動patch又は既存correctChoiceTextからの無条件自動補正を承認しない。"
+      - "各fieldを正本と内容から独立確定し、最後に矛盾検出で止める原則を維持。"
+      - "同じreview/inputで再startしない。"
+      - "Q29/11/公開266/評価369/Firestore不変。"
+    expected_output:
+      - "mechanical validation漏れのroot cause"
+      - "最小code/test/review amendmentまたはnext rework package"
+      - "allowed_files、verify、stop_if"
+      - "answer_result_text含むQ23 semantic gateと395/395条件"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "Review carrierは正常で05もanswer_result_text=1/4を保存。15/23に残る非所有旧answer fieldがprojectionで05を上書きし、02aはcorrectChoiceTextしか所有しないため除去不可。さらに公式解答parserがASCII commaだけを認識し日本語読点では空集合となり最終矛盾検出を迂回。自動補正でなく、stage保存時に非所有legacy fieldを除去し02a入力ではread-only正答を正本層から読む修復を承認。"
+      evidence:
+        - "review expectedOutcomeとhuman feedbackはanswer1/4を含む。"
+        - "T059 05 patchは本文2 choices、旧5肢、correct1/4、answer1/4。"
+        - "correct_choice inputは新本文だがanswer/inferredを旧1/2/4として読み、23にも旧field。"
+        - "02a owned fieldはcorrectChoiceTextのみ、answer_result_textはread-only照合field。projection overrideが契約違反。"
+        - "_candidate_unset_fieldsはexplanation legacyだけでquestion_intent/correct_choice legacy answerを除去しない。"
+        - "parserはASCII commaのみ。日本語読点ではparse empty/issue none、comma化で1/2/4 vs1/4を検出。"
+        - "仮監査で新規矛盾はSAA395中Q23だけ。"
+        - "manual_flagはreview needs_review由来。"
+      next_allowed_task:
+        task_id: T061
+        type: worker
+        objective: "ownership/parser修復+tests後、既存reviewでfresh exactQ23 run single start、395/395、review approved。"
+        allowed_files:
+          - "answer contract/projection/inventory/qualification code"
+          - "5 test modules"
+          - "Q23 review/work/run/artifacts"
+        verify:
+          - "separator parse"
+          - "stage projection ownership"
+          - "legacy unset"
+          - "focused tests"
+          - "new input hash answer1/4"
+          - "terminal semantic"
+          - "review approved"
+          - 395/395/invariants
+        stop_if:
+          - "Q23 hardcode/manual patch/answer generation"
+          - "other contradictions"
+          - "cleanup scope expansion"
+          - "preview/hash mismatch"
+          - "same input retry"
+          - "artifact/395/manual flag failure"
+          - "protected diff"
+      parallel_safety:
+        safe: false
+        reason: "code、projection、run、artifact、reviewは直列依存。"
+      blocked_tasks:
+        - T999
+        - evaluation26
+        - needs_rework
+        - "Firestore publish"
+      missing_evidence:
+        - code/tests
+        - "new input/terminal"
+        - 395/review/invariants
+        - "final commit"
+  - id: T061
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "field ownershipを正本どおり修復し、correct_choice stage projectionは05/00_sourceのanswerをread-only参照、15/23の非所有legacy answer fieldsをserver-owned migrationでunset、日本語読点parserを追加する。tests後、既存reviewでQ23 exact1 fresh runを一度だけ実行し395/395、review approvedまで収束する。"
+    inputs:
+      - "T060 Judge receipt"
+      - "review 20260824T102403861710-cb7e8e1d"
+      - "T059 Q23 artifacts and old correct_choice input hash 7df091cb65f29c1915038b6875501d7ff0f64f6d24e8b233fa7eade05d7a5fc6"
+      - "T054 Codex success receipt"
+    constraints:
+      - "Q23固有code分岐、answer手動patch、24 correction、correctChoiceTextからanswer生成禁止。"
+      - "各field独立確定、最終矛盾検出。"
+      - "fresh preview/start exact1回。same review/input hash再start禁止。"
+      - "Q29/11/公開266/評価369/00_source/ID/category/CLF/既存run/Firestore不変。"
+    allowed_files:
+      - scripts/common/question_answer_contract.py
+      - scripts/merge/record_projection.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/qualification_runs.py
+      - tests/test_question_answer_contract.py
+      - tests/test_question_review_projection.py
+      - tests/test_question_review_inventory.py
+      - tests/test_question_review_qualification_runs.py
+      - tests/test_question_review_question_candidate.py
+      - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/reviews/20260824T102403861710-cb7e8e1d.json
+      - output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/8129a5b1f6fd9d433b759b4a.json
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/05_originalized/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/10_questionType_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/15_correctChoiceText_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/21_explanationText_added/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/22_questionSetId_linked/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/23_correctChoiceText_fixed/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/99_model_review_flags/*4709805-023*"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/udemy-aws-saa-c03_firestore_*.json"
+    verify:
+      - "ASCII comma/、/，を同じ番号としてparse、不一致は補正せずissue。"
+      - "correct_choice stage projectionは15/23 legacy overrideを無視し05/00_source answerを読む。"
+      - "question_intent commitは15 legacy correct/answer/inferred unset、correct_choice commitは23 legacy answer/inferred unset。"
+      - "focused 5 test modules成功。"
+      - "preview exact1/6/6/Standard auto_max/human review、新input hashは旧と異なりanswer1/4。"
+      - "single start terminal success validated1/work6/block pending hold0/artifactSync success/current。"
+      - "final15/23 non-owned fieldsなし、05 answer1/4保持、Q23 semantic exact、alignment issue none。"
+      - "review approved/projectedHash final/manual flagなし/publishReady true。"
+      - "Inventory/overview395/395、quality gate、upload dry-run、00_source check、不変hash/Firestore0。"
+    stop_if:
+      - "Q23 hardcode、手動answer patch/24 correction/answer生成が必要。"
+      - "読点対応でQ23以外に実質正答矛盾を検出。"
+      - "cleanupがQ23以外又は05/00_source answerを変更。"
+      - "preview exact identity/input hash不一致。"
+      - "same hash再start、二重start、model semantic mismatch。"
+      - "blocked/hold/artifact failure/395不可/manual flag残存。"
+      - "protected data/allowed_files外/Firestore差分。"
+      - "verification2回失敗。"
+    expected_output:
+      - "ownership/parser code+tests receipt"
+      - "Q23 fresh run/new input hash/semantic/395/395/review approved/invariants"
     receipt: null
   - id: T999
     type: judge
