@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T038
+active_task: T039
 
 tasks:
   - id: T001
@@ -1741,7 +1741,7 @@ tasks:
   - id: T038
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "既存codex_only pipelineを固定7問へ隔離実行し、queue admissionからterminalまでの一問180秒SLA、工程別時間、品質、安全、LLM同時呼出し1を実測する。"
     inputs:
@@ -1770,6 +1770,35 @@ tasks:
       - "実repoの正本、00_source、Firestore又は外部公開へwriteが必要になる。"
       - "Codex subscription gateがallowed=trueにならない。"
       - "同一の環境原因を二回是正しても実測を開始できない。"
+    receipt:
+      result: blocked
+      summary: "codex_only固定7問のうち先頭4問は67.595秒、7.796秒、23.868秒、86.463秒でvalidatedかつ180秒以内。85003の隔離年度metadata不足が二回再発し、残り3問は未計測。"
+      commit: c8b8a14ffce57654cbae936ad015588c013acf11
+      evidence:
+        - "completed 4/7、maximum 86.463秒、重大事故0。"
+        - "question processing peak 1、LLM call peak 1。"
+        - "Firestore/publication/production patch write 0、00_source変更0。"
+      remaining_blockers:
+        - "85003 previewの対象年度metadata不足を隔離fixtureで解消し、残り3問を測る。"
+        - "全7問のblind oracle評価。"
+
+  - id: T039
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T038部分受入と85003隔離metadata blockerを監査し、製品変更なしで残り3問を測定できる正確なfixture補完、又は現証拠での最終運用判断を確定する。"
+    inputs:
+      - "T038 artifacts and runner"
+      - "Prior T025 isolated data setup"
+      - "Current qualification category/year discovery contract"
+    constraints:
+      - "Read-only。"
+      - "製品コード、正本データ、API契約を受入用に緩めない。"
+      - "全7問未完了を合格扱いしない。"
+    expected_output:
+      - "Exact isolated fixture repair and final measurement package, or final evidence-based disposition"
+      - "Operational recommendation for codex_only and local experimental profile"
     receipt: null
 
   - id: T009
