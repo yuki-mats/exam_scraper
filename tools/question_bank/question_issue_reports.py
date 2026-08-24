@@ -1175,6 +1175,62 @@ def build_correction_patch(
     }
 
 
+def build_current_answer_certification_patch(
+    *,
+    manifest: Mapping[str, Any],
+    work_item: Mapping[str, Any],
+    current_record: Mapping[str, Any],
+    source_binding: SourceIdentityBinding,
+    blind_reviews: list[Mapping[str, Any]],
+    challenge: Mapping[str, Any],
+    config: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Build an evidence-bound overlay that certifies an unchanged current answer."""
+
+    if manifest.get("category") != "correct_answer":
+        raise ValueError("current answer certification requires category=correct_answer")
+    if challenge.get("decision") != "no_change":
+        raise ValueError("current answer certification requires decision=no_change")
+    correct_choice_text = current_record.get("correctChoiceText")
+    if not isinstance(correct_choice_text, list) or not correct_choice_text:
+        raise ValueError("current answer certification requires correctChoiceText")
+    category_config = config.get("categories", {}).get("correct_answer")
+    if not isinstance(category_config, Mapping):
+        raise ValueError("correct_answer category config is invalid")
+    return {
+        "schemaVersion": PATCH_SCHEMA_VERSION,
+        "origin": PATCH_ORIGIN,
+        "batchId": manifest["batchId"],
+        "category": "correct_answer",
+        "caseIds": list(work_item.get("caseIds") or []),
+        "inputCaseHashes": dict(work_item.get("caseInputHashes") or {}),
+        "reviewProtocol": "blind-a-b-challenge/v1",
+        "blindReviewHashes": [sha256_json(review) for review in blind_reviews],
+        "challengeReviewHash": sha256_json(challenge),
+        "createdAt": utc_now_text(),
+        "entries": [
+            {
+                "original_question_id": work_item["originalQuestionId"],
+                **source_binding.as_mapping(),
+                "expectedBeforeHash": question_issue_record_hash(
+                    current_record,
+                    category_config,
+                ),
+                "changes": {
+                    "correctChoiceText": copy.deepcopy(correct_choice_text),
+                },
+                "certifiesCurrentValues": True,
+                "rationale": (
+                    "Independent blind A/B reviews verified the current "
+                    "correctChoiceText against official evidence, and the challenge "
+                    "gate concluded that no answer change is required."
+                ),
+                "evidence": copy.deepcopy(challenge["evidence"]),
+            }
+        ],
+    }
+
+
 def correction_patch_filename(manifest: Mapping[str, Any], work_item: Mapping[str, Any]) -> str:
     original_id = "".join(
         char if char.isalnum() or char in "-_" else "_"

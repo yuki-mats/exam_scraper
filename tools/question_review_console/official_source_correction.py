@@ -26,6 +26,7 @@ from tools.question_bank.question_issue_reports import (
     ReviewExecutor,
     _extract_json_text,
     build_correction_patch,
+    build_current_answer_certification_patch,
     correction_patch_filename,
     find_current_question_record,
     load_config,
@@ -646,7 +647,10 @@ class OfficialSourceCorrectionService:
             require_resume_consensus=True,
         )
         decision = str(challenge.get("decision") or "")
-        if decision != "fix":
+        certifies_current_answer = (
+            decision == "no_change" and category_id == "correct_answer"
+        )
+        if decision != "fix" and not certifies_current_answer:
             return {
                 "decision": decision,
                 "patchPath": None,
@@ -667,7 +671,12 @@ class OfficialSourceCorrectionService:
                 raise OfficialSourceCorrectionError(
                     "画像補正はserverが固定した新規画像URLだけを反映できます。"
                 )
-        patch = build_correction_patch(
+        patch_builder = (
+            build_current_answer_certification_patch
+            if certifies_current_answer
+            else build_correction_patch
+        )
+        patch = patch_builder(
             manifest=manifest,
             work_item=work_item,
             current_record=current_record,
@@ -716,20 +725,38 @@ class OfficialSourceCorrectionService:
             )
         os.replace(staged_path, target_path)
         target_path.chmod(0o644)
-        emit(
-            "公式資料と一致した変更を24_questionIssueCorrectionsへ保存しました。"
-        )
+        if certifies_current_answer:
+            emit(
+                "公式資料と一致する現在の正答を"
+                "24_questionIssueCorrectionsへ証明保存しました。"
+            )
+        else:
+            emit(
+                "公式資料と一致した変更を24_questionIssueCorrectionsへ保存しました。"
+            )
         return {
-            "decision": "fix",
+            "decision": decision,
             "patchPath": str(target_path.relative_to(self.repo_root)),
             "currentRecordPath": str(
                 current_path.resolve().relative_to(self.repo_root)
             ),
             "workDirectory": str(work_dir.relative_to(self.repo_root)),
-            "changedFields": sorted((challenge.get("changes") or {}).keys()),
+            "changedFields": (
+                []
+                if certifies_current_answer
+                else sorted((challenge.get("changes") or {}).keys())
+            ),
+            "certifiedFields": (
+                ["correctChoiceText"] if certifies_current_answer else []
+            ),
             "message": (
-                "公式資料とのBlind A/B照合に一致し、"
-                f"{category_config['label']}の補正patchを保存しました。"
+                "公式資料とのBlind A/B照合に一致し、現在の正答を証明する"
+                "patchを保存しました。"
+                if certifies_current_answer
+                else (
+                    "公式資料とのBlind A/B照合に一致し、"
+                    f"{category_config['label']}の補正patchを保存しました。"
+                )
             ),
         }
 

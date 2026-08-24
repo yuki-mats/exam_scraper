@@ -333,6 +333,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                         {
                             "sourceQuestionKey": "sample:q1",
                             "reviewQuestionId": "q1",
+                            "certifiesCurrentValues": True,
                             "changes": {
                                 "correctChoiceText": ["間違い", "正しい"]
                             },

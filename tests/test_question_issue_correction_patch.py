@@ -75,6 +75,69 @@ def valid_patch(record: dict) -> dict:
 
 
 class QuestionIssueCorrectionPatchTests(unittest.TestCase):
+    def test_current_answer_certification_applies_without_mutating_record(self) -> None:
+        record = current_record()
+        patch = valid_patch(record)
+        patch["category"] = "correct_answer"
+        patch["entries"][0]["expectedBeforeHash"] = question_issue_record_hash(
+            record,
+            CATEGORY_CONFIGS["correct_answer"],
+        )
+        patch["entries"][0]["changes"] = {
+            "correctChoiceText": record["correctChoiceText"]
+        }
+        patch["entries"][0]["certifiesCurrentValues"] = True
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            patch_path = root / "patch.json"
+            current_path = root / "current.json"
+            patch_path.write_text(json.dumps(patch), encoding="utf-8")
+            current_path.write_text(
+                json.dumps({"question_bodies": [record]}), encoding="utf-8"
+            )
+
+            self.assertEqual(
+                validate_patch(
+                    patch_path,
+                    config_path=CONFIG_PATH,
+                    current_path=current_path,
+                ),
+                [],
+            )
+            data = {"question_bodies": [copy.deepcopy(record)]}
+            self.assertEqual(
+                apply_question_issue_correction_patch(data, patch_path),
+                1,
+            )
+
+        self.assertEqual(data["question_bodies"][0], record)
+
+    def test_current_value_certification_is_rejected_outside_correct_answer(self) -> None:
+        record = current_record()
+        patch = valid_patch(record)
+        patch["entries"][0]["changes"] = {
+            "questionBodyText": record["questionBodyText"]
+        }
+        patch["entries"][0]["certifiesCurrentValues"] = True
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            patch_path = root / "patch.json"
+            current_path = root / "current.json"
+            patch_path.write_text(json.dumps(patch), encoding="utf-8")
+            current_path.write_text(
+                json.dumps({"question_bodies": [record]}), encoding="utf-8"
+            )
+            errors = validate_patch(
+                patch_path,
+                config_path=CONFIG_PATH,
+                current_path=current_path,
+            )
+
+        self.assertTrue(
+            any("current-value certification is limited" in error for error in errors),
+            errors,
+        )
+
     def test_exact_binding_is_valid_and_updates_only_its_source_record(self) -> None:
         record = current_record()
         first = SourceIdentityBinding.from_values(

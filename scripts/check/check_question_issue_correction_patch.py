@@ -64,8 +64,9 @@ ENTRY_REQUIRED_FIELDS = {
     "rationale",
     "evidence",
 }
+ENTRY_OPTIONAL_FIELDS = {"certifiesCurrentValues"}
 ENTRY_IDENTITY_FIELDS = set(SOURCE_IDENTITY_BINDING_FIELDS)
-ENTRY_FIELDS = ENTRY_REQUIRED_FIELDS | ENTRY_IDENTITY_FIELDS
+ENTRY_FIELDS = ENTRY_REQUIRED_FIELDS | ENTRY_IDENTITY_FIELDS | ENTRY_OPTIONAL_FIELDS
 EVIDENCE_FIELDS = {"sourceClass", "locator", "title", "verifiedAt", "contentHash"}
 
 
@@ -363,6 +364,19 @@ def validate_patch(
         disallowed = sorted(set(changes) - allowed_fields)
         if disallowed:
             errors.append(f"entry {index}: fields not allowed for {category}: {disallowed}")
+        certifies_current_values = entry.get("certifiesCurrentValues") is True
+        if "certifiesCurrentValues" in entry and not certifies_current_values:
+            errors.append(
+                f"entry {index}: certifiesCurrentValues must be true when present"
+            )
+        if certifies_current_values and (
+            category != "correct_answer"
+            or set(changes) != {"correctChoiceText"}
+        ):
+            errors.append(
+                f"entry {index}: current-value certification is limited to "
+                "correct_answer.correctChoiceText"
+            )
         if not isinstance(entry.get("rationale"), str) or not entry["rationale"].strip():
             errors.append(f"entry {index}: rationale must be non-empty")
         elif len(entry["rationale"]) > 4000:
@@ -398,10 +412,20 @@ def validate_patch(
                     for field, value in changes.items()
                     if current.get(field) == value
                 )
-                if unchanged_fields:
+                if unchanged_fields and not (
+                    certifies_current_values
+                    and unchanged_fields == ["correctChoiceText"]
+                ):
                     errors.append(
                         f"entry {index}: changes must differ from current values: "
                         f"{unchanged_fields}"
+                    )
+                if certifies_current_values and unchanged_fields != [
+                    "correctChoiceText"
+                ]:
+                    errors.append(
+                        f"entry {index}: certified correctChoiceText must equal "
+                        "the current value"
                     )
 
     return errors

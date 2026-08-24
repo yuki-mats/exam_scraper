@@ -80,6 +80,7 @@ class QuestionIssueCorrectionEntry:
     path: Path
     entry: dict[str, Any]
     expected_hash_fields: tuple[str, ...] = HASH_FIELDS
+    allows_current_value_certification: bool = False
 
 
 def canonical_json(value: Any) -> str:
@@ -221,6 +222,9 @@ def build_question_issue_correction_index(
                     path=path,
                     entry=dict(entry),
                     expected_hash_fields=hash_fields,
+                    allows_current_value_certification=(
+                        category == "correct_answer"
+                    ),
                 )
             )
 
@@ -288,6 +292,7 @@ def apply_question_issue_correction_entry(
     patch_path: Path,
     *,
     expected_hash_fields: Iterable[str] | None = None,
+    allow_current_value_certification: bool = False,
 ) -> bool:
     original_id = str(entry.get("original_question_id") or "").strip()
     if not original_id:
@@ -314,6 +319,22 @@ def apply_question_issue_correction_entry(
             f"unsupported correction fields {unknown_fields}: "
             f"question={original_id} patch={patch_path}"
         )
+    if entry.get("certifiesCurrentValues") is True:
+        if (
+            not allow_current_value_certification
+            or set(changes) != {"correctChoiceText"}
+        ):
+            raise ValueError(
+                "current-value certification is limited to "
+                f"correct_answer.correctChoiceText: question={original_id} "
+                f"patch={patch_path}"
+            )
+        if question.get("correctChoiceText") != changes["correctChoiceText"]:
+            raise RuntimeError(
+                "certified correctChoiceText does not match current value: "
+                f"question={original_id} patch={patch_path}"
+            )
+        return True
     changed = False
     for field, value in changes.items():
         if question.get(field) == value:
@@ -366,6 +387,7 @@ def apply_question_issue_correction_patch(
             entry,
             patch_path,
             expected_hash_fields=hash_fields,
+            allow_current_value_certification=(category == "correct_answer"),
         ):
             update_count += 1
         if applied_targets is not None:
@@ -405,6 +427,9 @@ def apply_question_issue_correction_index(
                 candidate.entry,
                 candidate.path,
                 expected_hash_fields=candidate.expected_hash_fields,
+                allow_current_value_certification=(
+                    candidate.allows_current_value_certification
+                ),
             ):
                 update_count += 1
             if applied_targets is not None:

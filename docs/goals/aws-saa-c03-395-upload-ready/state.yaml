@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T101
+active_task: T102
 
 tasks:
   - id: T001
@@ -6839,7 +6839,7 @@ tasks:
   - id: T101
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "公式正答照合で正しい現在値を証明できるcurrent-value certification overlayを追加し、source answer gateの反復停止を解消する。"
     inputs:
@@ -6868,6 +6868,60 @@ tasks:
       - "security boundary又は既存patch互換を弱める。"
     expected_output:
       - "minimal implementation, tests, docs, receipt"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "correct_answerのBlind A/BとChallengeがno_changeで一致した場合、現在のcorrectChoiceTextを変更せず公式根拠付きで証明保存するcurrent-value certification overlayを追加した。"
+      evidence:
+        - "certifiesCurrentValuesはcategory=correct_answer、changes key=correctChoiceText、現在値完全一致の組合せだけpatch checkerとmergeで受理する。"
+        - "OfficialSourceCorrectionServiceはno_change証拠を再検証後、24_questionIssueCorrectionsへcertification patchを保存し、artifact syncへ進める。"
+        - "通常categoryと通常correctionのno-op拒否は維持した。"
+        - "既存のfix patch契約、Blind A/B/Challenge、00_source保護、Firestore非書込は不変である。"
+      verification:
+        - cmd: "python -m unittest tests.test_question_issue_correction_patch tests.test_official_source_correction tests.test_question_review_inventory"
+          result: "75 tests passed"
+        - cmd: "python -m unittest tests.test_question_review_server tests.test_merge_source_identity tests.test_question_review_qualification_identity tests.test_question_review_progress_output_ui tests.test_question_review_workflow"
+          result: "166 tests passed"
+        - cmd: "python -m py_compile changed Python modules"
+          result: "passed"
+        - cmd: "git diff --check"
+          result: "passed"
+      next_allowed_task: T102
+  - id: T102
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "AWS一次資料10件を使い、official correction10へcorrect_answerのBlind A/B/Challengeを順次実行し、fix又はcurrent-value certificationを24_questionIssueCorrectionsへ保存してsyncする。"
+    inputs:
+      - "T100 evidence matrix"
+      - "T101 current-value certification implementation"
+      - "output/pdf/aws-saa-c03-official-answer-evidence/*.pdf"
+      - "official correction10 current question details"
+    constraints:
+      - "公式資料と各問を独立に照合する。"
+      - "hold又はinsufficient_evidenceの問が出ても他問を継続し、同じ入力を反復しない。"
+      - "00_source、category、Firestoreを変更しない。"
+      - "一問ずつjob終端とartifact syncをreadbackする。"
+    allowed_files:
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/24_questionIssueCorrections/**"
+      - "output/question_issue_reports/ui_official_source/**"
+      - "output/question_review_console/cache/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/12_merged_questionType/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/20_merged_1/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/30_merged_2/**"
+      - "output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/40_convert/**"
+      - "output/aws-solutions-architect-associate/questions_json/upload_to_firestore/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "patch evidence hash、PDF page locator、current/source answer approval readback。"
+      - "artifact sync成功、target395。"
+      - "protected data unchanged、Firestore writes0。"
+    stop_if:
+      - "official evidenceとcurrent answerが一致しないのにA/B consensusが得られない。"
+      - "protected delta又はidentity mismatch。"
+    expected_output:
+      - "10 official correction receipts and synced artifacts"
     receipt: null
   - id: T999
     type: judge

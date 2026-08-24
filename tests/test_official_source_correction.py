@@ -530,6 +530,110 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 review_runner_options[0]["require_resume_consensus"], True
             )
 
+    def test_no_change_correct_answer_writes_current_value_certification(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            evidence_path = root / "tmp" / "official.png"
+            evidence_path.parent.mkdir(parents=True)
+            evidence_path.write_bytes(b"official-answer")
+            current_path = root / "current.json"
+            current_path.write_text("{}\n", encoding="utf-8")
+            binding = SourceIdentityBinding.from_values(
+                "sample:2026:q1",
+                "q1",
+                "question_2026.json#0",
+            )
+            source_identity = SourceRecordIdentity(
+                binding=binding,
+                aliases=frozenset(binding.as_tuple()),
+                source_stem="question_2026",
+            )
+            current_record = {
+                "original_question_id": "q1",
+                "questionBodyText": "現在の問題文",
+                "choiceTextList": ["A", "B"],
+                "questionType": "group_choice",
+                "questionIntent": "select_correct",
+                "correctChoiceText": ["間違い", "正しい"],
+                "answer_result_text": "正解は2です。",
+                "answer_result_inferred_correct_choice_numbers": [2],
+            }
+
+            def review_runner(work_item, **_options):
+                candidate = work_item["caseSnapshots"][0]["canonicalSnapshot"][
+                    "officialEvidenceCandidates"
+                ][0]
+                evidence = {
+                    "sourceClass": "official",
+                    "locator": (
+                        f'{candidate["localRenderedPagePath"]} / '
+                        f'{candidate["locator"]}'
+                    ),
+                    "title": candidate["title"],
+                    "verifiedAt": "2026-08-24T00:00:00Z",
+                    "contentHash": candidate["contentHash"],
+                }
+                return (
+                    {"conclusion": "no_problem", "evidence": [evidence]},
+                    {"conclusion": "no_problem", "evidence": [evidence]},
+                    {
+                        "decision": "no_change",
+                        "changes": {},
+                        "evidence": [evidence],
+                    },
+                )
+
+            verified_patches = []
+
+            def patch_verifier(path, **_options):
+                verified_patches.append(json.loads(path.read_text(encoding="utf-8")))
+                return dict(current_record)
+
+            service = OfficialSourceCorrectionService(
+                root,
+                app_server=object(),
+                config_path=CONFIG_PATH,
+                review_runner=review_runner,
+                record_finder=lambda *_args, **_kwargs: (
+                    current_record,
+                    current_path,
+                    source_identity,
+                ),
+                patch_verifier=patch_verifier,
+            )
+            result = service.run(
+                {
+                    "id": "ui-q1",
+                    "qualification": "sample",
+                    "listGroupId": "2026",
+                    "originalQuestionId": "q1",
+                    "sourceQuestionKey": "sample:2026:q1",
+                    "sourceRecordRef": "question_2026.json#0",
+                    "stateHash": "a" * 64,
+                },
+                state_hash="a" * 64,
+                category="correct_answer",
+                evidence_path=str(evidence_path),
+                evidence_title="AWS公式資料",
+                evidence_locator="正答根拠",
+                verified_transcription="現在の正答を裏付ける公式記述",
+                emit=lambda _message: None,
+            )
+
+            patch_payload = json.loads(
+                (root / result["patchPath"]).read_text(encoding="utf-8")
+            )
+            entry = patch_payload["entries"][0]
+            self.assertEqual(result["decision"], "no_change")
+            self.assertEqual(result["changedFields"], [])
+            self.assertEqual(result["certifiedFields"], ["correctChoiceText"])
+            self.assertTrue(entry["certifiesCurrentValues"])
+            self.assertEqual(
+                entry["changes"]["correctChoiceText"],
+                current_record["correctChoiceText"],
+            )
+            self.assertEqual(len(verified_patches), 1)
+
     def test_pdf_evidence_is_rendered_to_the_locator_page_before_review(
         self,
     ) -> None:
