@@ -19,4 +19,4 @@
 
 ## 判断
 
-これはモデル品質をprompt調整で詰める前の統合不整合です。実backendの候補とcoordinatorが要求するroute metadata契約を実接続で合わせ、fallbackでrun成功に見える状態を解消してから、同じ固定集合を再実行する必要があります。詳細な機械可読証拠は`docs/goals/question-maintenance-hybrid-llm/artifacts/T006/`にあります。
+これはモデル品質をprompt調整で詰める前の統合不整合です。実backendの候補とcoordinatorが要求するroute metadata契約を実接続で合わせ、fallbackでrun成功に見える状態を解消してから、同じ固定集合を再実行する必要があります。詳細な機械可読証拠は`docs/goals/question-maintenance-hybrid-llm/notes/T006-artifacts/`にあります。

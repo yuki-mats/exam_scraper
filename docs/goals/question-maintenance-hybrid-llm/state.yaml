@@ -68,7 +68,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-hybrid-llm/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hybrid-llm"
 
-active_task: T017
+active_task: T034
 
 tasks:
   - id: T001
@@ -575,7 +575,7 @@ tasks:
   - id: T017
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "T005をreworkし、profile固定semantic batch、model前の問題別run予約、部分成功・再試行・resume、正確なUIと文書を完成させる。"
     allowed_files:
@@ -604,12 +604,132 @@ tasks:
       - "secret又は現在正答を外部へ出す必要がある。"
       - "allowed_files外の変更が必要になる。"
       - "同じ原因の検証失敗を二回修正しても解消しない。"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "tools/question_review_console/evaluation.py"
+        - "tools/question_review_console/server.py"
+        - "tools/question_review_console/static/app.js"
+        - "tests/test_question_review_evaluation.py"
+        - "tests/test_question_review_server.py"
+        - "document/operations/local_question_review_console.md"
+      summary: "profile固定、最大5問・120000 UTF-8 bytesのsemantic batch、model前の問題別run/attempt予約、部分成功・schema別単問再試行・transport fan-out禁止、単問byte超過経路、UIと文書を完成させた。"
+      commands:
+        - cmd: "stdlib code preload focused suite"
+          status: pass
+          summary: "198 passed, 64 subtests passed"
+        - cmd: "stdlib code preload related full regression"
+          status: pass
+          summary: "533 passed, 200 subtests passed"
+        - cmd: "node check, diff check, 00_source scope"
+          status: pass
+      remaining_blockers:
+        - "独立Judge監査とcommit・push。"
+
+  - id: T018
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T017のsemantic batch実装を安全性・単純性・回帰証拠から独立監査し、承認又は限定reworkを決定する。"
+    inputs:
+      - "T016 and T017 receipts"
+      - "Current diff"
+      - "533 passed, 200 subtests evidence"
+    constraints:
+      - "Read-only。"
+      - "passed件数だけで承認せず問題別reservation/commit/resumeを追う。"
+      - "過剰な二重pipeline又は保存treeを認めない。"
+    expected_output:
+      - "approve_next | approve_rework | reject"
+      - "Critical findings"
+      - "Next exact task"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "通常経路は満たすが、予約途中又はtransport失敗確定中のI/O例外でrun・attempt・activeが未完のまま残り得るため限定reworkが必要。"
+      evidence:
+        - "run作成からprompt保存までの途中失敗はactive解除だけでartifactをfailedへ閉じない。"
+        - "失敗確定のwrite_result/updateが先に失敗するとactive解除finallyへ到達しない。"
+        - "一問のcleanup例外で同batchの残り問題の終了処理が止まり得る。"
+        - "単問とbatchでplan・run作成が重複し故障処理差異を生んでいる。"
+        - "通常経路の独立回帰533 passed, 200 subtestsは維持。"
+      next_task: T019
+
+  - id: T019
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "単問とbatchの問題別plan・run・attempt予約を共有helperへ統合し、途中I/O失敗でもbest-effortでfailedへ閉じ、全activeを必ず解放する。"
+    allowed_files:
+      - "tools/question_review_console/evaluation.py"
+      - "tests/test_question_review_evaluation.py"
+    verify:
+      - "stdlib code preload evaluation tests with no cache"
+      - "stdlib code preload related full regression with no cache"
+      - "run profile update、attempt reserve、running update、prompt save failure injection"
+      - "write_result、manifest update、projection update failureで全active解放"
+      - "失敗後retryで旧currentValid維持、重複promotionなし"
+      - "git diff --check and 00_source scope check"
+    stop_if:
+      - "evaluation.pyとそのtest以外の変更が必要になる。"
+      - "失敗artifactを成功へ昇格又はcurrentValid/work versionを変更する必要がある。"
+      - "cleanup失敗で兄弟問題のactive解放を省略する必要がある。"
+      - "同じ原因の検証失敗を二回修正しても解消しない。"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "tools/question_review_console/evaluation.py"
+        - "tests/test_question_review_evaluation.py"
+      summary: "単問/batch共有run plan・予約helper、途中失敗のbest-effort failed化、兄弟を止めないcleanup、全active解放、retry安全性を完成させた。"
+      commands:
+        - cmd: "evaluation fault-injection suite"
+          status: pass
+          summary: "59 passed, 56 subtests passed"
+        - cmd: "independent related full regression"
+          status: pass
+          summary: "541 passed, 204 subtests passed"
+        - cmd: "node check, diff check, 00_source scope"
+          status: pass
+      remaining_blockers:
+        - "Judge approval before T015"
+
+  - id: T020
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T019のfailure cleanupを独立監査し、T015のlocal retry_model・fallback・error taxonomyを実装するexact packageを確定する。"
+    inputs:
+      - "T018 and T019 receipts"
+      - "Current diff"
+      - "Real Ollama qwen3:14b structured JSON smoke result"
+    constraints:
+      - "Read-only。"
+      - "qualification requestedModelとHTTP実modelの不一致を残さない。"
+      - "provider別pipelineを作らない。"
+    expected_output:
+      - "Approve T019 or rework"
+      - "Exact T015 allowed_files, config contract, retry/fallback rules and verify"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T019は共有予約helper、best-effort failed化、兄弟を止めないcleanup、active解放を故障注入で証明した。T015は共通routerと既存retry queue内で実装可能。"
+      evidence:
+        - "故障注入evaluation suite 59 passed。"
+        - "独立関連回帰と00_source不変を確認。"
+        - "実Ollama qwen3:14bのOpenAI互換structured JSON readback成功。"
+      next_task: T015
 
   - id: T015
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     objective: "local maintenanceのretry_model・fallbackとretryable/non-retryable error分類を、共通pipelineを増やさず完成させる。"
     inputs:
@@ -620,29 +740,187 @@ tasks:
       - "HTTP transport・429・5xxだけをretryableとし、schema・安全設定・4xxはfail-closedにする。"
       - "fallback使用をmanifestとreceiptで識別できるようにする。"
       - "secretをlog、例外、manifestへ出さない。"
+      - "primary/retryはqwen3:14b、timeout 600秒、local attempt 2回後だけCodex fallbackを設定だけで指定する。"
+      - "requestedModel、HTTP request/response model、attempt metadataを一致させる。"
     expected_output:
       - "Configurable retry_model and fallback"
       - "Typed sanitized errors"
       - "Retry/fallback/fail-closed tests"
       - "Scoped commit and push receipt"
-    allowed_files: []
-    verify: []
+    allowed_files:
+      - "config/question_maintenance_llm.toml"
+      - "tools/question_review_console/model_backend.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_model_backend.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - "focused model_backend, hybrid_llm, qualification_runs tests"
+      - "related Codex, candidate, evaluation, server, workflow, catalog regression"
+      - "network/timeout/429/5xxは2 local attempts後だけCodex fallback"
+      - "safety/missing auth/4xx/invalid JSON/schema/model mismatchは1 attemptで停止しfallback 0"
+      - "primary/retry/fallbackのrequested/actual model、child/parent metadata、aggregate metrics一致"
+      - "shared semaphore peak 1、secret canary非流出"
+      - "git diff --check and 00_source scope check"
     stop_if:
       - "既存pipelineの複製が必要になる。"
       - "secret又は未検証resultを保存する必要がある。"
       - "検証が二回失敗し、原因がslice外にある。"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "config/question_maintenance_llm.toml"
+        - "document/operations/local_question_review_console.md"
+        - "tests/test_question_review_hybrid_llm.py"
+        - "tests/test_question_review_model_backend.py"
+        - "tools/question_review_console/model_backend.py"
+        - "tools/question_review_console/qualification_runs.py"
+      summary: "qwen3:14b primary/retry、600秒、local 2回後Codex fallback、型付きsanitized error、route/attempt metadata/metricsを共通pipelineへ追加した。"
+      commands:
+        - cmd: "focused model_backend/hybrid/qualification tests"
+          status: pass
+          summary: "209 passed, 21 subtests passed"
+        - cmd: "independent combined related regression"
+          status: pass
+          summary: "557 passed, 204 subtests passed"
+        - cmd: "HTTP taxonomy, docs, diff, 00_source"
+          status: pass
+      evidence:
+        - "commit a04130dec"
+        - "pushはGitHub HTTPS認証切れで未完了。"
+      remaining_blockers:
+        - "Judge approval and real-model acceptance"
+
+  - id: T021
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T015のroute/error/metadata/metricsを独立監査し、実model受入T006の代表集合・手順・allowed_filesを確定する。"
+    inputs:
+      - "T015 receipt and commit a04130dec"
+      - "Current batch diff and 557 passed regression"
+      - "Real qwen3:14b product-backend smoke"
+    constraints:
+      - "Read-only。"
+      - "fallback常用をlocal成功とみなさない。"
+      - "実model受入はFirestore writeなし。"
+    expected_output:
+      - "Approve or rework T015"
+      - "Exact T006 representative set, commands, artifacts, thresholds and allowed_files"
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "endpoint/fallback解決設定がprofile fingerprintへ入らずresumeでprovider driftを検出できない。またserver候補検査失敗もlocalSuccessへ数え70%を過大評価する。"
+      evidence:
+        - "endpoint 11434→1234変更で選択profile fingerprintが不変。"
+        - "HTTP応答成功後の決定的候補検査失敗でlocalSuccessが戻らない。"
+        - "qualification coordinator経由のmetadata/metrics integration testがない。"
+        - "独立回帰557 passed、実qwen3:14b strict JSON smokeは成功。"
+      next_task: T022
+
+  - id: T022
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "profile fingerprintへ選択endpoint/fallback解決設定を含め、検証済みlocal候補だけをlocalSuccessへ数え、coordinator integration testでT015を完成させる。"
+    allowed_files:
+      - "tools/question_review_console/model_backend.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_model_backend.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - "focused model_backend/hybrid_llm/qualification_runs tests"
+      - "endpoint、auth_env名、fallback backend解決設定変更で選択fingerprint変化、未選択変更で不変"
+      - "coordinator経由のprimary/retry/fallbackとnonretryable即停止"
+      - "attempt/child/parent/modelAttemptMetrics metadata一致"
+      - "候補検査失敗はlocalSuccessCount 0、検証済みlocal候補だけ1"
+      - "related regression plus documentation tests"
+      - "git diff --check and 00_source scope check"
+    stop_if:
+      - "既存manifest又はreceipt書換えが必要になる。"
+      - "secret値をsnapshot、fingerprint又はartifactへ保存する必要がある。"
+      - "provider別pipeline又は別retry queueが必要になる。"
+      - "coordinator integration testを作れない。"
+      - "allowed_files外の変更が必要になる。"
+      - "同じ原因の検証失敗を二回修正しても解消しない。"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "document/operations/local_question_review_console.md"
+        - "tests/test_question_review_hybrid_llm.py"
+        - "tests/test_question_review_qualification_runs.py"
+        - "tools/question_review_console/model_backend.py"
+        - "tools/question_review_console/qualification_runs.py"
+      summary: "選択profileの接続・fallback定義をfingerprintへ含め、決定的検査と保存後だけlocalSuccessを確定し、coordinator結合試験を追加した。"
+      commands:
+        - cmd: "focused model_backend/hybrid_llm/qualification_runs"
+          status: pass
+          summary: "225 passed, 21 subtests passed"
+        - cmd: "related regression and documentation"
+          status: pass
+          summary: "568 passed, 204 subtests passed"
+        - cmd: "git diff --check and 00_source scope check"
+          status: pass
+      evidence:
+        - "commit 3c8ca51e8"
+        - "secret値を保存せずauth環境変数名だけをfingerprintへ含めた。"
+        - "primary/retry/fallback、nonretryable即時停止、親子metadataとmetrics一致をcoordinator経由で確認した。"
+      remaining_blockers:
+        - "Judge approval and real-model acceptance"
+        - "GitHub HTTPS認証切れによりorigin/mainへ未push。"
+
+  - id: T023
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T022を独立監査し、T006の実モデル受入を安全に開始できるか判定して、代表集合、実行経路、成果物、閾値、allowed_filesを確定する。"
+    inputs:
+      - "T022 receipt and commit 3c8ca51e8"
+      - "T021 findings and T006 candidate set"
+      - "Current real qwen3:14b endpoint and Codex App Server"
+    constraints:
+      - "Read-only。"
+      - "モック結果だけで実モデル受入を承認しない。"
+      - "Firestore writeを許可しない。"
+    expected_output:
+      - "Approve or rework T022"
+      - "Exact T006 representative set and source-grounded answer oracle"
+      - "Exact commands or API/UI path, artifacts, thresholds, allowed_files and stop conditions"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T022はprofile drift検出とlocalSuccess fail-closedを完成し、独立回帰も通過した。実品質だけが未証明なので隔離workspaceでT006を実行する。"
+      evidence:
+        - "focused独立検証225 passed, 21 subtests、関連561 passed, 204 subtests、documentation 13 passed。"
+        - "endpoint・model・timeout変更で選択fingerprintが変化し、未選択変更は不変。"
+        - "候補検査失敗はlocalSuccess=false、保存完了したlocal attemptだけtrue。"
+        - "Ollama qwen3:14bとCodex App Serverの実接続を確認した。"
+      next_task: T006
 
   - id: T006
     type: worker
     assignee: Worker
-    status: queued
+    status: blocked
     reasoning_hint: medium
     objective: "実ローカルendpointと基準modelを用意し、固定代表問題集合でsmoke、故障注入、codex_only比較、ハイブリッド品質受入を実行して証拠を保存する。"
     inputs:
-      - "T015 receipt"
+      - "T023 receipt and commit 3c8ca51e8"
       - "Acceptance Criteria in goal.md"
-      - "Current representative qualification fixtures"
+      - "固定集合: 2nd-class-kenchikushi/85010/dd07b4977677b7bb,3239d392acd6236c,64032ef7f4bac816,64bd269e44533561"
+      - "固定集合: 2nd-class-kenchikushi/85003/3b24e06367db4222,ed7d14b661421a12"
+      - "固定集合: aws-solutions-architect-associate/udemy-aws-saa-c03/754c574d738ad390"
+      - "工程: dd07=explanation、3239=correct_choice、6403=question_type、64bd=question_type+explanation、3b24=law_context+law_audit+explanation、ed7d=question_type+explanation、754c=originalize+explanation"
+      - "正答oracleは00_sourceの上記7問を正本とし、model promptへ渡さずrun後だけ比較する。法令問は試験時点と現行法を分離し、根拠不足なら正答を変えずhold。画像2問は判読不能ならhold。"
     constraints:
       - "model名をコードへ固定しない。"
       - "通常、問題形式、計算、法令、画像、独自問題を代表集合へ含める。"
@@ -655,20 +933,65 @@ tasks:
       - "Failure injection receipts"
       - "Quality audit with critical errors, local acceptance, retry and fallback rates"
       - "Scoped commit and push receipt for test artifacts and docs"
-    allowed_files: []
-    verify: []
+    allowed_files:
+      - "新規fileのみ: docs/goals/question-maintenance-hybrid-llm/notes/T006-artifacts/**"
+      - "document/temporary/question_maintenance_hybrid_llm_acceptance_20260825.md"
+      - "OS一時directory内の隔離cloneとrun/patch artifacts。実repoへ戻すのはsanitized evidenceだけ。"
+    verify:
+      - "Ollama qwen3:14bのname/digest/size、Codex version/login/subscription allowed=true"
+      - "commit 3c8ca51e8から隔離copyを作り、実repoのproduction patch、workflow_runs、00_source、Firestoreへ書かない"
+      - "codex_onlyとhybridを同じ7問・指定工程・question_parallelism=1・llm_call_concurrency=1で実行"
+      - "hybrid成果をCodexでaudit batch=5とbatch=1に通し、問題別status、全選択肢、critical issue、publishReady差分0"
+      - "endpoint停止/timeoutはlocal 2回後Codex fallback、nonretryable障害は1回で停止、fallback 0"
+      - "resumeで二重保存なし、endpoint又はtimeout変更後resumeはfingerprint不一致"
+      - "重大品質事故0、7問がpassed又は根拠不足hold、local backend保存完了かつfallbackなし最終passedが5/7以上"
+      - "micro-batchに2問以上を含み最大5問・120000 bytes以下、欠落・重複0、LLMと問題処理peak各1以下"
+      - "Firestore write 0、production patch変更0、開始前後00_source hash変更0"
+      - "focused/related/documentation regression、artifact machine-readable assertion、diff check、scoped commit"
     stop_if:
-      - "実ローカルmodelの利用に破壊的操作又は未承認課金が必要。"
-      - "代表問題の正答又は根拠が事前確定できない。"
+      - "実repoの00_source、既存patch、workflow_runs又はFirestoreへ書く必要が生じる。"
+      - "oracle又は現在のcorrectChoiceText対応をLLMへ渡す、又は検査を緩める必要が生じる。"
+      - "Codex subscription allowed=true又はqwen3:14b digestを確認できない。"
       - "重大品質事故が1件以上ある。"
       - "ローカル候補のfallbackなし最終合格率が70%未満。"
       - "一問監査とmicro-batch監査の最終判定に差がある。"
-    receipt: null
+      - "同じ実run失敗を二回是正しても解消せずproduct code変更が必要になる。"
+    receipt:
+      result: blocked
+      full_outcome_complete: false
+      changed_files:
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T006-artifacts/api_calls.jsonl"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T006-artifacts/comparison.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T006-artifacts/environment.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T006-artifacts/failure.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T006-artifacts/hashes.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T006-artifacts/run_summary.json"
+        - "document/temporary/question_maintenance_hybrid_llm_acceptance_20260825.md"
+      summary: "実Ollamaと実Codexを隔離環境で直列実行した。Codex単独7/7に対しhybridはroute profile不一致で全7問がfallbackし、local成功0/7のため受入停止した。"
+      commands:
+        - cmd: "codex_only fixed 7 questions"
+          status: pass
+          summary: "7/7 terminal succeeded"
+        - cmd: "hybrid fixed 7 questions"
+          status: fail
+          summary: "7/7 terminal succeeded but localSuccess 0 and fallback 7"
+        - cmd: "safety and scope checks"
+          status: pass
+          summary: "Firestore/publication call 0、00_source hash不変、production scope不変"
+      evidence:
+        - "commit 51f0123e9"
+        - "全local attemptの原因は maintenance attempt routeのprofileが一致しません。"
+        - "delivery/evaluationは必須field不整合で開始せず、単問・batch監査比較は未実施。"
+      remaining_blockers:
+        - "実backend候補とcoordinatorのroute metadata契約不一致。"
+        - "fallbackなしlocal合格率0%。"
+        - "delivery/evaluation前提不成立。"
+        - "GitHub HTTPS認証切れによりorigin/mainへ未push。"
 
   - id: T007
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "実model受入結果を厳しく評価し、品質・安全性・実益の未達があればmodel、prompt入力、工程分担、batch sizeのどこを直すかを決める。"
     inputs:
@@ -684,14 +1007,24 @@ tasks:
       - "Quality and operational gaps"
       - "If rework, one largest safe Worker task with allowed_files and verify"
       - "If accept, evidence mapping for final audit"
-    receipt: null
+    receipt:
+      result: done
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: "親runのhybrid profile snapshotが子attemptへ継承されずcodex_onlyへ既定化したため全routeが衝突した。delivery/audit不整合は変更0・確定0の下流症状。"
+      evidence:
+        - "親manifestはhybrid profileを保持するが全子attemptのplan.llmProfileはnull。"
+        - "21/21 attemptが同じprofile不一致で、7 runすべてlocalSuccess 0、validated 0、changedFiles空。"
+        - "route不一致が非retryableとして止まらず無意味なretry/fallbackへ進んだ。"
+        - "Firestore/publication call 0、00_source hash不変。"
+      next_task: T008
 
   - id: T008
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
-    objective: "T007が未達を示した場合だけ、指摘された一つの最大安全sliceを修正し、同じ代表問題集合で再検証する。"
+    objective: "親runのimmutable llmProfile snapshotを一問attemptへ継承し、route名・fingerprint不一致を非retryableでfail-closedに分類し、実ProfileModelRouterを用いたcoordinator回帰試験を追加する。"
     inputs:
       - "T007 receipt"
     constraints:
@@ -702,12 +1035,572 @@ tasks:
       - "Corrective implementation or no-op justification"
       - "Repeated acceptance evidence"
       - "Scoped commit and push receipt when changed"
-    allowed_files: []
-    verify: []
+    allowed_files:
+      - "tools/question_review_console/model_backend.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_model_backend.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+    verify:
+      - "focused model_backend/hybrid_llm/qualification_runs tests"
+      - "evaluation/qualification_workflow/artifact_sync_e2e regression"
+      - "実ProfileModelRouter結合試験で子attempt llmProfileが親snapshotと完全一致し、local primaryが1回呼ばれ、検証後だけlocalSuccess=true"
+      - "route名又はfingerprint不一致でbackend call 0、attempt 1、retry 0、fallback 0、localSuccess 0"
+      - "git diff --check and output scope change 0"
     stop_if:
-      - "T007が修正範囲を確定していない。"
-      - "修正がgoalの二役・二backend境界を超える。"
-      - "検証が二回失敗し、原因がslice外にある。"
+      - "llmProfileを子attemptで再計算する必要がある。親snapshotのコピー以外は行わない。"
+      - "delivery/evaluation gateを緩める必要がある。"
+      - "provider別pipeline、新backend又はsecret保存が必要になる。"
+      - "allowed_files外のproduct変更が必要になる。"
+      - "同じ原因の検証失敗を二回修正しても解消しない。"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "tools/question_review_console/model_backend.py"
+        - "tools/question_review_console/qualification_runs.py"
+        - "tests/test_question_review_hybrid_llm.py"
+        - "tests/test_question_review_qualification_runs.py"
+      summary: "親runのimmutable llmProfile snapshotを子attemptへ継承し、route/fingerprint不一致をbackend call前の非retryable停止とした。"
+      commands:
+        - cmd: "focused tests"
+          status: pass
+          summary: "229 passed, 21 subtests passed"
+        - cmd: "regression tests"
+          status: pass
+          summary: "106 passed, 62 subtests passed"
+        - cmd: "git diff --check and output scope"
+          status: pass
+      evidence:
+        - "scoped commit e80b4427d"
+        - "Worker commitへ混入したPM所有artifact移動は未pushの履歴を非破壊的に分け直し、コード4ファイルだけのcommitに修正した。"
+      remaining_blockers:
+        - "Judge approval and repeated real-model acceptance"
+
+  - id: T024
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T008のprofile継承とfail-closed修正を独立監査し、同じ7問の実モデル再受入を開始できるか判定する。"
+    inputs:
+      - "T008 receipt and commit e80b4427d"
+      - "T006 failure artifacts and T007 root-cause receipt"
+    constraints:
+      - "Read-only。"
+      - "delivery/evaluation gateを緩めない。"
+      - "実モデル再runをモックで代替しない。"
+    expected_output:
+      - "Approve or rework"
+      - "If approve, exact repeated acceptance task with allowed artifacts and verify"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T008は親profile snapshotを子へdeep copyし、profile/fingerprint不一致をbackend call前に非retryable停止する。T006根因へ直接対応し独立回帰も通過した。"
+      evidence:
+        - "commit e80b4427dは指定4ファイルだけを変更。"
+        - "focused 229 passed, 21 subtests、evaluation/workflow/artifact-sync 106 passed, 62 subtests。"
+        - "不一致時attempt 1、retry 0、fallback 0、localSuccess 0、backend call 0。"
+      next_task: T025
+
+  - id: T025
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "commit e80b4427dの隔離copyでT006と同じ固定7問を実Ollama qwen3:14bと実Codex App Serverへ直列投入し、codex_only比較、hybrid受入、監査batch parity、故障注入、resume安全性を再検証する。"
+    inputs:
+      - "T024 receipt and commit e80b4427d"
+      - "T006 fixed seven-question set, stages, oracle and failure artifacts"
+    constraints:
+      - "正答oracleはrun後だけ比較しmodel promptへ含めない。"
+      - "question_parallelism=1、llm_call_concurrency=1。"
+      - "Firestore、publication、production patch/workflow_runsへ書かない。"
+    expected_output:
+      - "Repeated real-model manifests and sanitized evidence"
+      - "Codex-only and hybrid quality comparison"
+      - "Batch=5 and batch=1 parity"
+      - "Fault and resume receipts"
+    allowed_files:
+      - "新規fileのみ: docs/goals/question-maintenance-hybrid-llm/notes/T025-artifacts/**"
+      - "OS一時directory内の隔離copyとrun/patch artifacts"
+    verify:
+      - "Ollama qwen3:14b name/digest/size、Codex version/login/subscription allowed=true"
+      - "T006と同じ7問・指定工程をcodex_onlyとhybridで直列実行"
+      - "全子attempt profile snapshot一致とroute/model/retry/fallback/localSuccessの問題別証拠"
+      - "重大品質事故0、passed又は根拠不足hold、fallbackなしlocal最終合格5/7以上"
+      - "Codex audit batch=5とbatch=1のstatus、全選択肢、critical issue、publishReady差分0"
+      - "micro-batch 2問以上、最大5問・120000 bytes以下、欠落・重複0"
+      - "endpoint停止/timeoutはlocal 2回後fallback、profile/fingerprint不一致はbackend call 0、retry/fallback 0"
+      - "resume二重保存なし、endpoint又はtimeout変更後resumeはfingerprint不一致"
+      - "peak各1以下、Firestore/publication 0、production/00_source変更0"
+      - "focused/regression tests、machine-readable assertion、diff check、scoped commit"
+    stop_if:
+      - "実repo又は外部公開状態へ書く必要が生じる。"
+      - "oracle提供又は検査条件緩和が必要になる。"
+      - "profile継承又はroute/fingerprint不一致が再発してproduct code変更が必要になる。"
+      - "重大品質事故1件以上、local合格5/7未満、batch parity差分1件以上。"
+      - "同じ実run失敗を二回是正しても解消しない。"
+      - "allowed_files外のrepo変更が必要になる。"
+    receipt:
+      result: blocked
+      full_outcome_complete: false
+      changed_files:
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T025-artifacts/README.md"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T025-artifacts/assertions.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T025-artifacts/codex_only_summary.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T025-artifacts/environment.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T025-artifacts/hybrid_failure.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T025-artifacts/receipt.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T025-artifacts/run_acceptance.py"
+      summary: "実Codexは6 validated・根拠不足hold 1。hybridは1問local合格後、expected profile/fingerprint/modelでも2問がunsafe_model_overrideとなり、最大4/7のため停止した。"
+      commands:
+        - cmd: "real codex_only fixed seven-question run"
+          status: pass
+          summary: "6 validated, 1 evidence hold"
+        - cmd: "real hybrid run"
+          status: fail
+          summary: "4問で停止、local合格1、unsafe_model_override 2"
+        - cmd: "focused and related regression"
+          status: pass
+          summary: "229 passed + 21 subtests、106 passed + 62 subtests"
+      evidence:
+        - "commit dfa15a8a0"
+        - "q2は実qwen3:14bでvalidated/localSuccess=true/fallback=false。"
+        - "q3/q4はexpected profile名・fingerprint・requestedModel一致でもbackend call前unsafe_model_override。"
+      remaining_blockers:
+        - "unsafe_model_override route不整合。"
+        - "local合格閾値未達、audit parity・fault・resume未実施。"
+        - "GitHub HTTPS認証切れによりorigin/mainへ未push。"
+
+  - id: T026
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T025の実runで発生したexpected modelのunsafe_model_overrideを独立調査し、最小rework又は構成不採用判断を確定する。"
+    inputs:
+      - "T025 receipt and notes/T025-artifacts"
+      - "commit e80b4427d current implementation"
+    constraints:
+      - "Read-only。"
+      - "安全なmodel override検査を無効化しない。"
+      - "qwenの品質不足とrouting不具合を分離する。"
+    expected_output:
+      - "Root cause and accept/rework/abort decision"
+      - "If rework, exact allowed_files, tests and bounded repeated acceptance"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "01工程の独立review名にauditがなく、gpt-5.6-lunaをlocal backendへ誤送信し安全検査が拒否した。限定routing修正が妥当。q1品質失敗は別問題。"
+      evidence:
+        - "review work_typeはmaintenance_*_aggregate_review_*でauditを含まず、review modelはgpt-5.6-luna。"
+        - "routerはevaluation又はauditを含む場合だけaudit backendを選ぶ。"
+        - "独立再現でgpt-5.6-lunaがlocal backendへ渡りbackend call前unsafe_model_override。"
+      next_task: T027
+
+  - id: T027
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "01工程の独立レビュー・裁定work_typeを明示的なaudit名称へ修正し、hybridではレビューだけCodex、通常候補だけlocalへ流れることを回帰試験と実2問route probeで証明する。"
+    inputs:
+      - "T026 receipt and T025 q3/q4 failure evidence"
+    constraints:
+      - "allowed-model、profile又はfingerprint検査を緩めない。"
+      - "独立reviewはCodex audit、candidateはlocal maintenanceの同一pipeline。"
+    expected_output:
+      - "Corrected work_type routing"
+      - "Coordinator regression"
+      - "Real q3/q4 route probe"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "document/operations/local_question_review_console.md"
+      - "docs/goals/question-maintenance-hybrid-llm/notes/T027-artifacts/**"
+    verify:
+      - "独立review 1・2と裁定work_typeは_audit_を含み、_aggregate_review_識別を維持"
+      - "実ProfileModelRouter coordinator試験でreview/courtはCodex、candidateだけlocal"
+      - "unsafe_model_override等の安全検査は非retryable・backend call前停止のまま"
+      - "focused hybrid/model_backend/qualification/codex tests"
+      - "T025 q3/q4を新隔離copyで実Ollama/Codexへ直列投入し、aggregate=Codex、candidate=qwen又は規定fallback、unsafe_model_override 0"
+      - "diff check、00_source/production/Firestore/publication変更0、scoped commit"
+    stop_if:
+      - "安全検査の無効化・緩和が必要になる。"
+      - "独立reviewをlocalへ送る仕様変更が必要になる。"
+      - "二回の実probeでもaggregateがlocalへ到達又はunsafe_model_override再発。"
+      - "既存artifact上書き、外部公開、allowed_files外変更が必要になる。"
+      - "focused testが二回是正後も失敗する。"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "tools/question_review_console/qualification_runs.py"
+        - "tests/test_question_review_hybrid_llm.py"
+        - "tests/test_question_review_qualification_runs.py"
+        - "tests/test_question_review_codex_app_server.py"
+        - "document/operations/local_question_review_console.md"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T027-artifacts/README.md"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T027-artifacts/assertions.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T027-artifacts/environment.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T027-artifacts/route_probe.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T027-artifacts/run_probe.py"
+      summary: "独立review・裁定をaudit work_typeへ修正し、実q3/q4でaggregate=Codex、candidate=qwen又は規定fallback、unsafe_model_override 0を確認した。"
+      commands:
+        - cmd: "focused tests"
+          status: pass
+          summary: "305 passed, 83 subtests passed"
+        - cmd: "q3/q4 real isolated route probe"
+          status: pass
+        - cmd: "scope and safety checks"
+          status: pass
+          summary: "00_source・Firestore・publication変更0"
+      evidence:
+        - "commit 6f8035b68"
+        - "q3はqwen local_primaryでvalidated/localSuccess。"
+        - "q4 question_typeはlocal success、explanationはtimeout/quality retry後に規定Codex fallback。"
+      remaining_blockers:
+        - "固定7問の最終hybrid受入と監査parity。"
+        - "GitHub HTTPS認証切れによりorigin/mainへ未push。"
+
+  - id: T028
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "commit 6f8035b68の隔離copyで固定7問のhybrid最終受入、Codex監査batch parity、故障注入、resume安全性を実行し、採用可否を機械可読証拠へ閉じる。"
+    inputs:
+      - "T025 codex_only baseline: 6 validated, 1 evidence hold"
+      - "T027 route probe and final routing commit 6f8035b68"
+      - "T006 fixed seven-question set/stages/oracle"
+    constraints:
+      - "codex_only baselineはT025実runを再利用し、hybridだけ新規実行してよい。"
+      - "oracleはrun後だけ。1/1 limits、Firestore/publication/production write禁止。"
+    expected_output:
+      - "Final seven-question hybrid result"
+      - "Audit batch=5 vs 1 parity or fail-closed reason"
+      - "Fault/resume receipts or fail-closed reason"
+      - "Adopt/reject quality evidence"
+    allowed_files:
+      - "docs/goals/question-maintenance-hybrid-llm/notes/T028-artifacts/**"
+      - "OS一時directory内の隔離copyとrun/patch artifacts"
+    verify:
+      - "固定7問全指定stageを実Ollama/Codexで直列実行"
+      - "重大品質事故0、passed又は根拠不足hold、全stage fallbackなしlocal最終合格5/7以上"
+      - "可能な成果をbatch=5と1で監査し問題別判定差分0、欠落・重複0"
+      - "fault/retry/fallbackとresume/fingerprint driftを実又はproduct integration evidenceで確認"
+      - "profile/model/attempt/localSuccess、peak 1、外部write 0、00_source/production不変"
+      - "focused/related regression、machine assertions、diff check、scoped commit"
+    stop_if:
+      - "残り全問成功でも5/7未満が確定する。"
+      - "重大品質事故、routing不具合、batch parity差分、外部writeが生じる。"
+      - "同じ実run失敗を二回是正しても解消しない。"
+      - "allowed_files外product変更が必要になる。"
+    receipt:
+      result: blocked
+      full_outcome_complete: false
+      changed_files:
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T028-artifacts/README.md"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T028-artifacts/assertions.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T028-artifacts/environment.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T028-artifacts/result.json"
+      summary: "最終hybrid実runは4問完了時点で全工程fallbackなしlocal確定1問。残り全成功でも最大4/7のため停止し、qwen3:14b不採用を記録した。"
+      commands:
+        - cmd: "real hybrid fixed set"
+          status: fail
+          summary: "4問完了、local全工程合格1、fallback 3"
+        - cmd: "focused and related regression"
+          status: pass
+          summary: "305 passed + 83 subtests、497 passed + 151 subtests"
+        - cmd: "machine/safety/scope checks"
+          status: pass
+          summary: "重大事故0、peak各1、外部write 0、00_source不変"
+      evidence:
+        - "commit 7f3399530"
+        - "現qwen3:14bは必須5/7を達成不能。"
+      remaining_blockers:
+        - "品質閾値未達のためbatch parity・fault・resumeは未実施。"
+        - "GitHub HTTPS認証切れによりorigin/mainへ未push。"
+
+  - id: T029
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T028の実品質結果を厳格評価し、qwen3:14b不採用のまま構成を閉じるか、現機材で実行可能な最小のmodel/prompt reworkを一度だけ試すかを決定する。"
+    inputs:
+      - "T025/T027/T028 real-model artifacts"
+      - "Current config and machine capacity"
+      - "Goal acceptance criteria"
+    constraints:
+      - "Read-only。"
+      - "fallback常用をlocal成功とみなさない。"
+      - "品質基準を下げない。"
+    expected_output:
+      - "Adopt/reject/rework decision"
+      - "Strict explanation of feasibility and operational default"
+      - "If rework, exactly one bounded task and stop conditions"
+      - "If reject, final product/config/documentation changes needed to avoid unsafe default"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "qwen3:14bは明確に不採用。routingは修復済みで品質不足を実装不具合に転嫁できない。32GB機で公式17GBのqwen3.5:27bをprompt分岐なしで一度だけ試す。"
+      evidence:
+        - "qwen3:14bは4問時点local全工程合格1、fallback 3、最大4/7。"
+        - "codex_onlyは6 validated・根拠不足hold 1。"
+        - "server/UIのprofile省略時既定はcodex_only。"
+        - "qwen3.5:27b Q4_K_Mは公式17GBで、32GB・1並列の実測候補。"
+      next_task: T030
+
+  - id: T030
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "qwen3.5:27b Q4_K_Mを唯一の追加候補として固定7問へ直列投入し、prompt・workflow・検査・品質閾値を変えず採否を確定する。合格時だけlocal profile設定へ反映し、不合格時はcodex_only既定と両local model不採用を正本文書へ明記して探索を終える。"
+    inputs:
+      - "T029 receipt and current 32GB machine"
+      - "T006 fixed seven-question acceptance contract"
+      - "Final routing commit 6f8035b68"
+    constraints:
+      - "追加候補はqwen3.5:27bだけ。prompt分岐、workflow変更、検査緩和禁止。"
+      - "qwen3:14b不採用。codex_onlyを受入までの運用既定とする。"
+    expected_output:
+      - "Real qwen3.5:27b acceptance and adopt/reject decision"
+      - "Config/docs reflecting only accepted result"
+      - "If accepted, audit/fault/resume closure"
+    allowed_files:
+      - "config/question_maintenance_llm.toml"
+      - "document/operations/local_question_review_console.md"
+      - "tests/test_question_review_model_backend.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "docs/goals/question-maintenance-hybrid-llm/notes/T030-artifacts/**"
+      - "OS一時directory内の新規隔離copy・run artifact"
+    verify:
+      - "Ollama pull/show qwen3.5:27bと実model identity"
+      - "固定7問・指定stage・oracle非入力・1/1 limits"
+      - "prompt/workflow不変、変更可能なのは採用時のmodel/retry_model/timeoutのみ"
+      - "重大事故0、passed又は根拠hold、fallbackなしlocal全工程合格5/7以上"
+      - "合格時だけaudit batch=5/1 parity、fault/retry/fallback、resume/fingerprint driftを完遂"
+      - "関連全test、diff check、00_source/external/production write 0、peak各1、scoped commit"
+    stop_if:
+      - "残り全成功でも5/7未満。"
+      - "重大事故、監査差分、外部write又は00_source変更。"
+      - "OOM、memory pressure赤又はOllama強制終了が二回。"
+      - "runtime code、prompt分岐又は検査緩和が必要。"
+      - "qwen3.5:27b不合格後に別model探索が必要。"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      changed_files:
+        - "document/operations/local_question_review_console.md"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T030-artifacts/README.md"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T030-artifacts/result.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T030-artifacts/assertions.json"
+        - "docs/goals/question-maintenance-hybrid-llm/notes/T030-artifacts/environment.json"
+      summary: "qwen3.5:27bはq1/q2初回各1200秒timeout、q3も15分超で3分SLA未達。qwen3:14bとともに不採用とし、codex_onlyを運用既定、local profileを未承認実験用と記録した。"
+      commands:
+        - cmd: "real qwen3.5:27b fixed-set partial acceptance"
+          status: pass
+          summary: "q1/q2 primary 1200秒timeout、q3 15分超で利用者SLAにより停止"
+        - cmd: "focused and related/docs tests"
+          status: pass
+          summary: "230 passed + 21 subtests、172 passed + 47 subtests"
+        - cmd: "safety and scope checks"
+          status: pass
+          summary: "外部write・00_source変更・重大事故0"
+      evidence:
+        - "commit 1180d3fdb"
+        - "qwen3:14b/qwen3.5:27b不採用、追加model探索終了。"
+      remaining_blockers:
+        - "GitHub HTTPS認証切れによりorigin/mainへ未push。"
+
+  - id: T031
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "全実装・回帰・実model結果を最終監査し、現在安全に提供できる範囲、未達範囲、3分SLAに必要な根本設計改善を確定する。"
+    inputs:
+      - "commits 00950d117 through 1180d3fdb"
+      - "T006/T025/T027/T028/T030 artifacts"
+      - "User requirement: one-question maintenance target within three minutes"
+    constraints:
+      - "Read-only。"
+      - "local失敗を成功扱いしない。"
+      - "GitHub push以外の未完了を外部blockerと混同しない。"
+    expected_output:
+      - "final outcome complete true/false"
+      - "Codex-only production readiness"
+      - "Hybrid architecture readiness versus current local model readiness"
+      - "Minimal root redesign recommendation for three-minute SLA"
+      - "Any final Worker task strictly required before handoff"
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      rationale: "別pipelineではなく役割境界の根本改善が必要。localを短時間draft一回、Codexを最終監査・必要時一回修復とし、問題単位180秒budgetで統制する。"
+      evidence:
+        - "Codex-onlyは6 validated・根拠hold 1だが3分SLA未計測。"
+        - "qwen3:14bはlocal全工程1/4、qwen3.5:27bは1200秒timeoutで両方不採用。"
+        - "未承認local profileがUI/APIで実行可能なため文書だけでは運用保護不足。"
+      next_task: T032
+
+  - id: T032
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "同じpipeline内でlocalを非確定・短時間の一括draft一回へ限定し、Codexを最終監査と必要時一回修復へ変更する。問題単位180秒budget、監査deadline flush、未承認profile gateを実装しqwen3:14bを一度だけ再受入する。"
+    inputs:
+      - "T031 receipt and all real-model acceptance evidence"
+      - "User SLA: one-question terminal within about 180 seconds"
+    constraints:
+      - "別pipeline、provider固有workflow、model名prompt分岐を作らない。"
+      - "local draftは保存・公開判定をせず、Codex合格後だけ保存。"
+      - "正答oracle、検査、stateHash、00_source、公開境界を緩めない。"
+    expected_output:
+      - "One compact local draft turn and at most one Codex repair"
+      - "180-second end-to-end budget and deadline audit flush"
+      - "Operational profile UI/API gate"
+      - "Real seven-question acceptance"
+    allowed_files:
+      - "config/question_maintenance_llm.toml"
+      - "config/question_maintenance_workflow.toml"
+      - "prompt/local_maintenance_draft.md"
+      - "tools/question_review_console/model_backend.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/index.html"
+      - "tests/test_question_review_model_backend.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_evaluation.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "tests/test_question_review_codex_app_server.py"
+      - "document/operations/local_question_review_console.md"
+      - "document/temporary/question_maintenance_hybrid_llm_acceptance_20260825.md"
+      - "docs/goals/question-maintenance-hybrid-llm/notes/T032-artifacts/**"
+    verify:
+      - "queue開始からterminalまで180秒budgetをlocal/audit/repair全turnへ伝播"
+      - "local compact draft一回、同一model retryなし、保存判定なし"
+      - "Codex監査合格後だけ保存、不合格時Codex修復最大一回"
+      - "audit 5問/120000 bytes上限とdeadline優先の短時間部分flush"
+      - "non-operational profileをUI非表示、preview/start fail-closed"
+      - "focused related tests and node check"
+      - "固定7問各180秒以内、重大事故0、Codex修復なしdraft受理5/7以上、batch parity差分0"
+      - "diff/00_source/external write checks and scoped commit"
+    stop_if:
+      - "別pipeline、provider/model固有分岐又は検査緩和が必要。"
+      - "qwen3:14b一回再受入で5/7又は3分目安未達。"
+      - "Codex-onlyも3分目安未達で追加設計判断が必要。"
+      - "外部write、00_source変更又はallowed_files外変更が必要。"
+    receipt:
+      result: blocked
+      full_outcome_complete: false
+      changed_files: []
+      summary: "現行は問題×工程のstage固有candidateを即保存するため、一括draft・Codex保存前監査・180秒配分には未定義のarchitecture契約が必要。推測実装せず停止した。"
+      commands: []
+      evidence:
+        - "router変更だけではCodex合格前保存を防げない。"
+        - "一括draft schema、監査decision/repair schema、各turn配分、deadline flush値が未定義。"
+      remaining_blockers:
+        - "Judge/Architectによるexact contract。"
+
+  - id: T033
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "3分SLA向け一括local draft・Codex保存前監査・最大一回修復を、既存stage/field/patch契約へ接続できるexact architectureとして確定する。"
+    inputs:
+      - "T031 design direction and T032 blocker"
+      - "Current workflow stage schemas and save boundary"
+      - "User priority: simplicity and about three minutes per question"
+    constraints:
+      - "Read-only。"
+      - "別pipeline、provider/model固有分岐を作らない。"
+      - "既存のstage別正本field契約を破壊しない。"
+    expected_output:
+      - "Exact draft/decision/repair schemas"
+      - "Exact 180-second budget allocation and batch flush policy"
+      - "Minimal implementation seams and migration behavior"
+      - "One largest safe Worker package or explicit infeasibility"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      summary: "別pipelineは作らず、問題単位draft envelope、保存前Codex監査、最大一回Codex修復、全工程一括commitへ境界を移す。"
+      evidence:
+        - "local draftは一問一回、retry/fallbackなし。既存stage candidateを一問envelopeへ束ねる。"
+        - "180秒をdraft 50秒、audit 70秒、repair 50秒、partial-flush idle 2秒、finalize 8秒へ配分する。"
+        - "audit passed又はpassed repair前はpatch/work versionを書かず、全stageを一回のcanonical transactionで確定する。"
+        - "audit batchは最大5問/120000 bytes、EDFで次のdraftより優先し、deadline接近時は部分flushする。"
+        - "operational=false profileはstatus/UI/preview/startでfail-closedとし、実受入合格までlocalを非運用に保つ。"
+      next_task: T034
+
+  - id: T034
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "既存単一pipelineへquestion-maintenance-draft/v1、保存前audit/repair、180秒deadline、全工程一括commit、operational profile gateを実装し、回帰と隔離受入を行う。"
+    inputs:
+      - "T033 exact architecture receipt"
+      - "Existing stage candidate, preparedCandidate, evaluation, patch and publication contracts"
+    constraints:
+      - "一問につきmaintenance draft turnは最大一回、local retry/fallbackは0。"
+      - "Codex passed又はpassed repair前のpatch/work-version writeは0。"
+      - "provider/model名によるworkflow分岐、別pipeline、既存field検査の緩和を禁止する。"
+      - "00_source、既存ID、Firestore、外部公開を変更しない。"
+      - "PM所有のstate.yaml、T006 artifact移設、temporary acceptance reportを編集又はstageしない。"
+    expected_output:
+      - "Exact v1 draft/audit/repair schemas and parsers"
+      - "Per-question 180-second deadline scheduler and audit partial flush"
+      - "Precommit audit and one atomic all-stage commit"
+      - "Operational profile fail-closed UI/API gate"
+      - "Focused and related regression evidence plus isolated real-model acceptance evidence"
+    allowed_files:
+      - "config/question_maintenance_llm.toml"
+      - "config/question_maintenance_workflow.toml"
+      - "prompt/local_maintenance_draft.md"
+      - "tools/question_review_console/model_backend.py"
+      - "tools/question_review_console/question_candidate.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/evaluation.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_model_backend.py"
+      - "tests/test_question_review_question_candidate.py"
+      - "tests/test_question_review_hybrid_llm.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_evaluation.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+      - "docs/goals/question-maintenance-hybrid-llm/notes/T034-artifacts/**"
+    verify:
+      - ".venv/bin/python -m pytest tests/test_question_review_model_backend.py tests/test_question_review_question_candidate.py tests/test_question_review_hybrid_llm.py -q"
+      - ".venv/bin/python -m pytest tests/test_question_review_qualification_runs.py tests/test_question_review_evaluation.py tests/test_question_review_server.py tests/test_question_review_workflow.py -q"
+      - "node --check tools/question_review_console/static/app.js"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "isolated fixed-seven codex_only and hybrid acceptance with admitted-to-terminal <=180s"
+    stop_if:
+      - "allowed_filesが所有者不明のdirty変更を含む。"
+      - "監査合格後に全stageを一回のcanonical transactionへ収められない。"
+      - "既存field/stateHash/evaluation/publication gateを緩める必要がある。"
+      - "provider又はmodel固有のworkflow分岐が必要になる。"
+      - "Codex又はHTTP turnへ残り時間timeoutを伝播できない。"
+      - "allowed_files外、00_source又は外部writeを変更する必要がある。"
     receipt: null
 
   - id: T009
