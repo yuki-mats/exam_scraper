@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T093
+active_task: T094
 
 tasks:
   - id: T001
@@ -6486,7 +6486,7 @@ tasks:
   - id: T093
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "normal6再整備後のexact6問をread-only監査し、公式補正待ち10問を混ぜず別session評価へ送れるか判定する。"
     inputs:
@@ -6499,6 +6499,55 @@ tasks:
     expected_output:
       - "evaluation6 preview and digests"
       - "next Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "再整備済みexact6問は全件machineReadyで、evaluation previewは6/6 evaluable、blocked0である。公式補正待ち10問とpublished379は対象外のため再評価を承認する。"
+      evidence:
+        - "exact6 id/stateHash/status/resultHash digestはe574d3ed4a31f169df488cf441469343a3c8fca50ae120f8dbeb88aef04481a7、IDs hashはdf45e9b2f4ec99f8083b1eb198f2668efbf2746c7650b393607e0aa2bb1b83a9。"
+        - "preview selected6、evaluable6、blocked0、session6、canStart true、policy5.2。"
+      worker_package:
+        objective: "exact6問をpolicy5.2で再評価し、failed/inconclusive0で終端させる。"
+        allowed_files:
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+          - "output/question_review_console/cache/**"
+          - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+        verify:
+          - "6/6 terminal、failed0、inconclusive0。"
+          - "maintain10、published379、problem data、Firestore writes0不変。"
+        stop_if:
+          - "target mismatch又はfailed/inconclusiveがretry後も残る。"
+      next_allowed_task: T094
+      blocked_tasks:
+        - "official correction10"
+        - T999
+      note_needed: false
+      harness: codex
+  - id: T094
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "exact6問をpolicy5.2で再評価し、failed/inconclusive0で終端させる。"
+    inputs:
+      - "T093 Judge receipt"
+      - "digest e574d3ed4a31f169df488cf441469343a3c8fca50ae120f8dbeb88aef04481a7"
+    constraints:
+      - "exact6 only。maintain10、published379、problem dataを変更しない。"
+    allowed_files:
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+      - "output/question_review_console/cache/**"
+      - docs/goals/aws-saa-c03-395-upload-ready/state.yaml
+    verify:
+      - "6 terminal、failed0、inconclusive0。"
+    stop_if:
+      - "target mismatch。"
+      - "failed/inconclusive remains。"
+    expected_output:
+      - "terminal evaluation6 result"
     receipt: null
   - id: T999
     type: judge
