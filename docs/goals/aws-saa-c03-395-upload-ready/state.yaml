@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T073
+active_task: T075
 
 tasks:
   - id: T001
@@ -5191,7 +5191,7 @@ tasks:
   - id: T073
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "評価が問題文・選択肢・成立条件の修正を要求する場合を05 originalizeへ明示的に配送し、異種rework stage混在planのselection countと実queue countを分離して単一previewを成立させる。評価policyはminor 5.2へ更新し、回帰テストと正本文書を整合させる。"
     inputs:
@@ -5229,6 +5229,148 @@ tasks:
       - "Verification fails twice."
     expected_output:
       - "simple rework routing/counting implementation with regression tests"
+    receipt:
+      result: done
+      summary: "評価で問題文・選択肢・成立条件の修正が必要な指摘を05 originalizeへ配送し、正答対応だけを02aへ限定した。05、02a、03の実行順を確定し、異種stage混在planの元selection数と実queue数を分離した。評価policyは同一majorの5.2へ更新し、関連314テストと保護対象不変を確認してmainへpushした。"
+      evidence:
+        - "evaluation schema、validator、promptが05を許可し、問題内容の欠陥を05、現在の本文・選択肢を維持した正答対応だけの欠陥を02aへ割り当てる。"
+        - "evaluation_rework_stage_codesは05指摘かつanswerMappingMatched=falseの場合に05、02a、03をこの順で返す回帰テストを通過した。"
+        - "_apply_evaluation_rework_planはselectionWorkItemCountへ元selection数、workItemCountへ問題別stageの実queue数を保存し、既存target identity検査を弱めずmixed planを成立させる。"
+        - "config/question_maintenance_workflow.tomlのevaluation policy_versionを5.1から5.2へ更新し、major 5互換を維持した。"
+        - "python -m unittest tests.test_question_review_evaluation tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow_catalog はRan 314 tests、OK。"
+        - "git diff --check成功。00_sourceとcategory/category.jsonの差分なし。"
+        - "commit 7b04706dbをorigin/mainへpush済み。"
+      changed_files:
+        - config/question_maintenance_workflow.toml
+        - document/operations/local_question_review_console.md
+        - tests/test_question_review_evaluation.py
+        - tests/test_question_review_qualification_runs.py
+        - tests/test_question_review_workflow_catalog.py
+        - tools/question_review_console/evaluation.py
+        - tools/question_review_console/evaluation_result.schema.json
+        - tools/question_review_console/qualification_runs.py
+      commands:
+        - cmd: "python -m unittest tests.test_question_review_evaluation tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow_catalog"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "git diff --exit-code -- output/aws-solutions-architect-associate/questions_json/udemy-aws-saa-c03/00_source output/aws-solutions-architect-associate/category/category.json"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+      verification_attempts: 1
+      note_needed: false
+      harness: codex
+  - id: T074
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T073の評価rework経路修正をread-only監査し、published266とsource answer difference未承認14問を除外した現行machine-ready非合格問をpolicy 5.2で再評価する最大の安全なWorker packageを確定する。"
+    inputs:
+      - "T073 Worker receipt"
+      - "current SAA evaluation projections and work versions"
+      - "evaluation policy 5.2 and rework routing tests"
+    constraints:
+      - "Read-only。評価run、再整備run又は問題data変更を開始しない。"
+      - "published266を再評価しない。"
+      - "source answer difference未承認14問を通常評価又は通常reworkへ混ぜない。"
+      - "Firestoreへ書き込まない。"
+    expected_output:
+      - "exact target partition and counts"
+      - "evaluation batch partition within max100"
+      - "allowed_files, verify, stop_if"
+      - "next Worker package"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "T073は問題内容欠陥を05へ配送し、mixed planのselection countと実queue countを分離する正常経路を追加して314テストを通過した。現行SAAはpublished266、publishReady8、machine-ready非合格107、source answer difference未承認14に厳密分離できる。誤配送された旧評価を含む107問だけをpolicy 5.2で再評価すれば、公開済み266問と正答根拠承認が必要な14問を触れずに次の再整備対象を確定できる。batch上限100のため、question ID昇順で100問と7問の二つに分ける。"
+      worker_package:
+        objective: "現行machine-ready非合格107問を固定した100問＋7問の2 batchでpolicy 5.2評価し、問題内容欠陥を05へ配送できるfresh passed又はneeds_rework projectionへ全件更新する。"
+        allowed_files:
+          - output/question_review_console/.review-ui.lock
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+          - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+          - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+          - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+          - output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json
+          - output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json
+        verify:
+          - "target107 and exact digest"
+          - "two previews 100 and 7 under policy 5.2"
+          - "two terminal succeeded jobs with failed0 and inconclusive0"
+          - "107 fresh currentValid projections"
+          - "published/source-difference/protected-data boundary"
+        stop_if:
+          - "target identity drift"
+          - "preview mismatch"
+          - "failed or inconclusive result"
+          - "excluded scope mutation"
+          - "protected data or Firestore write"
+          - "repeated auth or network failure"
+      evidence:
+        - "現行partitionはpublished266、publishReady8、needsReworkかつmachineReady94、unreviewedかつmachineReady13、source answer differenceかつmachineReady false14で合計395問。"
+        - "対象107問はsource answer difference=falseで、needsRework94＋unreviewed13。question IDとstateHashの昇順identity SHA-256はdd5023d501e6b9fd99ac440ccc1aa73916ceb4ea32d63c3521c5f8c32e638f28。"
+        - "batch1 100問のSHA-256は26e1801dac512b4aaaedae5b1f35948c2c6fe5cef690283c8b4ca77966397a41、batch2 7問はee2bc130c743833209eb430cdf0d4959283abe9c084bf2a23fe48274646eee9b。"
+        - "published266のevaluation projection aggregate SHA-256は23fa20a4f1586f94a149e637d974fe32d8468730834f1d58cfbaefd02f4daf26。"
+        - "source answer difference14問にはevaluation projection fileが存在せず、通常評価の対象外である。"
+        - "T073 commit 7b04706dbはorigin/mainへpush済みで、評価policyは5.2、majorは5のままである。"
+      blocked_tasks:
+        - T999
+        - "evaluation rework after fresh 5.2 results"
+        - "14 official answer-difference approvals"
+      missing_evidence:
+        - "two policy 5.2 evaluation job receipts"
+        - "fresh passed/needs_rework partition"
+        - "post-evaluation mixed rework preview and convergence"
+        - "14 official answer-difference approvals"
+        - "all395 passed final audit"
+      next_allowed_task: T075
+      note_needed: false
+      harness: codex
+  - id: T075
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "現行machine-ready非合格107問を固定した100問＋7問の2 batchでpolicy 5.2評価し、問題内容欠陥を05へ配送できるfresh passed又はneeds_rework projectionへ全件更新する。"
+    inputs:
+      - "T074 Judge receipt"
+      - "target identity digest dd5023d501e6b9fd99ac440ccc1aa73916ceb4ea32d63c3521c5f8c32e638f28"
+      - "evaluation policy 5.2"
+    constraints:
+      - "対象はbucketがunreviewed又はneedsRework、source answer difference=false、machineReady=trueのexact107問だけ。"
+      - "question ID昇順の100問＋7問に分け、一つ目がterminal successになってから二つ目を開始する。"
+      - "published266、publishReady8、source answer difference未承認14問を評価しない。"
+      - "問題data、00_source、category、Firestoreを変更しない。"
+    allowed_files:
+      - "output/question_review_console/.review-ui.lock"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluations/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/evaluation_prompts/**"
+      - "output/question_review_console/aws-solutions-architect-associate/udemy-aws-saa-c03/work_versions/**"
+      - "output/question_review_console/workflow_runs/aws-solutions-architect-associate/**"
+      - "output/question_review_console/runtime_observations/aws-solutions-architect-associate/**"
+      - "output/question_review_console/cache/question_lists/aws-solutions-architect-associate.json"
+      - "output/question_review_console/cache/question_details/aws-solutions-architect-associate--udemy-aws-saa-c03.json"
+    verify:
+      - "開始前targetは107問、needsRework94、unreviewed13、identity SHA-256 dd5023d5...である。"
+      - "batch1は100問、SHA-256 26e1801d...、batch2は7問、SHA-256 ee2bc130...で、両previewがpolicyVersion 5.2、canStart trueである。"
+      - "両jobがterminal succeeded、completed 100/100と7/7、failed0、inconclusive0である。"
+      - "107問すべてのcurrentValidが現行stateHash、policyVersion 5.2、status passed又はneeds_reworkである。"
+      - "published266 evaluation aggregate SHA-256 23fa20a4...が不変で、source difference14にはevaluation projectionを新規作成しない。"
+      - "SAA 395/395 local-ready、issues0、Firestore writes0、00_source/category不変である。"
+    stop_if:
+      - "開始前target count、bucket内訳又はidentity digestが一致しない。"
+      - "previewが対象、policy 5.2、canStartを満たさない。"
+      - "batchがfailed、inconclusive、非terminal又は一部未完了になる。"
+      - "published266、publishReady8又はsource difference14がscopeへ入る。"
+      - "問題data、00_source、category、Firestore又はallowed_files外の変更が必要になる。"
+      - "認証又は通信失敗が一度の通常retryで解消しない。"
+      - "Verification fails twice."
+    expected_output:
+      - "two terminal evaluation jobs and 107 fresh policy 5.2 projections"
     receipt: null
   - id: T999
     type: judge
