@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/aws-saa-c03-395-upload-ready/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/aws-saa-c03-395-upload-ready"
 
-active_task: T098
+active_task: T100
 
 tasks:
   - id: T001
@@ -6714,7 +6714,7 @@ tasks:
   - id: T098
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "586de13b95921e5e50d54029の05 questionBodyTextへ『コンテナ化せず、既存サーバーを同じ実行環境のままリホストする』要件を一文追加し、syncとreadbackを行う。"
     inputs:
@@ -6739,6 +6739,70 @@ tasks:
       - "extra problem field change。"
     expected_output:
       - "corrected question and synced artifacts"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "05 questionBodyTextへコンテナ化禁止と同一実行環境のままのリホスト要件を追加し、395問のartifact syncを成功させた。"
+      evidence:
+        - "586de13b95921e5e50d54029のquestionBodyTextだけへ『アプリケーションをコンテナ化せず、既存サーバーを同じ実行環境のままリホストする必要があります。』を追加した。"
+        - "選択肢4件、正答選択肢1、public/original/source IDは不変である。"
+        - "sync previewはquestionCount395、merge/convert/upload各395 match、warnings0、failedDeltaPaths0、canSync true。"
+        - "sync job cekYlbzCgXExOWS-は2026-08-24T14:05:38+09:00にsucceededし、Merge・Convert・upload-ready一致を確認した。"
+      verification:
+        - cmd: "question detail readback for 586de13b95921e5e50d54029"
+          result: "projected body反映、nextAction evaluate、正答・選択肢・ID不変"
+        - cmd: "group sync job cekYlbzCgXExOWS-"
+          result: "succeeded"
+      next_allowed_task: T099
+  - id: T099
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: low
+    objective: "直近で再整備又は直接補正したnormal3問だけを別sessionで評価し、official correction10を変更せず収束させる。"
+    inputs:
+      - "T098 synced artifacts"
+      - "56afb06bc80fb02777b88963"
+      - "586de13b95921e5e50d54029"
+      - "8f05cbfe48316f933f01dff8"
+    constraints:
+      - "exact3 only。official correction10を評価対象へ混ぜない。"
+      - "問題データ、00_source、category、Firestoreを変更しない。"
+    expected_output:
+      - "3 evaluation receipts"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "evaluation job f1CczlnOp5QdoFAHでexact3問を評価し、3/3合格、要再整備0、失敗0で収束した。"
+      evidence:
+        - "56afb06bc80fb02777b88963: passed、正誤5/5、解説95点。"
+        - "586de13b95921e5e50d54029: passed、正誤4/4、解説96点。"
+        - "8f05cbfe48316f933f01dff8: passed、正誤4/4、解説96点。"
+        - "残りはofficial correction10のみである。"
+      verification:
+        - cmd: "evaluation job f1CczlnOp5QdoFAH readback"
+          result: "selected3 completed3 passed3 needsRework0 inconclusive0 failed0 skipped0"
+      next_allowed_task: T100
+  - id: T100
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "残るofficial correction10をread-only監査し、AWS一次資料、訂正正答、workflow入力、実行順をexact packageとして確定する。"
+    inputs:
+      - "current official correction10 question details"
+      - "tools/question_review_console/official_source_correction.py"
+      - "official-source-corrections API contract"
+      - "AWS primary documentation"
+    constraints:
+      - "Read-only。問題dataとcorrection patchをまだ変更しない。"
+      - "00_sourceを変更しない。"
+      - "各問を独立に根拠確認し、取得元正答とAWS根拠の衝突を推測で解消しない。"
+      - "Firestore writes0を維持する。"
+    expected_output:
+      - "10問のcorrect-answer evidence matrix"
+      - "official correction exact worker package"
+      - "stop conditions"
     receipt: null
   - id: T999
     type: judge
