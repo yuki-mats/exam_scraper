@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T009
+active_task: T010
 
 tasks:
   - id: T001
@@ -374,7 +374,7 @@ tasks:
   - id: T009
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "平成28年告示第272号のlocator needleを公式HTMLの実在表記へ合わせ、公式15資料を再検証してpreflight-onlyをpassへ閉じる。"
     allowed_files:
@@ -393,6 +393,42 @@ tasks:
     stop_if:
       - "Any change beyond the exact official HTML locator normalization is required."
       - "Any official body hash, MIME, revision or other locator changes."
+      - "Any LLM, source, production patch, Firestore or publication write would occur."
+      - "Verification fails twice for the same cause."
+    receipt:
+      result: blocked
+      summary: "告示locatorを公式HTMLの算用数字表記へ修正したが、検査器の古い日付入りrevisionId特例が別途完全一致を要求して停止した。"
+      evidence:
+        - "15資料のhash、MIME、bytes、revisionは維持。"
+        - "失敗箇所はrun_preflight.pyの告示第272号専用分岐のみ。"
+        - "modelCalls 0。"
+      spawned_tasks:
+        - T010
+
+  - id: T010
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "告示第272号だけに日付入りrevisionId本文一致を重ねる古い特例を削除し、全資料共通の承認locator needles検査へ統一してpreflightをpassへ閉じる。"
+    allowed_files:
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests/test_contract.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/law-provenance.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/execution-summary.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/safety.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T010-receipt.json"
+      - "/private/tmp/judoseifukushi-local-llm-benchmark-T010/**"
+    verify:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py --repo-root . --temp-root /private/tmp/judoseifukushi-local-llm-benchmark-T010 --artifacts-dir docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --preflight-only"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --check-oracle-separation --check-usage --check-concurrency --check-safety --preflight-only"
+      - "jq -e '.status == \"pass\" and (.failedChecks | length) == 0 and .modelCalls == 0' docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "git diff --exit-code -- ':(glob)output/**/00_source/**' ':(glob)output/**/10*/**' ':(glob)output/**/15*/**' ':(glob)output/**/18*/**' ':(glob)output/**/21*/**' ':(glob)output/**/22*/**' ':(glob)output/**/23*/**' ':(glob)output/**/24*/**' config tools prompt document"
+    stop_if:
+      - "Any acceptance condition other than removal of the redundant notice-specific revisionId text match must change."
+      - "Any official body hash, MIME, bytes, revision or approved locator changes."
       - "Any LLM, source, production patch, Firestore or publication write would occur."
       - "Verification fails twice for the same cause."
     receipt: null
