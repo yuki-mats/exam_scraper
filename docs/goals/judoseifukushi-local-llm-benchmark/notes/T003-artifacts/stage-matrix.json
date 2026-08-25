@@ -1,0 +1,31 @@
+{
+  "workflowSha256": "17c8f24559827b3bc2cc147310a5484723e0fc622eb1037f4daaae2685ec1c48",
+  "assignedTargets": [
+    "correct_choice",
+    "explanation",
+    "law_audit",
+    "law_context",
+    "question_type",
+    "source_evidence_hold"
+  ],
+  "resolvedWorkflowStageIds": [
+    "correct_choice",
+    "explanation",
+    "law_audit",
+    "law_context",
+    "question_type"
+  ],
+  "specialPolicyTargets": [
+    "source_evidence_hold"
+  ],
+  "routes": [
+    "codex_only",
+    "qwen3:14b",
+    "qwen3.5:27b"
+  ],
+  "limits": {
+    "questionParallelism": 1,
+    "llmCallConcurrency": 1
+  },
+  "status": "preflight_blocked"
+}

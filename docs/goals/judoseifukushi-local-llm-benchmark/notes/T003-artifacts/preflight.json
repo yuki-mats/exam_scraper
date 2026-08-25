@@ -1,0 +1,464 @@
+{
+  "schemaVersion": "judoseifukushi-local-llm-preflight/v1",
+  "createdAt": "2026-08-25T01:34:23.438930+00:00",
+  "sourceCommit": "91d21d0f0ddbfb3346bedacf6f0b61a3e0682a6d",
+  "status": "blocked",
+  "failedChecks": [
+    "building_image_assets_and_hashes",
+    "law_exam_time_and_current_provenance"
+  ],
+  "modelCalls": 0,
+  "checks": [
+    {
+      "name": "36_unique_source_ids_and_hashes",
+      "status": "pass",
+      "evidence": {
+        "expected": 36,
+        "resolved": 36,
+        "rows": [
+          {
+            "id": "9c3273bf54057cd0",
+            "relativePath": "output/judoseifukushi/questions_json/2007/00_source/question_2007_6.json",
+            "questionIndex": 20,
+            "sourceSha256": "546635da5236bfa67aa7329dc7f268544c2bfae7e8df8cd4e6719196b08c27f9",
+            "stratum": "source-answer-missing"
+          },
+          {
+            "id": "fa0d4e2042e65b59",
+            "relativePath": "output/judoseifukushi/questions_json/2003/00_source/question_2003_5.json",
+            "questionIndex": 23,
+            "sourceSha256": "2591c342e9edb1dad277b6395fed00869a3d82760260c1d7a39e26914a166755",
+            "stratum": "source-answer-missing"
+          },
+          {
+            "id": "c5167b46942fb08e",
+            "relativePath": "output/judoseifukushi/questions_json/2024/00_source/question_2024_2.json",
+            "questionIndex": 15,
+            "sourceSha256": "b841ee950ab176bd138e3ec99a8fc1b9c928abe921522c9cfea0979c6d4b797d",
+            "stratum": "law"
+          },
+          {
+            "id": "0eb595c2c11278f5",
+            "relativePath": "output/judoseifukushi/questions_json/2024/00_source/question_2024_2.json",
+            "questionIndex": 16,
+            "sourceSha256": "b841ee950ab176bd138e3ec99a8fc1b9c928abe921522c9cfea0979c6d4b797d",
+            "stratum": "law"
+          },
+          {
+            "id": "8987ec55216cbc63",
+            "relativePath": "output/judoseifukushi/questions_json/2025/00_source/question_2025_2.json",
+            "questionIndex": 19,
+            "sourceSha256": "3a38b88b36c95218321a4a0ea4085fbabdc0167e3f74925190a92a5013b8253a",
+            "stratum": "law"
+          },
+          {
+            "id": "dfb3fe84e07f47f9",
+            "relativePath": "output/judoseifukushi/questions_json/1993/00_source/question_1993_4.json",
+            "questionIndex": 15,
+            "sourceSha256": "91fd326b25a4342beea41d18287e9d9d8be0c868ae8e1555f74f56091aa84d07",
+            "stratum": "law"
+          },
+          {
+            "id": "1ebaca9b85c6dd6e",
+            "relativePath": "output/judoseifukushi/questions_json/2002/00_source/question_2002_4.json",
+            "questionIndex": 18,
+            "sourceSha256": "75da6377a2eda0f0e70ebbc054d454d14d7d9fd13a822ad4211f5fae7f3a66fd",
+            "stratum": "law"
+          },
+          {
+            "id": "130d5c77cc5c2b8b",
+            "relativePath": "output/judoseifukushi/questions_json/2005/00_source/question_2005_4.json",
+            "questionIndex": 13,
+            "sourceSha256": "2fe07c56b93e417d1a9c1651b70b50eb50430bbb2ef72850cf86873c7f064edc",
+            "stratum": "numeric"
+          },
+          {
+            "id": "5c1ab42128e170ab",
+            "relativePath": "output/judoseifukushi/questions_json/2015/00_source/question_2015_3.json",
+            "questionIndex": 16,
+            "sourceSha256": "2af235424a2ff25c92044911aea81ddfd0f5a8121891ac7bc43ebfe63468df55",
+            "stratum": "numeric"
+          },
+          {
+            "id": "ee361042818c9b9f",
+            "relativePath": "output/judoseifukushi/questions_json/2023/00_source/question_2023_7.json",
+            "questionIndex": 15,
+            "sourceSha256": "0978bcb1acc3bdf975ea18ebb2755ed20f9d723e9da1a8a1b7987ae6f573e6c1",
+            "stratum": "numeric"
+          },
+          {
+            "id": "c582757f2a97a68a",
+            "relativePath": "output/judoseifukushi/questions_json/2024/00_source/question_2024_7.json",
+            "questionIndex": 21,
+            "sourceSha256": "b1ce605c940f3be0e272bfb05513c89887c8c89c10915d52b4754c28f69e4922",
+            "stratum": "numeric"
+          },
+          {
+            "id": "77eea1850fecb0ab",
+            "relativePath": "output/judoseifukushi/questions_json/2025/00_source/question_2025_7.json",
+            "questionIndex": 15,
+            "sourceSha256": "cfef6ee98b5f88aa5da669d38850d8ae09b6692934442bcd7c7f1b4143ec8b7b",
+            "stratum": "numeric"
+          },
+          {
+            "id": "b22f649e0b947399",
+            "relativePath": "output/judoseifukushi/questions_json/2020/00_source/question_2020_10.json",
+            "questionIndex": 13,
+            "sourceSha256": "252dd69303e2d46cd70947c91fc1aeace8c8517544659ee03ffb68f1c5f8a30a",
+            "stratum": "long"
+          },
+          {
+            "id": "c1363e3f0487174c",
+            "relativePath": "output/judoseifukushi/questions_json/2025/00_source/question_2025_10.json",
+            "questionIndex": 22,
+            "sourceSha256": "96e6d837addbd06675c4373b0b2cef5625dd24856fedfb9161b4773d16f5e724",
+            "stratum": "long"
+          },
+          {
+            "id": "85cdb2c54567b04a",
+            "relativePath": "output/judoseifukushi/questions_json/2026/00_source/question_2026_10.json",
+            "questionIndex": 23,
+            "sourceSha256": "6a8c53e4d2fa26759e568929a2b3ee5329c1cae17d5f88e9c217368a29fb89c4",
+            "stratum": "long"
+          },
+          {
+            "id": "8300bc9178872872",
+            "relativePath": "output/judoseifukushi/questions_json/2025/00_source/question_2025_4.json",
+            "questionIndex": 17,
+            "sourceSha256": "dd4919a375856809f6c667bb977bc56db4180468be6573e347dfe2b5597680ce",
+            "stratum": "negative"
+          },
+          {
+            "id": "31fa2012e42b713a",
+            "relativePath": "output/judoseifukushi/questions_json/2023/00_source/question_2023_5.json",
+            "questionIndex": 24,
+            "sourceSha256": "d1d42473cbd4a4cbf67c7f60c70e5faf7cedf973da2069fa03b7aa357d7c2c26",
+            "stratum": "negative"
+          },
+          {
+            "id": "23af5153f13d1a5c",
+            "relativePath": "output/judoseifukushi/questions_json/2021/00_source/question_2021_8.json",
+            "questionIndex": 21,
+            "sourceSha256": "806cbce690c2e158141d4126abf1e11a18cef592dd399292d7fe2c7140ad1c29",
+            "stratum": "negative"
+          },
+          {
+            "id": "63ed9af2dc1cda2b",
+            "relativePath": "output/judoseifukushi/questions_json/2020/00_source/question_2020_9.json",
+            "questionIndex": 24,
+            "sourceSha256": "256ca1e1f66c3a70938b80678cf056003812356bd74adeb82b5eff966424ec5d",
+            "stratum": "negative"
+          },
+          {
+            "id": "715ae907c4b74436",
+            "relativePath": "output/judoseifukushi/questions_json/2023/00_source/question_2023_10.json",
+            "questionIndex": 18,
+            "sourceSha256": "6e47b1d3a5cc273062e2bcaf42ef5eaaae0584cbffa27cf451184986e43a0997",
+            "stratum": "negative"
+          },
+          {
+            "id": "a28db6ba1c8e4c65",
+            "relativePath": "output/judoseifukushi/questions_json/2025/00_source/question_2025_3.json",
+            "questionIndex": 22,
+            "sourceSha256": "7cc2adac9d21058f4f7b05584c435dd5ac7bfd83e9a501cd90f72a3a096ca29c",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "01bd0255c9fc8371",
+            "relativePath": "output/judoseifukushi/questions_json/2025/00_source/question_2025_4.json",
+            "questionIndex": 16,
+            "sourceSha256": "dd4919a375856809f6c667bb977bc56db4180468be6573e347dfe2b5597680ce",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "2380e0e939cce3b7",
+            "relativePath": "output/judoseifukushi/questions_json/2025/00_source/question_2025_9.json",
+            "questionIndex": 16,
+            "sourceSha256": "42d0e1b578902466cb339fd024911f4964ddd64d0be2cb4c8666b9dfd739e6fc",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "1d2014527a7acabb",
+            "relativePath": "output/judoseifukushi/questions_json/2026/00_source/question_2026_5.json",
+            "questionIndex": 20,
+            "sourceSha256": "65fa552c809be06a4f79ff1d4c80f051ca32473b16fec24f17ff71e3e51b0fea",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "da301fba93a4d48c",
+            "relativePath": "output/judoseifukushi/questions_json/2026/00_source/question_2026_7.json",
+            "questionIndex": 20,
+            "sourceSha256": "f2da2ca2fecda7579bbc1842624214608eeaceb17d072a609986c7cb45263cb1",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "ab3c9ed5d41aa3fd",
+            "relativePath": "output/judoseifukushi/questions_json/2025/00_source/question_2025_3.json",
+            "questionIndex": 16,
+            "sourceSha256": "7cc2adac9d21058f4f7b05584c435dd5ac7bfd83e9a501cd90f72a3a096ca29c",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "8168f912ed724458",
+            "relativePath": "output/judoseifukushi/questions_json/2024/00_source/question_2024_5.json",
+            "questionIndex": 9,
+            "sourceSha256": "3c7886652102b29896bd23794d3443fbfe1fe119a1d00943fd25dbf04cf051f9",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "e1a6f5219f4e01d8",
+            "relativePath": "output/judoseifukushi/questions_json/2024/00_source/question_2024_3.json",
+            "questionIndex": 10,
+            "sourceSha256": "79ad6735b316689254b2e807e21dad26de9df3e88aef9972791fbfe5832ff60e",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "a2f7e9ea703084cb",
+            "relativePath": "output/judoseifukushi/questions_json/2024/00_source/question_2024_3.json",
+            "questionIndex": 4,
+            "sourceSha256": "79ad6735b316689254b2e807e21dad26de9df3e88aef9972791fbfe5832ff60e",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "5d85b2e35574d926",
+            "relativePath": "output/judoseifukushi/questions_json/2026/00_source/question_2026_6.json",
+            "questionIndex": 12,
+            "sourceSha256": "995c4bf254037fac404e6f7f87966df100c704fef47867e855b0ff155e9ea3e7",
+            "stratum": "current-medical"
+          },
+          {
+            "id": "dd07b4977677b7bb",
+            "relativePath": "output/2nd-class-kenchikushi/questions_json/85010/00_source/question_85010_3.json",
+            "questionIndex": 0,
+            "sourceSha256": "739562d2865f5f48db55cbeac2abfbb24ef1951c45fc30078f830d50052b4eb9",
+            "stratum": "building"
+          },
+          {
+            "id": "3239d392acd6236c",
+            "relativePath": "output/2nd-class-kenchikushi/questions_json/85010/00_source/question_85010_3.json",
+            "questionIndex": 1,
+            "sourceSha256": "739562d2865f5f48db55cbeac2abfbb24ef1951c45fc30078f830d50052b4eb9",
+            "stratum": "building"
+          },
+          {
+            "id": "64032ef7f4bac816",
+            "relativePath": "output/2nd-class-kenchikushi/questions_json/85010/00_source/question_85010_3.json",
+            "questionIndex": 2,
+            "sourceSha256": "739562d2865f5f48db55cbeac2abfbb24ef1951c45fc30078f830d50052b4eb9",
+            "stratum": "building"
+          },
+          {
+            "id": "64bd269e44533561",
+            "relativePath": "output/2nd-class-kenchikushi/questions_json/85010/00_source/question_85010_3.json",
+            "questionIndex": 8,
+            "sourceSha256": "739562d2865f5f48db55cbeac2abfbb24ef1951c45fc30078f830d50052b4eb9",
+            "stratum": "building"
+          },
+          {
+            "id": "3b24e06367db4222",
+            "relativePath": "output/2nd-class-kenchikushi/questions_json/85003/00_source/question_85003_2.json",
+            "questionIndex": 17,
+            "sourceSha256": "763aff6633aea2aa6a17cacd93ca1f43ce48c36cb053fb9a272b1328ccdb2df2",
+            "stratum": "building"
+          },
+          {
+            "id": "ed7d14b661421a12",
+            "relativePath": "output/2nd-class-kenchikushi/questions_json/85003/00_source/question_85003_2.json",
+            "questionIndex": 19,
+            "sourceSha256": "763aff6633aea2aa6a17cacd93ca1f43ce48c36cb053fb9a272b1328ccdb2df2",
+            "stratum": "building"
+          }
+        ]
+      }
+    },
+    {
+      "name": "workflow_target_resolution",
+      "status": "pass",
+      "evidence": {
+        "requested": [
+          "correct_choice",
+          "explanation",
+          "law_audit",
+          "law_context",
+          "question_type"
+        ],
+        "available": [
+          "category_setup",
+          "correct_choice",
+          "delivery",
+          "explanation",
+          "law_audit",
+          "law_context",
+          "originalize",
+          "question_intent",
+          "question_set",
+          "question_type",
+          "setup",
+          "source"
+        ]
+      }
+    },
+    {
+      "name": "multi_answer_lossless",
+      "status": "pass",
+      "evidence": {
+        "130d5c77cc5c2b8b": {
+          "answerTableCorrectChoiceNumbers": [
+            1,
+            3
+          ],
+          "choiceClassCorrectChoiceNumbers": [
+            1,
+            3
+          ],
+          "lossless": true
+        },
+        "85cdb2c54567b04a": {
+          "answerTableCorrectChoiceNumbers": [
+            2,
+            3
+          ],
+          "choiceClassCorrectChoiceNumbers": [
+            2,
+            3
+          ],
+          "lossless": true
+        },
+        "b22f649e0b947399": {
+          "answerTableCorrectChoiceNumbers": [
+            1,
+            4
+          ],
+          "choiceClassCorrectChoiceNumbers": [
+            1,
+            4
+          ],
+          "lossless": true
+        }
+      }
+    },
+    {
+      "name": "building_image_assets_and_hashes",
+      "status": "fail",
+      "evidence": {
+        "64bd269e44533561": {
+          "remoteUrls": [
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_q_img01.webp?alt=media",
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch01_img01.webp?alt=media",
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch02_img01.webp?alt=media",
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch03_img01.webp?alt=media",
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch04_img01.webp?alt=media",
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch05_img01.webp?alt=media"
+          ],
+          "localAssets": [],
+          "sha256": []
+        },
+        "ed7d14b661421a12": {
+          "remoteUrls": [
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqed7d14b661421a12_q_img01.png?alt=media"
+          ],
+          "localAssets": [],
+          "sha256": []
+        }
+      }
+    },
+    {
+      "name": "law_exam_time_and_current_provenance",
+      "status": "fail",
+      "evidence": {
+        "0eb595c2c11278f5": {
+          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
+          "policyMentionsItemId": false,
+          "examTime": null,
+          "currentLaw": null,
+          "basisDates": [],
+          "locators": []
+        },
+        "1ebaca9b85c6dd6e": {
+          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
+          "policyMentionsItemId": false,
+          "examTime": null,
+          "currentLaw": null,
+          "basisDates": [],
+          "locators": []
+        },
+        "8987ec55216cbc63": {
+          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
+          "policyMentionsItemId": false,
+          "examTime": null,
+          "currentLaw": null,
+          "basisDates": [],
+          "locators": []
+        },
+        "c5167b46942fb08e": {
+          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
+          "policyMentionsItemId": false,
+          "examTime": null,
+          "currentLaw": null,
+          "basisDates": [],
+          "locators": []
+        },
+        "dfb3fe84e07f47f9": {
+          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
+          "policyMentionsItemId": false,
+          "examTime": null,
+          "currentLaw": null,
+          "basisDates": [],
+          "locators": []
+        }
+      }
+    },
+    {
+      "name": "codex_usage_telemetry_seam",
+      "status": "pass",
+      "evidence": {
+        "path": "tools/question_review_console/monitor_events.py",
+        "sha256": "c81cd3540ccf97b9eff7e353ddd592e2975b923aa16509ed6c483a91aaf7772b"
+      }
+    },
+    {
+      "name": "temp_only_profile_flip",
+      "status": "pass",
+      "evidence": {
+        "sourceSha256": "554b21549223aa7414e7c070ef13f3c3329012b6870a257cd24edc7ec45225ce",
+        "tempSha256": "d365e14406ed3cd751ef46c89caa1e543b32877e064ffc1f9985423746111af6",
+        "tempPath": "/private/tmp/judoseifukushi-local-llm-benchmark-T003/question_maintenance_llm.toml"
+      }
+    },
+    {
+      "name": "external_writes_intercepted",
+      "status": "pass",
+      "evidence": {
+        "runnerMode": "preflight_only",
+        "firestoreAttempts": 0,
+        "publicationAttempts": 0,
+        "networkModelCalls": 0
+      }
+    },
+    {
+      "name": "oracle_prompt_separation",
+      "status": "pass",
+      "evidence": {
+        "allowedItemKeys": [
+          "id",
+          "year",
+          "question",
+          "choices",
+          "image",
+          "targets"
+        ],
+        "leakedKeys": []
+      }
+    },
+    {
+      "name": "single_concurrency_contract",
+      "status": "pass",
+      "evidence": {
+        "questionParallelism": 1,
+        "llmCallConcurrency": 1,
+        "observedPeak": 0
+      }
+    }
+  ],
+  "stopReason": "Any preflight gate fails; no model calls permitted."
+}
