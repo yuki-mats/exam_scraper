@@ -75,7 +75,7 @@ def main() -> int:
         assert safety["firestoreAttempts"] == safety["publicationAttempts"] == safety["productionPatchWrites"] == 0
         assert safety["llmCallPeak"] == safety["problemProcessingPeak"] == 1
         assert safety["auditBatchMaxQuestions"] <= 5 and safety["auditBatchMaxBytes"] <= 120000
-        terminal = {"completed", "hold", "availability_reject", "unsupported_modality", "skipped_early_rejection"}
+        terminal = {"completed", "hold", "availability_reject", "unsupported_modality", "unreconciled_started", "skipped_early_rejection"}
         for route in ("codex_only", "qwen3-14b", "qwen3.5-27b"):
             route_dir = args.results_root / "routes" / route
             rows = [json.loads(path.read_text()) for path in (route_dir / "results").glob("*.json")]
@@ -86,7 +86,8 @@ def main() -> int:
             rows = [json.loads(path.read_text()) for path in (args.results_root / "routes" / route / "results").glob("*.json")]
             holds = [row for row in rows if row["id"] in {"9c3273bf54057cd0", "fa0d4e2042e65b59"}]
             assert len(holds) == 2 and all(row["status"] == "hold" and row["localCalls"] == row["codexCalls"] == 0 for row in holds)
-            capture = args.results_root / "T015" / (route + "-transport.jsonl")
+            continuation = "T015" if route == "qwen3-14b" else "T016"
+            capture = args.results_root / continuation / (route + "-transport.jsonl")
             text = capture.read_text()
             assert not any(key in text for key in ("correctChoiceText", "answerTableCorrectChoiceNumbers", "existingReview", "priorModelResult", "data:image", "base64,"))
             requests = [json.loads(line) for line in text.splitlines() if json.loads(line)["kind"] == "request"]

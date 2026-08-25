@@ -29,4 +29,15 @@ class RealRunContractTest(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             reject_prompt_leakage('{"correctChoiceText":"leak"}')
 
+    def test_one_terminal_law_failure_makes_law_gate_unreachable(self):
+        from benchmark_contract import ALL_IDS
+        from t015_continuation import ContinuationRunner
+        runner = object.__new__(ContinuationRunner)
+        runner.items = [{"id": item_id} for item_id in ALL_IDS]
+        reachable, failed = runner.quality_reachable([
+            {"id": "c5167b46942fb08e", "status": "availability_reject"}
+        ])
+        self.assertFalse(reachable)
+        self.assertIn("law", failed)
+
 if __name__ == "__main__": unittest.main()

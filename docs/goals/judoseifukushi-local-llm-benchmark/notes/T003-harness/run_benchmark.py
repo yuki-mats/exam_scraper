@@ -263,14 +263,15 @@ def main() -> int:
     if args.reuse_sealed_baseline:
         if not args.continuation_root:
             parser.error("--continuation-root is required with --reuse-sealed-baseline")
-        if args.routes != ["qwen3:14b", "qwen3.5:27b"]:
-            parser.error("T015 continuation requires qwen3:14b then qwen3.5:27b")
+        if args.routes not in (["qwen3:14b", "qwen3.5:27b"], ["qwen3.5:27b"]):
+            parser.error("continuation requires both local routes, or the independent 27B route")
         from t015_continuation import ContinuationRunner
         continued = ContinuationRunner(repo=args.repo_root.resolve(), manifest=args.manifest.resolve(),
             artifacts=args.artifacts_dir.resolve(), continuation=args.continuation_root.resolve(), temp=args.temp_root.resolve(),
             codex_client_factory=CodexAppServerClient)
         try:
             continued.pre_run()
+            continued.close_existing_14b_without_calls()
             for route in args.routes:
                 continued.run_route(route)
             continued.finish()

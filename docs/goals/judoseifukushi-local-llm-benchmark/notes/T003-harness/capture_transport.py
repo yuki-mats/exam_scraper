@@ -43,12 +43,14 @@ class CaptureTransport:
     def request(self, *, route: str, provider: str, question_ids: list[str], stage: str,
                 role: str, attempt: int, payload: dict[str, Any]) -> dict[str, Any]:
         safe = redact(payload)
+        prompts = [str(safe.get("prompt", ""))]
+        prompts.extend(str(row.get("content", "")) for row in safe.get("messages", []) if isinstance(row, dict))
         record = {"kind": "request", "route": route, "provider": provider,
                   "questionIds": question_ids, "stage": stage, "role": role,
                   "attempt": attempt, "startedAt": utc_now(),
                   "requestFields": sorted(safe), "payloadSha256": digest_json(safe),
                   "canonicalRequestBytes": canonical_bytes(safe),
-                  "promptUtf8Bytes": len(str(safe.get("prompt", "")).encode())}
+                  "promptUtf8Bytes": len("".join(prompts).encode())}
         self._append(record)
         return record
 

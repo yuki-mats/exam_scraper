@@ -60,7 +60,9 @@ def main() -> int:
                            "auditedOracleMatch":audited_match,"localOnlyPass":local_pass,"criticalFlags":flags})
         nonhold=[x for x in scored if x["id"] not in HOLD_IDS]
         if route=="codex_only": calls=args.baseline_codex_calls
-        else:calls=len(codex_requests(root/"T015"/(route.replace(":","-")+"-transport.jsonl")))
+        else:
+            continuation = "T015" if route == "qwen3:14b" else "T016"
+            calls=len(codex_requests(root/continuation/(route.replace(":","-")+"-transport.jsonl")))
         stratum_passes={name:sum(x["localOnlyPass"] for x in nonhold if x["stratum"]==name) for name in JUDO if name!="source-answer-missing"}
         judo_pass=sum(x["localOnlyPass"] for x in nonhold if x["id"] not in BUILDING)
         summary={"route":route,"terminalRows":len(route_rows),"codexCalls":calls,"localCalls":sum(int(x.get("localCalls",0)) for x in route_rows),
@@ -71,19 +73,23 @@ def main() -> int:
         summaries[route]=summary;write(root/"routes"/route.replace(":","-")/"telemetry.json",summary)
     baseline=summaries["codex_only"]; comparisons={}
     for route in ROUTES[1:]:
-        s=summaries[route]; reduction=1-s["codexCalls"]/args.baseline_codex_calls
+        s=summaries[route]
         gates={"overall":s["localOnlyPasses"]>=THRESHOLDS["overall"],"judoseifukushi":s["judoseifukushiPasses"]>=THRESHOLDS["judoseifukushi"],
                "law":s["stratumPasses"].get("law",0)>=5,"numeric":s["stratumPasses"].get("numeric",0)>=4,
                "long":s["stratumPasses"].get("long",0)>=2,"negative":s["stratumPasses"].get("negative",0)>=4,
                "current-medical":s["stratumPasses"].get("current-medical",0)>=9,"building":s["buildingPasses"]>=5,
                "holds":s["holdCorrect"]==2,"finalAuditedOracle":s["auditedOracleMatches"]==34,"critical":len(s["critical"])==0}
-        quality=all(gates.values());call_pass=reduction>=.30
+        quality=all(gates.values())
+        quality_complete = s["auditedOracleMatches"] == 34
+        reduction=(1-s["codexCalls"]/args.baseline_codex_calls) if quality_complete else None
+        call_pass=reduction is not None and reduction>=.30
         verdict="rejected_critical" if s["critical"] else ("rejected_quality" if not quality else ("quality_capable_but_not_cloud_call_reducing" if not call_pass else "conditional_candidate_token_unverified"))
-        comparisons[route]={"gates":gates,"qualityPass":quality,"codexCallReduction":reduction,"callPass":call_pass,"verdict":verdict}
+        comparisons[route]={"gates":gates,"qualityPass":quality,"qualityComplete":quality_complete,
+                            "codexCallReduction":reduction,"callPass":call_pass,"verdict":verdict}
     result={"thresholds":THRESHOLDS,"baseline":{**baseline,"codexCalls":args.baseline_codex_calls},"tokenMetric":{
         "status":"inconclusive_provider_usage_unavailable","reduction":None,"estimated":False},"comparisons":comparisons,
         "adoption":{route:False for route in ROUTES[1:]},"operationalPromotionAllowed":False}
     write(root/"comparison.json",comparisons);write(root/"result.json",result)
-    write(root/"T015-receipt.json",{"taskId":"T015","status":"completed","tokenMetric":result["tokenMetric"],"verdicts":{k:v["verdict"] for k,v in comparisons.items()}})
+    write(root/"T016-receipt.json",{"taskId":"T016","status":"completed","tokenMetric":result["tokenMetric"],"verdicts":{k:v["verdict"] for k,v in comparisons.items()}})
     return 0
 if __name__=="__main__":raise SystemExit(main())

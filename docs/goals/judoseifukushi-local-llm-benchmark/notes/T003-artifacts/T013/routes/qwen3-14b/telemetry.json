@@ -1,0 +1,346 @@
+{
+  "route": "qwen3:14b",
+  "terminalRows": 36,
+  "codexCalls": 0,
+  "localCalls": 7,
+  "oracleMatches": 0,
+  "auditedOracleMatches": 0,
+  "localOnlyPasses": 0,
+  "judoseifukushiPasses": 0,
+  "stratumPasses": {
+    "law": 0,
+    "numeric": 0,
+    "long": 0,
+    "negative": 0,
+    "current-medical": 0
+  },
+  "buildingPasses": 0,
+  "holdCorrect": 2,
+  "critical": [],
+  "items": [
+    {
+      "id": "01bd0255c9fc8371",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "0eb595c2c11278f5",
+      "stratum": "law",
+      "status": "availability_reject",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "130d5c77cc5c2b8b",
+      "stratum": "numeric",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "1d2014527a7acabb",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "2380e0e939cce3b7",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "23af5153f13d1a5c",
+      "stratum": "negative",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "31fa2012e42b713a",
+      "stratum": "negative",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "3239d392acd6236c",
+      "stratum": "building",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "3b24e06367db4222",
+      "stratum": "building",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "4ef67113801362d9",
+      "stratum": "law",
+      "status": "unreconciled_started",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "5c1ab42128e170ab",
+      "stratum": "numeric",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "5d85b2e35574d926",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "63ed9af2dc1cda2b",
+      "stratum": "negative",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "64032ef7f4bac816",
+      "stratum": "building",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "64bd269e44533561",
+      "stratum": "building",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "715ae907c4b74436",
+      "stratum": "negative",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "77eea1850fecb0ab",
+      "stratum": "numeric",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "8168f912ed724458",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "8300bc9178872872",
+      "stratum": "negative",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "85cdb2c54567b04a",
+      "stratum": "long",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "8987ec55216cbc63",
+      "stratum": "law",
+      "status": "availability_reject",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "9c3273bf54057cd0",
+      "stratum": "source-answer-missing",
+      "status": "hold",
+      "oracleMatch": true,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "a28db6ba1c8e4c65",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "a2f7e9ea703084cb",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "ab3c9ed5d41aa3fd",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "b22f649e0b947399",
+      "stratum": "long",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "c1363e3f0487174c",
+      "stratum": "long",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "c5167b46942fb08e",
+      "stratum": "law",
+      "status": "availability_reject",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "c582757f2a97a68a",
+      "stratum": "numeric",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "da301fba93a4d48c",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "dd07b4977677b7bb",
+      "stratum": "building",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "e1a6f5219f4e01d8",
+      "stratum": "current-medical",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "ed7d14b661421a12",
+      "stratum": "building",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "ee361042818c9b9f",
+      "stratum": "numeric",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "ef0992b6887ec00b",
+      "stratum": "law",
+      "status": "skipped_early_rejection",
+      "oracleMatch": false,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    },
+    {
+      "id": "fa0d4e2042e65b59",
+      "stratum": "source-answer-missing",
+      "status": "hold",
+      "oracleMatch": true,
+      "auditedOracleMatch": false,
+      "localOnlyPass": false,
+      "criticalFlags": []
+    }
+  ]
+}

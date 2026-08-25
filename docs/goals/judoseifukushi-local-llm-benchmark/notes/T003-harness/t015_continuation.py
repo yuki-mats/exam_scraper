@@ -14,7 +14,8 @@ from benchmark_contract import BUILDING, IMAGE_IDS, JUDO, LAW_IDS, stratum_for
 from capture_transport import CaptureTransport, canonical_bytes, digest_json, utc_now
 
 HOLD_IDS = set(JUDO["source-answer-missing"])
-TERMINAL = {"completed", "hold", "availability_reject", "unsupported_modality", "skipped_early_rejection"}
+TERMINAL = {"completed", "hold", "availability_reject", "unsupported_modality", "unreconciled_started", "skipped_early_rejection"}
+QUALITY_MINIMUMS = {"law": 5, "numeric": 4, "long": 2, "negative": 4, "current-medical": 9, "building": 5}
 FORBIDDEN_PROMPT_KEYS = ("correctChoiceText", "answerTableCorrectChoiceNumbers", "choiceClassCorrectChoiceNumbers",
                          "answer_result_text", "existingReview", "priorModelResult", "oracle-after-run")
 
@@ -160,6 +161,54 @@ class ContinuationRunner:
                     "codex": codex_status, "images": image_report, "globalParallelism": 1,
                     "sanitizedItemKeys": sorted(self.items[0]), "itemCount": len(self.items)})
 
+    def item_pass(self, row: dict[str, Any]) -> bool:
+        return bool(row.get("status") == "completed" and row.get("localAttemptMode") == "local_primary"
+                    and row.get("auditAccepted") is True and not row.get("auditResult", {}).get("criticalFlags"))
+
+    def quality_reachable(self, rows: list[dict[str, Any]]) -> tuple[bool, list[str]]:
+        by_id = {row["id"]: row for row in rows}
+        failed = []
+        nonhold = [item for item in self.items if item["id"] not in HOLD_IDS]
+        possible_overall = sum(self.item_pass(by_id[item["id"]]) if item["id"] in by_id else 1 for item in nonhold)
+        possible_judo = sum(self.item_pass(by_id[item["id"]]) if item["id"] in by_id else 1 for item in nonhold if item["id"] not in BUILDING)
+        if possible_overall < 31: failed.append("overall")
+        if possible_judo < 26: failed.append("judoseifukushi")
+        for stratum, minimum in QUALITY_MINIMUMS.items():
+            ids = list(BUILDING) if stratum == "building" else JUDO[stratum]
+            possible = sum(self.item_pass(by_id[item_id]) if item_id in by_id else 1 for item_id in ids)
+            if possible < minimum: failed.append(stratum)
+        return not failed, failed
+
+    def close_existing_14b_without_calls(self) -> None:
+        route = "qwen3:14b"; route_dir = self.route_dir(route)
+        if (route_dir / "run-complete.json").exists(): return
+        rows = self.rows(route)
+        reachable, failed = self.quality_reachable(rows)
+        if reachable or "law" not in failed:
+            raise RuntimeError("existing 14B evidence does not prove law early rejection")
+        early_at = "2026-08-25T03:08:37.969641+00:00"
+        existing = {row["id"] for row in rows}
+        for item in self.items:
+            if item["id"] in existing: continue
+            if item["id"] == "4ef67113801362d9":
+                self.write_row(route, {"id": item["id"], "route": route, "status": "unreconciled_started",
+                    "reason": "T015 request persisted without response or provider job id; replay prohibited",
+                    "requestPayloadSha256": "c864765a242db1e1993e65b5b7ae0fe5d79acc22ab3a419837ca5d4f942430a1",
+                    "localCalls": 1, "codexCalls": 0})
+            else:
+                self.write_row(route, {"id": item["id"], "route": route, "status": "skipped_early_rejection",
+                    "reason": "law 5/5 unreachable after first terminal law failure", "localCalls": 0, "codexCalls": 0})
+        rows = self.rows(route)
+        if len(rows) != 36: raise RuntimeError("14B evidence could not close 36 terminal rows")
+        capture = self.artifacts / "T015" / "qwen3-14b-transport.jsonl"
+        atomic_json(route_dir / "prompt-capture-seal.json", {"sha256": hashlib.sha256(capture.read_bytes()).hexdigest(),
+                    "capture": "T015/qwen3-14b-transport.jsonl", "sealedAt": utc_now()})
+        atomic_json(route_dir / "run-complete.json", {"route": route, "terminalRows": 36,
+                    "routeEarlyRejectedAt": early_at, "unreconciledStarted": ["4ef67113801362d9"], "completedAt": utc_now()})
+        atomic_json(route_dir / "summary.json", {"route": route, "terminalRows": 36, "routeEarlyRejectedAt": early_at,
+                    "failedGates": failed, "newModelCalls": 0,
+                    "statuses": {status: sum(row["status"] == status for row in rows) for status in sorted(TERMINAL)}})
+
     def readback_baseline(self) -> None:
         route = self.route_dir("codex_only")
         rows = self.rows("codex_only")
@@ -270,6 +319,12 @@ class ContinuationRunner:
 
     def candidate_result(self, parsed: dict[str, Any], item_id: str) -> dict[str, Any]:
         found = [row for row in parsed.get("results", []) if row.get("id") == item_id]
+        if len(found) == 1:
+            return found[0]
+        all_results = parsed.get("results", [])
+        if len(all_results) == 1:
+            normalized = dict(all_results[0]); normalized["providerReturnedId"] = normalized.get("id"); normalized["id"] = item_id
+            return normalized
         if len(found) != 1:
             raise ValueError("local response missing or duplicated id")
         return found[0]
@@ -296,68 +351,64 @@ class ContinuationRunner:
                 self.write_row(route, {"id": item["id"], "route": route, "status": "hold", "reason": "source_answer_missing",
                                        "localCalls": 0, "codexCalls": 0})
         pending = [item for item in self.items if item["id"] not in HOLD_IDS and item["id"] not in prior]
-        critical_stop = False
-        for offset in range(0, len(pending), 5):
-            batch = pending[offset:offset + 5]
-            if critical_stop:
-                for item in batch:
-                    self.write_row(route, {"id": item["id"], "route": route, "status": "skipped_early_rejection",
-                                           "reason": "critical_error_in_prior_batch", "localCalls": 0, "codexCalls": 0})
-                continue
-            generated: dict[str, dict[str, Any]] = {}; meta: dict[str, dict[str, Any]] = {}
-            for item in batch:
-                if item["id"] in IMAGE_IDS:
-                    self.write_row(route, {"id": item["id"], "route": route, "status": "unsupported_modality",
-                                           "reason": "approved Ollama model has no vision capability", "imageReviewed": False,
-                                           "localCalls": 0, "codexCalls": 0})
-                    continue
-                last_error = None
+        early_at = None; failed_gates: list[str] = []
+        for index, item in enumerate(pending):
+            if item["id"] in IMAGE_IDS:
+                self.write_row(route, {"id": item["id"], "route": route, "status": "unsupported_modality",
+                    "reason": "approved Ollama model has no vision capability", "imageReviewed": False,
+                    "localCalls": 0, "codexCalls": 0})
+            else:
+                candidate = None; usage = None; used_attempt = 0; last_error = None
                 for attempt in (1, 2):
                     try:
                         parsed, usage = self.local_call(route, item, attempt)
-                        generated[item["id"]] = self.candidate_result(parsed, item["id"])
-                        meta[item["id"]] = {"attempt": attempt, "usage": usage}
+                        candidate = self.candidate_result(parsed, item["id"]); used_attempt = attempt
                         break
                     except Exception as error:
                         last_error = f"{type(error).__name__}: {error}"
-                        if attempt == 1:
-                            time.sleep(1)
-                if item["id"] not in generated:
+                        if attempt == 1: time.sleep(1)
+                if candidate is None:
                     self.write_row(route, {"id": item["id"], "route": route, "status": "availability_reject",
-                                           "reason": last_error, "localCalls": 2, "codexCalls": 0})
-            audit_items = [item for item in batch if item["id"] in generated]
-            if not audit_items:
-                continue
-            candidates = {item["id"]: generated[item["id"]] for item in audit_items}
-            try:
-                parsed, ids = self.audit_call(route, audit_items, candidates)
-            except Exception:
-                # One clean Codex client restart and one retry; never replay a resolved batch.
-                self.codex.close(); self.codex = self.codex_client_factory(self.repo, turn_timeout=3600)
-                parsed, ids = self.audit_call(route, audit_items, candidates)
-            audits = {row["id"]: row for row in parsed.get("results", [])}
-            if set(audits) != set(candidates):
-                raise RuntimeError("audit response missing or duplicated reservation")
-            for item in audit_items:
-                candidate = candidates[item["id"]]; audit = audits[item["id"]]
-                primary = meta[item["id"]]["attempt"] == 1
-                accepted = self.accepted(item, candidate, audit, primary)
-                critical = list(audit.get("criticalFlags", []))
-                critical_stop |= bool(critical)
-                self.write_row(route, {"id": item["id"], "route": route, "status": "completed",
-                    "localResult": candidate, "auditResult": audit, "auditAccepted": accepted,
-                    "localAttemptMode": "local_primary" if primary else "local_retry", "localUsage": meta[item["id"]]["usage"],
-                    "localCalls": meta[item["id"]]["attempt"], "codexCalls": 1, "runIds": ids})
+                        "reason": last_error, "localCalls": 2, "codexCalls": 0})
+                else:
+                    candidates = {item["id"]: candidate}
+                    try:
+                        parsed, ids = self.audit_call(route, [item], candidates)
+                    except Exception:
+                        # One clean restart and one retry of this unresolved audit only.
+                        self.codex.close(); self.codex = self.codex_client_factory(self.repo, turn_timeout=3600)
+                        parsed, ids = self.audit_call(route, [item], candidates)
+                    audits = {row["id"]: row for row in parsed.get("results", [])}
+                    if set(audits) != {item["id"]}: raise RuntimeError("audit response missing or duplicated reservation")
+                    audit = audits[item["id"]]; primary = used_attempt == 1
+                    accepted = self.accepted(item, candidate, audit, primary)
+                    self.write_row(route, {"id": item["id"], "route": route, "status": "completed",
+                        "localResult": candidate, "auditResult": audit, "auditAccepted": accepted,
+                        "localAttemptMode": "local_primary" if primary else "local_retry", "localUsage": usage,
+                        "localCalls": used_attempt, "codexCalls": 1, "runIds": ids})
+            # This is deliberately before the next local/Codex request.
+            reachable, failed_gates = self.quality_reachable(self.rows(route))
+            current = next(row for row in self.rows(route) if row["id"] == item["id"])
+            critical = current.get("auditResult", {}).get("criticalFlags", [])
+            if not reachable or critical:
+                early_at = utc_now()
+                reason = "critical_error" if critical else "quality_threshold_unreachable:" + ",".join(failed_gates)
+                for remaining in pending[index + 1:]:
+                    self.write_row(route, {"id": remaining["id"], "route": route, "status": "skipped_early_rejection",
+                        "reason": reason, "localCalls": 0, "codexCalls": 0})
+                break
         rows = self.rows(route)
         if len(rows) != 36 or any(row["status"] not in TERMINAL for row in rows):
             raise RuntimeError(f"{route} terminal closure failed")
         capture = self.transport(route).events
         atomic_json(self.route_dir(route) / "prompt-capture-seal.json", {"sha256": hashlib.sha256(capture.read_bytes()).hexdigest(),
                     "capture": str(capture.relative_to(self.artifacts)), "sealedAt": utc_now()})
-        atomic_json(self.route_dir(route) / "run-complete.json", {"route": route, "terminalRows": 36, "completedAt": utc_now()})
+        atomic_json(self.route_dir(route) / "run-complete.json", {"route": route, "terminalRows": 36,
+                    "routeEarlyRejectedAt": early_at, "completedAt": utc_now()})
         summary = {"route": route, "terminalRows": 36,
                    "statuses": {status: sum(row["status"] == status for row in rows) for status in sorted(TERMINAL)},
-                   "localPrimaryAccepted": sum(row.get("auditAccepted") is True for row in rows)}
+                   "localPrimaryAccepted": sum(self.item_pass(row) for row in rows),
+                   "routeEarlyRejectedAt": early_at, "failedGates": failed_gates}
         atomic_json(self.route_dir(route) / "summary.json", summary)
         atomic_json(self.continuation / (self.route_name(route) + "-summary.json"), summary)
         append_jsonl(self.continuation / "events.jsonl", {"event": "route_terminal", "route": route, "at": utc_now(), **summary})
