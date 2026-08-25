@@ -5,7 +5,7 @@ goal:
   slug: "judoseifukushi-local-llm-benchmark"
   kind: specific
   tranche: "固定集合を盲検実行し、品質とクラウド削減でlocal profileの採否を閉じる"
-  status: active
+  status: done
   oracle:
     signal: "固定集合の重大誤り0、local監査合格率、Codex call/token削減、blind oracle対応を問題別receiptで確認する"
     cadence: "after each Worker package and at final audit"
@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T999
+active_task: null
 
 tasks:
   - id: T001
@@ -727,7 +727,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "固定集合の全receiptを監査し、local profileを採用するかfail-closedで不採用にするかを最終判定する。"
     inputs:
@@ -742,11 +742,33 @@ tasks:
       - "full_outcome_complete: true | false"
       - "Model adoption/rejection matrix"
       - "Cloud reduction verdict"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      rationale: "tested local profileは法令5/5到達不能でfail-closed不採用。全問監査のcall削減は不可能、tokenは未証明、安全条件は合格として目標を閉じる。"
+      model_verdicts:
+        qwen3_14b: "fail_closed_rejected_for_tested_profile"
+        qwen3_5_27b: "fail_closed_rejected_for_tested_profile"
+        codex_only: "call_baseline_valid_quality_not_proven"
+      evidence:
+        - "14B/27Bとも最初の法令問でprimary/retryがschema・ID契約不適合。法令5/5が到達不能。"
+        - "法令以外の大半は早期停止で未評価のため、モデル全般の能力不足へ一般化しない。"
+        - "Codex-onlyは34 completed、2 hold、7 call。raw oracle一致27/34。audited 34/34は採点器の無条件trueで独立品質証拠ではない。"
+        - "全34問を最大5問ずつ全件監査するhybridも最低7 callで、call削減30%は不可能。"
+        - "provider token usage 7/7 null、token削減inconclusive、推定なし。"
+        - "LLM/problem peak 1、Firestore/publication/production patch write 0、欠損2問は全route hold/call 0。"
+        - "production local profileはoperational=falseのまま。"
+      sample_verdict: "柔道整復師30問はdomain text主サンプルとして妥当。画像・5択・形式差は二級建築士6問で補完する必要があり、今回の早期停止で大半の層は未評価。"
+      recommended_next: "provider-neutral local JSON/target adapter、stage別routing、法令・画像のcloud強制routing、risk-based cloud audit選択をproduction profile無効のまま実装し、診断用全層runと採用用early-stop runを分離して再評価する。"
 
 checks:
   dirty_fingerprint: "clean at goal creation; main ahead of origin/main by 28 commits"
   last_verification:
-    result: unknown
-    task: null
-    commands: []
+    result: pass
+    task: T999
+    commands:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --check-oracle-separation --check-usage --check-concurrency --check-safety --completed-run --allow-token-inconclusive"
+      - "git diff --exit-code -- production source/patch/config/tools/prompt/document scopes"
+      - "check-goal-state.mjs"
