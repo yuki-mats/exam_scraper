@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T002
+active_task: T003
 
 tasks:
   - id: T001
@@ -111,7 +111,7 @@ tasks:
   - id: T002
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T001の固定集合と実行経路を監査し、品質・安全・クラウド削減を偽陽性なく判定する最大の単一Worker packageを確定する。"
     inputs:
@@ -123,20 +123,46 @@ tasks:
       - "Approved fixed set and thresholds"
       - "Exact allowed_files, verify, stop_if"
       - "Early rejection and full-run conditions"
-    receipt: null
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      note: "notes/T002-approved-contract.md"
+      rationale: "36問固定は妥当だが、正答欠損holdを品質分母から外し、異種stageを層別gateにする。全36問の同一harness Codex baselineとpreflightを必須にしてT003を承認する。"
+      evidence:
+        - "柔整30問は主要リスクを覆い、建築6問が画像・形式差を補う。"
+        - "既存T025/T038は同一36問baselineではないためcall/token分母へ使えない。"
+        - "機械可読manifest、法令二時点根拠、画像hash、複数正答schema、usage telemetryはT003 preflightで閉じる。"
+      next_allowed_task: T003
+      spawned_tasks:
+        - T003
 
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: low
-    objective: "承認済み固定集合を隔離環境でlocal生成・Codex監査とCodex-onlyへ通し、blind oracle、品質、call/token、fallback、hold、安全性を比較して採否証拠を作る。"
-    allowed_files: []
-    verify: []
+    objective: "固定36問を正本非変更の隔離copyへ展開し、全件Codex-only baseline、qwen3:14b hybrid、qwen3.5:27b hybridを順に盲検実行して、問題別品質、call/token、fallback、hold、安全性を再現可能なartifactへ閉じる。"
+    allowed_files:
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/**"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/**"
+      - "/private/tmp/judoseifukushi-local-llm-benchmark-T003/**"
+    verify:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --check-oracle-separation --check-usage --check-concurrency --check-safety"
+      - "git diff --exit-code -- ':(glob)output/**/00_source/**' ':(glob)output/**/10*/**' ':(glob)output/**/15*/**' ':(glob)output/**/18*/**' ':(glob)output/**/21*/**' ':(glob)output/**/22*/**' ':(glob)output/**/23*/**' ':(glob)output/**/24*/**' config tools prompt document"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/judoseifukushi-local-llm-benchmark/state.yaml"
     stop_if:
-      - "Need files outside allowed_files."
-      - "Oracle leakage is required."
-      - "00_source, production patch, Firestore or publication write is required."
+      - "Need any repository write outside the two allowed T003 directories."
+      - "Any preflight gate fails; preserve preflight.json and return blocked before model calls."
+      - "Current multi-answer contract cannot represent every authoritative correct index without loss."
+      - "Any law item lacks separate exam-time and current-law provenance."
+      - "Any required source image asset is missing or hash-unresolvable."
+      - "Oracle or answer-derived content appears in any LLM request."
+      - "Codex-only 36-item baseline cannot complete under the same commit/profile/prompt contract."
+      - "Provider usage is unavailable for any Codex attempt, making token comparison non-reproducible."
+      - "Any production write or external publication attempt occurs."
+      - "Peak LLM-call or problem-processing concurrency exceeds 1."
       - "Verification fails twice for the same cause."
     receipt: null
 
