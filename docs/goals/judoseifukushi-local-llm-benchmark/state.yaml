@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T011
+active_task: T012
 
 tasks:
   - id: T001
@@ -443,7 +443,7 @@ tasks:
   - id: T011
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "告示第272号の冗長なrevisionId本文一致特例を削除し、preflight receipt出力先をT011へ更新して、全公式資料のpreflight-only検査をpassへ閉じる。"
     allowed_files:
@@ -466,6 +466,54 @@ tasks:
       - "Any historical receipt other than T011 would be overwritten."
       - "Any LLM, source, production patch, Firestore or publication write would occur."
       - "Verification fails twice for the same cause."
+    receipt:
+      result: done
+      commit: 4fdab90a2
+      summary: "公式15資料のhash、MIME、bytes、revision、effective、locatorを全件検証し、preflight failedChecks 0、modelCalls 0でpassした。"
+      changed_files:
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/execution-summary.json"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T011-receipt.json"
+      commands:
+        - cmd: "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+          status: pass
+        - cmd: "run_preflight.py --preflight-only"
+          status: pass
+        - cmd: "verify_benchmark.py --preflight-only"
+          status: pass
+        - cmd: "production diff check"
+          status: pass
+      evidence:
+        - "36問v2、画像7点、法令5問二時点、公式試験日3件がpass。"
+        - "oracle分離、安全遮断、production diff 0。"
+      artifacts:
+        - "notes/T003-artifacts/preflight.json"
+        - "notes/T003-artifacts/T011-receipt.json"
+      spawned_tasks:
+        - T012
+
+  - id: T012
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "preflight pass成果を独立監査し、固定36問v2でCodex-only、qwen3:14b、qwen3.5:27b実モデルrunを再開する単一Worker packageを確定する。"
+    inputs:
+      - "T002 approved benchmark contract"
+      - "T003/T006/T008/T011 receipts"
+      - "Current T003 harness and artifacts"
+      - "Current source/workflow/prompt/config hashes"
+    constraints:
+      - "Read-only。"
+      - "品質閾値、critical、early rejection、cloud削減算式を緩めない。"
+      - "Codex-only baselineを同一36問で新規完走させる。"
+      - "全LLM呼出しと問題処理は1並列。"
+    expected_output:
+      - "approve_next | rework | reject"
+      - "Exact real-run worker package and allowed_files"
+      - "Execution order, retry, early rejection and stop conditions"
+      - "Required artifacts and verification"
     receipt: null
 
   - id: T999
