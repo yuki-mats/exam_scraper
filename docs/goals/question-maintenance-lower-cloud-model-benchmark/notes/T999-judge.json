@@ -1,0 +1,41 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T999",
+    "decision": "not_complete",
+    "full_outcome_complete": false,
+    "rationale": "監査指示に1始まり指定がなく、5.4後半5問とLuna 3問で説明は正しいのにselectedIndexesだけ1小さい契約欠陥を確認。建築4問は正答空。封印済み生成を再利用し、修正版Sol監査を柔道28問へ行う必要がある。usage欠測時はLuna維持。",
+    "evidence": [
+      {"path": "T003-artifacts/screen/run.json", "finding": "5.4後半5問は説明とindexが1ずれ、0始まり応答。"},
+      {"path": "T003-harness/contract.py:28", "finding": "generationは1始まり明記、auditはindex base未指定。"},
+      {"path": "T003-artifacts/expand/score.json", "finding": "柔道raw Luna 27/28、Spark 26/28。Luna auditにも同型indexずれ3件。"},
+      {"path": "T003-artifacts/expand/oracle-after-run.json", "finding": "建築4問のcorrectIndexesは空。"},
+      {"path": "T003-artifacts/comparison.json", "finding": "usage null、peak concurrency 1。"}
+    ],
+    "next_allowed_task": "T004",
+    "worker_contract": {
+      "objective": "T003 sealed generationを変更せず再利用し、1始まりを機械強制したSol監査をscreen 4候補とexpand Luna/Sparkへ1並列再実行。柔道28問だけを採点しLuna維持判定を閉じる。",
+      "allowed_files": [
+        "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/**",
+        "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-artifacts/**",
+        "/private/tmp/question-maintenance-lower-cloud-model-benchmark-T004/**"
+      ],
+      "rules": [
+        "T003 artifactsはread-onlyでhash不変を確認",
+        "audit instructionにselectedIndexesは1始まり、1以上、選択肢数以下、explanationsと一致を明記",
+        "index補正・説明からの推定を禁止",
+        "oracle/旧audit/answer-derived contentをSolへ渡さない",
+        "generation callは行わずSol auditだけを全体1並列",
+        "建築4問はoracle_missing diagnosticで採点外",
+        "expandはraw柔道27/28以上かつSol後28/28。Spark raw 26/28のgateを免除しない",
+        "usage nullを推定せず節約未証明ならLuna維持"
+      ]
+    },
+    "missing_evidence": [
+      "修正版Sol監査の再実測",
+      "柔道28問再契約score",
+      "T003 hash不変、seal-before-oracle、prompt parity、peak1",
+      "Luna対Spark最終比較"
+    ]
+  }
+}

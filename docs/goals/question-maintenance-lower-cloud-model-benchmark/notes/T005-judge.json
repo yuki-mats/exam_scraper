@@ -1,0 +1,33 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T005",
+    "decision": "complete",
+    "full_outcome_complete": true,
+    "rationale": "下位3候補を実利用し、修正版Sol監査、封印、1並列、T003 hash不変を確認。Sparkはraw 26/28で品質gate不合格、5.4系は退役予定で採用外、usage nullのため費用差を推定せずLuna維持。3171 missingは今回起因でない既存台帳障害として分離する。",
+    "evidence": [
+      {"path": "T004-artifacts/screen/score.json", "finding": "修正版Sol監査は4候補全て10/10、schema failure 0。"},
+      {"path": "T004-artifacts/expand/score.json", "finding": "Luna raw27/28・Sol28/28 pass、Spark raw26/28・Sol28/28 fail。"},
+      {"path": "T004-artifacts/comparison.json", "finding": "work model Luna、Sol audit 20 calls、peak1、usage null、usageEstimated false、T003 hashes unchanged。"},
+      {"path": "current git status and diff", "finding": "goal directoryのみuntracked、tracked production/00_source diffなし。"},
+      {"path": "check_00_source_immutability.py", "finding": "既存台帳3171 files missingは今回成果外の別障害。"}
+    ],
+    "final_decision": {
+      "work_model": "gpt-5.6-luna",
+      "audit_model": "gpt-5.6-sol",
+      "lower_candidate_selected": false,
+      "cost_conclusion": "inconclusive_provider_usage_unavailable",
+      "selection_reason": "Spark failed raw-quality gate; 5.4 variants are deprecated-soon; no attributable cost saving was available.",
+      "scope": "text-only",
+      "limitations": [
+        "柔道整復師28問中心の小規模benchmark",
+        "建築4問はoracle空でunscored",
+        "画像2問は除外",
+        "Luna最安ではなく下位候補の費用優位を証明できなかったという結論",
+        "00_source台帳3171 missingは別途是正が必要"
+      ]
+    },
+    "next_allowed_task": null,
+    "missing_evidence": []
+  }
+}

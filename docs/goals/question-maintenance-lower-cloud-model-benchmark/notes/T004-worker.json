@@ -1,0 +1,22 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T004",
+    "changed_files": [
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/**",
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-artifacts/**"
+    ],
+    "summary": "修正版Sol監査はgeneration 0、20 calls、peak 1で完了。Luna raw 27/28・Sol 28/28合格、Spark Sol 28/28だがraw 26/28不合格。usage nullのため推定せずLuna維持。T003 hash検証は合格したが、既存不変台帳が3171 files missingを報告。",
+    "evidence": [
+      {"path": "T004-artifacts/screen/score.json", "finding": "全4候補の修正版Sol監査は10/10。旧5.4 5/10はindex-base契約欠陥。"},
+      {"path": "T004-artifacts/expand/score.json", "finding": "Luna raw27/28・Sol28/28 pass、Spark raw26/28・Sol28/28 fail。"},
+      {"path": "T004-artifacts/comparison.json", "finding": "generation 0、Sol 20 calls、peak1、usage null、T003 hashes unchanged、building4 unscored。"}
+    ],
+    "remaining_blockers": [
+      "check_00_source_immutability.pyがT004所有外の既存3171 files missingを報告しexact verificationが通らない"
+    ],
+    "needs_judge": true,
+    "verification_attempts": 1,
+    "stopped_because": "Required source immutability verification failed on pre-existing registry state outside allowed_files."
+  }
+}

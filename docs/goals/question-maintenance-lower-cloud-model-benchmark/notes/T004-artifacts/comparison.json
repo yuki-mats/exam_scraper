@@ -1,0 +1,17 @@
+{
+  "status": "model_comparison_complete_verification_blocked",
+  "screen": {
+    "gpt-5.6-luna": {"raw": "10/10", "reaudited": "10/10", "pass": true},
+    "gpt-5.4": {"raw": "10/10", "reaudited": "10/10", "pass": true, "adoptionEligible": false},
+    "gpt-5.4-mini": {"raw": "10/10", "reaudited": "10/10", "pass": true, "adoptionEligible": false},
+    "gpt-5.3-codex-spark": {"raw": "9/10", "reaudited": "10/10", "pass": true}
+  },
+  "expandJudoseifukushiText": {
+    "gpt-5.6-luna": {"raw": "27/28", "reaudited": "28/28", "pass": true},
+    "gpt-5.3-codex-spark": {"raw": "26/28", "reaudited": "28/28", "pass": false, "failedGate": "raw >= 27/28"}
+  },
+  "execution": {"candidateGenerationCalls": 0, "solAuditCalls": 20, "peakConcurrency": 1, "usage": null, "usageEstimated": false, "buildingUnscored": 4},
+  "selection": {"model": "gpt-5.6-luna", "reason": "Spark failed the fixed raw quality gate and provider usage was unavailable, so no cost saving may be inferred."},
+  "verification": {"reauditContract": "pass", "t003HashesUnchanged": true, "sourceImmutability": "blocked_preexisting_registry_reports_3171_missing_files"},
+  "scope": "Text-only benchmark. Four building questions with empty oracle and two image questions are not scored; no image-quality conclusion."
+}

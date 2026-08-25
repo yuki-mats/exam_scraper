@@ -1,0 +1,23 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T003",
+    "changed_files": [
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**",
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**"
+    ],
+    "summary": "4候補をscreen実測しLunaとSparkを32問へ拡張。全44 model callはpeak 1、usage nullで推定なし。建築4問の正答oracleが全件空でbuilding 3/4 gateを採点不能なsource-contract conflictを検出し、sample/閾値を変えず停止した。",
+    "evidence": [
+      {"path": "notes/T003-artifacts/screen/score.json", "finding": "screen 16 calls、peak 1、459.85秒。Luna 10/10→10/10、5.4 10/10→5/10、5.4 Mini 10/10→10/10、Spark 9/10→10/10。"},
+      {"path": "notes/T003-artifacts/expand/score.json", "finding": "expand 28 calls、peak 1、785.33秒。建築4 IDのcorrectIndexesが空で最終gate採点不能。柔道rawはLuna 27/28、Spark 26/28。"},
+      {"path": "notes/T003-artifacts/comparison.json", "finding": "provider usageは全候補null、推定なし。"}
+    ],
+    "remaining_blockers": [
+      "building 4 IDsのcurrent 00_source correctIndexesが空でbuilding 3/4 thresholdを採点できない",
+      "provider usage nullのため推定なしではcost winnerを確定できない"
+    ],
+    "needs_judge": true,
+    "verification_attempts": 1,
+    "stopped_because": "Source evidence conflicts with approved building scoring contract; stop_if forbids changing IDs or thresholds."
+  }
+}

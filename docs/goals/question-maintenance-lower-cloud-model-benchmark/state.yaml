@@ -1,0 +1,450 @@
+version: 2
+
+goal:
+  title: "問題整備の下位クラウドモデル比較"
+  slug: "question-maintenance-lower-cloud-model-benchmark"
+  kind: specific
+  tranche: "各下位候補を固定集合で実利用し、Sol監査込みの品質とコスト効率で採否を閉じる"
+  status: done
+  oracle:
+    signal: "各候補の実model call、raw品質、Sol監査品質、重大誤り、schema安定性、時間、call・usageの比較表"
+    cadence: "after each model screen and at final audit"
+    final_proof: "availability証拠、blind input、sealed prompt capture、oracle-after-run、比較結果、安全確認、最終model決定"
+  intake:
+    original_request: "Lunaより低いモデルについてもそれぞれ利用してみて、問題ないか確認して、コスパの良いモデルを見つけたい"
+    interpreted_outcome: "GPT-5.4、GPT-5.4 Mini、GPT-5.3 Codex Sparkを実測し、Sol監査込みでLunaより良い作業modelがあるか決定する"
+    input_shape: specific
+    audience: "問題整備システムの運用者と受験者"
+    authority: approved
+    proof_type: metric
+    completion_proof: "全候補を同条件で実利用し、品質合格候補のうち最もコスト効率が良いmodel又はLuna維持を決定する"
+    likely_misfire: "画面の上下順又はAPI単価だけでmodelを選び、実品質とschema失敗を測らない"
+    blind_spots_considered:
+      - "GPT-5.4はLunaより公式API単価が高い"
+      - "Sparkは高速なfocused UI iteration向けで一般問題整備適性が不明"
+      - "既存36問benchmarkは画像入力とaudited scorerに既知欠陥がある"
+      - "Codex App Serverのsubscription usageはAPI価格と同一ではない"
+    existing_plan_facts:
+      - "作業modelは下位候補、監査modelはSol"
+      - "監査batchは最大5問"
+      - "全LLM呼び出し1並列"
+      - "柔道整復師を主サンプル、二級建築士を補助サンプルとする"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/question-maintenance-lower-cloud-model-benchmark/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-lower-cloud-model-benchmark"
+
+active_task: null
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "候補modelのCodex App Server上の正確なID・利用可否、既存固定集合とbenchmark harnessの再利用箇所、画像・scorer欠陥を補正する最小経路をread-onlyで特定する。"
+    inputs:
+      - "Current Codex App Server model list and protocol"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/**"
+      - "tools/question_review_console/codex_app_server.py"
+      - "Current Luna work and Sol audit routing"
+    constraints:
+      - "Read-only。"
+      - "Model callを実行しない。"
+      - "00_source、patch、Firestore、外部公開を変更しない。"
+      - "Sparkのmodel IDを推測で確定しない。"
+    expected_output:
+      - "Exact candidate model IDs and availability check path"
+      - "Reusable fixed set and corrected scoring requirements"
+      - "Small-screen then expansion thresholds"
+      - "Largest safe Worker package with allowed_files, verify and stop_if"
+    receipt:
+      result: done
+      summary: "Judge不足を補完。screen 10問とexpand 32問のstable ID、合格線、Sol監査封印、usage欠測時のfail-closed選定、Worker verifyを固定した。"
+      evidence:
+        - path: "旧benchmark_contract.py"
+          finding: "既存stable IDからscreen 10問と画像・hold除外expand 32問を機械導出した。"
+        - path: "現行00_source source_index"
+          finding: "全stable IDが一意に存在し、screenはexpandに包含される。"
+        - path: "Codex App Server model/list (2026-08-25)"
+          finding: "5.4系の退役予定、Spark text-only、全候補high対応を確認した。"
+      screen_ids:
+        - c5167b46942fb08e
+        - 0eb595c2c11278f5
+        - 130d5c77cc5c2b8b
+        - 5c1ab42128e170ab
+        - b22f649e0b947399
+        - 8300bc9178872872
+        - 31fa2012e42b713a
+        - a28db6ba1c8e4c65
+        - 01bd0255c9fc8371
+        - 2380e0e939cce3b7
+      expand_ids:
+        - c5167b46942fb08e
+        - 0eb595c2c11278f5
+        - 8987ec55216cbc63
+        - 4ef67113801362d9
+        - ef0992b6887ec00b
+        - 130d5c77cc5c2b8b
+        - 5c1ab42128e170ab
+        - ee361042818c9b9f
+        - c582757f2a97a68a
+        - 77eea1850fecb0ab
+        - b22f649e0b947399
+        - c1363e3f0487174c
+        - 85cdb2c54567b04a
+        - 8300bc9178872872
+        - 31fa2012e42b713a
+        - 23af5153f13d1a5c
+        - 63ed9af2dc1cda2b
+        - 715ae907c4b74436
+        - a28db6ba1c8e4c65
+        - 01bd0255c9fc8371
+        - 2380e0e939cce3b7
+        - 1d2014527a7acabb
+        - da301fba93a4d48c
+        - ab3c9ed5d41aa3fd
+        - 8168f912ed724458
+        - e1a6f5219f4e01d8
+        - a2f7e9ea703084cb
+        - 5d85b2e35574d926
+        - dd07b4977677b7bb
+        - 3239d392acd6236c
+        - 64032ef7f4bac816
+        - 3b24e06367db4222
+      acceptance:
+        screen: "raw 9/10以上、Sol監査後10/10、schema失敗0、重大誤り0、peak concurrency 1。1項目でも外れれば早期棄却。"
+        expand: "raw 30/32以上、柔道27/28以上、建築3/4以上、stratum最低 law5 numeric5 long3 negative5 current-medical9 building3、Sol監査後32/32、schema失敗0、重大誤り0、peak concurrency 1。"
+      audit_contract:
+        generation: "oracle-free snapshotの同一bytesを全候補へ渡しcandidatePromptSha256一致を必須とする。"
+        sol_input: "Solへ渡すのは同一question snapshot、共通audit instruction、sealed candidate responseのみ。correctChoice、answerTable、oracle、prior audit、answer-derived explanationは禁止。"
+        sealing: "全candidate responseとpromptをhash封印し、全候補のgeneration/audit終了後だけoracle-after-run.jsonを生成する。"
+        scoring: "oracle生成後、raw candidateとSol corrected resultを独立採点し、無条件true分岐を禁止する。"
+      cost_policy: "品質不合格を棄却。帰属可能なusage節約を実証できた場合のみcost winnerとする。usage欠測・帰属不能なら金額を推定せずcost=inconclusiveとしてLunaを維持する。5.4系はdeprecated-soonのためscreen比較のみ、Sparkはtext-only候補。"
+      allowed_files:
+        - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**"
+        - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**"
+        - "/private/tmp/question-maintenance-lower-cloud-model-benchmark/**"
+      verify:
+        - "build_contract.py --dry-run"
+        - "verify_contract.py --expect-no-model-calls"
+        - "python -m unittest discover T003-harness/tests"
+        - "run_benchmark.py --phase screen --models gpt-5.6-luna gpt-5.4 gpt-5.4-mini gpt-5.3-codex-spark --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1"
+        - "score_benchmark.py --phase screen --seal-before-oracle"
+        - "run_benchmark.py --phase expand --models-from-screen-pass --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1"
+        - "score_benchmark.py --phase expand --seal-before-oracle"
+        - "verify_benchmark.py --require-generation-prompt-parity --require-audit-common-hash-parity --require-sealed-before-oracle --require-peak-concurrency 1 --forbid-oracle-in-prompts --forbid-production-writes"
+        - scripts/check/check_00_source_immutability.py
+        - "git diff --check"
+        - "git diff --name-only"
+      manifest_facts:
+        - "gpt-5.4 lifecycle=deprecated-soon modalities=text,image"
+        - "gpt-5.4-mini lifecycle=deprecated-soon modalities=text,image"
+        - "gpt-5.3-codex-spark lifecycle=current modalities=text"
+      stop_if:
+        - "candidate prompt hash又はaudit common hashが候補間で異なる"
+        - "oracleがsealより先に存在する又はpromptへ入る"
+        - "usageを推定補完する"
+        - "peak concurrencyが1を超える"
+        - "allowed_files外が変わる"
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T001の証拠を監査し、oracle漏洩なく各候補を実利用して比較する単一Worker packageを確定する。"
+    inputs:
+      - "T001 receipt"
+    constraints:
+      - "Read-only。"
+      - "モデル間で入力、prompt、監査条件又は合格基準を変えない。"
+    expected_output:
+      - "approve_next | rework | reject"
+      - "Exact sample, thresholds and early rejection"
+      - "Worker allowed_files, verify and stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "stable sample、合格線、oracle封印、Sol入力境界、usage欠測時のLuna維持、検証手順が固定されたため、専用artifact領域に限り単一Workerでの実測を承認する。5.4系はscreen限定・採用対象外、Sparkはtext-only限定。"
+      evidence:
+        - path: notes/T001-rework.json
+          finding: "screen 10件とexpand 32件のID、閾値、監査契約、cost規則、verify、lifecycle/modalitiesが揃った。"
+        - path: state.yaml
+          finding: "全LLM呼び出し1並列、Sol監査、専用artifactのみ変更という境界と整合する。"
+      next_allowed_task: T003
+      worker_contract:
+        objective: "固定text集合でLuna、GPT-5.4、GPT-5.4 Mini、GPT-5.3 Codex Sparkを同一条件・1並列で実利用し、Sol監査込みの品質、schema、時間、call、帰属可能usageを封印artifactへ記録する。"
+        rules:
+          - "同一oracle-free bytesと同一generation instructionを全候補へ渡しmodel IDはRPC parameterだけで指定する"
+          - "全responseとauditをhash封印した後だけphase oracleを生成する"
+          - "5.4系はdeprecated-soonのためscreenのみで採用対象外"
+          - "Lunaはbaselineとしてexpandし、Sparkはscreen通過時だけtext-only候補としてexpandする"
+          - "usage欠測はnull、推定不可。帰属可能な節約がなければcost inconclusiveでLuna維持"
+          - "画像2問除外の結果を画像対応全体へ一般化しない"
+        allowed_files:
+          - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**"
+          - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**"
+          - "/private/tmp/question-maintenance-lower-cloud-model-benchmark/**"
+        verify:
+          - "build_contract.py --dry-run"
+          - "verify_contract.py --expect-no-model-calls"
+          - "python -m unittest discover T003-harness/tests"
+          - "run_benchmark.py screen"
+          - "score_benchmark.py screen --seal-before-oracle"
+          - "run_benchmark.py expand --models-from-screen-pass"
+          - "score_benchmark.py expand --seal-before-oracle"
+          - "verify_benchmark.py parity/seal/concurrency/oracle/production checks"
+          - check_00_source_immutability.py
+          - "git diff --check"
+          - "git diff --name-only"
+        stop_if:
+          - "sample ID、順序又は閾値を変える必要がある"
+          - "prompt parity又はaudit common hash parityが崩れる"
+          - "oracle又はanswer-derived contentがseal前に読まれるかpromptへ入る"
+          - "peak model-call concurrencyが1を超える"
+          - "usage推定又は許可範囲外書込みが必要"
+          - "App Serverがmodel ID又はreasoning highを同条件で受け付けない"
+      blocked_tasks:
+        - T999
+      missing_evidence: []
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: low
+    objective: "Judgeが承認した固定比較を1並列で実行し、候補別品質・時間・call・usage・安全性をartifactへ閉じる。"
+    allowed_files:
+      - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**"
+      - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**"
+      - "/private/tmp/question-maintenance-lower-cloud-model-benchmark/**"
+    verify:
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/build_contract.py --dry-run"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/verify_contract.py --expect-no-model-calls"
+      - "python -m unittest discover -s docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/tests"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/run_benchmark.py --phase screen --models gpt-5.6-luna gpt-5.4 gpt-5.4-mini gpt-5.3-codex-spark --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/score_benchmark.py --phase screen --seal-before-oracle"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/run_benchmark.py --phase expand --models-from-screen-pass --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/score_benchmark.py --phase expand --seal-before-oracle"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/verify_benchmark.py --require-generation-prompt-parity --require-audit-common-hash-parity --require-sealed-before-oracle --require-peak-concurrency 1 --forbid-oracle-in-prompts --forbid-production-writes"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git diff --name-only"
+    stop_if:
+      - "Need files outside Judge-approved allowed_files."
+      - "Oracle or answer-derived content would enter a model prompt."
+      - "Peak model-call concurrency exceeds 1."
+      - "Any production source, patch, Firestore or publication write would occur."
+      - "Verification fails twice for the same cause."
+      - "Screen or expand IDs, order or thresholds need to change."
+      - "Candidate prompt bytes or audit common hashes differ between models."
+      - "Oracle or answer-derived content is read before seals or enters any prompt."
+      - "Usage missing values would be estimated."
+      - "Codex App Server rejects a candidate model ID or reasoning=high under common conditions."
+    receipt:
+      result: blocked
+      changed_files:
+        - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**"
+        - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**"
+      summary: "4候補をscreen実測しLunaとSparkを32問へ拡張。全44 model callはpeak 1、usage nullで推定なし。建築4問の正答oracleが全件空でbuilding 3/4 gateを採点不能なsource-contract conflictを検出し、sample/閾値を変えず停止した。"
+      evidence:
+        - path: notes/T003-artifacts/screen/score.json
+          finding: "screen 16 calls、peak 1、459.85秒。Luna 10/10→10/10、5.4 10/10→5/10、5.4 Mini 10/10→10/10、Spark 9/10→10/10。"
+        - path: notes/T003-artifacts/expand/score.json
+          finding: "expand 28 calls、peak 1、785.33秒。建築4 IDのcorrectIndexesが空で最終gate採点不能。柔道rawはLuna 27/28、Spark 26/28。"
+        - path: notes/T003-artifacts/comparison.json
+          finding: "provider usageは全候補null、推定なし。"
+      remaining_blockers:
+        - "building 4 IDsのcurrent 00_source correctIndexesが空でbuilding 3/4 thresholdを採点できない"
+        - "provider usage nullのため推定なしではcost winnerを確定できない"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "Source evidence conflicts with approved building scoring contract; stop_if forbids changing IDs or thresholds."
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "候補別の実利用証拠と比較を監査し、最適model又はLuna維持を最終決定する。"
+    inputs:
+      - "All completed receipts and benchmark artifacts"
+      - "Current git diff and safety checks"
+    constraints:
+      - "Read-only。"
+      - "Provider usage欠測を推定値で埋めない。"
+      - "重大誤りを含む候補をコスト理由で採用しない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "Chosen model or Luna retention"
+      - "Missing evidence and next task if incomplete"
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      rationale: "監査指示に1始まり指定がなく、5.4後半5問とLuna 3問で説明は正しいのにselectedIndexesだけ1小さい契約欠陥を確認。建築4問は正答空。封印済み生成を再利用し、修正版Sol監査を柔道28問へ行う必要がある。usage欠測時はLuna維持。"
+      evidence:
+        - path: T003-artifacts/screen/run.json
+          finding: "5.4後半5問は説明とindexが1ずれ、0始まり応答。"
+        - path: "T003-harness/contract.py:28"
+          finding: "generationは1始まり明記、auditはindex base未指定。"
+        - path: T003-artifacts/expand/score.json
+          finding: "柔道raw Luna 27/28、Spark 26/28。Luna auditにも同型indexずれ3件。"
+        - path: T003-artifacts/expand/oracle-after-run.json
+          finding: "建築4問のcorrectIndexesは空。"
+        - path: T003-artifacts/comparison.json
+          finding: "usage null、peak concurrency 1。"
+      next_allowed_task: T004
+      worker_contract:
+        objective: "T003 sealed generationを変更せず再利用し、1始まりを機械強制したSol監査をscreen 4候補とexpand Luna/Sparkへ1並列再実行。柔道28問だけを採点しLuna維持判定を閉じる。"
+        allowed_files:
+          - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/**"
+          - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-artifacts/**"
+          - "/private/tmp/question-maintenance-lower-cloud-model-benchmark-T004/**"
+        rules:
+          - "T003 artifactsはread-onlyでhash不変を確認"
+          - "audit instructionにselectedIndexesは1始まり、1以上、選択肢数以下、explanationsと一致を明記"
+          - "index補正・説明からの推定を禁止"
+          - "oracle/旧audit/answer-derived contentをSolへ渡さない"
+          - "generation callは行わずSol auditだけを全体1並列"
+          - "建築4問はoracle_missing diagnosticで採点外"
+          - "expandはraw柔道27/28以上かつSol後28/28。Spark raw 26/28のgateを免除しない"
+          - "usage nullを推定せず節約未証明ならLuna維持"
+      missing_evidence:
+        - "修正版Sol監査の再実測"
+        - "柔道28問再契約score"
+        - "T003 hash不変、seal-before-oracle、prompt parity、peak1"
+        - "Luna対Spark最終比較"
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: low
+    objective: "T003の封印済みgenerationを再利用し、1始まりを強制したSol監査をscreen 4候補と柔道28問のLuna・Sparkへ1並列で再実行する。"
+    allowed_files:
+      - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/**"
+      - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-artifacts/**"
+      - "/private/tmp/question-maintenance-lower-cloud-model-benchmark-T004/**"
+    verify:
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/build_recontract.py --dry-run --source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/verify_recontract.py --expect-no-model-calls --require-audit-index-base one --require-screen-count 10 --require-scored-expand-count 28 --require-building-unscored 4"
+      - "PYTHONPATH=docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness python -m unittest discover -s docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/tests"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/run_reaudit.py --phase screen --source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/screen/run.json --models gpt-5.6-luna gpt-5.4 gpt-5.4-mini gpt-5.3-codex-spark --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1 --reuse-sealed-generations"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/score_reaudit.py --phase screen --seal-before-oracle --oracle-source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/screen/oracle-after-run.json"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/run_reaudit.py --phase expand --source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/expand/run.json --models gpt-5.6-luna gpt-5.3-codex-spark --scored-first 28 --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1 --reuse-sealed-generations"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/score_reaudit.py --phase expand --seal-before-oracle --oracle-source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/expand/oracle-after-run.json --exclude-empty-oracle"
+      - "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/verify_reaudit.py --require-no-generation-calls --require-audit-index-base one --require-audit-common-hash-parity --require-sealed-before-oracle --require-peak-concurrency 1 --forbid-index-normalization --forbid-oracle-in-prompts --require-building-unscored 4 --require-t003-hashes-unchanged"
+      - "python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+      - "git diff --name-only"
+    stop_if:
+      - "T003 artifact hashes change or fail their seals."
+      - "A candidate generation call would occur."
+      - "Oracle, old audit or answer-derived content enters a Sol prompt."
+      - "Audit output needs index normalization or inferred correction."
+      - "Audit common hashes differ within a phase."
+      - "Peak model-call concurrency exceeds 1."
+      - "Missing usage would be estimated."
+      - "Files outside allowed_files would change."
+      - "Verification fails twice for the same cause."
+    receipt:
+      result: blocked
+      changed_files:
+        - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/**"
+        - "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-artifacts/**"
+      summary: "修正版Sol監査はgeneration 0、20 calls、peak 1で完了。Luna raw 27/28・Sol 28/28合格、Spark Sol 28/28だがraw 26/28不合格。usage nullのため推定せずLuna維持。T003 hash検証は合格したが、既存不変台帳が3171 files missingを報告。"
+      evidence:
+        - path: T004-artifacts/screen/score.json
+          finding: "全4候補の修正版Sol監査は10/10。旧5.4 5/10はindex-base契約欠陥。"
+        - path: T004-artifacts/expand/score.json
+          finding: "Luna raw27/28・Sol28/28 pass、Spark raw26/28・Sol28/28 fail。"
+        - path: T004-artifacts/comparison.json
+          finding: "generation 0、Sol 20 calls、peak1、usage null、T003 hashes unchanged、building4 unscored。"
+      remaining_blockers:
+        - "check_00_source_immutability.pyがT004所有外の既存3171 files missingを報告しexact verificationが通らない"
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: "Required source immutability verification failed on pre-existing registry state outside allowed_files."
+  - id: T005
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "修正版監査と再契約scoreを監査し、最終採用model又はLuna維持を決定する。"
+    inputs:
+      - "T004 receipt and sealed artifacts"
+      - "T003 read-only hashes and original comparison"
+    constraints:
+      - "Read-only。"
+      - "usage欠測を推定しない。"
+      - "画像対応へ一般化しない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "Chosen model or Luna retention"
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      rationale: "下位3候補を実利用し、修正版Sol監査、封印、1並列、T003 hash不変を確認。Sparkはraw 26/28で品質gate不合格、5.4系は退役予定で採用外、usage nullのため費用差を推定せずLuna維持。3171 missingは今回起因でない既存台帳障害として分離する。"
+      evidence:
+        - path: T004-artifacts/screen/score.json
+          finding: "修正版Sol監査は4候補全て10/10、schema failure 0。"
+        - path: T004-artifacts/expand/score.json
+          finding: "Luna raw27/28・Sol28/28 pass、Spark raw26/28・Sol28/28 fail。"
+        - path: T004-artifacts/comparison.json
+          finding: "work model Luna、Sol audit 20 calls、peak1、usage null、usageEstimated false、T003 hashes unchanged。"
+        - path: "current git status and diff"
+          finding: "goal directoryのみuntracked、tracked production/00_source diffなし。"
+        - path: check_00_source_immutability.py
+          finding: "既存台帳3171 files missingは今回成果外の別障害。"
+      final_decision:
+        work_model: gpt-5.6-luna
+        audit_model: gpt-5.6-sol
+        lower_candidate_selected: false
+        cost_conclusion: inconclusive_provider_usage_unavailable
+        selection_reason: "Spark failed raw-quality gate; 5.4 variants are deprecated-soon; no attributable cost saving was available."
+        scope: text-only
+        limitations:
+          - "柔道整復師28問中心の小規模benchmark"
+          - "建築4問はoracle空でunscored"
+          - "画像2問は除外"
+          - "Luna最安ではなく下位候補の費用優位を証明できなかったという結論"
+          - "00_source台帳3171 missingは別途是正が必要"
+      next_allowed_task: null
+      missing_evidence: []
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: unknown
+    task: null
+    commands: []

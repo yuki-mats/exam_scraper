@@ -1,0 +1,53 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T002",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "stable sample、合格線、oracle封印、Sol入力境界、usage欠測時のLuna維持、検証手順が固定されたため、専用artifact領域に限り単一Workerでの実測を承認する。5.4系はscreen限定・採用対象外、Sparkはtext-only限定。",
+    "evidence": [
+      {"path": "notes/T001-rework.json", "finding": "screen 10件とexpand 32件のID、閾値、監査契約、cost規則、verify、lifecycle/modalitiesが揃った。"},
+      {"path": "state.yaml", "finding": "全LLM呼び出し1並列、Sol監査、専用artifactのみ変更という境界と整合する。"}
+    ],
+    "next_allowed_task": "T003",
+    "worker_contract": {
+      "objective": "固定text集合でLuna、GPT-5.4、GPT-5.4 Mini、GPT-5.3 Codex Sparkを同一条件・1並列で実利用し、Sol監査込みの品質、schema、時間、call、帰属可能usageを封印artifactへ記録する。",
+      "rules": [
+        "同一oracle-free bytesと同一generation instructionを全候補へ渡しmodel IDはRPC parameterだけで指定する",
+        "全responseとauditをhash封印した後だけphase oracleを生成する",
+        "5.4系はdeprecated-soonのためscreenのみで採用対象外",
+        "Lunaはbaselineとしてexpandし、Sparkはscreen通過時だけtext-only候補としてexpandする",
+        "usage欠測はnull、推定不可。帰属可能な節約がなければcost inconclusiveでLuna維持",
+        "画像2問除外の結果を画像対応全体へ一般化しない"
+      ],
+      "allowed_files": [
+        "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**",
+        "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**",
+        "/private/tmp/question-maintenance-lower-cloud-model-benchmark/**"
+      ],
+      "verify": [
+        "build_contract.py --dry-run",
+        "verify_contract.py --expect-no-model-calls",
+        "python -m unittest discover T003-harness/tests",
+        "run_benchmark.py screen",
+        "score_benchmark.py screen --seal-before-oracle",
+        "run_benchmark.py expand --models-from-screen-pass",
+        "score_benchmark.py expand --seal-before-oracle",
+        "verify_benchmark.py parity/seal/concurrency/oracle/production checks",
+        "check_00_source_immutability.py",
+        "git diff --check",
+        "git diff --name-only"
+      ],
+      "stop_if": [
+        "sample ID、順序又は閾値を変える必要がある",
+        "prompt parity又はaudit common hash parityが崩れる",
+        "oracle又はanswer-derived contentがseal前に読まれるかpromptへ入る",
+        "peak model-call concurrencyが1を超える",
+        "usage推定又は許可範囲外書込みが必要",
+        "App Serverがmodel ID又はreasoning highを同条件で受け付けない"
+      ]
+    },
+    "blocked_tasks": ["T999"],
+    "missing_evidence": []
+  }
+}

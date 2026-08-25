@@ -1,0 +1,28 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T003",
+    "board_path": "docs/goals/question-maintenance-lower-cloud-model-benchmark/state.yaml",
+    "changed_files": [
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**",
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**"
+    ],
+    "commands": [
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/build_contract.py --dry-run",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/verify_contract.py --expect-no-model-calls",
+      "PYTHONPATH=docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness python -m unittest discover -s docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/tests",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/run_benchmark.py --phase screen --models gpt-5.6-luna gpt-5.4 gpt-5.4-mini gpt-5.3-codex-spark --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/score_benchmark.py --phase screen --seal-before-oracle",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/run_benchmark.py --phase expand --models-from-screen-pass --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/score_benchmark.py --phase expand --seal-before-oracle"
+    ],
+    "summary": "4候補をscreen実測し、LunaとSparkを32問へ拡張した。全44 model callはpeak 1、usageは全候補nullで推定なし。建築4問の正答oracleが全件空でbuilding 3/4 gateを採点不能なsource-contract conflictを検出したため、固定sample/閾値を変更せず停止した。",
+    "remaining_blockers": [
+      "Judge-fixed building 4 IDs have empty correctIndexes in current 00_source; building 3/4 threshold is unscorable.",
+      "Provider usage is null, so cost winner cannot be established without estimation."
+    ],
+    "needs_judge": true,
+    "verification_attempts": 1,
+    "stopped_because": "Source evidence conflicts with the approved building scoring contract; stop_if forbids changing sample IDs or thresholds."
+  }
+}

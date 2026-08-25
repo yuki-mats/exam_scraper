@@ -1,0 +1,665 @@
+{
+  "phase": "screen",
+  "models": {
+    "gpt-5.6-luna": {
+      "rawCorrect": 10,
+      "auditedCorrect": 10,
+      "schemaFailures": 0,
+      "criticalErrors": [],
+      "rawByStratum": {
+        "current-medical": 3,
+        "numeric": 2,
+        "law": 2,
+        "long": 1,
+        "negative": 2
+      },
+      "items": [
+        {
+          "id": "c5167b46942fb08e",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "0eb595c2c11278f5",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            4
+          ],
+          "audited": [
+            4
+          ],
+          "oracle": [
+            4
+          ]
+        },
+        {
+          "id": "130d5c77cc5c2b8b",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1,
+            3
+          ],
+          "audited": [
+            1,
+            3
+          ],
+          "oracle": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "5c1ab42128e170ab",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "b22f649e0b947399",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1,
+            4
+          ],
+          "audited": [
+            1,
+            4
+          ],
+          "oracle": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "8300bc9178872872",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "31fa2012e42b713a",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1
+          ],
+          "audited": [
+            1
+          ],
+          "oracle": [
+            1
+          ]
+        },
+        {
+          "id": "a28db6ba1c8e4c65",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            2
+          ],
+          "audited": [
+            2
+          ],
+          "oracle": [
+            2
+          ]
+        },
+        {
+          "id": "01bd0255c9fc8371",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "2380e0e939cce3b7",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        }
+      ],
+      "usage": null,
+      "usageEstimated": false,
+      "elapsedSeconds": 102.38831650099019,
+      "screenPass": true
+    },
+    "gpt-5.4": {
+      "rawCorrect": 10,
+      "auditedCorrect": 5,
+      "schemaFailures": 0,
+      "criticalErrors": [],
+      "rawByStratum": {
+        "current-medical": 3,
+        "numeric": 2,
+        "law": 2,
+        "long": 1,
+        "negative": 2
+      },
+      "items": [
+        {
+          "id": "c5167b46942fb08e",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "0eb595c2c11278f5",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            4
+          ],
+          "audited": [
+            4
+          ],
+          "oracle": [
+            4
+          ]
+        },
+        {
+          "id": "130d5c77cc5c2b8b",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1,
+            3
+          ],
+          "audited": [
+            1,
+            3
+          ],
+          "oracle": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "5c1ab42128e170ab",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "b22f649e0b947399",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1,
+            4
+          ],
+          "audited": [
+            1,
+            4
+          ],
+          "oracle": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "8300bc9178872872",
+          "rawCorrect": true,
+          "auditedCorrect": false,
+          "raw": [
+            3
+          ],
+          "audited": [
+            2
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "31fa2012e42b713a",
+          "rawCorrect": true,
+          "auditedCorrect": false,
+          "raw": [
+            1
+          ],
+          "audited": [
+            0
+          ],
+          "oracle": [
+            1
+          ]
+        },
+        {
+          "id": "a28db6ba1c8e4c65",
+          "rawCorrect": true,
+          "auditedCorrect": false,
+          "raw": [
+            2
+          ],
+          "audited": [
+            1
+          ],
+          "oracle": [
+            2
+          ]
+        },
+        {
+          "id": "01bd0255c9fc8371",
+          "rawCorrect": true,
+          "auditedCorrect": false,
+          "raw": [
+            3
+          ],
+          "audited": [
+            2
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "2380e0e939cce3b7",
+          "rawCorrect": true,
+          "auditedCorrect": false,
+          "raw": [
+            3
+          ],
+          "audited": [
+            2
+          ],
+          "oracle": [
+            3
+          ]
+        }
+      ],
+      "usage": null,
+      "usageEstimated": false,
+      "elapsedSeconds": 125.55752566702722,
+      "screenPass": false
+    },
+    "gpt-5.4-mini": {
+      "rawCorrect": 10,
+      "auditedCorrect": 10,
+      "schemaFailures": 0,
+      "criticalErrors": [],
+      "rawByStratum": {
+        "current-medical": 3,
+        "numeric": 2,
+        "law": 2,
+        "long": 1,
+        "negative": 2
+      },
+      "items": [
+        {
+          "id": "c5167b46942fb08e",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "0eb595c2c11278f5",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            4
+          ],
+          "audited": [
+            4
+          ],
+          "oracle": [
+            4
+          ]
+        },
+        {
+          "id": "130d5c77cc5c2b8b",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1,
+            3
+          ],
+          "audited": [
+            1,
+            3
+          ],
+          "oracle": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "5c1ab42128e170ab",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "b22f649e0b947399",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1,
+            4
+          ],
+          "audited": [
+            1,
+            4
+          ],
+          "oracle": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "8300bc9178872872",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "31fa2012e42b713a",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1
+          ],
+          "audited": [
+            1
+          ],
+          "oracle": [
+            1
+          ]
+        },
+        {
+          "id": "a28db6ba1c8e4c65",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            2
+          ],
+          "audited": [
+            2
+          ],
+          "oracle": [
+            2
+          ]
+        },
+        {
+          "id": "01bd0255c9fc8371",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "2380e0e939cce3b7",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        }
+      ],
+      "usage": null,
+      "usageEstimated": false,
+      "elapsedSeconds": 156.71305329198367,
+      "screenPass": true
+    },
+    "gpt-5.3-codex-spark": {
+      "rawCorrect": 9,
+      "auditedCorrect": 10,
+      "schemaFailures": 0,
+      "criticalErrors": [],
+      "rawByStratum": {
+        "current-medical": 3,
+        "numeric": 2,
+        "law": 1,
+        "long": 1,
+        "negative": 2
+      },
+      "items": [
+        {
+          "id": "c5167b46942fb08e",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "0eb595c2c11278f5",
+          "rawCorrect": false,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            4
+          ],
+          "oracle": [
+            4
+          ]
+        },
+        {
+          "id": "130d5c77cc5c2b8b",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1,
+            3
+          ],
+          "audited": [
+            1,
+            3
+          ],
+          "oracle": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "5c1ab42128e170ab",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "b22f649e0b947399",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1,
+            4
+          ],
+          "audited": [
+            1,
+            4
+          ],
+          "oracle": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "8300bc9178872872",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "31fa2012e42b713a",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            1
+          ],
+          "audited": [
+            1
+          ],
+          "oracle": [
+            1
+          ]
+        },
+        {
+          "id": "a28db6ba1c8e4c65",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            2
+          ],
+          "audited": [
+            2
+          ],
+          "oracle": [
+            2
+          ]
+        },
+        {
+          "id": "01bd0255c9fc8371",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        },
+        {
+          "id": "2380e0e939cce3b7",
+          "rawCorrect": true,
+          "auditedCorrect": true,
+          "raw": [
+            3
+          ],
+          "audited": [
+            3
+          ],
+          "oracle": [
+            3
+          ]
+        }
+      ],
+      "usage": null,
+      "usageEstimated": false,
+      "elapsedSeconds": 75.19025549999787,
+      "screenPass": true
+    }
+  }
+}

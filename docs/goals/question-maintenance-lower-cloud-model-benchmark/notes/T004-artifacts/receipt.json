@@ -1,0 +1,27 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T004",
+    "board_path": "docs/goals/question-maintenance-lower-cloud-model-benchmark/state.yaml",
+    "changed_files": [
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/**",
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-artifacts/**"
+    ],
+    "commands": [
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/build_recontract.py --dry-run --source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/verify_recontract.py --expect-no-model-calls --require-audit-index-base one --require-screen-count 10 --require-scored-expand-count 28 --require-building-unscored 4",
+      "PYTHONPATH=docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness python -m unittest discover -s docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/tests",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/run_reaudit.py --phase screen --source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/screen/run.json --models gpt-5.6-luna gpt-5.4 gpt-5.4-mini gpt-5.3-codex-spark --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1 --reuse-sealed-generations",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/score_reaudit.py --phase screen --seal-before-oracle --oracle-source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/screen/oracle-after-run.json",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/run_reaudit.py --phase expand --source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/expand/run.json --models gpt-5.6-luna gpt-5.3-codex-spark --scored-first 28 --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1 --reuse-sealed-generations",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/score_reaudit.py --phase expand --seal-before-oracle --oracle-source docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/expand/oracle-after-run.json --exclude-empty-oracle",
+      "python docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T004-harness/verify_reaudit.py --require-no-generation-calls --require-audit-index-base one --require-audit-common-hash-parity --require-sealed-before-oracle --require-peak-concurrency 1 --forbid-index-normalization --forbid-oracle-in-prompts --require-building-unscored 4 --require-t003-hashes-unchanged",
+      "python scripts/check/check_00_source_immutability.py"
+    ],
+    "summary": "修正版Sol監査はgeneration 0、20 calls、peak 1で完了。Lunaはraw 27/28・Sol 28/28で合格、SparkはSol 28/28だがraw 26/28で不合格。usage nullのため推定せずLuna維持。T003 hash検証は通ったが、既存不変台帳が3171 files消失を報告した。",
+    "remaining_blockers": ["check_00_source_immutability.py reports 3171 missing files outside T004 ownership; exact verification cannot pass."],
+    "needs_judge": true,
+    "verification_attempts": 1,
+    "stopped_because": "Required source immutability verification failed on pre-existing registry state outside allowed_files."
+  }
+}

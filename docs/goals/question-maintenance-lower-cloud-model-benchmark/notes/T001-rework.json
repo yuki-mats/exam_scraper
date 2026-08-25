@@ -1,0 +1,66 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T001",
+    "summary": "Judge不足を補完。screen 10問とexpand 32問のstable ID、合格線、Sol監査封印、usage欠測時のfail-closed選定、Worker verifyを固定した。",
+    "evidence": [
+      {"path": "旧benchmark_contract.py", "finding": "既存stable IDからscreen 10問と画像・hold除外expand 32問を機械導出した。"},
+      {"path": "現行00_source source_index", "finding": "全stable IDが一意に存在し、screenはexpandに包含される。"},
+      {"path": "Codex App Server model/list (2026-08-25)", "finding": "5.4系の退役予定、Spark text-only、全候補high対応を確認した。"}
+    ],
+    "screen_ids": [
+      "c5167b46942fb08e", "0eb595c2c11278f5", "130d5c77cc5c2b8b", "5c1ab42128e170ab", "b22f649e0b947399",
+      "8300bc9178872872", "31fa2012e42b713a", "a28db6ba1c8e4c65", "01bd0255c9fc8371", "2380e0e939cce3b7"
+    ],
+    "expand_ids": [
+      "c5167b46942fb08e", "0eb595c2c11278f5", "8987ec55216cbc63", "4ef67113801362d9", "ef0992b6887ec00b",
+      "130d5c77cc5c2b8b", "5c1ab42128e170ab", "ee361042818c9b9f", "c582757f2a97a68a", "77eea1850fecb0ab",
+      "b22f649e0b947399", "c1363e3f0487174c", "85cdb2c54567b04a", "8300bc9178872872", "31fa2012e42b713a",
+      "23af5153f13d1a5c", "63ed9af2dc1cda2b", "715ae907c4b74436", "a28db6ba1c8e4c65", "01bd0255c9fc8371",
+      "2380e0e939cce3b7", "1d2014527a7acabb", "da301fba93a4d48c", "ab3c9ed5d41aa3fd", "8168f912ed724458",
+      "e1a6f5219f4e01d8", "a2f7e9ea703084cb", "5d85b2e35574d926", "dd07b4977677b7bb", "3239d392acd6236c",
+      "64032ef7f4bac816", "3b24e06367db4222"
+    ],
+    "acceptance": {
+      "screen": "raw 9/10以上、Sol監査後10/10、schema失敗0、重大誤り0、peak concurrency 1。1項目でも外れれば早期棄却。",
+      "expand": "raw 30/32以上、柔道27/28以上、建築3/4以上、stratum最低 law5 numeric5 long3 negative5 current-medical9 building3、Sol監査後32/32、schema失敗0、重大誤り0、peak concurrency 1。"
+    },
+    "audit_contract": {
+      "generation": "oracle-free snapshotの同一bytesを全候補へ渡しcandidatePromptSha256一致を必須とする。",
+      "sol_input": "Solへ渡すのは同一question snapshot、共通audit instruction、sealed candidate responseのみ。correctChoice、answerTable、oracle、prior audit、answer-derived explanationは禁止。",
+      "sealing": "全candidate responseとpromptをhash封印し、全候補のgeneration/audit終了後だけoracle-after-run.jsonを生成する。",
+      "scoring": "oracle生成後、raw candidateとSol corrected resultを独立採点し、無条件true分岐を禁止する。"
+    },
+    "cost_policy": "品質不合格を棄却。帰属可能なusage節約を実証できた場合のみcost winnerとする。usage欠測・帰属不能なら金額を推定せずcost=inconclusiveとしてLunaを維持する。5.4系はdeprecated-soonのためscreen比較のみ、Sparkはtext-only候補。",
+    "allowed_files": [
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**",
+      "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**",
+      "/private/tmp/question-maintenance-lower-cloud-model-benchmark/**"
+    ],
+    "verify": [
+      "build_contract.py --dry-run",
+      "verify_contract.py --expect-no-model-calls",
+      "python -m unittest discover T003-harness/tests",
+      "run_benchmark.py --phase screen --models gpt-5.6-luna gpt-5.4 gpt-5.4-mini gpt-5.3-codex-spark --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1",
+      "score_benchmark.py --phase screen --seal-before-oracle",
+      "run_benchmark.py --phase expand --models-from-screen-pass --audit-model gpt-5.6-sol --reasoning high --max-concurrency 1",
+      "score_benchmark.py --phase expand --seal-before-oracle",
+      "verify_benchmark.py --require-generation-prompt-parity --require-audit-common-hash-parity --require-sealed-before-oracle --require-peak-concurrency 1 --forbid-oracle-in-prompts --forbid-production-writes",
+      "scripts/check/check_00_source_immutability.py",
+      "git diff --check",
+      "git diff --name-only"
+    ],
+    "manifest_facts": [
+      "gpt-5.4 lifecycle=deprecated-soon modalities=text,image",
+      "gpt-5.4-mini lifecycle=deprecated-soon modalities=text,image",
+      "gpt-5.3-codex-spark lifecycle=current modalities=text"
+    ],
+    "stop_if": [
+      "candidate prompt hash又はaudit common hashが候補間で異なる",
+      "oracleがsealより先に存在する又はpromptへ入る",
+      "usageを推定補完する",
+      "peak concurrencyが1を超える",
+      "allowed_files外が変わる"
+    ]
+  }
+}

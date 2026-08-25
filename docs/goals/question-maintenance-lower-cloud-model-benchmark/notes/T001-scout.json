@@ -1,0 +1,50 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T001",
+    "summary": "Codex App Server model/listでgpt-5.4、gpt-5.4-mini、gpt-5.3-codex-sparkが選択可能でhigh推論対応と確認した。5.4系は退役予定、Sparkはtext-only。既存36問集合は再利用できるが、旧commit固定、Ollama必須、候補model未指定、画像URL文字列、Codex監査値を常にtrueとする欠陥があり、そのまま比較できない。",
+    "evidence": [
+      {
+        "path": "Codex App Server model/list (2026-08-25)",
+        "finding": "gpt-5.4、gpt-5.4-mini、gpt-5.3-codex-sparkはhidden=falseでhigh対応。5.4系は移行案とretirementAtあり。Sparkはtext-only。"
+      },
+      {
+        "path": "tools/question_review_console/codex_app_server.py:112-122,1803-1816,1870",
+        "finding": "production allowlistはLuna/Solのみ。thread/startはmodelを明示できるが、turn/start入力はtextのみ。"
+      },
+      {
+        "path": "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/benchmark_contract.py:10-31",
+        "finding": "固定集合は柔道30問（hold 2問）と建築6問。実画像対象は建築2問。"
+      },
+      {
+        "path": "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_benchmark.py:97-140",
+        "finding": "現行HEADに対して旧sourceCommit gateで失敗し、不要なOllama gateがあり、候補modelを明示しない。"
+      },
+      {
+        "path": "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/score_benchmark.py:41-60",
+        "finding": "oracleはrun後に生成するが、codex_only audited_matchを無条件trueにしている。"
+      }
+    ],
+    "facts": {
+      "candidate_models": [
+        {"id": "gpt-5.4", "available": true, "high": true, "modalities": ["text", "image"], "lifecycle": "deprecated-soon"},
+        {"id": "gpt-5.4-mini", "available": true, "high": true, "modalities": ["text", "image"], "lifecycle": "deprecated-soon"},
+        {"id": "gpt-5.3-codex-spark", "available": true, "high": true, "modalities": ["text"], "lifecycle": "current"}
+      ],
+      "screen": "同一10問text集合。raw 9/10以上、Sol監査後10/10、schema失敗0、重大誤り0、peak concurrency 1で通過。",
+      "expand": "通過候補とLunaを柔道非hold 28問と非画像建築4問へ拡張。画像2問は別modality評価。",
+      "allowed_files": [
+        "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-harness/**",
+        "docs/goals/question-maintenance-lower-cloud-model-benchmark/notes/T003-artifacts/**",
+        "/private/tmp/question-maintenance-lower-cloud-model-benchmark/**"
+      ]
+    },
+    "stop_if": [
+      "候補間でprompt、reasoning、sample又はSol監査条件が異なる",
+      "oracleがmodel promptへ入る",
+      "production、00_source、patch又はFirestoreへ書く",
+      "peak model-call concurrencyが1を超える",
+      "Sparkを画像対応候補として扱う"
+    ]
+  }
+}

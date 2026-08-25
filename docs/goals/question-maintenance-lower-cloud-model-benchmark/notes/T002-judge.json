@@ -1,0 +1,26 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T002",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "候補IDと既知欠陥は特定済みだが、exact sample、拡張閾値、Sol監査契約、コスト効率規則、verifyコマンドが未確定であり、Worker実行はまだ許可できない。",
+    "next_allowed_task": "T001",
+    "blocked_tasks": ["T003", "T999"],
+    "missing_evidence": [
+      "10問screenのstable question ID完全一覧",
+      "拡張32問のstable question ID完全一覧",
+      "raw 30/32以上、Sol監査後32/32、重大誤り0、schema失敗0、peak concurrency 1という拡張合格線",
+      "oracle、正答、answer-derived contentを除くSol監査契約とsealed prompt hash",
+      "provider usage欠測時に費用を推定しないコスト効率規則",
+      "contract、dry-run、scoring、concurrencyの具体的verifyコマンド"
+    ],
+    "required_board_updates": [
+      "T001をrework activeにしexact sample manifestと判定契約を追加する",
+      "5.4系deprecated-soon、Spark text-onlyをmanifestへ固定する",
+      "screen早期棄却条件をraw 9/10未満、Sol監査後10/10未満、重大誤り1以上、schema失敗1以上、peak concurrency 2以上とする",
+      "T003 allowed_filesを専用harness、artifacts、private tmpだけに限定する",
+      "sample manifest又はprompt hash不一致、oracle先行読込み、usage欠測値の推定補完をstop_ifへ加える"
+    ]
+  }
+}
