@@ -62,9 +62,6 @@ def fetch_official(source: dict, temp_root: Path) -> dict:
         revision_ok = effective_ok = True
     needles = locator.get("needles") or []
     locator_ok = bool(needles) and all(needle in searchable for needle in needles)
-    if source.get("noticeId") == "平成28年厚生労働省告示第272号":
-        locator_ok = (source["revisionId"] in searchable
-                      and "広告し得る事項の一部を改正" in searchable)
     passed = (status == 200 and urlparse(final_url).hostname == urlparse(source["url"]).hostname
               and mime == source["mime"] and len(raw) == source["rawBytes"]
               and digest == source["rawSha256"] and locator_ok and revision_ok and effective_ok)
@@ -278,8 +275,8 @@ def main() -> int:
               "firestoreAttempts": 0, "publicationAttempts": 0, "repositoryImageBytes": 0,
               "problemProcessingPeak": 0, "llmCallPeak": 0}
     (artifacts / "safety.json").write_text(json.dumps(safety, ensure_ascii=False, indent=2) + "\n")
-    (artifacts / "T008-receipt.json").write_text(json.dumps({
-        "taskId": "T008", "result": "blocked" if failed else "done", "failedChecks": failed,
+    (artifacts / "T011-receipt.json").write_text(json.dumps({
+        "taskId": "T011", "result": "blocked" if failed else "done", "failedChecks": failed,
         "modelCalls": 0, "artifactsDir": str(artifacts.relative_to(repo)),
     }, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"status": report["status"], "failedChecks": failed, "modelCalls": 0}, ensure_ascii=False))

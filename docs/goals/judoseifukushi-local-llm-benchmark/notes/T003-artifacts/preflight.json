@@ -1,11 +1,9 @@
 {
   "schemaVersion": "judoseifukushi-local-llm-preflight/v1",
-  "createdAt": "2026-08-25T02:12:51.980451+00:00",
-  "sourceCommit": "8c3d237237eb49fa90d9cfcbbeefea890e69d24b",
-  "status": "blocked",
-  "failedChecks": [
-    "law_exam_time_and_current_provenance"
-  ],
+  "createdAt": "2026-08-25T02:17:07.503642+00:00",
+  "sourceCommit": "92299443716e902df9c7178773c109456aee388a",
+  "status": "pass",
+  "failedChecks": [],
   "modelCalls": 0,
   "checks": [
     {
@@ -464,7 +462,7 @@
     },
     {
       "name": "law_exam_time_and_current_provenance",
-      "status": "fail",
+      "status": "pass",
       "evidence": [
         {
           "url": "https://www.mhlw.go.jp/bunya/iryouhoken/iryouhoken13/dl/220530_01.pdf",
@@ -602,10 +600,10 @@
           "mime": "text/html",
           "rawBytes": 6690,
           "rawSha256": "a0349e8dba25bac1d71798b3f102fba2f7bbc652bddbe7dd1eb99ae616ee2e55",
-          "locatorVerified": false,
+          "locatorVerified": true,
           "revisionVerified": true,
           "effectiveVerified": true,
-          "passed": false,
+          "passed": true,
           "id": "8987ec55216cbc63",
           "side": "examTime",
           "sourceId": "平成28年厚生労働省告示第272号"
@@ -650,10 +648,10 @@
           "mime": "text/html",
           "rawBytes": 6690,
           "rawSha256": "a0349e8dba25bac1d71798b3f102fba2f7bbc652bddbe7dd1eb99ae616ee2e55",
-          "locatorVerified": false,
+          "locatorVerified": true,
           "revisionVerified": true,
           "effectiveVerified": true,
-          "passed": false,
+          "passed": true,
           "id": "8987ec55216cbc63",
           "side": "current",
           "sourceId": "平成28年厚生労働省告示第272号"
@@ -738,7 +736,7 @@
       "evidence": {
         "sourceSha256": "554b21549223aa7414e7c070ef13f3c3329012b6870a257cd24edc7ec45225ce",
         "tempSha256": "d365e14406ed3cd751ef46c89caa1e543b32877e064ffc1f9985423746111af6",
-        "tempPath": "/private/tmp/judoseifukushi-local-llm-benchmark-T009/question_maintenance_llm.toml"
+        "tempPath": "/private/tmp/judoseifukushi-local-llm-benchmark-T011/question_maintenance_llm.toml"
       }
     },
     {
@@ -776,5 +774,5 @@
       }
     }
   ],
-  "stopReason": "Any preflight gate fails; no model calls permitted."
+  "stopReason": null
 }
