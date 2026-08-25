@@ -1,0 +1,34 @@
+{
+  "taskId": "T015",
+  "result": "blocked",
+  "stage": "qwen3:14b_quality_early_rejection",
+  "sealedBaselineUnchanged": true,
+  "baselineReadback": {
+    "terminalRows": 36,
+    "completed": 34,
+    "hold": 2,
+    "codexCalls": 7,
+    "providerUsageMissing": 7
+  },
+  "model": "qwen3:14b",
+  "terminalRows": 5,
+  "sourceAnswerMissingHolds": 2,
+  "availabilityRejects": 3,
+  "completed": 0,
+  "localRequests": 7,
+  "localResponses": 6,
+  "unreconciledRequest": {
+    "questionId": "4ef67113801362d9",
+    "role": "local_primary",
+    "attempt": 1,
+    "startedAt": "2026-08-25T03:18:56.927170+00:00",
+    "payloadSha256": "c864765a242db1e1993e65b5b7ae0fe5d79acc22ab3a419837ca5d4f942430a1"
+  },
+  "reason": "The first law item failed local-primary and retry schema identity, making the unchanged law 5/5 threshold unreachable. The runner incorrectly continued into later law items because its quality early-rejection check was absent. Execution was stopped fail-closed, leaving one Ollama request without a persisted response or provider job ID; blind replay is prohibited by T015 stop_if.",
+  "modelCallsAfterBlock": 0,
+  "oracleCreated": false,
+  "qwen27Started": false,
+  "firestoreAttempts": 0,
+  "publicationAttempts": 0,
+  "productionPatchWrites": 0
+}

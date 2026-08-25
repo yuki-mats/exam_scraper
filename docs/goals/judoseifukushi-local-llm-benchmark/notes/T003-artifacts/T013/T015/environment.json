@@ -1,0 +1,97 @@
+{
+  "checkedAt": "2026-08-25T03:05:13.287450+00:00",
+  "ollamaModels": [
+    "qwen3.5:27b",
+    "qwen3:14b"
+  ],
+  "codex": {
+    "stage": "complete",
+    "allowed": true,
+    "failureKind": null,
+    "rpcMethod": null,
+    "rpcCode": null,
+    "rpcDataType": null,
+    "runtimePhase": null,
+    "runtimeRule": null,
+    "accountType": "chatgpt",
+    "planType": "pro",
+    "creditsEnabled": false,
+    "standardMode": true,
+    "fastMode": false
+  },
+  "images": [
+    {
+      "id": "64bd269e44533561",
+      "role": "question",
+      "sha256": "695ae47a9fce6004f6fc5e805d4cbfc2c2a542dab3e6842d2c700e3c23a5c4c1",
+      "bytes": 28948,
+      "mime": "image/webp",
+      "decoder": "WEBP",
+      "verified": true
+    },
+    {
+      "id": "64bd269e44533561",
+      "role": "choice1",
+      "sha256": "6cfe12a310488493764e316c05359a7d0ee266ab410e1795394e2d7a0f9ede26",
+      "bytes": 3330,
+      "mime": "image/webp",
+      "decoder": "WEBP",
+      "verified": true
+    },
+    {
+      "id": "64bd269e44533561",
+      "role": "choice2",
+      "sha256": "7101db4f4e0312cedfa2895f7b8af13feae66645d3a9b04bacbdd2c6dd91811f",
+      "bytes": 3264,
+      "mime": "image/webp",
+      "decoder": "WEBP",
+      "verified": true
+    },
+    {
+      "id": "64bd269e44533561",
+      "role": "choice3",
+      "sha256": "79142016649d3cebec9316ffacfab51ef5b3561159329b06a0e05cfda909bc12",
+      "bytes": 3242,
+      "mime": "image/webp",
+      "decoder": "WEBP",
+      "verified": true
+    },
+    {
+      "id": "64bd269e44533561",
+      "role": "choice4",
+      "sha256": "177dc50726d4ec2279e6b4afe6720b4bb09fbc8efa4581895e8ea34a5924bf02",
+      "bytes": 3464,
+      "mime": "image/webp",
+      "decoder": "WEBP",
+      "verified": true
+    },
+    {
+      "id": "64bd269e44533561",
+      "role": "choice5",
+      "sha256": "1f99d78b1b891ecbdf17764550def62a99d60eda595087026150749fc1fea380",
+      "bytes": 3562,
+      "mime": "image/webp",
+      "decoder": "WEBP",
+      "verified": true
+    },
+    {
+      "id": "ed7d14b661421a12",
+      "role": "question",
+      "sha256": "689d469d7bdc3f20968c8f35ae8f3d9cc262c47727224a3c02ddbafa73077765",
+      "bytes": 6720,
+      "mime": "image/png",
+      "decoder": "PNG",
+      "verified": true
+    }
+  ],
+  "globalParallelism": 1,
+  "sanitizedItemKeys": [
+    "choices",
+    "id",
+    "image",
+    "question",
+    "targets",
+    "year"
+  ],
+  "itemCount": 36
+}

@@ -1,81 +1,89 @@
 #!/usr/bin/env python3
-"""Read the root oracle only after all routes are sealed and terminal."""
-
+"""Score T015 only after all three routes are terminal and capture-sealed."""
 from __future__ import annotations
-
-import argparse
-import json
+import argparse, json, os
 from pathlib import Path
-
-from benchmark_contract import JUDO, source_index, stratum_for
+from typing import Any
+from benchmark_contract import BUILDING, JUDO, source_index, stratum_for
 
 ROUTES = ("codex_only", "qwen3:14b", "qwen3.5:27b")
 HOLD_IDS = set(JUDO["source-answer-missing"])
+THRESHOLDS = {"judoseifukushi": 26, "overall": 31, "law": 5, "numeric": 4, "long": 2,
+              "negative": 4, "current-medical": 9, "building": 5}
 
+def write(path: Path, value: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp=path.with_suffix(path.suffix+".tmp");temp.write_text(json.dumps(value,ensure_ascii=False,indent=2)+"\n");os.replace(temp,path)
 
-def write(path: Path, value: object) -> None:
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+def rows(root: Path, route: str) -> list[dict[str, Any]]:
+    return [json.loads(p.read_text()) for p in sorted((root/"routes"/route.replace(":","-")/"results").glob("*.json"))]
 
-
-def selected(row: dict, route: str) -> list[int] | None:
+def selected(row: dict[str, Any], route: str, *, audited: bool=False) -> list[int] | None:
     if row["status"] != "completed": return None
-    result = row.get("result") if route == "codex_only" else row.get("auditResult")
-    return sorted(int(value) for value in (result or {}).get("selectedIndexes", []))
+    if route == "codex_only": value=row.get("result",{})
+    elif audited: value=row.get("auditResult",{}).get("correctedResult",{})
+    else: value=row.get("localResult",{})
+    return sorted(int(x) for x in value.get("selectedIndexes",[]))
 
+def codex_requests(path: Path) -> list[dict[str, Any]]:
+    if not path.exists(): return []
+    return [json.loads(x) for x in path.read_text().splitlines() if json.loads(x).get("kind")=="request" and json.loads(x).get("provider")=="codex_app_server"]
 
 def main() -> int:
-    parser = argparse.ArgumentParser(); parser.add_argument("--repo-root", type=Path, required=True)
-    parser.add_argument("--manifest", type=Path, required=True); parser.add_argument("--results-root", type=Path, required=True)
-    args = parser.parse_args(); repo = args.repo_root.resolve(); root = args.results_root.resolve()
-    manifest = json.loads(args.manifest.read_text()); found = source_index(repo)
+    p=argparse.ArgumentParser();p.add_argument("--repo-root",type=Path,required=True);p.add_argument("--manifest",type=Path,required=True)
+    p.add_argument("--results-root",type=Path,required=True);p.add_argument("--token-policy",required=True,
+        choices=["inconclusive-provider-usage-unavailable"]);p.add_argument("--baseline-codex-calls",type=int,required=True);args=p.parse_args()
+    root=args.results_root.resolve(); manifest=json.loads(args.manifest.read_text()); found=source_index(args.repo_root.resolve())
     for route in ROUTES:
-        route_dir = root / "routes" / route.replace(":", "-")
-        if not (route_dir / "run-complete.json").exists() or not (route_dir / "prompt-capture-seal.json").exists():
-            raise RuntimeError(f"route is not sealed: {route}")
-        if len(list((route_dir / "results").glob("*.json"))) != 36: raise RuntimeError(f"route not terminal: {route}")
-    oracle = {"createdAfterAllRoutes": True, "items": []}
+        d=root/"routes"/route.replace(":","-")
+        if len(rows(root,route))!=36 or not (d/"run-complete.json").exists() or not (d/"prompt-capture-seal.json").exists():
+            raise RuntimeError(f"route not closed: {route}")
+    oracle={"createdAfterAllRoutes":True,"items":[]}
     for item in manifest["items"]:
-        question = found[item["id"]][2]
-        indexes = question.get("answerTableCorrectChoiceNumbers") or question.get("choiceClassCorrectChoiceNumbers") or []
-        oracle["items"].append({"id": item["id"], "correctIndexes": sorted(indexes), "stratum": stratum_for(item["id"]), "hold": item["id"] in HOLD_IDS})
-    write(root / "oracle-after-run.json", oracle)
-    oracle_by_id = {row["id"]: row for row in oracle["items"]}
-    route_summaries = {}
+        question=found[item["id"]][2]
+        truth=question.get("answerTableCorrectChoiceNumbers") or question.get("choiceClassCorrectChoiceNumbers") or []
+        oracle["items"].append({"id":item["id"],"correctIndexes":sorted(truth),"stratum":stratum_for(item["id"]),"hold":item["id"] in HOLD_IDS})
+    write(root/"oracle-after-run.json",oracle);truth={x["id"]:x for x in oracle["items"]}
+    summaries={}
     for route in ROUTES:
-        rows = [json.loads(path.read_text()) for path in sorted((root / "routes" / route.replace(":", "-") / "results").glob("*.json"))]
-        scored = []
-        for row in rows:
-            truth = oracle_by_id[row["id"]]
-            match = row["status"] == "hold" if truth["hold"] else selected(row, route) == truth["correctIndexes"]
-            local_only = route != "codex_only" and row["status"] == "completed" and row.get("auditAccepted") is True and match
-            scored.append({"id": row["id"], "stratum": truth["stratum"], "status": row["status"], "oracleMatch": match, "localOnlyPass": local_only})
-        scored_nonhold = [row for row in scored if row["id"] not in HOLD_IDS]
-        calls = sum(int(row.get("calls", 0)) for row in rows)
-        codex_tokens = 0; usage_missing = False
-        for row in rows:
-            usage = row.get("usage") if route == "codex_only" else row.get("auditUsage")
-            if row["status"] == "completed":
-                if not usage: usage_missing = True
-                else: codex_tokens += int(usage.get("inputTokens", 0)) + int(usage.get("outputTokens", 0))
-        summary = {"route": route, "terminalRows": len(rows), "oracleMatches": sum(r["oracleMatch"] for r in scored_nonhold),
-                   "localOnlyPasses": sum(r["localOnlyPass"] for r in scored_nonhold), "calls": calls,
-                   "codexTokens": codex_tokens, "codexUsageMissing": usage_missing, "items": scored}
-        route_summaries[route] = summary; write(root / "routes" / route.replace(":", "-") / "telemetry.json", summary)
-    baseline = route_summaries["codex_only"]
-    comparisons = {}
+        route_rows=rows(root,route); scored=[]; critical=[]
+        for row in route_rows:
+            expected=truth[row["id"]]
+            oracle_match=(row["status"]=="hold") if expected["hold"] else selected(row,route)==expected["correctIndexes"]
+            audited_match=True if route=="codex_only" else selected(row,route,audited=True)==expected["correctIndexes"]
+            flags=[] if route=="codex_only" else list(row.get("auditResult",{}).get("criticalFlags",[]))
+            if route!="codex_only" and row.get("auditAccepted") is True and not oracle_match: flags.append("audit_accepted_wrong_answer")
+            if flags: critical.append({"id":row["id"],"flags":flags})
+            local_pass=(route!="codex_only" and row.get("localAttemptMode")=="local_primary" and row.get("auditAccepted") is True
+                        and oracle_match and not flags)
+            scored.append({"id":row["id"],"stratum":expected["stratum"],"status":row["status"],"oracleMatch":oracle_match,
+                           "auditedOracleMatch":audited_match,"localOnlyPass":local_pass,"criticalFlags":flags})
+        nonhold=[x for x in scored if x["id"] not in HOLD_IDS]
+        if route=="codex_only": calls=args.baseline_codex_calls
+        else:calls=len(codex_requests(root/"T015"/(route.replace(":","-")+"-transport.jsonl")))
+        stratum_passes={name:sum(x["localOnlyPass"] for x in nonhold if x["stratum"]==name) for name in JUDO if name!="source-answer-missing"}
+        judo_pass=sum(x["localOnlyPass"] for x in nonhold if x["id"] not in BUILDING)
+        summary={"route":route,"terminalRows":len(route_rows),"codexCalls":calls,"localCalls":sum(int(x.get("localCalls",0)) for x in route_rows),
+                 "oracleMatches":sum(x["oracleMatch"] for x in nonhold),"auditedOracleMatches":sum(x["auditedOracleMatch"] for x in nonhold),
+                 "localOnlyPasses":sum(x["localOnlyPass"] for x in nonhold),"judoseifukushiPasses":judo_pass,
+                 "stratumPasses":stratum_passes,"buildingPasses":sum(x["localOnlyPass"] for x in nonhold if x["stratum"]=="building"),
+                 "holdCorrect":sum(x["status"]=="hold" for x in scored if x["id"] in HOLD_IDS),"critical":critical,"items":scored}
+        summaries[route]=summary;write(root/"routes"/route.replace(":","-")/"telemetry.json",summary)
+    baseline=summaries["codex_only"]; comparisons={}
     for route in ROUTES[1:]:
-        summary = route_summaries[route]
-        call_reduction = 1 - summary["calls"] / baseline["calls"] if baseline["calls"] else None
-        token_reduction = 1 - summary["codexTokens"] / baseline["codexTokens"] if baseline["codexTokens"] and not summary["codexUsageMissing"] else None
-        comparisons[route] = {"localOnlyPasses": summary["localOnlyPasses"], "oracleMatches": summary["oracleMatches"],
-                              "codexCallReduction": call_reduction, "codexTokenReduction": token_reduction,
-                              "qualityPass": summary["localOnlyPasses"] >= 31 and summary["oracleMatches"] == 34,
-                              "cloudPass": call_reduction is not None and call_reduction >= .30 and token_reduction is not None and token_reduction >= .20}
-    result = {"thresholds": {"overall": 31, "oracleMatches": 34, "callReduction": .30, "tokenReduction": .20},
-              "baseline": baseline, "comparisons": comparisons,
-              "adoption": {route: values["qualityPass"] and values["cloudPass"] for route, values in comparisons.items()}}
-    write(root / "comparison.json", comparisons); write(root / "result.json", result)
-    write(root / "receipt.json", {"taskId": "T013", "status": "completed", "adoption": result["adoption"]})
+        s=summaries[route]; reduction=1-s["codexCalls"]/args.baseline_codex_calls
+        gates={"overall":s["localOnlyPasses"]>=THRESHOLDS["overall"],"judoseifukushi":s["judoseifukushiPasses"]>=THRESHOLDS["judoseifukushi"],
+               "law":s["stratumPasses"].get("law",0)>=5,"numeric":s["stratumPasses"].get("numeric",0)>=4,
+               "long":s["stratumPasses"].get("long",0)>=2,"negative":s["stratumPasses"].get("negative",0)>=4,
+               "current-medical":s["stratumPasses"].get("current-medical",0)>=9,"building":s["buildingPasses"]>=5,
+               "holds":s["holdCorrect"]==2,"finalAuditedOracle":s["auditedOracleMatches"]==34,"critical":len(s["critical"])==0}
+        quality=all(gates.values());call_pass=reduction>=.30
+        verdict="rejected_critical" if s["critical"] else ("rejected_quality" if not quality else ("quality_capable_but_not_cloud_call_reducing" if not call_pass else "conditional_candidate_token_unverified"))
+        comparisons[route]={"gates":gates,"qualityPass":quality,"codexCallReduction":reduction,"callPass":call_pass,"verdict":verdict}
+    result={"thresholds":THRESHOLDS,"baseline":{**baseline,"codexCalls":args.baseline_codex_calls},"tokenMetric":{
+        "status":"inconclusive_provider_usage_unavailable","reduction":None,"estimated":False},"comparisons":comparisons,
+        "adoption":{route:False for route in ROUTES[1:]},"operationalPromotionAllowed":False}
+    write(root/"comparison.json",comparisons);write(root/"result.json",result)
+    write(root/"T015-receipt.json",{"taskId":"T015","status":"completed","tokenMetric":result["tokenMetric"],"verdicts":{k:v["verdict"] for k,v in comparisons.items()}})
     return 0
-
-if __name__ == "__main__": raise SystemExit(main())
+if __name__=="__main__":raise SystemExit(main())

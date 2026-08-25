@@ -256,8 +256,28 @@ def main() -> int:
     parser = argparse.ArgumentParser(); parser.add_argument("--repo-root", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True); parser.add_argument("--stage-matrix", type=Path, required=True)
     parser.add_argument("--artifacts-dir", type=Path, required=True); parser.add_argument("--temp-root", type=Path, required=True)
+    parser.add_argument("--continuation-root", type=Path)
+    parser.add_argument("--reuse-sealed-baseline", action="store_true")
     parser.add_argument("--routes", nargs="+", required=True); parser.add_argument("--resume", action="store_true")
-    args = parser.parse_args(); runner = Runner(args.repo_root.resolve(), args.manifest.resolve(), args.stage_matrix.resolve(), args.artifacts_dir.resolve(), args.temp_root.resolve())
+    args = parser.parse_args()
+    if args.reuse_sealed_baseline:
+        if not args.continuation_root:
+            parser.error("--continuation-root is required with --reuse-sealed-baseline")
+        if args.routes != ["qwen3:14b", "qwen3.5:27b"]:
+            parser.error("T015 continuation requires qwen3:14b then qwen3.5:27b")
+        from t015_continuation import ContinuationRunner
+        continued = ContinuationRunner(repo=args.repo_root.resolve(), manifest=args.manifest.resolve(),
+            artifacts=args.artifacts_dir.resolve(), continuation=args.continuation_root.resolve(), temp=args.temp_root.resolve(),
+            codex_client_factory=CodexAppServerClient)
+        try:
+            continued.pre_run()
+            for route in args.routes:
+                continued.run_route(route)
+            continued.finish()
+            return 0
+        finally:
+            continued.close()
+    runner = Runner(args.repo_root.resolve(), args.manifest.resolve(), args.stage_matrix.resolve(), args.artifacts_dir.resolve(), args.temp_root.resolve())
     try:
         environment = runner.gate()
         if (runner.artifacts / "oracle-after-run.json").exists(): raise RuntimeError("oracle exists before route closure")

@@ -15,6 +15,10 @@ def digest_json(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
+def canonical_bytes(value: Any) -> int:
+    return len(json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode())
+
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -31,10 +35,10 @@ def redact(value: Any) -> Any:
 
 
 class CaptureTransport:
-    def __init__(self, root: Path) -> None:
+    def __init__(self, root: Path, filename: str = "transport-events.jsonl") -> None:
         self.root = root
         self.root.mkdir(parents=True, exist_ok=True)
-        self.events = root / "transport-events.jsonl"
+        self.events = root / filename
 
     def request(self, *, route: str, provider: str, question_ids: list[str], stage: str,
                 role: str, attempt: int, payload: dict[str, Any]) -> dict[str, Any]:
@@ -42,7 +46,9 @@ class CaptureTransport:
         record = {"kind": "request", "route": route, "provider": provider,
                   "questionIds": question_ids, "stage": stage, "role": role,
                   "attempt": attempt, "startedAt": utc_now(),
-                  "requestFields": sorted(safe), "payloadSha256": digest_json(safe)}
+                  "requestFields": sorted(safe), "payloadSha256": digest_json(safe),
+                  "canonicalRequestBytes": canonical_bytes(safe),
+                  "promptUtf8Bytes": len(str(safe.get("prompt", "")).encode())}
         self._append(record)
         return record
 
@@ -54,6 +60,7 @@ class CaptureTransport:
                   "stage": request["stage"], "role": request["role"],
                   "attempt": request["attempt"], "startedAt": request["startedAt"],
                   "endedAt": utc_now(), "usage": usage, "responseSha256": digest_json(safe),
+                  "canonicalResponseBytes": canonical_bytes(safe),
                   "error": error}
         self._append(record)
         return record

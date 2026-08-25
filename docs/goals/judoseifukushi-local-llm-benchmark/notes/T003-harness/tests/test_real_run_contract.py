@@ -14,7 +14,19 @@ class RealRunContractTest(unittest.TestCase):
         self.assertIn("answer_result", FORBIDDEN_TEXT)
 
     def test_no_credential_or_image_payload_fields(self):
-        from capture_transport import FORBIDDEN_KEYS
+        from capture_transport import FORBIDDEN_KEYS, redact
         self.assertTrue({"authorization", "cookie", "credential", "image_bytes", "data"} <= FORBIDDEN_KEYS)
+        self.assertEqual("[redacted-data-url]", redact("data:image/png;base64,AAAA"))
+
+    def test_t015_audit_covers_all_target_dimensions(self):
+        from t015_continuation import audit_schema
+        properties = audit_schema()["properties"]["results"]["items"]["properties"]
+        self.assertTrue({"acceptedTargets", "correctedResult", "criticalFlags", "examTimeBasis",
+                         "imageReviewed", "calculationReviewed"} <= set(properties))
+
+    def test_t015_prompt_rejects_oracle_fields(self):
+        from t015_continuation import reject_prompt_leakage
+        with self.assertRaises(RuntimeError):
+            reject_prompt_leakage('{"correctChoiceText":"leak"}')
 
 if __name__ == "__main__": unittest.main()
