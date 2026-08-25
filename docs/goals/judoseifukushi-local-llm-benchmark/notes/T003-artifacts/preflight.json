@@ -1,10 +1,10 @@
 {
   "schemaVersion": "judoseifukushi-local-llm-preflight/v1",
-  "createdAt": "2026-08-25T01:34:23.438930+00:00",
-  "sourceCommit": "91d21d0f0ddbfb3346bedacf6f0b61a3e0682a6d",
+  "createdAt": "2026-08-25T01:53:13.984748+00:00",
+  "sourceCommit": "d56c57bc4e7576f41856884f1ff691aa833a11d0",
   "status": "blocked",
   "failedChecks": [
-    "building_image_assets_and_hashes",
+    "official_exam_dates",
     "law_exam_time_and_current_provenance"
   ],
   "modelCalls": 0,
@@ -52,17 +52,17 @@
             "stratum": "law"
           },
           {
-            "id": "dfb3fe84e07f47f9",
-            "relativePath": "output/judoseifukushi/questions_json/1993/00_source/question_1993_4.json",
-            "questionIndex": 15,
-            "sourceSha256": "91fd326b25a4342beea41d18287e9d9d8be0c868ae8e1555f74f56091aa84d07",
+            "id": "4ef67113801362d9",
+            "relativePath": "output/judoseifukushi/questions_json/2020/00_source/question_2020_2.json",
+            "questionIndex": 18,
+            "sourceSha256": "14edc26e0037977b645ac09bd2a26887cbb2503cf073f71dabe88279840a6403",
             "stratum": "law"
           },
           {
-            "id": "1ebaca9b85c6dd6e",
-            "relativePath": "output/judoseifukushi/questions_json/2002/00_source/question_2002_4.json",
-            "questionIndex": 18,
-            "sourceSha256": "75da6377a2eda0f0e70ebbc054d454d14d7d9fd13a822ad4211f5fae7f3a66fd",
+            "id": "ef0992b6887ec00b",
+            "relativePath": "output/judoseifukushi/questions_json/2020/00_source/question_2020_2.json",
+            "questionIndex": 20,
+            "sourceSha256": "14edc26e0037977b645ac09bd2a26887cbb2503cf073f71dabe88279840a6403",
             "stratum": "law"
           },
           {
@@ -303,110 +303,154 @@
       "status": "pass",
       "evidence": {
         "130d5c77cc5c2b8b": {
-          "answerTableCorrectChoiceNumbers": [
-            1,
-            3
-          ],
-          "choiceClassCorrectChoiceNumbers": [
-            1,
-            3
-          ],
+          "authoritativeRepresentation": "ordered_integer_list",
+          "candidateRepresentation": "ordered_integer_list",
+          "multipleEntriesPresent": true,
           "lossless": true
         },
         "85cdb2c54567b04a": {
-          "answerTableCorrectChoiceNumbers": [
-            2,
-            3
-          ],
-          "choiceClassCorrectChoiceNumbers": [
-            2,
-            3
-          ],
+          "authoritativeRepresentation": "ordered_integer_list",
+          "candidateRepresentation": "ordered_integer_list",
+          "multipleEntriesPresent": true,
           "lossless": true
         },
         "b22f649e0b947399": {
-          "answerTableCorrectChoiceNumbers": [
-            1,
-            4
-          ],
-          "choiceClassCorrectChoiceNumbers": [
-            1,
-            4
-          ],
+          "authoritativeRepresentation": "ordered_integer_list",
+          "candidateRepresentation": "ordered_integer_list",
+          "multipleEntriesPresent": true,
           "lossless": true
         }
       }
     },
     {
       "name": "building_image_assets_and_hashes",
-      "status": "fail",
-      "evidence": {
-        "64bd269e44533561": {
-          "remoteUrls": [
-            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_q_img01.webp?alt=media",
-            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch01_img01.webp?alt=media",
-            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch02_img01.webp?alt=media",
-            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch03_img01.webp?alt=media",
-            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch04_img01.webp?alt=media",
-            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch05_img01.webp?alt=media"
-          ],
-          "localAssets": [],
-          "sha256": []
+      "status": "pass",
+      "evidence": [
+        {
+          "id": "64bd269e44533561",
+          "role": "question",
+          "url": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_q_img01.webp?alt=media",
+          "status": 200,
+          "finalHost": "firebasestorage.googleapis.com",
+          "mime": "image/webp",
+          "bytes": 28948,
+          "sha256": "695ae47a9fce6004f6fc5e805d4cbfc2c2a542dab3e6842d2c700e3c23a5c4c1",
+          "decoder": "WEBP",
+          "passed": true
         },
-        "ed7d14b661421a12": {
-          "remoteUrls": [
-            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqed7d14b661421a12_q_img01.png?alt=media"
-          ],
-          "localAssets": [],
-          "sha256": []
+        {
+          "id": "64bd269e44533561",
+          "role": "choice1",
+          "url": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch01_img01.webp?alt=media",
+          "status": 200,
+          "finalHost": "firebasestorage.googleapis.com",
+          "mime": "image/webp",
+          "bytes": 3330,
+          "sha256": "6cfe12a310488493764e316c05359a7d0ee266ab410e1795394e2d7a0f9ede26",
+          "decoder": "WEBP",
+          "passed": true
+        },
+        {
+          "id": "64bd269e44533561",
+          "role": "choice2",
+          "url": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch02_img01.webp?alt=media",
+          "status": 200,
+          "finalHost": "firebasestorage.googleapis.com",
+          "mime": "image/webp",
+          "bytes": 3264,
+          "sha256": "7101db4f4e0312cedfa2895f7b8af13feae66645d3a9b04bacbdd2c6dd91811f",
+          "decoder": "WEBP",
+          "passed": true
+        },
+        {
+          "id": "64bd269e44533561",
+          "role": "choice3",
+          "url": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch03_img01.webp?alt=media",
+          "status": 200,
+          "finalHost": "firebasestorage.googleapis.com",
+          "mime": "image/webp",
+          "bytes": 3242,
+          "sha256": "79142016649d3cebec9316ffacfab51ef5b3561159329b06a0e05cfda909bc12",
+          "decoder": "WEBP",
+          "passed": true
+        },
+        {
+          "id": "64bd269e44533561",
+          "role": "choice4",
+          "url": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch04_img01.webp?alt=media",
+          "status": 200,
+          "finalHost": "firebasestorage.googleapis.com",
+          "mime": "image/webp",
+          "bytes": 3464,
+          "sha256": "177dc50726d4ec2279e6b4afe6720b4bb09fbc8efa4581895e8ea34a5924bf02",
+          "decoder": "WEBP",
+          "passed": true
+        },
+        {
+          "id": "64bd269e44533561",
+          "role": "choice5",
+          "url": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch05_img01.webp?alt=media",
+          "status": 200,
+          "finalHost": "firebasestorage.googleapis.com",
+          "mime": "image/webp",
+          "bytes": 3562,
+          "sha256": "1f99d78b1b891ecbdf17764550def62a99d60eda595087026150749fc1fea380",
+          "decoder": "WEBP",
+          "passed": true
+        },
+        {
+          "id": "ed7d14b661421a12",
+          "role": "question",
+          "url": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqed7d14b661421a12_q_img01.png?alt=media",
+          "status": 200,
+          "finalHost": "firebasestorage.googleapis.com",
+          "mime": "image/png",
+          "bytes": 6720,
+          "sha256": "689d469d7bdc3f20968c8f35ae8f3d9cc262c47727224a3c02ddbafa73077765",
+          "decoder": "PNG",
+          "passed": true
         }
-      }
+      ]
+    },
+    {
+      "name": "official_exam_dates",
+      "status": "fail",
+      "evidence": []
     },
     {
       "name": "law_exam_time_and_current_provenance",
       "status": "fail",
-      "evidence": {
-        "0eb595c2c11278f5": {
-          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
-          "policyMentionsItemId": false,
+      "evidence": [
+        {
+          "id": "c5167b46942fb08e",
           "examTime": null,
-          "currentLaw": null,
-          "basisDates": [],
-          "locators": []
+          "current": null
         },
-        "1ebaca9b85c6dd6e": {
-          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
-          "policyMentionsItemId": false,
+        {
+          "id": "0eb595c2c11278f5",
           "examTime": null,
-          "currentLaw": null,
-          "basisDates": [],
-          "locators": []
+          "current": null
         },
-        "8987ec55216cbc63": {
-          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
-          "policyMentionsItemId": false,
+        {
+          "id": "8987ec55216cbc63",
           "examTime": null,
-          "currentLaw": null,
-          "basisDates": [],
-          "locators": []
+          "current": null,
+          "advertisingDesignationNotices": {
+            "examTime": null,
+            "current": null
+          }
         },
-        "c5167b46942fb08e": {
-          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
-          "policyMentionsItemId": false,
+        {
+          "id": "4ef67113801362d9",
           "examTime": null,
-          "currentLaw": null,
-          "basisDates": [],
-          "locators": []
+          "current": null
         },
-        "dfb3fe84e07f47f9": {
-          "policyPath": "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md",
-          "policyMentionsItemId": false,
+        {
+          "id": "ef0992b6887ec00b",
           "examTime": null,
-          "currentLaw": null,
-          "basisDates": [],
-          "locators": []
+          "current": null
         }
-      }
+      ]
     },
     {
       "name": "codex_usage_telemetry_seam",
@@ -422,7 +466,7 @@
       "evidence": {
         "sourceSha256": "554b21549223aa7414e7c070ef13f3c3329012b6870a257cd24edc7ec45225ce",
         "tempSha256": "d365e14406ed3cd751ef46c89caa1e543b32877e064ffc1f9985423746111af6",
-        "tempPath": "/private/tmp/judoseifukushi-local-llm-benchmark-T003/question_maintenance_llm.toml"
+        "tempPath": "/private/tmp/judoseifukushi-local-llm-benchmark-T006/question_maintenance_llm.toml"
       }
     },
     {

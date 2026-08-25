@@ -20,6 +20,13 @@ class ContractTest(unittest.TestCase):
         allowed = {"id", "year", "question", "choices", "image", "targets"}
         self.assertTrue(allowed.isdisjoint(ORACLE_KEYS))
 
+    def test_fixed_set_v2_replacements(self):
+        self.assertIn("4ef67113801362d9", ALL_IDS)
+        self.assertIn("ef0992b6887ec00b", ALL_IDS)
+        self.assertNotIn("dfb3fe84e07f47f9", ALL_IDS)
+        self.assertNotIn("1ebaca9b85c6dd6e", ALL_IDS)
+        self.assertNotIn("d732ddbaf0d4f522", ALL_IDS)
+
 
 if __name__ == "__main__":
     unittest.main()

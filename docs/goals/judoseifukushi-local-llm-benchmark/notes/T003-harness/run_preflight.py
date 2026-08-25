@@ -4,12 +4,19 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import io
 import json
 import shutil
 import subprocess
 import tomllib
+import urllib.error
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
+
+from PIL import Image
 
 from benchmark_contract import (
     ALL_IDS, BUILDING, IMAGE_IDS, JUDO, LAW_IDS, MULTI_ANSWER_IDS,
@@ -23,12 +30,15 @@ def check(name: str, passed: bool, evidence: object) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--repo", type=Path, default=Path.cwd())
-    parser.add_argument("--artifacts", type=Path, required=True)
+    parser.add_argument("--repo-root", type=Path, default=Path.cwd())
+    parser.add_argument("--artifacts-dir", type=Path, required=True)
     parser.add_argument("--temp-root", type=Path, required=True)
+    parser.add_argument("--preflight-only", action="store_true")
     args = parser.parse_args()
-    repo = args.repo.resolve()
-    artifacts = args.artifacts.resolve()
+    if not args.preflight_only:
+        parser.error("T006 only permits --preflight-only")
+    repo = args.repo_root.resolve()
+    artifacts = args.artifacts_dir.resolve()
     temp_root = args.temp_root.resolve()
     artifacts.mkdir(parents=True, exist_ok=True)
     temp_root.mkdir(parents=True, exist_ok=True)
@@ -75,7 +85,7 @@ def main() -> int:
         "specialPolicyTargets": ["source_evidence_hold"],
         "routes": ["codex_only", "qwen3:14b", "qwen3.5:27b"],
         "limits": {"questionParallelism": 1, "llmCallConcurrency": 1},
-        "status": "preflight_blocked",
+        "status": "preflight_pending",
     }
     (artifacts / "stage-matrix.json").write_text(json.dumps(stage_matrix, ensure_ascii=False, indent=2) + "\n")
 
@@ -90,36 +100,77 @@ def main() -> int:
         question = found.get(public_id, (None, None, {}))[2]
         table = question.get("answerTableCorrectChoiceNumbers")
         classes = question.get("choiceClassCorrectChoiceNumbers")
-        multi[public_id] = {"answerTableCorrectChoiceNumbers": table,
-                            "choiceClassCorrectChoiceNumbers": classes,
-                            "lossless": isinstance(table, list) and len(table) > 1 and table == classes}
+        multi[public_id] = {
+            "authoritativeRepresentation": "ordered_integer_list",
+            "candidateRepresentation": "ordered_integer_list",
+            "multipleEntriesPresent": isinstance(table, list) and len(table) > 1,
+            "lossless": isinstance(table, list) and len(table) > 1 and table == classes,
+        }
     checks.append(check("multi_answer_lossless", all(row["lossless"] for row in multi.values()), multi))
 
-    image_evidence = {}
-    for public_id in sorted(IMAGE_IDS):
-        question = found.get(public_id, (None, None, {}))[2]
-        urls = list(question.get("questionImageStorageUrls") or [])
-        urls.extend(url for group in question.get("originalQuestionChoiceImageUrls") or [] for url in group)
-        # Source contains remote URLs but no immutable local asset path/hash. Do not
-        # silently fetch mutable remote bytes and call that source provenance.
-        image_evidence[public_id] = {"remoteUrls": urls, "localAssets": [], "sha256": []}
+    approved_images = json.loads((artifacts / "approved-image-assets.json").read_text())
+    manifest_urls = {
+        url for item in items for url in item["image"]["question"]
+    } | {
+        url for item in items for group in item["image"]["choices"] for url in group
+    }
+    image_evidence = []
+    for approved in approved_images["assets"]:
+        row = {"id": approved["id"], "role": approved["role"], "url": approved["url"]}
+        try:
+            request = urllib.request.Request(approved["url"], headers={"User-Agent": "exam-scraper-preflight/1"})
+            with urllib.request.urlopen(request, timeout=60) as response:
+                payload = response.read()
+                final_url = response.geturl()
+                mime = response.headers.get_content_type()
+                status = response.status
+            with Image.open(io.BytesIO(payload)) as decoded:
+                decoded.verify()
+                decoder = decoded.format
+            row.update({
+                "status": status,
+                "finalHost": urlparse(final_url).hostname,
+                "mime": mime,
+                "bytes": len(payload),
+                "sha256": hashlib.sha256(payload).hexdigest(),
+                "decoder": decoder,
+            })
+            row["passed"] = (
+                approved["url"] in manifest_urls
+                and urlparse(approved["url"]).hostname == "firebasestorage.googleapis.com"
+                and row["finalHost"] == "firebasestorage.googleapis.com"
+                and status == 200 and mime == approved["mime"]
+                and len(payload) == approved["bytes"]
+                and row["sha256"] == approved["sha256"]
+                and decoder == approved["decoder"]
+            )
+            (temp_root / f'{approved["id"]}-{approved["role"]}.{decoder.lower()}').write_bytes(payload)
+        except Exception as error:  # fail-closed evidence, never retry a model
+            row.update({"passed": False, "error": f"{type(error).__name__}: {error}"})
+        image_evidence.append(row)
     checks.append(check("building_image_assets_and_hashes",
-                        all(row["localAssets"] and row["sha256"] for row in image_evidence.values()), image_evidence))
+                        len(image_evidence) == 7 and all(row["passed"] for row in image_evidence), image_evidence))
 
-    policy_path = repo / "prompt/qualification_docs/judoseifukushi/04_law_reference_policy.md"
-    policy = policy_path.read_text()
-    law_evidence = {}
-    for public_id in sorted(LAW_IDS):
-        law_evidence[public_id] = {
-            "policyPath": str(policy_path.relative_to(repo)),
-            "policyMentionsItemId": public_id in policy,
-            "examTime": None,
-            "currentLaw": None,
-            "basisDates": [],
-            "locators": [],
-        }
-    checks.append(check("law_exam_time_and_current_provenance",
-                        all(row["examTime"] and row["currentLaw"] for row in law_evidence.values()), law_evidence))
+    provenance = json.loads((artifacts / "law-provenance.json").read_text())
+    exam_dates = provenance.get("officialExamDates", [])
+    required_years = {2020, 2024, 2025}
+    exam_date_ok = {row.get("year") for row in exam_dates if all(row.get(key) for key in
+                    ("officialUrl", "documentTitle", "exactLocator", "rawSha256", "examDate"))} == required_years
+    checks.append(check("official_exam_dates", exam_date_ok, exam_dates))
+    law_rows = provenance.get("items", [])
+    law_ok = len(law_rows) == 5 and {row.get("id") for row in law_rows} == LAW_IDS
+    for row in law_rows:
+        for side in ("examTime", "current"):
+            evidence = row.get(side) or {}
+            law_ok = law_ok and all(evidence.get(key) for key in
+                ("officialUrl", "documentTitle", "revision", "basisDate", "exactLocator", "rawSha256"))
+        if row.get("id") == "8987ec55216cbc63":
+            notices = row.get("advertisingDesignationNotices") or {}
+            law_ok = law_ok and all((notices.get(side) or {}).get("officialUrl") and
+                                    (notices.get(side) or {}).get("exactLocator") and
+                                    (notices.get(side) or {}).get("rawSha256")
+                                    for side in ("examTime", "current"))
+    checks.append(check("law_exam_time_and_current_provenance", bool(law_ok), law_rows))
 
     monitor = repo / "tools/question_review_console/monitor_events.py"
     monitor_text = monitor.read_text()
@@ -149,13 +200,23 @@ def main() -> int:
     checks.append(check("single_concurrency_contract", True,
                         {"questionParallelism": 1, "llmCallConcurrency": 1, "observedPeak": 0}))
 
+    fixed_set = {
+        "version": 2,
+        "count": len(ALL_IDS),
+        "ids": ALL_IDS,
+        "removed": ["dfb3fe84e07f47f9", "1ebaca9b85c6dd6e"],
+        "added": ["4ef67113801362d9", "ef0992b6887ec00b"],
+        "rejected": ["d732ddbaf0d4f522"],
+        "selectionFields": ["id", "year", "question", "choices", "targets"],
+    }
+    (artifacts / "fixed-set-v2.json").write_text(json.dumps(fixed_set, ensure_ascii=False, indent=2) + "\n")
     failed = [row["name"] for row in checks if row["status"] == "fail"]
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo, check=True, text=True, capture_output=True).stdout.strip()
     report = {
         "schemaVersion": "judoseifukushi-local-llm-preflight/v1",
         "createdAt": datetime.now(timezone.utc).isoformat(),
         "sourceCommit": commit,
-        "status": "blocked" if failed else "passed",
+        "status": "blocked" if failed else "pass",
         "failedChecks": failed,
         "modelCalls": 0,
         "checks": checks,
@@ -167,6 +228,16 @@ def main() -> int:
         "routesAttempted": [], "llmCalls": 0, "problemProcessingPeak": 0,
         "firestoreAttempts": 0, "publicationAttempts": 0, "failedPreflightChecks": failed,
     }, ensure_ascii=False, indent=2) + "\n")
+    safety = {"mode": "preflight_only", "modelCalls": 0, "codexCalls": 0, "ollamaCalls": 0,
+              "firestoreAttempts": 0, "publicationAttempts": 0, "repositoryImageBytes": 0,
+              "problemProcessingPeak": 0, "llmCallPeak": 0}
+    (artifacts / "safety.json").write_text(json.dumps(safety, ensure_ascii=False, indent=2) + "\n")
+    (artifacts / "T006-receipt.json").write_text(json.dumps({
+        "taskId": "T006", "result": "blocked" if failed else "done", "failedChecks": failed,
+        "modelCalls": 0, "artifactsDir": str(artifacts.relative_to(repo)),
+    }, ensure_ascii=False, indent=2) + "\n")
+    stage_matrix["status"] = "preflight_blocked" if failed else "preflight_passed"
+    (artifacts / "stage-matrix.json").write_text(json.dumps(stage_matrix, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"status": report["status"], "failedChecks": failed, "modelCalls": 0}, ensure_ascii=False))
     return 2 if failed else 0
 

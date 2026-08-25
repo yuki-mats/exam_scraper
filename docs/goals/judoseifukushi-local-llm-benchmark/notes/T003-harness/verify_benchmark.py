@@ -19,6 +19,7 @@ def main() -> int:
     parser.add_argument("--check-usage", action="store_true")
     parser.add_argument("--check-concurrency", action="store_true")
     parser.add_argument("--check-safety", action="store_true")
+    parser.add_argument("--preflight-only", action="store_true")
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text())
     matrix = json.loads(args.stage_matrix.read_text())
@@ -32,6 +33,14 @@ def main() -> int:
         text = args.manifest.read_text()
         assert not [key for key in ORACLE_KEYS if f'"{key}"' in text]
         assert not (args.results_root / "oracle-after-run.json").exists(), "oracle must not exist before terminal model runs"
+        forbidden = ("correctChoiceText", "answerTableCorrectChoiceNumbers", "answer_result_text",
+                     "choiceClassCorrectChoiceNumbers", "existingReview", "priorModelResult")
+        for name in ("fixed-set-v2.json", "approved-image-assets.json", "law-provenance.json",
+                     "run-manifest.json", "stage-matrix.json", "preflight.json",
+                     "execution-summary.json", "safety.json", "T006-receipt.json"):
+            path = args.results_root / name
+            if path.exists():
+                assert not [key for key in forbidden if key in path.read_text()], f"oracle-derived field in {name}"
     assert matrix["limits"] == {"questionParallelism": 1, "llmCallConcurrency": 1}
     if preflight["status"] == "blocked":
         assert preflight["failedChecks"]
@@ -45,7 +54,15 @@ def main() -> int:
             assert summary["firestoreAttempts"] == summary["publicationAttempts"] == 0
         print("PASS: preflight blocked fail-closed before all model calls")
         return 0
-    raise AssertionError("completed-run verification is not available until preflight passes")
+    if args.preflight_only:
+        assert preflight["status"] == "pass"
+        assert preflight["failedChecks"] == [] and preflight["modelCalls"] == 0
+        assert matrix["status"] == "preflight_passed"
+        safety = json.loads((args.results_root / "safety.json").read_text())
+        assert safety["modelCalls"] == safety["codexCalls"] == safety["ollamaCalls"] == 0
+        print("PASS: preflight passed with zero model calls")
+        return 0
+    raise AssertionError("completed-run verification requires model results")
 
 
 if __name__ == "__main__":

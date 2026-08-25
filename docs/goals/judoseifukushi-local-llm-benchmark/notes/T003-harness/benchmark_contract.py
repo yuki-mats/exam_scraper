@@ -9,7 +9,7 @@ from pathlib import Path
 
 JUDO = {
     "source-answer-missing": ["9c3273bf54057cd0", "fa0d4e2042e65b59"],
-    "law": ["c5167b46942fb08e", "0eb595c2c11278f5", "8987ec55216cbc63", "dfb3fe84e07f47f9", "1ebaca9b85c6dd6e"],
+    "law": ["c5167b46942fb08e", "0eb595c2c11278f5", "8987ec55216cbc63", "4ef67113801362d9", "ef0992b6887ec00b"],
     "numeric": ["130d5c77cc5c2b8b", "5c1ab42128e170ab", "ee361042818c9b9f", "c582757f2a97a68a", "77eea1850fecb0ab"],
     "long": ["b22f649e0b947399", "c1363e3f0487174c", "85cdb2c54567b04a"],
     "negative": ["8300bc9178872872", "31fa2012e42b713a", "23af5153f13d1a5c", "63ed9af2dc1cda2b", "715ae907c4b74436"],
