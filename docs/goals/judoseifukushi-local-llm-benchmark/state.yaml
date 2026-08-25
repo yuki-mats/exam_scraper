@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T013
+active_task: T014
 
 tasks:
   - id: T001
@@ -526,7 +526,7 @@ tasks:
   - id: T013
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "固定36問v2を3個の独立一時runtimeへ展開し、新規Codex-only baseline完走後、qwen3:14b、qwen3.5:27bを独立評価し、全route terminal後だけoracle採点して品質・安全・cloud削減を閉じる。"
     allowed_files:
@@ -572,6 +572,41 @@ tasks:
       - "Interrupted backend call cannot be reconciled by persisted runId/jobId."
       - "Prompt, runtime, input or harness fingerprint changes during run or resume."
       - "Verification fails twice for the same cause."
+    receipt:
+      result: blocked
+      commit: 80743d669
+      summary: "実Codex baselineは36 terminal、7 batch、34 completed、欠損2 holdで完走したが、provider token usageが7/7欠損したためlocal routesを開始せず停止した。"
+      evidence:
+        - "modelCalls 7、localModelCalls 0、llmCallPeak 1、problemProcessingPeak 1。"
+        - "Firestore/publication/production patch write 0。"
+        - "oracle未作成、prompt capture seal済み。"
+      artifacts:
+        - "notes/T003-artifacts/T013/receipt.json"
+        - "notes/T003-artifacts/T013/routes/codex_only/summary.json"
+        - "notes/T003-artifacts/T013/safety.json"
+      spawned_tasks:
+        - T014
+
+  - id: T014
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "Codex App Serverがprovider token usageを返さない現実を踏まえ、token削減をinconclusiveに固定しつつ、call削減・prompt bytes・品質で14B/27B評価を続行できるか厳格に再判定する。"
+    inputs:
+      - "T002 quality contract"
+      - "T013 real Codex baseline artifacts and transport captures"
+      - "Current Codex App Server usage capability"
+    constraints:
+      - "Read-only。"
+      - "token数を推定値で合格扱いしない。"
+      - "品質閾値、critical、call削減30%、oracle分離、安全条件を緩めない。"
+      - "14Bと27Bを独立評価する。"
+    expected_output:
+      - "approve_next | reject | blocked"
+      - "Whether token metric may be inconclusive without blocking quality experiment"
+      - "Exact continuation Worker package using the sealed baseline"
+      - "Updated reporting and stop conditions"
     receipt: null
 
   - id: T999
