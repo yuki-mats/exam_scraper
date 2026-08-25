@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T003
+active_task: T004
 
 tasks:
   - id: T001
@@ -140,7 +140,7 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "固定36問を正本非変更の隔離copyへ展開し、全件Codex-only baseline、qwen3:14b hybrid、qwen3.5:27b hybridを順に盲検実行して、問題別品質、call/token、fallback、hold、安全性を再現可能なartifactへ閉じる。"
     allowed_files:
@@ -164,6 +164,42 @@ tasks:
       - "Any production write or external publication attempt occurs."
       - "Peak LLM-call or problem-processing concurrency exceeds 1."
       - "Verification fails twice for the same cause."
+    receipt:
+      result: blocked
+      commit: d85d64e54
+      summary: "fail-closed preflightを実装し、2 gate不足のためLLM呼出し0で停止した。"
+      evidence:
+        - "36 unique ID/source hash、workflow target、複数正答schema、usage seam、oracle分離、安全・1並列はpass。"
+        - "建築画像2問はremote URLだけで、不変ローカルassetとsha256を確定できない。"
+        - "法令5問は試験時点と現行法の問別locator・基準日・provenanceが不足。"
+        - "Firestore、publication、production patch、00_sourceへのwriteは0。"
+      artifacts:
+        - "notes/T003-artifacts/preflight.json"
+        - "notes/T003-artifacts/execution-summary.json"
+      spawned_tasks:
+        - T004
+
+  - id: T004
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "T003を止めた建築画像2問と法令5問について、正本を変更せず、評価用の不変asset/hashと試験時点・現行法の問別provenanceを作れる正確な取得経路を特定する。"
+    inputs:
+      - "T001/T002 notes and T003 preflight artifacts"
+      - "building source image URLs and repository image handling"
+      - "柔道整復師法令5問の問題文、出題年、既存qualification law policy"
+      - "Lawzilla、e-Gov、既存法令corpusのread-only evidence"
+    constraints:
+      - "Read-only。repository、Firestore、外部公開を変更しない。"
+      - "秘密情報やprivate endpointを出力しない。"
+      - "過去法令と現行法を推測で対応させない。問別locator、基準日、取得元、hashを要求する。"
+      - "画像URLの取得不能、ライセンス又は再現性不足を隠さない。"
+    expected_output:
+      - "画像2問の取得URL、実体形式、sha256固定方法、再取得可能性"
+      - "法令5問の試験時点・現行法の別locator、基準日、provenance"
+      - "T003を再開できるか、固定集合差替えが必要かの証拠付き判定"
+      - "次の単一Worker packageとallowed_files/verify/stop_if"
     receipt: null
 
   - id: T999
