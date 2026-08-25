@@ -77,6 +77,7 @@ def main() -> int:
     parser.add_argument("--artifacts-dir", type=Path, required=True)
     parser.add_argument("--temp-root", type=Path, required=True)
     parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument("--receipt-output", default="T011-receipt.json")
     args = parser.parse_args()
     if not args.preflight_only:
         parser.error("T006 only permits --preflight-only")
@@ -85,6 +86,9 @@ def main() -> int:
     temp_root = args.temp_root.resolve()
     artifacts.mkdir(parents=True, exist_ok=True)
     temp_root.mkdir(parents=True, exist_ok=True)
+    receipt_name = Path(args.receipt_output)
+    if receipt_name.name != args.receipt_output or receipt_name.suffix != ".json":
+        parser.error("--receipt-output must be one JSON filename")
 
     found = source_index(repo)
     items = []
@@ -255,6 +259,19 @@ def main() -> int:
 
     failed = [row["name"] for row in checks if row["status"] == "fail"]
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo, check=True, text=True, capture_output=True).stdout.strip()
+    source_fingerprint = hashlib.sha256(json.dumps(source_rows, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+    manifest_fingerprint = hashlib.sha256(json.dumps(manifest, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+    config_fingerprint = sha256(llm_config)
+    prompt_rows = [{"path": str(path.relative_to(repo)), "sha256": sha256(path)}
+                   for path in sorted((repo / "prompt").glob("*.md"))]
+    prompt_fingerprint = hashlib.sha256(json.dumps(prompt_rows, sort_keys=True).encode()).hexdigest()
+    closure = {"sourceCommit": commit, "sourceFingerprint": source_fingerprint,
+               "manifestFingerprint": manifest_fingerprint, "workflowSha256": sha256(workflow_path),
+               "configSha256": config_fingerprint, "promptFingerprint": prompt_fingerprint}
+    preflight_fingerprint = hashlib.sha256(json.dumps(closure, sort_keys=True).encode()).hexdigest()
+    stage_matrix.update({**closure, "preflightFingerprint": preflight_fingerprint,
+                         "status": "preflight_pass" if not failed else "preflight_blocked"})
+    (artifacts / "stage-matrix.json").write_text(json.dumps(stage_matrix, ensure_ascii=False, indent=2) + "\n")
     report = {
         "schemaVersion": "judoseifukushi-local-llm-preflight/v1",
         "createdAt": datetime.now(timezone.utc).isoformat(),
@@ -262,6 +279,7 @@ def main() -> int:
         "status": "blocked" if failed else "pass",
         "failedChecks": failed,
         "modelCalls": 0,
+        "preflightFingerprint": preflight_fingerprint,
         "checks": checks,
         "stopReason": "Any preflight gate fails; no model calls permitted." if failed else None,
     }
@@ -275,9 +293,10 @@ def main() -> int:
               "firestoreAttempts": 0, "publicationAttempts": 0, "repositoryImageBytes": 0,
               "problemProcessingPeak": 0, "llmCallPeak": 0}
     (artifacts / "safety.json").write_text(json.dumps(safety, ensure_ascii=False, indent=2) + "\n")
-    (artifacts / "T011-receipt.json").write_text(json.dumps({
-        "taskId": "T011", "result": "blocked" if failed else "done", "failedChecks": failed,
-        "modelCalls": 0, "artifactsDir": str(artifacts.relative_to(repo)),
+    (artifacts / receipt_name).write_text(json.dumps({
+        "taskId": receipt_name.stem.split("-")[0], "result": "blocked" if failed else "done", "failedChecks": failed,
+        "modelCalls": 0, "preflightFingerprint": preflight_fingerprint,
+        "artifactsDir": str(artifacts.relative_to(repo)),
     }, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"status": report["status"], "failedChecks": failed, "modelCalls": 0}, ensure_ascii=False))
     return 2 if failed else 0

@@ -20,6 +20,7 @@ def main() -> int:
     parser.add_argument("--check-concurrency", action="store_true")
     parser.add_argument("--check-safety", action="store_true")
     parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument("--completed-run", action="store_true")
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text())
     matrix = json.loads(args.stage_matrix.read_text())
@@ -32,7 +33,8 @@ def main() -> int:
     if args.check_oracle_separation:
         text = args.manifest.read_text()
         assert not [key for key in ORACLE_KEYS if f'"{key}"' in text]
-        assert not (args.results_root / "oracle-after-run.json").exists(), "oracle must not exist before terminal model runs"
+        if not args.completed_run:
+            assert not (args.results_root / "oracle-after-run.json").exists(), "oracle must not exist before terminal model runs"
         forbidden = ("correctChoiceText", "answerTableCorrectChoiceNumbers", "answer_result_text",
                      "choiceClassCorrectChoiceNumbers", "existingReview", "priorModelResult")
         for name in ("fixed-set-v2.json", "approved-image-assets.json", "exam-dates.json", "law-provenance.json",
@@ -64,6 +66,21 @@ def main() -> int:
         assert len(dates["dates"]) == 3 and len(laws["items"]) == 5
         assert all(item["examTime"] is not item["current"] for item in laws["items"])
         print("PASS: preflight passed with zero model calls")
+        return 0
+    if args.completed_run:
+        oracle = json.loads((args.results_root / "oracle-after-run.json").read_text())
+        result = json.loads((args.results_root / "result.json").read_text())
+        safety = json.loads((args.results_root / "safety.json").read_text())
+        assert oracle["createdAfterAllRoutes"] is True and len(oracle["items"]) == 36
+        assert safety["firestoreAttempts"] == safety["publicationAttempts"] == safety["productionPatchWrites"] == 0
+        assert safety["llmCallPeak"] == safety["problemProcessingPeak"] == 1
+        assert safety["auditBatchMaxQuestions"] <= 5 and safety["auditBatchMaxBytes"] <= 120000
+        for route in ("codex_only", "qwen3-14b", "qwen3.5-27b"):
+            route_dir = args.results_root / "routes" / route
+            assert json.loads((route_dir / "run-complete.json").read_text())["terminalRows"] == 36
+            assert (route_dir / "prompt-capture-seal.json").exists()
+        assert result["baseline"]["codexUsageMissing"] is False
+        print("PASS: completed real benchmark is sealed and safe")
         return 0
     raise AssertionError("completed-run verification requires model results")
 

@@ -1,0 +1,45 @@
+{
+  "sourceCommit": "7d0250825345080ae71e403fb58162d436e28587",
+  "preflightFingerprint": "d08ec7f43ee43213235deb78ba67a64ceca6e9ec261a692d9e893626cbc75718",
+  "runtime": {
+    "snapshotFingerprint": "7e7df4b51829198863c77d79bac65607c12cf78e771228b85e81962f93e9453a",
+    "routes": [
+      {
+        "route": "codex_only",
+        "path": "/private/tmp/judoseifukushi-local-llm-benchmark-T013/runtimes/codex_only",
+        "fingerprint": "7e7df4b51829198863c77d79bac65607c12cf78e771228b85e81962f93e9453a"
+      },
+      {
+        "route": "qwen3:14b",
+        "path": "/private/tmp/judoseifukushi-local-llm-benchmark-T013/runtimes/qwen3-14b",
+        "fingerprint": "7e7df4b51829198863c77d79bac65607c12cf78e771228b85e81962f93e9453a"
+      },
+      {
+        "route": "qwen3.5:27b",
+        "path": "/private/tmp/judoseifukushi-local-llm-benchmark-T013/runtimes/qwen3.5-27b",
+        "fingerprint": "7e7df4b51829198863c77d79bac65607c12cf78e771228b85e81962f93e9453a"
+      }
+    ],
+    "itemCount": 36
+  },
+  "codex": {
+    "stage": "complete",
+    "allowed": true,
+    "failureKind": null,
+    "rpcMethod": null,
+    "rpcCode": null,
+    "rpcDataType": null,
+    "runtimePhase": null,
+    "runtimeRule": null,
+    "accountType": "chatgpt",
+    "planType": "pro",
+    "creditsEnabled": false,
+    "standardMode": true,
+    "fastMode": false
+  },
+  "ollamaModels": [
+    "qwen3.5:27b",
+    "qwen3:14b"
+  ],
+  "harnessFingerprint": "626f283a6b4b931de15fe9cee777c6ef83c4d69a02f0c0a7ac2aab0c1fafafe8"
+}

@@ -1,10 +1,11 @@
 {
   "schemaVersion": "judoseifukushi-local-llm-preflight/v1",
-  "createdAt": "2026-08-25T02:17:07.503642+00:00",
-  "sourceCommit": "92299443716e902df9c7178773c109456aee388a",
+  "createdAt": "2026-08-25T02:43:50.681777+00:00",
+  "sourceCommit": "7d0250825345080ae71e403fb58162d436e28587",
   "status": "pass",
   "failedChecks": [],
   "modelCalls": 0,
+  "preflightFingerprint": "d08ec7f43ee43213235deb78ba67a64ceca6e9ec261a692d9e893626cbc75718",
   "checks": [
     {
       "name": "36_unique_source_ids_and_hashes",
@@ -736,7 +737,7 @@
       "evidence": {
         "sourceSha256": "554b21549223aa7414e7c070ef13f3c3329012b6870a257cd24edc7ec45225ce",
         "tempSha256": "d365e14406ed3cd751ef46c89caa1e543b32877e064ffc1f9985423746111af6",
-        "tempPath": "/private/tmp/judoseifukushi-local-llm-benchmark-T011/question_maintenance_llm.toml"
+        "tempPath": "/private/tmp/judoseifukushi-local-llm-benchmark-T013/preflight/question_maintenance_llm.toml"
       }
     },
     {

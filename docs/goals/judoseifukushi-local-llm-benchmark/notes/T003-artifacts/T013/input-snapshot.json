@@ -1,0 +1,1082 @@
+{
+  "fingerprint": "7e7df4b51829198863c77d79bac65607c12cf78e771228b85e81962f93e9453a",
+  "schemaVersion": "blind-runtime/v1",
+  "items": [
+    {
+      "id": "9c3273bf54057cd0",
+      "year": 2007,
+      "question": "正しい組合せはどれか。",
+      "choices": [
+        "猩紅熱 ─── ハンター(Ｈunter)舌炎",
+        "ジフテリア ─── コプリック斑",
+        "麻疹 ─── 咽頭偽膜形成",
+        "ビタミンB1欠乏症 ─── 口角びらん"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "source_evidence_hold"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": true
+      }
+    },
+    {
+      "id": "fa0d4e2042e65b59",
+      "year": 2003,
+      "question": "出血性ショックの初期症状はどれか。",
+      "choices": [
+        "意識混濁",
+        "痙攣",
+        "頻脈",
+        "乏尿"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "source_evidence_hold"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": true
+      }
+    },
+    {
+      "id": "c5167b46942fb08e",
+      "year": 2024,
+      "question": "柔道整復師の療養費受領委任で誤っているのはどれか。",
+      "choices": [
+        "法令を遵守する。",
+        "被保険者証を確認する。",
+        "領収書を有償で交付する。",
+        "インフォームド・コンセントを実践する。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "law_context",
+        "law_audit",
+        "explanation"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "0eb595c2c11278f5",
+      "year": 2024,
+      "question": "柔道整復師の免許制度で正しいのはどれか。",
+      "choices": [
+        "無免許の施術は無報酬ならば許される。",
+        "「業」は一人に対して複数回の施術を指す。",
+        "免許は都道府県知事への申請が必要である。",
+        "死亡した場合は30日以内に登録の消除を申請する。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "law_context",
+        "law_audit",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "8987ec55216cbc63",
+      "year": 2025,
+      "question": "柔道整復師法で広告できないのはどれか。",
+      "choices": [
+        "経路案内",
+        "駐車料金",
+        "学会の理事",
+        "予約施術の実施"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "law_context",
+        "law_audit",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "4ef67113801362d9",
+      "year": 2020,
+      "question": "柔道整復師法で医師の同意が必要な施術はどれか。",
+      "choices": [
+        "骨折・脱臼の応急処置",
+        "骨折・脱臼の後療法",
+        "打撲・捻挫の応急処置",
+        "打撲・捻挫の後療法"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "law_context",
+        "law_audit",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "ef0992b6887ec00b",
+      "year": 2020,
+      "question": "柔道整復師法の施術所の構造設備基準で専用でなければならないと規定されているのはどれか。",
+      "choices": [
+        "受付",
+        "更衣室",
+        "待合室",
+        "施術室"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "law_context",
+        "law_audit",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "130d5c77cc5c2b8b",
+      "year": 2005,
+      "question": "不快指数算出のために測定が必要なのはどれか。2つ選べ。",
+      "choices": [
+        "乾球温度",
+        "気流",
+        "湿球温度",
+        "黒球温度"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "5c1ab42128e170ab",
+      "year": 2015,
+      "question": "1グラムの脂質が発生するエネルギー量はどれか。",
+      "choices": [
+        "5kcAl",
+        "4.1kcAl",
+        "9.3kcAl",
+        "15.0kcAl"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "ee361042818c9b9f",
+      "year": 2023,
+      "question": "糖尿病の診断基準で正しいのはどれか。",
+      "choices": [
+        "HbA1c6.5%以上",
+        "随時血糖値126mg/dL以上",
+        "空腹時血糖値110mg/dL以上",
+        "75ｇ経口ブドウ糖負荷試験で1時間後血糖値200mg/dL以上"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "c582757f2a97a68a",
+      "year": 2024,
+      "question": "76歳の女性。大腿骨頸部骨折の手術後、離床を開始した直後に突然の胸痛と呼吸困難を訴えた。経皮的酸素飽和度は88％と低下し、頻脈、頻呼吸がみられた。最も考えられるのはどれか。",
+      "choices": [
+        "気管支喘息",
+        "心房細動",
+        "肺炎",
+        "肺血栓塞栓症"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "77eea1850fecb0ab",
+      "year": 2025,
+      "question": "2型糖尿病の治療で合併症予防のためのHbA1cの目標値はどれか。",
+      "choices": [
+        "6.0%未満",
+        "6.5%未満",
+        "7.0%未満",
+        "8.0%未満"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "b22f649e0b947399",
+      "year": 2020,
+      "question": "20歳の男性。サッカーで相手選手と接触し、地面に左手の手掌を強く衝き、手関節部に強い疼痛を感じた。当日は自分で患部を冷やし、テーピングで固定した。1週間経過しても症状が改善されなかったので来所した。初検時、手関節部の腫脹は著明で、背屈制限、母指及び示指からの軸圧痛、スナッフボックス部の圧痛が認められた。専門医の診断を仰いだところ、骨折と診断された。単純エックス線写真(No.3)を示す。この骨折の特徴で正しいのはどれか。2つ選べ。",
+      "choices": [
+        "受傷直後のエックス線像で骨折を確認できないことがある。",
+        "手関節部の変化が著名である。",
+        "固定期間は比較的短期間である。",
+        "骨癒合が遷延しやすい。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "c1363e3f0487174c",
+      "year": 2025,
+      "question": "3歳の男児。歩容異常を祖母に指摘されたため来所した。両下腿の内反変形がみられた。医科で画像検査を行い、両側ともにFTAは186度、脛骨近位端内側に嘴様変形がみられた。外傷の既往や明らかな感染徴候はない。考えられるのはどれか。",
+      "choices": [
+        "ブラント(Blount)病",
+        "マルファン(Marfan)症候群",
+        "ペレグリーニ・スティーダ(Pellegrini-Stieda)病",
+        "シンディングラーセン・ヨハンソン(SindingLarsen-Johansson)病"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "85cdb2c54567b04a",
+      "year": 2026,
+      "question": "16歳の女子。サッカー部に所属している。昨日の練習試合で右足関節をひねった。しばらくして歩行が可能となったため帰宅したが、今朝も痛みが引かないため来所した。右腓骨外果前方に腫脹と底背屈痛がみられ、前方動揺性テストは陽性である。足関節0度での疼痛や不安定性はなく、外果に圧痛はみられない。固定や指導で正しいのはどれか。2つ選べ。",
+      "choices": [
+        "固定範囲に膝関節を含める。",
+        "固定肢位は外反位とする。",
+        "免荷歩行を指導する。",
+        "次回の来所は2週後と指導する。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "8300bc9178872872",
+      "year": 2025,
+      "question": "赤血球の働きで誤っているのはどれか。",
+      "choices": [
+        "pHの緩衝",
+        "酸素の運搬",
+        "血小板の凝集",
+        "二酸化炭素の運搬"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "31fa2012e42b713a",
+      "year": 2023,
+      "question": "自己免疫疾患と特徴の組合せで誤っているのはどれか。",
+      "choices": [
+        "橋本病ーー口内乾燥症",
+        "関節リウマチーー滑膜炎",
+        "多発性筋炎-皮膚筋炎ーー脱力",
+        "全身性エリテマトーデスーー抗核抗体"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "23af5153f13d1a5c",
+      "year": 2021,
+      "question": "転位のある鎖骨骨折の患者の姿勢で誤っているのはどれか。",
+      "choices": [
+        "健側の手で患側上肢を支える。",
+        "頭部を患側に傾ける。",
+        "上腕は外転肢位をとる。",
+        "すり足歩行となる。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "63ed9af2dc1cda2b",
+      "year": 2020,
+      "question": "肩関節脱臼の発生頻度が高い理由で誤っているのはどれか。",
+      "choices": [
+        "骨頭に対して関節窩が深い。",
+        "各方向に広い可動域を持つ。",
+        "関節の安定性は筋力に依存する。",
+        "肩関節は突出し外力を受けやすい。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "715ae907c4b74436",
+      "year": 2023,
+      "question": "65歳の女性。1か月前、自宅の整理をしていて崩れそうになった重い荷物を支えようとしたとき、右上肢痛を自覚した。約1週で疼痛が軽減し、上肢もあまり不自由なく使えるようになったので放置していたが、肘屈曲時に上腕部の腫れが目立ってきたので来所した。右上腕前面に握りこぶし大の軟部腫瘤を触知する。 誤っているのはどれか。",
+      "choices": [
+        "腱の変性が背景にある。",
+        "最大筋力は正常である。",
+        "保存療法が第一選択である。",
+        "超音波観察が有用である。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "a28db6ba1c8e4c65",
+      "year": 2025,
+      "question": "横隔神経の構成要素になるのはどれか。",
+      "choices": [
+        "第1頸神経",
+        "第4頸神経",
+        "第7頸神経",
+        "第1胸神経"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "01bd0255c9fc8371",
+      "year": 2025,
+      "question": "子宮復古に関与するのはどれか。",
+      "choices": [
+        "アンドロゲン",
+        "エストロゲン",
+        "オキシトシン",
+        "プロゲステロン"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "2380e0e939cce3b7",
+      "year": 2025,
+      "question": "月状骨脱臼時に発現しうるのはどれか。",
+      "choices": [
+        "小指球部尺側の感覚脱失",
+        "感覚障害のない下垂指",
+        "示指・中指の感覚鈍麻",
+        "手背橈側の感覚過敏"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "1d2014527a7acabb",
+      "year": 2026,
+      "question": "充血の原因とならないのはどれか。",
+      "choices": [
+        "細菌感染",
+        "温熱",
+        "アルコール摂取",
+        "ギプス固定"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "da301fba93a4d48c",
+      "year": 2026,
+      "question": "パーキンソン(Parkinson)病に特徴的なのはどれか。",
+      "choices": [
+        "安静時振戦",
+        "姿勢時振戦",
+        "睡眠時振戦",
+        "動作時振戦"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "ab3c9ed5d41aa3fd",
+      "year": 2025,
+      "question": "子宮で正しいのはどれか。",
+      "choices": [
+        "直腸の後面に位置する。",
+        "子宮底は膣に包まれる。",
+        "子宮頸に卵管が開口する。",
+        "子宮体に粘膜が存在する。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "8168f912ed724458",
+      "year": 2024,
+      "question": "単関節筋はどれか。",
+      "choices": [
+        "大腿二頭筋",
+        "長内転筋",
+        "半膜様筋",
+        "大腿直筋"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "e1a6f5219f4e01d8",
+      "year": 2024,
+      "question": "全身の静脈血が最初に通過するのはどれか。",
+      "choices": [
+        "大動脈弁",
+        "肺動脈弁",
+        "三尖弁",
+        "僧帽弁"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "a2f7e9ea703084cb",
+      "year": 2024,
+      "question": "車軸関節はどれか。",
+      "choices": [
+        "上橈尺関節",
+        "腕尺関節",
+        "距腿関節",
+        "膝関節"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "5d85b2e35574d926",
+      "year": 2026,
+      "question": "芽胞を有する細菌に効果のある消毒薬はどれか。",
+      "choices": [
+        "過酢酸",
+        "消毒用エタノール",
+        "ポビドンヨード",
+        "クロルヘキシジン"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "judoseifukushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "dd07b4977677b7bb",
+      "year": 2024,
+      "question": "構造計算における荷重及び外力に関する次の記述のうち、最も不適当なものはどれか。",
+      "choices": [
+        "百貨店における床の単位面積当たりの積載荷重の大小関係は、一般に、「売場」＜「売場に連絡する廊下」である。",
+        "屋根の積雪荷重は、屋根に雪止めがある場合を除き、その勾配が45度を超える場合においては、零とすることができる。",
+        "風圧力の計算に用いるガスト影響係数Gfは、同じ地上高さの場合、一般に、地表面粗度区分がⅡよりⅢのほうが大きくなる。",
+        "建築物の屋根版に作用する風圧力と、屋根葺き材に作用する風圧力とは、それぞれ個別に計算する。",
+        "沖積粘性土の下層面が地盤面下15m以下である地域については、一般に、杭周面の「負の摩擦力」の検討を行う必要がある。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "explanation"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "2nd-class-kenchikushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "3239d392acd6236c",
+      "year": 2024,
+      "question": "構造計算における設計用地震力に関する次の記述のうち、最も不適当なものはどれか。",
+      "choices": [
+        "振動特性係数Rtの算出のための地盤種別について、建築物の基礎底部の直下の地盤の大部分が、腐植土や泥土等で構成された沖積層で、その深さがおおむね30m以上である場合、第三種地盤とする。",
+        "建築物の設計用一次固有周期（単位s）は、鉄骨造の場合、一般に、建築物の高さ（単位m）に0.03を乗じて算出する。",
+        "振動特性係数Rtは、同一の地盤種別の場合、一般に、建築物の設計用一次固有周期が長くなるほど大きくなる。",
+        "許容応力度等計算において、地盤が著しく軟弱な区域として指定された区域内における木造の建築物の標準せん断力係数Coは、原則として、0.3以上とする。",
+        "建築物の地上部分の各階における地震層せん断力係数Ciは、一般に、上階になるほど大きくなる。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "correct_choice"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "2nd-class-kenchikushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "64032ef7f4bac816",
+      "year": 2024,
+      "question": "地盤及び基礎構造に関する次の記述のうち、最も不適当なものはどれか。",
+      "choices": [
+        "基礎形式の設定に当たっては、地盤工学的問題を基礎形式で対応する場合、基礎形式は1つに限定せず複数の選択肢を考慮する。",
+        "基礎梁の剛性を大きくすることは、一般に、不同沈下の影響を減少させるために有効である。",
+        "液状化とは、振動・衝撃等による間隙水圧の上昇によって、水で飽和した粘性土が、せん断抵抗を失う現象である。",
+        "PHC杭とは、遠心力成形された中空円筒形をした工場生産の高強度コンクリート杭である。",
+        "直接基礎の鉛直支持力の算定方法には、原地盤の地盤定数を推定して支持力式を用いる方法、平板載荷試験による方法等がある。"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "question_type"
+      ],
+      "questionIntent": "select_incorrect",
+      "routing": {
+        "qualification": "2nd-class-kenchikushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "64bd269e44533561",
+      "year": 2024,
+      "question": "図のように配筋された柱のせん断補強筋比pwを求める式として、正しいものは、次のうちどれか。ただし、地震力は、図に示す方向とする。",
+      "choices": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "image": {
+        "question": [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_q_img01.webp?alt=media"
+        ],
+        "choices": [
+          [
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch01_img01.webp?alt=media"
+          ],
+          [
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch02_img01.webp?alt=media"
+          ],
+          [
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch03_img01.webp?alt=media"
+          ],
+          [
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch04_img01.webp?alt=media"
+          ],
+          [
+            "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq64bd269e44533561_ch05_img01.webp?alt=media"
+          ]
+        ]
+      },
+      "targets": [
+        "question_type",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "2nd-class-kenchikushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "3b24e06367db4222",
+      "year": 2017,
+      "question": "イ～ニの記述について、正しいもののみの組合せは、次のうちどれか。\nイ.　「都市計画法」上、市街化調整区域内で、農業を営む者の居住の用に供する建築物の建築の用に供する目的で行う開発行為をしようとする者は、都道府県知事又は指定都市等の長の許可を受けなければならない。\nロ.　「宅地造成等規制法」上、宅地以外の土地を宅地にするために行う盛土であって、当該盛土をした土地の部分に高さが１mの崖を生ずることとなるもので、当該盛土をする土地の面積が500m²を超えるものは、「宅地造成」に該当する。\nハ.　「高齢者、障害者等の移動等の円滑化の促進に関する法律」上、建築主等は、共同住宅を建築しようとするときは、当該建築物を建築物移動等円滑化基準に適合させるために必要な措置を講ずるよう努めなければならない。\nニ.　「建設業法」上、工事１件の請負代金の額が1,500万円に満たない建築一式工事のみを請け負うことを営業とする者であっても、建設業の許可を受けなければならない。",
+      "choices": [
+        "イとロ",
+        "イとハ",
+        "ロとハ",
+        "ロとニ",
+        "ハとニ"
+      ],
+      "image": {
+        "question": [],
+        "choices": [
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "law_context",
+        "law_audit",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "2nd-class-kenchikushi",
+        "holdWithoutModel": false
+      }
+    },
+    {
+      "id": "ed7d14b661421a12",
+      "year": 2017,
+      "question": "図のような等分布荷重を受ける単純梁に断面100mm×200mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "choices": [
+        "6N/mm²",
+        "9N/mm²",
+        "12N/mm²",
+        "18N/mm²",
+        "36N/mm²"
+      ],
+      "image": {
+        "question": [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqed7d14b661421a12_q_img01.png?alt=media"
+        ],
+        "choices": [
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      },
+      "targets": [
+        "question_type",
+        "explanation"
+      ],
+      "questionIntent": "select_correct",
+      "routing": {
+        "qualification": "2nd-class-kenchikushi",
+        "holdWithoutModel": false
+      }
+    }
+  ]
+}
