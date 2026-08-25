@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T008
+active_task: T009
 
 tasks:
   - id: T001
@@ -331,7 +331,7 @@ tasks:
   - id: T008
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "T007の公式URLを再取得し、3試験日と法令5問のexam/current provenanceをT003 artifactへ固定してpreflight-only検査をpassへ閉じる。"
     allowed_files:
@@ -358,6 +358,41 @@ tasks:
       - "Any official body hash, MIME or locator differs and the official change cannot be explained."
       - "Any e-Gov as-of revision differs from the approved value."
       - "Exam and current provenance would be collapsed into one field."
+      - "Any LLM, source, production patch, Firestore or publication write would occur."
+      - "Verification fails twice for the same cause."
+    receipt:
+      result: blocked
+      commit: 565b6eafc
+      summary: "公式15資料のMIME/bytes/hashは一致したが、平成28年告示第272号HTMLのlocator表記1件だけが不一致となり、同一原因2回で停止した。"
+      evidence:
+        - "3試験日、e-Gov時点別法令、受領委任PDF、広告告示のraw artifactは15/15一致。"
+        - "失敗は漢数字needleに対し公式HTMLが『平成28年厚生労働省告示第272号』と算用数字表記だったこと。"
+        - "modelCalls 0、production write 0。"
+      spawned_tasks:
+        - T009
+
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "平成28年告示第272号のlocator needleを公式HTMLの実在表記へ合わせ、公式15資料を再検証してpreflight-onlyをpassへ閉じる。"
+    allowed_files:
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/law-provenance.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/execution-summary.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/safety.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T009-receipt.json"
+      - "/private/tmp/judoseifukushi-local-llm-benchmark-T009/**"
+    verify:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py --repo-root . --temp-root /private/tmp/judoseifukushi-local-llm-benchmark-T009 --artifacts-dir docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --preflight-only"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --check-oracle-separation --check-usage --check-concurrency --check-safety --preflight-only"
+      - "jq -e '.status == \"pass\" and (.failedChecks | length) == 0 and .modelCalls == 0' docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "git diff --exit-code -- ':(glob)output/**/00_source/**' ':(glob)output/**/10*/**' ':(glob)output/**/15*/**' ':(glob)output/**/18*/**' ':(glob)output/**/21*/**' ':(glob)output/**/22*/**' ':(glob)output/**/23*/**' ':(glob)output/**/24*/**' config tools prompt document"
+    stop_if:
+      - "Any change beyond the exact official HTML locator normalization is required."
+      - "Any official body hash, MIME, revision or other locator changes."
       - "Any LLM, source, production patch, Firestore or publication write would occur."
       - "Verification fails twice for the same cause."
     receipt: null
