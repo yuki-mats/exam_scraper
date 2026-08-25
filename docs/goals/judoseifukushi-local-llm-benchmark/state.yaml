@@ -1,0 +1,154 @@
+version: 2
+
+goal:
+  title: "柔道整復師によるローカルLLM品質ベンチマーク"
+  slug: "judoseifukushi-local-llm-benchmark"
+  kind: specific
+  tranche: "固定集合を盲検実行し、品質とクラウド削減でlocal profileの採否を閉じる"
+  status: active
+  oracle:
+    signal: "固定集合の重大誤り0、local監査合格率、Codex call/token削減、blind oracle対応を問題別receiptで確認する"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "固定集合manifest、blind oracle、local/Codex比較、call/token集計、00_source不変、外部write 0、最終採否"
+  intake:
+    original_request: "柔道整復師をサンプルとしてローカルLLM組み込みを評価する"
+    interpreted_outcome: "柔道整復師30問と二級建築士補助集合で、local生成・Codex監査の品質とクラウド削減を再現可能に判定する"
+    input_shape: specific
+    audience: "問題整備システムの運用者と受験者"
+    authority: approved
+    proof_type: metric
+    completion_proof: "固定集合の全問題を採用又は根拠付き早期不採用へ閉じ、モデル別品質・call/token・fallback・holdを比較する"
+    likely_misfire: "簡単な問題だけを選ぶ、oracleをpromptへ渡す、fallbackをlocal成功へ数える、又は速度だけで判定する"
+    blind_spots_considered:
+      - "柔道整復師は画像0、全問4択true_false"
+      - "旧年度法令と現行法の時点差"
+      - "正答表欠損304問"
+      - "解説0、全7,600問review pending"
+      - "医学的にもっともらしい捏造"
+      - "クラウドauditが削減を相殺する可能性"
+    existing_plan_facts:
+      - "柔道整復師は1993〜2026年、7,600問、12科目、167分類"
+      - "柔道整復師30問を主セット、二級建築士5〜7問を補助セット"
+      - "速度上限なし、全LLM呼出しと問題処理は1並列"
+      - "Codex監査は問題別micro-batch、oracleはrun後だけ使用"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "柔道整復師30問と二級建築士補助集合を、科目・否定設問・法令時点差・計算・根拠欠損・画像・形式を満たす固定blind benchmarkとして決定的に選定し、既存実run harnessへ接続する正確な証拠を特定する。"
+    inputs:
+      - "output/judoseifukushi/questions_json/**/00_source/*.json"
+      - "output/judoseifukushi/category/category.json"
+      - "output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_manual_review.jsonl"
+      - "prompt/qualification_docs/judoseifukushi/**"
+      - "docs/goals/question-maintenance-hybrid-llm receipts and benchmark artifacts"
+      - "current profile/backend configuration"
+    constraints:
+      - "Read-only。"
+      - "oracle又は既存評価をモデル入力へ渡さない。"
+      - "選定規則を先に定義し、その規則からIDを決める。"
+      - "00_source、patch、Firestore、外部公開を変更しない。"
+    expected_output:
+      - "Exact deterministic sample selection rule and IDs"
+      - "Oracle provenance and hold cases"
+      - "Runnable isolated benchmark path"
+      - "Model/profile availability and cost telemetry seams"
+      - "Largest safe Judge/Worker package"
+    receipt: null
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "T001の固定集合と実行経路を監査し、品質・安全・クラウド削減を偽陽性なく判定する最大の単一Worker packageを確定する。"
+    inputs:
+      - "T001 receipt"
+    constraints:
+      - "Read-only。"
+      - "簡単な問題への偏り、oracle leakage、Codex fallback成功の混入を拒否する。"
+    expected_output:
+      - "Approved fixed set and thresholds"
+      - "Exact allowed_files, verify, stop_if"
+      - "Early rejection and full-run conditions"
+    receipt: null
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: low
+    objective: "承認済み固定集合を隔離環境でlocal生成・Codex監査とCodex-onlyへ通し、blind oracle、品質、call/token、fallback、hold、安全性を比較して採否証拠を作る。"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Oracle leakage is required."
+      - "00_source, production patch, Firestore or publication write is required."
+      - "Verification fails twice for the same cause."
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "固定集合の全receiptを監査し、local profileを採用するかfail-closedで不採用にするかを最終判定する。"
+    inputs:
+      - "All done and blocked task receipts"
+      - "Current benchmark artifacts"
+      - "Current dirty diff and profile config"
+    constraints:
+      - "Read-only。"
+      - "重大誤り、未評価問、fallback、holdを成功へ数えない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "Model adoption/rejection matrix"
+      - "Cloud reduction verdict"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "clean at goal creation; main ahead of origin/main by 28 commits"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
