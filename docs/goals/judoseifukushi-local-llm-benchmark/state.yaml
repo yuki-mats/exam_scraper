@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T015
+active_task: T016
 
 tasks:
   - id: T001
@@ -619,7 +619,7 @@ tasks:
   - id: T015
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "sealed Codex baselineを変更・再呼出しせず、qwen3:14b、qwen3.5:27bを順に独立実行し、全route terminal後だけoracle採点して品質、critical、call、bytes、安全性を閉じる。token削減はinconclusiveに固定する。"
     allowed_files:
@@ -651,6 +651,45 @@ tasks:
       - "oracle-after-run exists before all 3 routes have 36 terminal rows and sealed captures."
       - "An interrupted call cannot be reconciled without blind replay."
       - "14B result prevents 27B from starting."
+      - "Verification fails twice for the same cause."
+    receipt:
+      result: blocked
+      commit: d7bc3d387
+      summary: "14B最初の法令問がlocal-primary不合格でlaw 5/5到達不能後もrunnerが次問を開始したため停止。sealed baseline不変、hold call 0、安全write 0。"
+      evidence:
+        - "14Bは法令3問がavailability_reject、欠損2問holdまで記録。"
+        - "4ef67113801362d9はrequest開始後response/job IDなしのためblind replay禁止。"
+        - "27B、oracle採点は未開始。"
+      spawned_tasks:
+        - T016
+
+  - id: T016
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "問題確定直後の層別early rejectionを実装し、14Bを再送せず品質早期不採用の36 terminalへ閉じ、27Bを独立実行してoracle後採点と最終検証を完了する。"
+    allowed_files:
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/**"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/**"
+      - "/private/tmp/judoseifukushi-local-llm-benchmark-T016/**"
+    verify:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --sealed-baseline-only --expected-baseline-calls 7 --expected-usage-missing 7"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_benchmark.py --repo-root . --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --artifacts-dir docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --continuation-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/T016 --temp-root /private/tmp/judoseifukushi-local-llm-benchmark-T016 --routes qwen3.5:27b --reuse-sealed-baseline --resume"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/score_benchmark.py --repo-root . --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --token-policy inconclusive-provider-usage-unavailable --baseline-codex-calls 7"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --check-oracle-separation --check-usage --check-concurrency --check-safety --completed-run --allow-token-inconclusive"
+      - "git diff --exit-code -- ':(glob)output/**/00_source/**' ':(glob)output/**/10*/**' ':(glob)output/**/15*/**' ':(glob)output/**/18*/**' ':(glob)output/**/21*/**' ':(glob)output/**/22*/**' ':(glob)output/**/23*/**' ':(glob)output/**/24*/**' config tools prompt document"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/judoseifukushi-local-llm-benchmark/state.yaml"
+    stop_if:
+      - "Need any repository write outside allowed_files."
+      - "Any sealed Codex baseline file changes or baseline provider recall occurs."
+      - "Any 14B Ollama request is replayed, including 4ef67113801362d9."
+      - "14B cannot be closed with existing evidence plus skipped_early_rejection terminal rows."
+      - "27B early rejection is not checked immediately after each terminal problem and before the next request."
+      - "Any token estimate or null replacement is introduced."
+      - "Any prompt/oracle leakage, image false review, concurrency above 1 or production write occurs."
+      - "oracle is created before all routes have 36 terminal rows and sealed captures."
       - "Verification fails twice for the same cause."
     receipt: null
 
