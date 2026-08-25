@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T014
+active_task: T015
 
 tasks:
   - id: T001
@@ -590,7 +590,7 @@ tasks:
   - id: T014
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Codex App Serverがprovider token usageを返さない現実を踏まえ、token削減をinconclusiveに固定しつつ、call削減・prompt bytes・品質で14B/27B評価を続行できるか厳格に再判定する。"
     inputs:
@@ -607,6 +607,51 @@ tasks:
       - "Whether token metric may be inconclusive without blocking quality experiment"
       - "Exact continuation Worker package using the sealed baseline"
       - "Updated reporting and stop conditions"
+    receipt:
+      result: done
+      decision: approve_next
+      note: "notes/T014-token-and-call-verdict.md"
+      rationale: "token削減は未証明に固定。全問監査ではcall削減30%は数学的に不可能だが、14B/27Bの品質能力を独立評価する価値がある。"
+      next_allowed_task: T015
+      spawned_tasks:
+        - T015
+
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "sealed Codex baselineを変更・再呼出しせず、qwen3:14b、qwen3.5:27bを順に独立実行し、全route terminal後だけoracle採点して品質、critical、call、bytes、安全性を閉じる。token削減はinconclusiveに固定する。"
+    allowed_files:
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/**"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/**"
+      - "/private/tmp/judoseifukushi-local-llm-benchmark-T015/**"
+    verify:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --sealed-baseline-only --expected-baseline-calls 7 --expected-usage-missing 7"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_benchmark.py --repo-root . --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --artifacts-dir docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --continuation-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/T015 --temp-root /private/tmp/judoseifukushi-local-llm-benchmark-T015 --routes qwen3:14b qwen3.5:27b --reuse-sealed-baseline --resume"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/score_benchmark.py --repo-root . --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --token-policy inconclusive-provider-usage-unavailable --baseline-codex-calls 7"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --check-oracle-separation --check-usage --check-concurrency --check-safety --completed-run --allow-token-inconclusive"
+      - "jq -e '.tokenMetric.status == \"inconclusive_provider_usage_unavailable\" and .tokenMetric.reduction == null and .tokenMetric.estimated == false and .baseline.codexCalls == 7' docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/result.json"
+      - "jq -e '.firestoreAttempts == 0 and .publicationAttempts == 0 and .productionPatchWrites == 0 and .llmCallPeak == 1 and .problemProcessingPeak == 1 and .auditBatchMaxQuestions <= 5 and .auditBatchMaxBytes <= 120000' docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/final-safety.json"
+      - "git diff --exit-code -- ':(glob)output/**/00_source/**' ':(glob)output/**/10*/**' ':(glob)output/**/15*/**' ':(glob)output/**/18*/**' ':(glob)output/**/21*/**' ':(glob)output/**/22*/**' ':(glob)output/**/23*/**' ':(glob)output/**/24*/**' config tools prompt document"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/judoseifukushi-local-llm-benchmark/state.yaml"
+    stop_if:
+      - "Need any repository write outside allowed_files."
+      - "Any sealed baseline file changes or Codex baseline provider is recalled."
+      - "Baseline readback is not 36 terminal, 34 completed, 2 hold, 7 calls, 7 usage null."
+      - "Baseline byte reconstruction hash does not match existing capture."
+      - "Any token estimate, conversion or usage null replacement is introduced."
+      - "Any prompt contains oracle, correct answer, existing review/model result or production patch data."
+      - "Any source-answer-missing item triggers an LLM call or becomes nonhold."
+      - "Any image hash differs or imageReviewed is asserted without verified image input."
+      - "Audit batch exceeds 5 questions or 120000 bytes, duplicates reservation or retries resolved questions."
+      - "Observed LLM-call or problem-processing concurrency exceeds 1."
+      - "Any production source, patch, config, prompt, Firestore or publication write is attempted."
+      - "oracle-after-run exists before all 3 routes have 36 terminal rows and sealed captures."
+      - "An interrupted call cannot be reconciled without blind replay."
+      - "14B result prevents 27B from starting."
+      - "Verification fails twice for the same cause."
     receipt: null
 
   - id: T999
