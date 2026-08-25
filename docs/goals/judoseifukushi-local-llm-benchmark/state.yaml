@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T007
+active_task: T008
 
 tasks:
   - id: T001
@@ -298,7 +298,7 @@ tasks:
   - id: T007
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "厚生労働省、柔道整復研修試験財団、e-Govの公式公開資料に限定し、2020・2024・2025試験日と法令5問の二時点根拠をexact locator/hash付きで取得できるURLと構造を確定する。"
     inputs:
@@ -317,6 +317,49 @@ tasks:
       - "法令5問のexam/current official sources and exact locators"
       - "2025 advertising designation notice exact official artifact or explicit failure"
       - "One final preflight worker package, or a Judge-ready law-layer separation proposal"
+    receipt:
+      result: done
+      note: "notes/T007-official-law-evidence.md"
+      summary: "厚生労働省とe-Govの公式一次資料を実取得し、3試験日、法令5問の二時点根拠、2025広告告示をraw hash付きで確定した。"
+      evidence:
+        - "2020-03-01、2024-03-03、2025-03-02の厚労省公式試験日ページを取得。"
+        - "柔道整復師法・施行規則のas-of別revisionとraw hashを取得。"
+        - "受領委任通知、広告告示第70号、平成28年改正通知を取得。"
+      spawned_tasks:
+        - T008
+
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "T007の公式URLを再取得し、3試験日と法令5問のexam/current provenanceをT003 artifactへ固定してpreflight-only検査をpassへ閉じる。"
+    allowed_files:
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/benchmark_contract.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests/test_contract.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/exam-dates.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/law-provenance.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/execution-summary.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/safety.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T008-receipt.json"
+      - "/private/tmp/judoseifukushi-local-llm-benchmark-T008/**"
+    verify:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py --repo-root . --temp-root /private/tmp/judoseifukushi-local-llm-benchmark-T008 --artifacts-dir docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --preflight-only"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --check-oracle-separation --check-usage --check-concurrency --check-safety --preflight-only"
+      - "jq -e '.status == \"pass\" and (.failedChecks | length) == 0 and .modelCalls == 0' docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "git diff --exit-code -- ':(glob)output/**/00_source/**' ':(glob)output/**/10*/**' ':(glob)output/**/15*/**' ':(glob)output/**/18*/**' ':(glob)output/**/21*/**' ':(glob)output/**/22*/**' ':(glob)output/**/23*/**' ':(glob)output/**/24*/**' config tools prompt document"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/judoseifukushi-local-llm-benchmark/state.yaml"
+    stop_if:
+      - "Any official body hash, MIME or locator differs and the official change cannot be explained."
+      - "Any e-Gov as-of revision differs from the approved value."
+      - "Exam and current provenance would be collapsed into one field."
+      - "Any LLM, source, production patch, Firestore or publication write would occur."
+      - "Verification fails twice for the same cause."
     receipt: null
 
   - id: T999
