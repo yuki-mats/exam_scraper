@@ -480,7 +480,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
-            {"model": "gpt-5.6-luna", "reasoningEffort": "high"},
+            {"model": "gpt-5.6-sol", "reasoningEffort": "high"},
         )
         self.assertTrue(
             all(

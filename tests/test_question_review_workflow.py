@@ -2125,6 +2125,7 @@ assert.deepEqual(
         self.assertIn("progressQuestionQueueState(question)", javascript)
         self.assertIn("codexStatus.turnReasoningEffort", javascript)
         self.assertIn("codexStatus.retryModel", javascript)
+        self.assertIn("codexStatus.auditModel", javascript)
         self.assertIn("const startCodex = !recordOnly", javascript)
         self.assertIn("status: requestedStatus", javascript)
         self.assertIn("submissionKey: state.reviewSubmissionKey", javascript)

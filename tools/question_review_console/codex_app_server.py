@@ -111,8 +111,13 @@ DISABLED_EXTERNAL_FEATURES = (
 
 QUESTION_MAINTENANCE_MODEL = "gpt-5.6-luna"
 QUESTION_MAINTENANCE_RETRY_MODEL = QUESTION_MAINTENANCE_MODEL
+QUESTION_MAINTENANCE_AUDIT_MODEL = "gpt-5.6-sol"
 QUESTION_MAINTENANCE_MODELS = frozenset(
-    {QUESTION_MAINTENANCE_MODEL, QUESTION_MAINTENANCE_RETRY_MODEL}
+    {
+        QUESTION_MAINTENANCE_MODEL,
+        QUESTION_MAINTENANCE_RETRY_MODEL,
+        QUESTION_MAINTENANCE_AUDIT_MODEL,
+    }
 )
 TURN_REASONING_EFFORT = "high"
 STANDARD_SPEED_MODE = "standard"
@@ -1594,6 +1599,7 @@ class CodexAppServerClient:
                 {
                     "model": QUESTION_MAINTENANCE_MODEL,
                     "retryModel": QUESTION_MAINTENANCE_RETRY_MODEL,
+                    "auditModel": QUESTION_MAINTENANCE_AUDIT_MODEL,
                     "configuredModel": self._effective_model,
                     "configuredReasoningEffort": self._configured_reasoning_effort,
                     "turnReasoningEffort": TURN_REASONING_EFFORT,

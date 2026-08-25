@@ -5716,7 +5716,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(len(app_server.aggregate_review_calls), 12)
         self.assertTrue(
             all(
-                kwargs["model"] == "gpt-5.6-luna"
+                kwargs["model"] == "gpt-5.6-sol"
                 and kwargs["reasoning_effort"] == "high"
                 for _question_id, _prompt, kwargs in app_server.aggregate_review_calls
             )
@@ -9926,7 +9926,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(len(set(child["aggregateReviewThreadIds"])), 2)
         self.assertEqual(
             [kwargs["model"] for _prompt, kwargs in child_review_calls],
-            ["gpt-5.6-luna", "gpt-5.6-luna"],
+            ["gpt-5.6-sol", "gpt-5.6-sol"],
         )
         self.assertTrue(
             all(
@@ -9936,7 +9936,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(
             [entry["model"] for entry in child["aggregateReviewExecutions"]],
-            ["gpt-5.6-luna", "gpt-5.6-luna"],
+            ["gpt-5.6-sol", "gpt-5.6-sol"],
         )
         self.assertTrue(
             all(entry["reasoningEffort"] == "high" for entry in child["aggregateReviewExecutions"])

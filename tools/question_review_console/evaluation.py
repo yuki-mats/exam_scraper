@@ -19,6 +19,10 @@ from scripts.common.question_answer_contract import (
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_runs import QualificationRunStore
+from tools.question_review_console.codex_app_server import (
+    QUESTION_MAINTENANCE_AUDIT_MODEL,
+    TURN_REASONING_EFFORT,
+)
 from tools.question_review_console.run_target_identity import (
     target_identity_aliases,
 )
@@ -2171,6 +2175,8 @@ class QuestionEvaluationService:
                 cwd=Path(directory),
                 monitor_context=monitor_context,
                 model_profile=model_profile,
+                model=QUESTION_MAINTENANCE_AUDIT_MODEL,
+                reasoning_effort=TURN_REASONING_EFFORT,
             )
         if len(turn.final_message.encode("utf-8")) > 2_000_000:
             raise EvaluationError("Codex App Serverの出力が2MBを超えました。")
@@ -2262,6 +2268,8 @@ class QuestionEvaluationService:
                         "phase": "evaluation",
                     },
                     model_profile=model_profile,
+                    model=QUESTION_MAINTENANCE_AUDIT_MODEL,
+                    reasoning_effort=TURN_REASONING_EFFORT,
                 )
             try:
                 raw = _extract_json(turn.final_message)

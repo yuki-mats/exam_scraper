@@ -750,6 +750,7 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertEqual(status["configuredReasoningEffort"], "xhigh")
         self.assertEqual(status["model"], "gpt-5.6-luna")
         self.assertEqual(status["retryModel"], "gpt-5.6-luna")
+        self.assertEqual(status["auditModel"], "gpt-5.6-sol")
         self.assertEqual(status["turnReasoningEffort"], "high")
 
     def test_concurrent_forced_status_checks_share_one_fresh_read(self):

@@ -1426,6 +1426,8 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertFalse(missing_receipt_status["publishReady"])
         prompt, kwargs = app_server.calls[0]
         self.assertEqual(kwargs["sandbox"], "read-only")
+        self.assertEqual(kwargs["model"], "gpt-5.6-sol")
+        self.assertEqual(kwargs["reasoning_effort"], "high")
         self.assertNotEqual(Path(kwargs["cwd"]), root)
         self.assertEqual(
             kwargs["output_schema"]["properties"]["choiceEvaluations"]["minItems"],
@@ -2015,6 +2017,63 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         )
         self.assertTrue(all(row["auditBatch"]["questionCount"] == 2 for row in receipts))
         self.assertTrue(all(row["auditBatch"]["inputBytes"] > 0 for row in receipts))
+
+    def test_app_server_batch_audit_uses_sol(self):
+        class FakeAppServer:
+            configured = True
+            provider = "Codex App Server"
+
+            def __init__(self):
+                self.calls = []
+
+            def run_turn(self, _prompt, **kwargs):
+                self.calls.append(kwargs)
+                return AppServerTurnResult(
+                    thread_id="thread-audit-batch",
+                    session_id="session-audit-batch",
+                    turn_id="turn-audit-batch",
+                    final_message=json.dumps(
+                        {
+                            "evaluations": [
+                                {
+                                    "questionId": "api-q1",
+                                    "stateHash": "state-1",
+                                    "result": evaluation_result(),
+                                },
+                                {
+                                    "questionId": "api-q2",
+                                    "stateHash": "state-2",
+                                    "result": evaluation_result(),
+                                },
+                            ]
+                        },
+                        ensure_ascii=False,
+                    ),
+                    model=kwargs["model"],
+                    service_tier=None,
+                    reasoning_effort=kwargs["reasoning_effort"],
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            app_server = FakeAppServer()
+            service = QuestionEvaluationService(
+                Path(directory), "secret", app_server=app_server
+            )
+            first = question_payload()
+            second = question_payload(
+                question_id="api-q2", body="問題2", state_hash="state-2"
+            )
+            second["reviewKey"] = "sample:2026:question_2:api-q2"
+            preview = service.preview_many([first, second])
+            result = service.run_many(
+                [first, second], preview["previewToken"], lambda _line: None
+            )
+
+        self.assertEqual(result["completedCount"], 2)
+        self.assertEqual(len(app_server.calls), 1)
+        self.assertEqual(app_server.calls[0]["model"], "gpt-5.6-sol")
+        self.assertEqual(app_server.calls[0]["reasoning_effort"], "high")
+        self.assertEqual(app_server.calls[0]["work_type"], "evaluation_batch")
 
     def test_batch_splits_six_questions_and_preserves_result_order(self):
         calls = []
