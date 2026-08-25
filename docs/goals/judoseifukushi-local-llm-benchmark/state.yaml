@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T004
+active_task: T005
 
 tasks:
   - id: T001
@@ -182,7 +182,7 @@ tasks:
   - id: T004
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "T003を止めた建築画像2問と法令5問について、正本を変更せず、評価用の不変asset/hashと試験時点・現行法の問別provenanceを作れる正確な取得経路を特定する。"
     inputs:
@@ -200,6 +200,37 @@ tasks:
       - "法令5問の試験時点・現行法の別locator、基準日、provenance"
       - "T003を再開できるか、固定集合差替えが必要かの証拠付き判定"
       - "次の単一Worker packageとallowed_files/verify/stop_if"
+    receipt:
+      result: done
+      note: "notes/T004-blocker-evidence.md"
+      summary: "画像7点は一時取得とhash照合で固定可能。旧法2問は一次根拠を再現できないため、oracle非参照で選んだ2020年2問への差替えを提案した。"
+      evidence:
+        - "画像7点は2回取得でbytes・SHA-256一致。"
+        - "e-Gov過去本文は2017年4月以降で、1993/2002問は試験時点raw本文を固定できない。"
+        - "2024/2025の3問はe-Gov revisionと厚生労働省一次資料で時点分離できる。"
+      spawned_tasks:
+        - T005
+
+  - id: T005
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "T004の画像固定方法と法令2問差替えを監査し、評価を甘くせずT003 preflightを閉じる単一Worker packageを確定する。"
+    inputs:
+      - "T003 blocked receipt and artifacts"
+      - "notes/T004-blocker-evidence.md"
+      - "T004 Scout receipt"
+    constraints:
+      - "Read-only。"
+      - "画像本体のrepository保存・外部再公開を認めない。"
+      - "試験日、法令時点、告示・通知を推測で補完しない。"
+      - "差替えによる難易度低下、法令論点の重複、oracle参照を拒否する。"
+    expected_output:
+      - "approve_next | rework | reject"
+      - "固定集合v2のexact IDsと法令evidence要件"
+      - "単一Workerのallowed_files、verify、stop_if"
+      - "T003実モデルrunを再開するためのgate"
     receipt: null
 
   - id: T999
