@@ -65,13 +65,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T001
+active_task: T002
 
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "柔道整復師30問と二級建築士補助集合を、科目・否定設問・法令時点差・計算・根拠欠損・画像・形式を満たす固定blind benchmarkとして決定的に選定し、既存実run harnessへ接続する正確な証拠を特定する。"
     inputs:
@@ -92,12 +92,26 @@ tasks:
       - "Runnable isolated benchmark path"
       - "Model/profile availability and cost telemetry seams"
       - "Largest safe Judge/Worker package"
-    receipt: null
+    receipt:
+      result: done
+      note: "notes/T001-fixed-set.md"
+      summary: "oracle非参照で柔道整復師30問と二級建築士6問を固定した。柔整は通常10、否定5、法令5、数値5、難問3、正答欠損2。"
+      evidence:
+        - "選定fieldとoracle fieldを分離し、ID固定後だけ正答を照合した。"
+        - "現profileはcodex_only operational=true、local_generate_codex_audit operational=false。隔離copyだけで有効化できる。"
+        - "既存T025 harnessを36問manifestへ拡張可能。"
+        - "qwen3:14bとqwen3.5:27bがOllamaに存在する。"
+      facts:
+        - "推奨基準は柔整24/30、全体29/36、重大事故0、正答欠損hold 2/2。"
+        - "Codex call 30%以上、Codex token 20%以上の削減を推奨。"
+        - "localPass + remaining < thresholdで品質早期不採用。速度は合否にしない。"
+      spawned_tasks:
+        - T002
 
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "T001の固定集合と実行経路を監査し、品質・安全・クラウド削減を偽陽性なく判定する最大の単一Worker packageを確定する。"
     inputs:
