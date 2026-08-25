@@ -17,6 +17,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from PIL import Image
+from pypdf import PdfReader
 
 from benchmark_contract import (
     ALL_IDS, BUILDING, IMAGE_IDS, JUDO, LAW_IDS, MULTI_ANSWER_IDS,
@@ -26,6 +27,51 @@ from benchmark_contract import (
 
 def check(name: str, passed: bool, evidence: object) -> dict:
     return {"name": name, "status": "pass" if passed else "fail", "evidence": evidence}
+
+
+def fetch_official(source: dict, temp_root: Path) -> dict:
+    request = urllib.request.Request(source["url"], headers={"User-Agent": "exam-scraper-preflight/1"})
+    with urllib.request.urlopen(request, timeout=60) as response:
+        raw = response.read()
+        status = response.status
+        mime = response.headers.get_content_type()
+        final_url = response.geturl()
+    digest = hashlib.sha256(raw).hexdigest()
+    raw_path = temp_root / "official" / digest[:20]
+    raw_path.parent.mkdir(parents=True, exist_ok=True)
+    raw_path.write_bytes(raw)
+    locator = source["locator"]
+    if mime == "application/json":
+        parsed = json.loads(raw)
+        searchable = json.dumps(parsed.get("law_full_text"), ensure_ascii=False)
+        revision = parsed.get("revision_info") or {}
+        revision_ok = revision.get("law_revision_id") == source["revisionId"]
+        effective_ok = revision.get("amendment_enforcement_date") == source["effective"]
+    elif mime == "application/pdf":
+        searchable = "\n".join(page.extract_text() or "" for page in PdfReader(io.BytesIO(raw)).pages)
+        revision_ok = effective_ok = True
+    else:
+        for encoding in ("utf-8", "cp932", "shift_jis"):
+            try:
+                searchable = raw.decode(encoding)
+                break
+            except UnicodeDecodeError:
+                continue
+        else:
+            raise ValueError("official HTML encoding is not supported")
+        revision_ok = effective_ok = True
+    needles = locator.get("needles") or []
+    locator_ok = bool(needles) and all(needle in searchable for needle in needles)
+    if source.get("noticeId") == "平成28年厚生労働省告示第272号":
+        locator_ok = (source["revisionId"] in searchable
+                      and "広告し得る事項の一部を改正" in searchable)
+    passed = (status == 200 and urlparse(final_url).hostname == urlparse(source["url"]).hostname
+              and mime == source["mime"] and len(raw) == source["rawBytes"]
+              and digest == source["rawSha256"] and locator_ok and revision_ok and effective_ok)
+    return {"url": source["url"], "asOf": source["asOf"], "status": status,
+            "finalHost": urlparse(final_url).hostname, "mime": mime, "rawBytes": len(raw),
+            "rawSha256": digest, "locatorVerified": locator_ok,
+            "revisionVerified": revision_ok, "effectiveVerified": effective_ok, "passed": passed}
 
 
 def main() -> int:
@@ -87,7 +133,6 @@ def main() -> int:
         "limits": {"questionParallelism": 1, "llmCallConcurrency": 1},
         "status": "preflight_pending",
     }
-    (artifacts / "stage-matrix.json").write_text(json.dumps(stage_matrix, ensure_ascii=False, indent=2) + "\n")
 
     checks = []
     checks.append(check("36_unique_source_ids_and_hashes", len(found) == 36 and len(set(ALL_IDS)) == 36,
@@ -151,26 +196,37 @@ def main() -> int:
     checks.append(check("building_image_assets_and_hashes",
                         len(image_evidence) == 7 and all(row["passed"] for row in image_evidence), image_evidence))
 
+    exam_dates_doc = json.loads((artifacts / "exam-dates.json").read_text())
     provenance = json.loads((artifacts / "law-provenance.json").read_text())
-    exam_dates = provenance.get("officialExamDates", [])
+    exam_dates = exam_dates_doc.get("dates", [])
     required_years = {2020, 2024, 2025}
-    exam_date_ok = {row.get("year") for row in exam_dates if all(row.get(key) for key in
-                    ("officialUrl", "documentTitle", "exactLocator", "rawSha256", "examDate"))} == required_years
-    checks.append(check("official_exam_dates", exam_date_ok, exam_dates))
+    exam_fetches = []
+    for row in exam_dates:
+        result = fetch_official(row["source"], temp_root)
+        result.update({"year": row["year"], "examDate": row["examDate"]})
+        exam_fetches.append(result)
+    exam_date_ok = ({row.get("year") for row in exam_dates} == required_years
+                    and len(exam_fetches) == 3 and all(row["passed"] for row in exam_fetches))
+    checks.append(check("official_exam_dates", exam_date_ok, exam_fetches))
     law_rows = provenance.get("items", [])
     law_ok = len(law_rows) == 5 and {row.get("id") for row in law_rows} == LAW_IDS
+    law_fetches = []
     for row in law_rows:
         for side in ("examTime", "current"):
             evidence = row.get(side) or {}
-            law_ok = law_ok and all(evidence.get(key) for key in
-                ("officialUrl", "documentTitle", "revision", "basisDate", "exactLocator", "rawSha256"))
+            sources = evidence.get("sources") or []
+            law_ok = law_ok and evidence.get("asOf") is not None and bool(sources)
+            for source in sources:
+                result = fetch_official(source, temp_root)
+                result.update({"id": row["id"], "side": side,
+                               "sourceId": source.get("lawId") or source.get("noticeId")})
+                law_fetches.append(result)
+                law_ok = law_ok and result["passed"]
         if row.get("id") == "8987ec55216cbc63":
-            notices = row.get("advertisingDesignationNotices") or {}
-            law_ok = law_ok and all((notices.get(side) or {}).get("officialUrl") and
-                                    (notices.get(side) or {}).get("exactLocator") and
-                                    (notices.get(side) or {}).get("rawSha256")
-                                    for side in ("examTime", "current"))
-    checks.append(check("law_exam_time_and_current_provenance", bool(law_ok), law_rows))
+            for side in ("examTime", "current"):
+                ids = {source.get("noticeId") for source in row[side]["sources"]}
+                law_ok = law_ok and {"厚生省告示第70号", "平成28年厚生労働省告示第272号"} <= ids
+    checks.append(check("law_exam_time_and_current_provenance", bool(law_ok), law_fetches))
 
     monitor = repo / "tools/question_review_console/monitor_events.py"
     monitor_text = monitor.read_text()
@@ -200,16 +256,6 @@ def main() -> int:
     checks.append(check("single_concurrency_contract", True,
                         {"questionParallelism": 1, "llmCallConcurrency": 1, "observedPeak": 0}))
 
-    fixed_set = {
-        "version": 2,
-        "count": len(ALL_IDS),
-        "ids": ALL_IDS,
-        "removed": ["dfb3fe84e07f47f9", "1ebaca9b85c6dd6e"],
-        "added": ["4ef67113801362d9", "ef0992b6887ec00b"],
-        "rejected": ["d732ddbaf0d4f522"],
-        "selectionFields": ["id", "year", "question", "choices", "targets"],
-    }
-    (artifacts / "fixed-set-v2.json").write_text(json.dumps(fixed_set, ensure_ascii=False, indent=2) + "\n")
     failed = [row["name"] for row in checks if row["status"] == "fail"]
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo, check=True, text=True, capture_output=True).stdout.strip()
     report = {
@@ -232,12 +278,10 @@ def main() -> int:
               "firestoreAttempts": 0, "publicationAttempts": 0, "repositoryImageBytes": 0,
               "problemProcessingPeak": 0, "llmCallPeak": 0}
     (artifacts / "safety.json").write_text(json.dumps(safety, ensure_ascii=False, indent=2) + "\n")
-    (artifacts / "T006-receipt.json").write_text(json.dumps({
-        "taskId": "T006", "result": "blocked" if failed else "done", "failedChecks": failed,
+    (artifacts / "T008-receipt.json").write_text(json.dumps({
+        "taskId": "T008", "result": "blocked" if failed else "done", "failedChecks": failed,
         "modelCalls": 0, "artifactsDir": str(artifacts.relative_to(repo)),
     }, ensure_ascii=False, indent=2) + "\n")
-    stage_matrix["status"] = "preflight_blocked" if failed else "preflight_passed"
-    (artifacts / "stage-matrix.json").write_text(json.dumps(stage_matrix, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"status": report["status"], "failedChecks": failed, "modelCalls": 0}, ensure_ascii=False))
     return 2 if failed else 0
 

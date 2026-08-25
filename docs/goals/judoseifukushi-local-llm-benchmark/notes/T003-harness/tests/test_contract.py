@@ -27,6 +27,10 @@ class ContractTest(unittest.TestCase):
         self.assertNotIn("1ebaca9b85c6dd6e", ALL_IDS)
         self.assertNotIn("d732ddbaf0d4f522", ALL_IDS)
 
+    def test_law_set_has_five_items(self):
+        from benchmark_contract import LAW_IDS
+        self.assertEqual(5, len(LAW_IDS))
+
 
 if __name__ == "__main__":
     unittest.main()

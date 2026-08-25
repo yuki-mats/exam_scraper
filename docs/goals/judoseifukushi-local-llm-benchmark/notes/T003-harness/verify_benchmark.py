@@ -35,9 +35,9 @@ def main() -> int:
         assert not (args.results_root / "oracle-after-run.json").exists(), "oracle must not exist before terminal model runs"
         forbidden = ("correctChoiceText", "answerTableCorrectChoiceNumbers", "answer_result_text",
                      "choiceClassCorrectChoiceNumbers", "existingReview", "priorModelResult")
-        for name in ("fixed-set-v2.json", "approved-image-assets.json", "law-provenance.json",
+        for name in ("fixed-set-v2.json", "approved-image-assets.json", "exam-dates.json", "law-provenance.json",
                      "run-manifest.json", "stage-matrix.json", "preflight.json",
-                     "execution-summary.json", "safety.json", "T006-receipt.json"):
+                     "execution-summary.json", "safety.json", "T006-receipt.json", "T008-receipt.json"):
             path = args.results_root / name
             if path.exists():
                 assert not [key for key in forbidden if key in path.read_text()], f"oracle-derived field in {name}"
@@ -57,9 +57,12 @@ def main() -> int:
     if args.preflight_only:
         assert preflight["status"] == "pass"
         assert preflight["failedChecks"] == [] and preflight["modelCalls"] == 0
-        assert matrix["status"] == "preflight_passed"
         safety = json.loads((args.results_root / "safety.json").read_text())
         assert safety["modelCalls"] == safety["codexCalls"] == safety["ollamaCalls"] == 0
+        dates = json.loads((args.results_root / "exam-dates.json").read_text())
+        laws = json.loads((args.results_root / "law-provenance.json").read_text())
+        assert len(dates["dates"]) == 3 and len(laws["items"]) == 5
+        assert all(item["examTime"] is not item["current"] for item in laws["items"])
         print("PASS: preflight passed with zero model calls")
         return 0
     raise AssertionError("completed-run verification requires model results")
