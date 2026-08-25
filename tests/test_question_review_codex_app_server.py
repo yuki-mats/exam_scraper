@@ -749,7 +749,7 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertEqual(status["configuredModel"], "gpt-5.6-sol")
         self.assertEqual(status["configuredReasoningEffort"], "xhigh")
         self.assertEqual(status["model"], "gpt-5.6-luna")
-        self.assertEqual(status["retryModel"], "gpt-5.6-sol")
+        self.assertEqual(status["retryModel"], "gpt-5.6-luna")
         self.assertEqual(status["turnReasoningEffort"], "high")
 
     def test_concurrent_forced_status_checks_share_one_fresh_read(self):
@@ -2954,7 +2954,7 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertTrue(all(params["serviceTier"] is None for params in turn_params))
         self.assertTrue(all(params["effort"] == "high" for params in turn_params))
 
-    def test_retry_model_is_applied_to_thread_and_high_effort_turn(self):
+    def test_retry_stays_on_luna_and_high_effort_turn(self):
         client = ProtocolClient()
 
         result = client.run_turn(
@@ -2972,9 +2972,9 @@ class AppServerTurnTests(unittest.TestCase):
         turn_params = next(
             params for method, params in client.calls if method == "turn/start"
         )
-        self.assertEqual(thread_params["model"], "gpt-5.6-sol")
+        self.assertEqual(thread_params["model"], "gpt-5.6-luna")
         self.assertEqual(turn_params["effort"], "high")
-        self.assertEqual(result.model, "gpt-5.6-sol")
+        self.assertEqual(result.model, "gpt-5.6-luna")
         self.assertEqual(result.reasoning_effort, "high")
 
     def test_fast_mode_is_rejected_before_provider_request(self):

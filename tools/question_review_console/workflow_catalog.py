@@ -16,7 +16,7 @@ DEFAULT_CATALOG_PATH = (
 )
 STAGE_KINDS = {"source", "human", "machine"}
 AGENT_POLICY_ROLES = {"candidate_initial", "candidate_retry", "independent_review"}
-AGENT_POLICY_MODELS = {"gpt-5.6-luna", "gpt-5.6-sol"}
+AGENT_POLICY_MODELS = {"gpt-5.6-luna"}
 AGENT_POLICY_REASONING_EFFORTS = {"high"}
 POLICY_VERSION_PATTERN = re.compile(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)")
 

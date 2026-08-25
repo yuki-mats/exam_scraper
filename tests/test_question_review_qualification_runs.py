@@ -5705,7 +5705,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         }
         self.assertEqual(
             sorted(models_by_question["new-exam-2026-q1"]),
-            ["gpt-5.6-luna", "gpt-5.6-sol", "gpt-5.6-sol"],
+            ["gpt-5.6-luna", "gpt-5.6-luna", "gpt-5.6-luna"],
         )
         self.assertTrue(
             all(
@@ -5730,7 +5730,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertNotIn("executions", checkpoint)
         self.assertEqual(
             [attempt["requestedModel"] for attempt in failed_stage["validationAttempts"]],
-            ["gpt-5.6-luna", "gpt-5.6-sol", "gpt-5.6-sol"],
+            ["gpt-5.6-luna", "gpt-5.6-luna", "gpt-5.6-luna"],
         )
         self.assertTrue(
             all(
@@ -6880,7 +6880,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(
             models_by_batch[(failed_question_id,)],
-            "gpt-5.6-sol",
+            "gpt-5.6-luna",
         )
 
     def test_blocked_candidate_stops_only_that_question(self):
