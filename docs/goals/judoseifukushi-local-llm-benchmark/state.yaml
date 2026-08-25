@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T006
+active_task: T007
 
 tasks:
   - id: T001
@@ -243,7 +243,7 @@ tasks:
   - id: T006
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: low
     objective: "固定集合v2、画像7点の再取得契約、2020・2024・2025公式試験日、法令5問のexam/current一次資料を機械可読artifactへ固定し、T003 harnessのpreflightをpassへ閉じる。LLMは呼ばない。"
     allowed_files:
@@ -281,6 +281,42 @@ tasks:
       - "Oracle or answer-derived content appears in preflight artifacts."
       - "Any production config, source, patch, Firestore or publication write is attempted."
       - "Verification fails twice for the same cause."
+    receipt:
+      result: blocked
+      commit: 98ec5257b
+      summary: "固定36問v2と画像7点はpass。公式試験日と法令5問の一次資料が未構造化のためLLM呼出し0で停止した。"
+      evidence:
+        - "画像7点はhost、HTTP、MIME、bytes、Pillow decoder、承認SHA-256一致。"
+        - "repository image bytes 0、oracle由来field 0、modelCalls 0。"
+        - "officialExamDatesと法令5問exam/current fieldは未取得のまま。"
+      artifacts:
+        - "notes/T003-artifacts/T006-receipt.json"
+        - "notes/T003-artifacts/preflight.json"
+      spawned_tasks:
+        - T007
+
+  - id: T007
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "厚生労働省、柔道整復研修試験財団、e-Govの公式公開資料に限定し、2020・2024・2025試験日と法令5問の二時点根拠をexact locator/hash付きで取得できるURLと構造を確定する。"
+    inputs:
+      - "notes/T003-artifacts/fixed-set-v2.json"
+      - "notes/T003-artifacts/law-provenance.json"
+      - "notes/T004-blocker-evidence.md"
+      - "notes/T005-approved-preflight-v2.md"
+      - "Official MHLW, exam foundation and e-Gov public sources"
+    constraints:
+      - "Read-only。repositoryや外部システムを変更しない。"
+      - "公式一次資料だけをpass根拠にする。検索snippet、二次記事、推測を不可とする。"
+      - "秘密情報、private endpoint、credentialを出力しない。"
+      - "取得不能時は法令層を別評価へ分離する具体的なre-scopeを示す。"
+    expected_output:
+      - "3年の公式試験日 source URL/locator/raw hash acquisition method"
+      - "法令5問のexam/current official sources and exact locators"
+      - "2025 advertising designation notice exact official artifact or explicit failure"
+      - "One final preflight worker package, or a Judge-ready law-layer separation proposal"
     receipt: null
 
   - id: T999
