@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T012
+active_task: T013
 
 tasks:
   - id: T001
@@ -496,7 +496,7 @@ tasks:
   - id: T012
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "preflight pass成果を独立監査し、固定36問v2でCodex-only、qwen3:14b、qwen3.5:27b実モデルrunを再開する単一Worker packageを確定する。"
     inputs:
@@ -514,6 +514,64 @@ tasks:
       - "Exact real-run worker package and allowed_files"
       - "Execution order, retry, early rejection and stop conditions"
       - "Required artifacts and verification"
+    receipt:
+      result: done
+      decision: approve_next
+      note: "notes/T012-approved-real-run.md"
+      rationale: "preflightは合格。現行HEADでruntime closureを再固定し、同一36問のCodex baseline、14B、27Bを単一Workerで順次実行する条件で承認した。"
+      next_allowed_task: T013
+      spawned_tasks:
+        - T013
+
+  - id: T013
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "固定36問v2を3個の独立一時runtimeへ展開し、新規Codex-only baseline完走後、qwen3:14b、qwen3.5:27bを独立評価し、全route terminal後だけoracle採点して品質・安全・cloud削減を閉じる。"
+    allowed_files:
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/benchmark_contract.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/prepare_blind_runtime.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/capture_transport.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_benchmark.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/score_benchmark.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests/test_contract.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests/test_real_run_contract.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/execution-summary.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/safety.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013-preflight-receipt.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/**"
+      - "/private/tmp/judoseifukushi-local-llm-benchmark-T013/**"
+    verify:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py --repo-root . --temp-root /private/tmp/judoseifukushi-local-llm-benchmark-T013/preflight --artifacts-dir docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --receipt-output T013-preflight-receipt.json --preflight-only"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --check-oracle-separation --check-usage --check-concurrency --check-safety --preflight-only"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_benchmark.py --repo-root . --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --artifacts-dir docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --temp-root /private/tmp/judoseifukushi-local-llm-benchmark-T013 --routes codex_only qwen3:14b qwen3.5:27b --resume"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/score_benchmark.py --repo-root . --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013 --check-oracle-separation --check-usage --check-concurrency --check-safety --completed-run"
+      - "jq -e '.modelCalls > 0 and .firestoreAttempts == 0 and .publicationAttempts == 0 and .productionPatchWrites == 0 and .llmCallPeak == 1 and .problemProcessingPeak == 1' docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/safety.json"
+      - "git diff --exit-code -- ':(glob)output/**/00_source/**' ':(glob)output/**/10*/**' ':(glob)output/**/15*/**' ':(glob)output/**/18*/**' ':(glob)output/**/21*/**' ':(glob)output/**/22*/**' ':(glob)output/**/23*/**' ':(glob)output/**/24*/**' config tools prompt document"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/judoseifukushi-local-llm-benchmark/state.yaml"
+    stop_if:
+      - "Need any repository write outside allowed_files."
+      - "Pre-model gate is not pass with modelCalls=0 and stage-matrix preflight_pass."
+      - "Any approved source, workflow or LLM config hash differs."
+      - "The three route runtime fingerprints or sanitized snapshots differ."
+      - "Any sanitized runtime or provider request contains oracle, answer, explanation, review, prior model or production patch data."
+      - "Any image fails approved hash verification."
+      - "Codex-only lacks 36 terminal rows or any Codex usage; local routes must not start."
+      - "Audit batch exceeds 5 questions or 120000 bytes, duplicates reservation or retries resolved questions."
+      - "Observed LLM-call or problem-processing concurrency exceeds 1."
+      - "Any production source, patch, config, prompt, Firestore or publication write is attempted."
+      - "oracle-after-run exists before all three routes have 36 terminal rows."
+      - "Interrupted backend call cannot be reconciled by persisted runId/jobId."
+      - "Prompt, runtime, input or harness fingerprint changes during run or resume."
+      - "Verification fails twice for the same cause."
     receipt: null
 
   - id: T999
