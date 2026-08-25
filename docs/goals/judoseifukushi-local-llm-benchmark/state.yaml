@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T005
+active_task: T006
 
 tasks:
   - id: T001
@@ -214,7 +214,7 @@ tasks:
   - id: T005
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T004の画像固定方法と法令2問差替えを監査し、評価を甘くせずT003 preflightを閉じる単一Worker packageを確定する。"
     inputs:
@@ -231,6 +231,56 @@ tasks:
       - "固定集合v2のexact IDsと法令evidence要件"
       - "単一Workerのallowed_files、verify、stop_if"
       - "T003実モデルrunを再開するためのgate"
+    receipt:
+      result: done
+      decision: approve_next
+      note: "notes/T005-approved-preflight-v2.md"
+      rationale: "画像hash契約を承認。広告問の重複を避け、2020年の医師同意問と構造設備問へ差し替えた固定36問v2のpreflight-only Workerを承認した。"
+      next_allowed_task: T006
+      spawned_tasks:
+        - T006
+
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: low
+    objective: "固定集合v2、画像7点の再取得契約、2020・2024・2025公式試験日、法令5問のexam/current一次資料を機械可読artifactへ固定し、T003 harnessのpreflightをpassへ閉じる。LLMは呼ばない。"
+    allowed_files:
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/benchmark_contract.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests/test_contract.py"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/fixed-set-v2.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/approved-image-assets.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/law-provenance.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/execution-summary.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/safety.json"
+      - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T006-receipt.json"
+      - "/private/tmp/judoseifukushi-local-llm-benchmark-T006/**"
+    verify:
+      - "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_preflight.py --repo-root . --temp-root /private/tmp/judoseifukushi-local-llm-benchmark-T006 --artifacts-dir docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --preflight-only"
+      - "python3 docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py --manifest docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/run-manifest.json --stage-matrix docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/stage-matrix.json --results-root docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts --check-oracle-separation --check-usage --check-concurrency --check-safety --preflight-only"
+      - "jq -e '.status == \"pass\" and (.failedChecks | length) == 0 and .modelCalls == 0' docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/preflight.json"
+      - "git diff --exit-code -- ':(glob)output/**/00_source/**' ':(glob)output/**/10*/**' ':(glob)output/**/15*/**' ':(glob)output/**/18*/**' ':(glob)output/**/21*/**' ':(glob)output/**/22*/**' ':(glob)output/**/23*/**' ':(glob)output/**/24*/**' config tools prompt document"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/judoseifukushi-local-llm-benchmark/state.yaml"
+    stop_if:
+      - "Need any repository write outside allowed_files."
+      - "Any LLM, Codex App Server or Ollama request would occur."
+      - "Fixed set cannot remain exactly 36 unique IDs after two-for-two replacement."
+      - "Any replacement selection or artifact generation reads answer, oracle, review or prior model fields."
+      - "Any image fails HTTP, host, MIME, bytes, decoder or approved SHA-256 validation."
+      - "Any image bytes, base64 or data URL would enter repository artifacts."
+      - "Official exam-date evidence cannot be fixed for 2020, 2024 or 2025."
+      - "Any law item lacks separate exam/current official provenance and exact locator."
+      - "2025 advertising designation notice is unavailable as an official raw artifact."
+      - "Oracle or answer-derived content appears in preflight artifacts."
+      - "Any production config, source, patch, Firestore or publication write is attempted."
+      - "Verification fails twice for the same cause."
     receipt: null
 
   - id: T999
