@@ -65,7 +65,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/judoseifukushi-local-llm-benchmark/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/judoseifukushi-local-llm-benchmark"
 
-active_task: T016
+active_task: T999
 
 tasks:
   - id: T001
@@ -666,7 +666,7 @@ tasks:
   - id: T016
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: low
     objective: "問題確定直後の層別early rejectionを実装し、14Bを再送せず品質早期不採用の36 terminalへ閉じ、27Bを独立実行してoracle後採点と最終検証を完了する。"
     allowed_files:
@@ -691,12 +691,43 @@ tasks:
       - "Any prompt/oracle leakage, image false review, concurrency above 1 or production write occurs."
       - "oracle is created before all routes have 36 terminal rows and sealed captures."
       - "Verification fails twice for the same cause."
-    receipt: null
+    receipt:
+      result: done
+      commit: c710b6ba2
+      summary: "14Bと27Bを各36 terminalへ品質早期不採用で閉じ、全route terminal後にoracle採点した。tokenはinconclusive、外部write 0、peak各1。"
+      changed_files:
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/capture_transport.py"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/run_benchmark.py"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/score_benchmark.py"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/t015_continuation.py"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/verify_benchmark.py"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests/test_real_run_contract.py"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/oracle-after-run.json"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/comparison.json"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/result.json"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/final-safety.json"
+        - "docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-artifacts/T013/T016-receipt.json"
+      commands:
+        - cmd: "python3 -m unittest discover -s docs/goals/judoseifukushi-local-llm-benchmark/notes/T003-harness/tests -p 'test_*.py'"
+          status: pass
+        - cmd: "run_benchmark.py --routes qwen3.5:27b --reuse-sealed-baseline --resume"
+          status: pass
+        - cmd: "score_benchmark.py --token-policy inconclusive-provider-usage-unavailable --baseline-codex-calls 7"
+          status: pass
+        - cmd: "verify_benchmark.py --completed-run --allow-token-inconclusive"
+          status: pass
+        - cmd: "production diff check"
+          status: pass
+      evidence:
+        - "qwen3:14b rejected_quality、qwen3.5:27b rejected_quality。"
+        - "両モデルとも最初の法令問local-primary不合格でlaw 5/5到達不能。"
+        - "token provider usage unavailable、推定なし。"
+        - "Firestore/publication/production patch write 0、LLM/problem peak 1。"
 
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "固定集合の全receiptを監査し、local profileを採用するかfail-closedで不採用にするかを最終判定する。"
     inputs:
