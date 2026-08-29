@@ -28,6 +28,8 @@ CREATED_BY_ID = UPDATED_BY_ID
 BATCH_SIZE = 500  # Firestoreバッチ書き込みの上限
 CONFIG_DOC_ID = "08zYvCuKUcvGTNYqehrm"
 OFFICIAL_EXAM_YEARS_FIELD = "official_exam_years_by_qualification"
+WRITE_FIELDS_KEY = "writeFields"
+ALLOWED_PATCH_WRITE_FIELDS = ("explanationText",)
 
 
 def init_firestore(credentials_json: Path | None = None):
@@ -191,6 +193,32 @@ def validate_required_question_fields(questions: list[dict], source_label: str) 
     validate_independent_upload_image_gate(questions, source_label)
 
 
+def validate_explanation_patch_questions(questions: list[dict], source_label: str) -> None:
+    """Validate the minimum immutable identity needed for explanation-only repairs."""
+
+    if not isinstance(questions, list):
+        raise ValueError(f"questions is not a list: {source_label}")
+    seen: set[str] = set()
+    for question in questions:
+        if not isinstance(question, dict):
+            raise ValueError(f"question is not an object: {source_label}")
+        question_id = str(question.get("questionId") or "").strip()
+        if not question_id:
+            raise ValueError(f"questionId is required: {source_label}")
+        if question_id in seen:
+            raise ValueError(f"duplicate questionId: {question_id}")
+        seen.add(question_id)
+        if question.get("isDeleted") is not False:
+            raise ValueError(f"explanation patch target must have isDeleted=false: {question_id}")
+        if question.get("isChoiceOnly") is not False:
+            raise ValueError(f"explanation patch target must have isChoiceOnly=false: {question_id}")
+        if not str(question.get("questionText") or "").strip():
+            raise ValueError(f"questionText is required: {question_id}")
+        explanation = question.get("explanationText")
+        if not isinstance(explanation, str) or not explanation.strip():
+            raise ValueError(f"explanationText is required: {question_id}")
+
+
 def build_doc_data_base(question: dict) -> dict:
     """
     問題データからFirestoreドキュメントデータを構築（updatedAt/updatedByIdは除外）。
@@ -276,6 +304,37 @@ def build_doc_data(question: dict, now: datetime) -> dict:
     doc_data = build_doc_data_base(question)
     doc_data.setdefault("createdAt", now)
     doc_data.setdefault("createdById", CREATED_BY_ID)
+    doc_data["updatedAt"] = now
+    doc_data["updatedById"] = UPDATED_BY_ID
+    return doc_data
+
+
+def resolve_write_fields(data: dict) -> tuple[str, ...] | None:
+    """Return an explicitly requested narrow update contract, if present."""
+
+    raw = data.get(WRITE_FIELDS_KEY)
+    if raw is None:
+        return None
+    if not isinstance(raw, list) or not raw or any(not isinstance(item, str) for item in raw):
+        raise ValueError(f"{WRITE_FIELDS_KEY} must be a non-empty list[str]")
+    fields = tuple(raw)
+    if len(fields) != len(set(fields)):
+        raise ValueError(f"{WRITE_FIELDS_KEY} contains duplicates")
+    if fields != ALLOWED_PATCH_WRITE_FIELDS:
+        raise ValueError(
+            f"unsupported {WRITE_FIELDS_KEY}: {list(fields)}; "
+            f"allowed={list(ALLOWED_PATCH_WRITE_FIELDS)}"
+        )
+    return fields
+
+
+def build_patch_doc_data(new_base: dict, write_fields: tuple[str, ...], now: datetime) -> dict:
+    """Build a partial update that cannot alter fields outside the explicit contract."""
+
+    missing = [field for field in write_fields if field not in new_base]
+    if missing:
+        raise ValueError(f"patch write field is missing from payload: {missing}")
+    doc_data = {field: new_base[field] for field in write_fields}
     doc_data["updatedAt"] = now
     doc_data["updatedById"] = UPDATED_BY_ID
     return doc_data
@@ -468,6 +527,7 @@ def upload_questions(
     with open(json_file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    write_fields = resolve_write_fields(data)
     questions = data.get("questions", [])
     if not questions:
         print("アップロードする質問データがありません。")
@@ -481,13 +541,20 @@ def upload_questions(
             if q.get("questionTags") is None:
                 q["questionTags"] = []
 
-    validate_required_question_fields(questions, str(json_file_path))
-    exam_years_by_qualification = collect_exam_years_by_qualification(questions)
+    if write_fields:
+        validate_explanation_patch_questions(questions, str(json_file_path))
+    else:
+        validate_required_question_fields(questions, str(json_file_path))
+    exam_years_by_qualification = (
+        {} if write_fields else collect_exam_years_by_qualification(questions)
+    )
 
     print(f"合計 {len(questions)} 件の質問をアップロードします...")
 
     if dry_run:
         print("[DRY RUN] 実際のアップロードは行いません。")
+        if write_fields:
+            print(f"[DRY RUN] 更新フィールド限定: {', '.join(write_fields)}")
         if exam_years_by_qualification:
             print(
                 "[DRY RUN] official exam years manifest: "
@@ -502,6 +569,9 @@ def upload_questions(
                 continue
             qid = str(q.get("questionId") or "").strip() or "unknown"
             base = build_doc_data_base(q)
+            if write_fields:
+                build_patch_doc_data(base, write_fields, now)
+                continue
             doc_data = dict(base)
             doc_data["createdAt"] = now
             doc_data["createdById"] = CREATED_BY_ID
@@ -585,16 +655,21 @@ def upload_questions(
             doc_ref = doc_ref_by_id[qid]
 
             exists = getattr(snap, "exists", False)
+            if write_fields and not exists:
+                raise RuntimeError(f"限定フィールド更新では新規documentを作成できません: {qid}")
             if exists:
                 existing = snap.to_dict() or {}
-                fields_to_delete = stale_public_fields_to_delete(
-                    new_base,
-                    existing,
+                fields_to_delete = (
+                    ()
+                    if write_fields
+                    else stale_public_fields_to_delete(new_base, existing)
+                )
+                compare_fields = write_fields or tuple(
+                    key for key in DOC_COMPARE_KEYS if key in new_base
                 )
                 changed = bool(fields_to_delete) or any(
-                    existing.get(k) != new_base.get(k)
-                    for k in DOC_COMPARE_KEYS
-                    if k in new_base
+                    existing.get(key) != new_base.get(key)
+                    for key in compare_fields
                 )
                 if not changed:
                     skipped_count += 1
@@ -605,14 +680,17 @@ def upload_questions(
                 created_at = now
                 created_by_id = CREATED_BY_ID
 
-            doc_data = dict(new_base)
-            doc_data["createdAt"] = created_at
-            doc_data["createdById"] = created_by_id
-            doc_data["updatedAt"] = now
-            doc_data["updatedById"] = UPDATED_BY_ID
-            validate_question_doc(doc_data, doc_id=str(qid))
+            if write_fields:
+                doc_data = build_patch_doc_data(new_base, write_fields, now)
+            else:
+                doc_data = dict(new_base)
+                doc_data["createdAt"] = created_at
+                doc_data["createdById"] = created_by_id
+                doc_data["updatedAt"] = now
+                doc_data["updatedById"] = UPDATED_BY_ID
+                validate_question_doc(doc_data, doc_id=str(qid))
             if exists:
-                for field in stale_public_fields_to_delete(new_base, existing):
+                for field in fields_to_delete:
                     doc_data[field] = firestore.DELETE_FIELD
             add_guarded_question_write(batch, doc_ref, doc_data, snap)
             chunk_valid += 1

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-v1",
+  "generatedAt": "2026-08-29T09:57:16.365353+00:00",
+  "decisions": "output/gas-shunin-kou/questions_json/firestore_repairs/20260829/decisions_bootstrap_2020.json",
+  "targetCount": 1,
+  "uniqueTargetCount": 1,
+  "nonExplanationDriftCount": 0,
+  "expectedLiveFingerprint": "f55c8e15a591165f92c802f3205d8f5e3c581a2b3d8aed6cf1f73f3789c17796",
+  "artifactSha256": "3cdc33d434394655c277caa5e9bd9d35d69d463b6dd8789228441453a106e56d",
+  "records": [
+    {
+      "questionId": "chiefgasengineerlicense-C-10137",
+      "questionTextHash": "421cb95c57c034934c6d510e01e0e3b4f32e2be5ec78e379153c2338979b6a46",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2020:kiso:q14",
+        "choiceIndex": 1,
+        "explanationText": "正しい。応力は、材料に外力を加えたとき内部に生じる内力を単位断面積あたりの力として表したものである。この記述は応力の定義として正しい。",
+        "explanationHash": "fe8cd4705dbad99017978b721a827cf9a14b7ec98be81e7b22a6cfebc837b2a1"
+      },
+      "explanationHash": "fe8cd4705dbad99017978b721a827cf9a14b7ec98be81e7b22a6cfebc837b2a1"
+    }
+  ]
+}

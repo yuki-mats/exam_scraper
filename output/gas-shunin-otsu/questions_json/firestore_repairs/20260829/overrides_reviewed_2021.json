@@ -1,0 +1,52 @@
+{
+  "overrides": [
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-10-3",
+      "status": "hold",
+      "reason": "計算上のB点圧力は1.8kPaであり、Firestoreの正答が反対であるため",
+      "evidence": ["圧力損失は流量の2乗と管長に比例し、A-C間0.4kPa、C-B間0.1kPa、合計0.5kPa"],
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationText": "間違い。元の導管の圧力損失は0.2kPaである。流量が400m³/hとなるA-C間100mの圧力損失は0.2×(400/200)²×(100/200)=0.4kPa、C-B間100mは0.1kPaなので、B点の圧力は2.3-0.5=1.8kPaとなり、1.7kPaではない。"
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-10-4",
+      "source": {
+        "kind": "authored_from_similar",
+        "references": ["同問の流量・管長・既知の圧力損失を用いた計算"],
+        "explanationText": "正しい。元の導管の圧力損失は0.2kPaである。流量が400m³/hとなるA-C間100mの圧力損失は0.2×(400/200)²×(100/200)=0.4kPa、C-B間100mは0.1kPaなので、B点の圧力は2.3-0.5=1.8kPaとなる。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-10-5",
+      "source": {
+        "kind": "authored_from_similar",
+        "references": ["同問の流量・管長・既知の圧力損失を用いた計算"],
+        "explanationText": "間違い。A-C間の圧力損失は0.4kPa、C-B間は0.1kPaで、合計0.5kPaとなる。したがってB点の圧力は2.3-0.5=1.8kPaであり、1.9kPaではない。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-13-2",
+      "source": {
+        "kind": "authored_from_similar",
+        "references": ["薄肉円筒の円周方向応力式"],
+        "explanationText": "間違い。円周方向応力は、平均直径を用いてσ=p(D-t)/(2t)と表せる。p=0.5N/mm²、D=200mm、t=5mmを代入すると、σ=0.5×195/(2×5)=9.75N/mm²となるため、最も近い値は10N/mm²であり、5N/mm²ではない。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-13-4",
+      "source": {
+        "kind": "authored_from_similar",
+        "references": ["薄肉円筒の円周方向応力式"],
+        "explanationText": "正しい。円周方向応力はσ=p(D-t)/(2t)で求められる。p=0.5N/mm²、D=200mm、t=5mmより、σ=0.5×195/(2×5)=9.75N/mm²となるため、最も近い値は10N/mm²である。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-13-5",
+      "status": "hold",
+      "reason": "計算上の最も近い値は10N/mm²であり、Firestoreの正答が反対であるため",
+      "evidence": ["薄肉円筒の円周方向応力式による計算値9.75N/mm²"],
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationText": "間違い。円周方向応力はσ=p(D-t)/(2t)=0.5×195/(2×5)=9.75N/mm²となる。最も近い値は10N/mm²であり、19N/mm²ではない。"
+    }
+  ]
+}

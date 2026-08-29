@@ -1,0 +1,40 @@
+{
+  "result": "done",
+  "changed_files": [
+    "scripts/fix/materialize_gas_shunin_missing_explanations.py",
+    "tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py",
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_bootstrap_2020.json",
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_reviewed_2020.json",
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/holds_answer_conflicts_2020.json",
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_final_2020.json",
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/upload_artifact_ready_2020.json",
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/materialization_audit_ready_2020.json"
+  ],
+  "commands": [
+    {
+      "cmd": "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py",
+      "status": "pass"
+    },
+    {
+      "cmd": "乙種2020 decision counts total=143, ready=139, needsReview=0, hold=4",
+      "status": "pass"
+    },
+    {
+      "cmd": "乙種2020 materialization targetCount=139, uniqueTargetCount=139, nonExplanationDriftCount=0, heldCount=4",
+      "status": "pass"
+    },
+    {
+      "cmd": "upload_questions_to_firestore.py upload_artifact_ready_2020.json --dry-run",
+      "status": "pass"
+    },
+    {
+      "cmd": "git status/diff scoped to **/00_source/**",
+      "status": "pass"
+    },
+    {
+      "cmd": "GoalBuddy check-goal-state.mjs",
+      "status": "pass"
+    }
+  ],
+  "summary": "自動採用時にも正答接頭辞を検査するよう修正し、選択肢順移行に起因する正答矛盾4件を明示holdへ分離した。残る139件は一問ごとの出典付き台帳からexplanationText限定artifactへmaterializeし、他field差分0とdry-run合格を確認した。"
+}

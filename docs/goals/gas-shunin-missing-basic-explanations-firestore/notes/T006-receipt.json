@@ -1,0 +1,23 @@
+{
+  "taskId": "T006",
+  "result": "done",
+  "summary": "乙種2021〜2023年638件を一問ずつ確定し、610件をexplanationText限定artifactへmaterialize、正答矛盾28件を根拠付きholdへ分離した。",
+  "counts": {
+    "total": 638,
+    "ready": 610,
+    "hold": 28,
+    "needsReview": 0,
+    "nonExplanationDrift": 0
+  },
+  "byYear": {
+    "2021": {"total": 222, "ready": 195, "hold": 27},
+    "2022": {"total": 189, "ready": 189, "hold": 0},
+    "2023": {"total": 227, "ready": 226, "hold": 1}
+  },
+  "verification": [
+    "42 tests passed",
+    "uploader dry-run passed for 2021, 2022, 2023",
+    "uniqueTargetCount equals targetCount for every year",
+    "00_source scoped diff is empty"
+  ]
+}

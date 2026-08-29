@@ -1,0 +1,3747 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-v1",
+  "generatedAt": "2026-08-29T10:10:47.650834+00:00",
+  "selection": {
+    "grade": "乙種",
+    "examYear": 2022
+  },
+  "inventory": "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T001-firestore-missing-inventory.json",
+  "counts": {
+    "total": 189,
+    "ready": 174,
+    "needsReview": 15
+  },
+  "decisions": [
+    {
+      "questionId": "chiefgasengineerlicense-C-10233",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2090",
+      "questionText": "実在気体に関する次の記述について、下記の正誤を答えよ。[quote]臨界温度より高い温度では、圧力をどれほど高くしても気体を液化することはできない。[/quote]",
+      "questionTextHash": "88fd425f38e168b950914b452a53277738a983b9315bd5df6f2fc0b2d1aa9d74",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 309,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。臨界温度より高い温度では、圧力をどれだけ高くしても気液共存状態をつくれず、気体を液化することはできない。",
+        "explanationHash": "e3722270e9e0c2b8fb84412b6026df07d7bb75aba78c465d2c9f25b2a9b119f3",
+        "choiceSimilarity": 0.95
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10234",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2090",
+      "questionText": "実在気体に関する次の記述について、下記の正誤を答えよ。[quote]臨界点の近傍では、臨界タンパク光と呼ばれる特異な現象が見られる。[/quote]",
+      "questionTextHash": "67364f5e0b054960e9b9687f8879aea23fc689046e44632504c03ad795ce2f4a",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q03-s03",
+        "explanationHash": "6ea1fe12b1c1aa2461deb2c7a646699942cc83d2095c5c83956e6a3f3abcda68"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10235",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2090",
+      "questionText": "実在気体に関する次の記述について、下記の正誤を答えよ。[quote]臨界温度及び臨界圧力を超えた温度及び圧力のガスを、超臨界ガスという。[/quote]",
+      "questionTextHash": "58a4b7cbfc41aeeff4dc1bfee84df74b7173d95d5b1ed41ff384fa68dfde1478",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q03-s04",
+        "explanationHash": "e9708dda8c44c980db7b4d81794c61e89b7f965bfb53efe07b880b59a890caa9"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10236",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2090",
+      "questionText": "実在気体に関する次の記述について、下記の正誤を答えよ。[quote]ファン・デル・ワールスの状態式は、分子間引力と気体分子の体積を考慮して理想気体の状態方程式を補正した式である。[/quote]",
+      "questionTextHash": "3adbfe1d64bdd01244ff12ef1f3608e8bacd7302d06fea287a9b6619b9e00a6b",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q03-s05",
+        "explanationHash": "c3726319d26e1df0471ae5bee421d49717e28cbdba815202f2a2f1d5b4395383"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10238",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2100",
+      "questionText": "気体の熱力学に関する次の記述について、下記の正誤を答えよ。[quote]モル熱容量とは、物質1molの温度を1K上昇させるのに必要な熱量である。[/quote]",
+      "questionTextHash": "f00c63c352ec00e5578768a971cc71b7faab8fc156c2c20f282fefc99d57df8e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 311,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。モル熱容量は、物質1molの温度を1K上昇させるために必要な熱量を表す。したがって、この記述は正しい。",
+        "explanationHash": "9e9323bf52c7d2a1b9bc21ec287b80a41d721487c6d6c4c30afdd36b64b96d37"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10240",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2100",
+      "questionText": "気体の熱力学に関する次の記述について、下記の正誤を答えよ。[quote]エントロピーは状態量であり、系がある状態から別の状態に移るときのエントロピー変化は、変化前後の状態のみにて決まる。[/quote]",
+      "questionTextHash": "825ae2f9d41d206cd469dca9976293ae1545e0ee79a9f477d340a12ee9682873",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 311,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。エントロピーは状態量であり、エントロピー変化は変化前後の状態で決まる。途中の経路そのものには依存しないため、この記述は正しい。",
+        "explanationHash": "8a736c2b5fb4c79f1b7709ac3abd5a17f8d36272286a8dc8b7f19c58868cbba5",
+        "choiceSimilarity": 0.973451
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10241",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2100",
+      "questionText": "気体の熱力学に関する次の記述について、下記の正誤を答えよ。[quote]ジュール・トムソン膨張では、系のエンタルピーは一定に保たれる。[/quote]",
+      "questionTextHash": "54fce84db7405341b450b9a42b33a42afca81a278b09a168c71985a97636b5ad",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 311,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。ジュール・トムソン膨張は絞り膨張であり、断熱で外部仕事を伴わないため、系のエンタルピーは一定に保たれる。したがって、この記述は正しい。",
+        "explanationHash": "13a0285ed990ebaeb09684006f9243a5f268e645b1e563e336bf1085d767674c"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10242",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2100",
+      "questionText": "気体の熱力学に関する次の記述について、下記の正誤を答えよ。[quote]定圧モル熱容量と定積モル熱容量の比を比熱比という。[/quote]",
+      "questionTextHash": "608cc4f92b9e2bf56ae7c6c2fb185f701bce39062439f319be0661ac13234e47",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 311,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。比熱比は定圧モル熱容量Cpと定積モル熱容量Cvの比 Cp/Cv で定義される。したがって、この記述は正しい。",
+        "explanationHash": "95a37cf150f76b2a8a3503eedce3154ce66a5a7487cd46cbfae7f9c67525f922"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10243",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2110",
+      "questionText": "化学反応に関する次の記述について、下記の正誤を答えよ。[quote]触媒は反応速度を増加させる機能を持つが、反応の進行する方向を変えることはない。[/quote]",
+      "questionTextHash": "8e6327fabe2295e61eac47301253bbbe9f11e6ce6f2fb56c4449059984fbc380",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q06-s01",
+        "explanationHash": "e00a9c210a9366e49f9a6c37445d33148ecfdd990e4fdd23a1d7ea8ddab1c70d"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10244",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2110",
+      "questionText": "化学反応に関する次の記述について、下記の正誤を答えよ。[quote]不均一触媒反応のうち、固体触媒による反応を接触反応という。[/quote]",
+      "questionTextHash": "967736faa6e13828852e368732a8cb6c9df8dcdc2cbaaf0df14154d99be112cc",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q06-s02",
+        "explanationHash": "a247c5fabc30cccfde64615e21faf042e2f2a89fdc186fb171e5150f2308f957"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10245",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2110",
+      "questionText": "化学反応に関する次の記述について、下記の正誤を答えよ。[quote]還元反応とは、対象とする物質が電子を受け取る化学反応である。[/quote]",
+      "questionTextHash": "38639c8211166afa64f366cd0939b3b682521d3b5038194932b899b4e0b1780c",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q06-s03",
+        "explanationHash": "126ce966780542373c2843ccdd723b8e6079da80adf14aba34312b898a2c7f53"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10247",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2110",
+      "questionText": "化学反応に関する次の記述について、下記の正誤を答えよ。[quote]反応熱は、反応の始状態と終状態のみで決まり、反応の経路によらない。[/quote]",
+      "questionTextHash": "ddd4a9e5162f34de508bfe5a0e4cfc4019d9e57550aef4305a4095837443909f",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q06-s05",
+        "explanationHash": "67415cd654d69895dbd421751040d3a34cecd2a5ad7fba22ee5f87c6ad322d97"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10252",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2140",
+      "questionText": "直円管内の完全に発達した流れに関する次の記述について、下記の正誤を答えよ。[quote]層流では、平均流速は中心での最大流速の半分に等しい。[/quote]",
+      "questionTextHash": "35abb39d9275b59a3a2de97aae301839c0f32edec5a38f9f1772055ed577b2a7",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q11-s01",
+        "explanationHash": "ad2caa1b576e974a6c23f5beb30a3ed1082e9ad5279f4a755e0c4e9445e2bc4b"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10253",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2140",
+      "questionText": "直円管内の完全に発達した流れに関する次の記述について、下記の正誤を答えよ。[quote]層流における管内の圧力損失は、平均流速に比例する。[/quote]",
+      "questionTextHash": "cf171b403652b65f161acf9da870d5445a04399daeb8582d518d15802a4de31b",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q11-s02",
+        "explanationHash": "196df9ed021929aeea10cc86d2abaede55a5f723e9f5ac0756da9d870c4b1fdd"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10254",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2140",
+      "questionText": "直円管内の完全に発達した流れに関する次の記述について、下記の正誤を答えよ。[quote]層流から流速を上げていくと、乱流へ遷移する。[/quote]",
+      "questionTextHash": "4fb35f7d4f3d64ec44b6e1abe46b0c025b10a4fdcfe15f9d603fd5ed3f5cf043",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q11-s03",
+        "explanationHash": "ff9858dfa0b57e6ad01f8069e83fd094187cf015ce06d90bc3fb641f25a96db4"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10255",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2140",
+      "questionText": "直円管内の完全に発達した流れに関する次の記述について、下記の正誤を答えよ。[quote]乱流における管摩擦係数は、管壁面の粗さに依存する。[/quote]",
+      "questionTextHash": "07840fc08a084004bd3a363e4eb2aba7a53954f187695509052c72bcafe401f3",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kiso-q11-s04",
+        "explanationHash": "21fb1edfeaa56eb8dbb2de9a65591688bf5be6545fcd300f7cd3d1876360c545"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10263",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2160",
+      "questionText": "クリープに関する次の記述について、下記の正誤を答えよ。[quote]クリープが起こると、材料は引張強さよりも小さな応力で破壊する。[/quote]",
+      "questionTextHash": "a2b40dbf7d4fe9c221a8066eb975e8da80af8c52321ebe36c9423d2f623a8c5e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 321,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。クリープが進行すると、材料は短時間の引張試験で得られる引張強さよりも小さな応力で、長時間後に破壊することがある。",
+        "explanationHash": "ac1e7ffd5b2d57870781e958d5e0e845aaebcfdea3ab4f0d2cd587486798e304"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10264",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2160",
+      "questionText": "クリープに関する次の記述について、下記の正誤を答えよ。[quote]クリープは温度が高いほど顕著に現れる。[/quote]",
+      "questionTextHash": "69259c883592fbc15008ad604fd9369a22e9e8667bc3c3ab484a7d9046d4b95c",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 321,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。クリープは温度が高いほど原子や分子の移動、材料内部の変形が進みやすくなるため、より顕著に現れる。",
+        "explanationHash": "15d815e98a86d688d256fb0009f85f465a24bc13ca05679a8aefe5febef2352a"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10265",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2160",
+      "questionText": "クリープに関する次の記述について、下記の正誤を答えよ。[quote]高分子材料のクリープは常温でも起きる。[/quote]",
+      "questionTextHash": "4c141ddfbe047e4a78520e4def907cab9d5e8a60b7b2a86ffea1865f3605a43c",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 321,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。高分子材料は粘弾性を示すため、常温でも荷重が長時間作用するとクリープ変形を生じることがある。",
+        "explanationHash": "4292cc400f24b99314db7465781542d17e97f27e29ada123680d069cc822fe2a"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10266",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2160",
+      "questionText": "クリープに関する次の記述について、下記の正誤を答えよ。[quote]炭素鋼にモリブデンを添加すると、高温クリープ強さを高める効果がある。[/quote]",
+      "questionTextHash": "83049116877502e30b465e1f8c63c11a687dad3a8fa458064133cc97bc4e1d46",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 321,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。炭素鋼にモリブデンを添加すると、高温でのクリープ変形やクリープ破壊に対する抵抗を高める効果がある。",
+        "explanationHash": "f196c1917d6d084f6f51fc3943590472d14c91e2a901e7ddc20abf2c0fbc73d7"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-1-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1790",
+      "questionText": "都市ガスの原料に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]メタンは、すべての温度領域において、常温の空気よりも軽い。[/quote]",
+      "questionTextHash": "5024f51f128af55050ff227a3312c994f8351d5f21682c66a3543619bf858aca",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q01-s01",
+        "explanationHash": "ac8138d4bcf44e65aeb6475f18ff275c2f500b40c157ccaa2a20b3c470b65e40"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-1-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1790",
+      "questionText": "都市ガスの原料に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]液撃は、弁の閉鎖やポンプの急停止等の急激な変化によって、配管内流体の運動エネルギーの一部が圧力エネルギーに変換され、流体の圧力が低下することにより起こる。[/quote]",
+      "questionTextHash": "1895fb47114e707ba9b2ffbedd84cefe808f64eaaa54e6995ba4b267c92cd9ab",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q01-s02",
+        "explanationHash": "3d6f31099b8b43cec335d5e196e288c278eec475dd9d597fd5e59a9107410272"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-1-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1790",
+      "questionText": "都市ガスの原料に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]LNGは、貯蔵中に外部からの入熱により沸点の低いメタンを主成分とするボイルオフガス（BOG）が発生するため、液密度が高くなる。[/quote]",
+      "questionTextHash": "aeb7047f20bb645d6142906edf0a5bbf3943f18c320455e2e864d52128994d5e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q01-s03",
+        "explanationHash": "5abb2d7866acbdca83c0e22147d12e0ffaf90da6402c3f7fb80dde26b81d1332"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-1-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1790",
+      "questionText": "都市ガスの原料に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]LNGローリーやLNGコンテナは、真空断熱方式の二重殻式横置円筒型の超低温容器を有し、道路輸送や鉄道輸送が可能である。[/quote]",
+      "questionTextHash": "9d2d659b247c68a24c328b961a87a9e1a0f56f9ea15453555c629e3c0f6ffcbc",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q01-s04",
+        "explanationHash": "a6602bf906ac6285578ad3cd7f05b19c207108b1422bcb555302d9d38aeaec52"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-1-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1790",
+      "questionText": "都市ガスの原料に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]LNGは水と反応して氷に似た水和物を生成するため、配管の閉そく等のトラブルを起こさないよう、LNGを取り扱う前に機器内を十分乾燥することが必要である。[/quote]",
+      "questionTextHash": "09d84155cba4a251bcbbf159eaa1b784781c962bb5b70b1038167d6b29a5595a",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q01-s05",
+        "explanationHash": "e01c054a5ba230522021615104a95dfddab2bcab6e626ae9de0a6234e4eeec3e"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-11-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2020",
+      "questionText": "整圧器に関する次の記述のうち、誤っているものはどれか。[quote]圧力上昇防止装置は、整圧器の故障により、二次側の圧力が異常に上昇することを防止するために用いられる。[/quote]",
+      "questionTextHash": "142c55bef5ce30281087bab663f44ffcf4cc9dd6fed06a4921a8689401e2cf6f",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q11-s01",
+        "explanationHash": "dedae3593d78751c0b0b19866c2799d3cc04ecc4ee9115d4e5328c457efb99bd"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-11-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2020",
+      "questionText": "整圧器に関する次の記述のうち、誤っているものはどれか。[quote]直動式整圧器におけるメインバルブシートの不具合により、二次圧力が異常上昇した。[/quote]",
+      "questionTextHash": "0c43cef6aa2b754c91b2ebebeedc9524acf30f909d133c96cd4032a9cb9e5b0e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q11-s02",
+        "explanationHash": "2f651ba60a94ef439717890ad09e650a486c7027f90c2b52ff7d3c14517a7037"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-11-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2020",
+      "questionText": "整圧器に関する次の記述のうち、誤っているものはどれか。[quote]整圧器能力不足により、二次圧力が異常低下した。[/quote]",
+      "questionTextHash": "b3528ac876c300b95e76b862c7032d35722ee50aceff15c3bcc7f441ae90c4c6",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q11-s03",
+        "explanationHash": "7d03d6b2388a0ef1c0dcd2d14fc4e9f39403bf80a67de0153bdd72f30b982b74"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-11-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2020",
+      "questionText": "整圧器に関する次の記述のうち、誤っているものはどれか。[quote]フィルターのダスト類の詰りにより、二次圧力が異常低下した。[/quote]",
+      "questionTextHash": "36b13fe3691baa7274a71e74b51c42420de478f099c78bb3c70d19a158ad61ba",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 332,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。フィルターにダスト類が詰まると通過抵抗が増え、整圧器へ十分なガスが供給されにくくなるため、二次圧力が異常低下する原因となる。",
+        "explanationHash": "580102482e09b06f83bf08f67659b73914c490f72d5638ee5e18a7d96dbf1ade",
+        "choiceSimilarity": 0.983051
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-11-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2020",
+      "questionText": "整圧器に関する次の記述のうち、誤っているものはどれか。[quote]直動式整圧器におけるメインバルブへのダスト類のかみ込みによる締め切り不良により、二次圧力が異常低下した。[/quote]",
+      "questionTextHash": "865448a6be2d5fd7038dffe074666f4c731909df3de14a101ed701f7a07ded46",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q11-s05",
+        "explanationHash": "2a4ecc12833558a2c600be85cebfbe6adaa5f912361982216a090bbed770e6bc"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-12-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2000",
+      "questionText": "ガスメーターに関する次の記述のうち、誤っているものはどれか。[quote]マイコンメーターはメーターに流れるガスの流量を監視し、あらかじめ設定した条件によって異常と判定した場合、自動的にガスを遮断する機能を備えている。[/quote]",
+      "questionTextHash": "3e4fcffe0964867ee3bc8ebe52cda367fcd6e6a3d8eaa8cae10ca6c171838cbf",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q12-s01",
+        "explanationHash": "7ed8a0075900b176d9e55d69462912bcb5f4bdcc1a2b30cc159367e7e7417d37"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-12-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2000",
+      "questionText": "ガスメーターに関する次の記述のうち、誤っているものはどれか。[quote]使用最大流量が16m³/hのガスメーターの検定有効期間は、検定を受けた翌月1日から起算して10年である。[/quote]",
+      "questionTextHash": "f7a024d7229c6b62f5b835769c9a6553d57f38e0fbeecd317e91275ed5631165",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q12-s02",
+        "explanationHash": "9c38af8d9956068b33149620221551348ced2db9458d3c0432e8584c81f2d24b"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-12-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2000",
+      "questionText": "ガスメーターに関する次の記述のうち、誤っているものはどれか。[quote]ガスメーターが計量法の規定による検定を受ける際の検定公差は、流量によらず±1.5%である。[/quote]",
+      "questionTextHash": "6308a7b5bb9ab9e82c31c12f4d8511dcd48780ba6f93ab145fba21e615286943",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q12-s03",
+        "explanationHash": "b51b2303fec305d21dee402bf13734d1e49c33ad20f9e809d70981d9ee91f02b"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-12-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2000",
+      "questionText": "ガスメーターに関する次の記述のうち、誤っているものはどれか。[quote]ガスメーターとしての必要条件の一つに、小型で容量が大きいことがある。[/quote]",
+      "questionTextHash": "34da52b73533d232e544dac95e27970ddb61f18b05f77cc76213b4ae3f8a26a7",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q12-s04",
+        "explanationHash": "b3c97d328c5da95f6a06b3ec70d7a6e28b2de9bfd1ec05b1f0fe3430e194f4ee"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-12-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2000",
+      "questionText": "ガスメーターに関する次の記述のうち、誤っているものはどれか。[quote]ガスメーターの種類のうち超音波式は、流量を推測計量するものである。[/quote]",
+      "questionTextHash": "282147c8db9eaed3dd980965a45ed999e0491ee39262b29538c9a343f2cfe539",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q12-s05",
+        "explanationHash": "350912fdd1750032ab3255ac7f1a9f4a2f0634c72c1ca168200238a1b42fbf4d"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-13-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2060",
+      "questionText": "口径400mmの鋼管を用い、長さ50mで両端固定された架管を冬期（管体温度は−10℃）に設置することになった。夏期に架管全体の温度が40℃になるときに生じる応力を、架管途中に設けた伸縮継手で対処する場合、設計変位量（mm）として最も近い値はどれか。ただし、導管の線膨張係数は1.2×10⁻⁵（1/℃）、内圧は0.3（MPa）、ヤング率は2.1×10⁵（N/mm²）とする。[quote]30[/quote]",
+      "questionTextHash": "7316d2a82ed66eb05905c70d97d6934b4ee84f4ae86f1f211771dda0aad56352",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2021,
+            "explanationText": "間違い。半導体式ガス検知器は、センサー表面に吸着している酸素とガスとの反応によって生じる抵抗値などの変化を利用して検知する。雰囲気ガス自体の燃焼によって電導度が変化するという説明ではなく、検知対象も可燃性ガスだけに限定されないため誤りである。",
+            "questionId": "gas-shunin-otsu-2021-kyokyu-q17-s01",
+            "questionText": "導管の維持管理に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]半導体式ガス検知器は、半導体の電導度が雰囲気ガスの燃焼によって変化することを利用したもので、検知可能なガスは可燃性であることに限定される。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2021,
+            "explanationText": "正しい。埋設部のガス漏えい箇所を早期に発見して修理すれば、その損傷部から地下水が導管内へ流入する経路も取り除ける。したがって、漏えい修理は地下水による浸水の予防にも有効である。",
+            "questionId": "gas-shunin-otsu-2021-kyokyu-q17-s02",
+            "questionText": "導管の維持管理に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]埋設部のガス漏えい箇所を早期に発見し適切な修理を行うことは、地下水による浸水予防対策としても有効である。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2021,
+            "explanationText": "正しい。敷地内の解体・改装などではガス設備を損傷するおそれがある。ガス設備の資産区分や工事時の注意事項を記載したチラシ等を配付し、需要家に事前の注意喚起を行うことは適切な他工事対策である。",
+            "questionId": "gas-shunin-otsu-2021-kyokyu-q17-s03",
+            "questionText": "導管の維持管理に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]敷地内の他工事対策の1つとして、ガス設備の資産区分、解体、改装時の注意事項等を記載したチラシ等を配付し需要家への注意喚起を図る。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-14-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2030",
+      "questionText": "腐食と防食に関する次の記述のうち、誤っているものはどれか。[quote]建物に引き込まれた配管は、ミクロセル腐食の原因となるコンクリートに接触する機会が多いため、一般に埋設配管部近くの架空配管部に絶縁継手を設置する。[/quote]",
+      "questionTextHash": "2af64879d8e08c88a684892b7f3f61a0b9dd22eeee65be449496ba7e5763b27e",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q14-s01",
+        "explanationHash": "fcc2b157fa758213f0999e68f0f281ff2726aa3c3f29bf536e55d4c7bf6138bc"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-14-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2030",
+      "questionText": "腐食と防食に関する次の記述のうち、誤っているものはどれか。[quote]防食設備の点検は、雨期等の土壌の湿潤期や電気鉄道の運行時等、防食状況の悪い時期や時間帯を選んで行うことが望ましい。[/quote]",
+      "questionTextHash": "9725e4d372f6cbbffcabe568e02ebcbcc3e7a41ea431f93fd5fbc5704c3b35c3",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q14-s02",
+        "explanationHash": "0675c5726b7bd098d0c8e6b8363f5c01a071d1330f95657d24fcb71d879d646a"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-14-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2030",
+      "questionText": "腐食と防食に関する次の記述のうち、誤っているものはどれか。[quote]電解質中の鉄とマグネシウムを接続すると、自然電位がプラス側の鉄がカソードとなり、マグネシウムがアノードとなる。[/quote]",
+      "questionTextHash": "58e901e995cd8408736bd8610cce051fc58247adfd9332b88c9213f45e67ad9d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q14-s03",
+        "explanationHash": "b2f160672ebaea6a151296732e6d89d480bbe9e7578d5bbe4b6ddc9444e94530"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-14-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2030",
+      "questionText": "腐食と防食に関する次の記述のうち、誤っているものはどれか。[quote]管対地電位の測定では、照合電極は通常、飽和硫酸銅電極が用いられ、散水で土壌等との接地抵抗を下げて設置する。[/quote]",
+      "questionTextHash": "6bbb94ea5c9906f216db01e0a3dcaeb79deae2d3552fb7d4c56a1af8e6fc22a5",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q14-s04",
+        "explanationHash": "2821226a9d014cc25ebe30fa0334a64b46662fa6b21b0080c5814b94b9249e3b"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-14-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2030",
+      "questionText": "腐食と防食に関する次の記述のうち、誤っているものはどれか。[quote]選択排流法、強制排流法のいずれの方式も、他の金属構造物への干渉及び過防食を考慮する必要がある。[/quote]",
+      "questionTextHash": "ad7a68d27bb5c4e0aa7d8c36ff60f56d1060ad85f8d0043bfb572029ed20bdc0",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 161,
+        "sourceExamYear": 2019,
+        "sameExamYear": false,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。選択排流法、強制排流法はいずれも電流の流れを制御する防食方式であり、他の金属構造物への干渉や、導管の過防食が生じないように考慮する必要がある。",
+        "explanationHash": "08d309d800b2dd94f5247d60d2056650fe86205d12dceb90bfa2ef5b1b195791"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-15-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2040",
+      "questionText": "導管の工事に関する次の記述のうち、誤っているものはどれか。[quote]電気防食を施した鋼管の切断にあたっては、火花が出ないように電気防食施設の電源を切っておき、さらに切断予定箇所の両端を短絡させる。[/quote]",
+      "questionTextHash": "9c5179bd13652f103bd41b19d7a5dc29437e108be1b12a0467e3b11602fb2bdf",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q15-s01",
+        "explanationHash": "c91fb262ec753e76f0b5452177807a579a4e1cb20bc06dd984753136ec168f5c"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-15-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2040",
+      "questionText": "導管の工事に関する次の記述のうち、誤っているものはどれか。[quote]導管工事の着工準備にあたっては、資機材に不足のないように確認するとともに、掘削機械、ポンプ、転圧機、保安設備等の整備・点検を行う。[/quote]",
+      "questionTextHash": "4f917a715562b7f9dbbbfa2e7346637410aed58cac49748edd10ecb5817f2b8d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q15-s02",
+        "explanationHash": "13e853fc05e672adcebfd95bdc64290690ae2effb4644804d92a7629da44af72"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-15-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2040",
+      "questionText": "導管の工事に関する次の記述のうち、誤っているものはどれか。[quote]酸素欠乏のおそれのある場所において作業を行う場合は、異常時に直ちに応急措置及び関係者への通報ができるよう作業を2人以上で行う。[/quote]",
+      "questionTextHash": "b1951073954215dc8c51f8f9c04f1e4852dab6b01ebbfcadb94aa84806b09272",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q15-s03",
+        "explanationHash": "86dd80c3d4468514cfefde451829742f34e155099859aa35663f2609c4bfa6a9"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-15-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2040",
+      "questionText": "導管の工事に関する次の記述のうち、誤っているものはどれか。[quote]溶接部等の放射線透過試験を行う場合は、非破壊試験技術者を選定しなければならない。[/quote]",
+      "questionTextHash": "e4ab36f61b306cb108eaff46c263f5db382a2b836b2031c82d9a7d3f67638a9b",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q15-s04",
+        "explanationHash": "36ddfea23f4de998588f35d070eedf31b1ceb5021302951a6e963b4cf07c51c4"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-15-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2040",
+      "questionText": "導管の工事に関する次の記述のうち、誤っているものはどれか。[quote]非開削工法の特徴の一つは、路上工事の縮減により交通への影響を低減できることである。[/quote]",
+      "questionTextHash": "5309c0b39c1b96a0c6252a4b092013b6b1173437380a6864d1559f6dca79a2f7",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q15-s05",
+        "explanationHash": "14a9a1321ddf748428fe19e761aa436c9309d903810e99a7a20df1dc8e907514"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-16-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2050",
+      "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]被覆アーク溶接棒の心線は、大気中に放置すると水分を吸収し、ブローホール等の欠陥の原因となる。[/quote]",
+      "questionTextHash": "4dbcedfa8bdc22c9e8876f224edadbb6a932c1f36d08dd0c9c75b4d71cf3855c",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 511,
+        "sourceExamYear": 2025,
+        "sameExamYear": false,
+        "sourceQuestionKey": null,
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。大気中の水分を吸収してブローホール等の欠陥原因となるのは、被覆アーク溶接棒の被覆剤（フラックス）であり、金属製の心線ではない。心線が吸湿するとしている点が誤り。",
+        "explanationHash": "45b3c5499f0c4cc74205128844bfeea6fe3d12501255775db0325b51b02c7077"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-16-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2050",
+      "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]溶接施工法は、溶接事業所又は工場ごとに確認を受けなければならない。[/quote]",
+      "questionTextHash": "81e50354e7421adf73c45ca3928d54311615484f4b4c557c5897d7b26af7c6c2",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q16-s01",
+        "explanationHash": "ba56974d01fc6ce0f9c6971be3ab5113272ac85cdf4790d2932cb17c05077dba"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-16-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2050",
+      "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]被覆アーク溶接とは、溶接棒と母材との間にアークを発生させ、その熱によって溶接棒のみを溶かすことにより溶接を行うものである。[/quote]",
+      "questionTextHash": "2d8fd87085ce8fb98bb823dde4873f3294fa3c61e439dc4020736eb8a17936eb",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。溶接施工法は、溶接施工事業所又は工場ごとに、所定の確認事項の組合せに応じた確認試験を行う必要がある。これは、ガス工作物の技術上の基準を定める省令第16条第2項を具体化したガス工作物技術基準の解釈例第54条に定められている。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q16-s01",
+            "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]溶接施工法は、溶接事業所又は工場ごとに確認を受けなければならない。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。開先の形状や加工が不適切であると、必要な溶込みを得にくくなり、応力集中などによって割れが生じる原因にもなる。ガス工作物の技術上の基準を定める省令第16条第1項及びガス工作物技術基準の解釈例第52条第1項も、十分な溶込みと、割れなどの有害な欠陥がないことを求めている。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q16-s02",
+            "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]開先不良は、溶込み不良や割れ等の原因となる。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2021,
+            "explanationText": "正しい。被覆アーク溶接棒の被覆剤（フラックス）には、溶融金属を大気から保護するとともに、溶接金属の凝固・冷却を緩やかにし、上向きなど各種姿勢での溶接を容易にする働きがある。",
+            "questionId": "gas-shunin-otsu-2021-kyokyu-q16-s01",
+            "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]被覆アーク溶接棒の被覆剤（フラックス）には、溶接金属の凝固・冷却の速度を緩やかにし、上向きその他種々の位置の溶接を容易にする効用がある。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-16-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2050",
+      "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]磁粉探傷試験は、表面付近のきずの発見法として、非常に簡便であり、表面から数mm以内のきずの高さを容易に測定できる。[/quote]",
+      "questionTextHash": "9b04c8b10eb98fce2ca0b101036dd128989f5d83c5e7e5effee2d5f1e41b1ce3",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。溶接施工法は、溶接施工事業所又は工場ごとに、所定の確認事項の組合せに応じた確認試験を行う必要がある。これは、ガス工作物の技術上の基準を定める省令第16条第2項を具体化したガス工作物技術基準の解釈例第54条に定められている。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q16-s01",
+            "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]溶接施工法は、溶接事業所又は工場ごとに確認を受けなければならない。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。開先の形状や加工が不適切であると、必要な溶込みを得にくくなり、応力集中などによって割れが生じる原因にもなる。ガス工作物の技術上の基準を定める省令第16条第1項及びガス工作物技術基準の解釈例第52条第1項も、十分な溶込みと、割れなどの有害な欠陥がないことを求めている。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q16-s02",
+            "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]開先不良は、溶込み不良や割れ等の原因となる。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2021,
+            "explanationText": "正しい。被覆アーク溶接棒の被覆剤（フラックス）には、溶融金属を大気から保護するとともに、溶接金属の凝固・冷却を緩やかにし、上向きなど各種姿勢での溶接を容易にする働きがある。",
+            "questionId": "gas-shunin-otsu-2021-kyokyu-q16-s01",
+            "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]被覆アーク溶接棒の被覆剤（フラックス）には、溶接金属の凝固・冷却の速度を緩やかにし、上向きその他種々の位置の溶接を容易にする効用がある。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-16-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2050",
+      "questionText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]開先不良は、溶込み不良や割れ等の原因となる。[/quote]",
+      "questionTextHash": "c0638f798010d64546bf7f01b480fa9d326373b87cadd608ab71860ee45ea0ae",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q16-s02",
+        "explanationHash": "c42034f1e9c0bd212c2b8216f50297b63bbaadaf9c44794e3714e5045fd3a4bd"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-17-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2080",
+      "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]支管供給管一括採水装置は、初期採水は強力なバキューム圧を発生するエジェクターを使用し、後期採水はピグを使用し管内の水たまりを移動させ、完全に排水させる。[/quote]",
+      "questionTextHash": "3fe473cd89e9ba6ebbfef7218274c71a3d18a0e55a0e680e1e5507d9f590e2a7",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。水素炎イオン化式ガス検知器は、水素炎中に炭化水素が入ると炎の電気伝導度が増大する現象を利用して炭化水素を検知する。検知対象が炭化水素であるため、H2やCOなどはこの方式では検出できない。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s01",
+            "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]水素炎イオン化式ガス検知器は、水素炎の中に炭化水素が入ると、炎の電気伝導度が増大する現象を利用したもので、H2、CO等は検出できない。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。マッピングシステムは、地図情報に加えて、本支管などの設備位置、口径・管種などの管理情報、地域管理情報をレイヤーに分けて管理するシステムである。情報を重ね合わせて確認できるため、導管の維持管理など多様な業務に活用できる。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s02",
+            "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]マッピングシステムは、地図情報、本支管等の設備位置や管理情報（口径、管種等）、地域管理情報をレイヤーに区分化したシステムであり、様々な業務に活用できる。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-17-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2080",
+      "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]スプレーシール工法は、ガス栓等からシール剤を噴射することで管内面に膜を形成し、腐食漏えい箇所を修理する工法である。[/quote]",
+      "questionTextHash": "341b611cf41df34901b095098e88d3b14cba2dcdbdc3d3d587b3d005a7b536e9",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。水素炎イオン化式ガス検知器は、水素炎中に炭化水素が入ると炎の電気伝導度が増大する現象を利用して炭化水素を検知する。検知対象が炭化水素であるため、H2やCOなどはこの方式では検出できない。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s01",
+            "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]水素炎イオン化式ガス検知器は、水素炎の中に炭化水素が入ると、炎の電気伝導度が増大する現象を利用したもので、H2、CO等は検出できない。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。マッピングシステムは、地図情報に加えて、本支管などの設備位置、口径・管種などの管理情報、地域管理情報をレイヤーに分けて管理するシステムである。情報を重ね合わせて確認できるため、導管の維持管理など多様な業務に活用できる。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s02",
+            "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]マッピングシステムは、地図情報、本支管等の設備位置や管理情報（口径、管種等）、地域管理情報をレイヤーに区分化したシステムであり、様々な業務に活用できる。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-17-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2080",
+      "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]水素炎イオン化式ガス検知器は、水素炎の中に炭化水素が入ると、炎の電気伝導度が増大する現象を利用したもので、H₂、CO等は検出できない。[/quote]",
+      "questionTextHash": "3b715f93fa7f783117359d9b086b6878d36b790790f1e62d24286ecba0628552",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s01",
+        "explanationHash": "2d3a56c4a8d254f7211f40e83aa287ba2ffe6455c5abff5a466f4990ec1cb9ea"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-17-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2080",
+      "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]マッピングシステムは、地図情報、本文管等設備の位置や管理情報（口径、管種等）、地域管理情報をレイヤーに区分しデータベース化したシステムであり、様々な業務に活用できる。[/quote]",
+      "questionTextHash": "55f29223286c2e4235f07a24f4f166af0a7bdb81f747a08e6b5bc3505a306117",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。水素炎イオン化式ガス検知器は、水素炎中に炭化水素が入ると炎の電気伝導度が増大する現象を利用して炭化水素を検知する。検知対象が炭化水素であるため、H2やCOなどはこの方式では検出できない。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s01",
+            "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]水素炎イオン化式ガス検知器は、水素炎の中に炭化水素が入ると、炎の電気伝導度が増大する現象を利用したもので、H2、CO等は検出できない。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。マッピングシステムは、地図情報に加えて、本支管などの設備位置、口径・管種などの管理情報、地域管理情報をレイヤーに分けて管理するシステムである。情報を重ね合わせて確認できるため、導管の維持管理など多様な業務に活用できる。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s02",
+            "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]マッピングシステムは、地図情報、本支管等の設備位置や管理情報（口径、管種等）、地域管理情報をレイヤーに区分化したシステムであり、様々な業務に活用できる。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-17-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2080",
+      "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]パイプロケーターは、誘導法の方が直接法より精度的に優れている。[/quote]",
+      "questionTextHash": "7745ebe2b0bd1523a2b079e3ab7046315d2b719cbf6fc05faea59c08b643dd2a",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。水素炎イオン化式ガス検知器は、水素炎中に炭化水素が入ると炎の電気伝導度が増大する現象を利用して炭化水素を検知する。検知対象が炭化水素であるため、H2やCOなどはこの方式では検出できない。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s01",
+            "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]水素炎イオン化式ガス検知器は、水素炎の中に炭化水素が入ると、炎の電気伝導度が増大する現象を利用したもので、H2、CO等は検出できない。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。マッピングシステムは、地図情報に加えて、本支管などの設備位置、口径・管種などの管理情報、地域管理情報をレイヤーに分けて管理するシステムである。情報を重ね合わせて確認できるため、導管の維持管理など多様な業務に活用できる。",
+            "questionId": "gas-shunin-otsu-2022-kyokyu-q17-s02",
+            "questionText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]マッピングシステムは、地図情報、本支管等の設備位置や管理情報（口径、管種等）、地域管理情報をレイヤーに区分化したシステムであり、様々な業務に活用できる。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-18-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-2070",
+      "questionText": "地震により低圧導管の供給を停止した地域の復旧作業の基本フローとして最も適切なものはどれか。\\nA：復旧ブロック化\\nB：本支供灯外内管のエアパージ\\nC：供給管切断\\nD：灯内内管の漏えい検査・修理\\nE：本支供灯外内管のテスト昇圧\\nF：本支供灯外内管の差水箇所修理・採水\\nG：本支供灯外内管の漏えい調査・漏えい修理[quote]閉栓→A→C→F→E→G→E→B→D→開栓[/quote]",
+      "questionTextHash": "dd115488a888838f283752a04f3bc83d92aff9a97703d9bc7ba219ec06051d02",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 339,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。低圧導管の復旧作業は、閉栓後に復旧ブロック化、供給管切断、差水箇所修理・採水、テスト昇圧、漏えい調査・修理、再度のテスト昇圧、エアパージ、灯内内管の漏えい検査・修理、開栓の順で進める。",
+        "explanationHash": "d64356e3d7a981a588ebf5ad3928f9888fd7983d166e0aa77833358f363a32f2"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-2-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1750",
+      "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]LNGサテライト基地におけるLNGローリー等からLNG貯槽への受入作業では、LNGサテライト基地側又はLNGローリー等に設けられたLNGポンプを使用して行われる。[/quote]",
+      "questionTextHash": "4705c80ccc31c51e661b2e39bdbebf6af59c90a6d4e52a8f345ce1c45e9bb293",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。ミキシングホルダーは、製造したガスを混合し、供給するガスの成分、熱量及び燃焼性を均一化するための設備である。したがって、この記述は正しい。",
+            "questionId": "gas-shunin-otsu-2022-seizo-q02-s01",
+            "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]ミキシングホルダーは、製造ガスを混合し、供給ガスの成分、熱量及び燃焼性を均一化させる機能を有する。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。エアフィン式気化器は外気の熱を利用してLNGなどを気化させるため、運転条件や外気条件によっては、気化器出口のガス温度が外気温以下になることがある。寒冷地等では出口ガス温度の低下対策として、気化器の後流にNG加温器を設置するなどの措置が必要となる場合があるため、この記述は正しい。",
+            "questionId": "gas-shunin-otsu-2022-seizo-q02-s02",
+            "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]エアフィン式気化器は、気化器出口のガス温度が外気温以下となることがあり、寒冷地等では冬期の気化器出口ガス温度低下対策として、気化器の後流にNG加温器を設置する等の措置が必要となる場合もある。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2021,
+            "explanationText": "間違い。大型の常圧断熱式円筒形LNG貯槽は、内槽と外槽の間に断熱材を充てんして保冷するが、その空間を高度の真空状態にはしない。真空断熱は主に小型の加圧式貯槽などで用いられる方式であり、常圧貯槽の構造と異なるため誤りである。",
+            "questionId": "gas-shunin-otsu-2021-seizo-q02-s01",
+            "questionText": "LNG設備に関する次の記述のうち、正しいものはどれか。[quote]常圧断熱式凝固円筒形貯槽は、内槽と外槽からなる金属二重殻構造であり、断熱効果を高めるため内槽と外槽の空間は断熱材が充てんされるとともに、高度の真空状態に保たれている。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-2-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1750",
+      "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]回転式スクリュー型のBOG圧縮機の容量調整は、アンローダー弁操作により容易に連続調整が可能である。[/quote]",
+      "questionTextHash": "60bbb7e0c536be727862b476e240f78e21747bb98f0d05002818a3d31ed52f54",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。ミキシングホルダーは、製造したガスを混合し、供給するガスの成分、熱量及び燃焼性を均一化するための設備である。したがって、この記述は正しい。",
+            "questionId": "gas-shunin-otsu-2022-seizo-q02-s01",
+            "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]ミキシングホルダーは、製造ガスを混合し、供給ガスの成分、熱量及び燃焼性を均一化させる機能を有する。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。エアフィン式気化器は外気の熱を利用してLNGなどを気化させるため、運転条件や外気条件によっては、気化器出口のガス温度が外気温以下になることがある。寒冷地等では出口ガス温度の低下対策として、気化器の後流にNG加温器を設置するなどの措置が必要となる場合があるため、この記述は正しい。",
+            "questionId": "gas-shunin-otsu-2022-seizo-q02-s02",
+            "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]エアフィン式気化器は、気化器出口のガス温度が外気温以下となることがあり、寒冷地等では冬期の気化器出口ガス温度低下対策として、気化器の後流にNG加温器を設置する等の措置が必要となる場合もある。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2021,
+            "explanationText": "間違い。大型の常圧断熱式円筒形LNG貯槽は、内槽と外槽の間に断熱材を充てんして保冷するが、その空間を高度の真空状態にはしない。真空断熱は主に小型の加圧式貯槽などで用いられる方式であり、常圧貯槽の構造と異なるため誤りである。",
+            "questionId": "gas-shunin-otsu-2021-seizo-q02-s01",
+            "questionText": "LNG設備に関する次の記述のうち、正しいものはどれか。[quote]常圧断熱式凝固円筒形貯槽は、内槽と外槽からなる金属二重殻構造であり、断熱効果を高めるため内槽と外槽の空間は断熱材が充てんされるとともに、高度の真空状態に保たれている。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-2-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1750",
+      "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]ミキシングホルダーは、製造ガスを混合し、供給ガスの成分、熱量及び燃焼性を均一化させる機能を有する。[/quote]",
+      "questionTextHash": "e8e09cca16ee6f46e705c73ef91c8504126043b8644de3970eb9936753c849c8",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q02-s01",
+        "explanationHash": "c2c3996db7d705e1c126b7a83a5b82e44ab9d6c9e151039ec1cd1efdf0f421b2"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-2-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1750",
+      "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]エアフィン式気化器は、気化器出口のガス温度が外気温以下となることがあり、寒冷地等では冬期の気化器出口ガス温度低下対策として、気化器の後流にNG加温器を設置する等の措置が必要となる場合もある。[/quote]",
+      "questionTextHash": "d580c9bb466c41a394f9354ada8c0a61c2a7dd8313c61f36a39268ae244a0709",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q02-s02",
+        "explanationHash": "0cc7b236c650fc18e12fdcc7c2808d18a4b76e77523c335dd3ade947ec1897a2"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-2-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1750",
+      "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]弁により液が配管中に封じ込められるおそれのあるところには、必要に応じて液の異常圧力降下を防ぐための措置を講ずる。[/quote]",
+      "questionTextHash": "f51a6df4ee6a5200c524d21fa58e50d9a4b81c76cd273f34158e114c38a32c53",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。ミキシングホルダーは、製造したガスを混合し、供給するガスの成分、熱量及び燃焼性を均一化するための設備である。したがって、この記述は正しい。",
+            "questionId": "gas-shunin-otsu-2022-seizo-q02-s01",
+            "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]ミキシングホルダーは、製造ガスを混合し、供給ガスの成分、熱量及び燃焼性を均一化させる機能を有する。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。エアフィン式気化器は外気の熱を利用してLNGなどを気化させるため、運転条件や外気条件によっては、気化器出口のガス温度が外気温以下になることがある。寒冷地等では出口ガス温度の低下対策として、気化器の後流にNG加温器を設置するなどの措置が必要となる場合があるため、この記述は正しい。",
+            "questionId": "gas-shunin-otsu-2022-seizo-q02-s02",
+            "questionText": "都市ガスの製造設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。[quote]エアフィン式気化器は、気化器出口のガス温度が外気温以下となることがあり、寒冷地等では冬期の気化器出口ガス温度低下対策として、気化器の後流にNG加温器を設置する等の措置が必要となる場合もある。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2021,
+            "explanationText": "間違い。大型の常圧断熱式円筒形LNG貯槽は、内槽と外槽の間に断熱材を充てんして保冷するが、その空間を高度の真空状態にはしない。真空断熱は主に小型の加圧式貯槽などで用いられる方式であり、常圧貯槽の構造と異なるため誤りである。",
+            "questionId": "gas-shunin-otsu-2021-seizo-q02-s01",
+            "questionText": "LNG設備に関する次の記述のうち、正しいものはどれか。[quote]常圧断熱式凝固円筒形貯槽は、内槽と外槽からなる金属二重殻構造であり、断熱効果を高めるため内槽と外槽の空間は断熱材が充てんされるとともに、高度の真空状態に保たれている。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-20-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "赤火燃焼式に関する次の記述のうち、（イ）〜（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。\\n赤火燃焼式\\n空気割合 一次空気 0％ 二次空気 100％\\n炎の色 [ （イ） ]\\n炎の長さ [ （ロ） ]\\n炎の温度（℃） [ （ハ） ][quote]（イ）赤黄（ロ）長い（ハ）約900[/quote]",
+      "questionTextHash": "4e5baab697cf39d2c719334c2757d0ba0e8dad3408aef6cedab2090db5fd6a7d",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 341,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。赤火燃焼式は一次空気0%、二次空気100%の拡散燃焼で、赤黄色の長い炎となり、炎温度は約900℃である。したがって（イ）赤黄、（ロ）長い、（ハ）約900の組合せが最も適切である。",
+        "explanationHash": "f6fa9e5dac02579738741cb51cddd6e931dd68256f77d205545fa70abb9eb08d"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-21-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。[quote]ガスこんろの熱効率は、省エネ法*に基づくトップランナー基準の導入以降、炎の広がりを抑える、鍋底との距離を近づける等の改良により向上した。\\n*省エネ法とは、「エネルギーの使用の合理化等に関する法律」をいう。[/quote]",
+      "questionTextHash": "51f1753e529bdbcaa8713921c69404f2f8a9cee508bf12da100e298d77e6422e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正解は5です。赤火燃焼式では、燃焼前にガスへ一次空気を混合せず、燃焼時に周囲の空気を二次空気として取り入れます。このため、一次空気は0%、二次空気は100%です。炎は赤黄色で長く、温度は約900℃となるので、（イ）赤黄、（ロ）長い、（ハ）約900の組合せが最も適切です。",
+            "questionId": "gas-shunin-otsu-2022-shohi-q20-s05",
+            "questionText": "赤火燃焼式に関する次の記述のうち、（イ）～（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。赤火燃焼式空気割合一次空気 0%二次空気 100%炎の色 （イ）炎の長さ （ロ）炎の温度（℃） （ハ）",
+            "questionType": "group_choice"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲が広くなる。圧力上昇により燃焼を継続できる混合比の範囲が広がるため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-1",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。サーマルNOxは、燃焼ガス温度が高い条件で生成されやすく、空気比1付近で生成量が大きくなる。また、高温の燃焼ガス中での滞留時間が長いほど生成が進むため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-2",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-21-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。[quote]ガスオーブンは、熱風をファンによって強制的に撹拌しているため、調理時間が早く、一度に多量の調理ができる。\\n*省エネ法とは、「エネルギーの使用の合理化等に関する法律」をいう。[/quote]",
+      "questionTextHash": "4e60ec84be141be3bf0882b1986887657d54db384ebf93678135b506def6ba9c",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正解は5です。赤火燃焼式では、燃焼前にガスへ一次空気を混合せず、燃焼時に周囲の空気を二次空気として取り入れます。このため、一次空気は0%、二次空気は100%です。炎は赤黄色で長く、温度は約900℃となるので、（イ）赤黄、（ロ）長い、（ハ）約900の組合せが最も適切です。",
+            "questionId": "gas-shunin-otsu-2022-shohi-q20-s05",
+            "questionText": "赤火燃焼式に関する次の記述のうち、（イ）～（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。赤火燃焼式空気割合一次空気 0%二次空気 100%炎の色 （イ）炎の長さ （ロ）炎の温度（℃） （ハ）",
+            "questionType": "group_choice"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲が広くなる。圧力上昇により燃焼を継続できる混合比の範囲が広がるため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-1",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。サーマルNOxは、燃焼ガス温度が高い条件で生成されやすく、空気比1付近で生成量が大きくなる。また、高温の燃焼ガス中での滞留時間が長いほど生成が進むため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-2",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-21-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。[quote]FF暖房機には、立ち消え安全装置、点火時安全装置、転倒時安全装置等の安全装置が搭載されている。\\n*省エネ法とは、「エネルギーの使用の合理化等に関する法律」をいう。[/quote]",
+      "questionTextHash": "0caa8d94db3e06dd30b59045b886f2c75e3a536c1abed830da5797ec5b45fdf4",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正解は5です。赤火燃焼式では、燃焼前にガスへ一次空気を混合せず、燃焼時に周囲の空気を二次空気として取り入れます。このため、一次空気は0%、二次空気は100%です。炎は赤黄色で長く、温度は約900℃となるので、（イ）赤黄、（ロ）長い、（ハ）約900の組合せが最も適切です。",
+            "questionId": "gas-shunin-otsu-2022-shohi-q20-s05",
+            "questionText": "赤火燃焼式に関する次の記述のうち、（イ）～（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。赤火燃焼式空気割合一次空気 0%二次空気 100%炎の色 （イ）炎の長さ （ロ）炎の温度（℃） （ハ）",
+            "questionType": "group_choice"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲が広くなる。圧力上昇により燃焼を継続できる混合比の範囲が広がるため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-1",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。サーマルNOxは、燃焼ガス温度が高い条件で生成されやすく、空気比1付近で生成量が大きくなる。また、高温の燃焼ガス中での滞留時間が長いほど生成が進むため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-2",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-21-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。[quote]ファンヒーターでは、設定温度とセンサーで検知した室温との温度差分を電気量に変換することで比例弁を駆動させ、ガス量に比例して対流ファン風量を制御する。\\n*省エネ法とは、「エネルギーの使用の合理化等に関する法律」をいう。[/quote]",
+      "questionTextHash": "7d16409991c547af798106b8ee7c5005abc0110232104a1231e8b3548cd04d3c",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正解は5です。赤火燃焼式では、燃焼前にガスへ一次空気を混合せず、燃焼時に周囲の空気を二次空気として取り入れます。このため、一次空気は0%、二次空気は100%です。炎は赤黄色で長く、温度は約900℃となるので、（イ）赤黄、（ロ）長い、（ハ）約900の組合せが最も適切です。",
+            "questionId": "gas-shunin-otsu-2022-shohi-q20-s05",
+            "questionText": "赤火燃焼式に関する次の記述のうち、（イ）～（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。赤火燃焼式空気割合一次空気 0%二次空気 100%炎の色 （イ）炎の長さ （ロ）炎の温度（℃） （ハ）",
+            "questionType": "group_choice"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲が広くなる。圧力上昇により燃焼を継続できる混合比の範囲が広がるため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-1",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。サーマルNOxは、燃焼ガス温度が高い条件で生成されやすく、空気比1付近で生成量が大きくなる。また、高温の燃焼ガス中での滞留時間が長いほど生成が進むため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-2",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-21-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。[quote]回転ドラム式衣類乾燥機には、接触した衣類の抵抗値を測定して、湿り具合を判断する乾燥センサーが搭載されている。\\n*省エネ法とは、「エネルギーの使用の合理化等に関する法律」をいう。[/quote]",
+      "questionTextHash": "c6c82a25ad930a88e050a9e75783348b1cafb633c8c3fff2941b3582f5ca258e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "needs_review",
+      "source": null,
+      "reviewContext": {
+        "sameQuestionSetExamples": [
+          {
+            "examYear": 2022,
+            "explanationText": "正解は5です。赤火燃焼式では、燃焼前にガスへ一次空気を混合せず、燃焼時に周囲の空気を二次空気として取り入れます。このため、一次空気は0%、二次空気は100%です。炎は赤黄色で長く、温度は約900℃となるので、（イ）赤黄、（ロ）長い、（ハ）約900の組合せが最も適切です。",
+            "questionId": "gas-shunin-otsu-2022-shohi-q20-s05",
+            "questionText": "赤火燃焼式に関する次の記述のうち、（イ）～（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。赤火燃焼式空気割合一次空気 0%二次空気 100%炎の色 （イ）炎の長さ （ロ）炎の温度（℃） （ハ）",
+            "questionType": "group_choice"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲が広くなる。圧力上昇により燃焼を継続できる混合比の範囲が広がるため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-1",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。[/quote]",
+            "questionType": "true_false"
+          },
+          {
+            "examYear": 2022,
+            "explanationText": "正しい。サーマルNOxは、燃焼ガス温度が高い条件で生成されやすく、空気比1付近で生成量が大きくなる。また、高温の燃焼ガス中での滞留時間が長いほど生成が進むため、この記述は正しい。",
+            "questionId": "gasushunin-otsushu-gizyutsu-2022-19-2",
+            "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。[/quote]",
+            "questionType": "true_false"
+          }
+        ],
+        "liveQsetTextCandidates": []
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-22-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。[quote]10号の瞬間湯沸器は、水温20℃の水を45℃へ上昇させたお湯を毎分10L出せる能力を有している。[/quote]",
+      "questionTextHash": "cc490caed6c2f1006363a9b5999d1180bb364fa8540d339167efb6fe015a1d82",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 343,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。給湯能力の号数は、水温を25℃上昇させたお湯を毎分何L供給できるかを表す。10号は20℃の水を45℃へ上げたお湯を毎分10L供給できる能力である。",
+        "explanationHash": "1ee791aff5e8d70d5dcb70725e6237ea526cf922444c63e3ee920098f731e84f"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-22-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。[quote]自己診断機能には、給気ファンの回転数と電圧値を計測し、給排気通路の閉そく状態を診断する方法がある。[/quote]",
+      "questionTextHash": "48f0805433437f0867dd525999d2973f327b7f9685b0c286fb54a26dcae7b726",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 343,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。給排気通路の閉そく状態を診断する自己診断機能では、燃焼状態や給気ファンの風量低下、またはファンモーター電流値の低下を利用する。給気ファンの回転数と電圧値を計測するとしている点が誤り。",
+        "explanationHash": "932e56180685ce155667f01dd196eb16995a1bb6a5237dbb893fabf1e0693df0"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-22-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。[quote]給湯負荷に応じて最適な燃焼になるように、ガス量と空気量を制御することを空燃比制御という。[/quote]",
+      "questionTextHash": "4f00ebcd90a50b803c37f70ea42004747c81e8c10a1e9da2b5ffab786e86076a",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 343,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。給湯負荷に応じて最適な燃焼状態にするため、ガス量と空気量を制御する方式を空燃比制御という。",
+        "explanationHash": "99c9d89ab218164af7e453c90f33265c58333b619631741e8977c878741e155a"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-22-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。[quote]浴室暖房乾燥機の主要4機能とは、暖房、乾燥、涼風及び換気である。[/quote]",
+      "questionTextHash": "86198e654cdaee045b7274967548c400e8608d48b6beea37ae729275bcf338fb",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 343,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。浴室暖房乾燥機の主要機能は、暖房、乾燥、涼風、換気の4機能である。",
+        "explanationHash": "03d9b19f8cdd3b165470505ac19c530f0506e9ca10f4ccfa8ed3054174964c1d"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-22-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。[quote]ふろ給湯器の設置方式には、設置フリー形があり、ポンプの揚程により設置位置を選択できる。[/quote]",
+      "questionTextHash": "a08d5d1d47aff54e892f4994d5d53bfaa3f49d64c921f90a8c6e27487499c1a9",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 343,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。ふろ給湯器には設置フリー形があり、循環ポンプの揚程の範囲内で機器と浴槽の設置位置を選択できる。",
+        "explanationHash": "57e4a0271acb3de8fed9243ae113780c4bedc1fae6841a1e6909a505132e9258"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-23-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステムに関する次の記述のうち、誤っているものはどれか。[quote]麺ゆで器の丸釜式には、ダウンドラフト方式により、省エネルギー性を高めたタイプがある。[/quote]",
+      "questionTextHash": "d9754ffca1ff2341912e267d2a52283bdc76778291689b67299790d2181aac89",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 344,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。麺ゆで器の丸釜式には、燃焼排ガスの熱を有効利用するダウンドラフト方式により、省エネルギー性を高めたタイプがある。",
+        "explanationHash": "b89b0a599c237c6ba4a1de87c0cd86fdcca0a65a68e90ed79c80acfaa60a1b12"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-23-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステムに関する次の記述のうち、誤っているものはどれか。[quote]ガススチームコンベクションオーブンのバーナーは、ブンゼン燃焼方式とパルス燃焼方式のものがあり、蒸気発生部にはボイラー方式とインジェクション方式がある。[/quote]",
+      "questionTextHash": "eedebe42911d50f5fa8f155390c96846d45e1c9b154905431208e48d07f0f99e",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 344,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。ガススチームコンベクションオーブンのバーナーには、ブンゼン燃焼方式とブラスト燃焼方式のものがある。蒸気発生部にボイラー方式とインジェクション方式がある点は正しいが、バーナー方式をパルス燃焼方式としている点が誤り。",
+        "explanationHash": "a227e77e1d60b750c6681ce36ea466d98ec642e60612786243836b9c0164c24e",
+        "choiceSimilarity": 0.993289
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-23-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステムに関する次の記述のうち、誤っているものはどれか。[quote]吸収冷凍機の吸収冷凍サイクルは、蒸発、吸収、再生及び凝縮の各工程からなり、蒸発工程で作られる冷水を用いて冷房する。[/quote]",
+      "questionTextHash": "b4a8cf688c06fb62b8b8b81fdc0e19b282070476050351c748fa5115c4b145f7",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 344,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。吸収冷凍機の吸収冷凍サイクルは、蒸発、吸収、再生、凝縮の各工程で構成され、蒸発工程で冷媒を蒸発させて冷水をつくり、その冷水を冷房に用いる。",
+        "explanationHash": "2ce3b0fbf697649069c4cf7c0ae956dcf9be2bbb84f594a36c776482e6c449f3"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-23-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステムに関する次の記述のうち、誤っているものはどれか。[quote]コージェネレーションシステムの電主熱従運転は、電力の負荷に合わせて発電し、廃熱はできるだけ利用し、もし余れば放熱する方法である。[/quote]",
+      "questionTextHash": "db0dc65571e9fffd1c76736db0d2d58a07727f4d32d76484174336b9bad93bff",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 344,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。コージェネレーションシステムの電主熱従運転は、電力負荷に合わせて発電し、発生した廃熱をできるだけ利用し、余剰分は放熱する運転方法である。",
+        "explanationHash": "b1d0e008512b6027c2c139a6dc1c675e529a715944025503c308700d8b28ea25"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-23-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステムに関する次の記述のうち、誤っているものはどれか。[quote]家庭用固体酸化物形燃料電池（SOFC）の発電効率は、家庭用ガスエンジンコージェネレーションシステムの発電効率より高い。[/quote]",
+      "questionTextHash": "644859189ad0bb6e692fb9337b2a138eb1738b6377b872d0cea56cda7ccbe4cb",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 344,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。家庭用固体酸化物形燃料電池（SOFC）は高温作動型で発電効率が高く、家庭用ガスエンジンコージェネレーションシステムより発電効率が高い。",
+        "explanationHash": "c7f44f2755f4c7b0245c4ee4263e46ffd4e73dfc93304d462a41a84814f49551"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-24-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "換気及び給排気方式に関する次の記述のうち、誤っているものはどれか。[quote]機械換気の方法には、換気扇等のファンを、給気口に設置する第2種換気や、排気口に設置する第3種換気がある。[/quote]",
+      "questionTextHash": "2f1b346e3b1dbfcd5cfea9d9a64d267ce8f9b301038a0cc7a8506613d1edf185",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 345,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。第2種換気は送風機で給気し排気口から排気する方式、第3種換気は給気口から取り入れて送風機で排気する方式である。給気側にファンを置く第2種、排気側にファンを置く第3種としている記述は正しい。",
+        "explanationHash": "8824a37e6fb9ce2c985b1bac65d7d26d93f30e05caaf389bd770e24dd7e980c6"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-24-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "換気及び給排気方式に関する次の記述のうち、誤っているものはどれか。[quote]建築基準法により、火気を使用する台所等には、必ず法令で定められた換気設備を設けなければならない。[/quote]",
+      "questionTextHash": "55d190ced8e3f4da8f6b4bf027b983488c96411393abf96ae8359baebda5107d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 345,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。火気を使用する台所等の火気使用室では、燃焼排ガスや熱気を排出するため、建築基準法上の換気設備を設ける必要がある。",
+        "explanationHash": "f16a66c0c743f477712f2f2c4a9a0289f4290f23792666ea59f684c32a3d6633"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-24-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "換気及び給排気方式に関する次の記述のうち、誤っているものはどれか。[quote]集合住宅において、パイプシャフトの扉部にはRF式機器が、パイプシャフト内部（壁面）にはFF式機器が設置される。[/quote]",
+      "questionTextHash": "8d9e873c8fdfddc801ffce9819990a3dc9edfc9f1b88e481f2eb6738eef0fa75",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 345,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。集合住宅のパイプシャフトでは、扉部など屋外に開放される部分に屋外式（RF式）機器、内部の壁面に密閉式（FF式）機器を設置する扱いがある。",
+        "explanationHash": "843542a2f7c8ee635bca8a6a33d181caf039c1e0a6cf65774503c91d98bbe977"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-24-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "換気及び給排気方式に関する次の記述のうち、誤っているものはどれか。[quote]CF式機器の一次排気筒は、設置環境に応じて長さを調整する必要がある。[/quote]",
+      "questionTextHash": "5b6603d5d25f4bb42f04e543b5f3a67fe44fc60596d217f75c62042dc76ce0d1",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 345,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。CF式機器の一次排気筒は機器の一部であり、設置現場で短くしたり曲げたりして長さを調整してはならない。設置環境に応じて長さを調整する必要があるとしている点が誤り。",
+        "explanationHash": "c979fdb887893fa9154672b6a0b3dd36d35471c24e79e6e36f70875ae3b75ff1"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-24-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1950",
+      "questionText": "換気及び給排気方式に関する次の記述のうち、誤っているものはどれか。[quote]RF式機器の設置工事は、ガス消費機器設置工事監督者の監督下で施工する必要はない。[/quote]",
+      "questionTextHash": "befadadfb079b93c61209af3263e13d7f3ec2b7e8e87db991ea1bdbab7241b8f",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 345,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。屋外式（RF式）機器は屋外で給排気する方式であり、RF式機器の設置工事そのものは、屋内設置の特定ガス消費機器設置工事の監督対象ではない。",
+        "explanationHash": "78792b4cc1fbcc99561d721c4408f9387091c557eaa83a44298e9e9130990c4e"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-26-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1970",
+      "questionText": "警報器に関する次の記述のうち、誤っているものはどれか。[quote]ガス警報器は、メタン濃度が0.2〜0.5%程度で鳴り始めるよう調整されているものが多い。[/quote]",
+      "questionTextHash": "a25e66deec98e644c17c72513b6fd703c3233b22cfd5cd46668660c91cb4c2ca",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 347,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。都市ガス用のガス警報器は、爆発下限界より十分低い濃度で警報するよう設定され、メタン濃度0.2〜0.5%程度で鳴り始めるものが多い。",
+        "explanationHash": "660e12ef71675e0f04e147900175f45d024f6fbacbc29a92baaf6289cbd73ac7",
+        "choiceSimilarity": 0.977273
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-26-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1970",
+      "questionText": "警報器に関する次の記述のうち、誤っているものはどれか。[quote]電池式ガス警報器には、火災警報機能や不完全燃焼警報機能を搭載したものがある。[/quote]",
+      "questionTextHash": "45028c22473203f5999c7b7c39c0f53ea47cf46247fa8a26be774f74fa65bdd2",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-shohi-q26-s02",
+        "explanationHash": "99c17a2e1c943ba7d22f96bffb049020e0f3c6c3f6e0dbdfd3f449a269f147db"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-26-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1970",
+      "questionText": "警報器に関する次の記述のうち、誤っているものはどれか。[quote]半導体式ガス警報器は、センサーに可燃性ガスが触れるとその表面に化学吸着して、半導体の電気伝導度が低下する性質を利用してガスを検知する。[/quote]",
+      "questionTextHash": "1a0203c25443539eebaef7e20859c80564d8fea1d22edbab65797606a8c36a99",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-shohi-q26-s03",
+        "explanationHash": "c1f4e6a8865493161ef5d01e0b2f5ca47bf85a6ca42e8bb1e63c7ad14e7903e6"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-26-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1970",
+      "questionText": "警報器に関する次の記述のうち、誤っているものはどれか。[quote]業務用換気警報器に用いられる電気化学式センサーの構造及び原理は、ほぼ燃料電池と同様である。[/quote]",
+      "questionTextHash": "78d7f2b2338063e88404c0858dc217915ec2bc909174d5b734042fb2b076bee5",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-shohi-q26-s04",
+        "explanationHash": "dfc0abff3a376d2abc8131990c94e39257c4cd134db2ef3d2b3b00b3786ab1a2"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-26-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1970",
+      "questionText": "警報器に関する次の記述のうち、誤っているものはどれか。[quote]業務用換気警報器は、ガス機器から水平距離は50cm以上8 m以内で、ガス機器が設置してある部屋と同一の室内に設置しなければならない。[/quote]",
+      "questionTextHash": "2c0828e00e2967bda38de0319afc51af328d016b8308575f9da95442ead44266",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 347,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。業務用ガス警報器は、ガス機器から水平距離50cm以上8m以内で、ガス機器を設置した部屋と同一室内に設置する。",
+        "explanationHash": "a2b1ff9d9de920d57979bde9f0758d6694091dd25f4b2ff366cae2a88d9bef28",
+        "choiceSimilarity": 0.969231
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-3-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1830",
+      "questionText": "電気、計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ブルドン管式圧力計は、ブルドン管の機械的な変位量を利用するもので、一般に高圧測定には不向きである。[/quote]",
+      "questionTextHash": "0c06e9a15bceb535889490330ded05ff8fe2c48601f086c9977b6976c261d0d7",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q03-s01",
+        "explanationHash": "107007ce8c5217821b020b5c00fff337723a5d6c654c17255c57f772bf639131"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-3-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1830",
+      "questionText": "電気、計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]オリフィス式流量計は直管部を設ける必要があるが、カルマン渦式流量計は直管部を設ける必要がない。[/quote]",
+      "questionTextHash": "532420b688e10e79d79846aaab568dc21dad77b4abfed244c8acf85eaaa0135d",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q03-s02",
+        "explanationHash": "35dacfb6eb94ac398edb911fdcb91febfbb6e4f63df60cdd693523c325b2a2d6"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-3-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1830",
+      "questionText": "電気、計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]熱電対はゼーベック効果を利用したもので、基準接点の温度を一定に保つ必要があり、広範囲の温度測定が可能で、振動・衝撃にも強い。[/quote]",
+      "questionTextHash": "2c72190d2eab11221e4e1a5d7217de9d61111326d4bb471de40be80af2a0d0bd",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q03-s03",
+        "explanationHash": "6b773a40a1b296a50dd3270add070c7a746ff1e4106f50e3f86bd459e0b1f1b4"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-3-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1830",
+      "questionText": "電気、計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]UPSは、交流入力を整流部で直流に変換し、蓄電池に充電するとともに、インバータ部で一定電圧、一定周波数の交流に変換後出力する装置である。[/quote]",
+      "questionTextHash": "617cdff140752bfc9551e869e2a35bffd65dfa86d9adc98ebcb217e581de1072",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 324,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。UPSは交流入力を整流部で直流に変換して蓄電池に充電し、インバーター部で一定電圧・一定周波数の交流に変換して出力する装置である。",
+        "explanationHash": "9a9b249764cae42f19a898a612d109a365f7056597ea75f1fadd4d8bf2c32ae4",
+        "choiceSimilarity": 0.992701
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-3-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1830",
+      "questionText": "電気、計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]PID制御のP動作とは、目標値とプロセス値の偏差の大きさに比例する制御動作をするもので、この動作だけではオフセットが残る。[/quote]",
+      "questionTextHash": "91e4dc8ea60b5cfd5d1faef837572bbfd0d9edffd799921f14129a97469817ca",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 324,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。PID制御のP動作は、目標値とプロセス値の偏差に比例した操作量を出す制御動作であり、P動作だけでは一般にオフセットが残る。末尾の数字はサイト由来の表記ノイズとみなし、本文の意味で判断する。",
+        "explanationHash": "1f5fa186bc17cfaa33c92fe0837a47cec9b9db96ebbaba86ea38e03f55c2bfcd",
+        "choiceSimilarity": 0.99187
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-4-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1810",
+      "questionText": "LNGが気化した天然ガスをLPGで増熱して45MJ/m³Nの供給ガスを1000m³N製造する場合の天然ガスの使用量（m³N）として最も近い値はどれか。ただし、天然ガス及びLPGの発熱量は以下のとおりとする。\\n天然ガスの発熱量（MJ/m³N）40\\nLPGの発熱量（MJ/m³N）100[quote]917[/quote]",
+      "questionTextHash": "6e90cb7190e573ee7f407ea38e73615d339d156316b98776fbc597da8854ff3d",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 325,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。天然ガス使用量をx m³N、LPGを1000-x m³Nとすると、40x+100(1000-x)=45×1000 となる。これを解くとx=916.7m³Nであり、最も近い917m³Nが正しい。",
+        "explanationHash": "95822249d88e09cf5470868d3cdc2f68467ebbf2ea0b4896dd6fd1e6b9a939a5"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-5-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1840",
+      "questionText": "都市ガスの付臭に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガスに付臭剤を注入する方式は、大別して液体注入方式、蒸発方式及び液付臭方式の3種類がある。[/quote]",
+      "questionTextHash": "5d985ef860042e32b44f84c3d56b720ea1b830c075f004e0fdbfc7774c899ed2",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q05-s01",
+        "explanationHash": "da3c91d9d77c34698f6a1da20cc238cb8766907fd6f58add968b5a1e29e75207"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-5-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1840",
+      "questionText": "都市ガスの付臭に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]滴下注入方式は、注入量の調整をニードル弁等によって行うが、手動式の場合はその精度は低いため、流量変動の少ない小規模の付臭設備に多く用いられる。[/quote]",
+      "questionTextHash": "d13fef83e8069665a93d8b26cedec5feaa03a2cec9d447c5ca04e5e428c42b9d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q05-s02",
+        "explanationHash": "b51263be58a7815291e6ffed0f8a500344a539242e559052b76d27eafbfa78ec"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-5-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1840",
+      "questionText": "都市ガスの付臭に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]付臭剤に求められる要件として、ガスの供給系統を腐食せずに安定性のよいものであることや、腐食疲労を起こしにくいことなどがある。[/quote]",
+      "questionTextHash": "a9064a53c2fd030d09dfd3cd5090d4887b87d2b0238f5ad0b2bc02d0713fe8b6",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q05-s03",
+        "explanationHash": "d5b1c176c66b2a3f8f9309d18a24dedb1fec8a7a9df9ea81243ca63ff10feeb4"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-5-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1840",
+      "questionText": "都市ガスの付臭に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]臭気濃度とは、試料ガスを無臭の空気で徐々に希釈し、感知できる最大の希釈倍数をいう。[/quote]",
+      "questionTextHash": "fccec7e009c62d9b055193fcf11629f9d13b229c3a6a8ae0f59d4f529c534f1c",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q05-s04",
+        "explanationHash": "30dfd96efc5e640a553a642f38a9cb2395cd34b01c17f597e20f5b951d8a4d67"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-5-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1840",
+      "questionText": "都市ガスの付臭に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]付臭は、ガスの漏えいを早期に検知するためのものであり、臭気濃度が高すぎても特に問題は生じない。[/quote]",
+      "questionTextHash": "b11d0c40f5c87e249bdc15b6fb1b9f40c290d3d1165978023549125755dcdcb2",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q05-s05",
+        "explanationHash": "00ad296105e4d73454e7236e7c59dc285edf9922dc737411cf066f542d637ccf"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-6-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造所の地震対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガス事業における地震対策は、①設備対策、②緊急対策、③復旧対策で構成される。[/quote]",
+      "questionTextHash": "da8acf014e5f742181721da3214fba87762885f246c4743b4ca1893cd866e1be",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q06-s01",
+        "explanationHash": "234f5b1a03c8a504a85d32593f23e13165bccca2c0945b799f5a111b9df5e433"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-6-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造所の地震対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]設備対策は、設備の重要度に応じた耐震設計を行い、耐震性能の維持を図るための定期的な維持管理を行うことが基本である。[/quote]",
+      "questionTextHash": "3367a58c55aaabcf7d58c7b4e6cf03ff3d15ac585494df89c4941e2f4b733b2d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q06-s02",
+        "explanationHash": "954e3113d1d1c099d7c2eeac5a39054faa265b2a9eb6792913ee20dc28d3c016"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-6-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造所の地震対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]緊急対策は、地震発生時の設備の緊急停止を防止し、ガス送出を継続することが基本である。[/quote]",
+      "questionTextHash": "84863470455b721fa9ae796d02640ced37acada981e683fee14c4ebe81c400f7",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q06-s03",
+        "explanationHash": "0191a2e79d1452d67a46548ebf7761f45d4d4f65d9377102e35bdd141525cb19"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-6-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造所の地震対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]地震発生直後の設備点検では、まずは、個別の機器ごとに詳細な点検を実施する。[/quote]",
+      "questionTextHash": "1aba643d0f6ed3312c7569c43c6a3ca47c679c203c7e44c7cf6927ec8fde17ae",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q06-s04",
+        "explanationHash": "83dda529eef3c79ff1157ae9b2989b20c27266a9fb7ce1af01da241ad05da880"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-6-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造所の地震対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]復旧対策において、原料・燃料や水等のユーティリティーは平常時より備蓄を確保するとともに、その調達ルートをあらかじめ確立しておくことが望ましい。[/quote]",
+      "questionTextHash": "b96c1c999d84c4434469447f8a532c1f83cf695bf9428d782383572d3c35eb98",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q06-s05",
+        "explanationHash": "2ea1f87e0e2fd2cf2c5bd7ad461af971b3437f9579bf83b712d75f748c01fff9"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-7-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]レベル2地震動に対する耐震設計の考え方は、「構造物に変形は生じるが、倒壊、漏えいは生じず、人身事故を防止」することである。[/quote]",
+      "questionTextHash": "ab17ca6e8104c02b69ab6e51f3fa9c1dbda0e1c93dd50e1e5633258cca7d57c9",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q07-s01",
+        "explanationHash": "14941cd2938e49d23f61093d95b759fdca944d86e009dbb32dd14afca0805deb"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-7-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]稼働調整方式である流量制御方式は、設備負荷を一定に保つことができ、かつ急激な需要変動に追従できる制御方式である。[/quote]",
+      "questionTextHash": "95f92e2caf4adddf1004fb99e426b0f890af8961c990b990e45ca8a0d0e8dc7e",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q07-s02",
+        "explanationHash": "b2c3ed8904be92dd2928be1e5f0991b791ed93f146d4497ebded77f3c2eee851"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-7-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガス主任技術者は、保安上重要なガス工作物を溶接する場合、溶接施工記録に問題がないことを確認しなければならない。[/quote]",
+      "questionTextHash": "08c7e2b3fd357ceaf407c19e35ff15cb1461df07912f8e5c041829013a48d85d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q07-s03",
+        "explanationHash": "68a6a70b7a397ba2101a8c48baa65f1a7feaf6e316df2bf9da8b637e8ac648f7"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-7-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]製造設備に係る巡視・点検は、保安規程に定める内容と製造所の操業実態にあわせて実施するが、その巡視・点検結果を記録する必要はない。[/quote]",
+      "questionTextHash": "e7a182a0ccf28a1458a4e86da37db178c4ab36c640c7a9c7b6455f2cabea09c0",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q07-s04",
+        "explanationHash": "409b4f209d4fe701c3d0636b4467777f678198921f937ba811ec7d2c19dfc1d0"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-7-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]製造設備を安全かつ円滑に運転するため、あらかじめ運転管理基準、運転操作要領等を作成し、それに従って関係者の教育・訓練を実施する。[/quote]",
+      "questionTextHash": "18cfe41201f7b42283984e6852578f6f61dd9bdda1f4034ed196ce3ac97edaa4",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q07-s05",
+        "explanationHash": "2589a0d6b83e6b8953d2d1afffd309dea21bbce1a29e6b3bb296413bee284dd3"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-8-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造設備の保全に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]引張応力発生下にある金属に腐食作用が働いて、破断応力以下でも割れが生じる現象を応力腐食割れという。[/quote]",
+      "questionTextHash": "97c776df41aa155a1f624afa4fbae68a98e8234174e0aae565b0c8d7b62299ca",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 329,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。応力腐食割れは、引張応力が作用している金属に腐食環境が加わり、破断応力以下でも割れが生じる現象である。",
+        "explanationHash": "ca3e0645358920d53f0fecbef338eacf3884532e16cc68a1dcb37ed065ab1b5f"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-8-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造設備の保全に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]粒界腐食とは、ステンレス鋼等不動態皮膜を持つ金属が非金属物質と面を接していたり、異物が付着していたりすると、接触面や異物との間にできるすきま部分に局部腐食が生じる現象をいう。[/quote]",
+      "questionTextHash": "d28ac5551b673e4607f75e476db26fa1d9f714e440cb4068a9f32380406f2422",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 329,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。ステンレス鋼など不動態皮膜を持つ金属と非金属物質・異物との接触部など、すきま部分で局部腐食が生じる現象はすきま腐食である。粒界腐食としている点が誤り。",
+        "explanationHash": "347c665c6773a9407784eabd952dcd09cf285dc8df807221696dcd21dfbc2152"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-8-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造設備の保全に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]放射線透過試験は、欠陥の形状をフィルム上に投影された像としてみることができ、場所的な制約もなく、わかりやすく直観性がある検査である。[/quote]",
+      "questionTextHash": "f00265dfeb94a6b8879490a0484b07d8676544f8af44bbb190a5cd4e77156a04",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 329,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。放射線透過試験は、欠陥の形状をフィルム上の像として直観的に確認できる利点がある一方、放射線管理区域や照射方向、フィルム配置などの制約を受ける。場所的な制約もないとしている点が誤り。",
+        "explanationHash": "bd72320d54007dc97fbe64a5e9dec96e4214be5ea6b37b2c345f3603d4616084"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-8-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造設備の保全に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]故障しても影響の少ない設備や代替設備がある場合、経済性を考慮して故障発生後に設備を運用可能な状態に回復する保全を事後保全という。[/quote]",
+      "questionTextHash": "3032a068d9358ca16674af548ccf0b44ad6fd949d60198e0e43cd29a519bd872",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 329,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。事後保全は、設備が故障した後に運用可能な状態へ回復する保全方式であり、故障しても影響が少ない設備や代替設備がある場合などに、経済性を考慮して適用される。",
+        "explanationHash": "0726a99c7f7445b77e1d69bede243c8e8763223507d016f28c3ecfd036828b6e",
+        "choiceSimilarity": 0.96875
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-8-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionText": "製造設備の保全に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]浸透探傷試験は、金属、非金属あらゆる材料の表面欠陥を調べることができる。[/quote]",
+      "questionTextHash": "1481ed073530331b82565000bfb6a3ac0eb37629d0e40277026a5cbbe8ecaf15",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 329,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。浸透探傷試験は、金属・非金属を問わず、表面に開口した欠陥を検出する方法として広く適用できる。",
+        "explanationHash": "919eab2987a80dc0e62792e58686f0f30b797a5279b36424fc4115ed4f522c7b",
+        "choiceSimilarity": 0.986301
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-9-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1780",
+      "questionText": "環境対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]窒素酸化物はノックス（NOx）といい、燃料中に含まれる各種窒素化合物の燃焼により生成するものと、空気中の窒素が燃焼による高温状態で酸化されて生成するものとがあり、前者をサーマルNOxという。[/quote]",
+      "questionTextHash": "1c4dc974b4d1a3a09d95ddc8b01fdb5faafa7d512aea932519f0150ba2ae1af1",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 330,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。燃料中の窒素化合物に由来して生成するNOxはフューエルNOxであり、空気中の窒素が高温で酸化されて生成するNOxがサーマルNOxである。前者をサーマルNOxとしている点が誤り。",
+        "explanationHash": "00e508f40bb81cab9c3fcedf7ea6d6e32568c220e721cf07743ae1000b8d070f",
+        "choiceSimilarity": 0.972973
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-9-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1780",
+      "questionText": "環境対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ばいじんとは、燃料等の燃焼に際して発生する、灰分又はすす等の固形物のことをいい、燃焼温度、空気比の適正な管理等の燃焼管理を強化することにより発生量を減少させることができる。[/quote]",
+      "questionTextHash": "b1f7ef9e125e102eaf316ad407c370d5ecfbe22c24c30fcf3fe37f5d6bf6da35",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q09-s02",
+        "explanationHash": "e0784e21c25b14b6d024baea16e63245c07f319f1e3e6cdc5c06105e93c9b641"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-9-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1780",
+      "questionText": "環境対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]都市ガス事業者にとって、環境問題への対応は、企業の社会的責任（CSR）として大きな柱になってきている。[/quote]",
+      "questionTextHash": "4776ad2067710427d271eec6abd3711da68b7a80b239d9558afa7303bf96d835",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q09-s03",
+        "explanationHash": "02cf46c486fd56414912f8d151343daa25137783d13e2d489da82dbf14349023"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-9-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1780",
+      "questionText": "環境対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]交流回路における電力（W）は、電圧（V）×電流（A）×力率で示され、力率が1に近いほど損失が少ない。[/quote]",
+      "questionTextHash": "824934c470e479b8c9f03cf779403871838b21fe14784c61f406e5fedcdaea3c",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q09-s04",
+        "explanationHash": "46fb7062ee9a320da1b88acddc31da19a4eeb27f86890d0eb7c10cdb7e3e723b"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2022-9-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1780",
+      "questionText": "環境対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]廃棄物の処理及び清掃に関する法律に定義された産業廃棄物に該当しない廃棄物は、すべて特別管理産業廃棄物になる。[/quote]",
+      "questionTextHash": "1551e2f296075ab407cf8d710bf8160a977f2b76ef6052b11642b316f344ac72",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-seizo-q09-s05",
+        "explanationHash": "1fe71aa767b9c4cfa04b33725b12532f810aff9826bb7c23d52c96232f72faab"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-10-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1520",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]製造設備（ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。）には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合にガス又は液化ガスの流出及び流入を速やかに遮断することができる適切な装置を適切な箇所に設けなければならない。[/quote]",
+      "questionTextHash": "9b863b46be13d369c2cbc9fc6996d185eb6e57e44483533384aefb6ef46009bc",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q10-s01",
+        "explanationHash": "178e59c9997623ee43f592d4721e73d0daa6abafa36c43918d3a9a2f5375edcd"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-10-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1520",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]移動式ガス発生設備は、ガス又は液化ガス（不活性のものを除く。）が漏えいした場合の火災等の発生を防止するため、適切な場所に設置し、容易に移動又は転倒しないように適切な措置が講じられていなければならない。[/quote]",
+      "questionTextHash": "69bbedeeadb95444c1c9bd63b520791352b48ad2242613c3ffa7a4bb8a575fe5",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 300,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q10",
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。移動式ガス発生設備は、ガス又は液化ガス（不活性のものを除く。）が漏えいした場合の火災等を防止するため、適切な場所に設置し、容易に移動又は転倒しない措置を講じる必要がある。",
+        "explanationHash": "0e7bda7ed4fa02d4ac9a5ddd0231d1e04e1d3703b1c91a9c267b3c425dfff5bf"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-10-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1520",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]容器に附属する気化装置内においてガスを発生させる特定ガス発生設備であって当該気化装置を電源によって操作するものは、自家発電機その他の操作用電源が停止した際にガスの供給を遮断するための装置を設けなければならない。[/quote]",
+      "questionTextHash": "8b116e526a95d2690e55182efda07d1c425e353ca8d49a023513373761918ec7",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 300,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q10",
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。容器に附属する気化装置内でガスを発生させる特定ガス発生設備で、当該気化装置を電源で操作するものには、操作用電源が停止した際にガスの供給を維持するための装置を設ける必要がある。ガスの供給を遮断するための装置としている点が誤りである。",
+        "explanationHash": "2e36fed9383104106324a9bf35ad6b2b7a4003b79d411906f67f9ea504f97fa5"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-10-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1520",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガスの通ずる部分に直接液体又は気体を送入する装置を有する製造設備（移動式ガス発生設備を含む。）は、送入部分を通じてガスが逆流することによる設備の損傷又はガスの大気への放出を防止するため逆流が生じない構造のものでなければならない。[/quote]",
+      "questionTextHash": "7574c2f25004f66215fce385af0e35d0aa4e100472366baaab23e814a58fbf33",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 300,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q10",
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。ガスの通ずる部分に直接液体又は気体を送入する装置を有する製造設備（移動式ガス発生設備を含む。）は、逆流による設備損傷又はガスの大気放出を防ぐため、逆流が生じない構造でなければならない。",
+        "explanationHash": "83eb14de3a71feb4fba844fa349d7f55f19b159240d8db8ee1607d9b4d53e9fe"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-10-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1520",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]気化装置又はそれに接続される配管等には、気化装置からガスの流出を防止する措置を講じなければならない。ただし、気化装置からのガスの流出を考慮した設計である場合は、この限りでない。[/quote]",
+      "questionTextHash": "cad04e4e83496577d3840158e41fd5ed9ca0edcbcd9f4fcab8578724715cf0cb",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 300,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q10",
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。気化装置又はそれに接続される配管等に講じるのは、気化装置から液化ガスの流出を防止する措置である。ガスの流出としている点が誤りである。",
+        "explanationHash": "517c256fe198ff308b28dee78801615ef18e314067142ef0818cc1724c7049f7"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-11-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1540",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]水のたまるおそれのある導管には、適切な勾配を設けなければならない。[/quote]",
+      "questionTextHash": "53cf3a031b9227dc0133540ec0c5be1b6a8f1f278924f59279184c8cd30dc64f",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q11-s01",
+        "explanationHash": "dcf15e1d2cecfd2b0a4d7cff7e8343174dcf1f88e3f3832ab23227aa2ec0aeab"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-11-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1540",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]導管には、設置された状況により腐食を生ずるおそれがある場合にあっては、当該導管の腐食を防止するための適切な措置を講じなければならない。[/quote]",
+      "questionTextHash": "9af329c6c066509f17200278b7795e0ef85e15d292d9442c7a0d42897df1b0d0",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q11-s02",
+        "explanationHash": "731e1394e0b918ba4bd910e6dab14abccfa55c9eb7f5f1efb32dd95033510859"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-11-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1540",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]道路に埋設される本支管（最高使用圧力が5kPa以上のポリエチレン管に限る。）には、掘削等による損傷を防止するための適切な措置を講じなければならない。[/quote]",
+      "questionTextHash": "32d665a371505e25c06780ed850364b7754df3728a6a9871dd0a258f9b1b23e0",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q11-s03",
+        "explanationHash": "ecc5d6406b8fa36d20a41d6b59ef96307f0be638e307afccf48ed8f757c84387"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-11-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1540",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]最高使用圧力が低圧の本支管であって、特定地下街等へのガスの供給に係るものには、当該特定地下街等において災害が発生した場合に、当該特定地下街等へのガスの供給を、当該災害により妨げられない箇所において、容易に遮断することができる適切な措置を講じなければならない。[/quote]",
+      "questionTextHash": "e1899bd845a22fdd97ea1fd080311eb1d3668bfec99a8ba6e94dd801909ab32b",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q11-s04",
+        "explanationHash": "c1ea539b83748b4d36a04f964e294e1be1043c44bb1d4c18a0184c8d2c3822a8"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-11-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1540",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]ガス事業者がガスの使用者との取引のために使用するガスメーター（使用最大流量が毎時16m³以下、使用最大圧力が4kPa以下及び口径250mm以下のものに限る。）は、ガスが流入している状態において、災害の発生のおそれのある大きさの地震動、過大なガスの流量又は異常なガス圧力の低下を検知した場合に、ガスを速やかに遮断する機能を有するものでなければならない。[/quote]",
+      "questionTextHash": "7149b91ef5bad8fe4867dd70973f4591c39867a2e864f8da938a196ca0a3c6f5",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q11-s05",
+        "explanationHash": "e2d2ab196fc808e7cac07098fb5d383a2c07c28d69ca32b737351f44e2b04b1f"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-12-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1620",
+      "questionText": "技術基準で規定されている導管に関する次の記述のうち、誤っているものはいくつあるか。ただし、イ、ロについては、漏えい検査を行う区間に漏えい検知装置が設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。[quote]道路に埋設されている導管からガス栓までの間に絶縁措置が講じられており当該絶縁措置が講じられた部分からガス栓までの間でプラスチックにて被覆された部分は、埋設の日以後6年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。[/quote]",
+      "questionTextHash": "9b7d319da0061560cdc0cc412d67da20ab107ea4dbcebb2713ed5e5f43f41d39",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q12-s01",
+        "explanationHash": "a7ab6d41fc36e41867dc9650c9518f2898838cab66f6b9c2b3e4bcd9b43fe7f9"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-12-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1620",
+      "questionText": "技術基準で規定されている導管に関する次の記述のうち、誤っているものはいくつあるか。ただし、イ、ロについては、漏えい検査を行う区間に漏えい検知装置が設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。[quote]道路に埋設されている導管からガス栓までの間に設置されているポリエチレン管は、埋設の日以後6年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。[/quote]",
+      "questionTextHash": "5e54a237a16f7de7a659ebc8ef14b4028e07cdb7537feeae38970573f88142ec",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q12-s02",
+        "explanationHash": "e9828b2d946352f1a4627e171debce8d8d57f3c0463109cf04a800ddf5004f20"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-12-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1620",
+      "questionText": "技術基準で規定されている導管に関する次の記述のうち、誤っているものはいくつあるか。ただし、イ、ロについては、漏えい検査を行う区間に漏えい検知装置が設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。[quote]最高使用圧力が高圧の導管は、建物の内部又は基礎面下（当該建物がガスの供給に係るものを除く。）に設置してはならない。ただし、ガスが滞留するおそれがない場所に設置されるものは除く。[/quote]",
+      "questionTextHash": "032cd462d4b2a2a90624580dbe9b5d3c44aafbe8d6e93efe6c6ff6614c629680",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q12-s03",
+        "explanationHash": "f4d76c32db3747f95ff2150dfd2615794787880250e80d4894f56e9fd131fc49"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-12-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1620",
+      "questionText": "技術基準で規定されている導管に関する次の記述のうち、誤っているものはいくつあるか。ただし、イ、ロについては、漏えい検査を行う区間に漏えい検知装置が設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。[quote]特定ガス発生設備により発生させたガスを供給するための導管を地盤面上に設置する場合においてその周辺に危害を及ぼすおそれのあるときは、その見やすい箇所に当該導管により供給するガスの圧力、当該導管に異常を認めたときの連絡先その他必要な事項を明瞭に記載した危険標識を設けること。[/quote]",
+      "questionTextHash": "ab45086276ecad1bbf6b68343c6d456cfd8d9bc1ddbba04bb888eb44fcf28476",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q12-s04",
+        "explanationHash": "fe864241bf8cb4f01b56bbac8ba7674b71ebc209a0398d17647ffb8f06b85dcd"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-12-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1620",
+      "questionText": "技術基準で規定されている導管に関する次の記述のうち、誤っているものはいくつあるか。ただし、イ、ロについては、漏えい検査を行う区間に漏えい検知装置が設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。[quote]導管を共同溝に設置する場合は、ガス漏れにより当該共同溝及び当該共同溝に設置された他の物件の構造又は管理に支障を及ぼすことがないよう導管に適切な措置を講じ、かつ、適切な措置が講じられた共同溝内に設置しなければならない。[/quote]",
+      "questionTextHash": "c53e161deadda39ca2c4a033b7f7574104092565a5ce5c249f560e848ff1568e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q12-s05",
+        "explanationHash": "2627786f20a9128820ca615fc372622fd2d16069b659097f7b785f157c411e5c"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-13-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1550",
+      "questionText": "技術基準で規定されている整圧器に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]浸水のおそれのある地下に設置する整圧器には、浸水を防止するための措置を講じなければならない。[/quote]",
+      "questionTextHash": "e3abfe6f08b1accc94021a3077440c7cb486b2bfee8360f4a480c47b6390f590",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q13-s01",
+        "explanationHash": "ae83c3b45b06fc15c7906a2e9fb3d508ff7c9ae01cc6f01d250d094bc3f89325"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-13-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1550",
+      "questionText": "技術基準で規定されている整圧器に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結を防止するための措置を講じなければならない。[/quote]",
+      "questionTextHash": "4abcce3d71cbf5729fd3c8d47a192c22ef46313a3fafdea1ef43fb972a49e749",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q13-s02",
+        "explanationHash": "d32d119f08bad7f4c88f51273631aefbcd74d0613d863f509cf990b68e8a9c4f"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-13-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1550",
+      "questionText": "技術基準で規定されている整圧器に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]最高使用圧力が中圧の整圧器には、ガスの漏えいによる火災等の発生を防止するための適切な措置を講じなければならない。[/quote]",
+      "questionTextHash": "30effaaee827e62c1fefe7e80ee85c2bf30f540a43d9aa076281482b199c5983",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q13-s03",
+        "explanationHash": "a1898dbe99d5890cd3067328b19fbadfbc7d0b1a1efb0e945dc7e5c638e11367"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-13-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1550",
+      "questionText": "技術基準で規定されている整圧器に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]一の使用者にガスを供給するための整圧器には、入口に不純物を除去する装置を設けるとともに、ガスの圧力が異常に上昇することを防止する装置を設けなければならない。[/quote]",
+      "questionTextHash": "1cd5383f608defa593ce72defd594d33c810a47043870fc844a29a1169728228",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q13-s04",
+        "explanationHash": "8a4158f4fc723c70ad36300a309aab61ddac88a568e3ce81d8658ba99374cdc5"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-13-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1550",
+      "questionText": "技術基準で規定されている整圧器に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]整圧器の制御用配管、補助整圧器その他の附属設備は、地震に対し耐えるように支持されていなければならない。[/quote]",
+      "questionTextHash": "8d934f528001f8c94ab2eacae97c914e9a0d081cb71a687baae4e53369d92c67",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q13-s05",
+        "explanationHash": "bb63174afc6e0662ecdbfbaedc7088bbf564557524963de0a5b3991cbee1f63e"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-14-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1270",
+      "questionText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」（以下「特監法」という。）に関する次の記述のうち、誤っているものはどれか。[quote]「ガス用品」とは、主として一般消費者等がガスを消費する場合に用いられる機械、器具又は材料（液化石油ガス器具等を除く。）であって政令で定めるものをいう。[/quote]",
+      "questionTextHash": "211a59d571e382fed41771ffa7264695e4c1d988fce19beafdcd764cd7732ac6",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 304,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q14",
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。ガス用品とは、主として一般消費者等がガスを消費する場合に用いられる機械、器具又は材料で、液化石油ガス器具等を除き、政令で定めるものをいう。",
+        "explanationHash": "34a617438e55244ad1b752720211953f843fd7e96b72ffaad3c5d31b05353521"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-14-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1270",
+      "questionText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」（以下「特監法」という。）に関する次の記述のうち、誤っているものはどれか。[quote]「特定ガス用品」とは、構造、使用条件、使用状況等からみて特にガスによる災害の発生のおそれが多いと認められるガス用品であって、開放燃焼式のガス瞬間湯沸器等がある。[/quote]",
+      "questionTextHash": "7fff01d13e045f31b261e9d5eccfcc6cab28c1562d7b2250e2cb211b9f6dd248",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 304,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q14",
+        "choiceIndex": 2,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。特定ガス用品は、構造、使用条件、使用状況等からみて特にガスによる災害発生のおそれが多いと認められるガス用品であるが、開放燃焼式のガス瞬間湯沸器は除かれる。開放燃焼式のガス瞬間湯沸器等が含まれるとしている点が誤りである。",
+        "explanationHash": "9505d38120821a072c238813362aedc8c18121d90cff9f9be187e953df40c188"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-14-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1270",
+      "questionText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」（以下「特監法」という。）に関する次の記述のうち、誤っているものはどれか。[quote]特監法の目的は、特定ガス消費機器の設置又は変更の工事の欠陥に係るガスによる災害の発生を防止するため、これらの工事の事業を行う者の工事の監督に関する義務等を定めることである。[/quote]",
+      "questionTextHash": "e81c275ce0c7dcbe3b555c2948a3bd5b6de0a0af9ba41aec311f3861100bee30",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 304,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q14",
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。特監法は、特定ガス消費機器の設置又は変更の工事の欠陥に係るガス災害を防止するため、これらの工事の事業を行う者の工事の監督に関する義務等を定める法律である。",
+        "explanationHash": "7234a0107eb87f693915bed8d8c62d3139a43d7d5e9688fd58ca29fcc958b435"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-14-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1270",
+      "questionText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」（以下「特監法」という。）に関する次の記述のうち、誤っているものはどれか。[quote]「特定工事」とは、特定ガス消費機器の設置又は変更の工事（経済産業省令で定める軽微なものを除く。）をいう。[/quote]",
+      "questionTextHash": "e91f333141b7389efd3f4681235833c1dd144e7afd9bbeec9725a7bb9e1b770e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 304,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q14",
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。特定工事とは、特定ガス消費機器の設置又は変更の工事のうち、経済産業省令で定める軽微なものを除いたものをいう。",
+        "explanationHash": "a96312d25212fc48da7192d18cae648a94af5f19654935d1169f7eb2add7dea2"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-14-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1270",
+      "questionText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」（以下「特監法」という。）に関する次の記述のうち、誤っているものはどれか。[quote]経済産業大臣が経済産業省令で定めるところにより行う特定工事に必要な知識及び技能に関する講習の課程を修了した者、及び液化石油ガス設備士は、ガス消費機器設置工事監督者の有資格者である。[/quote]",
+      "questionTextHash": "af9ddbd13c9731250850564201403a63dcefc37051fd0d55e77ed2b6713e781d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 304,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q14",
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。経済産業大臣が経済産業省令で定めるところにより行う特定工事に必要な知識及び技能に関する講習の課程を修了した者、及び液化石油ガス設備士は、ガス消費機器設置工事監督者の有資格者である。",
+        "explanationHash": "b825112fc0f80caf9e99d1a612a322c35b8e026adb01117ec2e3625d5e00323d"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-15-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1200",
+      "questionText": "法令で規定されている消費機器に関する調査、保安業務規程及びガス事業者間の連携協力に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガス小売事業者は、調査の結果、消費機器が経済産業省令で定める技術上の基準に適合していないと認めるときは、速やかにその使用を禁止しなければならない。[/quote]",
+      "questionTextHash": "c9fc0eec90e6bd8be3742c9b5ac41ae9afa7a94bd3271f2c9694471db7942440",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q15-s01",
+        "explanationHash": "60862d4f0b222895ee0f368e3c5d2cac2128eec90e5ff3c822979667a0c6827b"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-15-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1200",
+      "questionText": "法令で規定されている消費機器に関する調査、保安業務規程及びガス事業者間の連携協力に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガス小売事業者は、保安業務規程を変更したときは、遅滞なく、変更した事項を経済産業大臣に届け出なければならない。[/quote]",
+      "questionTextHash": "97a23b4d8d51c848184a628aab1f21f21a674e18611d6054de6d46596a602bcf",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q15-s02",
+        "explanationHash": "37dac45d98a58694c63e7c82e004be25872086567c4fc9739a68b5a488033ae1"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-15-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1200",
+      "questionText": "法令で規定されている消費機器に関する調査、保安業務規程及びガス事業者間の連携協力に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]経済産業大臣は、保安業務の適正な実施を確保するため必要があると認めるときは、保安統括者に対し、保安業務規程を変更すべきことを命ずることができる。[/quote]",
+      "questionTextHash": "f71f09a2eeb5a40ff7313cf3d038d768e92a775d1f46b09964e31af456186752",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q15-s03",
+        "explanationHash": "30becb129193ecd70cd5b6e782c833c6c2c01e96953ae1f8474bd33845f971b5"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-15-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1200",
+      "questionText": "法令で規定されている消費機器に関する調査、保安業務規程及びガス事業者間の連携協力に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガス小売事業者及びその従業者は、保安業務規程を守らなければならない。[/quote]",
+      "questionTextHash": "2dbc09594a621f790c6c798f7231d2cd5f11edbf1dccb16360de1c9afd26d3dc",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q15-s04",
+        "explanationHash": "f08393a6993fe1b63a269d99fab5aea3aa5a0bff2341ba5fedf7c121812e1fc3"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-15-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1200",
+      "questionText": "法令で規定されている消費機器に関する調査、保安業務規程及びガス事業者間の連携協力に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]ガス事業者は、公共の安全の維持又は災害の発生の防止に関し、相互に連携を図りながら協力しなければならない。[/quote]",
+      "questionTextHash": "ee404dc21135d68b3d917d5f6eb7b684ea5e5fb6ab778491557b1d1f3b2b5148",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q15-s05",
+        "explanationHash": "2ddadb93c0f33a318d7041bed3d21cd661fd6529344efeef8a24ebc1c9dde5a9"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-16-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1200",
+      "questionText": "法令で規定されている消費機器の技術上の基準に関する次の記述のうち、［ ］の中の（イ）〜（ホ）にあてはまる数値及び語句の組合せとして最も適切なものはどれか。次に掲げる燃焼器（屋内に設置するものに限り、[ （イ） ]のものを除く。）には当該燃焼器に接続して排気筒を設けること。ただし、当該燃焼器の構造上その他の理由によりこれによることが困難な場合において、当該消費機器のための、[ （ロ） ]を設けるときは、この限りでない。\\n・ガス調理機器（ガスの消費量が12kWを超えるもの）\\n・[ （ハ） ]（暖房兼用のものを含み、ガスの消費量が12kWを超えるもの）\\n・[ （ニ） ]（暖房兼用のものを含み、ガスの消費量が7kWを超えるもの）\\n・ガス常圧貯蔵湯沸器（ガスの消費量が7kWを超えるもの）\\n・ガスふろがま\\n・ガスストーブ（ガスの消費量が7kWを超えるもの）\\n・ガス衣類乾燥機（ガスの消費量が[ （ホ） ]kWを超えるもの）[quote]（イ）密閉燃焼式（ロ）排気フード（ハ）ガス瞬間湯沸器（ニ）ガス貯湯湯沸器（ホ）12[/quote]",
+      "questionTextHash": "9e8d074fdc63f9648d87cde6d2b3da7ab0069eb1ff58f6142648ab446a2782b6",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 306,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。屋内に設置する密閉燃焼式以外の対象燃焼器には、原則として燃焼器に接続した排気筒を設ける。困難な場合は排気フードで足りる例外があり、対象機器はガス瞬間湯沸器、ガス貯湯湯沸器などを含み、ガス衣類乾燥機は12kWを超えるものが該当する。",
+        "explanationHash": "145e22e07bce621e5551d74873499203ca849f295202de29458bc80a85d85462"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-2-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1140",
+      "questionText": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。[quote]ガス小売事業者は、小売供給を受けようとする者（ガス事業者である者を除く。）と小売供給契約の締結をしようとするときは、経済産業省令で定めるところにより、当該小売供給に係る料金その他の供給条件について、その者に説明しなければならない。[/quote]",
+      "questionTextHash": "dcf5ff0426001990e129ffb9278c70b34fcd72e1d0e3930385acf30e438c116d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q02-s02",
+        "explanationHash": "8219caf80f86f66f4861f1ee6aad96d02a1a5c4dee24cd7edb4be93b01173c6f"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-2-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1140",
+      "questionText": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。[quote]ガス小売事業者は、経済産業省令で定めるところにより、その供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録し、これを保存しなければならない。[/quote]",
+      "questionTextHash": "9f212b942542520b2c35fb1c92cfe3eb58803af8ad22da8c8ac093164d136213",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q02-s03",
+        "explanationHash": "067897568d8dc9cc4edda1fce444bab62ed75a90c3a260d0bd6a510dc8dc4a57"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-2-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1140",
+      "questionText": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。[quote]ガス小売事業者は、経済産業省令で定めるところにより、毎年度、当該年度以降経済産業省令で定める期間におけるガスの供給並びにガス工作物の設置及び運用についての計画を作成し、当該年度の開始前に（ガス小売事業者となった日を含む年度にあっては、ガス小売事業者となった後遅滞なく）、経済産業大臣に届け出なければならない。[/quote]",
+      "questionTextHash": "8e8408a3e5163331b6d3943073fd3faee04760ebd4529ef5bd36b31aaa116cb1",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q02-s04",
+        "explanationHash": "3c1fbcfea3d9954c6b483487e4a896e739eabb2b85297b7cb8173b8faec79c10"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-2-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1140",
+      "questionText": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。[quote]ガス小売事業者は、経済産業省令で定めるところにより、その供給するガスの成分のうち、人体に危害を及ぼし、又は物件に損傷を与えるおそれがあるものの量が経済産業省令で定める数量を超えていないかどうかを検査し、その量を記録し、これを保存しなければならない。[/quote]",
+      "questionTextHash": "a4df03d6e0d8688a815e2cbe2684cd3a75602da14972b14d3475e3dde02996a9",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q02-s05",
+        "explanationHash": "65c13a4ef935b5b9ce7e2e87a60442efa2a3521aafea824232a3e928353b9dc4"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-3-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1130",
+      "questionText": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。[quote]経済産業大臣は、公共の利益の確保のため緊急の必要があると認めるときは、ガス小売事業者に対し、そのガス工作物を移転し、若しくはその使用を一時停止すべきことを命ずることができる。[/quote]",
+      "questionTextHash": "023da1907503f84c96ca8822338d9cf1a8aeb52edae721b9c3c9c5d78aba9112",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 293,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q03",
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。ガス事業法第21条第3項は、経済産業大臣がガス工作物の移転又は使用の一時停止等を命ずることができる場合を、公共の安全の維持又は災害の発生の防止のため緊急の必要があると認めるときとしている。公共の利益の確保としている点が誤り。",
+        "explanationHash": "b399d1476cfa389dad69b1717d2de8bbd7f20b0e2a571194ce90e8f7576bef01"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-3-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1130",
+      "questionText": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。[quote]ガス小売事業の用に供するガス工作物のうちガス小売事業者以外の者が所有し、又は占有するガス工作物についてガス小売事業者が、経済産業省令で定める技術上の基準に適合するように維持するため必要な措置を講じようとするときは、当該ガス工作物の所有者又は占有者はその措置の実施に協力するよう努めなければならない。[/quote]",
+      "questionTextHash": "7b2d1a868c0f139746d2b27d355169576376119ce78de711bd005102b82efd55",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q03-s02",
+        "explanationHash": "fcc117e24646be7e298a7e34160c0b6d060539259bc9fd9833014bf3f6bede0c"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-3-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1130",
+      "questionText": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。[quote]ガス小売事業者は、ガス工作物の工事、維持及び運用に関する保安を確保するため、経済産業省令で定めるところにより、保安規程を定め、事業の開始前に経済産業大臣の許可を受けなければならない。[/quote]",
+      "questionTextHash": "1e082cc7605d7970eeea715ce0b214e3f06370d8f6e185526b941e2fb634dfd0",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 293,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q03",
+        "choiceIndex": 3,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。ガス事業法第24条第1項は、ガス小売事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。許可を受けるものではない。",
+        "explanationHash": "c6dcd69209969120d0a77ead4c665291a47a0903b72b4f6002093dee71f0351f"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-3-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1130",
+      "questionText": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。[quote]保安規程では、保安業務監督者が旅行、疾病その他事故によってその職務を行うことができない場合に、その職務を代行する者に関することを定めなければならない。[/quote]",
+      "questionTextHash": "8f6cc3e47a384cc6b62e9d2110f5dc9f5f646840fa5e1358b6b55b4ece16acf8",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 293,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q03",
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。保安規程で定める代行者は、ガス主任技術者が旅行、疾病その他事故によって職務を行うことができない場合の職務代行者である。保安業務監督者としている点が誤り。",
+        "explanationHash": "444aa444b4d83b6d5a8cda1158ae8239fea90a6e016f667ead738fc7a3974513"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-3-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1130",
+      "questionText": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。[quote]保安規程では、消費機器に関する周知、調査等の実施の方法に関することを定めなければならない。[/quote]",
+      "questionTextHash": "d809dffc859c3c5438b344639437ad0776c4a417f34f44071c4a1ee79f3b624f",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 293,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q03",
+        "choiceIndex": 5,
+        "sourceCorrectChoiceText": "間違い",
+        "explanationText": "間違い。消費機器に関する周知、調査等の実施方法は、ガス事業法第160条第1項の保安業務規程とガス事業法施行規則第207条に定める事項であり、保安規程の事項ではない。",
+        "explanationHash": "b4813ef86a9470f63d3cbfbd4eea994ef367241cd0a0bb931b25f9328f182848"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-4-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1150",
+      "questionText": "次のガス事故のうち、ガス事故速報及びガス事故詳報を報告することが法令で規定されているものはいくつあるか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものを除く。[quote]ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故[/quote]",
+      "questionTextHash": "4def537247c4aacd6b754fb33ad1fba3f12679eb5bd09ac9cd467d63c6137178",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q04-s01",
+        "explanationHash": "8847b3222cb311931ee7c5a849ee6e99d527b093593a5c01664e6474f8cba84a"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-4-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1150",
+      "questionText": "次のガス事故のうち、ガス事故速報及びガス事故詳報を報告することが法令で規定されているものはいくつあるか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものを除く。[quote]供給支障戸数が100の供給支障事故（保安閉栓を除く。）[/quote]",
+      "questionTextHash": "8d01d74c779e95d70f3dd94b83a303fadf35bb84fbfd4334f56804ef865200d6",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q04-s02",
+        "explanationHash": "975cc54b0e6cf11730034689790bb2b09964c73b429129ce68de8bcbdbdf59e8"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-4-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1150",
+      "questionText": "次のガス事故のうち、ガス事故速報及びガス事故詳報を報告することが法令で規定されているものはいくつあるか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものを除く。[quote]製造支障時間が10時間の製造支障事故[/quote]",
+      "questionTextHash": "b10fa23d0e66ebbb33b86467ef23e40437377c744bdb52137abd254d250db31c",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q04-s03",
+        "explanationHash": "87ab9c679ba02c4e1a5a6ae26c7eeaec65b032b041f61017ddd83546482215da"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-4-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1150",
+      "questionText": "次のガス事故のうち、ガス事故速報及びガス事故詳報を報告することが法令で規定されているものはいくつあるか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものを除く。[quote]消費機器の使用に伴い人が死亡した事故[/quote]",
+      "questionTextHash": "cadbb02e22742d05f6f88665cbdc755e34ffc35a6ac183dfcd8061352030da3d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q04-s04",
+        "explanationHash": "8e9bc2b2e8bad37c71e519bd743632998a3cf88693b7e0a1df011adf197b702f"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-4-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1150",
+      "questionText": "次のガス事故のうち、ガス事故速報及びガス事故詳報を報告することが法令で規定されているものはいくつあるか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものを除く。[quote]ガス栓の欠陥によりガス栓から漏えいしたガスに引火することで発生した物損事故[/quote]",
+      "questionTextHash": "c5076e5ec0c5396dcb040e96183cf24cfd117b85262c4d46f1ab93e25e87c1f2",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q04-s05",
+        "explanationHash": "a304aaa4e089c819d879321dac57edfc234d8997fa657c85dfcbc201e8ec217e"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-5-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1160",
+      "questionText": "法令で規定されているガス主任技術者に関する次の記述のうち、正しいものはいくつあるか。[quote]ガス主任技術者は、経済産業省令で定めるところにより、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務の経験を有するもののうちから、ガス事業者が選任しなければならない。[/quote]",
+      "questionTextHash": "26776d4583d4a6f28189fe5605f8d5af2104464b25701857b04d9799cd154910",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q05-s01",
+        "explanationHash": "b93bed15041b6640330426e12511d796030f46ac9fc27cd36e5eb9a963e15568"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-5-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1160",
+      "questionText": "法令で規定されているガス主任技術者に関する次の記述のうち、正しいものはいくつあるか。[quote]ガス製造事業において、経済産業省令で定める実務の経験は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したこととする。[/quote]",
+      "questionTextHash": "89b0adca4eced4cbe6fb7dd38bf14d8a785f5219b022e206222414442252a001",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q05-s02",
+        "explanationHash": "bb1774c1f44a915ad5a58220691d8b59e5dda434c0c57afe1c8da03b1495d568"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-5-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1160",
+      "questionText": "法令で規定されているガス主任技術者に関する次の記述のうち、正しいものはいくつあるか。[quote]ガス製造事業者は、ガス主任技術者を解任するときは、事前にその旨を経済産業大臣に届け出なければならない。[/quote]",
+      "questionTextHash": "cd08d820039e3d4eb8950d63bccffad364dadfbfc56bbe6c3ded10edbef49183",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q05-s03",
+        "explanationHash": "d6e31f24f2055ad6942eb579def0380da9b0b30bc37947e1c986879df9d534fa"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-5-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1160",
+      "questionText": "法令で規定されているガス主任技術者に関する次の記述のうち、正しいものはいくつあるか。[quote]ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者がその保安のためにする指示に従わなければならない。[/quote]",
+      "questionTextHash": "57bd6f805bc8e0ba1760938d5d21e571a19a20281c7220319b55c7ad4a957b9a",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q05-s04",
+        "explanationHash": "209bf5efca2c7b6cf9b2168b6dcc00540d3b9b1c8aed13aae196c6b267384c52"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-5-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1160",
+      "questionText": "法令で規定されているガス主任技術者に関する次の記述のうち、正しいものはいくつあるか。[quote]経済産業大臣は、ガス主任技術者がこの法律若しくはこの法律に基づく命令若しくはこれらに基づく処分に違反したときは、ガス事業者に対し、ガス主任技術者の解任を命ずることができる。[/quote]",
+      "questionTextHash": "beb67bb4473af9ff87c444e999dd5a3306213a39631828c0ee81d84118e525e7",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q05-s05",
+        "explanationHash": "10eab368852c093bb6fa85839da8de0a49a06633c57637cb4f0230424b838438"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-6-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1170",
+      "questionText": "法令で規定されている工事計画及び検査に関する次の記述のうち、誤っているものはどれか。[quote]一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物の設置又は変更の工事であって、経済産業省令で定めるものをしようとするときは、その工事の計画を経済産業大臣に届け出なければならない。ただし、ガス工作物が滅失し、若しくは損壊した場合又は災害その他非常の場合において、やむを得ない一時的な工事としてするときは、この限りでない。[/quote]",
+      "questionTextHash": "a005c105aa3884848a2eb9beddf30c1e1fa2600024d9e3fcb1a538f8331a40c9",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q06-s01",
+        "explanationHash": "93d4b32bca2ca3b659250fbab5ddceaae15cc45bbcf99b272e91f5e2d3c718e8"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-6-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1170",
+      "questionText": "法令で規定されている工事計画及び検査に関する次の記述のうち、誤っているものはどれか。[quote]一般ガス導管事業者は、経済産業省令で定める工事の計画を変更しようとするときは、経済産業大臣に届け出なければならない。ただし、その変更が経済産業省令で定める軽微なものであるときは、この限りでない。[/quote]",
+      "questionTextHash": "e466c6f4a5cf75a03899968ed936f7cfdd1ed94189d2c98888d5c03f43e4a998",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q06-s02",
+        "explanationHash": "2aca7d58c8a22727c93dbc11840dc450575625f16f55f2db06e6222da1b91101"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-6-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1170",
+      "questionText": "法令で規定されている工事計画及び検査に関する次の記述のうち、誤っているものはどれか。[quote]経済産業大臣は、工事の計画が経済産業省令で定める技術上の基準に適合していないと認めるときは、一般ガス導管事業者に対し、その届出が提出された日から30日以内に限り、その工事の計画を変更し、又は廃止すべきことを命ずることができる。[/quote]",
+      "questionTextHash": "2963fda8c26e74060efb3381a1158910ace7ceed31353b75009d1565024f31ad",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q06-s03",
+        "explanationHash": "cab0465b22538bab0448a5e329e979ece8db3298250fdc32305e55d70951d18c"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-6-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1170",
+      "questionText": "法令で規定されている工事計画及び検査に関する次の記述のうち、誤っているものはどれか。[quote]一般ガス導管事業者は、規定による届出をした設置又は変更の工事をするガス工作物であって、経済産業省令で定めるものの工事について自主検査を行い、その結果が経済産業大臣の登録を受けた者が行う検査に合格した後でなければ、これを使用してはならない。ただし、経済産業省令で定める場合は、この限りでない。[/quote]",
+      "questionTextHash": "f047080838dac03207ad2cecc67b91fda15bf96e245ed2e320e2e4b03ea0802d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 296,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": null,
+        "choiceIndex": 4,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法第69条第1項は、届出をした設置又は変更工事をするガス工作物で経済産業省令で定めるものについて、自主検査を行い、登録を受けた者が行う検査に合格した後でなければ使用できないと定めている。ただし経済産業省令で定める場合は例外である。",
+        "explanationHash": "7daf6b1782bba877c114dda293971c7ab92c3029eb3d87b743cdf5d997766ac8",
+        "choiceSimilarity": 0.996564
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-6-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1170",
+      "questionText": "法令で規定されている工事計画及び検査に関する次の記述のうち、誤っているものはどれか。[quote]一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物であって経済産業省令で定めるものについては、経済産業省令で定めるところにより、定期に、自主検査を行い、その検査記録を作成し、これを保存しなければならない。[/quote]",
+      "questionTextHash": "83acddf66aed7e0d959ce97268e867eb228c8bfd8721bc402b1cfbe0501ad5ca",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q06-s05",
+        "explanationHash": "cb1c6681cd8656787ef93041809aa1663afff207a1e64935593f633ed2363a23"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-7-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1720",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]特定ガス発生設備に係る容器であって液化ガスを通ずるものは、その製造所の敷地境界から保安物件に対し告示で定める距離を有しなければならない。[/quote]",
+      "questionTextHash": "e2838d52fd4dec04e7fad78413647bd700da89b7b8320fa0257f057093f00fb4",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q07-s01",
+        "explanationHash": "eebd35022db5de1c47a35b7ebe9337a2996f082ad982f6fd7fd54973016368ef"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-7-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1720",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]製造所に設置するガス若しくは液化ガスを通ずるガス工作物には、そのガスの種類に応じて、適切な防消火設備を適切な箇所に設けなければならない。[/quote]",
+      "questionTextHash": "4dda89f97576086f5024c2fbee4fb43aadb7034192344094a9085ea8d5c8f685",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q07-s02",
+        "explanationHash": "2b851eb9cc2702b4a44f286038cd62c8b1976c10135a3f127f2b401b5d490e85"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-7-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1720",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。[/quote]",
+      "questionTextHash": "370fde8eb43db76ecf37c0c7aae0d40f7624680179c7ff452ed1d7aa53ef238e",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q07-s03",
+        "explanationHash": "422556e3cf5647090dd3be2183c0b08afd11fb47eea9b3130a20042502e0a2f8"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-7-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1720",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]製造所に設置するガス若しくは液化ガスを通ずるガス工作物の付近に設置する電気設備は、その設置場所の状況及びガスの種類に応じた防爆性能を有するものでなければならない。[/quote]",
+      "questionTextHash": "cc97f373603e692198e0d6b018812cedf8252ea3fd6bb44379130700f3f10259",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q07-s04",
+        "explanationHash": "e21cd89f48a2e1e1acfcbc97557e6ee4d828e32b999192d875d364fb77bd8991"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-7-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1720",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。[quote]液化ガスを通ずるガス工作物には、当該ガス工作物に生ずる静電気を除去する措置を講じなければならない。ただし、当該静電気によりガスに引火するおそれがない場合にあっては、この限りでない。[/quote]",
+      "questionTextHash": "3e11f984bbf16be4a4f79f514e4020760cb8a95d4e37105068afd6f896565e1a",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q07-s05",
+        "explanationHash": "e0b4a5d61ca59733080a3c1565bb16948a811b7973a052857237dbc509cf5077"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-8-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1710",
+      "questionText": "技術基準で「ガス又は液化ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。」と規定されているガス工作物は、次のうちいくつあるか。[quote]容器であって、最高使用圧力が0.2MPa以上のガスを通ずるもの（内容積が0.04m³以上又は内径が200mm以上で、長さが1000mm以上のものに限る。）[/quote]",
+      "questionTextHash": "975a909d401a8236ec371a7fb04da8ce0c9282a1460dc6fcfd0530d6ee84eb59",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q08-s01",
+        "explanationHash": "5665af39417639e1d9050d3c757695f9c376f250ed98a02dc9a8c429112b98b6"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-8-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1710",
+      "questionText": "技術基準で「ガス又は液化ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。」と規定されているガス工作物は、次のうちいくつあるか。[quote]容器であって、液化ガスを通ずるもの（最高使用圧力をMPaで表した数値と内容積をm³で表した数値との積が0.004以下のものを除く。）[/quote]",
+      "questionTextHash": "33782d0094830f1ed023b1cf98f85d4bb1122ca738ccef0db4454c4eed089e3d",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q08-s02",
+        "explanationHash": "e9738a8e21122ad92e58b64367e479af1def61902ccca12ed754a59db292c4eb"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-8-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1710",
+      "questionText": "技術基準で「ガス又は液化ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。」と規定されているガス工作物は、次のうちいくつあるか。[quote]内径が150mm以上の配管であって、最高使用圧力が中圧のガスを通ずるもの[/quote]",
+      "questionTextHash": "8667231634f118e808643e45cf65e3def46c5ccf6fd2f40facce0c74fc97f53e",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q08-s03",
+        "explanationHash": "82b535010a966f479dd62e1629840a45920db979a6e4010f4a7c13a7f994ee1b"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-8-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1710",
+      "questionText": "技術基準で「ガス又は液化ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。」と規定されているガス工作物は、次のうちいくつあるか。[quote]内径が150mm以上の配管であって、液化ガスを通ずるもの[/quote]",
+      "questionTextHash": "db1b55606b54096427564fd9998fedd9d85ea148d53c419fc9a1c4698072e007",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q08-s04",
+        "explanationHash": "5e19321981e0bb74f0aae10f7e2cb5c430c818110460fa95539a0244d421c842"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-8-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1710",
+      "questionText": "技術基準で「ガス又は液化ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。」と規定されているガス工作物は、次のうちいくつあるか。[quote]導管であって、最高使用圧力が高圧のガスを通ずるもの[/quote]",
+      "questionTextHash": "9e3f9aa10b337e8b8f1a7884869e2af08cbc35c47fcd83eff3210e9f21a127b0",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q08-s05",
+        "explanationHash": "193e408c0736ffac5dc693f0bdf64c88d0d91500b3bdce5706e128e43585dd59"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-9-1",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1400",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]最高使用圧力が高圧のガス発生設備であって、過圧が生ずるおそれのあるものには、その圧力を逃すために適切な安全弁を設けなければならない。この場合において、当該安全弁は、作動時に安全弁から吹き出されるガスによる障害が生じないよう施設しなければならない。[/quote]",
+      "questionTextHash": "5e1238c1a309f32de2880c40ccf01254f14c69cd6109f7d79fd4157fe4552c6f",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "manual_01_04_review",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 299,
+        "sourceExamYear": 2022,
+        "sameExamYear": true,
+        "sourceQuestionKey": "gas-shunin:otsu:2022:law:q09",
+        "choiceIndex": 1,
+        "sourceCorrectChoiceText": "正しい",
+        "explanationText": "正しい。最高使用圧力が高圧のガス発生設備で過圧が生ずるおそれのあるものには、圧力を逃がすために適切な安全弁を設ける必要がある。また、安全弁は作動時に吹き出されるガスによる障害が生じないよう施設する必要がある。",
+        "explanationHash": "045f9e4cf2da8b8bbd4b2e319074213c23c9d8f5f231053e8ebe4d4874ed06f7",
+        "choiceSimilarity": 0.995951
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-9-2",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1400",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]ガスホルダーには、ガスを通ずる設備の損傷を防止するため使用の状態を計測又は確認できる適切な装置を設けなければならない。[/quote]",
+      "questionTextHash": "697cc8a84f122eb75e499af99ffabcaf93da04e9c1b568b198b5ac0b257895cb",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q09-s02",
+        "explanationHash": "c36337b5148d62377411295c8397a730d7687c15e9e175c66eae2b64d7170224"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-9-3",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1400",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]ガスホルダーには、ガスを通ずる設備の損傷に至るおそれのある状態を検知し警報する適切な装置を設けなければならない。[/quote]",
+      "questionTextHash": "03d560b5d24b4bcf795b7b1de532119b2c14fe16d1e3549d695fe5d650a14588",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q09-s03",
+        "explanationHash": "0a9c05e7a304a7c749775d64f172198b2960bf6d71c7104fe53dc8770a448605"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-9-4",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1400",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]製造設備を安全に停止させるのに必要な装置その他の製造所及び供給所の保安上重要な設備には、停電等により当該設備の機能が失われることのないよう適切な措置を講じなければならない。[/quote]",
+      "questionTextHash": "7e3807b9375d70e98903bd9c62993da5ac4f3c8fd5169fee3adaa928eccc0eca",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q09-s04",
+        "explanationHash": "41114145c8eb4931d0ac4a92e3806cadb7b882d199f19e84bb670a86aa421898"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2022-9-5",
+      "grade": "乙種",
+      "examYear": 2022,
+      "questionSetId": "chiefgasengineerlicense-B-1400",
+      "questionText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはどれか。[quote]ガスホルダーのガスを送り出し、又は受け入れるために用いられる配管には、ガスが漏えいした場合の災害の発生を防止するため、漏えいしたガスを速やかに回収することができる適切な装置を適切な箇所に設けなければならない。[/quote]",
+      "questionTextHash": "1cc2422450e9b572c4099cc604733277171f3f161860cef3c25dcfb533b87baf",
+      "questionType": "true_false",
+      "correctChoiceText": "間違い",
+      "status": "ready",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2022-law-q09-s05",
+        "explanationHash": "0f70fe97cf6bc393cdd68d5616f797b36a4c0c4823d6b856a1e45dd208d2ffc1"
+      }
+    }
+  ]
+}

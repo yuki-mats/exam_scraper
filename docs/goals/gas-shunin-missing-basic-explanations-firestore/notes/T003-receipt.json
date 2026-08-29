@@ -1,0 +1,38 @@
+{
+  "result": "blocked",
+  "blocked_reason": "乙種2020のgasushunin-otsushu-gizyutsu-2020-1-1はFirestore correctChoiceText=正しいだが、原問題、01-04人手レビュー、21 patch、e-Govガス事業法第1条の根拠がいずれも間違いで一致する。誤答に合わせた解説は作成せずholdとした。",
+  "changed_files": [
+    "scripts/fix/materialize_gas_shunin_missing_explanations.py",
+    "scripts/upload/upload_questions_to_firestore.py",
+    "tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py",
+    "tests/test_upload_questions_to_firestore.py",
+    "output/gas-shunin-kou/questions_json/firestore_repairs/20260829/",
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/",
+    "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T003-progress-and-answer-conflict.md"
+  ],
+  "commands": [
+    {
+      "cmd": "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py",
+      "status": "pass"
+    },
+    {
+      "cmd": "甲種2020 materialize、uploader dry-run、guarded upload、Firestore live readback",
+      "status": "pass"
+    },
+    {
+      "cmd": "乙種2020 target IDs exactly 143 and all decisions ready",
+      "status": "fail"
+    },
+    {
+      "cmd": "python scripts/check/check_00_source_immutability.py",
+      "status": "fail"
+    },
+    {
+      "cmd": "node GoalBuddy check-goal-state.mjs docs/goals/gas-shunin-missing-basic-explanations-firestore",
+      "status": "pass"
+    }
+  ],
+  "summary": "甲種の欠落1件はexplanationText限定でFirestore反映とreadbackを完了。乙種2020は143件中142件を出典付きで確定し、正答矛盾1件をhold。全repo 00_source検査は今回変更と無関係な既存3171件消失で赤だが、今回scopeの00_source変更はない。",
+  "note": "notes/T003-progress-and-answer-conflict.md",
+  "spawned_tasks": ["T004"]
+}

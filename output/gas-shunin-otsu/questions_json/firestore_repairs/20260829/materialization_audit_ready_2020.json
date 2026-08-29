@@ -1,0 +1,1656 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-v1",
+  "generatedAt": "2026-08-29T10:03:42.549160+00:00",
+  "decisions": "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_final_2020.json",
+  "targetCount": 139,
+  "uniqueTargetCount": 139,
+  "nonExplanationDriftCount": 0,
+  "heldCount": 4,
+  "heldQuestionIds": [
+    "gasushunin-otsushu-gizyutsu-2020-1-1",
+    "gasushunin-otsushu-gizyutsu-2020-14-5",
+    "gasushunin-otsushu-gizyutsu-2020-4-4",
+    "gasushunin-otsushu-gizyutsu-2020-6-1"
+  ],
+  "expectedLiveFingerprint": "68afd56985612c9784eaa99be48c2b9703f22199839d67f7ed3285a3b7869df8",
+  "artifactSha256": "378d0d33a5b8fbe662b1d341da4fe2dd68a55a1d28985a5a5a2e9fd0a4cee06d",
+  "records": [
+    {
+      "questionId": "chiefgasengineerlicense-C-10303",
+      "questionTextHash": "b22459792afdce678f0b35e992334003d05739fd198d0ef54371fd18a9b0450e",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "chiefgasengineerlicense-C-10298",
+          "chiefgasengineerlicense-C-10299",
+          "chiefgasengineerlicense-C-10300"
+        ],
+        "explanationText": "正しい。ル・シャトリエの原理により、生成物である二酸化炭素の分圧を増やすと、その増加を打ち消す向きに平衡が移動する。したがって、二酸化炭素と水素を消費する左方向へ反応が進む。",
+        "explanationHash": "2f2475ef86f80ea54b12223c1740999275eee388c6c628e987ef6cee8a7863e9"
+      },
+      "explanationHash": "2f2475ef86f80ea54b12223c1740999275eee388c6c628e987ef6cee8a7863e9"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10305",
+      "questionTextHash": "9a6dd8f786d2a951f2484a3345872da46d1d9785f60eee6a7a28536a3e205890",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "chiefgasengineerlicense-C-10298",
+          "chiefgasengineerlicense-C-10299",
+          "chiefgasengineerlicense-C-10300"
+        ],
+        "explanationText": "正しい。右方向が発熱反応なので、温度を下げると、平衡は熱を発生させて温度低下を打ち消す向きへ移動する。したがって、二酸化炭素と水素を生成する右方向へ反応が進む。",
+        "explanationHash": "6ed1b4b19f6806e14ed67bf9e7bf87c55c0825e481512c43961f427ce89f3067"
+      },
+      "explanationHash": "6ed1b4b19f6806e14ed67bf9e7bf87c55c0825e481512c43961f427ce89f3067"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10306",
+      "questionTextHash": "eacf1eed07ed489a0cdbc1cfbccaec789aadb7ab6e65ed24bf242b36518b3aa0",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "chiefgasengineerlicense-C-10298",
+          "chiefgasengineerlicense-C-10299",
+          "chiefgasengineerlicense-C-10300"
+        ],
+        "explanationText": "正しい。ル・シャトリエの原理により、反応物である水蒸気を増やすと、その増加分を消費する向きに平衡が移動する。したがって、二酸化炭素と水素を生成する右方向へ反応が進む。",
+        "explanationHash": "315e01efda8c21dae635c2a8daa8e6da5206925708b5a7859bc4bd755ab3f0df"
+      },
+      "explanationHash": "315e01efda8c21dae635c2a8daa8e6da5206925708b5a7859bc4bd755ab3f0df"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10307",
+      "questionTextHash": "f1f384ec7ae3245d4652443b10db35a621a8a863f94e907aa0ec25d32e2a310b",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "chiefgasengineerlicense-C-10300"
+        ],
+        "explanationText": "正しい。触媒は正反応と逆反応の活性化エネルギーをともに下げ、平衡に達するまでの時間を短くする。しかし、平衡定数や平衡組成は変えないため、化学平衡状態そのものには影響を与えない。",
+        "explanationHash": "848e6c2f429d4faf9f26fb86b2adf5b993621c5fb995c7f3689491a9f48f648a"
+      },
+      "explanationHash": "848e6c2f429d4faf9f26fb86b2adf5b993621c5fb995c7f3689491a9f48f648a"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10310",
+      "questionTextHash": "22a6ebb3293581534f2d164e40104b159c28e2ed23fdc9e6e0ac7563dbe39197",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q09-s01",
+        "explanationHash": "e2167091016cca9d998d660225fb3cd93ea8ec5be48101d6b3a55e1e352c41db"
+      },
+      "explanationHash": "e2167091016cca9d998d660225fb3cd93ea8ec5be48101d6b3a55e1e352c41db"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10312",
+      "questionTextHash": "1db8d0f93c8eb622e8016ab32108c418afd78163a977ed7d346b79a5cb519be0",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "chiefgasengineerlicense-C-10309",
+          "chiefgasengineerlicense-C-10311"
+        ],
+        "explanationText": "正しい。爆燃や爆ごうが起こるには、可燃性ガスと空気又は酸素の混合割合が燃焼範囲内にある必要がある。濃度が燃焼下限界より低い場合や燃焼上限界より高い場合は、着火しても燃焼が伝ぱせず、爆燃や爆ごうは起こらない。",
+        "explanationHash": "96964527ca87d4f9ced8591f8bb6d27ecba9c5927d464a8621403ed586f0f26d"
+      },
+      "explanationHash": "96964527ca87d4f9ced8591f8bb6d27ecba9c5927d464a8621403ed586f0f26d"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10313",
+      "questionTextHash": "4c508d34433ac01151854a3667279c6875cc657108e3a3b15945bd9e7ed49514",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q09-s04",
+        "explanationHash": "8e5e1668b93ae54e967dc6b3bb54432bab5327eade6371b1ec5507cc6ea2e5fe"
+      },
+      "explanationHash": "8e5e1668b93ae54e967dc6b3bb54432bab5327eade6371b1ec5507cc6ea2e5fe"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10314",
+      "questionTextHash": "25bacf8014c4e73a5404f5063f2323acb63628d7c8c9229abdef4c9006b1c2fd",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "chiefgasengineerlicense-C-10312"
+        ],
+        "explanationText": "正しい。爆ごうでは、燃焼反応が衝撃波と結び付いて超音速で伝ぱする。大きな圧力変化を伴う衝撃波が物体へ作用するため、衝突した設備や構造物に機械的な破壊を生じさせることがある。",
+        "explanationHash": "ba5bb7be38bf1b7792102c3641e9b40b1f8d1fd9357c528216f2396b73cf2de3"
+      },
+      "explanationHash": "ba5bb7be38bf1b7792102c3641e9b40b1f8d1fd9357c528216f2396b73cf2de3"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10316",
+      "questionTextHash": "f64128b5b66d5324fa5fb327214ed43cb3c403adfb018fee62908d7ab8361818",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q11-s01",
+        "explanationHash": "e232deb4ade946a9ed946e8b62ea6d859663ac760fad2a4dd4f6fd7472c0110b"
+      },
+      "explanationHash": "e232deb4ade946a9ed946e8b62ea6d859663ac760fad2a4dd4f6fd7472c0110b"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10317",
+      "questionTextHash": "e840046b0bfb965110ea77fc644d097750f5bec42a3fef85fcbdcbaf87d38026",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q11-s02",
+        "explanationHash": "3a26959811419373344aa59f576ca469b751827cd3c6d0f38937b768b3bf08eb"
+      },
+      "explanationHash": "3a26959811419373344aa59f576ca469b751827cd3c6d0f38937b768b3bf08eb"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10318",
+      "questionTextHash": "845657276a1ff15e48b1874cf72fae24d757809719a474f0c9cf3c573e754ec5",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q11-s03",
+        "explanationHash": "3a56ba7342e2018b82f7f1a095cfdda74ca5ce8fb8bd7b564b6be8ec93c2c27e"
+      },
+      "explanationHash": "3a56ba7342e2018b82f7f1a095cfdda74ca5ce8fb8bd7b564b6be8ec93c2c27e"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10319",
+      "questionTextHash": "625c3c7a3301868463338e2e9d75cec613678ab4fd2a534228a3520c23495ea6",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q11-s04",
+        "explanationHash": "f36a512ac99922ae38fc97c35011db404be0d746fccd4e72838f3cb1d9edad19"
+      },
+      "explanationHash": "f36a512ac99922ae38fc97c35011db404be0d746fccd4e72838f3cb1d9edad19"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10323",
+      "questionTextHash": "ec1f41da8796a5935028846c5b3677fb84c7800495304dc015e445a66387f57c",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "gas-shunin-otsu-2019-kiso-q13-s03"
+        ],
+        "explanationText": "正しい。ひずみは、外力によって生じた変形量を変形前の長さで割った無次元量である。例えば、長さLの材料がΔLだけ伸びたときの縦ひずみはΔL／Lで表す。",
+        "explanationHash": "294bbad468cf7f86da2a04e79dd9c72eb676c7b9d0c25e94641f2edc266178f2"
+      },
+      "explanationHash": "294bbad468cf7f86da2a04e79dd9c72eb676c7b9d0c25e94641f2edc266178f2"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10324",
+      "questionTextHash": "89205bbbbe03843026ec9a49afded2421a2074e3e2c1b01788946db227f7157a",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "chiefgasengineerlicense-C-10323",
+          "chiefgasengineerlicense-C-10327"
+        ],
+        "explanationText": "正しい。材料が比例限度以下にある範囲では、応力とひずみは比例し、フックの法則が成り立つ。この比例関係の傾きは、材料の弾性の程度を表す縦弾性係数である。",
+        "explanationHash": "67e768ce521c7f0999868f9c170c955d0ca41a5c5da8bf4fdd31dd38aeea208a"
+      },
+      "explanationHash": "67e768ce521c7f0999868f9c170c955d0ca41a5c5da8bf4fdd31dd38aeea208a"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10325",
+      "questionTextHash": "b9d9867b3e010c47c63b839b7db838db61ae4829f22e4e32162cea3129b55574",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "gas-shunin-otsu-2019-kyokyu-q13-s02"
+        ],
+        "explanationText": "正しい。薄肉円筒に内圧pが作用すると、円周応力はおおむねpd／2t、軸方向応力はpd／4tとなる。したがって、円周応力は軸方向応力の2倍である。",
+        "explanationHash": "16d4a3a831089d04c3d43770c4090588c41424398be0a5f99651fa485c566c81"
+      },
+      "explanationHash": "16d4a3a831089d04c3d43770c4090588c41424398be0a5f99651fa485c566c81"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10326",
+      "questionTextHash": "8ef47e92cdc608b3f7c5b36a33f2672e655e5b0a18346058c2a343c440b6c976",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": [
+          "chiefgasengineerlicense-C-10323",
+          "chiefgasengineerlicense-C-10324"
+        ],
+        "explanationText": "正しい。安全係数は、材料の基準となる強さを許容応力で割った値である。同じ材料強度なら、安全係数を大きくするほど許容する応力を小さく設定するため、強度上の余裕が大きい設計となる。",
+        "explanationHash": "6ec729843fd0d131ba4dec19c4b6556170af3d4c77a8b547e59eb767f15aea77"
+      },
+      "explanationHash": "6ec729843fd0d131ba4dec19c4b6556170af3d4c77a8b547e59eb767f15aea77"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10328",
+      "questionTextHash": "78e037694284d9da125f581566c17c51ddf2b0a4803a2a418c93e7412692324f",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q15-s01",
+        "explanationHash": "bdd2cafd61f99735394b2c231ae9f1e343f19f69ce3e9c9815604a35ed1721c9"
+      },
+      "explanationHash": "bdd2cafd61f99735394b2c231ae9f1e343f19f69ce3e9c9815604a35ed1721c9"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10330",
+      "questionTextHash": "963d9b30bcf5e17150201941bd493c165630b5581c39d602137305329dff4b22",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q15-s03",
+        "explanationHash": "f8b1a72d6e49d43d10e5a601023718d14b8f1ad73259c62357e7279ad6fe5e46"
+      },
+      "explanationHash": "f8b1a72d6e49d43d10e5a601023718d14b8f1ad73259c62357e7279ad6fe5e46"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10331",
+      "questionTextHash": "a0051e40681e305668154eb7af54d4c1fb8b12c019849f7b403d814fa04d6d9b",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q15-s04",
+        "explanationHash": "54dcb4002c6e11900161669d12f67f6fe6ae6dd8b2b45a295abfa21486c0faa8"
+      },
+      "explanationHash": "54dcb4002c6e11900161669d12f67f6fe6ae6dd8b2b45a295abfa21486c0faa8"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10332",
+      "questionTextHash": "adb3e5f7b969e569a20243ffdee1c8e27b47bce1fcb8f89b422a011e3540b91a",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kiso-q15-s05",
+        "explanationHash": "7fdad57c86e1d56b7fc2875a54341b389c27c24552dd95b2b23aac60ca101c75"
+      },
+      "explanationHash": "7fdad57c86e1d56b7fc2875a54341b389c27c24552dd95b2b23aac60ca101c75"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-1-2",
+      "questionTextHash": "15a3d11c2cb727698c60d974f01109155c20b0e9cf58ced0740b96ae5969ff1d",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q01-s05",
+        "explanationHash": "6534f516f43ca879f331a8c174c1cdef31fa9a0504ddf836d5236ccb83408025"
+      },
+      "explanationHash": "6534f516f43ca879f331a8c174c1cdef31fa9a0504ddf836d5236ccb83408025"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-1-3",
+      "questionTextHash": "0f8da2e61aefa409977566e00da1feea3f488ab042eb090848b958cdff5db720",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q01-s03",
+        "explanationHash": "a76d37d7053cc6e58e6e0ee589de9be3b451d93897554e2ba3fe50dd46a1fc28"
+      },
+      "explanationHash": "a76d37d7053cc6e58e6e0ee589de9be3b451d93897554e2ba3fe50dd46a1fc28"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-1-4",
+      "questionTextHash": "e22a6209c7b4485bf35fd70873b0f5be811685dbaa27856e416e2daed7471c8e",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q01-s02",
+        "explanationHash": "64bae1bc7ddfe24522ec96636dd3bb69e39364ec8fbc8982d505c0d3c3c7435b"
+      },
+      "explanationHash": "64bae1bc7ddfe24522ec96636dd3bb69e39364ec8fbc8982d505c0d3c3c7435b"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-1-5",
+      "questionTextHash": "41b61c147f6c5af030a2e3ac99bcc623d22fa8426c1122924790da6e74996c88",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q01-s04",
+        "explanationHash": "e2e0cfec70c7757345c5fe76c3798f1de601c0f373c2eab54b5546dade24692e"
+      },
+      "explanationHash": "e2e0cfec70c7757345c5fe76c3798f1de601c0f373c2eab54b5546dade24692e"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-10-3",
+      "questionTextHash": "c4575cf9f3408855474db4561d1327b145bf85eb16148ddf880102de92c34282",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q10-s03",
+        "explanationHash": "88f339529d572a29bd721f053ebf0e38b069ab3b79c83b3f78d5ad3a5956154a"
+      },
+      "explanationHash": "88f339529d572a29bd721f053ebf0e38b069ab3b79c83b3f78d5ad3a5956154a"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-11-1",
+      "questionTextHash": "c152bb0abe527bd6297299095e62f1aafd03bb90ee4dfbf45768c4bcd01895ca",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q11-s01",
+        "explanationHash": "dee99e617a8367994804c8a3ec75bdfca067af6c45c221fbf7063b20af94cb68"
+      },
+      "explanationHash": "dee99e617a8367994804c8a3ec75bdfca067af6c45c221fbf7063b20af94cb68"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-11-2",
+      "questionTextHash": "80a39b9e95d9de22a67acc63b0ea84cc729193b8d4758fe641c2629e7409bb0f",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:law:q11",
+        "recordIndex": 10,
+        "choiceIndex": 5,
+        "explanationText": "正しい。導管等が設置されている場所に立ち入ることについて所有者又は占有者の承諾を得られない場合は、漏えい検査の対象から除外される。これはガス工作物の技術上の基準を定める省令第51条第3項ただし書第2号に定められている。したがって、除外されているものは1、2、3、5の4つである。",
+        "explanationHash": "7c57da7d8b5dda0b9b2259af4b26891b09bfec41a32e6c37c2afb2752df90c65"
+      },
+      "explanationHash": "7c57da7d8b5dda0b9b2259af4b26891b09bfec41a32e6c37c2afb2752df90c65"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-11-3",
+      "questionTextHash": "f562f1123926fde8646281966720c14a1b367fcad745a6e59bc518906e89a224",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q11-s03",
+        "explanationHash": "00f623475cba4f7515327ccb09a6ce8cf989627e569b128777f659e5cde35151"
+      },
+      "explanationHash": "00f623475cba4f7515327ccb09a6ce8cf989627e569b128777f659e5cde35151"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-11-4",
+      "questionTextHash": "e9403b6c0c1d8cde4ba2e037399d49addf05155ba04272f48becba6d1c4f1706",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q11-s04",
+        "explanationHash": "0c7c506543c72136357139006bb28ba3630328ef7234d72cf68e1d2759f6ef23"
+      },
+      "explanationHash": "0c7c506543c72136357139006bb28ba3630328ef7234d72cf68e1d2759f6ef23"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-11-5",
+      "questionTextHash": "d6ddcb7e7d1288f47eb31fd587acc50969ab39df3eff6539ed369c48984095bd",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q11-s05",
+        "explanationHash": "15cef35d57a0e977d4d7e9efac9337f7732e0403d0df622c8ca22e039023db73"
+      },
+      "explanationHash": "15cef35d57a0e977d4d7e9efac9337f7732e0403d0df622c8ca22e039023db73"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-12-1",
+      "questionTextHash": "944a88e8d354d8d30dabd35849f193161a113da1fe2700a013da281ac0711f3c",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q12-s01",
+        "explanationHash": "6566f38bdb18251f9b1adeb4245f1e47856b0c0a63a06d03723dbef540eefdce"
+      },
+      "explanationHash": "6566f38bdb18251f9b1adeb4245f1e47856b0c0a63a06d03723dbef540eefdce"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-12-2",
+      "questionTextHash": "c2ef169f4c031ee54bfa9be9e61f940ac5c1bcc0670ae5e02d52b07d03f4392e",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス工作物の技術上の基準を定める省令第54条第1項第3号ロ",
+        "explanationText": "正しい。露出している部分がガスの供給の用に供されている直管以外の管の接合部で、特定接合又は告示で定める規格に適合する接合以外のものには、抜出しを防止する適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第3号ロに定められている。",
+        "explanationHash": "da583c431e8da6b3fff75b60f066980d299c0525cfadc213ffe510c9ee644bb2"
+      },
+      "explanationHash": "da583c431e8da6b3fff75b60f066980d299c0525cfadc213ffe510c9ee644bb2"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-12-3",
+      "questionTextHash": "5196faa13e285c97faed14ab9e84a4d6f9570559f9e108180f0b56e4d351a746",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q12-s03",
+        "explanationHash": "a8ad10fd2bdba8b497fceb9d96cc900317a68557d545908629431359028d2797"
+      },
+      "explanationHash": "a8ad10fd2bdba8b497fceb9d96cc900317a68557d545908629431359028d2797"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-12-4",
+      "questionTextHash": "1f81737792253c6b60a3d8d4646471edadf32b507e441ab2418d09be4644c338",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q12-s04",
+        "explanationHash": "785bc58706b8992803a6ff646bf2dcbb1326acbff2107bf6cdc885362403e16f"
+      },
+      "explanationHash": "785bc58706b8992803a6ff646bf2dcbb1326acbff2107bf6cdc885362403e16f"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-12-5",
+      "questionTextHash": "574fa8b9edcc060e5472f8a39e36b711974fc10af5cd7f72b65e69fa46d4ec1e",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q12-s05",
+        "explanationHash": "ee85803748ac12c26e46f3b0c35ca6da647ba4378466ecbe7b92f8c567770438"
+      },
+      "explanationHash": "ee85803748ac12c26e46f3b0c35ca6da647ba4378466ecbe7b92f8c567770438"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-13-3",
+      "questionTextHash": "967f0c48672a135bd01057ce2914c2b2c7daacc308f2bf89164c1219204ae5f7",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q13-s03",
+        "explanationHash": "32a802caa3a38a9b7fc2f53f3bda7ea1aea51e48fe885ad29a14702ced46e8b6"
+      },
+      "explanationHash": "32a802caa3a38a9b7fc2f53f3bda7ea1aea51e48fe885ad29a14702ced46e8b6"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-14-1",
+      "questionTextHash": "079df45f6fbd821bf432bdd1e2a1a6d8e2b135576ec19c720bd82b509551a4de",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:law:q14",
+        "recordIndex": 13,
+        "choiceIndex": 1,
+        "explanationText": "正しい。ガス小売事業者は、保安業務規程を定め、事業の開始前に経済産業大臣へ届け出なければならない。この届出義務はガス事業法第160条第1項に定められている。",
+        "explanationHash": "46431938cdeea088048456af849bcd0b23d1e1063ab4a180d987b16c51a2889b"
+      },
+      "explanationHash": "46431938cdeea088048456af849bcd0b23d1e1063ab4a180d987b16c51a2889b"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-14-2",
+      "questionTextHash": "5a0325c33db51c6ec1dd06b17346d73aa97f41b123810cd7184604f6af65eb0d",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q14-s02",
+        "explanationHash": "0e04246434e6136f2b445cf4c58967a16ef6396ef528c955f3eb9c48e5053c4c"
+      },
+      "explanationHash": "0e04246434e6136f2b445cf4c58967a16ef6396ef528c955f3eb9c48e5053c4c"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-14-3",
+      "questionTextHash": "44362d03bb95658c7147f3fddaad3c20f7606b4f103781a564f3e72678de0c46",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q14-s03",
+        "explanationHash": "ebd511ee069df140e6f34cf699629c3b5024c55e5e63f6832af159dab4bd2b7c"
+      },
+      "explanationHash": "ebd511ee069df140e6f34cf699629c3b5024c55e5e63f6832af159dab4bd2b7c"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-14-4",
+      "questionTextHash": "dde2984d39d96a38217bfd353e5982789dee08a7c7a88b2c86508c7fd5c2c066",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q14-s04",
+        "explanationHash": "c4e737fdcec4690cd27df3ce17ac91b495716201da8875aaf0d6563b62bfaf95"
+      },
+      "explanationHash": "c4e737fdcec4690cd27df3ce17ac91b495716201da8875aaf0d6563b62bfaf95"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-15-1",
+      "questionTextHash": "c5fd4bcc07973ee2e2f41a93430e449ded3d293e1a5f890efe219a53929cbc05",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q15-s01",
+        "explanationHash": "ffc22cc15ddf2190441b49394be0150c8401bb25130562bab92e0829057493d0"
+      },
+      "explanationHash": "ffc22cc15ddf2190441b49394be0150c8401bb25130562bab92e0829057493d0"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-15-2",
+      "questionTextHash": "32eb67ebbeeee9e09ee7b896f4fac58bc45221f89c1704addc60da3f2ed86a84",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q15-s02",
+        "explanationHash": "c52c43c828b7cdfb87c3cee9871c72ce93c09d09ba691ba79db07a7ef450304e"
+      },
+      "explanationHash": "c52c43c828b7cdfb87c3cee9871c72ce93c09d09ba691ba79db07a7ef450304e"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-15-3",
+      "questionTextHash": "bc609d53ed7cd92ba3c9df9c9b192fc6cf5be3da833d421c2ef83c26d05b6798",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q15-s03",
+        "explanationHash": "02736cd75c51c31ac64cc07a55169638de3050e154335dcfb552039353db5b05"
+      },
+      "explanationHash": "02736cd75c51c31ac64cc07a55169638de3050e154335dcfb552039353db5b05"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-15-4",
+      "questionTextHash": "8ab59dcfe63d9c24ec1243da26ded5e3ebfee43e090352697f642d1d5f108234",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q15-s04",
+        "explanationHash": "042cb2755748f8a1414bcb99539c7cdf97178bc496408e4cf4e70fe5f4d558b6"
+      },
+      "explanationHash": "042cb2755748f8a1414bcb99539c7cdf97178bc496408e4cf4e70fe5f4d558b6"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-15-5",
+      "questionTextHash": "823f54e2a02a56e45d37e376e5649d27dde5971407c0e22a692e579da4a891a5",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q15-s05",
+        "explanationHash": "5baced72eef18e78e81fceb4ba742c930cac3600f76610ab2428793323d05a34"
+      },
+      "explanationHash": "5baced72eef18e78e81fceb4ba742c930cac3600f76610ab2428793323d05a34"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-16-1",
+      "questionTextHash": "f2db1b1dbb28c5b95ab25d0b57db7cafc8cb802eadac9d1f365b9320c1e026b9",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス事業法第162条",
+        "explanationText": "間違い。消費機器の設置又は変更の工事は、その消費機器が経済産業省令で定める技術上の基準に適合するように行わなければならない。「ガス用品」とする語句が誤りであり、正しくは「消費機器」である。",
+        "explanationHash": "3ab2359ea39b80b20cf7f3a83b2f8ac6e29f5b6863c3851fc9b83e2cb4cfb95e"
+      },
+      "explanationHash": "3ab2359ea39b80b20cf7f3a83b2f8ac6e29f5b6863c3851fc9b83e2cb4cfb95e"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-16-2",
+      "questionTextHash": "18295110f808d3380dd89f03d2ecf0523626e1624ceed76be2b8436d86dc58a7",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q16-s02",
+        "explanationHash": "eb8f462a91b0c76c189970cebff3e54494a02a13a4ccce455a51a0c61a87de9b"
+      },
+      "explanationHash": "eb8f462a91b0c76c189970cebff3e54494a02a13a4ccce455a51a0c61a87de9b"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-16-3",
+      "questionTextHash": "6bf0d85d28459196232c8458682fb1f9cd29b6bff03e6a0eaade73277705fc7f",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "特定ガス消費機器の設置工事の監督に関する法律第3条",
+        "explanationText": "間違い。特定工事事業者は、特定工事を行うとき、ガス消費機器設置工事監督者の資格を有する者に実地に監督させる必要がある。「保安業務監督者に選任されている」とする語句が誤りである。",
+        "explanationHash": "2d3551e134d115efa3055a81f8e3328bdaa97c2825135893f988caaa82612f60"
+      },
+      "explanationHash": "2d3551e134d115efa3055a81f8e3328bdaa97c2825135893f988caaa82612f60"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-16-4",
+      "questionTextHash": "f414b1027e1ac7e83d73f97c70f2129b0d10d8bb73597de7c172a4cb33f36fe0",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q16-s04",
+        "explanationHash": "dc48c20ecf68760655505abd8db7baee829e1eaf5778f21fb2da954827926963"
+      },
+      "explanationHash": "dc48c20ecf68760655505abd8db7baee829e1eaf5778f21fb2da954827926963"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-16-5",
+      "questionTextHash": "45a3a4ae610efee9b7a05f99369843f6a414733d1e522449308564cbada3bb93",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q16-s05",
+        "explanationHash": "4293aa3731855c1ec0dfe8abd0201cc9276e9b8e90be7ed4d8248bb5545641a5"
+      },
+      "explanationHash": "4293aa3731855c1ec0dfe8abd0201cc9276e9b8e90be7ed4d8248bb5545641a5"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-17-1",
+      "questionTextHash": "81546dcc19803ec1122880bb7787e21d4c64d1da27d64c97f825eed477b039e0",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q17-s01",
+        "explanationHash": "bd5fd24322bc82f97c2ae94dc4c1c1a58934ce452e38c9e7ed5aa1d3e7c7ee76"
+      },
+      "explanationHash": "bd5fd24322bc82f97c2ae94dc4c1c1a58934ce452e38c9e7ed5aa1d3e7c7ee76"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-17-2",
+      "questionTextHash": "6708fe72b08a7ea6209206c98dc70f1f5b872ce94bf06e34099b3845d8b872fb",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_2_explanationText_added.json",
+        "explanationText": "正しい。樹脂ライニング系の更生修理工法は、管内面に樹脂膜を形成し、腐食の進行や漏えいを防ぐための工法である。本支管及び供給管の腐食漏えい予防に有効である。",
+        "explanationHash": "d23a58a7f4e485e030b2eb4fe41acee4467423faf7643a6e051e621e106169df"
+      },
+      "explanationHash": "d23a58a7f4e485e030b2eb4fe41acee4467423faf7643a6e051e621e106169df"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-17-3",
+      "questionTextHash": "0c82137e622de02d50a5e94380c349581156468bfb60d2bbc6bc7edcafba0be4",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q17-s03",
+        "explanationHash": "5b9747f76c04710ae96252044c28126fdb7c451158117109812fed125ebf92ad"
+      },
+      "explanationHash": "5b9747f76c04710ae96252044c28126fdb7c451158117109812fed125ebf92ad"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-17-4",
+      "questionTextHash": "e304522e5fa1cabb3c0049058a3e0ad4f742ef8cbc985c9016387500d4119af5",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q17-s04",
+        "explanationHash": "e7d1b782713ad0cdb245aadf24cb7e101daba9c6316a56b6691aa107e416c68a"
+      },
+      "explanationHash": "e7d1b782713ad0cdb245aadf24cb7e101daba9c6316a56b6691aa107e416c68a"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-17-5",
+      "questionTextHash": "042a01441ba6f786192873cad53e048a7f0c3936b24610fc74aca30f6ce2090b",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q17-s05",
+        "explanationHash": "4674b2e61e2a1170acb2b655fe0ce7c28a6818d287f0b46c8909f0cb9162fc8b"
+      },
+      "explanationHash": "4674b2e61e2a1170acb2b655fe0ce7c28a6818d287f0b46c8909f0cb9162fc8b"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-18-1",
+      "questionTextHash": "a793dfe76c38841954db7fc024502a91a050f2ff7e37dd0bbf4a614f1364ced5",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q18-s01",
+        "explanationHash": "bd508f6f0d9018f77d072057858930e9703e67cf64c657da0b562e00ccd6e652"
+      },
+      "explanationHash": "bd508f6f0d9018f77d072057858930e9703e67cf64c657da0b562e00ccd6e652"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-18-2",
+      "questionTextHash": "873fa2719debad02ec3fd38f0fcc2c1a36960ff28f0d74c6637ec389e237e6b8",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q18-s02",
+        "explanationHash": "0c8404b5fb038b3072cbe7f61fc42ec7d734f250b2d9721b042ec3bb91e60136"
+      },
+      "explanationHash": "0c8404b5fb038b3072cbe7f61fc42ec7d734f250b2d9721b042ec3bb91e60136"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-18-3",
+      "questionTextHash": "b7237820827360d97b40ee4b79c3817e82a7948ccdc4279623d8ef0f1a40f8e3",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_2_explanationText_added.json",
+        "explanationText": "正しい。地震時の二次災害を防止し、供給停止地区をできるだけ小さくするため、導管網をあらかじめ適正な規模のブロックに分割しておく。",
+        "explanationHash": "267398992e545596435baf96baf69277e5d3159a29ab93946b0e93d3f0a00a02"
+      },
+      "explanationHash": "267398992e545596435baf96baf69277e5d3159a29ab93946b0e93d3f0a00a02"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-18-4",
+      "questionTextHash": "650d805c45278336cadf4ca5d26e7e0fc6883680cf71355b98c716f21fc42b8a",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q18-s04",
+        "explanationHash": "f07d9fbc3b8c14c8d7e28c804fe61970d69686166234bf25889b20e2f7572178"
+      },
+      "explanationHash": "f07d9fbc3b8c14c8d7e28c804fe61970d69686166234bf25889b20e2f7572178"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-18-5",
+      "questionTextHash": "e6d80cf6315aa1fc4c305a12fb32f3719405d57bd569265b5ec1c486c43468a2",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-kyokyu-q18-s05",
+        "explanationHash": "df0a2b035873fd8e29e676d87fba4d886ea818918c6f48aa1159a6596f4145b8"
+      },
+      "explanationHash": "df0a2b035873fd8e29e676d87fba4d886ea818918c6f48aa1159a6596f4145b8"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-19-1",
+      "questionTextHash": "417d20eef86c9a71a3598503a7f09d1549d0dee515484e8c8dd87b160396c757",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q19-s01",
+        "explanationHash": "43854f7c9a33e97726e7eef390191f477aa7150e59e4f541efd259a7d9893cef"
+      },
+      "explanationHash": "43854f7c9a33e97726e7eef390191f477aa7150e59e4f541efd259a7d9893cef"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-19-2",
+      "questionTextHash": "714a55fadc17efd3a807d416a637d7b6d0835f51aa3b86514502dff93458f372",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q19-s02",
+        "explanationHash": "140ed99d5b920f4a9c24d4291b54c17d4b0cf4cc81d04fed71bc6085c103713a"
+      },
+      "explanationHash": "140ed99d5b920f4a9c24d4291b54c17d4b0cf4cc81d04fed71bc6085c103713a"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-19-3",
+      "questionTextHash": "68631a06622dd568495ff6c8e273218c41ba5076f624b9b49701e0b896493a18",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q19-s03",
+        "explanationHash": "f6685dabe3ec29f1cac4571005b1ad90372e1c5485b39b73fa479f1e74b78469"
+      },
+      "explanationHash": "f6685dabe3ec29f1cac4571005b1ad90372e1c5485b39b73fa479f1e74b78469"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-19-4",
+      "questionTextHash": "498d5cb7bd422fcb8b3c12111040889417291083fa65d63054e99e25fc901891",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q19-s04",
+        "explanationHash": "956258deb5392ac8e7e0ce10b0f98616141e8d818fa216b596137281f3f6c9ac"
+      },
+      "explanationHash": "956258deb5392ac8e7e0ce10b0f98616141e8d818fa216b596137281f3f6c9ac"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-19-5",
+      "questionTextHash": "c1c25a32a5cf87d04237e07d5b329cdf448419a1cd24f04377830d84c41430de",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q19-s05",
+        "explanationHash": "3e495e64326d6dbc59176f95aaab36d8a53dfb7338cfc2121ec1db084166deb3"
+      },
+      "explanationHash": "3e495e64326d6dbc59176f95aaab36d8a53dfb7338cfc2121ec1db084166deb3"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-2-1",
+      "questionTextHash": "9c0a6cef41daec24eb06a6f57edc7b9c102947bfc7584bbac2342bcf7600a031",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q02-s01",
+        "explanationHash": "f2b81d1ea155ed6bad98f4536fde6b35ca5b7e04fa0e4923f6723b441f88d9b4"
+      },
+      "explanationHash": "f2b81d1ea155ed6bad98f4536fde6b35ca5b7e04fa0e4923f6723b441f88d9b4"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-2-2",
+      "questionTextHash": "2f90f7fbb23b5df451d50e26f8aaeb54599d038d933cb9e481397488239bda96",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q02-s05",
+        "explanationHash": "1150a6482c693ef01a45542e605be5de2b19280437d632b4496d750e55349105"
+      },
+      "explanationHash": "1150a6482c693ef01a45542e605be5de2b19280437d632b4496d750e55349105"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-2-3",
+      "questionTextHash": "a083fc10e55987304e6a7cc21e61a1c522cb6c7e8ab424f83fbde7afd598010f",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q02-s03",
+        "explanationHash": "bc9377b1e51f7194f81963141e0a34e31d4a5687289db13d1e21f60b47d80f2e"
+      },
+      "explanationHash": "bc9377b1e51f7194f81963141e0a34e31d4a5687289db13d1e21f60b47d80f2e"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-2-4",
+      "questionTextHash": "2cc9f815b83270a5d1531d1689b52f03c0aa43e7634696f4ba6ceb5884fbd9ca",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q02-s02",
+        "explanationHash": "21cba0b30038708010a7753a5bfef6487adba7ca864b8b046e95909227ebb7b1"
+      },
+      "explanationHash": "21cba0b30038708010a7753a5bfef6487adba7ca864b8b046e95909227ebb7b1"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-2-5",
+      "questionTextHash": "cdd4e0dbd6e8c1d7d2a52245683218323702f5bd06e286afc1cc1d6e933ae229",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q02-s04",
+        "explanationHash": "ccf5cf991d2cbae44792456fd51fde8a9033f16f38d16d5fdd5a1fcfb0af86b4"
+      },
+      "explanationHash": "ccf5cf991d2cbae44792456fd51fde8a9033f16f38d16d5fdd5a1fcfb0af86b4"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-20-4",
+      "questionTextHash": "3eda2ce63ca55f9f155a506b2e89e3707c43e3c5e952bdbed3151d7c1663fc4b",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q20-s04",
+        "explanationHash": "ebb2a3cb22032b97489dbeb0df9c94f6b37dc9f6b6dad2fd510746b7ad355b6e"
+      },
+      "explanationHash": "ebb2a3cb22032b97489dbeb0df9c94f6b37dc9f6b6dad2fd510746b7ad355b6e"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-1",
+      "questionTextHash": "611db145b92dd0c6c1da8ef917d5a85c4e4c5192cb5b7992267d78ab5931d75f",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": [
+          "給湯器のQ機能は、再出湯時の冷水サンドイッチ現象を防止する機能である。"
+        ],
+        "explanationText": "正しい。Q機能は、いったん止めた給湯を再開したときに一時的な冷水が出る冷水サンドイッチ現象を抑える制御機能である。湯温の急な変化を緩和するため、安定した温度の湯を得やすくなる。",
+        "explanationHash": "e22de33fafae378bb51b733feaa0de264d663cb158487c227efc13f444ab9ded"
+      },
+      "explanationHash": "e22de33fafae378bb51b733feaa0de264d663cb158487c227efc13f444ab9ded"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-2",
+      "questionTextHash": "7b2e0b82bd02edf8f59e58cb4b0b1a6f73d5c84c4430122af514558ad1d1ab57",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": [
+          "一般にセミ・ブンゼン燃焼式の炎の長さは、ブンゼン燃焼式に比べて長い。"
+        ],
+        "explanationText": "間違い。セミ・ブンゼン燃焼式は、ブンゼン燃焼式より一次空気が少なく、一般に炎が長くなる。瞬間湯沸器の燃焼室を小さくするために用いられるのは、炎が短いブンゼンバーナーであり、セミ・ブンゼンバーナーとする点が誤りである。",
+        "explanationHash": "010d743beb03c1b240755be59e4ac6178b1be15d0d4500e76807422b9b937de4"
+      },
+      "explanationHash": "010d743beb03c1b240755be59e4ac6178b1be15d0d4500e76807422b9b937de4"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-3",
+      "questionTextHash": "3c01d57aa56e598c18af2c969c93780c4c5a4776a61284bd113fd86857ac38c6",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": [
+          "設置フリー形ふろ給湯器は、循環ポンプの揚程範囲内で設置位置を選択できる。"
+        ],
+        "explanationText": "正しい。ふろ給湯器の設置方式には、浴槽の近くに機器を設置する浴室隣接設置形と、循環ポンプを用いて機器の設置位置の自由度を高めた設置フリー形がある。",
+        "explanationHash": "cd47721fcec1daebc584ef3b16a71c25523f83781213af324e5745da811f42c2"
+      },
+      "explanationHash": "cd47721fcec1daebc584ef3b16a71c25523f83781213af324e5745da811f42c2"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-4",
+      "questionTextHash": "768e667d76cc846b106f6a386f7d4ca7eb195934f66294c69a575c3b197d4f87",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": [
+          "ハイブリッド給湯器は、電気ヒートポンプと潜熱回収型ガス給湯器を組み合わせる。"
+        ],
+        "explanationText": "正しい。ハイブリッド給湯器は、効率よく湯を沸かす電気ヒートポンプと、必要時に高い給湯能力を発揮する潜熱回収型ガス給湯器を組み合わせる。必要な湯量や使用状況に応じて両者を使い分け、効率的に運転する。",
+        "explanationHash": "1a6ae3b7c164bfce922ac0149e3ec922c4fa2f1e2b96fd6ada75c8c5edd25e5f"
+      },
+      "explanationHash": "1a6ae3b7c164bfce922ac0149e3ec922c4fa2f1e2b96fd6ada75c8c5edd25e5f"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-5",
+      "questionTextHash": "2e75311f4979781838fa56c433fcee54dbfb3b562b2ca2893eaa57f5bf0da70f",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": [
+          "ECHONET Liteは、HEMSと家庭内機器を接続する標準通信仕様である。"
+        ],
+        "explanationText": "正しい。ECHONET Lite（エコーネットライト）は、HEMSと家庭内の機器との間で情報をやり取りするための標準通信仕様である。燃料電池などのガス機器も接続対象に含まれる。",
+        "explanationHash": "083a5975f69d67036b58adce4ed88b1a4ece29c61c7a129218038666fa455e50"
+      },
+      "explanationHash": "083a5975f69d67036b58adce4ed88b1a4ece29c61c7a129218038666fa455e50"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-1",
+      "questionTextHash": "91fcc615e61531a09067d02cf621aac67f1faec49cc6fa7c3b18d471bedbc925",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。こんろには、調理油過熱防止装置の温度センサーを利用し、鍋底の温度変化から焦げ付きを検知して自動消火する機能を備えたものがある。",
+        "explanationHash": "bf8368a16ccff306791566eb192d4b42ef76b0444edb52120bc3296a9cdf4f52"
+      },
+      "explanationHash": "bf8368a16ccff306791566eb192d4b42ef76b0444edb52120bc3296a9cdf4f52"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-2",
+      "questionTextHash": "9c7e62ae4bcf0e2693491e29354f73abad4ccad0c6568a4dced60fb5af103457",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "間違い。グリルは、直火による放射熱を主に利用して食材を加熱する機器である。主として伝導熱で調理するという説明が誤っている。",
+        "explanationHash": "9b932c6c0a673832e8055573eb175c8ba153f9ceb7d0a993cad8f7a18f1bfe98"
+      },
+      "explanationHash": "9b932c6c0a673832e8055573eb175c8ba153f9ceb7d0a993cad8f7a18f1bfe98"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-3",
+      "questionTextHash": "9cdb69f54684f86a5b58b9659417d981460d2d698d93dc05fb49c3d4a72d4669",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。コンビネーションレンジは、ガスオーブンに電子レンジ機能を組み合わせた調理機器である。",
+        "explanationHash": "f92de62196eb7ca51ea4e0d297221ab293862d2aef93e327691eb7c28134b7d5"
+      },
+      "explanationHash": "f92de62196eb7ca51ea4e0d297221ab293862d2aef93e327691eb7c28134b7d5"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-4",
+      "questionTextHash": "a2472f6ca96e802fc982d14ca7e31328aafc817f17df6aebb7e5e2e9ef2a5c22",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。ガス衣類乾燥機には、乾燥によって生じた湿り空気を屋外へ排出するための排湿筒を取り付けられるようになっている。",
+        "explanationHash": "cfefcd2c56f17e8748f1f87657b18da3be9036ae40f82c9a58df12d7c5681455"
+      },
+      "explanationHash": "cfefcd2c56f17e8748f1f87657b18da3be9036ae40f82c9a58df12d7c5681455"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-5",
+      "questionTextHash": "d05f2c51c50a53897a848f8d024fba8fdc93e66243404b10fb5ee1035a04d36b",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。赤外線ストーブには、放射体としてセラミックプレートを用いるものと、特殊耐熱鋼製の金網を用いるものがある。",
+        "explanationHash": "24a3c8acc97805a8261861fb7e5851caa85a7146ab9ec0772a14d823225681d0"
+      },
+      "explanationHash": "24a3c8acc97805a8261861fb7e5851caa85a7146ab9ec0772a14d823225681d0"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-23-1",
+      "questionTextHash": "22a83e731cdef5ab7578b3ec4d38b0c7c6650caf667436c8de91558c0fae3767",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q23-s01",
+        "explanationHash": "09c049d9030ad362f095e09be506e53dcfcc961dc069d6c762a86c71abea375f"
+      },
+      "explanationHash": "09c049d9030ad362f095e09be506e53dcfcc961dc069d6c762a86c71abea375f"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-23-2",
+      "questionTextHash": "cc0db138a132879b1f8e31d6931c016773205e187367b0a75afc3ac5c0e4295e",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q23-s02",
+        "explanationHash": "672dd4e24df89d1027750ae285a40935cb1aafaa98c0c389b6a284a5aabf1f0b"
+      },
+      "explanationHash": "672dd4e24df89d1027750ae285a40935cb1aafaa98c0c389b6a284a5aabf1f0b"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-23-3",
+      "questionTextHash": "e7c0887ab8c5a15d367eec70a88aaffcbda43b08dbed2fa059d8f66b1b378e0c",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q23-s03",
+        "explanationHash": "de6507466fe029f38e399a4bb82480eacec5a7b48cb99be4630a4aef30ea6d88"
+      },
+      "explanationHash": "de6507466fe029f38e399a4bb82480eacec5a7b48cb99be4630a4aef30ea6d88"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-23-4",
+      "questionTextHash": "0c2a19d99c229165921822a473a0c0186faa2cbf61ce47f9906fc774799417b8",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q23-s04",
+        "explanationHash": "09891cc8c77609f0984eec2c14108950a09bb2352894dd78b8fff46d56dd6a4e"
+      },
+      "explanationHash": "09891cc8c77609f0984eec2c14108950a09bb2352894dd78b8fff46d56dd6a4e"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-23-5",
+      "questionTextHash": "e719969a6f26d5c3c9554424bc263ff925460bd5b7f2f6802afa01c447fd898d",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q23-s05",
+        "explanationHash": "3c4521496b92782fb0faf6dbff95ff6fa737c3d0d112c2f9322bf79c966d7536"
+      },
+      "explanationHash": "3c4521496b92782fb0faf6dbff95ff6fa737c3d0d112c2f9322bf79c966d7536"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-24-1",
+      "questionTextHash": "36eb2c668ddac88d584398b188c8d7d29bad29a7662a8c87b1342de02cd9d4ab",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q24-s01",
+        "explanationHash": "729d5cb4a817db6260e24bd81caa5962e026f9985774116d0b3b016f72d1327f"
+      },
+      "explanationHash": "729d5cb4a817db6260e24bd81caa5962e026f9985774116d0b3b016f72d1327f"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-24-2",
+      "questionTextHash": "63e64acae949b0d9222dfa44e9b52138fa371ce593145e908b9d1cfc22772be0",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q24-s02",
+        "explanationHash": "2d970abd091937637702098196819e40eac46ca080266af90da161acc49127df"
+      },
+      "explanationHash": "2d970abd091937637702098196819e40eac46ca080266af90da161acc49127df"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-24-3",
+      "questionTextHash": "3183ee6b1dd53f965b81a284a7dfd97bebe689e794744f72550df32fce50d73d",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q24-s03",
+        "explanationHash": "2b2faa5b7d55ca28aa2758f5d169eeb4e57f1f94dfff2bfa2ad759d7ca560d00"
+      },
+      "explanationHash": "2b2faa5b7d55ca28aa2758f5d169eeb4e57f1f94dfff2bfa2ad759d7ca560d00"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-24-4",
+      "questionTextHash": "730ac5de253f5195492f5fe881ba93d2489b04ee139c61453e30e06b1f9d058c",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q24-s04",
+        "explanationHash": "32c07a6cd110d311cfe6912948fabafd957dc7a5908253cf6fa96d8d5f4a2d7b"
+      },
+      "explanationHash": "32c07a6cd110d311cfe6912948fabafd957dc7a5908253cf6fa96d8d5f4a2d7b"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-24-5",
+      "questionTextHash": "dc1dfacabb4374aefe6b69feb754d9612f34e1117d869e9c685efa2116b6f814",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。一酸化炭素（CO）は、ヘモグロビンに対する結合力が酸素の約200〜300倍と強く、血液による酸素運搬を妨げる。そのため、吸入すると組織が酸素不足となり、中毒症状を起こしやすい。",
+        "explanationHash": "be5fb83270e724a58a7db2ce23ba97922b2a54bfc3a91b0f11a91582624a3990"
+      },
+      "explanationHash": "be5fb83270e724a58a7db2ce23ba97922b2a54bfc3a91b0f11a91582624a3990"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-25-1",
+      "questionTextHash": "d38db571150c2ee735f347d5b23876d86bdd1853163fcab6490a99025d5e6155",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q25-s01",
+        "explanationHash": "e90cdeaec23f360ef850d2b0328cd3c528221a6a90af6e50fd399cd3f2dd5659"
+      },
+      "explanationHash": "e90cdeaec23f360ef850d2b0328cd3c528221a6a90af6e50fd399cd3f2dd5659"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-25-2",
+      "questionTextHash": "2779a3fdb4dabb8d4804e8aec1f8c8fee798b59052ff652d7333297b0b984a66",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q25-s02",
+        "explanationHash": "7867e6bce5cf25bc8d6738a8bf6b155965cd301d1e444738f4ee99bcbdd240f2"
+      },
+      "explanationHash": "7867e6bce5cf25bc8d6738a8bf6b155965cd301d1e444738f4ee99bcbdd240f2"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-25-3",
+      "questionTextHash": "b6c3d97e46f2b4cdb33d464f1938b0a4077d8d5c448f9e926df84118d7b98abb",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q25-s03",
+        "explanationHash": "9e0a45344306e0156b25fbcf52f9399e827c7288a27342ce9afe8879b55f61c7"
+      },
+      "explanationHash": "9e0a45344306e0156b25fbcf52f9399e827c7288a27342ce9afe8879b55f61c7"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-25-4",
+      "questionTextHash": "94e892fac62a05e3f9c1c1f0adc2cf16061a2d3822e610d86de876b724d41399",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q25-s04",
+        "explanationHash": "f79ddde35cf51d1ccb3eb9e726d464b557957f8ba985d0069802e4e2f01380d4"
+      },
+      "explanationHash": "f79ddde35cf51d1ccb3eb9e726d464b557957f8ba985d0069802e4e2f01380d4"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-25-5",
+      "questionTextHash": "23c544e957452426438ea53b03c9c50183ba59d065973cad25eb0a0c0f4a1c4f",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "officialEvidence": "ガス事業法施行規則第202条第1項第2号ロ",
+        "explanationText": "正しい。FE式湯沸器は、ファンで燃焼排ガスを屋外へ排出する強制排気式である。自然排気式に適用される排気筒の高さの算定基準は準用されないため、排気筒の横引き長さと高さとの関係について特別の規定はない。",
+        "explanationHash": "a063842517d9f6ed9b02407a7a08a6587fdfd680c119b79fbebc8077c93b2910"
+      },
+      "explanationHash": "a063842517d9f6ed9b02407a7a08a6587fdfd680c119b79fbebc8077c93b2910"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-26-1",
+      "questionTextHash": "73d79f65e083b1ce35f23e1b40142f6f32c384de658c9aa2911139cdd579721e",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q26-s01",
+        "explanationHash": "a050a1f2d0d52edfd2ede3843924cac891c5c1e7b9a4cd95fab919f5f35931d7"
+      },
+      "explanationHash": "a050a1f2d0d52edfd2ede3843924cac891c5c1e7b9a4cd95fab919f5f35931d7"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-26-2",
+      "questionTextHash": "8390547261eff46619c25b051b55d3c9d6424b0054e5e7ec8a3e8955c01588bc",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q26-s02",
+        "explanationHash": "5c0342f02284a888f3ac23de1f1d2c2988474a5f11ff35b26cf946e89439f607"
+      },
+      "explanationHash": "5c0342f02284a888f3ac23de1f1d2c2988474a5f11ff35b26cf946e89439f607"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-26-3",
+      "questionTextHash": "41f360aee051ed67d0eb1e9ba06c6dd790c35ebd957881a4805c82038d3a7eb5",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q26-s03",
+        "explanationHash": "0ca94d98ab0b8fc516cb71aaf8fb90343c9eafb8a53d3fd909c963fd3ec824e5"
+      },
+      "explanationHash": "0ca94d98ab0b8fc516cb71aaf8fb90343c9eafb8a53d3fd909c963fd3ec824e5"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-26-4",
+      "questionTextHash": "0e50cea7f380aab6152f6ec2eac093c323b989acfb7cd23327581b900da4554a",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q26-s04",
+        "explanationHash": "f0a099a761cfa75b9e6a92e0e722481c034dd916221d7c77339133e612b0acd2"
+      },
+      "explanationHash": "f0a099a761cfa75b9e6a92e0e722481c034dd916221d7c77339133e612b0acd2"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-26-5",
+      "questionTextHash": "ae2b43c6daed3fe911f5afac0ecc6c04fcf1d5c872b65d5c79ca4428f77242f4",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q26-s05",
+        "explanationHash": "f3b4c7ce7b6ebf30c3eab91948bfaeccde54cad7ef3d96cf3c1fc38babbaf228"
+      },
+      "explanationHash": "f3b4c7ce7b6ebf30c3eab91948bfaeccde54cad7ef3d96cf3c1fc38babbaf228"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-27-1",
+      "questionTextHash": "f7d7c1bf30c4b1014ea28eb469b5b9d539ba258f3fb841d290464e8ca7d7b281",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q27-s01",
+        "explanationHash": "eed57d21d98e3e74e40ac10aa8c7f44b1f06a13ba5ef6ea0fb9f2e3be8afdf4d"
+      },
+      "explanationHash": "eed57d21d98e3e74e40ac10aa8c7f44b1f06a13ba5ef6ea0fb9f2e3be8afdf4d"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-27-2",
+      "questionTextHash": "cf3e773fa22c94279b433374e03432e92579a2e2a9cee49769e836c0928fd21d",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q27-s02",
+        "explanationHash": "562cacb4848cd981fa0d1436d318bc6828ff2943d84e8faf26283b9346494603"
+      },
+      "explanationHash": "562cacb4848cd981fa0d1436d318bc6828ff2943d84e8faf26283b9346494603"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-27-3",
+      "questionTextHash": "da8d19e91ac5ccd495d16a69cdef5f366a0aa83133adbdf3e78fc99a91594e8a",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q27-s03",
+        "explanationHash": "5efe0af8ad7cc470b84cd71fe9a1e2a940cd48d8c4fda96d5d1c1722f61b65b6"
+      },
+      "explanationHash": "5efe0af8ad7cc470b84cd71fe9a1e2a940cd48d8c4fda96d5d1c1722f61b65b6"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-27-4",
+      "questionTextHash": "152f8917d2b26df57387e97892de65cf439e72474507296565a310f2e7ff44f7",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q27-s04",
+        "explanationHash": "743db256e786b609e5165667142ce08491f00b0990cb7bd8e7f365916bb27dfc"
+      },
+      "explanationHash": "743db256e786b609e5165667142ce08491f00b0990cb7bd8e7f365916bb27dfc"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-27-5",
+      "questionTextHash": "8e15511e99dda92c48012bc09933efee31125f44eb73a5c87ceeca60ab6c66f3",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-shohi-q27-s05",
+        "explanationHash": "5c798646b8348e463d439eb9222cae6ac3f8918d4fb0c65d745b1126f57b3641"
+      },
+      "explanationHash": "5c798646b8348e463d439eb9222cae6ac3f8918d4fb0c65d745b1126f57b3641"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-3-1",
+      "questionTextHash": "95be7524080d076dc81e85a352d3c49cff9a960ebec1b6eaa76c09c06b826c65",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q03-s01",
+        "explanationHash": "b67e68740d2f00ebc73fb33bbc664add6413a5d863e105f038a9ee2c70f134df"
+      },
+      "explanationHash": "b67e68740d2f00ebc73fb33bbc664add6413a5d863e105f038a9ee2c70f134df"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-3-2",
+      "questionTextHash": "0df6ab6b1e3cf4bd0326c1cf014da34659104694a87510897b325cd2f5260db7",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q03-s02",
+        "explanationHash": "4e5d312519336a6f11454acba186e7231eaea21853514a5c6700eac7ef62d10e"
+      },
+      "explanationHash": "4e5d312519336a6f11454acba186e7231eaea21853514a5c6700eac7ef62d10e"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-3-3",
+      "questionTextHash": "fb4b9ed27319278f3917e9c8a4f56f342d06331d3779d8b7ed5f6588036a96ec",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q03-s03",
+        "explanationHash": "f2edeee42ae667c90aaa51273058941f12d390f8d3efe9097ae51b01ed831c82"
+      },
+      "explanationHash": "f2edeee42ae667c90aaa51273058941f12d390f8d3efe9097ae51b01ed831c82"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-3-4",
+      "questionTextHash": "98df054aa0568eb47d733e170e9ec4adeeba54b19a38441911d892d018b3d6fe",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス関係報告規則第4条第1項第11号",
+        "explanationText": "間違い。最高使用圧力が低圧の主要なガス工作物の損壊事故は、ガス関係報告規則第4条第1項第11号で詳報の対象とされているが、速報の対象ではない。したがって、ガス事故速報の報告が法令で規定されている事故には該当しない。",
+        "explanationHash": "9132bd142b7ff99e00d2580bb8d7774de1c02d563931fb9ea7d24ac074d07129"
+      },
+      "explanationHash": "9132bd142b7ff99e00d2580bb8d7774de1c02d563931fb9ea7d24ac074d07129"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-3-5",
+      "questionTextHash": "9086ef674e89c97cd79091d25101cbeb454aca5566b1846e533d322f9ae0d2fb",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q03-s05",
+        "explanationHash": "cf87705cef7d8a8dc45257e7fa12465d9cacd4cfa720eea93d89f40d00584131"
+      },
+      "explanationHash": "cf87705cef7d8a8dc45257e7fa12465d9cacd4cfa720eea93d89f40d00584131"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-4-1",
+      "questionTextHash": "afc97b36e0acdbb64e9b307c457cc3372f2fe4280d03999186aaf02be56e327d",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q04-s01",
+        "explanationHash": "33d5f833e4c55fb41b448d6c967780a2e6a672113492a423af65b6c2539d325a"
+      },
+      "explanationHash": "33d5f833e4c55fb41b448d6c967780a2e6a672113492a423af65b6c2539d325a"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-4-2",
+      "questionTextHash": "777508777d8d6d68b5ab8dbf30a6190a7f50704ac2fb690f081786049d6d6f49",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:law:q04",
+        "recordIndex": 3,
+        "choiceIndex": 5,
+        "explanationText": "間違い。ガス主任技術者を選任又は解任した場合の届出は、事前に行うものではなく、選任又は解任をした後、遅滞なく行うものです。したがって、事前届出が必要であるとする記述は誤りです（ガス事業法第65条第2項）。",
+        "explanationHash": "016c24943870207587448b8966e564127ebe428155032b8f77fbae162be7e70c"
+      },
+      "explanationHash": "016c24943870207587448b8966e564127ebe428155032b8f77fbae162be7e70c"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-4-3",
+      "questionTextHash": "16ba1118a8c9d1aabf264ffc2603b34dd732583638980cefbbc90e58599edfde",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:law:q04",
+        "recordIndex": 3,
+        "choiceIndex": 3,
+        "explanationText": "正しい。ガス主任技術者試験は、ガス工作物の工事、維持及び運用に関する保安について必要な知識及び技能を問うものです。記述はガス事業法第29条第1項の内容に合致します。",
+        "explanationHash": "cce37e581a6a52dcf21979889843d996139924fdb758675edee7da15c324c1ba"
+      },
+      "explanationHash": "cce37e581a6a52dcf21979889843d996139924fdb758675edee7da15c324c1ba"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-4-5",
+      "questionTextHash": "8f0dde39c27d10260f1c4142c12a28acc22df34f674f811b5f79cac86eba4ad3",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:law:q04",
+        "recordIndex": 3,
+        "choiceIndex": 4,
+        "explanationText": "正しい。ガス主任技術者がガス事業法又は同法に基づく命令等に違反したときは、経済産業大臣が一般ガス導管事業者に対して、そのガス主任技術者の解任を命ずることができます。記述はガス事業法第67条の内容に合致します。",
+        "explanationHash": "f8a3dea24eb1b6bd63186725fe80a1951fe7ab2e15117977aa046b3893a4cb56"
+      },
+      "explanationHash": "f8a3dea24eb1b6bd63186725fe80a1951fe7ab2e15117977aa046b3893a4cb56"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-5-1",
+      "questionTextHash": "622ae9eedce85706aca4742e6e7e35488397c11b4fee5301c95c1d8e50a91200",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q05-s01",
+        "explanationHash": "d300df0f26b872225897bec8ccc779106d2eee1a1fada47c02342e4c81b9fbb0"
+      },
+      "explanationHash": "d300df0f26b872225897bec8ccc779106d2eee1a1fada47c02342e4c81b9fbb0"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-5-2",
+      "questionTextHash": "ad2a6c882e7ccb63067f87787889ab6894982b3ea58891916e1e0e7612796f67",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q05-s02",
+        "explanationHash": "cd830b022bec65698be53a4a1fd43c4eea763c56bd97cb5df426d42376154755"
+      },
+      "explanationHash": "cd830b022bec65698be53a4a1fd43c4eea763c56bd97cb5df426d42376154755"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-5-3",
+      "questionTextHash": "fe400262ed24c4a4c307aea282f00ec3a79f154394f6c11a6470af382c211303",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス事業法第101条・第102条、ガス事業法施行規則第159条・第160条",
+        "explanationText": "間違い。正しい組合せは、（イ）変更、（ロ）登録ガス工作物検査機関、（ハ）試験のため、（ニ）熱量等、（ホ）5である。この肢は、（ロ）を経済産業大臣、（ハ）を緊急時、（ホ）を3としているため誤りである。",
+        "explanationHash": "d36392f65a07f6f7774264e651f10b914dc8982e85e22de63bc34f81955e7860"
+      },
+      "explanationHash": "d36392f65a07f6f7774264e651f10b914dc8982e85e22de63bc34f81955e7860"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-5-4",
+      "questionTextHash": "1d1c674c7a81f4d1c9acf826bbcf4152ff2632a306141f7c14112f4e89eceb98",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q05-s04",
+        "explanationHash": "c7161dff007ba8b04afe5db8a3e7ef2f874fd7176a6c85f8e44dc6268e29553e"
+      },
+      "explanationHash": "c7161dff007ba8b04afe5db8a3e7ef2f874fd7176a6c85f8e44dc6268e29553e"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-5-5",
+      "questionTextHash": "bad293944b885aa457461dbb6a2c1a8a75d49361e56f5d7ce4906dd79916e05e",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q05-s05",
+        "explanationHash": "c7a6f5e47ddc70fc21566b5d1767c23962fc79d8110bf103ad6163d26519a47b"
+      },
+      "explanationHash": "c7a6f5e47ddc70fc21566b5d1767c23962fc79d8110bf103ad6163d26519a47b"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-6-2",
+      "questionTextHash": "b65656175917ec770711bfdf8475f35c8254bdf51229039ffd9ff8f841ace0a6",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q06-s05",
+        "explanationHash": "de6a030f3d4d5de353991ef6a5a760821195c5f41a2732cac2bac8fa496f7c5b"
+      },
+      "explanationHash": "de6a030f3d4d5de353991ef6a5a760821195c5f41a2732cac2bac8fa496f7c5b"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-6-3",
+      "questionTextHash": "a283b5058b53f8d35b874dc01ce8cb362172dc2e66598dcd78ba9a2ffb4fbf60",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q06-s03",
+        "explanationHash": "6c3901ba50a7e6e5e5a40db0f1117ab3278ec853e76748b5d53169c4386cdf91"
+      },
+      "explanationHash": "6c3901ba50a7e6e5e5a40db0f1117ab3278ec853e76748b5d53169c4386cdf91"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-6-4",
+      "questionTextHash": "0ada798af90b0cc57375ca09b0f20b014e20c8b034d1cac1e90f4a099a16beea",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス工作物の技術上の基準を定める省令第9条第2項",
+        "explanationText": "正しい。製造所では、液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある適切な場所に、その漏えいを検知して警報する設備を設ける必要がある。これはガス工作物の技術上の基準を定める省令第9条第2項に規定されている。",
+        "explanationHash": "4d8858545c9d81e1e53f6a53ac041712d6010b4f48810f719c08b1a4e6bbc894"
+      },
+      "explanationHash": "4d8858545c9d81e1e53f6a53ac041712d6010b4f48810f719c08b1a4e6bbc894"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-6-5",
+      "questionTextHash": "88981383049cf989772695189b362dd0eb71a3172cc91e03fff0b7a8a2c60467",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-law-q06-s04",
+        "explanationHash": "a99df05359fc9fee1c758209dcaba7f77329bb24ecbc797811b2ae9474502739"
+      },
+      "explanationHash": "a99df05359fc9fee1c758209dcaba7f77329bb24ecbc797811b2ae9474502739"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-7-1",
+      "questionTextHash": "360e62179f6ce5ab1a9d745807cfbf6e614a2db23078bec13bffce2c507345c6",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q07-s01",
+        "explanationHash": "4e470f01e7b2c145d58428acf7e49a760ba6954726954ed2e6da6a97276250a4"
+      },
+      "explanationHash": "4e470f01e7b2c145d58428acf7e49a760ba6954726954ed2e6da6a97276250a4"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-7-2",
+      "questionTextHash": "ed37974b592bd8bf8d8404341e88e168444d1cf6cecbca09be70b80c5735d919",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q07-s02",
+        "explanationHash": "848621b9948009e43fdcadabe9e3699d9ad2efea7841f0fe592136c5931c9e92"
+      },
+      "explanationHash": "848621b9948009e43fdcadabe9e3699d9ad2efea7841f0fe592136c5931c9e92"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-7-3",
+      "questionTextHash": "dbbf9890ba25fe0972af1197b16bc26881cf78c79477ca0223cc4c5cc48cabb6",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q07-s03",
+        "explanationHash": "07428df5c036fb5c8dfb142e4a765cf0602ea56ce4e9ee080aec4a508b4bd663"
+      },
+      "explanationHash": "07428df5c036fb5c8dfb142e4a765cf0602ea56ce4e9ee080aec4a508b4bd663"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-7-4",
+      "questionTextHash": "d4248a44cc596b9c620179cd5252c294746ba62ba9f12433e297bb2eb099284e",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q07-s04",
+        "explanationHash": "ec8207f6ba53336811baa084fe6e4dd08d5f402fe21760e2f8ccb968f336a792"
+      },
+      "explanationHash": "ec8207f6ba53336811baa084fe6e4dd08d5f402fe21760e2f8ccb968f336a792"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-7-5",
+      "questionTextHash": "92827a12abf89a221c39be6bd852059c2276c15a0c81e3bcd42bdf4f42dbb5d4",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q07-s05",
+        "explanationHash": "bac92c687cf8deeb84084edf6a30d30e076ec945a17cfad17dafcbc451d021c6"
+      },
+      "explanationHash": "bac92c687cf8deeb84084edf6a30d30e076ec945a17cfad17dafcbc451d021c6"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-8-1",
+      "questionTextHash": "7e3807b9375d70e98903bd9c62993da5ac4f3c8fd5169fee3adaa928eccc0eca",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q08-s01",
+        "explanationHash": "4d3903d27bc0898c26a7b7e364bcd5502c5247a6c4f9d8c81c85ba6411e9a4db"
+      },
+      "explanationHash": "4d3903d27bc0898c26a7b7e364bcd5502c5247a6c4f9d8c81c85ba6411e9a4db"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-8-2",
+      "questionTextHash": "dd898741638a1b91acc8c9a3b8a8716385f4fe74c6b1830f341b92a7ab44d34a",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q08-s02",
+        "explanationHash": "7065d7934cdde2a044d13b303bd25892b297b341bfac7d305c5f1bf6653b9e47"
+      },
+      "explanationHash": "7065d7934cdde2a044d13b303bd25892b297b341bfac7d305c5f1bf6653b9e47"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-8-3",
+      "questionTextHash": "3eda5158c60b7e86efd6df55190ec05efaf0f6d3790e1088805851ea9e4ab313",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:law:q08",
+        "recordIndex": 7,
+        "choiceIndex": 3,
+        "explanationText": "正しい。製造所、供給所又は移動式ガス発生設備に設置する遮断装置には、誤操作を防止し、かつ、確実に操作できる措置を講じる必要がある。製造所に設置する遮断装置について述べた本肢は、ガス工作物の技術上の基準を定める省令第20条第1項に沿っている。",
+        "explanationHash": "2396f744994d951b2235be751a3cded15d4497acb2c9d5cfac8089b098ffe68f"
+      },
+      "explanationHash": "2396f744994d951b2235be751a3cded15d4497acb2c9d5cfac8089b098ffe68f"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-8-4",
+      "questionTextHash": "533471b64318f57eefb6f0fe5faeca7a1cd36efa72509ca1090de5b16b2028ab",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q08-s04",
+        "explanationHash": "5514ef0561e736918a3588897422e0b315a6336a0c0b7781bc7083bd1da473ba"
+      },
+      "explanationHash": "5514ef0561e736918a3588897422e0b315a6336a0c0b7781bc7083bd1da473ba"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-8-5",
+      "questionTextHash": "339289ff6a2a4feae366deeaf5eef2fa3daae7a97dbdf1f267009b0842a579d0",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q08-s05",
+        "explanationHash": "a31145d4881e7ccf824a19a62f700b1dda4edfea51904af276a4b82c8e01ec58"
+      },
+      "explanationHash": "a31145d4881e7ccf824a19a62f700b1dda4edfea51904af276a4b82c8e01ec58"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-9-1",
+      "questionTextHash": "422219ad18ac6565f7ee931f1c217b515461825f75b844912097b70fa0d699ff",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q09-s01",
+        "explanationHash": "4b3ac78f549d96782a91c8a097f64555284d54f25f4c06061d2627cf9f67dc24"
+      },
+      "explanationHash": "4b3ac78f549d96782a91c8a097f64555284d54f25f4c06061d2627cf9f67dc24"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-9-2",
+      "questionTextHash": "f19287366ad6608110b254caf2be5153dc08d39460eca5ba00ca87e9a55445da",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q09-s02",
+        "explanationHash": "c36ae65d696c8250483792d4bca86d6eb3c57f6ba51773ee58a157fc94c90b1c"
+      },
+      "explanationHash": "c36ae65d696c8250483792d4bca86d6eb3c57f6ba51773ee58a157fc94c90b1c"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-9-3",
+      "questionTextHash": "f9b15b5e05e627785e15a72fc9367ff55e7c23b74aa627bcd9fa338f1dbb2c68",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:law:q09",
+        "recordIndex": 8,
+        "choiceIndex": 3,
+        "explanationText": "正しい。ガスの通ずる部分に直接液体又は気体を送入する装置を有する製造設備は、逆流による設備損傷やガスの大気放出を防ぐため、逆流が生じない構造とする必要があります。これはガス工作物の技術上の基準を定める省令第30条に定められており、液体を送入する装置を含む本記述は正しいです。",
+        "explanationHash": "9ffb89a2dda15d7f9a93e85de4d8458d6f2ac2a2605b9bb1104ba4c1acffcfe1"
+      },
+      "explanationHash": "9ffb89a2dda15d7f9a93e85de4d8458d6f2ac2a2605b9bb1104ba4c1acffcfe1"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-9-4",
+      "questionTextHash": "e11d6cc2ad56bafddb2106623d492b14f468a63462980e63da72cc36b12725b1",
+      "correctChoiceText": "正しい",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:law:q09",
+        "recordIndex": 8,
+        "choiceIndex": 2,
+        "explanationText": "正しい。気化装置又はこれに接続される配管等には、気化装置から液化ガスが流出することを防止する措置を講じる必要があります。流出を考慮した設計である場合の例外も、ガス工作物の技術上の基準を定める省令第31条第3項に定められているため、本記述は正しいです。",
+        "explanationHash": "e5e391489b085b3c1eb830548931355f7826533a65846fccbb9509dfb8e33289"
+      },
+      "explanationHash": "e5e391489b085b3c1eb830548931355f7826533a65846fccbb9509dfb8e33289"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-9-5",
+      "questionTextHash": "6ae5cd018dbd4be51e334d50e2d40a2e9090b51d7d6b46808641f5c84cae6d1c",
+      "correctChoiceText": "間違い",
+      "source": {
+        "kind": "firestore_same_question",
+        "questionId": "gas-shunin-otsu-2020-seizo-q09-s05",
+        "explanationHash": "3160e898117ec963b388df25cf62f2ab18fcd1b7fb1bec3dc34a425329f59527"
+      },
+      "explanationHash": "3160e898117ec963b388df25cf62f2ab18fcd1b7fb1bec3dc34a425329f59527"
+    }
+  ]
+}

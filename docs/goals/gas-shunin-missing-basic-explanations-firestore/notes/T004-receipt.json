@@ -1,0 +1,37 @@
+{
+  "result": "done",
+  "decision": "needs_rework",
+  "full_outcome_complete": false,
+  "rationale": "乙種2020の142 readyを再監査すると、ローカル21 patch由来の3件でFirestore正答と解説接頭辞が逆転していた。先に発見済みの1件と合わせ、正答矛盾は4件である。Firestore同一問題由来101件は欠落0・接頭辞不一致0、inline解説41件は重複0。限定更新契約と36テストは合格しているため、自動採用時にも正答整合を必須化し、4件をholdにして残る139件をmaterialize/dry-runするreworkを承認する。",
+  "evidence": [
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_reviewed_2020.json",
+    "notes/T003-progress-and-answer-conflict.md",
+    "Firestore source readback: firestore_same_question 101件、missing 0、prefix mismatch 0",
+    "inline source audit: 41件、duplicate explanation group 0、prefix mismatch 3"
+  ],
+  "worker_package": {
+    "objective": "乙種2020の自動採用にも正答整合検査を適用し、正答矛盾4件をhold、残る139件を一問単位の決定台帳からexplanationText限定artifactへmaterializeしてuploader dry-runまで完了する。",
+    "allowed_files": [
+      "scripts/fix/materialize_gas_shunin_missing_explanations.py",
+      "scripts/upload/upload_questions_to_firestore.py",
+      "tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py",
+      "tests/test_upload_questions_to_firestore.py",
+      "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**",
+      "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T005-*"
+    ],
+    "verify": [
+      "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py",
+      "乙種2020 decision counts total=143, ready=139, hold=4",
+      "materialization targetCount=139, uniqueTargetCount=139, nonExplanationDriftCount=0",
+      "uploader dry-run passes with writeFields=[explanationText]",
+      "git diff/status shows no 00_source changes",
+      "GoalBuddy state checker passes"
+    ],
+    "stop_if": [
+      "4件以外に正答又はidentity矛盾が見つかる。",
+      "explanationText以外のfieldが更新対象になる。",
+      "法令根拠未確認の新規解説が必要になる。",
+      "verification fails twice."
+    ]
+  }
+}

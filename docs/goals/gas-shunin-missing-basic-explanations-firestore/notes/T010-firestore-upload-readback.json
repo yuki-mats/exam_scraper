@@ -1,0 +1,23 @@
+{
+  "taskId": "T010",
+  "result": "done",
+  "uploaded": {
+    "2020": 139,
+    "2021": 195,
+    "2022": 189,
+    "2023": 226,
+    "total": 749,
+    "errors": 0
+  },
+  "writeFields": ["explanationText"],
+  "readback": {
+    "approvedCount": 749,
+    "mismatchCount": 0,
+    "missingByGrade": {"甲種": 0, "乙種": 32},
+    "holdCount": 32,
+    "missingIdsEqualHoldIds": true,
+    "missingNotHeld": [],
+    "heldButNotMissing": []
+  },
+  "summary": "承認済み749問をexplanationText限定でFirestoreへ更新し、749問すべての本文一致を確認した。残る欠落32問は正答矛盾holdと完全一致する。"
+}

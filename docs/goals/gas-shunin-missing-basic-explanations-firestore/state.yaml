@@ -1,0 +1,509 @@
+version: 2
+
+goal:
+  title: "ガス主任技術者 基本解説欠落の全件整備とFirestore反映"
+  slug: "gas-shunin-missing-basic-explanations-firestore"
+  kind: specific
+  tranche: "欠落全件を一問ずつ整備し、Firestore反映とライブ確認まで連続実行する"
+  status: active
+  oracle:
+    signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
+    cadence: "各Worker package後と最終監査時"
+    final_proof: "ローカルpatch・変換・upload receipt・Firestore readback・既存ID維持を結ぶ最終監査receipt"
+  intake:
+    original_request: "isDeleted=falseかつisChoiceOnly=falseの問題の基本解説を一問ずつ作成し、Firestoreへアップして更新する"
+    interpreted_outcome: "表示対象の基本解説欠落を全件解消し、ローカル正本とFirestoreを一致させる"
+    input_shape: specific
+    audience: "ガス主任技術者試験の受験者"
+    authority: requested
+    proof_type: metric
+    completion_proof: "Firestoreライブ欠落0件、全更新対象readback一致、品質検査合格"
+    likely_misfire: "qualificationIdだけで絞って旧ID混在分を落とす、直接Firestoreだけを更新する、又は一問ごとの根拠なしに汎用解説を一括生成する"
+    blind_spots_considered:
+      - "旧qualificationIdと現行甲乙フォルダ所属の混在"
+      - "isChoiceOnly=trueは契約上explanationTextを持たない"
+      - "法令問題の現行法根拠と出題当時の正誤を混同しない"
+      - "実行中jobとqualification lockを破壊しない"
+      - "mainがorigin/mainより56コミット先行しており、push範囲の所有確認が必要"
+    existing_plan_facts:
+      - "一問ずつ基本解説を作成する"
+      - "同じ論点・出題形式の既存類題解説を踏まえて内容と粒度を揃える"
+      - "Firestoreへアップし、更新後を確認する"
+      - "サブエージェントを使わずPMスレッドだけで実行する"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/gas-shunin-missing-basic-explanations-firestore/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-missing-basic-explanations-firestore"
+
+active_task: T011
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: low
+    objective: "Firestore欠落対象とローカル正本の対応、実行中job、検証・公開経路を読み取り専用で確定する。"
+    inputs:
+      - "Firestore live questions under gas-shunin A/B folders"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/reference/question_field_contract.md"
+      - "config/question_maintenance_workflow.toml"
+      - "output/gas-shunin-kou/questions_json"
+      - "output/gas-shunin-otsu/questions_json"
+    constraints:
+      - "Read-only."
+      - "00_source、patch、生成物、Firestoreを変更しない。"
+      - "qualificationIdだけで対象を絞らない。"
+      - "2026-08-29 baseline 782件を現行Firestoreで再検証する。"
+      - "サブエージェントを使わずPM fallbackで実行する。"
+    expected_output:
+      - "欠落対象の固定inventoryと甲乙・年度別件数"
+      - "各対象のFirestore ID、source identity、patch保存先対応"
+      - "各対象に対する既存類題解説の参照候補と選定軸"
+      - "既存ローカル解説があるのにFirestoreだけ欠落する対象の分類"
+      - "実行中job・lock・repo divergenceの安全確認"
+      - "検証・upload・live readbackコマンド"
+    receipt:
+      result: done
+      summary: "Firestoreの表示対象を再読取し、欠落782件（甲1、乙781）を固定した。旧ID混在、肢順変更、2020年の分野ID再利用によりID単独対応は危険と判明。既存同一問題の解説561件、要監査衝突4件、ローカル完全一致31件、個別レビュー186件へ分類し、既存IDを保つ対象限定repair artifact、dry-run、live fingerprint、upload、全件readbackの安全経路を確定した。"
+      evidence:
+        - "notes/T001-firestore-missing-inventory.json: 782 target records"
+        - "notes/T001-scout.md: live counts, identity risks, publication path"
+        - "Firestore selected-field read: 60 questionSets and 3720 documents"
+        - "git status: only goal directory untracked; main ahead 56 and behind 0"
+      facts:
+        - "甲種欠落1件、乙種欠落781件"
+        - "乙種年度別は2020=143、2021=222、2022=189、2023=227"
+        - "isChoiceOnly=trueは契約上対象外"
+        - "qualificationIdだけでは甲乙を分類できない"
+        - "同一問題候補でも古いoriginal fieldsが別分野を指す例がある"
+        - "既存IDを保つfull-document repair artifactを通常uploaderへ渡せる"
+      contradictions:
+        - "古いoriginal fieldsと現在のquestionTextが異なる2020年documentがある"
+        - "現行IDの肢番号とローカルpatchの肢順が一致しない問題がある"
+      ambiguity_requiring_judge:
+        - "4件の同一qset/text候補衝突の選択規則"
+        - "186件の個別作成・近似ローカル再利用境界"
+        - "repair sourceとupload artifactのallowed_files"
+      commands:
+        - "python scripts/upload/upload_questions_to_firestore.py <artifact> --dry-run"
+        - "QUESTION_PUBLISH_EXPECTED_LIVE_HASH=<hash> python scripts/upload/upload_questions_to_firestore.py <artifact>"
+        - "node goalbuddy/check-goal-state.mjs docs/goals/gas-shunin-missing-basic-explanations-firestore"
+      note_needed: false
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Scoutのinventoryと正常経路を監査し、最初の安全な一問単位実装packageを確定する。"
+    inputs:
+      - "T001 receipt"
+      - "Current repo and Firestore baseline"
+    constraints:
+      - "Do not implement."
+      - "直接Firestore手編集を選ばない。"
+      - "既存ローカル解説の再公開で直る問題と新規解説作成が必要な問題を分ける。"
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "年度別確定件数とblocked／hold方針"
+    receipt:
+      result: done
+      summary: "甲種2020の1件と乙種2020の143件を最初の安全な実装packageとして承認した。各Firestore IDに既存同一問題・ローカル21 patch・類題を踏まえた個別作成のいずれかを一意に結ぶ決定台帳を正本とし、現行documentの選択field snapshotからfull upload artifactを生成する。曖昧候補は自動採用せず、非解説field差分、ID差分、正答との不一致を停止条件とする。"
+      decision: approved
+      worker_objective: "甲種2020の1件と乙種2020の143件について、一問ずつ出典付き解説決定を作成し、対象限定repair artifact、検査、uploader dry-runまで完了する。"
+      allowed_files:
+        - scripts/fix/materialize_gas_shunin_missing_explanations.py
+        - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+        - "output/gas-shunin-kou/questions_json/firestore_repairs/20260829/**"
+        - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**"
+        - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T003-*"
+      verify:
+        - "pytest tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py"
+        - "materializer check: target IDs=144 and non-explanation drift=0"
+        - "uploader dry-run passes for the generated first-package artifact"
+        - "check_00_source_immutability reports unchanged"
+        - "GoalBuddy state checker passes"
+      stop_if:
+        - "identity or answer ambiguity remains"
+        - "new legal explanation lacks Lawzilla and official-law evidence"
+        - "any non-explanation field would change"
+        - "verification fails twice"
+      blocked_or_hold_policy: "推測で埋めず、対象IDをholdとしてpackage公開を停止する。"
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "Judgeが確定した甲種1件と乙種2020年の最初のpackageを、一問ずつ解説作成・保存・検証まで完了する。"
+    allowed_files:
+      - "scripts/fix/materialize_gas_shunin_missing_explanations.py"
+      - "scripts/upload/upload_questions_to_firestore.py"
+      - "tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py"
+      - "tests/test_upload_questions_to_firestore.py"
+      - "output/gas-shunin-kou/questions_json/firestore_repairs/20260829/**"
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T003-*"
+    verify:
+      - "pytest tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py"
+      - "pytest tests/test_upload_questions_to_firestore.py"
+      - "Target IDs are exactly 144 and non-explanation drift is zero."
+      - "Uploader dry-run passes for the first-package artifact."
+      - "00_source immutability check passes."
+      - "GoalBuddy state checker passes."
+    stop_if:
+      - "Need files outside Judge-approved allowed_files."
+      - "問題文、選択肢、正答又はsource identityが矛盾する。"
+      - "法令根拠を公式一次資料とLawzillaで確定できない。"
+      - "Verification fails twice."
+    receipt:
+      result: blocked
+      blocked_reason: "乙種2020のgasushunin-otsushu-gizyutsu-2020-1-1はFirestore correctChoiceText=正しいだが、原問題、01-04人手レビュー、21 patch、e-Govガス事業法第1条の根拠がいずれも間違いで一致する。誤答に合わせた解説は作成せずholdとした。"
+      changed_files:
+        - scripts/fix/materialize_gas_shunin_missing_explanations.py
+        - scripts/upload/upload_questions_to_firestore.py
+        - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+        - tests/test_upload_questions_to_firestore.py
+        - output/gas-shunin-kou/questions_json/firestore_repairs/20260829/
+        - output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T003-progress-and-answer-conflict.md
+      commands:
+        - cmd: "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py"
+          status: pass
+        - cmd: "甲種2020 materialize、uploader dry-run、guarded upload、Firestore live readback"
+          status: pass
+        - cmd: "乙種2020 target IDs exactly 143 and all decisions ready"
+          status: fail
+        - cmd: "python scripts/check/check_00_source_immutability.py"
+          status: fail
+        - cmd: "node GoalBuddy check-goal-state.mjs docs/goals/gas-shunin-missing-basic-explanations-firestore"
+          status: pass
+      summary: "甲種の欠落1件はexplanationText限定でFirestore反映とreadbackを完了。乙種2020は143件中142件を出典付きで確定し、正答矛盾1件をhold。全repo 00_source検査は今回変更と無関係な既存3171件消失で赤だが、今回scopeの00_source変更はない。"
+      note: notes/T003-progress-and-answer-conflict.md
+      spawned_tasks:
+        - T004
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "最初のpackageを品質・identity・patch責務・再現性で監査し、残年度へ拡張できるか判定する。"
+    inputs:
+      - "T003 receipt"
+      - "First package patches and verification output"
+    constraints:
+      - "Do not implement."
+      - "汎用解説、根拠不足、IDずれ、00_source変更があれば拡張を拒否する。"
+    expected_output:
+      - "approved | needs_rework"
+      - "残年度Workerのallowed_files"
+      - "残年度Workerのverify"
+      - "品質上の共通feedback"
+    receipt:
+      result: done
+      decision: needs_rework
+      full_outcome_complete: false
+      rationale: "乙種2020の142 readyを再監査すると、ローカル21 patch由来の3件でFirestore正答と解説接頭辞が逆転していた。先に発見済みの1件と合わせ、正答矛盾は4件である。Firestore同一問題由来101件は欠落0・接頭辞不一致0、inline解説41件は重複0。限定更新契約と36テストは合格しているため、自動採用時にも正答整合を必須化し、4件をholdにして残る139件をmaterialize/dry-runするreworkを承認する。"
+      evidence:
+        - output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_reviewed_2020.json
+        - notes/T003-progress-and-answer-conflict.md
+        - "Firestore source readback: firestore_same_question 101件、missing 0、prefix mismatch 0"
+        - "inline source audit: 41件、duplicate explanation group 0、prefix mismatch 3"
+      worker_package:
+        objective: "乙種2020の自動採用にも正答整合検査を適用し、正答矛盾4件をhold、残る139件を一問単位の決定台帳からexplanationText限定artifactへmaterializeしてuploader dry-runまで完了する。"
+        allowed_files:
+          - scripts/fix/materialize_gas_shunin_missing_explanations.py
+          - scripts/upload/upload_questions_to_firestore.py
+          - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+          - tests/test_upload_questions_to_firestore.py
+          - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**"
+          - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T005-*"
+        verify:
+          - "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py"
+          - "乙種2020 decision counts total=143, ready=139, hold=4"
+          - "materialization targetCount=139, uniqueTargetCount=139, nonExplanationDriftCount=0"
+          - "uploader dry-run passes with writeFields=[explanationText]"
+          - "git diff/status shows no 00_source changes"
+          - "GoalBuddy state checker passes"
+        stop_if:
+          - "4件以外に正答又はidentity矛盾が見つかる。"
+          - "explanationText以外のfieldが更新対象になる。"
+          - "法令根拠未確認の新規解説が必要になる。"
+          - "verification fails twice."
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "乙種2020の自動採用にも正答整合検査を適用し、正答矛盾4件をhold、残る139件を一問単位の決定台帳からexplanationText限定artifactへmaterializeしてuploader dry-runまで完了する。"
+    allowed_files:
+      - "scripts/fix/materialize_gas_shunin_missing_explanations.py"
+      - "scripts/upload/upload_questions_to_firestore.py"
+      - "tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py"
+      - "tests/test_upload_questions_to_firestore.py"
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T005-*"
+    verify:
+      - "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py"
+      - "乙種2020 decision counts total=143, ready=139, hold=4"
+      - "materialization targetCount=139, uniqueTargetCount=139, nonExplanationDriftCount=0"
+      - "uploader dry-run passes with writeFields=[explanationText]"
+      - "git diff/status shows no 00_source changes"
+      - "GoalBuddy state checker passes"
+    stop_if:
+      - "4件以外に正答又はidentity矛盾が見つかる。"
+      - "explanationText以外のfieldが更新対象になる。"
+      - "法令根拠未確認の新規解説が必要になる。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      changed_files:
+        - scripts/fix/materialize_gas_shunin_missing_explanations.py
+        - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+        - output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_bootstrap_2020.json
+        - output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_reviewed_2020.json
+        - output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/holds_answer_conflicts_2020.json
+        - output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_final_2020.json
+        - output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/upload_artifact_ready_2020.json
+        - output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/materialization_audit_ready_2020.json
+      commands:
+        - cmd: "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py"
+          status: pass
+        - cmd: "乙種2020 decision counts total=143, ready=139, needsReview=0, hold=4"
+          status: pass
+        - cmd: "乙種2020 materialization targetCount=139, uniqueTargetCount=139, nonExplanationDriftCount=0, heldCount=4"
+          status: pass
+        - cmd: "upload_questions_to_firestore.py upload_artifact_ready_2020.json --dry-run"
+          status: pass
+        - cmd: "git status/diff scoped to **/00_source/**"
+          status: pass
+        - cmd: "GoalBuddy check-goal-state.mjs"
+          status: pass
+      summary: "自動採用時にも正答接頭辞を検査するよう修正し、選択肢順移行に起因する正答矛盾4件を明示holdへ分離した。残る139件は一問ごとの出典付き台帳からexplanationText限定artifactへmaterializeし、他field差分0とdry-run合格を確認した。"
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "乙種2021〜2023年の欠落638件を、同一問題・ローカル21 patch・類題の順で一問ずつ確定し、明示hold以外をexplanationText限定artifactへmaterializeしてdry-runまで完了する。"
+    allowed_files:
+      - "scripts/fix/materialize_gas_shunin_missing_explanations.py"
+      - "scripts/upload/upload_questions_to_firestore.py"
+      - "tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py"
+      - "tests/test_upload_questions_to_firestore.py"
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T006-*"
+    verify:
+      - "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py"
+      - "2021〜2023のtarget IDs合計638、各IDはready又は根拠付きhold"
+      - "各年度materializationでuniqueTargetCount=targetCount、nonExplanationDriftCount=0"
+      - "各年度uploader dry-run passes with writeFields=[explanationText]"
+      - "同一explanationTextの不適切な一律複製0"
+      - "git diff/status shows no 00_source changes"
+      - "GoalBuddy state checker passes"
+    stop_if:
+      - "Need files outside Judge-approved allowed_files."
+      - "問題identity又は正答が矛盾する場合は推測せずholdへ分離する。"
+      - "法令根拠を確定できない場合はholdへ分離する。"
+      - "explanationText以外のfieldが更新対象になる。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      summary: "2021〜2023年638件を一問ずつ確定し、610件を安全な解説限定artifact、28件を正答矛盾holdへ分離した。"
+      note: notes/T006-receipt.json
+      changed_files:
+        - scripts/fix/materialize_gas_shunin_missing_explanations.py
+        - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+        - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**"
+      commands:
+        - cmd: "pytest materializer and uploader tests"
+          status: pass
+        - cmd: "materialize and uploader dry-run for 2021-2023"
+          status: pass
+
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "乙種2023年の欠落対象を、一問ずつ基本解説作成・保存・検証まで完了する。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**"
+    verify: []
+    stop_if:
+      - "Need files outside Judge-approved allowed_files."
+      - "問題identity又は正答が矛盾する。"
+      - "法令根拠を確定できない。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      summary: "2023年227件はT006へ統合し、226件ready、1件holdとして完了した。"
+      note: notes/T006-receipt.json
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_final_2023.json"
+        - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/upload_artifact_ready_2023.json"
+      commands:
+        - cmd: "materialize and uploader dry-run for 2023"
+          status: pass
+
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "全対象のmerge、convert、quality gate、upload-ready、upload dry-runを正常経路で生成し、対象IDと差分を固定する。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T008-*"
+    verify: []
+    stop_if:
+      - "00_source又は対象外patchに変更が必要になる。"
+      - "既存Firestore ID維持を証明できない。"
+      - "upload payloadに基本解説以外の未承認差分がある。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      summary: "4年度artifactを横断監査し、749件の一意な対象ID、32件の明示hold、対象外field差分0を固定した。"
+      note: notes/T008-receipt.json
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/materialization_audit_ready_*.json"
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T008-receipt.json
+      commands:
+        - cmd: "cross-artifact identity, explanation, prefix and duplicate audit"
+          status: pass
+
+  - id: T009
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Firestore公開前に、全対象の解説品質、法令根拠、ID維持、対象限定payload、欠落0見込みを監査する。"
+    inputs:
+      - "T003-T008 receipts"
+      - "All generated upload payloads"
+      - "Quality gate and dry-run receipts"
+    constraints:
+      - "Do not upload or implement."
+      - "holdは承認対象IDから明示的に除外し、安全な対象だけを公開承認する。"
+    expected_output:
+      - "approved_for_upload | rejected"
+      - "Exact approved document IDs and hashes"
+      - "Missing evidence"
+      - "Required rework task if rejected"
+    receipt:
+      result: done
+      decision: approved_for_upload
+      summary: "明示hold32件を除外した乙種749件を、explanationText限定で公開承認した。"
+      note: notes/T009-judge.json
+
+  - id: T010
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Judge承認済みの対象だけをFirestoreへuploadし、document単位readbackと甲乙ライブ欠落0件を確認する。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/upload_artifact_ready_*.json"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T010-*"
+    verify:
+      - "各年度expectedLiveFingerprintをpreconditionとしてuploadする。"
+      - "承認済み749 IDのexplanationTextがartifactと完全一致する。"
+      - "isDeleted=falseかつisChoiceOnly=falseの乙種ライブ欠落が32件となり、全てhold IDと一致する。"
+      - "甲種ライブ欠落は0件を維持する。"
+    stop_if:
+      - "Approved ID/hash setとupload payloadが一致しない。"
+      - "対象外field又はdocumentへ書込みが発生する。"
+      - "Firestore precondition又は競合検査が失敗する。"
+      - "Live readback mismatch is nonzero."
+    receipt:
+      result: done
+      summary: "承認済み乙種749件をexplanationText限定でFirestoreへ更新し、readback不一致0を確認した。甲種欠落0、乙種欠落32で全てhold IDと一致する。"
+      note: notes/T010-firestore-upload-readback.json
+      changed_files:
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T010-firestore-upload-readback.json
+      commands:
+        - cmd: "guarded upload for 2020-2023 with expected live fingerprints"
+          status: pass
+        - cmd: "Firestore document readback and missing inventory comparison"
+          status: pass
+
+  - id: T011
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "今回scopeの変更とreceiptだけを検証・commitし、先行56コミットの所有とpush影響を確認したうえでorigin/mainへpushする。"
+    inputs:
+      - "T001-T010 receipts"
+      - "Current git status and origin/main divergence"
+    constraints:
+      - "未関連変更をstageしない。"
+      - "force push又は履歴上書きをしない。"
+      - "先行56コミットのpushが未承認変更を公開する場合はpushだけをblockedにして証跡を残す。"
+    expected_output:
+      - "Commit hash"
+      - "Pushed origin/main hash or exact push blocker"
+      - "Clean scoped status"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全更新、Firestoreライブ状態、Git証跡が元の依頼を満たすか最終監査する。"
+    inputs:
+      - "All done task receipts"
+      - "Final Firestore live readback"
+      - "Final git status and commit/push receipt"
+    constraints:
+      - "Do not implement."
+      - "欠落が1件でも残る場合は完了を拒否する。"
+      - "queued又はactiveのrequired Workerがある場合は完了を拒否する。"
+      - "ローカル正本とFirestoreの不一致がある場合は完了を拒否する。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []

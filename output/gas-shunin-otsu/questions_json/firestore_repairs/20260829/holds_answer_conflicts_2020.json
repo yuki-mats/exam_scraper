@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-holds-v1",
+  "reviewedAt": "2026-08-29",
+  "overrides": [
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-1-1",
+      "status": "hold",
+      "reason": "FirestoreのcorrectChoiceTextは正しいだが、原問題、01-04人手レビュー、21 patch及びガス事業法第1条の一次根拠は間違いで一致する。",
+      "evidence": [
+        "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json#gas-shunin:otsu:2020:law:q01",
+        "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "e-Gov ガス事業法第1条 lawId=329AC0000000051"
+      ],
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationText": "間違い。空欄（イ）の「国の関与を最小限に」が誤り。ガス事業法第1条は、ガス事業の運営を調整することによって、ガスの使用者の利益を保護し、ガス事業の健全な発達を図ることを目的の一部として定めている。"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-4-4",
+      "status": "hold",
+      "reason": "FirestoreのcorrectChoiceTextは間違いだが、原問題、01-04人手レビュー、21 patch及びガス事業法第66条第1項の一次根拠は正しいで一致する。",
+      "evidence": [
+        "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json#gas-shunin:otsu:2020:law:q04",
+        "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "e-Gov ガス事業法第66条第1項"
+      ],
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationText": "正しい。ガス主任技術者は、ガス事業法第66条第1項により、誠実にその職務を行わなければならないと定められている。"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-6-1",
+      "status": "hold",
+      "reason": "FirestoreのcorrectChoiceTextは正しいだが、原問題、01-04人手レビュー、21 patch及び技術基準省令第6条第2項の一次根拠は間違いで一致する。",
+      "evidence": [
+        "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json#gas-shunin:otsu:2020:law:q06",
+        "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "e-Gov ガス工作物の技術上の基準を定める省令第6条第2項"
+      ],
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationText": "間違い。保安物件までの離隔距離は、製造所の敷地境界からではなく、対象となるガス発生器又は増熱器の外面から確保する。"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-14-5",
+      "status": "hold",
+      "reason": "FirestoreのcorrectChoiceTextは正しいだが、原問題、01-04人手レビュー、21 patch及びガス事業法施行規則第207条の一次根拠は間違いで一致する。",
+      "evidence": [
+        "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json#gas-shunin:otsu:2020:law:q14",
+        "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "e-Gov ガス事業法施行規則第207条"
+      ],
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationText": "間違い。保安業務規程に定めるべきなのは、保安業務を管理する事業場ごとの保安業務監督者の選任に関する事項であり、ガス主任技術者の選任ではない。"
+    }
+  ]
+}

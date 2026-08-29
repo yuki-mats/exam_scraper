@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-v1",
+  "generatedAt": "2026-08-29T09:47:13.592177+00:00",
+  "selection": {
+    "grade": "甲種",
+    "examYear": 2020
+  },
+  "inventory": "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T001-firestore-missing-inventory.json",
+  "counts": {
+    "total": 1,
+    "ready": 1,
+    "needsReview": 0
+  },
+  "decisions": [
+    {
+      "questionId": "chiefgasengineerlicense-C-10137",
+      "grade": "甲種",
+      "examYear": 2020,
+      "questionSetId": "chiefgasengineerlicense-A-1006",
+      "questionText": "材料の特性と力学的性質に関する次の記述について、下記の正誤を答えよ。",
+      "questionTextHash": "421cb95c57c034934c6d510e01e0e3b4f32e2be5ec78e379153c2338979b6a46",
+      "questionType": "true_false",
+      "correctChoiceText": "正しい",
+      "status": "ready",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2020:kiso:q14",
+        "choiceIndex": 1,
+        "explanationText": "正しい。応力は、材料に外力を加えたとき内部に生じる内力を単位断面積あたりの力として表したものである。この記述は応力の定義として正しい。",
+        "explanationHash": "fe8cd4705dbad99017978b721a827cf9a14b7ec98be81e7b22a6cfebc837b2a1"
+      }
+    }
+  ]
+}

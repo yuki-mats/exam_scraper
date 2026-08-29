@@ -1,0 +1,23 @@
+{
+  "taskId": "T008",
+  "result": "done",
+  "summary": "乙種2020〜2023年の4つの対象限定artifactを横断監査し、安全な749件と明示hold32件を固定した。",
+  "counts": {
+    "artifactTargets": 749,
+    "uniqueTargetIds": 749,
+    "hold": 32,
+    "blankExplanations": 0,
+    "wrongAnswerPrefixes": 0,
+    "tooShortExplanations": 0,
+    "nonExplanationDrift": 0,
+    "duplicateExplanationGroups": 44,
+    "duplicatesAcrossDifferentQuestionTexts": 0
+  },
+  "sourceDistribution": {
+    "firestore_same_question": 510,
+    "manual_01_04_review": 177,
+    "authored_from_similar": 39,
+    "local_21_patch": 23
+  },
+  "writeFields": ["explanationText"]
+}

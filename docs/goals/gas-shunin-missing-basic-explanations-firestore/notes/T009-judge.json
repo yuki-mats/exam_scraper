@@ -1,0 +1,13 @@
+{
+  "taskId": "T009",
+  "decision": "approved_for_upload",
+  "scope": "明示hold32件を除外した乙種749件",
+  "rationale": "749件は全ID一意、空欄0、正誤接頭辞不一致0、異なる問題文への同一解説複製0、非解説field差分0で、4年度すべてuploader dry-runに合格した。hold32件は正答修正の権限が必要なためpayloadに含めない。",
+  "approvedArtifacts": [
+    {"year": 2020, "count": 139, "expectedLiveFingerprint": "68afd56985612c9784eaa99be48c2b9703f22199839d67f7ed3285a3b7869df8"},
+    {"year": 2021, "count": 195, "expectedLiveFingerprint": "68c367d1f8f81e0a419097a3de1335da2ba3a3507b83db6fb8091c6809e520e3"},
+    {"year": 2022, "count": 189, "expectedLiveFingerprint": "20bb0bf5f57e3d4a8607979c2ff676dc17f286c68326beaefa78a6dd83cbec15"},
+    {"year": 2023, "count": 226, "expectedLiveFingerprint": "4b9d01b68bde4f47e83c3c76a33ff706f091e82f3a07cb3bdfe45c9704da18ed"}
+  ],
+  "excludedHoldCount": 32
+}

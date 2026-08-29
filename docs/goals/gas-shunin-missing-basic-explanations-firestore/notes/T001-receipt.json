@@ -1,0 +1,33 @@
+{
+  "result": "done",
+  "summary": "Firestoreの表示対象を再読取し、欠落782件（甲1、乙781）を固定した。旧ID混在、肢順変更、2020年の分野ID再利用によりID単独対応は危険と判明。既存同一問題の解説561件、要監査衝突4件、ローカル完全一致31件、個別レビュー186件へ分類し、既存IDを保つ対象限定repair artifact、dry-run、live fingerprint、upload、全件readbackの安全経路を確定した。",
+  "evidence": [
+    "notes/T001-firestore-missing-inventory.json: 782 target records",
+    "notes/T001-scout.md: live counts, identity risks, publication path",
+    "Firestore selected-field read: 60 questionSets and 3720 documents",
+    "git status: only goal directory untracked; main ahead 56 and behind 0"
+  ],
+  "facts": [
+    "甲種欠落1件、乙種欠落781件",
+    "乙種年度別は2020=143、2021=222、2022=189、2023=227",
+    "isChoiceOnly=trueは契約上対象外",
+    "qualificationIdだけでは甲乙を分類できない",
+    "同一問題候補でも古いoriginal fieldsが別分野を指す例がある",
+    "既存IDを保つfull-document repair artifactを通常uploaderへ渡せる"
+  ],
+  "contradictions": [
+    "古いoriginal fieldsと現在のquestionTextが異なる2020年documentがある",
+    "現行IDの肢番号とローカルpatchの肢順が一致しない問題がある"
+  ],
+  "ambiguity_requiring_judge": [
+    "4件の同一qset/text候補衝突の選択規則",
+    "186件の個別作成・近似ローカル再利用境界",
+    "repair sourceとupload artifactのallowed_files"
+  ],
+  "commands": [
+    "python scripts/upload/upload_questions_to_firestore.py <artifact> --dry-run",
+    "QUESTION_PUBLISH_EXPECTED_LIVE_HASH=<hash> python scripts/upload/upload_questions_to_firestore.py <artifact>",
+    "node goalbuddy/check-goal-state.mjs docs/goals/gas-shunin-missing-basic-explanations-firestore"
+  ],
+  "note_needed": false
+}

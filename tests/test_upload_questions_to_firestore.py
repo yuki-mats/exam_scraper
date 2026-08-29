@@ -43,6 +43,69 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             ["questionId", "lawRevisionFacts"],
         )
 
+    def test_resolve_write_fields_accepts_explanation_only_contract(self) -> None:
+        self.assertEqual(
+            module.resolve_write_fields({"writeFields": ["explanationText"]}),
+            ("explanationText",),
+        )
+
+    def test_resolve_write_fields_rejects_broader_patch_contract(self) -> None:
+        with self.assertRaisesRegex(ValueError, "unsupported writeFields"):
+            module.resolve_write_fields(
+                {"writeFields": ["explanationText", "correctChoiceText"]}
+            )
+
+    def test_build_patch_doc_data_writes_only_explanation_and_update_metadata(self) -> None:
+        now = datetime(2026, 8, 29, 12, 0, 0)
+
+        actual = module.build_patch_doc_data(
+            {
+                "explanationText": "正しい。理由。",
+                "correctChoiceText": "正しい",
+                "questionTags": [],
+            },
+            ("explanationText",),
+            now,
+        )
+
+        self.assertEqual(
+            actual,
+            {
+                "explanationText": "正しい。理由。",
+                "updatedAt": now,
+                "updatedById": module.UPDATED_BY_ID,
+            },
+        )
+
+    def test_validate_explanation_patch_accepts_legacy_doc_without_optional_fields(self) -> None:
+        module.validate_explanation_patch_questions(
+            [
+                {
+                    "questionId": "legacy-1",
+                    "questionText": "問題文[quote]記述[/quote]",
+                    "explanationText": "正しい。理由。",
+                    "isDeleted": False,
+                    "isChoiceOnly": False,
+                }
+            ],
+            "repair.json",
+        )
+
+    def test_validate_explanation_patch_rejects_choice_only_target(self) -> None:
+        with self.assertRaisesRegex(ValueError, "isChoiceOnly=false"):
+            module.validate_explanation_patch_questions(
+                [
+                    {
+                        "questionId": "choice-only-1",
+                        "questionText": "問題文",
+                        "explanationText": "解説",
+                        "isDeleted": False,
+                        "isChoiceOnly": True,
+                    }
+                ],
+                "repair.json",
+            )
+
     def test_validate_required_question_fields_rejects_blank_original_question_body_text(self) -> None:
         questions = [
             {

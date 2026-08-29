@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-overrides-v1",
+  "reviewedAt": "2026-08-29",
+  "reviewPolicy": "対象文と正答を確認し、同一論点の既存解説又は検証済みローカルpatchを参照して対象固有の正誤理由を記述する。",
+  "overrides": [
+    {
+      "questionId": "chiefgasengineerlicense-C-10303",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["chiefgasengineerlicense-C-10298", "chiefgasengineerlicense-C-10299", "chiefgasengineerlicense-C-10300"],
+        "explanationText": "正しい。ル・シャトリエの原理により、生成物である二酸化炭素の分圧を増やすと、その増加を打ち消す向きに平衡が移動する。したがって、二酸化炭素と水素を消費する左方向へ反応が進む。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10305",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["chiefgasengineerlicense-C-10298", "chiefgasengineerlicense-C-10299", "chiefgasengineerlicense-C-10300"],
+        "explanationText": "正しい。右方向が発熱反応なので、温度を下げると、平衡は熱を発生させて温度低下を打ち消す向きへ移動する。したがって、二酸化炭素と水素を生成する右方向へ反応が進む。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10306",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["chiefgasengineerlicense-C-10298", "chiefgasengineerlicense-C-10299", "chiefgasengineerlicense-C-10300"],
+        "explanationText": "正しい。ル・シャトリエの原理により、反応物である水蒸気を増やすと、その増加分を消費する向きに平衡が移動する。したがって、二酸化炭素と水素を生成する右方向へ反応が進む。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10307",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["chiefgasengineerlicense-C-10300"],
+        "explanationText": "正しい。触媒は正反応と逆反応の活性化エネルギーをともに下げ、平衡に達するまでの時間を短くする。しかし、平衡定数や平衡組成は変えないため、化学平衡状態そのものには影響を与えない。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10312",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["chiefgasengineerlicense-C-10309", "chiefgasengineerlicense-C-10311"],
+        "explanationText": "正しい。爆燃や爆ごうが起こるには、可燃性ガスと空気又は酸素の混合割合が燃焼範囲内にある必要がある。濃度が燃焼下限界より低い場合や燃焼上限界より高い場合は、着火しても燃焼が伝ぱせず、爆燃や爆ごうは起こらない。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10314",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["chiefgasengineerlicense-C-10312"],
+        "explanationText": "正しい。爆ごうでは、燃焼反応が衝撃波と結び付いて超音速で伝ぱする。大きな圧力変化を伴う衝撃波が物体へ作用するため、衝突した設備や構造物に機械的な破壊を生じさせることがある。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10323",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["gas-shunin-otsu-2019-kiso-q13-s03"],
+        "explanationText": "正しい。ひずみは、外力によって生じた変形量を変形前の長さで割った無次元量である。例えば、長さLの材料がΔLだけ伸びたときの縦ひずみはΔL／Lで表す。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10324",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["chiefgasengineerlicense-C-10323", "chiefgasengineerlicense-C-10327"],
+        "explanationText": "正しい。材料が比例限度以下にある範囲では、応力とひずみは比例し、フックの法則が成り立つ。この比例関係の傾きは、材料の弾性の程度を表す縦弾性係数である。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10325",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["gas-shunin-otsu-2019-kyokyu-q13-s02"],
+        "explanationText": "正しい。薄肉円筒に内圧pが作用すると、円周応力はおおむねpd／2t、軸方向応力はpd／4tとなる。したがって、円周応力は軸方向応力の2倍である。"
+      }
+    },
+    {
+      "questionId": "chiefgasengineerlicense-C-10326",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionIds": ["chiefgasengineerlicense-C-10323", "chiefgasengineerlicense-C-10324"],
+        "explanationText": "正しい。安全係数は、材料の基準となる強さを許容応力で割った値である。同じ材料強度なら、安全係数を大きくするほど許容する応力を小さく設定するため、強度上の余裕が大きい設計となる。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-12-2",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス工作物の技術上の基準を定める省令第54条第1項第3号ロ",
+        "explanationText": "正しい。露出している部分がガスの供給の用に供されている直管以外の管の接合部で、特定接合又は告示で定める規格に適合する接合以外のものには、抜出しを防止する適切な措置が必要である。これはガス工作物の技術上の基準を定める省令第54条第1項第3号ロに定められている。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-16-1",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス事業法第162条",
+        "explanationText": "間違い。消費機器の設置又は変更の工事は、その消費機器が経済産業省令で定める技術上の基準に適合するように行わなければならない。「ガス用品」とする語句が誤りであり、正しくは「消費機器」である。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-16-3",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "特定ガス消費機器の設置工事の監督に関する法律第3条",
+        "explanationText": "間違い。特定工事事業者は、特定工事を行うとき、ガス消費機器設置工事監督者の資格を有する者に実地に監督させる必要がある。「保安業務監督者に選任されている」とする語句が誤りである。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-17-2",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_2_explanationText_added.json",
+        "explanationText": "正しい。樹脂ライニング系の更生修理工法は、管内面に樹脂膜を形成し、腐食の進行や漏えいを防ぐための工法である。本支管及び供給管の腐食漏えい予防に有効である。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-18-3",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_2_explanationText_added.json",
+        "explanationText": "正しい。地震時の二次災害を防止し、供給停止地区をできるだけ小さくするため、導管網をあらかじめ適正な規模のブロックに分割しておく。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-1",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": ["給湯器のQ機能は、再出湯時の冷水サンドイッチ現象を防止する機能である。"],
+        "explanationText": "正しい。Q機能は、いったん止めた給湯を再開したときに一時的な冷水が出る冷水サンドイッチ現象を抑える制御機能である。湯温の急な変化を緩和するため、安定した温度の湯を得やすくなる。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-2",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": ["一般にセミ・ブンゼン燃焼式の炎の長さは、ブンゼン燃焼式に比べて長い。"],
+        "explanationText": "間違い。セミ・ブンゼン燃焼式は、ブンゼン燃焼式より一次空気が少なく、一般に炎が長くなる。瞬間湯沸器の燃焼室を小さくするために用いられるのは、炎が短いブンゼンバーナーであり、セミ・ブンゼンバーナーとする点が誤りである。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-3",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": ["設置フリー形ふろ給湯器は、循環ポンプの揚程範囲内で設置位置を選択できる。"],
+        "explanationText": "正しい。ふろ給湯器の設置方式には、浴槽の近くに機器を設置する浴室隣接設置形と、循環ポンプを用いて機器の設置位置の自由度を高めた設置フリー形がある。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-4",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": ["ハイブリッド給湯器は、電気ヒートポンプと潜熱回収型ガス給湯器を組み合わせる。"],
+        "explanationText": "正しい。ハイブリッド給湯器は、効率よく湯を沸かす電気ヒートポンプと、必要時に高い給湯能力を発揮する潜熱回収型ガス給湯器を組み合わせる。必要な湯量や使用状況に応じて両者を使い分け、効率的に運転する。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-21-5",
+      "source": {
+        "kind": "authored_from_similar",
+        "referenceQuestionTexts": ["ECHONET Liteは、HEMSと家庭内機器を接続する標準通信仕様である。"],
+        "explanationText": "正しい。ECHONET Lite（エコーネットライト）は、HEMSと家庭内の機器との間で情報をやり取りするための標準通信仕様である。燃料電池などのガス機器も接続対象に含まれる。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-1",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。こんろには、調理油過熱防止装置の温度センサーを利用し、鍋底の温度変化から焦げ付きを検知して自動消火する機能を備えたものがある。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-2",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "間違い。グリルは、直火による放射熱を主に利用して食材を加熱する機器である。主として伝導熱で調理するという説明が誤っている。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-3",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。コンビネーションレンジは、ガスオーブンに電子レンジ機能を組み合わせた調理機器である。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-4",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。ガス衣類乾燥機には、乾燥によって生じた湿り空気を屋外へ排出するための排湿筒を取り付けられるようになっている。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-22-5",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。赤外線ストーブには、放射体としてセラミックプレートを用いるものと、特殊耐熱鋼製の金網を用いるものがある。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-24-5",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "explanationText": "正しい。一酸化炭素（CO）は、ヘモグロビンに対する結合力が酸素の約200〜300倍と強く、血液による酸素運搬を妨げる。そのため、吸入すると組織が酸素不足となり、中毒症状を起こしやすい。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-25-5",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "officialEvidence": "ガス事業法施行規則第202条第1項第2号ロ",
+        "explanationText": "正しい。FE式湯沸器は、ファンで燃焼排ガスを屋外へ排出する強制排気式である。自然排気式に適用される排気筒の高さの算定基準は準用されないため、排気筒の横引き長さと高さとの関係について特別の規定はない。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-3-4",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス関係報告規則第4条第1項第11号",
+        "explanationText": "間違い。最高使用圧力が低圧の主要なガス工作物の損壊事故は、ガス関係報告規則第4条第1項第11号で詳報の対象とされているが、速報の対象ではない。したがって、ガス事故速報の報告が法令で規定されている事故には該当しない。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-5-3",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス事業法第101条・第102条、ガス事業法施行規則第159条・第160条",
+        "explanationText": "間違い。正しい組合せは、（イ）変更、（ロ）登録ガス工作物検査機関、（ハ）試験のため、（ニ）熱量等、（ホ）5である。この肢は、（ロ）を経済産業大臣、（ハ）を緊急時、（ホ）を3としているため誤りである。"
+      }
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-6-4",
+      "source": {
+        "kind": "local_21_patch",
+        "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "officialEvidence": "ガス工作物の技術上の基準を定める省令第9条第2項",
+        "explanationText": "正しい。製造所では、液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある適切な場所に、その漏えいを検知して警報する設備を設ける必要がある。これはガス工作物の技術上の基準を定める省令第9条第2項に規定されている。"
+      }
+    }
+  ]
+}

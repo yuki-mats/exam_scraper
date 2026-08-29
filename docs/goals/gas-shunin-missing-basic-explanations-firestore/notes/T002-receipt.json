@@ -1,0 +1,27 @@
+{
+  "result": "done",
+  "summary": "甲種2020の1件と乙種2020の143件を最初の安全な実装packageとして承認した。各Firestore IDに既存同一問題・ローカル21 patch・類題を踏まえた個別作成のいずれかを一意に結ぶ決定台帳を正本とし、現行documentの選択field snapshotからfull upload artifactを生成する。曖昧候補は自動採用せず、非解説field差分、ID差分、正答との不一致を停止条件とする。",
+  "decision": "approved",
+  "worker_objective": "甲種2020の1件と乙種2020の143件について、一問ずつ出典付き解説決定を作成し、対象限定repair artifact、検査、uploader dry-runまで完了する。",
+  "allowed_files": [
+    "scripts/fix/materialize_gas_shunin_missing_explanations.py",
+    "tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py",
+    "output/gas-shunin-kou/questions_json/firestore_repairs/20260829/**",
+    "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/**",
+    "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T003-*"
+  ],
+  "verify": [
+    "pytest tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py",
+    "materializer check: target IDs=144 and non-explanation drift=0",
+    "uploader dry-run passes for the generated first-package artifact",
+    "check_00_source_immutability reports unchanged",
+    "GoalBuddy state checker passes"
+  ],
+  "stop_if": [
+    "identity or answer ambiguity remains",
+    "new legal explanation lacks Lawzilla and official-law evidence",
+    "any non-explanation field would change",
+    "verification fails twice"
+  ],
+  "blocked_or_hold_policy": "推測で埋めず、対象IDをholdとしてpackage公開を停止する。"
+}
