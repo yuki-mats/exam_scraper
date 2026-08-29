@@ -5,7 +5,7 @@ goal:
   slug: "gas-shunin-missing-basic-explanations-firestore"
   kind: specific
   tranche: "欠落全件を一問ずつ整備し、Firestore反映とライブ確認まで連続実行する"
-  status: active
+  status: done
   oracle:
     signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
     cadence: "各Worker package後と最終監査時"
@@ -64,7 +64,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-missing-basic-explanations-firestore/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-missing-basic-explanations-firestore"
 
-active_task: T018
+active_task: null
 
 tasks:
   - id: T001
@@ -779,25 +779,38 @@ tasks:
   - id: T018
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "今回scopeだけを検証・commitし、push範囲の安全性を記録する。"
-    receipt: null
+    receipt:
+      result: done
+      summary: "今回scopeの実装、782問台帳、231問artifact、Firestore readback receiptをmainのcommit d64b999feへ保存した。commit後のscope statusはclean。origin/mainへのpushは既存の無関連な先行62コミットも同時公開するため実行せず、安全上の理由を記録した。"
+      commit: d64b999fe
+      note: notes/T018-git-receipt.json
 
   - id: T998
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "復旧後の全782問が元の依頼を満たすか最終監査し、旧T999完了receiptを上書きせず後続監査で無効化する。"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "旧T999を後続監査で無効化し、固定782問の一問別source台帳、231問のFirestore修正、全件live readbackを元の依頼へ再照合した。台帳field差分0、甲種・乙種の解説欠落0、quote/original choice不一致0、正答接頭辞不一致0、同一問題反対正答group 0、54 tests合格のため復旧後の全成果を完了と判定した。"
+      missing_evidence: []
+      next_task: null
+      note: notes/T998-recovery-final-audit.json
 
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
   last_verification:
-    result: fail
-    task: T013
+    result: pass
+    task: T998
     commands:
-      - "旧T999はfield一致と欠落0だけを確認し、意味整合を検証していないため無効"
-      - "予備監査で手動reviewと正答が衝突する24件を確認"
-      - "予備監査でquestionText引用とoriginalQuestionChoiceTextが異なる145件を確認"
+      - "固定782問live readback: ledger field mismatch 0"
+      - "甲種・乙種の表示対象explanation missing 0"
+      - "quote/original choice mismatch 0"
+      - "exact question opposite answer groups 0"
+      - "54 tests passed"

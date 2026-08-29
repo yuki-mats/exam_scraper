@@ -1,0 +1,40 @@
+{
+  "taskId": "T998",
+  "result": "done",
+  "decision": "complete",
+  "fullOutcomeComplete": true,
+  "supersedes": "T999-final-audit.json",
+  "reasonForSuperseding": "旧T999は欠落0とartifact一致だけを検査し、問題文・対象選択肢・正答・解説の意味対応を検査していなかったため",
+  "oracle": {
+    "fixedInventory": 782,
+    "liveReadback": 782,
+    "ledgerFieldMismatch": 0,
+    "quoteOriginalChoiceMismatch": 0,
+    "answerExplanationPrefixMismatch": 0,
+    "liveMissingByGrade": {
+      "甲種": 0,
+      "乙種": 0
+    },
+    "exactQuestionOppositeAnswerGroups": 0
+  },
+  "recoveryChanges": {
+    "changedQuestions": 231,
+    "answerChanges": 26,
+    "explanationChanges": 184,
+    "identityChanges": 146,
+    "questionTextChanges": 1
+  },
+  "verification": {
+    "tests": "54 passed",
+    "sourceLocatorAuditErrors": 0,
+    "firestoreUploadErrors": 0,
+    "sourceChanges": 0,
+    "implementationCommit": "d64b999fe"
+  },
+  "push": {
+    "status": "not_pushed",
+    "reason": "origin/mainへのpushは今回と無関係な既存先行62コミットも同時公開するため"
+  },
+  "missingEvidence": [],
+  "nextTask": null
+}
