@@ -28,6 +28,7 @@ from scripts.upload.upload_questions_to_firestore import (
     PRODUCTION_CLIENT_OMITTED_FIELDS,
     firestore_live_fingerprint,
     validate_explanation_patch_questions,
+    validate_question_patch_questions,
 )
 
 
@@ -576,6 +577,29 @@ def validate_answer_alignment(decision: dict[str, Any], explanation: str) -> Non
         )
 
 
+def validate_answer_correction_decision(decision: dict[str, Any]) -> None:
+    """Validate the proposed answer and explanation carried by an explicit hold."""
+
+    question_id = str(decision.get("questionId") or "")
+    current = CANONICAL_CORRECTNESS.get(
+        str(decision.get("correctChoiceText") or "").strip()
+    )
+    proposed = CANONICAL_CORRECTNESS.get(
+        str(decision.get("proposedCorrectChoiceText") or "").strip()
+    )
+    explanation = str(decision.get("proposedExplanationText") or "").strip()
+    if decision.get("status") != "hold":
+        raise ValueError(f"answer correction must originate from hold: {question_id}")
+    if current not in {"正しい", "間違い"} or proposed not in {"正しい", "間違い"}:
+        raise ValueError(f"answer correction requires binary answers: {question_id}")
+    if current == proposed:
+        raise ValueError(f"answer correction does not change answer: {question_id}")
+    if not explanation.startswith(proposed):
+        raise ValueError(f"answer correction explanation prefix mismatch: {question_id}")
+    if not decision.get("holdReason") or not decision.get("holdEvidence"):
+        raise ValueError(f"answer correction lacks hold evidence: {question_id}")
+
+
 def materialize(
     decisions_path: Path,
     artifact_path: Path,
@@ -696,6 +720,97 @@ def materialize(
     return audit
 
 
+def materialize_answer_corrections(
+    decisions_path: Path,
+    artifact_path: Path,
+    audit_path: Path,
+) -> dict[str, Any]:
+    """Materialize answer+explanation repairs from reviewed answer-conflict holds."""
+
+    ledger = read_json(decisions_path)
+    decisions = [
+        item for item in ledger.get("decisions", []) if item.get("status") == "hold"
+    ]
+    if not decisions:
+        raise ValueError("no answer-conflict holds to materialize")
+    target_ids = [str(item.get("questionId") or "") for item in decisions]
+    if not all(target_ids) or len(target_ids) != len(set(target_ids)):
+        raise ValueError("answer correction target IDs are blank or duplicated")
+    for decision in decisions:
+        validate_answer_correction_decision(decision)
+
+    db = firestore_client()
+    live_documents = fetch_question_ids(db, target_ids)
+    questions: list[dict[str, Any]] = []
+    audit_records: list[dict[str, Any]] = []
+    for decision in decisions:
+        question_id = decision["questionId"]
+        existing = live_documents.get(question_id)
+        if existing is None:
+            raise ValueError(f"answer correction target missing: {question_id}")
+        if existing.get("isDeleted") is not False or existing.get("isChoiceOnly") is not False:
+            raise ValueError(f"answer correction target left selection: {question_id}")
+        if text_hash(existing.get("questionText")) != decision.get("questionTextHash"):
+            raise ValueError(f"answer correction questionText changed: {question_id}")
+        if existing.get("correctChoiceText") != decision.get("correctChoiceText"):
+            raise ValueError(f"answer correction current answer changed: {question_id}")
+        if str(existing.get("explanationText") or "").strip():
+            raise ValueError(f"answer correction explanation is no longer blank: {question_id}")
+
+        proposed_answer = CANONICAL_CORRECTNESS[
+            str(decision["proposedCorrectChoiceText"]).strip()
+        ]
+        proposed_explanation = str(decision["proposedExplanationText"]).strip()
+        payload = {
+            key: copy.deepcopy(existing[key])
+            for key in DOC_COMPARE_KEYS
+            if key in existing and key not in PRODUCTION_CLIENT_OMITTED_FIELDS
+        }
+        payload["questionId"] = question_id
+        payload["correctChoiceText"] = proposed_answer
+        payload["explanationText"] = proposed_explanation
+        questions.append(payload)
+        audit_records.append(
+            {
+                "questionId": question_id,
+                "questionTextHash": decision["questionTextHash"],
+                "currentCorrectChoiceText": decision["correctChoiceText"],
+                "proposedCorrectChoiceText": proposed_answer,
+                "proposedExplanationHash": explanation_hash(proposed_explanation),
+                "holdReason": decision["holdReason"],
+                "holdEvidence": copy.deepcopy(decision["holdEvidence"]),
+            }
+        )
+
+    write_fields = ("correctChoiceText", "explanationText")
+    validate_question_patch_questions(questions, write_fields, str(artifact_path))
+    live_hash = firestore_live_fingerprint(target_ids, live_documents)
+    artifact = {
+        "schemaVersion": SCHEMA_VERSION,
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "expectedLiveFingerprint": live_hash,
+        "writeFields": list(write_fields),
+        "questions": questions,
+    }
+    audit = {
+        "schemaVersion": SCHEMA_VERSION,
+        "generatedAt": artifact["generatedAt"],
+        "decisions": str(decisions_path),
+        "targetCount": len(questions),
+        "uniqueTargetCount": len(set(target_ids)),
+        "nonApprovedFieldDriftCount": 0,
+        "writeFields": list(write_fields),
+        "expectedLiveFingerprint": live_hash,
+        "artifactSha256": hashlib.sha256(
+            json.dumps(artifact, ensure_ascii=False, sort_keys=True).encode("utf-8")
+        ).hexdigest(),
+        "records": audit_records,
+    }
+    write_json(artifact_path, artifact)
+    write_json(audit_path, audit)
+    return audit
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -718,6 +833,10 @@ def build_parser() -> argparse.ArgumentParser:
     make.add_argument("--audit", type=Path, required=True)
     make.add_argument("--allow-already-filled", action="store_true")
     make.add_argument("--allow-holds", action="store_true")
+    corrections = subparsers.add_parser("materialize-answer-corrections")
+    corrections.add_argument("--decisions", type=Path, required=True)
+    corrections.add_argument("--artifact", type=Path, required=True)
+    corrections.add_argument("--audit", type=Path, required=True)
     return parser
 
 
@@ -731,6 +850,12 @@ def main() -> int:
         result = apply_overrides(args.decisions, args.overrides, args.output)
     elif args.command == "mark-answer-conflicts":
         result = mark_rejected_answer_conflicts(args.decisions, args.output)
+    elif args.command == "materialize-answer-corrections":
+        result = materialize_answer_corrections(
+            args.decisions,
+            args.artifact,
+            args.audit,
+        )
     else:
         result = materialize(
             args.decisions,

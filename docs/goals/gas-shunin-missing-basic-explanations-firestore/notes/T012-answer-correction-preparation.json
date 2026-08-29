@@ -1,0 +1,43 @@
+{
+  "taskId": "T012",
+  "status": "awaiting_user_authority",
+  "preparedAt": "2026-08-29T19:24:32+09:00",
+  "summary": "正答矛盾32件について、correctChoiceTextとexplanationTextだけを同時更新する対象限定artifactを生成し、dry-runまで完了した。Firestoreへの書込みは未実施。",
+  "counts": {
+    "total": 32,
+    "2020": 4,
+    "2021": 27,
+    "2023": 1,
+    "uniqueTargetIds": 32,
+    "blankExplanations": 0,
+    "answerExplanationPrefixMatches": 32,
+    "nonApprovedFieldDrift": 0
+  },
+  "writeFields": ["correctChoiceText", "explanationText"],
+  "artifacts": [
+    {
+      "year": 2020,
+      "targetCount": 4,
+      "expectedLiveFingerprint": "3a76843cebb1820fd431891c9e2b081a3097c75eb852807968b144f893e32a35",
+      "artifactSha256": "76ef1224a358e43320b7bf44f6d11af2ac58474c7a97ffe29db21a211987d982"
+    },
+    {
+      "year": 2021,
+      "targetCount": 27,
+      "expectedLiveFingerprint": "8e8db24c89fdac78a34ee13c8b9c95f97ee86fdab5e66cabf9685cba491596a8",
+      "artifactSha256": "c08d158a169ad4068eb196b52c95ab1ed7bcd231137009633b231041be4b8969"
+    },
+    {
+      "year": 2023,
+      "targetCount": 1,
+      "expectedLiveFingerprint": "8a8c1af619cdd0e227e74a2e01da24953385c874264162c8fbe1939ba178dc52",
+      "artifactSha256": "be62b28cba519588177b4a6c015635022dcfb0691b124dc516ac5220c76c596c"
+    }
+  ],
+  "verification": [
+    "47 tests passed",
+    "uploader dry-run passed for all 32 targets",
+    "00_source scoped diff is empty",
+    "Firestore write not executed"
+  ]
+}

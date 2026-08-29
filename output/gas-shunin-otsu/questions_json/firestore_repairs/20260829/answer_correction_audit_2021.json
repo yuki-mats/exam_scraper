@@ -1,0 +1,590 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-v1",
+  "generatedAt": "2026-08-29T10:24:31.183513+00:00",
+  "decisions": "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_final_2021.json",
+  "targetCount": 27,
+  "uniqueTargetCount": 27,
+  "nonApprovedFieldDriftCount": 0,
+  "writeFields": [
+    "correctChoiceText",
+    "explanationText"
+  ],
+  "expectedLiveFingerprint": "8e8db24c89fdac78a34ee13c8b9c95f97ee86fdab5e66cabf9685cba491596a8",
+  "artifactSha256": "c08d158a169ad4068eb196b52c95ab1ed7bcd231137009633b231041be4b8969",
+  "records": [
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-1-1",
+      "questionTextHash": "0902e727b62803593928479c6728d088b2a41134a1315a7a7e7326facbc1123d",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "9c3a1eb263b2f6db72567694a405e7d03f45d79f5734f8799d97328cb8e6c586",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 264,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 1,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。バイオガスには二酸化炭素や硫化水素などの不要・有害成分が含まれるため、都市ガス原料として利用するには、これらを除去してガス品質を整える精製が必要である。",
+          "explanationHash": "9c3a1eb263b2f6db72567694a405e7d03f45d79f5734f8799d97328cb8e6c586",
+          "choiceSimilarity": 0.977778
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-1-2",
+      "questionTextHash": "60b933d433b4b427c91b31c78a2e1933a4c4ca203713d93d769651342d536d06",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "6d3eebff5317124706119bf92790f0d1997916970ca710f58bc0a2b6e08b2fa0",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 264,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 5,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。軽質と重質の異種LNGを同一貯槽に受け入れる場合は、密度差による層状化がロールオーバーの原因となるため、受入方法を注意深く設定する必要がある。",
+          "explanationHash": "6d3eebff5317124706119bf92790f0d1997916970ca710f58bc0a2b6e08b2fa0"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-10-1",
+      "questionTextHash": "dc5d7f139385b6138e80c67f6f585bad4dce66853096f6443456970ff2215ba2",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "e07e68f26695f77e4d9d5863cffdba2425ea45c35aeb250b77b7a3c6d2d0c567",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 273,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 1,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。既設ABの圧力損失は2.3−2.1=0.2kPaである。新条件ではAC間は延長が半分、流量が2倍なので損失は0.2×(100/200)×(400/200)^2=0.4kPa、CB間は延長が半分で流量が同じなので0.1kPaとなる。B点圧力は1.8kPaであり、1.5kPaでは低すぎる。",
+          "explanationHash": "e07e68f26695f77e4d9d5863cffdba2425ea45c35aeb250b77b7a3c6d2d0c567"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-10-3",
+      "questionTextHash": "b00dcc4046de057b30fb602bb0a6082b11a77b72145c5da9976454156b2a28b0",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "190955d27afcf767c7ad19c4f50d1580e75554b412f92a2d6fac6d38a0aa65e2",
+      "holdReason": "計算上のB点圧力は1.8kPaであり、Firestoreの正答が反対であるため",
+      "holdEvidence": [
+        "圧力損失は流量の2乗と管長に比例し、A-C間0.4kPa、C-B間0.1kPa、合計0.5kPa"
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-12-1",
+      "questionTextHash": "ca03ddbcf63cef3d90881d1a56e6b7641a2730b54e96c39cbc810ca426f2b489",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "366752db0f5e473a1c567cde90a6f8d2508d4f1022a773aa078a4f165fe5923c",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 275,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 1,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。回転子式ガスメーターは回転子で一定容積のガスを区切って通過量を積算する実測式であり、流量を推測計量する方式ではない。",
+          "explanationHash": "366752db0f5e473a1c567cde90a6f8d2508d4f1022a773aa078a4f165fe5923c"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-12-3",
+      "questionTextHash": "fcdf0fabdb0eb6b38828bfe3a1819e4399b6843994c92ddc1294da4f1b225280",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "0dc0bc20127cc2a2570152173aa5a9aed7f8b3d17398484458c6f5e047a011f3",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 275,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 3,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。オリフィス式ガスメーターは、オリフィス前後の差圧から流量を求める推量式であり、容積計量する方式ではない。",
+          "explanationHash": "0dc0bc20127cc2a2570152173aa5a9aed7f8b3d17398484458c6f5e047a011f3"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-12-4",
+      "questionTextHash": "ec44363d0b4f164e14fbe1a82b4c324cc6cd71173a2228792ed95b0ee1d9a968",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "4a6fc93e8f07a80d35ee831467e6d62076c31e8bed050d93f9057b890ad33faf",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 275,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 4,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。使用最大流量が25m³/hのガスメーターは16m³/hを超える区分であり、検定有効期間は10年ではない。",
+          "explanationHash": "4a6fc93e8f07a80d35ee831467e6d62076c31e8bed050d93f9057b890ad33faf"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-13-1",
+      "questionTextHash": "6c3cb666b0a54b3beaa6cb2194bf35a37a58221ec8964543eb424d89d2b5874c",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "e52c4bae893c1e37036d51070aea8cd7da6c5c395cce85e2a3526e1c0bcc008e",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 276,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 1,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。外径200mm、管厚5mmなので内径Dは200-2×5=190mmである。円周方向応力はσ=PD/(2t)で、0.5×190/(2×5)=9.5N/mm²となるため、4.5N/mm²では小さすぎる。",
+          "explanationHash": "e52c4bae893c1e37036d51070aea8cd7da6c5c395cce85e2a3526e1c0bcc008e"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-13-5",
+      "questionTextHash": "40cbbc1c5db0614bbdd973368008f02a43c8ce1aa64c5b6307643c33fd831a9b",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "d5d039ab0bdea2c31d003b06aa0a157c2ece2b67f567bee40f13025246697500",
+      "holdReason": "計算上の最も近い値は10N/mm²であり、Firestoreの正答が反対であるため",
+      "holdEvidence": [
+        "薄肉円筒の円周方向応力式による計算値9.75N/mm²"
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-14-5",
+      "questionTextHash": "8e50dd39315261ed44e40adba219bc175d50163e528f8c24a10a3df66615da19",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "1940b1db3e1c5b016a5f2b6e03e54a7aa690b0f380d797bd5571d2d2e64c36e7",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 277,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 5,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。建物引込部の配管はコンクリート接触などによりマクロセル腐食を受けやすいため、一般に埋設配管部近くの架空配管部に絶縁継手を設置して電気的に絶縁する。",
+          "explanationHash": "1940b1db3e1c5b016a5f2b6e03e54a7aa690b0f380d797bd5571d2d2e64c36e7"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-15-1",
+      "questionTextHash": "4f144d7d1cb28bef213099c52047a3a07d9c2ed5ae19fa4c6840ff2fe8b7eac8",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "dbce40378a91c06648228e00138650ac5a41545d7a1b009487f827141ad8ae7a",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 278,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 1,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。機械的接合は、主として鋳鉄管や口径80mm以下の小口径鋼管などで用いられる接合方法であり、記述は適切である。",
+          "explanationHash": "dbce40378a91c06648228e00138650ac5a41545d7a1b009487f827141ad8ae7a"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-15-2",
+      "questionTextHash": "1495590aa36ce6b6178539046bec4ca7d309e2019f823d23335e09eadd60a3ca",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "0fba9c909981bea42ae9708ace320addd207916b7ab5671d914580136b29572b",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 278,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 2,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。ポリエチレン管の融着接合には、加熱工具で接合面を溶かすヒートフュージョン接合と、電熱線入り継手を用いるエレクトロフュージョン接合がある。",
+          "explanationHash": "0fba9c909981bea42ae9708ace320addd207916b7ab5671d914580136b29572b"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-16-1",
+      "questionTextHash": "86ca956ed88eecd2d102d06ba38e0d0351d718082407dff00c0066908675c037",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "0108b5ff24e10d7d743b3ddd1c1e1cc6e5385e5f85e37474699345f311308c36",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 279,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 1,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。被覆アーク溶接棒の被覆剤（フラックス）は、溶融金属を保護し、溶接金属の凝固・冷却を緩やかにして、上向きなど各種姿勢の溶接を容易にする働きがある。",
+          "explanationHash": "0108b5ff24e10d7d743b3ddd1c1e1cc6e5385e5f85e37474699345f311308c36",
+          "choiceSimilarity": 0.977778
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-16-3",
+      "questionTextHash": "fae67601c50e4ab76d50c95a8737de077f7ccb81b300d81556d3241e8a9c2c05",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "a4206e61b5d5a2c9054a59f3f61f95c98af71602a43c2ca9b4ea1948586daa25",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 279,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 3,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。溶接の形状不良には、ビード形状の不良、オーバーラップ、クレーターなど、外観や形状に関する欠陥が含まれる。",
+          "explanationHash": "a4206e61b5d5a2c9054a59f3f61f95c98af71602a43c2ca9b4ea1948586daa25"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-2-2",
+      "questionTextHash": "723a236560759ed8047cf470bef8dc79d7fc0f57592488a4664a777b4f262760",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "710cce8a34932408c6b74958cb4a0870799243d809c04d2c19f455ccbe8cfee7",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 265,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 2,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。遠心式BOG圧縮機は一般に大容量・比較的低圧の用途に向く。高圧で小容量のものに使用されるとしている点は、往復動式圧縮機の特徴に近く、遠心式の説明として誤り。",
+          "explanationHash": "710cce8a34932408c6b74958cb4a0870799243d809c04d2c19f455ccbe8cfee7"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-2-3",
+      "questionTextHash": "e51206024c5a3b413732f75240945562f5e3559a4c5432491bc45eb9dfb40caa",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "172005abcb824635c3eab1fa03dd4672bf1de0e15ea8282a6ee1746a6cfdd911",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 265,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 3,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。LNG一次受入基地のベースロード用としてランニングコストが低廉な気化器は、海水を利用するオープンラック式気化器が代表的である。直接熱交換型シェルアンドチューブ式気化器としている点が誤り。",
+          "explanationHash": "172005abcb824635c3eab1fa03dd4672bf1de0e15ea8282a6ee1746a6cfdd911"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-2-4",
+      "questionTextHash": "6027fe102ac2720db7ccf0a559650aa416df3eed0766ad42f4285cf44bb4e7fd",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "c388f2723f78bcbd28a3d39e2cb6f72ce251d1810202d43697d4fe2425f80611",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 265,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 4,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。逆止弁（チャッキ弁）は逆流を防止する弁だが、代表的な形式はスイング式、リフト式などである。直動式やパイロット式は主に安全弁・調整弁などで用いられる分類であり、逆止弁の説明として誤り。",
+          "explanationHash": "c388f2723f78bcbd28a3d39e2cb6f72ce251d1810202d43697d4fe2425f80611"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-3-4",
+      "questionTextHash": "fad365f4665e336a9d2b45622f56c05f4e8eb038a9a8a89aa7b7f8ba2e680b84",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "1c9f78d24de56ace4516469e33db3cc3912958dc8a0f50f68add759bfd1930f2",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 266,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 4,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。制御システムの冗長化には、CPU、電源ユニット、通信ネットワークなどを主機系・待機系で備える方法や、制御システム全体を二重化する方法がある。",
+          "explanationHash": "1c9f78d24de56ace4516469e33db3cc3912958dc8a0f50f68add759bfd1930f2"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-6-1",
+      "questionTextHash": "d44958eafb3daee4f4ec84a52917a4393c7d14f03d2c720a704864f9b9045651",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "3dc207aa8b8f15825ab7a930d197c093cb0697faaac18ec90a8e67f5d4af2a37",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 269,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 1,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。可燃性ガス又は液化ガスを通ずるガス工作物は、ボイラーなど火気を取り扱う設備との間に必要な離隔距離を確保することが求められるため、この記述は正しい。",
+          "explanationHash": "3dc207aa8b8f15825ab7a930d197c093cb0697faaac18ec90a8e67f5d4af2a37"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-6-5",
+      "questionTextHash": "29c37d9083d2c10bdf8a26df2451342e1eb004b26e5f49d2d3574b6cb0de7d7c",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "7e0c5c5fd638b05b6692262056f47e9d3c87da3d169cb6bf73c3f4523e5de099",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 269,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 5,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。ガスホルダーや液化ガス用貯槽の送出・受入配管には、通常操作や遠隔操作、緊急時の遮断に対応できるよう手動弁、遠隔操作弁、緊急遮断装置などを設ける必要があり、この記述は正しい。",
+          "explanationHash": "7e0c5c5fd638b05b6692262056f47e9d3c87da3d169cb6bf73c3f4523e5de099"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-7-2",
+      "questionTextHash": "a46851808080ea3ff7b880d564f87912522bcc8925bb231242fb982772b662ac",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "6a95a436e305e648d73ac94acfc024e22acf2f7ba5ca9da850e8e9d41ce1b998",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 270,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 5,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。耐震設計で重要な構造設計・安全設計・防災設計のうち、地震時に異常が発生しても安全性を確保できるようにするのは主に安全設計である。これを防災設計の説明としている点が誤り。",
+          "explanationHash": "6a95a436e305e648d73ac94acfc024e22acf2f7ba5ca9da850e8e9d41ce1b998"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-7-5",
+      "questionTextHash": "3aca792671993765de6993e7a3a6e0babf22d1ca728a7dafe493ae3d5aac1e8d",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "cac9cc51c1f4e5c4512b616d78fe1b84ae31f946a84b1d11e6a38615612ff58b",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 270,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 4,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。「あらかじめ確認」は、溶接施工方法や溶接士技能が技術基準に適合しているかを確認する行為である。",
+          "explanationHash": "cac9cc51c1f4e5c4512b616d78fe1b84ae31f946a84b1d11e6a38615612ff58b"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-8-2",
+      "questionTextHash": "df660a9dff441d324633c1de69ae29ca7943d4c68552902b895c44fca5538ec8",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "47abd595abc98525bb814f52c87ec0e4599b6d8253929cbda235be650aa8b3f1",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 271,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 5,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。ステンレス鋼のすきま腐食では、すきま内に塩化物イオンが蓄積し、pH低下などによって不動態皮膜が破壊される。不動態が形成されるとしている点が誤りである。",
+          "explanationHash": "47abd595abc98525bb814f52c87ec0e4599b6d8253929cbda235be650aa8b3f1"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-8-4",
+      "questionTextHash": "bc8edd095448def333d49f84a9e9f00291e6a39bbca8d16e1e6f39c217811a3b",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "7631e6d58bf2621c5366bbf2dffb584280e0e05cab13eba4ef289438a10ebd8d",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 271,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 2,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。形状の不連続や切り欠きがあると応力集中が大きくなり、繰返し荷重に対する余裕は小さくなる。応力集中が高くなるほど疲労強度は増加するのではなく低下する。",
+          "explanationHash": "7631e6d58bf2621c5366bbf2dffb584280e0e05cab13eba4ef289438a10ebd8d"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-8-5",
+      "questionTextHash": "74220e24a11a96605531bc270bddff4b783d118f520ac68c3ef812de439e15d5",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "ae1fdf3ad3f4349289ab25578d68ddbd86e3a573d526465c88b72ef925c5f477",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 271,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 4,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。浸透探傷試験（PT）は、表面に開口した欠陥に浸透液を入り込ませて検出する方法であり、金属材料だけでなく非金属材料にも適用できる表面欠陥検査である。",
+          "explanationHash": "ae1fdf3ad3f4349289ab25578d68ddbd86e3a573d526465c88b72ef925c5f477"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-9-1",
+      "questionTextHash": "bdeca8a312d0621b7a53632be1fed270fa74470f5b3f4befeb5d7ef626567278",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "3127b99cd35d07f1586206879a308abbce122862a87ec7ee705f7509fabc71db",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 272,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 1,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。LNG、LPGは硫黄分や窒素分をほとんど含まないため、都市ガスの製造段階でSOxや燃料由来NOxの発生は少なく、この記述は正しい。",
+          "explanationHash": "3127b99cd35d07f1586206879a308abbce122862a87ec7ee705f7509fabc71db"
+        }
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-hourei-2021-9-3",
+      "questionTextHash": "9037b5b173495a3d6e7f0eeb3ae388d932ecddba57fff62f245b46fb7b5fdd2d",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "27bbe6e6ee50aa6489db9f85ea4544d8c565c0fc37961321463f43a2574eef41",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 272,
+          "sourceExamYear": 2021,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 3,
+          "sourceCorrectChoiceText": "間違い",
+          "explanationText": "間違い。調節弁で流量を絞る方式は設備投資を抑えやすい一方、絞った分の圧力エネルギーが弁で失われるため動力損失は大きくなる。動力損失が小さくなるとする記述は誤り。",
+          "explanationHash": "27bbe6e6ee50aa6489db9f85ea4544d8c565c0fc37961321463f43a2574eef41"
+        }
+      ]
+    }
+  ]
+}

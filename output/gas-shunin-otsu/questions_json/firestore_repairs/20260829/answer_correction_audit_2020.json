@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-v1",
+  "generatedAt": "2026-08-29T10:24:30.052856+00:00",
+  "decisions": "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_final_2020.json",
+  "targetCount": 4,
+  "uniqueTargetCount": 4,
+  "nonApprovedFieldDriftCount": 0,
+  "writeFields": [
+    "correctChoiceText",
+    "explanationText"
+  ],
+  "expectedLiveFingerprint": "3a76843cebb1820fd431891c9e2b081a3097c75eb852807968b144f893e32a35",
+  "artifactSha256": "76ef1224a358e43320b7bf44f6d11af2ac58474c7a97ffe29db21a211987d982",
+  "records": [
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-1-1",
+      "questionTextHash": "2d47dc2a8fbd746459eabbe102c6405b91d5e41dcb9871f5c3f9abaf1d2d22c9",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "afca7ff1ef09b76198154df22cf72789b76f595572ca218c4f7090a11bb6a015",
+      "holdReason": "FirestoreのcorrectChoiceTextは正しいだが、原問題、01-04人手レビュー、21 patch及びガス事業法第1条の一次根拠は間違いで一致する。",
+      "holdEvidence": [
+        "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json#gas-shunin:otsu:2020:law:q01",
+        "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "e-Gov ガス事業法第1条 lawId=329AC0000000051"
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-14-5",
+      "questionTextHash": "9fea3f9d5e71fd7385e0bae1a61e6a4bd36b964e990651b6e320aec395d820ef",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "bf9b1ecb74b1167068c36c557ba302e1186620fae6f5cecc1f3ce30426658107",
+      "holdReason": "FirestoreのcorrectChoiceTextは正しいだが、原問題、01-04人手レビュー、21 patch及びガス事業法施行規則第207条の一次根拠は間違いで一致する。",
+      "holdEvidence": [
+        "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json#gas-shunin:otsu:2020:law:q14",
+        "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "e-Gov ガス事業法施行規則第207条"
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-4-4",
+      "questionTextHash": "6b9c8db1e7cd1e5e45dd83cb5564be13a7b072f3e1c03ddd065af2635c54d028",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "743458f43741c30bcf8fbf07e9b7fec3e1223ff0a0229789f70b373eeb8033fe",
+      "holdReason": "FirestoreのcorrectChoiceTextは間違いだが、原問題、01-04人手レビュー、21 patch及びガス事業法第66条第1項の一次根拠は正しいで一致する。",
+      "holdEvidence": [
+        "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json#gas-shunin:otsu:2020:law:q04",
+        "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "e-Gov ガス事業法第66条第1項"
+      ]
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2020-6-1",
+      "questionTextHash": "8e054d858c96fa506777935bcb83e7a1222c811ba0174c7a4918e3d8c0a5d437",
+      "currentCorrectChoiceText": "正しい",
+      "proposedCorrectChoiceText": "間違い",
+      "proposedExplanationHash": "ea8cb03781e58740dfe3cf354fbf9aba65d9e2cebd953f87e37488bf0d1b23ca",
+      "holdReason": "FirestoreのcorrectChoiceTextは正しいだが、原問題、01-04人手レビュー、21 patch及び技術基準省令第6条第2項の一次根拠は間違いで一致する。",
+      "holdEvidence": [
+        "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json#gas-shunin:otsu:2020:law:q06",
+        "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "e-Gov ガス工作物の技術上の基準を定める省令第6条第2項"
+      ]
+    }
+  ]
+}

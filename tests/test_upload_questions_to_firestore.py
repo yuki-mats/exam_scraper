@@ -49,10 +49,18 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             ("explanationText",),
         )
 
-    def test_resolve_write_fields_rejects_broader_patch_contract(self) -> None:
+    def test_resolve_write_fields_accepts_answer_correction_contract(self) -> None:
+        self.assertEqual(
+            module.resolve_write_fields(
+                {"writeFields": ["correctChoiceText", "explanationText"]}
+            ),
+            ("correctChoiceText", "explanationText"),
+        )
+
+    def test_resolve_write_fields_rejects_unapproved_patch_contract(self) -> None:
         with self.assertRaisesRegex(ValueError, "unsupported writeFields"):
             module.resolve_write_fields(
-                {"writeFields": ["explanationText", "correctChoiceText"]}
+                {"writeFields": ["questionText", "explanationText"]}
             )
 
     def test_build_patch_doc_data_writes_only_explanation_and_update_metadata(self) -> None:
@@ -105,6 +113,46 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
                 ],
                 "repair.json",
             )
+
+    def test_validate_answer_correction_patch_requires_matching_prefix(self) -> None:
+        with self.assertRaisesRegex(ValueError, "prefix mismatch"):
+            module.validate_question_patch_questions(
+                [
+                    {
+                        "questionId": "answer-fix-1",
+                        "questionText": "問題文",
+                        "correctChoiceText": "正しい",
+                        "explanationText": "間違い。理由。",
+                        "isDeleted": False,
+                        "isChoiceOnly": False,
+                    }
+                ],
+                ("correctChoiceText", "explanationText"),
+                "repair.json",
+            )
+
+    def test_build_answer_correction_patch_writes_only_approved_fields(self) -> None:
+        now = datetime(2026, 8, 29, 12, 0, 0)
+
+        actual = module.build_patch_doc_data(
+            {
+                "correctChoiceText": "間違い",
+                "explanationText": "間違い。理由。",
+                "questionText": "変更しない本文",
+            },
+            ("correctChoiceText", "explanationText"),
+            now,
+        )
+
+        self.assertEqual(
+            actual,
+            {
+                "correctChoiceText": "間違い",
+                "explanationText": "間違い。理由。",
+                "updatedAt": now,
+                "updatedById": module.UPDATED_BY_ID,
+            },
+        )
 
     def test_validate_required_question_fields_rejects_blank_original_question_body_text(self) -> None:
         questions = [

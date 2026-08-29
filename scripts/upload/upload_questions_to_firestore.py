@@ -29,7 +29,10 @@ BATCH_SIZE = 500  # Firestoreバッチ書き込みの上限
 CONFIG_DOC_ID = "08zYvCuKUcvGTNYqehrm"
 OFFICIAL_EXAM_YEARS_FIELD = "official_exam_years_by_qualification"
 WRITE_FIELDS_KEY = "writeFields"
-ALLOWED_PATCH_WRITE_FIELDS = ("explanationText",)
+ALLOWED_PATCH_WRITE_FIELD_SETS = (
+    ("explanationText",),
+    ("correctChoiceText", "explanationText"),
+)
 
 
 def init_firestore(credentials_json: Path | None = None):
@@ -219,6 +222,31 @@ def validate_explanation_patch_questions(questions: list[dict], source_label: st
             raise ValueError(f"explanationText is required: {question_id}")
 
 
+def validate_question_patch_questions(
+    questions: list[dict], write_fields: tuple[str, ...], source_label: str
+) -> None:
+    """Validate narrow question repairs, including answer-correction repairs."""
+
+    validate_explanation_patch_questions(questions, source_label)
+    if "correctChoiceText" not in write_fields:
+        return
+    for question in questions:
+        question_id = str(question.get("questionId") or "").strip()
+        answer = _normalize_correct_choice_text(
+            str(question.get("correctChoiceText") or "")
+        )
+        if answer not in {"正しい", "間違い"}:
+            raise ValueError(
+                f"correctChoiceText must be 正しい or 間違い: {question_id}"
+            )
+        question["correctChoiceText"] = answer
+        explanation = str(question.get("explanationText") or "").strip()
+        if not explanation.startswith(answer):
+            raise ValueError(
+                f"correctChoiceText/explanationText prefix mismatch: {question_id}"
+            )
+
+
 def build_doc_data_base(question: dict) -> dict:
     """
     問題データからFirestoreドキュメントデータを構築（updatedAt/updatedByIdは除外）。
@@ -320,10 +348,10 @@ def resolve_write_fields(data: dict) -> tuple[str, ...] | None:
     fields = tuple(raw)
     if len(fields) != len(set(fields)):
         raise ValueError(f"{WRITE_FIELDS_KEY} contains duplicates")
-    if fields != ALLOWED_PATCH_WRITE_FIELDS:
+    if fields not in ALLOWED_PATCH_WRITE_FIELD_SETS:
         raise ValueError(
             f"unsupported {WRITE_FIELDS_KEY}: {list(fields)}; "
-            f"allowed={list(ALLOWED_PATCH_WRITE_FIELDS)}"
+            f"allowed={[list(item) for item in ALLOWED_PATCH_WRITE_FIELD_SETS]}"
         )
     return fields
 
@@ -542,7 +570,7 @@ def upload_questions(
                 q["questionTags"] = []
 
     if write_fields:
-        validate_explanation_patch_questions(questions, str(json_file_path))
+        validate_question_patch_questions(questions, write_fields, str(json_file_path))
     else:
         validate_required_question_fields(questions, str(json_file_path))
     exam_years_by_qualification = (

@@ -498,6 +498,12 @@ tasks:
       - "承認後は問題文・選択肢・既存IDを維持し、correctChoiceTextとexplanationTextだけを対象限定で更新する。"
     expected_output:
       - "正答修正を伴う32件の更新承認、又は解説欠落32件を残す明示判断"
+    progress:
+      - "32件すべての修正後正答・解説・根拠を確認済み。"
+      - "writeFields=[correctChoiceText, explanationText]の対象限定artifactを生成済み。"
+      - "32 ID一意、接頭辞一致32/32、非対象field差分0、47 tests、uploader dry-run合格。"
+      - "Firestoreへの32件の書込みはユーザー承認前のため未実施。"
+      - "準備receipt: notes/T012-answer-correction-preparation.json"
     receipt: null
 
   - id: T999

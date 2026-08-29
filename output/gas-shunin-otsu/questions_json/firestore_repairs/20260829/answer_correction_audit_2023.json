@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "gas-shunin-missing-explanations-v1",
+  "generatedAt": "2026-08-29T10:24:32.143109+00:00",
+  "decisions": "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829/decisions_final_2023.json",
+  "targetCount": 1,
+  "uniqueTargetCount": 1,
+  "nonApprovedFieldDriftCount": 0,
+  "writeFields": [
+    "correctChoiceText",
+    "explanationText"
+  ],
+  "expectedLiveFingerprint": "8a8c1af619cdd0e227e74a2e01da24953385c874264162c8fbe1939ba178dc52",
+  "artifactSha256": "be62b28cba519588177b4a6c015635022dcfb0691b124dc516ac5220c76c596c",
+  "records": [
+    {
+      "questionId": "gasushunin-otsushu-hourei-2023-12-5",
+      "questionTextHash": "45fafe4f129adac62cf811d662ea0314af4149b0f50ad90ba02af66ceb4d5777",
+      "currentCorrectChoiceText": "間違い",
+      "proposedCorrectChoiceText": "正しい",
+      "proposedExplanationHash": "9186565c937082cc2bfb67c5a36039890f720e2c5194224cb1b9fcc18a79a6f6",
+      "holdReason": "FirestoreのcorrectChoiceTextと、同文の手動レビュー済み解説の正誤が反対であるため",
+      "holdEvidence": [
+        {
+          "kind": "manual_01_04_review",
+          "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+          "reviewLine": 360,
+          "sourceExamYear": 2023,
+          "sameExamYear": true,
+          "sourceQuestionKey": null,
+          "choiceIndex": 5,
+          "sourceCorrectChoiceText": "正しい",
+          "explanationText": "正しい。同省令第52条第2項は、特定地下街等又は特定地下室等にガスを供給する導管を、適切なガス漏れ警報設備の検知区域において外壁を貫通するように設置しなければならないと定めている。",
+          "explanationHash": "9186565c937082cc2bfb67c5a36039890f720e2c5194224cb1b9fcc18a79a6f6"
+        }
+      ]
+    }
+  ]
+}

@@ -14,6 +14,7 @@ from scripts.fix.materialize_gas_shunin_missing_explanations import (
     mark_rejected_answer_conflicts,
     normalize_text,
     select_manual_review_source,
+    validate_answer_correction_decision,
     validate_answer_alignment,
 )
 
@@ -188,3 +189,32 @@ def test_mark_rejected_answer_conflicts_leaves_same_answer_for_review(tmp_path: 
 
     assert result["decisions"][0]["status"] == "needs_review"
     assert result["answerConflictsMarked"] == 0
+
+
+def test_validate_answer_correction_decision_accepts_evidenced_opposite_answer():
+    validate_answer_correction_decision(
+        {
+            "questionId": "q1",
+            "status": "hold",
+            "correctChoiceText": "正しい",
+            "proposedCorrectChoiceText": "間違い",
+            "proposedExplanationText": "間違い。条文と異なる。",
+            "holdReason": "Firestore answer conflict",
+            "holdEvidence": ["manual review"],
+        }
+    )
+
+
+def test_validate_answer_correction_decision_rejects_same_answer():
+    with pytest.raises(ValueError, match="does not change answer"):
+        validate_answer_correction_decision(
+            {
+                "questionId": "q1",
+                "status": "hold",
+                "correctChoiceText": "正しい",
+                "proposedCorrectChoiceText": "正しい",
+                "proposedExplanationText": "正しい。条文どおり。",
+                "holdReason": "review",
+                "holdEvidence": ["manual review"],
+            }
+        )
