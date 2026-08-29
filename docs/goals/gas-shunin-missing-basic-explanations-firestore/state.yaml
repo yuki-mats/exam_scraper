@@ -5,7 +5,7 @@ goal:
   slug: "gas-shunin-missing-basic-explanations-firestore"
   kind: specific
   tranche: "欠落全件を一問ずつ整備し、Firestore反映とライブ確認まで連続実行する"
-  status: done
+  status: active
   oracle:
     signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
     cadence: "各Worker package後と最終監査時"
@@ -64,7 +64,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-missing-basic-explanations-firestore/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-missing-basic-explanations-firestore"
 
-active_task: null
+active_task: T018
 
 tasks:
   - id: T001
@@ -539,14 +539,265 @@ tasks:
       next_task: null
       note: notes/T999-final-audit.json
 
+  - id: T013
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: high
+    objective: "前回完了判定を読み取り専用で再監査し、当初対象782問について問題文・対象選択肢・正答・解説の意味不整合と、その発生経路を一問単位で固定する。"
+    inputs:
+      - "T001-T999 receipts and generated artifacts"
+      - "Firestore live readback for the fixed 782 IDs"
+      - "01-04 manual review and 21 patch sources"
+    constraints:
+      - "Read-only; product files and Firestoreを変更しない。"
+      - "サブエージェントを使わずPM fallbackで実行する。"
+      - "正答接頭辞だけでなく、引用対象選択肢と解説の意味対応を確認する。"
+    expected_output:
+      - "782問の現状分類と矛盾件数"
+      - "誤完了の根本原因と再発防止条件"
+      - "一問別再整備台帳の入力source優先順位"
+      - "次Workerのallowed_files、verify、stop_if"
+    receipt:
+      result: done
+      summary: "固定782問を再監査し、true_false 768問中145問でquestionTextの引用選択肢とoriginalQuestionChoiceTextが不一致、うち2020年24問で手動レビュー済み正答との明確な衝突を確認した。欠落0・接頭辞一致だけで完了した旧T999を後続監査で無効化し、問題単位のsource優先順位と意味整合条件を確定した。"
+      note: notes/T013-recovery-audit.json
+      evidence:
+        - "Firestore fixed inventory: 782/782 live"
+        - "question types: true_false=768, flash_card=14"
+        - "quote/original choice mismatch: 145 (2020=70, 2021=75)"
+        - "manual reviewed answer conflict: 24 (all 2020)"
+      full_outcome_complete: false
+
+  - id: T014
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "782問の一問別再整備台帳と意味整合validatorを実装し、全対象をready又は根拠付きholdへ分類する。"
+    allowed_files:
+      - "scripts/fix/materialize_gas_shunin_missing_explanations.py"
+      - "scripts/upload/upload_questions_to_firestore.py"
+      - "tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py"
+      - "tests/test_upload_questions_to_firestore.py"
+      - "output/gas-shunin-kou/questions_json/firestore_repairs/20260829-recovery/**"
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/**"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T014-*"
+    verify:
+      - "/Users/yuki/development/exam_scraper_venv/bin/pytest -q tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py tests/test_upload_questions_to_firestore.py"
+      - "recovery ledger targetCount=782、uniqueTargetCount=782、unresolvedCount=0"
+      - "true_false 768問でquote/original choice mismatch after proposal=0"
+      - "各recordにsource locator、現行値、提案値、変更field、判定理由がある"
+      - "git status/diffに00_source変更がない"
+      - "GoalBuddy state checker passes"
+    stop_if:
+      - "T013で根拠source又はwrite scopeを確定できない。"
+      - "00_sourceの変更が必要になる。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      summary: "固定782問すべてにsource locator、現行値、提案値、変更field、判定理由を持つ一問別台帳を作成した。全件ready・未解決0で、修正候補230問（選択肢identity 145、解説184、正答26、重複あり）。全選択肢集合で照合するvalidatorにより、前回誤修正した2021年円周応力問題も検出した。"
+      changed_files:
+        - scripts/fix/materialize_gas_shunin_missing_explanations.py
+        - scripts/upload/upload_questions_to_firestore.py
+        - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+        - tests/test_upload_questions_to_firestore.py
+        - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/**"
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T014-recovery-ledger.json
+      commands:
+        - cmd: "pytest materializer and uploader tests"
+          status: pass
+        - cmd: "build recovery ledger: 782 ready, unresolved 0"
+          status: pass
+        - cmd: "materialize recovery and uploader dry-run"
+          status: pass
+        - cmd: "proposed quote/original choice mismatch=0"
+          status: pass
+        - cmd: "git diff -- **/00_source/**"
+          status: pass
+      note: notes/T014-recovery-ledger.json
+
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "一問別台帳に基づいて全782問の必要fieldを限定artifactへ反映し、Firestore更新前監査を完了する。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/**"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T015-*"
+    verify:
+      - "artifact targetCount=230、uniqueTargetCount=230"
+      - "ledger 782 recordsとartifactの提案値が一致する"
+      - "writeFieldsはoriginalQuestionBodyText、originalQuestionChoiceText、correctChoiceText、explanationTextだけ"
+      - "問題文、document ID、選択肢表示、対象外field差分0"
+      - "全26正答変更が同一問題の全選択肢集合又はidentity整合済み完全一致類題で根拠付けられる"
+      - "uploader dry-run passes"
+      - "GoalBuddy state checker passes"
+    stop_if:
+      - "未解決のidentity、正答又は法令根拠が残る。"
+      - "00_source又は既存document IDを変更する必要がある。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      summary: "782問の台帳から実変更230問の限定artifactを生成し、台帳との提案値不一致0、欠落0、引用選択肢不一致0、正答接頭辞不一致0、同一問題の反対正答group 0を確認した。正答変更26問は手動レビュー済み全選択肢集合21問とidentity整合済み完全一致類題5問に限定される。"
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/**"
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T015-prepublication-package-audit.json
+      commands:
+        - cmd: "artifact-to-ledger exact field audit"
+          status: pass
+        - cmd: "proposed semantic invariants and exact duplicate answer audit"
+          status: pass
+        - cmd: "uploader dry-run"
+          status: pass
+      note: notes/T015-prepublication-package-audit.json
+
+  - id: T016
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "全782問の一問別台帳、限定artifact、意味整合検査を読み取り専用で監査し、Firestore更新可否を判定する。"
+    receipt:
+      result: done
+      decision: needs_rework
+      full_outcome_complete: false
+      summary: "782問のsource locatorを独立再読込した。761問は完全一致又は直接根拠で合格。表記差21問を一問ずつ確認し、20問は同義表現又は現行側での誤字訂正だったが、2021-21-3だけは問題文が『瞬間湯沸器』、原問題・手動レビュー・解説が『貯湯湯沸器』であり、公開を拒否した。"
+      note: notes/T016-judge.json
+      worker_package:
+        objective: "2021-21-3の問題表示選択肢を原問題どおり『先止め式貯湯湯沸器』へ限定修正し、782問台帳・artifact・全source監査を再生成する。"
+        allowed_files:
+          - scripts/fix/materialize_gas_shunin_missing_explanations.py
+          - scripts/upload/upload_questions_to_firestore.py
+          - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+          - tests/test_upload_questions_to_firestore.py
+          - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/**"
+          - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T019-*"
+        verify:
+          - "2021-21-3のquestionText quote、originalQuestionChoiceText、解説主語が貯湯湯沸器で一致"
+          - "questionText変更は当該1 IDだけ"
+          - "全782問source locator audit error=0"
+          - "uploader dry-run passes"
+          - "53+ tests pass"
+
+  - id: T019
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "2021-21-3の問題表示選択肢を原問題どおり『先止め式貯湯湯沸器』へ限定修正し、782問台帳・artifact・全source監査を再生成する。"
+    allowed_files:
+      - scripts/fix/materialize_gas_shunin_missing_explanations.py
+      - scripts/upload/upload_questions_to_firestore.py
+      - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+      - tests/test_upload_questions_to_firestore.py
+      - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/**"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T019-*"
+    verify:
+      - "2021-21-3のquestionText quote、originalQuestionChoiceText、解説主語が貯湯湯沸器で一致"
+      - "questionText変更は当該1 IDだけ"
+      - "全782問source locator audit error=0"
+      - "uploader dry-run passes"
+      - "tests pass"
+    stop_if:
+      - "questionText変更が2 ID以上になる。"
+      - "原問題と手動レビューが一致しない。"
+      - "Verification fails twice."
+    receipt:
+      result: done
+      summary: "2021-21-3だけを原問題どおり『先止め式貯湯湯沸器』へ修正するreviewed overrideを追加し、questionText、originalQuestionChoiceText、正答、解説の主語を一致させた。最終台帳782問は全件ready、source locator再監査error 0、questionText変更は当該1 IDだけ、54 testsとdry-runが合格した。"
+      changed_files:
+        - scripts/fix/materialize_gas_shunin_missing_explanations.py
+        - scripts/upload/upload_questions_to_firestore.py
+        - tests/scripts/fix/test_materialize_gas_shunin_missing_explanations.py
+        - tests/test_upload_questions_to_firestore.py
+        - "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/**"
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T019-question-text-rework.json
+      commands:
+        - cmd: "pytest materializer and uploader tests: 54 passed"
+          status: pass
+        - cmd: "782-record source locator independent audit: errors 0"
+          status: pass
+        - cmd: "uploader dry-run"
+          status: pass
+      note: notes/T019-question-text-rework.json
+
+  - id: T020
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T019 rework後の782問台帳と231問限定artifactを再監査し、Firestore更新可否を最終判定する。"
+    inputs:
+      - "T014-T019 receipts"
+      - "recovery ledger, override, artifact and audit"
+    constraints:
+      - "Read-only."
+      - "source locator error、quote mismatch、questionText未承認変更が1件でもあれば拒否する。"
+    expected_output:
+      - "approved_for_upload | rejected"
+      - "approved artifact hash and target count"
+      - "exact writeFields"
+    receipt:
+      result: done
+      decision: approved_for_upload
+      full_outcome_complete: false
+      summary: "rework後の台帳782問・限定artifact 231問を再監査し、全件ready、artifact hash一致、live fingerprint一致、questionText変更1 IDだけを確認してFirestore更新を承認した。"
+      note: notes/T020-upload-judge.json
+
+  - id: T017
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "承認済み限定artifactだけをFirestoreへ更新し、782問全件を再読込して意味対応・欠落・field一致を確認する。"
+    allowed_files:
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T017-*"
+    verify:
+      - "guarded upload updated=231、errors=0、skipped=0"
+      - "固定782 IDのlive readbackがledger proposedと一致する"
+      - "explanation missing=0、quote/original choice mismatch=0、answer prefix mismatch=0"
+      - "exact question opposite answer groups=0"
+      - "questionText変更は承認済み1 IDだけ"
+    stop_if:
+      - "Judge承認対象とartifactが一致しない。"
+      - "Firestore precondition又はlive fingerprintが一致しない。"
+      - "readback mismatchが1件以上ある。"
+    receipt:
+      result: done
+      summary: "Judge承認済み231問をFirestoreへ条件付き更新し、updated=231、skipped=0、errors=0。固定782問のlive readbackは台帳field mismatch 0、解説欠落0、quote/original choice不一致0、正答接頭辞不一致0、同一問題反対正答group 0だった。"
+      changed_files:
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T017-firestore-upload-readback.json
+      commands:
+        - cmd: "guarded Firestore upload"
+          status: pass
+        - cmd: "fixed 782 live readback and semantic invariant audit"
+          status: pass
+      note: notes/T017-firestore-upload-readback.json
+
+  - id: T018
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "今回scopeだけを検証・commitし、push範囲の安全性を記録する。"
+    receipt: null
+
+  - id: T998
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "復旧後の全782問が元の依頼を満たすか最終監査し、旧T999完了receiptを上書きせず後続監査で無効化する。"
+    receipt: null
+
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
   last_verification:
-    result: pass
-    task: T999
+    result: fail
+    task: T013
     commands:
-      - "Firestore 782-document full-field readback: mismatch 0"
-      - "Firestore folder/questionSet missing audit: 甲種0、乙種0"
-      - "pytest materializer and uploader tests: 47 passed"
-      - "GoalBuddy state checker and can-stop"
-      - "git scoped 00_source status/diff: empty"
+      - "旧T999はfield一致と欠落0だけを確認し、意味整合を検証していないため無効"
+      - "予備監査で手動reviewと正答が衝突する24件を確認"
+      - "予備監査でquestionText引用とoriginalQuestionChoiceTextが異なる145件を確認"

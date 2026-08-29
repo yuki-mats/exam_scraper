@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "gas-shunin-semantic-recovery-overrides-v1",
+  "overrides": [
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2021-21-3",
+      "expectedCurrentQuestionTextHash": "4891d3c467d3b16f5692c8008620e2bcbed80fae2bb65ab35b0b3d9c99b1d525",
+      "proposed": {
+        "questionText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。[quote]先止め式貯湯湯沸器は、出湯側に給湯配管を接続し、複数箇所に給湯することができる。[/quote]",
+        "originalQuestionChoiceText": "先止め式貯湯湯沸器は、出湯側に給湯配管を接続し、複数箇所に給湯することができる。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。先止め式貯湯湯沸器は出湯側に給湯配管を接続して使用する方式であり、複数箇所への給湯に対応できる。"
+      },
+      "source": {
+        "kind": "reviewed_question_text_correction",
+        "reviewFile": "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl",
+        "reviewLine": 284,
+        "choiceIndex": 3,
+        "stagePatchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_3_explanationText_added.json",
+        "lawRevisionAudit": "output/gas-shunin-otsu/review/law_revision_audit/2021_law_revision_audit.jsonl#gas-shunin:otsu:2021:shohi:q21"
+      },
+      "reason": "原問題、01-04手動レビュー、21 patch、法令関連性監査、解説がすべて『先止め式貯湯湯沸器』で一致し、FirestoreのquestionTextだけが『瞬間湯沸器』へ変わっているため"
+    }
+  ]
+}

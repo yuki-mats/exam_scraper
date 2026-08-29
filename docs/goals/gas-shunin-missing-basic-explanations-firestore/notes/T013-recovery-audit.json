@@ -1,0 +1,47 @@
+{
+  "taskId": "T013",
+  "result": "done",
+  "auditedAt": "2026-08-29T21:00:00+09:00",
+  "fixedInventoryCount": 782,
+  "liveDocumentCount": 782,
+  "questionTypes": {
+    "true_false": 768,
+    "flash_card": 14
+  },
+  "findings": {
+    "questionQuoteVsOriginalChoiceMismatch": 145,
+    "mismatchByYear": {
+      "2020": 70,
+      "2021": 75
+    },
+    "definiteManualAnswerConflicts": 24,
+    "definiteConflictYear": 2020,
+    "missingExplanation": 0,
+    "answerPrefixMismatch": 0
+  },
+  "rootCause": [
+    "既存Firestore IDが別の問題・選択肢へ再利用された後、questionTextだけが新しい内容となり、originalQuestionBodyText、originalQuestionChoiceText、correctChoiceText、explanationTextの一部が古い問題のまま残った。",
+    "materializerは、手動レビュー済み原資料より先に、現在の正答を検索キーへ含めたfirestore_same_question候補を選んだため、誤った正答に合う別問題の解説を採用できた。",
+    "validatorはtrue_falseの正答ラベルと解説接頭辞だけを照合し、questionText内の引用選択肢とoriginalQuestionChoiceText、解説内容が同じ命題を扱うかを検査しなかった。",
+    "旧最終監査は生成artifactとFirestoreのfield一致を確認しただけで、同じ誤りが両方に複製された状態を合格させた。"
+  ],
+  "safeSourcePriority": [
+    "同じ資格・年度で、設問を構成する全選択肢集合まで一致する01-04手動レビュー",
+    "questionText全文が一致し、引用選択肢とoriginalQuestionChoiceTextも一致する既存Firestore類題の一意な合意",
+    "questionText全文が一致する21_explanationText_added patch",
+    "上記で確定できない場合は一問別に原問題・類題・公式根拠を確認し、推測でreadyにしない"
+  ],
+  "requiredValidation": [
+    "true_falseのquestionText末尾quoteを対象選択肢として抽出する",
+    "originalQuestionChoiceTextはquoteと正規化一致する",
+    "originalQuestionBodyTextはquestionTextのquote前本文と対応する",
+    "正答と解説接頭辞だけでなく、採用根拠が同じ設問・選択肢を指す",
+    "一問別台帳にsource locator、現行値、提案値、変更field、判定理由を残す",
+    "Firestore更新後に固定782 IDを全件readbackする"
+  ],
+  "oldFinalAudit": {
+    "taskId": "T999",
+    "status": "superseded_by_recovery",
+    "reason": "意味整合を検証していないため、full_outcome_complete判定は無効"
+  }
+}

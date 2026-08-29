@@ -1,0 +1,28 @@
+{
+  "taskId": "T015",
+  "result": "done",
+  "ledgerRecords": 782,
+  "artifactTargets": 230,
+  "writeFields": [
+    "originalQuestionBodyText",
+    "originalQuestionChoiceText",
+    "correctChoiceText",
+    "explanationText"
+  ],
+  "checks": {
+    "artifactLedgerMismatch": 0,
+    "proposedMissingExplanation": 0,
+    "proposedQuoteOriginalChoiceMismatch": 0,
+    "proposedAnswerPrefixMismatch": 0,
+    "exactQuestionOppositeAnswerGroups": 0,
+    "documentIdChanges": 0,
+    "questionTextChanges": 0,
+    "outsideWriteFieldChanges": 0,
+    "uploaderDryRun": "pass"
+  },
+  "answerChangeSources": {
+    "manualReviewedWholeChoiceGroup": 21,
+    "firestoreExactQuestionIdentityAligned": 5
+  },
+  "decision": "ready_for_read_only_judge"
+}

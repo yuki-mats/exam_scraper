@@ -1,0 +1,26 @@
+{
+  "taskId": "T016",
+  "result": "done",
+  "decision": "needs_rework",
+  "auditedRecords": 782,
+  "sourceLocatorAudit": {
+    "exactOrDirectPass": 761,
+    "minorTextDifferenceReviewed": 21,
+    "semanticEquivalentOrCurrentTypoCorrection": 20,
+    "substantiveMismatch": 1
+  },
+  "blockingQuestion": {
+    "questionId": "gasushunin-otsushu-gizyutsu-2021-21-3",
+    "currentQuestionChoice": "先止め式瞬間湯沸器は、出湯側に給湯配管を接続し、複数箇所に給湯することができる。",
+    "sourceQuestionChoice": "先止め式貯湯湯沸器は、出湯側に給湯配管を接続し、複数箇所に給湯することができる。",
+    "currentExplanationSubject": "先止め式貯湯湯沸器",
+    "evidence": [
+      "01-04 manual review line 284",
+      "2021/21_explanationText_added/question_2021_3_explanationText_added.json",
+      "2021 law_revision_audit sourceQuestionKey gas-shunin:otsu:2021:shohi:q21"
+    ],
+    "requiredFix": "questionText内の対象選択肢とoriginalQuestionChoiceTextを『先止め式貯湯湯沸器』へ一致させ、正答・解説は同じ選択肢を説明する状態にする。"
+  },
+  "rationale": "全選択肢集合の照合で正答・解説は確定できたが、1問だけ問題表示文そのものが原問題・レビュー・解説と異なる。Firestore更新前に限定的なquestionText修正が必要である。",
+  "fullOutcomeComplete": false
+}

@@ -57,6 +57,66 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             ("correctChoiceText", "explanationText"),
         )
 
+    def test_resolve_write_fields_accepts_semantic_recovery_contract(self) -> None:
+        self.assertEqual(
+            module.resolve_write_fields(
+                {
+                    "writeFields": [
+                        "originalQuestionBodyText",
+                        "originalQuestionChoiceText",
+                        "correctChoiceText",
+                        "explanationText",
+                    ]
+                }
+            ),
+            (
+                "originalQuestionBodyText",
+                "originalQuestionChoiceText",
+                "correctChoiceText",
+                "explanationText",
+            ),
+        )
+
+    def test_build_semantic_recovery_patch_writes_only_approved_fields(self) -> None:
+        now = datetime(2026, 8, 29, 12, 0, 0)
+        actual = module.build_patch_doc_data(
+            {
+                "originalQuestionBodyText": "対象本文",
+                "originalQuestionChoiceText": "対象選択肢",
+                "correctChoiceText": "間違い",
+                "explanationText": "間違い。対象選択肢の理由。",
+                "questionText": "変更しない問題文",
+            },
+            (
+                "originalQuestionBodyText",
+                "originalQuestionChoiceText",
+                "correctChoiceText",
+                "explanationText",
+            ),
+            now,
+        )
+        self.assertEqual(
+            actual,
+            {
+                "originalQuestionBodyText": "対象本文",
+                "originalQuestionChoiceText": "対象選択肢",
+                "correctChoiceText": "間違い",
+                "explanationText": "間違い。対象選択肢の理由。",
+                "updatedAt": now,
+                "updatedById": module.UPDATED_BY_ID,
+            },
+        )
+
+    def test_resolve_write_fields_accepts_question_text_recovery_contract(self) -> None:
+        fields = [
+            "originalQuestionBodyText",
+            "originalQuestionChoiceText",
+            "questionText",
+            "correctChoiceText",
+            "explanationText",
+        ]
+        self.assertEqual(module.resolve_write_fields({"writeFields": fields}), tuple(fields))
+
     def test_resolve_write_fields_rejects_unapproved_patch_contract(self) -> None:
         with self.assertRaisesRegex(ValueError, "unsupported writeFields"):
             module.resolve_write_fields(

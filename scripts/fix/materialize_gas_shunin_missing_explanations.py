@@ -13,6 +13,7 @@ import sys
 import unicodedata
 from collections import defaultdict
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -56,6 +57,25 @@ def normalize_text(value: object) -> str:
     text = unicodedata.normalize("NFKC", str(value or ""))
     text = re.sub(r"\s+", "", text)
     return text.replace("−", "-").replace("‐", "-").replace("―", "-")
+
+
+def normalize_choice_identity(value: object) -> str:
+    """Normalize choice identity without confusing short choices from other questions."""
+
+    text = normalize_text(value).replace("～", "~").replace("〜", "~")
+    numeric = text.replace(",", "")
+    try:
+        return f"number:{Decimal(numeric).normalize()}"
+    except InvalidOperation:
+        pass
+    return re.sub(r"[。．、，,.・「」『』（）()【】]", "", text)
+
+
+def split_true_false_question(question_text: object) -> tuple[str, str] | None:
+    match = re.search(r"\[quote\](.*)\[/quote\]\s*$", str(question_text or ""), re.DOTALL)
+    if not match:
+        return None
+    return str(question_text or "")[: match.start()], match.group(1)
 
 
 def text_hash(value: object) -> str:
@@ -811,6 +831,615 @@ def materialize_answer_corrections(
     return audit
 
 
+def _manual_review_records(repo_root: Path, qualifications: Iterable[str]) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for qualification in sorted(set(qualifications)):
+        path = (
+            repo_root
+            / "output"
+            / qualification
+            / "review"
+            / "01_04_manual_review"
+            / f"{qualification}_01_04_manual_review.jsonl"
+        )
+        if not path.exists():
+            continue
+        for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            try:
+                raw = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            choices = raw.get("choiceTextList")
+            answers = raw.get("correctChoiceText")
+            explanations = raw.get("explanationText")
+            if not (
+                raw.get("reviewDecision") == "ok"
+                and isinstance(choices, list)
+                and isinstance(answers, list)
+                and isinstance(explanations, list)
+                and len(choices) == len(answers) == len(explanations)
+            ):
+                continue
+            mapped_choices = []
+            for choice_index, (choice, answer, explanation) in enumerate(
+                zip(choices, answers, explanations), 1
+            ):
+                canonical_answer = CANONICAL_CORRECTNESS.get(str(answer or "").strip())
+                if canonical_answer not in {"正しい", "間違い"}:
+                    mapped_choices = []
+                    break
+                mapped_choices.append(
+                    {
+                        "choiceText": str(choice),
+                        "choiceIdentity": normalize_choice_identity(choice),
+                        "correctChoiceText": canonical_answer,
+                        "explanationText": canonicalize_explanation_prefix(
+                            str(explanation or ""), canonical_answer
+                        ),
+                        "choiceIndex": choice_index,
+                    }
+                )
+            if not mapped_choices:
+                continue
+            records.append(
+                {
+                    "qualification": qualification,
+                    "examYear": int(raw.get("examYear") or 0),
+                    "questionBodyText": str(raw.get("questionBodyText") or ""),
+                    "choices": mapped_choices,
+                    "source": {
+                        "kind": "manual_01_04_review_group",
+                        "reviewFile": str(path.relative_to(repo_root)),
+                        "reviewLine": line_number,
+                        "reviewId": raw.get("reviewId"),
+                    },
+                }
+            )
+    return records
+
+
+def _choice_group_mapping(
+    current_choices: list[str], manual_choices: list[dict[str, Any]]
+) -> tuple[dict[str, dict[str, Any]], float] | None:
+    if len(set(current_choices)) != len(current_choices):
+        return None
+    unused = set(range(len(manual_choices)))
+    mapping: dict[str, dict[str, Any]] = {}
+    scores: list[float] = []
+    for current in current_choices:
+        ranked = sorted(
+            (
+                difflib.SequenceMatcher(
+                    None, current, manual_choices[index]["choiceIdentity"]
+                ).ratio(),
+                index,
+            )
+            for index in unused
+        )
+        if not ranked:
+            return None
+        score, index = ranked[-1]
+        exact = current == manual_choices[index]["choiceIdentity"]
+        if (len(current) <= 8 and not exact) or (not exact and score < 0.94):
+            return None
+        unused.remove(index)
+        mapping[current] = manual_choices[index]
+        scores.append(score)
+    if unused or not scores or sum(scores) / len(scores) < 0.97:
+        return None
+    return mapping, sum(scores) / len(scores)
+
+
+def _match_manual_groups(
+    current_groups: dict[tuple[str, int, str, str], list[dict[str, Any]]],
+    manual_records: list[dict[str, Any]],
+) -> dict[tuple[str, int, str, str], tuple[dict[str, Any], dict[str, dict[str, Any]]]]:
+    matches = {}
+    for key, group in current_groups.items():
+        qualification, year, _, body = key
+        current_choices = [item["choiceIdentity"] for item in group]
+        candidates = []
+        for manual in manual_records:
+            if manual["qualification"] != qualification or manual["examYear"] != year:
+                continue
+            mapped = _choice_group_mapping(current_choices, manual["choices"])
+            if mapped is None:
+                continue
+            mapping, choice_score = mapped
+            body_score = difflib.SequenceMatcher(
+                None, normalize_choice_identity(body), normalize_choice_identity(manual["questionBodyText"])
+            ).ratio()
+            candidates.append((choice_score + body_score * 0.05, manual, mapping))
+        candidates.sort(key=lambda item: item[0])
+        if not candidates:
+            continue
+        if len(candidates) > 1 and candidates[-1][0] - candidates[-2][0] < 0.02:
+            continue
+        _, manual, mapping = candidates[-1]
+        matches[key] = (manual, mapping)
+    return matches
+
+
+def _previous_decisions(repo_root: Path) -> dict[str, dict[str, Any]]:
+    base = (
+        repo_root
+        / "output"
+        / "gas-shunin-otsu"
+        / "questions_json"
+        / "firestore_repairs"
+        / "20260829"
+    )
+    result = {}
+    for path in sorted(base.glob("decisions_final_*.json")):
+        for decision in read_json(path).get("decisions", []):
+            result[str(decision.get("questionId") or "")] = decision
+    return result
+
+
+def validate_recovery_records(records: list[dict[str, Any]]) -> None:
+    allowed_changed_fields = {
+        "originalQuestionBodyText",
+        "originalQuestionChoiceText",
+        "questionText",
+        "correctChoiceText",
+        "explanationText",
+    }
+    for record in records:
+        question_id = str(record.get("questionId") or "")
+        if record.get("status") != "ready" or not isinstance(record.get("source"), dict):
+            raise ValueError(f"recovery record is not source-backed ready: {question_id}")
+        if not set(record.get("changedFields") or []).issubset(allowed_changed_fields):
+            raise ValueError(f"recovery changedFields exceed contract: {question_id}")
+        if record.get("questionType") != "true_false":
+            continue
+        proposed = record.get("proposed") or {}
+        answer = CANONICAL_CORRECTNESS.get(
+            str(proposed.get("correctChoiceText") or "").strip()
+        )
+        explanation = str(proposed.get("explanationText") or "").strip()
+        if answer not in {"正しい", "間違い"} or not explanation.startswith(answer):
+            raise ValueError(f"recovery answer/explanation mismatch: {question_id}")
+        parts = split_true_false_question(
+            proposed.get("questionText", record.get("questionText"))
+        )
+        if parts is None:
+            continue
+        _, choice = parts
+        if normalize_text(proposed.get("originalQuestionChoiceText")) != normalize_text(choice):
+            raise ValueError(f"recovery quote/original choice mismatch: {question_id}")
+
+
+def build_recovery_ledger(
+    inventory_path: Path,
+    repo_root: Path,
+    output_path: Path,
+    overrides_path: Path | None = None,
+) -> dict[str, Any]:
+    """Build one semantic decision per fixed target without writing Firestore."""
+
+    inventory = read_json(inventory_path)
+    targets = inventory.get("records", [])
+    if len(targets) != 782:
+        raise ValueError(f"recovery inventory must contain 782 records: {len(targets)}")
+    target_ids = [str(item.get("firestoreQuestionId") or "") for item in targets]
+    if not all(target_ids) or len(target_ids) != len(set(target_ids)):
+        raise ValueError("recovery inventory IDs are blank or duplicated")
+
+    db = firestore_client()
+    qset_ids = {str(item.get("questionSetId") or "") for item in targets}
+    documents = fetch_question_sets(db, qset_ids)
+    if not set(target_ids).issubset(documents):
+        raise ValueError("recovery inventory target is missing from Firestore")
+    qset_qualification = {
+        str(item["questionSetId"]): str(item["qualification"]) for item in targets
+    }
+
+    current_groups: dict[tuple[str, int, str, str], list[dict[str, Any]]] = defaultdict(list)
+    document_group: dict[str, tuple[str, int, str, str]] = {}
+    by_question_text: dict[tuple[int, str], list[tuple[str, dict[str, Any]]]] = defaultdict(list)
+    for question_id, document in documents.items():
+        year = int(document.get("examYear") or 0)
+        by_question_text[(year, normalize_text(document.get("questionText")))].append(
+            (question_id, document)
+        )
+        parts = split_true_false_question(document.get("questionText"))
+        qualification = qset_qualification.get(str(document.get("questionSetId") or ""))
+        if parts is None or qualification is None:
+            continue
+        body, choice = parts
+        key = (qualification, year, str(document.get("questionSetId") or ""), normalize_text(body))
+        current_groups[key].append(
+            {
+                "questionId": question_id,
+                "choiceIdentity": normalize_choice_identity(choice),
+                "choiceText": choice,
+            }
+        )
+        document_group[question_id] = key
+
+    manual_records = _manual_review_records(
+        repo_root, (item["qualification"] for item in targets)
+    )
+    manual_matches = _match_manual_groups(current_groups, manual_records)
+    manual_exact_choices: dict[tuple[str, int, str], list[tuple[dict[str, Any], dict[str, Any]]]] = defaultdict(list)
+    for manual in manual_records:
+        for manual_choice in manual["choices"]:
+            manual_exact_choices[
+                (
+                    manual["qualification"],
+                    manual["examYear"],
+                    manual_choice["choiceIdentity"],
+                )
+            ].append((manual, manual_choice))
+    previous = _previous_decisions(repo_root)
+    local_indexes = {
+        (qualification, year): build_local_exact_index(repo_root, qualification, year)
+        for qualification in {item["qualification"] for item in targets}
+        for year in {int(item["examYear"]) for item in targets}
+    }
+
+    ledger_records = []
+    unresolved = []
+    for target in targets:
+        question_id = target["firestoreQuestionId"]
+        live = documents[question_id]
+        current = {
+            "originalQuestionBodyText": live.get("originalQuestionBodyText"),
+            "originalQuestionChoiceText": live.get("originalQuestionChoiceText"),
+            "questionText": live.get("questionText"),
+            "correctChoiceText": live.get("correctChoiceText"),
+            "explanationText": live.get("explanationText"),
+        }
+        proposed = copy.deepcopy(current)
+        source: dict[str, Any] | None = None
+        status = "ready"
+        reason = "existing_flash_card_fields_reviewed"
+
+        if live.get("questionType") != "true_false":
+            source = {"kind": "current_live_flash_card", "questionId": question_id}
+
+        if live.get("questionType") == "true_false":
+            parts = split_true_false_question(live.get("questionText"))
+            if parts is None:
+                local_explanation = str(target.get("localExplanationText") or "").strip()
+                current_explanation = str(current.get("explanationText") or "").strip()
+                current_answer = CANONICAL_CORRECTNESS.get(
+                    str(current.get("correctChoiceText") or "").strip()
+                )
+                if (
+                    str(current.get("originalQuestionBodyText") or "").strip()
+                    and not str(current.get("originalQuestionChoiceText") or "").strip()
+                    and target.get("localExplanationPresent") is True
+                    and local_explanation == current_explanation
+                    and current_answer in {"正しい", "間違い"}
+                    and current_explanation.startswith(current_answer)
+                ):
+                    source = {
+                        "kind": "local_21_patch_body_statement",
+                        "patchFile": target.get("explanationPatchFile"),
+                        "sourceQuestionKey": target.get("sourceQuestionKey"),
+                    }
+                    reason = "true_false_statement_is_original_body_without_quote"
+                else:
+                    status = "hold"
+                    reason = "true_false_without_quote"
+            else:
+                body, choice = parts
+                identity_aligned = normalize_text(
+                    current["originalQuestionChoiceText"]
+                ) == normalize_text(choice)
+                if not identity_aligned:
+                    proposed["originalQuestionBodyText"] = body
+                    proposed["originalQuestionChoiceText"] = choice
+                key = document_group.get(question_id)
+                manual_match = manual_matches.get(key) if key else None
+                manual_choice = None
+                if manual_match is not None:
+                    manual, mapping = manual_match
+                    manual_choice = mapping.get(normalize_choice_identity(choice))
+                    if (
+                        manual_choice is not None
+                        and normalize_choice_identity(choice)
+                        == manual_choice["choiceIdentity"]
+                    ):
+                        proposed["correctChoiceText"] = manual_choice["correctChoiceText"]
+                        proposed["explanationText"] = manual_choice["explanationText"]
+                        source = {
+                            **manual["source"],
+                            "choiceIndex": manual_choice["choiceIndex"],
+                            "choiceText": manual_choice["choiceText"],
+                        }
+                        reason = "manual_reviewed_whole_choice_group"
+
+                if source is None:
+                    candidates = []
+                    for source_id, candidate in by_question_text[
+                        (int(live.get("examYear") or 0), normalize_text(live.get("questionText")))
+                    ]:
+                        if source_id == question_id:
+                            continue
+                        if normalize_text(candidate.get("originalQuestionChoiceText")) != normalize_text(choice):
+                            continue
+                        explanation = str(candidate.get("explanationText") or "").strip()
+                        answer = CANONICAL_CORRECTNESS.get(
+                            str(candidate.get("correctChoiceText") or "").strip()
+                        )
+                        if answer in {"正しい", "間違い"} and explanation.startswith(answer):
+                            candidates.append((source_id, answer, explanation))
+                    candidate_values = {(answer, explanation) for _, answer, explanation in candidates}
+                    if len(candidate_values) == 1:
+                        source_id, answer, explanation = candidates[0]
+                        proposed["correctChoiceText"] = answer
+                        proposed["explanationText"] = explanation
+                        source = {"kind": "firestore_exact_question_identity_aligned", "questionId": source_id}
+                        reason = "exact_question_duplicate_with_aligned_choice"
+
+                if source is None and identity_aligned:
+                    source = {"kind": "current_live_identity_aligned", "questionId": question_id}
+                    reason = "current_quote_and_original_choice_aligned"
+
+                if source is None:
+                    local_candidates = local_indexes[
+                        (target["qualification"], int(target["examYear"]))
+                    ].get(normalize_text(live.get("questionText")), [])
+                    if len(local_candidates) == 1:
+                        explanation = canonicalize_explanation_prefix(
+                            str(local_candidates[0]["explanationText"]),
+                            str(local_candidates[0]["explanationText"]).split("。", 1)[0],
+                        )
+                        answer = next(
+                            (item for item in ("正しい", "間違い") if explanation.startswith(item)),
+                            None,
+                        )
+                        if answer:
+                            proposed["correctChoiceText"] = answer
+                            proposed["explanationText"] = explanation
+                            source = copy.deepcopy(local_candidates[0])
+                            reason = "exact_question_local_21_patch"
+
+                if source is None and len(normalize_choice_identity(choice)) >= 20:
+                    exact_manual = manual_exact_choices.get(
+                        (
+                            target["qualification"],
+                            int(target["examYear"]),
+                            normalize_choice_identity(choice),
+                        ),
+                        [],
+                    )
+                    exact_answers = {
+                        item[1]["correctChoiceText"] for item in exact_manual
+                    }
+                    if len(exact_manual) == 1 and len(exact_answers) == 1:
+                        manual, manual_choice = exact_manual[0]
+                        proposed["correctChoiceText"] = manual_choice[
+                            "correctChoiceText"
+                        ]
+                        proposed["explanationText"] = manual_choice[
+                            "explanationText"
+                        ]
+                        source = {
+                            **manual["source"],
+                            "kind": "manual_01_04_review_unique_long_choice",
+                            "choiceIndex": manual_choice["choiceIndex"],
+                            "choiceText": manual_choice["choiceText"],
+                        }
+                        reason = "unique_long_choice_in_same_qualification_and_year"
+
+                if source is None and len(normalize_choice_identity(choice)) >= 20:
+                    fuzzy_manual = []
+                    current_identity = normalize_choice_identity(choice)
+                    for manual in manual_records:
+                        if (
+                            manual["qualification"] != target["qualification"]
+                            or manual["examYear"] != int(target["examYear"])
+                        ):
+                            continue
+                        for manual_choice in manual["choices"]:
+                            score = difflib.SequenceMatcher(
+                                None,
+                                current_identity,
+                                manual_choice["choiceIdentity"],
+                            ).ratio()
+                            fuzzy_manual.append((score, manual, manual_choice))
+                    fuzzy_manual.sort(key=lambda item: item[0])
+                    if fuzzy_manual:
+                        best_score, manual, manual_choice = fuzzy_manual[-1]
+                        second_score = fuzzy_manual[-2][0] if len(fuzzy_manual) > 1 else 0.0
+                        if best_score >= 0.97 and best_score - second_score >= 0.10:
+                            proposed["correctChoiceText"] = manual_choice[
+                                "correctChoiceText"
+                            ]
+                            proposed["explanationText"] = manual_choice[
+                                "explanationText"
+                            ]
+                            source = {
+                                **manual["source"],
+                                "kind": "manual_01_04_review_unique_fuzzy_long_choice",
+                                "choiceIndex": manual_choice["choiceIndex"],
+                                "choiceText": manual_choice["choiceText"],
+                                "choiceSimilarity": round(best_score, 6),
+                            }
+                            reason = "unique_high_similarity_long_choice_in_same_year"
+
+                if source is None:
+                    prior = previous.get(question_id) or {}
+                    prior_source = prior.get("source") or {}
+                    prior_explanation = prior_source.get("explanationText")
+                    if prior_source.get("kind") == "authored_from_similar" and isinstance(
+                        prior_explanation, str
+                    ):
+                        answer = next(
+                            (item for item in ("正しい", "間違い") if prior_explanation.startswith(item)),
+                            None,
+                        )
+                        if answer:
+                            proposed["correctChoiceText"] = answer
+                            proposed["explanationText"] = prior_explanation
+                            source = copy.deepcopy(prior_source)
+                            reason = "previous_individually_authored_calculation_or_similar"
+
+                if source is None:
+                    status = "hold"
+                    reason = "no_identity_safe_source"
+
+        answer = CANONICAL_CORRECTNESS.get(str(proposed.get("correctChoiceText") or "").strip())
+        explanation = str(proposed.get("explanationText") or "").strip()
+        if status == "ready" and live.get("questionType") == "true_false":
+            if answer not in {"正しい", "間違い"} or not explanation.startswith(answer):
+                status = "hold"
+                reason = "proposed_answer_explanation_mismatch"
+        changed_fields = [
+            field for field in proposed if proposed.get(field) != current.get(field)
+        ]
+        record = {
+            "questionId": question_id,
+            "grade": target["grade"],
+            "qualification": target["qualification"],
+            "examYear": int(target["examYear"]),
+            "questionSetId": live.get("questionSetId"),
+            "questionType": live.get("questionType"),
+            "questionText": live.get("questionText"),
+            "questionTextHash": text_hash(live.get("questionText")),
+            "status": status,
+            "reason": reason,
+            "source": source,
+            "current": current,
+            "proposed": proposed,
+            "changedFields": changed_fields,
+        }
+        ledger_records.append(record)
+        if status != "ready":
+            unresolved.append(question_id)
+
+    if overrides_path is not None:
+        overrides = read_json(overrides_path).get("overrides", [])
+        by_id = {item["questionId"]: item for item in ledger_records}
+        seen = set()
+        for override in overrides:
+            question_id = str(override.get("questionId") or "")
+            if question_id not in by_id or question_id in seen:
+                raise ValueError(f"invalid or duplicate recovery override: {question_id}")
+            seen.add(question_id)
+            record = by_id[question_id]
+            if record["questionTextHash"] != override.get("expectedCurrentQuestionTextHash"):
+                raise ValueError(f"recovery override questionText hash mismatch: {question_id}")
+            proposed_override = override.get("proposed") or {}
+            if not set(proposed_override).issubset(record["proposed"]):
+                raise ValueError(f"recovery override field exceeds contract: {question_id}")
+            record["proposed"].update(copy.deepcopy(proposed_override))
+            record["source"] = copy.deepcopy(override.get("source"))
+            record["reason"] = str(override.get("reason") or "")
+            record["changedFields"] = [
+                field
+                for field in record["proposed"]
+                if record["proposed"].get(field) != record["current"].get(field)
+            ]
+
+    validate_recovery_records(ledger_records)
+    output = {
+        "schemaVersion": "gas-shunin-semantic-recovery-v1",
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "inventory": str(inventory_path),
+        "counts": {
+            "targetCount": len(ledger_records),
+            "uniqueTargetCount": len({item["questionId"] for item in ledger_records}),
+            "readyCount": sum(item["status"] == "ready" for item in ledger_records),
+            "unresolvedCount": len(unresolved),
+            "changedCount": sum(bool(item["changedFields"]) for item in ledger_records),
+            "answerChangeCount": sum(
+                "correctChoiceText" in item["changedFields"] for item in ledger_records
+            ),
+            "explanationChangeCount": sum(
+                "explanationText" in item["changedFields"] for item in ledger_records
+            ),
+            "identityChangeCount": sum(
+                "originalQuestionChoiceText" in item["changedFields"] for item in ledger_records
+            ),
+            "questionTextChangeCount": sum(
+                "questionText" in item["changedFields"] for item in ledger_records
+            ),
+        },
+        "unresolvedQuestionIds": unresolved,
+        "records": ledger_records,
+    }
+    write_json(output_path, output)
+    return output
+
+
+def materialize_recovery(
+    ledger_path: Path,
+    artifact_path: Path,
+    audit_path: Path,
+) -> dict[str, Any]:
+    ledger = read_json(ledger_path)
+    records = ledger.get("records", [])
+    if len(records) != 782 or any(item.get("status") != "ready" for item in records):
+        raise ValueError("all 782 recovery decisions must be ready")
+    changed = [item for item in records if item.get("changedFields")]
+    target_ids = [item["questionId"] for item in changed]
+    if not target_ids:
+        raise ValueError("recovery ledger has no changes")
+    live_documents = fetch_question_ids(firestore_client(), target_ids)
+    write_fields = (
+        "originalQuestionBodyText",
+        "originalQuestionChoiceText",
+        "questionText",
+        "correctChoiceText",
+        "explanationText",
+    )
+    questions = []
+    for record in changed:
+        question_id = record["questionId"]
+        live = live_documents.get(question_id)
+        if live is None:
+            raise ValueError(f"recovery target missing: {question_id}")
+        if text_hash(live.get("questionText")) != record.get("questionTextHash"):
+            raise ValueError(f"recovery questionText changed: {question_id}")
+        for field, expected in record["current"].items():
+            if live.get(field) != expected:
+                raise ValueError(f"recovery live field changed: {question_id} {field}")
+        payload = {
+            key: copy.deepcopy(live[key])
+            for key in DOC_COMPARE_KEYS
+            if key in live and key not in PRODUCTION_CLIENT_OMITTED_FIELDS
+        }
+        payload["questionId"] = question_id
+        payload.update(copy.deepcopy(record["proposed"]))
+        questions.append(payload)
+    validate_question_patch_questions(questions, write_fields, str(artifact_path))
+    live_hash = firestore_live_fingerprint(target_ids, live_documents)
+    artifact = {
+        "schemaVersion": "gas-shunin-semantic-recovery-v1",
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "expectedLiveFingerprint": live_hash,
+        "writeFields": list(write_fields),
+        "questions": questions,
+    }
+    audit = {
+        "schemaVersion": artifact["schemaVersion"],
+        "generatedAt": artifact["generatedAt"],
+        "ledger": str(ledger_path),
+        "targetCount": len(target_ids),
+        "uniqueTargetCount": len(set(target_ids)),
+        "writeFields": list(write_fields),
+        "expectedLiveFingerprint": live_hash,
+        "artifactSha256": hashlib.sha256(
+            json.dumps(artifact, ensure_ascii=False, sort_keys=True).encode("utf-8")
+        ).hexdigest(),
+        "records": [
+            {
+                "questionId": item["questionId"],
+                "changedFields": item["changedFields"],
+                "source": item["source"],
+            }
+            for item in changed
+        ],
+    }
+    write_json(artifact_path, artifact)
+    write_json(audit_path, audit)
+    return audit
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -837,6 +1466,15 @@ def build_parser() -> argparse.ArgumentParser:
     corrections.add_argument("--decisions", type=Path, required=True)
     corrections.add_argument("--artifact", type=Path, required=True)
     corrections.add_argument("--audit", type=Path, required=True)
+    recovery = subparsers.add_parser("build-recovery-ledger")
+    recovery.add_argument("--inventory", type=Path, required=True)
+    recovery.add_argument("--repo-root", type=Path, default=Path.cwd())
+    recovery.add_argument("--output", type=Path, required=True)
+    recovery.add_argument("--overrides", type=Path)
+    recovery_materialize = subparsers.add_parser("materialize-recovery")
+    recovery_materialize.add_argument("--ledger", type=Path, required=True)
+    recovery_materialize.add_argument("--artifact", type=Path, required=True)
+    recovery_materialize.add_argument("--audit", type=Path, required=True)
     return parser
 
 
@@ -853,6 +1491,19 @@ def main() -> int:
     elif args.command == "materialize-answer-corrections":
         result = materialize_answer_corrections(
             args.decisions,
+            args.artifact,
+            args.audit,
+        )
+    elif args.command == "build-recovery-ledger":
+        result = build_recovery_ledger(
+            args.inventory,
+            args.repo_root.resolve(),
+            args.output,
+            args.overrides,
+        )
+    elif args.command == "materialize-recovery":
+        result = materialize_recovery(
+            args.ledger,
             args.artifact,
             args.audit,
         )

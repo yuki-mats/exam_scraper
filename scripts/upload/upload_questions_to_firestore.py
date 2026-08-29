@@ -32,6 +32,19 @@ WRITE_FIELDS_KEY = "writeFields"
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
     ("correctChoiceText", "explanationText"),
+    (
+        "originalQuestionBodyText",
+        "originalQuestionChoiceText",
+        "correctChoiceText",
+        "explanationText",
+    ),
+    (
+        "originalQuestionBodyText",
+        "originalQuestionChoiceText",
+        "questionText",
+        "correctChoiceText",
+        "explanationText",
+    ),
 )
 
 

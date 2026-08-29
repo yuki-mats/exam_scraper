@@ -13,14 +13,61 @@ from scripts.fix.materialize_gas_shunin_missing_explanations import (
     explanation_hash,
     mark_rejected_answer_conflicts,
     normalize_text,
+    normalize_choice_identity,
     select_manual_review_source,
     validate_answer_correction_decision,
     validate_answer_alignment,
+    validate_recovery_records,
 )
 
 
 def test_normalize_text_handles_spacing_and_unicode_width():
     assert normalize_text("Ａ － B\n") == "A-B"
+
+
+def test_normalize_choice_identity_treats_numeric_trailing_zero_as_same_choice():
+    assert normalize_choice_identity("10.0") == normalize_choice_identity("10")
+
+
+def test_normalize_choice_identity_keeps_different_short_numbers_distinct():
+    assert normalize_choice_identity("10") != normalize_choice_identity("1.0")
+
+
+def test_validate_recovery_records_rejects_stale_original_choice():
+    with pytest.raises(ValueError, match="quote/original choice mismatch"):
+        validate_recovery_records(
+            [
+                {
+                    "questionId": "q1",
+                    "questionType": "true_false",
+                    "questionText": "設問[quote]現在の選択肢[/quote]",
+                    "status": "ready",
+                    "source": {"kind": "manual"},
+                    "changedFields": [],
+                    "proposed": {
+                        "originalQuestionChoiceText": "古い選択肢",
+                        "correctChoiceText": "正しい",
+                        "explanationText": "正しい。理由。",
+                    },
+                }
+            ]
+        )
+
+
+def test_validate_recovery_records_requires_source_locator():
+    with pytest.raises(ValueError, match="source-backed ready"):
+        validate_recovery_records(
+            [
+                {
+                    "questionId": "q1",
+                    "questionType": "flash_card",
+                    "status": "ready",
+                    "source": None,
+                    "changedFields": [],
+                    "proposed": {},
+                }
+            ]
+        )
 
 
 def test_validate_answer_alignment_accepts_matching_true_false_prefix():

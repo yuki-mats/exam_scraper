@@ -1,0 +1,50 @@
+{
+  "taskId": "T014",
+  "result": "done",
+  "ledger": "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/recovery_ledger_782.json",
+  "artifact": "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/recovery_upload_artifact.json",
+  "materializationAudit": "output/gas-shunin-otsu/questions_json/firestore_repairs/20260829-recovery/recovery_materialization_audit.json",
+  "counts": {
+    "targetCount": 782,
+    "uniqueTargetCount": 782,
+    "readyCount": 782,
+    "unresolvedCount": 0,
+    "changedCount": 230,
+    "answerChangeCount": 26,
+    "explanationChangeCount": 184,
+    "identityChangeCount": 145
+  },
+  "changedByGradeYear": {
+    "甲種2020": 0,
+    "乙種2020": 82,
+    "乙種2021": 86,
+    "乙種2022": 16,
+    "乙種2023": 46
+  },
+  "answerChangesByGradeYear": {
+    "乙種2020": 25,
+    "乙種2021": 1
+  },
+  "sourceCounts": {
+    "firestoreExactQuestionIdentityAligned": 397,
+    "manualReviewedWholeChoiceGroup": 287,
+    "currentLiveIdentityAligned": 82,
+    "currentLiveFlashCard": 14,
+    "localBodyStatement": 1,
+    "manualUniqueFuzzyLongChoice": 1
+  },
+  "verification": {
+    "tests": "53 passed",
+    "allRecordsSourceBacked": true,
+    "proposedQuoteOriginalChoiceMismatch": 0,
+    "dryRun": "pass",
+    "sourceChanges": 0,
+    "artifactSha256": "31b6c57fc54a661727065a6e22af84890cc838543ec1948f4e94415186a8fb3d"
+  },
+  "notableCorrection": {
+    "questionId": "gasushunin-otsushu-hourei-2021-13-4",
+    "currentAnswer": "正しい",
+    "proposedAnswer": "間違い",
+    "reason": "選択肢10だけで別問題へ一致させず、4.5・5.0・9.5・10.0・19.0の全選択肢集合を手動レビューline 276へ対応付けた結果、正解は9.5であり10ではないため"
+  }
+}
