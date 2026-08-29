@@ -64,7 +64,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-missing-basic-explanations-firestore/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-missing-basic-explanations-firestore"
 
-active_task: T011
+active_task: T012
 
 tasks:
   - id: T001
@@ -463,7 +463,7 @@ tasks:
   - id: T011
     type: pm
     assignee: PM
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "今回scopeの変更とreceiptだけを検証・commitし、先行56コミットの所有とpush影響を確認したうえでorigin/mainへpushする。"
     inputs:
@@ -477,6 +477,27 @@ tasks:
       - "Commit hash"
       - "Pushed origin/main hash or exact push blocker"
       - "Clean scoped status"
+    receipt:
+      result: blocked
+      blocked_reason: "今回commit 5bbb55299は作成済みだが、origin/mainへのpushは既存の無関連な先行56コミットも同時公開するため、確認なく実行できない。"
+      summary: "今回scopeをcommit 5bbb55299へ保存し、pushだけを既存先行コミット保護のため保留した。"
+      note: notes/T011-git-receipt.json
+      commit: 5bbb55299
+
+  - id: T012
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "残る正答矛盾32件について、correctChoiceTextを確定根拠どおり修正して解説を反映する権限をユーザーから得る。"
+    inputs:
+      - "2020〜2023 decisions_final hold records"
+      - "Firestore readback missing 32 IDs"
+    constraints:
+      - "ユーザー承認前にcorrectChoiceTextを変更しない。"
+      - "承認後は問題文・選択肢・既存IDを維持し、correctChoiceTextとexplanationTextだけを対象限定で更新する。"
+    expected_output:
+      - "正答修正を伴う32件の更新承認、又は解説欠落32件を残す明示判断"
     receipt: null
 
   - id: T999

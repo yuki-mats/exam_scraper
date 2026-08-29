@@ -1,0 +1,12 @@
+{
+  "taskId": "T011",
+  "result": "blocked",
+  "commit": "5bbb55299",
+  "commitMessage": "feat: fill gas shunin missing explanations",
+  "scopedChangesCommitted": true,
+  "push": {
+    "status": "blocked",
+    "reason": "mainは作業開始時点でorigin/mainより56件先行しており、今回と無関係なローカルLLMベンチマーク等のコミットも同時に公開されるため、確認なくpushしない。"
+  },
+  "summary": "今回scopeはコミット済み。origin/mainへのpushだけを、既存先行コミット保護のため保留した。"
+}
