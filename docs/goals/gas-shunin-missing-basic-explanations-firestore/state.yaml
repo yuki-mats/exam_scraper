@@ -5,7 +5,7 @@ goal:
   slug: "gas-shunin-missing-basic-explanations-firestore"
   kind: specific
   tranche: "欠落全件を一問ずつ整備し、Firestore反映とライブ確認まで連続実行する"
-  status: active
+  status: done
   oracle:
     signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
     cadence: "各Worker package後と最終監査時"
@@ -64,7 +64,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-missing-basic-explanations-firestore/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-missing-basic-explanations-firestore"
 
-active_task: T999
+active_task: null
 
 tasks:
   - id: T001
@@ -513,7 +513,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "全更新、Firestoreライブ状態、Git証跡が元の依頼を満たすか最終監査する。"
     inputs:
@@ -530,11 +530,23 @@ tasks:
       - "full_outcome_complete: true | false"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "固定inventory 782 IDと全公開artifact、Firestore live readbackが全field一致し、甲種・乙種の表示対象欠落は0。47 tests、00_source不変、既存ID維持、Git証跡を確認した。"
+      missing_evidence: []
+      next_task: null
+      note: notes/T999-final-audit.json
 
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
   last_verification:
-    result: unknown
-    task: null
-    commands: []
+    result: pass
+    task: T999
+    commands:
+      - "Firestore 782-document full-field readback: mismatch 0"
+      - "Firestore folder/questionSet missing audit: 甲種0、乙種0"
+      - "pytest materializer and uploader tests: 47 passed"
+      - "GoalBuddy state checker and can-stop"
+      - "git scoped 00_source status/diff: empty"

@@ -1,0 +1,63 @@
+{
+  "taskId": "T999",
+  "result": "done",
+  "decision": "complete",
+  "fullOutcomeComplete": true,
+  "auditedAt": "2026-08-29T19:31:00+09:00",
+  "requirements": [
+    {
+      "requirement": "Firestoreの甲種・乙種表示対象で基本解説欠落0",
+      "status": "proved",
+      "evidence": "ライブ再読取で甲種0件、乙種0件"
+    },
+    {
+      "requirement": "開始時の欠落全件を一問ずつ整備",
+      "status": "proved",
+      "evidence": "固定inventory 782件（甲種1、乙種781）と決定台帳・upload artifact 782 IDが完全一致"
+    },
+    {
+      "requirement": "ローカル正本・公開payload・Firestore一致",
+      "status": "proved",
+      "evidence": "8個の対象限定artifactを統合した782件とFirestore readbackの全保存field差分0"
+    },
+    {
+      "requirement": "既存Firestore ID維持",
+      "status": "proved",
+      "evidence": "inventory 782 IDとreadback 782 IDが完全一致し、新規document作成0"
+    },
+    {
+      "requirement": "基本解説と正答の整合",
+      "status": "proved",
+      "evidence": "explanation mismatch 0、correctChoice mismatch 0。明示承認された32件は2 field限定更新"
+    },
+    {
+      "requirement": "品質・安全検査",
+      "status": "proved",
+      "evidence": "47 tests passed、全artifact dry-run合格、非対象field drift 0、異なる問題文への同一解説複製0"
+    },
+    {
+      "requirement": "00_source不変",
+      "status": "proved",
+      "evidence": "今回scopeの00_source status/diffは空。commit hookの親ディレクトリ移動検査も0 files"
+    },
+    {
+      "requirement": "サブエージェント不使用",
+      "status": "proved",
+      "evidence": "全Scout/Judge/Worker相当作業をPMスレッドで直接実行"
+    },
+    {
+      "requirement": "Git証跡",
+      "status": "proved",
+      "evidence": "5bbb55299、28a7f9e98、9cf8b4488、b0c073116、03921336fに実装・artifact・承認待ち・upload readbackを保存"
+    }
+  ],
+  "git": {
+    "branch": "main",
+    "originBehind": 0,
+    "originAheadBeforeFinalReceipt": 61,
+    "pushStatus": "not_pushed",
+    "pushReason": "今回と無関係な既存先行コミットも同時にorigin/mainへ公開されるため。今回のGit証跡はローカルmainへ保存済み。"
+  },
+  "missingEvidence": [],
+  "nextTask": null
+}
