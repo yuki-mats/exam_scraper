@@ -1,0 +1,31 @@
+{
+  "taskId": "T012",
+  "result": "done",
+  "authority": "ユーザーが『32問の正答修正と解説登録を実行してよい』と明示承認",
+  "writeFields": ["correctChoiceText", "explanationText"],
+  "uploaded": {
+    "2020": 4,
+    "2021": 27,
+    "2023": 1,
+    "total": 32,
+    "errors": 0,
+    "skipped": 0
+  },
+  "fullReadback": {
+    "initialInventoryCount": 782,
+    "expectedArtifactCount": 782,
+    "inventoryIdsEqualExpectedIds": true,
+    "liveDocumentCount": 782,
+    "fieldMismatchCount": 0,
+    "explanationMismatchCount": 0,
+    "correctChoiceMismatchCount": 0,
+    "missingByGrade": {"甲種": 0, "乙種": 0}
+  },
+  "verification": [
+    "47 tests passed",
+    "GoalBuddy state checker passed before final audit",
+    "00_source scoped status and diff are empty",
+    "all 782 existing Firestore document IDs preserved"
+  ],
+  "summary": "明示承認された32問をcorrectChoiceTextとexplanationText限定で更新した。今回の全782問をFirestoreから読み戻し、全ID・解説・正答・artifact保存項目が一致し、甲種・乙種の表示対象欠落がともに0件であることを確認した。"
+}

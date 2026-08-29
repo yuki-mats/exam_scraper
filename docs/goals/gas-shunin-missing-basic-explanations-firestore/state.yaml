@@ -64,7 +64,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-missing-basic-explanations-firestore/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-missing-basic-explanations-firestore"
 
-active_task: T012
+active_task: T999
 
 tasks:
   - id: T001
@@ -487,7 +487,7 @@ tasks:
   - id: T012
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "残る正答矛盾32件について、correctChoiceTextを確定根拠どおり修正して解説を反映する権限をユーザーから得る。"
     inputs:
@@ -505,12 +505,15 @@ tasks:
       - "Firestoreへの32件の書込みはユーザー承認前のため未実施。"
       - "準備receipt: notes/T012-answer-correction-preparation.json"
       - "3回目の承認待ち監査: notes/T012-blocked-approval-wait.json"
-    receipt: null
+    receipt:
+      result: done
+      summary: "ユーザー承認後、正答矛盾32件をcorrectChoiceTextとexplanationText限定で更新した。全782問readbackはfield mismatch 0、甲種・乙種の欠落0。"
+      note: notes/T012-answer-correction-upload-readback.json
 
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "全更新、Firestoreライブ状態、Git証跡が元の依頼を満たすか最終監査する。"
     inputs:
