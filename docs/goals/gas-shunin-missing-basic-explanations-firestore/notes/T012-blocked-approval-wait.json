@@ -1,0 +1,17 @@
+{
+  "taskId": "T012",
+  "result": "blocked",
+  "blockedReason": "残る32問は基本解説の追加だけではなく、FirestoreのcorrectChoiceTextを確定根拠どおり反転する必要がある。ユーザーへ3回連続で承認を求めたが、承認はまだ得られていない。",
+  "blockedAuditCount": 3,
+  "verifiedAt": "2026-08-29T19:26:00+09:00",
+  "currentState": {
+    "liveMissingCount": 32,
+    "preparedTargetCount": 32,
+    "uniquePreparedTargetCount": 32,
+    "liveMissingEqualsPreparedTargets": true,
+    "allExpectedLiveFingerprintsMatch": true,
+    "firestoreWriteExecuted": false
+  },
+  "resumeCondition": "ユーザーが32問のcorrectChoiceTextとexplanationTextの同時更新を承認する。",
+  "nextActionAfterResume": "3年度のguarded artifactをexpectedLiveFingerprint付きでアップロードし、欠落0・本文一致・正答一致をreadbackする。"
+}
