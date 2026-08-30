@@ -4,8 +4,8 @@ goal:
   title: "ガス主任技術者 基本解説欠落の全件整備とFirestore反映"
   slug: "gas-shunin-missing-basic-explanations-firestore"
   kind: specific
-  tranche: "Firestore表示対象の全問題を一問ずつ再監査し、旧782問完了判定の盲点を是正する"
-  status: done
+  tranche: "Firestoreの余分647問を復旧可能に非表示化し、問題セット・フォルダ件数をライブ実数へ収束させる"
+  status: active
   oracle:
     signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
     cadence: "各Worker package後と最終監査時"
@@ -64,7 +64,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-missing-basic-explanations-firestore/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-missing-basic-explanations-firestore"
 
-active_task: null
+active_task: T027
 
 tasks:
   - id: T001
@@ -866,6 +866,134 @@ tasks:
       firestore_write_count: 0
       next_action: "別承認の修正trancheで中核矛盾7問を最優先に修正し、その後に解説603問、計算4問、重複・schema・分類driftを処理する。"
       note: notes/T022-final-live-audit.json
+
+  - id: T023
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "年度・元問題文・元選択肢を一致させた実重複グループごとに残すIDと非表示化するIDを一意に決め、Firestore更新用の可逆planと安全な実行・検証経路を作る。"
+    constraints:
+      - "このtaskではFirestoreを書き換えない。"
+      - "物理削除せず、余分なdocumentをisDeleted=trueにする。"
+      - "表示問題文だけでは重複判定せず、元選択肢を含む内容identityを必須にする。"
+      - "2020年乙種の公式問21・問22は別問題として双方を残し、誤複製された問21を内容修正対象へ送る。"
+      - "00_sourceを変更しない。"
+      - "サブエージェントを使わずPMだけで実行する。"
+    allowed_files:
+      - scripts/fix/reconcile_gas_shunin_firestore_duplicates_and_counts.py
+      - tests/scripts/fix/test_reconcile_gas_shunin_firestore_duplicates_and_counts.py
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T023-*"
+      - docs/goals/gas-shunin-missing-basic-explanations-firestore/state.yaml
+    verify:
+      - "plan soft-delete targets=642（甲3、乙639）"
+      - "hold group=0、delete対象は残すdocumentと元問題文・元選択肢が直接一致"
+      - "projected active display count=4331"
+      - "dry-run and tests pass"
+    stop_if:
+      - "同一group内で正答が異なる。"
+      - "非重複documentがdelete対象に入る。"
+      - "canonicalを一意に選べない。"
+    receipt:
+      result: done
+      summary: "旧535問判定を破棄し、元問題文と元選択肢を含む直接内容identityで再監査した。実重複594グループ、論理削除642問（甲3、乙639）、hold 0。2020年乙種の公式問21・問22は別問題として残し、問21の誤複製5問を別修正対象へ送った。"
+      firestore_write_count: 0
+      plan: notes/T023-duplicate-soft-delete-plan.json
+      plan_sha256: "010692b33cc7f5dfba25ad28c79c4943a4cd3e68f91fa1bd2d8ff3da3cfa25ff"
+
+  - id: T024
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "承認済みplanの642問だけをisDeleted=trueへ更新し、その後に対象questionSetsとfoldersのquestionCountをライブ表示件数へ再集計する。"
+    constraints:
+      - "T023 plan hashとFirestore preconditionが一致する場合だけ書き込む。"
+      - "物理削除しない。"
+      - "問題内容、正答、解説、questionSetIdを変更しない。"
+      - "サブエージェントを使わずPMだけで実行する。"
+    allowed_files:
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T024-*"
+      - docs/goals/gas-shunin-missing-basic-explanations-firestore/state.yaml
+    verify:
+      - "soft deleted=642、errors=0"
+      - "active display count=4331"
+      - "内容identityで確定した重複余剰=0"
+      - "all selected questionSet and folder counts match live active display counts"
+    stop_if:
+      - "plan hash又はlive preconditionが一致しない。"
+      - "write targetがplan記載の642 ID以外へ広がる。"
+      - "Firestore write errorが発生する。"
+    receipt:
+      result: done
+      summary: "実重複642問をisDeleted=trueへ更新し全件readbackした。再取得後に問題セット127件・フォルダ14件のquestionCountを表示対象実数へ更新し、141文書すべてreadback一致。物理削除0。"
+      soft_delete_receipt: notes/T024-soft-delete-receipt.json
+      count_plan: notes/T024-count-reconcile-plan.json
+      count_receipt: notes/T024-count-reconcile-receipt.json
+
+  - id: T025
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "Firestoreを再取得し、重複0、問題セット件数不一致0、フォルダ件数不一致0、非対象field変更0を最終監査する。"
+    constraints:
+      - "Read-only."
+      - "サブエージェントを使わずPMだけで実行する。"
+    expected_output:
+      - "full_outcome_complete true | false"
+      - "live counts and zero-mismatch proof"
+      - "updated IDs and recovery receipt locators"
+    receipt:
+      result: done
+      decision: needs_rework
+      summary: "表示対象は4,331問（甲2,218、乙2,113）、問題セット件数不一致0、フォルダ件数不一致0、余分な重複登録対象0。642問はisDeleted以外の保護fieldが更新前と一致。一方、2020年乙種公式問21のcanonical 5documentが問22内容の誤複製のためT026へ送った。"
+      note: notes/T025-final-audit-before-q21-repair.json
+
+  - id: T026
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "2020年乙種問21の正しい旧5documentを一問ずつ確認し、canonical 5documentへ問題文・選択肢・正答・解説・knowledgeTextを移し、旧5documentを論理削除する。"
+    constraints:
+      - "公式問21と問22を別問題として維持する。"
+      - "レビュー済みrecovery ledgerと現行Firestoreが一致する場合だけ書き込む。"
+      - "canonical ID、問題セット、問題形式、出典年度を維持する。"
+      - "問22由来の補足質問をcanonical問21から削除する。"
+      - "物理削除しない。"
+      - "サブエージェントを使わずPMだけで実行する。"
+    allowed_files:
+      - scripts/fix/reconcile_gas_shunin_firestore_duplicates_and_counts.py
+      - tests/scripts/fix/test_reconcile_gas_shunin_firestore_duplicates_and_counts.py
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T026-*"
+      - docs/goals/gas-shunin-missing-basic-explanations-firestore/state.yaml
+    verify:
+      - "canonical updates=5、legacy soft deletes=5、errors=0"
+      - "active display count=4326"
+      - "content duplicate groups=0"
+      - "questionSet and folder count mismatches=0"
+      - "each canonical questionText, answer and explanation matches the reviewed legacy source"
+    receipt:
+      result: done
+      summary: "問21 canonical 5問へレビュー済みの正しい内容・正答・解説・knowledgeTextを移し、問22由来の補足質問を除去した。旧問21 5問を論理削除し、影響する問題セット1件・フォルダ1件を再集計。最終表示4,326問、内容identity重複0、問題セット件数不一致0、フォルダ件数不一致0。"
+      note: notes/T026-final-receipt.json
+
+  - id: T027
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "重複・件数修正後の4,326問を再監査し、論理削除で解消した旧中核矛盾を除外して、次に直す問題文・正答・解説の残件を一問単位で確定する。"
+    constraints:
+      - "Read-only。次の修正planを確定するまでFirestoreを書き換えない。"
+      - "今回論理削除した647問を表示対象へ戻さない。"
+      - "2020年乙種問21 canonical 5問の修正内容を維持する。"
+      - "サブエージェントを使わずPMだけで実行する。"
+    expected_output:
+      - "修正後の全件監査receipt"
+      - "残る中核矛盾・解説品質・schema問題のID別優先順位"
+      - "次の安全な修正package"
 
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"

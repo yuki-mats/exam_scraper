@@ -1,0 +1,44 @@
+{
+  "contentRepairRequiredQuestionIds": [],
+  "generatedAt": "2026-08-30T01:47:16Z",
+  "groups": [],
+  "mode": "soft_delete_only",
+  "planSha256": "43da07c417771eee21a36c2e3d856ff15c4ccfe5b570f4c7616718eae946c032",
+  "recovery": {
+    "operation": "set isDeleted=false for target IDs after independent review",
+    "targetIds": []
+  },
+  "schemaVersion": "gas-shunin-firestore-duplicate-reconcile/v1",
+  "scope": "gas-shunin active display questions: isDeleted=false and isChoiceOnly=false",
+  "sources": {
+    "kou": "/private/tmp/gas-shunin-verified.axMPRP/kou/20260830T014620Z",
+    "otsu": "/private/tmp/gas-shunin-verified.axMPRP/otsu/20260830T014620Z"
+  },
+  "summary": {
+    "byGrade": {
+      "kou": {
+        "activeDisplayQuestionCountBefore": 2218,
+        "contentIdentityExcessCount": 0,
+        "contentIdentityGroupCount": 0,
+        "duplicateApplyGroupCount": 0,
+        "holdGroupCount": 0,
+        "softDeleteTargetCount": 0
+      },
+      "otsu": {
+        "activeDisplayQuestionCountBefore": 2108,
+        "contentIdentityExcessCount": 0,
+        "contentIdentityGroupCount": 0,
+        "duplicateApplyGroupCount": 0,
+        "holdGroupCount": 0,
+        "softDeleteTargetCount": 0
+      }
+    },
+    "contentIdentityGroupCount": 0,
+    "contentRepairRequiredCount": 0,
+    "duplicateApplyGroupCount": 0,
+    "holdGroupCount": 0,
+    "projectedActiveDisplayQuestionCount": 4326,
+    "softDeleteTargetCount": 0
+  },
+  "targets": []
+}

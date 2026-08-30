@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "gas-shunin-firestore-duplicate-and-count-reconcile-final/v1",
+  "generatedAt": "2026-08-30T01:46:20Z",
+  "result": "done",
+  "scope": {
+    "filter": "isDeleted=false and isChoiceOnly=false",
+    "activeDisplayQuestionCountBefore": 4973,
+    "activeDisplayQuestionCountAfter": 4326,
+    "kouAfter": 2218,
+    "otsuAfter": 2108
+  },
+  "corrections": {
+    "initialDuplicateSoftDeleteCount": 642,
+    "q21CanonicalUpdateCount": 5,
+    "q21LegacySoftDeleteCount": 5,
+    "totalExcessQuestionCountResolved": 647,
+    "questionSetCountWriteCount": 128,
+    "folderCountWriteCount": 15,
+    "physicalDeleteCount": 0
+  },
+  "finalAudit": {
+    "contentIdentityDuplicateGroupCount": 0,
+    "contentIdentityDuplicateExcessCount": 0,
+    "questionSetCountMismatchCount": 0,
+    "folderCountMismatchCount": 0,
+    "q21CanonicalReadbackMatchCount": 5,
+    "firestoreWriteErrorCount": 0
+  },
+  "artifacts": {
+    "initialDuplicatePlan": "notes/T023-duplicate-soft-delete-plan.json",
+    "initialSoftDeleteReceipt": "notes/T024-soft-delete-receipt.json",
+    "initialCountPlan": "notes/T024-count-reconcile-plan.json",
+    "initialCountReceipt": "notes/T024-count-reconcile-receipt.json",
+    "q21RepairPlan": "notes/T026-q21-repair-plan.json",
+    "q21RepairReceipt": "notes/T026-q21-repair-receipt.json",
+    "q21CountPlan": "notes/T026-q21-count-plan.json",
+    "q21CountReceipt": "notes/T026-q21-count-receipt.json",
+    "finalDuplicateScan": "notes/T026-final-duplicate-scan.json"
+  },
+  "finalSnapshots": {
+    "kou": "/private/tmp/gas-shunin-verified.axMPRP/kou/20260830T014620Z",
+    "otsu": "/private/tmp/gas-shunin-verified.axMPRP/otsu/20260830T014620Z"
+  },
+  "conclusion": "旧535問は表示問題文だけの誤集計。元問題文・元選択肢を含む内容identityと公式問21の誤複製修正を通じ、余分な表示documentは647問と確定して論理削除し、重複と件数不一致を0へ収束させた。"
+}

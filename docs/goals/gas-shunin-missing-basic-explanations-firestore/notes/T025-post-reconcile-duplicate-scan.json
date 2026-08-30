@@ -1,0 +1,141 @@
+{
+  "contentRepairRequiredQuestionIds": [
+    "gas-shunin-otsu-2020-shohi-q21-s01",
+    "gas-shunin-otsu-2020-shohi-q21-s02",
+    "gas-shunin-otsu-2020-shohi-q21-s03",
+    "gas-shunin-otsu-2020-shohi-q21-s04",
+    "gas-shunin-otsu-2020-shohi-q21-s05"
+  ],
+  "generatedAt": "2026-08-30T01:34:22Z",
+  "groups": [
+    {
+      "contentRepairIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s01"
+      ],
+      "grade": "otsu",
+      "groupId": "79f71ee6716385ed2080",
+      "keepIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s01",
+        "gas-shunin-otsu-2020-shohi-q22-s01"
+      ],
+      "memberIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s01",
+        "gas-shunin-otsu-2020-shohi-q22-s01"
+      ],
+      "reason": "official_q21_and_q22_are_distinct_q21_content_requires_repair",
+      "softDeleteIds": [],
+      "status": "distinct_only"
+    },
+    {
+      "contentRepairIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s02"
+      ],
+      "grade": "otsu",
+      "groupId": "c81617f565da92c53b86",
+      "keepIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s02",
+        "gas-shunin-otsu-2020-shohi-q22-s02"
+      ],
+      "memberIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s02",
+        "gas-shunin-otsu-2020-shohi-q22-s02"
+      ],
+      "reason": "official_q21_and_q22_are_distinct_q21_content_requires_repair",
+      "softDeleteIds": [],
+      "status": "distinct_only"
+    },
+    {
+      "contentRepairIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s03"
+      ],
+      "grade": "otsu",
+      "groupId": "32b72e4b4e2285f5f171",
+      "keepIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s03",
+        "gas-shunin-otsu-2020-shohi-q22-s03"
+      ],
+      "memberIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s03",
+        "gas-shunin-otsu-2020-shohi-q22-s03"
+      ],
+      "reason": "official_q21_and_q22_are_distinct_q21_content_requires_repair",
+      "softDeleteIds": [],
+      "status": "distinct_only"
+    },
+    {
+      "contentRepairIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s04"
+      ],
+      "grade": "otsu",
+      "groupId": "12ecffe71c6c24467d09",
+      "keepIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s04",
+        "gas-shunin-otsu-2020-shohi-q22-s04"
+      ],
+      "memberIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s04",
+        "gas-shunin-otsu-2020-shohi-q22-s04"
+      ],
+      "reason": "official_q21_and_q22_are_distinct_q21_content_requires_repair",
+      "softDeleteIds": [],
+      "status": "distinct_only"
+    },
+    {
+      "contentRepairIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s05"
+      ],
+      "grade": "otsu",
+      "groupId": "a0c329949fa7f95027f4",
+      "keepIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s05",
+        "gas-shunin-otsu-2020-shohi-q22-s05"
+      ],
+      "memberIds": [
+        "gas-shunin-otsu-2020-shohi-q21-s05",
+        "gas-shunin-otsu-2020-shohi-q22-s05"
+      ],
+      "reason": "official_q21_and_q22_are_distinct_q21_content_requires_repair",
+      "softDeleteIds": [],
+      "status": "distinct_only"
+    }
+  ],
+  "mode": "soft_delete_only",
+  "planSha256": "9e3a28f49e8b1354ff5d4a022b086ce0faf535ff68ac98d67ac2717c3192d660",
+  "recovery": {
+    "operation": "set isDeleted=false for target IDs after independent review",
+    "targetIds": []
+  },
+  "schemaVersion": "gas-shunin-firestore-duplicate-reconcile/v1",
+  "scope": "gas-shunin active display questions: isDeleted=false and isChoiceOnly=false",
+  "sources": {
+    "kou": "/private/tmp/gas-shunin-final-audit.s8rcHk/kou/20260830T013329Z",
+    "otsu": "/private/tmp/gas-shunin-final-audit.s8rcHk/otsu/20260830T013329Z"
+  },
+  "summary": {
+    "byGrade": {
+      "kou": {
+        "activeDisplayQuestionCountBefore": 2218,
+        "contentIdentityExcessCount": 0,
+        "contentIdentityGroupCount": 0,
+        "duplicateApplyGroupCount": 0,
+        "holdGroupCount": 0,
+        "softDeleteTargetCount": 0
+      },
+      "otsu": {
+        "activeDisplayQuestionCountBefore": 2113,
+        "contentIdentityExcessCount": 5,
+        "contentIdentityGroupCount": 5,
+        "duplicateApplyGroupCount": 0,
+        "holdGroupCount": 0,
+        "softDeleteTargetCount": 0
+      }
+    },
+    "contentIdentityGroupCount": 5,
+    "contentRepairRequiredCount": 5,
+    "duplicateApplyGroupCount": 0,
+    "holdGroupCount": 0,
+    "projectedActiveDisplayQuestionCount": 4331,
+    "softDeleteTargetCount": 0
+  },
+  "targets": []
+}

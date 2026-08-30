@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "goalbuddy-pm-receipt/v1",
+  "taskId": "T023",
+  "result": "done",
+  "firestoreWriteCount": 0,
+  "summary": "旧監査の年度＋表示問題文による535問判定を破棄し、年度＋元問題文＋元選択肢又は年度＋表示問題文＋元選択肢の直接一致で再判定した。実重複は594グループ、余分なdocumentは642問（甲3、乙639）。全削除候補は残すdocumentとの直接内容一致を確認し、holdは0。2020年乙種の公式問21・問22は別問題として双方を残し、旧問22の4documentだけを重複対象とした。問21の5documentは内容修正対象として別管理する。",
+  "plan": "notes/T023-duplicate-soft-delete-plan.json",
+  "planSha256": "010692b33cc7f5dfba25ad28c79c4943a4cd3e68f91fa1bd2d8ff3da3cfa25ff",
+  "metrics": {
+    "duplicateApplyGroupCount": 594,
+    "softDeleteTargetCount": 642,
+    "kouSoftDeleteTargetCount": 3,
+    "otsuSoftDeleteTargetCount": 639,
+    "holdGroupCount": 0,
+    "projectedActiveDisplayQuestionCount": 4331,
+    "contentRepairRequiredCount": 5
+  },
+  "verification": [
+    "unit tests: 7 passed",
+    "all delete targets have a direct content match with a kept document",
+    "target IDs are unique",
+    "git diff --check: pass",
+    "00_source changes: 0"
+  ]
+}

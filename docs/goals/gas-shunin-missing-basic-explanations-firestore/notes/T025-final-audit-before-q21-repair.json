@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "gas-shunin-firestore-reconcile-audit/v1",
+  "generatedAt": "2026-08-30T01:33:29Z",
+  "decision": "needs_rework",
+  "scope": {
+    "filter": "isDeleted=false and isChoiceOnly=false",
+    "activeDisplayQuestionCount": 4331,
+    "kou": 2218,
+    "otsu": 2113
+  },
+  "reconciliation": {
+    "softDeletedQuestionCount": 642,
+    "softDeleteReadbackMatchCount": 642,
+    "protectedFieldMatchCount": 642,
+    "questionSetCountMismatchCount": 0,
+    "folderCountMismatchCount": 0,
+    "remainingDuplicateRegistrationTargetCount": 0
+  },
+  "needsRework": {
+    "reason": "2020年乙種の公式問21 canonical 5documentが問22内容の誤複製。別問題なので削除せず残したが、正しい旧問21 5documentからcanonicalへ内容を移し、旧IDを論理削除する必要がある。",
+    "questionIds": [
+      "gas-shunin-otsu-2020-shohi-q21-s01",
+      "gas-shunin-otsu-2020-shohi-q21-s02",
+      "gas-shunin-otsu-2020-shohi-q21-s03",
+      "gas-shunin-otsu-2020-shohi-q21-s04",
+      "gas-shunin-otsu-2020-shohi-q21-s05"
+    ]
+  },
+  "snapshots": {
+    "kou": "/private/tmp/gas-shunin-final-audit.s8rcHk/kou/20260830T013329Z",
+    "otsu": "/private/tmp/gas-shunin-final-audit.s8rcHk/otsu/20260830T013329Z"
+  }
+}
