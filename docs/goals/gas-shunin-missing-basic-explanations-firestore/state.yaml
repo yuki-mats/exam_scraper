@@ -5,7 +5,7 @@ goal:
   slug: "gas-shunin-missing-basic-explanations-firestore"
   kind: specific
   tranche: "Firestoreの余分647問を復旧可能に非表示化し、問題セット・フォルダ件数をライブ実数へ収束させる"
-  status: active
+  status: done
   oracle:
     signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
     cadence: "各Worker package後と最終監査時"
@@ -64,7 +64,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-missing-basic-explanations-firestore/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-missing-basic-explanations-firestore"
 
-active_task: T030
+active_task: null
 
 tasks:
   - id: T001
@@ -1109,7 +1109,7 @@ tasks:
   - id: T030
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "T029の公式PDF inventoryを根拠に、4,326件を一問ずつ問題文・選択肢・正答・基本解説の順に監査し、類題解説も参照してFirestore修正対象をID単位で確定する。"
     constraints:
@@ -1121,24 +1121,80 @@ tasks:
       - "サブエージェントを使わずPMだけで実行する。"
     allowed_files:
       - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T030-*"
+      - scripts/check/build_gas_shunin_official_pdf_index.py
+      - tests/scripts/check/test_build_gas_shunin_official_pdf_index.py
+      - scripts/fix/reconcile_gas_shunin_official_pdf_repairs.py
+      - tests/scripts/fix/test_reconcile_gas_shunin_official_pdf_repairs.py
+      - "output/gas-shunin-kou/questions_json/**"
+      - "output/gas-shunin-otsu/questions_json/**"
+      - "output/gas-shunin-official-pdf-repairs/20260830/**"
       - docs/goals/gas-shunin-missing-basic-explanations-firestore/state.yaml
     verify:
       - "監査対象がT029 inventoryの4,326件と一致する"
       - "問題文・選択肢・正答・基本解説の判定結果をdocument ID単位で記録する"
       - "要修正と判断した各documentに公式PDF locatorと修正理由がある"
       - "Firestore書込み前の修正planとpreconditionを作る"
+      - "00_source・old・firestore_snapshotを除くローカル現行派生データへ同じID単位修正を適用する"
+      - "Firestore readbackとローカル現行派生データの修正後fieldが一致する"
     stop_if:
       - "公式問題PDF又は正答PDFとの対応が一意でない。"
       - "Firestore active display countが4,326件から変動する。"
-    progress:
-      status: in_progress
-      summary: "questionSetRef整合後の4,326件ライブ監査を再生成した。T029の公式PDF inventoryは、問題identityから導出した科目・問番号と388件（甲173、乙215）不一致だったため、全件verifiedの根拠として無効化した。公式問題PDF全18冊を再OCRしたが、1,044問中190問の見出しが欠けたため推測補完せず、修正planは未確定のまま保持する。"
+    receipt:
+      result: done
+      summary: "公式問題PDF18冊と公式正答PDF18冊から1,044問の索引を再構築し、Firestore表示対象4,326件をID単位で一意に対応させた。余分な重複201件を復旧可能に論理削除し、562件の問題を更新した。更新内訳は基本解説ルール540件、公式identityメタデータ19件、正答・選択肢表示等の個別修正3件である。更新後は表示対象4,125件（甲2,212、乙1,913）、公式identity 1,044問を維持し、内容問題、schema問題、解説接頭辞、選択肢欠落、questionBodyText欠落、questionSetRef残存、公式identity内重複、問題セット・フォルダ件数不一致、ローカル投影との差がすべて0となった。"
       notes:
-        - notes/T030-live-content-audit.jsonl
-        - notes/T030-live-content-audit-summary.json
-        - notes/T030-official-inventory-mismatch-diagnostic.json
-      firestore_writes: 0
-      next_step: "公式問題PDF18冊の科目・問番号・PDFページ索引を欠落0で再構成し、正答PDFの正答番号と結合してから4,326件台帳を再生成する。"
+        - notes/T030-official-question-pdf-ocr.json
+        - notes/T030-official-question-identity-index.json
+        - notes/T030-official-answer-identity-index.json
+        - notes/T030-official-document-index.json
+        - notes/T030-official-repair-plan.json
+        - notes/T030-local-apply-receipt.json
+        - notes/T030-local-source-alignment-receipt.json
+        - notes/T030-firestore-apply-receipt.json
+        - notes/T030-count-reconcile-plan.json
+        - notes/T030-count-reconcile-receipt.json
+        - notes/T030-post-verification-receipt.json
+        - notes/T030-post-live-content-audit-summary.json
+        - notes/T030-post-review-adjudication.json
+      verification:
+        official_pdf_question_count: 18
+        official_pdf_answer_count: 18
+        official_identity_count: 1044
+        pre_repair_active_display_count: 4326
+        post_repair_active_display_count: 4125
+        post_repair_kou_count: 2212
+        post_repair_otsu_count: 1913
+        soft_deleted_duplicate_count: 201
+        updated_question_count: 562
+        firestore_operation_count: 763
+        firestore_readback_mismatch_count: 0
+        content_issue_count: 0
+        schema_issue_count: 0
+        explanation_prefix_mismatch_count: 0
+        true_false_statement_missing_count: 0
+        question_body_text_missing_count: 0
+        question_set_ref_present_count: 0
+        official_identity_duplicate_group_count: 0
+        question_set_and_folder_count_mismatch_count: 0
+        local_projected_content_mismatch_count: 0
+        protected_local_tree_changed: false
+        user_data_writes: 0
+        hard_deletes: 0
+      local_storage:
+        repair_root: output/gas-shunin-official-pdf-repairs/20260830
+        derived_files_updated: 82
+        derived_field_occurrences_updated: 2490
+        full_live_readback_documents: 6272
+      commands:
+        - cmd: "verify-post against fresh Firestore Kou/Otsu snapshots"
+          status: pass
+        - cmd: "post live content audit"
+          status: pass
+        - cmd: "focused pytest suite"
+          status: pass
+          tests: 33
+      firestore_writes: 815
+      next_step: null
 
   - id: T031
     type: pm

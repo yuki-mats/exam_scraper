@@ -1,0 +1,98 @@
+{
+  "answerStatusCounts": {
+    "match": 4085,
+    "unverified": 40
+  },
+  "contentIssueCounts": {},
+  "contentStatusCounts": {
+    "needs_review": 40,
+    "pass": 4085
+  },
+  "filters": {
+    "isChoiceOnly": false,
+    "isDeleted": false
+  },
+  "generatedAt": "2026-08-30T05:34:21Z",
+  "grades": {
+    "kou": {
+      "answerStatusCounts": {
+        "match": 2195,
+        "unverified": 17
+      },
+      "contentIssueCounts": {},
+      "contentStatusCounts": {
+        "needs_review": 17,
+        "pass": 2195
+      },
+      "exactDuplicateExcessCount": 0,
+      "exactDuplicateGroupCount": 0,
+      "grade": "甲種",
+      "liveQuestionCount": 2212,
+      "overallStatusCounts": {
+        "needs_review": 292,
+        "pass": 1920
+      },
+      "qualification": "gas-shunin-kou",
+      "reviewIssueCounts": {
+        "calculation_explanation_style_requires_review": 6,
+        "question_set_classification_requires_review": 270,
+        "source_unmapped": 17
+      },
+      "schemaIssueCounts": {},
+      "schemaStatusCounts": {
+        "pass": 2212
+      },
+      "sourceQuestionCount": 528,
+      "sourceStatementCount": 2617
+    },
+    "otsu": {
+      "answerStatusCounts": {
+        "match": 1890,
+        "unverified": 23
+      },
+      "contentIssueCounts": {},
+      "contentStatusCounts": {
+        "needs_review": 23,
+        "pass": 1890
+      },
+      "exactDuplicateExcessCount": 1,
+      "exactDuplicateGroupCount": 1,
+      "grade": "乙種",
+      "liveQuestionCount": 1913,
+      "overallStatusCounts": {
+        "needs_review": 202,
+        "pass": 1711
+      },
+      "qualification": "gas-shunin-otsu",
+      "reviewIssueCounts": {
+        "calculation_explanation_style_requires_review": 5,
+        "exact_live_duplicate": 2,
+        "question_set_classification_requires_review": 172,
+        "source_unmapped": 23
+      },
+      "schemaIssueCounts": {},
+      "schemaStatusCounts": {
+        "pass": 1913
+      },
+      "sourceQuestionCount": 522,
+      "sourceStatementCount": 2601
+    }
+  },
+  "ledger": "/Users/yuki/development/exam_scraper_work/docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T030-post-live-content-audit.jsonl",
+  "overallStatusCounts": {
+    "needs_review": 494,
+    "pass": 3631
+  },
+  "questionCount": 4125,
+  "reviewIssueCounts": {
+    "calculation_explanation_style_requires_review": 11,
+    "exact_live_duplicate": 2,
+    "question_set_classification_requires_review": 442,
+    "source_unmapped": 40
+  },
+  "schemaIssueCounts": {},
+  "schemaStatusCounts": {
+    "pass": 4125
+  },
+  "schemaVersion": "gas-shunin-firestore-live-question-audit/v1"
+}

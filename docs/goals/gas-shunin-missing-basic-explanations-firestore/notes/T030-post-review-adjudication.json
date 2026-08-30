@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "gas-shunin-post-review-adjudication/v1",
+  "sourceAudit": "T030-post-live-content-audit-summary.json",
+  "summary": {
+    "calculationStyleReviewCount": 11,
+    "calculationRepairRequiredCount": 0,
+    "exactDuplicateHeuristicCount": 2,
+    "officialDuplicateRegistrationCount": 0,
+    "sourceUnmappedCount": 40,
+    "officialPdfMappedCount": 40,
+    "questionSetClassificationReviewCount": 442,
+    "questionSetOrFolderCountMismatchCount": 0
+  },
+  "calculationStyleReviews": [
+    {
+      "questionId": "chiefgasengineerlicense-C-10053",
+      "decision": "no_change",
+      "reason": "空気比は無次元量であり、燃焼式、酸素濃度式、方程式の解まで示されている。"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-gizyutu-koushu-2019-10-4",
+      "decision": "no_change",
+      "reason": "流量比は無次元であり、管径5乗則から比を導く計算過程が示されている。"
+    },
+    {
+      "questionId": "gas-shunin-kou-2017-kiso-q11-s04",
+      "decision": "no_change",
+      "reason": "損失ヘッドの公式、代入、途中値、単位付き結果0.6mが示されている。"
+    },
+    {
+      "questionId": "gas-shunin-kou-2018-kiso-q13-s04",
+      "decision": "no_change",
+      "reason": "放射熱流束比は無次元であり、温度4乗則と数値比が示されている。"
+    },
+    {
+      "questionId": "gas-shunin-kou-2024-kiso-q07-s02",
+      "decision": "no_change",
+      "reason": "空気比は無次元量であり、湿り燃焼ガス量、方程式、解まで示されている。"
+    },
+    {
+      "questionId": "gasushunin-koushu-gizyutsu-2021-24-4",
+      "decision": "no_change",
+      "reason": "換気量の公式、代入、単位付き結果139.5m3/hと選択肢値が示されている。"
+    },
+    {
+      "questionId": "gas-shunin-otsu-2019-kiso-q07-s01",
+      "decision": "no_change",
+      "reason": "反応係数を体積比として扱う根拠と、燃料1m3に必要な酸素2m3が示されている。"
+    },
+    {
+      "questionId": "gas-shunin-otsu-2019-kiso-q07-s03",
+      "decision": "no_change",
+      "reason": "反応式から燃料1m3に必要な酸素5m3を読み取り、最多と判断する過程が示されている。"
+    },
+    {
+      "questionId": "gas-shunin-otsu-2019-kiso-q07-s04",
+      "decision": "no_change",
+      "reason": "必要酸素量3m3を2m3及び5m3と比較し、最多・最少でない理由が示されている。"
+    },
+    {
+      "questionId": "gas-shunin-otsu-2019-kiso-q10-s05",
+      "decision": "no_change",
+      "reason": "レイノルズ数の公式、各記号、代入、無次元の結果50000が示されている。"
+    },
+    {
+      "questionId": "gas-shunin-otsu-2019-kyokyu-q10-s04",
+      "decision": "no_change",
+      "reason": "圧力損失の比例則、比の方程式、xの導出、流量4.0Qまで示されている。"
+    }
+  ],
+  "duplicateHeuristicAdjudication": {
+    "questionIds": [
+      "gas-shunin-otsu-2018-law-q06-s03",
+      "gas-shunin-otsu-2018-law-q07-s05"
+    ],
+    "decision": "retain_both",
+    "reason": "監査器はgroup_choiceの共通問題文だけで重複判定したが、選択肢本文は異なり、公式問題PDFの法令問6と問7にそれぞれ実在する別問題である。",
+    "officialQuestionPdf": {
+      "path": "output/pdf/gas-shunin-official/2018/q_otsu_h30.pdf",
+      "pdfPage": 7,
+      "sha256": "c576bc5e68096df337138f812bc7ee79c323d741ae0f6a96e89daaae91eadfc3"
+    }
+  },
+  "sourceAndClassificationAdjudication": {
+    "sourceUnmappedDecision": "resolved_by_official_pdf_index",
+    "sourceUnmappedReason": "旧ローカルsource catalogで未対応の40件も、公式PDF document indexでは全件が科目・問番号・ページ・正答PDFへ一意に対応している。",
+    "questionSetClassificationDecision": "not_a_content_or_count_error",
+    "questionSetClassificationReason": "442件は旧ローカルstageのquestionSetIdとの差を示すreview flagである。現行questionSetIdは全件で実在し、更新後の問題セット・フォルダquestionCountはライブ実数と一致する。"
+  }
+}

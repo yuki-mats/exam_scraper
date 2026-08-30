@@ -1,0 +1,854 @@
+{
+  "generatedAt": "2026-08-30T05:28:57Z",
+  "planSha256": "b6806afb73abc02567d9f93eca15b9abc308d789760d292a0037d58404296dd5",
+  "recovery": {
+    "beforeCounts": {
+      "folders/chiefgasengineerlicense-A-10": 180,
+      "folders/chiefgasengineerlicense-A-12": 223,
+      "folders/chiefgasengineerlicense-B-10": 325,
+      "folders/chiefgasengineerlicense-B-14": 207,
+      "folders/chiefgasengineerlicense-B-40": 481,
+      "folders/chiefgasengineerlicense-B-60": 385,
+      "folders/chiefgasengineerlicense-B-80": 326,
+      "folders/chiefgasengineerlicense-B-90": 384,
+      "questionSets/chiefgasengineerlicense-A-10-030": 33,
+      "questionSets/chiefgasengineerlicense-A-10-070": 13,
+      "questionSets/chiefgasengineerlicense-A-10-160": 56,
+      "questionSets/chiefgasengineerlicense-B-1130": 15,
+      "questionSets/chiefgasengineerlicense-B-1140": 31,
+      "questionSets/chiefgasengineerlicense-B-1150": 42,
+      "questionSets/chiefgasengineerlicense-B-1160": 28,
+      "questionSets/chiefgasengineerlicense-B-1170": 25,
+      "questionSets/chiefgasengineerlicense-B-1200": 31,
+      "questionSets/chiefgasengineerlicense-B-1270": 47,
+      "questionSets/chiefgasengineerlicense-B-1400": 9,
+      "questionSets/chiefgasengineerlicense-B-1450": 7,
+      "questionSets/chiefgasengineerlicense-B-1510": 8,
+      "questionSets/chiefgasengineerlicense-B-1620": 67,
+      "questionSets/chiefgasengineerlicense-B-1730": 2,
+      "questionSets/chiefgasengineerlicense-B-1750": 52,
+      "questionSets/chiefgasengineerlicense-B-1760": 144,
+      "questionSets/chiefgasengineerlicense-B-1780": 48,
+      "questionSets/chiefgasengineerlicense-B-1790": 51,
+      "questionSets/chiefgasengineerlicense-B-1810": 43,
+      "questionSets/chiefgasengineerlicense-B-1830": 51,
+      "questionSets/chiefgasengineerlicense-B-1840": 45,
+      "questionSets/chiefgasengineerlicense-B-1850": 47,
+      "questionSets/chiefgasengineerlicense-B-1870": 3,
+      "questionSets/chiefgasengineerlicense-B-1880": 89,
+      "questionSets/chiefgasengineerlicense-B-1890": 50,
+      "questionSets/chiefgasengineerlicense-B-1900": 43,
+      "questionSets/chiefgasengineerlicense-B-1930": 51,
+      "questionSets/chiefgasengineerlicense-B-1950": 65,
+      "questionSets/chiefgasengineerlicense-B-1970": 13,
+      "questionSets/chiefgasengineerlicense-B-2020": 39,
+      "questionSets/chiefgasengineerlicense-B-2030": 53,
+      "questionSets/chiefgasengineerlicense-B-2040": 56,
+      "questionSets/chiefgasengineerlicense-B-2050": 58,
+      "questionSets/chiefgasengineerlicense-B-2060": 35,
+      "questionSets/chiefgasengineerlicense-B-2070": 35,
+      "questionSets/chiefgasengineerlicense-B-2080": 6,
+      "questionSets/chiefgasengineerlicense-B-2090": 54,
+      "questionSets/chiefgasengineerlicense-B-2100": 42,
+      "questionSets/chiefgasengineerlicense-B-2110": 59,
+      "questionSets/chiefgasengineerlicense-B-2130": 39,
+      "questionSets/chiefgasengineerlicense-B-2150": 50,
+      "questionSets/chiefgasengineerlicense-B-2160": 46,
+      "questionSets/chiefgasengineerlicense-B-2170": 12
+    },
+    "operation": "restore beforeQuestionCount values"
+  },
+  "schemaVersion": "gas-shunin-firestore-count-reconcile/v1",
+  "scope": "gas-shunin selected folders and questionSets",
+  "sources": {
+    "kou": "/private/tmp/gas-shunin-postrepair.Kz6VjW/kou/postrepair",
+    "otsu": "/private/tmp/gas-shunin-postrepair.Kz6VjW/otsu/postrepair"
+  },
+  "summary": {
+    "folderTargetCount": 8,
+    "questionSetTargetCount": 44,
+    "targetCount": 52
+  },
+  "targets": [
+    {
+      "afterQuestionCount": 178,
+      "beforeQuestionCount": 180,
+      "collection": "folders",
+      "documentId": "chiefgasengineerlicense-A-10",
+      "grade": "kou",
+      "precondition": {
+        "folderId": null,
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-kou",
+        "questionCount": 180
+      },
+      "preconditionSha256": "79eb271709ba7bf353c1dd3a17f2d81aa75ebc31e5565d1e32ddb7224da0a21b",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 219,
+      "beforeQuestionCount": 223,
+      "collection": "folders",
+      "documentId": "chiefgasengineerlicense-A-12",
+      "grade": "kou",
+      "precondition": {
+        "folderId": null,
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-kou",
+        "questionCount": 223
+      },
+      "preconditionSha256": "ce1663587952cde59f029fef0e6cd37ab2ecb84a55791a2d2d60804d37af41d5",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 302,
+      "beforeQuestionCount": 325,
+      "collection": "folders",
+      "documentId": "chiefgasengineerlicense-B-10",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": null,
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 325
+      },
+      "preconditionSha256": "882daf2cbdd9f715aab9100b454ac574bbfc2933cd321d8097da544eb25680a1",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 187,
+      "beforeQuestionCount": 207,
+      "collection": "folders",
+      "documentId": "chiefgasengineerlicense-B-14",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": null,
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 207
+      },
+      "preconditionSha256": "0e2cb0453da677453254d6c4ced9a64b50df92067355d9b0699758297e7bf10b",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 428,
+      "beforeQuestionCount": 481,
+      "collection": "folders",
+      "documentId": "chiefgasengineerlicense-B-40",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": null,
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 481
+      },
+      "preconditionSha256": "4dff071ad0f4fde0591818410b6b5f50ac0bd4c49177a2dab26498322a043e09",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 358,
+      "beforeQuestionCount": 385,
+      "collection": "folders",
+      "documentId": "chiefgasengineerlicense-B-60",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": null,
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 385
+      },
+      "preconditionSha256": "e228502ab20ee7f708438b7538799173c581a17ca42f2873153457b239a27e2c",
+      "snapshotUpdateTime": "2026-08-30T01:45:25.998535Z"
+    },
+    {
+      "afterQuestionCount": 291,
+      "beforeQuestionCount": 326,
+      "collection": "folders",
+      "documentId": "chiefgasengineerlicense-B-80",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": null,
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 326
+      },
+      "preconditionSha256": "f4ac5c3b0a9d6cdacf1a378b4b98abd7449e50ca2a951573567864701322b031",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 347,
+      "beforeQuestionCount": 384,
+      "collection": "folders",
+      "documentId": "chiefgasengineerlicense-B-90",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": null,
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 384
+      },
+      "preconditionSha256": "665988b84191f39b89e877d8f051a20516dc8af4f5038b008cf10a1085360266",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 32,
+      "beforeQuestionCount": 33,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-A-10-030",
+      "grade": "kou",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-A-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-kou",
+        "questionCount": 33
+      },
+      "preconditionSha256": "42ec553daa95f026fac33f81a3e65b2db301788f495748daa9e95b15c85929c6",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 12,
+      "beforeQuestionCount": 13,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-A-10-070",
+      "grade": "kou",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-A-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-kou",
+        "questionCount": 13
+      },
+      "preconditionSha256": "e00b710e6ae598dc26898c4c328de882a5e71df99b22af958b616a072161de77",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 52,
+      "beforeQuestionCount": 56,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-A-10-160",
+      "grade": "kou",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-A-12",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-kou",
+        "questionCount": 56
+      },
+      "preconditionSha256": "144e34aa1d9c18275f8c7bb9fbefada2de2473ba7600ecd5a96fe5f6b7910a1b",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 11,
+      "beforeQuestionCount": 15,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1130",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 15
+      },
+      "preconditionSha256": "0308fc516132e40b6f44eeef89157083efcdf2ce4325406965047fef44db116c",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 30,
+      "beforeQuestionCount": 31,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1140",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 31
+      },
+      "preconditionSha256": "5713dc32dc583f0517bd933d411c04ecd20b4b139349cc3ebd7db861663a2dca",
+      "snapshotUpdateTime": "2026-07-09T23:56:09.700920Z"
+    },
+    {
+      "afterQuestionCount": 37,
+      "beforeQuestionCount": 42,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1150",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 42
+      },
+      "preconditionSha256": "04874a6e8d5720e3fe25ad66a5b325241554761e9032987312de8dc84b81bbb8",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 27,
+      "beforeQuestionCount": 28,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1160",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 28
+      },
+      "preconditionSha256": "1a0dd34bb97c1a08e11b2a4f57d799caa127c61e8cbc542b4fbe39270ecbb54d",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 24,
+      "beforeQuestionCount": 25,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1170",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 25
+      },
+      "preconditionSha256": "b4700451f0bb0dbf0d73aaa80afc221afc36fb96730f26ce97105bf81bbc3805",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 30,
+      "beforeQuestionCount": 31,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1200",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 31
+      },
+      "preconditionSha256": "5713dc32dc583f0517bd933d411c04ecd20b4b139349cc3ebd7db861663a2dca",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 37,
+      "beforeQuestionCount": 47,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1270",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-10",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 47
+      },
+      "preconditionSha256": "01ae16e5b5ce15139620712209160d64e1365b2adf7cc5ed25c9a43774a21af8",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 8,
+      "beforeQuestionCount": 9,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1400",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-14",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 9
+      },
+      "preconditionSha256": "4611b30cf5ed4dbc4597c9bef93e4011560c46702ae2be4f7041ba2606e598a2",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 2,
+      "beforeQuestionCount": 7,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1450",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-14",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 7
+      },
+      "preconditionSha256": "5193257753f7ffbb5fecee252ea41c574c0fe02cdbca02705185588f7186b47e",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 3,
+      "beforeQuestionCount": 8,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1510",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-14",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 8
+      },
+      "preconditionSha256": "105c4c00ad462df8dd38bf7fecc2ce5b3e5e95b667e7f9f1ba0f48b32a0bd33e",
+      "snapshotUpdateTime": "2026-07-09T23:56:13.090647Z"
+    },
+    {
+      "afterQuestionCount": 59,
+      "beforeQuestionCount": 67,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1620",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-14",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 67
+      },
+      "preconditionSha256": "190828fe99ab4638eff47536529d342b7cfd51dcd95b1f9a4df18769439fec32",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 1,
+      "beforeQuestionCount": 2,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1730",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-14",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 2
+      },
+      "preconditionSha256": "840fe682a9bd58fcb566ea5e11657703229f78d1f72d6c2552dad235310cf699",
+      "snapshotUpdateTime": "2026-07-09T23:56:19.039251Z"
+    },
+    {
+      "afterQuestionCount": 38,
+      "beforeQuestionCount": 52,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1750",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-40",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 52
+      },
+      "preconditionSha256": "271b49d2d43d83aecbbc7048257884bc821da7975614def705927d32abc7be8d",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 130,
+      "beforeQuestionCount": 144,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1760",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-40",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 144
+      },
+      "preconditionSha256": "b8ed986e70e611b46800e849a9b9a12dfd3ea2996906e9b9e2ee926c256c23bc",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 45,
+      "beforeQuestionCount": 48,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1780",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-40",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 48
+      },
+      "preconditionSha256": "c585fb2c93a69e6810e43ee88f8dee051c41401144adf7c9af28f83e587f5a39",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 45,
+      "beforeQuestionCount": 51,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1790",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-40",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 51
+      },
+      "preconditionSha256": "c1e8023610fdcda8250ac1686f0ec7c7ae3b825824a0a5814eb280dc67a57d82",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 41,
+      "beforeQuestionCount": 43,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1810",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-40",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 43
+      },
+      "preconditionSha256": "3d690efe35fc837877efacb670b4a403bb13869146d8169d7a7fadc777e03d74",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 44,
+      "beforeQuestionCount": 51,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1830",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-40",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 51
+      },
+      "preconditionSha256": "c1e8023610fdcda8250ac1686f0ec7c7ae3b825824a0a5814eb280dc67a57d82",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 39,
+      "beforeQuestionCount": 45,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1840",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-40",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 45
+      },
+      "preconditionSha256": "ad49c390abf3ac732a04ea4d393d4f1f4881a0eeddfc9d0d996759bcaa3d232b",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 46,
+      "beforeQuestionCount": 47,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1850",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-40",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 47
+      },
+      "preconditionSha256": "4cb89dafd75412b3d1048639eaee2abe4d153bbb68e143842eacfefe322cde89",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 1,
+      "beforeQuestionCount": 3,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1870",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-60",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 3
+      },
+      "preconditionSha256": "335d03d17e7957315e1ca536e63531889e6eb5b9ae3547cc1620b5d0ceafcbf9",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 82,
+      "beforeQuestionCount": 89,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1880",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-60",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 89
+      },
+      "preconditionSha256": "ee41107b4231decd9f5bed7936fc41214df8e276517aadb6275232b0300849cc",
+      "snapshotUpdateTime": "2026-08-30T01:45:25.998535Z"
+    },
+    {
+      "afterQuestionCount": 45,
+      "beforeQuestionCount": 50,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1890",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-60",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 50
+      },
+      "preconditionSha256": "78c570b28fbf1390dd969e3e7fd0fd46182ee62f23027f9636215eabb0660012",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 40,
+      "beforeQuestionCount": 43,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1900",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-60",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 43
+      },
+      "preconditionSha256": "455a68e81905b80874721fc58f87ea8b2a55ed50b777e1ea201ca94ed17a32a0",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 50,
+      "beforeQuestionCount": 51,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1930",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-60",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 51
+      },
+      "preconditionSha256": "2ced0eabacd1380222e19f8df6c4f98d3fc05cf17368779efbaabd0d73d09fb2",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 58,
+      "beforeQuestionCount": 65,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1950",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-60",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 65
+      },
+      "preconditionSha256": "25a141a0fc407921dc152e1d24872597d458754eae5ddae7da760b049e26b575",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 11,
+      "beforeQuestionCount": 13,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-1970",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-60",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 13
+      },
+      "preconditionSha256": "bd74517c876633e8eb5340fde8e66b7e0c2c317bc4fb9171c00135d238854f56",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 33,
+      "beforeQuestionCount": 39,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2020",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-80",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 39
+      },
+      "preconditionSha256": "f0f4197a7a0408fb2b5fcc038f31b6d4fc058c5befa157ee748993a03929d055",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 49,
+      "beforeQuestionCount": 53,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2030",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-80",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 53
+      },
+      "preconditionSha256": "84f5ef5b38d73aeda40a179a55486de9f9abd8a559e954d6c510c6efb70dd8ec",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 51,
+      "beforeQuestionCount": 56,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2040",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-80",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 56
+      },
+      "preconditionSha256": "b7d2ff7b1b0e7961ea2f1e4b81c3cfb0970673f13434853c5392f9305a216edb",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 47,
+      "beforeQuestionCount": 58,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2050",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-80",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 58
+      },
+      "preconditionSha256": "db82b9c205c46aed6064bb2123d09cdd343e530e1cb49af1a3cb03834d006351",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 32,
+      "beforeQuestionCount": 35,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2060",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-80",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 35
+      },
+      "preconditionSha256": "f8d5dcf2bf614f0c58178757e5f29b8ecefe26643a1641477c1f4f6d18dbf0f4",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 33,
+      "beforeQuestionCount": 35,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2070",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-80",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 35
+      },
+      "preconditionSha256": "f8d5dcf2bf614f0c58178757e5f29b8ecefe26643a1641477c1f4f6d18dbf0f4",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 2,
+      "beforeQuestionCount": 6,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2080",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-80",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 6
+      },
+      "preconditionSha256": "8a46ce7c108ff5f576f3f0f0d84ae3036e3394926b45c44ab842dba3e00e55cb",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 51,
+      "beforeQuestionCount": 54,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2090",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-90",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 54
+      },
+      "preconditionSha256": "2f3c7f6421f35adfaffe540b0635c6e883ccc8a0b6aad0c98587eedb227a2898",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 35,
+      "beforeQuestionCount": 42,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2100",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-90",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 42
+      },
+      "preconditionSha256": "7d2b4b5c06005f4c4b0f1ad3d4eeb8183df6c6cb5e46b0180f85d65b9ada952a",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 51,
+      "beforeQuestionCount": 59,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2110",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-90",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 59
+      },
+      "preconditionSha256": "32df454026fedceaf6746eec436c4f94f4d6b6c142c30f313128843c3ea64a42",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 35,
+      "beforeQuestionCount": 39,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2130",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-90",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 39
+      },
+      "preconditionSha256": "c3591adf0f52426299cee2e796aa942083c41093d13da74fce12155b2878d146",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 46,
+      "beforeQuestionCount": 50,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2150",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-90",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 50
+      },
+      "preconditionSha256": "8bc51c0dc173b94046069ce5582662b6f0d8029ab033289f4964b44a467cae6f",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 37,
+      "beforeQuestionCount": 46,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2160",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-90",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 46
+      },
+      "preconditionSha256": "b4f04318ac7fcf34ec903226a7b24972d3fb14a021caea0506b33a271beed0cd",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    },
+    {
+      "afterQuestionCount": 10,
+      "beforeQuestionCount": 12,
+      "collection": "questionSets",
+      "documentId": "chiefgasengineerlicense-B-2170",
+      "grade": "otsu",
+      "precondition": {
+        "folderId": "chiefgasengineerlicense-B-90",
+        "isDeleted": false,
+        "qualificationId": "gas-shunin-otsu",
+        "questionCount": 12
+      },
+      "preconditionSha256": "cf4506ba1660f4cad0d15675380088298e57d8350614252b7e44114cbbb03646",
+      "snapshotUpdateTime": "2026-08-30T01:32:41.480681Z"
+    }
+  ]
+}

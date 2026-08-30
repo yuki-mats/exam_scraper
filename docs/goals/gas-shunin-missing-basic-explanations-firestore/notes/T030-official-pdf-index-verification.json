@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "gas-shunin-official-pdf-index-verification/v1",
+  "generatedAt": "2026-08-30T04:38:45Z",
+  "sourcePolicy": "公式問題PDFと公式正答PDFのみを使用し、掲載サイトは使用しない",
+  "questionIndex": {
+    "officialPdfCount": 18,
+    "identityCount": 1044,
+    "identitiesPerGradeYear": 58,
+    "questionDocumentCount": 4326,
+    "uniqueQuestionDocumentCount": 4326,
+    "holdCount": 0,
+    "currentPdfHashMismatchCount": 0
+  },
+  "answerIndex": {
+    "officialPdfCount": 18,
+    "identityCount": 1044,
+    "identitiesPerGradeYear": 58,
+    "verifiedCount": 1044,
+    "imageOnlyPdfCount": 4,
+    "currentPdfHashMismatchCount": 0
+  },
+  "joinVerification": {
+    "questionAndAnswerIdentitySetsEqual": true,
+    "joinedIdentityCount": 1044,
+    "joinedQuestionDocumentCount": 4326
+  },
+  "supersededT029Comparison": {
+    "questionSectionOrNumberCorrections": 388,
+    "questionSectionOrNumberCorrectionsByGrade": {
+      "kou": 173,
+      "otsu": 215
+    },
+    "questionPageCorrections": 409,
+    "questionLocatorCorrections": 431,
+    "oldAnswerIdentitiesAvailable": 974,
+    "oldAndNewAnswerMismatchOnCommonIdentities": 0,
+    "answerIdentitiesNewlyCovered": 70
+  },
+  "visualChecks": [
+    {
+      "kind": "question",
+      "identity": "kou-2020-gas-4",
+      "path": "output/pdf/gas-shunin-official/2020/q_kou_r2.pdf",
+      "pdfPage": 20,
+      "result": "本文と問番号を目視照合して一致"
+    },
+    {
+      "kind": "question",
+      "identity": "kou-2022-gas-6",
+      "path": "output/pdf/gas-shunin-official/2022/q_kou_r4.pdf",
+      "pdfPage": 25,
+      "result": "本文と問番号を目視照合して一致"
+    },
+    {
+      "kind": "question",
+      "identity": "otsu-2023-gas-25",
+      "path": "output/pdf/gas-shunin-official/2023/q_otsu_r5.pdf",
+      "pdfPage": 38,
+      "result": "本文と問番号を目視照合して一致"
+    },
+    {
+      "kind": "question",
+      "identity": "otsu-2020-gas-6",
+      "path": "output/pdf/gas-shunin-official/2020/q_otsu_r2.pdf",
+      "pdfPage": 20,
+      "result": "本文と問番号を目視照合して一致"
+    },
+    {
+      "kind": "question",
+      "identity": "otsu-2023-gas-15",
+      "path": "output/pdf/gas-shunin-official/2023/q_otsu_r5.pdf",
+      "pdfPage": 33,
+      "result": "本文と問番号を目視照合して一致"
+    },
+    {
+      "kind": "question",
+      "identity": "otsu-2024-gas-12",
+      "path": "output/pdf/gas-shunin-official/2024/q_otsu_r6.pdf",
+      "pdfPage": 30,
+      "result": "本文と問番号を目視照合して一致"
+    },
+    {
+      "kind": "answer",
+      "identity": "kou-2017",
+      "path": "output/pdf/gas-shunin-official/2017/a_kou_h29.pdf",
+      "pdfPage": 1,
+      "result": "5行58正答を表示表と目視照合して一致"
+    },
+    {
+      "kind": "answer",
+      "identity": "kou-2019",
+      "path": "output/pdf/gas-shunin-official/2019/a_kou_r1.pdf",
+      "pdfPage": 1,
+      "result": "5行58正答を表示表と目視照合して一致"
+    },
+    {
+      "kind": "answer",
+      "identity": "kou-2020",
+      "path": "output/pdf/gas-shunin-official/2020/a_kou_r2.pdf",
+      "pdfPage": 1,
+      "result": "画像PDFの5行58正答を目視転記して再照合"
+    },
+    {
+      "kind": "answer",
+      "identity": "otsu-2020",
+      "path": "output/pdf/gas-shunin-official/2020/a_otsu_r2.pdf",
+      "pdfPage": 1,
+      "result": "画像PDFの5行58正答を目視転記して再照合"
+    },
+    {
+      "kind": "answer",
+      "identity": "kou-2021",
+      "path": "output/pdf/gas-shunin-official/2021/a_kou_r3.pdf",
+      "pdfPage": 1,
+      "result": "5行58正答を表示表と目視照合して一致"
+    },
+    {
+      "kind": "answer",
+      "identity": "kou-2022",
+      "path": "output/pdf/gas-shunin-official/2022/a_kou_r4.pdf",
+      "pdfPage": 1,
+      "result": "画像PDFの5行58正答を目視転記して再照合"
+    },
+    {
+      "kind": "answer",
+      "identity": "otsu-2022",
+      "path": "output/pdf/gas-shunin-official/2022/a_otsu_r4.pdf",
+      "pdfPage": 1,
+      "result": "画像PDFの5行58正答を目視転記して再照合"
+    },
+    {
+      "kind": "answer",
+      "identity": "kou-2024",
+      "path": "output/pdf/gas-shunin-official/2024/a_kou_r6.pdf",
+      "pdfPage": 1,
+      "result": "5行58正答を表示表と目視照合して一致"
+    },
+    {
+      "kind": "answer",
+      "identity": "kou-2025",
+      "path": "output/pdf/gas-shunin-official/2025/a_kou_R7.pdf",
+      "pdfPage": 1,
+      "result": "5行58正答を表示表と目視照合して一致"
+    }
+  ],
+  "result": "pass"
+}

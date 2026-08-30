@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "gas-shunin-official-pdf-repair/v1/local-source-alignment-receipt",
+  "planSha256": "25bc88c82e68574deb84a5e2ec0f238f5a5514296f77837142fe25fdaafa4ade",
+  "changedFileCount": 2,
+  "changedFieldOccurrenceCount": 4,
+  "files": [
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2018/23_correctChoiceText_fixed/question_2018_2_correctChoiceText_fixed.json",
+      "publicQuestionId": "8e30472ec04b7830",
+      "choiceIndex": 5,
+      "fields": [
+        "correctChoiceText",
+        "explanationText"
+      ]
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2018/23_correctChoiceText_fixed/question_2018_3_correctChoiceText_fixed.json",
+      "publicQuestionId": "58726aadc48afa5f",
+      "choiceIndex": 1,
+      "fields": [
+        "correctChoiceText",
+        "explanationText"
+      ]
+    }
+  ],
+  "verification": {
+    "postLiveAnswerSourceMismatchCount": 0,
+    "aggregateSourceCorrectionPendingCount": 0,
+    "protectedLocalTreeChanged": false
+  }
+}
