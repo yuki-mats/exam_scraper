@@ -1,0 +1,128 @@
+{
+  "answerStatusCounts": {
+    "match": 4201,
+    "mismatch": 3,
+    "unverified": 122
+  },
+  "contentIssueCounts": {
+    "answer_source_mismatch": 3,
+    "calculation_explanation_incomplete": 4,
+    "explanation_prefix_mismatch": 558,
+    "quote_original_choice_mismatch": 1,
+    "true_false_statement_missing_from_question_text": 1
+  },
+  "contentStatusCounts": {
+    "needs_fix": 564,
+    "needs_review": 113,
+    "pass": 3649
+  },
+  "filters": {
+    "isChoiceOnly": false,
+    "isDeleted": false
+  },
+  "generatedAt": "2026-08-30T03:52:46Z",
+  "grades": {
+    "kou": {
+      "answerStatusCounts": {
+        "match": 2206,
+        "unverified": 12
+      },
+      "contentIssueCounts": {
+        "explanation_prefix_mismatch": 368,
+        "true_false_statement_missing_from_question_text": 1
+      },
+      "contentStatusCounts": {
+        "needs_fix": 369,
+        "needs_review": 10,
+        "pass": 1839
+      },
+      "exactDuplicateExcessCount": 0,
+      "exactDuplicateGroupCount": 0,
+      "grade": "甲種",
+      "liveQuestionCount": 2218,
+      "overallStatusCounts": {
+        "needs_fix": 369,
+        "needs_review": 269,
+        "pass": 1580
+      },
+      "qualification": "gas-shunin-kou",
+      "reviewIssueCounts": {
+        "calculation_explanation_style_requires_review": 6,
+        "question_set_classification_requires_review": 271,
+        "source_unmapped": 12
+      },
+      "schemaIssueCounts": {},
+      "schemaStatusCounts": {
+        "pass": 2218
+      },
+      "sourceQuestionCount": 528,
+      "sourceStatementCount": 2617
+    },
+    "otsu": {
+      "answerStatusCounts": {
+        "match": 1995,
+        "mismatch": 3,
+        "unverified": 110
+      },
+      "contentIssueCounts": {
+        "answer_source_mismatch": 3,
+        "calculation_explanation_incomplete": 4,
+        "explanation_prefix_mismatch": 190,
+        "quote_original_choice_mismatch": 1
+      },
+      "contentStatusCounts": {
+        "needs_fix": 195,
+        "needs_review": 103,
+        "pass": 1810
+      },
+      "exactDuplicateExcessCount": 2,
+      "exactDuplicateGroupCount": 2,
+      "grade": "乙種",
+      "liveQuestionCount": 2108,
+      "overallStatusCounts": {
+        "needs_fix": 348,
+        "needs_review": 214,
+        "pass": 1546
+      },
+      "qualification": "gas-shunin-otsu",
+      "reviewIssueCounts": {
+        "calculation_explanation_style_requires_review": 8,
+        "display_body_source_identity_requires_review": 20,
+        "exact_live_duplicate": 4,
+        "question_set_classification_requires_review": 218,
+        "source_unmapped": 110
+      },
+      "schemaIssueCounts": {
+        "missing_questionBodyText": 158
+      },
+      "schemaStatusCounts": {
+        "needs_fix": 158,
+        "pass": 1950
+      },
+      "sourceQuestionCount": 522,
+      "sourceStatementCount": 2601
+    }
+  },
+  "ledger": "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T030-live-content-audit.jsonl",
+  "overallStatusCounts": {
+    "needs_fix": 717,
+    "needs_review": 483,
+    "pass": 3126
+  },
+  "questionCount": 4326,
+  "reviewIssueCounts": {
+    "calculation_explanation_style_requires_review": 14,
+    "display_body_source_identity_requires_review": 20,
+    "exact_live_duplicate": 4,
+    "question_set_classification_requires_review": 489,
+    "source_unmapped": 122
+  },
+  "schemaIssueCounts": {
+    "missing_questionBodyText": 158
+  },
+  "schemaStatusCounts": {
+    "needs_fix": 158,
+    "pass": 4168
+  },
+  "schemaVersion": "gas-shunin-firestore-live-question-audit/v1"
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "gas-shunin-official-inventory-mismatch-diagnostic/v1",
+  "status": "invalidates_T029_full_verification_claim",
+  "generatedAt": "2026-08-30T04:11:00Z",
+  "firestoreWrites": 0,
+  "scope": {
+    "activeDisplayQuestions": 4326,
+    "kou": 2218,
+    "otsu": 2108
+  },
+  "finding": {
+    "questionIdentityResolvedCount": 4326,
+    "inventorySectionOrQuestionNumberMismatchCount": 388,
+    "kouMismatchCount": 173,
+    "otsuMismatchCount": 215,
+    "identitySources": [
+      "sourceMatch.sourceKey",
+      "originalQuestionId",
+      "questionId",
+      "examSource"
+    ]
+  },
+  "officialPdfReindexAttempt": {
+    "questionPdfCount": 18,
+    "method": "pdftoppm rendering plus Apple Vision Japanese OCR of every question page",
+    "expectedOriginalQuestionIdentityCount": 1044,
+    "ocrIndexedIdentityCount": 855,
+    "ocrMissingIdentityCount": 190,
+    "ocrDuplicateIdentityCount": 19,
+    "decision": "rejected_as_incomplete; no inferred locator or repair plan retained"
+  },
+  "examples": [
+    {
+      "questionId": "chiefgasengineerlicense-A-40-1153",
+      "expected": "甲種2022年ガス技術問6",
+      "T029Inventory": "甲種2022年ガス技術問8"
+    },
+    {
+      "questionId": "chiefgasengineerlicense-A-40-1385",
+      "expected": "甲種2020年ガス技術問4",
+      "T029Inventory": "甲種2020年ガス技術問2"
+    },
+    {
+      "questionId": "gasushunin-otsushu-gizyutsu-2023-25-1",
+      "expected": "乙種2023年ガス技術問25",
+      "T029Inventory": "乙種2023年ガス技術問23"
+    }
+  ],
+  "safetyDecision": "T029 locator values must not be used to approve answer or explanation changes until the 18 official question PDFs are reindexed without missing headings."
+}

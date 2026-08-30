@@ -1130,6 +1130,15 @@ tasks:
     stop_if:
       - "公式問題PDF又は正答PDFとの対応が一意でない。"
       - "Firestore active display countが4,326件から変動する。"
+    progress:
+      status: in_progress
+      summary: "questionSetRef整合後の4,326件ライブ監査を再生成した。T029の公式PDF inventoryは、問題identityから導出した科目・問番号と388件（甲173、乙215）不一致だったため、全件verifiedの根拠として無効化した。公式問題PDF全18冊を再OCRしたが、1,044問中190問の見出しが欠けたため推測補完せず、修正planは未確定のまま保持する。"
+      notes:
+        - notes/T030-live-content-audit.jsonl
+        - notes/T030-live-content-audit-summary.json
+        - notes/T030-official-inventory-mismatch-diagnostic.json
+      firestore_writes: 0
+      next_step: "公式問題PDF18冊の科目・問番号・PDFページ索引を欠落0で再構成し、正答PDFの正答番号と結合してから4,326件台帳を再生成する。"
 
   - id: T031
     type: pm
