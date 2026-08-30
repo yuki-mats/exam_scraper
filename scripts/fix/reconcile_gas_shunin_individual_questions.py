@@ -74,6 +74,14 @@ def write_json(path: Path, payload: Any) -> None:
     )
 
 
+def write_json_preserving_key_order(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
 def json_safe(value: Any) -> Any:
     if isinstance(value, dict):
         return {str(key): json_safe(item) for key, item in value.items()}
@@ -208,6 +216,79 @@ REPAIR_SPECS: dict[str, dict[str, Any]] = {
     "chiefgasengineerlicense-C-10298": {
         "choice": "体積及び温度一定条件の下で化学反応が起こったとき、生成系の内部エネルギーのほうが反応系の内部エネルギーよりも低い場合、発熱反応である。",
         "explanationText": "正しい。体積一定では反応に伴う熱の出入りは内部エネルギー変化に対応し、生成系の内部エネルギーが反応系より低い場合は差分のエネルギーを放出するため発熱反応である。",
+    },
+}
+
+
+# Firestore の1問は、ローカルの aggregate question の選択肢1件に対応する。
+# 00_source は変更せず、解説の責務を持つ 21_explanationText_added だけを更新する。
+LOCAL_EXPLANATION_BINDINGS: dict[str, dict[str, Any]] = {
+    "chiefgasengineerlicense-A-10-0276": {
+        "path": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2022:law:q08",
+        "choiceIndex": 0,
+    },
+    "chiefgasengineerlicense-A-10-0277": {
+        "path": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2022:law:q08",
+        "choiceIndex": 1,
+    },
+    "chiefgasengineerlicense-A-40-1165": {
+        "path": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2022:seizo:q08",
+        "choiceIndex": 2,
+    },
+    "chiefgasengineerlicense-A-40-1519": {
+        "path": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2019:seizo:q05",
+        "choiceIndex": 4,
+    },
+    "chiefgasengineerlicense-A-80-1426": {
+        "path": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2020:kyokyu:q14",
+        "choiceIndex": 1,
+    },
+    "chiefgasengineerlicense-A-80-1428": {
+        "path": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2020:kyokyu:q14",
+        "choiceIndex": 3,
+    },
+    "chiefgasengineerlicense-C-10298": {
+        "path": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:otsu:2020:kiso:q05",
+        "choiceIndex": 0,
+    },
+    "gas-shunin-kou-2017-kiso-q11-s04": {
+        "path": "output/gas-shunin-kou/questions_json/2017/21_explanationText_added/question_2017_2_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2017:kiso:q11",
+        "choiceIndex": 0,
+        "singleExplanation": True,
+    },
+    "gasushunin-koushu-gizyutsu-2021-24-4": {
+        "path": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_1_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2021:shohi:q24",
+        "choiceIndex": 0,
+        "singleExplanation": True,
+    },
+    "gas-shunin-kou-2024-shohi-q20-s05": {
+        "path": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_3_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q20",
+        "choiceIndex": 4,
+    },
+    "gas-shunin-kou-2024-shohi-q24-s01": {
+        "path": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_3_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q24",
+        "choiceIndex": 0,
+    },
+    "gas-shunin-kou-2024-shohi-q24-s02": {
+        "path": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_3_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q24",
+        "choiceIndex": 1,
+    },
+    "gas-shunin-kou-2025-shohi-q20-s05": {
+        "path": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_3_explanationText_added.json",
+        "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q20",
+        "choiceIndex": 4,
     },
 }
 
@@ -502,6 +583,268 @@ def write_local_mirror(*, plan: dict[str, Any], output_root: Path) -> dict[str, 
     }
 
 
+def question_records(payload: Any, path: Path) -> list[dict[str, Any]]:
+    if isinstance(payload, list):
+        records = payload
+    elif isinstance(payload, dict):
+        records = payload.get("question_bodies") or payload.get("questions")
+    else:
+        records = None
+    if not isinstance(records, list) or any(not isinstance(item, dict) for item in records):
+        raise ValueError(f"question records not found: {path}")
+    return records
+
+
+def local_explanation_value(
+    *, records: list[dict[str, Any]], binding: dict[str, Any], question_id: str
+) -> tuple[dict[str, Any], list[str], int]:
+    matches = [
+        record
+        for record in records
+        if record.get("sourceQuestionKey") == binding["sourceQuestionKey"]
+    ]
+    if len(matches) != 1:
+        raise ValueError(
+            f"local explanation binding is not unique: {question_id} matches={len(matches)}"
+        )
+    record = matches[0]
+    explanations = record.get("explanationText")
+    if not isinstance(explanations, list) or not explanations:
+        raise ValueError(f"local explanationText is missing: {question_id}")
+    index = int(binding["choiceIndex"])
+    if binding.get("singleExplanation") is True:
+        if len(explanations) != 1 or index != 0:
+            raise ValueError(f"single explanation contract mismatch: {question_id}")
+    elif index >= len(explanations):
+        raise ValueError(f"local explanation choice index is out of range: {question_id}")
+    return record, explanations, index
+
+
+def sync_local_patches(
+    *,
+    plan: dict[str, Any],
+    kou_snapshot: Path,
+    otsu_snapshot: Path,
+    output_root: Path,
+) -> dict[str, Any]:
+    """21解説patchと既存ID固定のFirestore repair artifactを同期する。"""
+
+    verify_plan_hash(plan)
+    updates = {str(item["questionId"]): item for item in plan["updates"]}
+    explanation_targets = {
+        question_id
+        for question_id, item in updates.items()
+        if "explanationText" in item["setFields"]
+    }
+    if explanation_targets != set(LOCAL_EXPLANATION_BINDINGS):
+        raise ValueError(
+            "local explanation binding coverage mismatch: "
+            f"missing={sorted(explanation_targets - set(LOCAL_EXPLANATION_BINDINGS))} "
+            f"extra={sorted(set(LOCAL_EXPLANATION_BINDINGS) - explanation_targets)}"
+        )
+
+    payloads: dict[Path, Any] = {}
+    changed_question_ids: list[str] = []
+    changed_paths: set[Path] = set()
+    for question_id in sorted(explanation_targets):
+        binding = LOCAL_EXPLANATION_BINDINGS[question_id]
+        path = ROOT / binding["path"]
+        payload = payloads.setdefault(path, load_json(path))
+        _record, explanations, index = local_explanation_value(
+            records=question_records(payload, path),
+            binding=binding,
+            question_id=question_id,
+        )
+        desired = str(updates[question_id]["setFields"]["explanationText"])
+        if explanations[index] != desired:
+            explanations[index] = desired
+            changed_question_ids.append(question_id)
+            changed_paths.add(path)
+
+    for path in sorted(changed_paths):
+        if "00_source" in path.parts:
+            raise RuntimeError(f"refusing protected 00_source write: {path}")
+        write_json_preserving_key_order(path, payloads[path])
+
+    snapshots = {
+        "kou": kou_snapshot.resolve(),
+        "otsu": otsu_snapshot.resolve(),
+    }
+    active_by_grade = {
+        grade: active_documents(path) for grade, path in snapshots.items()
+    }
+    written_artifacts: list[str] = []
+    artifact_hashes: dict[str, str] = {}
+    for grade in ("kou", "otsu"):
+        grade_updates = [item for item in plan["updates"] if item["grade"] == grade]
+        live_questions: list[dict[str, Any]] = []
+        repair_entries: list[dict[str, Any]] = []
+        for item in grade_updates:
+            question_id = str(item["questionId"])
+            current = active_by_grade[grade].get(question_id)
+            if current is None:
+                raise ValueError(f"post snapshot is missing active question: {question_id}")
+            if any(current.get(field) != value for field, value in item["setFields"].items()):
+                raise ValueError(f"post snapshot differs from repair plan: {question_id}")
+            question = json_safe(current)
+            question["questionId"] = question_id
+            live_questions.append(question)
+            repair_entries.append(
+                {
+                    "questionId": question_id,
+                    "preconditionSha256": item["preconditionSha256"],
+                    "changedFields": item["changedFields"],
+                    "setFields": item["setFields"],
+                    "officialEvidence": item["officialEvidence"],
+                }
+            )
+
+        repair_dir = (
+            output_root
+            / f"gas-shunin-{grade}"
+            / "questions_json"
+            / "firestore_repairs"
+            / "20260830"
+        )
+        patch_path = repair_dir / "individual_official_pdf_patch.json"
+        patch_payload = {
+            "schemaVersion": f"{SCHEMA_VERSION}/local-firestore-id-patch",
+            "generatedAt": plan["generatedAt"],
+            "planSha256": plan["planSha256"],
+            "grade": grade,
+            "sourcePolicy": plan["sourcePolicy"],
+            "filters": plan["filters"],
+            "writeFields": sorted(
+                {field for item in grade_updates for field in item["changedFields"]}
+            ),
+            "patches": repair_entries,
+            "protected00SourceWriteCount": 0,
+        }
+        write_json(patch_path, patch_payload)
+        written_artifacts.append(str(patch_path.resolve()))
+        artifact_hashes[str(patch_path.resolve())] = file_hash(patch_path)
+
+        upload_path = repair_dir / "individual_official_pdf_upload_artifact.json"
+        upload_payload = {
+            "schemaVersion": f"{SCHEMA_VERSION}/upload-artifact",
+            "generatedAt": plan["generatedAt"],
+            "planSha256": plan["planSha256"],
+            "projectId": plan["projectId"],
+            "grade": grade,
+            "expectedLiveFingerprint": canonical_hash(
+                {
+                    item["questionId"]: selected_fields(
+                        active_by_grade[grade][item["questionId"]],
+                        OFFICIAL_VERIFICATION_FIELDS,
+                    )
+                    for item in grade_updates
+                }
+            ),
+            "writeFields": sorted(
+                {field for item in grade_updates for field in item["changedFields"]}
+            ),
+            "questions": live_questions,
+        }
+        write_json(upload_path, upload_payload)
+        written_artifacts.append(str(upload_path.resolve()))
+        artifact_hashes[str(upload_path.resolve())] = file_hash(upload_path)
+
+    return {
+        "schemaVersion": f"{SCHEMA_VERSION}/local-patch-sync-receipt",
+        "generatedAt": utc_now(),
+        "planSha256": plan["planSha256"],
+        "updateTargetCount": len(updates),
+        "explanationBindingCount": len(LOCAL_EXPLANATION_BINDINGS),
+        "changedExplanationQuestionCount": len(changed_question_ids),
+        "changedExplanationQuestionIds": changed_question_ids,
+        "changedExplanationPatchFiles": [
+            str(path.resolve()) for path in sorted(changed_paths)
+        ],
+        "writtenRepairArtifacts": written_artifacts,
+        "artifactSha256": artifact_hashes,
+        "protected00SourceWriteCount": 0,
+    }
+
+
+def verify_local_patches(
+    *,
+    plan: dict[str, Any],
+    kou_snapshot: Path,
+    otsu_snapshot: Path,
+    output_root: Path,
+) -> dict[str, Any]:
+    verify_plan_hash(plan)
+    updates = {str(item["questionId"]): item for item in plan["updates"]}
+    errors: list[str] = []
+    checked_explanations = 0
+    payloads: dict[Path, Any] = {}
+    for question_id, binding in sorted(LOCAL_EXPLANATION_BINDINGS.items()):
+        path = ROOT / binding["path"]
+        payload = payloads.setdefault(path, load_json(path))
+        _record, explanations, index = local_explanation_value(
+            records=question_records(payload, path),
+            binding=binding,
+            question_id=question_id,
+        )
+        desired = updates[question_id]["setFields"]["explanationText"]
+        checked_explanations += 1
+        if explanations[index] != desired:
+            errors.append(f"21_explanationText_added mismatch: {question_id}")
+
+    snapshots = {
+        "kou": kou_snapshot.resolve(),
+        "otsu": otsu_snapshot.resolve(),
+    }
+    checked_artifact_questions = 0
+    for grade in ("kou", "otsu"):
+        active = active_documents(snapshots[grade])
+        repair_dir = (
+            output_root
+            / f"gas-shunin-{grade}"
+            / "questions_json"
+            / "firestore_repairs"
+            / "20260830"
+        )
+        patch = load_json(repair_dir / "individual_official_pdf_patch.json")
+        upload = load_json(repair_dir / "individual_official_pdf_upload_artifact.json")
+        if patch.get("planSha256") != plan["planSha256"]:
+            errors.append(f"repair patch plan hash mismatch: {grade}")
+        if upload.get("planSha256") != plan["planSha256"]:
+            errors.append(f"upload artifact plan hash mismatch: {grade}")
+        patch_by_id = {item["questionId"]: item for item in patch.get("patches", [])}
+        upload_by_id = {item["questionId"]: item for item in upload.get("questions", [])}
+        expected_ids = {
+            item["questionId"] for item in plan["updates"] if item["grade"] == grade
+        }
+        if set(patch_by_id) != expected_ids or set(upload_by_id) != expected_ids:
+            errors.append(f"repair artifact target IDs mismatch: {grade}")
+            continue
+        for question_id in sorted(expected_ids):
+            checked_artifact_questions += 1
+            planned = updates[question_id]
+            if patch_by_id[question_id].get("setFields") != planned["setFields"]:
+                errors.append(f"repair patch fields mismatch: {question_id}")
+            live = selected_fields(active[question_id], OFFICIAL_VERIFICATION_FIELDS)
+            local = selected_fields(upload_by_id[question_id], OFFICIAL_VERIFICATION_FIELDS)
+            if local != live:
+                errors.append(f"local upload artifact differs from Firestore snapshot: {question_id}")
+
+    if errors:
+        raise RuntimeError("local patch verification failed: " + "; ".join(errors))
+    return {
+        "schemaVersion": f"{SCHEMA_VERSION}/local-patch-verification-receipt",
+        "generatedAt": utc_now(),
+        "planSha256": plan["planSha256"],
+        "checks": {
+            "explanationPatchQuestionCount": checked_explanations,
+            "repairArtifactQuestionCount": checked_artifact_questions,
+            "localVsFirestoreMismatchCount": 0,
+            "protected00SourceWriteCount": 0,
+        },
+        "errors": errors,
+    }
+
+
 def verify_post(
     *,
     plan: dict[str, Any],
@@ -595,6 +938,20 @@ def parser() -> argparse.ArgumentParser:
     local.add_argument("--output-root", type=Path, required=True)
     local.add_argument("--receipt", type=Path, required=True)
 
+    sync = subparsers.add_parser("sync-local-patches")
+    sync.add_argument("--plan", type=Path, required=True)
+    sync.add_argument("--kou-snapshot", type=Path, required=True)
+    sync.add_argument("--otsu-snapshot", type=Path, required=True)
+    sync.add_argument("--output-root", type=Path, required=True)
+    sync.add_argument("--receipt", type=Path, required=True)
+
+    verify_local = subparsers.add_parser("verify-local-patches")
+    verify_local.add_argument("--plan", type=Path, required=True)
+    verify_local.add_argument("--kou-snapshot", type=Path, required=True)
+    verify_local.add_argument("--otsu-snapshot", type=Path, required=True)
+    verify_local.add_argument("--output-root", type=Path, required=True)
+    verify_local.add_argument("--receipt", type=Path, required=True)
+
     apply = subparsers.add_parser("apply-firestore")
     apply.add_argument("--plan", type=Path, required=True)
     apply.add_argument("--receipt", type=Path, required=True)
@@ -623,6 +980,26 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "write-local-mirror":
         receipt = write_local_mirror(plan=load_json(args.plan), output_root=args.output_root)
+        write_json(args.receipt, receipt)
+        print(json.dumps(receipt, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "sync-local-patches":
+        receipt = sync_local_patches(
+            plan=load_json(args.plan),
+            kou_snapshot=args.kou_snapshot,
+            otsu_snapshot=args.otsu_snapshot,
+            output_root=args.output_root,
+        )
+        write_json(args.receipt, receipt)
+        print(json.dumps(receipt, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "verify-local-patches":
+        receipt = verify_local_patches(
+            plan=load_json(args.plan),
+            kou_snapshot=args.kou_snapshot,
+            otsu_snapshot=args.otsu_snapshot,
+            output_root=args.output_root,
+        )
         write_json(args.receipt, receipt)
         print(json.dumps(receipt, ensure_ascii=False, indent=2))
         return 0

@@ -1,0 +1,52 @@
+{
+  "filters": {
+    "isChoiceOnly": false,
+    "isDeleted": false
+  },
+  "generatedAt": "2026-08-30T12:09:33Z",
+  "grade": "otsu",
+  "patches": [
+    {
+      "changedFields": [
+        "explanationText",
+        "originalQuestionChoiceText",
+        "questionText"
+      ],
+      "officialEvidence": {
+        "officialAnswerPdf": {
+          "extractionMethod": "200-dpi rendered page visually transcribed and checked",
+          "path": "output/pdf/gas-shunin-official/2020/a_otsu_r2.pdf",
+          "pdfPage": 1,
+          "sha256": "5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d"
+        },
+        "officialCorrectChoiceNumber": 3,
+        "officialQuestionNumber": 5,
+        "officialQuestionPdf": {
+          "path": "output/pdf/gas-shunin-official/2020/q_otsu_r2.pdf",
+          "pdfPage": 14,
+          "sha256": "90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82"
+        },
+        "renderedQuestionPage": {
+          "path": "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T033-individual-official-pages/13_q_otsu_r2_p14.png",
+          "sha256": "6f23c3ba016dc8f82d53eb756852976e51d83f507a9740a8f21c43f1011cc166"
+        }
+      },
+      "preconditionSha256": "36422a23058d31776612cfc95d4874f530edbdbce4c2a39d50272d40bc5d659b",
+      "questionId": "chiefgasengineerlicense-C-10298",
+      "setFields": {
+        "explanationText": "正しい。体積一定では反応に伴う熱の出入りは内部エネルギー変化に対応し、生成系の内部エネルギーが反応系より低い場合は差分のエネルギーを放出するため発熱反応である。",
+        "originalQuestionChoiceText": "体積及び温度一定条件の下で化学反応が起こったとき、生成系の内部エネルギーのほうが反応系の内部エネルギーよりも低い場合、発熱反応である。",
+        "questionText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。[quote]体積及び温度一定条件の下で化学反応が起こったとき、生成系の内部エネルギーのほうが反応系の内部エネルギーよりも低い場合、発熱反応である。[/quote]"
+      }
+    }
+  ],
+  "planSha256": "7a0815e01b2860e3bb6d1c5403323e2b784b732dc7cb2657e08da8c61dd8197b",
+  "protected00SourceWriteCount": 0,
+  "schemaVersion": "gas-shunin-individual-official-pdf-reconciliation/v1/local-firestore-id-patch",
+  "sourcePolicy": "official question and answer PDFs only; listing sites were not used",
+  "writeFields": [
+    "explanationText",
+    "originalQuestionChoiceText",
+    "questionText"
+  ]
+}

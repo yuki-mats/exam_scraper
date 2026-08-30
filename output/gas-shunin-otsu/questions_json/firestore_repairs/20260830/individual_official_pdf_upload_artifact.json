@@ -1,0 +1,86 @@
+{
+  "expectedLiveFingerprint": "a6189a5a9ed39618dff34fd0e29f56704869ae62f8505cac7dad6896aa9efd30",
+  "generatedAt": "2026-08-30T12:09:33Z",
+  "grade": "otsu",
+  "planSha256": "7a0815e01b2860e3bb6d1c5403323e2b784b732dc7cb2657e08da8c61dd8197b",
+  "projectId": "repaso-rbaqy4",
+  "questions": [
+    {
+      "_id": "chiefgasengineerlicense-C-10298",
+      "choiceNumber": 1,
+      "correctChoiceText": "正しい",
+      "createdAt": "2026-07-10T08:35:18.215780Z",
+      "createdById": "aMpBCmAEGSQPbhUMzbHvFiM1cYK2",
+      "examSource": "ガス主任技術者（乙種）, 2020年, 問5, 設問1",
+      "examYear": 2020,
+      "explanationText": "正しい。体積一定では反応に伴う熱の出入りは内部エネルギー変化に対応し、生成系の内部エネルギーが反応系より低い場合は差分のエネルギーを放出するため発熱反応である。",
+      "isChoiceOnly": false,
+      "isDeleted": false,
+      "isGroupable": true,
+      "isLawRelated": false,
+      "isOfficial": true,
+      "knowledgeText": "〔都市ガス工業概要（基礎理論編）P73 4.1.2 反応熱〕",
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [],
+      "lawRevisionFacts": {
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "reviewState": "secondary_verified"
+      },
+      "listGroupId": "2020",
+      "originalQuestionBodyText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。",
+      "originalQuestionChoiceText": "体積及び温度一定条件の下で化学反応が起こったとき、生成系の内部エネルギーのほうが反応系の内部エネルギーよりも低い場合、発熱反応である。",
+      "originalQuestionId": "gasushunin-otsushu-kiso-2020-5",
+      "qualificationId": "gas-shunin-otsu",
+      "questionBodyText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。",
+      "questionId": "chiefgasengineerlicense-C-10298",
+      "questionNumber": 5,
+      "questionSetId": "chiefgasengineerlicense-B-2110",
+      "questionTags": [],
+      "questionText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。[quote]体積及び温度一定条件の下で化学反応が起こったとき、生成系の内部エネルギーのほうが反応系の内部エネルギーよりも低い場合、発熱反応である。[/quote]",
+      "questionType": "true_false",
+      "suggestedQuestionDetails": [
+        {
+          "answer": "はい。生成系の内部エネルギーが低い場合、差分のエネルギーを放出するため発熱反応である。",
+          "question": "生成系の内部エネルギーが反応系より低い体積一定反応は発熱反応か。"
+        },
+        {
+          "answer": "はい。反応熱は化学反応に伴う熱の発生または吸収を表す。",
+          "question": "反応熱とは化学反応に伴って発生または吸収される熱のことか。"
+        },
+        {
+          "answer": "いいえ。触媒は活性化エネルギーや反応速度に関わるが、反応熱を大きくしない。",
+          "question": "触媒は反応熱を大きくするものか。"
+        },
+        {
+          "answer": "はい。酸化還元のように電子の授受を伴う反応として扱う。",
+          "question": "電気化学反応は電子の授受を伴う反応か。"
+        },
+        {
+          "answer": "はい。燃料電池の端子電圧は、電流増加に伴う分極や内部抵抗の影響で一般に低下する。",
+          "question": "燃料電池では取り出す電流を増やすと端子電圧は一般に小さくなるか。"
+        }
+      ],
+      "suggestedQuestions": [
+        "生成系の内部エネルギーが反応系より低い体積一定反応は発熱反応か。",
+        "反応熱とは化学反応に伴って発生または吸収される熱のことか。",
+        "触媒は反応熱を大きくするものか。",
+        "電気化学反応は電子の授受を伴う反応か。",
+        "燃料電池では取り出す電流を増やすと端子電圧は一般に小さくなるか。"
+      ],
+      "updatedAt": "2026-08-30T12:10:10.543958Z",
+      "updatedById": "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
+    }
+  ],
+  "schemaVersion": "gas-shunin-individual-official-pdf-reconciliation/v1/upload-artifact",
+  "writeFields": [
+    "explanationText",
+    "originalQuestionChoiceText",
+    "questionText"
+  ]
+}
