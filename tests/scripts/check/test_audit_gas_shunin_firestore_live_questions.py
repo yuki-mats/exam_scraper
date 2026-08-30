@@ -42,6 +42,31 @@ def test_true_false_requires_the_statement_in_display_text() -> None:
     ]
 
 
+def test_source_rows_prefers_choice_level_question_set_ids() -> None:
+    catalog = {
+        "sample": {
+            "qualification": "gas-shunin-kou",
+            "year": 2025,
+            "sourceKey": "sample",
+            "sourceIds": {"source-id"},
+            "choices": ["肢1", "肢2"],
+            "answers": ["正しい", "間違い"],
+            "explanations": ["説明1", "説明2"],
+            "questionSetId": "question-set-default",
+            "choiceQuestionSetIds": ["question-set-1", "question-set-2"],
+            "questionType": "true_false",
+            "fieldEvidence": {},
+        }
+    }
+
+    rows = audit.source_rows(catalog)
+
+    assert [row["questionSetId"] for row in rows] == [
+        "question-set-1",
+        "question-set-2",
+    ]
+
+
 def test_basic_explanation_prefix_follows_current_prompt() -> None:
     question = {
         "questionType": "group_choice",

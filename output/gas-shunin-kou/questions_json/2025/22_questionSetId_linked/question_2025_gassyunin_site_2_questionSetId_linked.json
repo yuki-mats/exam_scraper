@@ -193,11 +193,21 @@
       "ディスプレースメント式液面計は、高精度で測定範囲が広く、\n液密度の影響を受けない\nので、LNG貯槽等の液位計量に用いられる。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json",
-    "questionSetId": "chiefgasengineerlicense-A-40-185",
+    "questionSetId": "chiefgasengineerlicense-A-40-174",
     "category": "製造",
     "sourceQuestionKey": "gas-shunin:kou:2025:seizo:q03",
     "reviewQuestionId": "40cc82909b61abbe",
-    "sourceRecordRef": "question_2025_gassyunin_site_2.json#8"
+    "sourceRecordRef": "question_2025_gassyunin_site_2.json#8",
+    "choiceQuestionSetIds": [
+      "chiefgasengineerlicense-A-40-174",
+      "chiefgasengineerlicense-A-40-174",
+      "chiefgasengineerlicense-A-40-174",
+      "chiefgasengineerlicense-A-40-174",
+      "chiefgasengineerlicense-A-40-174"
+    ],
+    "questionSetIdResolution": "choiceQuestionSetIds",
+    "questionSetReviewDecision": "choiceQuestionSetIds",
+    "questionSetReviewNote": "Official-PDF semantic audit: preserve the reviewed per-choice learning units."
   },
   {
     "original_question_id": "118355ef06bb5c99",
@@ -314,7 +324,7 @@
     ],
     "questionSetIdResolution": "choiceQuestionSetIds",
     "questionSetReviewDecision": "choiceQuestionSetIds",
-    "questionSetReviewNote": "Mixed manufacturing-maintenance statement categories; preserve per-choice questionSetIds instead of assigning a single problem-level questionSetId.",
+    "questionSetReviewNote": "Official-PDF semantic audit: preserve the reviewed per-choice learning units.",
     "sourceQuestionKey": "gas-shunin:kou:2025:seizo:q08",
     "reviewQuestionId": "dbe5ecc0d9952b92",
     "sourceRecordRef": "question_2025_gassyunin_site_2.json#13"

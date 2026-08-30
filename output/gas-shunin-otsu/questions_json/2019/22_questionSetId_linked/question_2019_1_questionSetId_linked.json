@@ -59,13 +59,13 @@
       "経済産業大臣は、ガス主任技術者にその職務を行わせることがガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安に支障を及ぼすと認めるときは、ガス小売事業者に対し、ガス主任技術者の解任を命ずることができる。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "questionSetId": "chiefgasengineerlicense-B-1230",
+    "questionSetId": "chiefgasengineerlicense-B-1240",
     "category": "法令",
     "questionSetName": "",
     "choiceQuestionSetIds": [
-      "chiefgasengineerlicense-B-1230",
-      "chiefgasengineerlicense-B-1230",
-      "chiefgasengineerlicense-B-1230",
+      "chiefgasengineerlicense-B-1240",
+      "chiefgasengineerlicense-B-1240",
+      "chiefgasengineerlicense-B-1240",
       "chiefgasengineerlicense-B-1160",
       "chiefgasengineerlicense-B-1160"
     ],
@@ -77,11 +77,12 @@
       "ガス主任技術者（乙種）"
     ],
     "questionSetIdResolution": "choiceQuestionSetIds",
-    "questionSetReviewDecision": "statement_level_question_sets",
+    "questionSetReviewDecision": "choiceQuestionSetIds",
     "questionSetReviewNotes": "保安規程とガス主任技術者の混在問題として、選択肢単位でactiveカテゴリへ分解する。",
     "sourceQuestionKey": "gas-shunin:otsu:2019:law:q03",
     "reviewQuestionId": "4856a499be9b1f1b",
-    "sourceRecordRef": "question_2019_1.json#2"
+    "sourceRecordRef": "question_2019_1.json#2",
+    "questionSetReviewNote": "Official-PDF semantic audit: preserve the reviewed per-choice learning units."
   },
   {
     "original_question_id": "d1beaae5844b919a",
@@ -183,11 +184,11 @@
     "category": "法令",
     "questionSetName": "",
     "choiceQuestionSetIds": [
-      "chiefgasengineerlicense-B-1760",
-      "chiefgasengineerlicense-B-1760",
-      "chiefgasengineerlicense-B-1760",
-      "chiefgasengineerlicense-B-1980",
-      "chiefgasengineerlicense-B-1550"
+      "chiefgasengineerlicense-B-1500",
+      "chiefgasengineerlicense-B-1500",
+      "chiefgasengineerlicense-B-1500",
+      "chiefgasengineerlicense-B-1500",
+      "chiefgasengineerlicense-B-1500"
     ],
     "choiceQuestionSetNames": [
       "製造設備の保安及び防災（乙種）",
@@ -197,11 +198,12 @@
       "技省令_整圧器（乙種）"
     ],
     "questionSetIdResolution": "choiceQuestionSetIds",
-    "questionSetReviewDecision": "statement_level_active_fallback_question_sets",
+    "questionSetReviewDecision": "choiceQuestionSetIds",
     "questionSetReviewNotes": "技省令_構造等・技省令_総則・ガスホルダーの構造の削除済み細分類へ戻さず、構造基準の対象を製造設備の保安及び防災、ガス栓、整圧器へ選択肢単位で分解する。",
     "sourceQuestionKey": "gas-shunin:otsu:2019:law:q06",
     "reviewQuestionId": "1ef21b387df4db0f",
-    "sourceRecordRef": "question_2019_1.json#5"
+    "sourceRecordRef": "question_2019_1.json#5",
+    "questionSetReviewNote": "Official-PDF semantic audit: preserve the reviewed per-choice learning units."
   },
   {
     "original_question_id": "d4b602d1f24df3e7",
@@ -299,11 +301,12 @@
       "製造設備の保安及び防災（乙種）"
     ],
     "questionSetIdResolution": "choiceQuestionSetIds",
-    "questionSetReviewDecision": "statement_level_active_fallback_question_sets",
+    "questionSetReviewDecision": "choiceQuestionSetIds",
     "questionSetReviewNotes": "chiefgasengineerlicense-B-1370（技省令_ガスホルダー及び液化ガス用貯槽）は削除済みのため戻さず、choice2は安全弁、その他は製造設備の保安及び防災へ選択肢単位で設定する。",
     "sourceQuestionKey": "gas-shunin:otsu:2019:law:q09",
     "reviewQuestionId": "8eaf275c35521cab",
-    "sourceRecordRef": "question_2019_1.json#8"
+    "sourceRecordRef": "question_2019_1.json#8",
+    "questionSetReviewNote": "Official-PDF semantic audit: preserve the reviewed per-choice learning units."
   },
   {
     "original_question_id": "be16e16dc9ec58c3",
@@ -321,7 +324,7 @@
       "ガスの使用者との取引のために使用するガスメーター(使用最大流量が16m³/h以下、使用最大圧力が4kPa以下及び口径250mm以下のものに限る。)は、ガスが流入している状態において、\n災害の発生のおそれ\nのある大きさの地震動、過大なガスの流量又は異常なガス圧力の上昇を検知した場合にガスを速やかに遮断する機能を有するものでなければならない。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "questionSetId": "chiefgasengineerlicense-B-1130",
+    "questionSetId": "chiefgasengineerlicense-B-1980",
     "category": "法令",
     "questionSetName": "",
     "choiceQuestionSetIds": [
@@ -339,11 +342,12 @@
       "ガスメーター（乙種）"
     ],
     "questionSetIdResolution": "choiceQuestionSetIds",
-    "questionSetReviewDecision": "statement_level_active_question_sets",
+    "questionSetReviewDecision": "choiceQuestionSetIds",
     "questionSetReviewNotes": "ガス栓、水取り器、導管防護、遮断装置、ガスメーターにまたがるためproblem-levelは空欄維持し、選択肢単位のactiveカテゴリへ分解する。",
     "sourceQuestionKey": "gas-shunin:otsu:2019:law:q10",
     "reviewQuestionId": "be16e16dc9ec58c3",
-    "sourceRecordRef": "question_2019_1.json#9"
+    "sourceRecordRef": "question_2019_1.json#9",
+    "questionSetReviewNote": "Official-PDF semantic audit: preserve the reviewed per-choice learning units."
   },
   {
     "original_question_id": "b6721f13d1ac771d",

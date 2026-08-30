@@ -146,6 +146,7 @@ def update_catalog_record(target: dict[str, Any], source: dict[str, Any], path: 
         "answers": ("correctChoiceText",),
         "explanations": ("explanationText",),
         "questionSetId": ("questionSetId",),
+        "choiceQuestionSetIds": ("choiceQuestionSetIds", "questionSetIds"),
         "questionType": ("questionType",),
     }
     for dest, candidates in field_names.items():
@@ -332,6 +333,7 @@ def source_rows(catalog: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
         choices = list_value(item.get("choices"))
         answers = list_value(item.get("answers"))
         explanations = list_value(item.get("explanations"))
+        choice_question_set_ids = list_value(item.get("choiceQuestionSetIds"))
         if not choices:
             continue
         for index, choice in enumerate(choices):
@@ -347,7 +349,12 @@ def source_rows(catalog: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
                     "explanation": explanations[index] if index < len(explanations) else (
                         explanations[0] if len(explanations) == 1 else None
                     ),
-                    "questionSetId": item.get("questionSetId"),
+                    "questionSetId": (
+                        choice_question_set_ids[index]
+                        if index < len(choice_question_set_ids)
+                        and str(choice_question_set_ids[index] or "").strip()
+                        else item.get("questionSetId")
+                    ),
                     "questionType": item.get("questionType"),
                     "choiceIndex": index + 1,
                     "evidence": item.get("fieldEvidence", {}),
