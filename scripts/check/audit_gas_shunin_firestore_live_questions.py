@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import difflib
+import hashlib
 import json
 import re
 import unicodedata
@@ -490,9 +491,13 @@ def schema_issues(question: dict[str, Any]) -> list[str]:
 
 
 def duplicate_map(questions: list[dict[str, Any]]) -> dict[str, list[str]]:
-    groups: dict[tuple[int, str], list[str]] = defaultdict(list)
+    groups: dict[tuple[int, str, str], list[str]] = defaultdict(list)
     for question in questions:
-        key = (int(question.get("examYear") or 0), normalize(question.get("questionText")))
+        key = (
+            int(question.get("examYear") or 0),
+            normalize(question.get("questionText")),
+            normalize_choice(question.get("originalQuestionChoiceText")),
+        )
         groups[key].append(str(question["questionId"]))
     result: dict[str, list[str]] = {}
     for ids in groups.values():
@@ -500,6 +505,60 @@ def duplicate_map(questions: list[dict[str, Any]]) -> dict[str, list[str]]:
             for question_id in ids:
                 result[question_id] = sorted(ids)
     return result
+
+
+OFFICIAL_VERIFICATION_FIELDS = (
+    "questionText",
+    "originalQuestionBodyText",
+    "questionBodyText",
+    "originalQuestionChoiceText",
+    "correctChoiceText",
+    "explanationText",
+    "questionSetId",
+    "questionType",
+    "examYear",
+)
+
+
+def official_content_hash(question: dict[str, Any]) -> str:
+    payload = {field: question.get(field) for field in OFFICIAL_VERIFICATION_FIELDS}
+    encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+
+
+def load_official_verifications(path: Path | None) -> dict[str, dict[str, Any]]:
+    if path is None:
+        return {}
+    payload = read_json(path)
+    values = payload.get("decisions", []) if isinstance(payload, dict) else payload
+    return {
+        str(item["questionId"]): item
+        for item in values
+        if isinstance(item, dict) and item.get("questionId")
+    }
+
+
+def official_verified_source(
+    question: dict[str, Any], verifications: dict[str, dict[str, Any]]
+) -> dict[str, Any] | None:
+    question_id = str(question.get("questionId") or "")
+    decision = verifications.get(question_id)
+    if not decision or decision.get("verificationStatus") != "official_pdf_verified":
+        return None
+    if decision.get("verifiedContentSha256") != official_content_hash(question):
+        return None
+    return {
+        "sourceKey": f"official-pdf:{question_id}",
+        "choiceIndex": question.get("choiceNumber"),
+        "body": question.get("originalQuestionBodyText") or question.get("questionBodyText"),
+        "choice": question.get("originalQuestionChoiceText"),
+        "answer": question.get("correctChoiceText"),
+        "explanation": question.get("explanationText"),
+        "questionSetId": question.get("questionSetId"),
+        "questionType": question.get("questionType"),
+        "evidence": decision.get("officialEvidence"),
+        "manualReviewLine": None,
+    }
 
 
 def content_status(issues: list[str], mapped: bool) -> str:
@@ -519,7 +578,11 @@ def content_status(issues: list[str], mapped: bool) -> str:
     return "pass" if mapped else "needs_review"
 
 
-def audit_grade(grade_key: str, live_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def audit_grade(
+    grade_key: str,
+    live_path: Path,
+    official_verifications: dict[str, dict[str, Any]] | None = None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     grade, qualification = QUALIFICATIONS[grade_key]
     catalog = load_source_catalog(qualification)
     source = source_rows(catalog)
@@ -530,6 +593,10 @@ def audit_grade(grade_key: str, live_path: Path) -> tuple[list[dict[str, Any]], 
     for question in sorted(questions, key=lambda item: str(item.get("questionId") or "")):
         question_id = str(question.get("questionId") or "")
         matched, method = match_source(question, indexes)
+        if matched is None:
+            matched = official_verified_source(question, official_verifications or {})
+            if matched is not None:
+                method = "official_pdf_individual_verification"
         content_issues = identity_issues(question, matched) + explanation_issues(question)
         live_answer = canonical_verdict(question.get("correctChoiceText"))
         source_verdict = canonical_verdict(matched.get("answer")) if matched else None
@@ -645,6 +712,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--otsu-live", type=Path, required=True)
     parser.add_argument("--ledger", type=Path, required=True)
     parser.add_argument("--summary", type=Path, required=True)
+    parser.add_argument("--official-verification-ledger", type=Path, default=None)
     return parser.parse_args()
 
 
@@ -652,8 +720,9 @@ def main() -> int:
     args = parse_args()
     all_rows: list[dict[str, Any]] = []
     summaries: dict[str, Any] = {}
+    official_verifications = load_official_verifications(args.official_verification_ledger)
     for key, path in (("kou", args.kou_live), ("otsu", args.otsu_live)):
-        rows, summary = audit_grade(key, path)
+        rows, summary = audit_grade(key, path, official_verifications)
         all_rows.extend(rows)
         summaries[key] = summary
 

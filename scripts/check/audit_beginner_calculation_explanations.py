@@ -24,7 +24,7 @@ from audit_calculation_explanations import (
 FORMULA_INTRO_RE = re.compile(
     r"(公式|計算式|使う式|用いる式|関係式|定義|求め方|"
     r"求める式|算出式|で求め|で算出|で計算|で表され|"
-    r"(?:は|を|で)\s*(?:次の|以下の)?式|=|＝|≤|≦|/|／|÷|×)"
+    r"(?:は|を|で)\s*(?:次の|以下の)?式|=|＝|≤|≦|/|／|÷|×|→)"
 )
 SUBSTITUTION_RE = re.compile(
     r"(代入|"
@@ -47,6 +47,10 @@ UNIT_RE = re.compile(
     r"%|％|ppm|ppb|mol|Pa|kPa|MPa|W|kW|MW|J|kJ|MJ|kWh|"
     r"dB|℃|K|m/s|cm/s|m/min|cm/min|km/h|mm|cm|m|km|ha|m2|m²|"
     r"日|時間|分|秒|円|人|点|Torr|mEq|mEq/L|mOsm|mOsm/kg)"
+)
+DIMENSIONLESS_RE = re.compile(
+    r"(空気比|λ\s*(?:=|＝|≒)|レイノルズ数|熱流束.*比|Q[₂2]?\s*/\s*Q[₁1]?|"
+    r"流量.*\d+(?:\.\d+)?Q|比なので単位|無次元)"
 )
 ANSWER_REASON_RE = re.compile(
     r"(答え|解答|正答|正解|正しい|不正解|間違い|誤り|選択肢|したがって|よって|以上より|以上から|"
@@ -82,6 +86,7 @@ def beginner_flags(explanation: str) -> dict[str, bool]:
         "hasStepMarker": bool(STEP_MARKER_RE.search(explanation)),
         "hasUnit": bool(
             UNIT_RE.search(explanation)
+            or DIMENSIONLESS_RE.search(explanation)
             or re.search(r"単位はない|単位なし|比なので単位|リスク比|オッズ比|尤度比|符号語|ビット|mod\s*2", explanation)
         ),
         "hasAnswerReason": bool(ANSWER_REASON_RE.search(explanation)),

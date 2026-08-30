@@ -75,3 +75,58 @@ def test_basic_explanation_prefix_follows_current_prompt() -> None:
     }
 
     assert audit.explanation_issues(question) == ["explanation_prefix_mismatch"]
+
+
+def test_group_choice_same_stem_different_choices_are_not_duplicates() -> None:
+    questions = [
+        {
+            "questionId": "q6-s3",
+            "examYear": 2018,
+            "questionText": "技術基準に関する問題",
+            "originalQuestionChoiceText": "溶接施工方法を確認する。",
+        },
+        {
+            "questionId": "q7-s5",
+            "examYear": 2018,
+            "questionText": "技術基準に関する問題",
+            "originalQuestionChoiceText": "逆流を防止する。",
+        },
+    ]
+
+    assert audit.duplicate_map(questions) == {}
+
+
+def test_official_verification_requires_exact_content_hash() -> None:
+    question = {
+        "questionId": "verified-question",
+        "examYear": 2022,
+        "questionText": "問題[quote]肢[/quote]",
+        "originalQuestionBodyText": "問題",
+        "questionBodyText": "問題",
+        "originalQuestionChoiceText": "肢",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。理由。",
+        "questionSetId": "set-1",
+        "questionType": "true_false",
+    }
+    verification = {
+        "verified-question": {
+            "questionId": "verified-question",
+            "verificationStatus": "official_pdf_verified",
+            "verifiedContentSha256": audit.official_content_hash(question),
+            "officialEvidence": {"pdfPage": 1},
+        }
+    }
+
+    assert audit.official_verified_source(question, verification) is not None
+    question["originalQuestionChoiceText"] = "変更された肢"
+    assert audit.official_verified_source(question, verification) is None
+
+
+def test_air_ratio_lambda_is_accepted_as_dimensionless_result() -> None:
+    explanation = (
+        "湿り燃焼ガス総量は10λ+1、過剰酸素は2(λ-1)である。"
+        "2(λ-1)/(10λ+1)=0.05を解くとλ≒1.37となるため正しい。"
+    )
+
+    assert audit.beginner_flags(explanation)["hasUnit"] is True
