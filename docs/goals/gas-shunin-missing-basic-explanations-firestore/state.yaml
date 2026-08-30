@@ -1131,14 +1131,87 @@ tasks:
       - "公式問題PDF又は正答PDFとの対応が一意でない。"
       - "Firestore active display countが4,326件から変動する。"
 
+  - id: T031
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "既存ユーザーへ影響を与えない可逆手順で、不正なquestionSetRef 1,424件だけを削除し、既にfieldがない2,902件は無変更のまま全4,326件を現行契約へ収束させる。"
+    constraints:
+      - "ユーザーがFirestore修正を明示承認済み。"
+      - "questionSetIdを親問題セット参照の正本として維持する。"
+      - "不正参照末尾IDとquestionSetIdが一致し、参照先questionSetが存在するdocumentだけを対象にする。"
+      - "書込みfieldはquestionSetRefの削除だけとし、updatedAtを含む他fieldを更新しない。"
+      - "既にquestionSetRefがない2,902件には書き込まない。"
+      - "questions以外、questionUserStats、回答履歴、問題内容、正答、解説、件数fieldを変更しない。"
+      - "全対象の旧referenceValueとupdateTimeを復旧証跡へ保存する。"
+      - "ローカルはquestionSetIdを正本とし、現在利用する派生JSONからquestionSetRefを除去する。"
+      - "00_source、firestore_snapshot、old配下は取得・履歴証跡として変更しない。"
+      - "サブエージェントを使わずPMだけで実行する。"
+    allowed_files:
+      - scripts/fix/reconcile_gas_shunin_question_set_refs.py
+      - tests/scripts/fix/test_reconcile_gas_shunin_question_set_refs.py
+      - "output/gas-shunin-kou/questions_json/**"
+      - "output/gas-shunin-otsu/questions_json/**"
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T031-*"
+      - docs/goals/gas-shunin-missing-basic-explanations-firestore/state.yaml
+    verify:
+      - "plan targets=1,424、already omitted=2,902、ID mismatch=0、missing parent=0"
+      - "各writeはplan記載updateTimeのprecondition付きでquestionSetRefだけをdeleteする"
+      - "apply errors=0、readback questionSetRef absent=4,326"
+      - "questionSetId及びquestionSetRef以外の全fieldが更新前後で一致する"
+      - "ローカル現行派生JSON 32ファイルのquestionSetRef 1,552箇所を除去し、questionSetId及び他fieldが一致する"
+      - "00_source、firestore_snapshot、old配下のhashが作業前後で一致する"
+      - "active display count=4,326、folder mismatch=0、questionSet mismatch=0"
+      - "focused migration tests and GoalBuddy checker pass"
+    stop_if:
+      - "Firestore active display countが4,326件から変動する。"
+      - "不正参照末尾IDとquestionSetIdが一件でも不一致。"
+      - "参照先questionSetが一件でも存在しない。"
+      - "plan作成後に対象documentのupdateTime又は保護fieldが変化する。"
+      - "questionSetRef以外のfield変更が必要になる。"
+    receipt:
+      result: done
+      summary: "Firestoreの不正なquestionSetRef 1,424件だけをupdateTime前提条件付きで削除し、元からfieldがない2,902件には書き込まなかった。全4,326件でquestionSetIdと参照先問題セットが有効であること、問題本文・正答・解説を含む他field、問題セット、フォルダ、表示件数が更新前後で一致することを確認した。ローカルの現行派生JSON 32ファイルから1,552箇所を除去し、00_source・取得snapshot・oldの3,077ファイルは作業前後hash一致を確認した。"
+      notes:
+        - notes/T031-question-set-ref-plan.json
+        - notes/T031-local-apply-receipt.json
+        - notes/T031-firestore-apply-receipt.json
+        - notes/T031-post-verification-receipt.json
+      verification:
+        firestore_target_writes: 1424
+        originally_omitted_no_write: 2902
+        active_question_set_ref_after: 0
+        active_display_questions_after: 4326
+        protected_question_field_mismatches: 0
+        question_set_and_folder_mismatches: 0
+        local_files_changed: 32
+        local_references_removed: 1552
+        protected_local_files_unchanged: 3077
+        user_data_collection_writes: 0
+      commands:
+        - cmd: "reconcile_gas_shunin_question_set_refs.py verify-post"
+          status: pass
+        - cmd: "pytest focused migration, duplicate/count, and documentation tests"
+          status: pass
+        - cmd: "repaso flutter test test/firestore"
+          status: pass
+        - cmd: "repaso npm run check:firestore-semantic-contracts"
+          status: pass
+      firestore_writes: 1424
+      full_outcome_complete: false
+      spawned_tasks:
+        - T030
+
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
   last_verification:
     result: pass
-    task: T022
+    task: T031
     commands:
-      - "Firestore display target: 4,973 questions"
-      - "Second live readback: added 0, removed 0, changed 0"
-      - "Ledger rows: 4,973"
-      - "Canonical answer matches: 4,830; mismatches: 3; unverified: 140"
-      - "Audit script tests: 3 passed"
+      - "Firestore questionSetRef target write 1,424; originally omitted no-write 2,902"
+      - "Post readback active questionSetRef 0; protected question-field mismatch 0"
+      - "Active display 4,326; questionSet/folder mismatch 0"
+      - "Local current-derived 32 files and 1,552 references reconciled"
+      - "Protected local 3,077 files unchanged by SHA-256 tree manifest"
+      - "Repaso Firestore tests 221 passed; exam_scraper focused tests 25 passed"
