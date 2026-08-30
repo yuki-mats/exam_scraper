@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "gas-shunin-official-pdf-question-audit/v1",
+  "generatedAt": "2026-08-30T01:59:49Z",
+  "qualificationId": "gas-shunin-otsu",
+  "examYear": 2020,
+  "section": "ガス技術・消費",
+  "questionNumber": 21,
+  "decision": "no_change",
+  "siteEvidenceUsed": false,
+  "questionEvidence": {
+    "path": "output/pdf/gas-shunin-official/2020/q_otsu_r2.pdf",
+    "sha256": "90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82",
+    "bytes": 3225407,
+    "pages": 28,
+    "pdfPage": 26,
+    "bookletPage": 25,
+    "visualInspection": "ガス技術・消費の問21について、問題文と第1から第5記述を目視確認した。"
+  },
+  "answerEvidence": {
+    "path": "output/pdf/gas-shunin-official/2020/a_otsu_r2.pdf",
+    "sha256": "5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d",
+    "bytes": 70323,
+    "pages": 1,
+    "pdfPage": 1,
+    "answerTable": "ガス技術・消費",
+    "officialAnswerNumber": 2,
+    "visualInspection": "消費の問21の正解欄が2であることを目視確認した。"
+  },
+  "firestoreReadbackAt": "2026-08-30T01:59:49Z",
+  "firestoreProjectId": "repaso-rbaqy4",
+  "records": [
+    {
+      "questionId": "gas-shunin-otsu-2020-shohi-q21-s01",
+      "choiceNumber": 1,
+      "officialChoiceText": "Q機能を搭載した瞬間湯沸器では、冷水サンドイッチ現象を緩和し、安定した湯温を得ることができる。",
+      "expectedCorrectChoiceText": "正しい",
+      "questionTextMatch": true,
+      "answerMatch": true,
+      "explanationPrefixMatch": true
+    },
+    {
+      "questionId": "gas-shunin-otsu-2020-shohi-q21-s02",
+      "choiceNumber": 2,
+      "officialChoiceText": "瞬間湯沸器のメインバーナーには、炎が短く燃焼室を小さくできるセミ・ブンゼンバーナーが一般に用いられる。",
+      "expectedCorrectChoiceText": "間違い",
+      "questionTextMatch": true,
+      "answerMatch": true,
+      "explanationPrefixMatch": true
+    },
+    {
+      "questionId": "gas-shunin-otsu-2020-shohi-q21-s03",
+      "choiceNumber": 3,
+      "officialChoiceText": "ふろ給湯器の設置方式には、浴室隣接設置形と設置フリー形とがある。",
+      "expectedCorrectChoiceText": "正しい",
+      "questionTextMatch": true,
+      "answerMatch": true,
+      "explanationPrefixMatch": true
+    },
+    {
+      "questionId": "gas-shunin-otsu-2020-shohi-q21-s04",
+      "choiceNumber": 4,
+      "officialChoiceText": "ハイブリッド給湯器は、電気ヒートポンプと潜熱回収型ガス給湯器で必要なお湯の量に合わせて効率的に運転を行うシステムである。",
+      "expectedCorrectChoiceText": "正しい",
+      "questionTextMatch": true,
+      "answerMatch": true,
+      "explanationPrefixMatch": true
+    },
+    {
+      "questionId": "gas-shunin-otsu-2020-shohi-q21-s05",
+      "choiceNumber": 5,
+      "officialChoiceText": "エコーネットライトは、HEMSとガス機器（燃料電池等）との接続に利用できる標準通信仕様である。",
+      "expectedCorrectChoiceText": "正しい",
+      "questionTextMatch": true,
+      "answerMatch": true,
+      "explanationPrefixMatch": true
+    }
+  ],
+  "summary": {
+    "canonicalRecordCount": 5,
+    "questionTextMatchCount": 5,
+    "answerMatchCount": 5,
+    "explanationPrefixMatchCount": 5,
+    "firestoreWriteCount": 0,
+    "holdCount": 0
+  },
+  "conclusion": "公式問題PDFと公式正答PDFの両方で再監査した結果、Firestoreのcanonical 5件は問題文、選択肢、記述別正誤、解説の正誤接頭辞が一致した。掲載サイト由来の根拠は採用せず、Firestoreの追加修正は行っていない。"
+}

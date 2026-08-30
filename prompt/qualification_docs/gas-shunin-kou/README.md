@@ -11,4 +11,6 @@
 
 - `03_prompt_add_explanationText.md`を共通の正本とする。
 - `explanation_choice_snippets` の `📌 関連:` は条文候補であり、最終的な `lawReferences.verificationStatus="verified"` にする前に e-Gov XML または官公庁一次情報で照合する。
+- 問題文・選択肢・公式正答は、同年度甲種のJIA公式問題PDFと公式正答PDFを一問ずつ目視して確定する。PDFページ、冊子ページ、科目、問番号、正答番号を作業証跡へ残す。
+- 掲載サイト、既存`00_source`、類題、既存解説だけで本文・選択肢・正答を確定しない。公式PDFを確認できない問題は`hold`にする。
 - 甲種でも法令問題は現行法と出題当時法令を突き合わせる。現行法で正誤が明らかに変わる場合は現行法ベースへ更新し、更新済み注記、出題当時正答との差分、`current_basis` / `exam_time_basis`、review sidecar を残す。

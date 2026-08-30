@@ -2,6 +2,17 @@
 
 この文書は、`scrape_gassyunin.py`が`gassyunin.com`から取得する本文・選択肢のsite固有契約です。共通scrape規則は[スクレイピングworkflow](../../operations/scraping_workflow.md)を参照してください。
 
+> [!IMPORTANT]
+> `gassyunin.com`は既存`00_source`の取得経路を説明するためだけに残す。問題整備、矛盾監査、正答修正、解説作成、Firestore修正では同サイトを閲覧せず、問題文・選択肢・正答の根拠にも使わない。これらは[JIA公式PDFアーカイブ](official_exam_pdf_archive.md)にある検証済みの問題PDFと正答PDFを必ず照合して確定する。
+
+## 根拠としての境界
+
+- このsiteから取得した本文、選択肢、`judge`欄、`正解: (n)`は、取得時点のsnapshotであり、公式性又は正確性の証明ではない。
+- 公式過去問の問題文・選択肢を確定する前に、同年度・同種別の公式問題PDFを目視し、PDFページ、冊子ページ、科目、問番号を記録する。
+- 公式正答を確定する前に、同年度・同種別の公式正答PDFを目視し、科目、問番号、正答番号を記録する。
+- 問題PDF又は正答PDFのいずれかを検証できない場合は、site表示から補完せず`hold`にする。
+- 解説では技術資料や法令を補助根拠に使えるが、元の問題文・選択肢・公式正答を決める根拠の代わりにはしない。
+
 ## 正本領域
 
 選択肢系fieldは、問題形式に応じて詳細内の`各選択肢の判定`又は問題直下の明示的な数値選択肢をsourceとして取得します。
@@ -29,7 +40,7 @@
 
 `正解: (n)`から`answer_result_text`と`answer_result_inferred_correct_choice_numbers`を作り、番号を独自にリマップしません。
 
-組合せ問題の`正解: (n)`は、取得元に表示された元の組合せ肢番号を指します。`choiceMarkerSource=judge`、`markerAlignmentMode=judge_only`、`markerMismatchDetected=false`で、`judgeChoiceMarkers`、`choiceTextList`、`correctChoiceText`、`sourceStatementCount`の件数が一致する場合は、`各選択肢の判定`の`correctChoiceText`をsourceの問題文と各選択肢から作る完全な命題に対する最終正誤とします。この場合、元の組合せ肢番号を各記述のindexと比較しません。問題整備工程で現在の本文・選択肢がsourceと完全一致する場合は、この配列を否定語又は`questionIntent`で再反転しません。本文又は選択肢が変わっている場合は配列を直接使わず、現在の完全な命題を独立に判定します。これらの監査field又は件数が一致しない場合は、推測で補正せずmapping未確認として停止します。
+組合せ問題の`正解: (n)`は、取得元に表示された元の組合せ肢番号を指します。`choiceMarkerSource`、`markerAlignmentMode`、`judgeChoiceMarkers`、`correctChoiceText`などは、取得内容を失わずに保存し、公式PDFとの差を検出するための監査fieldです。これらの件数が一致しても最終正誤とはみなしません。公式問題PDF上の記述と組合せ肢、公式正答PDF上の正答番号を照合し、その対応から各記述の正誤を確定します。対応を一意に確定できない場合は、推測で補正せず停止します。
 
 ### 数値選択肢
 
@@ -79,6 +90,6 @@ python3 scripts/check/check_00_source_immutability.py --record-new
 - `markerMismatchDetected=true`が増加する。
 - 判定セクション自体が欠ける問題が増加する。
 
-このいずれかが起きた場合は、公式PDFとのspot checkを行い、本契約とparser testを同時に更新します。
+このいずれかが起きた場合は、公式PDFとの全対象照合を行い、本契約とparser testを同時に更新します。通常の問題整備でも、spot checkだけで確定せず、対象の各問について問題PDFと正答PDFを確認します。
 
 公式PDFは[JIA公式PDFアーカイブ](official_exam_pdf_archive.md)のcatalogから選び、ローカル保存済みの問題・論述問題・正答を使います。保存済みPDFがある年度について、JIA公式一覧又はInternet Archiveを問題ごとに検索し直しません。
