@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "goalbuddy-judge-receipt/v1",
+  "taskId": "T022",
+  "decision": "needs_rework",
+  "fullOutcomeComplete": false,
+  "auditedQuestionCount": 4973,
+  "kouQuestionCount": 2221,
+  "otsuQuestionCount": 2752,
+  "contentPassCount": 4233,
+  "contentNeedsFixCount": 609,
+  "contentSourceUnverifiedCount": 140,
+  "overallPassCount": 1979,
+  "overallNeedsFixCount": 2279,
+  "overallNeedsReviewCount": 715,
+  "definiteCoreContradictionCount": 7,
+  "previousDecision": {
+    "taskId": "T998",
+    "decision": "complete",
+    "status": "superseded",
+    "reason": "T998 only rechecked the former 782-question repair ledger and did not independently bind every displayed questionText to the original statement. It also did not apply the current basic-explanation prefix, calculation-derivation, duplicate, and Firestore schema checks."
+  },
+  "firestoreWriteCount": 0,
+  "evidence": [
+    "notes/T021-live-question-audit.jsonl",
+    "notes/T021-live-question-audit-summary.json",
+    "notes/T021-live-full-audit-receipt.json"
+  ],
+  "nextAction": "Create a separately approved repair tranche for the seven core contradictions first, then the 603 explanation-prefix violations, four calculation derivation gaps, duplicates and schema/category drift."
+}

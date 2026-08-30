@@ -4,7 +4,7 @@ goal:
   title: "ガス主任技術者 基本解説欠落の全件整備とFirestore反映"
   slug: "gas-shunin-missing-basic-explanations-firestore"
   kind: specific
-  tranche: "欠落全件を一問ずつ整備し、Firestore反映とライブ確認まで連続実行する"
+  tranche: "Firestore表示対象の全問題を一問ずつ再監査し、旧782問完了判定の盲点を是正する"
   status: done
   oracle:
     signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
@@ -803,14 +803,78 @@ tasks:
       next_task: null
       note: notes/T998-recovery-final-audit.json
 
+  - id: T021
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "甲種・乙種のFirestore表示対象を全件取得し、問題文・選択肢・正答・解説・出典・重複・公開メタデータを一問ずつ読み取り専用で再監査する。"
+    inputs:
+      - "Firestore live questions under gas-shunin A/B folders"
+      - "01-04 manual review, current 21/23/24 patches and official evidence"
+      - "previous 782-question recovery ledger and upload readback"
+    constraints:
+      - "Read-only. Firestoreと問題データを変更しない。"
+      - "isDeleted=falseかつisChoiceOnly=falseを表示対象とする。"
+      - "旧782問のcomplete判定を証拠として流用せず、現在値から再判定する。"
+      - "サブエージェントを使わずPMだけで実行する。"
+      - "機械照合で意味の正しさを決めず、確定・要修正・要人手確認を分ける。"
+    expected_output:
+      - "全表示対象の一問別監査台帳"
+      - "甲種・乙種別の合格、要修正、要人手確認件数"
+      - "明確な矛盾IDと根拠"
+      - "法令・計算・解説書式・重複・件数メタデータの検査結果"
+      - "Firestore変更なしの監査receipt"
+    receipt:
+      result: done
+      summary: "Firestore表示対象4,973問（甲2,221、乙2,752）を一問一行の台帳に固定し、現行正本1,050原問へ4,833問を対応させた。正答不一致3問、問題identity混在3問、true/false記述欠落1問の計7問を中核矛盾として確定した。解説接頭辞違反603問、計算導出不足4問、正本未対応140問、重複超過535問、questionSetRef不正2,068問も分離集計した。Firestore書込みは0。"
+      changed_files:
+        - scripts/check/audit_gas_shunin_firestore_live_questions.py
+        - tests/scripts/check/test_audit_gas_shunin_firestore_live_questions.py
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T021-live-question-audit.jsonl
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T021-live-question-audit-summary.json
+        - docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T021-live-full-audit-receipt.json
+      commands:
+        - cmd: "Firestore live export twice and exact comparison"
+          status: pass
+        - cmd: "one-row-per-question audit: 4,973 rows"
+          status: pass
+        - cmd: "audit script tests: 3 passed"
+          status: pass
+      note: notes/T021-live-full-audit-receipt.json
+
+  - id: T022
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "T021の全件台帳と検査結果を独立に集計し、整備済みと言える範囲と修正が必要な範囲を最終判定する。"
+    constraints:
+      - "Read-only. 修正・アップロードは別承認まで行わない。"
+      - "明確な証拠がない問題を合格扱いしない。"
+      - "サブエージェントを使わずPMだけで実行する。"
+    expected_output:
+      - "pass | needs_rework"
+      - "監査母数と甲乙別判定"
+      - "修正対象・保留対象の完全なID一覧へのlocator"
+      - "旧T998判定を維持又は無効化する根拠"
+    receipt:
+      result: done
+      decision: needs_rework
+      full_outcome_complete: false
+      summary: "全4,973問の内容監査は合格4,233、要修正609、正本未対応140。Firestore schemaと重複・分類確認を含む総合判定は合格1,979、要修正2,279、要確認715であり、全問整備済みとは判定できない。旧T998は782問repair ledger内のfield一致を確認したにすぎず、表示問題と元問題の独立照合及び現行品質規則を欠いたため、今回の後続監査でcomplete判定を無効化する。"
+      firestore_write_count: 0
+      next_action: "別承認の修正trancheで中核矛盾7問を最優先に修正し、その後に解説603問、計算4問、重複・schema・分類driftを処理する。"
+      note: notes/T022-final-live-audit.json
+
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
   last_verification:
     result: pass
-    task: T998
+    task: T022
     commands:
-      - "固定782問live readback: ledger field mismatch 0"
-      - "甲種・乙種の表示対象explanation missing 0"
-      - "quote/original choice mismatch 0"
-      - "exact question opposite answer groups 0"
-      - "54 tests passed"
+      - "Firestore display target: 4,973 questions"
+      - "Second live readback: added 0, removed 0, changed 0"
+      - "Ledger rows: 4,973"
+      - "Canonical answer matches: 4,830; mismatches: 3; unverified: 140"
+      - "Audit script tests: 3 passed"

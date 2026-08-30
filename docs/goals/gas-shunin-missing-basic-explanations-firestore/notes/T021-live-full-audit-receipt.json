@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "gas-shunin-firestore-live-full-audit-receipt/v1",
+  "generatedAt": "2026-08-30T01:04:53Z",
+  "result": "done",
+  "scope": {
+    "filter": "isDeleted=false and isChoiceOnly=false",
+    "questionCount": 4973,
+    "kou": 2221,
+    "otsu": 2752,
+    "firestoreWriteCount": 0
+  },
+  "sourceCoverage": {
+    "canonicalOriginalQuestionCount": 1050,
+    "kouOriginalQuestionCount": 528,
+    "otsuOriginalQuestionCount": 522,
+    "matchedLiveQuestionCount": 4833,
+    "unverifiedLiveQuestionCount": 140,
+    "answerMatchCount": 4830,
+    "answerMismatchCount": 3
+  },
+  "contentAudit": {
+    "passCount": 4233,
+    "needsFixCount": 609,
+    "sourceUnverifiedCount": 140,
+    "definiteCoreContradictionCount": 7,
+    "definiteCoreQuestionIds": [
+      "chiefgasengineerlicense-C-10137",
+      "chiefgasengineerlicense-C-10259",
+      "chiefgasengineerlicense-C-10260",
+      "chiefgasengineerlicense-C-10261",
+      "gasushunin-otsushu-gizyutsu-2020-10-3",
+      "gasushunin-otsushu-gizyutsu-2020-13-3",
+      "gasushunin-otsushu-hourei-2021-5-2"
+    ],
+    "definiteCoreBreakdown": {
+      "wrongAnswerOrWrongSelectedOption": 3,
+      "displayedQuestionAndOriginalIdentityMixed": 3,
+      "trueFalseStatementMissingFromDisplay": 1
+    },
+    "explanationPrefixViolationCount": 603,
+    "explanationPrefixViolationByGrade": {
+      "kou": 368,
+      "otsu": 235
+    },
+    "calculationDerivationIncompleteCount": 4,
+    "calculationDerivationIncompleteQuestionIds": [
+      "gasushunin-otsushu-hourei-2021-10-3",
+      "gasushunin-otsushu-hourei-2021-10-5",
+      "gasushunin-otsushu-hourei-2021-13-2",
+      "gasushunin-otsushu-hourei-2021-13-5"
+    ]
+  },
+  "maintenanceAudit": {
+    "exactDuplicateGroupCount": 485,
+    "exactDuplicateExcessQuestionCount": 535,
+    "exactDuplicateExcessByGrade": {
+      "kou": 3,
+      "otsu": 532
+    },
+    "malformedQuestionSetRefCount": 2068,
+    "missingQuestionBodyTextCount": 693,
+    "questionSetClassificationReviewCandidateCount": 665,
+    "folderCountMismatchCount": 14,
+    "questionSetCountMismatchCount": 133
+  },
+  "lawAudit": {
+    "canonicalPublicationGate": {
+      "lawQuestionCount": 1289,
+      "mappedChoiceCount": 1289,
+      "issueCount": 0,
+      "status": "pass"
+    },
+    "liveCoverageCaveat": "The canonical publication gate covers the prepared upload subset, not every current legacy duplicate. The row ledger therefore leaves 140 live questions unverified instead of treating the gate as full live proof.",
+    "otsuReferenceChecker": {
+      "status": "not_runnable",
+      "reason": "The checker expects obsolete merged filename patterns and does not find the current 21_explanationText_added files."
+    }
+  },
+  "liveReadback": {
+    "firstSnapshot": {
+      "kou": "2026-08-30T00:37:48Z",
+      "otsu": "2026-08-30T00:38:02Z"
+    },
+    "secondSnapshot": {
+      "kou": "2026-08-30T01:04:36Z",
+      "otsu": "2026-08-30T01:04:53Z"
+    },
+    "addedQuestionCount": 0,
+    "removedQuestionCount": 0,
+    "changedQuestionCount": 0
+  },
+  "artifacts": {
+    "ledger": "notes/T021-live-question-audit.jsonl",
+    "ledgerRowCount": 4973,
+    "ledgerSha256": "30a202a0d1b6557004bc5e608ea25386c8ca8ba3c30c10edc80e135729190e97",
+    "summary": "notes/T021-live-question-audit-summary.json",
+    "summarySha256": "fe730357c162476863509de4cc11532ee1a5528e061e9b9e4c587d6a72a6c6d3"
+  },
+  "verification": [
+    "Firestore second readback: kou 2221, otsu 2752, changed 0",
+    "Ledger row count: 4973",
+    "Audit script unit tests: 3 passed",
+    "Python compilation: pass",
+    "git diff --check: pass"
+  ],
+  "conclusion": "The uploaded live questions are not fully maintained. The previous 782-question completion decision is superseded because it missed seven definite core contradictions and did not apply the current explanation-format and schema checks."
+}
