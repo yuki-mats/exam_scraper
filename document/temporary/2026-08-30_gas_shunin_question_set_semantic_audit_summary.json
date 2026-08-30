@@ -1,0 +1,52 @@
+{
+  "firestoreWrites": 0,
+  "generatedAt": "2026-08-30T09:19:53Z",
+  "gradeCounts": {
+    "乙種": {
+      "statuses": {
+        "move_to_existing_question_set": 46,
+        "retain_current": 90,
+        "taxonomy_change_required": 36
+      },
+      "target": 172
+    },
+    "甲種": {
+      "statuses": {
+        "move_to_existing_question_set": 106,
+        "retain_current": 146,
+        "taxonomy_change_required": 18
+      },
+      "target": 270
+    }
+  },
+  "mode": "read_only",
+  "officialQuestionIdentityCount": 129,
+  "questionPdfCount": 17,
+  "schemaVersion": "gas-shunin-question-set-semantic-audit/v1",
+  "sourcePolicy": "official question PDFs only; listing sites are not used",
+  "statusCounts": {
+    "move_to_existing_question_set": 152,
+    "retain_current": 236,
+    "taxonomy_change_required": 54
+  },
+  "targetCount": 442,
+  "taxonomyIssueCount": 54,
+  "taxonomyIssues": {
+    "『保安規定』は保安規程と保安業務規程を混在させた不正確な分野名": 5,
+    "『保安規定』は法令用語ではなく、『保安規程』問題セットと重複している": 13,
+    "『計装設備及び電気設備』と『電気設備及び計装設備』が同義の重複問題セット": 5,
+    "乙種taxonomyにインターロックの独立分野がない": 5,
+    "乙種taxonomyに保安電力の独立分野がない": 2,
+    "乙種taxonomyに圧力異常防止の独立分野がない": 1,
+    "乙種taxonomyに法令上の計測装置の独立分野がない": 4,
+    "乙種taxonomyに流出防止の独立分野がない": 1,
+    "乙種taxonomyに漏えい検査の独立分野がない": 3,
+    "乙種taxonomyに移動式設備の独立分野がない": 1,
+    "乙種taxonomyに貯槽・ホルダー共通の独立分野がない": 3,
+    "乙種taxonomyに逆流防止の独立分野がない": 1,
+    "乙種taxonomyに防護の独立分野がない": 4,
+    "安全回収の独立分野がないため製造防災へ収容": 1,
+    "既存taxonomyの境界説明が不足": 2,
+    "静電気の独立分野がないため製造防災へ収容": 3
+  }
+}
