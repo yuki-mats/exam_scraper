@@ -267,15 +267,86 @@ def normalize_question_count(value) -> int:
 
 
 def resolve_question_set_is_deleted(qset: dict) -> bool:
+    if normalize_question_count(qset.get("questionCount", 0)) <= 0:
+        return True
     if "isDeleted" in qset:
         return bool(qset.get("isDeleted"))
-    return normalize_question_count(qset.get("questionCount", 0)) <= 0
+    return False
 
 
 def resolve_folder_is_deleted(folder: dict) -> bool:
+    if normalize_question_count(folder.get("questionCount", 0)) <= 0:
+        return True
     if "isDeleted" in folder:
         return bool(folder.get("isDeleted"))
-    return normalize_question_count(folder.get("questionCount", 0)) <= 0
+    return False
+
+
+def empty_category_targets(data: dict) -> dict[str, list[dict]]:
+    """Return only zero-count folders/question sets that must be hidden."""
+
+    return {
+        "folders": [
+            item
+            for item in data.get("folders", [])
+            if isinstance(item, dict)
+            and normalize_question_count(item.get("questionCount", 0)) <= 0
+        ],
+        "questionSets": [
+            item
+            for item in data.get("questionSets", [])
+            if isinstance(item, dict)
+            and normalize_question_count(item.get("questionCount", 0)) <= 0
+        ],
+    }
+
+
+def hide_empty_categories(db, data: dict, now: datetime) -> dict[str, int]:
+    """Hide existing zero-count category docs without changing any other field."""
+
+    from firebase_admin import firestore
+
+    targets = empty_category_targets(data)
+    result = {"updated": 0, "skipped": 0, "errors": 0}
+    for collection_name, id_field in (
+        ("folders", "folderId"),
+        ("questionSets", "questionSetId"),
+    ):
+        for item in targets[collection_name]:
+            document_id = str(item.get(id_field) or "").strip()
+            if not document_id:
+                raise ValueError(f"{id_field} is required for empty-category hide")
+            doc_ref = db.collection(collection_name).document(document_id)
+            snapshot = doc_ref.get(field_paths=("questionCount", "isDeleted"))
+            if not snapshot.exists:
+                raise RuntimeError(
+                    f"限定更新では新規documentを作成できません: {collection_name}/{document_id}"
+                )
+            live = snapshot.to_dict() or {}
+            if normalize_question_count(live.get("questionCount", 0)) != 0:
+                raise RuntimeError(
+                    f"FirestoreのquestionCountが0ではありません: "
+                    f"{collection_name}/{document_id}={live.get('questionCount')}"
+                )
+            if live.get("isDeleted") is True:
+                result["skipped"] += 1
+                continue
+            update_time = getattr(snapshot, "update_time", None)
+            if update_time is None:
+                raise RuntimeError(
+                    f"Firestoreのupdate_timeを取得できません: {collection_name}/{document_id}"
+                )
+            doc_ref.update(
+                {
+                    "isDeleted": True,
+                    "updatedAt": now,
+                    "updatedById": UPDATED_BY_ID,
+                },
+                option=firestore.LastUpdateOption(update_time),
+            )
+            result["updated"] += 1
+            print(f"Hidden empty {collection_name}: {document_id}")
+    return result
 
 
 def delete_folders_and_question_sets(db, data):
@@ -422,6 +493,11 @@ def main():
     )
     parser.add_argument("--upload", action="store_true", help="実際に Firestore にアップロードする。指定しない場合は dry-run を行う")
     parser.add_argument("--delete", action="store_true", help="Firestoreからcategory.json記載のfolders/questionSetsを物理削除する")
+    parser.add_argument(
+        "--hide-empty-only",
+        action="store_true",
+        help="questionCount=0の既存folder/questionSetだけをisDeleted=trueへ限定更新する",
+    )
     parser.add_argument("--write-category", action="store_true", help="集計した questionCount を category.json に書き戻す（バックアップを作成）")
     parser.add_argument(
         "--credentials-json",
@@ -430,6 +506,9 @@ def main():
         help="Firebase service account JSON のパス。未指定時は GOOGLE_APPLICATION_CREDENTIALS を使う。",
     )
     args = parser.parse_args()
+
+    if args.delete and args.hide_empty_only:
+        parser.error("--delete と --hide-empty-only は同時に指定できません")
 
     # Init DB only when needed (avoid accidental network calls during dry-run)
     db = None
@@ -464,6 +543,29 @@ def main():
     if args.delete:
         delete_folders_and_question_sets(db, data)
         print("削除完了")
+        return
+
+    if args.hide_empty_only:
+        targets = empty_category_targets(data)
+        print(
+            "0問の非表示対象: "
+            f"folders={len(targets['folders'])} "
+            f"questionSets={len(targets['questionSets'])}"
+        )
+        if args.upload and db is not None:
+            result = hide_empty_categories(db, data, datetime.now())
+            print(
+                "限定更新完了: "
+                f"updated={result['updated']} skipped={result['skipped']} "
+                f"errors={result['errors']}"
+            )
+        else:
+            for collection_name, id_field in (
+                ("folders", "folderId"),
+                ("questionSets", "questionSetId"),
+            ):
+                for item in targets[collection_name]:
+                    print(f"[DRY RUN] {collection_name}/{item.get(id_field)}")
         return
 
 

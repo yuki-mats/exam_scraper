@@ -39,7 +39,7 @@ class UploadCategoryToFirestoreTests(unittest.TestCase):
 
         self.assertTrue(module.resolve_question_set_is_deleted(qset))
 
-    def test_explicit_is_deleted_false_is_preserved_for_empty_official_sets(self) -> None:
+    def test_explicit_is_deleted_false_is_overridden_for_empty_sets(self) -> None:
         qset = {
             "questionSetId": "set-official-empty",
             "name": "Official Empty Set",
@@ -47,7 +47,114 @@ class UploadCategoryToFirestoreTests(unittest.TestCase):
             "isDeleted": False,
         }
 
-        self.assertFalse(module.resolve_question_set_is_deleted(qset))
+        self.assertTrue(module.resolve_question_set_is_deleted(qset))
+
+    def test_empty_category_targets_include_only_zero_count_records(self) -> None:
+        actual = module.empty_category_targets(
+            {
+                "folders": [
+                    {"folderId": "f0", "questionCount": 0},
+                    {"folderId": "f1", "questionCount": 1},
+                ],
+                "questionSets": [
+                    {"questionSetId": "q0", "questionCount": 0},
+                    {"questionSetId": "q1", "questionCount": 2},
+                ],
+            }
+        )
+
+        self.assertEqual([item["folderId"] for item in actual["folders"]], ["f0"])
+        self.assertEqual(
+            [item["questionSetId"] for item in actual["questionSets"]], ["q0"]
+        )
+
+    def test_hide_empty_categories_updates_only_visibility_metadata(self) -> None:
+        class FakeSnapshot:
+            exists = True
+            update_time = datetime.now()
+
+            def to_dict(self):
+                return {"questionCount": 0, "isDeleted": False}
+
+        class FakeDocRef:
+            def __init__(self):
+                self.update_value = None
+
+            def get(self, field_paths=None):
+                self.field_paths = field_paths
+                return FakeSnapshot()
+
+            def update(self, value, option=None):
+                self.update_value = value
+                self.option = option
+
+        class FakeCollection:
+            def __init__(self, ref):
+                self.ref = ref
+
+            def document(self, document_id):
+                self.document_id = document_id
+                return self.ref
+
+        class FakeDb:
+            def __init__(self):
+                self.ref = FakeDocRef()
+                self.collection_name = None
+
+            def collection(self, name):
+                self.collection_name = name
+                return FakeCollection(self.ref)
+
+        db = FakeDb()
+        result = module.hide_empty_categories(
+            db,
+            {
+                "folders": [],
+                "questionSets": [
+                    {"questionSetId": "q0", "questionCount": 0}
+                ],
+            },
+            datetime(2026, 8, 31, 16, 0, 0),
+        )
+
+        self.assertEqual(result, {"updated": 1, "skipped": 0, "errors": 0})
+        self.assertEqual(db.collection_name, "questionSets")
+        self.assertEqual(
+            set(db.ref.update_value), {"isDeleted", "updatedAt", "updatedById"}
+        )
+        self.assertTrue(db.ref.update_value["isDeleted"])
+
+    def test_hide_empty_categories_stops_when_live_count_is_positive(self) -> None:
+        class FakeSnapshot:
+            exists = True
+            update_time = datetime.now()
+
+            def to_dict(self):
+                return {"questionCount": 1, "isDeleted": False}
+
+        class FakeDocRef:
+            def get(self, field_paths=None):
+                return FakeSnapshot()
+
+        class FakeDb:
+            class Collection:
+                def document(self, document_id):
+                    return FakeDocRef()
+
+            def collection(self, name):
+                return self.Collection()
+
+        with self.assertRaisesRegex(RuntimeError, "questionCountが0ではありません"):
+            module.hide_empty_categories(
+                FakeDb(),
+                {
+                    "folders": [],
+                    "questionSets": [
+                        {"questionSetId": "q0", "questionCount": 0}
+                    ],
+                },
+                datetime.now(),
+            )
 
     def test_mecnet_kokushi_license_name_matches_repaso_license_name(self) -> None:
         path = "output/mecnet-kokushi/category/category.json"

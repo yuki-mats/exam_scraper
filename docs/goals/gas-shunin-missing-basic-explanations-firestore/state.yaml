@@ -1441,15 +1441,40 @@ tasks:
       quality_gate: pass
       full_outcome_complete: true
 
+  - id: T036
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "ガス主任技術者のfolder・questionSet件数をFirestore実問題から再集計し、0問の項目を非表示にしてローカルcategoryと一致させる。"
+    constraints:
+      - "問題、問題数、名称、所属先、既存ID、利用者データを変更しない。"
+      - "0問の既存folder又はquestionSetのisDeletedだけを限定更新する。"
+      - "新規作成、物理削除を行わない。"
+    verify:
+      - "folder・questionSetの保存questionCountと表示対象実問題数の不一致が0である。"
+      - "0問のfolder・questionSetがすべてisDeleted=trueである。"
+      - "1問以上のquestionSetがisDeleted=trueになっていない。"
+      - "ローカルcategoryとFirestoreのquestionCount・isDeleted差分が0である。"
+    receipt:
+      path: docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T036-empty-category-visibility-receipt.json
+      result: done
+      updated_question_sets: 6
+      updated_folders: 0
+      visible_zero_question_sets: 0
+      count_mismatches: 0
+      local_live_differences: 0
+      full_outcome_complete: true
+
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
   last_verification:
     result: pass
-    task: T035
+    task: T036
     commands:
-      - "Official PDF evidence hashes pass: 36 PDFs and 1,044 official identities"
-      - "Canonical all-year local rebuild 18/18 years; current 25_verified_publication, 30_merged_2 and 40_convert present"
-      - "Guarded Firestore narrow writes: suggestions 3,999 and routing 8; creates/deletes/user-data writes 0"
-      - "Final live readback parity 4,125/4,125; missing/extra/different IDs 0/0/0"
-      - "Focused tests 50 passed; Kou and Otsu standard quality gates passed"
-      - "Protected 00_source writes 0; GoalBuddy state and can-stop checkers passed"
+      - "Firestore count readback: Kou 8 folders / 115 question sets / 2,212 questions; Otsu 6 / 119 / 1,913"
+      - "Folder and question-set count mismatches 0"
+      - "All 55 zero-question question sets hidden; visible zero-question sets 0"
+      - "Positive-count hidden question sets 0; local/live count and visibility differences 0"
+      - "Existing-document-only isDeleted updates 6; creates/deletes/question/user-data writes 0"
+      - "Focused category tests 16 passed"

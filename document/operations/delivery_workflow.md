@@ -89,6 +89,8 @@ python3 scripts/upload/upload_category_to_firestore.py \
 
 上記はdry-run相当です。本番反映は差分と対象を確認した後に`--upload`を付けます。`questionSetId`は`category.json`の`questionSets[].questionSetId`を使い、`folderId`で代用しません。
 
+`questionCount=0`のfolderとquestionSetは`isDeleted=true`として非表示にします。既存の0問項目だけを限定反映する場合は`--hide-empty-only`を使い、問題、件数、名称、所属先を変更しません。
+
 ## questions
 
 ```bash

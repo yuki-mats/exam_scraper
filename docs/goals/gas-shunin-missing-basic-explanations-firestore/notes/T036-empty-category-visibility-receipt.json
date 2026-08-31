@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "gas-shunin-empty-category-visibility/v1",
+  "completedAt": "2026-08-31T07:15:00Z",
+  "status": "pass",
+  "scope": {
+    "qualifications": [
+      "gas-shunin-kou",
+      "gas-shunin-otsu"
+    ],
+    "countBasis": "isDeleted == false && isChoiceOnly == false"
+  },
+  "before": {
+    "folderCountMismatches": 0,
+    "questionSetCountMismatches": 0,
+    "visibleZeroFolders": 0,
+    "visibleZeroQuestionSetsKou": 5,
+    "visibleZeroQuestionSetsOtsu": 1
+  },
+  "writes": {
+    "writeFields": [
+      "isDeleted",
+      "updatedAt",
+      "updatedById"
+    ],
+    "updatedFolders": 0,
+    "updatedQuestionSets": 6,
+    "createdDocuments": 0,
+    "deletedDocuments": 0,
+    "questionWrites": 0,
+    "userDataWrites": 0,
+    "questionSetIds": [
+      "chiefgasengineerlicense-A-10-100",
+      "chiefgasengineerlicense-A-10-150",
+      "chiefgasengineerlicense-A-10-170",
+      "chiefgasengineerlicense-A-10-180",
+      "chiefgasengineerlicense-A-10-380",
+      "chiefgasengineerlicense-B-1290"
+    ]
+  },
+  "after": {
+    "kou": {
+      "activeDisplayQuestions": 2212,
+      "folders": 8,
+      "questionSets": 115,
+      "zeroFolders": 0,
+      "zeroQuestionSets": 17,
+      "visibleZeroQuestionSets": 0,
+      "positiveHiddenQuestionSets": 0,
+      "folderCountMismatches": 0,
+      "questionSetCountMismatches": 0,
+      "localLiveCountVisibilityDiffs": 0,
+      "validationReportSha256": "bb7c29b7b6fc2dc7546f2717829ced2119f32dc98e4730b286fd99dca775d4d4",
+      "liveQuestionSetsSha256": "c11dce8eeff3640a9c0bae6d898b0c66d154ded10dce2b374fc28da81728ecec"
+    },
+    "otsu": {
+      "activeDisplayQuestions": 1913,
+      "folders": 6,
+      "questionSets": 119,
+      "zeroFolders": 0,
+      "zeroQuestionSets": 38,
+      "visibleZeroQuestionSets": 0,
+      "positiveHiddenQuestionSets": 0,
+      "folderCountMismatches": 0,
+      "questionSetCountMismatches": 0,
+      "localLiveCountVisibilityDiffs": 0,
+      "validationReportSha256": "6a644b80a5ee15b149caf230241f73f0bb25370e260e256105d7e5d8a0e26052",
+      "liveQuestionSetsSha256": "a0af310cc51f040a13b8ebf0a096138cfd4b8b51f214775b1b1938301dca3622"
+    }
+  },
+  "rollback": {
+    "available": true,
+    "questionSetIds": [
+      "chiefgasengineerlicense-A-10-100",
+      "chiefgasengineerlicense-A-10-150",
+      "chiefgasengineerlicense-A-10-170",
+      "chiefgasengineerlicense-A-10-180",
+      "chiefgasengineerlicense-A-10-380",
+      "chiefgasengineerlicense-B-1290"
+    ],
+    "previousIsDeleted": false
+  },
+  "verification": {
+    "focusedTestsPassed": 16,
+    "errors": 0
+  }
+}
