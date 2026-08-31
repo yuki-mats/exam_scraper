@@ -61,6 +61,7 @@ def test_profile_router_keeps_backend_choice_behind_one_pipeline_client():
     assert router.backend_for("local_generate_codex_audit", "audit").kind == "codex_app_server"
     snapshot = router.snapshot_for("local_generate_codex_audit")
     assert snapshot["limits"]["questionParallelism"] == 1
+    assert snapshot["limits"]["effectiveQuestionConcurrency"] == 1
     assert snapshot["roles"]["maintenance"]["model"] == "replaceable-local-model"
     assert snapshot["roles"]["maintenance"]["endpoint"].startswith(
         "http://127.0.0.1:"

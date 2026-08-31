@@ -1543,7 +1543,11 @@ class QuestionReviewServerTests(unittest.TestCase):
                 / "question_maintenance_llm.toml"
             )
             (config_dir / "question_maintenance_llm.toml").write_text(
-                source_config.read_text(encoding="utf-8"), encoding="utf-8"
+                source_config.read_text(encoding="utf-8").replace(
+                    "llm_call_concurrency = 20",
+                    "llm_call_concurrency = 1",
+                ),
+                encoding="utf-8",
             )
             app = QuestionReviewApplication(root)
             try:

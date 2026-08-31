@@ -2038,6 +2038,8 @@ assert.deepEqual(
         self.assertIn("listGroupIds:", javascript)
         self.assertIn("questionConcurrency: selectedQualificationRunConcurrency()", javascript)
         self.assertIn("preview.questionConcurrency = selectedQualificationRunConcurrency()", javascript)
+        self.assertIn("function configuredQuestionConcurrencyLimit", javascript)
+        self.assertIn("Math.min(questionLimit, modelLimit)", javascript)
         self.assertIn("const AUTO_QUESTION_CONCURRENCY = 1", javascript)
         self.assertIn("selectedQualificationRunSpeedMode", javascript)
         self.assertIn("speedMode: selectedQualificationRunSpeedMode()", javascript)

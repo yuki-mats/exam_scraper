@@ -1021,8 +1021,16 @@ class QuestionReviewApplication:
                 snapshot_for = getattr(self.app_server, "snapshot_for", None)
                 if callable(snapshot_for):
                     snapshot = snapshot_for(model_profile)
+                    limits = snapshot["limits"]
                     max_concurrency = int(
-                        snapshot["limits"]["questionParallelism"]
+                        limits.get("effectiveQuestionConcurrency")
+                        or min(
+                            int(limits["questionParallelism"]),
+                            int(
+                                limits.get("llmCallConcurrency")
+                                or limits["questionParallelism"]
+                            ),
+                        )
                     )
                     requested_concurrency = int(
                         body.get("questionConcurrency") or max_concurrency

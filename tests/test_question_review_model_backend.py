@@ -60,7 +60,8 @@ def test_repository_config_defines_profiles_backends_roles_and_initial_limits():
     assert hybrid.roles["maintenance"].local_attempts_before_fallback == 1
     assert hybrid.roles["maintenance"].fallback_backend is None
     assert config.limits.question_parallelism == 20
-    assert config.limits.llm_call_concurrency == 1
+    assert config.limits.llm_call_concurrency == 20
+    assert config.limits.effective_question_concurrency == 20
     assert config.limits.audit_batch_questions == 5
     assert config.limits.audit_batch_input_bytes == 120000
 
@@ -78,6 +79,7 @@ def test_processing_limits_are_configuration_not_hardcoded_constants():
 
     assert limits.question_parallelism == 4
     assert limits.llm_call_concurrency == 2
+    assert limits.effective_question_concurrency == 2
     assert limits.audit_batch_questions == 11
     assert limits.audit_batch_input_bytes == 240000
 

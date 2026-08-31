@@ -959,6 +959,16 @@ function closeAuditView(options = {}) {
   updateUrl();
 }
 
+function configuredQuestionConcurrencyLimit(codexStatus) {
+  const limits = codexStatus?.modelLimits || {};
+  const questionLimit = Math.max(1, Number(limits.questionParallelism || 1));
+  const modelLimit = Math.max(1, Number(limits.llmCallConcurrency || questionLimit));
+  const effectiveLimit = Number(limits.effectiveQuestionConcurrency);
+  return Number.isInteger(effectiveLimit) && effectiveLimit >= 1
+    ? effectiveLimit
+    : Math.min(questionLimit, modelLimit);
+}
+
 function configureQualificationModelOptions(codexStatus) {
   const profiles = codexStatus?.modelProfiles || {};
   const profileSelect = $("#qualification-run-model-profile");
@@ -974,7 +984,7 @@ function configureQualificationModelOptions(codexStatus) {
       return option;
     }));
   }
-  const maximum = Math.max(1, Number(codexStatus?.modelLimits?.questionParallelism || 1));
+  const maximum = configuredQuestionConcurrencyLimit(codexStatus);
   const container = $("#qualification-run-concurrency-fieldset .run-concurrency-options");
   if (container) {
     container.replaceChildren(...[...new Set([1, maximum])].map((value) => {
@@ -3136,10 +3146,7 @@ function selectedQualificationRunConcurrency() {
     document.querySelector('input[name="qualification-run-concurrency"]:checked')?.value
       || AUTO_QUESTION_CONCURRENCY,
   );
-  const maximum = Math.max(
-    1,
-    Number(state.codexStatus?.modelLimits?.questionParallelism || 1),
-  );
+  const maximum = configuredQuestionConcurrencyLimit(state.codexStatus);
   return Number.isInteger(value) && value >= 1 && value <= maximum
     ? value
     : AUTO_QUESTION_CONCURRENCY;

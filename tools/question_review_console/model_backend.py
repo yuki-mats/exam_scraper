@@ -34,6 +34,11 @@ class ProcessingLimits:
     audit_batch_questions: int
     audit_batch_input_bytes: int
 
+    @property
+    def effective_question_concurrency(self) -> int:
+        """Maximum question turns that can actually enter a model backend."""
+        return min(self.question_parallelism, self.llm_call_concurrency)
+
 
 @dataclass(frozen=True)
 class BackendDefinition:
@@ -608,6 +613,9 @@ class ProfileModelRouter:
             "limits": {
                 "questionParallelism": self.config.limits.question_parallelism,
                 "llmCallConcurrency": self.config.limits.llm_call_concurrency,
+                "effectiveQuestionConcurrency": (
+                    self.config.limits.effective_question_concurrency
+                ),
                 "auditBatchQuestions": self.config.limits.audit_batch_questions,
                 "auditBatchInputBytes": self.config.limits.audit_batch_input_bytes,
             },
