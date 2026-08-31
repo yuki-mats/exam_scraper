@@ -5,10 +5,44 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.question_bank.question_bank import PATCH_STAGES, main
+from tools.question_bank.question_bank import (
+    PATCH_STAGES,
+    has_verified_publication_canonical,
+    main,
+)
 
 
 class QuestionBankSourceModeTests(unittest.TestCase):
+    def test_verified_publication_requires_every_selected_year(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_dir:
+            base_dir = Path(temporary_dir)
+            present = base_dir / "2017"
+            missing = base_dir / "2018"
+            canonical_dir = present / "25_verified_publication"
+            canonical_dir.mkdir(parents=True)
+            (canonical_dir / "2017_verified_publication.json").write_text(
+                "{}", encoding="utf-8"
+            )
+
+            self.assertTrue(
+                has_verified_publication_canonical(
+                    qualification="gas-shunin-kou",
+                    list_group_dirs=[present],
+                )
+            )
+            self.assertFalse(
+                has_verified_publication_canonical(
+                    qualification="gas-shunin-kou",
+                    list_group_dirs=[present, missing],
+                )
+            )
+            self.assertFalse(
+                has_verified_publication_canonical(
+                    qualification="another-qualification",
+                    list_group_dirs=[present],
+                )
+            )
+
     def test_standard_patch_gate_includes_independent_correct_choice_stage(self) -> None:
         stages = {stage.label: stage for stage in PATCH_STAGES}
 

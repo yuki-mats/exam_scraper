@@ -4,7 +4,7 @@ goal:
   title: "ガス主任技術者 基本解説欠落の全件整備とFirestore反映"
   slug: "gas-shunin-missing-basic-explanations-firestore"
   kind: specific
-  tranche: "甲種・乙種2017〜2025年を通常経路で30_merged_2・40_convertまで再生成し、Firestore全4,125問との差分0を証明する"
+  tranche: "公式PDFで検証済みのローカル正本と現行patchだけから甲種・乙種2017〜2025年を再生成し、Firestoreへ限定反映後、全対象fieldの差分0を証明する"
   status: done
   oracle:
     signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
@@ -1378,14 +1378,78 @@ tasks:
           - "00_source欠落年度は通常source coverage gateを満たさず、退避済みmerged復旧経路を使う。"
       full_outcome_complete: true
 
+  - id: T035
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "旧merged成果物又はFirestore readbackを生成入力にせず、公式PDFで検証済みのローカル正本と現行patchから全年度を再生成し、安全条件付きでFirestoreへ反映してライブ差分0を証明する。"
+    constraints:
+      - "掲載サイトを閲覧又は根拠に使用しない。"
+      - "公式問題PDFと公式正答PDFを内容正本とする。"
+      - "00_source、既存questionId、利用者データ、回答履歴を変更しない。"
+      - "旧30_merged_2、旧40_convert、Firestore snapshot又はlive readbackを再生成内容の上書き入力にしない。"
+      - "Firestore更新は既存documentの許可fieldだけに限定し、作成・削除・ID変更を禁止する。"
+      - "サブエージェントを使わずPMだけで実行する。"
+      - "差分、precondition、rollback、live readbackをreceiptへ残す。"
+    allowed_files:
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/**"
+      - "document/operations/**"
+      - "document/reference/**"
+      - "document/sources/gas-shunin/**"
+      - "document/temporary/**"
+      - "scripts/**"
+      - "tests/**"
+      - "output/gas-shunin-kou/questions_json/**"
+      - "output/gas-shunin-otsu/questions_json/**"
+      - "output/gas-shunin-kou/firestore_snapshot/**"
+      - "output/gas-shunin-otsu/firestore_snapshot/**"
+    verify:
+      - "公式問題PDF18冊・公式正答PDF18冊のhashと全1,044問identityが検証済みである。"
+      - "甲種・乙種2017〜2025年の30_merged_2と40_convertがローカル正本と現行patchだけから再生成される。"
+      - "旧成果物・Firestore readbackからの生成内容上書きが標準経路に存在しない。"
+      - "既存questionIdの欠落、余分、変更が0である。"
+      - "Firestore dry-runの作成・削除・利用者データ更新が0で、変更fieldが許可範囲内である。"
+      - "Firestore反映後のライブ再読取とローカル生成物の対象field差分が0である。"
+      - "focused tests、quality gate、00_source保護検査、GoalBuddy checkerがpassする。"
+    stop_if:
+      - "公式PDFへ一意に対応できない問題が残る。"
+      - "既存questionIdを維持できない。"
+      - "問題作成、問題削除、利用者データ又は回答履歴の更新が必要になる。"
+      - "許可field以外のFirestore変更が発生する。"
+      - "rollback又はlive readbackを用意できない。"
+    receipt:
+      path: docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T035-completion-receipt.json
+      result: done
+      official_pdf_count: 36
+      official_identity_count: 1044
+      generated_year_count: 18
+      active_display_kou: 2212
+      active_display_otsu: 1913
+      active_display_total: 4125
+      suggestion_normalization_writes: 3999
+      routing_normalization_writes: 8
+      created_documents: 0
+      deleted_documents: 0
+      changed_question_ids: 0
+      user_data_writes: 0
+      final_missing_document_ids: 0
+      final_extra_document_ids: 0
+      final_different_documents: 0
+      protected_00_source_writes: 0
+      focused_tests_passed: 50
+      quality_gate: pass
+      full_outcome_complete: true
+
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
   last_verification:
     result: pass
-    task: T034
+    task: T035
     commands:
-      - "All-year local rebuild 18/18 years; current 30_merged_2 and 40_convert present"
-      - "Firestore readback all-field parity 4,125/4,125; missing/extra/different IDs 0/0/0"
-      - "Protected 00_source writes 0; Firestore writes 0"
-      - "Focused merge/convert/rebuild tests 28 passed"
-      - "Standard quality gate legacy failures recorded separately; no upload performed"
+      - "Official PDF evidence hashes pass: 36 PDFs and 1,044 official identities"
+      - "Canonical all-year local rebuild 18/18 years; current 25_verified_publication, 30_merged_2 and 40_convert present"
+      - "Guarded Firestore narrow writes: suggestions 3,999 and routing 8; creates/deletes/user-data writes 0"
+      - "Final live readback parity 4,125/4,125; missing/extra/different IDs 0/0/0"
+      - "Focused tests 50 passed; Kou and Otsu standard quality gates passed"
+      - "Protected 00_source writes 0; GoalBuddy state and can-stop checkers passed"

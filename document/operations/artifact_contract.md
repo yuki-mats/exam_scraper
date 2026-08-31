@@ -19,6 +19,7 @@ output/<qualification>/
     22_questionSetId_linked/
     23_correctChoiceText_fixed/
     24_questionIssueCorrections/
+    25_verified_publication/
     30_merged_2/
     40_convert/
     99_model_review_flags/
@@ -65,6 +66,7 @@ output/question_review_console/
 | 03c | `output/<qualification>/category/` | `category.json` | 資格全体の分類正本。問題単位patchではない。 |
 | 04 | `22_questionSetId_linked/` | `<source_stem>_merged_questionSetId_linked.json` | `category.json`に基づく問題集対応。 |
 | 問題報告 | `24_questionIssueCorrections/` | `<batch>_<work>_<originalQuestionId>.json` | blind review済みcorrection overlay。 |
+| 検証済み公開正本 | `25_verified_publication/` | `<list_group_id>_verified_publication.json` | ガス主任技術者の移行後正本。公式問題・正答PDFでIDと内容を検証済みの表示対象recordを保持し、通常再生成では旧mergedやFirestore readbackを参照しない。 |
 | merge | `30_merged_2/` | `<source_stem>_merged_<timestamp>.json` | upload前の全patch統合結果。 |
 | convert | `40_convert/` | `<list_group_id>_firestore_<timestamp>.json` | Firestore schemaへの変換結果。 |
 | delivery | `upload_to_firestore/` | `<list_group_id>_firestore_<timestamp>.json` | upload対象の正規artifact。 |
@@ -100,7 +102,7 @@ promotion時は`result.json`のhashと問題identity、state、App Server sessio
 
 ## 編集境界
 
-- 手作業で編集するのはpatchと承認対象の設定だけとする。
+- 手作業で編集するのはpatchと承認対象の設定だけとする。`25_verified_publication`は専用の検証済み移行・再生成処理だけが更新する。
 - `00_source`の親ディレクトリは、資格コード又は年度・試験区分を整理する移行に限り、file hashと`00_source/`以下の相対名を保持して移動できる。移行後はimmutability manifestへ明示登録する。
 - `12`、`20`、`30`、`40`、`upload_to_firestore`は生成物であり、直接修正しない。
 - 不確実性と監査履歴をFirestore用recordへ未知fieldとして混ぜない。

@@ -31,6 +31,8 @@ OFFICIAL_EXAM_YEARS_FIELD = "official_exam_years_by_qualification"
 WRITE_FIELDS_KEY = "writeFields"
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
+    ("suggestedQuestions", "suggestedQuestionDetails"),
+    ("qualificationId", "listGroupId"),
     ("correctChoiceText", "explanationText"),
     (
         "originalQuestionBodyText",
@@ -236,9 +238,24 @@ def validate_explanation_patch_questions(questions: list[dict], source_label: st
 
 
 def validate_question_patch_questions(
-    questions: list[dict], write_fields: tuple[str, ...], source_label: str
+    questions: list[dict],
+    write_fields: tuple[str, ...],
+    source_label: str,
+    *,
+    allow_legacy_suggestion_rollback: bool = False,
 ) -> None:
     """Validate narrow question repairs, including answer-correction repairs."""
+
+    if write_fields == ("suggestedQuestions", "suggestedQuestionDetails"):
+        validate_suggestion_patch_questions(
+            questions,
+            source_label,
+            max_entries=7 if allow_legacy_suggestion_rollback else 3,
+        )
+        return
+    if write_fields == ("qualificationId", "listGroupId"):
+        validate_routing_patch_questions(questions, source_label)
+        return
 
     validate_explanation_patch_questions(questions, source_label)
     if "correctChoiceText" not in write_fields:
@@ -258,6 +275,78 @@ def validate_question_patch_questions(
             raise ValueError(
                 f"correctChoiceText/explanationText prefix mismatch: {question_id}"
             )
+
+
+def validate_suggestion_patch_questions(
+    questions: list[dict], source_label: str, *, max_entries: int = 3
+) -> None:
+    """Validate an existing-document-only normalization of saved suggestions."""
+
+    if not isinstance(questions, list):
+        raise ValueError(f"questions is not a list: {source_label}")
+    seen: set[str] = set()
+    for question in questions:
+        if not isinstance(question, dict):
+            raise ValueError(f"question is not an object: {source_label}")
+        question_id = str(question.get("questionId") or "").strip()
+        if not question_id or question_id in seen:
+            raise ValueError(f"questionId is required and unique: {source_label}")
+        seen.add(question_id)
+        if question.get("isDeleted") is not False:
+            raise ValueError(f"suggestion patch target must have isDeleted=false: {question_id}")
+        if question.get("isChoiceOnly") is not False:
+            raise ValueError(f"suggestion patch target must have isChoiceOnly=false: {question_id}")
+        if not str(question.get("questionText") or "").strip():
+            raise ValueError(f"questionText is required: {question_id}")
+        details = question.get("suggestedQuestionDetails")
+        prompts = question.get("suggestedQuestions")
+        if not isinstance(details, list) or not 1 <= len(details) <= max_entries:
+            raise ValueError(
+                "suggestedQuestionDetails must contain "
+                f"1 to {max_entries} entries: {question_id}"
+            )
+        normalized_prompts: list[str] = []
+        for item in details:
+            if not isinstance(item, dict) or set(item) != {"question", "answer"}:
+                raise ValueError(
+                    f"suggestedQuestionDetails entry must contain question and answer only: {question_id}"
+                )
+            prompt = str(item.get("question") or "").strip()
+            answer = str(item.get("answer") or "").strip()
+            if not prompt or not answer:
+                raise ValueError(
+                    f"suggestedQuestionDetails entry must be non-empty: {question_id}"
+                )
+            normalized_prompts.append(prompt)
+        if prompts != normalized_prompts:
+            raise ValueError(
+                f"suggestedQuestions must match suggestedQuestionDetails: {question_id}"
+            )
+
+
+def validate_routing_patch_questions(questions: list[dict], source_label: str) -> None:
+    """Validate an existing-document-only qualification/year routing repair."""
+
+    if not isinstance(questions, list):
+        raise ValueError(f"questions is not a list: {source_label}")
+    seen: set[str] = set()
+    for question in questions:
+        if not isinstance(question, dict):
+            raise ValueError(f"question is not an object: {source_label}")
+        question_id = str(question.get("questionId") or "").strip()
+        if not question_id or question_id in seen:
+            raise ValueError(f"questionId is required and unique: {source_label}")
+        seen.add(question_id)
+        if question.get("isDeleted") is not False or question.get("isChoiceOnly") is not False:
+            raise ValueError(f"routing patch target must be active display: {question_id}")
+        if not str(question.get("questionText") or "").strip():
+            raise ValueError(f"questionText is required: {question_id}")
+        qualification_id = str(question.get("qualificationId") or "").strip()
+        if qualification_id not in {"gas-shunin-kou", "gas-shunin-otsu"}:
+            raise ValueError(f"qualificationId is not gas shunin: {question_id}")
+        year = normalize_exam_year(question.get("examYear"))
+        if year is None or str(question.get("listGroupId") or "") != str(year):
+            raise ValueError(f"listGroupId must match examYear: {question_id}")
 
 
 def build_doc_data_base(question: dict) -> dict:
@@ -583,7 +672,14 @@ def upload_questions(
                 q["questionTags"] = []
 
     if write_fields:
-        validate_question_patch_questions(questions, write_fields, str(json_file_path))
+        validate_question_patch_questions(
+            questions,
+            write_fields,
+            str(json_file_path),
+            allow_legacy_suggestion_rollback=(
+                data.get("allowLegacySuggestionRollback") is True
+            ),
+        )
     else:
         validate_required_question_fields(questions, str(json_file_path))
     exam_years_by_qualification = (

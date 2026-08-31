@@ -29,6 +29,15 @@ from scripts.common.requirements import (  # noqa: E402
     load_requirements,
     validate_records,
 )
+from scripts.pipeline.rebuild_gas_shunin_all_year_artifacts import (  # noqa: E402
+    MERGED_SCHEMA_VERSION as GAS_SHUNIN_MERGED_SCHEMA_VERSION,
+    METADATA_FIELDS as GAS_SHUNIN_METADATA_FIELDS,
+    QUALIFICATIONS as GAS_SHUNIN_QUALIFICATIONS,
+    SCHEMA_VERSION as GAS_SHUNIN_SCHEMA_VERSION,
+    active_display as gas_shunin_active_display,
+    load_json as load_gas_shunin_json,
+    verify_official_pdf_evidence as verify_gas_shunin_official_pdf_evidence,
+)
 from tools.question_bank.question_issue_reports import (  # noqa: E402
     add_question_issue_report_parsers,
     run_question_issue_report_command,
@@ -418,6 +427,176 @@ def run_patch_checks(
                 ]
             ) != 0:
                 failed += 1
+    return 1 if failed else 0
+
+
+def has_verified_publication_canonical(
+    *, qualification: str | None, list_group_dirs: Iterable[Path]
+) -> bool:
+    if qualification not in GAS_SHUNIN_QUALIFICATIONS:
+        return False
+    group_dirs = list(list_group_dirs)
+    return bool(group_dirs) and all(
+        (
+            group_dir
+            / "25_verified_publication"
+            / f"{group_dir.name}_verified_publication.json"
+        ).is_file()
+        for group_dir in group_dirs
+    )
+
+
+def run_verified_publication_checks(
+    *,
+    qualification: str,
+    list_group_dirs: Iterable[Path],
+    category_path: Path | None,
+) -> int:
+    """ガス主任技術者の移行後正本と配信用成果物を直接検査する。"""
+
+    print_heading("verified publication canonical")
+    try:
+        evidence = verify_gas_shunin_official_pdf_evidence(
+            document_index=(
+                REPO_ROOT
+                / "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes"
+                / "T030-official-document-index.json"
+            ),
+            pdf_verification=(
+                REPO_ROOT
+                / "docs/goals/gas-shunin-missing-basic-explanations-firestore/notes"
+                / "T030-official-pdf-index-verification.json"
+            ),
+        )
+    except (FileNotFoundError, KeyError, TypeError, ValueError) as exc:
+        print(f"[ERROR] 公式PDF evidenceの検証に失敗しました: {exc}")
+        return 1
+
+    if category_path is None or not category_path.is_file():
+        print(f"[ERROR] category.jsonがありません: {category_path}")
+        return 1
+    try:
+        category = load_gas_shunin_json(category_path)
+        question_sets = category.get("questionSets")
+        if not isinstance(question_sets, list):
+            raise ValueError("category.questionSetsが配列ではありません。")
+        question_set_ids = {
+            str(item.get("questionSetId") or "")
+            for item in question_sets
+            if isinstance(item, dict) and item.get("questionSetId")
+        }
+    except (KeyError, TypeError, ValueError) as exc:
+        print(f"[ERROR] category.jsonが不正です: {exc}")
+        return 1
+
+    failed = 0
+    seen_ids: set[str] = set()
+    for group_dir in list_group_dirs:
+        year_text = group_dir.name
+        canonical_path = (
+            group_dir
+            / "25_verified_publication"
+            / f"{year_text}_verified_publication.json"
+        )
+        merged_path = (
+            group_dir
+            / "30_merged_2"
+            / f"{year_text}_verified_publication_merged.json"
+        )
+        convert_files = sorted(
+            (group_dir / "40_convert").glob(f"{year_text}_firestore_*.json")
+        )
+        errors: list[str] = []
+        questions: list[dict[str, Any]] = []
+        try:
+            year = int(year_text)
+            canonical = load_gas_shunin_json(canonical_path)
+            raw_questions = canonical.get("questions")
+            if canonical.get("schemaVersion") != GAS_SHUNIN_SCHEMA_VERSION:
+                errors.append("正本schemaVersionが不正です。")
+            if canonical.get("qualificationId") != qualification:
+                errors.append("正本qualificationIdが不正です。")
+            if str(canonical.get("list_group_id") or "") != year_text:
+                errors.append("正本list_group_idが不正です。")
+            if not isinstance(raw_questions, list):
+                raise ValueError("正本questionsが配列ではありません。")
+            questions = raw_questions
+            if canonical.get("total_count") != len(questions):
+                errors.append("正本total_countが実件数と一致しません。")
+
+            for index, question in enumerate(questions):
+                label = str(question.get("questionId") or f"index={index}")
+                question_id = str(question.get("questionId") or "")
+                if not question_id or question_id in seen_ids:
+                    errors.append(f"questionIdが空又は重複です: {label}")
+                seen_ids.add(question_id)
+                if not gas_shunin_active_display(question):
+                    errors.append(f"表示対象外の問題が正本にあります: {label}")
+                if question.get("qualificationId") != qualification:
+                    errors.append(f"qualificationIdが不正です: {label}")
+                if int(question.get("examYear") or 0) != year:
+                    errors.append(f"examYearが不正です: {label}")
+                if str(question.get("listGroupId") or "") != year_text:
+                    errors.append(f"listGroupIdが不正です: {label}")
+                if any(field in question for field in GAS_SHUNIN_METADATA_FIELDS):
+                    errors.append(f"サーバー管理fieldが正本にあります: {label}")
+                if str(question.get("questionSetId") or "") not in question_set_ids:
+                    errors.append(f"questionSetIdがcategoryにありません: {label}")
+                details = question.get("suggestedQuestionDetails")
+                prompts = question.get("suggestedQuestions")
+                if details is None and prompts is None:
+                    pass
+                elif not isinstance(details, list) or not 1 <= len(details) <= 3:
+                    errors.append(f"補足質問が0〜3件ではありません: {label}")
+                elif any(
+                    not isinstance(item, dict)
+                    or not str(item.get("question") or "").strip()
+                    or not str(item.get("answer") or "").strip()
+                    for item in details
+                ):
+                    errors.append(f"補足質問に空欄があります: {label}")
+                elif prompts != [item["question"] for item in details]:
+                    errors.append(f"補足質問fieldが一致しません: {label}")
+
+            if not merged_path.is_file():
+                errors.append(f"再生成済みmergedがありません: {merged_path}")
+            else:
+                expected_merged = dict(canonical)
+                expected_merged["schemaVersion"] = GAS_SHUNIN_MERGED_SCHEMA_VERSION
+                if load_gas_shunin_json(merged_path) != expected_merged:
+                    errors.append("30_merged_2が正本と一致しません。")
+
+            if len(convert_files) != 1:
+                errors.append(
+                    f"40_convertの現行ファイルが1件ではありません: {len(convert_files)}"
+                )
+            else:
+                expected_convert = {
+                    "list_group_id": year_text,
+                    "questions": questions,
+                    "total_count": len(questions),
+                }
+                if load_gas_shunin_json(convert_files[0]) != expected_convert:
+                    errors.append("40_convertが正本と一致しません。")
+        except (FileNotFoundError, KeyError, TypeError, ValueError) as exc:
+            errors.append(str(exc))
+
+        if errors:
+            print(f"[NG] {year_text}: errors={len(errors)}")
+            for error in errors[:80]:
+                print(f"  - {error}")
+            if len(errors) > 80:
+                print(f"  ... and {len(errors) - 80} more")
+            failed += 1
+        else:
+            print(f"[OK] {year_text}: questions={len(questions)}")
+
+    if not failed:
+        print(
+            "[OK] 公式PDF evidence: "
+            f"pdfs={evidence['officialPdfCount']} "
+            f"indexedDocuments={evidence['indexedQuestionDocumentCount']}"
+        )
     return 1 if failed else 0
 
 
@@ -1148,7 +1327,17 @@ def main(argv: list[str] | None = None) -> int:
     print(f"category: {category_path or '(not found)'}", flush=True)
 
     failures = 0
-    if args.mode in ("full", "source", "required"):
+    verified_publication = has_verified_publication_canonical(
+        qualification=qualification,
+        list_group_dirs=list_group_dirs,
+    )
+    if verified_publication and args.mode in ("full", "required", "patches"):
+        failures += run_verified_publication_checks(
+            qualification=qualification,
+            list_group_dirs=list_group_dirs,
+            category_path=category_path,
+        )
+    elif args.mode in ("full", "source", "required"):
         if args.mode == "full":
             stages = ("source", "merged", "firestore")
         elif args.mode == "source":
@@ -1163,7 +1352,7 @@ def main(argv: list[str] | None = None) -> int:
             stages=stages,
         )
 
-    if args.mode in ("full", "patches"):
+    if args.mode in ("full", "patches") and not verified_publication:
         failures += run_patch_checks(
             list_group_dirs=list_group_dirs,
             category_path=category_path,

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "gas-shunin-canonical-firestore-completion/v1",
+  "completedAt": "2026-08-31T06:46:49.174790+00:00",
+  "status": "pass",
+  "sourcePolicy": "official question and answer PDFs plus local verified publication; listing site not used",
+  "officialEvidence": {
+    "officialPdfCount": 36,
+    "indexedQuestionDocumentCount": 4326,
+    "documentIndexSha256": "0de32c639a8f62fa42fb42cd3d3f8ad9267e2057e5b7508b3b52e1b6578d5b2c",
+    "pdfVerificationSha256": "c859684bf0f45ef6b818cfc943b3a6383fa9170292db6335c9214b0e5b21265f"
+  },
+  "localRebuild": {
+    "canonicalDirectory": "25_verified_publication",
+    "generatedYearCount": 18,
+    "currentMergedYearCount": 18,
+    "currentConvertYearCount": 18,
+    "activeDisplayKou": 2212,
+    "activeDisplayOtsu": 1913,
+    "activeDisplayTotal": 4125,
+    "legacyMergedInputCount": 0,
+    "firestoreReadbackOverwriteCount": 0,
+    "protected00SourceWriteCount": 0,
+    "kou00SourceAggregateSha256": "645a010f9821a11aca48c8334930278f35a1b0ea6b259526dd6aba473faccd91",
+    "otsu00SourceAggregateSha256": "7069b687bb4da0961cb5e2f34769ee08e7dab7f9808421f4a6b9d9fb0832d068"
+  },
+  "firestoreWrites": {
+    "projectId": "repaso-8d2d0",
+    "suggestionNormalization": {
+      "kouUpdated": 2137,
+      "otsuUpdated": 1862,
+      "totalUpdated": 3999,
+      "writeFields": [
+        "suggestedQuestions",
+        "suggestedQuestionDetails"
+      ],
+      "kouArtifactSha256": "3559d9ae90320e01a4a473d7fc557967fdf5640618d8ba803ee2012d5cb54ad4",
+      "otsuArtifactSha256": "6ec3ebc00285699026c554b091ac86f3651c2f98b522c2d9cd914533a008c44d"
+    },
+    "routingNormalization": {
+      "kouUpdated": 8,
+      "otsuUpdated": 0,
+      "writeFields": [
+        "qualificationId",
+        "listGroupId"
+      ],
+      "artifactSha256": "cf08d567e0e0e9885af60f9cff17bd83740005907daffcf4c9a818d66b42aafc",
+      "rollbackSha256": "1e1d2ff00feaec2fcec2188cfbeb39a8253917e5c6b428ccb315d76b3ef72572"
+    },
+    "createdDocuments": 0,
+    "deletedDocuments": 0,
+    "changedQuestionIds": 0,
+    "userDataWrites": 0,
+    "answerHistoryWrites": 0,
+    "errors": 0
+  },
+  "finalLiveReadback": {
+    "kouSnapshotQuestionsSha256": "2ceece3c5c8cce27bb6a0aeb549a2a24ed673828236d42dc4a9eca1c12784217",
+    "otsuSnapshotQuestionsSha256": "16d6edcb344fe97abb10fefee9d5fe1538f6a34b6404c13fecf848746dcb19e0",
+    "kou": {
+      "localCount": 2212,
+      "liveCount": 2212,
+      "missingQuestionIds": 0,
+      "extraQuestionIds": 0,
+      "differentDocuments": 0,
+      "folderCountMismatches": 0,
+      "questionSetCountMismatches": 0
+    },
+    "otsu": {
+      "localCount": 1913,
+      "liveCount": 1913,
+      "missingQuestionIds": 0,
+      "extraQuestionIds": 0,
+      "differentDocuments": 0,
+      "folderCountMismatches": 0,
+      "questionSetCountMismatches": 0
+    }
+  },
+  "verification": {
+    "focusedTestsPassed": 50,
+    "kouQualityGate": "pass",
+    "otsuQualityGate": "pass",
+    "suggestionPatchCountAfterReadback": 0,
+    "routingPatchCountAfterReadback": 0
+  }
+}

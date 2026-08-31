@@ -57,6 +57,101 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             ("correctChoiceText", "explanationText"),
         )
 
+    def test_resolve_write_fields_accepts_suggestion_normalization_contract(self) -> None:
+        self.assertEqual(
+            module.resolve_write_fields(
+                {"writeFields": ["suggestedQuestions", "suggestedQuestionDetails"]}
+            ),
+            ("suggestedQuestions", "suggestedQuestionDetails"),
+        )
+
+    def test_resolve_write_fields_accepts_routing_normalization_contract(self) -> None:
+        self.assertEqual(
+            module.resolve_write_fields(
+                {"writeFields": ["qualificationId", "listGroupId"]}
+            ),
+            ("qualificationId", "listGroupId"),
+        )
+
+    def test_validate_routing_patch_requires_list_group_to_match_year(self) -> None:
+        question = {
+            "questionId": "routing-1",
+            "questionText": "問題文",
+            "examYear": 2022,
+            "isDeleted": False,
+            "isChoiceOnly": False,
+            "qualificationId": "gas-shunin-kou",
+            "listGroupId": "2022",
+        }
+        module.validate_question_patch_questions(
+            [question], ("qualificationId", "listGroupId"), "repair.json"
+        )
+        question["listGroupId"] = "2021"
+        with self.assertRaisesRegex(ValueError, "must match examYear"):
+            module.validate_question_patch_questions(
+                [question], ("qualificationId", "listGroupId"), "repair.json"
+            )
+
+    def test_validate_suggestion_patch_requires_matching_max_three_details(self) -> None:
+        module.validate_question_patch_questions(
+            [
+                {
+                    "questionId": "suggestion-1",
+                    "questionText": "問題文",
+                    "isDeleted": False,
+                    "isChoiceOnly": False,
+                    "suggestedQuestions": ["質問1", "質問2", "質問3"],
+                    "suggestedQuestionDetails": [
+                        {"question": "質問1", "answer": "回答1"},
+                        {"question": "質問2", "answer": "回答2"},
+                        {"question": "質問3", "answer": "回答3"},
+                    ],
+                }
+            ],
+            ("suggestedQuestions", "suggestedQuestionDetails"),
+            "repair.json",
+        )
+
+    def test_validate_suggestion_patch_rejects_four_details(self) -> None:
+        with self.assertRaisesRegex(ValueError, "1 to 3"):
+            module.validate_question_patch_questions(
+                [
+                    {
+                        "questionId": "suggestion-1",
+                        "questionText": "問題文",
+                        "isDeleted": False,
+                        "isChoiceOnly": False,
+                        "suggestedQuestions": ["質問"] * 4,
+                        "suggestedQuestionDetails": [
+                            {"question": "質問", "answer": "回答"}
+                            for _ in range(4)
+                        ],
+                    }
+                ],
+                ("suggestedQuestions", "suggestedQuestionDetails"),
+                "repair.json",
+            )
+
+    def test_validate_suggestion_rollback_explicitly_allows_legacy_count(self) -> None:
+        module.validate_question_patch_questions(
+            [
+                {
+                    "questionId": "suggestion-rollback-1",
+                    "questionText": "問題文",
+                    "isDeleted": False,
+                    "isChoiceOnly": False,
+                    "suggestedQuestions": [f"質問{index}" for index in range(4)],
+                    "suggestedQuestionDetails": [
+                        {"question": f"質問{index}", "answer": f"回答{index}"}
+                        for index in range(4)
+                    ],
+                }
+            ],
+            ("suggestedQuestions", "suggestedQuestionDetails"),
+            "rollback.json",
+            allow_legacy_suggestion_rollback=True,
+        )
+
     def test_resolve_write_fields_accepts_semantic_recovery_contract(self) -> None:
         self.assertEqual(
             module.resolve_write_fields(

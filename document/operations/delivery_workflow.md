@@ -21,18 +21,20 @@ python3 scripts/pipeline/prepare_firestore_upload.py <list_group_id> \
 
 資格配下の全groupを更新する場合は`list_group_id`の代わりにqualificationを指定します。`--skip-merge`、`--skip-qset-check`、`--skip-update-category-counts`などは、前提を確認できる場合だけ使います。
 
-### ガス主任技術者の全年度ローカル復旧
+### ガス主任技術者の全年度再生成
 
-ガス主任技術者の2017〜2025年を、保存済みのローカル入力から`30_merged_2`と`40_convert`まで一括復旧する場合は、最初に書込みなしで検査します。
+ガス主任技術者の2017〜2025年は、公式PDFで検証済みの`25_verified_publication`をローカル公開正本とし、そこから`30_merged_2`と`40_convert`を一括再生成します。通常実行では旧成果物、Firestore snapshot、live readbackを入力にしません。最初に書込みなしで検査します。
 
 ```bash
 python3 scripts/pipeline/rebuild_gas_shunin_all_year_artifacts.py \
   --receipt /tmp/gas-shunin-all-year-rebuild.json
 ```
 
-receiptの甲種2,212問・乙種1,913問がともに`status=pass`であることを確認した後、`--apply`を付けます。既存成果物は各`old/`へ退避し、`00_source`とFirestoreは変更しません。
+receiptの甲種2,212問・乙種1,913問がともに`status=pass`であることを確認した後、`--apply`を付けます。既存の生成物は各`old/`へ退避し、`25_verified_publication`から18年度分を再生成します。`00_source`とFirestoreは変更しません。
 
-この入口は、保護台帳と一致する`00_source`が全件揃う年度では通常mergeを使います。元データが欠落している年度に限り、同じsource stemを保持する最新の退避済み`30_merged_2`を補正済み基底として使います。最後のreadback補正は、引数で指定した保存済みFirestore snapshotの状態を再現するための復旧・監査工程です。新しいpatchをFirestoreへ公開する代わりには使わず、patch更新時は通常の公開工程と反映後readbackを完了してからsnapshotを更新します。
+`--bootstrap-from-snapshots`は移行時だけの入口です。公式PDF台帳が全対象IDを一意に裏付け、Firestore snapshotの件数とIDが期待値へ完全一致する場合に限り、snapshotを`25_verified_publication`へ固定します。移行後の再生成ではこのoptionを使いません。Firestoreへ差分を反映する場合は、全年度artifactを一括上書きせず、許可fieldを明示した限定patch、事前fingerprint、rollback、反映後readbackを使います。
+
+ガス主任技術者の標準quality gateは、旧工程のpatch有無ではなく、公式PDFの現物hash、`25_verified_publication`、`category.json`、再生成済み`30_merged_2`・`40_convert`の完全一致を検査します。
 
 ## 機械品質ゲート
 
