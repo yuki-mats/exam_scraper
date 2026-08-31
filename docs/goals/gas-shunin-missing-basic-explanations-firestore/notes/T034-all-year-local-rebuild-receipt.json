@@ -1,0 +1,728 @@
+{
+  "apply": true,
+  "firestoreWriteCount": 0,
+  "generatedAt": "2026-08-31T05:54:35.440801+00:00",
+  "inputModeCounts": {
+    "archived_merged_baseline": 14,
+    "protected_source": 4
+  },
+  "manifest": {
+    "path": "docs/contracts/00_source_sha256_manifest.jsonl",
+    "sha256": "30f5a02ebc5206f209c5d5e009f60f484201686b5bd07c5a3523910c254a7924"
+  },
+  "protected00SourceWriteCount": 0,
+  "qualifications": {
+    "gas-shunin-kou": {
+      "differentQuestionIds": [],
+      "extraQuestionIds": [],
+      "generatedActiveDisplayCount": 2212,
+      "liveActiveDisplayCount": 2212,
+      "missingQuestionIds": [],
+      "status": "pass"
+    },
+    "gas-shunin-otsu": {
+      "differentQuestionIds": [],
+      "extraQuestionIds": [],
+      "generatedActiveDisplayCount": 1913,
+      "liveActiveDisplayCount": 1913,
+      "missingQuestionIds": [],
+      "status": "pass"
+    }
+  },
+  "schemaVersion": "gas-shunin-local-all-year-rebuild/v1",
+  "snapshots": {
+    "gas-shunin-kou": {
+      "path": "output/gas-shunin-kou/firestore_snapshot/20260831T-parity-check",
+      "questionsSha256": "1c81efd20344b4332b6d13071fa652ccdb835af5ad04e7c571c6f125cb1f5122"
+    },
+    "gas-shunin-otsu": {
+      "path": "output/gas-shunin-otsu/firestore_snapshot/20260831T-parity-check",
+      "questionsSha256": "c941a14a6625025d3247e91f8a219447ea5edbf534ca1b9023b74d9d011c7b7f"
+    }
+  },
+  "status": "pass",
+  "standardQualityGate": {
+    "failedYearCount": 18,
+    "status": "known_legacy_failure",
+    "reasons": [
+      "Firestore readback mirror contains existing suggestedQuestionDetails with 4 or 5 entries while the current upload schema allows at most 3.",
+      "Years restored from archived merged baselines do not satisfy the standard 00_source coverage gate because protected source fragments are absent."
+    ],
+    "scopeDecision": "Recorded separately from the successful all-year artifact rebuild and all-field readback parity. No upload was performed."
+  },
+  "years": [
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "b835872441da2b43c8bf4ac0c491f1f7bb483b957b9cf69a132de1bc205ae610",
+      "generatedDocumentCount": 288,
+      "inputMode": "protected_source",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 288,
+      "reconciledDocumentCount": 288,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "691f88db21d4e7d18c648828266752a45771b680a38cf1390c4a8a421dbf4170",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2017/00_source/question_2017_1.json",
+          "selectedSha256": "691f88db21d4e7d18c648828266752a45771b680a38cf1390c4a8a421dbf4170",
+          "sourceName": "question_2017_1.json",
+          "status": "manifest_match"
+        },
+        {
+          "expectedSourceSha256": "6ac200195b8547853344c3382875a7d30bd1ae743522bb3bea99ec25fa820cea",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2017/00_source/question_2017_2.json",
+          "selectedSha256": "6ac200195b8547853344c3382875a7d30bd1ae743522bb3bea99ec25fa820cea",
+          "sourceName": "question_2017_2.json",
+          "status": "manifest_match"
+        },
+        {
+          "expectedSourceSha256": "4625eaca337fbe3e3760f695fff8db2dcd78e2f46cfd4beb42e68f6f6df1ef18",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2017/00_source/question_2017_3.json",
+          "selectedSha256": "4625eaca337fbe3e3760f695fff8db2dcd78e2f46cfd4beb42e68f6f6df1ef18",
+          "sourceName": "question_2017_3.json",
+          "status": "manifest_match"
+        }
+      ],
+      "year": 2017
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "d24ab8ad6b6459d9517a80657a1428df29d510341782fd454bdf6afb84f889fb",
+      "generatedDocumentCount": 290,
+      "inputMode": "protected_source",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "2b02ae345b902c3e26e14c0637892aa1370b437613e636a40f4097452d96b26b",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2018/00_source/question_2018_1.json",
+          "selectedSha256": "2b02ae345b902c3e26e14c0637892aa1370b437613e636a40f4097452d96b26b",
+          "sourceName": "question_2018_1.json",
+          "status": "manifest_match"
+        },
+        {
+          "expectedSourceSha256": "42806149ba4e35991ce44f63b660d68f60b3fe4c9a7b02ba7cffc44a7998676f",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2018/00_source/question_2018_2.json",
+          "selectedSha256": "42806149ba4e35991ce44f63b660d68f60b3fe4c9a7b02ba7cffc44a7998676f",
+          "sourceName": "question_2018_2.json",
+          "status": "manifest_match"
+        },
+        {
+          "expectedSourceSha256": "7faceaecf3ae4918e85b41664b873f4762dccf1ae4bb867203eeb7855646e438",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2018/00_source/question_2018_3.json",
+          "selectedSha256": "7faceaecf3ae4918e85b41664b873f4762dccf1ae4bb867203eeb7855646e438",
+          "sourceName": "question_2018_3.json",
+          "status": "manifest_match"
+        }
+      ],
+      "year": 2018
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "8fbbd1b5fc42815a0e3382d44b0fbd02566a897541372e3d404703844d49f1db",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "dfd5cf760223d2b44a698d00f26ab1e988c279830f4d5e8c0b6af33bffd24727",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2019/30_merged_2/question_2019_firestore_1_merged_20260831_1453.json",
+          "selectedSha256": "e38eb5264d2e53dc14c72d3c77c93e13a9c7863ebc8aa035d69cb4ca37142fb4",
+          "sourceName": "question_2019_firestore_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "9ddc2e941de0f3e0592f589243306e5f1f7bb2ef55c3b6f7e4a5a6e186fbb78a",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2019/30_merged_2/question_2019_firestore_2_merged_20260831_1453.json",
+          "selectedSha256": "1740c004eeb839faf0f86c5bccec434a76f8879847179b7323fb7358af93b6a5",
+          "sourceName": "question_2019_firestore_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "3fd4fc72d1190cc9498e33ec76c79e4433569bd1ce47d5112845fb25cdc0de3e",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2019/30_merged_2/question_2019_firestore_3_merged_20260831_1453.json",
+          "selectedSha256": "8f65a5afd95c84ffd499811aea632b2553694ec025b82694a2a9a56fbc9f3618",
+          "sourceName": "question_2019_firestore_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2019
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "17114b5ac15bbcc30a9de30507f875001f1f5c90dfb846325ee7859d6ef18f28",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 59,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "90a5c5a22062c14784efcdd96f994038feb02c2b8e04a72d3269435a62d1441c",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2020/30_merged_2/question_2020_firestore_1_merged_20260831_1453.json",
+          "selectedSha256": "74360899228306b549a77e1e1c6fb4f13c31f10ea795fdee22eef75615de33b7",
+          "sourceName": "question_2020_firestore_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "57822abebbeb36e1d1f6af3cb7ac8e61acaf4d9ace736b5bfd6b06ddcc85c37b",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2020/30_merged_2/question_2020_firestore_2_merged_20260831_1453.json",
+          "selectedSha256": "dde4e3e7bba573d12613424ec62515e546b6d39bb2459171fc1795ab9ee220c6",
+          "sourceName": "question_2020_firestore_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "ef6b1131d2ccf8f57f776b8d06ed25f354826d727c85971b1f7358d5a6230c05",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2020/30_merged_2/question_2020_firestore_3_merged_20260831_1453.json",
+          "selectedSha256": "158dd508b1b28a2bfad06b6347c52c66b8a8bf2022d23c3ab0c6b3fb2de569c9",
+          "sourceName": "question_2020_firestore_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2020
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "363d52fb16eebc7e5d85e33c3056035fd4bbe69e37fa1ce93356bb3ee63f5fca",
+      "generatedDocumentCount": 296,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 60,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 296,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "ea1461eb173ada77b4ed846185faf6e95385c256bab23f102f4997d2256b79ae",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2021/30_merged_2/question_2021_firestore_1_merged_20260831_1453.json",
+          "selectedSha256": "7c9abe43383126f6b4f1ea7066c08feea9ec12d3df9bd60c45535299ed787a91",
+          "sourceName": "question_2021_firestore_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "a1644f5367a9bf930b7cba98a27c98c00b48d25572b712e64cceb29d2a776c84",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2021/30_merged_2/question_2021_firestore_2_merged_20260831_1453.json",
+          "selectedSha256": "dcb6c45f689ccb6f4a110300b00242cff432a2e0535a57b3f178af74fe623fc7",
+          "sourceName": "question_2021_firestore_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "b9f2955ba8c954a9dd80e17553689793cecee32b7b266c62f3771d61da738256",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2021/30_merged_2/question_2021_firestore_3_merged_20260831_1453.json",
+          "selectedSha256": "98a08411e510d6824dc409794e0502e2de40142de67e03f89b43d89bf3ea1d2e",
+          "sourceName": "question_2021_firestore_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2021
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "38d272669012cb3ecf714331cbeebfcfef05603fc2436637022bcf0202ff73bd",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 59,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 6,
+      "readbackReplacedDocumentCount": 289,
+      "reconciledDocumentCount": 296,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "a0c7068c8c48f7c91971bade961ae4b16a8631924d794435347d24522f8ad8e6",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2022/30_merged_2/question_2022_firestore_1_merged_20260831_1453.json",
+          "selectedSha256": "207b32c1341a493ced30652b2c65b2f8855c3686307301f1f1634f5d786dae8b",
+          "sourceName": "question_2022_firestore_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "38cd280f3fd53b689bf94e6c70e5e593417a9b19bed13d2fc5426ae3e77ce2d6",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2022/30_merged_2/question_2022_firestore_2_merged_20260831_1453.json",
+          "selectedSha256": "51ef75d0f679bd188025aab644059c9f6e99b9163c9eb360710867275e9f786a",
+          "sourceName": "question_2022_firestore_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "26bfe61a55880cd136fa0b1fd4e2411943ac7ff8c01c2322fa095645d6d67c41",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2022/30_merged_2/question_2022_firestore_3_merged_20260831_1453.json",
+          "selectedSha256": "9a065acb0ebd9c1194e5c2b23ddc11f2f82c91ba3eb1f8e8534d3150ff6499d1",
+          "sourceName": "question_2022_firestore_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2022
+    },
+    {
+      "archived30Count": 4,
+      "archived40Count": 1,
+      "convertSha256": "9047c5157b479721ec14e7ddf2faf5b108f20608627278119e3906843a845905",
+      "generatedDocumentCount": 293,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 4,
+      "mergedRecordCount": 60,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 1,
+      "readbackReplacedDocumentCount": 293,
+      "reconciledDocumentCount": 294,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "72f2871053292d192d8b53fe52acec92b3dd68313a6f347434c8ef8e2b00e733",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2023/30_merged_2/question_2023_firestore_1_merged_20260831_1453.json",
+          "selectedSha256": "1ccf51296822945267ddc41b00cfdf72035fd297f7313c552a96fc3be4eaadef",
+          "sourceName": "question_2023_firestore_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "d919c277ed3410803228907c3fa957835054945bea6512022d0a0cd7d892540f",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2023/30_merged_2/question_2023_firestore_2_merged_20260831_1453.json",
+          "selectedSha256": "0f4329693f2c7f89d75ffefd20bee8010649f1093a1f0362b22d6520ed28b8bf",
+          "sourceName": "question_2023_firestore_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "b616d85d5e322ff05e30cb47e91f79ef970a3d0d4d7eb712b61754ef2b071a98",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2023/30_merged_2/question_2023_firestore_3_merged_20260831_1453.json",
+          "selectedSha256": "eea72d847b225d076a56a45dc1a306d5b2c44664bcc57d36b604f5523e657fb7",
+          "sourceName": "question_2023_firestore_3.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "047a00c24fc08ed7f7627a6414f74152b8f23cfeb0547a4ee894fb0fc6015e45",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2023/30_merged_2/question_2023_gassyunin_site_1_merged_20260831_1453.json",
+          "selectedSha256": "944e6899700720ce3b79d6c8c5a91c61d0efebc8291339ff5429049507e082f2",
+          "sourceName": "question_2023_gassyunin_site_1.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2023
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "24a3b984153b592a920188d393cf5238dd7890ce470a63e2851c575c9f5ad989",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "d4f8a865142bc499ba25badb6a5926dcd8273fc7c1c97fbeb35d79ebb4aea4fc",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2024/30_merged_2/question_2024_gassyunin_site_1_merged_20260831_1453.json",
+          "selectedSha256": "74ab4e4537e47743d52a9e6b85bb97699a5d6883a8ff6ccac6d4fa6f324595b5",
+          "sourceName": "question_2024_gassyunin_site_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "16d49e83754a056e7be126f9658dcb3a54d7700db9a5f780a1145c0189595bb9",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2024/30_merged_2/question_2024_gassyunin_site_2_merged_20260831_1453.json",
+          "selectedSha256": "49835d29f61de548bda01deef6ee39b9e9be87229ca23aafebe198d04c1d3d6a",
+          "sourceName": "question_2024_gassyunin_site_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "7acf4dc541a46396360b4ef5befc4d73f8fc037a749fbb8a418ba16ba8b1169b",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2024/30_merged_2/question_2024_gassyunin_site_3_merged_20260831_1453.json",
+          "selectedSha256": "490d98e0fac426788b06512fb83e4bd48c209bf4970ed160fd33927336eec73e",
+          "sourceName": "question_2024_gassyunin_site_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2024
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "55becada1f30096a859e2d2a0d57a8d63f27969434f464260c51de91a01b8942",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-kou",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "70c6ac9e10ef2476c68579039830c2105385ed9bdd70774d9d3a6e935a5dc5ca",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2025/30_merged_2/question_2025_gassyunin_site_1_merged_20260831_1453.json",
+          "selectedSha256": "aed31302020afba266b75849670e1f42af2e8a051ff16ef21c317ad7ec58ecf6",
+          "sourceName": "question_2025_gassyunin_site_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "8637373a1a90a84dafc22057142183078e1d7304f4d70eff5a6418a2423a5ec3",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2025/30_merged_2/question_2025_gassyunin_site_2_merged_20260831_1453.json",
+          "selectedSha256": "f4c36961a84bbc5d2a0dab72f43ed37153be630753406cdd4bac75580093f1ad",
+          "sourceName": "question_2025_gassyunin_site_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "fb425810bb234c07f92447aa21973bb937ae7c8f07bfb1da7891fdfdfd520403",
+          "selectedPath": "output/gas-shunin-kou/questions_json/2025/30_merged_2/question_2025_gassyunin_site_3_merged_20260831_1453.json",
+          "selectedSha256": "acbf8e4ce00ac82272147556e706a999675b87a2b9b24b07e43d7a685846a842",
+          "sourceName": "question_2025_gassyunin_site_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2025
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "664785295e37f4d14e7addd71bef61960dd554d14e794202c4b24a97c2d72479",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "f3c7ad54d1e76e843c745a7f39472d8421c9f4dc584b5a4afa3b7d65e9c89d81",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2017/30_merged_2/question_2017_1_merged_20260831_1453.json",
+          "selectedSha256": "b6b4b06b171d2849b1a0c581d0a26a667c914b08eefa433faddb4a27a0fc42d1",
+          "sourceName": "question_2017_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "a1f5785a0fab35d8ffc2d5b99d730740e60d17e75eaa653c0b4a25e716dfdb33",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2017/30_merged_2/question_2017_2_merged_20260831_1453.json",
+          "selectedSha256": "6e13d176057c71ea7859bcd5c982228b2e6dcb6263917bd2ba7cac303c3d8578",
+          "sourceName": "question_2017_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "f5c314a5192578897b846eaec7a3f413e53cbe3e12773cf60272f85ead9bd890",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2017/30_merged_2/question_2017_3_merged_20260831_1453.json",
+          "selectedSha256": "593d6cb38276563231b3aeb9bcf6298e959ddb65292da6c01d178ee3bc93a04d",
+          "sourceName": "question_2017_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2017
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "5c77680788681c337223807a08120a376391cf438e2d062b0caea6cf41169e79",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "5693ee45d67198f7b4ddded23158acde686a3b8fca16088571fbddffd150d176",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2018/30_merged_2/question_2018_1_merged_20260831_1453.json",
+          "selectedSha256": "006a89113961736f4663ef0ee1a26da5526efec2f6504d865a9cec768bcaf0da",
+          "sourceName": "question_2018_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "0bc6682076e127f2de7a2dc139f18f91bd2263e2c923acd8ace9c9819c731f37",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2018/30_merged_2/question_2018_2_merged_20260831_1453.json",
+          "selectedSha256": "adb8746ea27a3f4031ac4f73744de4c0f955d14ba73ac65a69ca9155633ab28b",
+          "sourceName": "question_2018_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "2b3f2e99a816bb0dec28b1e31729c207f155bf5f44c1686351d4c9db33ca0391",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2018/30_merged_2/question_2018_3_merged_20260831_1453.json",
+          "selectedSha256": "cf77cc0ecf4f3056fa7c53a5ecca17edb7d47757fd97533b098f321921364638",
+          "sourceName": "question_2018_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2018
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "f7b02576ea0a41581567df315cbad1363c4740f51ad1d74df4a4d775024c6d15",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "e2a6ecbbb670ca02cb666cd43e85476ab4c45cce10e02eecdf2260b617da87ff",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2019/30_merged_2/question_2019_1_merged_20260831_1453.json",
+          "selectedSha256": "9b41ee74818bb547d31588f344ba8f459424e92444096badd759b547b1d130ac",
+          "sourceName": "question_2019_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "97e5b64daddcab374e6b90a9da7feb78750ba71103b7e14d59caaed9e112145f",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2019/30_merged_2/question_2019_2_merged_20260831_1453.json",
+          "selectedSha256": "d93d18bdcd1403c99314013300e66869dbd6af2fc2d4e25dd4a9349a1f7b19eb",
+          "sourceName": "question_2019_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "9c3dea2ab3bd95f696080cc9ebafc46507bb775f46022ee4caac67e31eca0281",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2019/30_merged_2/question_2019_3_merged_20260831_1453.json",
+          "selectedSha256": "bc253446d5423c3f7334a18e6fe8a8d822c88bd4f31138839a40b5c3eabed30a",
+          "sourceName": "question_2019_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2019
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "a4bd08f2f721ea942cf99537a55ed422cd2883d54f16824b905db1d15a96706c",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "0f88b86893581bf863e247f55abb594a18c82a45b642d30cccd2e09892468124",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2020/30_merged_2/question_2020_1_merged_20260831_1453.json",
+          "selectedSha256": "2e82661f670ec5248dc54a1146b41a340ad1139633628db34090543f05d35e8c",
+          "sourceName": "question_2020_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "190a8ef6a44f0e693f76949c4f16dcc76b7532a930c731cf675716253e5ea8c3",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2020/30_merged_2/question_2020_2_merged_20260831_1453.json",
+          "selectedSha256": "60be4cc824f2dafdeb4cd9b3518adcb13d0883ec28e95bdd6c026c7b47859d21",
+          "sourceName": "question_2020_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "b512c5e3ccc69a3b243a96cc80e07489a86d5676307ba4ada2d45a46fee1c3fa",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2020/30_merged_2/question_2020_3_merged_20260831_1453.json",
+          "selectedSha256": "a34cf1ba2d2a3f30a2792449afac9bf76b3d82ee95b48ad86e781bc7a4179768",
+          "sourceName": "question_2020_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2020
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "4664f07967ccecb07ae15c985ee2139e0a235fb548755a270a9314fc25985633",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "ac075303f6b8cae49f74c655ddbe878652cdef2b423f349c71e75ec112586dbc",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2021/30_merged_2/question_2021_1_merged_20260831_1453.json",
+          "selectedSha256": "cda96f5ed996358e5788228ba0dad7e92b0187f9da3932de0f9644efc3b2ac84",
+          "sourceName": "question_2021_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "cd2f22d03eed4f867877db70799b7a1cef1c08a86e2583c6ecab76294de2ca28",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2021/30_merged_2/question_2021_2_merged_20260831_1453.json",
+          "selectedSha256": "a7a01bb559b2cf03fa3a502c40f629ebfbec1fd54de4bbadb6486f076c4315cc",
+          "sourceName": "question_2021_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "862066998ffeeef45f1097f8a5d1b39aa00dd58958736e591e48e098c0af5c8a",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2021/30_merged_2/question_2021_3_merged_20260831_1453.json",
+          "selectedSha256": "cc6a881191d9729f00642796212ee853076e3e4ad16a25108e58fea1fcbf109b",
+          "sourceName": "question_2021_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2021
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "f3fd7ef7e3c84aefb062db881c0f5c5d7b597af04231c6320f7817f36af5b912",
+      "generatedDocumentCount": 281,
+      "inputMode": "protected_source",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 281,
+      "reconciledDocumentCount": 281,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "f1904e1532cc6ddf28c338203aa281f8b091d5bab1bf605849bf97c99932400d",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
+          "selectedSha256": "f1904e1532cc6ddf28c338203aa281f8b091d5bab1bf605849bf97c99932400d",
+          "sourceName": "question_2022_1.json",
+          "status": "manifest_match"
+        },
+        {
+          "expectedSourceSha256": "325fa20eaf7ef40a5ee381342b8a3a7d67548f1be7c617096be2bc2592705a88",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
+          "selectedSha256": "325fa20eaf7ef40a5ee381342b8a3a7d67548f1be7c617096be2bc2592705a88",
+          "sourceName": "question_2022_2.json",
+          "status": "manifest_match"
+        },
+        {
+          "expectedSourceSha256": "a16741c3947dc529a8d8ec1581bd9a7b2b87d1fd30ad2d946dbc7fb2d25f77eb",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
+          "selectedSha256": "a16741c3947dc529a8d8ec1581bd9a7b2b87d1fd30ad2d946dbc7fb2d25f77eb",
+          "sourceName": "question_2022_3.json",
+          "status": "manifest_match"
+        }
+      ],
+      "year": 2022
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "db471d7f12786b63486b0cf18595311133de7444ff3b491d1047b7e48cbab62a",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "7b7cfc39bffbb283ba4395a2a210ccede7da48997137802ecda6bc850cd3d244",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2023/30_merged_2/question_2023_1_merged_20260831_1453.json",
+          "selectedSha256": "1392f1840c9e727ce96b6acf8885352138dcd65aa25afa30d17ab2c8b82c9a8d",
+          "sourceName": "question_2023_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "0fd2f7553be1795b2b238780eabd7542b93293d9698eca09c712db47089c6d31",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2023/30_merged_2/question_2023_2_merged_20260831_1453.json",
+          "selectedSha256": "dcf02a3aa21abcb012df9ba6dea1ed51b42ce76c31288c04a5f3e3827da1fbe8",
+          "sourceName": "question_2023_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "85b5bd06c2838a9af0cdc314a9beb16cebb56e74439e632ce40929645020bf28",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2023/30_merged_2/question_2023_3_merged_20260831_1453.json",
+          "selectedSha256": "0189507eeb5e931b3fe436de89c0acf4ba9eff438cfec22f5e1faef9a7ab6368",
+          "sourceName": "question_2023_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2023
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "011165416960a3833348d7b2eea06ebfc29b53235e8d1629eea9192921dcbf4c",
+      "generatedDocumentCount": 290,
+      "inputMode": "archived_merged_baseline",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "550d97ffd42d1d8edd725c31b25240369825e81b9b56611f4f7d5b699c1a39be",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2024/30_merged_2/question_2024_1_merged_20260831_1453.json",
+          "selectedSha256": "0f187f258af410a742411f43fbad471cb95433a3630594bd3105f2fac684f5bc",
+          "sourceName": "question_2024_1.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "5eda28f53aa51c37ea9428a1084f982feb5d9d815c194d03bcefd798e38fcc3d",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2024/30_merged_2/question_2024_2_merged_20260831_1453.json",
+          "selectedSha256": "197c12383c1b21959a91ee284e1110ae4d700b73f05547a6cfe53ef24b6cdf29",
+          "sourceName": "question_2024_2.json",
+          "status": "archived_merged_baseline"
+        },
+        {
+          "expectedSourceSha256": "c2206ceef5353162abf8b49e8c2f3210e7581c3eae19b94a78120dae1aeeabba",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2024/30_merged_2/question_2024_3_merged_20260831_1453.json",
+          "selectedSha256": "366dc80cf918a10ea504290c598d03d79d574868152be43b14111a5e3a653b7e",
+          "sourceName": "question_2024_3.json",
+          "status": "archived_merged_baseline"
+        }
+      ],
+      "year": 2024
+    },
+    {
+      "archived30Count": 3,
+      "archived40Count": 1,
+      "convertSha256": "8500d7061ec30280a06d3e5296a37d967b3ffb9781ce0ae1fdbe8d52e4afa7de",
+      "generatedDocumentCount": 290,
+      "inputMode": "protected_source",
+      "mergedFileCount": 3,
+      "mergedRecordCount": 58,
+      "qualification": "gas-shunin-otsu",
+      "readbackInjectedActiveDocumentCount": 0,
+      "readbackReplacedDocumentCount": 290,
+      "reconciledDocumentCount": 290,
+      "selectedInputs": [
+        {
+          "expectedSourceSha256": "c46fdf90cfebe0b04b5f2dee3b3e1dffafe4a0ec25fa93632fe47954f10a9e70",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
+          "selectedSha256": "c46fdf90cfebe0b04b5f2dee3b3e1dffafe4a0ec25fa93632fe47954f10a9e70",
+          "sourceName": "question_2025_1.json",
+          "status": "manifest_match"
+        },
+        {
+          "expectedSourceSha256": "cd6e532ec6682db5ba96b6a600e2edc4e2cb8f2d440f91f78679b4a0baf3367d",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
+          "selectedSha256": "cd6e532ec6682db5ba96b6a600e2edc4e2cb8f2d440f91f78679b4a0baf3367d",
+          "sourceName": "question_2025_2.json",
+          "status": "manifest_match"
+        },
+        {
+          "expectedSourceSha256": "d6fe3fc2a0fcd9a7f801f140fdcb0957b468220aceb1bdace2bfd8aaafe07063",
+          "selectedPath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
+          "selectedSha256": "d6fe3fc2a0fcd9a7f801f140fdcb0957b468220aceb1bdace2bfd8aaafe07063",
+          "sourceName": "question_2025_3.json",
+          "status": "manifest_match"
+        }
+      ],
+      "year": 2025
+    }
+  ]
+}

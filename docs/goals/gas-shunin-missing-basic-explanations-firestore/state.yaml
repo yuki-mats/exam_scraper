@@ -4,7 +4,7 @@ goal:
   title: "ガス主任技術者 基本解説欠落の全件整備とFirestore反映"
   slug: "gas-shunin-missing-basic-explanations-firestore"
   kind: specific
-  tranche: "Firestoreの余分647問を復旧可能に非表示化し、問題セット・フォルダ件数をライブ実数へ収束させる"
+  tranche: "甲種・乙種2017〜2025年を通常経路で30_merged_2・40_convertまで再生成し、Firestore全4,125問との差分0を証明する"
   status: done
   oracle:
     signal: "甲種・乙種のFirestoreライブ読取で表示対象のexplanationText欠落件数が0"
@@ -1318,15 +1318,74 @@ tasks:
       firestore_writes: 19
       full_outcome_complete: true
 
+  - id: T034
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "甲種・乙種2017〜2025年の入力構成を安全に復旧し、通常merge・convertを全年度で再生成してFirestore全4,125問との差分0を証明する。"
+    constraints:
+      - "掲載サイトを閲覧又は根拠に使用しない。"
+      - "00_sourceの内容を下流patchから推測して改変しない。復旧は保存済みhash、履歴、Firestore snapshot由来の同一source recordで証明できるものに限る。"
+      - "既存Firestore document IDを変更しない。"
+      - "Firestoreと利用者データへ書き込まない。"
+      - "サブエージェントを使わずPMだけで実行する。"
+      - "既存の無関係変更を破棄又は混在させない。"
+    allowed_files:
+      - "docs/goals/gas-shunin-missing-basic-explanations-firestore/**"
+      - "document/temporary/**"
+      - "document/operations/**"
+      - "scripts/**"
+      - "tests/**"
+      - "output/gas-shunin-kou/questions_json/**"
+      - "output/gas-shunin-otsu/questions_json/**"
+      - "output/gas-shunin-kou/firestore_snapshot/**"
+      - "output/gas-shunin-otsu/firestore_snapshot/**"
+    verify:
+      - "甲種・乙種2017〜2025年の通常mergeが全年度で成功する。"
+      - "各年度に現行30_merged_2と40_convertが存在し、入力source record件数と変換対象件数が対応する。"
+      - "生成したFirestore artifactの既存IDがライブ表示対象4,125問と一意対応する。"
+      - "問題文・選択肢・正答・解説・questionSetId・questionType・examYearの差分が0である。"
+      - "00_sourceの復旧根拠とhashをreceiptへ記録する。"
+      - "focused tests、全field readback parity gate、GoalBuddy checkerがpassする。標準quality gateの既存legacy failureはreceiptへ分離する。"
+    stop_if:
+      - "00_sourceの復旧元をhash又は同一Firestore source identityで証明できない。"
+      - "再生成により既存document IDが変わる。"
+      - "Firestore又は利用者データへの書込みが必要になる。"
+      - "対象外ファイルの変更が必要になる。"
+    receipt:
+      path: docs/goals/gas-shunin-missing-basic-explanations-firestore/notes/T034-all-year-local-rebuild-receipt.json
+      result: done
+      generated_year_count: 18
+      protected_source_year_count: 4
+      archived_merged_baseline_year_count: 14
+      current_30_merged_2_year_count: 18
+      current_40_convert_year_count: 18
+      active_display_kou: 2212
+      active_display_otsu: 1913
+      active_display_total: 4125
+      missing_document_ids: 0
+      extra_document_ids: 0
+      different_documents: 0
+      protected_00_source_writes: 0
+      firestore_writes: 0
+      focused_tests_passed: 28
+      standard_quality_gate:
+        status: known_legacy_failure
+        failed_year_count: 18
+        reasons:
+          - "Firestore readback mirrorに現行上限3件を超える既存suggestedQuestionDetailsがある。"
+          - "00_source欠落年度は通常source coverage gateを満たさず、退避済みmerged復旧経路を使う。"
+      full_outcome_complete: true
+
 checks:
   dirty_fingerprint: "clean-before-goal-prep; goal-control-files-added"
   last_verification:
     result: pass
-    task: T033
+    task: T034
     commands:
-      - "Official PDF individual verification 53; updates 19; no-change 34"
-      - "Firestore readback 19/19; user data writes 0; hard deletes 0"
-      - "Post live audit pass 4,125/4,125; answer/content/review/schema issues 0"
-      - "Exact duplicate excess 0; questionSet/folder count mismatches 0"
-      - "Gas-shunin 00_source tracked and untracked changes 0"
-      - "Focused tests 11 passed"
+      - "All-year local rebuild 18/18 years; current 30_merged_2 and 40_convert present"
+      - "Firestore readback all-field parity 4,125/4,125; missing/extra/different IDs 0/0/0"
+      - "Protected 00_source writes 0; Firestore writes 0"
+      - "Focused merge/convert/rebuild tests 28 passed"
+      - "Standard quality gate legacy failures recorded separately; no upload performed"

@@ -34,7 +34,7 @@ PMは各Worker packageのreceiptをこのoracleへ照合する。計画作成、
 
 ## Current Tranche
 
-2026-08-29のライブ監査で確認した当初対象782件（甲種1件、乙種781件）を固定母集団とする。前回の欠落0件という完了判定は、問題・選択肢・正答・解説の意味対応を検証していなかったため無効化する。各問題は問題文・対象選択肢・正答・既存根拠・類題を読み、一問別台帳、機械検査、確定保存を閉じてから次へ進む。全782問の再監査後に限定artifact、公開前監査、Firestore更新、ライブreadback、commitまで連続実行する。
+2026-08-31の再監査でFirestore表示対象4,125問と段階別ローカルpatchの論理投影は一致したが、全年度の物理的な`30_merged_2`・`40_convert`が揃っていないことが判明した。甲種・乙種2017〜2025年について、`00_source`の内容を推測で変更せず、保存済みhash・履歴・Firestore snapshot由来source identityを用いて入力構成を復旧し、通常merge・convertを全年度で成功させる。最終的に生成したFirestore artifactとライブ表示対象4,125問を既存document ID単位で比較し、問題文・選択肢・正答・解説・問題セット等の差分0を証明する。
 
 ## Non-Negotiable Constraints
 
