@@ -1244,6 +1244,11 @@ function bindControls() {
   )) {
     node.addEventListener("change", previewQualificationRun);
   }
+  $("#qualification-run-concurrency-fieldset").addEventListener("change", (event) => {
+    if (event.target.matches('input[name="qualification-run-concurrency"]')) {
+      previewQualificationRun();
+    }
+  });
   $("#workflow-guide-close").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-backdrop").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-action").addEventListener("click", executeWorkflowGuideAction);
