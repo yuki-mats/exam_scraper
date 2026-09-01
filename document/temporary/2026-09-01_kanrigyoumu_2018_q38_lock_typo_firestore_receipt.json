@@ -1,0 +1,76 @@
+{
+  "change": {
+    "after": {
+      "explanationText": "標規（単）7条2項2号｜理由：玄関扉は錠及び内部塗装部分を専有部分とすると定めるため",
+      "knowledgeText": "玄関扉は、錠及び内部塗装部分を専有部分とする〈標規（単）7条2項2号〉。",
+      "originalQuestionChoiceText": "玄関扉は、錠及び内部塗装部分のみが専有部分である。",
+      "questionText": "専有部分の範囲に関する次の記述のうち、標準管理規約に従い、正しいかどうか答えよ。（改題）\n[quote]玄関扉は、錠及び内部塗装部分のみが専有部分である。[/quote]"
+    },
+    "afterHash": "34915ed5d90812e82678d4e7619a3526a489a2a1d73bd0526747aaf594e3bbc7",
+    "allowedFields": [
+      "originalQuestionChoiceText",
+      "knowledgeText",
+      "questionText",
+      "explanationText"
+    ],
+    "before": {
+      "explanationText": "標規（単）7条2項2号｜理由：玄関扉は鏡及び内部塗装部分を専有部分とすると定めるため",
+      "knowledgeText": "玄関扉は、鏡及び内部塗装部分を専有部分とする〈標規（単）7条2項2号〉。",
+      "originalQuestionChoiceText": "玄関扉は、鏡及び内部塗装部分のみが専有部分である。",
+      "questionText": "専有部分の範囲に関する次の記述のうち、標準管理規約に従い、正しいかどうか答えよ。（改題）\n[quote]玄関扉は、鏡及び内部塗装部分のみが専有部分である。[/quote]"
+    },
+    "beforeHash": "83311e632c31f7c35650cfe6464f5cd5752f972d1a44be0ddb5bce46986d7b1f"
+  },
+  "evidence": {
+    "locator": "PDF 29ページ（紙面27ページ）、問38、設問イ",
+    "officialPdfSha256": "db3a5ded8ecd0b69c284dcc5349afad59f73aae7354aab31f1a247d5b52ecaf7",
+    "officialPdfUrl": "https://www.kanrikyo.or.jp/kanri/mondaiseikai/pdf/h30_0.pdf",
+    "ruleLocator": "マンション標準管理規約（単棟型）第7条第2項第2号",
+    "verifiedText": "玄関扉は、錠及び内部塗装部分のみが専有部分である。"
+  },
+  "executedAt": "2026-09-01T13:36:55.291726Z",
+  "precondition": {
+    "beforeUpdateTime": "2026-06-08T04:07:33.720003+00:00"
+  },
+  "projectId": "repaso-rbaqy4",
+  "readback": {
+    "afterUpdateTime": "2026-09-01T13:36:55.216001+00:00",
+    "fields": {
+      "explanationText": "標規（単）7条2項2号｜理由：玄関扉は錠及び内部塗装部分を専有部分とすると定めるため",
+      "knowledgeText": "玄関扉は、錠及び内部塗装部分を専有部分とする〈標規（単）7条2項2号〉。",
+      "originalQuestionChoiceText": "玄関扉は、錠及び内部塗装部分のみが専有部分である。",
+      "questionText": "専有部分の範囲に関する次の記述のうち、標準管理規約に従い、正しいかどうか答えよ。（改題）\n[quote]玄関扉は、錠及び内部塗装部分のみが専有部分である。[/quote]"
+    },
+    "identityMatches": true,
+    "matchesExpectedAfter": true
+  },
+  "rollback": {
+    "allowedFields": [
+      "originalQuestionChoiceText",
+      "knowledgeText",
+      "questionText",
+      "explanationText"
+    ],
+    "preconditionUpdateTime": "2026-09-01T13:36:55.216001+00:00",
+    "values": {
+      "explanationText": "標規（単）7条2項2号｜理由：玄関扉は鏡及び内部塗装部分を専有部分とすると定めるため",
+      "knowledgeText": "玄関扉は、鏡及び内部塗装部分を専有部分とする〈標規（単）7条2項2号〉。",
+      "originalQuestionChoiceText": "玄関扉は、鏡及び内部塗装部分のみが専有部分である。",
+      "questionText": "専有部分の範囲に関する次の記述のうち、標準管理規約に従い、正しいかどうか答えよ。（改題）\n[quote]玄関扉は、鏡及び内部塗装部分のみが専有部分である。[/quote]"
+    }
+  },
+  "schemaVersion": "kanrigyoumu-2018-q38-lock-typo-repair/v1",
+  "status": "applied",
+  "target": {
+    "collection": "questions",
+    "identity": {
+      "examYear": 2018,
+      "isChoiceOnly": false,
+      "isDeleted": false,
+      "originalQuestionId": "kanrigyo-2018-38",
+      "qualificationId": "condominiummanager",
+      "questionNumber": 38
+    },
+    "questionId": "condominiummanager-C-13027"
+  }
+}
