@@ -91,7 +91,7 @@ class DocumentationStructureTests(unittest.TestCase):
             "question_completed",
             "processed",
             "validated",
-            "15秒間隔",
+            "60秒間隔",
             "`heartbeatAt`",
             "technical_log.jsonl",
             "commandStatus",

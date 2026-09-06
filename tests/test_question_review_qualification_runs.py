@@ -1261,6 +1261,10 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 wraps=coordinator.store.update_question_stages,
             ) as update_question_stages, patch.object(
                 coordinator.store,
+                "refresh_question_summary",
+                wraps=coordinator.store.refresh_question_summary,
+            ) as refresh_question_summary, patch.object(
+                coordinator.store,
                 "_hydrate_question_run",
                 side_effect=track_hydrate,
             ):
@@ -1284,6 +1288,12 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 "new-exam",
                 started["run"]["runId"],
             )
+            raw_manifest = json.loads(
+                coordinator.store._manifest_path(
+                    "new-exam",
+                    started["run"]["runId"],
+                ).read_text(encoding="utf-8")
+            )
             children = _question_attempts(
                 coordinator.store,
                 "new-exam",
@@ -1293,7 +1303,15 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         batches = [call.args[2] for call in update_question_stages.call_args_list]
         self.assertEqual(run["queueStatus"], "succeeded")
         self.assertEqual(run["targetIdentity"], preview["targetIdentity"])
+        self.assertNotIn("targetIdentity", raw_manifest)
         self.assertEqual(run["previewPlanHash"], preview["previewPlanHash"])
+        self.assertGreaterEqual(refresh_question_summary.call_count, 1)
+        self.assertTrue(
+            all(
+                call.kwargs.get("refresh_derived") is False
+                for call in update_question_stages.call_args_list
+            )
+        )
         self.assertEqual(run["validatedWorkItemCount"], 4)
         self.assertEqual(run["modelBatchSize"], 1)
         self.assertEqual(len(children), 4)

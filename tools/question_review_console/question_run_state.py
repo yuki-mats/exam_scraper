@@ -42,6 +42,7 @@ PLAN_OWNED_FIELDS = frozenset(
         "selectedUpdateTargets",
         "sourceFiles",
         "stagePlans",
+        "targetIdentity",
         "targetQuestionIds",
         "targetQuestionKeys",
         "targetRecordAliasGroups",

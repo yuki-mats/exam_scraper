@@ -454,7 +454,7 @@ class _ParentRunHeartbeatTicker:
         qualification: str,
         run_id: str,
         *,
-        interval_seconds: float = 15.0,
+        interval_seconds: float = 60.0,
     ):
         self.store = store
         self.qualification = qualification
@@ -495,7 +495,8 @@ class _ParentRunHeartbeatTicker:
 QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, 20, 32, 64, DEFAULT_MAX_PARALLEL_TURNS)
 DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
 PREPARATION_MAX_PARALLEL_QUESTIONS = 100
-PREPARATION_HEARTBEAT_SECONDS = 15.0
+PREPARATION_HEARTBEAT_SECONDS = 60.0
+QUESTION_SUMMARY_REFRESH_SECONDS = 60.0
 OUTCOME_COALESCE_SECONDS = 0.25
 PREPARED_CANDIDATE_SCHEMA_VERSION = "question-maintenance-prepared-candidate/v1"
 LIVE_RUN_STATUSES = {
@@ -526,6 +527,7 @@ RUN_LIST_HEAVY_FIELDS = frozenset(
         "resumeWorkItemKeys",
         "sourceFiles",
         "targetQuestionKeys",
+        "targetIdentity",
         "targetRecordAliasGroups",
         "targetRecordAliases",
         "targetRecordBindings",
@@ -5012,6 +5014,37 @@ class QualificationRunStore:
         if not refresh_derived:
             with self._path_lock(manifest_path):
                 current = self._load_manifest(manifest_path)
+                next_confirmed_group_ids = sorted(
+                    {
+                        *(
+                            str(value)
+                            for value in current.get("confirmedGroupIds") or []
+                            if value
+                        ),
+                        *(str(value) for value in confirmed_group_ids if value),
+                    }
+                )
+                manifest_changed = next_confirmed_group_ids != list(
+                    current.get("confirmedGroupIds") or []
+                )
+                if manifest_changed:
+                    current["confirmedGroupIds"] = next_confirmed_group_ids
+                appended_stage_id_set = {
+                    stage_id for _question_id, stage_id in update_keys
+                }
+                if appended_child_run_ids and len(appended_stage_id_set) == 1:
+                    active_stage_id = next(iter(appended_stage_id_set))
+                    if (
+                        current.get("currentPhaseId") != active_stage_id
+                        or current.get("executionPhase")
+                        != f"candidate:{active_stage_id}"
+                    ):
+                        current["currentPhaseId"] = active_stage_id
+                        current["executionPhase"] = f"candidate:{active_stage_id}"
+                        manifest_changed = True
+                if manifest_changed:
+                    current["updatedAt"] = _now()
+                    self._write_manifest(manifest_path, current)
             return (
                 self._hydrate_question_run(manifest_path, current)
                 if hydrate_result
@@ -13100,6 +13133,7 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
                 committing_updates,
+                refresh_derived=False,
                 hydrate_result=False,
             )
 
@@ -13503,6 +13537,7 @@ class QualificationRunCoordinator:
             peak_question_window = 0
             model_started = False
             last_runtime_snapshot = 0.0
+            last_question_summary_refresh = 0.0
             provider_recovery_attempt = 0
             provider_recovery_needed = False
 
@@ -13770,6 +13805,7 @@ class QualificationRunCoordinator:
                         qualification,
                         run_id,
                         stage_updates,
+                        refresh_derived=False,
                         hydrate_result=False,
                     )
                 for question_id, stage_id in affected:
@@ -13794,7 +13830,7 @@ class QualificationRunCoordinator:
                         queue_continuation(question_id)
 
             def update_runtime_snapshot(*, force: bool = False) -> None:
-                nonlocal last_runtime_snapshot
+                nonlocal last_runtime_snapshot, last_question_summary_refresh
                 current_monotonic = time.monotonic()
                 if (
                     not force
@@ -13860,6 +13896,22 @@ class QualificationRunCoordinator:
                     questionWindow=pipeline_telemetry.question_window_snapshot(),
                     patchTools=pipeline_telemetry.patch_tool_snapshot(),
                 )
+                if (
+                    force
+                    or current_monotonic - last_question_summary_refresh
+                    >= QUESTION_SUMMARY_REFRESH_SECONDS
+                ):
+                    # 一問stateは各確定時に即時保存する。一方、全問を含む
+                    # question_summary.jsonは数十MBになるため、各turnで
+                    # 再構築すると長時間runで大きな書込み増幅が起きる。
+                    # UI用の集計だけを一定間隔へまとめ、終了境界では必ず
+                    # force refreshして正確な最終値へ収束させる。
+                    self.store.refresh_question_summary(
+                        qualification,
+                        run_id,
+                        hydrate_result=False,
+                    )
+                    last_question_summary_refresh = current_monotonic
                 last_runtime_snapshot = current_monotonic
 
             fill_question_window()
@@ -13906,7 +13958,6 @@ class QualificationRunCoordinator:
                                 str,
                             ]
                         ] = []
-                        spec_without_candidate = False
                         for future in completed_specs:
                             (
                                 question_id,
@@ -13919,7 +13970,6 @@ class QualificationRunCoordinator:
                             if not isinstance(spec, Mapping):
                                 release_window(question_id)
                                 queue_continuation(question_id)
-                                spec_without_candidate = True
                                 continue
                             prepared_spec_count += 1
                             if isinstance(
@@ -13943,12 +13993,7 @@ class QualificationRunCoordinator:
                                 qualification,
                                 run_id,
                                 projection_updates,
-                                hydrate_result=False,
-                            )
-                        elif spec_without_candidate:
-                            self.store.refresh_question_summary(
-                                qualification,
-                                run_id,
+                                refresh_derived=False,
                                 hydrate_result=False,
                             )
                         for (
