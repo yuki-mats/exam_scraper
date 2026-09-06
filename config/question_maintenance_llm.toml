@@ -1,8 +1,8 @@
 version = 2
 
 [limits]
-question_parallelism = 20
-llm_call_concurrency = 20
+question_parallelism = 100
+llm_call_concurrency = 100
 audit_batch_questions = 5
 audit_batch_input_bytes = 120000
 

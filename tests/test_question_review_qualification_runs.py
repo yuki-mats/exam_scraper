@@ -419,6 +419,60 @@ class LegacyRunModelProfileResumeTests(unittest.TestCase):
                 coordinator.store.get("sample", previous["runId"])["llmProfile"]
             )
 
+    def test_resume_allows_only_scheduler_concurrency_limit_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory), FakeWorkflow(), FakeSynchronizer(),
+                JobManager(), "secret", app_server=self.app_server(),
+            )
+            plan = FakeWorkflow().plan("sample", "explanation")
+            previous_profile = self.app_server().snapshot_for("codex_only")
+            previous_profile["fingerprint"] = "fingerprint:old-concurrency"
+            previous_profile["limits"].update(
+                {
+                    "questionParallelism": 20,
+                    "llmCallConcurrency": 20,
+                    "effectiveQuestionConcurrency": 20,
+                }
+            )
+            plan["llmProfile"] = previous_profile
+            previous = coordinator.store.create(plan, status="interrupted")
+
+            preview = coordinator._preview_uncached(
+                "sample", "explanation", "refresh",
+                resumed_from=previous["runId"], model_profile="codex_only",
+                question_concurrency=100, _prepared_plan=plan,
+            )
+
+            self.assertEqual(
+                preview["llmProfile"]["limits"]["questionParallelism"],
+                1,
+            )
+            self.assertEqual(preview["questionConcurrency"], 100)
+
+    def test_resume_still_rejects_semantic_profile_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory), FakeWorkflow(), FakeSynchronizer(),
+                JobManager(), "secret", app_server=self.app_server(),
+            )
+            plan = FakeWorkflow().plan("sample", "explanation")
+            previous_profile = self.app_server().snapshot_for("codex_only")
+            previous_profile["roles"] = {
+                "maintenance": {"backend": "different_backend"}
+            }
+            plan["llmProfile"] = previous_profile
+            previous = coordinator.store.create(plan, status="interrupted")
+
+            with self.assertRaisesRegex(
+                QualificationRunError, "fingerprintが一致しません",
+            ):
+                coordinator._preview_uncached(
+                    "sample", "explanation", "refresh",
+                    resumed_from=previous["runId"], model_profile="codex_only",
+                    _prepared_plan=plan,
+                )
+
 
 class EvaluationReworkStageTests(unittest.TestCase):
     def test_content_rework_runs_originalize_before_answer_and_explanation(self):

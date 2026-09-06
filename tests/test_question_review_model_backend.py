@@ -59,9 +59,9 @@ def test_repository_config_defines_profiles_backends_roles_and_initial_limits():
     assert local.timeout_seconds == 600
     assert hybrid.roles["maintenance"].local_attempts_before_fallback == 1
     assert hybrid.roles["maintenance"].fallback_backend is None
-    assert config.limits.question_parallelism == 20
-    assert config.limits.llm_call_concurrency == 20
-    assert config.limits.effective_question_concurrency == 20
+    assert config.limits.question_parallelism == 100
+    assert config.limits.llm_call_concurrency == 100
+    assert config.limits.effective_question_concurrency == 100
     assert config.limits.audit_batch_questions == 5
     assert config.limits.audit_batch_input_bytes == 120000
 

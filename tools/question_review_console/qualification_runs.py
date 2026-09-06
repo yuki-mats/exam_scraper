@@ -1123,6 +1123,31 @@ def normalize_question_concurrency(value: Any) -> int:
     return concurrency
 
 
+_RESUME_MUTABLE_LLM_LIMIT_KEYS = frozenset(
+    {
+        "questionParallelism",
+        "llmCallConcurrency",
+        "effectiveQuestionConcurrency",
+    }
+)
+
+
+def _llm_profile_resume_identity(snapshot: Any) -> Any:
+    """Keep semantic LLM settings strict while allowing scheduler limit changes."""
+
+    if not isinstance(snapshot, Mapping):
+        return snapshot
+    identity = copy.deepcopy(dict(snapshot))
+    identity.pop("fingerprint", None)
+    limits = identity.get("limits")
+    if isinstance(limits, Mapping):
+        semantic_limits = dict(limits)
+        for key in _RESUME_MUTABLE_LLM_LIMIT_KEYS:
+            semantic_limits.pop(key, None)
+        identity["limits"] = semantic_limits
+    return identity
+
+
 def _canonical_json_hash(value: Any) -> str:
     return hashlib.sha256(
         json.dumps(
@@ -9579,7 +9604,11 @@ class QualificationRunCoordinator:
                     raise QualificationRunError(
                         "LLM profile未記録の旧runはcodex_onlyでのみ再開できます。"
                     )
-                if previous_snapshot is not None and previous_snapshot != snapshot:
+                if (
+                    previous_snapshot is not None
+                    and _llm_profile_resume_identity(previous_snapshot)
+                    != _llm_profile_resume_identity(snapshot)
+                ):
                     raise QualificationRunError(
                         "再開元と現在のLLM profile fingerprintが一致しません。"
                     )
