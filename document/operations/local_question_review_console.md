@@ -86,6 +86,8 @@ model接続と上限の正本は[`config/question_maintenance_llm.toml`](../../c
 
 評価と再評価はread-only、再整備はworkspace-writeで実行し、異なる作業でthreadを再開・forkしません。整備profileは画面で選択し、preview token、plan、manifestへ名前とfingerprintを固定します。監査roleはどのprofileでもCodex App Serverを使います。構造化候補と評価promptは品質規則、現在の問題、許可field、検査feedbackを自己完結で持たせます。Codex App Serverを使うturnは従来どおり認証、利用上限、公式provider、`Standard` service tier、追加credits無効を検証します。OpenAI互換HTTPのsecretは環境変数だけから読み、artifactへ保存しません。
 
+一問を入力準備・候補生成・確定へ渡す際、不変plan全体を問数に比例して複製しません。coordinatorが所有する不変planを参照し、各処理が実際に読むfieldだけを、その処理専用に複製します。可変manifestと対象一問の工程状態は都度読み戻し、兄弟問題と可変値を共有しません。派生summaryの再集計も検証済みplanを読取専用で参照し、各一問stateのidentity・selfHash検証は省略しません。この最適化はmodel、prompt、工程順、品質基準及びtransactionの確定条件を変更しません。
+
 ## 作業バージョン
 
 工程版は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の`policy_version`だけを`MAJOR.MINOR`形式で管理します。洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げます。公開済みだが使用版を証明できない初期値は`v0.0`です。run開始時とreceipt検証時に、完全な版番号と正本文書fingerprintを照合します。全更新項目を実行した場合は工程単位、部分実行ではupdate target単位で、成功receiptを検証した対象だけを`output/question_review_console/<qualification>/<listGroupId>/work_versions/<reviewKeyのsha256先頭24桁>.json`へ一問ずつ記録します。未選択のupdate targetは現行版になりません。`stateHash`変更又は現行MAJOR未満は再整備、評価版のMAJOR変更は再評価の対象です。

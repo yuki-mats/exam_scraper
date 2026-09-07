@@ -473,7 +473,11 @@ class QuestionRunStateStore:
                 f"一問stateのidentityが一致しません: {question_id}"
             )
         expected_hash = str(state.get("selfHash") or "")
-        actual_hash = _sha256(_without_self_hash(state))
+        # Hashing is read-only. Detaching all nested attempt artifacts here
+        # adds a full-history copy to every read and every summary refresh.
+        actual_hash = _sha256(
+            {key: value for key, value in state.items() if key != "selfHash"}
+        )
         if not expected_hash or actual_hash != expected_hash:
             raise QuestionRunStateError(
                 f"一問stateのselfHashが一致しません: {question_id}"
@@ -504,7 +508,7 @@ class QuestionRunStateStore:
         *,
         plan: Mapping[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
-        current_plan = dict(plan) if plan is not None else self.load_plan(
+        current_plan = plan if plan is not None else self._validated_plan(
             run_dir, manifest
         )
         question_ids = self._plan_question_ids(current_plan)
@@ -572,7 +576,7 @@ class QuestionRunStateStore:
         run_dir: Path,
         manifest: Mapping[str, Any],
     ) -> dict[str, Any]:
-        plan = self.load_plan(run_dir, manifest)
+        plan = self._validated_plan(run_dir, manifest)
         executions = self.load_executions(run_dir, manifest, plan=plan)
         return self._write_summary_from_executions(
             run_dir,

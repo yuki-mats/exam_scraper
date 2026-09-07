@@ -307,6 +307,26 @@ class QuestionRunStateStoreTest(unittest.TestCase):
             )
             self.assertEqual(summary["queueSummary"]["validatedWorkItemCount"], 1)
 
+    def test_summary_reuses_validated_plan_without_copy_and_still_checks_states(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store, run_dir, _plan, manifest = self._initialize(root)
+            original_plan = store.load_plan(run_dir, manifest)
+            with patch.object(
+                store, "load_plan", side_effect=AssertionError("whole plan copied")
+            ):
+                summary = store.rebuild_summary(run_dir, manifest)
+                self.assertEqual(summary["questionCount"], 3)
+                executions = store.load_executions(run_dir, manifest)
+                executions[0]["stages"][0]["status"] = "local change"
+                state_path = store.question_path(run_dir, manifest, "question-1")
+                state = json.loads(state_path.read_text())
+                state["execution"]["stages"][0]["status"] = "tampered"
+                state_path.write_text(json.dumps(state), encoding="utf-8")
+                with self.assertRaisesRegex(QuestionRunStateError, "selfHash"):
+                    store.rebuild_summary(run_dir, manifest)
+            self.assertEqual(store.load_plan(run_dir, manifest), original_plan)
+
     def test_shared_prerequisite_receipts_are_part_of_hydrated_total(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -22,6 +22,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
 
+from tools.question_review_console.run_snapshot import RunSnapshot
+
 from scripts.merge.merge_utils import (
     select_latest_patch_files,
     source_stem_from_patch_filename,
@@ -13425,23 +13427,27 @@ class QualificationRunCoordinator:
         ] = {}
         started_phase_ids: set[str] = set()
 
-        def compact_parent_snapshot() -> dict[str, Any]:
-            return {
-                **copy.deepcopy(immutable_parent),
-                **self.store.get_compact(qualification, run_id),
-            }
+        def compact_parent_snapshot(
+            **overrides: Any,
+        ) -> RunSnapshot:
+            # The full immutable plan can exceed 100 MB. Copying it on every
+            # handoff serializes otherwise independent questions on the
+            # coordinator. Detach only fields a consumer actually accesses.
+            return RunSnapshot(
+                immutable_parent,
+                {**self.store.get_compact(qualification, run_id), **overrides},
+            )
 
         def question_parent_snapshot(
             question_id: str,
-        ) -> tuple[dict[str, Any], dict[str, Mapping[str, Any]]]:
+        ) -> tuple[Mapping[str, Any], dict[str, Mapping[str, Any]]]:
             detail = self.store.question_detail(
                 qualification,
                 run_id,
                 question_id,
             )
             execution = copy.deepcopy(dict(detail["execution"]))
-            snapshot = compact_parent_snapshot()
-            snapshot["questionExecutions"] = [execution]
+            snapshot = compact_parent_snapshot(questionExecutions=[execution])
             return snapshot, {question_id: execution}
 
         def phase_context(
