@@ -86,7 +86,21 @@ model接続と上限の正本は[`config/question_maintenance_llm.toml`](../../c
 
 評価と再評価はread-only、再整備はworkspace-writeで実行し、異なる作業でthreadを再開・forkしません。整備profileは画面で選択し、preview token、plan、manifestへ名前とfingerprintを固定します。監査roleはどのprofileでもCodex App Serverを使います。構造化候補と評価promptは品質規則、現在の問題、許可field、検査feedbackを自己完結で持たせます。Codex App Serverを使うturnは従来どおり認証、利用上限、公式provider、`Standard` service tier、追加credits無効を検証します。OpenAI互換HTTPのsecretは環境変数だけから読み、artifactへ保存しません。
 
-一問を入力準備・候補生成・確定へ渡す際、不変plan全体を問数に比例して複製しません。coordinatorが所有する不変planを参照し、各処理が実際に読むfieldだけを、その処理専用に複製します。可変manifestと対象一問の工程状態は都度読み戻し、兄弟問題と可変値を共有しません。派生summaryの再集計も検証済みplanを読取専用で参照し、各一問stateのidentity・selfHash検証は省略しません。この最適化はmodel、prompt、工程順、品質基準及びtransactionの確定条件を変更しません。
+一問を入力準備・候補生成・確定へ渡す際、不変plan全体を問数に比例して複製しません。coordinatorが所有する不変planを参照し、各処理が実際に読むfieldだけを、その処理専用に複製します。可変manifestと対象一問の工程状態は都度読み戻し、兄弟問題と可変値を共有しません。この最適化はmodel、prompt、工程順、品質基準及びtransactionの確定条件を変更しません。
+
+### 現在状態と不変成果物の保存
+
+新規runの一問stateは`question-maintenance-question/v3`を使います。大きく、確定後に変更しないattemptの`plan`、`prompt`、`preparedCandidate`を、run配下の`attempt_payloads/<hash先頭2桁>/<SHA-256>.json`へ分離します。現在状態は工程、可変attempt metadata、検証結果、receiptと`attemptPayloadRefs`を持ちます。結果・検査記録は監視と復旧が直接照合するため、現在状態に残します。候補のwrite-once制約と、終端attemptを変更しない契約は従来どおりです。
+
+保存順は、不変成果物のflush・fsync・原子的置換、続いて参照を含む一問stateのflush・fsync・原子的置換です。途中停止で参照されない成果物が残っても完了とは扱わず、自動削除しません。既存hashの成果物を再利用するときは内容を照合します。stateのidentity・selfHashを確認した後、必要なattemptだけを展開し、参照先の所有範囲と内容hashも検証します。展開後のAPI表現の`selfHash`は、展開前の保存済みstateに対するhashです。監視用の表示は非展開の検査結果を使い、候補の再利用・復旧・最終照合では参照先も検証します。
+
+旧v2は従来どおり読み書きし、その場で一括変換しません。未完了再開で作る新しいrunからv3を使います。切戻しにはv3を読める版が必要です。旧版をv3へ向けたり、旧runで新しい確定結果を上書きしたりしません。ファイル数と初回保存回数は増えるため、繰返し書込量の削減を総ディスク容量の削減と混同しません。
+
+### 派生進捗の更新
+
+60秒ごとの表示集計は、専用の単一background処理へ分離し、次の問題の投入を待たせません。全件のfile identity（inode・size・mtime・ctime）を確認し、変更された一問だけを読み戻してidentity・selfHashを検証します。変更がない問の工程状態は最大20,000件のprocess-local cacheから独立複製します。イベント加算式ではないため、通知の重複・欠落・逆順で件数を累積しません。読取中に変わったファイルはcacheへ入れず次回に再照合し、revisionの巻戻りは拒否します。初回又はcache消失後は再構築します。
+
+summaryと親manifestの集計値は同じ順序で公開し、古い集計が後から上書きしないようにします。`questionSummaryUpdatedAt`と`questionSummaryRefreshSeconds`に集計の鮮度と所要時間を残します。稼働中の表示は最大一周期以上遅れ得る派生情報で、完了の正本ではありません。background失敗は握りつぶさずrunへ伝えます。終了境界ではbackgroundの終了を待ち、cacheを使わず全stateと参照成果物を照合します。最終品質検査とreceipt承認は省きません。
 
 ## 作業バージョン
 

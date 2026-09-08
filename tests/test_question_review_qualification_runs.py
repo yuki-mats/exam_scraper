@@ -1301,11 +1301,17 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
                 ["new-exam-2026-q1", "new-exam-2026-q2"],
             )
             hydrate_threads = []
+            summary_threads = []
             original_hydrate = coordinator.store._hydrate_question_run
+            original_summary = coordinator.store.refresh_question_summary
 
             def track_hydrate(*args, **kwargs):
                 hydrate_threads.append(threading.current_thread().name)
                 return original_hydrate(*args, **kwargs)
+
+            def track_summary(*args, **kwargs):
+                summary_threads.append((threading.current_thread().name, kwargs.get("incremental", False)))
+                return original_summary(*args, **kwargs)
 
             with patch.object(
                 coordinator, "_plan", wraps=coordinator._plan
@@ -1316,7 +1322,7 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
             ) as update_question_stages, patch.object(
                 coordinator.store,
                 "refresh_question_summary",
-                wraps=coordinator.store.refresh_question_summary,
+                side_effect=track_summary,
             ) as refresh_question_summary, patch.object(
                 coordinator.store,
                 "_hydrate_question_run",
@@ -1360,6 +1366,9 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
         self.assertNotIn("targetIdentity", raw_manifest)
         self.assertEqual(run["previewPlanHash"], preview["previewPlanHash"])
         self.assertGreaterEqual(refresh_question_summary.call_count, 1)
+        self.assertTrue(any(incremental for _, incremental in summary_threads))
+        self.assertTrue(all(name.startswith("question-summary") for name, incremental in summary_threads if incremental))
+        self.assertFalse(summary_threads[-1][1])
         self.assertTrue(
             all(
                 call.kwargs.get("refresh_derived") is False

@@ -4,17 +4,22 @@ import copy
 import hashlib
 import json
 import threading
+from collections import OrderedDict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
 
 from tools.question_review_console.question_work_queue import queue_summary
 from tools.question_review_console.review_store import atomic_write
+from tools.question_review_console.attempt_payloads import (
+    PAYLOAD_FIELDS, AttemptPayloadError, detach_payloads, hydrate_payloads,
+)
 
 
 RUN_SCHEMA_VERSION = "question-maintenance-run/v2"
 PLAN_SCHEMA_VERSION = "question-maintenance-plan/v2"
-QUESTION_SCHEMA_VERSION = "question-maintenance-question/v2"
+LEGACY_QUESTION_SCHEMA_VERSION = "question-maintenance-question/v2"
+QUESTION_SCHEMA_VERSION = "question-maintenance-question/v3"
 SUMMARY_SCHEMA_VERSION = "question-maintenance-summary/v2"
 
 # These values are immutable inputs or per-question execution records.  They
@@ -167,6 +172,8 @@ class QuestionRunStateStore:
             Path,
             tuple[tuple[int, int, int, int], str, dict[str, Any]],
         ] = {}
+        self._execution_cache_lock = threading.RLock()
+        self._execution_cache: OrderedDict[Path, tuple[Any, str, int, dict[str, Any]]] = OrderedDict()
 
     @staticmethod
     def is_current(manifest: Mapping[str, Any]) -> bool:
@@ -412,20 +419,34 @@ class QuestionRunStateStore:
         run_dir: Path,
         manifest: Mapping[str, Any],
         question_id: str,
+        *,
+        hydrate_attempts: bool | str = True,
     ) -> dict[str, Any]:
         path = self.question_path(run_dir, manifest, question_id)
         state = _read_json(path, label="一問state")
-        return self._validate_question_state(
+        state = self._validate_question_state(
             manifest,
             state,
             question_id=question_id,
         )
+        return self._hydrate_attempts(run_dir, state, hydrate_attempts)
+
+    @staticmethod
+    def _hydrate_attempts(run_dir: Path, state: dict[str, Any], selection: bool | str) -> dict[str, Any]:
+        if state["schemaVersion"] == QUESTION_SCHEMA_VERSION:
+            try:
+                return hydrate_payloads(run_dir, state, selection)
+            except AttemptPayloadError as exc:
+                raise QuestionRunStateError(str(exc)) from exc
+        return state
 
     def load_question_by_hash(
         self,
         run_dir: Path,
         manifest: Mapping[str, Any],
         question_hash: str,
+        *,
+        hydrate_attempts: bool | str = True,
     ) -> dict[str, Any]:
         """Resolve one question directly without scanning the immutable plan."""
 
@@ -451,11 +472,12 @@ class QuestionRunStateStore:
             raise QuestionRunStateError(
                 "一問stateのquestion hashがquestionIdと一致しません。"
             )
-        return self._validate_question_state(
+        state = self._validate_question_state(
             manifest,
             state,
             question_id=question_id,
         )
+        return self._hydrate_attempts(run_dir, state, hydrate_attempts)
 
     @staticmethod
     def _validate_question_state(
@@ -465,7 +487,7 @@ class QuestionRunStateStore:
         question_id: str,
     ) -> dict[str, Any]:
         if (
-            state.get("schemaVersion") != QUESTION_SCHEMA_VERSION
+            state.get("schemaVersion") not in {QUESTION_SCHEMA_VERSION, LEGACY_QUESTION_SCHEMA_VERSION}
             or state.get("questionId") != question_id
             or state.get("planHash") != manifest.get("planHash")
         ):
@@ -507,23 +529,34 @@ class QuestionRunStateStore:
         manifest: Mapping[str, Any],
         *,
         plan: Mapping[str, Any] | None = None,
+        incremental: bool = False,
     ) -> list[dict[str, Any]]:
         current_plan = plan if plan is not None else self._validated_plan(
             run_dir, manifest
         )
         question_ids = self._plan_question_ids(current_plan)
-        executions = [
-            copy.deepcopy(
-                dict(
-                    self.load_question(
-                        run_dir,
-                        manifest,
-                        question_id,
-                    )["execution"]
-                )
-            )
-            for question_id in question_ids
-        ]
+        executions = []
+        for question_id in question_ids:
+            path = self.question_path(run_dir, manifest, question_id)
+            signature = self._file_signature(path, label="一問state")
+            with self._execution_cache_lock:
+                cached = self._execution_cache.get(path)
+                if incremental and cached and cached[:2] == (signature, manifest.get("planHash")):
+                    self._execution_cache.move_to_end(path)
+                    executions.append(copy.deepcopy(cached[3]))
+                    continue
+            state = self.load_question(run_dir, manifest, question_id, hydrate_attempts=not incremental)
+            execution = copy.deepcopy(state["execution"])
+            if incremental and signature == self._file_signature(path, label="一問state"):
+                with self._execution_cache_lock:
+                    current = self._execution_cache.get(path)
+                    if current and current[1] == manifest.get("planHash") and current[2] > state["revision"]:
+                        raise QuestionRunStateError("一問stateのrevisionが巻き戻っています。")
+                    self._execution_cache[path] = (signature, str(manifest.get("planHash")), state["revision"], copy.deepcopy(execution))
+                    self._execution_cache.move_to_end(path)
+                    while len(self._execution_cache) > 20000:
+                        self._execution_cache.popitem(last=False)
+            executions.append(execution)
         expected_count = int(manifest.get("questionStateCount") or 0)
         if expected_count != len(executions):
             raise QuestionRunStateError(
@@ -540,8 +573,9 @@ class QuestionRunStateStore:
         *,
         expected_revision: int | None = None,
         expected_active_attempt_id: str | None = None,
+        hydrate_attempts: bool | str = True,
     ) -> dict[str, Any]:
-        state = self.load_question(run_dir, manifest, question_id)
+        state = self.load_question(run_dir, manifest, question_id, hydrate_attempts=hydrate_attempts)
         revision = int(state["revision"])
         if expected_revision is not None and revision != expected_revision:
             raise QuestionRunStateError(
@@ -562,22 +596,44 @@ class QuestionRunStateStore:
             raise QuestionRunStateError("一問stateのplanHashは変更できません。")
         if next_state.get("revision") != revision:
             raise QuestionRunStateError("一問stateのrevisionは直接変更できません。")
+        if next_state.get("schemaVersion") != state.get("schemaVersion"):
+            raise QuestionRunStateError("一問stateのschemaVersionは変更できません。")
         next_state["revision"] = revision + 1
         next_state["updatedAt"] = _now()
+        returned_payloads = {}
+        if state["schemaVersion"] == QUESTION_SCHEMA_VERSION:
+            returned_payloads = {
+                attempt_id: {
+                    field: copy.deepcopy(attempt[field])
+                    for field in PAYLOAD_FIELDS.intersection(attempt)
+                }
+                for attempt_id, attempt in next_state.get("attemptArtifacts", {}).items()
+                if hydrate_attempts is True or hydrate_attempts == attempt_id
+            }
+            try:
+                detach_payloads(run_dir, next_state, state)
+            except AttemptPayloadError as exc:
+                raise QuestionRunStateError(str(exc)) from exc
         next_state = _with_self_hash(next_state)
         _write_json(
             self.question_path(run_dir, manifest, question_id),
             next_state,
         )
-        return copy.deepcopy(next_state)
+        # Return the exact, detached values just persisted. Re-reading payloads
+        # here would add I/O and a new failure point after durable publication.
+        for attempt_id, fields in returned_payloads.items():
+            next_state["attemptArtifacts"][attempt_id].update(fields)
+        return next_state
 
     def rebuild_summary(
         self,
         run_dir: Path,
         manifest: Mapping[str, Any],
+        *,
+        incremental: bool = False,
     ) -> dict[str, Any]:
         plan = self._validated_plan(run_dir, manifest)
-        executions = self.load_executions(run_dir, manifest, plan=plan)
+        executions = self.load_executions(run_dir, manifest, plan=plan, incremental=incremental)
         return self._write_summary_from_executions(
             run_dir,
             manifest,

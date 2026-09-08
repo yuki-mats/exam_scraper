@@ -1,0 +1,85 @@
+{
+  "baselineRef": "70a348c8f",
+  "sourceRun": "output/question_review_console/workflow_runs/judoseifukushi/20260908T091630008834-4418b79b",
+  "sampleCount": 100,
+  "minimumAttempts": 4,
+  "rounds": 5,
+  "inputDigest": "862aabc6ccb69d1844bf4e3a8e47f1d7a3a18d07c298c19eaf5cbea580815418",
+  "metrics": {
+    "before": {
+      "stateBytes": 45235279,
+      "payloadBytes": 0,
+      "payloadFiles": 0,
+      "updateSeconds": [
+        2.8056825420062523,
+        1.7548796659975778,
+        1.7073936249944381,
+        3.0686000419955235,
+        1.86194637499284
+      ],
+      "attemptReadSeconds": [
+        0.6606807920034043,
+        0.4979584579996299,
+        0.46694387501338497,
+        0.6790473340079188,
+        0.4609590420150198
+      ],
+      "summarySeconds": [
+        0.738352832995588,
+        0.533105540991528,
+        0.5317522089753766,
+        0.5966203749994747,
+        0.4537824169965461
+      ],
+      "unchangedSummarySeconds": [
+        0.6363270840083715,
+        0.5636832499876618,
+        0.9515043330029584,
+        0.6699681669997517,
+        0.4449214159976691
+      ],
+      "updateSecondsMedian": 1.86194637499284,
+      "attemptReadSecondsMedian": 0.4979584579996299,
+      "summarySecondsMedian": 0.533105540991528,
+      "unchangedSummarySecondsMedian": 0.6363270840083715
+    },
+    "after": {
+      "stateBytes": 4756967,
+      "payloadBytes": 40679262,
+      "payloadFiles": 1690,
+      "updateSeconds": [
+        0.5198925419826992,
+        0.4942045000207145,
+        0.610083334002411,
+        0.6268942499882542,
+        0.3253509999776725
+      ],
+      "attemptReadSeconds": [
+        0.291453250014456,
+        0.2949410420260392,
+        0.34482366699376144,
+        0.3721310000109952,
+        0.1765604579995852
+      ],
+      "summarySeconds": [
+        0.2717751669988502,
+        0.21363124999334104,
+        0.2643263339996338,
+        0.28023083400330506,
+        0.1935528749891091
+      ],
+      "unchangedSummarySeconds": [
+        0.03889254201203585,
+        0.03642950000357814,
+        0.05563433401403017,
+        0.05518020800082013,
+        0.027627083007246256
+      ],
+      "updateSecondsMedian": 0.5198925419826992,
+      "attemptReadSecondsMedian": 0.2949410420260392,
+      "summarySecondsMedian": 0.2643263339996338,
+      "unchangedSummarySecondsMedian": 0.03889254201203585
+    }
+  },
+  "payloadParity": true
+}

@@ -689,6 +689,24 @@ class MonitorReadModelTest(unittest.TestCase):
         self.assertNotIn("must-not-escape", serialized)
         self.assertNotIn("private command", serialized)
 
+    def test_v3_detached_inputs_preserve_validated_monitor_artifacts(self):
+        from tools.question_review_console.attempt_payloads import detach_payloads
+
+        run_id, _, _ = self._write_v2_run()
+        before = self.model.artifacts(run_id, qualification="demo")
+        run_dir = self.store.root / "demo" / run_id
+        for path in (run_dir / "questions").glob("*.json"):
+            state = json.loads(path.read_text())
+            state["schemaVersion"] = "question-maintenance-question/v3"
+            for attempt in state["attemptArtifacts"].values():
+                attempt["prompt"] = "private prompt must-not-escape"
+                attempt["plan"] = {"private": "must-not-escape"}
+            detach_payloads(run_dir, state, {})
+            self._write_v2_question_state(run_id, state)
+        after = self.model.artifacts(run_id, qualification="demo")
+        self.assertEqual(after["artifacts"], before["artifacts"])
+        self.assertNotIn("must-not-escape", json.dumps(after))
+
     def test_v2_fingerprint_ignores_lane_progress_and_tracks_saved_content(self):
         run_id, _active_attempt, _saved_attempt = self._write_v2_run()
         first = self.model.snapshot(run_id, qualification="demo")

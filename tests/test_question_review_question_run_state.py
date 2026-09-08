@@ -12,6 +12,8 @@ from tools.question_review_console.question_run_state import (
     QuestionRunStateError,
     QuestionRunStateStore,
     question_state_filename,
+    _with_self_hash,
+    _write_json,
 )
 
 
@@ -345,6 +347,118 @@ class QuestionRunStateStoreTest(unittest.TestCase):
                 len(hydrated["workVersionReceipt"]["items"]),
                 2,
             )
+
+    def _add_payload_attempt(self, store, run_dir, manifest, attempt_id="a"):
+        attempt = {"plan": {"stageId": "explanation", "input": "根拠" * 10000},
+                   "prompt": "説明" * 10000, "status": "running",
+                   "preparedCandidate": {"answer": "正答", "explanation": "根拠" * 10000}}
+        store.update_question(run_dir, manifest, "question-1",
+                              lambda state: state["attemptArtifacts"].update({attempt_id: attempt}),
+                              hydrate_attempts=False)
+        return attempt
+
+    def test_payloads_are_detached_hashed_and_selectively_loaded(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store, run_dir, _, manifest = self._initialize(Path(directory))
+            attempt = self._add_payload_attempt(store, run_dir, manifest)
+            self._add_payload_attempt(store, run_dir, manifest, "b")
+            raw = store.load_question(run_dir, manifest, "question-1", hydrate_attempts=False)
+            self.assertNotIn("plan", raw["attemptArtifacts"]["a"])
+            self.assertLess(store.question_path(run_dir, manifest, "question-1").stat().st_size, 5000)
+            loaded = store.load_question(run_dir, manifest, "question-1", hydrate_attempts="a")
+            self.assertEqual(loaded["attemptArtifacts"]["a"], attempt)
+            self.assertNotIn("plan", loaded["attemptArtifacts"]["b"])
+            loaded["attemptArtifacts"]["a"]["plan"]["input"] = "local"
+            self.assertEqual(store.load_question(run_dir, manifest, "question-1")["attemptArtifacts"]["a"], attempt)
+            payloads = {p: (p.stat().st_mtime_ns, p.read_bytes()) for p in (run_dir / "attempt_payloads").rglob("*.json")}
+            store.update_question(run_dir, manifest, "question-1",
+                                  lambda state: state["attemptArtifacts"]["a"].update(status="succeeded"), hydrate_attempts="a")
+            self.assertEqual(payloads, {p: (p.stat().st_mtime_ns, p.read_bytes()) for p in (run_dir / "attempt_payloads").rglob("*.json")})
+
+    def test_payload_failures_never_publish_partial_state(self):
+        for fail_at in ("payload", "state"):
+            with self.subTest(fail_at=fail_at), tempfile.TemporaryDirectory() as directory:
+                store, run_dir, _, manifest = self._initialize(Path(directory))
+                path = store.question_path(run_dir, manifest, "question-1")
+                before = path.read_bytes()
+                target = ("tools.question_review_console.attempt_payloads.atomic_write" if fail_at == "payload"
+                          else "tools.question_review_console.question_run_state._write_json")
+                with patch(target, side_effect=OSError("simulated interruption")), self.assertRaises(OSError):
+                    self._add_payload_attempt(store, run_dir, manifest)
+                self.assertEqual(path.read_bytes(), before)
+                self.assertEqual(QuestionRunStateStore(Path(directory)).load_question(run_dir, manifest, "question-1")["attemptArtifacts"], {})
+                # Orphan payloads are harmless and can be verified/reused on retry.
+                self._add_payload_attempt(store, run_dir, manifest)
+                self.assertIn("a", store.load_question(run_dir, manifest, "question-1")["attemptArtifacts"])
+
+    def test_payload_missing_or_tampered_fails_closed_even_after_summary_cache(self):
+        for damage in ("missing", "tampered"):
+            with self.subTest(damage=damage), tempfile.TemporaryDirectory() as directory:
+                store, run_dir, _, manifest = self._initialize(Path(directory))
+                self._add_payload_attempt(store, run_dir, manifest)
+                store.rebuild_summary(run_dir, manifest, incremental=True)
+                path = next((run_dir / "attempt_payloads").rglob("*.json"))
+                if damage == "missing":
+                    path.unlink()
+                else:
+                    path.write_text("{}")
+                with self.assertRaises(QuestionRunStateError):
+                    store.load_question(run_dir, manifest, "question-1")
+                with self.assertRaises(QuestionRunStateError):
+                    store.rebuild_summary(run_dir, manifest)
+
+    def test_payload_identity_and_write_once_are_preserved(self):
+        for edit in ("value", "reference", "delete", "schema"):
+            with self.subTest(edit=edit), tempfile.TemporaryDirectory() as directory:
+                store, run_dir, _, manifest = self._initialize(Path(directory))
+                self._add_payload_attempt(store, run_dir, manifest)
+                path = store.question_path(run_dir, manifest, "question-1")
+                before = path.read_bytes()
+                def change(state):
+                    if edit == "value":
+                        state["attemptArtifacts"]["a"]["plan"] = {}
+                    elif edit == "reference":
+                        state["attemptPayloadRefs"]["a"]["plan"] = "../unsafe"
+                    elif edit == "delete":
+                        del state["attemptArtifacts"]["a"]["plan"]
+                    else:
+                        state["schemaVersion"] = "question-maintenance-question/v2"
+                with self.assertRaises(QuestionRunStateError):
+                    store.update_question(run_dir, manifest, "question-1", change)
+                self.assertEqual(path.read_bytes(), before)
+
+    def test_legacy_question_remains_legacy_on_update(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store, run_dir, _, manifest = self._initialize(Path(directory))
+            path = store.question_path(run_dir, manifest, "question-1")
+            raw = json.loads(path.read_text())
+            raw["schemaVersion"] = "question-maintenance-question/v2"
+            raw["attemptArtifacts"] = {"old": {"plan": {"input": "旧形式"}, "prompt": "旧"}}
+            _write_json(path, _with_self_hash(raw))
+            updated = store.update_question(run_dir, manifest, "question-1", lambda s: s.update(activeAttemptId="old"))
+            self.assertEqual(updated["schemaVersion"], "question-maintenance-question/v2")
+            self.assertEqual(updated["attemptArtifacts"], raw["attemptArtifacts"])
+            self.assertFalse((run_dir / "attempt_payloads").exists())
+
+    def test_incremental_summary_detects_external_updates_and_restarts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store, run_dir, _, manifest = self._initialize(root)
+            first = store.rebuild_summary(run_dir, manifest, incremental=True)
+            with patch.object(store, "load_question", side_effect=AssertionError("unchanged state reopened")):
+                self.assertEqual(store.rebuild_summary(run_dir, manifest, incremental=True)["queueSummary"], first["queueSummary"])
+            another = QuestionRunStateStore(root)
+            another.update_question(run_dir, manifest, "question-1", lambda s: s["execution"]["stages"][0].update(status="validated"))
+            changed = store.rebuild_summary(run_dir, manifest, incremental=True)
+            self.assertEqual(changed["queueSummary"]["validatedWorkItemCount"], 1)
+            self.assertEqual(another.rebuild_summary(run_dir, manifest)["queueSummary"], changed["queueSummary"])
+            # No event stream is trusted: replace, tamper, or a missing file is detected.
+            path = store.question_path(run_dir, manifest, "question-1")
+            raw = json.loads(path.read_text())
+            raw["execution"]["stages"][0]["status"] = "tampered"
+            path.write_text(json.dumps(raw))
+            with self.assertRaisesRegex(QuestionRunStateError, "selfHash"):
+                store.rebuild_summary(run_dir, manifest, incremental=True)
 
 
 if __name__ == "__main__":

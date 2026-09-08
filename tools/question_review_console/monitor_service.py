@@ -39,6 +39,7 @@ _SAFE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _V2_RUN_SCHEMA = "question-maintenance-run/v2"
 _V2_SUMMARY_SCHEMA = "question-maintenance-summary/v2"
 _V2_QUESTION_SCHEMA = "question-maintenance-question/v2"
+_QUESTION_SCHEMAS = frozenset({_V2_QUESTION_SCHEMA, "question-maintenance-question/v3"})
 _ALLOWED_ARTIFACT_SUFFIXES = frozenset(
     {".json", ".jsonl", ".md", ".txt", ".yaml", ".yml", ".toml"}
 )
@@ -1646,7 +1647,7 @@ class MonitorReadModel:
                 continue
             state = dict(value)
             if (
-                state.get("schemaVersion") != _V2_QUESTION_SCHEMA
+                state.get("schemaVersion") not in _QUESTION_SCHEMAS
                 or state.get("planHash") != manifest.get("planHash")
                 or str(state.get("questionId") or "") != question_id
             ):

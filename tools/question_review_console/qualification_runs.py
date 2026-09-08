@@ -2856,6 +2856,7 @@ class QualificationRunStore:
                 parent_path.parent,
                 parent,
                 question_hash,
+                hydrate_attempts=attempt_id,
             )
         except QuestionRunStateError as exc:
             raise QualificationRunError(str(exc)) from exc
@@ -2960,6 +2961,7 @@ class QualificationRunStore:
                     parent,
                     question_id,
                     add_attempt,
+                    hydrate_attempts=False,
                 )
             except QuestionRunStateError as exc:
                 shutil.rmtree(attempt_dir, ignore_errors=True)
@@ -3076,6 +3078,7 @@ class QualificationRunStore:
                     parent,
                     question_id,
                     apply,
+                    hydrate_attempts=attempt_id,
                 )
             except QuestionRunStateError as exc:
                 raise QualificationRunError(str(exc)) from exc
@@ -5034,6 +5037,7 @@ class QualificationRunStore:
                         manifest,
                         question_id,
                         apply,
+                        hydrate_attempts=False,
                     )
                 except QuestionRunStateError as exc:
                     raise QualificationRunError(str(exc)) from exc
@@ -5095,6 +5099,7 @@ class QualificationRunStore:
         run_id: str,
         *,
         hydrate_result: bool = True,
+        incremental: bool = False,
     ) -> dict[str, Any]:
         """Refresh the derived question queue summary at a coordinator boundary."""
 
@@ -5111,9 +5116,22 @@ class QualificationRunStore:
             manifest_path,
             manifest,
             hydrate_result=hydrate_result,
+            incremental=incremental,
         )
 
     def _refresh_current_question_summary(
+        self,
+        manifest_path: Path,
+        manifest: Mapping[str, Any],
+        **options: Any,
+    ) -> dict[str, Any]:
+        # Serialize the complete publication, not just summary.json: an older
+        # publisher must not overwrite parent counts after a newer snapshot.
+        summary_path = self.repo_root / str(manifest.get("questionSummaryPath") or "")
+        with self._path_lock(summary_path):
+            return self._publish_current_question_summary(manifest_path, manifest, **options)
+
+    def _publish_current_question_summary(
         self,
         manifest_path: Path,
         manifest: Mapping[str, Any],
@@ -5122,7 +5140,9 @@ class QualificationRunStore:
         appended_child_run_ids: Iterable[str] = (),
         appended_stage_ids: Iterable[str] = (),
         hydrate_result: bool = True,
+        incremental: bool = False,
     ) -> dict[str, Any]:
+        refresh_started = time.perf_counter()
         summary_path = self.repo_root / str(
             manifest.get("questionSummaryPath") or ""
         )
@@ -5131,6 +5151,7 @@ class QualificationRunStore:
                 summary_payload = self.question_states.rebuild_summary(
                     manifest_path.parent,
                     manifest,
+                    incremental=incremental,
                 )
             except QuestionRunStateError as exc:
                 raise QualificationRunError(str(exc)) from exc
@@ -5165,6 +5186,9 @@ class QualificationRunStore:
                     )
             current.update(
                 questionExecutionSummary=summary,
+                questionSummaryUpdatedAt=summary_payload["updatedAt"],
+                questionSummaryRefreshSeconds=time.perf_counter() - refresh_started,
+                questionSummaryIncremental=incremental,
                 blockedQuestionCount=summary["blockedQuestionCount"],
                 blockedWorkItemCount=summary["blockedWorkItemCount"],
                 validatedQuestionCount=summary["validatedQuestionCount"],
@@ -5296,6 +5320,8 @@ class QualificationRunStore:
         qualification: str,
         run_id: str,
         question_id: str,
+        *,
+        include_attempt_artifacts: bool = True,
     ) -> dict[str, Any]:
         manifest_path = self._manifest_path(qualification, run_id)
         with self._path_lock(manifest_path):
@@ -5329,6 +5355,7 @@ class QualificationRunStore:
                 manifest_path.parent,
                 manifest,
                 question_id,
+                hydrate_attempts=include_attempt_artifacts,
             )
         except QuestionRunStateError as exc:
             raise QualificationRunError(str(exc)) from exc
@@ -11184,6 +11211,7 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
                 question_id,
+                include_attempt_artifacts=False,
             )
             return self._queue_stage(
                 {"questionExecutions": [detail["execution"]]},
@@ -11283,6 +11311,7 @@ class QualificationRunCoordinator:
             qualification,
             run_id,
             question_id,
+            include_attempt_artifacts=False,
         )
         current = self._queue_stage(
             {"questionExecutions": [detail["execution"]]},
@@ -13115,6 +13144,7 @@ class QualificationRunCoordinator:
                         qualification,
                         run_id,
                         question_id,
+                        include_attempt_artifacts=False,
                     )
                     current = self._queue_stage(
                         {"questionExecutions": [detail["execution"]]},
@@ -13453,6 +13483,7 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
                 question_id,
+                include_attempt_artifacts=False,
             )
             execution = copy.deepcopy(dict(detail["execution"]))
             target = parent_targets_by_id.get(question_id)
@@ -13522,6 +13553,7 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
                 question_id,
+                include_attempt_artifacts=False,
             )
             for stage in detail["execution"].get("stages") or []:
                 if (
@@ -13585,6 +13617,7 @@ class QualificationRunCoordinator:
             model_started = False
             last_runtime_snapshot = 0.0
             last_question_summary_refresh = 0.0
+            summary_future = None
             provider_recovery_attempt = 0
             provider_recovery_needed = False
 
@@ -13864,6 +13897,7 @@ class QualificationRunCoordinator:
                         qualification,
                         run_id,
                         question_id,
+                        include_attempt_artifacts=False,
                     )
                     current = self._queue_stage(
                         {"questionExecutions": [detail["execution"]]},
@@ -13878,6 +13912,11 @@ class QualificationRunCoordinator:
 
             def update_runtime_snapshot(*, force: bool = False) -> None:
                 nonlocal last_runtime_snapshot, last_question_summary_refresh
+                nonlocal summary_future
+                if summary_future is not None and (force or summary_future.done()):
+                    # Surface failures instead of silently using a stale projection.
+                    summary_future.result()
+                    summary_future = None
                 current_monotonic = time.monotonic()
                 if (
                     not force
@@ -13948,16 +13987,18 @@ class QualificationRunCoordinator:
                     or current_monotonic - last_question_summary_refresh
                     >= QUESTION_SUMMARY_REFRESH_SECONDS
                 ):
-                    # 一問stateは各確定時に即時保存する。一方、全問を含む
-                    # question_summary.jsonは数十MBになるため、各turnで
-                    # 再構築すると長時間runで大きな書込み増幅が起きる。
-                    # UI用の集計だけを一定間隔へまとめ、終了境界では必ず
-                    # force refreshして正確な最終値へ収束させる。
-                    self.store.refresh_question_summary(
-                        qualification,
-                        run_id,
-                        hydrate_result=False,
-                    )
+                    # Display projection is single-flight, off the coordinator.
+                    # Final reconciliation never uses the execution cache.
+                    if force:
+                        self.store.refresh_question_summary(
+                            qualification, run_id, hydrate_result=False,
+                        )
+                    elif summary_future is None:
+                        summary_future = summary_executor.submit(
+                            self.store.refresh_question_summary,
+                            qualification, run_id, hydrate_result=False,
+                            incremental=True,
+                        )
                     last_question_summary_refresh = current_monotonic
                 last_runtime_snapshot = current_monotonic
 
@@ -13982,6 +14023,10 @@ class QualificationRunCoordinator:
                     max_workers=max(1, tool_worker_limit),
                     thread_name_prefix="question-tool",
                 ) as tool_executor,
+                ThreadPoolExecutor(
+                    max_workers=1,
+                    thread_name_prefix="question-summary",
+                ) as summary_executor,
             ):
                 try:
                     while True:
