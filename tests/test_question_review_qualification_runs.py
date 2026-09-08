@@ -9548,6 +9548,34 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             {"law_audit": ["new-exam-2026-q1"]},
         )
 
+    def test_dynamic_replan_detaches_after_replacing_global_scope(self):
+        class SiblingScopes:
+            def __deepcopy__(self, memo):
+                raise AssertionError("replaced global scope was copied")
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root, SourceOnlyInventory(), ["question_type", "law_audit"]
+            )
+            initial = coordinator.workflow.plan(
+                "new-exam", "law_audit", "needed", list_group_id="2026"
+            )
+            initial["progressTargets"] = SiblingScopes()
+            initial["targetRecordScopes"] = SiblingScopes()
+            initial["agentPolicy"] = {"nested": ["unchanged"]}
+            scoped, target = coordinator._dynamic_question_phase_plan(
+                "new-exam", parent, {"id": "law_audit"}, initial,
+                "new-exam-2026-q1",
+            )
+            self.assertEqual(scoped["targetCount"], 1)
+            self.assertIsInstance(initial["progressTargets"], SiblingScopes)
+            self.assertIsInstance(initial["targetRecordScopes"], SiblingScopes)
+            scoped["agentPolicy"]["nested"].append("local")
+            self.assertEqual(initial["agentPolicy"], {"nested": ["unchanged"]})
+            if target is not None:
+                self.assertIs(target, scoped["progressTargets"][0])
+
 
     def test_writer_reprepares_only_current_question_when_policy_changes(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -11585,7 +11585,9 @@ class QualificationRunCoordinator:
             set(STAGE_PATCH_DIR_NAMES.get(stage_id) or []),
             set(STAGE_REVIEW_FLAG_SUFFIXES.get(stage_id) or []),
         )
-        plan = copy.deepcopy(dict(initial_plan))
+        # Replace qualification-wide identity/scope fields before detaching
+        # the plan. The write-contract builder only assigns top-level fields.
+        plan = dict(initial_plan)
         plan.update(
             targetCount=1,
             workItemCount=1,
@@ -11615,7 +11617,8 @@ class QualificationRunCoordinator:
         # its work-version receipt can be recorded mechanically.  Returning
         # the scoped plan with no writer target prevents the same stage from
         # being reopened or reported as blocked on every later run.
-        return plan, target if applicable else None
+        plan = copy.deepcopy(plan)
+        return plan, plan["progressTargets"][0] if applicable else None
 
     @staticmethod
     def _projection_stage_applicable(
@@ -13416,6 +13419,11 @@ class QualificationRunCoordinator:
             for key, value in parent.items()
             if key != "questionExecutions"
         }
+        parent_targets_by_id: dict[str, Mapping[str, Any]] = {}
+        for target in immutable_parent.get("progressTargets") or []:
+            if isinstance(target, Mapping):
+                target_id = str(target.get("id") or target.get("uiQuestionId") or "")
+                parent_targets_by_id.setdefault(target_id, target)
         initial_question_ids = [
             str(value.get("questionId") or "")
             for value in parent.get("questionExecutions") or []
@@ -13447,7 +13455,11 @@ class QualificationRunCoordinator:
                 question_id,
             )
             execution = copy.deepcopy(dict(detail["execution"]))
-            snapshot = compact_parent_snapshot(questionExecutions=[execution])
+            target = parent_targets_by_id.get(question_id)
+            snapshot = compact_parent_snapshot(
+                questionExecutions=[execution],
+                progressTargets=[copy.deepcopy(target)] if target is not None else [],
+            )
             return snapshot, {question_id: execution}
 
         def phase_context(

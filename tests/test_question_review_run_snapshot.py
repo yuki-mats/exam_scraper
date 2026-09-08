@@ -27,6 +27,17 @@ class RunSnapshotTests(unittest.TestCase):
         self.assertIs(first["progressTargets"], first["progressTargets"])
         self.assertEqual(first["mode"], "remaining")
 
+    def test_scoped_target_override_does_not_read_all_sibling_targets(self):
+        class SiblingTargets:
+            def __deepcopy__(self, memo):
+                raise AssertionError("all question targets were copied")
+
+        snapshot = RunSnapshot(
+            {"progressTargets": SiblingTargets()},
+            {"progressTargets": [{"id": "q1"}]},
+        )
+        self.assertEqual(snapshot["progressTargets"], [{"id": "q1"}])
+
     def test_full_contract_and_missing_fields(self):
         snapshot = RunSnapshot({"a": [1], "b": 2}, {"b": 3, "c": 4})
         self.assertEqual(dict(snapshot), {"a": [1], "b": 3, "c": 4})
