@@ -1,0 +1,610 @@
+{
+  "runId": "20260908T091630008834-4418b79b",
+  "observedAt": "2026-09-09T00:45:05+09:00",
+  "status": "interrupted",
+  "targetQuestions": 6231,
+  "completedQuestions": 1702,
+  "remainingQuestions": 4529,
+  "blockedQuestions": 153,
+  "stages": {
+    "queued": 17994,
+    "blocked": 1029,
+    "validated": 22381
+  },
+  "byStage": {
+    "law_audit": 1705,
+    "question_set": 1702,
+    "explanation": 2278,
+    "correct_choice": 4251,
+    "law_context": 3353,
+    "question_type": 4553,
+    "question_intent": 4539
+  },
+  "attemptStatuses": {
+    "succeeded": 25050,
+    "failed": 940,
+    "interrupted": 81,
+    "queued": 17
+  },
+  "topHoldReasons": [
+    [
+      "集約回答レビューを保留しました。",
+      143
+    ],
+    [
+      "03b 現行法監査の必須メタデータ検証に失敗しました。問100: updated_to_current_law explanation must distinguish current law from exam-time handling",
+      1
+    ],
+    [
+      "questionIntentが現行値のselect_correctと00_source由来のselect_incorrectで不一致です。正答2および独立した肢の正誤との整合をcorrectChoiceTextだけでは確定できません。",
+      1
+    ],
+    [
+      "03b 現行法監査のsidecar整合検証に失敗しました。問87: 法令問題の監査sidecarが公開確定状態ではありません。 問87: projected lawRevisionFactsが公開確定状態ではありません。 問87: projected lawRevisionFactsと監査sidecarのauditStatusが一致しません。",
+      1
+    ],
+    [
+      "03b 現行法監査のsidecar整合検証に失敗しました。問170: 非法令問題のprojected lawReferencesが空ではありません。 問170: 非法令問題の監査sidecar lawReferencesが空ではありません。",
+      1
+    ]
+  ],
+  "checks": [
+    {
+      "command": "structured candidate schema",
+      "status": "pass",
+      "count": 25050
+    },
+    {
+      "command": "aggregate review adjudication",
+      "status": "pass",
+      "count": 53
+    },
+    {
+      "command": "question content",
+      "status": "pass",
+      "count": 22389
+    },
+    {
+      "command": "00_source immutability",
+      "status": "pass",
+      "count": 22389
+    },
+    {
+      "command": "record scope",
+      "status": "pass",
+      "count": 22389
+    },
+    {
+      "command": "atomic patch apply",
+      "status": "pass",
+      "count": 22389
+    },
+    {
+      "command": "dual aggregate review",
+      "status": "pass",
+      "count": 4747
+    },
+    {
+      "command": "question content",
+      "status": "fail",
+      "count": 1980
+    },
+    {
+      "command": "server commit",
+      "status": "fail",
+      "count": 8
+    }
+  ],
+  "windows": [
+    {
+      "minutes": 30,
+      "actualMinutes": 30,
+      "validatedItemsPerHour": 998,
+      "completedQuestionsPerHour": 62,
+      "byStage": {
+        "question_set": 31,
+        "law_audit": 28,
+        "explanation": 39,
+        "law_context": 75,
+        "correct_choice": 100,
+        "question_intent": 105,
+        "question_type": 121
+      },
+      "timingCohort": "attempts finished inside window",
+      "timings": {
+        "modelExecutorQueueWaitSeconds": {
+          "n": 608,
+          "p50": 6.94,
+          "p90": 8.27
+        },
+        "patchToolQueueWaitSeconds": {
+          "n": 582,
+          "p50": 7.022,
+          "p90": 9.73
+        },
+        "patchToolLockWaitSeconds": {
+          "n": 524,
+          "p50": 0.052,
+          "p90": 13.501
+        },
+        "appServerQueueWaitSeconds": {
+          "n": 582,
+          "p50": 28.419,
+          "p90": 32.796
+        },
+        "modelTurnDurationSeconds": {
+          "n": 582,
+          "p50": 8.416,
+          "p90": 40.885
+        },
+        "attemptSeconds": {
+          "n": 608,
+          "p50": 170,
+          "p90": 274
+        },
+        "question_set.attemptSeconds": {
+          "n": 32,
+          "p50": 162,
+          "p90": 265
+        },
+        "afterModelSeconds": {
+          "n": 582,
+          "p50": 100.24,
+          "p90": 121.776
+        },
+        "question_set.afterModelSeconds": {
+          "n": 32,
+          "p50": 105.316,
+          "p90": 125.633
+        },
+        "law_audit.attemptSeconds": {
+          "n": 43,
+          "p50": 174,
+          "p90": 271
+        },
+        "law_audit.afterModelSeconds": {
+          "n": 28,
+          "p50": 72.66,
+          "p90": 104.538
+        },
+        "explanation.attemptSeconds": {
+          "n": 78,
+          "p50": 154,
+          "p90": 269
+        },
+        "explanation.afterModelSeconds": {
+          "n": 69,
+          "p50": 75.103,
+          "p90": 103.371
+        },
+        "law_context.attemptSeconds": {
+          "n": 105,
+          "p50": 258,
+          "p90": 291
+        },
+        "law_context.afterModelSeconds": {
+          "n": 103,
+          "p50": 108.692,
+          "p90": 123.334
+        },
+        "correct_choice.attemptSeconds": {
+          "n": 108,
+          "p50": 158,
+          "p90": 269
+        },
+        "correct_choice.afterModelSeconds": {
+          "n": 108,
+          "p50": 109.78,
+          "p90": 122.034
+        },
+        "question_intent.attemptSeconds": {
+          "n": 120,
+          "p50": 155,
+          "p90": 201
+        },
+        "question_intent.afterModelSeconds": {
+          "n": 120,
+          "p50": 110.314,
+          "p90": 153.559
+        },
+        "question_type.attemptSeconds": {
+          "n": 122,
+          "p50": 268,
+          "p90": 274
+        },
+        "question_type.afterModelSeconds": {
+          "n": 122,
+          "p50": 67.23,
+          "p90": 88.725
+        }
+      }
+    },
+    {
+      "minutes": 60,
+      "actualMinutes": 60,
+      "validatedItemsPerHour": 1081,
+      "completedQuestionsPerHour": 71,
+      "byStage": {
+        "question_set": 71,
+        "law_audit": 67,
+        "explanation": 100,
+        "law_context": 166,
+        "correct_choice": 207,
+        "question_intent": 234,
+        "question_type": 236
+      },
+      "timingCohort": "attempts finished inside window",
+      "timings": {
+        "modelExecutorQueueWaitSeconds": {
+          "n": 1240,
+          "p50": 6.92,
+          "p90": 9.261
+        },
+        "patchToolQueueWaitSeconds": {
+          "n": 1192,
+          "p50": 6.933,
+          "p90": 9.261
+        },
+        "patchToolLockWaitSeconds": {
+          "n": 1078,
+          "p50": 0.059,
+          "p90": 13.754
+        },
+        "appServerQueueWaitSeconds": {
+          "n": 1192,
+          "p50": 28.175,
+          "p90": 33.069
+        },
+        "modelTurnDurationSeconds": {
+          "n": 1192,
+          "p50": 8.633,
+          "p90": 41.146
+        },
+        "attemptSeconds": {
+          "n": 1240,
+          "p50": 170,
+          "p90": 276
+        },
+        "question_set.attemptSeconds": {
+          "n": 67,
+          "p50": 166,
+          "p90": 274
+        },
+        "afterModelSeconds": {
+          "n": 1192,
+          "p50": 98.608,
+          "p90": 122.424
+        },
+        "question_set.afterModelSeconds": {
+          "n": 67,
+          "p50": 106.62,
+          "p90": 125.571
+        },
+        "law_audit.attemptSeconds": {
+          "n": 98,
+          "p50": 175,
+          "p90": 282
+        },
+        "law_audit.afterModelSeconds": {
+          "n": 66,
+          "p50": 86.237,
+          "p90": 104.744
+        },
+        "explanation.attemptSeconds": {
+          "n": 166,
+          "p50": 159,
+          "p90": 271
+        },
+        "explanation.afterModelSeconds": {
+          "n": 153,
+          "p50": 78.984,
+          "p90": 100.907
+        },
+        "law_context.attemptSeconds": {
+          "n": 215,
+          "p50": 253,
+          "p90": 289
+        },
+        "law_context.afterModelSeconds": {
+          "n": 212,
+          "p50": 105.942,
+          "p90": 123.807
+        },
+        "correct_choice.attemptSeconds": {
+          "n": 216,
+          "p50": 164,
+          "p90": 277
+        },
+        "correct_choice.afterModelSeconds": {
+          "n": 216,
+          "p50": 108.834,
+          "p90": 123.507
+        },
+        "question_intent.attemptSeconds": {
+          "n": 238,
+          "p50": 161,
+          "p90": 173
+        },
+        "question_intent.afterModelSeconds": {
+          "n": 238,
+          "p50": 111.979,
+          "p90": 126.497
+        },
+        "question_type.attemptSeconds": {
+          "n": 240,
+          "p50": 268,
+          "p90": 276
+        },
+        "question_type.afterModelSeconds": {
+          "n": 240,
+          "p50": 73.617,
+          "p90": 92.583
+        }
+      }
+    },
+    {
+      "minutes": 120,
+      "actualMinutes": 120,
+      "validatedItemsPerHour": 1103,
+      "completedQuestionsPerHour": 69,
+      "byStage": {
+        "question_set": 138,
+        "law_audit": 138,
+        "explanation": 206,
+        "law_context": 340,
+        "correct_choice": 445,
+        "question_intent": 465,
+        "question_type": 474
+      },
+      "timingCohort": "attempts finished inside window",
+      "timings": {
+        "modelExecutorQueueWaitSeconds": {
+          "n": 2586,
+          "p50": 6.933,
+          "p90": 9.525
+        },
+        "patchToolQueueWaitSeconds": {
+          "n": 2486,
+          "p50": 6.931,
+          "p90": 9.578
+        },
+        "patchToolLockWaitSeconds": {
+          "n": 2239,
+          "p50": 0.063,
+          "p90": 14.007
+        },
+        "appServerQueueWaitSeconds": {
+          "n": 2486,
+          "p50": 28.251,
+          "p90": 33.279
+        },
+        "modelTurnDurationSeconds": {
+          "n": 2486,
+          "p50": 8.526,
+          "p90": 40.493
+        },
+        "attemptSeconds": {
+          "n": 2586,
+          "p50": 169,
+          "p90": 273
+        },
+        "question_set.attemptSeconds": {
+          "n": 140,
+          "p50": 165,
+          "p90": 273
+        },
+        "afterModelSeconds": {
+          "n": 2486,
+          "p50": 94.628,
+          "p90": 120.34
+        },
+        "question_set.afterModelSeconds": {
+          "n": 140,
+          "p50": 99.594,
+          "p90": 122.481
+        },
+        "law_audit.attemptSeconds": {
+          "n": 211,
+          "p50": 176,
+          "p90": 277
+        },
+        "law_audit.afterModelSeconds": {
+          "n": 140,
+          "p50": 83.404,
+          "p90": 109.495
+        },
+        "explanation.attemptSeconds": {
+          "n": 339,
+          "p50": 154,
+          "p90": 263
+        },
+        "explanation.afterModelSeconds": {
+          "n": 315,
+          "p50": 74.407,
+          "p90": 98.628
+        },
+        "law_context.attemptSeconds": {
+          "n": 454,
+          "p50": 170,
+          "p90": 280
+        },
+        "law_context.afterModelSeconds": {
+          "n": 450,
+          "p50": 101.197,
+          "p90": 122.346
+        },
+        "correct_choice.attemptSeconds": {
+          "n": 476,
+          "p50": 166,
+          "p90": 273
+        },
+        "correct_choice.afterModelSeconds": {
+          "n": 475,
+          "p50": 105.92,
+          "p90": 123.515
+        },
+        "question_intent.attemptSeconds": {
+          "n": 481,
+          "p50": 155,
+          "p90": 172
+        },
+        "question_intent.afterModelSeconds": {
+          "n": 481,
+          "p50": 107.66,
+          "p90": 124.534
+        },
+        "question_type.attemptSeconds": {
+          "n": 485,
+          "p50": 265,
+          "p90": 275
+        },
+        "question_type.afterModelSeconds": {
+          "n": 485,
+          "p50": 73.314,
+          "p90": 92.283
+        }
+      }
+    },
+    {
+      "minutes": 240,
+      "actualMinutes": 240,
+      "validatedItemsPerHour": 1155,
+      "completedQuestionsPerHour": 74.8,
+      "byStage": {
+        "question_set": 299,
+        "law_audit": 302,
+        "explanation": 448,
+        "law_context": 706,
+        "correct_choice": 924,
+        "question_intent": 961,
+        "question_type": 980
+      },
+      "timingCohort": "attempts finished inside window",
+      "timings": {
+        "modelExecutorQueueWaitSeconds": {
+          "n": 5320,
+          "p50": 6.93,
+          "p90": 9.519
+        },
+        "patchToolQueueWaitSeconds": {
+          "n": 5121,
+          "p50": 6.93,
+          "p90": 9.519
+        },
+        "patchToolLockWaitSeconds": {
+          "n": 4618,
+          "p50": 0.061,
+          "p90": 13.833
+        },
+        "appServerQueueWaitSeconds": {
+          "n": 5121,
+          "p50": 27.678,
+          "p90": 33.011
+        },
+        "modelTurnDurationSeconds": {
+          "n": 5121,
+          "p50": 8.429,
+          "p90": 40.239
+        },
+        "attemptSeconds": {
+          "n": 5320,
+          "p50": 169,
+          "p90": 270
+        },
+        "question_set.attemptSeconds": {
+          "n": 298,
+          "p50": 163,
+          "p90": 268
+        },
+        "afterModelSeconds": {
+          "n": 5121,
+          "p50": 91.64,
+          "p90": 119.556
+        },
+        "question_set.afterModelSeconds": {
+          "n": 298,
+          "p50": 99.674,
+          "p90": 120.742
+        },
+        "law_audit.attemptSeconds": {
+          "n": 442,
+          "p50": 178,
+          "p90": 277
+        },
+        "law_audit.afterModelSeconds": {
+          "n": 304,
+          "p50": 82.147,
+          "p90": 111.147
+        },
+        "explanation.attemptSeconds": {
+          "n": 707,
+          "p50": 154,
+          "p90": 261
+        },
+        "explanation.afterModelSeconds": {
+          "n": 653,
+          "p50": 72.33,
+          "p90": 99.642
+        },
+        "law_context.attemptSeconds": {
+          "n": 929,
+          "p50": 167,
+          "p90": 274
+        },
+        "law_context.afterModelSeconds": {
+          "n": 924,
+          "p50": 97.302,
+          "p90": 120.888
+        },
+        "correct_choice.attemptSeconds": {
+          "n": 974,
+          "p50": 169,
+          "p90": 270
+        },
+        "correct_choice.afterModelSeconds": {
+          "n": 972,
+          "p50": 104.625,
+          "p90": 123.706
+        },
+        "question_intent.attemptSeconds": {
+          "n": 977,
+          "p50": 152,
+          "p90": 171
+        },
+        "question_intent.afterModelSeconds": {
+          "n": 977,
+          "p50": 103.206,
+          "p90": 121.765
+        },
+        "question_type.attemptSeconds": {
+          "n": 993,
+          "p50": 259,
+          "p90": 274
+        },
+        "question_type.afterModelSeconds": {
+          "n": 993,
+          "p50": 70.59,
+          "p90": 92.004
+        }
+      }
+    }
+  ],
+  "quality": {
+    "enabled": true,
+    "questions": 2278,
+    "explanations": 7396,
+    "empty": 0,
+    "law": 47,
+    "calculation": 0,
+    "forms": {
+      "true_false": 1706,
+      "flash_card": 520,
+      "group_choice": 52
+    },
+    "issueQuestions": 0,
+    "issueExamples": [],
+    "duplicateGroups": 0,
+    "independentEvaluation": "not performed by this audit"
+  },
+  "captureNote": "Captured after graceful shutdown/recovery at 2026-09-09 00:50 JST. Rate windows end at pre-stop heartbeat 00:45:05; counts are post-recovery. Recovery-interrupted attempts finished after the cutoff are excluded from window timings."
+}
