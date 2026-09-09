@@ -18,7 +18,9 @@ from tools.question_review_console.codex_app_server import (
     SubscriptionGateError,
 )
 from tools.question_review_console.question_work_queue import (
+    build_question_executions,
     input_fingerprint,
+    queue_summary,
     specialize_question_plan,
 )
 from tools.question_review_console.qualification_runs import (
@@ -360,6 +362,118 @@ class QuestionWorkPreviewGroupSummaryTests(unittest.TestCase):
                 {"listGroupId": "keep", "questionCount": 2, "workItemCount": 4},
                 {"listGroupId": "ping", "questionCount": 2, "workItemCount": 2},
             ],
+        )
+
+
+class BlockedReworkPlanTests(unittest.TestCase):
+    @staticmethod
+    def target(question_id):
+        return {
+            "id": question_id,
+            "questionKey": question_id,
+            "sourceQuestionKey": f"source:{question_id}",
+            "reviewQuestionId": f"review:{question_id}",
+            "sourceRecordRef": f"fixture.json#{question_id}",
+            "listGroupId": "fixture",
+            "aliases": [question_id, f"fixture.json#{question_id}"],
+        }
+
+    def test_resumes_715_questions_from_first_unfinished_stage(self):
+        stage_ids = [
+            "question_type",
+            "question_intent",
+            "correct_choice",
+            "law_context",
+            "explanation",
+            "law_audit",
+            "question_set",
+        ]
+        first_blocked_counts = [245, 12, 252, 32, 142, 29, 3]
+        targets = [self.target(f"q{index}") for index in range(715)]
+        source_path = "output/fixture/questions_json/2026/00_source/source.json"
+        stage_plans = []
+        for stage_id in stage_ids:
+            patch_path = f"output/fixture/{stage_id}.json"
+            stage_plans.append({
+                "stageId": stage_id,
+                "progressTargets": targets,
+                "policyFingerprints": {stage_id: f"policy:{stage_id}"},
+                "targetRecordBindings": [
+                    {
+                        "uiQuestionId": target["id"],
+                        "sourceQuestionKey": target["sourceQuestionKey"],
+                        "reviewQuestionId": target["reviewQuestionId"],
+                        "sourceRecordRef": target["sourceRecordRef"],
+                        "aliases": target["aliases"],
+                    }
+                    for target in targets
+                ],
+                "targetRecordAliasGroups": [
+                    list(target["aliases"]) for target in targets
+                ],
+                "targetSourceRecordScopes": {
+                    source_path: [list(target["aliases"]) for target in targets]
+                },
+                "targetRecordScopes": {
+                    patch_path: [list(target["aliases"]) for target in targets]
+                },
+                "sourceFiles": [source_path],
+                "allowedPatchFiles": [patch_path],
+                "allowedWriteFiles": [],
+                "policyTargets": {stage_id: [target["id"] for target in targets]},
+            })
+        plan = {
+            **stage_plans[0],
+            "kind": "human",
+            "qualification": "fixture-exam",
+            "questionIds": [target["id"] for target in targets],
+            "scopeListGroupIds": ["fixture"],
+            "targetGroupIds": ["fixture"],
+            "targetCount": 715,
+            "workItemCount": 5005,
+            "stageIds": stage_ids,
+            "progressTargets": targets,
+            "stagePlans": stage_plans,
+        }
+        previous_executions = build_question_executions(plan)
+        offset = 0
+        for stage_index, question_count in enumerate(first_blocked_counts):
+            for execution in previous_executions[offset : offset + question_count]:
+                execution["status"] = "blocked"
+                for index, stage in enumerate(execution["stages"]):
+                    stage["status"] = "validated" if index < stage_index else "blocked"
+                    stage["error"] = (
+                        None if index == stage_index else "表示専用の日本語error"
+                    )
+            offset += question_count
+        previous = {
+            "status": "succeeded",
+            "queueStatus": "partial",
+            "questionExecutions": previous_executions,
+        }
+        coordinator = object.__new__(QualificationRunCoordinator)
+        coordinator.store = SimpleNamespace(get=lambda *_args: previous)
+        coordinator.reviews = None
+
+        coordinator._apply_blocked_rework_plan(plan, "fixture-run")
+        rebuilt = build_question_executions(plan)
+
+        self.assertEqual(plan["targetCount"], 715)
+        self.assertEqual(plan["workItemCount"], 3662)
+        self.assertEqual(5005 - plan["workItemCount"], 1343)
+        self.assertEqual(len(plan["resumeWorkItemKeys"]), 3662)
+        self.assertEqual(
+            sum(len(value) for value in plan["targetStageIdsByQuestion"].values()),
+            3662,
+        )
+        self.assertEqual(queue_summary(rebuilt)["workItemCount"], 3662)
+        self.assertEqual(
+            plan["targetStageIdsByQuestion"]["q245"],
+            stage_ids[1:],
+        )
+        self.assertEqual(
+            plan["evaluationFeedbackByQuestion"]["q0"][0]["criticalIssues"],
+            ["表示専用の日本語error"],
         )
 
 

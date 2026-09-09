@@ -9390,34 +9390,80 @@ class QualificationRunCoordinator:
             raise QualificationRunError(
                 "保留再整備の元runは、保留付きで終了したrunを指定してください。"
             )
+        previous_executions = previous.get("questionExecutions")
+        if not isinstance(previous_executions, list):
+            raise QualificationRunError("保留再整備元に一問queueの記録がありません。")
+        try:
+            current_work_item_keys = {
+                (
+                    str(execution.get("questionId") or ""),
+                    str(stage.get("stageId") or ""),
+                ): str(stage.get("workItemKey") or "")
+                for execution in build_question_executions(plan)
+                if isinstance(execution, Mapping)
+                for stage in execution.get("stages") or []
+                if isinstance(stage, Mapping)
+            }
+            normalized_previous_executions = copy.deepcopy(previous_executions)
+            for execution in normalized_previous_executions:
+                if not isinstance(execution, dict):
+                    continue
+                question_id = str(execution.get("questionId") or "")
+                for stage in execution.get("stages") or []:
+                    if not isinstance(stage, dict) or stage.get("workItemKey"):
+                        continue
+                    stage["workItemKey"] = current_work_item_keys.get(
+                        (question_id, str(stage.get("stageId") or "")),
+                        "",
+                    )
+            resumed = resume_plan(
+                plan,
+                normalized_previous_executions,
+                unfinished_only=True,
+            )
+            resumed_executions = build_question_executions(resumed)
+        except QuestionWorkQueueError as exc:
+            raise QualificationRunError(str(exc)) from exc
+        resumed["targetStageIdsByQuestion"] = {
+            str(execution.get("questionId") or ""): [
+                str(stage.get("stageId") or "")
+                for stage in execution.get("stages") or []
+                if isinstance(stage, Mapping) and stage.get("stageId")
+            ]
+            for execution in resumed_executions
+            if isinstance(execution, Mapping) and execution.get("questionId")
+        }
+        plan.clear()
+        plan.update(resumed)
+
         feedback_by_question: dict[str, list[dict[str, Any]]] = {}
-        for execution in previous.get("questionExecutions") or []:
+        blocked_question_ids: set[str] = set()
+        for execution in previous_executions:
             if not isinstance(execution, Mapping):
                 continue
             question_id = str(execution.get("questionId") or "")
             if not question_id or execution.get("status") != "blocked":
                 continue
+            blocked_question_ids.add(question_id)
             blocked_stages = [
                 dict(stage)
                 for stage in execution.get("stages") or []
                 if isinstance(stage, Mapping)
                 and stage.get("status") == "blocked"
-                and str(stage.get("error") or "").strip()
             ]
             reasons = list(
                 dict.fromkeys(
                     str(stage.get("error") or "").strip()
                     for stage in blocked_stages
+                    if str(stage.get("error") or "").strip()
                 )
             )
-            if not reasons:
-                continue
             feedback_by_question[question_id] = [
                 {
                     "source": "blocked_maintenance",
                     "status": "needs_rework",
                     "runId": blocked_rework_from,
-                    "summary": reasons[0],
+                    "summary": reasons[0] if reasons else "保留工程から再整備します。",
                     "criticalIssues": reasons,
                     "blockedStageIds": list(
                         dict.fromkeys(
@@ -9435,7 +9481,7 @@ class QualificationRunCoordinator:
             raise QualificationRunError(
                 "保留再整備ではquestionIdsを指定してください。"
             )
-        missing = requested_question_ids - set(feedback_by_question)
+        missing = requested_question_ids - blocked_question_ids
         if missing:
             raise QualificationRunError(
                 "保留理由を確認できない問題が含まれています: "

@@ -1929,6 +1929,7 @@ class MonitorEventHub(MonitorEventStore):
         *,
         queue_capacity: int = 4096,
         replay_capacity: int = 20_000,
+        start_worker: bool = True,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self._disk_queue: queue.Queue[dict[str, Any]] = queue.Queue(
@@ -1949,6 +1950,7 @@ class MonitorEventHub(MonitorEventStore):
         super().__init__(
             queue_capacity=queue_capacity,
             replay_capacity=replay_capacity,
+            start_worker=start_worker,
         )
         self._disk_worker = threading.Thread(
             target=self._run_disk_writer,

@@ -7060,7 +7060,11 @@ async function openEvaluationDialog(
       return;
     }
     $("#workflow-dialog-message").textContent =
-      `LLM呼出しは${preview.evaluationConcurrencyLimit}並列です。` +
+      (continuousQueue
+        ? `${preview.evaluationConcurrencyLimit}問同時に評価します。` +
+          "一問が遅延又は失敗しても他の問題は続行します。" +
+          "完了した枠へ次の問題を自動補充します。"
+        : `LLM呼出しは${preview.evaluationConcurrencyLimit}並列です。`) +
       `同じ監査条件の問題を最大${preview.auditBatchQuestions}問・` +
       `${preview.auditBatchInputBytes} UTF-8 bytesごとにCodexで監査します。` +
       "保存、stateHash検証、失敗と再試行は問題ごとに独立します。" +

@@ -1548,7 +1548,13 @@ assert.deepEqual(
         self.assertIn("? [...new Set(run.selectedUpdateTargetIds || [])]", retry)
         self.assertIn("const updateTargetIds = originalTargetIds;", retry)
         self.assertIn("? stageIds", retry)
-        self.assertIn("authoritativeScope: blockedQuestionIds.length > 0", retry)
+        self.assertIn(
+            """authoritativeScope: (
+      blockedQuestionIds.length > 0
+      || [\"failed\", \"interrupted\"].includes(run.status)
+    )""",
+            retry,
+        )
         self.assertNotIn("qualificationRunDependencyUpdateTargetIds(originalTargetIds)", retry)
         self.assertIn("preview.stageIds || []", preview)
         self.assertIn("preview.selectedUpdateTargetIds || []", preview)

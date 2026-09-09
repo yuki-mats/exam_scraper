@@ -346,7 +346,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         )
         self.assertIn("準備済みの束からmodel実行中", javascript)
 
-    def test_evaluation_dialog_explains_continuous_100_question_concurrency(self):
+    def test_evaluation_dialog_explains_configured_concurrency_limit(self):
         javascript = APP_PATH.read_text(encoding="utf-8")
         html = INDEX_PATH.read_text(encoding="utf-8")
 
@@ -356,7 +356,7 @@ class ProgressOutputUiContractTests(unittest.TestCase):
         self.assertIn("完了した枠へ次の問題を自動補充します", javascript)
         self.assertIn("continuousQueue: true", javascript)
         self.assertIn('id="continuous-evaluate-button"', html)
-        self.assertIn("評価待ちを100問並列で連続評価", html)
+        self.assertIn("評価待ちを設定上限で連続評価", html)
         self.assertNotIn("独立した新しい別セッションで順に評価します", javascript)
 
     def test_needs_rework_selection_uses_the_existing_parallel_maintenance_run(self):

@@ -132,7 +132,11 @@ class MonitorEventStoreTests(unittest.TestCase):
                 return super()._run_disk_writer()
 
         with tempfile.TemporaryDirectory() as directory:
-            hub = PausedDiskHub(Path(directory), queue_capacity=4096)
+            hub = PausedDiskHub(
+                Path(directory),
+                queue_capacity=4096,
+                start_worker=False,
+            )
             hub.bind_runtime({"qualification": "sample", "runId": "run"}, "thread", "turn")
             for delta_index in range(300):
                 for stream_index in range(100):
