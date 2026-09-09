@@ -4,6 +4,7 @@ import copy
 import hashlib
 import hmac
 import json
+import logging
 import os
 import re
 import secrets
@@ -21,6 +22,8 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
+
+LOGGER = logging.getLogger(__name__)
 
 from tools.question_review_console.run_snapshot import RunSnapshot
 
@@ -8547,6 +8550,23 @@ def _resume_orchestration_selections_match(
             law_workflow_enabled=law_workflow_enabled,
             allowed_law_removals=allowed_law_update_target_removals,
         )
+    )
+
+
+def _resume_question_selection_matches(
+    previous: Mapping[str, Any],
+    plan: Mapping[str, Any],
+    requested_question_ids: list[str] | None,
+) -> bool:
+    """Validate an explicit resume filter; omitted filters inherit the prior queue."""
+
+    if requested_question_ids is None:
+        # Dashboard summaries intentionally omit the large questionIds list.
+        # `resume_plan` intersects the current catalog with the server-owned
+        # previous executions, so an omitted client filter cannot widen scope.
+        return True
+    return list(previous.get("questionIds") or []) == list(
+        plan.get("questionIds") or []
     )
 
 
@@ -20480,25 +20500,52 @@ class QualificationRunCoordinator:
                 resumed_from,
             )
             previous_scope = list(previous.get("scopeListGroupIds") or [])
-            if (
-                previous.get("kind") != "orchestration"
-                or not _resume_orchestration_selections_match(
-                    previous,
-                    plan,
-                    selected_stage_ids,
-                    compare_update_targets=(
-                        "selectedUpdateTargetIds" in previous
-                        or update_target_ids is not None
-                    ),
-                )
-                or str(previous.get("mode") or "") != mode
-                or previous_scope != list(plan.get("scopeListGroupIds") or [])
-                or (
-                    ("questionIds" in previous or question_ids is not None)
-                    and list(previous.get("questionIds") or [])
-                    != list(plan.get("questionIds") or [])
+            kind_matches = previous.get("kind") == "orchestration"
+            selections_match = _resume_orchestration_selections_match(
+                previous,
+                plan,
+                selected_stage_ids,
+                compare_update_targets=(
+                    "selectedUpdateTargetIds" in previous
+                    or update_target_ids is not None
+                ),
+            )
+            mode_matches = str(previous.get("mode") or "") == mode
+            scope_matches = previous_scope == list(
+                plan.get("scopeListGroupIds") or []
+            )
+            question_ids_match = _resume_question_selection_matches(
+                previous,
+                plan,
+                question_ids,
+            )
+            if not all(
+                (
+                    kind_matches,
+                    selections_match,
+                    mode_matches,
+                    scope_matches,
+                    question_ids_match,
                 )
             ):
+                LOGGER.warning(
+                    "Resume selection mismatch for %s/%s: "
+                    "kind=%s selections=%s mode=%s scope=%s question_ids=%s "
+                    "previous_question_ids=%s/%s planned_question_ids=%s/%s "
+                    "requested_question_ids=%s",
+                    qualification,
+                    resumed_from,
+                    kind_matches,
+                    selections_match,
+                    mode_matches,
+                    scope_matches,
+                    question_ids_match,
+                    "questionIds" in previous,
+                    len(previous.get("questionIds") or []),
+                    "questionIds" in plan,
+                    len(plan.get("questionIds") or []),
+                    question_ids is not None,
+                )
                 raise QualificationRunError(
                     "再開元と工程、実行方式又は対象範囲が一致しません。"
                 )

@@ -4884,7 +4884,10 @@ async function retryBlockedQualificationRun(runOverride = null) {
     blockedReworkFrom: blockedQuestionIds.length ? run.runId : "",
     simplified: true,
     fieldFirst: blockedQuestionIds.length > 0,
-    authoritativeScope: blockedQuestionIds.length > 0,
+    authoritativeScope: (
+      blockedQuestionIds.length > 0
+      || ["failed", "interrupted"].includes(run.status)
+    ),
   });
 }
 

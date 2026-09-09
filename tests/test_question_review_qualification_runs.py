@@ -45,6 +45,7 @@ from tools.question_review_console.qualification_runs import (
     _question_plan_list_group_id,
     _restore_resume_target_aliases,
     _resume_orchestration_selections_match,
+    _resume_question_selection_matches,
     _source_binding_accepts_identity,
     _server_law_audit_fields,
     _structured_candidate_stage_context,
@@ -1636,6 +1637,24 @@ class ResumePolicyCompatibilityTests(unittest.TestCase):
                 plan,
                 self.current_stage_ids,
                 compare_update_targets=True,
+            )
+        )
+
+    def test_omitted_resume_question_filter_inherits_server_queue(self):
+        self.assertTrue(
+            _resume_question_selection_matches(
+                {"questionIds": ["q1", "q2"]},
+                {"questionIds": []},
+                None,
+            )
+        )
+
+    def test_explicit_resume_question_filter_must_match(self):
+        self.assertFalse(
+            _resume_question_selection_matches(
+                {"questionIds": ["q1", "q2"]},
+                {"questionIds": ["q2"]},
+                ["q2"],
             )
         )
 

@@ -1205,6 +1205,10 @@ assert.equal(api.qualificationRunProgressForRun(matching, "run-a"), matching);
         self.assertIn('mode: blockedQuestionIds.length ? "group_refresh"', retry)
         self.assertIn('resumedFrom: blockedQuestionIds.length ? "" : run.runId', retry)
         self.assertIn('blockedReworkFrom: blockedQuestionIds.length ? run.runId', retry)
+        self.assertIn(
+            '|| ["failed", "interrupted"].includes(run.status)',
+            retry,
+        )
         self.assertIn("scopeListGroupIds", retry)
         self.assertIn('"未完了の問題を再開"', javascript)
         self.assertIn('id="qualification-active-run-retry"', html)
