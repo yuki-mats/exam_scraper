@@ -22,6 +22,33 @@ def _feedback(child, *, attempt=1, question_id="q1", stage_id="explanation"):
 
 
 class ChildFeedbackTests(unittest.TestCase):
+    def test_structured_issue_keeps_owner_without_message_classification(self):
+        issue = {
+            "schemaVersion": "question-candidate-validation-issue/v1",
+            "code": "missing_or_invalid_question_intent",
+            "field": "questionIntent",
+            "ownerStageId": "question_intent",
+            "retryCondition": "question_intent_validated",
+            "message": "設問意図を再確認してください。",
+            "retryable": True,
+        }
+
+        feedback = _feedback(
+            {
+                "runId": "child-structured",
+                "status": "failed",
+                "error": "分類に使わない自由文です。",
+                "validationIssues": [issue],
+                "result": {"status": "failed", "commands": []},
+            },
+            stage_id="correct_choice",
+        )
+        refreshed = reclassify_feedback(feedback)
+
+        self.assertEqual(feedback["issues"], [issue])
+        self.assertEqual(refreshed["issues"], [issue])
+        self.assertEqual(feedback["status"], "retryable")
+
     def test_validated_success_is_accepted(self):
         feedback = _feedback(
             {

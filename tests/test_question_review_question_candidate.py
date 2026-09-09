@@ -3,6 +3,7 @@ import unittest
 
 from tools.question_review_console.question_candidate import (
     CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+    CANDIDATE_VALIDATION_ISSUE_SCHEMA_VERSION,
     QuestionCandidateError,
     candidate_targets,
     output_schema,
@@ -10,6 +11,7 @@ from tools.question_review_console.question_candidate import (
     parse_model_candidate_v3,
     parse_prepared_candidate_payload,
     validate_candidate_content,
+    validate_candidate_content_issues,
     aggregate_answer_review_schema,
     parse_aggregate_answer_reviews,
 )
@@ -539,6 +541,34 @@ class QuestionCandidateTest(unittest.TestCase):
                     "choiceTextList": ["記述A", "記述B"],
                 },
             ),
+        )
+        issues = validate_candidate_content_issues(
+            candidate,
+            targets,
+            {
+                "questionType": "true_false",
+                "choiceTextList": ["記述A", "記述B"],
+            },
+        )
+        intent_issue = next(
+            issue
+            for issue in issues
+            if issue["code"] == "missing_or_invalid_question_intent"
+        )
+        self.assertEqual(
+            intent_issue,
+            {
+                "schemaVersion": CANDIDATE_VALIDATION_ISSUE_SCHEMA_VERSION,
+                "code": "missing_or_invalid_question_intent",
+                "field": "questionIntent",
+                "ownerStageId": "question_intent",
+                "retryCondition": "question_intent_validated",
+                "message": (
+                    "correctChoiceTextの照合に必要なquestionIntentが"
+                    "select_correct又はselect_incorrectではありません。"
+                ),
+                "retryable": True,
+            },
         )
 
     def test_aggregate_review_contract_has_no_prose_fields(self):

@@ -40,6 +40,9 @@ from tools.question_review_console.law_audit_quality import (
 
 
 CANDIDATE_PAYLOAD_SCHEMA_VERSION = "question-maintenance-candidates/v3"
+CANDIDATE_VALIDATION_ISSUE_SCHEMA_VERSION = (
+    "question-candidate-validation-issue/v1"
+)
 OFFICIAL_QUESTION_TYPES = ("true_false", "flash_card", "group_choice")
 AGGREGATE_REVIEW_ISSUE_CODES = (
     "ambiguous_target",
@@ -47,6 +50,10 @@ AGGREGATE_REVIEW_ISSUE_CODES = (
     "missing_statement",
     "not_self_contained",
     "source_hash_mismatch",
+)
+_CORRECT_CHOICE_REQUIRES_VALID_INTENT = (
+    "correctChoiceTextの照合に必要なquestionIntentが"
+    "select_correct又はselect_incorrectではありません。"
 )
 
 
@@ -1653,7 +1660,7 @@ def _parse_semantic_candidate(
     )
 
 
-def validate_candidate_content(
+def _validate_candidate_content_messages(
     candidate: QuestionCandidate,
     targets: Iterable[CandidateTarget],
     projected_record: Mapping[str, Any],
@@ -1766,10 +1773,7 @@ def validate_candidate_content(
         and correct_shape_valid
     ):
         if not intent_valid:
-            errors.append(
-                "correctChoiceTextの照合に必要なquestionIntentが"
-                "select_correct又はselect_incorrectではありません。"
-            )
+            errors.append(_CORRECT_CHOICE_REQUIRES_VALID_INTENT)
         if intent_valid:
             answer_contract_issue = question_level_answer_cardinality_issue(
                 logical.get("questionType"),
@@ -2079,3 +2083,87 @@ def validate_candidate_content(
         }:
             errors.append("監査sidecarのauditStatusが不正です。")
     return tuple(dict.fromkeys(errors))
+
+
+def _candidate_validation_owner_stage(
+    targets: Iterable[CandidateTarget],
+) -> str:
+    roles = {target.role for target in targets}
+    for role in (
+        "law_audit",
+        "originalized",
+        "explanation",
+        "law_context",
+        "correct_choice",
+        "question_intent",
+        "question_type",
+        "question_set",
+    ):
+        if role in roles:
+            return "originalize" if role == "originalized" else role
+    return "unknown"
+
+
+def validate_candidate_content_issues(
+    candidate: QuestionCandidate,
+    targets: Iterable[CandidateTarget],
+    projected_record: Mapping[str, Any],
+    original_source_record: Mapping[str, Any] | None = None,
+    source_answer_evidence: Mapping[str, Any] | None = None,
+) -> tuple[dict[str, Any], ...]:
+    """Return structured deterministic issues without inferring from prose."""
+
+    target_values = tuple(targets)
+    messages = _validate_candidate_content_messages(
+        candidate,
+        target_values,
+        projected_record,
+        original_source_record,
+        source_answer_evidence,
+    )
+    current_owner = _candidate_validation_owner_stage(target_values)
+    issues: list[dict[str, Any]] = []
+    for message in messages:
+        if message == _CORRECT_CHOICE_REQUIRES_VALID_INTENT:
+            code = "missing_or_invalid_question_intent"
+            field = "questionIntent"
+            owner_stage_id = "question_intent"
+            retry_condition = "question_intent_validated"
+        else:
+            code = "candidate_content_validation"
+            field = "candidate"
+            owner_stage_id = current_owner
+            retry_condition = "candidate_content_valid"
+        issues.append(
+            {
+                "schemaVersion": CANDIDATE_VALIDATION_ISSUE_SCHEMA_VERSION,
+                "code": code,
+                "field": field,
+                "ownerStageId": owner_stage_id,
+                "retryCondition": retry_condition,
+                "message": message,
+                "retryable": True,
+            }
+        )
+    return tuple(issues)
+
+
+def validate_candidate_content(
+    candidate: QuestionCandidate,
+    targets: Iterable[CandidateTarget],
+    projected_record: Mapping[str, Any],
+    original_source_record: Mapping[str, Any] | None = None,
+    source_answer_evidence: Mapping[str, Any] | None = None,
+) -> tuple[str, ...]:
+    """Compatibility wrapper returning the historical message tuple."""
+
+    return tuple(
+        str(issue["message"])
+        for issue in validate_candidate_content_issues(
+            candidate,
+            targets,
+            projected_record,
+            original_source_record,
+            source_answer_evidence,
+        )
+    )

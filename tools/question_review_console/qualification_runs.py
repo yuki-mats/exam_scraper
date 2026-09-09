@@ -143,7 +143,7 @@ from tools.question_review_console.question_candidate import (
     output_schema as candidate_output_schema,
     parse_model_candidate_v3,
     parse_prepared_candidate_payload,
-    validate_candidate_content,
+    validate_candidate_content_issues,
     aggregate_answer_review_schema,
     parse_aggregate_answer_reviews,
 )
@@ -12034,6 +12034,7 @@ class QualificationRunCoordinator:
         *,
         attempt: int,
         stage_id: str,
+        validation_issues: Iterable[Mapping[str, Any]] = (),
     ) -> dict[str, Any]:
         pseudo_child = {
             **dict(child),
@@ -12054,6 +12055,11 @@ class QualificationRunCoordinator:
             "writeAttributionVerified": True,
             "unsafeChangedFiles": [],
             "unsafeNotifiedChangedFiles": [],
+            "validationIssues": [
+                dict(issue)
+                for issue in validation_issues
+                if isinstance(issue, Mapping)
+            ],
         }
         return build_child_feedback(
             pseudo_child,
@@ -13516,8 +13522,25 @@ class QualificationRunCoordinator:
                     normalized,
                     attempt=quality_attempt,
                     stage_id=stage_id,
+                    validation_issues=(
+                        raw_result.get("validationIssues") or ()
+                    ),
                 )
-                blocked = feedback.get("status") == "blocked" or quality_attempt >= 3
+                owner_stage_ids = {
+                    str(issue.get("ownerStageId") or "")
+                    for issue in feedback.get("issues") or []
+                    if isinstance(issue, Mapping)
+                    and issue.get("schemaVersion")
+                    and issue.get("ownerStageId")
+                }
+                routed_to_other_stage = bool(
+                    owner_stage_ids and owner_stage_ids != {stage_id}
+                )
+                blocked = (
+                    feedback.get("status") == "blocked"
+                    or routed_to_other_stage
+                    or quality_attempt >= 3
+                )
                 attempts[attempt_index].update(
                     status="blocked" if blocked else "failed",
                     feedback=feedback,
@@ -16376,10 +16399,10 @@ class QualificationRunCoordinator:
                         }
                     )
                     continue
-                content_errors = (
-                    []
+                content_issues = (
+                    ()
                     if hold_cleanup_required
-                    else validate_candidate_content(
+                    else validate_candidate_content_issues(
                         candidate,
                         targets_by_question[question_id],
                         records_by_question[question_id],
@@ -16391,7 +16414,7 @@ class QualificationRunCoordinator:
                         source_answer_evidence_by_question.get(question_id),
                     )
                 )
-                if content_errors:
+                if content_issues:
                     commands.append(
                         {"command": "question content", "status": "fail"}
                     )
@@ -16399,7 +16422,13 @@ class QualificationRunCoordinator:
                         {
                             "questionId": question_id,
                             "status": "failed",
-                            "summary": " / ".join(content_errors),
+                            "summary": " / ".join(
+                                str(issue["message"])
+                                for issue in content_issues
+                            ),
+                            "validationIssues": [
+                                dict(issue) for issue in content_issues
+                            ],
                             "aggregateAnswerReview": aggregate_review_evidence,
                             "commands": commands,
                             "changedFiles": [],

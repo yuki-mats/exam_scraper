@@ -23,6 +23,35 @@ _SECRET_PATTERNS = (
 )
 
 
+def _structured_issue(value: Mapping[str, Any]) -> dict[str, Any] | None:
+    schema_version = str(value.get("schemaVersion") or "").strip()
+    owner_stage_id = str(value.get("ownerStageId") or "").strip()
+    retry_condition = str(value.get("retryCondition") or "").strip()
+    code = str(value.get("code") or "").strip()
+    field = str(value.get("field") or "").strip()
+    message = str(value.get("message") or "").strip()
+    if not all(
+        (
+            schema_version,
+            owner_stage_id,
+            retry_condition,
+            code,
+            field,
+            message,
+        )
+    ):
+        return None
+    return {
+        "schemaVersion": schema_version,
+        "code": code,
+        "field": field,
+        "ownerStageId": owner_stage_id,
+        "retryCondition": retry_condition,
+        "message": _safe_message(message),
+        "retryable": bool(value.get("retryable", True)),
+    }
+
+
 def build_child_feedback(
     child: Mapping[str, Any],
     *,
@@ -38,19 +67,31 @@ def build_child_feedback(
     issues: list[dict[str, Any]] = []
     seen: set[tuple[str, str]] = set()
 
-    def add(code: str, field: str, message: str, retryable: bool) -> None:
+    def add(
+        code: str,
+        field: str,
+        message: str,
+        retryable: bool,
+        *,
+        structured: Mapping[str, Any] | None = None,
+    ) -> None:
         key = (code, field)
         if key in seen:
             return
         seen.add(key)
-        issues.append(
-            {
+        issue = {
                 "code": code,
                 "field": field,
                 "message": _safe_message(message),
                 "retryable": retryable,
             }
-        )
+        if structured is not None:
+            issue.update(
+                schemaVersion=str(structured["schemaVersion"]),
+                ownerStageId=str(structured["ownerStageId"]),
+                retryCondition=str(structured["retryCondition"]),
+            )
+        issues.append(issue)
 
     error = str(child.get("error") or "").strip()
     receipt_error = str(child.get("receiptError") or "").strip()
@@ -63,6 +104,22 @@ def build_child_feedback(
     failed_commands = [value for value in commands if _command_failed(value)]
     failed_checks = [_safe_failed_check(value) for value in failed_commands[:5]]
 
+    structured_issues = [
+        normalized
+        for value in child.get("validationIssues") or []
+        if isinstance(value, Mapping)
+        for normalized in [_structured_issue(value)]
+        if normalized is not None
+    ]
+    for issue in structured_issues:
+        add(
+            str(issue["code"]),
+            str(issue["field"]),
+            str(issue["message"]),
+            bool(issue["retryable"]),
+            structured=issue,
+        )
+
     rejected_summary = bool(
         result_summary
         and (
@@ -70,11 +127,12 @@ def build_child_feedback(
             or str(result.get("status") or "succeeded") != "succeeded"
         )
     )
-    for message in (error, result_summary if rejected_summary else ""):
-        if not message:
-            continue
-        code, field, retryable = _classify_message(message)
-        add(code, field, message, retryable)
+    if not structured_issues:
+        for message in (error, result_summary if rejected_summary else ""):
+            if not message:
+                continue
+            code, field, retryable = _classify_message(message)
+            add(code, field, message, retryable)
 
     if receipt_error:
         code, field, retryable = _classify_message(receipt_error)
@@ -181,6 +239,15 @@ def feedback_prompt(feedback: Mapping[str, Any]) -> str:
                 "field": str(value.get("field") or "unknown"),
                 "message": _safe_message(str(value.get("message") or "")),
                 "retryable": bool(value.get("retryable")),
+                **(
+                    {
+                        "schemaVersion": str(value["schemaVersion"]),
+                        "ownerStageId": str(value["ownerStageId"]),
+                        "retryCondition": str(value["retryCondition"]),
+                    }
+                    if _structured_issue(value) is not None
+                    else {}
+                ),
             }
         )
     failed_checks = []
@@ -230,6 +297,18 @@ def reclassify_feedback(
     issues: list[dict[str, Any]] = []
     seen: set[tuple[str, str, str]] = set()
     for raw_issue in raw_issues:
+        structured = _structured_issue(raw_issue)
+        if structured is not None:
+            key = (
+                str(structured["code"]),
+                str(structured["field"]),
+                str(structured["message"]),
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+            issues.append(structured)
+            continue
         message = _safe_message(str(raw_issue.get("message") or ""))
         code, field, retryable = _classify_message(message)
         if (

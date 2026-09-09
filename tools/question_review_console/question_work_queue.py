@@ -798,6 +798,49 @@ def resume_plan(
         if str(stage_plan.get("stageId") or "").strip()
         not in {"", "multi", "category_setup", "setup"}
     ]
+    question_stage_indexes = {
+        str(stage_plan.get("stageId") or ""): stage_index
+        for stage_index, stage_plan in enumerate(question_stage_plans)
+    }
+    owner_rework_by_question: dict[
+        str, tuple[int, dict[str, Any]]
+    ] = {}
+    for question in previous_execution_list:
+        question_id = str(question.get("questionId") or "").strip()
+        if not question_id:
+            continue
+        for stage in question.get("stages") or []:
+            if not isinstance(stage, Mapping):
+                continue
+            failed_attempts = [
+                attempt
+                for attempt in stage.get("validationAttempts") or []
+                if isinstance(attempt, Mapping)
+                and str(attempt.get("status") or "")
+                in {"failed", "blocked", "interrupted"}
+            ]
+            if not failed_attempts:
+                continue
+            feedback = failed_attempts[-1].get("feedback")
+            if not isinstance(feedback, Mapping):
+                continue
+            owner_indexes = [
+                question_stage_indexes[str(issue.get("ownerStageId") or "")]
+                for issue in feedback.get("issues") or []
+                if isinstance(issue, Mapping)
+                and str(issue.get("schemaVersion") or "").strip()
+                and str(issue.get("ownerStageId") or "")
+                in question_stage_indexes
+            ]
+            if not owner_indexes:
+                continue
+            owner_index = min(owner_indexes)
+            previous_owner = owner_rework_by_question.get(question_id)
+            if previous_owner is None or owner_index < previous_owner[0]:
+                owner_rework_by_question[question_id] = (
+                    owner_index,
+                    dict(feedback),
+                )
     targets_by_stage: dict[str, dict[str, dict[str, Any]]] = {}
     canonical_targets: dict[str, dict[str, Any]] = {}
     for stage_plan in question_stage_plans:
@@ -861,13 +904,18 @@ def resume_plan(
                 resume_start_by_question[question_id] = stage_index
                 break
 
+    for question_id, (owner_index, _feedback) in owner_rework_by_question.items():
+        if question_id not in canonical_targets:
+            continue
+        if unfinished_only and question_id not in unfinished_question_ids:
+            continue
+        current_index = resume_start_by_question.get(question_id)
+        if current_index is None or owner_index < current_index:
+            resume_start_by_question[question_id] = owner_index
+
     explicit_question_keys: set[str] = set()
     current_policy_by_work_item: dict[str, str] = {}
     targets_for_stage: dict[str, list[str]] = {}
-    question_stage_indexes = {
-        str(stage_plan.get("stageId") or ""): stage_index
-        for stage_index, stage_plan in enumerate(question_stage_plans)
-    }
     for question_id, first_stage_index in resume_start_by_question.items():
         canonical_target = canonical_targets[question_id]
         for stage_plan in question_stage_plans[first_stage_index:]:
@@ -998,6 +1046,22 @@ def resume_plan(
             and previous_policy == current_policy
         ):
             retry_feedback[work_item_key_value] = [dict(latest_feedback)]
+    for question_id, (owner_index, feedback) in owner_rework_by_question.items():
+        if question_id not in resume_start_by_question:
+            continue
+        owner_stage_plan = question_stage_plans[owner_index]
+        owner_stage_id = str(owner_stage_plan.get("stageId") or "")
+        owner_target = targets_by_stage.get(owner_stage_id, {}).get(
+            question_id,
+            canonical_targets[question_id],
+        )
+        owner_work_item_key = work_item_key(owner_target, owner_stage_id)
+        if owner_work_item_key not in explicit_question_keys:
+            continue
+        if owner_work_item_key not in retry_keys:
+            retry_keys.append(owner_work_item_key)
+        retry_feedback.setdefault(owner_work_item_key, []).append(feedback)
+    retry_keys.sort()
     candidate["retryModelWorkItemKeys"] = retry_keys
     candidate["retryFeedbackByWorkItem"] = retry_feedback
     return candidate

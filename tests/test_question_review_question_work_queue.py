@@ -526,6 +526,62 @@ class QuestionWorkQueueTests(unittest.TestCase):
             [{"reason": "最後の指摘"}],
         )
 
+    def test_resume_restarts_from_structured_issue_owner_stage(self) -> None:
+        intent = stage_plan("question_intent", self.targets)
+        answer = stage_plan("correct_choice", self.targets)
+        explanation = stage_plan("explanation", self.targets)
+        plan = {
+            **intent,
+            "stageId": "multi",
+            "stageIds": ["question_intent", "correct_choice", "explanation"],
+            "stagePlans": [intent, answer, explanation],
+            "targetCount": 2,
+            "workItemCount": 6,
+        }
+        executions = build_question_executions(plan)
+        for question in executions:
+            for stage in question["stages"]:
+                stage["status"] = "validated"
+        structured_feedback = {
+            "status": "retryable",
+            "issues": [
+                {
+                    "schemaVersion": "question-candidate-validation-issue/v1",
+                    "code": "missing_or_invalid_question_intent",
+                    "field": "questionIntent",
+                    "ownerStageId": "question_intent",
+                    "retryCondition": "question_intent_validated",
+                    "message": "設問意図を再確認してください。",
+                    "retryable": True,
+                }
+            ],
+        }
+        answer_stage = executions[0]["stages"][1]
+        answer_stage.update(
+            status="blocked",
+            validationAttempts=[
+                {
+                    "attempt": 1,
+                    "status": "blocked",
+                    "feedback": structured_feedback,
+                }
+            ],
+        )
+
+        resumed = resume_plan(plan, executions, unfinished_only=True)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(resumed["targetCount"], 1)
+        self.assertEqual(
+            [stage["stageId"] for stage in rebuilt[0]["stages"]],
+            ["question_intent", "correct_choice", "explanation"],
+        )
+        self.assertTrue(rebuilt[0]["stages"][0]["retryModelRequired"])
+        self.assertEqual(
+            rebuilt[0]["stages"][0]["priorValidationFeedback"],
+            [structured_feedback],
+        )
+
     def test_resume_drops_feedback_bound_to_an_old_policy(self) -> None:
         executions = build_question_executions(self.plan)
         for question in executions:
