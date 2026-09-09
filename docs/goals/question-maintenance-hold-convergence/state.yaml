@@ -1,0 +1,238 @@
+version: 2
+
+goal:
+  title: "問題整備システムの保留収束リファクタリング"
+  slug: "question-maintenance-hold-convergence"
+  kind: existing_plan
+  tranche: "停止工程再開、決定的な集約抽出、入力不足の事前振分けを既存一問queueへ統合する"
+  status: active
+  oracle:
+    signal: "代表715問のpreview作業数、入力不足のmodel turn数、集約抽出fixture、品質gate、00_source不変"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "全task receipt、対象・全体回帰、代表preview/run readback、origin/main反映、full_outcome_complete: true"
+  intake:
+    original_request: "複雑化しないようにあるべき姿にシンプルなリファクタリングと改善を実施する"
+    interpreted_outcome: "既存の一問queueを単純化し、解消可能な保留だけを正しい工程から再実行する"
+    input_shape: existing_plan
+    audience: "問題整備システムの運用者と受験者"
+    authority: approved
+    proof_type: metric
+    completion_proof: "不要な前工程1,343件が代表previewから消え、入力不足は生成前停止し、全角小文字の集約問題を原文spanから抽出できる"
+    likely_misfire: "新しいqueueや例外条件を増やす、品質gateを弱める、又は同じ入力を再生成して保留を見かけ上減らす"
+    blind_spots_considered:
+      - "旧run readbackとresume互換"
+      - "工程版又は入力変更時の再実行"
+      - "画像・法令根拠の取得所有者"
+      - "集約reviewのfail-closed境界"
+      - "既存未コミット成果物との分離"
+    existing_plan_facts:
+      - "問題ごとの最初の停止工程から再整備する"
+      - "画像・本文・試験時法令不足はLLM前に止める"
+      - "全角小文字ａ．〜ｄ．を機械抽出する"
+      - "02aで02の不整合を発見したら自動補正せず所有工程へ戻す"
+      - "各改善を検証、commit、origin/main pushまで閉じる"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/question-maintenance-hold-convergence/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-hold-convergence"
+
+active_task: T001
+tasks:
+  - id: T001
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "既に得た715問の保留原因と現行実装を照合し、追加機構を増やさない最小の実装契約を確定する"
+    inputs:
+      - "20260909T142221101643-96401d7d and 20260909T162653105588-fb18400c run artifacts"
+      - "current workflow catalog, queue, blocked-rework, aggregate decomposition and validation code"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+    constraints:
+      - "Read-only."
+      - "Reuse the existing queue and stage ordering."
+      - "Reject special-case fixes based only on Japanese error text."
+      - "Do not weaken hold or quality gates."
+    expected_output:
+      - "Minimal implementation contract"
+      - "Exact Worker slices and allowed files"
+      - "Dependency and compatibility risks"
+      - "Verification matrix"
+    receipt: null
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "blocked-reworkを問題ごとの最初の停止工程から開始し、合格済み前工程を再実行しない正常フローへ修正する"
+    inputs:
+      - "T001 receipt"
+      - "blocked-rework UI/server plan and question work queue"
+    constraints:
+      - "既存run成果物を書換えない。"
+      - "工程版又は入力変更時の通常再整備を妨げない。"
+      - "エラー文の個別一致で開始工程を決めない。"
+      - "既存のstage orderをSSOTとして使う。"
+    expected_output:
+      - "targetStageIdsByQuestionを持つblocked-rework plan"
+      - "停止工程と後続だけを作るqueue"
+      - "旧run互換テスト"
+      - "代表715問previewの作業数比較"
+    allowed_files:
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/question_work_queue.py"
+      - "tools/question_review_console/static/app.js"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_question_work_queue.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_question_work_queue tests.test_question_review_qualification_runs tests.test_question_review_workflow"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "stage orderを複製した新しい正本が必要になる。"
+      - "既存runのreadback又は通常resumeを壊す。"
+      - "許可外fileの変更が必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "集約回答の原文span抽出を全角小文字と実データの句読点・同一行表記へ対応させ、抽出不能だけをholdにする"
+    inputs:
+      - "T001/T002 receipts"
+      - "aggregate answer decomposition code and checkpoints"
+    constraints:
+      - "モデルに本文を生成させない。"
+      - "原文span、source hash、candidate ID契約を維持する。"
+      - "表記例ごとの個別ifを増やさずmarker familyを正規化する。"
+    expected_output:
+      - "全角・半角、小文字・大文字、同一行・改行の共通抽出"
+      - "実問題fixtureを含む回帰テスト"
+      - "既存aggregate contract互換"
+    allowed_files:
+      - "scripts/common/aggregate_answer_decomposition.py"
+      - "tests/test_aggregate_answer_decomposition.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_aggregate_answer_decomposition tests.test_question_review_qualification_runs"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "原文外の文章生成が必要になる。"
+      - "source hash又はstable ID契約を変更する。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt: null
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "画像・選択肢本文・試験時法令根拠など生成前に必須な入力を既存preparationで検査し、同じ入力のmodel再投入を止める"
+    inputs:
+      - "T001-T003 receipts"
+      - "projection, candidate preparation, law evidence and validation contracts"
+    constraints:
+      - "入力不足を合格にしない。"
+      - "00_sourceを手修正しない。"
+      - "free-text理由の個別一致ではなく構造化された不足入力を使う。"
+      - "取得責務と意味判断責務を混ぜない。"
+    expected_output:
+      - "機械的なinput readiness結果"
+      - "不足入力のownerとretry condition"
+      - "model turnが開始されないことを示すテスト"
+      - "画像・法令・完全問題の代表fixture"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T001 Judgeが既存preparationへ統合できないと判断する。"
+      - "新しい並列queue又は重複状態機構が必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt: null
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "後工程の機械検査が前工程の責務不整合を検出したとき、その問題だけを所有工程へ戻す汎用的な依存フローを完成させる"
+    inputs:
+      - "T001-T004 receipts"
+      - "questionIntent and correctChoice validation contracts"
+    constraints:
+      - "一方のfieldへ自動補正しない。"
+      - "日本語error textから工程を推測しない。"
+      - "既存の一問queueとstage orderを使う。"
+    expected_output:
+      - "機械検査の構造化ownerStage feedback"
+      - "02へ戻り02aを再実行するfixture"
+      - "再試行上限と循環防止"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "fieldの正しさをserverが決める必要が生じる。"
+      - "新しいworkflow engineが必要になる。"
+      - "同じ原因で検証が二回失敗する。"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "変更が保留を隠さず正常フローを単純化し、代表715問で効率と品質を改善したか最終監査する"
+    inputs:
+      - "All task receipts and commits"
+      - "Representative preview/run and quality audit"
+      - "00_source and Firestore write evidence"
+    constraints:
+      - "Read-only."
+      - "Reject completion if quality gates were weakened."
+      - "Reject completion if required Worker work remains queued."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "before/after metrics"
+      - "remaining genuine holds and next owner"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "existing run-generated output changes; implementation scope must be staged separately"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
