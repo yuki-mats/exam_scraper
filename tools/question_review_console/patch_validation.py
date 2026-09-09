@@ -47,6 +47,71 @@ UPLOAD_REQUIRED_BOOLEAN_FIELDS = (
     "isGroupable",
 )
 
+INPUT_READINESS_ISSUE_SCHEMA_VERSION = "question-input-readiness-issue/v1"
+
+
+def _has_input_value(value: Any) -> bool:
+    if isinstance(value, (list, tuple)):
+        return any(_has_input_value(item) for item in value)
+    return bool(str(value or "").strip())
+
+
+def stage_input_readiness_issues(
+    record: Mapping[str, Any],
+    stage_id: str,
+) -> list[dict[str, str]]:
+    """Return deterministic missing-input issues before a model turn exists."""
+
+    owner_stage_id = str(stage_id or "").strip()
+    issues: list[dict[str, str]] = []
+
+    def add(code: str, field: str, message: str) -> None:
+        issues.append(
+            {
+                "schemaVersion": INPUT_READINESS_ISSUE_SCHEMA_VERSION,
+                "code": code,
+                "field": field,
+                "ownerStageId": owner_stage_id,
+                "retryCondition": "source_or_projection_input_available",
+                "message": message,
+            }
+        )
+
+    if not (
+        _has_input_value(record.get("questionBodyText"))
+        or _has_input_value(record.get("questionImageStorageUrls"))
+    ):
+        add(
+            "missing_question_body_input",
+            "questionBodyText",
+            "問題本文の文字列又は画像がありません。",
+        )
+
+    choice_texts = record.get("choiceTextList")
+    choice_images = record.get("originalQuestionChoiceImageUrls")
+    text_count = len(choice_texts) if isinstance(choice_texts, list) else 0
+    image_count = len(choice_images) if isinstance(choice_images, list) else 0
+    choice_count = max(text_count, image_count)
+    if choice_count == 0:
+        add(
+            "missing_choice_input",
+            "choiceTextList",
+            "選択肢の文字列又は画像がありません。",
+        )
+    else:
+        for index in range(choice_count):
+            text = choice_texts[index] if index < text_count else None
+            images = choice_images[index] if index < image_count else None
+            if _has_input_value(text) or _has_input_value(images):
+                continue
+            add(
+                "missing_choice_input",
+                f"choiceTextList[{index}]",
+                f"選択肢{index + 1}の文字列又は画像がありません。",
+            )
+
+    return issues
+
 
 def patch_entry_required_warnings(
     entry: Mapping[str, Any],

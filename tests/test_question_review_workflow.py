@@ -10,6 +10,10 @@ from pathlib import Path
 from scripts.upload.upload_questions_to_firestore import build_doc_data_base
 from tools.question_review_console.jobs import JobConflictError, JobManager
 from tools.question_review_console.publisher import GroupPublisher
+from tools.question_review_console.patch_validation import (
+    INPUT_READINESS_ISSUE_SCHEMA_VERSION,
+    stage_input_readiness_issues,
+)
 from tools.question_review_console.workflow_runner import (
     ArtifactSynchronizer,
     WorkflowError,
@@ -81,6 +85,50 @@ def upload_document():
         "isChoiceOnly": False,
         "isGroupable": False,
     }
+
+
+class StageInputReadinessTests(unittest.TestCase):
+    def test_text_or_image_satisfies_each_required_input(self):
+        issues = stage_input_readiness_issues(
+            {
+                "questionBodyText": "",
+                "questionImageStorageUrls": ["https://example.test/question.png"],
+                "choiceTextList": ["文字の選択肢", ""],
+                "originalQuestionChoiceImageUrls": [
+                    [],
+                    ["https://example.test/choice-2.png"],
+                ],
+            },
+            "question_intent",
+        )
+
+        self.assertEqual(issues, [])
+
+    def test_missing_inputs_are_structured_for_the_current_stage(self):
+        issues = stage_input_readiness_issues(
+            {
+                "questionBodyText": "",
+                "questionImageStorageUrls": [],
+                "choiceTextList": ["", "選択肢2"],
+                "originalQuestionChoiceImageUrls": [[], []],
+            },
+            "correct_choice",
+        )
+
+        self.assertEqual(
+            [issue["code"] for issue in issues],
+            ["missing_question_body_input", "missing_choice_input"],
+        )
+        self.assertTrue(
+            all(
+                issue["schemaVersion"]
+                == INPUT_READINESS_ISSUE_SCHEMA_VERSION
+                and issue["ownerStageId"] == "correct_choice"
+                and issue["retryCondition"]
+                == "source_or_projection_input_available"
+                for issue in issues
+            )
+        )
 
 
 def sync_group_fixture(root: Path, *, is_law_related: bool):

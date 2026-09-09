@@ -4792,6 +4792,51 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(started["run"]["workType"], "maintenance_flow")
         return coordinator, synchronizer, app_server, started["run"]
 
+    def test_missing_input_blocks_before_child_run_and_model_turn(self):
+        class MissingQuestionBodyInventory(SourceOnlyInventory):
+            def group(self, qualification, list_group_id):
+                group = super().group(qualification, list_group_id)
+                group["questions"][0]["projected"].update(
+                    questionBodyText="",
+                    questionImageStorageUrls=[],
+                )
+                return group
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = FlowAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root,
+                MissingQuestionBodyInventory(),
+                ["question_intent"],
+                app_server=app_server,
+            )
+
+            result = coordinator._run_maintenance_flow(
+                "new-exam",
+                parent["runId"],
+                lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+            question_id = completed["questionExecutions"][0]["questionId"]
+            detail = coordinator.store.question_detail(
+                "new-exam",
+                parent["runId"],
+                question_id,
+            )
+            stage = detail["execution"]["stages"][0]
+
+        self.assertEqual(result["queueStatus"], "partial")
+        self.assertEqual(stage["status"], "blocked")
+        self.assertEqual(stage["childRunIds"], [])
+        self.assertEqual(stage.get("validationAttempts") or [], [])
+        self.assertEqual(
+            stage["inputReadinessIssues"][0]["code"],
+            "missing_question_body_input",
+        )
+        self.assertEqual(app_server.calls, [])
+        self.assertEqual(app_server.aggregate_review_calls, [])
+
     class _HybridRouteAppServer(PerQuestionQueueAppServer):
         def __init__(self, *, retryable_failures=0, nonretryable=False, invalid_first=False):
             super().__init__()

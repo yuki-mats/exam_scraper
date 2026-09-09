@@ -100,6 +100,9 @@ from tools.question_review_console.law_audit_sidecar_normalizer import (
 from tools.question_review_console.primary_law_evidence import (
     PrimaryLawEvidenceResolver,
 )
+from tools.question_review_console.patch_validation import (
+    stage_input_readiness_issues,
+)
 from tools.question_review_console.codex_app_server import (
     MAINTENANCE_RESEARCH_WORKERS,
     QUESTION_MAINTENANCE_MODEL,
@@ -12496,6 +12499,32 @@ class QualificationRunCoordinator:
                 return None
             if projection is not None:
                 target["_projectedInputPath"] = projection["path"]
+            readiness_issues = stage_input_readiness_issues(
+                projection["record"],
+                stage_id,
+            )
+            if readiness_issues:
+                message = " / ".join(
+                    str(issue["message"]) for issue in readiness_issues
+                )
+                self.store.update_question_stage(
+                    qualification,
+                    run_id,
+                    question_id,
+                    stage_id,
+                    refresh_derived=False,
+                    hydrate_result=False,
+                    status="blocked",
+                    error=message,
+                    inputReadinessIssues=readiness_issues,
+                    finishedAt=_now(),
+                    block_dependents=True,
+                )
+                emit(
+                    f"{question_id}: 入力不足のためmodel実行前に保留しました: "
+                    f"{message}"
+                )
+                return None
             try:
                 scoped_plan = dict(spec["scopedPlan"])
                 prepared_targets = candidate_targets(
