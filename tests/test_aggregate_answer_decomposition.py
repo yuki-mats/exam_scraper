@@ -40,6 +40,65 @@ def approved_review() -> dict[str, object]:
 
 
 class AggregateAnswerDecompositionTests(unittest.TestCase):
+    def test_lowercase_period_markers_extract_inline_source_slices(self) -> None:
+        source_text = (
+            "次の記述のうち、正しいものの組合せはどれか。"
+            "ａ．最初の記述である。 ｂ．二番目の記述である。 "
+            "ｃ.三番目の記述である。 d．四番目の記述である。"
+        )
+
+        candidate_set = generate_statement_candidates(source_text)
+        candidate = candidate_set["candidates"][0]
+
+        self.assertEqual(
+            [
+                source_text[span["start"] : span["end"]]
+                for span in candidate["spans"]
+            ],
+            [
+                "ａ．最初の記述である。",
+                "ｂ．二番目の記述である。",
+                "ｃ.三番目の記述である。",
+                "d．四番目の記述である。",
+            ],
+        )
+
+    def test_existing_uppercase_candidate_identity_is_unchanged(self) -> None:
+        candidate_set = generate_statement_candidates(SOURCE_TEXT)
+
+        self.assertEqual(
+            candidate_set,
+            {
+                "schemaVersion": "aggregate-answer-candidates/v1",
+                "sourceHash": "sha256:3de89c4c354ccbabc60a7b7342239d33cd59adc42b18e6802e2d847c97fb83e9",
+                "candidates": [
+                    {
+                        "candidateId": "candidate:018c426f320db78f6641d5b6",
+                        "spans": [
+                            {
+                                "boundaryId": "boundary:0084feb3272e8d7c7737d8a8",
+                                "start": 23,
+                                "end": 35,
+                            },
+                            {
+                                "boundaryId": "boundary:432a3d842fb8c3374f54c041",
+                                "start": 36,
+                                "end": 49,
+                            },
+                        ],
+                    }
+                ],
+            },
+        )
+
+    def test_period_marker_without_statement_is_not_a_candidate(self) -> None:
+        source_text = "次の記述を選べ。ａ． ｂ．"
+
+        self.assertEqual(
+            generate_statement_candidates(source_text)["candidates"],
+            [],
+        )
+
     def test_exact_reviews_extract_only_source_slices(self) -> None:
         review = approved_review()
 

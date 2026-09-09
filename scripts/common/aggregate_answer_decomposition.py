@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import unicodedata
 from collections.abc import Mapping, Sequence
 from typing import Any
 
@@ -53,14 +54,21 @@ _MARKER_PATTERNS = (
     (
         "latin_bracket",
         re.compile(
-            rf"{_LIST_BOUNDARY}(?P<marker>【{_LIST_SPACE}*(?P<label>[A-ZＡ-Ｚ]){_LIST_SPACE}*】){_LIST_SPACE}*",
+            rf"{_LIST_BOUNDARY}(?P<marker>【{_LIST_SPACE}*(?P<label>[A-Za-zＡ-Ｚａ-ｚ]){_LIST_SPACE}*】){_LIST_SPACE}*",
+            re.MULTILINE,
+        ),
+    ),
+    (
+        "latin_period",
+        re.compile(
+            rf"(?<![A-Za-zＡ-Ｚａ-ｚ0-9０-９])(?P<marker>(?P<label>[A-Za-zＡ-Ｚａ-ｚ]){_LIST_SPACE}*[.．]){_LIST_SPACE}*",
             re.MULTILINE,
         ),
     ),
     (
         "latin",
         re.compile(
-            rf"{_LIST_BOUNDARY}(?P<marker>(?P<label>[A-ZＡ-Ｚ])){_LIST_SPACE}+",
+            rf"{_LIST_BOUNDARY}(?P<marker>(?P<label>[A-Za-zＡ-Ｚａ-ｚ])){_LIST_SPACE}+",
             re.MULTILINE,
         ),
     ),
@@ -97,7 +105,7 @@ _MARKER_PATTERNS = (
 
 def _marker_ordinal(family: str, label: str) -> int:
     if family.startswith("latin"):
-        normalized = chr(ord(label) - 0xFEE0) if "Ａ" <= label <= "Ｚ" else label
+        normalized = unicodedata.normalize("NFKC", label).upper()
         return ord(normalized) - ord("A")
     if family == "circled_digit":
         return _CIRCLED_DIGITS.index(label) + 1
@@ -158,6 +166,7 @@ def generate_statement_candidates(source_text: str) -> dict[str, Any]:
                     "family": family,
                     "ordinal": _marker_ordinal(family, match.group("label")),
                     "start": start,
+                    "contentStart": match.end("marker"),
                 }
             )
     detected.sort(key=lambda value: int(value["start"]))
@@ -196,6 +205,10 @@ def generate_statement_candidates(source_text: str) -> dict[str, Any]:
             while end > start and source_text[end - 1].isspace():
                 end -= 1
             if end <= start:
+                spans = []
+                break
+            content_start = int(marker["contentStart"])
+            if not source_text[content_start:end].strip():
                 spans = []
                 break
             spans.append(
