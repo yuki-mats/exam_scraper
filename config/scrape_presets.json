@@ -367,6 +367,45 @@
       }
     ]
   },
+  "birukan": {
+    "scraper_type": "kakomonn",
+    "qualification_name": "建築物環境衛生管理技術者（ビル管理士）",
+    "list_first_page_url_template": "https://birukan.kakomonn.com/list1/{list_group_id}?page=1",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "95008",
+        "output_list_group_id": "95008"
+      },
+      {
+        "source_list_group_id": "95007",
+        "output_list_group_id": "95007"
+      },
+      {
+        "source_list_group_id": "95006",
+        "output_list_group_id": "95006"
+      },
+      {
+        "source_list_group_id": "95005",
+        "output_list_group_id": "95005"
+      },
+      {
+        "source_list_group_id": "95004",
+        "output_list_group_id": "95004"
+      },
+      {
+        "source_list_group_id": "95003",
+        "output_list_group_id": "95003"
+      },
+      {
+        "source_list_group_id": "95002",
+        "output_list_group_id": "95002"
+      },
+      {
+        "source_list_group_id": "95001",
+        "output_list_group_id": "95001"
+      }
+    ]
+  },
   "2nd-class-doboku-sekou": {
     "publication_qualification_id": "2dobokusekou",
     "scraper_type": "kakomonn",

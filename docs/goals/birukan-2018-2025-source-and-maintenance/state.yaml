@@ -64,13 +64,13 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/birukan-2018-2025-source-and-maintenance"
 
-active_task: T001
+active_task: T003
 
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "サイトの2018〜2025年度グループと既存sourceを照合し、完全取得の対象、重複・欠落、scraper設定、検証コマンドを確定する。"
     inputs:
@@ -87,11 +87,38 @@ tasks:
       - "8年度分の正確なsource取得対象"
       - "既存sourceとの差分・重複・欠落一覧"
       - "最初のWorker packageのallowed_filesとverify"
-    receipt: null
+    receipt:
+      result: done
+      summary: "サイト上の95001〜95008（2018〜2025年度）を確認した。既存sourceは23ファイル・491レコードで、canonical重複除外後456問。95001は問題JSON未取得、2024・2025には重複があり、資格presetも未登録である。"
+      evidence:
+        - "https://birukan.kakomonn.com/"
+        - config/scrape_presets.json
+        - config/qualification_rules.json
+        - "output/birukan/questions_json/*/00_source/*.json"
+        - output/birukan/question_images/95001/
+        - docs/goals/birukan-2018-2025-source-and-maintenance/notes/T001-scout.md
+      facts:
+        - "対象list groupは95001〜95008で、年度は2018〜2025"
+        - "既存sourceは23ファイル・491レコード・canonical重複除外後456問"
+        - "2024年度は40問、2025年度は30問がcanonical重複除外後の実数"
+        - "95001は問題JSONがなく画像1点のみ"
+        - "birukanはscrape preset未登録"
+      contradictions:
+        - "サイト表示名は建築物環境衛生管理技術者（ビル管理技術者）だが、資格表示カタログは建築物環境衛生管理技術者（ビル管理士）"
+      ambiguity_requiring_judge: []
+      commands:
+        - cmd: ".venv/bin/python scripts/scrape/kakomonn_inventory.py --output-group-id source-list-group-id scrape birukan --max-groups 8 --force --dry-run"
+          status: pass
+        - cmd: "jq -s '[.[].question_bodies[]] | {records:length, unique:(group_by(.canonical_question_key)|length)}' output/birukan/questions_json/*/00_source/*.json"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/birukan-2018-2025-source-and-maintenance"
+          status: pass
+      note_needed: true
+      note: docs/goals/birukan-2018-2025-source-and-maintenance/notes/T001-scout.md
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: medium
     objective: "Scout結果を審査し、資格設定と2018〜2025年source完全取得の最大安全パッケージを決定する。"
     inputs:
@@ -103,11 +130,50 @@ tasks:
       - "取得実行の承認判断"
       - "Workerのallowed_files、verify、stop_if"
       - "取得後に進む整備パッケージ"
-    receipt: null
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "サイトと既存sourceの照合で対象95001〜95008を確定した。manifestにはビル管理師64ファイル分の記録があるが、実ファイルは23個で、まず標準scraperによる8グループ再取得が必要である。全体manifest検査は他資格の無関係な欠落3143件で失敗するため、Workerではビル管理師のmanifest件数・canonical件数・source quality-gateに限定する。"
+      worker_package:
+        objective: "birukanのscrape presetと必要な資格別補助資料を整え、2018〜2025年度の全list groupを標準scraperで取得してsource検証する。"
+        allowed_files:
+          - config/scrape_presets.json
+          - config/qualification_rules.json
+          - "prompt/qualification_docs/birukan/**"
+          - "output/birukan/questions_json/**/00_source/**"
+          - "output/birukan/question_images/**"
+          - docs/contracts/00_source_sha256_manifest.jsonl
+          - "output/birukan/reports/**"
+        verify:
+          - "python3 -m json.tool config/scrape_presets.json"
+          - "python3 -m json.tool config/qualification_rules.json"
+          - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode source"
+          - "test \"$(rg -c 'output/birukan/' docs/contracts/00_source_sha256_manifest.jsonl)\" -eq \"$(find output/birukan/questions_json -type f -path '*/00_source/*.json' | wc -l)\""
+          - "test \"$(jq -s '[.[].question_bodies[]] | group_by(.canonical_question_key) | length' output/birukan/questions_json/*/00_source/*.json)\" -eq 1440"
+          - "git diff --check"
+        stop_if:
+          - "取得元から対象年度または問題が消失し、全件性を確定できない。"
+          - "既存sourceの変更が標準scraperの成功・検証なしに発生する。"
+          - "既存Firestore IDまたは他資格のファイル変更が必要になる。"
+      evidence:
+        - docs/goals/birukan-2018-2025-source-and-maintenance/notes/T001-scout.md
+        - config/scrape_presets.json
+        - config/qualification_rules.json
+        - docs/contracts/00_source_sha256_manifest.jsonl
+        - "output/birukan/questions_json/*/00_source/*.json"
+      parallel_safety: "Only T003 may write. Other qualification changes remain outside the allowed scope."
+      blocked_tasks: []
+      missing_evidence:
+        - "95001〜95008の全source実ファイル"
+        - "birukan source quality-gate pass"
+        - "canonical question count 1440"
+      required_board_updates:
+        - "T003の00_source検証は、他資格欠落で失敗する全体checkerではなくbirukan限定のmanifest・件数・quality-gateを使う"
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     objective: "birukanのscrape presetと必要な資格別補助資料を整え、2018〜2025年度の全list groupを標準scraperで取得してsource検証する。"
     allowed_files:
@@ -122,7 +188,8 @@ tasks:
       - "python3 -m json.tool config/scrape_presets.json"
       - "python3 -m json.tool config/qualification_rules.json"
       - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode source"
-      - "python3 scripts/check/check_00_source_immutability.py"
+      - "test \"$(rg -c 'output/birukan/' docs/contracts/00_source_sha256_manifest.jsonl)\" -eq \"$(find output/birukan/questions_json -type f -path '*/00_source/*.json' | wc -l)\""
+      - "test \"$(jq -s '[.[].question_bodies[]] | group_by(.canonical_question_key) | length' output/birukan/questions_json/*/00_source/*.json)\" -eq 1440"
       - "git diff --check"
     stop_if:
       - "取得元から対象年度または問題が消失し、全件性を確定できない。"

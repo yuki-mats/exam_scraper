@@ -1,0 +1,41 @@
+{
+  "result": "done",
+  "task_id": "T001",
+  "board_path": "docs/goals/birukan-2018-2025-source-and-maintenance/state.yaml",
+  "summary": "サイト上の95001〜95008（2018〜2025年度）を確認した。既存sourceは23ファイル・491レコードで、canonical重複除外後456問。95001は問題JSON未取得、2024・2025には重複があり、資格presetも未登録である。",
+  "evidence": [
+    "https://birukan.kakomonn.com/",
+    "config/scrape_presets.json",
+    "config/qualification_rules.json",
+    "output/birukan/questions_json/*/00_source/*.json",
+    "output/birukan/question_images/95001/",
+    "docs/goals/birukan-2018-2025-source-and-maintenance/notes/T001-scout.md"
+  ],
+  "facts": [
+    "対象list groupは95001〜95008で、年度は2018〜2025",
+    "既存sourceは23ファイル・491レコード・canonical重複除外後456問",
+    "2024年度は40問、2025年度は30問がcanonical重複除外後の実数",
+    "95001は問題JSONがなく画像1点のみ",
+    "birukanはscrape preset未登録"
+  ],
+  "contradictions": [
+    "サイト表示名は建築物環境衛生管理技術者（ビル管理技術者）だが、資格表示カタログは建築物環境衛生管理技術者（ビル管理士）"
+  ],
+  "ambiguity_requiring_judge": [],
+  "commands": [
+    {
+      "cmd": ".venv/bin/python scripts/scrape/kakomonn_inventory.py --output-group-id source-list-group-id scrape birukan --max-groups 8 --force --dry-run",
+      "status": "pass"
+    },
+    {
+      "cmd": "jq -s '[.[].question_bodies[]] | {records:length, unique:(group_by(.canonical_question_key)|length)}' output/birukan/questions_json/*/00_source/*.json",
+      "status": "pass"
+    },
+    {
+      "cmd": "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/scripts/check-goal-state.mjs docs/goals/birukan-2018-2025-source-and-maintenance",
+      "status": "pass"
+    }
+  ],
+  "note_needed": true,
+  "note": "docs/goals/birukan-2018-2025-source-and-maintenance/notes/T001-scout.md"
+}

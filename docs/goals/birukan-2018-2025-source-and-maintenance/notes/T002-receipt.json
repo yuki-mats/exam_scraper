@@ -1,0 +1,50 @@
+{
+  "result": "done",
+  "task_id": "T002",
+  "board_path": "docs/goals/birukan-2018-2025-source-and-maintenance/state.yaml",
+  "decision": "approved",
+  "full_outcome_complete": false,
+  "rationale": "サイトと既存sourceの照合で対象95001〜95008を確定した。manifestにはビル管理師64ファイル分の記録があるが、実ファイルは23個で、まず標準scraperによる8グループ再取得が必要である。全体manifest検査は他資格の無関係な欠落3143件で失敗するため、Workerではビル管理師のmanifest件数・canonical件数・source quality-gateに限定する。",
+  "worker_package": {
+    "objective": "birukanのscrape presetと必要な資格別補助資料を整え、2018〜2025年度の全list groupを標準scraperで取得してsource検証する。",
+    "allowed_files": [
+      "config/scrape_presets.json",
+      "config/qualification_rules.json",
+      "prompt/qualification_docs/birukan/**",
+      "output/birukan/questions_json/**/00_source/**",
+      "output/birukan/question_images/**",
+      "docs/contracts/00_source_sha256_manifest.jsonl",
+      "output/birukan/reports/**"
+    ],
+    "verify": [
+      "python3 -m json.tool config/scrape_presets.json",
+      "python3 -m json.tool config/qualification_rules.json",
+      "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode source",
+      "test \"$(rg -c 'output/birukan/' docs/contracts/00_source_sha256_manifest.jsonl)\" -eq \"$(find output/birukan/questions_json -type f -path '*/00_source/*.json' | wc -l)\"",
+      "test \"$(jq -s '[.[].question_bodies[]] | group_by(.canonical_question_key) | length' output/birukan/questions_json/*/00_source/*.json)\" -eq 1440",
+      "git diff --check"
+    ],
+    "stop_if": [
+      "取得元から対象年度または問題が消失し、全件性を確定できない。",
+      "既存sourceの変更が標準scraperの成功・検証なしに発生する。",
+      "既存Firestore IDまたは他資格のファイル変更が必要になる。"
+    ]
+  },
+  "evidence": [
+    "docs/goals/birukan-2018-2025-source-and-maintenance/notes/T001-scout.md",
+    "config/scrape_presets.json",
+    "config/qualification_rules.json",
+    "docs/contracts/00_source_sha256_manifest.jsonl",
+    "output/birukan/questions_json/*/00_source/*.json"
+  ],
+  "parallel_safety": "Only T003 may write. Other qualification changes remain outside the allowed scope.",
+  "blocked_tasks": [],
+  "missing_evidence": [
+    "95001〜95008の全source実ファイル",
+    "birukan source quality-gate pass",
+    "canonical question count 1440"
+  ],
+  "required_board_updates": [
+    "T003の00_source検証は、他資格欠落で失敗する全体checkerではなくbirukan限定のmanifest・件数・quality-gateを使う"
+  ]
+}
