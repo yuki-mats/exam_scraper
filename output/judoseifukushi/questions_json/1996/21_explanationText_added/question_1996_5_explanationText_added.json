@@ -3,151 +3,592 @@
     "original_question_id": "54364489e5fb59bc",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q101",
     "explanationText": [
-      "間違い。\n\n糖尿病の問診では体重変化、食事内容、運動習慣などが血糖管理と強く関係する。睡眠は健康状態の把握には有用だが、この設問の中心的な糖尿病問診項目としては最も適切でない。",
-      "正しい。\n\n体重増減は糖尿病の発症、悪化、治療状況の評価に重要である。",
-      "正しい。\n\n食事内容や摂取量は血糖値に直接影響するため、糖尿病の問診で重要である。",
-      "正しい。\n\n運動習慣は血糖コントロールやインスリン感受性に関係するため、糖尿病の問診で確認する。"
+      "間違い。正しくは、糖尿病の問診では体重の変化、食事内容、運動習慣などを確認する。睡眠も健康状態を把握する手掛かりになるが、この問題で問われる糖尿病の管理に直結する問診項目としては適切でない。",
+      "正しい。体重の増減は、糖尿病の発症や病状、治療状況を把握する手掛かりになる。",
+      "正しい。食事内容や摂取量は血糖値に直接影響するため、糖尿病の問診で確認する。",
+      "正しい。運動習慣は血糖コントロールやインスリンの働きに関係するため、糖尿病の問診で確認する。"
     ],
-    "suggestedQuestions": [
-      "糖尿病の問診で食事内容を確認する理由は何ですか？",
-      "糖尿病の問診で体重変化が重要な理由は何ですか？",
-      "糖尿病の問診で運動習慣を確認する理由は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:54364489e5fb59bc",
+    "reviewQuestionId": "54364489e5fb59bc",
+    "sourceRecordRef": "question_1996_5.json#0",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "糖尿病の問診項目に関する臨床医学上の問題で、法令条文や制度上の義務・基準を根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "糖尿病の問診で食事内容を確認する理由は何ですか？",
-        "answer": "食事内容や摂取量が血糖値に直接影響するためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在で比較すべき法令差はない。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、糖尿病の問診項目に関する臨床医学の知識で判定する。",
+          "promptContext": "糖尿病の問診項目の適否を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床医学上の内容であり法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "糖尿病の問診で体重変化が重要な理由は何ですか？",
-        "answer": "肥満や体重減少が糖尿病の発症、悪化、治療状況と関係するためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在で比較すべき法令差はない。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、体重変化が糖尿病の評価に重要であるという臨床医学の知識で判定する。",
+          "promptContext": "糖尿病の問診項目の適否を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床医学上の内容であり法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "糖尿病の問診で運動習慣を確認する理由は何ですか？",
-        "answer": "運動が血糖コントロールやインスリン感受性に関係するためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在で比較すべき法令差はない。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、食事内容が血糖値に影響するという臨床医学の知識で判定する。",
+          "promptContext": "糖尿病の問診項目の適否を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床医学上の内容であり法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在で比較すべき法令差はない。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、運動習慣が血糖コントロールに関係するという臨床医学の知識で判定する。",
+          "promptContext": "糖尿病の問診項目の適否を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床医学上の内容であり法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "50833de99a800509",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q102",
     "explanationText": [
-      "正しい。\n\n脊椎カリエスでは脊椎の変形により脊柱後弯姿勢をきたし得る。",
-      "間違い。\n\nマン・ウェルニッケ姿勢は片麻痺などでみられる上肢屈曲・下肢伸展位の姿勢で、重症筋無力症の代表的姿勢ではない。",
-      "正しい。\n\nパーキンソン病では前かがみ姿勢や小刻み歩行がみられる。",
-      "正しい。\n\n胆石症などの強い腹痛では、疼痛を軽減するために体を丸めるエビ姿勢をとることがある。"
+      "正しい。脊椎カリエスでは、椎体の破壊や変形によって脊柱後弯を生じる。",
+      "間違い。マン・ウェルニッケ姿勢は、片麻痺でみられる上肢屈曲・下肢伸展位の姿勢である。重症筋無力症に対応する代表的な姿勢ではない。",
+      "正しい。パーキンソン病では、筋強剛などにより前かがみの姿勢がみられる。",
+      "正しい。胆石症の発作では、腹痛を避けるために体を丸めるエビ姿勢をとることがある。"
     ],
-    "suggestedQuestions": [
-      "マン・ウェルニッケ姿勢はどのような状態でみられますか？",
-      "パーキンソン病でみられる姿勢の特徴は何ですか？",
-      "脊椎カリエスで脊柱後弯が起こる理由は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:50833de99a800509",
+    "reviewQuestionId": "50833de99a800509",
+    "sourceRecordRef": "question_1996_5.json#1",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "視診所見と疾患の対応を問う医学知識の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "マン・ウェルニッケ姿勢はどのような状態でみられますか？",
-        "answer": "片麻痺などでみられる上肢屈曲・下肢伸展位の姿勢である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査の対象外。",
+          "displayRefIds": [],
+          "explanationText": "脊椎カリエスにみられる脊柱後弯を問う医学知識である。",
+          "promptContext": "医学知識問題。",
+          "refs": [],
+          "verdict": "法令・制度問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "パーキンソン病でみられる姿勢の特徴は何ですか？",
-        "answer": "前かがみ姿勢が代表的である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査の対象外。",
+          "displayRefIds": [],
+          "explanationText": "マン・ウェルニッケ姿勢と疾患の対応を問う医学知識である。",
+          "promptContext": "医学知識問題。",
+          "refs": [],
+          "verdict": "法令・制度問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "脊椎カリエスで脊柱後弯が起こる理由は何ですか？",
-        "answer": "脊椎の破壊や変形により後弯変形を生じ得るためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査の対象外。",
+          "displayRefIds": [],
+          "explanationText": "パーキンソン病にみられる前かがみの姿勢を問う医学知識である。",
+          "promptContext": "医学知識問題。",
+          "refs": [],
+          "verdict": "法令・制度問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査の対象外。",
+          "displayRefIds": [],
+          "explanationText": "胆石症とエビ姿勢の対応を問う医学知識である。",
+          "promptContext": "医学知識問題。",
+          "refs": [],
+          "verdict": "法令・制度問題ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "b780f973274df4b5",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q103",
     "explanationText": [
-      "間違い。\n\n分回し歩行は片麻痺で典型的にみられる。脳性小児麻痺では痙性麻痺に伴うはさみ状歩行などが重要である。",
-      "間違い。\n\nはさみ状歩行は痙性麻痺、特に脳性小児麻痺などでみられる。バージャー病の代表的歩行ではない。",
-      "間違い。\n\nアヒル歩行は中殿筋や近位筋の筋力低下、股関節疾患などでみられる。前脛骨筋麻痺では下垂足や鶏歩が問題となる。",
-      "正しい。\n\n突進歩行はパーキンソン病でみられる代表的歩行である。"
+      "間違い。正しくは、分回し歩行は片麻痺でみられる。脳性小児麻痺では、痙性麻痺に伴うはさみ状歩行などがみられる。",
+      "間違い。正しくは、はさみ状歩行は痙性麻痺、特に脳性小児麻痺などでみられる。バージャー病との対応ではない。",
+      "間違い。正しくは、前脛骨筋麻痺では下垂足に伴う鶏歩がみられる。アヒル歩行は、骨盤周囲などの近位筋の筋力低下でみられる。",
+      "正しい。突進歩行は、歩行時に前方へ小刻みに進んで止まりにくくなる歩行で、パーキンソン病にみられる。"
     ],
-    "suggestedQuestions": [
-      "突進歩行はどの疾患でみられますか？",
-      "分回し歩行はどのような麻痺でみられますか？",
-      "前脛骨筋麻痺で問題となる歩行異常は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:b780f973274df4b5",
+    "reviewQuestionId": "b780f973274df4b5",
+    "sourceRecordRef": "question_1996_5.json#2",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "歩行異常と疾患の対応を問う臨床医学の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "突進歩行はどの疾患でみられますか？",
-        "answer": "パーキンソン病でみられる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "歩行異常と疾患の対応を問う問題で、法令根拠は不要。",
+          "promptContext": "柔道整復師の臨床医学問題として判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床医学の内容であり、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "分回し歩行はどのような麻痺でみられますか？",
-        "answer": "片麻痺で典型的にみられる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "歩行異常と疾患の対応を問う問題で、法令根拠は不要。",
+          "promptContext": "柔道整復師の臨床医学問題として判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床医学の内容であり、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "前脛骨筋麻痺で問題となる歩行異常は何ですか？",
-        "answer": "下垂足に伴う鶏歩が問題となる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "歩行異常と疾患の対応を問う問題で、法令根拠は不要。",
+          "promptContext": "柔道整復師の臨床医学問題として判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床医学の内容であり、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "歩行異常と疾患の対応を問う問題で、法令根拠は不要。",
+          "promptContext": "柔道整復師の臨床医学問題として判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床医学の内容であり、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "f04a04d8fdf0ab8c",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q104",
     "explanationText": [
-      "正しい。\n\n化膿性リンパ節炎は急性炎症を伴うため、圧痛や自発痛を伴いやすい。",
-      "間違い。\n\n結核性リンパ節炎は慢性に経過し、疼痛が目立たないことが多い。",
-      "間違い。\n\n悪性リンパ腫のリンパ節腫大は一般に無痛性であることが多い。",
-      "間違い。\n\n癌のリンパ節転移による腫大は硬く、疼痛を伴わないことが多い。"
+      "正しい。化膿性リンパ節炎では急性炎症によって圧痛や自発痛を伴いやすい。",
+      "間違い。結核性リンパ節炎は慢性に経過し、痛みが目立たないことが多い。",
+      "間違い。悪性リンパ腫によるリンパ節腫大は、一般に無痛性であることが多い。",
+      "間違い。癌のリンパ節転移は硬い腫大を示しやすく、通常は痛みを伴わないことが多い。"
     ],
-    "suggestedQuestions": [
-      "痛みを伴いやすいリンパ節腫大は何ですか？",
-      "悪性腫瘍によるリンパ節腫大の特徴は何ですか？",
-      "結核性リンパ節炎の経過の特徴は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:f04a04d8fdf0ab8c",
+    "reviewQuestionId": "f04a04d8fdf0ab8c",
+    "sourceRecordRef": "question_1996_5.json#3",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "病態・臨床症状に関する問題であり、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "痛みを伴いやすいリンパ節腫大は何ですか？",
-        "answer": "急性炎症を伴う化膿性リンパ節炎である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の試験時点と現行時点の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "病態・臨床症状の問題であり、法令改正による正答変動を監査する対象ではない。",
+          "promptContext": "リンパ節腫大の疼痛の有無を比較する問題。",
+          "refs": [],
+          "verdict": "law_not_applicable"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "悪性腫瘍によるリンパ節腫大の特徴は何ですか？",
-        "answer": "硬く、無痛性であることが多い。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の試験時点と現行時点の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "病態・臨床症状の問題であり、法令改正による正答変動を監査する対象ではない。",
+          "promptContext": "リンパ節腫大の疼痛の有無を比較する問題。",
+          "refs": [],
+          "verdict": "law_not_applicable"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "結核性リンパ節炎の経過の特徴は何ですか？",
-        "answer": "慢性に経過し、疼痛が目立たないことが多い。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の試験時点と現行時点の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "病態・臨床症状の問題であり、法令改正による正答変動を監査する対象ではない。",
+          "promptContext": "リンパ節腫大の疼痛の有無を比較する問題。",
+          "refs": [],
+          "verdict": "law_not_applicable"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の試験時点と現行時点の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "病態・臨床症状の問題であり、法令改正による正答変動を監査する対象ではない。",
+          "promptContext": "リンパ節腫大の疼痛の有無を比較する問題。",
+          "refs": [],
+          "verdict": "law_not_applicable"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "3b2aadc8f6175cd7",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q105",
     "explanationText": [
-      "間違い。\n\n触診は疼痛の少ない部位から始め、訴える部位や強い疼痛部位は最後に触れるのが基本である。",
-      "間違い。\n\nボアス点は胆嚢疾患などで背部にみられる圧痛点であり、背臥位での判定に限定されない。",
-      "正しい。\n\n腎臓の触診では側腹部を前後から両手で挟むようにして、双手診で腎を触知する。",
-      "間違い。\n\n筋萎縮は筋の大きさや左右差で評価する。力を抜いた筋肉の硬さは筋緊張などの評価に近い。"
+      "間違い。触診は疼痛の少ない部位から始め、訴えのある部位や強い疼痛部位は最後に触れる。",
+      "間違い。ボアス点は胃潰瘍などでみられる背部の圧痛点で、第10〜12胸椎左側に位置する。背部を触診するため、背臥位ではなく腹臥位で判定する。",
+      "正しい。腎臓の触診では、側腹部を前後から両手で挟むように触れる双手診を行う。",
+      "間違い。筋萎縮は筋の大きさや形、左右差などを視診・触診で評価する。力を抜いた筋肉の硬さをみるのは、主に筋緊張の評価である。"
     ],
-    "suggestedQuestions": [
-      "触診は疼痛部位から始めるべきですか？",
-      "腎臓の触診はどのように行いますか？",
-      "筋萎縮は何を観察して評価しますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:3b2aadc8f6175cd7",
+    "reviewQuestionId": "3b2aadc8f6175cd7",
+    "sourceRecordRef": "question_1996_5.json#4",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "臨床技能・身体診察に関する技術問題であり、法令条文や制度上の基準を正誤根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "触診は疼痛部位から始めるべきですか？",
-        "answer": "疼痛の少ない部位から始め、疼痛部位は最後に触れる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較対象外で、出題時と現行の判定はともに誤り。",
+          "displayRefIds": [],
+          "explanationText": "臨床技能・身体診察の知識で正誤を判断する選択肢であり、法令改正による差分はない。",
+          "promptContext": "触診開始時の順序に関する医学的知識を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "腎臓の触診はどのように行いますか？",
-        "answer": "側腹部を前後から両手で挟む双手診で行う。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較対象外で、出題時と現行の判定はともに誤り。",
+          "displayRefIds": [],
+          "explanationText": "ボアス点の部位と診察体位に関する臨床医学上の知識であり、法令改正による差分はない。",
+          "promptContext": "ボアス点は背部の圧痛点であり、背臥位で行うとする限定が誤り。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "筋萎縮は何を観察して評価しますか？",
-        "answer": "筋の大きさや左右差を観察して評価する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較対象外で、出題時と現行の判定はともに正しい。",
+          "displayRefIds": [],
+          "explanationText": "腎臓の双手診に関する身体診察の知識であり、法令改正による差分はない。",
+          "promptContext": "腎臓を側腹部の前後から両手で触診する方法を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令比較対象外で、出題時と現行の判定はともに誤り。",
+          "displayRefIds": [],
+          "explanationText": "筋萎縮と筋緊張の評価方法に関する技術知識であり、法令改正による差分はない。",
+          "promptContext": "筋萎縮を筋の大きさや左右差ではなく、弛緩筋の硬さで評価するとする記述が誤り。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "b627ad062c54ac8b",
@@ -183,31 +624,116 @@
     "original_question_id": "da92d734d3c53348",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q107",
     "explanationText": [
-      "正しい。\n\n大動脈弁閉鎖不全症では脈圧増大により速脈や跳脈をみることがある。",
-      "間違い。\n\n僧帽弁狭窄症では左房圧上昇や肺うっ血が問題となり、速脈を示す代表疾患ではない。",
-      "正しい。\n\n貧血では酸素運搬能低下を補うため心拍数が増え、速脈をみることがある。",
-      "正しい。\n\n甲状腺機能亢進症では代謝亢進に伴い頻脈、速脈をみることが多い。"
+      "間違い。大動脈弁閉鎖不全症では、脈圧が広がるため、脈の立ち上がりが速い速脈や跳脈を生じることがある。したがって、速脈がみられない疾患には当てはまらない。",
+      "正しい。僧帽弁狭窄症では、左房から左室への血液の流れが妨げられ、速脈は代表的な所見ではない。したがって、速脈がみられないものとして適切である。",
+      "間違い。貧血では、酸素を運ぶ力の低下を補うため心拍出量が増加し、速脈を示すことがある。したがって、速脈がみられない疾患には当てはまらない。",
+      "間違い。甲状腺機能亢進症では代謝と循環が亢進し、速脈を示すことがある。したがって、速脈がみられない疾患には当てはまらない。"
     ],
-    "suggestedQuestions": [
-      "大動脈弁閉鎖不全症でみられる脈の特徴は何ですか？",
-      "貧血で頻脈を生じる理由は何ですか？",
-      "甲状腺機能亢進症で脈が速くなる理由は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:da92d734d3c53348",
+    "reviewQuestionId": "da92d734d3c53348",
+    "sourceRecordRef": "question_1996_5.json#6",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "速脈の出現疾患を問う医学知識の問題であり、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "大動脈弁閉鎖不全症でみられる脈の特徴は何ですか？",
-        "answer": "脈圧増大に伴う速脈や跳脈がみられる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく選択肢であり、法令監査の対象外である。",
+          "promptContext": "速脈を示す疾患の医学的特徴を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "貧血で頻脈を生じる理由は何ですか？",
-        "answer": "酸素運搬能低下を補うため心拍出を増やす必要があるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく選択肢であり、法令監査の対象外である。",
+          "promptContext": "速脈を示す疾患の医学的特徴を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "甲状腺機能亢進症で脈が速くなる理由は何ですか？",
-        "answer": "代謝亢進により交感神経様の循環亢進が起こるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく選択肢であり、法令監査の対象外である。",
+          "promptContext": "速脈を示す疾患の医学的特徴を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく選択肢であり、法令監査の対象外である。",
+          "promptContext": "速脈を示す疾患の医学的特徴を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "d238f681a89cb83f",
@@ -243,301 +769,1188 @@
     "original_question_id": "f590c7546438c269",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q109",
     "explanationText": [
-      "正しい。\n\n橈骨神経麻痺では手関節と手指の伸展が障害され、下垂手を生じる。",
-      "間違い。\n\n尺骨神経麻痺では鷲手が代表的である。猿手は正中神経麻痺でみられる。",
-      "間違い。\n\n正中神経麻痺では猿手が代表的である。鷲手は尺骨神経麻痺でみられる。",
-      "間違い。\n\n尖足は下腿三頭筋の短縮や痙縮、腓骨神経麻痺に伴う下垂足との鑑別などで問題となる。脛骨神経麻痺の代表的変形としては適切でない。"
+      "正しい。橈骨神経麻痺では手関節と手指の伸展が障害され、下垂手を生じる。",
+      "間違い。正しくは、尺骨神経麻痺では鷲手を生じる。猿手は正中神経麻痺でみられる。",
+      "間違い。正しくは、正中神経麻痺では猿手を生じる。鷲手は尺骨神経麻痺でみられる。",
+      "間違い。正しくは、脛骨神経麻痺では足関節の底屈が障害されて踵足を生じうる。尖足は脛骨神経麻痺の代表的な変形ではない。"
     ],
-    "suggestedQuestions": [
-      "橈骨神経麻痺でみられる手の変形は何ですか？",
-      "正中神経麻痺でみられる手の変形は何ですか？",
-      "尺骨神経麻痺でみられる手の変形は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:f590c7546438c269",
+    "reviewQuestionId": "f590c7546438c269",
+    "sourceRecordRef": "question_1996_5.json#8",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "末梢神経麻痺に伴う代表的な手の変形・下肢の肢位を問う医学知識問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "橈骨神経麻痺でみられる手の変形は何ですか？",
-        "answer": "下垂手である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による時点差なし",
+          "displayRefIds": [],
+          "explanationText": "橈骨神経麻痺では下垂手を生じる。",
+          "promptContext": "末梢神経麻痺に関する医学知識問題",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "正中神経麻痺でみられる手の変形は何ですか？",
-        "answer": "猿手である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による時点差なし",
+          "displayRefIds": [],
+          "explanationText": "尺骨神経麻痺では鷲手を生じ、猿手は正中神経麻痺でみられる。",
+          "promptContext": "末梢神経麻痺に関する医学知識問題",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "尺骨神経麻痺でみられる手の変形は何ですか？",
-        "answer": "鷲手である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による時点差なし",
+          "displayRefIds": [],
+          "explanationText": "正中神経麻痺では猿手を生じ、鷲手は尺骨神経麻痺でみられる。",
+          "promptContext": "末梢神経麻痺に関する医学知識問題",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による時点差なし",
+          "displayRefIds": [],
+          "explanationText": "脛骨神経麻痺では底屈障害により踵足を生じうるため、尖足ではない。",
+          "promptContext": "末梢神経麻痺に関する医学知識問題",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "fa380e53cd8f7e82",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q110",
     "explanationText": [
-      "正しい。\n\n上位運動ニューロン障害では錐体路徴候として病的反射が出現する。",
-      "正しい。\n\n上位運動ニューロン障害では深部腱反射が亢進しやすい。",
-      "間違い。\n\n神経原性萎縮は下位運動ニューロン障害や末梢神経障害で目立つ所見であり、上位運動ニューロン障害の典型所見ではない。",
-      "正しい。\n\n上位運動ニューロン障害では筋緊張亢進を伴う痙性麻痺がみられる。"
+      "正しい。上位運動ニューロン障害では錐体路徴候として病的反射が出現する。",
+      "正しい。上位運動ニューロン障害では、筋緊張の亢進に伴って深部腱反射が亢進する。",
+      "間違い。神経原性萎縮は、下位運動ニューロン障害や末梢神経障害で生じやすい筋萎縮であり、上位運動ニューロン障害の典型所見ではない。",
+      "正しい。上位運動ニューロン障害では筋緊張が亢進し、痙性麻痺がみられる。"
     ],
-    "suggestedQuestions": [
-      "上位運動ニューロン障害で深部腱反射はどうなりますか？",
-      "上位運動ニューロン障害でみられる麻痺は何ですか？",
-      "神経原性萎縮はどの障害で目立ちますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:fa380e53cd8f7e82",
+    "reviewQuestionId": "fa380e53cd8f7e82",
+    "sourceRecordRef": "question_1996_5.json#9",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "神経学的な病態・身体所見の問題で、法令条文や制度上の義務・基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "上位運動ニューロン障害で深部腱反射はどうなりますか？",
-        "answer": "亢進する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。技術内容のため法令監査対象外。",
+          "displayRefIds": [],
+          "explanationText": "病的反射の出現は上位運動ニューロン障害の錐体路徴候である。",
+          "promptContext": "神経学的所見の比較問題。",
+          "refs": [],
+          "verdict": "技術内容であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "上位運動ニューロン障害でみられる麻痺は何ですか？",
-        "answer": "痙性麻痺である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。技術内容のため法令監査対象外。",
+          "displayRefIds": [],
+          "explanationText": "上位運動ニューロン障害では深部腱反射が亢進する。",
+          "promptContext": "神経学的所見の比較問題。",
+          "refs": [],
+          "verdict": "技術内容であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "神経原性萎縮はどの障害で目立ちますか？",
-        "answer": "下位運動ニューロン障害や末梢神経障害で目立つ。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。技術内容のため法令監査対象外。",
+          "displayRefIds": [],
+          "explanationText": "神経原性萎縮は下位運動ニューロン障害や末梢神経障害で生じやすく、上位運動ニューロン障害の典型所見ではない。",
+          "promptContext": "神経学的所見の比較問題。",
+          "refs": [],
+          "verdict": "技術内容であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。技術内容のため法令監査対象外。",
+          "displayRefIds": [],
+          "explanationText": "上位運動ニューロン障害では痙性麻痺がみられる。",
+          "promptContext": "神経学的所見の比較問題。",
+          "refs": [],
+          "verdict": "技術内容であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "3e73612803f9157d",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q111",
     "explanationText": [
-      "正しい。\n\nギラン・バレー症候群では末梢神経障害により両側顔面神経麻痺を伴うことがある。",
-      "正しい。\n\nギラン・バレー症候群では呼吸筋麻痺により呼吸障害をきたすことがある。",
-      "間違い。\n\n四肢鉛管現象はパーキンソン病などでみられる筋強剛の所見であり、ギラン・バレー症候群の代表所見ではない。",
-      "正しい。\n\nギラン・バレー症候群では脳神経障害を伴い、構音障害をきたすことがある。"
+      "間違い。両側顔面麻痺は、ギラン・バレー症候群でみられる脳神経障害の一つである。",
+      "間違い。呼吸障害は、ギラン・バレー症候群で呼吸筋の麻痺が起こると生じる。重症化すると人工呼吸管理が必要になることもある。",
+      "正しい。四肢鉛管現象は、筋肉を動かすときの抵抗が持続する筋強剛で、パーキンソン病などでみられる。ギラン・バレー症候群では、末梢神経障害による筋力低下が中心であり、四肢鉛管現象は典型的な所見ではない。",
+      "間違い。構音障害は、ギラン・バレー症候群で脳神経や嚥下に関わる筋肉が障害されると起こることがある。"
     ],
-    "suggestedQuestions": [
-      "ギラン・バレー症候群で注意すべき呼吸合併症は何ですか？",
-      "四肢鉛管現象はどの疾患でみられやすいですか？",
-      "ギラン・バレー症候群で顔面神経麻痺は起こりますか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:3e73612803f9157d",
+    "reviewQuestionId": "3e73612803f9157d",
+    "sourceRecordRef": "question_1996_5.json#10",
+    "explanationReferences": [
       {
-        "question": "ギラン・バレー症候群で注意すべき呼吸合併症は何ですか？",
-        "answer": "呼吸筋麻痺による呼吸障害である。"
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://www.neurology-jp.org/public/disease/neuropathy_i_detail.html",
+        "title": "ギラン・バレー症候群（日本神経学会）"
       },
       {
-        "question": "四肢鉛管現象はどの疾患でみられやすいですか？",
-        "answer": "パーキンソン病などでみられやすい。"
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://www.neurology-jp.org/guidelinem/gbs_2024.html",
+        "title": "ギラン・バレー症候群，フィッシャー症候群診療ガイドライン2024"
       },
       {
-        "question": "ギラン・バレー症候群で顔面神経麻痺は起こりますか？",
-        "answer": "両側顔面神経麻痺を伴うことがある。"
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://www.mhlw.go.jp/content/11120000/001244844.pdf",
+        "title": "ワクチン接種後のギラン・バレー症候群が疑われる症例（厚生労働省）"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "isLawRelated": false,
+    "lawContextForExplanation": "臨床症状の知識問題であり、法令・制度は正誤を直接決めない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "臨床症状の知識問題であり、法令の改訂影響はない。",
+          "promptContext": "ギラン・バレー症候群にみられる臨床所見を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "臨床症状の知識問題であり、法令の改訂影響はない。",
+          "promptContext": "ギラン・バレー症候群にみられる臨床所見を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "臨床症状の知識問題であり、法令の改訂影響はない。",
+          "promptContext": "ギラン・バレー症候群にみられる臨床所見を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "臨床症状の知識問題であり、法令の改訂影響はない。",
+          "promptContext": "ギラン・バレー症候群にみられる臨床所見を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "7b6b5906b886885f",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q112",
     "explanationText": [
-      "間違い。\n\n消化性潰瘍は胃潰瘍や十二指腸潰瘍など上部消化管の潰瘍が中心である。",
-      "正しい。\n\n腸閉塞は腸管内容物の通過が障害された状態である。",
-      "間違い。\n\n肝硬変は肝細胞障害、線維化、結節形成により肝構造が改変される病態であり、肝臓の悪性腫瘍そのものではない。",
-      "間違い。\n\n急性膵炎は膵酵素の活性化による自己消化性炎症が本態で、細菌感染そのものではない。"
+      "正しい。該当するのは2である。消化性潰瘍は胃や十二指腸など上部消化管に生じる潰瘍であり、下部消化管の潰瘍ではない。腸閉塞は腸管内容物の通過が障害された状態である。肝硬変は肝細胞の障害や線維化、結節形成によって肝臓の構造が変化する病態であり、肝臓の悪性腫瘍そのものではない。急性膵炎は膵酵素が活性化して膵臓が自己消化される炎症であり、細菌感染そのものではない。"
     ],
-    "suggestedQuestions": [
-      "腸閉塞とはどのような状態ですか？",
-      "消化性潰瘍は主にどこに起こりますか？",
-      "急性膵炎の本態は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:7b6b5906b886885f",
+    "reviewQuestionId": "7b6b5906b886885f",
+    "sourceRecordRef": "question_1996_5.json#11",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "消化器疾患の病態・定義に関する医学知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "腸閉塞とはどのような状態ですか？",
-        "answer": "腸管内容物の通過が障害された状態である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "消化性潰瘍の部位を問う医学知識であり、法令根拠を要しない。",
+          "promptContext": "消化性潰瘍の発生部位の比較。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "消化性潰瘍は主にどこに起こりますか？",
-        "answer": "胃や十二指腸などの上部消化管に起こる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "腸閉塞の定義を問う医学知識であり、法令根拠を要しない。",
+          "promptContext": "腸閉塞の定義・病態の比較。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "急性膵炎の本態は何ですか？",
-        "answer": "膵酵素活性化による自己消化性炎症である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "肝硬変と肝臓の悪性腫瘍を区別する医学知識であり、法令根拠を要しない。",
+          "promptContext": "肝硬変の病態と肝臓悪性腫瘍の比較。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "急性膵炎の病態と細菌感染を区別する医学知識であり、法令根拠を要しない。",
+          "promptContext": "急性膵炎の病態と細菌感染の比較。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "2388d88b21cafa80",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q113",
     "explanationText": [
-      "間違い。\n\n胸やけは胃食道逆流症や食道炎で典型的にみられる症状であり、食道癌との組合せとしてはこの設問で最も適切でない。",
-      "正しい。\n\n胃癌では心窩部痛や上腹部不快感を訴えることがある。",
-      "正しい。\n\n大腸癌では粘血便や血便、便通異常をきたすことがある。",
-      "正しい。\n\n胆石症では右上腹部痛や疝痛発作がみられる。"
+      "間違い。正しくは、胸やけは胃食道逆流症や食道炎に対応する症状として扱う。食道癌では嚥下困難などが代表的であり、典型的な症状と疾患の対応を問うこの問題では、胸やけとの組合せが誤りとなる。",
+      "正しい。胃癌では心窩部痛や上腹部の不快感がみられることがある。",
+      "正しい。大腸癌では粘血便や血便、便通異常がみられることがある。",
+      "正しい。胆石症では右上腹部痛や疝痛発作がみられる。"
     ],
-    "suggestedQuestions": [
-      "胸やけが典型的にみられる疾患は何ですか？",
-      "大腸癌でみられる便の異常は何ですか？",
-      "胆石症で痛みが出やすい部位はどこですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:2388d88b21cafa80",
+    "reviewQuestionId": "2388d88b21cafa80",
+    "sourceRecordRef": "question_1996_5.json#12",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "消化器症状と疾患の対応を問う医学知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "胸やけが典型的にみられる疾患は何ですか？",
-        "answer": "胃食道逆流症や食道炎である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく症状と疾患の対応であり、法令による正誤変動はない。",
+          "promptContext": "消化器症状と疾患の対応を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "大腸癌でみられる便の異常は何ですか？",
-        "answer": "粘血便や血便、便通異常である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく症状と疾患の対応であり、法令による正誤変動はない。",
+          "promptContext": "消化器症状と疾患の対応を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "胆石症で痛みが出やすい部位はどこですか？",
-        "answer": "右上腹部である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく症状と疾患の対応であり、法令による正誤変動はない。",
+          "promptContext": "消化器症状と疾患の対応を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく症状と疾患の対応であり、法令による正誤変動はない。",
+          "promptContext": "消化器症状と疾患の対応を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "a3c05d7e8400f73e",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q114",
     "explanationText": [
-      "正しい。\n\n腹膜炎では腹壁筋が反射的に緊張し、筋性防御がみられる。",
-      "正しい。\n\n腹膜炎では炎症部位に圧痛がみられる。",
-      "正しい。\n\n腹膜刺激症状として反動痛がみられる。",
-      "間違い。\n\n腹膜炎では腸管麻痺により腸蠕動音は低下または消失しやすく、亢進は典型的ではない。"
+      "間違い。腹膜炎では腹膜刺激により腹壁筋が反射的に緊張し、筋性防御がみられる。したがって、腹膜炎でみられない所見ではない。",
+      "間違い。腹膜炎では炎症部位に圧痛がみられる。したがって、腹膜炎でみられない所見ではない。",
+      "間違い。腹膜炎では腹膜刺激による反動痛がみられる。したがって、腹膜炎でみられない所見ではない。",
+      "正しい。腹膜炎では腸管麻痺が起こり、腸蠕動音は低下または消失しやすい。腸蠕動音亢進は、腹膜炎でみられない所見である。"
     ],
-    "suggestedQuestions": [
-      "腹膜炎でみられる腹膜刺激症状は何ですか？",
-      "腹膜炎で腸蠕動音はどうなりやすいですか？",
-      "筋性防御とは何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:a3c05d7e8400f73e",
+    "reviewQuestionId": "a3c05d7e8400f73e",
+    "sourceRecordRef": "question_1996_5.json#13",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "腹膜炎の臨床所見に関する問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "腹膜炎でみられる腹膜刺激症状は何ですか？",
-        "answer": "圧痛、反動痛、筋性防御などである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "腹膜炎の臨床所見を問う問題である。",
+          "promptContext": "法令・制度上の根拠は不要。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "腹膜炎で腸蠕動音はどうなりやすいですか？",
-        "answer": "低下または消失しやすい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "腹膜炎の臨床所見を問う問題である。",
+          "promptContext": "法令・制度上の根拠は不要。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "筋性防御とは何ですか？",
-        "answer": "腹膜刺激により腹壁筋が反射的に緊張する所見である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "腹膜炎の臨床所見を問う問題である。",
+          "promptContext": "法令・制度上の根拠は不要。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "腹膜炎の臨床所見を問う問題である。",
+          "promptContext": "法令・制度上の根拠は不要。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "46807f06790ffc55",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q115",
     "explanationText": [
-      "正しい。\n\n鉄欠乏性貧血では体内鉄が不足し、血清鉄値は低下する。",
-      "間違い。\n\n鉄欠乏性貧血は低色素性小球性貧血であり、高色素性貧血ではない。",
-      "正しい。\n\n子宮筋腫による過多月経や慢性出血は鉄欠乏性貧血の原因となる。",
-      "正しい。\n\n鉄欠乏性貧血ではさじ状爪がみられることがある。"
+      "正しい。鉄が不足するとヘモグロビンを十分に作れないため、血清鉄値は低下する。",
+      "間違い。正しくは、低色素性小球性貧血となる。鉄欠乏ではヘモグロビンの合成が低下し、赤血球は小さく色が薄くなるため、高色素性貧血ではない。",
+      "正しい。子宮筋腫による過多月経などの慢性的な出血は、鉄の喪失を招き、鉄欠乏性貧血の一因となる。",
+      "正しい。鉄欠乏性貧血では、爪が薄くなって中央がくぼむさじ状爪がみられることがある。"
     ],
-    "suggestedQuestions": [
-      "鉄欠乏性貧血の赤血球形態は何ですか？",
-      "鉄欠乏性貧血で血清鉄はどうなりますか？",
-      "鉄欠乏性貧血でみられる爪の変化は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:46807f06790ffc55",
+    "reviewQuestionId": "46807f06790ffc55",
+    "sourceRecordRef": "question_1996_5.json#14",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "鉄欠乏性貧血の病態・検査所見・症状に関する医学知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "鉄欠乏性貧血の赤血球形態は何ですか？",
-        "answer": "低色素性小球性貧血である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "鉄欠乏では血清鉄値が低下する。",
+          "promptContext": "鉄欠乏性貧血の検査所見を問う。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "鉄欠乏性貧血で血清鉄はどうなりますか？",
-        "answer": "低下する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "鉄欠乏性貧血は低色素性小球性貧血であり、高色素性貧血ではない。",
+          "promptContext": "鉄欠乏性貧血の赤血球形態・色調を問う。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "鉄欠乏性貧血でみられる爪の変化は何ですか？",
-        "answer": "さじ状爪がみられることがある。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "子宮筋腫による慢性的な出血は鉄欠乏性貧血の原因となる。",
+          "promptContext": "鉄欠乏性貧血の原因を問う。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "鉄欠乏性貧血ではさじ状爪がみられることがある。",
+          "promptContext": "鉄欠乏性貧血の身体所見を問う。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "73023e669a1cf619",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q116",
     "explanationText": [
-      "間違い。\n\n慢性関節リウマチでは手指関節炎がしばしばみられる。",
-      "正しい。\n\n慢性関節リウマチでは皮下結節を触れることがある。",
-      "間違い。\n\n発作性の急性関節炎は痛風などで典型的であり、慢性関節リウマチは慢性・持続性の多関節炎が中心である。",
-      "間違い。\n\n小児にも若年性特発性関節炎として関節リウマチ類似の病態がみられる。"
+      "間違い。慢性関節リウマチでは、手指関節を含む小関節の炎症がしばしばみられる。",
+      "正しい。",
+      "間違い。慢性関節リウマチは、発作を繰り返す関節炎よりも、慢性かつ持続性の多関節炎が中心である。発作性の関節炎は痛風などで典型的にみられる。",
+      "間違い。小児にも、若年性特発性関節炎として慢性関節リウマチに類似した病態がみられる。"
     ],
-    "suggestedQuestions": [
-      "慢性関節リウマチで障害されやすい関節はどこですか？",
-      "慢性関節リウマチで触れることがある皮下所見は何ですか？",
-      "発作性関節炎が典型的な疾患は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:73023e669a1cf619",
+    "reviewQuestionId": "73023e669a1cf619",
+    "sourceRecordRef": "question_1996_5.json#15",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "臨床医学・病態の知識を問う問題で、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "慢性関節リウマチで障害されやすい関節はどこですか？",
-        "answer": "手指関節などの小関節である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令根拠を要しない。",
+          "promptContext": "慢性関節リウマチでは手指関節炎がみられ得る。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "慢性関節リウマチの臨床的特徴に関する医学知識であり、法令改正による正答影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "慢性関節リウマチで触れることがある皮下所見は何ですか？",
-        "answer": "皮下結節である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令根拠を要しない。",
+          "promptContext": "慢性関節リウマチでは皮下結節を触れることがある。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "慢性関節リウマチに伴う皮下結節に関する医学知識であり、法令改正による正答影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "発作性関節炎が典型的な疾患は何ですか？",
-        "answer": "痛風などである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令根拠を要しない。",
+          "promptContext": "慢性関節リウマチは発作性より慢性・持続性の多関節炎が中心である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "慢性関節リウマチの関節炎の経過に関する医学知識であり、法令改正による正答影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令根拠を要しない。",
+          "promptContext": "小児にも若年性特発性関節炎として類似病態がみられる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "小児にも慢性関節リウマチに類似する病態がみられるという医学知識であり、法令改正による正答影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "b361bbef43d2f535",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q117",
     "explanationText": [
-      "正しい。\n\nアジソン病では副腎皮質機能低下によりACTHが上昇し、色素沈着がみられる。",
-      "正しい。\n\n褐色細胞腫ではカテコールアミン過剰により高血圧をきたす。",
-      "間違い。\n\nクッシング症候群では中心性肥満や体重増加がみられる。体重減少との組合せは誤りである。",
-      "正しい。\n\n粘液水腫は重症の甲状腺機能低下症でみられ、徐脈を伴いやすい。"
+      "正しい。アジソン病では副腎皮質ホルモンの低下に反応してACTHが増加し、メラニン産生が促されるため色素沈着がみられる。",
+      "正しい。褐色細胞腫はカテコールアミンを過剰に分泌するため、血圧が上昇する。",
+      "間違い。正しくは、クッシング症候群では中心性肥満や体重増加がみられる。副腎皮質ホルモンの過剰による体型変化であり、体重減少との組合せが誤りである。",
+      "正しい。粘液水腫は甲状腺機能が著しく低下した状態で、代謝が低下するため徐脈を伴いやすい。"
     ],
-    "suggestedQuestions": [
-      "アジソン病で色素沈着が起こる理由は何ですか？",
-      "褐色細胞腫で高血圧を起こす物質は何ですか？",
-      "クッシング症候群でみられる体型変化は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:b361bbef43d2f535",
+    "reviewQuestionId": "b361bbef43d2f535",
+    "sourceRecordRef": "question_1996_5.json#16",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "内分泌疾患の医学知識問題であり、法令根拠は正誤を直接決めない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "アジソン病で色素沈着が起こる理由は何ですか？",
-        "answer": "副腎皮質機能低下によりACTHが上昇するためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "アジソン病と色素沈着の対応は正しい。",
+          "promptContext": "内分泌疾患の代表所見を問う問題。",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "褐色細胞腫で高血圧を起こす物質は何ですか？",
-        "answer": "カテコールアミンである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "褐色細胞腫と高血圧の対応は正しい。",
+          "promptContext": "内分泌疾患の代表所見を問う問題。",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "クッシング症候群でみられる体型変化は何ですか？",
-        "answer": "中心性肥満や体重増加である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "クッシング症候群は体重減少ではなく中心性肥満や体重増加を示すため、この対応は誤り。",
+          "promptContext": "内分泌疾患の代表所見を問う問題。",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "粘液水腫と徐脈の対応は正しい。",
+          "promptContext": "内分泌疾患の代表所見を問う問題。",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "e1dab9037359b2a9",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q118",
     "explanationText": [
-      "正しい。\n\nネフローゼ症候群では大量蛋白尿により血清アルブミンが低下する。",
-      "間違い。\n\nネフローゼ症候群では低アルブミン血症に対する肝でのリポ蛋白産生亢進などにより、高コレステロール血症をきたしやすい。",
-      "間違い。\n\nネフローゼ症候群では脂質異常を伴い、血清トリグリセリドも上昇しやすい。",
-      "間違い。\n\nネフローゼ症候群では尿中蛋白量は増加する。"
+      "正しい。ネフローゼ症候群では糸球体から蛋白が尿へ漏れ出るため、血液中のアルブミンが失われ、血清アルブミンが低下する。",
+      "間違い。血清コレステロールは低下ではなく、低アルブミン血症に伴う脂質代謝の変化などにより上昇しやすい。",
+      "間違い。血清トリグリセリドも低下ではなく、ネフローゼ症候群に伴う脂質異常により上昇しやすい。",
+      "間違い。尿中蛋白量は低下ではなく、糸球体から蛋白が漏れるため増加する。"
     ],
-    "suggestedQuestions": [
-      "ネフローゼ症候群で低下する血清蛋白は何ですか？",
-      "ネフローゼ症候群で尿蛋白はどうなりますか？",
-      "ネフローゼ症候群で血清脂質はどうなりますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:e1dab9037359b2a9",
+    "reviewQuestionId": "e1dab9037359b2a9",
+    "sourceRecordRef": "question_1996_5.json#17",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "病態生理の問題で、法令・制度上の義務、定義、手続又は基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "ネフローゼ症候群で低下する血清蛋白は何ですか？",
-        "answer": "血清アルブミンである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法・試験時法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "血清アルブミン低下の病態生理を問う選択肢であり、法令根拠を要しない。",
+          "promptContext": "ネフローゼ症候群に伴う蛋白尿と血清蛋白の変化を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "ネフローゼ症候群で尿蛋白はどうなりますか？",
-        "answer": "増加する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法・試験時法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "血清コレステロールの変化を問う病態生理の選択肢であり、法令根拠を要しない。",
+          "promptContext": "ネフローゼ症候群に伴う脂質代謝の変化を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "ネフローゼ症候群で血清脂質はどうなりますか？",
-        "answer": "高脂血症をきたしやすい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法・試験時法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "血清トリグリセリドの変化を問う病態生理の選択肢であり、法令根拠を要しない。",
+          "promptContext": "ネフローゼ症候群に伴う脂質異常を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法・試験時法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "尿中蛋白量の変化を問う病態生理の選択肢であり、法令根拠を要しない。",
+          "promptContext": "ネフローゼ症候群に伴う蛋白尿を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "42230652b87a8771",
@@ -573,180 +1986,714 @@
     "original_question_id": "ef1c417b82322152",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q120",
     "explanationText": [
-      "正しい。\n\n狭心症発作は一過性の心筋虚血により生じる。",
-      "正しい。\n\n狭心症発作は通常数分程度で軽快することが多い。",
-      "正しい。\n\n急性心筋梗塞では心筋逸脱酵素としてCKなどが上昇する。",
-      "間違い。\n\n虚血性心疾患の冠危険因子は高コレステロール血症などであり、血清コレステロールの低下ではない。"
+      "正しい。狭心症は、冠動脈の血流が一時的に不足して心筋が虚血になることで発作を起こす。",
+      "正しい。狭心症の発作は、通常は数分程度で軽快する。",
+      "正しい。急性心筋梗塞では心筋の壊死に伴い、血清CKなどの心筋逸脱酵素が増加する。",
+      "間違い。冠危険因子には高コレステロール血症などがあり、血清コレステロールの低下は冠危険因子ではない。"
     ],
-    "suggestedQuestions": [
-      "狭心症発作の本態は何ですか？",
-      "急性心筋梗塞で上昇する酵素は何ですか？",
-      "虚血性心疾患の脂質に関する危険因子は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:ef1c417b82322152",
+    "reviewQuestionId": "ef1c417b82322152",
+    "sourceRecordRef": "question_1996_5.json#19",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "虚血性心疾患の病態・危険因子に関する医学知識の問題であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "狭心症発作の本態は何ですか？",
-        "answer": "一過性の心筋虚血である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "虚血性心疾患の病態・危険因子に関する医学知識で、法令根拠は不要。",
+          "promptContext": "柔道整復師の医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の問題であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "急性心筋梗塞で上昇する酵素は何ですか？",
-        "answer": "CKなどの心筋逸脱酵素である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "虚血性心疾患の病態・危険因子に関する医学知識で、法令根拠は不要。",
+          "promptContext": "柔道整復師の医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の問題であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "虚血性心疾患の脂質に関する危険因子は何ですか？",
-        "answer": "高コレステロール血症である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "虚血性心疾患の病態・危険因子に関する医学知識で、法令根拠は不要。",
+          "promptContext": "柔道整復師の医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の問題であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "虚血性心疾患の病態・危険因子に関する医学知識で、法令根拠は不要。",
+          "promptContext": "柔道整復師の医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の問題であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "1454136ac37c6cd9",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q121",
     "explanationText": [
-      "正しい。\n\nヨード系消毒薬は手指や創傷部の消毒に用いられる。",
-      "間違い。\n\n煮沸滅菌は器具などに用いられる方法であり、手術野や熱傷部に直接用いる方法ではない。",
-      "正しい。\n\nガス滅菌は熱に弱い光学レンズやゴム製品などに用いられる。",
-      "正しい。\n\n高圧蒸気滅菌は手術器具やガーゼなどの滅菌に広く用いられる。"
+      "正しい。",
+      "間違い。煮沸法は耐熱性の器具などの消毒に用いる方法で、手術野や熱傷部のような生体組織には適用しない。また、煮沸では芽胞を完全に除去できないため、厳密には滅菌法ではなく消毒法である。",
+      "正しい。",
+      "正しい。"
     ],
-    "suggestedQuestions": [
-      "高圧蒸気滅菌は何に用いられますか？",
-      "ガス滅菌はどのような物品に適しますか？",
-      "煮沸滅菌は手術野に直接用いる方法ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:1454136ac37c6cd9",
+    "reviewQuestionId": "1454136ac37c6cd9",
+    "sourceRecordRef": "question_1996_5.json#20",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "消毒・滅菌法の技術的な適用対象を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "高圧蒸気滅菌は何に用いられますか？",
-        "answer": "手術器具やガーゼなどの滅菌に用いられる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "ヨードホルム消毒法の適用対象に関する技術事項である。",
+          "promptContext": "法令条文を根拠にしない技術問題である。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "ガス滅菌はどのような物品に適しますか？",
-        "answer": "熱に弱い光学レンズやゴム製品などに適する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "煮沸法の適用対象と、煮沸が厳密には滅菌法でないことに関する技術事項である。",
+          "promptContext": "法令条文を根拠にしない技術問題である。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "煮沸滅菌は手術野に直接用いる方法ですか？",
-        "answer": "手術野や熱傷部に直接用いる方法ではない。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "ガス滅菌法の適用対象に関する技術事項である。",
+          "promptContext": "法令条文を根拠にしない技術問題である。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "高圧蒸気滅菌法の適用対象に関する技術事項である。",
+          "promptContext": "法令条文を根拠にしない技術問題である。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "ad8d387fc16338e8",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q122",
     "explanationText": [
-      "正しい。\n\n脊椎麻酔は局所麻酔薬を用いて脊髄くも膜下腔を麻酔する局所麻酔法に含まれる。",
-      "正しい。\n\n硬膜外麻酔は硬膜外腔に局所麻酔薬を注入する局所麻酔法である。",
-      "正しい。\n\n浸潤麻酔は手術部位周囲に局所麻酔薬を浸潤させる局所麻酔法である。",
-      "間違い。\n\n静脈麻酔は静脈内に麻酔薬を投与して全身麻酔を行う方法であり、局所麻酔法ではない。"
+      "正しい。脊椎麻酔は、局所麻酔薬を脊髄くも膜下腔に注入して痛みを遮断する局所麻酔法である。",
+      "正しい。硬膜外麻酔は、硬膜外腔に局所麻酔薬を注入して痛みを遮断する局所麻酔法である。",
+      "正しい。浸潤麻酔は、手術部位の周囲に局所麻酔薬を注入して、その周辺の感覚を遮断する局所麻酔法である。",
+      "間違い。正しくは、静脈麻酔は静脈内に麻酔薬を投与して意識を低下させる全身麻酔法であり、局所麻酔法ではない。"
     ],
-    "suggestedQuestions": [
-      "浸潤麻酔とは何ですか？",
-      "硬膜外麻酔はどこに局所麻酔薬を注入しますか？",
-      "静脈麻酔は局所麻酔ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:ad8d387fc16338e8",
+    "reviewQuestionId": "ad8d387fc16338e8",
+    "sourceRecordRef": "question_1996_5.json#21",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "麻酔法の分類に関する医学知識問題であり、法令・制度根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "浸潤麻酔とは何ですか？",
-        "answer": "手術部位周囲に局所麻酔薬を浸潤させる方法である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "麻酔法の分類に関する医学知識であり、法令根拠は用いない。",
+          "promptContext": "純粋な医学知識問題として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "麻酔法の分類に関する医学知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "硬膜外麻酔はどこに局所麻酔薬を注入しますか？",
-        "answer": "硬膜外腔に注入する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "麻酔法の分類に関する医学知識であり、法令根拠は用いない。",
+          "promptContext": "純粋な医学知識問題として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "麻酔法の分類に関する医学知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "静脈麻酔は局所麻酔ですか？",
-        "answer": "全身麻酔に分類され、局所麻酔ではない。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "麻酔法の分類に関する医学知識であり、法令根拠は用いない。",
+          "promptContext": "純粋な医学知識問題として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "麻酔法の分類に関する医学知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "麻酔法の分類に関する医学知識であり、法令根拠は用いない。",
+          "promptContext": "純粋な医学知識問題として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "麻酔法の分類に関する医学知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "0e122d9a507e4c9b",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q123",
     "explanationText": [
-      "間違い。\n\n出血部位を直接圧迫する方法は圧迫止血法であり、血管を糸などで結ぶ結紮法ではない。",
-      "正しい。\n\n駆血帯などで血流を遮断して止血する方法は緊縛法である。",
-      "正しい。\n\nガーゼなどを詰めて圧迫し止血する方法は圧迫タンポン法である。",
-      "正しい。\n\n内視鏡や血管内操作で塞栓・硬化させる方法は血管内塞栓法に含まれる。"
+      "間違い。正しくは、出血部位を直接圧迫する方法は圧迫止血法である。結紮法は、血管を糸などで結んで血流を止める方法であり、直接圧迫とは異なる。",
+      "正しい。駆血帯などで血流を遮断して止血する方法は緊縛法である。",
+      "正しい。ガーゼなどを出血部位に詰め、その圧迫で止血する方法は圧迫タンポン法である。",
+      "正しい。血管内塞栓法は、血管内へ器具を進め、塞栓物質などで血流を遮断して止血する方法である。外から出血部位を押さえる圧迫止血法とは異なる。"
     ],
-    "suggestedQuestions": [
-      "直接圧迫して止血する方法は何ですか？",
-      "結紮法とは何ですか？",
-      "圧迫タンポン法とは何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:0e122d9a507e4c9b",
+    "reviewQuestionId": "0e122d9a507e4c9b",
+    "sourceRecordRef": "question_1996_5.json#22",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "止血法の分類と手技を問う医学・技術上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "直接圧迫して止血する方法は何ですか？",
-        "answer": "圧迫止血法である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学・技術上の止血法の分類に関する選択肢である。",
+          "promptContext": "止血法の用語と手技の対応を確認する問題である。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "結紮法とは何ですか？",
-        "answer": "血管を糸などで結んで止血する方法である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学・技術上の止血法の分類に関する選択肢である。",
+          "promptContext": "止血法の用語と手技の対応を確認する問題である。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "圧迫タンポン法とは何ですか？",
-        "answer": "ガーゼなどを詰めて圧迫し止血する方法である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学・技術上の止血法の分類に関する選択肢である。",
+          "promptContext": "止血法の用語と手技の対応を確認する問題である。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学・技術上の止血法の分類に関する選択肢である。",
+          "promptContext": "止血法の用語と手技の対応を確認する問題である。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "23147b26ce20b6c4",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q124",
     "explanationText": [
-      "間違い。\n\nショックは有効循環血液量や心拍出量の低下、血管拡張などにより組織循環が障害される状態であり、循環血流量の増加が原因ではない。",
-      "正しい。\n\n細菌感染に伴う敗血症では血管拡張や循環不全により敗血症性ショックを起こすことがある。",
-      "間違い。\n\n出血性ショックは早期に適切な止血と輸液・輸血を行えば可逆的な段階がある。",
-      "間違い。\n\n心原性ショックは心機能低下により持続的な循環不全をきたす重篤な状態であり、一過性とはいえない。"
+      "間違い。ショックは、組織へ十分な血液が届かなくなる状態であり、循環血流量の増加ではなく、循環血液量の減少、心拍出量の低下、血管の異常な拡張などによって起こる。",
+      "正しい。細菌感染による敗血症では、血管の拡張や循環不全が起こり、敗血症性ショックに至ることがある。",
+      "間違い。出血性ショックは、早期に止血し、輸液や輸血などで循環を回復させれば改善できる可逆的な段階がある。進行して適切な治療が遅れると、不可逆的な状態になる。",
+      "間違い。心原性ショックは、心筋梗塞などによる心機能の低下で血液を十分に送り出せなくなる状態であり、一過性とは限らない。重症化すると持続する循環不全となる。"
     ],
-    "suggestedQuestions": [
-      "ショックとはどのような状態ですか？",
-      "細菌感染で起こるショックは何ですか？",
-      "出血性ショックは常に不可逆的ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:23147b26ce20b6c4",
+    "reviewQuestionId": "23147b26ce20b6c4",
+    "sourceRecordRef": "question_1996_5.json#23",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ショックの病態・原因を問う医学知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "ショックとはどのような状態ですか？",
-        "answer": "組織循環が障害され、臓器灌流が不十分となる状態である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "循環血流量の増加はショックの一般的な原因ではない。",
+          "promptContext": "ショックの原因と病態を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "細菌感染で起こるショックは何ですか？",
-        "answer": "敗血症性ショックである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "細菌感染に伴う敗血症では、敗血症性ショックが起こることがある。",
+          "promptContext": "ショックの原因と病態を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "出血性ショックは常に不可逆的ですか？",
-        "answer": "早期には可逆的な段階がある。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "出血性ショックには、早期治療で改善できる可逆的な段階がある。",
+          "promptContext": "ショックの原因と病態を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "心原性ショックは心機能低下による持続的な循環不全となり得るため、一過性とは限らない。",
+          "promptContext": "ショックの原因と病態を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "36d6c5c5797f2ee9",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_4/#q125",
     "explanationText": [
-      "間違い。\n\n微小血管損傷では血管収縮、血小板血栓、凝固により自然止血することが多い。",
-      "正しい。\n\n創傷部の腫脹は血管透過性亢進により血漿成分や血液成分が漏出することで起こる。",
-      "間違い。\n\n壊死組織の分解吸収には好中球やマクロファージなどの貪食細胞が関与する。リンパ球が主役ではない。",
-      "間違い。\n\n瘢痕組織の主体は線維芽細胞が産生する膠原線維などの結合組織であり、白血球ではない。"
+      "間違い。微小血管が損傷すると、血管収縮、血小板による血栓形成、凝固反応が働き、通常は自然止血する。",
+      "正しい。血管透過性が高まり、血漿などの血液成分が組織へ漏れ出すため、創傷部は腫脹する。",
+      "間違い。壊死組織の分解・吸収には、好中球やマクロファージなどの貪食細胞が主に関与する。リンパ球が主役ではない。",
+      "間違い。瘢痕組織は、線維芽細胞が産生するコラーゲン（膠原線維）などの結合組織から形成される。白血球は炎症反応に関与するが、瘢痕組織の主体ではない。"
     ],
-    "suggestedQuestions": [
-      "創傷部が腫脹する主な理由は何ですか？",
-      "壊死組織の処理に関与する細胞は何ですか？",
-      "瘢痕組織の主体は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1996:36d6c5c5797f2ee9",
+    "reviewQuestionId": "36d6c5c5797f2ee9",
+    "sourceRecordRef": "question_1996_5.json#24",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "創傷の止血、腫脹、壊死組織処理、瘢痕形成を問う医学的内容であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "創傷部が腫脹する主な理由は何ですか？",
-        "answer": "血管透過性亢進により血漿成分などが漏出するためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学的内容であり、法令監査対象外。",
+          "promptContext": "創傷の止血機序を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "壊死組織の処理に関与する細胞は何ですか？",
-        "answer": "好中球やマクロファージなどの貪食細胞である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学的内容であり、法令監査対象外。",
+          "promptContext": "創傷部の腫脹の機序を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "瘢痕組織の主体は何ですか？",
-        "answer": "膠原線維などの結合組織である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学的内容であり、法令監査対象外。",
+          "promptContext": "壊死組織の分解・吸収に関与する細胞を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差は確認対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学的内容であり、法令監査対象外。",
+          "promptContext": "瘢痕組織の構成を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

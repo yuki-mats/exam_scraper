@@ -1,423 +1,1655 @@
 [
   {
     "explanationText": [
-      "間違い。急性硬膜下血腫は典型的な意識清明期を示しにくい。",
-      "間違い。外傷性クモ膜下出血に典型的な意識清明期はない。",
-      "正しい。急性硬膜外血腫は意識清明期を示しやすい。",
-      "間違い。脳内血腫に典型的な意識清明期はない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「急性硬膜外血腫」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「意識清明期（lucidinterval）がみられるのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。意識清明期（lucid interval）とは、頭部外傷直後の意識障害がいったん改善した後、再び意識障害が進行する経過である。急性硬膜外血腫では、出血が進行して頭蓋内圧が上昇するまでの間に、この経過を示すことがある。"
     ],
     "original_question_id": "4cba910bb87b6cae",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q126",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:4cba910bb87b6cae",
+    "reviewQuestionId": "4cba910bb87b6cae",
+    "sourceRecordRef": "question_2004_6.json#0",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "意識清明期と頭部外傷の病態を問う医学知識問題であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識問題のため法令監査対象外。",
+          "promptContext": "意識清明期と頭部外傷の病態を問う問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識問題のため法令監査対象外。",
+          "promptContext": "意識清明期と頭部外傷の病態を問う問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識問題のため法令監査対象外。",
+          "promptContext": "意識清明期と頭部外傷の病態を問う問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識問題のため法令監査対象外。",
+          "promptContext": "意識清明期と頭部外傷の病態を問う問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。自家移植は拒絶が起こりにくく生着率が高い。",
-      "正しい。同系移植は遺伝的に同一で組織適合抗原の差がない。",
-      "正しい。親子・兄弟間の移植は同種移植である。",
-      "間違い。人種差があってもヒト同士の移植は異種移植ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「自家移植は生着率が高い。」「同系移植は組織適合抗体がすべて同一である。」「親子・兄弟同士での移植は同種移植である。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「誤っているのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。自家移植は同じ人の組織を移植するため、免疫による拒絶が起こりにくく、生着率が高い。",
+      "正しい。同系移植は遺伝的に同一な個体間の移植で、組織適合性に差がないため、拒絶が起こりにくい。",
+      "正しい。親子や兄弟はヒトという同じ種に属するため、その間の移植は同種移植に分類される。",
+      "間違い。異なる人種の間でも、ヒト同士の移植は同種移植である。異種移植は、ヒトと動物のように異なる種の間で行う移植をいう。"
     ],
     "original_question_id": "d6fa5f93c84c53c2",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q127",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:d6fa5f93c84c53c2",
+    "reviewQuestionId": "d6fa5f93c84c53c2",
+    "sourceRecordRef": "question_2004_6.json#1",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "移植の分類と生着に関する医学的知識の問題で、法令・制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はない。医学知識に基づく判定である。",
+          "displayRefIds": [],
+          "explanationText": "自家移植は拒絶が起こりにくく、生着率が高い。",
+          "promptContext": "移植の分類と生着に関する医学知識であり、法令監査の対象外。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はない。医学知識に基づく判定である。",
+          "displayRefIds": [],
+          "explanationText": "同系移植は遺伝的に同一な個体間の移植で、組織適合性に差がない。",
+          "promptContext": "移植の分類と生着に関する医学知識であり、法令監査の対象外。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はない。医学知識に基づく判定である。",
+          "displayRefIds": [],
+          "explanationText": "親子や兄弟間の移植は、同じヒトという種の個体間で行うため同種移植である。",
+          "promptContext": "移植の分類と生着に関する医学知識であり、法令監査の対象外。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はない。医学知識に基づく判定である。",
+          "displayRefIds": [],
+          "explanationText": "異なる人種の間でもヒト同士の移植は同種移植であり、異種移植ではない。",
+          "promptContext": "移植の分類と生着に関する医学知識であり、法令監査の対象外。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。無気肺では肺容量が減るため縦隔は患側へ寄りやすい。",
-      "正しい。緊張性気胸では胸腔内圧上昇で縦隔が健側へ押される。",
-      "間違い。胸膜炎だけでは健側への明らかな偏位は起こしにくい。",
-      "間違い。膿胸は健側への偏位を典型としない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「緊張性気胸」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「縦隔が健側へ移動するのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。緊張性気胸では、胸腔内圧の上昇によって患側の肺が圧迫され、縦隔が反対側の健側へ押される。無気肺では肺容量の減少により縦隔は患側へ寄りやすく、胸膜炎や膿胸はこの所見を示す代表的な病態ではない。"
     ],
     "original_question_id": "2d39254b948ec2f7",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q128",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:2d39254b948ec2f7",
+    "reviewQuestionId": "2d39254b948ec2f7",
+    "sourceRecordRef": "question_2004_6.json#2",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "縦隔偏位の病態生理を問う問題で、法令・制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "無気肺では肺容量の減少により、縦隔は患側へ寄りやすい。",
+          "promptContext": "病態生理問題のため法令根拠は不要。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "病態生理の選択肢であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "緊張性気胸では胸腔内圧が上昇し、縦隔が健側へ押される。",
+          "promptContext": "病態生理問題のため法令根拠は不要。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "病態生理の選択肢であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "胸膜炎だけでは、縦隔が健側へ明らかに偏位する代表的な病態とはいえない。",
+          "promptContext": "病態生理問題のため法令根拠は不要。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "病態生理の選択肢であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "膿胸は縦隔を健側へ偏位させる代表的な病態ではない。",
+          "promptContext": "病態生理問題のため法令根拠は不要。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "病態生理の選択肢であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。胸壁動揺では奇異呼吸がみられる。",
-      "間違い。ショック肺は受傷直後に出る病態ではない。",
-      "正しい。心タンポナーデでは頻脈がみられる。",
-      "正しい。胸部外傷はハンドル外傷で起こることが多い。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「胸壁動揺では奇異呼吸が見られる。」「心タンポナーデでは頻脈がみられる。」「多くはハンドル外傷である。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「胸部外傷について誤っているのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。胸壁動揺では、胸壁の一部が周囲と逆方向に動く奇異呼吸がみられる。",
+      "間違い。ショック肺は受傷直後ではなく、受傷後しばらくして発症する。",
+      "正しい。心タンポナーデでは心臓の拡張が妨げられ、心拍出量を保つため頻脈がみられる。",
+      "正しい。胸部外傷では、ハンドルなどによる前胸部への強い衝撃が原因になることが多い。"
     ],
     "original_question_id": "a6a39ad06ab83301",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q129",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:a6a39ad06ab83301",
+    "reviewQuestionId": "a6a39ad06ab83301",
+    "sourceRecordRef": "question_2004_6.json#3",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "胸部外傷、ショック肺、心タンポナーデ、ハンドル外傷に関する医学知識であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在で法令上の比較対象はない。",
+          "displayRefIds": [],
+          "explanationText": "胸壁動揺の病態に関する医学知識であり、法令根拠は不要。",
+          "promptContext": "柔道整復師国家試験の医学知識問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の問題であり法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在で法令上の比較対象はない。",
+          "displayRefIds": [],
+          "explanationText": "ショック肺の発症時期に関する医学知識であり、法令根拠は不要。",
+          "promptContext": "柔道整復師国家試験の医学知識問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の問題であり法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在で法令上の比較対象はない。",
+          "displayRefIds": [],
+          "explanationText": "心タンポナーデの病態に関する医学知識であり、法令根拠は不要。",
+          "promptContext": "柔道整復師国家試験の医学知識問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の問題であり法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在で法令上の比較対象はない。",
+          "displayRefIds": [],
+          "explanationText": "胸部外傷の受傷機転に関する医学知識であり、法令根拠は不要。",
+          "promptContext": "柔道整復師国家試験の医学知識問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の問題であり法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
       "正しい。骨盤骨折に伴って後腹膜血腫を合併することがある。",
-      "間違い。後腹膜血腫では腸管麻痺を伴うことが少なくない。",
-      "正しい。腸腰筋陰影の消失は診断に役立つ。",
-      "正しい。血管造影は出血源と手術適応の判断に役立つ。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「腹部外傷時の骨盤骨折に合併する。」「腹部単純エックス線写真では腸腰筋陰影の消失が診断に役立つ。」「手術適応の判定には血管造影所見が役立つ。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「後腹膜血腫について誤っているのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "間違い。後腹膜血腫では腸管麻痺を伴うことが少なくない。したがって、腸管麻痺を伴うことはまれであるとするこの記述は誤りである。",
+      "正しい。腹部単純エックス線写真では、腸腰筋陰影の消失が診断の手掛かりになる。",
+      "正しい。血管造影は出血部位や出血の程度を把握し、手術適応など治療方針の判断に役立つ。"
     ],
     "original_question_id": "d1ad4addbe5a47f3",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q130",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:d1ad4addbe5a47f3",
+    "reviewQuestionId": "d1ad4addbe5a47f3",
+    "sourceRecordRef": "question_2004_6.json#4",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "後腹膜血腫の病態、画像所見、治療判断を問う医学問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "後腹膜血腫の病態、画像所見、治療判断を問う医学問題で、法令根拠は不要。",
+          "promptContext": "法令ではなく医学知識に基づいて解説する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "後腹膜血腫の病態、画像所見、治療判断を問う医学問題で、法令根拠は不要。",
+          "promptContext": "法令ではなく医学知識に基づいて解説する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "後腹膜血腫の病態、画像所見、治療判断を問う医学問題で、法令根拠は不要。",
+          "promptContext": "法令ではなく医学知識に基づいて解説する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "後腹膜血腫の病態、画像所見、治療判断を問う医学問題で、法令根拠は不要。",
+          "promptContext": "法令ではなく医学知識に基づいて解説する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。軟骨無形成症は骨折多発の代表疾患ではない。",
-      "正しい。骨形成不全症は骨が脆く骨折を繰り返しやすい。",
-      "正しい。大理石病では骨は硬くても脆く病的骨折を起こしやすい。",
-      "間違い。マルファン症候群は骨折多発の代表ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「骨形成不全症」「大理石病」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「骨折を起こしやすいのはどれか。2つ選べ。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "間違い。軟骨無形成症は、主に四肢の短縮を伴う低身長を特徴とする疾患で、骨折を繰り返しやすい代表的な疾患ではない。",
+      "正しい。骨形成不全症は、骨の主成分であるⅠ型コラーゲンの異常などにより骨がもろくなり、軽い外力でも骨折を起こしやすい。",
+      "正しい。大理石病は、骨が過度に硬くなる一方で内部構造がもろくなり、病的骨折を起こしやすい。",
+      "間違い。マルファン症候群は、結合組織の異常によって高身長や水晶体偏位、大動脈病変などを生じる疾患で、骨折を繰り返しやすい代表的な疾患ではない。"
     ],
     "original_question_id": "d89f5d78ce586cb4",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q131",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:d89f5d78ce586cb4",
+    "reviewQuestionId": "d89f5d78ce586cb4",
+    "sourceRecordRef": "question_2004_6.json#5",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨形成不全症や大理石病などの骨疾患の病態を問う医学知識問題であり、法令条文は正誤を直接決めない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "軟骨無形成症は骨折多発の代表疾患ではない。",
+          "promptContext": "骨疾患の病態知識を問う問題。",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "骨形成不全症は骨がもろく、骨折を起こしやすい。",
+          "promptContext": "骨疾患の病態知識を問う問題。",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "大理石病は骨が硬くてもろく、病的骨折を起こしやすい。",
+          "promptContext": "骨疾患の病態知識を問う問題。",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "マルファン症候群は骨折多発の代表疾患ではない。",
+          "promptContext": "骨疾患の病態知識を問う問題。",
+          "refs": [],
+          "verdict": "医学知識問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。関節可動域は基本肢位を0度として表す。",
-      "間違い。通常は5度刻みで測定する。",
-      "正しい。原則として他動運動による測定値を記載する。",
-      "正しい。参考可動域が示されている。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「基本肢位を0度とする。」「他動運動による測定値を表記する。」「参考可動域が示されている。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「関節可動域を記載する上で誤っているのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。",
+      "間違い。関節可動域は通常5度刻みで測定するため、1度刻みではない。",
+      "正しい。関節可動域は原則として他動運動による測定値を表記する。",
+      "正しい。関節可動域は参考可動域として示される。"
     ],
     "original_question_id": "726e216fcd3db03f",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q132",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:726e216fcd3db03f",
+    "reviewQuestionId": "726e216fcd3db03f",
+    "sourceRecordRef": "question_2004_6.json#6",
+    "explanationReferences": [
+      {
+        "referenceDate": "2004-06-04",
+        "sourceUrl": "https://www.mhlw.go.jp/web/t_doc?dataId=00tb2627&dataType=1",
+        "title": "せき柱及びその他の体幹骨、上肢並びに下肢の障害に関する障害等級認定基準について"
+      }
+    ],
+    "isLawRelated": false,
+    "lawContextForExplanation": "関節可動域測定に関する技術的問題であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "基本肢位を0度とする記述は正しい。",
+          "promptContext": "関節可動域測定の技術的事項。",
+          "refs": [],
+          "verdict": "技術的事項であり法令監査対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "関節可動域は通常5度刻みで測定するため、1度刻みとする記述は誤り。",
+          "promptContext": "関節可動域測定の技術的事項。",
+          "refs": [],
+          "verdict": "技術的事項であり法令監査対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "他動運動による測定値を表記する記述は正しい。",
+          "promptContext": "関節可動域測定の技術的事項。",
+          "refs": [],
+          "verdict": "技術的事項であり法令監査対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "参考可動域が示される記述は正しい。",
+          "promptContext": "関節可動域測定の技術的事項。",
+          "refs": [],
+          "verdict": "技術的事項であり法令監査対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。抗菌薬の投与は行う。",
-      "間違い。高圧酸素療法は有効である。",
-      "正しい。起炎菌はクロストリジウム属である。",
-      "正しい。重症化すると死の転帰をとり得る。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「抗菌薬の投与は有効である。」「起炎菌はクロストリジウムである。」「死の転帰をとり得る。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「ガス壊疸について誤っているのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。",
+      "間違い。正しくは、高圧酸素療法は有効である。ガス壊疽では、抗菌薬投与や感染組織の外科的処置に加えて、高圧酸素療法が治療に用いられる。",
+      "正しい。",
+      "正しい。"
     ],
     "original_question_id": "9651365968ab9547",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q133",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:9651365968ab9547",
+    "reviewQuestionId": "9651365968ab9547",
+    "sourceRecordRef": "question_2004_6.json#7",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ガス壊疽の起炎菌、治療法、予後に関する医学的知識問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ガス壊疽の抗菌薬治療に関する医学的知識で判定する。",
+          "promptContext": "柔道整復師国家試験・医学的知識問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ガス壊疽では高圧酸素療法は有効であり、「無効である」は誤りである。",
+          "promptContext": "柔道整復師国家試験・医学的知識問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ガス壊疽の起炎菌に関する医学的知識で判定する。",
+          "promptContext": "柔道整復師国家試験・医学的知識問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ガス壊疽が死に至ることがあるという予後に関する医学的知識で判定する。",
+          "promptContext": "柔道整復師国家試験・医学的知識問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。99mTcシンチグラムは初期の骨活性評価に有用である。",
-      "間違い。単純エックス線は初期病変の検出感度が低い。",
-      "間違い。超音波は骨癒合の可能性評価には一般的でない。",
-      "正しい。MRIは骨髄浮腫や初期病変の把握に有用である。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「シンチグラム（99ｍTｃ）」「MRI」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「初期の腰椎分離症で、骨癒合の可能性をみるのに効果的な検査はどれか。2つ選べ。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。99mTcシンチグラムは骨代謝の活性化を捉え、初期の腰椎分離症で病変の活動性や骨癒合の可能性を評価するのに有用である。",
+      "間違い。単純エックス線は初期の骨変化を捉えにくく、骨癒合の可能性を評価する検査としては適さない。",
+      "間違い。超音波は腰椎の初期分離症における骨病変や骨癒合の可能性を評価する検査として一般的ではない。",
+      "正しい。MRIは骨髄浮腫などの早期変化を捉え、病変の状態や骨癒合の可能性を評価するのに有用である。"
     ],
     "original_question_id": "836ed154c88c03e8",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q134",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:836ed154c88c03e8",
+    "reviewQuestionId": "836ed154c88c03e8",
+    "sourceRecordRef": "question_2004_6.json#8",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "画像検査の適応と診断上の有用性を問う臨床問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はなく、法令監査の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "99mTcシンチグラムは初期腰椎分離症の病変活動性と骨癒合の可能性の評価に有用である。",
+          "promptContext": "臨床画像検査の適応を問う選択肢である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はなく、法令監査の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "単純エックス線は初期病変の検出感度が低く、この目的の評価には適さない。",
+          "promptContext": "臨床画像検査の適応を問う選択肢である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はなく、法令監査の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "超音波は腰椎分離症の骨癒合の可能性を評価する検査として一般的ではない。",
+          "promptContext": "臨床画像検査の適応を問う選択肢である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はなく、法令監査の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "MRIは骨髄浮腫などの初期変化を捉え、病変の状態や骨癒合の可能性を評価するのに有用である。",
+          "promptContext": "臨床画像検査の適応を問う選択肢である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。強剛母指は母指IP関節の動きが主体で、MP関節伸展制限とは言いにくい。",
-      "正しい。透析患者の弾発現象は屈筋腱鞘の滑膜肥厚で起こる。",
-      "正しい。ド・ケルバン病は第1伸筋区画の狭窄性腱鞘炎である。",
-      "間違い。交叉性腱鞘炎は第1区画と第2区画の摩擦で起こる。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「透析患者の手指の弾発現象は屈筋腱鞘滑膜の肥厚が原因である。」「ド・ケルバン（deQuervain）病は第1伸筋区画での狭窄性腱鞘炎である。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「腱鞘炎について正しいのはどれか。2つ選べ。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "間違い。強剛母指では母指IP関節の伸展が制限される。MP関節の伸展制限ではない。",
+      "正しい。透析患者にみられる手指の弾発現象は、屈筋腱鞘の滑膜が肥厚して腱の通過を妨げることで起こる。",
+      "正しい。ド・ケルバン病は、短母指外転筋腱と短母指伸筋腱が通る第1伸筋区画に生じる狭窄性腱鞘炎である。",
+      "間違い。交叉性腱鞘炎は、第1伸筋区画の腱と第2伸筋区画の腱が交叉する部位で摩擦を起こして生じる。短母指伸筋腱と尺側手根伸筋腱との摩擦ではない。"
     ],
     "original_question_id": "24de2b3fbb3f6cd9",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q135",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:24de2b3fbb3f6cd9",
+    "reviewQuestionId": "24de2b3fbb3f6cd9",
+    "sourceRecordRef": "question_2004_6.json#9",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "腱鞘炎の病態、腱鞘区画、関節運動に関する医学・解剖学の問題であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "腱鞘炎に関する医学・解剖学の記述であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の医学・解剖学問題として解説する。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学・解剖学の問題であり、法令改訂による正答影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "腱鞘炎に関する医学・解剖学の記述であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の医学・解剖学問題として解説する。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学・解剖学の問題であり、法令改訂による正答影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "腱鞘炎に関する医学・解剖学の記述であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の医学・解剖学問題として解説する。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学・解剖学の問題であり、法令改訂による正答影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "腱鞘炎に関する医学・解剖学の記述であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の医学・解剖学問題として解説する。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学・解剖学の問題であり、法令改訂による正答影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。保存療法では足関節を底屈位、いわゆる自然下垂位で固定する。",
-      "間違い。手術療法が保存療法の半分の期間で必ず復帰できるわけではない。",
-      "間違い。アキレス腱周囲炎がそのまま断裂に移行しやすいとはいえない。",
-      "間違い。好発は接触スポーツよりジャンプや踏み込みを伴う場面である。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「保存療法では足関節自然下垂位で固定する。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「アキレス腱断裂について正しいのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。",
+      "間違い。手術療法で保存療法の約半分の期間でスポーツ復帰できるとは限らず、復帰時期は治療方法だけで一律には決まらない。",
+      "間違い。アキレス腱周囲炎がアキレス腱断裂へ移行しやすいとはいえず、両者を直接結び付けることはできない。",
+      "間違い。アキレス腱断裂はラグビーなどのコンタクトスポーツに限って多いわけではなく、バドミントンなどの跳躍や踏み込みを伴うスポーツでも起こりやすい。"
     ],
     "original_question_id": "cbb9a89e018daf22",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q136",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:cbb9a89e018daf22",
+    "reviewQuestionId": "cbb9a89e018daf22",
+    "sourceRecordRef": "question_2004_6.json#10",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "アキレス腱断裂の病態、保存療法、手術療法および好発スポーツに関する医学的問題であり、法令根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識を問う問題であり、法令による正誤判定は不要である。",
+          "promptContext": "アキレス腱断裂の保存療法、治療法、病態および好発スポーツを問う。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識を問う問題であり、法令による正誤判定は不要である。",
+          "promptContext": "アキレス腱断裂の保存療法、治療法、病態および好発スポーツを問う。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識を問う問題であり、法令による正誤判定は不要である。",
+          "promptContext": "アキレス腱断裂の保存療法、治療法、病態および好発スポーツを問う。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識を問う問題であり、法令による正誤判定は不要である。",
+          "promptContext": "アキレス腱断裂の保存療法、治療法、病態および好発スポーツを問う。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。腰椎椎間板炎なら骨硬化像と多発集積の所見は合いにくい。",
-      "間違い。肝癌骨転移より骨硬化像を示す前立腺癌骨転移が典型である。",
-      "正しい。前立腺癌骨転移では骨硬化像と骨シンチの多発集積を示しやすい。",
-      "間違い。腰椎分離症ではこのような広範な骨硬化像にはならない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「前立腺癌骨転移」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「65歳の男性。４ヶ月前から腰痛あり近医受診。腰痛症と診断され鎮痛剤の投与を受ける。しかし腰痛は増悪し、頑固な疼痛となり専門医を受診。単純エックス線で第2・第3腰椎全体に骨硬化像を認めるも変形は少ない。骨シンチグラムでは多発性の集積像を認める。考えられるのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。65歳男性の増悪する腰痛に加え、第2・第3腰椎全体の骨硬化像と骨シンチグラムの多発集積を認めるため、前立腺癌骨転移が最も考えられる。前立腺癌の骨転移は造骨性で骨硬化像を示しやすく、骨シンチグラムでは骨形成が盛んな部位に多発集積を示す。椎間板炎や腰椎分離症ではこの所見の組合せは典型的でなく、肝癌骨転移は一般に溶骨性が中心である。"
     ],
     "original_question_id": "2c86578dd39eef50",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q137",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:2c86578dd39eef50",
+    "reviewQuestionId": "2c86578dd39eef50",
+    "sourceRecordRef": "question_2004_6.json#11",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨硬化像と骨シンチグラムの多発集積から疾患を鑑別する臨床医学の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "臨床医学の所見から判断する問題で、法令根拠は不要。",
+          "promptContext": "柔道整復師の臨床医学問題として、法令監査を要しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床医学の問題で法令・制度の監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "臨床医学の所見から判断する問題で、法令根拠は不要。",
+          "promptContext": "柔道整復師の臨床医学問題として、法令監査を要しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床医学の問題で法令・制度の監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "臨床医学の所見から判断する問題で、法令根拠は不要。",
+          "promptContext": "柔道整復師の臨床医学問題として、法令監査を要しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床医学の問題で法令・制度の監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "臨床医学の所見から判断する問題で、法令根拠は不要。",
+          "promptContext": "柔道整復師の臨床医学問題として、法令監査を要しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床医学の問題で法令・制度の監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "scenario_application",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。腰掛け座位は前傾立位より椎間板内圧が高くなりにくい。",
-      "間違い。側臥位は椎間板内圧が低い。",
-      "間違い。直立立位より前傾で負荷が増える。",
-      "正しい。前傾立位では腰椎前方への負荷が増え、椎間板内圧が最も高くなりやすい。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「前傾立位」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「第4・第5腰椎間の椎間板内圧が最も高くなる姿勢はどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。前傾立位では体幹の重心が前方へ移り、腰椎周囲の筋や組織に大きな力が必要になるため、直立立位や側臥位より腰椎の椎間板内圧が高くなる。腰椎の前屈に伴って負荷が増すしくみを理解して、最も内圧が高くなる姿勢を判断する。"
     ],
     "original_question_id": "a4e41c43f98089c6",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q138",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:a4e41c43f98089c6",
+    "reviewQuestionId": "a4e41c43f98089c6",
+    "sourceRecordRef": "question_2004_6.json#12",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "姿勢による腰椎椎間板内圧の生体力学を問う技術問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は対象外。",
+          "displayRefIds": [],
+          "explanationText": "姿勢と椎間板内圧の生体力学に関する内容で、法令・制度の変更確認は不要。",
+          "promptContext": "柔道整復師の生体力学に関する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は対象外。",
+          "displayRefIds": [],
+          "explanationText": "姿勢と椎間板内圧の生体力学に関する内容で、法令・制度の変更確認は不要。",
+          "promptContext": "柔道整復師の生体力学に関する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は対象外。",
+          "displayRefIds": [],
+          "explanationText": "姿勢と椎間板内圧の生体力学に関する内容で、法令・制度の変更確認は不要。",
+          "promptContext": "柔道整復師の生体力学に関する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は対象外。",
+          "displayRefIds": [],
+          "explanationText": "姿勢と椎間板内圧の生体力学に関する内容で、法令・制度の変更確認は不要。",
+          "promptContext": "柔道整復師の生体力学に関する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。好発は示指ではなく環指・小指側である。",
-      "間違い。強い拘縮では保存療法より手術が検討される。",
-      "間違い。術後再発は少なくない。",
-      "正しい。手掌腱膜の肥厚・収縮により指が屈曲拘縮を起こす。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「手掌腱膜の肥厚・収縮による指の屈曲拘縮である。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「デュピュイトラン（Dupuytren）拘縮について正しいものはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "間違い。好発部位は示指ではなく、環指と小指である。",
+      "間違い。運動障害が強い場合は保存療法ではなく、手術療法が検討される。",
+      "間違い。手術後も再発することがあり、再発はほとんど見られないわけではない。",
+      "正しい。"
     ],
     "original_question_id": "0c77a651e42fda86",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q139",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:0c77a651e42fda86",
+    "reviewQuestionId": "0c77a651e42fda86",
+    "sourceRecordRef": "question_2004_6.json#13",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "純粋な整形外科の病態・治療・予後に関する問題で、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令・制度上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "示指ではなく環指と小指に好発する病態上の知識であり、法令・制度の判断ではない。",
+          "promptContext": "整形外科の病態問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令・制度上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "運動障害が強い場合の治療選択に関する整形外科上の知識であり、法令・制度の判断ではない。",
+          "promptContext": "整形外科の治療問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令・制度上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "手術後の再発に関する臨床的知識であり、法令・制度の判断ではない。",
+          "promptContext": "整形外科の予後問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令・制度上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "手掌腱膜の肥厚・収縮による指の屈曲拘縮という病態定義であり、法令・制度の判断ではない。",
+          "promptContext": "整形外科の病態定義問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -451,302 +1683,1208 @@
   },
   {
     "explanationText": [
-      "正しい。復職はリハビリテーションの目的に含まれる。",
-      "正しい。復権も本来の権利や地位の回復を意味する。",
-      "正しい。名誉回復も rehab の語義に含まれる。",
-      "間違い。機能訓練はリハビリの手段であって語義そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「復職」「復権」「名誉回復」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「リハビリテーションの意味で適切でないのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。リハビリテーションには、病気や障害によって失われた職業上の役割を回復し、復職を目指すことが含まれる。",
+      "正しい。リハビリテーションの語義には、失われた権利や社会的な立場を回復する「復権」も含まれる。",
+      "正しい。リハビリテーションは、傷病などによって損なわれた名誉を回復する「名誉回復」の意味も持つ。",
+      "間違い。正しくは、機能訓練はリハビリテーションを進めるための手段の一つであり、リハビリテーションの語義そのものではない。"
     ],
     "original_question_id": "4dbb401195bbcc50",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q141",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:4dbb401195bbcc50",
+    "reviewQuestionId": "4dbb401195bbcc50",
+    "sourceRecordRef": "question_2004_6.json#15",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "リハビリテーションの語義と機能訓練の位置づけを問う医学・一般概念の問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学・一般概念の用語問題であり、法令改正による正誤への影響はない。",
+          "promptContext": "リハビリテーションの語義と機能訓練との違いを判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学・一般概念の用語問題であり、法令改正による正誤への影響はない。",
+          "promptContext": "リハビリテーションの語義と機能訓練との違いを判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学・一般概念の用語問題であり、法令改正による正誤への影響はない。",
+          "promptContext": "リハビリテーションの語義と機能訓練との違いを判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学・一般概念の用語問題であり、法令改正による正誤への影響はない。",
+          "promptContext": "リハビリテーションの語義と機能訓練との違いを判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。ブローカ失語は表出障害が主体で、理解は比較的保たれる。",
-      "正しい。ウェルニッケ失語では言語理解が強く障害される。",
-      "間違い。伝導失語は復唱障害が主体で理解は比較的保たれる。",
-      "間違い。健忘失語は喚語困難が主体で、理解障害が主ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「ウェルニッケ失語」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「言語の理解力が強く障害されるのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。言語の理解力が強く障害されるのはウェルニッケ失語である。ウェルニッケ失語では、流暢に話せても話の内容がまとまりにくく、言葉の意味を理解する力が大きく低下する。ブローカ失語は発話が非流暢になる一方で理解は比較的保たれ、伝導失語は復唱障害が目立つ。健忘失語は言葉を思い出しにくくなる喚語困難が中心で、理解障害が主ではない。"
     ],
     "original_question_id": "a37d03ea8d4123e1",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q142",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:a37d03ea8d4123e1",
+    "reviewQuestionId": "a37d03ea8d4123e1",
+    "sourceRecordRef": "question_2004_6.json#16",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "失語症の病型と症状を問う医学知識の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は失語症の病型に関する医学知識であり、法令根拠を要しない。",
+          "promptContext": "失語症の病型の正誤判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はウェルニッケ失語の特徴に関する医学知識であり、法令根拠を要しない。",
+          "promptContext": "失語症の病型の正誤判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は失語症の病型に関する医学知識であり、法令根拠を要しない。",
+          "promptContext": "失語症の病型の正誤判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は失語症の病型に関する医学知識であり、法令根拠を要しない。",
+          "promptContext": "失語症の病型の正誤判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。形態異常は神経発達的アプローチより生体力学的・外科的な対応が中心である。",
-      "正しい。機能障害には生体力学的アプローチが対応する。",
-      "正しい。能力低下には代償的アプローチが対応する。",
-      "正しい。社会的不利には環境整備的アプローチが対応する。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「機能障害 ─── 生体力学的アプローチ」「能力低下 ─── 代償的アプローチ」「社会的不利 ─── 環境整備的アプローチ」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「障害と治療アプローチとの組合せで誤っているのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "間違い。形態異常には、構造面の問題に対応する生体力学的アプローチなどを用いる。神経発達的アプローチは、神経・運動機能の改善を目的とするため、形態異常との組合せではない。",
+      "正しい。",
+      "正しい。",
+      "正しい。"
     ],
     "original_question_id": "429b5c8c07328f17",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q143",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:429b5c8c07328f17",
+    "reviewQuestionId": "429b5c8c07328f17",
+    "sourceRecordRef": "question_2004_6.json#17",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "障害分類と治療アプローチの対応を問う技術・医学知識の問題であり、法令根拠は不要です。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "形態異常と治療アプローチの対応関係を扱う。",
+          "promptContext": "法令・制度ではなく技術・医学知識の問題。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術事項のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "機能障害と治療アプローチの対応関係を扱う。",
+          "promptContext": "法令・制度ではなく技術・医学知識の問題。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術事項のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "能力低下と治療アプローチの対応関係を扱う。",
+          "promptContext": "法令・制度ではなく技術・医学知識の問題。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術事項のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "社会的不利と治療アプローチの対応関係を扱う。",
+          "promptContext": "法令・制度ではなく技術・医学知識の問題。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術事項のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。ADL改善は能力低下への対応の代表例である。",
-      "間違い。家屋改造は環境整備に当たる。",
-      "正しい。残存機能の利用は能力低下への基本対応である。",
-      "正しい。自助具・補装具の使用も能力低下を補う。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「日常生活動作の改善」「残存機能の利用」「自助具・補装具の使用」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「能力低下への対応で適切でないのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。",
+      "間違い。家屋改造は能力低下そのものではなく、能力低下によって生じる生活上の制限や環境との不適合に対応する方法である。",
+      "正しい。",
+      "正しい。"
     ],
     "original_question_id": "fc83bb6fb99a1a7d",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q144",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:fc83bb6fb99a1a7d",
+    "reviewQuestionId": "fc83bb6fb99a1a7d",
+    "sourceRecordRef": "question_2004_6.json#18",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "リハビリテーション上の能力低下への対応を問う問題で、法令・制度条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "能力低下への対応に関する技術的内容である。",
+          "promptContext": "柔道整復師のリハビリテーション分野の設問。",
+          "refs": [],
+          "verdict": "法令論点なし"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "能力低下そのものへの対応と、環境への対応の違いを問う内容である。",
+          "promptContext": "柔道整復師のリハビリテーション分野の設問。",
+          "refs": [],
+          "verdict": "法令論点なし"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "残存機能の利用に関する技術的内容である。",
+          "promptContext": "柔道整復師のリハビリテーション分野の設問。",
+          "refs": [],
+          "verdict": "法令論点なし"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "自助具・補装具の使用に関する技術的内容である。",
+          "promptContext": "柔道整復師のリハビリテーション分野の設問。",
+          "refs": [],
+          "verdict": "法令論点なし"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。首がすわるのはおよそ4か月。",
-      "正しい。寝返りをするのはおよそ5か月。",
-      "正しい。支えなしで坐るのはおよそ7か月。",
-      "間違い。つかまり立ちは11か月より早い時期にみられる。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「首がすわる ─── ４か月」「寝返りをする ─── ５か月」「支えなしで坐る ─── ７か月」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「運動発達とその時期との組合せで誤っているのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。",
+      "正しい。",
+      "正しい。",
+      "間違い。標準的な発達の目安では、つかまり立ちは生後9か月頃にみられるため、11か月とする組合せが誤りである。"
     ],
     "original_question_id": "eebeefb3d53373ba",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q145",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:eebeefb3d53373ba",
+    "reviewQuestionId": "eebeefb3d53373ba",
+    "sourceRecordRef": "question_2004_6.json#19",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "乳幼児の運動発達の標準的な時期を問う知識問題であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "乳幼児の運動発達の標準的な時期を問う知識問題であり、法令根拠は不要。",
+          "promptContext": "法令・制度ではなく、乳幼児の運動発達に関する標準的な時期の知識を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度問題ではないため、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "乳幼児の運動発達の標準的な時期を問う知識問題であり、法令根拠は不要。",
+          "promptContext": "法令・制度ではなく、乳幼児の運動発達に関する標準的な時期の知識を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度問題ではないため、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "乳幼児の運動発達の標準的な時期を問う知識問題であり、法令根拠は不要。",
+          "promptContext": "法令・制度ではなく、乳幼児の運動発達に関する標準的な時期の知識を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度問題ではないため、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "乳幼児の運動発達の標準的な時期を問う知識問題であり、法令根拠は不要。",
+          "promptContext": "法令・制度ではなく、乳幼児の運動発達に関する標準的な時期の知識を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度問題ではないため、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。ペグボードは手指巧緻性訓練に用いる。",
-      "正しい。ネジ締め作業は前腕回内外や筋力訓練に使える。",
-      "正しい。彫金は手指屈筋群の持久力改善に使う。",
-      "間違い。サンディング訓練は主に上肢・肩帯の協調運動に用いる。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「手指巧緻性訓練のためにペグボードを用いる。」「前腕回上筋の筋力増強のためにネジ締め作業を行う。」「手指屈筋群の持久力改善のために彫金による表札作りを行う。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「右利き患者に対する作業療法の訓練で適切でないのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。ペグボードは、穴への挿入と取り外しを繰り返して手指の巧緻性を高める訓練に用いる。",
+      "正しい。ネジ締め作業は前腕の回旋を伴うため、前腕回上筋の筋力増強訓練に用いる。",
+      "正しい。彫金による表札作りは手指を繰り返し使うため、手指屈筋群の持久力改善に用いる。",
+      "間違い。サンディング訓練は主に上肢・肩帯の協調運動に用いるため、手指の協調運動の訓練とする対応が誤りである。"
     ],
     "original_question_id": "dc6a2b53aed3124a",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q146",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:dc6a2b53aed3124a",
+    "reviewQuestionId": "dc6a2b53aed3124a",
+    "sourceRecordRef": "question_2004_6.json#20",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "作業療法における訓練器具と目的の対応を問う技術的な問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ペグボードは手指巧緻性訓練に用いる。",
+          "promptContext": "作業療法の訓練目的を比較する問題。",
+          "refs": [],
+          "verdict": "技術肢のため法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識上の判定は出題時と現行で同じ。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "ネジ締め作業は前腕の回旋を伴い、前腕回上筋の筋力増強訓練に用いる。",
+          "promptContext": "作業療法の訓練目的を比較する問題。",
+          "refs": [],
+          "verdict": "技術肢のため法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識上の判定は出題時と現行で同じ。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "彫金による表札作りは手指を繰り返し使い、手指屈筋群の持久力改善に用いる。",
+          "promptContext": "作業療法の訓練目的を比較する問題。",
+          "refs": [],
+          "verdict": "技術肢のため法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識上の判定は出題時と現行で同じ。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "サンディング訓練は主に上肢・肩帯の協調運動に用いるため、手指の協調運動の訓練とする対応が誤りである。",
+          "promptContext": "作業療法の訓練目的を比較する問題。",
+          "refs": [],
+          "verdict": "技術肢のため法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識上の判定は出題時と現行で同じ。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。ダーメンコルセットは腰部脊柱管狭窄症の代表的処方ではない。",
-      "間違い。テイラー型体幹装具はこの疾患の代表的装具ではない。",
-      "間違い。ナイト型体幹装具はこの疾患の代表的装具ではない。",
-      "正しい。ウィリアムズ型体幹装具は前屈位を取りやすく、腰部脊柱管狭窄症に処方される。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「ウィリアムズ型体幹装具」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「腰部脊柱管狭窄症に処方されるのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。腰部脊柱管狭窄症では、腰椎を前屈位に保ちやすいウィリアムズ型体幹装具が処方される。腰椎を伸展させると脊柱管が狭くなりやすいため、前屈位をとりやすくする装具が適している。"
     ],
     "original_question_id": "6e6130a0e6125301",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q147",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:6e6130a0e6125301",
+    "reviewQuestionId": "6e6130a0e6125301",
+    "sourceRecordRef": "question_2004_6.json#21",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "腰部脊柱管狭窄症に対する装具適応を問う臨床的な問題で、法令条文や制度上の義務・基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在の法令差を確認する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "装具の適応を問う臨床知識で、法令上の正誤判定を要しない。",
+          "promptContext": "腰部脊柱管狭窄症に対する装具適応の問題。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床知識の選択肢であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在の法令差を確認する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "装具の適応を問う臨床知識で、法令上の正誤判定を要しない。",
+          "promptContext": "腰部脊柱管狭窄症に対する装具適応の問題。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床知識の選択肢であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在の法令差を確認する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "装具の適応を問う臨床知識で、法令上の正誤判定を要しない。",
+          "promptContext": "腰部脊柱管狭窄症に対する装具適応の問題。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床知識の選択肢であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在の法令差を確認する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "装具の適応を問う臨床知識で、法令上の正誤判定を要しない。",
+          "promptContext": "腰部脊柱管狭窄症に対する装具適応の問題。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床知識の選択肢であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。車椅子は足の代用となる。",
-      "正しい。車椅子は移動用具である。",
-      "間違い。車椅子は坐位保持だけを目的とするものではない。",
-      "正しい。車椅子は社会参加を支える移動手段として位置づけられる。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「足の代用」「移動用具」「健常者との共生」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「車椅子の目的でないのはどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "正しい。",
+      "正しい。",
+      "間違い。正しくは、車椅子は移動を補助する用具であり、坐位保持だけを目的とする機器ではない。",
+      "正しい。"
     ],
     "original_question_id": "c834a19b7f6bec37",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q148",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:c834a19b7f6bec37",
+    "reviewQuestionId": "c834a19b7f6bec37",
+    "sourceRecordRef": "question_2004_6.json#22",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "車椅子の目的を問う機能・福祉工学の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "車椅子の目的に関する技術的記述であり、法令根拠は不要である。",
+          "promptContext": "車椅子の目的を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度の根拠を要しない機能・福祉工学の選択肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "車椅子の目的に関する技術的記述であり、法令根拠は不要である。",
+          "promptContext": "車椅子の目的を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度の根拠を要しない機能・福祉工学の選択肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "車椅子の目的に関する技術的記述であり、法令根拠は不要である。",
+          "promptContext": "車椅子の目的を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度の根拠を要しない機能・福祉工学の選択肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "車椅子の目的に関する技術的記述であり、法令根拠は不要である。",
+          "promptContext": "車椅子の目的を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度の根拠を要しない機能・福祉工学の選択肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。stage 2 では手指屈曲が明瞭に出るとはいえない。",
-      "間違い。stage 3 は集団指伸展ではなく握りが中心である。",
-      "正しい。stage 4 では横つまみが可能になる。",
-      "正しい。stage 5 では手掌つまみが可能になる。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「4では横つまみは可能である。」「5では手掌つまみは可能である。」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「手指のブルンストロームステージで誤っているのはどれか。2つ選べ。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "間違い。stage 2では、随意的な指屈曲はわずかに出るか、ほとんどできない。明瞭な指屈曲が可能な段階とするのは不適切である。",
+      "間違い。stage 3では指の集団屈曲や鉤形握りは可能になるが、随意的な集団指伸展はまだできない。",
+      "正しい。",
+      "正しい。"
     ],
     "original_question_id": "bb9cc4a4977b61cc",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q149",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:bb9cc4a4977b61cc",
+    "reviewQuestionId": "bb9cc4a4977b61cc",
+    "sourceRecordRef": "question_2004_6.json#23",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://www.pref.yamaguchi.lg.jp/uploaded/attachment/205962.pdf",
+        "title": "片麻痺に対するブルンストロームステージ"
+      }
+    ],
+    "isLawRelated": false,
+    "lawContextForExplanation": "手指のブルンストロームステージにおける随意運動・つまみ動作の評価を問う医学的な問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "手指のブルンストロームステージは医学的な運動機能評価であり、法令根拠を要しない。",
+          "promptContext": "法令工程の対象外として処理する。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的評価の問題であり、法令改廃による差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "手指のブルンストロームステージは医学的な運動機能評価であり、法令根拠を要しない。",
+          "promptContext": "法令工程の対象外として処理する。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的評価の問題であり、法令改廃による差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "手指のブルンストロームステージは医学的な運動機能評価であり、法令根拠を要しない。",
+          "promptContext": "法令工程の対象外として処理する。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的評価の問題であり、法令改廃による差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "手指のブルンストロームステージは医学的な運動機能評価であり、法令根拠を要しない。",
+          "promptContext": "法令工程の対象外として処理する。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的評価の問題であり、法令改廃による差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。上衣着脱には手指機能が足りず、C5レベルでは難しい。",
-      "間違い。寝返りには体幹や手の支持が必要で、C5レベルでは難しい。",
-      "間違い。プッシュアップには肘伸展筋力が必要で、C5では困難である。",
-      "正しい。自助具を用いた食事はC5残存なら可能性が高い。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「自助具を用いた食事」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「18歳の男性。交通事故による頸椎脱臼骨折で観血的整復固定術を受けた。術後5か月経過し四肢麻痺であるが、第５頸髄節まで機能残存。1か月後に退院の予定である。可能な動作はどれか。」の条件と、各選択肢の定義・病態・関係を照合することです。"
-      }
+      "間違い。C5残存では肩や肘を使えても手指機能と体幹機能が十分でないため、上衣の着脱を自立して行うのは難しい。",
+      "間違い。ベッド上の寝返りには体幹筋や上肢で身体を支える力が必要であり、C5残存では自立して行うのは難しい。",
+      "間違い。プッシュアップは肘を伸ばして身体を持ち上げる動作で、上腕三頭筋の働きを要するため、C5残存ではできない。",
+      "正しい。C5残存で使える肩や肘の動きに自助具を組み合わせれば、食事動作は可能である。"
     ],
     "original_question_id": "658d22060722995c",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q150",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2004:658d22060722995c",
+    "reviewQuestionId": "658d22060722995c",
+    "sourceRecordRef": "question_2004_6.json#24",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "第5頸髄節残存時の身体機能と自助具を用いた食事動作を判断する医学・リハビリテーション上の問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "医学・リハビリテーション上の身体機能判定であり、法令根拠は不要である。",
+          "promptContext": "第5頸髄節残存時に可能な動作を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "医学・リハビリテーション上の身体機能判定であり、法令根拠は不要である。",
+          "promptContext": "第5頸髄節残存時に可能な動作を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "医学・リハビリテーション上の身体機能判定であり、法令根拠は不要である。",
+          "promptContext": "第5頸髄節残存時に可能な動作を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "医学・リハビリテーション上の身体機能判定であり、法令根拠は不要である。",
+          "promptContext": "第5頸髄節残存時に可能な動作を判断する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "scenario_application",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

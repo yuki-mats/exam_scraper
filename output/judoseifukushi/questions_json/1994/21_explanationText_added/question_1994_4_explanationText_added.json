@@ -3,121 +3,467 @@
     "original_question_id": "b01ddcd5ebd38818",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q76",
     "explanationText": [
-      "間違い。\n\n腎不全ではナトリウム・水分の排泄低下により体液が貯留し、浮腫の原因となる。",
-      "間違い。\n\nリンパ管がフィラリアにより閉塞されるとリンパ還流が障害され、リンパ浮腫を起こす。",
-      "間違い。\n\n低タンパク血症では血漿膠質浸透圧が低下し、血管内から間質へ水分が移動して浮腫を生じる。",
-      "正しい。\n\n大量出血では循環血液量が減少し、ショックの原因となる。浮腫の直接原因としては典型的でない。"
+      "間違い。腎不全ではナトリウムや水分の排泄が低下し、体液が体内にたまるため浮腫の原因となる。",
+      "間違い。リンパ管がフィラリア原虫によって閉塞するとリンパ液の流れが滞り、リンパ浮腫を生じる。",
+      "間違い。低タンパク血症では血漿の膠質浸透圧が低下し、血管内の水分が組織間へ移動しやすくなるため浮腫を生じる。",
+      "正しい。大量出血は循環血液量を減少させ、主に出血性ショックの原因となる。浮腫を生じさせる病態ではない。"
     ],
-    "suggestedQuestions": [
-      "低タンパク血症で浮腫が起こる理由は何ですか？",
-      "リンパ管閉塞で生じる浮腫は何ですか？",
-      "大量出血で主に問題となる循環障害は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1994:b01ddcd5ebd38818",
+    "reviewQuestionId": "b01ddcd5ebd38818",
+    "sourceRecordRef": "question_1994_4.json#0",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "浮腫の病態生理を問う問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "低タンパク血症で浮腫が起こる理由は何ですか？",
-        "answer": "血漿膠質浸透圧が低下し、水分が間質へ移動しやすくなるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "腎不全による体液貯留は浮腫の原因となる。",
+          "promptContext": "浮腫の原因を病態生理から判断する。",
+          "refs": [],
+          "verdict": "法令・制度の論点ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "リンパ管閉塞で生じる浮腫は何ですか？",
-        "answer": "リンパ浮腫である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "フィラリア原虫によるリンパ管閉塞はリンパ浮腫の原因となる。",
+          "promptContext": "浮腫の原因を病態生理から判断する。",
+          "refs": [],
+          "verdict": "法令・制度の論点ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "大量出血で主に問題となる循環障害は何ですか？",
-        "answer": "循環血液量減少によるショックである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "低タンパク血症による血漿膠質浸透圧の低下は浮腫の原因となる。",
+          "promptContext": "浮腫の原因を病態生理から判断する。",
+          "refs": [],
+          "verdict": "法令・制度の論点ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "大量出血は主に循環血液量減少と出血性ショックをもたらし、浮腫の直接原因ではない。",
+          "promptContext": "浮腫の原因を病態生理から判断する。",
+          "refs": [],
+          "verdict": "法令・制度の論点ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "a1d211396c4b8c0c",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q77",
     "explanationText": [
-      "正しい。\n\nアレルギー反応は発現時間から即時型と遅延型に大きく分けられる。",
-      "間違い。\n\nアナフィラキシー型はIgE抗体と肥満細胞の反応が中心で、補体を必須とする反応ではない。",
-      "正しい。\n\n花粉症はIgEが関与するI型アレルギーの代表例である。",
-      "正しい。\n\nペニシリン・ショックは薬物によるアナフィラキシー反応として起こり得る。"
+      "正しい。",
+      "間違い。正しくは、アナフィラキシー型はIgE抗体と肥満細胞が関与するI型アレルギーであり、補体を必須としない。",
+      "正しい。花粉症はIgEが関与するI型アレルギーの代表例である。",
+      "正しい。ペニシリン・ショックは、ペニシリンに対するアレルギーによって起こるアナフィラキシー反応である。"
     ],
-    "suggestedQuestions": [
-      "I型アレルギーに主に関与する抗体は何ですか？",
-      "花粉症は何型アレルギーですか？",
-      "補体が関与しやすいアレルギー型はどれですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1994:a1d211396c4b8c0c",
+    "reviewQuestionId": "a1d211396c4b8c0c",
+    "sourceRecordRef": "question_1994_4.json#1",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "アレルギー反応の分類と免疫学的機序を問う医学基礎問題で、法令・制度上の根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "I型アレルギーに主に関与する抗体は何ですか？",
-        "answer": "IgE抗体である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学基礎知識に基づく選択肢であり、法令の確認対象ではない。",
+          "promptContext": "アレルギー反応の分類に関する医学基礎問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "花粉症は何型アレルギーですか？",
-        "answer": "I型アレルギーである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "アナフィラキシー型の免疫機序に関する医学基礎知識であり、法令の確認対象ではない。",
+          "promptContext": "アレルギー反応の免疫学的機序に関する医学基礎問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "補体が関与しやすいアレルギー型はどれですか？",
-        "answer": "II型やIII型アレルギーで関与しやすい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "花粉症とI型アレルギーの関係に関する医学基礎知識であり、法令の確認対象ではない。",
+          "promptContext": "アレルギー反応の分類に関する医学基礎問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "ペニシリン・ショックとアナフィラキシー反応の関係に関する医学基礎知識であり、法令の確認対象ではない。",
+          "promptContext": "アレルギー反応の分類に関する医学基礎問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "ac5789ee6ddc3d76",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q78",
     "explanationText": [
-      "間違い。\n\nバージャー病は血栓性閉塞性血管炎であり、一過性収縮による手指阻血はレイノー病でみられる。",
-      "間違い。\n\nレイノー病は寒冷や精神的刺激で小動脈が一過性に攣縮する病態で、血栓性閉塞が本態ではない。",
-      "正しい。\n\n充血は中小動脈の拡張により、局所に流入する動脈血が増加した状態である。",
-      "間違い。\n\n潜函病は急激な減圧で血液中に窒素気泡が生じる気体塞栓である。脂肪塞栓ではない。"
+      "間違い。正しくは、バージャー病は血栓性閉塞性血管炎である。一過性の小動脈攣縮による手指の阻血を起こすのはレイノー病である。",
+      "間違い。正しくは、レイノー病は寒冷や精神的刺激による小動脈の一過性攣縮である。血栓性の動脈閉塞を起こす病態ではない。",
+      "正しい。",
+      "間違い。正しくは、潜函病は急激な減圧によって血液中に生じた窒素気泡による気体塞栓である。脂肪塞栓ではない。"
     ],
-    "suggestedQuestions": [
-      "充血とはどのような状態ですか？",
-      "レイノー病の主な病態は何ですか？",
-      "潜函病で問題となる塞栓は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1994:ac5789ee6ddc3d76",
+    "reviewQuestionId": "ac5789ee6ddc3d76",
+    "sourceRecordRef": "question_1994_4.json#2",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "病理学・医学知識の問題であり、法令条文や制度上の義務を正誤判定の根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "充血とはどのような状態ですか？",
-        "answer": "動脈拡張により局所の動脈血流が増える状態である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "バージャー病は血栓性閉塞性血管炎であり、一過性の小動脈攣縮ではない。",
+          "promptContext": "病理学・医学知識の問題。",
+          "refs": [],
+          "verdict": "医学知識の選択肢であり、法令監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "レイノー病の主な病態は何ですか？",
-        "answer": "小動脈の一過性攣縮による手指の阻血である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "レイノー病は小動脈の一過性攣縮であり、血栓性動脈閉塞ではない。",
+          "promptContext": "病理学・医学知識の問題。",
+          "refs": [],
+          "verdict": "医学知識の選択肢であり、法令監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "潜函病で問題となる塞栓は何ですか？",
-        "answer": "窒素気泡による気体塞栓である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "充血は中小動脈の拡張によって局所の動脈血流が増加した状態である。",
+          "promptContext": "病理学・医学知識の問題。",
+          "refs": [],
+          "verdict": "医学知識の選択肢であり、法令監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "潜函病は窒素気泡による気体塞栓であり、脂肪塞栓ではない。",
+          "promptContext": "病理学・医学知識の問題。",
+          "refs": [],
+          "verdict": "医学知識の選択肢であり、法令監査の対象外。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "922086b13b9bbdae",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q79",
     "explanationText": [
-      "正しい。\n\nWHO憲章では、到達し得る最高水準の健康を享受することはすべての人の基本的権利であるとされる。",
-      "正しい。\n\n健康の権利は人種、宗教、政治的信条、経済的・社会的条件によって左右されない。",
-      "間違い。\n\n健康の基本的権利は国の政治的信条によって異なるものではない。",
-      "正しい。\n\n健康は平和と安全を達成するための基礎として位置付けられている。"
+      "正しい。",
+      "正しい。",
+      "間違い。健康を享受する権利は、政治的信条によって異ならず、すべての人に認められる。",
+      "正しい。WHO憲章は、健康が平和と安寧の達成に不可欠だとしている。"
     ],
-    "suggestedQuestions": [
-      "WHO憲章で健康の享受は何とされていますか？",
-      "健康の権利は政治的信条で左右されますか？",
-      "WHOの健康概念は身体面だけですか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1994:922086b13b9bbdae",
+    "reviewQuestionId": "922086b13b9bbdae",
+    "sourceRecordRef": "question_1994_4.json#3",
+    "explanationReferences": [
       {
-        "question": "WHO憲章で健康の享受は何とされていますか？",
-        "answer": "すべての人の基本的権利である。"
-      },
-      {
-        "question": "健康の権利は政治的信条で左右されますか？",
-        "answer": "左右されない。"
-      },
-      {
-        "question": "WHOの健康概念は身体面だけですか？",
-        "answer": "身体的、精神的、社会的に良好な状態を含む。"
+        "referenceDate": "1946-07-22",
+        "sourceUrl": "https://www.who.int/about/governance/constitution",
+        "title": "世界保健機関（WHO）憲章"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "isLawRelated": false,
+    "lawContextForExplanation": "WHO憲章に基づく健康概念の知識問題であり、国内法令を根拠とする解説は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "WHO憲章の基本原則に関する知識問題であり、法令改正監査の対象外。",
+          "promptContext": "国内法令ではなく、WHO憲章の健康に関する基本原則を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "WHO憲章の基本原則に関する知識問題であり、法令改正監査の対象外。",
+          "promptContext": "国内法令ではなく、WHO憲章の健康に関する基本原則を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "WHO憲章の基本原則に関する知識問題であり、法令改正監査の対象外。",
+          "promptContext": "国内法令ではなく、WHO憲章の健康に関する基本原則を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "WHO憲章の基本原則に関する知識問題であり、法令改正監査の対象外。",
+          "promptContext": "国内法令ではなく、WHO憲章の健康に関する基本原則を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "800a361f336be082",
@@ -153,31 +499,185 @@
     "original_question_id": "6edc15a54cc546c1",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q81",
     "explanationText": [
-      "正しい。\n\n鉛は人体への毒性が問題となるため、水道水の水質基準で規制対象となる。",
-      "正しい。\n\nシアンイオンは急性毒性が強く、水質基準で規制される代表的な有害物質である。",
-      "正しい。\n\n水銀は有害金属として水質基準で規制される。",
-      "間違い。\n\nこの出題では、有機リンは鉛・シアン・水銀のような許容量規定物質として扱われていない。"
+      "正しい。鉛は、水質基準に関する省令第1条の表で、鉛及びその化合物の量に関する基準値が定められている。",
+      "正しい。シアン化物イオン及び塩化シアンは、水質基準に関する省令第1条の表で、シアンの量に関する基準値が定められている。",
+      "正しい。水銀及びその化合物は、水質基準に関する省令第1条の表で、水銀の量に関する基準値が定められている。",
+      "間違い。有機リンは、平成4年当時の水質基準では「検出されないこと」とされ、許容量を数値で定める物質ではなかった。現行の水質基準に関する省令第1条の表にも有機リンは掲げられていないため、許容量が規定された物質とはいえない。"
     ],
-    "suggestedQuestions": [
-      "水道水質基準で規制される代表的な重金属は何ですか？",
-      "シアンイオンは水質上なぜ問題ですか？",
-      "水質基準の目的は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:1994:6edc15a54cc546c1",
+    "reviewQuestionId": "6edc15a54cc546c1",
+    "sourceRecordRef": "question_1994_4.json#5",
+    "explanationReferences": [
       {
-        "question": "水道水質基準で規制される代表的な重金属は何ですか？",
-        "answer": "鉛や水銀などである。"
+        "referenceDate": "1992-12-21",
+        "sourceUrl": "https://www.mhlw.go.jp/shingi/2002/09/dl/s0904-4c2.pdf",
+        "title": "水質基準に関する省令（平成四年厚生省令第六十九号）"
       },
       {
-        "question": "シアンイオンは水質上なぜ問題ですか？",
-        "answer": "急性毒性が強いためである。"
-      },
-      {
-        "question": "水質基準の目的は何ですか？",
-        "answer": "飲用水の安全性と衛生を確保することである。"
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/415M60000100101",
+        "title": "水質基準に関する省令（平成十五年厚生労働省令第百一号）"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "isLawRelated": true,
+    "lawContextForExplanation": "水道法第4条第2項に基づく水質基準に関する省令第1条の表を現行法の根拠とし、平成4年当時の水質基準は厚生省令第69号の官報資料と照合する。鉛、シアンイオン、水銀は許容量・基準値の対象で、有機リンは当時も現行も設問のいう許容量の対象ではない。",
+    "lawReferences": [
+      [
+        {
+          "article": "1",
+          "choiceIndex": 0,
+          "lawId": "415M60000100101",
+          "lawTitle": "水質基準に関する省令",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "1",
+          "choiceIndex": 1,
+          "lawId": "415M60000100101",
+          "lawTitle": "水質基準に関する省令",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "1",
+          "choiceIndex": 2,
+          "lawId": "415M60000100101",
+          "lawTitle": "水質基準に関する省令",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "1",
+          "choiceIndex": 3,
+          "lawId": "415M60000100101",
+          "lawTitle": "水質基準に関する省令",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点と現行時点で、鉛に許容量が定められている点は同じ。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する差はない。",
+          "displayRefIds": [],
+          "explanationText": "鉛は当時も現行も水質基準の基準値が定められている。",
+          "promptContext": "鉛に許容量が規定されているかを判定する。",
+          "refs": [],
+          "verdict": "試験時点と現行時点で正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点はシアンイオン、現行はシアン化物イオン及び塩化シアンと表記・構成が整理されているが、基準値が定められる点は同じ。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "名称と規定の整理はあるが、正誤に影響する差はない。",
+          "displayRefIds": [],
+          "explanationText": "シアンに関する基準値は当時も現行も水質基準に定められている。",
+          "promptContext": "シアンイオンに許容量が規定されているかを判定する。",
+          "refs": [],
+          "verdict": "試験時点と現行時点で正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点と現行時点で、水銀に許容量が定められている点は同じ。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "正誤に影響する差はない。",
+          "displayRefIds": [],
+          "explanationText": "水銀は当時も現行も水質基準の基準値が定められている。",
+          "promptContext": "水銀に許容量が規定されているかを判定する。",
+          "refs": [],
+          "verdict": "試験時点と現行時点で正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点と現行時点のいずれも、許容量が規定された物質とする記述は誤りである。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "平成4年当時は有機リンについて「検出されないこと」とされ、現行の水質基準に関する省令第1条の表には有機リンが掲げられていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "旧基準では規制対象だったが、現行基準では項目から外れている。",
+          "displayRefIds": [],
+          "explanationText": "有機リンは当時は検出されないこととされ、現行の水質基準には項目として掲げられていないため、許容量が規定された物質とはいえない。",
+          "promptContext": "有機リンに許容量が規定されているかを判定する。",
+          "refs": [],
+          "verdict": "試験時点と現行時点で間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "f09b10b0540f4ba9",
@@ -213,31 +713,116 @@
     "original_question_id": "2f97d4abd1c67be6",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q83",
     "explanationText": [
-      "正しい。\n\n昇汞水は古典的には皮膚・手指消毒に用いられた消毒薬である。ただし毒性が強く、現在は一般的な第一選択ではない。",
-      "間違い。\n\nエタノールは70〜80%程度で消毒効果が高い。40%では手指消毒用として不十分である。",
-      "間違い。\n\n石炭酸は毒性・刺激性が強く、8%石炭酸水は手指消毒に適さない。",
-      "正しい。\n\n逆性石鹸は皮膚・手指消毒に用いられる陽イオン界面活性剤である。"
+      "正しい。昇汞水は、古典的に皮膚や手指の消毒へ用いられた消毒薬である。",
+      "間違い。手指消毒に用いるエタノールは一般に70〜80％程度の濃度で、40％では十分な消毒効果を期待しにくい。",
+      "間違い。石炭酸は毒性や皮膚刺激性が強く、8％石炭酸水は手指消毒に適さない。",
+      "正しい。逆性石鹸は陽イオン界面活性剤で、手指や皮膚の消毒に用いられる。"
     ],
-    "suggestedQuestions": [
-      "消毒用エタノールの有効濃度はおよそ何%ですか？",
-      "逆性石鹸は何系の消毒薬ですか？",
-      "石炭酸が手指消毒に適しにくい理由は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1994:2f97d4abd1c67be6",
+    "reviewQuestionId": "2f97d4abd1c67be6",
+    "sourceRecordRef": "question_1994_4.json#7",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令監査対象外。手指消毒薬の適否は衛生学上の知識で判定する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "消毒用エタノールの有効濃度はおよそ何%ですか？",
-        "answer": "70〜80%程度である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "昇汞水の手指消毒への使用可否は衛生学上の知識であり、法令改正による判定差はない。",
+          "promptContext": "手指消毒薬の適否を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "逆性石鹸は何系の消毒薬ですか？",
-        "answer": "陽イオン界面活性剤である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "エタノール濃度の適否は衛生学上の知識であり、法令改正による判定差はない。",
+          "promptContext": "手指消毒薬の濃度を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "石炭酸が手指消毒に適しにくい理由は何ですか？",
-        "answer": "毒性や皮膚刺激性が強いためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "石炭酸の毒性・刺激性に関する適否は衛生学上の知識であり、法令改正による判定差はない。",
+          "promptContext": "手指消毒薬の性質を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "逆性石鹸の性質と手指消毒への使用は衛生学上の知識であり、法令改正による判定差はない。",
+          "promptContext": "手指消毒薬の種類と用途を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "685bb7ce4218ac25",
@@ -273,91 +858,385 @@
     "original_question_id": "b31f05b11023543d",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q85",
     "explanationText": [
-      "間違い。\n\nジフテリアはジフテリア菌による細菌感染症である。",
-      "間違い。\n\nコレラはコレラ菌による細菌感染症である。",
-      "間違い。\n\n赤痢は細菌性赤痢では赤痢菌が原因であり、ウイルス感染症ではない。",
-      "正しい。\n\n日本脳炎は日本脳炎ウイルスによる感染症で、蚊を媒介して感染する。"
+      "間違い。正しくは、ジフテリアはジフテリア菌による細菌感染症である。",
+      "間違い。正しくは、コレラはコレラ菌（Vibrio cholerae）による感染症である。",
+      "間違い。正しくは、赤痢（細菌性赤痢）は赤痢菌による細菌感染症であり、ウイルス感染症ではない。",
+      "正しい。日本脳炎は日本脳炎ウイルスによる感染症で、蚊を介して感染する。"
     ],
-    "suggestedQuestions": [
-      "日本脳炎の原因病原体は何ですか？",
-      "ジフテリアの原因病原体は何ですか？",
-      "コレラの原因病原体は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1994:b31f05b11023543d",
+    "reviewQuestionId": "b31f05b11023543d",
+    "sourceRecordRef": "question_1994_4.json#9",
+    "explanationReferences": [
       {
-        "question": "日本脳炎の原因病原体は何ですか？",
-        "answer": "日本脳炎ウイルスである。"
+        "choiceIndex": 0,
+        "referenceDate": "2013-04-28",
+        "sourceUrl": "https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/pdf/0428-2.pdf",
+        "title": "ジフテリア（感染症法に基づく届出基準）"
       },
       {
-        "question": "ジフテリアの原因病原体は何ですか？",
-        "answer": "ジフテリア菌である。"
-      },
-      {
-        "question": "コレラの原因病原体は何ですか？",
-        "answer": "コレラ菌である。"
+        "referenceDate": "1988-02-01",
+        "sourceUrl": "https://www.mhlw.go.jp/web/t_doc?dataId=00tc6700&dataType=1&pageNo=1",
+        "title": "海外における業務による感染症の取扱いについて"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "isLawRelated": false,
+    "lawContextForExplanation": "感染症の原因病原体を問う生物学的知識の問題で、法令・制度を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "感染症の原因病原体を問う知識問題であり、法令の適用・解釈はない。",
+          "promptContext": "生物学的知識として感染症と病原体の対応を説明する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "感染症の原因病原体を問う知識問題であり、法令の適用・解釈はない。",
+          "promptContext": "生物学的知識として感染症と病原体の対応を説明する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "感染症の原因病原体を問う知識問題であり、法令の適用・解釈はない。",
+          "promptContext": "生物学的知識として感染症と病原体の対応を説明する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "感染症の原因病原体を問う知識問題であり、法令の適用・解釈はない。",
+          "promptContext": "生物学的知識として感染症と病原体の対応を説明する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "e7524f9fdfd9bb97",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q86",
     "explanationText": [
-      "正しい。\n\n第一次予防は疾病の発生を防ぐ段階で、健康増進や特異的予防が含まれる。",
-      "間違い。\n\n早期発見は疾病を早期に見つけて対応する二次予防に含まれる。",
-      "間違い。\n\n重症化防止は疾病発生後の進行や障害を防ぐ三次予防に近い。",
-      "間違い。\n\nリハビリテーションは障害の軽減や社会復帰を図る三次予防に含まれる。"
+      "正しい。",
+      "間違い。早期発見は第二次予防に含まれる。",
+      "間違い。重症化防止は第三次予防に含まれる。",
+      "間違い。リハビリテーションは第三次予防に含まれる。"
     ],
-    "suggestedQuestions": [
-      "第一次予防の目的は何ですか？",
-      "早期発見は何次予防ですか？",
-      "リハビリテーションは何次予防ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1994:e7524f9fdfd9bb97",
+    "reviewQuestionId": "e7524f9fdfd9bb97",
+    "sourceRecordRef": "question_1994_4.json#10",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "第一次予防、第二次予防、第三次予防の分類を問う公衆衛生上の知識問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "第一次予防の目的は何ですか？",
-        "answer": "疾病の発生を未然に防ぐことである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外",
+          "displayRefIds": [],
+          "explanationText": "公衆衛生上の予防段階の分類であり、法令根拠を要しない。",
+          "promptContext": "法令条文ではなく公衆衛生の一般知識として判断する。",
+          "refs": [],
+          "verdict": "法令問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "早期発見は何次予防ですか？",
-        "answer": "二次予防である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外",
+          "displayRefIds": [],
+          "explanationText": "公衆衛生上の予防段階の分類であり、法令根拠を要しない。",
+          "promptContext": "法令条文ではなく公衆衛生の一般知識として判断する。",
+          "refs": [],
+          "verdict": "法令問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "リハビリテーションは何次予防ですか？",
-        "answer": "三次予防である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外",
+          "displayRefIds": [],
+          "explanationText": "公衆衛生上の予防段階の分類であり、法令根拠を要しない。",
+          "promptContext": "法令条文ではなく公衆衛生の一般知識として判断する。",
+          "refs": [],
+          "verdict": "法令問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外",
+          "displayRefIds": [],
+          "explanationText": "公衆衛生上の予防段階の分類であり、法令根拠を要しない。",
+          "promptContext": "法令条文ではなく公衆衛生の一般知識として判断する。",
+          "refs": [],
+          "verdict": "法令問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "ff8f8e673b522e38",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q87",
     "explanationText": [
-      "間違い。\n\n当時の我が国の死因順位第1位は悪性新生物であり、心疾患ではない。",
-      "間違い。\n\n脳血管疾患の死亡率は、医療や生活環境の変化により長期的には低下傾向にある。",
-      "間違い。\n\n精神障害の受療率は低下ではなく、受療機会や社会的認識の変化も含めて増加傾向として扱われる。",
-      "正しい。\n\n成人病に分類される悪性新生物、心疾患、脳血管疾患などは死亡全体の大きな割合を占め、約70%とされた。"
+      "間違い。正しくは、我が国の死因順位第1位は悪性新生物である。心疾患は第1位ではない。",
+      "間違い。脳血管疾患の死亡率は長期的に低下傾向であり、上昇しているとはいえない。",
+      "間違い。精神障害の受療率は低下ではなく、統計上は増加傾向である。",
+      "正しい。成人病に含まれる悪性新生物、心疾患、脳血管疾患などは、死亡全体の約70％を占めるとされる。"
     ],
-    "suggestedQuestions": [
-      "当時の死因順位第1位は何ですか？",
-      "脳血管疾患死亡率の長期傾向はどうですか？",
-      "成人病死亡割合はおよそどの程度とされましたか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1994:ff8f8e673b522e38",
+    "reviewQuestionId": "ff8f8e673b522e38",
+    "sourceRecordRef": "question_1994_4.json#11",
+    "explanationReferences": [
       {
-        "question": "当時の死因順位第1位は何ですか？",
-        "answer": "悪性新生物である。"
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://www.mhlw.go.jp/toukei/saikin/hw/jinkou/tokusyu/03/toukei4.html",
+        "title": "厚生労働省 統計表 第4表 死亡数・性・3大死因・年次別（昭和30～平成13年）"
       },
       {
-        "question": "脳血管疾患死亡率の長期傾向はどうですか？",
-        "answer": "低下傾向である。"
-      },
-      {
-        "question": "成人病死亡割合はおよそどの程度とされましたか？",
-        "answer": "約70%である。"
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://www.mhlw.go.jp/toukei/saikin/hw/kanja/02syoubyo/t-1.html",
+        "title": "厚生労働省 統計表2・3 受療率の年次推移・傷病分類別"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "isLawRelated": false,
+    "lawContextForExplanation": "疾病統計に関する公衆衛生上の知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正による正答への影響なし。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "死因順位に関する統計知識を問う問題であり、法令の改正確認を要しない。",
+          "promptContext": "公衆衛生上の疾病統計",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "疾病統計の知識問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答への影響なし。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "脳血管疾患の死亡率の推移に関する統計知識を問う問題であり、法令の改正確認を要しない。",
+          "promptContext": "公衆衛生上の疾病統計",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "疾病統計の知識問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答への影響なし。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "精神障害の受療率の推移に関する統計知識を問う問題であり、法令の改正確認を要しない。",
+          "promptContext": "公衆衛生上の疾病統計",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "疾病統計の知識問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答への影響なし。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "成人病死亡割合に関する統計知識を問う問題であり、法令の改正確認を要しない。",
+          "promptContext": "公衆衛生上の疾病統計",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "疾病統計の知識問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "f9c23a2e93ad0a76",
@@ -453,31 +1332,196 @@
     "original_question_id": "f7b2ecdc5320430c",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q91",
     "explanationText": [
-      "正しい。\n\n免許を取り消された場合は、免許証または免許証明書を返納しなければならない。",
-      "間違い。\n\n免許取消後でも、法令上の要件を満たせば再免許が認められる場合がある。",
-      "間違い。\n\n免許証または免許証明書は資格を証明する書類であり、紛失等で手元にないことだけで免許そのものが消滅するわけではない。",
-      "間違い。\n\n外国人であること自体は柔道整復師免許取得の絶対的欠格事由ではない。"
+      "正しい。免許を取り消された場合は、5日以内に免許証または免許証明書を返納しなければならない。この義務は、柔道整復師法施行規則（平成二年厚生省令第二十号）第7条第2項に定められている。",
+      "間違い。免許を取り消された後でも、取消しの理由となった事項に該当しなくなった場合などには、再免許を与えることができる。したがって、取消し後の再免許が一律に禁止されるわけではない。これは柔道整復師法（昭和四十五年法律第十九号）第8条第2項の規定による。",
+      "間違い。免許は、柔道整復師国家試験に合格した者に対して与えられ、免許証または免許証明書はその資格を証明する書類である。免許証または免許証明書が手元にないことだけで、免許そのものが消滅するわけではない。柔道整復師法第2条、第3条および第6条が根拠となる。",
+      "間違い。外国人であること自体は、柔道整復師法第4条の欠格事由に含まれない。国家試験に合格し、同条の欠格事由などに該当しなければ、外国人であっても免許を取得できる。"
     ],
-    "suggestedQuestions": [
-      "免許取消時に返納するものは何ですか？",
-      "免許取消後の再免許は常に不可ですか？",
-      "免許証を紛失すると免許そのものは消滅しますか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:1994:f7b2ecdc5320430c",
+    "reviewQuestionId": "f7b2ecdc5320430c",
+    "sourceRecordRef": "question_1994_4.json#15",
+    "explanationReferences": [
       {
-        "question": "免許取消時に返納するものは何ですか？",
-        "answer": "免許証または免許証明書である。"
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-07",
+        "title": "柔道整復師法施行規則（平成二年厚生省令第二十号）"
       },
       {
-        "question": "免許取消後の再免許は常に不可ですか？",
-        "answer": "常に不可ではなく、要件を満たせば認められる場合がある。"
-      },
-      {
-        "question": "免許証を紛失すると免許そのものは消滅しますか？",
-        "answer": "消滅しない。"
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-07",
+        "title": "柔道整復師法（昭和四十五年法律第十九号）"
       }
     ],
-    "lawGroundedExplanationNotNeeded": false
+    "isLawRelated": true,
+    "lawContextForExplanation": "免許取消時の返納は柔道整復師法施行規則第7条第2項、取消し後の再免許は柔道整復師法第8条第2項が根拠となる。免許の成立・免許証交付・欠格事由は同法第2条、第3条、第4条及び第6条で確認した。出題時点本文は未取得であり、改正差分は推測していない。",
+    "lawReferences": [
+      [
+        {
+          "article": "第7条第2項",
+          "choiceIndex": 0,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則（平成二年厚生省令第二十号）",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第8条第2項",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法（昭和四十五年法律第十九号）",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条・第6条",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法（昭和四十五年法律第十九号）",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第3条・第4条",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法（昭和四十五年法律第十九号）",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "1994年出題時点の法令本文は取得できず、現行法との条文差分は確定していない。",
+          "現行法の返納義務は柔道整復師法施行規則第7条第2項に定められ、公式元正答の判定と一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は公式元正答と一致するが、出題時点本文未取得のため改正差分は未確定。",
+          "displayRefIds": [],
+          "explanationText": "現行法では、免許取消し時に5日以内の免許証又は免許証明書の返納が必要である。根拠は柔道整復師法施行規則第7条第2項である。",
+          "promptContext": "現行法のe-Gov本文を確認済み。試験時点一次本文は未取得。",
+          "refs": [],
+          "verdict": "current_law_matches_official_answer_exam_time_text_unavailable"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時の公式元正答は「正しい」。出題時点の法令revisionは作成していない。"
+        ],
+        "reconciliationStatus": "reconciled_official_answer_with_current_law_exam_time_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "1994年出題時点の法令本文は取得できず、現行法との条文差分は確定していない。",
+          "現行法は一定の場合の再免許を認めており、公式元正答の判定と一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は公式元正答と一致するが、出題時点本文未取得のため改正差分は未確定。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第8条第2項は、取消しの理由となった事項に該当しなくなった場合などに再免許を与えることができると定めている。",
+          "promptContext": "現行法のe-Gov本文を確認済み。試験時点一次本文は未取得。",
+          "refs": [],
+          "verdict": "current_law_matches_official_answer_exam_time_text_unavailable"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時の公式元正答は「間違い」。出題時点の法令revisionは作成していない。"
+        ],
+        "reconciliationStatus": "reconciled_official_answer_with_current_law_exam_time_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "1994年出題時点の法令本文は取得できず、現行法との条文差分は確定していない。",
+          "現行法上、免許の成立と免許証の交付は区別され、公式元正答の判定と一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は公式元正答と一致するが、出題時点本文未取得のため改正差分は未確定。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第2条、第3条及び第6条により、免許そのものと免許証の交付は区別される。",
+          "promptContext": "現行法のe-Gov本文を確認済み。試験時点一次本文は未取得。",
+          "refs": [],
+          "verdict": "current_law_matches_official_answer_exam_time_text_unavailable"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時の公式元正答は「間違い」。出題時点の法令revisionは作成していない。"
+        ],
+        "reconciliationStatus": "reconciled_official_answer_with_current_law_exam_time_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "1994年出題時点の法令本文は取得できず、現行法との条文差分は確定していない。",
+          "現行法の欠格事由に外国人であること自体は含まれず、公式元正答の判定と一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は公式元正答と一致するが、出題時点本文未取得のため改正差分は未確定。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第3条は免許の要件を、第4条は欠格事由を定めているが、外国人であること自体は欠格事由としていない。",
+          "promptContext": "現行法のe-Gov本文を確認済み。試験時点一次本文は未取得。",
+          "refs": [],
+          "verdict": "current_law_matches_official_answer_exam_time_text_unavailable"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時の公式元正答は「間違い」。出題時点の法令revisionは作成していない。"
+        ],
+        "reconciliationStatus": "reconciled_official_answer_with_current_law_exam_time_text_unavailable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "ac6a82d50e8508d7",
@@ -513,61 +1557,395 @@
     "original_question_id": "105de315979f9733",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q93",
     "explanationText": [
-      "間違い。\n\n氏名変更時の柔道整復師名簿訂正申請期間は7日以内ではない。",
-      "正しい。\n\n氏名など名簿登録事項に変更があったときは、30日以内に名簿訂正を申請する。",
-      "間違い。\n\n3か月以内では遅く、所定の期間は30日以内である。",
-      "間違い。\n\n6か月以内では遅く、名簿訂正申請期間として正しくない。"
+      "正しい。氏名など柔道整復師名簿の登録事項に変更が生じたときは、30日以内に名簿の訂正を申請する。柔道整復師法施行規則第3条第1項がこの期限を定めている。1994年の公式解答も2番であり、現行法でも正答は変わらない。"
     ],
-    "suggestedQuestions": [
-      "柔道整復師名簿の訂正申請は何日以内ですか？",
-      "名簿訂正が必要となる代表例は何ですか？",
-      "30日以内という期間で覚える手続は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:1994:105de315979f9733",
+    "reviewQuestionId": "105de315979f9733",
+    "sourceRecordRef": "question_1994_4.json#17",
+    "explanationReferences": [
       {
-        "question": "柔道整復師名簿の訂正申請は何日以内ですか？",
-        "answer": "30日以内である。"
-      },
-      {
-        "question": "名簿訂正が必要となる代表例は何ですか？",
-        "answer": "氏名など登録事項に変更が生じた場合である。"
-      },
-      {
-        "question": "30日以内という期間で覚える手続は何ですか？",
-        "answer": "名簿訂正申請である。"
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-07",
+        "title": "柔道整復師法施行規則 第3条（名簿の訂正）"
       }
     ],
-    "lawGroundedExplanationNotNeeded": false
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法施行規則第3条第1項が、登録事項変更時の名簿訂正申請を30日以内と定める。",
+    "lawReferences": [
+      [
+        {
+          "article": "第3条第1項",
+          "choiceIndex": 0,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-08",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第3条第1項",
+          "choiceIndex": 1,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-08",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第3条第1項",
+          "choiceIndex": 2,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-08",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第3条第1項",
+          "choiceIndex": 3,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-08",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "公式解答は2番であり、現行法上も正答ではない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式解答と現行法上の判定は一致する。出題時条文本文は未取得。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第3条第1項は、登録事項変更時の名簿訂正申請を30日以内と定める。",
+          "promptContext": "名簿訂正申請期間の1番選択肢。",
+          "refs": [],
+          "verdict": "7日以内は現行法上の正答ではなく、公式解答でも2番ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "1994年当時の法令本文は未取得。出題時判定は公式解答に基づく。"
+        ],
+        "reconciliationStatus": "official_exam_answer_matches_current_law_exam_time_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式解答と現行法上の判定は一致する。出題時条文本文は未取得。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第3条第1項は、登録事項変更時の名簿訂正申請を30日以内と定める。",
+          "promptContext": "名簿訂正申請期間の2番選択肢。",
+          "refs": [],
+          "verdict": "30日以内は現行法上正しく、公式解答の2番と一致する。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "1994年当時の法令本文は未取得。出題時判定は公式解答に基づく。"
+        ],
+        "reconciliationStatus": "official_exam_answer_matches_current_law_exam_time_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "公式解答は2番であり、現行法上も正答ではない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式解答と現行法上の判定は一致する。出題時条文本文は未取得。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第3条第1項は、登録事項変更時の名簿訂正申請を30日以内と定める。",
+          "promptContext": "名簿訂正申請期間の3番選択肢。",
+          "refs": [],
+          "verdict": "3か月以内は現行法上の正答ではなく、公式解答でも2番ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "1994年当時の法令本文は未取得。出題時判定は公式解答に基づく。"
+        ],
+        "reconciliationStatus": "official_exam_answer_matches_current_law_exam_time_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "公式解答は2番であり、現行法上も正答ではない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式解答と現行法上の判定は一致する。出題時条文本文は未取得。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第3条第1項は、登録事項変更時の名簿訂正申請を30日以内と定める。",
+          "promptContext": "名簿訂正申請期間の4番選択肢。",
+          "refs": [],
+          "verdict": "6か月以内は現行法上の正答ではなく、公式解答でも2番ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "1994年当時の法令本文は未取得。出題時判定は公式解答に基づく。"
+        ],
+        "reconciliationStatus": "official_exam_answer_matches_current_law_exam_time_text_unavailable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "7e871bde225e93fa",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q94",
     "explanationText": [
-      "正しい。\n\n免許証明書の書換え交付を申請する場合は、申請書に免許証明書を添える。",
-      "正しい。\n\n免許証明書の書換え交付申請では、所定の手数料を納付する。",
-      "間違い。\n\n免許証明書を紛失した場合、再交付を申請できるが、設問のように必ず申請しなければならないとはいえない。",
-      "正しい。\n\n再交付後に失った免許証明書を発見した場合は、重複を避けるため返納する。"
+      "正しい。書換え交付の申請では、申請書に免許証又は免許証明書を添える。柔道整復師法施行規則第5条第2項に定められている。",
+      "正しい。書換え交付の申請には手数料が必要で、その額は柔道整復師法施行令第1条第2号に定められている。",
+      "間違い。免許証明書を紛失した場合、再交付は申請できるのであって、申請が義務付けられているわけではない。柔道整復師法施行規則第6条第1項は、この扱いを定めている。",
+      "正しい。再交付を受けた後に失った免許証明書を発見した場合は、5日以内に厚生労働大臣へ返納する。柔道整復師法施行規則第6条第5項に定められている。"
     ],
-    "suggestedQuestions": [
-      "免許証明書の書換え交付で添付するものは何ですか？",
-      "紛失時の再交付は義務ですか？",
-      "再交付後に旧証明書を発見した場合はどうしますか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:1994:7e871bde225e93fa",
+    "reviewQuestionId": "7e871bde225e93fa",
+    "sourceRecordRef": "question_1994_4.json#18",
+    "explanationReferences": [
       {
-        "question": "免許証明書の書換え交付で添付するものは何ですか？",
-        "answer": "免許証明書である。"
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則 第5条第2項"
       },
       {
-        "question": "紛失時の再交付は義務ですか？",
-        "answer": "再交付を申請できるが、必ず申請しなければならないという表現は不適切である。"
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/404CO0000000302?asof=2026-09-09",
+        "title": "柔道整復師法施行令 第1条第2号"
       },
       {
-        "question": "再交付後に旧証明書を発見した場合はどうしますか？",
-        "answer": "返納する。"
+        "choiceIndex": 2,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則 第6条第1項"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則 第6条第5項"
       }
     ],
-    "lawGroundedExplanationNotNeeded": false
+    "isLawRelated": true,
+    "lawContextForExplanation": "現行法では、書換え交付の添付書類は柔道整復師法施行規則第5条第2項、手数料は柔道整復師法施行令第1条第2号、再交付と発見時返納は同規則第6条第1項・第5項で確認できる。出題時条文本文は未取得で、公式元正答を保持する。",
+    "lawReferences": [
+      [
+        {
+          "article": "5条2項",
+          "choiceIndex": 0,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "1条2号",
+          "choiceIndex": 1,
+          "lawId": "404CO0000000302",
+          "lawTitle": "柔道整復師法施行令",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "6条1項",
+          "choiceIndex": 2,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "6条5項",
+          "choiceIndex": 3,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "書換え交付申請時に免許証又は免許証明書を添える扱いは、現行法でも正しい。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第5条第2項が、書換え交付申請書に免許証又は免許証明書を添えることを定めている。",
+          "promptContext": "書換え交付申請時の添付書類。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時条文本文は取得できず、公式元正答をexamTimeに保持した。"
+        ],
+        "reconciliationStatus": "answer_impact_unchanged",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "書換え交付申請の手数料納付は、現行法でも正しい。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行令第1条第2号が、免許証等の記載事項変更に係る手数料を定めている。",
+          "promptContext": "書換え交付申請の手数料。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時条文本文は取得できず、公式元正答をexamTimeに保持した。"
+        ],
+        "reconciliationStatus": "answer_impact_unchanged",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "紛失時の再交付は義務ではなく、申請できる制度であるため、選択肢は現行法でも間違いである。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第6条第1項は、免許証又は免許証明書を失ったときに再交付を申請できると定めている。",
+          "promptContext": "紛失時の再交付申請の義務性。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時条文本文は取得できず、公式元正答をexamTimeに保持した。"
+        ],
+        "reconciliationStatus": "answer_impact_unchanged",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "再交付後に発見した免許証明書の返納義務は、現行法でも正しい。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第6条第5項が、再交付後に発見した免許証又は免許証明書を5日以内に返納することを定めている。",
+          "promptContext": "再交付後に旧免許証明書を発見した場合の返納。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時条文本文は取得できず、公式元正答をexamTimeに保持した。"
+        ],
+        "reconciliationStatus": "answer_impact_unchanged",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [
+      {
+        "choiceIndex": 2,
+        "items": [
+          {
+            "answer": "戸籍の謄本若しくは抄本又は住民票の写しを添えます。",
+            "question": "免許証明書を紛失して再交付を申請する場合、申請書に何を添えますか？"
+          }
+        ]
+      }
+    ]
   },
   {
     "original_question_id": "e9114a87fb6cfa67",
@@ -603,31 +1981,209 @@
     "original_question_id": "3937512b7a0f0abb",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_2/#q96",
     "explanationText": [
-      "間違い。\n\n注射は医行為であり、柔道整復師が医師の同意を得ても行える業務ではない。",
-      "正しい。\n\n柔道整復師は、骨折または脱臼の患部に施術する場合、応急手当を除き医師の同意を得て行う。",
-      "間違い。\n\nエックス線照射は診療放射線技師や医師の業務範囲に関わる行為で、柔道整復師の業務ではない。",
-      "間違い。\n\n薬剤の処方は医師等の医療職の業務であり、柔道整復師は行えない。"
+      "間違い。\n\n医師の同意があっても、柔道整復師は強心剤を注射できない。柔道整復師法第16条は、薬品の投与やその指示を禁止している。",
+      "正しい。\n\n柔道整復師は、医師の同意を得た場合、骨折又は脱臼の患部に施術できる。柔道整復師法第17条はこの施術を制限し、応急手当を除いて医師の同意を求めている。",
+      "間違い。\n\n医師の同意があっても、柔道整復師はエックス線を照射できない。診療放射線技師法第24条は、医師、歯科医師又は診療放射線技師でなければ、同法所定の放射線業務を行えないと定めている。",
+      "間違い。\n\n医師の同意があっても、柔道整復師は薬剤を処方できない。柔道整復師法第16条は、薬品の投与やその指示を禁止している。"
     ],
-    "suggestedQuestions": [
-      "柔道整復師が骨折施術を行う際に必要なものは何ですか？",
-      "応急手当の場合も医師の同意は必ず必要ですか？",
-      "柔道整復師は薬剤を処方できますか？"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:1994:3937512b7a0f0abb",
+    "reviewQuestionId": "3937512b7a0f0abb",
+    "sourceRecordRef": "question_1994_4.json#20",
+    "explanationReferences": [
       {
-        "question": "柔道整復師が骨折施術を行う際に必要なものは何ですか？",
-        "answer": "応急手当を除き、医師の同意が必要である。"
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-07",
+        "title": "柔道整復師法（第16条）"
       },
       {
-        "question": "応急手当の場合も医師の同意は必ず必要ですか？",
-        "answer": "応急手当の場合は例外として同意なしに行える。"
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-07",
+        "title": "柔道整復師法（第17条）"
       },
       {
-        "question": "柔道整復師は薬剤を処方できますか？",
-        "answer": "できない。"
+        "choiceIndex": 2,
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/326AC0100000226?asof=2026-09-07",
+        "title": "診療放射線技師法（第24条）"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-07",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-07",
+        "title": "柔道整復師法（第16条）"
       }
     ],
-    "lawGroundedExplanationNotNeeded": false
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法第16条は薬品の投与・指示等を禁止し、第17条は医師の同意を得た場合の骨折・脱臼患部への施術を定める。エックス線照射は診療放射線技師法第24条の業務制限により判断する。",
+    "lawReferences": [
+      [
+        {
+          "article": "16",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "24",
+          "choiceIndex": 2,
+          "lawId": "326AC0100000226",
+          "lawTitle": "診療放射線技師法",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "16",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-07",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行法の柔道整復師法第16条を確認した。",
+          "出題時条文本文は取得できないため、出題時法令との差分は判定していない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文は未参照で、現行法との差分は未判定。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第16条は薬品の投与やその指示を禁止している。",
+          "promptContext": "医師の同意で柔道整復師が行える行為の範囲を確認する問題。",
+          "refs": [],
+          "verdict": "現行法上、強心剤の注射は間違い。公式元正答も間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "公式元正答は保持し、出題時条文を推測していない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current_judgment_exam_revision_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "現行法の柔道整復師法第17条を確認した。",
+          "出題時条文本文は取得できないため、出題時法令との差分は判定していない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文は未参照で、現行法との差分は未判定。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第17条は、医師の同意を得た場合の骨折又は脱臼患部への施術を認めている。",
+          "promptContext": "医師の同意が必要な骨折・脱臼患部への施術を確認する問題。",
+          "refs": [],
+          "verdict": "現行法上、医師の同意を得た骨折患部への施術は正しい。公式元正答も正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "公式元正答は保持し、出題時条文を推測していない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current_judgment_exam_revision_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行法の診療放射線技師法第24条を確認した。",
+          "出題時条文本文は取得できないため、出題時法令との差分は判定していない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文は未参照で、現行法との差分は未判定。",
+          "displayRefIds": [],
+          "explanationText": "診療放射線技師法第24条は、医師、歯科医師又は診療放射線技師以外の者による所定の放射線業務を禁止している。",
+          "promptContext": "エックス線照射を行える職種の範囲を確認する問題。",
+          "refs": [],
+          "verdict": "現行法上、柔道整復師によるエックス線照射は間違い。公式元正答も間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "公式元正答は保持し、出題時条文を推測していない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current_judgment_exam_revision_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "現行法の柔道整復師法第16条を確認した。",
+          "出題時条文本文は取得できないため、出題時法令との差分は判定していない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文は未参照で、現行法との差分は未判定。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第16条は薬品の投与やその指示を禁止している。",
+          "promptContext": "柔道整復師の薬剤に関する業務制限を確認する問題。",
+          "refs": [],
+          "verdict": "現行法上、柔道整復師による薬剤の処方は間違い。公式元正答も間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "公式元正答は保持し、出題時条文を推測していない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current_judgment_exam_revision_unavailable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "4ecc9b7b99add37b",

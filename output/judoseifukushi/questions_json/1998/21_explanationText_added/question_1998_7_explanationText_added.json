@@ -3,53 +3,469 @@
     "original_question_id": "5239a7e1427cf44c",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q151",
     "explanationText": [
-      "間違い。\n\n病的骨折でも整復や固定が適切なら骨癒合は起こりうる。",
-      "間違い。\n\n剪断骨折は剪断力で生じ、捻転力では螺旋骨折が典型である。",
-      "間違い。\n\n複雑骨折は粉砕骨折の同義語ではない。",
-      "正しい。\n\n屈曲骨折の第1型では圧迫側に骨片形成を伴う。"
+      "間違い。病的骨折でも、原因となった疾患の状態や治療条件によっては骨癒合が起こる。骨癒合が遅れたり妨げられたりすることはあるが、必ず起こらないわけではない。",
+      "間違い。剪断骨折は、骨に剪断力が加わって生じる。捻転力によって典型的に生じるのは、螺旋骨折である。",
+      "間違い。複雑骨折は、一般に骨折部が皮膚を破って外界と通じる開放骨折を指し、骨片が多数に分かれる粉砕骨折とは別の概念である。",
+      "正しい。屈曲骨折の第1型では、屈曲力によって骨片が生じる。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:5239a7e1427cf44c",
+    "reviewQuestionId": "5239a7e1427cf44c",
+    "sourceRecordRef": "question_1998_7.json#0",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨折の病態と発生機序を問う医学的問題であり、法令条文を正誤の根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "病的骨折でも条件が整えば骨癒合は起こりうる。",
+          "promptContext": "骨折の治癒に関する医学的判断。",
+          "refs": [],
+          "verdict": "技術問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "剪断骨折は剪断力で生じ、捻転力では螺旋骨折が典型である。",
+          "promptContext": "骨折の発生機序に関する医学的判断。",
+          "refs": [],
+          "verdict": "技術問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "複雑骨折と粉砕骨折は異なる概念である。",
+          "promptContext": "骨折型の用語の違いに関する医学的判断。",
+          "refs": [],
+          "verdict": "技術問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "屈曲骨折の第1型では骨片が生じる。",
+          "promptContext": "屈曲骨折の分類に関する医学的判断。",
+          "refs": [],
+          "verdict": "技術問題であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "166d8a03bb7c4fd4",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q152",
     "explanationText": [
-      "正しい。\n\n亀裂骨折は骨皮質の連続性が一部保たれる不全骨折である。",
-      "間違い。\n\n陥没骨折は完全骨折として扱うため、不全骨折ではない。本問の該当肢である。",
-      "正しい。\n\n若木骨折は小児に多い代表的な不全骨折である。",
-      "正しい。\n\n竹節状骨折も不全骨折の一つである。"
+      "間違い。正しくは、亀裂骨折は不全骨折である。骨の連続性が一部だけ途切れる骨折で、完全には分離しない。",
+      "正しい。陥没骨折は、外力によって骨の一部が押し込まれる骨折であり、完全骨折に分類される。そのため、不全骨折ではない。",
+      "間違い。正しくは、若木骨折は不全骨折である。小児の柔らかい骨に生じやすく、若木を折ったように一方の皮質が曲がって反対側が裂ける。",
+      "間違い。正しくは、竹節状骨折は不全骨折である。小児にみられやすく、骨が完全に断裂せず、竹の節のような隆起を生じる。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:166d8a03bb7c4fd4",
+    "reviewQuestionId": "166d8a03bb7c4fd4",
+    "sourceRecordRef": "question_1998_7.json#1",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨折の分類に関する医学知識の問題であり、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点と現行時点の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令改正による正答への影響はない。",
+          "promptContext": "不全骨折の種類を区別する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点と現行時点の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令改正による正答への影響はない。",
+          "promptContext": "不全骨折ではない骨折の種類を区別する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点と現行時点の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令改正による正答への影響はない。",
+          "promptContext": "小児に多い不全骨折の特徴を区別する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点と現行時点の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令改正による正答への影響はない。",
+          "promptContext": "小児にみられる不全骨折の特徴を区別する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "aa8d6c1f4477fece",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q153",
     "explanationText": [
-      "間違い。\n\n複合骨折は同一骨の2か所以上の骨折を指し、3か所以上に限定する記述は誤りである。本問の該当肢である。",
-      "正しい。\n\n介達性骨折は外力の作用部から離れた部位に生じる骨折である。",
-      "正しい。\n\n病的骨折は基礎疾患によって骨の抵抗力が低下した部位に生じる。",
-      "正しい。\n\n開放性骨折は創を介して骨折部が外界と交通している状態である。"
+      "間違い。複合骨折は、同一の骨が2か所以上で折れている状態をいう。3か所以上に限られないため、この記述は誤りである。",
+      "正しい。介達性骨折は、外力が加わった部位から離れた部位に生じる骨折である。",
+      "正しい。病的骨折は、基礎疾患によって骨の抵抗力が低下した部位に生じる骨折である。",
+      "正しい。開放性骨折は、皮膚の創を通じて骨折部が外界と交通している骨折である。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:aa8d6c1f4477fece",
+    "reviewQuestionId": "aa8d6c1f4477fece",
+    "sourceRecordRef": "question_1998_7.json#2",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨折分類の定義に関する医学・整形外科の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "複合骨折は同一骨の2か所以上の骨折を指し、3か所以上に限られない。",
+          "promptContext": "骨折分類の定義に基づいて判定する問題である。",
+          "refs": [],
+          "verdict": "医学・整形外科の内容であり、法令監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "介達性骨折は、外力が加わった部位から離れた部位に生じる骨折である。",
+          "promptContext": "骨折分類の定義に基づいて判定する問題である。",
+          "refs": [],
+          "verdict": "医学・整形外科の内容であり、法令監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "病的骨折は、基礎疾患によって骨の抵抗力が低下した部位に生じる骨折である。",
+          "promptContext": "骨折分類の定義に基づいて判定する問題である。",
+          "refs": [],
+          "verdict": "医学・整形外科の内容であり、法令監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "開放性骨折は、皮膚の創を通じて骨折部が外界と交通している骨折である。",
+          "promptContext": "骨折分類の定義に基づいて判定する問題である。",
+          "refs": [],
+          "verdict": "医学・整形外科の内容であり、法令監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "14fcb351ad9a13c4",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q154",
     "explanationText": [
-      "正しい。\n\n下肢の疲労骨折は脛骨や中足骨などの長管骨に多い。",
-      "間違い。\n\n疲労骨折は反復負荷を受ける若年者やスポーツ選手に多い。",
-      "間違い。\n\n疲労骨折は亀裂状の骨折が多く、螺旋骨折が典型ではない。",
-      "間違い。\n\n疼痛はあるが、初期から必ず歩行不能になるとは限らない。"
+      "正しい。疲労骨折は、走る・跳ぶなどの反復負荷によって生じ、下肢では脛骨や中足骨などに起こりやすい。",
+      "間違い。正しくは、疲労骨折は反復負荷を受ける若年者やスポーツ選手などに多い。高齢者に多いとはいえないが、骨粗鬆症などを背景にした脆弱性骨折とは区別する。",
+      "間違い。正しくは、疲労骨折は反復負荷によって骨に微細な亀裂が蓄積して起こる骨折であり、螺旋骨折が典型ではない。螺旋骨折は、ねじる力による外傷で生じやすい。",
+      "間違い。正しくは、疲労骨折では運動や歩行時に疼痛が強くなるが、初期には歩行できることも多く、必ず歩行不能になるわけではない。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:14fcb351ad9a13c4",
+    "reviewQuestionId": "14fcb351ad9a13c4",
+    "sourceRecordRef": "question_1998_7.json#3",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "下肢疲労骨折の臨床・整形外科学的知識を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、下肢疲労骨折に関する医学的知識で判定する。",
+          "promptContext": "法令根拠を必要としない医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床・整形外科学的知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、下肢疲労骨折に関する医学的知識で判定する。",
+          "promptContext": "法令根拠を必要としない医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床・整形外科学的知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、下肢疲労骨折に関する医学的知識で判定する。",
+          "promptContext": "法令根拠を必要としない医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床・整形外科学的知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、下肢疲労骨折に関する医学的知識で判定する。",
+          "promptContext": "法令根拠を必要としない医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床・整形外科学的知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "4604ab164a58bd2a",
@@ -68,260 +484,2376 @@
     "original_question_id": "f3c670330f638cc0",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q156",
     "explanationText": [
-      "正しい。\n\n脱臼では関節軸のずれがみられる。",
-      "正しい。\n\n関節の変形は脱臼の代表的所見である。",
-      "間違い。\n\n異常可動性は骨折に特徴的な所見であり、脱臼の典型症状ではない。本問の該当肢である。",
-      "正しい。\n\n脱臼では肢長の見かけ上の変化を伴うことがある。"
+      "正しい。脱臼では関節面の位置関係が崩れるため、関節軸のずれがみられる。",
+      "正しい。関節面の位置がずれるため、外見上の関節の変形がみられる。",
+      "間違い。異常可動性は主に骨折でみられる所見であり、脱臼の典型的な症状ではない。脱臼では関節軸のずれや関節の変形、肢長の変化などがみられる。",
+      "正しい。脱臼では関節の位置関係が変わるため、患肢の長さに見かけ上の変化が生じることがある。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:f3c670330f638cc0",
+    "reviewQuestionId": "f3c670330f638cc0",
+    "sourceRecordRef": "question_1998_7.json#5",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "脱臼の臨床症状と骨折との鑑別に関する医学的問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、比較なし。",
+          "displayRefIds": [],
+          "explanationText": "関節軸のずれは脱臼でみられる症状である。",
+          "promptContext": "脱臼の症状と骨折の所見を区別する医学的問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、比較なし。",
+          "displayRefIds": [],
+          "explanationText": "関節の変形は脱臼でみられる代表的な所見である。",
+          "promptContext": "脱臼の症状と骨折の所見を区別する医学的問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、比較なし。",
+          "displayRefIds": [],
+          "explanationText": "異常可動性は主に骨折でみられる所見であり、脱臼の典型的な症状ではない。",
+          "promptContext": "脱臼の症状と骨折の所見を区別する医学的問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、比較なし。",
+          "displayRefIds": [],
+          "explanationText": "脱臼では関節の位置関係が変わるため、患肢の長さに見かけ上の変化が生じることがある。",
+          "promptContext": "脱臼の症状と骨折の所見を区別する医学的問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "7d9e7fff9af7e868",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q157",
     "explanationText": [
-      "間違い。\n\n巻軸包帯は軟性材料である。",
-      "正しい。\n\n厚紙副子は固定に用いる硬性材料である。",
-      "間違い。\n\n三角巾は支持や懸垂に用いる軟性材料である。",
-      "間違い。\n\n絆創膏は固定補助に用いるが硬性材料ではない。"
+      "正しい。固定に用いる硬性材料は厚紙副子である。巻軸包帯と三角巾は軟性材料であり、絆創膏は固定を補助する材料で硬性材料ではない。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:7d9e7fff9af7e868",
+    "reviewQuestionId": "7d9e7fff9af7e868",
+    "sourceRecordRef": "question_1998_7.json#6",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "固定材料の性質を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "固定材料の性質を問う技術問題である。",
+          "promptContext": "法令ではなく、硬性材料と軟性材料の区別を確認する問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため現行法監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "固定に用いる硬性材料を問う技術問題である。",
+          "promptContext": "法令ではなく、厚紙副子が硬性材料に当たるかを確認する問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題のため現行法監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "固定材料の性質を問う技術問題である。",
+          "promptContext": "法令ではなく、三角巾が硬性材料に当たるかを確認する問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため現行法監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "固定材料の性質を問う技術問題である。",
+          "promptContext": "法令ではなく、絆創膏が硬性材料に当たるかを確認する問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため現行法監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "230f41d20b8f5242",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q158",
     "explanationText": [
-      "正しい。\n\n捻挫初期は安静固定が基本である。",
-      "正しい。\n\n炎症を抑える処置は初期治療として妥当である。",
-      "正しい。\n\n患部高挙は腫脹軽減に有用である。",
-      "間違い。\n\n急性期に温熱療法を行うと出血や腫脹を助長するため不適切である。本問の該当肢である。"
+      "正しい。捻挫の初期は、損傷した組織を安静に保つため、関節を固定する。",
+      "正しい。初期は炎症を抑え、腫れや痛みの拡大を防ぐ処置を行う。",
+      "正しい。患部を心臓より高く挙げると、腫れの軽減に役立つ。",
+      "間違い。正しくは、急性期の捻挫には温熱療法を避け、冷却などで炎症と腫れを抑える。温熱療法は血流を増やし、出血や腫れを助長するおそれがある。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:230f41d20b8f5242",
+    "reviewQuestionId": "230f41d20b8f5242",
+    "sourceRecordRef": "question_1998_7.json#7",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "捻挫初期の治療原則を問う臨床・技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "関節の安静固定は捻挫初期の治療原則に合致する。",
+          "promptContext": "臨床・技術知識による判定。",
+          "refs": [],
+          "verdict": "技術肢であり法令監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術肢であり法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "捻挫初期に炎症を抑える処置を行うという記述である。",
+          "promptContext": "臨床・技術知識による判定。",
+          "refs": [],
+          "verdict": "技術肢であり法令監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術肢であり法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "患部を高く挙げることは捻挫初期の腫脹軽減に役立つ。",
+          "promptContext": "臨床・技術知識による判定。",
+          "refs": [],
+          "verdict": "技術肢であり法令監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術肢であり法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "急性期の捻挫では温熱療法を避け、冷却などで炎症と腫脹を抑える。",
+          "promptContext": "臨床・技術知識による判定。",
+          "refs": [],
+          "verdict": "技術肢であり法令監査の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術肢であり法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "bfe8f9b0fc9447db",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q159",
     "explanationText": [
-      "正しい。\n\n母指MP関節では尺側側副靭帯損傷が起こりやすい。",
-      "正しい。\n\n肘関節では内側側副靭帯損傷を生じることがある。",
-      "間違い。\n\n膝で損傷頻度が高いのは内側側副靭帯や前十字靭帯であり、外側側副靭帯ではない。本問の該当肢である。",
-      "正しい。\n\n距腿関節捻挫では前距腓靭帯損傷が最も多い。"
+      "正しい。",
+      "正しい。",
+      "間違い。膝関節で損傷しやすい靭帯として挙げられるのは内側側副靭帯や前十字靭帯であり、外側側副靭帯ではない。",
+      "正しい。距腿関節の捻挫では、前距腓靭帯が損傷しやすい。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:bfe8f9b0fc9447db",
+    "reviewQuestionId": "bfe8f9b0fc9447db",
+    "sourceRecordRef": "question_1998_7.json#8",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "関節と靭帯損傷の組合せを問う解剖・臨床知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "母指中手指節関節と尺側側副靭帯の組合せは正しい。",
+          "promptContext": "関節と損傷しやすい靭帯の対応を問う解剖・臨床知識。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "解剖・臨床知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "肘関節と内側側副靭帯の組合せは正しい。",
+          "promptContext": "関節と損傷しやすい靭帯の対応を問う解剖・臨床知識。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "解剖・臨床知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "膝関節で損傷しやすい靭帯として挙げられるのは内側側副靭帯や前十字靭帯であり、外側側副靭帯ではない。",
+          "promptContext": "関節と損傷しやすい靭帯の対応を問う解剖・臨床知識。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "解剖・臨床知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "距腿関節の捻挫では前距腓靭帯が損傷しやすい。",
+          "promptContext": "関節と損傷しやすい靭帯の対応を問う解剖・臨床知識。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "解剖・臨床知識の選択肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "5f251ea892544635",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q160",
     "explanationText": [
-      "正しい。\n\n急性期はまず安静を保つ。",
-      "正しい。\n\n患部を固定して刺激を避ける。",
-      "正しい。\n\n急性期には冷湿布などで炎症を抑える。",
-      "間違い。\n\n手術的切除は急性期には行わず、骨化成熟後に適応を検討する。本問の該当肢である。"
+      "正しい。急性期は安静を保つ。",
+      "正しい。患部を固定して刺激を避ける。",
+      "正しい。急性期には冷湿布などで炎症を抑える。",
+      "間違い。手術的切除は急性期には行わず、骨化が成熟してから適応を検討する。急性期の処置ではないため、誤りである。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:5f251ea892544635",
+    "reviewQuestionId": "5f251ea892544635",
+    "sourceRecordRef": "question_1998_7.json#9",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "急性期の外傷性骨化性筋炎に対する処置の適否を問う医学的・臨床的問題であり、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない医学的・臨床的判断である。",
+          "promptContext": "急性期の外傷性骨化性筋炎に対する処置の適否を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的・臨床的問題で法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない医学的・臨床的判断である。",
+          "promptContext": "急性期の外傷性骨化性筋炎に対する処置の適否を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的・臨床的問題で法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない医学的・臨床的判断である。",
+          "promptContext": "急性期の外傷性骨化性筋炎に対する処置の適否を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的・臨床的問題で法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない医学的・臨床的判断である。",
+          "promptContext": "急性期の外傷性骨化性筋炎に対する処置の適否を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的・臨床的問題で法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "e0ee251948720515",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q161",
     "explanationText": [
-      "正しい。\n\n座位整復法では術者の膝を患者背部に当てて胸郭を広げる。",
-      "正しい。\n\n肩を後方へ引き胸郭を拡大させて整復を助ける。",
-      "間違い。\n\n鎖骨骨折整復では肩を外転挙上方向へ誘導するので、肩内転位で上腕を突き上げる記述は誤りである。本問の該当肢である。",
-      "正しい。\n\n必要に応じて骨片へ直圧を加えて整復する。"
+      "正しい。術者は患者の脊柱部に膝頭を当て、体幹を支えながら整復操作を行う。",
+      "正しい。肩を後方へ引くと胸郭が広がり、鎖骨骨片の整復を助ける。",
+      "間違い。正しくは、患側の肩を外転位にして上腕を上方へ挙上する。肩内転位で上腕を突き上げるという記述が誤りである。",
+      "正しい。骨片の転位が残る場合は、骨片に直圧を加えて位置を整える。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:e0ee251948720515",
+    "reviewQuestionId": "e0ee251948720515",
+    "sourceRecordRef": "question_1998_7.json#10",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "鎖骨骨折の整復手技に関する技術問題であり、法令・制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "本肢は鎖骨骨折の座位整復法に関する技術事項である。",
+          "promptContext": "柔道整復の整復手技に関する問題で、法令根拠を要しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度ではなく、鎖骨骨折の整復手技に関する技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "本肢は鎖骨骨折の座位整復法に関する技術事項である。",
+          "promptContext": "柔道整復の整復手技に関する問題で、法令根拠を要しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度ではなく、鎖骨骨折の整復手技に関する技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "本肢は鎖骨骨折の座位整復法に関する技術事項である。",
+          "promptContext": "柔道整復の整復手技に関する問題で、法令根拠を要しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度ではなく、鎖骨骨折の整復手技に関する技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "本肢は鎖骨骨折の座位整復法に関する技術事項である。",
+          "promptContext": "柔道整復の整復手技に関する問題で、法令根拠を要しない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度ではなく、鎖骨骨折の整復手技に関する技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "a2a2488c286c910e",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q162",
     "explanationText": [
-      "間違い。\n\n肩峰突出は肩関節脱臼でみられやすい。",
-      "間違い。\n\n外科頸骨折では末梢骨片は一般に内上方へ転位しやすい。",
-      "正しい。\n\n骨片転位により三角筋部の膨隆がみられることがある。",
-      "間違い。\n\n疼痛と骨折不安定性のため肩関節運動は通常困難である。"
+      "間違い。肩峰突出は肩関節脱臼でみられやすい所見であり、上腕骨外科頸骨折では三角筋部の膨隆がみられることがあるため誤りである。",
+      "間違い。上腕骨外科頸骨折では、末梢骨片は一般に中枢骨片に対して内上方へ転位しやすく、後方に位置するとはいえないため誤りである。",
+      "正しい。",
+      "間違い。上腕骨外科頸骨折では疼痛や骨折部の不安定性によって肩関節運動が制限され、運動可能とはいえないため誤りである。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:a2a2488c286c910e",
+    "reviewQuestionId": "a2a2488c286c910e",
+    "sourceRecordRef": "question_1998_7.json#11",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨折症状と転位に関する医学知識の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差異なし。",
+          "displayRefIds": [],
+          "explanationText": "肩峰突出と上腕骨外科頸骨折の症状を比較する医学知識の選択肢である。",
+          "promptContext": "医学知識問題のため、法令監査対象外。",
+          "refs": [],
+          "verdict": "法令・制度の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差異なし。",
+          "displayRefIds": [],
+          "explanationText": "上腕骨外科頸骨折における末梢骨片の転位方向を問う医学知識の選択肢である。",
+          "promptContext": "医学知識問題のため、法令監査対象外。",
+          "refs": [],
+          "verdict": "法令・制度の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差異なし。",
+          "displayRefIds": [],
+          "explanationText": "上腕骨外科頸骨折にみられる三角筋部の膨隆を問う医学知識の選択肢である。",
+          "promptContext": "医学知識問題のため、法令監査対象外。",
+          "refs": [],
+          "verdict": "法令・制度の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差異なし。",
+          "displayRefIds": [],
+          "explanationText": "上腕骨外科頸骨折による疼痛と肩関節運動制限を問う医学知識の選択肢である。",
+          "promptContext": "医学知識問題のため、法令監査対象外。",
+          "refs": [],
+          "verdict": "法令・制度の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "76d724b8befaa717",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q163",
     "explanationText": [
-      "間違い。\n\n直達外力では横骨折や粉砕骨折が多い。",
-      "正しい。\n\n自家筋力や捻転力では螺旋骨折が生じやすい。",
-      "間違い。\n\n介達外力では斜骨折や螺旋骨折が多い。",
-      "間違い。\n\n捻転力で多いのは横骨折ではなく螺旋骨折である。"
+      "間違い。直達外力では、外力が骨折部に直接加わるため、横骨折や粉砕骨折が生じやすい。斜骨折が多いとはいえない。",
+      "正しい。自家筋力では筋の急激な収縮による牽引力が骨に加わり、螺旋骨折が生じやすい。",
+      "間違い。介達外力では、骨に曲げやねじりの力が伝わるため、斜骨折や螺旋骨折が生じやすい。横骨折が多いとはいえない。",
+      "間違い。捻転力によって生じやすいのは、骨がねじられてできる螺旋骨折である。横骨折ではない。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:76d724b8befaa717",
+    "reviewQuestionId": "76d724b8befaa717",
+    "sourceRecordRef": "question_1998_7.json#12",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨折の受傷機転と骨折型に関する医学・整形外科の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "受傷機転と骨折型を医学的に判定する選択肢である。",
+          "promptContext": "柔道整復師の医学・整形外科領域。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の医学問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "自家筋力と螺旋骨折の関係を医学的に判定する選択肢である。",
+          "promptContext": "柔道整復師の医学・整形外科領域。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の医学問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "介達外力と骨折型の関係を医学的に判定する選択肢である。",
+          "promptContext": "柔道整復師の医学・整形外科領域。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の医学問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "捻転力と螺旋骨折の関係を医学的に判定する選択肢である。",
+          "promptContext": "柔道整復師の医学・整形外科領域。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の医学問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "187a0b6424967305",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q164",
     "explanationText": [
-      "正しい。\n\n上腕骨骨幹部骨折では橈骨神経麻痺を合併することがある。",
-      "間違い。\n\n典型的には前外方凸変形を示す。",
-      "間違い。\n\nチアノーゼは常にみられる所見ではない。",
-      "間違い。\n\n固定肢位にゼロ・ポジションは用いない。"
+      "正しい。上腕骨骨幹部の後面を橈骨神経が走るため、骨折に伴って橈骨神経麻痺を合併することがある。",
+      "間違い。上腕骨骨幹部骨折では、典型的に前外方凸の変形を呈することが多く、後外方凸ではない。",
+      "間違い。手指のチアノーゼは上腕骨骨幹部骨折に一般的な所見ではない。認める場合は血行障害などを疑って確認する。",
+      "間違い。上腕骨骨幹部骨折の固定は、肩関節外転・水平屈曲位、肘関節90°屈曲位などで行い、ゼロ・ポジションではない。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:187a0b6424967305",
+    "reviewQuestionId": "187a0b6424967305",
+    "sourceRecordRef": "question_1998_7.json#13",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "整形外科の臨床知識を問う問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点と現行時点の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の臨床知識であり、法令監査の対象ではない。",
+          "promptContext": "上腕骨骨幹部骨折では橈骨神経麻痺を合併することがある。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点と現行時点の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の臨床知識であり、法令監査の対象ではない。",
+          "promptContext": "上腕骨骨幹部骨折で後外方凸の変形を呈するものが多いとはいえない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点と現行時点の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の臨床知識であり、法令監査の対象ではない。",
+          "promptContext": "手指のチアノーゼは上腕骨骨幹部骨折の一般的所見ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の試験時点と現行時点の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の臨床知識であり、法令監査の対象ではない。",
+          "promptContext": "上腕骨骨幹部骨折の固定肢位はゼロ・ポジションではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "28dbceba208fa3c8",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q165",
     "explanationText": [
-      "間違い。\n\n上腕骨外科頸骨折は高齢者に多い。",
-      "間違い。\n\n大結節単独骨折は脱臼などに伴い比較的若壮年にもみられる。",
-      "正しい。\n\n上腕骨骨幹部骨折は青壮年者に多い。",
-      "間違い。\n\n上腕骨外顆骨折は小児に多い。"
+      "間違い。上腕骨外科頸骨折は高齢者に多い。",
+      "間違い。大結節単独骨折は青壮年者など比較的若い年代に多くみられる。",
+      "正しい。",
+      "間違い。上腕骨外顆骨折は小児に多い。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:28dbceba208fa3c8",
+    "reviewQuestionId": "28dbceba208fa3c8",
+    "sourceRecordRef": "question_1998_7.json#14",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "上腕骨骨折の好発年齢を問う整形外科の知識問題であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "上腕骨外科頸骨折は高齢者に多い。",
+          "promptContext": "上腕骨骨折の好発年齢に関する整形外科問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "整形外科の知識問題であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "大結節単独骨折は青壮年者など比較的若い年代に多くみられる。",
+          "promptContext": "上腕骨骨折の好発年齢に関する整形外科問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "整形外科の知識問題であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "上腕骨骨幹部骨折は青壮年者に多い。",
+          "promptContext": "上腕骨骨折の好発年齢に関する整形外科問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "整形外科の知識問題であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "上腕骨外顆骨折は小児に多い。",
+          "promptContext": "上腕骨骨折の好発年齢に関する整形外科問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "整形外科の知識問題であり、法令改正の影響を受けない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "12b99e984370285a",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q166",
     "explanationText": [
-      "間違い。\n\nヒューター線の関係が乱れるのは顆上骨折より脱臼である。",
-      "間違い。\n\n上腕骨顆上伸展型骨折は5〜10歳前後の小児に多い。",
-      "間違い。\n\n伸展型では正中神経や橈骨神経障害が問題となり、尺骨神経は屈曲型で多い。",
-      "正しい。\n\n後遺症として内反肘を残しやすい。"
+      "間違い。正しくは、肘頭がヒューター線より高位になる所見は肘関節脱臼でみられ、上腕骨顆上伸展型骨折の特徴ではない。",
+      "間違い。正しくは、上腕骨顆上伸展型骨折は5〜10歳前後の小児に多く、10〜15歳に多発するとはいえない。",
+      "間違い。正しくは、伸展型では正中神経や橈骨神経の損傷が問題となりやすく、尺骨神経の損傷は屈曲型で多い。",
+      "正しい。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:12b99e984370285a",
+    "reviewQuestionId": "12b99e984370285a",
+    "sourceRecordRef": "question_1998_7.json#15",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "上腕骨顆上骨折の発生年齢、神経損傷、合併症に関する整形外科の知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の知識問題であり、法令根拠を要しない。",
+          "promptContext": "上腕骨顆上伸展型骨折の所見に関する医学知識を説明する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令問題ではないため、法令監査の差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の知識問題であり、法令根拠を要しない。",
+          "promptContext": "上腕骨顆上伸展型骨折の好発年齢に関する医学知識を説明する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令問題ではないため、法令監査の差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の知識問題であり、法令根拠を要しない。",
+          "promptContext": "上腕骨顆上伸展型骨折で問題となる神経損傷に関する医学知識を説明する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令問題ではないため、法令監査の差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の知識問題であり、法令根拠を要しない。",
+          "promptContext": "上腕骨顆上伸展型骨折の後遺症に関する医学知識を説明する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令問題ではないため、法令監査の差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "2cc551d587f695ef",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q167",
     "explanationText": [
-      "間違い。\n\n円回内筋付着部より上位の骨折では中枢片は回外位となる。",
-      "間違い。\n\n上位骨折でも末梢片は回内位となり、両者とも回外位ではない。",
-      "正しい。\n\n円回内筋付着部より下位の骨折では中枢片は中間位、末梢片は回内位となる。",
-      "間違い。\n\n下位骨折で末梢片が回外位になるわけではない。"
+      "正しい。該当するのは3である。円回内筋付着部より下位の骨折では、中枢片は中間位、末梢片は回内位となる。なお、上位の骨折では中枢片が回外位、末梢片が回内位となるため、1と2は誤りであり、4も末梢片の回旋位が異なる。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:2cc551d587f695ef",
+    "reviewQuestionId": "2cc551d587f695ef",
+    "sourceRecordRef": "question_1998_7.json#16",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "橈骨骨幹部骨折における骨折部位と骨片の回旋位を問う整形外科の技術論点で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の差分比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の技術問題であり、法令監査の対象外である。",
+          "promptContext": "橈骨骨幹部骨折の骨折部位と骨片の回旋位を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "整形外科の技術論点であり、出題時点と現行法の比較対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の差分比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の技術問題であり、法令監査の対象外である。",
+          "promptContext": "橈骨骨幹部骨折の骨折部位と骨片の回旋位を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "整形外科の技術論点であり、出題時点と現行法の比較対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の差分比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の技術問題であり、法令監査の対象外である。",
+          "promptContext": "橈骨骨幹部骨折の骨折部位と骨片の回旋位を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "整形外科の技術論点であり、出題時点と現行法の比較対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の差分比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "整形外科の技術問題であり、法令監査の対象外である。",
+          "promptContext": "橈骨骨幹部骨折の骨折部位と骨片の回旋位を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "整形外科の技術論点であり、出題時点と現行法の比較対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "e0663ba40f73fa4c",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q168",
     "explanationText": [
-      "間違い。\n\nコーレス骨折は手掌をついて転倒したときに起こりやすい。",
-      "間違い。\n\n背側バートン骨折も一般には手掌側からの外力で説明される。",
-      "間違い。\n\nショウファー骨折は橈骨茎状突起骨折で、本問の受傷機転とは異なる。",
-      "正しい。\n\n手背をついて転倒すると手関節掌屈が強制され、掌側バートン骨折を生じうる。"
+      "正しい。手背をついて転倒すると手関節の掌屈が強制され、橈骨遠位端の掌側関節縁が骨折する掌側バートン骨折を生じやすい。手掌をついて手関節が背屈するとコーレス骨折や背側バートン骨折、橈骨茎状突起の骨折はショウファー骨折であり、受傷機転が異なる。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:e0663ba40f73fa4c",
+    "reviewQuestionId": "e0663ba40f73fa4c",
+    "sourceRecordRef": "question_1998_7.json#17",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨折の受傷機転と骨折型の対応を問う医学・整形外科の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "該当なし。",
+          "displayRefIds": [],
+          "explanationText": "医学・整形外科の知識で判定し、法令監査は不要。",
+          "promptContext": "受傷機転と骨折型の対応を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "該当なし。",
+          "displayRefIds": [],
+          "explanationText": "医学・整形外科の知識で判定し、法令監査は不要。",
+          "promptContext": "受傷機転と骨折型の対応を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "該当なし。",
+          "displayRefIds": [],
+          "explanationText": "医学・整形外科の知識で判定し、法令監査は不要。",
+          "promptContext": "受傷機転と骨折型の対応を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "該当なし。",
+          "displayRefIds": [],
+          "explanationText": "医学・整形外科の知識で判定し、法令監査は不要。",
+          "promptContext": "受傷機転と骨折型の対応を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "86a5d7fbb15c4284",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q169",
     "explanationText": [
-      "正しい。\n\n手舟状骨骨折ではスナッフボックス圧痛が重要所見である。",
-      "間違い。\n\n疼痛は橈屈や背屈で強くなりやすく、尺屈時に強いとする記述は誤りである。本問の該当肢である。",
-      "正しい。\n\n把握動作で手関節痛が増強することがある。",
-      "正しい。\n\n第1・2中手骨への軸圧で疼痛が誘発されることがある。"
+      "正しい。手舟状骨骨折では、解剖学的スナッフボックス部の圧痛が重要な所見である。",
+      "間違い。手舟状骨骨折では橈屈などで疼痛が誘発されやすく、尺屈時に強いとするのは誤りである。",
+      "正しい。強く握る把握動作では手舟状骨に負荷が加わり、手関節部の疼痛が生じることがある。",
+      "正しい。第1・2中手骨から軸方向に力を加えると手舟状骨に負荷が伝わり、疼痛が誘発されることがある。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:86a5d7fbb15c4284",
+    "reviewQuestionId": "86a5d7fbb15c4284",
+    "sourceRecordRef": "question_1998_7.json#18",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令・制度ではなく、手舟状骨骨折の臨床所見と誘発痛に関する医学知識で判断する問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく選択肢である。",
+          "promptContext": "手舟状骨骨折の症状・誘発痛の確認。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく選択肢である。",
+          "promptContext": "手舟状骨骨折の症状・誘発痛の確認。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく選択肢である。",
+          "promptContext": "手舟状骨骨折の症状・誘発痛の確認。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識に基づく選択肢である。",
+          "promptContext": "手舟状骨骨折の症状・誘発痛の確認。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "ea983da67638b9f6",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q170",
     "explanationText": [
-      "間違い。\n\n手根中手関節脱臼は第5手根中手関節に多く、第3が最多ではない。本問の該当肢である。",
-      "正しい。\n\n中手骨部の過度な屈曲強制で発生することがある。",
-      "正しい。\n\n転位により手指の短縮がみられることがある。",
-      "正しい。\n\n第1手根中手関節脱臼では母指対立位で固定する。"
+      "間違い。手根中手関節脱臼は第5手根中手関節に多く、第3手根中手関節が最多ではない。",
+      "正しい。中手骨部の過度な屈曲が強制されると発生する。",
+      "正しい。脱臼による転位によって手指の短縮がみられる。",
+      "正しい。第1手根中手関節脱臼では、母指を対立位に固定する。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:ea983da67638b9f6",
+    "reviewQuestionId": "ea983da67638b9f6",
+    "sourceRecordRef": "question_1998_7.json#19",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "手根中手関節脱臼の好発部位、発生機序、症状および固定法に関する整形外科の医学知識問題であり、法令・制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3手根中手関節の脱臼が多いという記述は、医学知識に照らして誤りである。",
+          "promptContext": "手根中手関節脱臼の好発部位に関する医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "中手骨部の過度の屈曲が強制され発生するという記述は、医学知識に照らして正しい。",
+          "promptContext": "手根中手関節脱臼の発生機序に関する医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "手指の短縮がみられるという記述は、医学知識に照らして正しい。",
+          "promptContext": "手根中手関節脱臼の症状に関する医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1手根中手関節脱臼では母指を対立位に固定するという記述は、医学知識に照らして正しい。",
+          "promptContext": "第1手根中手関節脱臼の固定法に関する医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "1d716f50f058bb3a",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q171",
     "explanationText": [
-      "間違い。\n\n下顎関節前方脱臼では関節頭は関節結節前方へ移るので、頬骨弓上方ではない。",
-      "間違い。\n\n肩鎖関節脱臼では鎖骨肩峰端は上方へ転位することが多い。",
-      "正しい。\n\n肩関節前方脱臼では上腕骨頭は烏口突起下方へ転位する烏口下脱臼が最も多い。",
-      "間違い。\n\n橈骨頭脱臼の頻度が高い転位方向は後方とは限らず、この記述は代表的ではない。"
+      "間違い。下顎関節前方脱臼では、下顎頭は関節結節の前方へ移動する。頬骨弓の上方へ転位するのではない。",
+      "間違い。肩鎖関節脱臼では、鎖骨の肩峰端は肩峰に対して上方へ転位することが多い。",
+      "正しい。",
+      "間違い。橈骨頭脱臼では、前方へ転位するものが代表的である。後方転位が頻度の高い方向ではない。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:1d716f50f058bb3a",
+    "reviewQuestionId": "1d716f50f058bb3a",
+    "sourceRecordRef": "question_1998_7.json#20",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "脱臼の代表的な転位方向に関する解剖学・臨床医学の知識問題であり、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂の対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、下顎関節脱臼の代表的な転位方向に関する医学知識で判定する。",
+          "promptContext": "脱臼の代表的な転位方向を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂の対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、肩鎖関節脱臼における鎖骨肩峰端の転位方向に関する医学知識で判定する。",
+          "promptContext": "脱臼の代表的な転位方向を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂の対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、肩関節前方脱臼で上腕骨頭が烏口突起下方へ転位するという医学知識で判定する。",
+          "promptContext": "脱臼の代表的な転位方向を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂の対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、橈骨頭脱臼の代表的な転位方向に関する医学知識で判定する。",
+          "promptContext": "脱臼の代表的な転位方向を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "4bf4ddc7e39d9dc4",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q172",
     "explanationText": [
-      "間違い。\n\n胸鎖関節前方脱臼では頭部は患側へ傾けるため、健側へ傾ける記述は誤りである。本問の該当肢である。",
-      "正しい。\n\n患側肩は下垂してみえることがある。",
-      "正しい。\n\n疼痛のため肩関節外転が困難となることがある。",
-      "正しい。\n\n鎖骨内端骨折とは外観が類似し鑑別が必要である。"
+      "間違い。胸鎖関節前方脱臼では頭部を患側へ傾けるため、健側へ傾けるという記述が誤りである。",
+      "正しい。",
+      "正しい。",
+      "正しい。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:4bf4ddc7e39d9dc4",
+    "reviewQuestionId": "4bf4ddc7e39d9dc4",
+    "sourceRecordRef": "question_1998_7.json#21",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "胸鎖関節前方脱臼の臨床所見に関する技術問題であり、法令・制度上の根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "胸鎖関節前方脱臼の臨床所見を問う技術問題である。",
+          "promptContext": "法令・制度上の根拠は不要である。",
+          "refs": [],
+          "verdict": "法令問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "胸鎖関節前方脱臼の臨床所見を問う技術問題である。",
+          "promptContext": "法令・制度上の根拠は不要である。",
+          "refs": [],
+          "verdict": "法令問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "胸鎖関節前方脱臼の臨床所見を問う技術問題である。",
+          "promptContext": "法令・制度上の根拠は不要である。",
+          "refs": [],
+          "verdict": "法令問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "胸鎖関節前方脱臼の臨床所見を問う技術問題である。",
+          "promptContext": "法令・制度上の根拠は不要である。",
+          "refs": [],
+          "verdict": "法令問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "8023fee0ac528691",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q173",
     "explanationText": [
-      "正しい。\n\n肩峰下脱臼は後方脱臼の一型として扱う。",
-      "間違い。\n\n烏口下脱臼では上腕は軽度外転位で、強い外転外旋位が典型とはいえない。",
-      "間違い。\n\n挙手位固定は腋窩脱臼でみられる。",
-      "間違い。\n\n鎖骨下脱臼では上腕が長くみえる所見は代表的ではない。"
+      "正しい。肩峰下脱臼は後方脱臼の一型である。",
+      "間違い。烏口下脱臼は前方脱臼で、上腕は軽度外転・軽度内旋位に固定される。外転外旋位ではない。",
+      "間違い。棘下脱臼は後方脱臼で、上腕は内転・内旋位となる。挙手位に固定されるのは下方（腋窩・関節窩下）脱臼である。",
+      "間違い。鎖骨下脱臼では上腕は短く見える。上腕が長く見えるのは烏口下脱臼である。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:8023fee0ac528691",
+    "reviewQuestionId": "8023fee0ac528691",
+    "sourceRecordRef": "question_1998_7.json#22",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "肩関節脱臼の分類、固定肢位、上腕の見かけの長さに関する整形外科の知識問題であり、法令条文を正誤判定の根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法と試験時点法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "肩峰下脱臼は後方脱臼の一型である。",
+          "promptContext": "肩関節脱臼の分類と固定肢位を確認する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法と試験時点法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "烏口下脱臼は軽度外転・軽度内旋位を呈し、外転外旋位ではない。",
+          "promptContext": "肩関節脱臼の分類と固定肢位を確認する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法と試験時点法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "棘下脱臼は後方脱臼で、上腕は内転・内旋位となる。",
+          "promptContext": "肩関節脱臼の分類と固定肢位を確認する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法と試験時点法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "鎖骨下脱臼では上腕は短く見える。",
+          "promptContext": "肩関節脱臼における外観所見を確認する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "d73c47937f3e098f",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q174",
     "explanationText": [
-      "正しい。\n\n肘関節後方脱臼ではヒューター三角が変形する。",
-      "正しい。\n\n肘関節は軽度屈曲位で弾発性固定を示す。",
-      "正しい。\n\n上腕三頭筋腱が緊張して索状に触れることがある。",
-      "間違い。\n\n外見的に類似するのは上腕骨顆上伸展型骨折であり、屈曲型骨折とする記述が誤りである。本問の該当肢である。"
+      "正しい。",
+      "正しい。",
+      "正しい。",
+      "間違い。外見的に類似するのは上腕骨顆上伸展型骨折であり、屈曲型骨折ではないため誤りである。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:d73c47937f3e098f",
+    "reviewQuestionId": "d73c47937f3e098f",
+    "sourceRecordRef": "question_1998_7.json#23",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "肘関節後方脱臼の症状と鑑別に関する技術問題で、法令条文や制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法と出題時法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく肘関節後方脱臼の臨床症状に関する技術問題である。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法と出題時法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく肘関節後方脱臼の臨床症状に関する技術問題である。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法と出題時法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく肘関節後方脱臼の臨床症状に関する技術問題である。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法と出題時法令の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく肘関節後方脱臼と上腕骨顆上骨折の鑑別に関する技術問題である。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "f050728f26891a80",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_6/#q175",
     "explanationText": [
-      "間違い。\n\n小円筋腱単独損傷は少ない。",
-      "間違い。\n\n肩甲下筋腱より棘上筋腱の損傷が多い。",
-      "正しい。\n\n腱板損傷で最も多いのは棘上筋腱である。",
-      "間違い。\n\n棘下筋腱の損傷頻度は棘上筋腱より低い。"
+      "正しい。腱板は肩関節を安定させる4つの筋腱の総称で、腱板損傷では棘上筋腱の損傷が最も多い。小円筋腱、肩甲下筋腱、棘下筋腱も腱板を構成するが、棘上筋腱ほど多くない。"
     ],
-    "suggestedQuestions": [],
-    "suggestedQuestionDetails": [],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1998:f050728f26891a80",
+    "reviewQuestionId": "f050728f26891a80",
+    "sourceRecordRef": "question_1998_7.json#24",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "腱板損傷の好発部位に関する医学知識の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の問題であり、法令監査対象外。",
+          "promptContext": "腱板損傷の好発部位を問う医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の問題であり、法令監査対象外。",
+          "promptContext": "腱板損傷の好発部位を問う医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の問題であり、法令監査対象外。",
+          "promptContext": "腱板損傷の好発部位を問う医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の問題であり、法令監査対象外。",
+          "promptContext": "腱板損傷の好発部位を問う医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

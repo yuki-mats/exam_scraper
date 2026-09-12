@@ -1,27 +1,252 @@
 [
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"9d40659943d56722","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"ad1faa45828909f5","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"3ce4ecb025ebbb0c","questionIntent":"select_correct","questionIntent_change_reason":"解なし問題のため source の設問意図を維持し、distribution check では no_answer として扱う。"},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"ed064b3021a9f007","questionIntent":"select_incorrect","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"f456f19572cbb547","questionIntent":"select_incorrect","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"5ad6cc33a4da0c41","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"6fece3f75398d433","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"df294fc1d654cb4c","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"a7eff033a4c74618","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"f77b337651a9d3cf","questionIntent":"select_incorrect","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"05829cd255dd4526","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"92259b2352101a8e","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"b487418566c1d262","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"d8e4af8319541082","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":true,"questionIntent_change_detail":"select_correct -> select_incorrect","original_question_id":"39e8d15182e4339b","questionIntent":"select_incorrect","questionIntent_change_reason":"問題文が「関与しないのはどれか」と、該当しない選択肢を選ばせているため。"},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"dacde98b2679d4e2","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"fd8b8a4dfea51531","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"1714201a24eb7490","questionIntent":"select_incorrect","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"c73cdfa6c95c2743","questionIntent":"select_incorrect","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"7f098de8945a9f56","questionIntent":"select_incorrect","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"1d2c9e65d0802897","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"d031dc732fbc85f6","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"fbd4c196a0b1e296","questionIntent":"select_correct","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"85dfaaf500b5beba","questionIntent":"select_incorrect","questionIntent_change_reason":""},
-  {"questionIntent_changed":false,"questionIntent_change_detail":"","original_question_id":"d574d9ff6c2907a4","questionIntent":"select_incorrect","questionIntent_change_reason":""}
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "9d40659943d56722",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:9d40659943d56722",
+    "reviewQuestionId": "9d40659943d56722",
+    "sourceRecordRef": "question_1995_1.json#0"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "ad1faa45828909f5",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:ad1faa45828909f5",
+    "reviewQuestionId": "ad1faa45828909f5",
+    "sourceRecordRef": "question_1995_1.json#1"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "3ce4ecb025ebbb0c",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "解なし問題のため source の設問意図を維持し、distribution check では no_answer として扱う。",
+    "sourceQuestionKey": "judoseifukushi:1995:3ce4ecb025ebbb0c",
+    "reviewQuestionId": "3ce4ecb025ebbb0c",
+    "sourceRecordRef": "question_1995_1.json#2"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "ed064b3021a9f007",
+    "questionIntent": "select_incorrect",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:ed064b3021a9f007",
+    "reviewQuestionId": "ed064b3021a9f007",
+    "sourceRecordRef": "question_1995_1.json#3"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "f456f19572cbb547",
+    "questionIntent": "select_incorrect",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:f456f19572cbb547",
+    "reviewQuestionId": "f456f19572cbb547",
+    "sourceRecordRef": "question_1995_1.json#4"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "5ad6cc33a4da0c41",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:5ad6cc33a4da0c41",
+    "reviewQuestionId": "5ad6cc33a4da0c41",
+    "sourceRecordRef": "question_1995_1.json#5"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "6fece3f75398d433",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:6fece3f75398d433",
+    "reviewQuestionId": "6fece3f75398d433",
+    "sourceRecordRef": "question_1995_1.json#6"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "df294fc1d654cb4c",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:df294fc1d654cb4c",
+    "reviewQuestionId": "df294fc1d654cb4c",
+    "sourceRecordRef": "question_1995_1.json#7"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "a7eff033a4c74618",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:a7eff033a4c74618",
+    "reviewQuestionId": "a7eff033a4c74618",
+    "sourceRecordRef": "question_1995_1.json#8"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "f77b337651a9d3cf",
+    "questionIntent": "select_incorrect",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:f77b337651a9d3cf",
+    "reviewQuestionId": "f77b337651a9d3cf",
+    "sourceRecordRef": "question_1995_1.json#9"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "05829cd255dd4526",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:05829cd255dd4526",
+    "reviewQuestionId": "05829cd255dd4526",
+    "sourceRecordRef": "question_1995_1.json#10"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "92259b2352101a8e",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:92259b2352101a8e",
+    "reviewQuestionId": "92259b2352101a8e",
+    "sourceRecordRef": "question_1995_1.json#11"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "b487418566c1d262",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:b487418566c1d262",
+    "reviewQuestionId": "b487418566c1d262",
+    "sourceRecordRef": "question_1995_1.json#12"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "d8e4af8319541082",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:d8e4af8319541082",
+    "reviewQuestionId": "d8e4af8319541082",
+    "sourceRecordRef": "question_1995_1.json#13"
+  },
+  {
+    "questionIntent_changed": true,
+    "questionIntent_change_detail": "select_correct -> select_incorrect",
+    "original_question_id": "39e8d15182e4339b",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "問題文が「関与しないのはどれか」と、該当しない選択肢を選ばせているため。",
+    "sourceQuestionKey": "judoseifukushi:1995:39e8d15182e4339b",
+    "reviewQuestionId": "39e8d15182e4339b",
+    "sourceRecordRef": "question_1995_1.json#14"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "dacde98b2679d4e2",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:dacde98b2679d4e2",
+    "reviewQuestionId": "dacde98b2679d4e2",
+    "sourceRecordRef": "question_1995_1.json#15"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "fd8b8a4dfea51531",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:fd8b8a4dfea51531",
+    "reviewQuestionId": "fd8b8a4dfea51531",
+    "sourceRecordRef": "question_1995_1.json#16"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "1714201a24eb7490",
+    "questionIntent": "select_incorrect",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:1714201a24eb7490",
+    "reviewQuestionId": "1714201a24eb7490",
+    "sourceRecordRef": "question_1995_1.json#17"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "c73cdfa6c95c2743",
+    "questionIntent": "select_incorrect",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:c73cdfa6c95c2743",
+    "reviewQuestionId": "c73cdfa6c95c2743",
+    "sourceRecordRef": "question_1995_1.json#18"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "7f098de8945a9f56",
+    "questionIntent": "select_incorrect",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:7f098de8945a9f56",
+    "reviewQuestionId": "7f098de8945a9f56",
+    "sourceRecordRef": "question_1995_1.json#19"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "1d2c9e65d0802897",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:1d2c9e65d0802897",
+    "reviewQuestionId": "1d2c9e65d0802897",
+    "sourceRecordRef": "question_1995_1.json#20"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "d031dc732fbc85f6",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:d031dc732fbc85f6",
+    "reviewQuestionId": "d031dc732fbc85f6",
+    "sourceRecordRef": "question_1995_1.json#21"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "fbd4c196a0b1e296",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:fbd4c196a0b1e296",
+    "reviewQuestionId": "fbd4c196a0b1e296",
+    "sourceRecordRef": "question_1995_1.json#22"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "85dfaaf500b5beba",
+    "questionIntent": "select_incorrect",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:85dfaaf500b5beba",
+    "reviewQuestionId": "85dfaaf500b5beba",
+    "sourceRecordRef": "question_1995_1.json#23"
+  },
+  {
+    "questionIntent_changed": false,
+    "questionIntent_change_detail": "",
+    "original_question_id": "d574d9ff6c2907a4",
+    "questionIntent": "select_correct",
+    "questionIntent_change_reason": "",
+    "sourceQuestionKey": "judoseifukushi:1995:d574d9ff6c2907a4",
+    "reviewQuestionId": "d574d9ff6c2907a4",
+    "sourceRecordRef": "question_1995_1.json#24"
+  }
 ]

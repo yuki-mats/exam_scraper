@@ -1,33 +1,284 @@
 [
   {
     "explanationText": [
-      "間違い。行為回数だけでは業の要件ではない。",
-      "間違い。金銭の授受は要件ではない。",
-      "間違い。相手方の同意は要件ではない。",
-      "正しい。反復継続の意思が業の要件である。"
+      "間違い。業は実際の行為回数ではなく、反復継続の意思をもって行うかで判断する。柔道整復師法第2条は、柔道整復師を柔道整復を業とする者と定義している。",
+      "間違い。業の成立に金銭の授受は必要なく、無償でも反復継続の意思があれば業に当たり得る。柔道整復師法第2条の「柔道整復を業とする」という定義に照らして判断する。",
+      "間違い。相手方の同意は業の成立要件ではなく、反復継続の意思が判断基準となる。柔道整復師法第2条は、柔道整復を業とする者を定義している。",
+      "正しい。業は反復継続の意思をもって行うことをいう。柔道整復師法第2条は、柔道整復師を柔道整復を業とする者と定義している。"
     ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "original_question_id": "268f1678b55faac1",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q101",
+    "sourceQuestionKey": "judoseifukushi:2005:268f1678b55faac1",
+    "reviewQuestionId": "268f1678b55faac1",
+    "sourceRecordRef": "question_2005_5.json#0",
+    "explanationReferences": [
       {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 4 です。 業は反復継続の意思をもって行う行為である。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「業について正しいのはどれか。」を基本知識に照らしてそのまま判定すること。"
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法 第二条"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "268f1678b55faac1",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q101"
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法第2条の「柔道整復を業とする者」という定義に基づき、「業」は反復継続の意思をもって行うことをいう。実際の行為回数、金銭の授受、相手方の同意は要件ではない。",
+    "lawReferences": [
+      [
+        {
+          "article": "2",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文は未提供のため直接比較はできないが、公式元正答第4号と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点本文は未提供のため条文改正の直接比較は未実施。公式元正答と現行法判定は一致する。",
+          "displayRefIds": [
+            "egov-current-345AC1000000019-article-2"
+          ],
+          "explanationText": "現行の柔道整復師法第2条を確認した。業は実際の行為回数ではなく、反復継続の意思をもって行うかで判断する。",
+          "promptContext": "「業」の成立基準として、実際の行為回数を問う選択肢。",
+          "refs": [
+            {
+              "article": "2",
+              "articleTextHash": "b01e029b3c7a6d2ba139bc148a5b4ac1d78617b6b05a1ccac0a134a6585235d6",
+              "elm": "Article[Num=\"2\"]",
+              "encodedElm": "Article%5BNum%3D%222%22%5D",
+              "highlightElms": [
+                "Article"
+              ],
+              "item": "none",
+              "lawId": "345AC1000000019",
+              "lawRevisionId": "345AC1000000019_20250601_504AC0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "柔道整復師法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "egov-current-345AC1000000019-article-2",
+              "relation": "業の成立基準の法的定義",
+              "rootArticleElm": "Article[Num=\"2\"]",
+              "subitem": "none",
+              "textHash": "b01e029b3c7a6d2ba139bc148a5b4ac1d78617b6b05a1ccac0a134a6585235d6"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "examAsOfSource未提供。answer_result_text「正解は4です。」を出題時正答として保持し、出題時のlawRevisionIdは作成しない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current_judgment_exam_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文は未提供のため直接比較はできないが、公式元正答第4号と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点本文は未提供のため条文改正の直接比較は未実施。公式元正答と現行法判定は一致する。",
+          "displayRefIds": [
+            "egov-current-345AC1000000019-article-2"
+          ],
+          "explanationText": "現行の柔道整復師法第2条を確認した。業の成立に金銭の授受は必要なく、無償でも反復継続の意思があれば業に当たり得る。",
+          "promptContext": "金銭の授受が「業」の成立要件かを問う選択肢。",
+          "refs": [
+            {
+              "article": "2",
+              "articleTextHash": "b01e029b3c7a6d2ba139bc148a5b4ac1d78617b6b05a1ccac0a134a6585235d6",
+              "elm": "Article[Num=\"2\"]",
+              "encodedElm": "Article%5BNum%3D%222%22%5D",
+              "highlightElms": [
+                "Article"
+              ],
+              "item": "none",
+              "lawId": "345AC1000000019",
+              "lawRevisionId": "345AC1000000019_20250601_504AC0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "柔道整復師法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "egov-current-345AC1000000019-article-2",
+              "relation": "業の成立基準の法的定義",
+              "rootArticleElm": "Article[Num=\"2\"]",
+              "subitem": "none",
+              "textHash": "b01e029b3c7a6d2ba139bc148a5b4ac1d78617b6b05a1ccac0a134a6585235d6"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "examAsOfSource未提供。answer_result_text「正解は4です。」を出題時正答として保持し、出題時のlawRevisionIdは作成しない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current_judgment_exam_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文は未提供のため直接比較はできないが、公式元正答第4号と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点本文は未提供のため条文改正の直接比較は未実施。公式元正答と現行法判定は一致する。",
+          "displayRefIds": [
+            "egov-current-345AC1000000019-article-2"
+          ],
+          "explanationText": "現行の柔道整復師法第2条を確認した。相手方の同意は業の成立要件ではなく、反復継続の意思が判断基準となる。",
+          "promptContext": "相手方の同意が「業」の成立要件かを問う選択肢。",
+          "refs": [
+            {
+              "article": "2",
+              "articleTextHash": "b01e029b3c7a6d2ba139bc148a5b4ac1d78617b6b05a1ccac0a134a6585235d6",
+              "elm": "Article[Num=\"2\"]",
+              "encodedElm": "Article%5BNum%3D%222%22%5D",
+              "highlightElms": [
+                "Article"
+              ],
+              "item": "none",
+              "lawId": "345AC1000000019",
+              "lawRevisionId": "345AC1000000019_20250601_504AC0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "柔道整復師法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "egov-current-345AC1000000019-article-2",
+              "relation": "業の成立基準の法的定義",
+              "rootArticleElm": "Article[Num=\"2\"]",
+              "subitem": "none",
+              "textHash": "b01e029b3c7a6d2ba139bc148a5b4ac1d78617b6b05a1ccac0a134a6585235d6"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "examAsOfSource未提供。answer_result_text「正解は4です。」を出題時正答として保持し、出題時のlawRevisionIdは作成しない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current_judgment_exam_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文は未提供のため直接比較はできないが、公式元正答第4号と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点本文は未提供のため条文改正の直接比較は未実施。公式元正答と現行法判定は一致する。",
+          "displayRefIds": [
+            "egov-current-345AC1000000019-article-2"
+          ],
+          "explanationText": "現行の柔道整復師法第2条を確認した。業は反復継続の意思をもって行うことをいう。",
+          "promptContext": "「業」の判断基準が反復継続の意思であることを問う選択肢。",
+          "refs": [
+            {
+              "article": "2",
+              "articleTextHash": "b01e029b3c7a6d2ba139bc148a5b4ac1d78617b6b05a1ccac0a134a6585235d6",
+              "elm": "Article[Num=\"2\"]",
+              "encodedElm": "Article%5BNum%3D%222%22%5D",
+              "highlightElms": [
+                "Article"
+              ],
+              "item": "none",
+              "lawId": "345AC1000000019",
+              "lawRevisionId": "345AC1000000019_20250601_504AC0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "柔道整復師法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "egov-current-345AC1000000019-article-2",
+              "relation": "業の成立基準の法的定義",
+              "rootArticleElm": "Article[Num=\"2\"]",
+              "subitem": "none",
+              "textHash": "b01e029b3c7a6d2ba139bc148a5b4ac1d78617b6b05a1ccac0a134a6585235d6"
+            }
+          ],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "examAsOfSource未提供。answer_result_text「正解は4です。」を出題時正答として保持し、出題時のlawRevisionIdは作成しない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current_judgment_exam_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -61,123 +312,689 @@
   },
   {
     "explanationText": [
-      "正しい。適切な医療は治療を目的とする。",
-      "正しい。医療水準を満たしている必要がある。",
-      "間違い。緊急時に家族の同意は不可欠ではない。",
-      "正しい。患者の同意があることは適切である。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 3 です。 緊急時に家族の同意は不可欠ではない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「適切な医療を行う要件で誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。",
+      "正しい。",
+      "間違い。正しくは、緊急時に患者本人の同意を得られず、家族の同意を待つ時間もない場合は、家族の同意がなくても必要な医療を行うことがある。したがって、家族の同意は常に不可欠ではない。",
+      "正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "8e1dfedc2ee2472f",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q103"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q103",
+    "sourceQuestionKey": "judoseifukushi:2005:8e1dfedc2ee2472f",
+    "reviewQuestionId": "8e1dfedc2ee2472f",
+    "sourceRecordRef": "question_2005_5.json#2",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "一般的な医療要件と緊急時の同意取得に関する問題であり、特定法令の現行法監査対象ではない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差はない。",
+          "displayRefIds": [],
+          "explanationText": "治療が目的となることは適切な医療の一般的要件である。",
+          "promptContext": "適切な医療を行う要件を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差はない。",
+          "displayRefIds": [],
+          "explanationText": "医療水準を満たすことは適切な医療の一般的要件である。",
+          "promptContext": "適切な医療を行う要件を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差はない。",
+          "displayRefIds": [],
+          "explanationText": "緊急時には、家族の同意を常に待てるとは限らず、家族の同意は常に不可欠ではない。",
+          "promptContext": "緊急時に家族の同意が常に不可欠かを問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差はない。",
+          "displayRefIds": [],
+          "explanationText": "診療内容について患者の同意があることは適切な医療の要件である。",
+          "promptContext": "診療内容への患者同意を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。免許授与には欠格事由に該当しないことも必要である。",
-      "正しい。免許は柔道整復の業を行う資格である。",
-      "正しい。心身の障害で適正業務ができない者には与えないことがある。",
-      "間違い。犯罪行為があったこと自体は法定の拒否理由ではない。"
+      "間違い。免許は、国家試験に合格して申請した時点で直ちに与えられるわけではありません。柔道整復師法第3条・第4条・第6条により、欠格事由の確認などを経て、申請に基づき柔道整復師名簿へ登録されることで免許が成立します。",
+      "正しい。柔道整復師は、厚生労働大臣の免許を受けて柔道整復を業とする者です。根拠は柔道整復師法第2条です。",
+      "正しい。心身の障害により柔道整復の業務を適正に行えない者には、免許を与えないことがあります。根拠は柔道整復師法第4条第1号です。",
+      "間違い。柔道整復の業務に関して犯罪又は不正の行為があった者には、免許を与えないことがあります。しかし、選択肢は犯罪行為があれば常に免許を与えないとしており、法令の定める場合と異なります。根拠は柔道整復師法第4条第4号です。"
     ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2, 3 です。 免許は国家試験合格だけでなく欠格事由に該当しないことも前提となる。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「柔道整復師免許について正しいのはどれか。2つ選べ。」を基本知識に照らしてそのまま判定すること。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "original_question_id": "7f5569d3572d55a2",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q104"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q104",
+    "sourceQuestionKey": "judoseifukushi:2005:7f5569d3572d55a2",
+    "reviewQuestionId": "7f5569d3572d55a2",
+    "sourceRecordRef": "question_2005_5.json#3",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法第2条、第3条、第4条及び第6条が根拠である。免許の定義、国家試験、欠格事由、申請及び名簿登録を確認する。出題時点の法令本文は取得できていないため、同一条文性は断定しない。",
+    "lawReferences": [
+      [
+        {
+          "article": "3、4、6",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索（法令API v2）",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索（法令API v2）",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "4",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索（法令API v2）",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "4",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索（法令API v2）",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "現行法上の判定は出題時公式正答と一致し、正答変更はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時点の法令本文は取得できないため、法令本文の同一性は確認していない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の法令本文は未取得だが、現行法判定は公式元正答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "申請だけで直ちに免許が与えられるわけではなく、国家試験、欠格事由及び名簿登録に関する要件を踏まえて判断する。",
+          "promptContext": "柔道整復師法第3条、第4条及び第6条による免許付与要件の確認。",
+          "refs": [],
+          "verdict": "現行法では誤り"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時点の条文を推測せず、公式元正答を保持した。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable_same_answer",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法上の判定は出題時公式正答と一致し、正答変更はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "出題時点の法令本文は取得できないため、法令本文の同一性は確認していない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の法令本文は未取得だが、現行法判定は公式元正答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師は、厚生労働大臣の免許を受けて柔道整復を業とする者である。",
+          "promptContext": "柔道整復師法第2条の定義の確認。",
+          "refs": [],
+          "verdict": "現行法では正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時点の条文を推測せず、公式元正答を保持した。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable_same_answer",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法上の判定は出題時公式正答と一致し、正答変更はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "出題時点の法令本文は取得できないため、法令本文の同一性は確認していない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の法令本文は未取得だが、現行法判定は公式元正答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "心身の障害により柔道整復の業務を適正に行えない者には、免許を与えないことがある。",
+          "promptContext": "柔道整復師法第4条第1号の欠格事由の確認。",
+          "refs": [],
+          "verdict": "現行法では正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時点の条文を推測せず、公式元正答を保持した。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable_same_answer",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法上の判定は出題時公式正答と一致し、正答変更はない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時点の法令本文は取得できないため、法令本文の同一性は確認していない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の法令本文は未取得だが、現行法判定は公式元正答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復の業務に関する犯罪又は不正の行為は欠格事由となり得るが、免許を与えないことがあるという規定であり、常に免許を与えないわけではない。",
+          "promptContext": "柔道整復師法第4条第4号の欠格事由と免許付与の裁量の確認。",
+          "refs": [],
+          "verdict": "現行法では誤り"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時点の条文を推測せず、公式元正答を保持した。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable_same_answer",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。死亡したときは名簿登録を消除する。",
-      "正しい。失踪宣告を受けたときも消除する。",
-      "間違い。厚生労働大臣の許可は不要である。",
-      "正しい。免許証の返納は消除に伴う手続である。"
+      "正しい。死亡した柔道整復師については、戸籍法上の届出義務者が名簿登録の消除を申請する。柔道整復師法施行規則第4条第2項に定められている。",
+      "正しい。失踪宣告を受けた柔道整復師についても、死亡した場合と同じく、戸籍法上の届出義務者が名簿登録の消除を申請する。柔道整復師法施行規則第4条第2項に定められている。",
+      "間違い。正しくは、名簿登録の消除を申請する際に申請書を厚生労働大臣へ提出するのであり、厚生労働大臣の許可を受ける必要はない。柔道整復師法施行規則第4条第1項に定められている。",
+      "正しい。名簿登録の消除を申請するときは、免許証又は免許証明書を厚生労働大臣へ返納しなければならない。柔道整復師法施行規則第7条に定められている。"
     ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 3 です。 名簿登録の消除は死亡や失踪宣告などで行い、厚生労働大臣の許可ではない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「柔道整復師の名簿登録の消除で誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "original_question_id": "f209145aef8815c3",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q105"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q105",
+    "sourceQuestionKey": "judoseifukushi:2005:f209145aef8815c3",
+    "reviewQuestionId": "f209145aef8815c3",
+    "sourceRecordRef": "question_2005_5.json#4",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則 第4条"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則 第4条"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則 第4条"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則 第7条"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "現行の柔道整復師法施行規則第4条は、死亡又は失踪宣告時の名簿登録消除の申請を定め、第4条第1項は厚生労働大臣への申請書提出を定める。第7条は、消除申請時の免許証又は免許証明書の返納を定める。現行条文は確認済みだが、試験時点の条文比較資料は未取得である。",
+    "lawReferences": [
+      [
+        {
+          "article": "第4条第2項",
+          "choiceIndex": 0,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第4条第2項",
+          "choiceIndex": 1,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第4条第1項",
+          "choiceIndex": 2,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第7条",
+          "choiceIndex": 3,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文本文を確認できていない。",
+          "displayRefIds": [],
+          "explanationText": "死亡時の名簿登録消除申請は現行の柔道整復師法施行規則第4条第2項に基づく。",
+          "promptContext": "現行法の選択肢別根拠を確認した。",
+          "refs": [],
+          "verdict": "current_law_confirmed_exam_time_unverified"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行条文は確認済み。試験時点の条文比較資料がないため、改訂有無は未確定。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable",
+        "reviewState": "primary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文本文を確認できていない。",
+          "displayRefIds": [],
+          "explanationText": "失踪宣告時の名簿登録消除申請は現行の柔道整復師法施行規則第4条第2項に基づく。",
+          "promptContext": "現行法の選択肢別根拠を確認した。",
+          "refs": [],
+          "verdict": "current_law_confirmed_exam_time_unverified"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行条文は確認済み。試験時点の条文比較資料がないため、改訂有無は未確定。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable",
+        "reviewState": "primary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文本文を確認できていない。",
+          "displayRefIds": [],
+          "explanationText": "名簿登録の消除は許可制ではなく、申請書を厚生労働大臣へ提出する手続である。現行の柔道整復師法施行規則第4条第1項に基づく。",
+          "promptContext": "現行法の選択肢別根拠を確認した。",
+          "refs": [],
+          "verdict": "current_law_confirmed_exam_time_unverified"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行条文は確認済み。試験時点の条文比較資料がないため、改訂有無は未確定。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable",
+        "reviewState": "primary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文本文を確認できていない。",
+          "displayRefIds": [],
+          "explanationText": "名簿登録の消除申請時の免許証返納は現行の柔道整復師法施行規則第7条に基づく。",
+          "promptContext": "現行法の選択肢別根拠を確認した。",
+          "refs": [],
+          "verdict": "current_law_confirmed_exam_time_unverified"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行条文は確認済み。試験時点の条文比較資料がないため、改訂有無は未確定。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable",
+        "reviewState": "primary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。破損したときは再交付できる。",
-      "間違い。記載事項の変更は再交付理由ではない。",
-      "正しい。汚損したときは再交付できる。",
-      "正しい。紛失したときは再交付できる。"
+      "正しい。免許証を破った場合は再交付を申請できる。根拠は柔道整復師法施行規則第6条第1項である。",
+      "間違い。免許証の記載事項に変更が生じた場合は、再交付ではなく書換え交付を申請する。柔道整復師法施行規則第5条第1項に定められているため、この記述は誤りである。",
+      "正しい。免許証を汚した場合は再交付を申請できる。根拠は柔道整復師法施行規則第6条第1項である。",
+      "正しい。免許証を失った場合は再交付を申請できる。根拠は柔道整復師法施行規則第6条第1項である。"
     ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "original_question_id": "ee9e0008e6bc2278",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q106",
+    "sourceQuestionKey": "judoseifukushi:2005:ee9e0008e6bc2278",
+    "reviewQuestionId": "ee9e0008e6bc2278",
+    "sourceRecordRef": "question_2005_5.json#5",
+    "explanationReferences": [
       {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2 です。 再交付は破損・汚損・紛失時で、記載事項の変更は理由ではない。"
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/402M50000100020",
+        "title": "柔道整復師法施行規則（e-Gov法令検索）"
       },
       {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「柔道整復師の免許証の再交付で誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://www.mhlw.go.jp/web/t_doc?dataId=80150000&dataType=0&pageNo=1",
+        "title": "柔道整復師法施行規則（厚生労働省）"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "ee9e0008e6bc2278",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q106"
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法施行規則第5条第1項は記載事項変更時の書換え交付、第6条第1項は免許証の破損・汚損・紛失時の再交付を定める。",
+    "lawReferences": [
+      [
+        {
+          "article": "第6条第1項",
+          "choiceIndex": 0,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第5条第1項",
+          "choiceIndex": 1,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第6条第1項",
+          "choiceIndex": 2,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第6条第1項",
+          "choiceIndex": 3,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は公式解答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行法では、免許証を破った場合は再交付を申請できる。根拠は柔道整復師法施行規則第6条第1項である。",
+          "promptContext": "現行法のe-Gov法令API v2本文を確認した。出題時本文は未取得である。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時の条文本文は取得されていないため推測せず、公式解答を出題時判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は公式解答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行法では、記載事項変更時は再交付ではなく書換え交付の対象である。根拠は柔道整復師法施行規則第5条第1項である。",
+          "promptContext": "現行法のe-Gov法令API v2本文を確認した。出題時本文は未取得である。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時の条文本文は取得されていないため推測せず、公式解答を出題時判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は公式解答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行法では、免許証を汚した場合は再交付を申請できる。根拠は柔道整復師法施行規則第6条第1項である。",
+          "promptContext": "現行法のe-Gov法令API v2本文を確認した。出題時本文は未取得である。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時の条文本文は取得されていないため推測せず、公式解答を出題時判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は公式解答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行法では、免許証を失った場合は再交付を申請できる。根拠は柔道整復師法施行規則第6条第1項である。",
+          "promptContext": "現行法のe-Gov法令API v2本文を確認した。出題時本文は未取得である。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時の条文本文は取得されていないため推測せず、公式解答を出題時判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -211,63 +1028,376 @@
   },
   {
     "explanationText": [
-      "間違い。立ち入り検査は犯罪捜査ではない。",
-      "間違い。検査日時を被検査側が指定するものではない。",
-      "正しい。施術所の構造は検査対象である。",
-      "正しい。衛生上の措置の実施状況も検査対象である。"
+      "間違い。立入検査は、施術所の状況を確認するための行政上の検査であり、犯罪捜査のために認められたものではない。",
+      "間違い。都道府県知事が必要と認めた場合に行われる立入検査について、検査を受ける側が実施日時を指定できる権利はない。",
+      "正しい。都道府県知事の職員は、施術所に立ち入り、その構造設備を検査できる。",
+      "正しい。都道府県知事の職員は、衛生上の措置の実施状況も検査できる。柔道整復師法第21条第1項は、必要な報告の要求とともに、構造設備及び衛生上の措置の実施状況を検査できると定めている。"
     ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "original_question_id": "afce1cf769a94a1a",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q108",
+    "sourceQuestionKey": "judoseifukushi:2005:afce1cf769a94a1a",
+    "reviewQuestionId": "afce1cf769a94a1a",
+    "sourceRecordRef": "question_2005_5.json#7",
+    "explanationReferences": [
       {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 1, 2 です。 立ち入り検査は犯罪捜査ではなく、日時指定権もない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「都道府県知事による立ち入り検査について誤っているのはどれか。2つ選べ。」を基本知識に照らしてそのまま判定すること。"
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法（昭和四十五年法律第十九号）第21条"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "afce1cf769a94a1a",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q108"
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法第21条は、都道府県知事が必要と認める場合に、職員が施術所へ立ち入り、構造設備と衛生上の措置の実施状況を検査できると定める。また、その権限を犯罪捜査のためのものと解してはならない。検査日時を受検者が指定できる規定はない。",
+    "lawReferences": [
+      [
+        {
+          "article": "第21条第3項",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第21条第1項",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第21条第1項",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第21条第1項",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文資料がなく、現行法との差は判定していない。",
+          "displayRefIds": [],
+          "explanationText": "立入検査の権限は犯罪捜査のために認められたものではない。",
+          "promptContext": "選択肢1は柔道整復師法第21条第3項の規定に照らして判定する。",
+          "refs": [],
+          "verdict": "現行法では誤り。試験時点との比較は保留。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法の第21条第3項で現行判断を確認した。試験時点の条文資料は入力されていないため、時点差の確定は保留する。"
+        ],
+        "reconciliationStatus": "exam_time_source_unavailable",
+        "reviewState": "primary_verified_exam_time_unavailable"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文資料がなく、現行法との差は判定していない。",
+          "displayRefIds": [],
+          "explanationText": "立入検査は都道府県知事が必要と認める場合に行われ、受検者が実施日時を指定できる権利は規定されていない。",
+          "promptContext": "選択肢2は柔道整復師法第21条第1項の検査権限に照らして判定する。",
+          "refs": [],
+          "verdict": "現行法では誤り。試験時点との比較は保留。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法の第21条第1項に検査日時を受検者が指定できる規定がないことを確認した。試験時点の条文資料は入力されていないため、時点差の確定は保留する。"
+        ],
+        "reconciliationStatus": "exam_time_source_unavailable",
+        "reviewState": "primary_verified_exam_time_unavailable"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文資料がなく、現行法との差は判定していない。",
+          "displayRefIds": [],
+          "explanationText": "都道府県知事の職員は、施術所に立ち入り、その構造設備を検査できる。",
+          "promptContext": "選択肢3は柔道整復師法第21条第1項の検査対象に照らして判定する。",
+          "refs": [],
+          "verdict": "現行法では正しい。試験時点との比較は保留。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法の第21条第1項で構造設備が検査対象であることを確認した。試験時点の条文資料は入力されていないため、時点差の確定は保留する。"
+        ],
+        "reconciliationStatus": "exam_time_source_unavailable",
+        "reviewState": "primary_verified_exam_time_unavailable"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文資料がなく、現行法との差は判定していない。",
+          "displayRefIds": [],
+          "explanationText": "都道府県知事の職員は、衛生上の措置の実施状況を検査できる。",
+          "promptContext": "選択肢4は柔道整復師法第21条第1項の検査対象に照らして判定する。",
+          "refs": [],
+          "verdict": "現行法では正しい。試験時点との比較は保留。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法の第21条第1項で衛生上の措置の実施状況が検査対象であることを確認した。試験時点の条文資料は入力されていないため、時点差の確定は保留する。"
+        ],
+        "reconciliationStatus": "exam_time_source_unavailable",
+        "reviewState": "primary_verified_exam_time_unavailable"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。天皇の国事行為は内閣の助言と承認を要する。",
-      "正しい。平等原則は私法に直接は及ばない。",
-      "正しい。憲法25条2項は努力規定である。",
-      "間違い。逮捕令状なしの拘束には例外がある。"
+      "間違い。天皇の国事に関する行為に必要なのは、国会ではなく内閣の助言と承認である。日本国憲法第3条に定められている。",
+      "正しい。法の下の平等は、私人間の関係を私法上直接拘束するものではない。ただし、私法の解釈を通じて間接的に影響することはある。日本国憲法第14条が法の下の平等を定めている。",
+      "正しい。国は、社会福祉、社会保障及び公衆衛生の向上・増進に努めなければならない。日本国憲法第25条第2項は、この努力義務を定めている。",
+      "間違い。現行犯として逮捕される場合を除き、権限を有する司法官憲が発した令状が必要である。日本国憲法第33条は、現行犯逮捕を令状主義の例外としている。"
     ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "original_question_id": "df7119194f387936",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q109",
+    "sourceQuestionKey": "judoseifukushi:2005:df7119194f387936",
+    "reviewQuestionId": "df7119194f387936",
+    "sourceRecordRef": "question_2005_5.json#8",
+    "explanationReferences": [
       {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2, 3 です。 国事行為は内閣の助言と承認を要し、25条2項は努力規定である。"
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/321CONSTITUTION?asof=2026-09-09",
+        "title": "日本国憲法（第三条）"
       },
       {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/321CONSTITUTION?asof=2026-09-09",
+        "title": "日本国憲法（第十四条）"
       },
       {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「憲法において正しいのはどれか。2つ選べ。」を基本知識に照らしてそのまま判定すること。"
+        "choiceIndex": 2,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/321CONSTITUTION?asof=2026-09-09",
+        "title": "日本国憲法（第二十五条）"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/321CONSTITUTION?asof=2026-09-09",
+        "title": "日本国憲法（第三十三条）"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "df7119194f387936",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q109"
+    "isLawRelated": true,
+    "lawContextForExplanation": "日本国憲法第3条、第14条、第25条第2項及び第33条に基づき、国事行為の助言・承認、私人間効力、公衆衛生向上の努力義務、逮捕令状主義の例外を確認する。",
+    "lawReferences": [
+      [
+        {
+          "article": "3条",
+          "choiceIndex": 0,
+          "lawId": "321CONSTITUTION",
+          "lawTitle": "日本国憲法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "14条",
+          "choiceIndex": 1,
+          "lawId": "321CONSTITUTION",
+          "lawTitle": "日本国憲法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "25条2項",
+          "choiceIndex": 2,
+          "lawId": "321CONSTITUTION",
+          "lawTitle": "日本国憲法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "33条",
+          "choiceIndex": 3,
+          "lawId": "321CONSTITUTION",
+          "lawTitle": "日本国憲法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文本文は未取得。現行法判定は公式元正答の肢別判定と一致する。",
+          "displayRefIds": [],
+          "explanationText": "日本国憲法第3条は、天皇の国事に関する行為に内閣の助言と承認を必要とするため、国会の助言と承認とする記述は誤りである。",
+          "promptContext": "日本国憲法第3条に基づく選択肢別監査。",
+          "refs": [],
+          "verdict": "current and official exam-time conclusion are the same"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "公式元正答では第2・3肢が正答。試験時点の条文本文は取得できていないため、出題時条文の同一性は推測していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文本文は未取得。現行法判定は公式元正答の肢別判定と一致する。",
+          "displayRefIds": [],
+          "explanationText": "日本国憲法第14条は法の下の平等を定める。私人間の関係への直接適用を否定する記述は、憲法の私人間効力に関する判例・通説の理解に沿い、正しい。",
+          "promptContext": "日本国憲法第14条と私人間効力に基づく選択肢別監査。",
+          "refs": [],
+          "verdict": "current and official exam-time conclusion are the same"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "公式元正答では第2・3肢が正答。試験時点の条文本文は取得できていないため、出題時条文の同一性は推測していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文本文は未取得。現行法判定は公式元正答の肢別判定と一致する。",
+          "displayRefIds": [],
+          "explanationText": "日本国憲法第25条第2項は、国に社会福祉、社会保障及び公衆衛生の向上・増進へ努める義務を課しているため、努力規定とする記述は正しい。",
+          "promptContext": "日本国憲法第25条第2項に基づく選択肢別監査。",
+          "refs": [],
+          "verdict": "current and official exam-time conclusion are the same"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "公式元正答では第2・3肢が正答。試験時点の条文本文は取得できていないため、出題時条文の同一性は推測していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の条文本文は未取得。現行法判定は公式元正答の肢別判定と一致する。",
+          "displayRefIds": [],
+          "explanationText": "日本国憲法第33条は、現行犯として逮捕される場合を除き令状を必要とするため、令状なしの身柄拘束を一律に否定する記述は誤りである。",
+          "promptContext": "日本国憲法第33条に基づく選択肢別監査。",
+          "refs": [],
+          "verdict": "current and official exam-time conclusion are the same"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "公式元正答では第2・3肢が正答。試験時点の条文本文は取得できていないため、出題時条文の同一性は推測していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -301,153 +1431,721 @@
   },
   {
     "explanationText": [
-      "正しい。療養上の世話は看護師の業務である。",
-      "間違い。放射線の照射は看護師の業務ではない。",
-      "間違い。問診は法定の看護師業務として列挙されない。",
-      "正しい。診療の補助は看護師の業務である。"
+      "正しい。看護師の業務には、傷病者や褥婦に対する療養上の世話が含まれる。",
+      "間違い。診療放射線の照射は、看護師の業務として保健師助産師看護師法第5条に定められた「療養上の世話又は診療の補助」には当たらない。",
+      "間違い。問診は、看護師の業務として保健師助産師看護師法第5条に列挙されていない。看護師の業務は「療養上の世話又は診療の補助」である。",
+      "正しい。診療の補助は、看護師の業務に含まれる。"
     ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
+    "lawGroundedExplanationNotNeeded": false,
+    "original_question_id": "b356f838b91a1b52",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q111",
+    "sourceQuestionKey": "judoseifukushi:2005:b356f838b91a1b52",
+    "reviewQuestionId": "b356f838b91a1b52",
+    "sourceRecordRef": "question_2005_5.json#10",
+    "explanationReferences": [
       {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 1, 4 です。 看護師の業務は療養上の世話と診療の補助である。"
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/323AC0000000203?asof=2026-09-09",
+        "title": "保健師助産師看護師法（e-Gov法令検索）"
       },
       {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「看護師の業務で正しいのはどれか。2つ選べ。」を基本知識に照らしてそのまま判定すること。"
+        "referenceDate": "2005-05-12",
+        "sourceUrl": "https://www.mhlw.go.jp/shingi/2005/05/s0512-2a1.html",
+        "title": "保健師助産師看護師法（抄）・厚生労働省資料"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "b356f838b91a1b52",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q111"
+    "isLawRelated": true,
+    "lawContextForExplanation": "保健師助産師看護師法第5条は、看護師の業務を療養上の世話又は診療の補助と定めている。2005年の厚生労働省資料と現行e-Gov法令の判断内容は一致する。",
+    "lawReferences": [
+      [
+        {
+          "article": "5",
+          "choiceIndex": 0,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "5",
+          "choiceIndex": 0,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2005-05-12",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "mhlw_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "5",
+          "choiceIndex": 1,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "5",
+          "choiceIndex": 1,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2005-05-12",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "mhlw_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "5",
+          "choiceIndex": 2,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "5",
+          "choiceIndex": 2,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2005-05-12",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "mhlw_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "5",
+          "choiceIndex": 3,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "5",
+          "choiceIndex": 3,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2005-05-12",
+          "role": "exam_time_basis",
+          "scope": "choice",
+          "source": "mhlw_html",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "試験時点と現行で正誤は変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と2026-09-09時点で判断に関係する差分はない。",
+          "displayRefIds": [],
+          "explanationText": "2005年の厚生労働省資料と現行e-Gov法令の第5条は、看護師の業務を療養上の世話又は診療の補助と定める点で一致する。",
+          "promptContext": "看護師の業務に該当するかを第5条の定義に照らして判定する。",
+          "refs": [],
+          "verdict": "exam_time_and_current_same"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点と現行で正誤は変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と2026-09-09時点で判断に関係する差分はない。",
+          "displayRefIds": [],
+          "explanationText": "2005年の厚生労働省資料と現行e-Gov法令の第5条に、診療放射線の照射を看護師の業務として定める変更は確認できない。",
+          "promptContext": "看護師の業務に該当するかを第5条の定義に照らして判定する。",
+          "refs": [],
+          "verdict": "exam_time_and_current_same"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点と現行で正誤は変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と2026-09-09時点で判断に関係する差分はない。",
+          "displayRefIds": [],
+          "explanationText": "2005年の厚生労働省資料と現行e-Gov法令の第5条に、問診を看護師の法定業務として列挙する変更は確認できない。",
+          "promptContext": "看護師の業務に該当するかを第5条の定義に照らして判定する。",
+          "refs": [],
+          "verdict": "exam_time_and_current_same"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点と現行で正誤は変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と2026-09-09時点で判断に関係する差分はない。",
+          "displayRefIds": [],
+          "explanationText": "2005年の厚生労働省資料と現行e-Gov法令の第5条は、診療の補助を看護師の業務に含めている。",
+          "promptContext": "看護師の業務に該当するかを第5条の定義に照らして判定する。",
+          "refs": [],
+          "verdict": "exam_time_and_current_same"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled_unchanged",
+        "reviewState": "tertiary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。超音波は深部まで熱が到達する。",
-      "間違い。赤外線は表層加温である。",
-      "間違い。パラフィン浴は表層加温である。",
-      "間違い。超短波も深部加温だが最深ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 1 です。 超音波は深部まで熱が到達する。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「熱到達度が最も深い温熱療法はどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。温熱療法の熱到達度を比べると、超音波は組織の比較的深部まで熱を届ける。赤外線とパラフィン浴は主に表層を加温し、超短波も深部加温に用いられるが、この選択肢の中で最も深いのは超音波である。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "8705aa9be4642586",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q112"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q112",
+    "sourceQuestionKey": "judoseifukushi:2005:8705aa9be4642586",
+    "reviewQuestionId": "8705aa9be4642586",
+    "sourceRecordRef": "question_2005_5.json#11",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "温熱療法の物理的な熱到達度を問う技術問題であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令・制度問題ではないため、出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "超音波の熱到達度を問う技術問題であり、法令・制度の正誤判定を含まない。",
+          "promptContext": "温熱療法の熱到達度を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令・制度問題ではないため、出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "赤外線の加温特性を問う技術問題であり、法令・制度の正誤判定を含まない。",
+          "promptContext": "温熱療法の熱到達度を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令・制度問題ではないため、出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "パラフィン浴の加温特性を問う技術問題であり、法令・制度の正誤判定を含まない。",
+          "promptContext": "温熱療法の熱到達度を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令・制度問題ではないため、出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "超短波と超音波の熱到達度を比較する技術問題であり、法令・制度の正誤判定を含まない。",
+          "promptContext": "温熱療法の熱到達度を比較する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。参加は生活・人生場面への関わりである。",
-      "間違い。完全参加の説明が不適切である。",
-      "正しい。参加制約は社会参加の制約である。",
-      "正しい。活動制限は活動遂行の難しさである。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2 です。 完全参加の説明が不適切である。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「リハビリテーションの理念について誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。",
+      "間違い。完全参加とは、障害者が社会のさまざまな場面に他の人と平等に参加することであり、障害者がまとまって活動することではない。",
+      "正しい。",
+      "正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "519554db89f5e553",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q113"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q113",
+    "sourceQuestionKey": "judoseifukushi:2005:519554db89f5e553",
+    "reviewQuestionId": "519554db89f5e553",
+    "sourceRecordRef": "question_2005_5.json#12",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ICF関連用語の基本定義を問う技術問題であり、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "参加は生活や人生の場面に関わることである。",
+          "promptContext": "ICF関連用語の基本定義を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ICFの参加の定義に基づく技術判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "完全参加は、障害者が社会のさまざまな場面に他の人と平等に参加することである。",
+          "promptContext": "ICF関連用語の基本定義を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "完全参加の定義に基づく技術判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "参加制約は、社会生活や人生場面への関わりが制限された状態である。",
+          "promptContext": "ICF関連用語の基本定義を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ICFの参加制約の定義に基づく技術判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "活動制限は、個人が活動を行う際に経験する難しさである。",
+          "promptContext": "ICF関連用語の基本定義を問う問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ICFの活動制限の定義に基づく技術判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。身体障害者数は減少していない。",
-      "正しい。重複障害者数は増加している。",
-      "正しい。内部障害者数は増加している。",
-      "間違い。障害児数は減少しているとはいえない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2, 3 です。 重複障害と内部障害は増加している。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「我が国の身体障害について正しいのはどれか。2つ選べ。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "間違い。平成8年と平成13年の調査を比べると、在宅の18歳以上の身体障害者数は293万3千人から324万5千人に増加している。したがって、減少しているという記述が誤りである。",
+      "正しい。",
+      "正しい。",
+      "間違い。平成8年と平成13年の調査では、身体障害児数は8万1,600人から8万1,900人に増えており、減少していない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "88575e8dc5691f53",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q114"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q114",
+    "sourceQuestionKey": "judoseifukushi:2005:88575e8dc5691f53",
+    "reviewQuestionId": "88575e8dc5691f53",
+    "sourceRecordRef": "question_2005_5.json#13",
+    "explanationReferences": [
+      {
+        "referenceDate": "2002-08-08",
+        "sourceUrl": "https://www.mhlw.go.jp/houdou/2002/08/h0808-2b.html",
+        "title": "平成13年身体障害児・者実態調査結果（身体障害者）"
+      },
+      {
+        "referenceDate": "2002-08-08",
+        "sourceUrl": "https://www.mhlw.go.jp/houdou/2002/08/h0808-2f.html",
+        "title": "平成13年身体障害児・者実態調査結果（身体障害児）"
+      }
+    ],
+    "isLawRelated": false,
+    "lawContextForExplanation": "身体障害に関する統計的な傾向を問う問題で、法令条文や制度上の義務・手続・基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "身体障害者数の推移を問う統計的記述であり、法令根拠を要しない。",
+          "promptContext": "身体障害に関する統計問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "統計資料に基づく非法令問題である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "重複障害者数の推移を問う統計的記述であり、法令根拠を要しない。",
+          "promptContext": "身体障害に関する統計問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "統計資料に基づく非法令問題である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "内部障害者数の推移を問う統計的記述であり、法令根拠を要しない。",
+          "promptContext": "身体障害に関する統計問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "統計資料に基づく非法令問題である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "身体障害児数の推移を問う統計的記述であり、法令根拠を要しない。",
+          "promptContext": "身体障害に関する統計問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "統計資料に基づく非法令問題である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。基本肢位を0度とする。",
-      "正しい。他動運動を用いて測定する。",
-      "正しい。5度刻みで測定する。",
-      "間違い。正常可動域角度が示されているのは測定法の説明として不適切である。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 4 です。 ROM測定法は基本肢位0度・他動運動・5度刻みが原則である。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「関節可動域測定法について誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。",
+      "正しい。",
+      "正しい。",
+      "間違い。正しくは、関節可動域測定法では正常可動域角度ではなく、参考可動域角度が示されている。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "b3a77554251342f3",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q115"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q115",
+    "sourceQuestionKey": "judoseifukushi:2005:b3a77554251342f3",
+    "reviewQuestionId": "b3a77554251342f3",
+    "sourceRecordRef": "question_2005_5.json#14",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "関節可動域測定法に関する技術知識の問題で、法令・制度上の義務、定義、手続又は基準を判断根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "関節可動域測定法の技術知識に基づく選択肢である。",
+          "promptContext": "法令・制度ではなく、関節可動域測定法の基本事項を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識の問題で、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "関節可動域測定法の技術知識に基づく選択肢である。",
+          "promptContext": "法令・制度ではなく、関節可動域測定法の基本事項を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識の問題で、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "関節可動域測定法の技術知識に基づく選択肢である。",
+          "promptContext": "法令・制度ではなく、関節可動域測定法の基本事項を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識の問題で、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "関節可動域測定法の技術知識に基づく選択肢である。",
+          "promptContext": "法令・制度ではなく、関節可動域測定法の基本事項を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識の問題で、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -481,272 +2179,1084 @@
   },
   {
     "explanationText": [
-      "正しい。ADLの基本的な定義に合う。",
-      "正しい。FIMは「しているADL」を評価する。",
-      "正しい。バーセル指数は「できるADL」を評価する。",
-      "間違い。ADL自立は一人暮らしを意味しない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 4 です。 FIMはしているADL、Barthel指数はできるADLを評価する。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「日常生活活動(ＡＤＬ)で誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。ADLは、個人が日常生活を送るために必要な基本的活動を指す。",
+      "正しい。FIMは、実際の生活場面でどの程度行えているかという「しているADL」を評価する。",
+      "正しい。バーセル指数は、食事や移動などの動作をどの程度できるかという「できるADL」を評価する。",
+      "間違い。ADL自立とは、必要な日常生活動作を他者の介助なしに行えることを指し、一人暮らしができることと同じではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "e805409f0080d1aa",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q117"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q117",
+    "sourceQuestionKey": "judoseifukushi:2005:e805409f0080d1aa",
+    "reviewQuestionId": "e805409f0080d1aa",
+    "sourceRecordRef": "question_2005_5.json#16",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ADLの定義と評価尺度に関する医学・リハビリテーションの知識問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外。",
+          "displayRefIds": [],
+          "explanationText": "ADLの基本定義に関する医学知識である。",
+          "promptContext": "柔道整復師の医学・リハビリテーション知識問題。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外。",
+          "displayRefIds": [],
+          "explanationText": "FIMの評価対象に関する医学・リハビリテーション知識である。",
+          "promptContext": "柔道整復師の医学・リハビリテーション知識問題。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外。",
+          "displayRefIds": [],
+          "explanationText": "バーセル指数の評価対象に関する医学・リハビリテーション知識である。",
+          "promptContext": "柔道整復師の医学・リハビリテーション知識問題。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分確認の対象外。",
+          "displayRefIds": [],
+          "explanationText": "ADL自立と一人暮らしの違いに関する医学・リハビリテーション知識である。",
+          "promptContext": "柔道整復師の医学・リハビリテーション知識問題。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。リラクゼーションは呼吸不全の呼吸補助に用いる。",
-      "正しい。PNF法は中枢神経疾患に用いる。",
-      "間違い。筋再教育は持久力低下そのものの適応ではない。",
-      "正しい。圧迫包帯法は運動失調への補助に用いる。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 3 です。 筋再教育は持久力低下ではなく運動再学習に用いる。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「運動療法とその適応との組合せで誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。",
+      "正しい。",
+      "間違い。筋再教育は、筋力低下や麻痺などに対して筋の収縮や運動を再学習させるために用いる。持久力の低下に対する代表的な運動療法ではない。",
+      "正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "6d46e07a0e4d7f88",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q118"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q118",
+    "sourceQuestionKey": "judoseifukushi:2005:6d46e07a0e4d7f88",
+    "reviewQuestionId": "6d46e07a0e4d7f88",
+    "sourceRecordRef": "question_2005_5.json#17",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "運動療法と適応の組合せに関する医学・リハビリテーションの問題であり、法令条文を正誤判断の根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行時点の法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "リラクゼーションと呼吸不全の対応は医学・リハビリテーション知識で判断する。",
+          "promptContext": "法令根拠を要しない医学・リハビリテーション問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行時点の法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "PNF法と中枢神経疾患の対応は医学・リハビリテーション知識で判断する。",
+          "promptContext": "法令根拠を要しない医学・リハビリテーション問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行時点の法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "筋再教育と持久力低下の対応は医学・リハビリテーション知識で判断する。",
+          "promptContext": "法令根拠を要しない医学・リハビリテーション問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行時点の法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "圧迫包帯法と運動失調の対応は医学・リハビリテーション知識で判断する。",
+          "promptContext": "法令根拠を要しない医学・リハビリテーション問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。示指MP関節は杖長の基準ではない。",
-      "正しい。大腿骨大転子が基準である。",
-      "間違い。大転子と腸骨稜の中間ではない。",
-      "間違い。腸骨稜ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2 です。 杖長は大転子の高さを基準にする。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「Ｔ字杖の長さを決める場合の床からの高さとして適切な身体部位はどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。Ｔ字杖の長さは、大腿骨大転子の高さを基準に決める。大転子は太ももの付け根の外側にある骨の出っ張りで、杖の長さを合わせる際の目安になる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "f500c421beff8a92",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q119"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q119",
+    "sourceQuestionKey": "judoseifukushi:2005:f500c421beff8a92",
+    "reviewQuestionId": "f500c421beff8a92",
+    "sourceRecordRef": "question_2005_5.json#18",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "Ｔ字杖の長さを決める身体部位に関する基本的な福祉用具・運動学の知識で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法との比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "Ｔ字杖の長さの基準部位に関する技術・基礎知識である。",
+          "promptContext": "柔道整復師の福祉用具・運動学に関する基本知識。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法との比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "Ｔ字杖の長さの基準部位に関する技術・基礎知識である。",
+          "promptContext": "柔道整復師の福祉用具・運動学に関する基本知識。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法との比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "Ｔ字杖の長さの基準部位に関する技術・基礎知識である。",
+          "promptContext": "柔道整復師の福祉用具・運動学に関する基本知識。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法との比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "Ｔ字杖の長さの基準部位に関する技術・基礎知識である。",
+          "promptContext": "柔道整復師の福祉用具・運動学に関する基本知識。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。階段は患側から降りるので、健側から降りるのは誤りである。",
-      "正しい。シャツは健側から脱ぐ。",
-      "正しい。溝は健側から越える。",
-      "正しい。自動車へは健側から乗る。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 1 です。 階段は患側から降りるため、健側から降りるのは誤りである。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「片麻痺の動作で誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "間違い。階段を下りるときは患側から一段下ろし、健側で体重を支える。したがって、健側から降りるという記述は誤りである。",
+      "正しい。シャツを脱ぐときは健側から先に抜き、最後に患側の袖を抜く。着るときは反対に患側から着る。",
+      "正しい。溝を越えるときは健側を先に出して身体を支え、患側を後から越える。",
+      "正しい。自動車へ乗り移るときは健側を先に使って身体を安定させる。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "1fa86f998df90816",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q120"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q120",
+    "sourceQuestionKey": "judoseifukushi:2005:1fa86f998df90816",
+    "reviewQuestionId": "1fa86f998df90816",
+    "sourceRecordRef": "question_2005_5.json#19",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-08",
+        "sourceUrl": "https://www.rehab.go.jp/application/files/4015/8408/8140/45.pdf",
+        "title": "セダン型車両を使用した福祉輸送サービスにおける運転者のための教育プログラム"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-08",
+        "sourceUrl": "https://www.mhlw.go.jp/content/12000000/001253098.pdf",
+        "title": "介護の特定技能評価試験学習テキスト 改訂版 日本語"
+      }
+    ],
+    "isLawRelated": false,
+    "lawContextForExplanation": "片麻痺の日常動作における健側・患側の使い分けを問う医学・リハビリテーション問題であり、法令条文は正誤を決めない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "片麻痺の階段昇降に関する医学・リハビリテーション上の判定である。",
+          "promptContext": "片麻痺の動作で誤っている記述を判定する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "片麻痺の更衣動作に関する医学・リハビリテーション上の判定である。",
+          "promptContext": "片麻痺の動作で正しい記述を判定する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "片麻痺の溝越えに関する医学・リハビリテーション上の判定である。",
+          "promptContext": "片麻痺の動作で正しい記述を判定する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "片麻痺の自動車への乗り移りに関する医学・リハビリテーション上の判定である。",
+          "promptContext": "片麻痺の動作で正しい記述を判定する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。起立性低血圧の改善に用いる。",
-      "間違い。排便障害の改善が主目的ではない。",
-      "間違い。運動麻痺の改善が主目的ではない。",
-      "間違い。異所性骨化の改善が主目的ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 1 です。 起立台は起立性低血圧の改善に用いる。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「脊髄損傷患者に対する起立台の使用目的で正しいのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。起立台は、脊髄損傷患者を安全に立位へ移行させ、起立性低血圧を改善するために用いる。長期臥床などで立位に慣れていない患者に対し、血圧や循環の変化を確認しながら段階的に立位をとらせる。排便障害、運動麻痺、異所性骨化の改善が主な使用目的ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "823dc960dceb97b6",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q121"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q121",
+    "sourceQuestionKey": "judoseifukushi:2005:823dc960dceb97b6",
+    "reviewQuestionId": "823dc960dceb97b6",
+    "sourceRecordRef": "question_2005_5.json#20",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "起立台の使用目的に関するリハビリテーション医学の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "起立台の使用目的を問うリハビリテーション医学の選択肢であり、現行法監査の対象外である。",
+          "promptContext": "起立台は立位訓練や起立性低血圧の改善に用いる。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度上の根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "排便障害の改善を問うリハビリテーション医学の選択肢であり、現行法監査の対象外である。",
+          "promptContext": "排便障害の改善は起立台の主目的ではない。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "運動麻痺の改善を問うリハビリテーション医学の選択肢であり、現行法監査の対象外である。",
+          "promptContext": "運動麻痺の改善は起立台の主目的ではない。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "異所性骨化の改善を問うリハビリテーション医学の選択肢であり、現行法監査の対象外である。",
+          "promptContext": "異所性骨化の改善は起立台の主目的ではない。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。異常黄疸は危険因子の一つである。",
-      "正しい。新生児仮死は危険因子である。",
-      "正しい。低出生体重児は危険因子である。",
-      "間違い。モロー反射の出現は正常反応で危険因子ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 4 です。 モロー反射の出現は正常反応で、危険因子ではない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「周産期における脳性麻痺の危険因子でないのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "間違い。異常黄疸は、重症化すると脳障害につながるため、脳性麻痺の周産期危険因子の一つである。",
+      "間違い。新生児仮死は、出生時の低酸素・虚血による脳障害につながるため、脳性麻痺の周産期危険因子である。",
+      "間違い。2000g以下の低出生体重児は、脳性麻痺の周産期危険因子である。",
+      "正しい。モロー反射の出現は新生児にみられる正常な反射で、脳性麻痺の周産期危険因子ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "548775e83dee5d89",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q122"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q122",
+    "sourceQuestionKey": "judoseifukushi:2005:548775e83dee5d89",
+    "reviewQuestionId": "548775e83dee5d89",
+    "sourceRecordRef": "question_2005_5.json#21",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "脳性麻痺の周産期危険因子に関する医学知識の問題で、法令・制度上の義務、定義、手続、基準は判断軸にならない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の問題であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の問題であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の問題であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の時点差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の問題であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の医学知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。車いす中心の生活をゴールにする段階ではない。",
-      "正しい。片手動作の訓練が必要である。",
-      "正しい。手段的日常生活活動の訓練が必要である。",
-      "間違い。直ちに身体障害者手帳を申請する段階ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2, 3 です。 片手動作とIADL訓練を進める段階で、車いす中心や即時申請は早い。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「58歳の女性。夫との2人暮らしで専業主婦。1か月前に脳梗塞を発症し、右片麻痺を呈している。全身症状は安定、ブルンストロームステージは上肢2、手指1、下肢５である。重大な合併症は認められない。今後のリハビリテーションに関して適切なのはどれか。2つ選べ。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "間違い。下肢はブルンストロームステージ5で随意運動が比較的保たれているため、車いす中心の生活を最終目標とせず、歩行など残存能力を生かした生活を目指す。",
+      "正しい。上肢がブルンストロームステージ2、手指がステージ1で麻痺が強いため、実生活では健側の手を活用する片手動作の訓練が必要である。",
+      "正しい。専業主婦として家庭生活を再開するには、買い物や調理など手段的日常生活活動（IADL）の訓練も必要となる。",
+      "間違い。脳梗塞発症から1か月で、今後の機能回復が見込まれる時期である。身体障害者手帳の申請は直ちに行うのではなく、障害の状態が安定・固定した段階で必要性を判断する。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "113dad7a55b04c28",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q123"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q123",
+    "sourceQuestionKey": "judoseifukushi:2005:113dad7a55b04c28",
+    "reviewQuestionId": "113dad7a55b04c28",
+    "sourceRecordRef": "question_2005_5.json#22",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "脳梗塞後の機能障害に対するリハビリテーション内容を問う医学的問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "下肢の随意運動が比較的保たれており、車いす中心の生活を最終目標とはしない。",
+          "promptContext": "法令根拠を用いず、症例の機能障害から判断する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "上肢・手指の麻痺が強く、健側の手を活用する片手動作訓練が必要である。",
+          "promptContext": "法令根拠を用いず、症例の機能障害から判断する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "家庭生活への復帰を考え、買い物や調理など手段的日常生活活動の訓練が必要である。",
+          "promptContext": "法令根拠を用いず、生活背景とリハビリテーションの目的から判断する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "発症後1か月では機能回復の経過をみる時期であり、身体障害者手帳の申請を直ちに行うとは限らない。",
+          "promptContext": "法令根拠を用いず、発症時期と障害状態の安定性から判断する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "scenario_application",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。圧迫帯は上腕に巻く。",
-      "正しい。触診法では橈骨動脈を用いる。",
-      "間違い。聴診法は触診法より低く測定されるわけではない。",
-      "正しい。触診法では収縮期血圧のみ測定できる。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 3 です。 聴診法は触診法より低く測定されるわけではない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「血圧測定法について誤っているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "正しい。",
+      "正しい。",
+      "間違い。聴診法では触診法より低く測定されるのではない。触診法は脈拍の再出現から収縮期血圧だけを測定するのに対し、聴診法はコロトコフ音を聴いて収縮期血圧と拡張期血圧を測定する。",
+      "正しい。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "8374b16238954b79",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q124"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q124",
+    "sourceQuestionKey": "judoseifukushi:2005:8374b16238954b79",
+    "reviewQuestionId": "8374b16238954b79",
+    "sourceRecordRef": "question_2005_5.json#23",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "血圧測定法に関する生理学・測定技術の問題であり、法令根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "血圧測定法に関する技術知識であり、法令根拠を要しない。",
+          "promptContext": "柔道整復師の生理学・測定技術に関する問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度に関係しない技術知識の選択肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "血圧測定法に関する技術知識であり、法令根拠を要しない。",
+          "promptContext": "柔道整復師の生理学・測定技術に関する問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度に関係しない技術知識の選択肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "血圧測定法に関する技術知識であり、法令根拠を要しない。",
+          "promptContext": "柔道整復師の生理学・測定技術に関する問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度に関係しない技術知識の選択肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "血圧測定法に関する技術知識であり、法令根拠を要しない。",
+          "promptContext": "柔道整復師の生理学・測定技術に関する問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度に関係しない技術知識の選択肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。バビンスキー徴候は典型的ではない。",
-      "正しい。姿勢反射障害がみられる。",
-      "間違い。眼振は典型的ではない。",
-      "間違い。強直性痙攣は典型的ではない。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2 です。 パーキンソン病では姿勢反射障害がみられる。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「パーキンソン(Parkinson)病でみられるのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
+      "間違い。バビンスキー徴候は錐体路障害を示す所見で、パーキンソン病の代表的な症状ではない。",
+      "正しい。",
+      "間違い。眼振は前庭系や小脳の障害などでみられる所見で、パーキンソン病の代表的な症状ではない。",
+      "間違い。強直性痙攣はてんかん発作などでみられる症状で、パーキンソン病の代表的な症状ではない。"
     ],
     "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "091ec5de521de34a",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q125"
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q125",
+    "sourceQuestionKey": "judoseifukushi:2005:091ec5de521de34a",
+    "reviewQuestionId": "091ec5de521de34a",
+    "sourceRecordRef": "question_2005_5.json#24",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "パーキンソン病の神経学的症状を問う医学知識の問題で、法令・制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "バビンスキー徴候の判定は神経学的知識に基づく。",
+          "promptContext": "パーキンソン病でバビンスキー徴候がみられるかを問う医学知識。",
+          "refs": [],
+          "verdict": "法令・制度論点ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度論点ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "姿勢反射障害の判定はパーキンソン病の神経学的知識に基づく。",
+          "promptContext": "パーキンソン病で姿勢反射障害がみられるかを問う医学知識。",
+          "refs": [],
+          "verdict": "法令・制度論点ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度論点ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "眼振の判定は神経学的知識に基づく。",
+          "promptContext": "パーキンソン病で眼振がみられるかを問う医学知識。",
+          "refs": [],
+          "verdict": "法令・制度論点ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度論点ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "強直性痙攣の判定は神経学的知識に基づく。",
+          "promptContext": "パーキンソン病で強直性痙攣がみられるかを問う医学知識。",
+          "refs": [],
+          "verdict": "法令・制度論点ではない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度論点ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

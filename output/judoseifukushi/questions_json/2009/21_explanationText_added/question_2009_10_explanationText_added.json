@@ -1,123 +1,470 @@
 [
   {
     "explanationText": [
-      "間違い。前腕回外力の低下は腋窩神経損傷ではなく、ここではみられない。",
-      "正しい。肩関節外転力の低下は三角筋麻痺に合う。",
-      "正しい。上腕部近位外側のしびれは腋窩神経の感覚領域に合う。",
-      "間違い。前腕部近位外側のしびれは腋窩神経の支配領域ではない。"
-    ],
-    "suggestedQuestions": [
-      "腋窩神経損傷で低下する動作は何か。",
-      "腋窩神経の感覚領域はどこか。",
-      "肩関節前方脱臼で損傷しやすい神経は何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "腋窩神経損傷で低下する動作は何か。",
-        "answer": "肩関節外転力が低下する。"
-      },
-      {
-        "question": "腋窩神経の感覚領域はどこか。",
-        "answer": "上腕部近位外側の感覚が障害される。"
-      },
-      {
-        "question": "肩関節前方脱臼で損傷しやすい神経は何か。",
-        "answer": "腋窩神経である。"
-      }
+      "間違い。正しくは、腋窩神経の障害では肩関節外転力が低下する。前腕回外は主に筋皮神経支配の上腕二頭筋などが関わるため、この選択肢は腋窩神経損傷の症状ではない。",
+      "正しい。腋窩神経は三角筋を支配するため、損傷すると肩関節外転力が低下する。",
+      "正しい。腋窩神経の皮膚感覚領域は上腕部近位外側にあり、ここにしびれが生じる。",
+      "間違い。正しくは、腋窩神経の感覚障害は上腕部近位外側に現れる。前腕部近位外側の感覚は主に筋皮神経の終枝である外側前腕皮神経が担う。"
     ],
     "original_question_id": "8278e64f41321673",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_17/#q226",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2009:8278e64f41321673",
+    "reviewQuestionId": "8278e64f41321673",
+    "sourceRecordRef": "question_2009_10.json#0",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "肩関節前方脱臼後の腋窩神経損傷と症状の対応を問う医学的問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はない。",
+          "displayRefIds": [],
+          "explanationText": "前腕回外力の低下は腋窩神経損傷の判定根拠ではなく、法令事項ではない。",
+          "promptContext": "医学的な神経支配と症状の対応を確認する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はない。",
+          "displayRefIds": [],
+          "explanationText": "腋窩神経は三角筋を支配し、損傷により肩関節外転力が低下する。",
+          "promptContext": "医学的な神経支配と症状の対応を確認する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はない。",
+          "displayRefIds": [],
+          "explanationText": "腋窩神経の皮膚感覚領域は上腕部近位外側である。",
+          "promptContext": "医学的な神経支配と症状の対応を確認する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差はない。",
+          "displayRefIds": [],
+          "explanationText": "前腕部近位外側の感覚は主に外側前腕皮神経が担い、腋窩神経の感覚領域ではない。",
+          "promptContext": "医学的な神経支配と症状の対応を確認する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "scenario_application",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。TFCC損傷では手関節尺側痛、回内・回外での痛み、尺屈軸圧での増悪がみられる。",
-      "間違い。尺側手根伸筋腱損傷では腱の局所痛が主体で、この所見とは合いにくい。",
-      "間違い。手舟状骨骨折は手関節橈側痛やスナッフボックス圧痛が主体で、尺側痛とは合わない。",
-      "間違い。遠位橈尺関節脱臼は急性外傷での変形や不安定性が主体で、この経過とは合わない。"
-    ],
-    "suggestedQuestions": [
-      "TFCC損傷の典型症状は何か。",
-      "手関節尺側痛の鑑別には何があるか。",
-      "手舟状骨骨折でみられる圧痛部位はどこか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "TFCC損傷の典型症状は何か。",
-        "answer": "手関節尺側痛、回内・回外痛、尺屈軸圧での疼痛増悪である。"
-      },
-      {
-        "question": "手関節尺側痛の鑑別には何があるか。",
-        "answer": "尺側手根伸筋腱損傷や遠位橈尺関節障害などがある。"
-      },
-      {
-        "question": "手舟状骨骨折でみられる圧痛部位はどこか。",
-        "answer": "スナッフボックス部の圧痛である。"
-      }
+      "正しい。手関節尺側痛に加え、回内・回外での疼痛、手関節尺屈時の軸圧による疼痛増強は、三角線維軟骨複合体（TFCC）損傷を示唆する。TFCCは遠位橈尺関節や手関節尺側を支える組織で、前腕の回旋や尺側への荷重で症状が出やすい。"
     ],
     "original_question_id": "80aab3c09e451ac9",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_17/#q227",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2009:80aab3c09e451ac9",
+    "reviewQuestionId": "80aab3c09e451ac9",
+    "sourceRecordRef": "question_2009_10.json#1",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "臨床症状と鑑別診断を問う問題で、法令・制度上の義務、定義、手続、数値基準は正誤判断に関係しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "臨床所見から鑑別診断を判断する問題であり、法令の適用対象ではない。",
+          "promptContext": "手関節尺側痛、前腕回旋痛、尺屈時軸圧痛から診断を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床症状と鑑別診断の問題で、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "臨床所見から鑑別診断を判断する問題であり、法令の適用対象ではない。",
+          "promptContext": "手関節尺側痛、前腕回旋痛、尺屈時軸圧痛から診断を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床症状と鑑別診断の問題で、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "臨床所見から鑑別診断を判断する問題であり、法令の適用対象ではない。",
+          "promptContext": "手関節尺側痛、前腕回旋痛、尺屈時軸圧痛から診断を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床症状と鑑別診断の問題で、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現在時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "臨床所見から鑑別診断を判断する問題であり、法令の適用対象ではない。",
+          "promptContext": "手関節尺側痛、前腕回旋痛、尺屈時軸圧痛から診断を判断する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床症状と鑑別診断の問題で、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "scenario_application",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。示指伸筋腱損傷ではこのようなMP関節のロック像とは合わない。",
-      "間違い。マレットフィンガーはDIP関節伸展不能が主体で、MP関節固定とは合わない。",
-      "正しい。ロッキングフィンガーはMP関節が屈曲位で固定され、伸展不能だが屈曲は可能である。",
-      "間違い。弾発指は屈伸時の弾発や引っかかりが主体で、MP関節が固定される病態ではない。"
-    ],
-    "suggestedQuestions": [
-      "ロッキングフィンガーの特徴は何か。",
-      "マレットフィンガーとの違いは何か。",
-      "弾発指との違いは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ロッキングフィンガーの特徴は何か。",
-        "answer": "MP関節が屈曲位で固定され、伸展不能になる。"
-      },
-      {
-        "question": "マレットフィンガーとの違いは何か。",
-        "answer": "マレットフィンガーはDIP関節伸展障害が主体である。"
-      },
-      {
-        "question": "弾発指との違いは何か。",
-        "answer": "弾発指は屈伸で弾発や引っかかりが起こる。"
-      }
+      "正しい。ロッキングフィンガーでは、MP関節が屈曲位で固定され、その位置から伸展できない一方、屈曲は可能である。示指伸筋腱損傷は腱損傷部位に応じた伸展障害を示すが、MP関節の機械的固定が特徴ではない。マレットフィンガーはDIP関節を伸展できなくなる病態であり、弾発指は指の屈伸時に弾発や引っかかりを生じるため、この症例とは異なる。"
     ],
     "original_question_id": "8ad2477d1686ce00",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_17/#q228",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2009:8ad2477d1686ce00",
+    "reviewQuestionId": "8ad2477d1686ce00",
+    "sourceRecordRef": "question_2009_10.json#2",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "手指の臨床病態を識別する問題であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は手指の臨床病態に関する技術的記述であり、法令監査対象外である。",
+          "promptContext": "臨床所見による判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はマレットフィンガーの臨床所見に関する記述であり、法令監査対象外である。",
+          "promptContext": "臨床所見による判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "MP関節の屈曲位固定、伸展不能、屈曲可能という臨床所見からロッキングフィンガーと判断する問題であり、法令監査対象外である。",
+          "promptContext": "臨床所見による判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は弾発指の臨床所見に関する記述であり、法令監査対象外である。",
+          "promptContext": "臨床所見による判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。腸脛靱帯炎は膝外側痛が主体で、内側クリックとは合わない。",
-      "間違い。鵞足滑液包炎は膝内側下方の圧痛が主体で、クリックは典型的でない。",
-      "間違い。膝蓋軟骨軟化症では膝蓋大腿関節圧迫で轢音や疼痛が出やすいが、本例ではみられない。",
-      "正しい。膝蓋骨内側を押さえて屈伸でクリックが出る所見はタナ(滑膜ヒダ)障害に合う。"
-    ],
-    "suggestedQuestions": [
-      "タナ(滑膜ヒダ)障害の典型所見は何か。",
-      "膝蓋軟骨軟化症とどう見分けるか。",
-      "腸脛靱帯炎の痛みの部位はどこか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "タナ(滑膜ヒダ)障害の典型所見は何か。",
-        "answer": "膝屈伸時のクリックや引っかかり感である。"
-      },
-      {
-        "question": "膝蓋軟骨軟化症とどう見分けるか。",
-        "answer": "膝蓋大腿関節の圧迫で轢音や疼痛が出やすいかをみる。"
-      },
-      {
-        "question": "腸脛靱帯炎の痛みの部位はどこか。",
-        "answer": "膝外側、大腿骨外側上顆付近である。"
-      }
+      "正しい。膝蓋骨内側部を押さえながら膝を屈伸したときにクリック音と引っかかり感が生じ、膝蓋大腿関節を圧迫しても轢音や疼痛がないことから、膝蓋骨内側の滑膜ヒダが肥厚・刺激されるタナ（滑膜ヒダ）障害が考えられる。膝外側痛が主体の腸脛靱帯炎、膝内側下方の圧痛が主体の鵞足滑液包炎、膝蓋大腿関節の圧迫で轢音や疼痛が出やすい膝蓋軟骨軟化症とは所見が異なる。"
     ],
     "original_question_id": "6e830f404ac4c9ba",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_17/#q229",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2009:6e830f404ac4c9ba",
+    "reviewQuestionId": "6e830f404ac4c9ba",
+    "sourceRecordRef": "question_2009_10.json#3",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "臨床所見から疾患を判断する問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "臨床所見に基づく診断問題で、法令根拠を要しない。",
+          "promptContext": "柔道整復師の臨床医学問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床所見の診断問題であり、法令の現行性監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "臨床所見に基づく診断問題で、法令根拠を要しない。",
+          "promptContext": "柔道整復師の臨床医学問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床所見の診断問題であり、法令の現行性監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "臨床所見に基づく診断問題で、法令根拠を要しない。",
+          "promptContext": "柔道整復師の臨床医学問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床所見の診断問題であり、法令の現行性監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "臨床所見に基づく診断問題で、法令根拠を要しない。",
+          "promptContext": "柔道整復師の臨床医学問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床所見の診断問題であり、法令の現行性監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "scenario_application",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

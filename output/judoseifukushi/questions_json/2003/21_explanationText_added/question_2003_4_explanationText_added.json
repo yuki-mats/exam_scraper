@@ -1,128 +1,585 @@
 [
   {
     "explanationText": [
-      "間違い。\n\n乳腺炎は炎症であり、前癌性病変ではない。",
-      "正しい。\n\n胃の腸上皮化生は前癌性病変として扱われる。",
-      "正しい。\n\n大腸腺腫は大腸癌の前癌性病変として重要である。",
-      "正しい。\n\n子宮頸部の異形成上皮は前癌性病変に含まれる。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「乳腺炎」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「乳腺炎」が正解ですか。",
-        "answer": "正解は「乳腺炎」です。乳腺炎は炎症であり、前癌性病変ではない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "胃の腸上皮化生、大腸腺腫、子宮頸部の異形成上皮は前癌性病変として扱われるため、乳腺炎だけが異なる。"
-      }
+      "正しい。乳腺炎は乳腺の炎症であり、前癌性病変ではない。",
+      "間違い。正しくは、胃の腸上皮化生は前癌性病変に含まれる。",
+      "間違い。正しくは、大腸腺腫は大腸癌の前癌性病変として重要である。",
+      "間違い。正しくは、子宮頸部の異形成上皮は前癌性病変に含まれる。"
     ],
     "original_question_id": "d91b9ae03f546137",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q76",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:d91b9ae03f546137",
+    "reviewQuestionId": "d91b9ae03f546137",
+    "sourceRecordRef": "question_2003_4.json#0",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "前癌性病変の病理学的分類を問う問題であり、法令・制度上の根拠は不要です。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "乳腺炎は前癌性病変ではない。",
+          "promptContext": "問題文と選択肢を結合した病理学的分類の問題であり、法令監査の対象外。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "胃の腸上皮化生は前癌性病変に含まれる。",
+          "promptContext": "問題文と選択肢を結合した病理学的分類の問題であり、法令監査の対象外。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "大腸腺腫は大腸癌の前癌性病変として重要である。",
+          "promptContext": "問題文と選択肢を結合した病理学的分類の問題であり、法令監査の対象外。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "子宮頸部の異形成上皮は前癌性病変に含まれる。",
+          "promptContext": "問題文と選択肢を結合した病理学的分類の問題であり、法令監査の対象外。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n圧迫は良性腫瘍が大きくなると局所に起こりうる。",
-      "間違い。\n\n管腔閉塞も良性腫瘍の増大でみられることがある。",
-      "正しい。\n\n播種は悪性腫瘍にみられる性質で、良性腫瘍ではみられない。",
-      "間違い。\n\n内分泌異常を起こす良性腫瘍もある。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「播種」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「播種」が正解ですか。",
-        "answer": "正解は「播種」です。播種は悪性腫瘍にみられる性質で、良性腫瘍ではみられない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "圧迫、管腔閉塞、内分泌異常は良性腫瘍でも起こりうるが、播種は良性腫瘍ではみられない。"
-      }
+      "正しい。良性腫瘍でみられないのは播種である。播種は腫瘍細胞が体腔内などへ広がる悪性腫瘍の性質である。一方、良性腫瘍でも、増大した部位に周囲の組織を圧迫したり、管腔をふさいだりすることがあり、ホルモンを産生する腫瘍では内分泌異常を起こすことがある。"
     ],
     "original_question_id": "1e5dec487fcb2a61",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q77",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:1e5dec487fcb2a61",
+    "reviewQuestionId": "1e5dec487fcb2a61",
+    "sourceRecordRef": "question_2003_4.json#1",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "良性腫瘍と悪性腫瘍の性質を問う病理学の問題であり、法令・制度上の基準は正誤を決めない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂による差はない。",
+          "displayRefIds": [],
+          "explanationText": "病理学の知識に基づく判断である。",
+          "promptContext": "法令ではなく病理学の知識に基づいて解説する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "病理学の知識で判断する問題で、法令改訂の影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂による差はない。",
+          "displayRefIds": [],
+          "explanationText": "病理学の知識に基づく判断である。",
+          "promptContext": "法令ではなく病理学の知識に基づいて解説する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "病理学の知識で判断する問題で、法令改訂の影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂による差はない。",
+          "displayRefIds": [],
+          "explanationText": "病理学の知識に基づく判断である。",
+          "promptContext": "法令ではなく病理学の知識に基づいて解説する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "病理学の知識で判断する問題で、法令改訂の影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂による差はない。",
+          "displayRefIds": [],
+          "explanationText": "病理学の知識に基づく判断である。",
+          "promptContext": "法令ではなく病理学の知識に基づいて解説する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "病理学の知識で判断する問題で、法令改訂の影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n心室中隔欠損は心臓内部の奇形であり、外表奇形ではない。",
-      "間違い。\n\n食道閉鎖は消化管の奇形であり、体表に現れる外表奇形ではない。",
-      "間違い。\n\n先天性巨大結腸症も内臓の奇形であり、外表奇形ではない。",
-      "正しい。\n\n臍帯ヘルニアは体表に現れる外表奇形である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「臍帯ヘルニア」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「臍帯ヘルニア」が正解ですか。",
-        "answer": "正解は「臍帯ヘルニア」です。臍帯ヘルニアは体表に現れる外表奇形である。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "心室中隔欠損、食道閉鎖、先天性巨大結腸症は内臓の奇形で、外表奇形ではない。"
-      }
+      "間違い。心室中隔欠損は心臓内部の壁に生じる先天異常であり、体表に現れる外表奇形ではない。",
+      "間違い。食道閉鎖は食道に生じる消化管の先天異常であり、外表奇形には分類されない。",
+      "間違い。先天性巨大結腸症は腸管の先天異常であり、体表に現れる外表奇形ではない。",
+      "正しい。臍帯ヘルニアは腹壁の形成異常によって臍部から内臓が突出する、体表に現れる外表奇形である。"
     ],
     "original_question_id": "530c9dc283033474",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q78",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:530c9dc283033474",
+    "reviewQuestionId": "530c9dc283033474",
+    "sourceRecordRef": "question_2003_4.json#2",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "外表奇形と内臓の先天異常を区別する医学的分類の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で法令上の比較対象はない。",
+          "displayRefIds": [],
+          "explanationText": "心室中隔欠損は心臓内部の先天異常で、外表奇形ではない。",
+          "promptContext": "外表奇形と内臓の先天異常を区別する医学的分類の問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の問題であり、法令改正による解答への影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で法令上の比較対象はない。",
+          "displayRefIds": [],
+          "explanationText": "食道閉鎖は食道の先天異常で、外表奇形ではない。",
+          "promptContext": "外表奇形と内臓の先天異常を区別する医学的分類の問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の問題であり、法令改正による解答への影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で法令上の比較対象はない。",
+          "displayRefIds": [],
+          "explanationText": "先天性巨大結腸症は腸管の先天異常で、外表奇形ではない。",
+          "promptContext": "外表奇形と内臓の先天異常を区別する医学的分類の問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識の問題であり、法令改正による解答への影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在で法令上の比較対象はない。",
+          "displayRefIds": [],
+          "explanationText": "臍帯ヘルニアは腹壁の形成異常による外表奇形である。",
+          "promptContext": "外表奇形と内臓の先天異常を区別する医学的分類の問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識の問題であり、法令改正による解答への影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。\n\n二酸化窒素などの窒素酸化物は、光化学オキシダント生成の原因となる一次汚染物質である。",
-      "間違い。\n\n二酸化いおうは主に酸性雨や硫黄酸化物汚染で問題になる。",
-      "間違い。\n\n二酸化炭素は温室効果ガスとして重要だが、光化学オキシダントの一次汚染物質ではない。",
-      "間違い。\n\n一酸化炭素も有害だが、光化学オキシダントの成因としては窒素酸化物や炭化水素が中心である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「二酸化窒素」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「二酸化窒素」が正解ですか。",
-        "answer": "正解は「二酸化窒素」です。二酸化窒素などの窒素酸化物は、光化学オキシダント生成の原因となる一次汚染物質である。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "二酸化いおう、二酸化炭素、一酸化炭素はいずれも重要な大気汚染物質だが、光化学オキシダントの成因としては窒素酸化物が中心である。"
-      }
+      "正しい。光化学オキシダントは、窒素酸化物や炭化水素などの一次汚染物質が、太陽光による光化学反応を起こして生成する。二酸化窒素は窒素酸化物の一つであり、その成因に関わる一次汚染物質である。"
     ],
     "original_question_id": "cf9b80a4dc049a5f",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q79",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:cf9b80a4dc049a5f",
+    "reviewQuestionId": "cf9b80a4dc049a5f",
+    "sourceRecordRef": "question_2003_4.json#3",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "環境衛生・大気汚染の科学的知識を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "大気汚染の科学的知識に関する選択肢であり、法令根拠を要しない。",
+          "promptContext": "光化学オキシダントの成因となる一次汚染物質を問う。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "大気汚染の科学的知識に関する選択肢であり、法令根拠を要しない。",
+          "promptContext": "光化学オキシダントの成因となる一次汚染物質を問う。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "大気汚染の科学的知識に関する選択肢であり、法令根拠を要しない。",
+          "promptContext": "光化学オキシダントの成因となる一次汚染物質を問う。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "大気汚染の科学的知識に関する選択肢であり、法令根拠を要しない。",
+          "promptContext": "光化学オキシダントの成因となる一次汚染物質を問う。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n感覚温度は総合的な温熱指標だが、この設問で問う輻射熱を明示的に考慮する尺度ではない。",
-      "正しい。\n\n修正感覚温度は輻射熱を考慮する。",
-      "正しい。\n\n湿球黒球温度指数(WBGT)は黒球温度を用いるため、輻射熱を考慮する。",
-      "間違い。\n\n不快指数は主に気温と湿度に基づき、輻射熱は考慮しない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「修正感覚温度、湿球黒球温度指数」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「修正感覚温度、湿球黒球温度指数」が正解ですか。",
-        "answer": "正解は「修正感覚温度、湿球黒球温度指数」です。どちらも輻射熱を考慮する総合的な温熱尺度である。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "感覚温度と不快指数は輻射熱を直接反映しないため、輻射熱を考慮する尺度としては修正感覚温度と湿球黒球温度指数が該当する。"
-      }
+      "正しい。該当するのはｂとｃである。修正感覚温度は、気温、湿度、気流に加えて輻射熱の影響を考慮する。湿球黒球温度指数（WBGT）も黒球温度を用いて輻射熱を反映する。一方、感覚温度と不快指数は輻射熱を考慮しない。"
     ],
     "original_question_id": "5784a56b41f911b4",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q80",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:5784a56b41f911b4",
+    "reviewQuestionId": "5784a56b41f911b4",
+    "sourceRecordRef": "question_2003_4.json#4",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "温熱尺度が考慮する環境要因に関する衛生学・環境工学上の技術問題であり、法令根拠は不要です。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "感覚温度は輻射熱を考慮しない。",
+          "promptContext": "温熱尺度の定義と考慮する環境要因を確認する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "修正感覚温度は輻射熱を考慮する。",
+          "promptContext": "温熱尺度の定義と考慮する環境要因を確認する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "湿球黒球温度指数は輻射熱を考慮する。",
+          "promptContext": "温熱尺度の定義と考慮する環境要因を確認する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "不快指数は輻射熱を考慮しない。",
+          "promptContext": "温熱尺度の定義と考慮する環境要因を確認する問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -151,28 +608,126 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n年齢構成の異なる集団の死亡率を比較するときは、年齢調整死亡率を用いる。",
-      "正しい。\n\n純再生産率が1.0より小さい状態が続けば、将来人口は減少する。",
-      "間違い。\n\n平均寿命は0歳の平均余命そのものなので、「より短い」という表現は誤りである。",
-      "正しい。\n\nPMIは全死亡数に占める50歳以上の死亡の割合である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「平均寿命は0歳の平均余命より短い」が正解ですか。",
-      "他の選択肢が正しい理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「平均寿命は0歳の平均余命より短い」が正解ですか。",
-        "answer": "正解は「平均寿命は0歳の平均余命より短い」です。平均寿命は0歳の平均余命そのものなので、「より短い」という表現は誤りである。"
-      },
-      {
-        "question": "他の選択肢が正しい理由は何ですか。",
-        "answer": "年齢調整死亡率、純再生産率、PMIはいずれも健康指標として正しい説明であり、誤りは平均寿命の記述である。"
-      }
+      "正しい。年齢構成が異なる集団の死亡率を比べると、年齢分布の違いが比較結果に影響する。その影響を調整して比較するため、年齢調整死亡率を用いる。",
+      "正しい。純再生産率は、女性が一生に産む女児数に、女児が母親の年齢まで生存する確率を加味した指標である。1.0未満の状態が続くと、世代ごとの人口を十分に再生産できず、将来の人口は減少する。",
+      "間違い。正しくは、平均寿命は0歳の平均余命と同じである。したがって、「0歳の平均余命より短い」という比較が誤りである。",
+      "正しい。PMIは、全死亡数に占める50歳以上の死亡数の割合を示す指標である。"
     ],
     "original_question_id": "c69fb7fd4a6e9bd2",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q82",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:c69fb7fd4a6e9bd2",
+    "reviewQuestionId": "c69fb7fd4a6e9bd2",
+    "sourceRecordRef": "question_2003_4.json#6",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "健康指標の定義に関する公衆衛生・疫学の知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "年齢構成が異なる集団の死亡率を比較する際は、年齢調整死亡率を用いる。",
+          "promptContext": "柔道整復師の公衆衛生・疫学に関する健康指標問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当。年齢調整死亡率の定義に基づく判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "純再生産率が1.0未満の状態が続くと、世代ごとの人口を十分に再生産できず、将来人口は減少する。",
+          "promptContext": "柔道整復師の公衆衛生・疫学に関する健康指標問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当。純再生産率と人口再生産の関係に基づく判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "平均寿命は0歳の平均余命と同じであるため、「平均寿命は0歳の平均余命より短い」は誤りである。",
+          "promptContext": "柔道整復師の公衆衛生・疫学に関する健康指標問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。平均寿命と0歳の平均余命の関係に基づく判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "PMIは全死亡数に占める50歳以上の死亡数の割合を示す。",
+          "promptContext": "柔道整復師の公衆衛生・疫学に関する健康指標問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当。PMIの定義に基づく判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -201,128 +756,683 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n腸炎ビブリオは感染型食中毒を起こす。",
-      "正しい。\n\n黄色ブドウ球菌は耐熱性毒素を産生する。",
-      "間違い。\n\nサルモネラ菌は感染型食中毒であり、毒素型食中毒ではない。",
-      "正しい。\n\nボツリヌス菌は神経性毒素を産生する。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「サルモネラ菌 ─── 毒素型食中毒」が正解ですか。",
-      "他の選択肢が正しい理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「サルモネラ菌 ─── 毒素型食中毒」が正解ですか。",
-        "answer": "正解は「サルモネラ菌 ─── 毒素型食中毒」です。サルモネラ菌は感染型食中毒であり、毒素型食中毒ではない。"
-      },
-      {
-        "question": "他の選択肢が正しい理由は何ですか。",
-        "answer": "腸炎ビブリオは感染型、黄色ブドウ球菌は耐熱性毒素、ボツリヌス菌は神経性毒素である。"
-      }
+      "正しい。腸炎ビブリオは、腸管内で増殖して発症する感染型食中毒の原因となる。",
+      "正しい。黄色ブドウ球菌は、加熱しても壊れにくい耐熱性のエンテロトキシンを産生する。",
+      "間違い。正しくは、サルモネラ菌は感染型食中毒を起こす。毒素型食中毒ではない。",
+      "正しい。ボツリヌス菌は、神経の働きを妨げるボツリヌス神経毒素を産生する。"
     ],
     "original_question_id": "21cd8b8b34dce80c",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q84",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:21cd8b8b34dce80c",
+    "reviewQuestionId": "21cd8b8b34dce80c",
+    "sourceRecordRef": "question_2003_4.json#8",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "食中毒の分類と細菌毒素に関する衛生学・微生物学の知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定変更なし。",
+          "displayRefIds": [],
+          "explanationText": "腸炎ビブリオは感染型食中毒の原因となる。",
+          "promptContext": "病原体と食中毒型の対応を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。腸炎ビブリオと感染型食中毒の対応は衛生学上の知識である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定変更なし。",
+          "displayRefIds": [],
+          "explanationText": "黄色ブドウ球菌は耐熱性のエンテロトキシンを産生する。",
+          "promptContext": "細菌が産生する毒素の性質を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。黄色ブドウ球菌の耐熱性エンテロトキシンは衛生学上の知識である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定変更なし。",
+          "displayRefIds": [],
+          "explanationText": "サルモネラ菌は感染型食中毒を起こし、毒素型食中毒ではない。",
+          "promptContext": "感染型食中毒と毒素型食中毒の違いを確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。サルモネラ菌は感染型食中毒を起こすため、毒素型食中毒とする記述は誤りである。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定変更なし。",
+          "displayRefIds": [],
+          "explanationText": "ボツリヌス菌は神経の働きを妨げるボツリヌス神経毒素を産生する。",
+          "promptContext": "細菌毒素の作用と病原体の対応を確認する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。ボツリヌス菌の神経毒素は衛生学上の知識である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n被用者保険は一般地域居住者を対象とするのではなく、主に被用者を対象とする。",
-      "正しい。\n\n医療保険制度は医療の機会均等を目指している。",
-      "間違い。\n\n医療給付は現金給付が原則ではなく、現物給付が原則である。",
-      "間違い。\n\n老人医療費が全額公費で負担されるわけではない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「医療の機会均等を目指している。」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「医療の機会均等を目指している。」が正解ですか。",
-        "answer": "正解は「医療の機会均等を目指している。」です。日本の医療保険制度は、誰もが必要な医療を受けられるようにすることを目指している。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "被用者保険の対象、給付の原則、老人医療費の負担はいずれもこの記述と異なり、医療の機会均等を目指すのが正しい。"
-      }
+      "間違い。被用者保険の対象は、適用事業所に使用される者などの被用者とその被扶養者であり、一般地域住民ではない。被保険者の範囲は健康保険法第3条に定められている。",
+      "正しい。医療保険制度は、必要な医療を受けられるよう保険給付を行い、国民の生活の安定と福祉の向上を図る制度である。この制度目的は健康保険法第1条に示されており、医療の機会均等を目指すという説明と整合する。",
+      "間違い。医療給付は現金給付が原則ではなく、診察、薬剤の支給、処置、手術などの療養を受ける現物給付が基本である。健康保険法第63条第1項が療養の給付を定めている。",
+      "間違い。老人医療費が全額公費で賄われるわけではなく、患者の一部負担金がある。現行制度の一部負担金は高齢者の医療の確保に関する法律第67条に定められている。試験時点の法令本文は取得できていないため、当時の制度枠組みの詳細は断定しない。"
     ],
     "original_question_id": "1ee2274ecd2c2058",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q85",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:2003:1ee2274ecd2c2058",
+    "reviewQuestionId": "1ee2274ecd2c2058",
+    "sourceRecordRef": "question_2003_4.json#9",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-08",
+        "sourceUrl": "https://www.mhlw.go.jp/content/001713153.pdf",
+        "title": "保険診療の理解のために"
+      },
+      {
+        "referenceDate": "2001-03-06",
+        "sourceUrl": "https://www.mhlw.go.jp/houdou/0103/h0306-1/h0306-1h.html",
+        "title": "医療制度改革の課題と視点（国民皆保険制度）"
+      },
+      {
+        "referenceDate": "2001-03-06",
+        "sourceUrl": "https://www.mhlw.go.jp/houdou/0103/h0306-1/h0306-1i.html",
+        "title": "医療制度改革の課題と視点（老人医療費の財源）"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "医療保険制度の対象、目的、療養の給付および高齢者医療の一部負担金を、健康保険法第1条・第3条・第63条と高齢者の医療の確保に関する法律第67条で確認する。",
+    "lawReferences": [
+      [
+        {
+          "article": "第3条",
+          "choiceIndex": 0,
+          "lawId": "211AC0000000070",
+          "lawTitle": "健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/211AC0000000070?asof=2026-09-09",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第1条",
+          "choiceIndex": 1,
+          "lawId": "211AC0000000070",
+          "lawTitle": "健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/211AC0000000070?asof=2026-09-09",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第63条",
+          "choiceIndex": 2,
+          "lawId": "211AC0000000070",
+          "lawTitle": "健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/211AC0000000070?asof=2026-09-09",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第67条",
+          "choiceIndex": 3,
+          "lawId": "357AC0000000080",
+          "lawTitle": "高齢者の医療の確保に関する法律",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/357AC0000000080?asof=2026-09-09",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "被用者保険の対象を一般地域居住者とする記述は、公式元正答・現行法とも誤りである。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "確認した現行法上の判定は公式元正答と一致する。",
+          "displayRefIds": [
+            "health-insurance-law-article-3"
+          ],
+          "explanationText": "被用者保険は被用者とその被扶養者を主な対象とする。",
+          "promptContext": "健康保険法第3条の被保険者の範囲を確認した。",
+          "refs": [],
+          "verdict": "exam_time_and_current_answer_same"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "answer_unchanged",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "医療保険制度が必要な医療へのアクセスを保障し、医療の機会均等を目指すという記述は、公式元正答・現行法の制度目的と整合する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "確認した現行法上の判定は公式元正答と一致する。",
+          "displayRefIds": [
+            "health-insurance-law-article-1"
+          ],
+          "explanationText": "医療保険制度は保険給付を通じて国民の生活の安定と福祉の向上を図る。",
+          "promptContext": "健康保険法第1条の目的規定を確認した。",
+          "refs": [],
+          "verdict": "exam_time_and_current_answer_same"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "answer_unchanged",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "医療給付は現金給付が原則ではなく、療養の給付による現物給付が基本である。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "確認した現行法上の判定は公式元正答と一致する。",
+          "displayRefIds": [
+            "health-insurance-law-article-63"
+          ],
+          "explanationText": "健康保険法第63条第1項は診察、薬剤の支給、処置、手術などの療養の給付を定めている。",
+          "promptContext": "健康保険法第63条第1項の療養の給付を確認した。",
+          "refs": [],
+          "verdict": "exam_time_and_current_answer_same"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "answer_unchanged",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "老人医療費が全額公費で負担されるという記述は、公式元正答・現行法とも誤りである。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文はprimaryLawEvidenceで取得できず、当時の制度枠組みの詳細比較は未確認である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の法令本文は未取得のため制度変遷の詳細は比較していないが、公式元正答と現行法上の判定は一致する。",
+          "displayRefIds": [
+            "elderly-medical-care-law-article-67"
+          ],
+          "explanationText": "現行制度では高齢者にも一部負担金があり、全額公費負担ではない。",
+          "promptContext": "高齢者の医療の確保に関する法律第67条の一部負担金を確認した。",
+          "refs": [],
+          "verdict": "official_exam_answer_and_current_law_answer_same"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の法令本文を推測せず、公式元正答をexamTimeへ保持した。"
+        ],
+        "reconciliationStatus": "answer_unchanged_exam_time_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n労働者の健康増進はWHOの直接的な活動ではない。",
-      "間違い。\n\n開発途上国の児童教育支援はWHOの中心業務ではない。",
-      "間違い。\n\n国境なき医師団の設立はWHOの活動ではない。",
-      "正しい。\n\nWHOは保健統計の収集を行う。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「保健統計の収集」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「保健統計の収集」が正解ですか。",
-        "answer": "正解は「保健統計の収集」です。WHOは各国の健康・保健統計を集計し、世界保健統計として公表している。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "労働者の健康増進、児童教育支援、国境なき医師団の設立はWHOの活動ではなく、保健統計の収集が該当する。"
-      }
+      "間違い。労働者の健康増進は、主に国際労働機関（ILO）などが扱う領域であり、WHOの活動として示す内容ではない。",
+      "間違い。開発途上国の児童教育支援は、教育・児童支援を担う国際機関などの活動であり、WHOの活動ではない。",
+      "間違い。国境なき医師団はWHOではなく、独立した民間の医療・人道援助団体である。",
+      "正しい。WHOは各国の健康・保健に関する統計を収集し、国際的な保健状況の把握に用いる。"
     ],
     "original_question_id": "32018a0fb1d5b4c7",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q86",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:32018a0fb1d5b4c7",
+    "reviewQuestionId": "32018a0fb1d5b4c7",
+    "sourceRecordRef": "question_2003_4.json#10",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "WHOの活動と他の国際機関・民間団体の役割を区別する一般的な国際保健知識であり、国内法令の条文根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在時点の法令差は対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない一般知識の選択肢。",
+          "promptContext": "WHOと他の国際機関・団体の活動を区別する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "一般的な国際保健知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在時点の法令差は対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない一般知識の選択肢。",
+          "promptContext": "WHOと他の国際機関・団体の活動を区別する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "一般的な国際保健知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在時点の法令差は対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない一般知識の選択肢。",
+          "promptContext": "WHOと他の国際機関・団体の活動を区別する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "一般的な国際保健知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現在時点の法令差は対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない一般知識の選択肢。",
+          "promptContext": "WHOと他の国際機関・団体の活動を区別する問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "一般的な国際保健知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。\n\n破傷風菌は嫌気性菌感染症を起こす。",
-      "正しい。\n\nクラミジアは性行為感染症(STD)の原因となる。",
-      "間違い。\n\nレジオネラ菌はレジオネラ症の原因菌であり、ラッサ熱ではない。",
-      "正しい。\n\nMRSAは院内感染症の原因菌として重要である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「レジオネラ菌 ─── ラッサ熱」が正解ですか。",
-      "他の選択肢が正しい理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「レジオネラ菌 ─── ラッサ熱」が正解ですか。",
-        "answer": "正解は「レジオネラ菌 ─── ラッサ熱」です。レジオネラ菌はレジオネラ症の原因菌であり、ラッサ熱ではない。"
-      },
-      {
-        "question": "他の選択肢が正しい理由は何ですか。",
-        "answer": "破傷風菌は嫌気性菌感染症、クラミジアはSTD、MRSAは院内感染症の原因菌として正しい。"
-      }
+      "正しい。",
+      "正しい。",
+      "間違い。正しくは、レジオネラ菌はレジオネラ症の原因菌である。ラッサ熱はラッサウイルスによる感染症であり、原因微生物が異なるため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "7d6fac3a5157ba03",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q87",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:7d6fac3a5157ba03",
+    "reviewQuestionId": "7d6fac3a5157ba03",
+    "sourceRecordRef": "question_2003_4.json#11",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "感染症と原因微生物の対応を問う医学知識の問題であり、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "破傷風菌と嫌気性菌感染症の対応は医学知識で判定する。",
+          "promptContext": "法令監査の対象外である。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "クラミジアと性感染症の対応は医学知識で判定する。",
+          "promptContext": "法令監査の対象外である。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "レジオネラ菌とラッサ熱の原因微生物の対応は医学知識で判定する。",
+          "promptContext": "法令監査の対象外である。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "MRSAと院内感染症の対応は医学知識で判定する。",
+          "promptContext": "法令監査の対象外である。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。\n\n日本脳炎には不活化ワクチンが用いられる。",
-      "間違い。\n\n結核にはBCGワクチンが用いられ、これは生ワクチンである。",
-      "間違い。\n\n麻疹ワクチンは生ワクチンである。",
-      "間違い。\n\n風疹ワクチンも生ワクチンである。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「日本脳炎」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「日本脳炎」が正解ですか。",
-        "answer": "正解は「日本脳炎」です。日本脳炎ワクチンには不活化ワクチンが用いられる。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "結核のBCG、麻疹、風疹はいずれも生ワクチンであり、不活化ワクチンではない。"
-      }
+      "正しい。日本脳炎ワクチンには不活化ワクチンが用いられる。不活化ワクチンは病原体の働きをなくしたワクチンである。一方、結核のBCG、麻疹ワクチン、風疹ワクチンはいずれも生ワクチンであり、不活化ワクチンではない。"
     ],
     "original_question_id": "5110748da53c48bb",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q88",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:5110748da53c48bb",
+    "reviewQuestionId": "5110748da53c48bb",
+    "sourceRecordRef": "question_2003_4.json#12",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "不活化ワクチンと生ワクチンの分類を問う医学的知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法の改廃による正答変動はない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識問題であり、現行法の改廃による正答変動を確認する対象ではない。",
+          "promptContext": "不活化ワクチンと生ワクチンの分類問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的知識問題のため現行法監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法の改廃による正答変動はない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識問題であり、現行法の改廃による正答変動を確認する対象ではない。",
+          "promptContext": "不活化ワクチンと生ワクチンの分類問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的知識問題のため現行法監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法の改廃による正答変動はない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識問題であり、現行法の改廃による正答変動を確認する対象ではない。",
+          "promptContext": "不活化ワクチンと生ワクチンの分類問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的知識問題のため現行法監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法の改廃による正答変動はない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識問題であり、現行法の改廃による正答変動を確認する対象ではない。",
+          "promptContext": "不活化ワクチンと生ワクチンの分類問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的知識問題のため現行法監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -351,78 +1461,517 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nオスバンは塩化ベンザルコニウムを主成分とする逆性石けんで、アルデヒド系ではない。",
-      "正しい。\n\nリゾールはフェノール系消毒薬である。",
-      "正しい。\n\nイソジンはヨウ素系消毒薬である。",
-      "正しい。\n\nヒビテンはビグアナイド系消毒薬である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「オスバン ─── アルデヒド系」が正解ですか。",
-      "他の選択肢が正しい理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「オスバン ─── アルデヒド系」が正解ですか。",
-        "answer": "正解は「オスバン ─── アルデヒド系」です。オスバンは塩化ベンザルコニウムを主成分とする逆性石けんで、アルデヒド系ではない。"
-      },
-      {
-        "question": "他の選択肢が正しい理由は何ですか。",
-        "answer": "リゾールはフェノール系、イソジンはヨウ素系、ヒビテンはビグアナイド系であり、オスバンだけが分類を誤っている。"
-      }
+      "間違い。正しくは、オスバンは塩化ベンザルコニウムを主成分とする逆性石けん（第4級アンモニウム塩）である。アルデヒド系ではないため、この組合せが誤りである。",
+      "正しい。リゾールはフェノール系の消毒薬に分類される。",
+      "正しい。イソジンはヨウ素を有効成分とするヨウ素系の消毒薬である。",
+      "正しい。ヒビテンはクロルヘキシジンを主成分とするビグアナイド系の消毒薬である。"
     ],
     "original_question_id": "04cc1c0cba6f02d1",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q90",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:2003:04cc1c0cba6f02d1",
+    "reviewQuestionId": "04cc1c0cba6f02d1",
+    "sourceRecordRef": "question_2003_4.json#14",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "消毒薬の化学的分類を問う技術・衛生知識の問題で、法令条文や制度上の義務・基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は消毒薬の化学的分類に関する技術・衛生知識であり、法令の適用関係を問わない。",
+          "promptContext": "法令条文や制度上の義務・基準を根拠にしない問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "消毒薬の化学的分類に関する技術・衛生知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は消毒薬の化学的分類に関する技術・衛生知識であり、法令の適用関係を問わない。",
+          "promptContext": "法令条文や制度上の義務・基準を根拠にしない問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "消毒薬の化学的分類に関する技術・衛生知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は消毒薬の化学的分類に関する技術・衛生知識であり、法令の適用関係を問わない。",
+          "promptContext": "法令条文や制度上の義務・基準を根拠にしない問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "消毒薬の化学的分類に関する技術・衛生知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は消毒薬の化学的分類に関する技術・衛生知識であり、法令の適用関係を問わない。",
+          "promptContext": "法令条文や制度上の義務・基準を根拠にしない問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "消毒薬の化学的分類に関する技術・衛生知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n施術の対価の有無は「業」の要件ではない。",
-      "正しい。\n\n反復継続の意思をもって行うものが「業」となる。",
-      "正しい。\n\n柔道整復師は厚生労働大臣の免許を受けて業務を行う。",
-      "正しい。\n\n1回の施術でも、反復継続の意思があれば「業」と評価されうる。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「施術の対価を必要とする。」が正解ですか。",
-      "他の選択肢が正しい理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「施術の対価を必要とする。」が正解ですか。",
-        "answer": "正解は「施術の対価を必要とする。」です。「業」は反復継続の意思をもって行うものを指し、対価の有無は要件ではない。"
-      },
-      {
-        "question": "他の選択肢が正しい理由は何ですか。",
-        "answer": "反復継続の意思と免許は必要で、1回の施術でもその意思があれば「業」と評価されうるため、対価を要件とする記述だけが誤りである。"
-      }
+      "間違い。施術の対価を必要とすることは、「業」の要件ではない。「業」は、反復継続の意思をもって柔道整復を行うことを指し、無償か有償かで決まらない。",
+      "正しい。反復継続の意思をもって柔道整復を行うことが「業」に当たる。実際の施術回数だけでなく、継続して行う意思があるかで判断する。",
+      "正しい。柔道整復師として業務を行うには、厚生労働大臣の免許が必要である。",
+      "正しい。一回だけの施術でも、反復継続して行う意思があれば「業」に当たり得る。実際に何回施術したかだけで業かどうかを決めるわけではない。"
     ],
     "original_question_id": "5a12954da8e0c3e3",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q91",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:2003:5a12954da8e0c3e3",
+    "reviewQuestionId": "5a12954da8e0c3e3",
+    "sourceRecordRef": "question_2003_4.json#15",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法（昭和45年法律第19号）第2条"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法第2条は、厚生労働大臣の免許を受けて柔道整復を業とする者を柔道整復師と定義する。「業」は反復継続の意思をもって行うことをいい、対価の有無や実施回数そのものは要件ではない。",
+    "lawReferences": [
+      [
+        {
+          "article": "2",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "試験時点の法令差異が未確認のため、出題時点の正誤への影響は未判定。"
+        ],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の公式法令本文が入力されていないため、現行法との差異は判定保留。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の一次資料がないため比較未実施。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法第2条を解説の根拠とした。",
+          "promptContext": "柔道整復師法第2条の定義と「業」の判断を使用。",
+          "refs": [],
+          "verdict": "current_basis_only"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法の根拠は確認済み。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable",
+        "reviewState": "hold"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点の法令差異が未確認のため、出題時点の正誤への影響は未判定。"
+        ],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点の公式法令本文が入力されていないため、現行法との差異は判定保留。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の一次資料がないため比較未実施。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法第2条を解説の根拠とした。",
+          "promptContext": "柔道整復師法第2条の「業」の判断を使用。",
+          "refs": [],
+          "verdict": "current_basis_only"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法の根拠は確認済み。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable",
+        "reviewState": "hold"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点の法令差異が未確認のため、出題時点の正誤への影響は未判定。"
+        ],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点の公式法令本文が入力されていないため、現行法との差異は判定保留。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の一次資料がないため比較未実施。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法第2条を解説の根拠とした。",
+          "promptContext": "厚生労働大臣の免許要件を使用。",
+          "refs": [],
+          "verdict": "current_basis_only"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法の根拠は確認済み。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable",
+        "reviewState": "hold"
+      },
+      {
+        "answerImpactFacts": [
+          "試験時点の法令差異が未確認のため、出題時点の正誤への影響は未判定。"
+        ],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点の公式法令本文が入力されていないため、現行法との差異は判定保留。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の一次資料がないため比較未実施。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法第2条を解説の根拠とした。",
+          "promptContext": "「業」の反復継続意思に関する判断を使用。",
+          "refs": [],
+          "verdict": "current_basis_only"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法の根拠は確認済み。"
+        ],
+        "reconciliationStatus": "exam_time_basis_unavailable",
+        "reviewState": "hold"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n国籍など記載事項に変更が生じたときは、書換え交付の申請が必要である。",
-      "間違い。\n\n本人が死亡した場合、免許証は返納しなければならない。",
-      "正しい。\n\n再交付後に失った免許証を発見したときは、5日以内に返納する。",
-      "間違い。\n\n旧法で登録されたものを一律に無効とはしない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「再交付を受けたが、失った免許証を発見し、これを5日以内に返納した。」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「再交付を受けたが、失った免許証を発見し、これを5日以内に返納した。」が正解ですか。",
-        "answer": "正解は「再交付を受けたが、失った免許証を発見し、これを5日以内に返納した。」です。再交付後に見つかった免許証は、5日以内に返納しなければならない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "記載事項の変更、死亡時の返納、旧法登録の扱いはいずれもこの記述どおりではなく、再交付後に発見した免許証を5日以内に返納するのが正しい。"
-      }
+      "間違い。国籍は免許の登録事項なので、氏名が変わらなくても、国籍に変更が生じたときは登録事項の変更申請が必要である。",
+      "間違い。本人が死亡した場合は、戸籍法上の届出義務者が登録消除の申請を行い、免許証も返納しなければならない。",
+      "正しい。免許証の再交付を受けた後に失った免許証を発見したときは、5日以内に厚生労働大臣へ返納しなければならない。",
+      "間違い。旧法で登録された免許証を一律に無効とはしない。旧法に基づく免許については、制定附則の経過措置により扱われる。"
     ],
     "original_question_id": "9aacf9b5bfcf1199",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q92",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:2003:9aacf9b5bfcf1199",
+    "reviewQuestionId": "9aacf9b5bfcf1199",
+    "sourceRecordRef": "question_2003_4.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則（e-Gov法令検索）"
+      },
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法（e-Gov法令検索）"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法施行規則の登録事項変更、死亡時の登録消除・免許証返納、再交付後に発見した免許証の返納、および柔道整復師法制定附則の旧法免許証に関する経過措置が判断軸である。",
+    "lawReferences": [
+      [
+        {
+          "article": "2、3",
+          "choiceIndex": 0,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "4第2項、7",
+          "choiceIndex": 1,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "6第5項",
+          "choiceIndex": 2,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "制定附則第4項",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "現行法では、国籍変更時に氏名が同じでも登録事項変更の申請が必要である。"
+        ],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文を比較する一次資料が未提供。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点との法令本文の比較は未確認。",
+          "displayRefIds": [],
+          "explanationText": "国籍は登録事項であり、氏名が変わらなくても国籍変更時には登録事項変更の申請が必要である。",
+          "promptContext": "2003年問題の免許登録事項変更を現行法で確認。",
+          "refs": [],
+          "verdict": "現行法では間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法の登録事項変更に基づく説明を反映。"
+        ],
+        "reconciliationStatus": "pending_exam_time_comparison",
+        "reviewState": "hold"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法では、死亡時の登録消除申請と免許証返納が必要である。"
+        ],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文を比較する一次資料が未提供。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点との法令本文の比較は未確認。",
+          "displayRefIds": [],
+          "explanationText": "本人が死亡した場合は、届出義務者による登録消除の申請が必要であり、免許証も返納対象となる。",
+          "promptContext": "2003年問題の死亡時手続を現行法で確認。",
+          "refs": [],
+          "verdict": "現行法では間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "死亡時の登録消除および免許証返納に関する現行法を反映。"
+        ],
+        "reconciliationStatus": "pending_exam_time_comparison",
+        "reviewState": "hold"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法では、再交付後に発見した旧免許証を5日以内に返納する必要がある。"
+        ],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文を比較する一次資料が未提供。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点との法令本文の比較は未確認。",
+          "displayRefIds": [],
+          "explanationText": "免許証の再交付後に失った免許証を発見したときは、5日以内に厚生労働大臣へ返納しなければならない。",
+          "promptContext": "2003年問題の再交付後の返納期限を現行法で確認。",
+          "refs": [],
+          "verdict": "現行法では正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "再交付後に発見した免許証の返納期限を反映。"
+        ],
+        "reconciliationStatus": "pending_exam_time_comparison",
+        "reviewState": "hold"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法の制定附則は、旧法に基づく免許を一律に無効とする扱いではない。"
+        ],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の法令本文を比較する一次資料が未提供。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点との法令本文の比較は未確認。",
+          "displayRefIds": [],
+          "explanationText": "旧法で登録された免許証を一律に無効とはせず、制定附則の経過措置により扱う。",
+          "promptContext": "2003年問題の旧法免許証の効力を現行法で確認。",
+          "refs": [],
+          "verdict": "現行法では間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "旧法免許証に関する制定附則の経過措置を反映。"
+        ],
+        "reconciliationStatus": "pending_exam_time_comparison",
+        "reviewState": "hold"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -451,53 +2000,497 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n医師の同意を得た骨折の施術は柔道整復師の業務である。",
-      "間違い。\n\n投薬は柔道整復師の業務ではない。",
-      "間違い。\n\n止血剤の注射は柔道整復師の業務ではない。",
-      "間違い。\n\n放射線の人体照射は柔道整復師の業務ではない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「医師の同意を得た骨折の施術」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「医師の同意を得た骨折の施術」が正解ですか。",
-        "answer": "正解は「医師の同意を得た骨折の施術」です。医師の同意がある骨折の施術は柔道整復師の業務として認められている。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "投薬、注射、放射線の人体照射はいずれも柔道整復師の業務ではなく、骨折の施術だけが該当する。"
-      }
+      "正しい。医師の同意を得た骨折の患部への施術は、柔道整復師が業務として行える。柔道整復師法第17条は、医師の同意がない骨折への施術を制限している。",
+      "間違い。投薬は柔道整復師の業務ではない。柔道整復師法第16条は、薬品の投与やその指示を禁じている。",
+      "間違い。止血剤の注射は薬品を投与する行為に当たり、柔道整復師の業務ではない。",
+      "間違い。放射線の人体照射は柔道整復師の業務ではない。診療放射線技師法第24条により、放射線の人体照射を業として行える者は医師、歯科医師又は診療放射線技師に限られる。"
     ],
     "original_question_id": "a8595a0aa80d001d",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q94",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:2003:a8595a0aa80d001d",
+    "reviewQuestionId": "a8595a0aa80d001d",
+    "sourceRecordRef": "question_2003_4.json#18",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法（昭和四十五年法律第十九号）第十七条"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法（昭和四十五年法律第十九号）第十六条"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/326AC0100000226?asof=2026-09-09",
+        "title": "診療放射線技師法（昭和二十六年法律第二百二十六号）第二十四条"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "医師の同意を得た骨折への施術は柔道整復師法第17条の条件付きで認められる。投薬と止血剤注射は同法第16条の薬品投与に当たり、放射線の人体照射は診療放射線技師法第24条の対象である。",
+    "lawReferences": [
+      [
+        {
+          "article": "17",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-08",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "16",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-08",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "16",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-08",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "24",
+          "choiceIndex": 3,
+          "lawId": "326AC0100000226",
+          "lawTitle": "診療放射線技師法",
+          "referenceDate": "2026-09-08",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "2003年当時の条文本文を確認できていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行時点の条文比較は未実施。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第17条の現行条文を確認した。",
+          "promptContext": "医師の同意を得た骨折への施術に関する現行法根拠。",
+          "refs": [],
+          "verdict": "現行法確認済み、出題時点未確認"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法では医師の同意を得た骨折の施術が認められる。"
+        ],
+        "reconciliationStatus": "exam_time_unverified",
+        "reviewState": "primary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "2003年当時の条文本文を確認できていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行時点の条文比較は未実施。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第16条の現行条文を確認した。",
+          "promptContext": "投薬が柔道整復師の業務に含まれるかに関する現行法根拠。",
+          "refs": [],
+          "verdict": "現行法確認済み、出題時点未確認"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法では薬品の投与又はその指示が禁止されている。"
+        ],
+        "reconciliationStatus": "exam_time_unverified",
+        "reviewState": "primary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "2003年当時の条文本文を確認できていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行時点の条文比較は未実施。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第16条の現行条文を確認した。",
+          "promptContext": "止血剤注射が柔道整復師の業務に含まれるかに関する現行法根拠。",
+          "refs": [],
+          "verdict": "現行法確認済み、出題時点未確認"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法では薬品の投与が禁止されている。"
+        ],
+        "reconciliationStatus": "exam_time_unverified",
+        "reviewState": "primary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "2003年当時の条文本文を確認できていない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行時点の条文比較は未実施。",
+          "displayRefIds": [],
+          "explanationText": "診療放射線技師法第24条の現行条文を確認した。",
+          "promptContext": "放射線の人体照射を行える職種に関する現行法根拠。",
+          "refs": [],
+          "verdict": "現行法確認済み、出題時点未確認"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法では放射線の人体照射を業として行える者が限定されている。"
+        ],
+        "reconciliationStatus": "exam_time_unverified",
+        "reviewState": "primary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n都道府県知事は必要に応じて施術所へ立入検査を行うことができる。",
-      "間違い。\n\n都道府県知事は柔道整復師の業務に関して必要な指示をすることができる。",
-      "正しい。\n\n立入検査の権限は犯罪捜査のために認められたものではない。",
-      "間違い。\n\n柔道整復師の免許の取消しは厚生労働大臣の権限である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「犯罪捜査を目的とした施術所への立入検査はできない。」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「犯罪捜査を目的とした施術所への立入検査はできない。」が正解ですか。",
-        "answer": "正解は「犯罪捜査を目的とした施術所への立入検査はできない。」です。立入検査の権限は、犯罪捜査のために認められたものではない。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "都道府県知事は施術所への立入検査や業務への指示ができ、免許取消しは厚生労働大臣の権限である。"
-      }
+      "間違い。\n\n都道府県知事は、必要があると認めるとき、施術所へ立ち入り、構造設備や衛生上の措置の実施状況を検査できる。これは柔道整復師法（昭和四十五年法律第十九号）第21条第1項に定められている。",
+      "間違い。\n\n都道府県知事は、衛生上の害が生じるおそれがあると認めるとき、柔道整復師に業務に関する必要な指示をすることができる。これは柔道整復師法（昭和四十五年法律第十九号）第18条第1項に定められている。",
+      "正しい。\n\n立入検査は、施術所の構造設備や衛生上の措置の実施状況を確認するための権限であり、犯罪捜査のために認められたものではない。柔道整復師法（昭和四十五年法律第十九号）第21条第3項は、そのように定めている。",
+      "正しい。\n\n都道府県知事には柔道整復師の免許を取り消す権限はなく、その権限を持つのは厚生労働大臣である。柔道整復師法（昭和四十五年法律第十九号）第8条第1項に定められている。"
     ],
     "original_question_id": "a5b7c621cb40c0c0",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q95",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:2003:a5b7c621cb40c0c0",
+    "reviewQuestionId": "a5b7c621cb40c0c0",
+    "sourceRecordRef": "question_2003_4.json#19",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法 第21条（報告及び検査）"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法 第18条（都道府県知事の指示）"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法 第21条第3項（報告及び検査）"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法 第8条第1項（免許の取消し等）"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "柔道整復師法第18条は都道府県知事の指示、第21条は施術所への立入検査と犯罪捜査目的の禁止、第8条は厚生労働大臣による免許取消しを定める。現行法ベースで確認した。",
+    "lawReferences": [
+      [
+        {
+          "article": "21",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "18",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "21第3項",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "8第1項",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法の第21条第1項により、選択肢の否定は誤りである。",
+          "displayRefIds": [
+            "law-21-choice-0-current"
+          ],
+          "explanationText": "都道府県知事は必要があると認めるとき、施術所へ立ち入り、構造設備や衛生上の措置の実施状況を検査できる。",
+          "promptContext": "都道府県知事の施術所への立入検査権限を確認する。",
+          "refs": [
+            {
+              "article": "21",
+              "articleTextHash": "23a0c9500e2df0f6072e8a767a3153e885e036d42175aa9c1974983014366b86",
+              "elm": "Article[21]",
+              "encodedElm": "Article%5B21%5D",
+              "highlightElms": [
+                "Article[21]",
+                "Article[21] Paragraph[1]"
+              ],
+              "item": "none",
+              "lawId": "345AC1000000019",
+              "lawRevisionId": "345AC1000000019_20250601_504AC0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "柔道整復師法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "law-21-choice-0-current",
+              "relation": "supports_choice_verdict",
+              "rootArticleElm": "Article[21]",
+              "subitem": "none",
+              "textHash": "23a0c9500e2df0f6072e8a767a3153e885e036d42175aa9c1974983014366b86"
+            }
+          ],
+          "verdict": "current_law_supports_verdict"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の条文本文は取得されていないため、出題時判定は公式解答を保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法の第18条第1項により、選択肢の否定は誤りである。",
+          "displayRefIds": [
+            "law-18-choice-1-current"
+          ],
+          "explanationText": "都道府県知事は、衛生上の害が生じるおそれがあると認めるとき、柔道整復師に業務に関する必要な指示をすることができる。",
+          "promptContext": "都道府県知事による柔道整復師への業務上の指示権限を確認する。",
+          "refs": [
+            {
+              "article": "18",
+              "articleTextHash": "cff48c1f69d2a249ecfae3b032859721f1ea0659ef5cfa21fad2a527e9f61df8",
+              "elm": "Article[18]",
+              "encodedElm": "Article%5B18%5D",
+              "highlightElms": [
+                "Article[18]",
+                "Article[18] Paragraph[1]"
+              ],
+              "item": "none",
+              "lawId": "345AC1000000019",
+              "lawRevisionId": "345AC1000000019_20250601_504AC0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "柔道整復師法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "law-18-choice-1-current",
+              "relation": "supports_choice_verdict",
+              "rootArticleElm": "Article[18]",
+              "subitem": "none",
+              "textHash": "cff48c1f69d2a249ecfae3b032859721f1ea0659ef5cfa21fad2a527e9f61df8"
+            }
+          ],
+          "verdict": "current_law_supports_verdict"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の条文本文は取得されていないため、出題時判定は公式解答を保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法の第21条第3項により、選択肢は正しい。",
+          "displayRefIds": [
+            "law-21-choice-2-current"
+          ],
+          "explanationText": "立入検査の権限は犯罪捜査のために認められたものではない。",
+          "promptContext": "施術所への立入検査権限の目的と限界を確認する。",
+          "refs": [
+            {
+              "article": "21",
+              "articleTextHash": "23a0c9500e2df0f6072e8a767a3153e885e036d42175aa9c1974983014366b86",
+              "elm": "Article[21]",
+              "encodedElm": "Article%5B21%5D",
+              "highlightElms": [
+                "Article[21]",
+                "Article[21] Paragraph[3]"
+              ],
+              "item": "none",
+              "lawId": "345AC1000000019",
+              "lawRevisionId": "345AC1000000019_20250601_504AC0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "柔道整復師法",
+              "paragraph": "3",
+              "primaryBasis": true,
+              "refId": "law-21-choice-2-current",
+              "relation": "supports_choice_verdict",
+              "rootArticleElm": "Article[21]",
+              "subitem": "none",
+              "textHash": "23a0c9500e2df0f6072e8a767a3153e885e036d42175aa9c1974983014366b86"
+            }
+          ],
+          "verdict": "current_law_supports_verdict"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "試験時点の条文本文は取得されていないため、出題時判定は公式解答を保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法の第8条第1項により、選択肢は正しい。",
+          "displayRefIds": [
+            "law-8-choice-3-current"
+          ],
+          "explanationText": "柔道整復師の免許を取り消す権限を持つのは厚生労働大臣であり、都道府県知事ではない。",
+          "promptContext": "柔道整復師免許の取消権者を確認する。",
+          "refs": [
+            {
+              "article": "8",
+              "articleTextHash": "38ead58c9841df9b4611b6fcc7addefe6216b9db9d662753a9c2a06584b4402ff",
+              "elm": "Article[8]",
+              "encodedElm": "Article%5B8%5D",
+              "highlightElms": [
+                "Article[8]",
+                "Article[8] Paragraph[1]"
+              ],
+              "item": "none",
+              "lawId": "345AC1000000019",
+              "lawRevisionId": "345AC1000000019_20250601_504AC0000000068",
+              "lawTimeScope": "current",
+              "lawTitle": "柔道整復師法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "law-8-choice-3-current",
+              "relation": "supports_choice_verdict",
+              "rootArticleElm": "Article[8]",
+              "subitem": "none",
+              "textHash": "38ead58c9841df9b4611b6fcc7addefe6216b9db9d662753a9c2a06584b4402ff"
+            }
+          ],
+          "verdict": "current_law_supports_verdict"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "試験時点の条文本文は取得されていないため、出題時判定は公式解答を保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -526,28 +2519,382 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n国民健康保険は都道府県を保険者とする制度ではない。",
-      "正しい。\n\n日本は国民皆保険制度を原則とする。",
-      "間違い。\n\n被保険者が健康保険組合を自由に選択することはできない。",
-      "間違い。\n\n柔道整復師の業務には療養費として医療保険が適用される場合がある。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「日本は国民皆保険制度を原則とする。」が正解ですか。",
-      "他の選択肢が誤りな理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「日本は国民皆保険制度を原則とする。」が正解ですか。",
-        "answer": "正解は「日本は国民皆保険制度を原則とする。」です。日本では原則として全ての国民がいずれかの医療保険制度に加入する。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何ですか。",
-        "answer": "国保の保険者、組合の選択、柔道整復師への医療保険適用の有無はいずれもこの記述と異なる。"
-      }
+      "間違い。国民健康保険は都道府県だけを保険者とする制度ではなく、都道府県が市町村とともに行います。国民健康保険法第三条に定められています。",
+      "正しい。日本の公的医療保険は、国民健康保険や健康保険などに原則として加入する国民皆保険制度です。国民健康保険法第五条・第六条は、他の公的医療保険の被保険者などを除き、住所地に応じて国民健康保険の被保険者とする仕組みを定めています。",
+      "間違い。健康保険組合が設立された適用事業所の事業主と被保険者は、その健康保険組合の組合員となります。被保険者が健康保険組合を自由に選択する制度ではありません。健康保険法第六条・第十七条に定められています。",
+      "間違い。柔道整復師の施術でも、要件を満たす場合は療養費の支給対象となることがあります。健康保険法第八十七条及び国民健康保険法第五十四条に療養費の仕組みが定められているため、医療保険の適用が一切ないとはいえません。"
     ],
     "original_question_id": "5af19ebb95da1820",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q97",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:2003:5af19ebb95da1820",
+    "reviewQuestionId": "5af19ebb95da1820",
+    "sourceRecordRef": "question_2003_4.json#21",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/333AC0000000192?asof=2026-09-09",
+        "title": "国民健康保険法（e-Gov法令検索）"
+      },
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/211AC0000000070?asof=2026-09-09",
+        "title": "健康保険法（e-Gov法令検索）"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "国民健康保険の保険者・被保険者、健康保険組合への加入、柔道整復師施術に係る療養費を、国民健康保険法及び健康保険法の現行条文で確認する。出題時点の条文本文は未取得のため、歴史的差分は推測しない。",
+    "lawReferences": [
+      [
+        {
+          "article": "3",
+          "choiceIndex": 0,
+          "lawId": "333AC0000000192",
+          "lawTitle": "国民健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "5",
+          "choiceIndex": 1,
+          "lawId": "333AC0000000192",
+          "lawTitle": "国民健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "6",
+          "choiceIndex": 1,
+          "lawId": "333AC0000000192",
+          "lawTitle": "国民健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "6",
+          "choiceIndex": 2,
+          "lawId": "211AC0000000070",
+          "lawTitle": "健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "17",
+          "choiceIndex": 2,
+          "lawId": "211AC0000000070",
+          "lawTitle": "健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "87",
+          "choiceIndex": 3,
+          "lawId": "211AC0000000070",
+          "lawTitle": "健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "54",
+          "choiceIndex": 3,
+          "lawId": "333AC0000000192",
+          "lawTitle": "国民健康保険法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "現行法で正誤判定は変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "primaryLawEvidenceに試験時点本文がないため、出題時の条文差分は確認していない。公式元正答と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文の差分は未確認だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [
+            "q97-c0-kokuho-3"
+          ],
+          "explanationText": "国民健康保険法第三条は、都道府県が市町村とともに国民健康保険を行うと定めている。",
+          "promptContext": "第1肢の国民健康保険の保険者を確認する。",
+          "refs": [
+            {
+              "article": "3",
+              "articleTextHash": "5da68f78922aebb035885a7b5b066069e0fe314858118be5a37824aae4303fff",
+              "elm": "Article_3",
+              "encodedElm": "Article_3",
+              "highlightElms": [],
+              "item": "なし",
+              "lawId": "333AC0000000192",
+              "lawRevisionId": "333AC0000000192_20260801_508AC0000000031",
+              "lawTimeScope": "current",
+              "lawTitle": "国民健康保険法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "q97-c0-kokuho-3",
+              "relation": "supports_verdict",
+              "rootArticleElm": "Article_3",
+              "subitem": "なし",
+              "textHash": "5da68f78922aebb035885a7b5b066069e0fe314858118be5a37824aae4303fff"
+            }
+          ],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時点の法令本文は未取得。公式元正答をexamTimeに保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法で正誤判定は変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "primaryLawEvidenceに試験時点本文がないため、出題時の条文差分は確認していない。公式元正答と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文の差分は未確認だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [
+            "q97-c1-kokuho-5",
+            "q97-c1-kokuho-6"
+          ],
+          "explanationText": "国民健康保険法第五条・第六条は、他の公的医療保険の被保険者等を除き、住所地に応じて国民健康保険の被保険者とする仕組みを定めている。",
+          "promptContext": "第2肢の国民皆保険制度の原則を確認する。",
+          "refs": [
+            {
+              "article": "5",
+              "articleTextHash": "ab2c8301d6f467611649397cccaf6573807bf1ff792ce11e2bf49b09e5f274ee",
+              "elm": "Article_5",
+              "encodedElm": "Article_5",
+              "highlightElms": [],
+              "item": "なし",
+              "lawId": "333AC0000000192",
+              "lawRevisionId": "333AC0000000192_20260801_508AC0000000031",
+              "lawTimeScope": "current",
+              "lawTitle": "国民健康保険法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "q97-c1-kokuho-5",
+              "relation": "supports_verdict",
+              "rootArticleElm": "Article_5",
+              "subitem": "なし",
+              "textHash": "ab2c8301d6f467611649397cccaf6573807bf1ff792ce11e2bf49b09e5f274ee"
+            },
+            {
+              "article": "6",
+              "articleTextHash": "b42f4435a7ce4b4ced5df1dfdb7c3bacc3a0a37aec247045a15a1c8cd8c1833c",
+              "elm": "Article_6",
+              "encodedElm": "Article_6",
+              "highlightElms": [],
+              "item": "なし",
+              "lawId": "333AC0000000192",
+              "lawRevisionId": "333AC0000000192_20260801_508AC0000000031",
+              "lawTimeScope": "current",
+              "lawTitle": "国民健康保険法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "q97-c1-kokuho-6",
+              "relation": "supports_verdict",
+              "rootArticleElm": "Article_6",
+              "subitem": "なし",
+              "textHash": "b42f4435a7ce4b4ced5df1dfdb7c3bacc3a0a37aec247045a15a1c8cd8c1833c"
+            }
+          ],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時点の法令本文は未取得。公式元正答をexamTimeに保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法で正誤判定は変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "primaryLawEvidenceに試験時点本文がないため、出題時の条文差分は確認していない。公式元正答と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文の差分は未確認だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [
+            "q97-c2-kenpo-6",
+            "q97-c2-kenpo-17"
+          ],
+          "explanationText": "健康保険法第六条・第十七条により、健康保険組合が設立された適用事業所の事業主と被保険者はその組合員となる。",
+          "promptContext": "第3肢の健康保険組合への加入関係を確認する。",
+          "refs": [
+            {
+              "article": "6",
+              "articleTextHash": "d87eb979d4b67d0ed5f9404f64a430bd1a57a407270d2060472901bd8987a8d0",
+              "elm": "Article_6",
+              "encodedElm": "Article_6",
+              "highlightElms": [],
+              "item": "なし",
+              "lawId": "211AC0000000070",
+              "lawRevisionId": "211AC0000000070_20260801_508AC0000000031",
+              "lawTimeScope": "current",
+              "lawTitle": "健康保険法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "q97-c2-kenpo-6",
+              "relation": "supports_verdict",
+              "rootArticleElm": "Article_6",
+              "subitem": "なし",
+              "textHash": "d87eb979d4b67d0ed5f9404f64a430bd1a57a407270d2060472901bd8987a8d0"
+            },
+            {
+              "article": "17",
+              "articleTextHash": "1dc6c052b9d328914032ebf584abf8f793e3c673a9c0c9ec4b2931711cf9de9a",
+              "elm": "Article_17",
+              "encodedElm": "Article_17",
+              "highlightElms": [],
+              "item": "なし",
+              "lawId": "211AC0000000070",
+              "lawRevisionId": "211AC0000000070_20260801_508AC0000000031",
+              "lawTimeScope": "current",
+              "lawTitle": "健康保険法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "q97-c2-kenpo-17",
+              "relation": "supports_verdict",
+              "rootArticleElm": "Article_17",
+              "subitem": "なし",
+              "textHash": "1dc6c052b9d328914032ebf584abf8f793e3c673a9c0c9ec4b2931711cf9de9a"
+            }
+          ],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時点の法令本文は未取得。公式元正答をexamTimeに保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法で正誤判定は変わらない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "primaryLawEvidenceに試験時点本文がないため、出題時の条文差分は確認していない。公式元正答と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文の差分は未確認だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [
+            "q97-c3-kenpo-87",
+            "q97-c3-kokuho-54"
+          ],
+          "explanationText": "健康保険法第八十七条及び国民健康保険法第五十四条は、要件を満たす場合に療養費を支給する仕組みを定めている。",
+          "promptContext": "第4肢の柔道整復師の施術と医療保険の適用を確認する。",
+          "refs": [
+            {
+              "article": "87",
+              "articleTextHash": "49a075546e36ac0b733f4fca6835d226fe0c4d25131db7f3aacee8d01796976e",
+              "elm": "Article_87",
+              "encodedElm": "Article_87",
+              "highlightElms": [],
+              "item": "なし",
+              "lawId": "211AC0000000070",
+              "lawRevisionId": "211AC0000000070_20260801_508AC0000000031",
+              "lawTimeScope": "current",
+              "lawTitle": "健康保険法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "q97-c3-kenpo-87",
+              "relation": "supports_verdict",
+              "rootArticleElm": "Article_87",
+              "subitem": "なし",
+              "textHash": "49a075546e36ac0b733f4fca6835d226fe0c4d25131db7f3aacee8d01796976e"
+            },
+            {
+              "article": "54",
+              "articleTextHash": "da132cfb96b0c557e1d014fe27be0ceb7a87e86ef7e20fbfe2f292951d240f61",
+              "elm": "Article_54",
+              "encodedElm": "Article_54",
+              "highlightElms": [],
+              "item": "なし",
+              "lawId": "333AC0000000192",
+              "lawRevisionId": "333AC0000000192_20260801_508AC0000000031",
+              "lawTimeScope": "current",
+              "lawTitle": "国民健康保険法",
+              "paragraph": "1",
+              "primaryBasis": true,
+              "refId": "q97-c3-kokuho-54",
+              "relation": "supports_verdict",
+              "rootArticleElm": "Article_54",
+              "subitem": "なし",
+              "textHash": "da132cfb96b0c557e1d014fe27be0ceb7a87e86ef7e20fbfe2f292951d240f61"
+            }
+          ],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時点の法令本文は未取得。公式元正答をexamTimeに保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -601,27 +2948,214 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n助産師は新生児の保健指導を行う。",
-      "正しい。\n\n診療放射線技師は放射線の人体照射を行う。",
-      "正しい。\n\n薬剤師の業務は調剤である。",
-      "間違い。\n\n施術の同意は歯科医師ではなく医師の役割である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ「歯科医師 ─── 施術の同意」が正解ですか。",
-      "他の選択肢が正しい理由は何ですか。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ「歯科医師 ─── 施術の同意」が正解ですか。",
-        "answer": "正解は「歯科医師 ─── 施術の同意」です。施術の同意は歯科医師ではなく医師の役割である。"
-      },
-      {
-        "question": "他の選択肢が正しい理由は何ですか。",
-        "answer": "助産師の新生児保健指導、診療放射線技師の放射線照射、薬剤師の調剤はいずれも正しい組合せである。"
-      }
+      "正しい。助産師は、助産に加えて妊婦、じょく婦または新生児の保健指導を行う。保健師助産師看護師法第3条に定められている。",
+      "正しい。診療放射線技師は、医師または歯科医師の具体的な指示を受けて、放射線を人体に照射する。診療放射線技師法第26条に定められている。",
+      "正しい。薬剤師でない者は、原則として販売または授与の目的で調剤できない。薬剤師法第19条に定められている。",
+      "間違い。脱臼または骨折の患部に施術するには、原則として歯科医師ではなく医師の同意が必要である。柔道整復師法第17条に定められている。"
     ],
     "original_question_id": "4bfc126cd7464a07",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_11/#q100",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "judoseifukushi:2003:4bfc126cd7464a07",
+    "reviewQuestionId": "4bfc126cd7464a07",
+    "sourceRecordRef": "question_2003_4.json#24",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/323AC0000000203?asof=2026-09-09",
+        "title": "保健師助産師看護師法 第3条"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/326AC0100000226?asof=2026-09-09",
+        "title": "診療放射線技師法 第26条"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/335AC0000000146?asof=2026-09-09",
+        "title": "薬剤師法 第19条"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法 第17条"
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "医療関係職種の業務範囲と柔道整復師の施術制限を、各資格法の条文で確認する。",
+    "lawReferences": [
+      [
+        {
+          "article": "3",
+          "choiceIndex": 0,
+          "lawId": "323AC0000000203",
+          "lawTitle": "保健師助産師看護師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "26",
+          "choiceIndex": 1,
+          "lawId": "326AC0100000226",
+          "lawTitle": "診療放射線技師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "19",
+          "choiceIndex": 2,
+          "lawId": "335AC0000000146",
+          "lawTitle": "薬剤師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "現行法でも助産師の業務に新生児の保健指導が含まれる。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "出題時点の条文本文は未取得であり、条文差分は確定していない。公式解答と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点条文本文は未取得。公式解答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "助産師は助産または妊婦、じょく婦若しくは新生児の保健指導を行うことを業とする。",
+          "promptContext": "助産師の業務範囲を確認した。",
+          "refs": [],
+          "verdict": "保健師助産師看護師法第3条により現行法上正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時の公式解答をexamTimeとして保持した。"
+        ],
+        "reconciliationStatus": "official_exam_answer_matches_current_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "診療放射線技師は医師または歯科医師の具体的な指示を受けて放射線を人体に照射できる。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "出題時点の条文本文は未取得であり、条文差分は確定していない。公式解答と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点条文本文は未取得。公式解答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "診療放射線技師は、医師または歯科医師の具体的な指示を受けなければ放射線の人体照射をしてはならない。",
+          "promptContext": "診療放射線技師の放射線照射に関する業務制限を確認した。",
+          "refs": [],
+          "verdict": "診療放射線技師法第26条により現行法上正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時の公式解答をexamTimeとして保持した。"
+        ],
+        "reconciliationStatus": "official_exam_answer_matches_current_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "薬剤師でない者による販売または授与目的の調剤は原則として禁止される。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "出題時点の条文本文は未取得であり、条文差分は確定していない。公式解答と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点条文本文は未取得。公式解答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "薬剤師でない者は、販売または授与の目的で調剤してはならない。",
+          "promptContext": "調剤を行える者に関する規定を確認した。",
+          "refs": [],
+          "verdict": "薬剤師法第19条により現行法上正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時の公式解答をexamTimeとして保持した。"
+        ],
+        "reconciliationStatus": "official_exam_answer_matches_current_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "柔道整復師法第17条は、脱臼または骨折の患部への施術について原則として医師の同意を要求する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時点の条文本文は未取得であり、条文差分は確定していない。公式解答と現行法判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点条文本文は未取得。公式解答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "脱臼または骨折の患部への施術には、応急手当を除き、医師の同意が必要である。歯科医師の同意とは規定されていない。",
+          "promptContext": "脱臼または骨折の患部への施術に必要な同意者を確認した。",
+          "refs": [],
+          "verdict": "柔道整復師法第17条により現行法上間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時の公式解答をexamTimeとして保持した。"
+        ],
+        "reconciliationStatus": "official_exam_answer_matches_current_law",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

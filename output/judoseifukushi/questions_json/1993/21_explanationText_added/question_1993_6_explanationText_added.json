@@ -3,181 +3,699 @@
     "original_question_id": "904afb71eac179a1",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q126",
     "explanationText": [
-      "正しい。\n\n膿瘍切開では膿を排出し、再貯留を防ぐ目的でドレーンを挿入することがある。",
-      "正しい。\n\n穿刺は穿刺針を病変部や体腔に刺入し、液体や内容物を採取または排出する手技である。",
-      "正しい。\n\n皮膚切開は瘢痕や創治癒を考慮し、原則としてランゲル皮膚割線に沿って行う。",
-      "間違い。\n\n摘出術は病巣や臓器を取り除く手術である。検査目的で一部を切り取るのは生検である。"
+      "正しい。膿瘍切開後にドレーンを挿入すると、膿を体外へ排出できる。",
+      "正しい。穿刺は、針を病巣や体腔に刺入して内容物を採取または排出する手技である。",
+      "正しい。皮膚切開は、創の治癒や瘢痕を考慮し、原則としてランゲル皮膚割線に沿って行う。",
+      "間違い。摘出術は病巣や臓器を取り除く手術である。検査目的で組織の一部を切り取る手技は生検という。"
     ],
-    "suggestedQuestions": [
-      "ドレーン挿入の目的は何ですか？",
-      "穿刺とは何ですか？",
-      "摘出術と生検はどう違いますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:904afb71eac179a1",
+    "reviewQuestionId": "904afb71eac179a1",
+    "sourceRecordRef": "question_1993_6.json#0",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "外科手技の一般医学知識であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "ドレーン挿入の目的は何ですか？",
-        "answer": "膿、血液、滲出液などを体外へ排出し、貯留や感染の悪化を防ぐことである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "膿瘍切開後のドレーンは排膿を目的とする。",
+          "promptContext": "膿瘍切開とドレーンに関する外科手技。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "外科手技の一般医学知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "穿刺とは何ですか？",
-        "answer": "針を刺して病巣や体腔内の内容を採取、排出、確認する手技である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "穿刺は針を刺入して内容物を採取または排出する手技である。",
+          "promptContext": "穿刺の定義に関する外科手技。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "外科手技の一般医学知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "摘出術と生検はどう違いますか？",
-        "answer": "摘出術は病変を取り除く手術で、生検は診断のために組織の一部を採取する手技である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "皮膚切開は原則としてランゲル皮膚割線に沿って行う。",
+          "promptContext": "皮膚切開の原則に関する外科手技。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "外科手技の一般医学知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "摘出術は病巣や臓器を取り除く手術であり、検査目的の部分採取は生検である。",
+          "promptContext": "摘出術と生検の区別に関する外科手技。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "外科手技の一般医学知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "db1fe5af08677faa",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q127",
     "explanationText": [
-      "正しい。\n\n肝臓は実質臓器で血流が豊富なため、鈍的外力で損傷し出血を来しやすい。",
-      "間違い。\n\n脾臓は左季肋部に位置するため、損傷されやすいのは主に左季肋部への鈍的外力である。",
-      "正しい。\n\n膀胱は尿で充満していると腹部打撲などで破裂しやすくなる。",
-      "正しい。\n\n腎臓は後腹膜臓器であり、背部または側腹部からの鈍的外力で損傷することが多い。"
+      "正しい。肝臓は実質臓器で血流も豊富なため、比較的弱い鈍性外力でも損傷し、出血を起こしやすい。",
+      "間違い。脾臓は左季肋部に位置するため、損傷されやすいのは主に左季肋部への鈍性外力である。右季肋部への外力では肝臓の損傷を考える。",
+      "正しい。膀胱は尿で充満すると壁が伸展して緊張するため、腹部への打撲などによる圧力で破裂しやすくなる。",
+      "正しい。腎臓は後腹膜に位置するため、背面または側面から加わる鈍性外力で損傷することが多い。"
     ],
-    "suggestedQuestions": [
-      "脾臓損傷はどの部位の外力で起こりやすいですか？",
-      "尿で満たされた膀胱が破裂しやすい理由は何ですか？",
-      "腎損傷で多い外力方向は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:db1fe5af08677faa",
+    "reviewQuestionId": "db1fe5af08677faa",
+    "sourceRecordRef": "question_1993_6.json#1",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "腹部外傷に関する解剖学・外傷学の知識問題であり、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "脾臓損傷はどの部位の外力で起こりやすいですか？",
-        "answer": "左季肋部への鈍的外力で起こりやすい。右季肋部では肝損傷を考えやすい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "解剖学・外傷学の知識問題であり、法令改正による正答への影響はない。",
+          "promptContext": "肝臓の性状と鈍性外力による損傷のしやすさを問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "尿で満たされた膀胱が破裂しやすい理由は何ですか？",
-        "answer": "膀胱壁が伸展して緊張し、外力による圧上昇に弱くなるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "解剖学・外傷学の知識問題であり、法令改正による正答への影響はない。",
+          "promptContext": "脾臓の位置と損傷されやすい外力の部位の対応を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "腎損傷で多い外力方向は何ですか？",
-        "answer": "背部または側腹部からの鈍的外力である。血尿の有無も重要な所見になる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "解剖学・外傷学の知識問題であり、法令改正による正答への影響はない。",
+          "promptContext": "尿で充満した膀胱が外力で破裂しやすくなる機序を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "解剖学・外傷学の知識問題であり、法令改正による正答への影響はない。",
+          "promptContext": "腎臓の位置と損傷につながりやすい外力の方向を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "97a7da74b5112536",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q128",
     "explanationText": [
-      "正しい。\n\n頭蓋底骨折は頭部への鈍的外力が伝わって生じることがある。",
-      "正しい。\n\n骨折部位により鼻出血、耳出血、髄液鼻漏、髄液耳漏などを伴うことがある。",
-      "正しい。\n\n頭蓋底には脳神経や血管が通るため、他部位の頭蓋骨骨折より神経損傷を伴いやすい。",
-      "間違い。\n\n鼻出血を伴う場合に単純に仰臥位にすると血液を誤嚥しやすい。気道確保と出血の流出に配慮した体位をとる。"
+      "正しい。頭蓋底骨折は、頭部に加わった鈍い外力が周囲へ伝わる介達性鈍性外力によって生じることがある。",
+      "正しい。骨折部位によって、鼻孔や耳孔からの出血のほか、髄液が鼻や耳へ漏れ出すことがある。",
+      "正しい。頭蓋底には脳神経や血管が通る孔や管が多いため、骨折線によって神経を損傷しやすい。",
+      "間違い。鼻出血を伴う場合に仰臥位にすると、血液が咽頭へ流れ込み、誤嚥や気道閉塞を起こすおそれがある。仰臥位を避け、気道を確保して血液が気道へ流れ込まない体位をとる。"
     ],
-    "suggestedQuestions": [
-      "頭蓋底骨折でみられる出血部位はどこですか？",
-      "頭蓋底骨折で神経損傷が多い理由は何ですか？",
-      "鼻出血時に仰臥位が不適切な理由は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:97a7da74b5112536",
+    "reviewQuestionId": "97a7da74b5112536",
+    "sourceRecordRef": "question_1993_6.json#2",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "頭蓋底骨折の発生機序、症状、神経損傷および鼻出血時の体位に関する医学・救急処置の問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "頭蓋底骨折でみられる出血部位はどこですか？",
-        "answer": "鼻孔や耳孔からの出血、髄液漏がみられることがある。前頭蓋窩や中頭蓋窩の損傷部位で異なる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "頭蓋底骨折の発生機序に関する医学知識であり、法令改正の影響を受けない。",
+          "promptContext": "頭蓋底骨折の発生機序を問う選択肢。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "頭蓋底骨折で神経損傷が多い理由は何ですか？",
-        "answer": "頭蓋底には脳神経が通る孔や管が多く、骨折線が神経を障害しやすいためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "頭蓋底骨折に伴う出血や髄液漏に関する医学知識であり、法令改正の影響を受けない。",
+          "promptContext": "頭蓋底骨折でみられる出血や髄液漏を問う選択肢。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "鼻出血時に仰臥位が不適切な理由は何ですか？",
-        "answer": "血液が咽頭へ流れ込み、誤嚥や気道閉塞を起こす危険があるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "頭蓋底骨折で神経損傷が起こりやすい理由に関する医学知識であり、法令改正の影響を受けない。",
+          "promptContext": "頭蓋底骨折と神経損傷の関係を問う選択肢。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "鼻出血時の体位と誤嚥予防に関する救急処置の知識であり、法令改正の影響を受けない。",
+          "promptContext": "頭蓋底骨折に鼻出血を伴う場合の体位を問う選択肢。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "df625efc64ad4a03",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q129",
     "explanationText": [
-      "間違い。\n\n脳挫傷は脳実質そのものの損傷であり、硬膜外出血を伴うことを定義とするものではない。",
-      "正しい。\n\n脳挫傷は閉鎖性頭部外傷で発生することが多く、直撃損傷や反衝損傷で脳実質が損傷される。",
-      "間違い。\n\n脳挫傷では脳組織の挫滅、壊死、脳実質内出血を伴うことがある。",
-      "間違い。\n\n脳浮腫や血腫、頭蓋内圧亢進が強い場合には開頭手術が必要になることがある。"
+      "間違い。脳挫傷は脳実質そのものの損傷であり、脳実質内出血を伴うことがある。硬膜外出血を伴うことは発生の必須条件ではない。",
+      "正しい。脳挫傷は閉鎖性頭部外傷で生じることが多く、外力による直撃損傷や反衝損傷によって脳実質が損傷される。",
+      "間違い。脳挫傷では脳組織の挫滅や壊死が生じ、脳実質内出血を伴うこともある。",
+      "間違い。脳浮腫や血腫によって頭蓋内圧が上昇し、脳の圧迫が強い場合などには開頭手術が必要になることがある。"
     ],
-    "suggestedQuestions": [
-      "脳挫傷とは何ですか？",
-      "脳挫傷では出血を伴いますか？",
-      "脳挫傷で手術が必要になるのはどんな場合ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:df625efc64ad4a03",
+    "reviewQuestionId": "df625efc64ad4a03",
+    "sourceRecordRef": "question_1993_6.json#3",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "脳挫傷の病態と治療適応を扱う医学的問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "脳挫傷とは何ですか？",
-        "answer": "外力により脳実質が挫滅し、出血や壊死を伴う損傷である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "脳挫傷の病態と硬膜外出血の関係を問う記述で、法令は正誤を決めない。",
+          "promptContext": "柔道整復師の医学分野に関する非法令問題。",
+          "refs": [],
+          "verdict": "医学的問題であり、法令改訂の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "脳挫傷では出血を伴いますか？",
-        "answer": "伴うことがある。脳実質内の点状出血や血腫、脳浮腫が問題になる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "閉鎖性頭部外傷と脳挫傷の発生を問う記述で、法令は正誤を決めない。",
+          "promptContext": "柔道整復師の医学分野に関する非法令問題。",
+          "refs": [],
+          "verdict": "医学的問題であり、法令改訂の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "脳挫傷で手術が必要になるのはどんな場合ですか？",
-        "answer": "血腫や脳腫脹により頭蓋内圧が上昇し、脳圧迫が強い場合などである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "脳挫傷に伴う脳組織の壊死と脳実質内出血を問う記述で、法令は正誤を決めない。",
+          "promptContext": "柔道整復師の医学分野に関する非法令問題。",
+          "refs": [],
+          "verdict": "医学的問題であり、法令改訂の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行時点の法令差は判定対象外である。",
+          "displayRefIds": [],
+          "explanationText": "脳挫傷に対する開頭手術の必要性を問う記述で、法令は正誤を決めない。",
+          "promptContext": "柔道整復師の医学分野に関する非法令問題。",
+          "refs": [],
+          "verdict": "医学的問題であり、法令改訂の影響を受けない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "a31b54daa0d25674",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q130",
     "explanationText": [
-      "間違い。\n\n大きな声で呼びかけると開眼する状態は刺激で覚醒するⅡ桁群に相当し、3ではない。",
-      "正しい。\n\n痛み刺激に全く反応しない状態は3-3-9度方式で300に相当する最重度の意識障害である。",
-      "間違い。\n\n見当識障害は1桁群の意識清明とはいえない状態で、20ではなく3に相当する。",
-      "間違い。\n\n名前や生年月日を言えない状態は見当識障害として3に相当する。10は普通の呼びかけで容易に開眼する状態である。"
+      "間違い。正しくは、閉眼していても大きな声で呼びかけると開眼する状態はJCSの20である。3は、見当識障害があり、名前や生年月日を言えない状態に相当する。",
+      "正しい。",
+      "間違い。正しくは、見当識障害がある状態はJCSの2である。20は、大声で呼びかけたり体を揺さぶったりすると開眼する状態に相当する。",
+      "間違い。正しくは、名前や生年月日を聞いても言えない状態はJCSの3である。10は、普通の呼びかけで容易に開眼する状態に相当する。"
     ],
-    "suggestedQuestions": [
-      "3-3-9度方式の300はどんな状態ですか？",
-      "見当識障害は何点ですか？",
-      "JCSの2桁群はどんな状態ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:a31b54daa0d25674",
+    "reviewQuestionId": "a31b54daa0d25674",
+    "sourceRecordRef": "question_1993_6.json#4",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "3-3-9度方式（JCS）の判定基準を問う医学知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "3-3-9度方式の300はどんな状態ですか？",
-        "answer": "痛み刺激に全く反応しない状態で、最重度の意識障害である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "JCSの意識障害判定基準に関する医学知識であり、法令は正誤を決めない。",
+          "promptContext": "JCSの数値対応を医学知識に基づいて確認する。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "見当識障害は何点ですか？",
-        "answer": "3に相当する。名前や場所、日時などがわからない状態である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "JCSの意識障害判定基準に関する医学知識であり、法令は正誤を決めない。",
+          "promptContext": "JCSの数値対応を医学知識に基づいて確認する。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "JCSの2桁群はどんな状態ですか？",
-        "answer": "刺激すると覚醒する状態である。呼びかけや痛み刺激で開眼するかをみる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "JCSの意識障害判定基準に関する医学知識であり、法令は正誤を決めない。",
+          "promptContext": "JCSの数値対応を医学知識に基づいて確認する。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差なし。",
+          "displayRefIds": [],
+          "explanationText": "JCSの意識障害判定基準に関する医学知識であり、法令は正誤を決めない。",
+          "promptContext": "JCSの数値対応を医学知識に基づいて確認する。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "14c19e708d019764",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q131",
     "explanationText": [
-      "正しい。\n\n痛風発作は急性炎症であり、CRP陽性や白血球増多などの炎症反応を伴うことがある。",
-      "正しい。\n\n痛風の急性関節炎は第1中足趾節関節、いわゆる足の母趾付け根に好発する。",
-      "間違い。\n\n痛風では発作を繰り返すと関節障害を来すが、早期から関節破壊が生じるとはいえない。",
-      "正しい。\n\n痛風では高尿酸血症が背景にあり、血清尿酸値が上昇することが多い。"
+      "正しい。痛風発作は急性炎症であり、CRP上昇や白血球増多などの炎症反応を伴う。",
+      "正しい。痛風の急性関節炎は、第1中足趾節関節、つまり足の母趾の付け根に好発する。",
+      "間違い。痛風による関節破壊は、発作を長期間繰り返した慢性期に生じる。早期から関節が破壊されるわけではない。",
+      "正しい。痛風では高尿酸血症を背景として、血清尿酸値が上昇する。"
     ],
-    "suggestedQuestions": [
-      "痛風発作の好発部位はどこですか？",
-      "痛風で上昇する血液検査項目は何ですか？",
-      "痛風で関節破壊はいつ問題になりますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:14c19e708d019764",
+    "reviewQuestionId": "14c19e708d019764",
+    "sourceRecordRef": "question_1993_6.json#5",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "痛風の炎症所見、好発部位、関節破壊の時期、血清尿酸値に関する医学知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "痛風発作の好発部位はどこですか？",
-        "answer": "第1中足趾節関節、つまり足の母趾付け根である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令根拠を要しない。",
+          "promptContext": "痛風発作に伴う炎症反応を問う。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "痛風で上昇する血液検査項目は何ですか？",
-        "answer": "血清尿酸値が上昇する。急性発作時にはCRPや白血球数も上昇することがある。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令根拠を要しない。",
+          "promptContext": "痛風性急性関節炎の好発部位を問う。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "痛風で関節破壊はいつ問題になりますか？",
-        "answer": "発作を長期に繰り返し、痛風結節などを形成する慢性期に問題になりやすい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令根拠を要しない。",
+          "promptContext": "痛風による関節破壊が生じる時期を問う。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令根拠を要しない。",
+          "promptContext": "痛風と血清尿酸値の関係を問う。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "27592f80a3492f06",
@@ -243,301 +761,1185 @@
     "original_question_id": "05168fb1fd023daf",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q134",
     "explanationText": [
-      "正しい。\n\n先天性筋性斜頸は胸鎖乳突筋の線維化や短縮により頭位異常を生じる。",
-      "間違い。\n\n患側胸鎖乳突筋が短縮すると、顔は健側へ回旋しにくくなるのではなく患側への側屈と健側への回旋位をとる。制限の表現に注意する。",
-      "間違い。\n\n先天性筋性斜頸は分娩外傷や胎内肢位などが関係し、骨盤位分娩などで問題になりやすい。頭位分娩に多いとはいえない。",
-      "間違い。\n\n多くは成長と保存的治療で改善し、自然治癒も比較的期待される。自然治癒が少ないとはいえない。"
+      "正しい。",
+      "間違い。患側の胸鎖乳突筋が短縮すると、頭部は患側へ側屈し、顔は健側へ向く。制限されるのは健側への回旋ではなく、患側への回旋である。",
+      "間違い。先天性筋性斜頸は骨盤位分娩などと関連してみられるが、頭位分娩の乳児に多いとはいえない。",
+      "間違い。先天性筋性斜頸は自然軽快する例も多く、必要に応じた保存的治療で改善する。したがって、自然治癒は少ないという記述は誤りである。"
     ],
-    "suggestedQuestions": [
-      "先天性筋性斜頸の原因筋は何ですか？",
-      "先天性筋性斜頸の頭位はどうなりますか？",
-      "先天性筋性斜頸は自然改善しますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:05168fb1fd023daf",
+    "reviewQuestionId": "05168fb1fd023daf",
+    "sourceRecordRef": "question_1993_6.json#8",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "先天性筋性斜頸の病態・症状・予後に関する医学知識の問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "lawRevisionFacts": [
       {
-        "question": "先天性筋性斜頸の原因筋は何ですか？",
-        "answer": "胸鎖乳突筋である。線維化や短縮により斜頸を生じる。"
+        "answerImpactFacts": [
+          "医学知識として正しい。法令監査による変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "胸鎖乳突筋の線維化・短縮は先天性筋性斜頸の病態に合致する。",
+          "promptContext": "法令を用いず医学知識で判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "先天性筋性斜頸の頭位はどうなりますか？",
-        "answer": "患側へ側屈し、顔は健側へ向きやすい。"
+        "answerImpactFacts": [
+          "医学知識として誤り。法令監査による変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "回旋制限は健側ではなく患側に生じる。",
+          "promptContext": "法令を用いず医学知識で判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "先天性筋性斜頸は自然改善しますか？",
-        "answer": "多くは自然軽快や保存療法で改善する。難治例では追加治療を検討する。"
+        "answerImpactFacts": [
+          "医学知識として誤り。法令監査による変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "骨盤位分娩などとの関連はあるが、頭位分娩の乳児に多いとはいえない。",
+          "promptContext": "法令を用いず医学知識で判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "医学知識として誤り。法令監査による変更はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "先天性筋性斜頸は自然軽快する例も多い。",
+          "promptContext": "法令を用いず医学知識で判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
-    ],
-    "lawGroundedExplanationNotNeeded": true
+    ]
   },
   {
     "original_question_id": "c39fa0f5087167bb",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q135",
     "explanationText": [
-      "正しい。\n\n骨折部が外界と交通する骨折は開放骨折で、従来は複雑骨折とも呼ばれた。",
-      "正しい。\n\n若木骨折は骨の連続性が一部保たれる小児に多い不全骨折である。",
-      "正しい。\n\n腫瘍や骨粗鬆症など基礎疾患のある骨が軽微な外力で折れるものを病的骨折という。",
-      "間違い。\n\n骨折治癒過程の自己矯正能は成長期の小児で高い。青年期が最も高いとはいえない。"
+      "正しい。複雑骨折は、骨折部が皮膚を破って外界と交通する開放骨折を指す従来の呼び方である。",
+      "正しい。若木骨折は、骨の連続性が一部保たれる不全骨折であり、小児に多くみられる。",
+      "正しい。基礎疾患のある骨が、通常なら骨折しないような軽微な外力で折れるものを病的骨折という。",
+      "間違い。正しくは、骨折治癒過程の自己矯正能は小児の成長期に高く、年齢が低いほど大きい。青年期が最も高いわけではない。"
     ],
-    "suggestedQuestions": [
-      "複雑骨折とは何ですか？",
-      "若木骨折は完全骨折ですか？",
-      "骨折の自己矯正能が高いのはどの時期ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:c39fa0f5087167bb",
+    "reviewQuestionId": "c39fa0f5087167bb",
+    "sourceRecordRef": "question_1993_6.json#9",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨折の分類、若木骨折、病的骨折、治癒過程の自己矯正能を問う医学的知識の問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "複雑骨折とは何ですか？",
-        "answer": "骨折部が外界と交通する開放骨折である。感染リスクが高い。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識の問題であり、法令監査の対象外。",
+          "promptContext": "骨折の分類と治癒に関する医学知識。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "若木骨折は完全骨折ですか？",
-        "answer": "不全骨折に含まれる。小児の柔らかい骨でみられやすい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識の問題であり、法令監査の対象外。",
+          "promptContext": "骨折の分類と治癒に関する医学知識。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "骨折の自己矯正能が高いのはどの時期ですか？",
-        "answer": "成長期の小児で高い。年齢が低いほど骨のリモデリング能力が大きい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識の問題であり、法令監査の対象外。",
+          "promptContext": "骨折の分類と治癒に関する医学知識。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識の問題であり、法令監査の対象外。",
+          "promptContext": "骨折の分類と治癒に関する医学知識。",
+          "refs": [],
+          "verdict": "法令対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "e87a180e133833a3",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q136",
     "explanationText": [
-      "正しい。\n\n肘部管症候群もギヨン管症候群も尺骨神経の絞扼神経障害である。部位は肘部管と手関節部で異なる。",
-      "間違い。\n\n上腕骨外顆骨折後の外反肘では遅発性尺骨神経麻痺を起こしやすい。橈骨神経麻痺ではない。",
-      "間違い。\n\n鷲手は尺骨神経麻痺でみられる。正中神経麻痺では猿手などが問題となる。",
-      "間違い。\n\n尺骨神経麻痺では小指と環指尺側の知覚障害が典型である。中指まで通常障害されるとはいえない。"
+      "正しい。肘部管症候群は肘部管で、ギヨン管症候群は手関節部のギヨン管で尺骨神経が絞扼される。",
+      "間違い。外反肘では遅発性の尺骨神経麻痺を起こしやすく、橈骨神経麻痺ではない。",
+      "間違い。鷲手は尺骨神経麻痺でみられる。正中神経麻痺では猿手がみられる。",
+      "間違い。尺骨神経麻痺では小指と環指尺側の知覚障害が典型であり、中指まで通常障害されるわけではない。"
     ],
-    "suggestedQuestions": [
-      "肘部管症候群で障害される神経は何ですか？",
-      "外反肘で起こりやすい遅発性麻痺は何ですか？",
-      "鷲手はどの神経麻痺でみられますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:e87a180e133833a3",
+    "reviewQuestionId": "e87a180e133833a3",
+    "sourceRecordRef": "question_1993_6.json#10",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "解剖学・末梢神経障害の医学知識を問う問題であり、法令・制度上の基準は正誤判断に関係しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "肘部管症候群で障害される神経は何ですか？",
-        "answer": "尺骨神経である。肘内側の肘部管で絞扼される。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "肘部管症候群とギヨン管症候群はいずれも尺骨神経の絞扼障害である。",
+          "promptContext": "非法令問題",
+          "refs": [],
+          "verdict": "医学知識による判定であり、法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "外反肘で起こりやすい遅発性麻痺は何ですか？",
-        "answer": "尺骨神経麻痺である。上腕骨外顆骨折後の変形で問題となる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外反肘では遅発性尺骨神経麻痺を起こしやすく、橈骨神経麻痺ではない。",
+          "promptContext": "非法令問題",
+          "refs": [],
+          "verdict": "医学知識による判定であり、法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "鷲手はどの神経麻痺でみられますか？",
-        "answer": "尺骨神経麻痺でみられる。手内在筋麻痺により環指・小指の鉤爪変形が目立つ。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "鷲手は尺骨神経麻痺でみられ、正中神経麻痺では猿手がみられる。",
+          "promptContext": "非法令問題",
+          "refs": [],
+          "verdict": "医学知識による判定であり、法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "尺骨神経麻痺の知覚障害は小指と環指尺側が典型であり、中指は通常含まれない。",
+          "promptContext": "非法令問題",
+          "refs": [],
+          "verdict": "医学知識による判定であり、法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "24561eee7e1b3bc5",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q137",
     "explanationText": [
-      "間違い。\n\nド・ケルバン病は長母指外転筋腱と短母指伸筋腱の狭窄性腱鞘炎である。長母指伸筋腱ではない。",
-      "正しい。\n\n小児のばね指は母指に多く、自然治癒することもある。",
-      "間違い。\n\nヘバーデン結節はDIP関節の変形性関節症であり、結核が原因ではない。",
-      "間違い。\n\nマレットフィンガーはDIP関節伸展機構の損傷で、末節骨基部の裂離骨折を伴うことがある。中節骨骨折ではない。"
+      "間違い。ド・ケルバン病は長母指外転筋腱と短母指伸筋腱の狭窄性腱鞘炎であり、長母指伸筋腱ではない。",
+      "正しい。小児のばね指は母指に多く、自然治癒することもある。",
+      "間違い。ヘバーデン結節はDIP関節の変形性関節症であり、結核が原因ではない。",
+      "間違い。マレットフィンガーはDIP関節の伸展機構の損傷で、末節骨基部の裂離骨折を伴うことがある。中節骨骨折ではない。"
     ],
-    "suggestedQuestions": [
-      "ド・ケルバン病で障害される腱は何ですか？",
-      "ヘバーデン結節はどの関節に起こりますか？",
-      "マレットフィンガーで問題となる部位はどこですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:24561eee7e1b3bc5",
+    "reviewQuestionId": "24561eee7e1b3bc5",
+    "sourceRecordRef": "question_1993_6.json#11",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "医学知識を問う問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "ド・ケルバン病で障害される腱は何ですか？",
-        "answer": "長母指外転筋腱と短母指伸筋腱である。第1背側コンパートメントの狭窄性腱鞘炎である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学的な用語と病態の正誤を説明する問題で、法令根拠は不要である。",
+          "promptContext": "ド・ケルバン病の腱鞘炎に関する医学知識を確認する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "ヘバーデン結節はどの関節に起こりますか？",
-        "answer": "DIP関節に起こる変形性関節症である。PIP関節のブシャール結節と区別する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学的な用語と病態の正誤を説明する問題で、法令根拠は不要である。",
+          "promptContext": "小児のばね指の好発部位と自然経過に関する医学知識を確認する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "マレットフィンガーで問題となる部位はどこですか？",
-        "answer": "DIP関節の伸展機構である。末節骨基部の裂離骨折を伴うことがある。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学的な用語と病態の正誤を説明する問題で、法令根拠は不要である。",
+          "promptContext": "ヘバーデン結節の病態に関する医学知識を確認する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "医学的な用語と病態の正誤を説明する問題で、法令根拠は不要である。",
+          "promptContext": "マレットフィンガーの損傷部位と骨折に関する医学知識を確認する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "24cbcf5cc175d92e",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q138",
     "explanationText": [
-      "間違い。\n\nII型は骨端線と骨幹端に及ぶ損傷で、頻度は高いが関節面には及ばない。",
-      "間違い。\n\nIII型は骨端線と骨端に及ぶ関節内骨折で正確な整復が重要だが、選択肢中で最も正確な整復を要する型としてはIV型を選ぶ。",
-      "正しい。\n\nIV型は骨端、骨端線、骨幹端に及ぶ関節内骨折で、成長障害や関節面不整を避けるため正確な整復を要する。",
-      "間違い。\n\nV型は骨端線の圧挫損傷で予後不良になりやすいが、整復対象として最も正確な整復を問う設問ではIV型が適切である。"
+      "正しい。該当するのはⅣ型である。ソルター・ハリスⅣ型は骨端、骨端線、骨幹端を通る関節内骨折で、関節面の不整や成長障害を防ぐため、解剖学的に正確な整復を要する。Ⅱ型は骨端線と骨幹端、Ⅲ型は骨端線と骨端を通る。Ⅴ型は骨端線の圧挫損傷であり、整復の正確さを比較する本問の答えにはならない。"
     ],
-    "suggestedQuestions": [
-      "ソルター・ハリスIV型はどこを通りますか？",
-      "骨端線損傷で正確な整復が必要な理由は何ですか？",
-      "ソルター・ハリスV型はどんな損傷ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:24cbcf5cc175d92e",
+    "reviewQuestionId": "24cbcf5cc175d92e",
+    "sourceRecordRef": "question_1993_6.json#12",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソルター・ハリス分類と整復の医学的知識を問う問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "ソルター・ハリスIV型はどこを通りますか？",
-        "answer": "骨端、骨端線、骨幹端を通る。関節面を含むため整復精度が重要である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はソルター・ハリス分類と整復に関する医学的知識であり、法令根拠を要しない。",
+          "promptContext": "柔道整復師の医学分野の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的知識を問う問題で、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "骨端線損傷で正確な整復が必要な理由は何ですか？",
-        "answer": "成長障害や関節面不整を残すと、変形や機能障害につながるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はソルター・ハリス分類と整復に関する医学的知識であり、法令根拠を要しない。",
+          "promptContext": "柔道整復師の医学分野の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的知識を問う問題で、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "ソルター・ハリスV型はどんな損傷ですか？",
-        "answer": "骨端線の圧挫損傷である。早期診断が難しく成長障害を来しやすい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はソルター・ハリス分類と整復に関する医学的知識であり、法令根拠を要しない。",
+          "promptContext": "柔道整復師の医学分野の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的知識を問う問題で、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はソルター・ハリス分類と整復に関する医学的知識であり、法令根拠を要しない。",
+          "promptContext": "柔道整復師の医学分野の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的知識を問う問題で、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "aef74dceeb8e1ed2",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q139",
     "explanationText": [
-      "正しい。\n\n脊髄損傷では知覚障害や体動困難により褥瘡が生じやすい。",
-      "正しい。\n\n脊髄損傷後には股関節周囲などに異所性骨化を生じることがある。",
-      "間違い。\n\n足指の壊死は脊髄損傷の典型的合併症ではない。血行障害など別の病態を考える。",
-      "正しい。\n\n排尿障害やカテーテル管理により尿路感染を起こしやすい。"
+      "間違い。脊髄損傷では、知覚障害や自力での体位変換の困難により、褥瘡が生じやすい。",
+      "間違い。脊髄損傷後には、股関節周囲などに異所性骨化が生じることがある。",
+      "正しい。足指の壊死は、脊髄損傷に典型的な合併症ではない。",
+      "間違い。脊髄損傷では排尿障害や導尿・カテーテル管理により、尿路感染が起こりやすい。"
     ],
-    "suggestedQuestions": [
-      "脊髄損傷で褥瘡ができやすい理由は何ですか？",
-      "脊髄損傷の合併症には何がありますか？",
-      "脊髄損傷で尿路感染が起こりやすい理由は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:aef74dceeb8e1ed2",
+    "reviewQuestionId": "aef74dceeb8e1ed2",
+    "sourceRecordRef": "question_1993_6.json#13",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "脊髄損傷の合併症に関する医学的知識の問題で、法令・制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "脊髄損傷で褥瘡ができやすい理由は何ですか？",
-        "answer": "知覚障害で痛みを感じにくく、体位変換が困難で圧迫が続きやすいためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識に基づく選択肢であり、法令改正の影響を受けない。",
+          "promptContext": "脊髄損傷の合併症に関する医学的知識の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "脊髄損傷の合併症には何がありますか？",
-        "answer": "褥瘡、尿路感染、異所性骨化、起立性低血圧、痙縮などがある。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識に基づく選択肢であり、法令改正の影響を受けない。",
+          "promptContext": "脊髄損傷の合併症に関する医学的知識の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "脊髄損傷で尿路感染が起こりやすい理由は何ですか？",
-        "answer": "神経因性膀胱や導尿・カテーテル管理により尿が停滞しやすく、感染リスクが高くなるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識に基づく選択肢であり、法令改正の影響を受けない。",
+          "promptContext": "脊髄損傷の合併症に関する医学的知識の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
+          "displayRefIds": [],
+          "explanationText": "医学的知識に基づく選択肢であり、法令改正の影響を受けない。",
+          "promptContext": "脊髄損傷の合併症に関する医学的知識の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "7597215e312312ff",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q140",
     "explanationText": [
-      "正しい。\n\n骨肉腫は10歳代の長管骨骨幹端部に好発する代表的な悪性骨腫瘍である。",
-      "間違い。\n\n骨巨細胞腫は骨端部に発生し、若年成人に多い。10歳代好発としては骨肉腫を選ぶ。",
-      "間違い。\n\n癌の骨転移は高齢者に多く、10歳代好発ではない。",
-      "間違い。\n\n多発性骨髄腫は高齢者に多い造血器腫瘍で、10歳代には好発しない。"
+      "正しい。骨肉腫は思春期を含む10歳代に好発する悪性骨腫瘍である。骨巨細胞腫は若年成人に多く、癌の骨転移と多発性骨髄腫は主に高齢者にみられるため、10歳代に好発するのは骨肉腫である。"
     ],
-    "suggestedQuestions": [
-      "骨肉腫の好発年齢はいつですか？",
-      "骨肉腫の好発部位はどこですか？",
-      "多発性骨髄腫はどの年代に多いですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:7597215e312312ff",
+    "reviewQuestionId": "7597215e312312ff",
+    "sourceRecordRef": "question_1993_6.json#14",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨腫瘍の好発年齢を問う医学知識の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "骨肉腫の好発年齢はいつですか？",
-        "answer": "10歳代に多い。思春期の骨成長が盛んな時期に好発する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査による差異なし。法令関連性なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令・制度上の判断を要しない。",
+          "promptContext": "骨腫瘍の好発年齢を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "骨肉腫の好発部位はどこですか？",
-        "answer": "膝周囲など長管骨の骨幹端部に多い。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査による差異なし。法令関連性なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令・制度上の判断を要しない。",
+          "promptContext": "骨腫瘍の好発年齢を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "多発性骨髄腫はどの年代に多いですか？",
-        "answer": "高齢者に多い。10歳代好発ではない。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査による差異なし。法令関連性なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令・制度上の判断を要しない。",
+          "promptContext": "骨腫瘍の好発年齢を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法監査による差異なし。法令関連性なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識の選択肢であり、法令・制度上の判断を要しない。",
+          "promptContext": "骨腫瘍の好発年齢を問う医学知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "838d385af042e56a",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q141",
     "explanationText": [
-      "間違い。\n\n上腕を前方にあげる運動は肩関節屈曲である。肩関節伸展は上腕を後方に動かす運動である。",
-      "正しい。\n\n足関節背屈は足部を足背方向、すなわちつま先を上げる方向に動かす運動である。",
-      "正しい。\n\n小指外転は小指を手の基準軸である中指から離す方向へ動かす運動である。",
-      "正しい。\n\n股関節外転は大腿を身体の正中線から外側へ開く運動である。"
+      "間違い。上腕を前方にあげる運動は肩関節屈曲である。肩関節伸展は上腕を後方へ動かす運動なので、運動方向の対応が逆である。",
+      "正しい。",
+      "正しい。",
+      "正しい。"
     ],
-    "suggestedQuestions": [
-      "肩関節屈曲と伸展はどう違いますか？",
-      "足関節背屈とは何ですか？",
-      "手指の外転は何を基準にしますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:838d385af042e56a",
+    "reviewQuestionId": "838d385af042e56a",
+    "sourceRecordRef": "question_1993_6.json#15",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "運動学上の関節運動の定義と方向を問う技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "肩関節屈曲と伸展はどう違いますか？",
-        "answer": "屈曲は上腕を前方へ挙上する運動、伸展は上腕を後方へ動かす運動である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "肩関節伸展と運動方向の対応を問う技術問題である。",
+          "promptContext": "運動学の基本用語と運動方向を確認する。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "足関節背屈とは何ですか？",
-        "answer": "足背方向へ動かし、つま先を上げる運動である。底屈はつま先を下げる方向である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "足関節背屈と足背方向への運動の対応を問う技術問題である。",
+          "promptContext": "運動学の基本用語と運動方向を確認する。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "手指の外転は何を基準にしますか？",
-        "answer": "中指を基準に、指を中指から離す方向を外転という。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "小指外転と中指から離れる運動の対応を問う技術問題である。",
+          "promptContext": "運動学の基本用語と運動方向を確認する。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の時点差はない。",
+          "displayRefIds": [],
+          "explanationText": "股関節外転と大腿を外側へ開く運動の対応を問う技術問題である。",
+          "promptContext": "運動学の基本用語と運動方向を確認する。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "878525fe6a82f6c8",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q142",
     "explanationText": [
-      "正しい。\n\n大腿二頭筋はハムストリングスの一つで、膝関節屈曲に作用する。",
-      "正しい。\n\n後脛骨筋は足部の内がえし、底屈、内側縦アーチ保持に関与する。",
-      "間違い。\n\n腕橈骨筋は肘関節屈曲に作用する。肘関節伸展は主に上腕三頭筋が行う。",
-      "正しい。\n\n短母指外転筋は母指の掌側外転に作用する母指球筋である。"
+      "正しい。大腿二頭筋は膝関節を屈曲させる。",
+      "正しい。後脛骨筋は足部を内がえしし、底屈や内側縦アーチの保持にも関与する。",
+      "間違い。正しくは、腕橈骨筋は肘関節を屈曲させる。肘関節の伸展を主に行うのは上腕三頭筋である。",
+      "正しい。短母指外転筋は母指を掌側外転させる。"
     ],
-    "suggestedQuestions": [
-      "腕橈骨筋の作用は何ですか？",
-      "後脛骨筋の作用は何ですか？",
-      "短母指外転筋はどの運動を行いますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:878525fe6a82f6c8",
+    "reviewQuestionId": "878525fe6a82f6c8",
+    "sourceRecordRef": "question_1993_6.json#16",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "筋の作用と関節運動方向を問う運動学・解剖学の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "腕橈骨筋の作用は何ですか？",
-        "answer": "肘関節屈曲である。特に前腕中間位で働きやすい。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "大腿二頭筋は膝関節屈曲に作用する。",
+          "promptContext": "筋の作用と関節運動方向を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "運動学・解剖学の技術肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "後脛骨筋の作用は何ですか？",
-        "answer": "足部の内がえしと底屈、内側縦アーチ保持に関与する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "後脛骨筋は足部の内がえしに作用し、底屈や内側縦アーチの保持にも関与する。",
+          "promptContext": "筋の作用と関節運動方向を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "運動学・解剖学の技術肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "短母指外転筋はどの運動を行いますか？",
-        "answer": "母指の掌側外転を行う。正中神経支配の母指球筋として重要である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "腕橈骨筋は肘関節屈曲に作用し、肘関節伸展を主に行うのは上腕三頭筋である。",
+          "promptContext": "筋の作用と関節運動方向を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "運動学・解剖学の技術肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異なし。",
+          "displayRefIds": [],
+          "explanationText": "短母指外転筋は母指の掌側外転に作用する。",
+          "promptContext": "筋の作用と関節運動方向を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "運動学・解剖学の技術肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "855f748f3feb8210",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q143",
     "explanationText": [
-      "間違い。\n\n徒手筋力検査は随意収縮の筋力評価であり、痙性麻痺の評価に常に最適とはいえない。筋緊張や共同運動の影響を受ける。",
-      "間違い。\n\n姿勢と肢位は標準化された方法に従う必要がある。検者の経験や力量に合わせて任意に変えてはいけない。",
-      "間違い。\n\n徒手筋力検査では重力、抵抗、関節運動を使って段階づける。単に等尺性運動だけで行うものではない。",
-      "正しい。\n\n徒手筋力検査では視診と触診を併用し、筋収縮や代償運動を確認しながら評価する。"
+      "間違い。痙性麻痺では筋緊張の亢進や共同運動が筋力評価に影響するため、徒手筋力検査が最適な方法とはいえない。",
+      "間違い。姿勢と肢位は、検者の経験や力量ではなく、結果を比較できる標準化された方法に従って定める。",
+      "間違い。徒手筋力検査は、筋の作用に適した標準肢位で、重力や徒手抵抗に対する運動・保持を段階的に評価する。等尺性運動だけで行う検査ではない。",
+      "正しい。視診と触診を併用すると、検査する筋の収縮や程度、代償運動の有無を確認できる。"
     ],
-    "suggestedQuestions": [
-      "徒手筋力検査で標準化が必要な理由は何ですか？",
-      "MMTで視診と触診を行う理由は何ですか？",
-      "痙性麻痺でMMT評価が難しい理由は何ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:855f748f3feb8210",
+    "reviewQuestionId": "855f748f3feb8210",
+    "sourceRecordRef": "question_1993_6.json#17",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "徒手筋力検査の標準化された実施方法と評価技術に関する技術問題であり、法令根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "徒手筋力検査で標準化が必要な理由は何ですか？",
-        "answer": "肢位や抵抗のかけ方が変わると結果が比較できなくなるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "徒手筋力検査の実施方法に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "資格別法令参照方針に基づき、法令監査の対象外と判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "徒手筋力検査の技術問題であり、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "MMTで視診と触診を行う理由は何ですか？",
-        "answer": "目的筋の収縮、代償運動、関節運動の有無を確認するためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "徒手筋力検査の実施方法に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "資格別法令参照方針に基づき、法令監査の対象外と判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "徒手筋力検査の技術問題であり、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "痙性麻痺でMMT評価が難しい理由は何ですか？",
-        "answer": "筋緊張亢進や共同運動、随意運動の分離困難が筋力評価に影響するためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "徒手筋力検査の実施方法に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "資格別法令参照方針に基づき、法令監査の対象外と判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "徒手筋力検査の技術問題であり、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "徒手筋力検査の実施方法に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "資格別法令参照方針に基づき、法令監査の対象外と判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "徒手筋力検査の技術問題であり、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "2d947e33b2f075da",
@@ -573,31 +1975,116 @@
     "original_question_id": "6395c41453254f19",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q145",
     "explanationText": [
-      "正しい。\n\n正常歩行には両足が接地する両側支持期がある。歩行速度が速くなると短くなる。",
-      "正しい。\n\n歩行周期は立脚相と遊脚相に分けられる。立脚相は足が床に接している時期である。",
-      "間違い。\n\n成人の通常歩行の歩数は1分間におよそ100歩前後であり、平均180歩は多すぎる。",
-      "正しい。\n\n歩行中の重心は上下方向と左右方向に周期的に移動する。"
+      "正しい。正常歩行では、左右の足が同時に接地して体重を支える両側支持期が生じる。",
+      "正しい。歩行周期は、足が床に接している立脚相と、足を前方へ運ぶ遊脚相に分けられる。",
+      "間違い。正しくは、成人の通常歩行は1分間におよそ100歩前後である。180歩は通常歩行の歩数として多すぎる。",
+      "正しい。正常歩行では、身体の重心が左右方向と上下方向へ周期的に移動する。"
     ],
-    "suggestedQuestions": [
-      "歩行周期は何相に分けますか？",
-      "正常歩行に両側支持期はありますか？",
-      "通常歩行の歩数はどの程度ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:6395c41453254f19",
+    "reviewQuestionId": "6395c41453254f19",
+    "sourceRecordRef": "question_1993_6.json#19",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "正常歩行の歩行周期、歩数、重心移動を問う運動学の問題であり、法令・制度上の根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "歩行周期は何相に分けますか？",
-        "answer": "立脚相と遊脚相に分ける。立脚相は足が接地している時期、遊脚相は足が空中にある時期である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差異なし。",
+          "displayRefIds": [],
+          "explanationText": "正常歩行では両側支持期が生じる。",
+          "promptContext": "正常歩行の運動学に関する記述である。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "正常歩行に両側支持期はありますか？",
-        "answer": "ある。左右両足が同時に接地して体重を支える時期である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差異なし。",
+          "displayRefIds": [],
+          "explanationText": "歩行周期は立脚相と遊脚相に分かれる。",
+          "promptContext": "正常歩行の運動学に関する記述である。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "通常歩行の歩数はどの程度ですか？",
-        "answer": "成人では1分間におよそ100歩前後である。180歩は通常歩行としては多い。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差異なし。",
+          "displayRefIds": [],
+          "explanationText": "通常歩行の歩数は1分間平均180歩ではなく、およそ100歩前後である。",
+          "promptContext": "正常歩行の歩数に関する運動学の記述である。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差異なし。",
+          "displayRefIds": [],
+          "explanationText": "正常歩行では重心が左右方向と垂直方向へ移動する。",
+          "promptContext": "正常歩行の運動学に関する記述である。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "2167f6265f4e5850",
@@ -633,120 +2120,473 @@
     "original_question_id": "2bdd775b415299d5",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q147",
     "explanationText": [
-      "正しい。\n\n筋持久力向上には低負荷で反復回数を多くする訓練が適する。",
-      "間違い。\n\n等尺性運動は血圧上昇を来しやすく、循環器への負担が大きくなりやすい。等張性運動の方が常に大きいとはいえない。",
-      "正しい。\n\nデローム・ワトキンス法は漸増抵抗運動による筋力増強訓練である。",
-      "正しい。\n\n等尺性運動は関節運動を伴わず、筋長をほぼ変えずに筋収縮を行う運動である。"
+      "正しい。筋持久力を高めるには、低負荷で反復回数を多くする訓練が適している。",
+      "間違い。正しくは、等尺性運動の方が循環器への負担が大きくなりやすい。等尺性運動は関節を動かさずに筋力を発揮するため血圧が上昇しやすいのに対し、等張性運動は関節を動かす動的な運動である。",
+      "正しい。デローム・ワトキンス法は、抵抗を段階的に増やして筋力を高める漸増抵抗運動である。",
+      "正しい。等尺性運動は関節を動かさず、筋の長さをほぼ一定に保ったまま収縮させる運動である。"
     ],
-    "suggestedQuestions": [
-      "筋持久力訓練はどのような負荷で行いますか？",
-      "等尺性運動とは何ですか？",
-      "デローム・ワトキンス法は何の訓練ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:2bdd775b415299d5",
+    "reviewQuestionId": "2bdd775b415299d5",
+    "sourceRecordRef": "question_1993_6.json#21",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "運動療法、筋力訓練、等張性・等尺性運動に関する技術的知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "筋持久力訓練はどのような負荷で行いますか？",
-        "answer": "低負荷で反復回数を多くして行う。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による差はない。",
+          "displayRefIds": [],
+          "explanationText": "筋持久力訓練の負荷と反復回数に関する技術事項である。",
+          "promptContext": "運動療法の基礎知識として判定した。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "等尺性運動とは何ですか？",
-        "answer": "関節を動かさず、筋長をほぼ一定にして力を発揮する運動である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による差はない。",
+          "displayRefIds": [],
+          "explanationText": "等張性運動と等尺性運動の循環器負担の比較に関する技術事項である。",
+          "promptContext": "運動様式の違いを比較して判定した。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "デローム・ワトキンス法は何の訓練ですか？",
-        "answer": "漸増抵抗運動による筋力増強訓練である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による差はない。",
+          "displayRefIds": [],
+          "explanationText": "デローム・ワトキンス法の目的と方法に関する技術事項である。",
+          "promptContext": "筋力増強訓練の方法として判定した。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による差はない。",
+          "displayRefIds": [],
+          "explanationText": "等尺性運動の定義に関する技術事項である。",
+          "promptContext": "関節運動の有無と筋収縮の特徴から判定した。",
+          "refs": [],
+          "verdict": "技術事項であり法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "8e62d2ba7d437082",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q148",
     "explanationText": [
-      "正しい。\n\nウィリアムズ体操は腰痛体操として用いられる。腰椎前弯軽減や腹筋強化を目的とする。",
-      "間違い。\n\nバージャー体操は末梢循環障害に対する運動療法である。脳性麻痺に対する代表的体操ではない。",
-      "正しい。\n\nフレンケル体操は協調運動訓練として失調症に用いられる。",
-      "正しい。\n\nコッドマン体操は肩関節の振り子運動で、五十肩など肩関節拘縮に用いられる。"
+      "正しい。",
+      "間違い。正しくは、バージャー体操は末梢循環障害に用いる運動療法であり、脳性麻痺に用いる代表的な体操ではない。",
+      "正しい。",
+      "正しい。"
     ],
-    "suggestedQuestions": [
-      "バージャー体操は何に用いますか？",
-      "フレンケル体操は何に用いますか？",
-      "コッドマン体操は何の体操ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:8e62d2ba7d437082",
+    "reviewQuestionId": "8e62d2ba7d437082",
+    "sourceRecordRef": "question_1993_6.json#22",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "運動療法の適応に関する医学・リハビリテーション問題であり、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "バージャー体操は何に用いますか？",
-        "answer": "末梢循環障害に用いる運動療法である。脳性麻痺の代表的体操ではない。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "ウィリアムズ体操と腰痛の組合せは医学・リハビリテーション知識で正しい。",
+          "promptContext": "運動療法の適応を問う医学・リハビリテーション問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "フレンケル体操は何に用いますか？",
-        "answer": "失調症に対する協調運動訓練として用いる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "バージャー体操は末梢循環障害に用いられるため、脳性麻痺との組合せは医学・リハビリテーション知識として誤りである。",
+          "promptContext": "運動療法の適応を問う医学・リハビリテーション問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "コッドマン体操は何の体操ですか？",
-        "answer": "肩関節の振り子運動で、五十肩や肩関節拘縮の運動療法に用いられる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "フレンケル体操と失調症の組合せは医学・リハビリテーション知識で正しい。",
+          "promptContext": "運動療法の適応を問う医学・リハビリテーション問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時点と現行時点の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "コッドマン体操と五十肩の組合せは医学・リハビリテーション知識で正しい。",
+          "promptContext": "運動療法の適応を問う医学・リハビリテーション問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "21fe56c6367a9315",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q149",
     "explanationText": [
-      "正しい。\n\nパラフィン浴は手指などの温熱療法として、リウマチなどの疼痛やこわばりに用いられることがある。",
-      "間違い。\n\n極超短波は深部温熱療法であり、金属プレート固定部位では熱傷などの危険があるため禁忌または慎重適応である。",
-      "正しい。\n\n渦流浴は温熱、水流、浮力などを利用し、浮腫や循環改善、疼痛軽減などに用いられる。",
-      "正しい。\n\nホットパックは表在温熱療法で、腰痛などの疼痛緩和に用いられる。"
+      "正しい。誤っている組合せは、極超短波と骨折（金属プレート固定）である。極超短波は深部を温める療法だが、金属プレートの近くでは金属周囲が過熱し、熱傷などを起こすおそれがあるため適用を避ける。パラフィン浴はリウマチなどの疼痛や関節のこわばりに、渦流浴は浮腫の軽減や循環改善に、ホットパックは腰痛などの疼痛緩和に用いられる。"
     ],
-    "suggestedQuestions": [
-      "極超短波療法で金属が問題になる理由は何ですか？",
-      "パラフィン浴はどこに用いやすいですか？",
-      "ホットパックはどのような療法ですか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:21fe56c6367a9315",
+    "reviewQuestionId": "21fe56c6367a9315",
+    "sourceRecordRef": "question_1993_6.json#23",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "物理療法の適応・禁忌を問う技術的な問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": [],
+    "lawRevisionFacts": [
       {
-        "question": "極超短波療法で金属が問題になる理由は何ですか？",
-        "answer": "金属周囲で過熱し、熱傷の危険があるためである。金属固定部位には禁忌または慎重適応となる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "パラフィン浴はリウマチなどに用いられる。",
+          "promptContext": "問題文と選択肢1を結合して判定。",
+          "refs": [],
+          "verdict": "技術知識のみで正しいと判定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "物理療法の適応に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "パラフィン浴はどこに用いやすいですか？",
-        "answer": "手指など凹凸のある末梢部に用いやすい。温熱効果で疼痛やこわばりを軽減する。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "金属プレート固定部位への極超短波は過熱や熱傷のおそれがあるため不適切である。",
+          "promptContext": "問題文と選択肢2を結合して判定。",
+          "refs": [],
+          "verdict": "技術知識のみで誤りと判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "極超短波は金属プレート固定部位では避ける技術的禁忌。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "ホットパックはどのような療法ですか？",
-        "answer": "表在温熱療法である。筋緊張や疼痛の緩和に用いられる。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "渦流浴は浮腫の軽減や循環改善に用いられる。",
+          "promptContext": "問題文と選択肢3を結合して判定。",
+          "refs": [],
+          "verdict": "技術知識のみで正しいと判定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "渦流浴は浮腫の軽減や循環改善に用いられる。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ホットパックは腰痛などの疼痛緩和に用いられる。",
+          "promptContext": "問題文と選択肢4を結合して判定。",
+          "refs": [],
+          "verdict": "技術知識のみで正しいと判定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ホットパックは腰痛などの疼痛緩和に用いられる。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
       }
-    ],
-    "lawGroundedExplanationNotNeeded": true
+    ]
   },
   {
     "original_question_id": "adf357e959af2e5d",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_1/#q150",
     "explanationText": [
-      "間違い。\n\n廃用では関節拘縮が問題になるが、関節強直が早期に起こるとはいえない。強直は関節内外の病変で可動性が失われた状態である。",
-      "正しい。\n\n長期臥床では循環調節が低下し、起立性低血圧を起こしやすい。",
-      "正しい。\n\n廃用症候群では活動性低下に伴い、意欲低下、抑うつ、認知機能低下などがみられることがある。",
-      "正しい。\n\n長期臥床では圧迫と循環障害により褥瘡が生じやすい。体位変換や除圧が重要である。"
+      "間違い。廃用症候群では関節拘縮が早期から起こりやすい。関節拘縮は関節周囲の軟部組織が短縮・硬化して動かしにくくなる状態であり、関節自体がほとんど動かなくなる強直とは異なる。",
+      "正しい。",
+      "正しい。",
+      "正しい。長期臥床では同じ部位への圧迫が続いて血流が悪くなり、褥瘡が生じやすい。"
     ],
-    "suggestedQuestions": [
-      "廃用症候群で起こる身体症状は何ですか？",
-      "長期臥床で起立性低血圧が起こる理由は何ですか？",
-      "拘縮と強直はどう違いますか？"
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "judoseifukushi:1993:adf357e959af2e5d",
+    "reviewQuestionId": "adf357e959af2e5d",
+    "sourceRecordRef": "question_1993_6.json#24",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "廃用症候群の医学的特徴を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "廃用症候群で起こる身体症状は何ですか？",
-        "answer": "筋萎縮、関節拘縮、骨萎縮、起立性低血圧、褥瘡などがある。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による正誤への影響はない。",
+          "displayRefIds": [],
+          "explanationText": "廃用症候群における関節拘縮と関節強直の違いを問う医学的記述である。",
+          "promptContext": "法令監査対象外の医学的内容。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医学的内容であり、法令改廃による正答への影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "長期臥床で起立性低血圧が起こる理由は何ですか？",
-        "answer": "循環調節機能や筋ポンプ作用が低下し、起立時に血圧を保ちにくくなるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による正誤への影響はない。",
+          "displayRefIds": [],
+          "explanationText": "長期臥床に伴う循環調節機能低下と起立性低血圧を問う医学的記述である。",
+          "promptContext": "法令監査対象外の医学的内容。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的内容であり、法令改廃による正答への影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "拘縮と強直はどう違いますか？",
-        "answer": "拘縮は軟部組織短縮などで関節可動域が制限される状態、強直は関節がほぼ動かなくなる状態である。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による正誤への影響はない。",
+          "displayRefIds": [],
+          "explanationText": "廃用症候群に伴う意欲低下や認知機能低下を問う医学的記述である。",
+          "promptContext": "法令監査対象外の医学的内容。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的内容であり、法令改廃による正答への影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改廃による正誤への影響はない。",
+          "displayRefIds": [],
+          "explanationText": "長期臥床に伴う圧迫と血流障害による褥瘡を問う医学的記述である。",
+          "promptContext": "法令監査対象外の医学的内容。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医学的内容であり、法令改廃による正答への影響はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]
