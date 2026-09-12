@@ -1615,32 +1615,140 @@
     "original_question_id": "0a0666a6a58bc73b",
     "lawGroundedExplanationNotNeeded": true,
     "explanationText": [
-      "正しい。\n\n喫煙は骨形成を抑え、骨粗鬆症のリスクを上げる。",
-      "間違い。\n\n脂肪肝はこの症例の骨粗鬆症リスクとして主要ではない。",
-      "間違い。\n\n高血圧自体はここで問う主要な骨粗鬆症危険因子ではない。",
-      "正しい。\n\n運動不足では荷重刺激が減り、骨量低下を招きやすい。",
-      "間違い。\n\n脂質異常症はこの設問での直接の危険因子としては扱わない。"
+      "正しい。喫煙は骨量を減少させ、骨粗鬆症のリスクを高める。",
+      "間違い。脂肪肝は、この患者の骨病変の主要なリスク要因ではない。",
+      "間違い。高血圧は、この患者の骨病変の主要なリスク要因ではない。",
+      "正しい。運動不足は骨への荷重刺激を減らし、骨量低下を招く。",
+      "間違い。脂質異常症は、この患者の骨病変の主要なリスク要因ではない。"
     ],
-    "suggestedQuestions": [
-      "骨粗鬆症で身長低下が起こるのはなぜですか？",
-      "喫煙が骨粗鬆症を悪化させるのはなぜですか？",
-      "骨粗鬆症予防で運動が重要なのはなぜですか？"
+    "question_url": "https://study.mecnet.jp/exercises/exercise_single_explain/3530",
+    "sourceQuestionKey": "mecnet-kokushi:100:0a0666a6a58bc73b",
+    "reviewQuestionId": "0a0666a6a58bc73b",
+    "sourceRecordRef": "question_100.json#52",
+    "explanationReferences": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "骨粗鬆症の危険因子を医学知識で判断する問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [],
+      []
     ],
-    "suggestedQuestionDetails": [
+    "lawRevisionFacts": [
       {
-        "question": "骨粗鬆症で身長低下が起こるのはなぜですか？",
-        "answer": "椎体圧迫骨折が重なるためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識による判断であり、法令根拠は不要。",
+          "promptContext": "喫煙は骨粗鬆症のリスク要因である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "喫煙が骨粗鬆症を悪化させるのはなぜですか？",
-        "answer": "骨形成抑制や性ホルモン低下を介して骨量を減らすためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識による判断であり、法令根拠は不要。",
+          "promptContext": "脂肪肝はこの患者の骨病変の主要なリスク要因ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       },
       {
-        "question": "骨粗鬆症予防で運動が重要なのはなぜですか？",
-        "answer": "荷重と筋力刺激が骨形成を促すためである。"
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識による判断であり、法令根拠は不要。",
+          "promptContext": "高血圧はこの患者の骨病変の主要なリスク要因ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識による判断であり、法令根拠は不要。",
+          "promptContext": "運動不足は骨への荷重刺激を減らし、骨粗鬆症のリスク要因となる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象なし。",
+          "displayRefIds": [],
+          "explanationText": "医学知識による判断であり、法令根拠は不要。",
+          "promptContext": "脂質異常症はこの患者の骨病変の主要なリスク要因ではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
       }
     ],
-    "question_url": "https://study.mecnet.jp/exercises/exercise_single_explain/3530"
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "original_question_id": "2fcb050a2c900054",
