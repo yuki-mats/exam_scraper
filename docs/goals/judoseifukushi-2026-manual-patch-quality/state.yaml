@@ -46,12 +46,12 @@ rules:
 
 progress:
   total_questions: 250
-  completed_questions: 50
-  remaining_questions: 200
+  completed_questions: 75
+  remaining_questions: 175
   total_files: 10
-  completed_files: 2
+  completed_files: 3
 
-active_task: T003
+active_task: T004
 
 tasks:
   - id: T001
@@ -71,15 +71,16 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: "問51〜問75（question_2026_3.json）の目視精査と各工程パッチ作成・検証。"
     target_file: "output/judoseifukushi/questions_json/2026/00_source/question_2026_3.json"
     question_labels: "問51〜問75"
+    receipt: "question_2026_3.json（問51〜問75）の目視精査と各工程パッチ作成・検証完了。4種の公式チェッカー通過。"
 
   - id: T004
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     objective: "問76〜問100（question_2026_4.json）の目視精査と各工程パッチ作成・検証。"
     target_file: "output/judoseifukushi/questions_json/2026/00_source/question_2026_4.json"
     question_labels: "問76〜問100"
