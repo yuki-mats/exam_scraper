@@ -1,0 +1,269 @@
+version: 2
+
+goal:
+  title: "ビル管理師2018〜2025年過去問の取得・整備"
+  slug: "birukan-2018-2025-source-and-maintenance"
+  kind: specific
+  tranche: "8年度分を完全取得し、各問題を整備・監査・公開前検査まで進める。Firestore本番書込みは別承認に分離する。"
+  status: active
+  oracle:
+    signal: "2018〜2025年の全問題が安定IDで一意に取得され、00_source不変、整備工程・現行法監査・category・merge/convert・quality-gate/upload-readyの検証が全対象で通り、独立評価結果が公開候補と一致すること。"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "8年度分のsource manifest、全工程receipt、法令監査・category成果物、quality-gate/upload dry-run、独立評価receipt、00_source不変検査、mainとorigin/mainの同期"
+  intake:
+    original_request: "まず、https://birukan.kakomonn.com/ より、2018〜2025年の00_sourceを取得して整備してほしい。"
+    interpreted_outcome: "birukan.kakomonn.comの2018〜2025年度過去問を全件取得し、source保護と各整備工程を完了して公開前検査まで到達する。"
+    input_shape: specific
+    audience: "Repasoでビル管理師を学習する受験者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "8年度分の00_source全件、後工程成果物、カテゴリ、法令監査、quality-gate、upload-readyの検査結果が証跡とともに揃うこと"
+    likely_misfire: "部分取得・重複・未評価問題を整備完了と扱うこと"
+    blind_spots_considered:
+      - "00_source不変性と取得元更新の境界"
+      - "canonical identityの重複・欠落"
+      - "画像参照とtrue_false以外の問題形式"
+      - "出題当時法と現行法の差"
+      - "category/questionSetIdとFirestore公開境界"
+      - "既存の他資格未コミット変更"
+    existing_plan_facts:
+      - "対象URLはhttps://birukan.kakomonn.com/"
+      - "対象年度は2018〜2025"
+      - "取得先はoutput/birukan/questions_json/<list_group_id>/00_source"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: unknown
+  worker: unknown
+  judge: unknown
+
+visual_board:
+  selected: local
+  local:
+    status: starting
+    url: null
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/birukan-2018-2025-source-and-maintenance"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: medium
+    objective: "サイトの2018〜2025年度グループと既存sourceを照合し、完全取得の対象、重複・欠落、scraper設定、検証コマンドを確定する。"
+    inputs:
+      - "https://birukan.kakomonn.com/"
+      - "config/scrape_presets.json"
+      - "output/birukan/questions_json"
+      - "document/operations/scraping_workflow.md"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+    constraints:
+      - "Read-only。実装・source変更・外部書込みをしない。"
+      - "他資格の未コミット変更を調査対象へ混ぜない。"
+      - "取得件数だけで完了判定せず、canonical identityとsource hashを確認する。"
+    expected_output:
+      - "8年度分の正確なsource取得対象"
+      - "既存sourceとの差分・重複・欠落一覧"
+      - "最初のWorker packageのallowed_filesとverify"
+    receipt: null
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: medium
+    objective: "Scout結果を審査し、資格設定と2018〜2025年source完全取得の最大安全パッケージを決定する。"
+    inputs:
+      - "T001 receipt"
+    constraints:
+      - "Read-only。実装しない。"
+      - "00_source保護、既存ID、他資格変更、取得元消失を明示的に扱う。"
+    expected_output:
+      - "取得実行の承認判断"
+      - "Workerのallowed_files、verify、stop_if"
+      - "取得後に進む整備パッケージ"
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "birukanのscrape presetと必要な資格別補助資料を整え、2018〜2025年度の全list groupを標準scraperで取得してsource検証する。"
+    allowed_files:
+      - "config/scrape_presets.json"
+      - "config/qualification_rules.json"
+      - "prompt/qualification_docs/birukan/**"
+      - "output/birukan/questions_json/**/00_source/**"
+      - "output/birukan/question_images/**"
+      - "docs/contracts/00_source_sha256_manifest.jsonl"
+      - "output/birukan/reports/**"
+    verify:
+      - "python3 -m json.tool config/scrape_presets.json"
+      - "python3 -m json.tool config/qualification_rules.json"
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode source"
+      - "python3 scripts/check/check_00_source_immutability.py"
+      - "git diff --check"
+    stop_if:
+      - "取得元から対象年度または問題が消失し、全件性を確定できない。"
+      - "既存sourceの変更が標準scraperの成功・検証なしに発生する。"
+      - "既存Firestore IDまたは他資格のファイル変更が必要になる。"
+    receipt: null
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "2018〜2020年度の問題を一問単位で整備し、法令根拠候補・解説・正答・問題形式・questionSetIdの成果物を検証済み状態へそろえる。"
+    allowed_files:
+      - "prompt/qualification_docs/birukan/**"
+      - "output/birukan/questions_json/95001/**"
+      - "output/birukan/questions_json/95002/**"
+      - "output/birukan/questions_json/95003/**"
+      - "output/birukan/reports/**"
+      - "output/question_review_console/workflow_runs/birukan/**"
+    verify:
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode patches"
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode required"
+      - "git diff --check"
+    stop_if:
+      - "根拠を一次情報で確定できない問題がある。"
+      - "00_sourceを変更しないと整備できない。"
+      - "一問単位の保存・readback・receiptを確認できない。"
+    receipt: null
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "2021〜2023年度の問題を一問単位で整備し、法令監査・解説・正答・問題形式・questionSetIdの成果物を検証済み状態へそろえる。"
+    allowed_files:
+      - "prompt/qualification_docs/birukan/**"
+      - "output/birukan/questions_json/95004/**"
+      - "output/birukan/questions_json/95005/**"
+      - "output/birukan/questions_json/95006/**"
+      - "output/birukan/reports/**"
+      - "output/question_review_console/workflow_runs/birukan/**"
+    verify:
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode patches"
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode required"
+      - "git diff --check"
+    stop_if:
+      - "根拠を一次情報で確定できない問題がある。"
+      - "00_sourceを変更しないと整備できない。"
+      - "一問単位の保存・readback・receiptを確認できない。"
+    receipt: null
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "2024〜2025年度の問題を重複除外後のcanonical question単位で整備し、複合形式・画像・法令監査を含む成果物を検証済み状態へそろえる。"
+    allowed_files:
+      - "prompt/qualification_docs/birukan/**"
+      - "output/birukan/questions_json/95007/**"
+      - "output/birukan/questions_json/95008/**"
+      - "output/birukan/reports/**"
+      - "output/question_review_console/workflow_runs/birukan/**"
+    verify:
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode patches"
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode required"
+      - "git diff --check"
+    stop_if:
+      - "重複recordを別問題として公開候補へ残す。"
+      - "複合形式の意味をtrue_falseへ推測変換する必要がある。"
+      - "00_sourceを変更しないと整備できない。"
+    receipt: null
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "8年度分のcategory、merge、convert、quality-gate、upload dry-runを実行し、独立評価へ渡せるupload-ready成果物を確定する。"
+    allowed_files:
+      - "output/birukan/category/**"
+      - "output/birukan/questions_json/**/10_questionType_fixed/**"
+      - "output/birukan/questions_json/**/15_correctChoiceText_fixed/**"
+      - "output/birukan/questions_json/**/18_law_context_prepared/**"
+      - "output/birukan/questions_json/**/21_explanationText_added/**"
+      - "output/birukan/questions_json/**/22_questionSetId_linked/**"
+      - "output/birukan/questions_json/**/23_correctChoiceText_fixed/**"
+      - "output/birukan/questions_json/**/20_merged_1/**"
+      - "output/birukan/questions_json/**/30_merged_2/**"
+      - "output/birukan/questions_json/**/40_convert/**"
+      - "output/birukan/reports/**"
+    verify:
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode required"
+      - "python3 tools/question_bank/question_bank.py quality-gate --qualification birukan --mode firestore"
+      - "git diff --check"
+    stop_if:
+      - "未評価・hold・欠落問題をupload-readyへ混ぜる必要がある。"
+      - "00_sourceまたは既存IDを変更する必要がある。"
+      - "本番Firestore書込みが必要になる。"
+    receipt: null
+  - id: T008
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "upload-ready全件を独立評価し、合格・再整備・holdを確定して公開候補範囲を審査する。"
+    inputs:
+      - "T003 receipt"
+      - "T004 receipt"
+      - "T005 receipt"
+      - "T006 receipt"
+      - "T007 receipt"
+    constraints:
+      - "Read-only。Firestore本番へ書き込まない。"
+      - "不合格・未評価・readback不一致は合格扱いにしない。"
+    expected_output:
+      - "問題単位の評価receipt"
+      - "公開候補と再整備対象の境界"
+      - "残存リスクと次のWorker package"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "ユーザーの2018〜2025年00_source取得・整備依頼が、現在の成果物・検証・評価receiptで完全に満たされているか最終監査する。"
+    inputs:
+      - "All done task receipts"
+      - "Last verification"
+      - "Current dirty diff"
+    constraints:
+      - "Read-only。"
+      - "未完了の必須Worker、未評価問題、hold、重複、source欠落があれば完了を拒否する。"
+      - "Firestore本番書込みが未実施でも、今回の明示範囲外として正しく記録されていればよい。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "根拠ファイル・検証結果・残存課題"
+    receipt: null
+
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
