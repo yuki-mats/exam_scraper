@@ -342,6 +342,10 @@ def materialize_explanation(
         "original_question_id": resolve_original_id(source_question),
         "question_url": source_question.get("question_url", ""),
     }
+    if "questionLearningPatternId" in raw_entry:
+        materialized["questionLearningPatternId"] = raw_entry.get(
+            "questionLearningPatternId"
+        )
     law_references = raw_entry.get("lawReferences")
     if law_references is not None:
         materialized["lawReferences"] = law_references
