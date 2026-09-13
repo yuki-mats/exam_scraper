@@ -48,12 +48,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 100
-  remaining_questions: 130
+  completed_questions: 125
+  remaining_questions: 105
   total_files: 10
-  completed_files: 4
+  completed_files: 5
 
-active_task: T006
+active_task: T007
 
 tasks:
   - id: T001
@@ -89,7 +89,7 @@ tasks:
   - id: T006
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     summary: "問101〜問125（question_2014_5.json）の目視精査・パッチ生成・検証（問118: 複数正答, 問125: 解なし）"
     target_file: "output/judoseifukushi/questions_json/2014/00_source/question_2014_5.json"
   - id: T007
