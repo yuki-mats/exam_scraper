@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "question-type-individual-review/firestore-post-readback/v1",
+  "verifiedAt": "2026-09-13T05:06:46Z",
+  "projectId": "repaso-rbaqy4",
+  "review": {
+    "historicalTransitionCount": 92,
+    "changedToTrueFalseCount": 67,
+    "changedToFlashCardCount": 12,
+    "retainedGroupChoiceCount": 4,
+    "retainedTrueFalseCount": 3,
+    "heldForMissingImageEvidenceCount": 6
+  },
+  "existingFirestoreScope": {
+    "qualificationId": "gas-shunin-otsu",
+    "originalQuestionCount": 23,
+    "questionDocumentCount": 115,
+    "judoseifukushiExistingDocumentCount": 0
+  },
+  "questionReadback": {
+    "questionTypeTrueFalseCount": 115,
+    "isChoiceOnlyFalseCount": 115,
+    "isGroupableTrueCount": 115,
+    "isDeletedFalseCount": 115,
+    "planMismatchCount": 0,
+    "writeErrorCount": 0,
+    "hardDeleteCount": 0,
+    "userDataWriteCount": 0
+  },
+  "countReadback": {
+    "gasShuninOtsu": {
+      "folderCount": 6,
+      "questionSetCount": 119,
+      "activeDisplayQuestionCount": 2009,
+      "folderMismatchCount": 0,
+      "questionSetMismatchCount": 0
+    },
+    "gasShuninKouControl": {
+      "folderCount": 8,
+      "questionSetCount": 115,
+      "activeDisplayQuestionCount": 2212,
+      "folderMismatchCount": 0,
+      "questionSetMismatchCount": 0
+    }
+  },
+  "safety": {
+    "sourceFilesModified": false,
+    "questionDocumentsCreated": 0,
+    "questionDocumentsDeleted": 0,
+    "existingQuestionIdsPreserved": true
+  }
+}
