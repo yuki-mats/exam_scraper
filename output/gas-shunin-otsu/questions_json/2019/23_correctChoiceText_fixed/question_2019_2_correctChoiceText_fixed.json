@@ -3254,9 +3254,9 @@
     "isCalculationQuestion": false,
     "explanationText": [
       "正しい。2種類以上の可燃性ガスの混合ガスでは、各成分の容積割合と燃焼限界を用いるル・シャトリエの式により、混合ガスの燃焼限界を概算できる。",
-      "間違い。最大燃焼速度は水素の方がメタンより大きい。メタンの方が水素より大きいとしている点が誤りである。",
+      "間違い。最大燃焼速度は水素の方がメタンより大きい。メタンの方が水素より大きいとしているため誤りである。",
       "間違い。実際のガス機器では、不完全燃焼を避け安定燃焼させるため、理論空気量ちょうどの空気比1.0ではなく、過剰空気を含む空気比で燃焼させる。",
-      "間違い。一般に金属の熱伝導率は気体の熱伝導率より大きい。金属の方が小さいとしている点が誤りである。",
+      "間違い。一般に金属の熱伝導率は気体の熱伝導率より大きい。金属の方が小さいとしているため誤りである。",
       "間違い。放射伝熱は電磁波による熱移動であり、途中の空間を暖めることを必要としない。高温物体から低温物体へ空間を介して直接熱が伝わる。"
     ],
     "suggestedQuestions": [
@@ -3290,7 +3290,10 @@
     ],
     "questionSetId": "chiefgasengineerlicense-B-1950",
     "reviewQuestionId": "b4d68d05a3ad7b9f",
-    "sourceRecordRef": "question_2019_2.json#24"
+    "sourceRecordRef": "question_2019_2.json#24",
+    "correctChoiceText_changed": true,
+    "correctChoiceText_change_detail": "questionTypeをtrue_falseへ修正し、各肢の記述自体の真偽へ統一。",
+    "correctChoiceText_change_reason": "初回公開時からgroup_choiceとして登録されていたため。"
   },
   {
     "answerResultNumbersRemapped": false,
