@@ -428,9 +428,10 @@ def apply_plan(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--review", type=Path, required=True)
-    parser.add_argument("--live-snapshot", type=Path, required=True)
-    parser.add_argument("--plan-output", type=Path, required=True)
+    parser.add_argument("--review", type=Path)
+    parser.add_argument("--live-snapshot", type=Path)
+    parser.add_argument("--plan-output", type=Path)
+    parser.add_argument("--existing-plan", type=Path)
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--receipt-output", type=Path)
     parser.add_argument("--project-id", default=DEFAULT_PROJECT_ID)
@@ -440,11 +441,31 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    plan = build_plan(args.review, args.live_snapshot)
-    write_json(args.plan_output, plan)
+    if args.existing_plan is not None:
+        if any(
+            value is not None
+            for value in (args.review, args.live_snapshot, args.plan_output)
+        ):
+            raise ValueError(
+                "--existing-planとplan生成用引数は同時に指定できません。"
+            )
+        plan = load_json(args.existing_plan)
+        verify_plan_hash(plan)
+        plan_label = str(args.existing_plan)
+    else:
+        if any(
+            value is None
+            for value in (args.review, args.live_snapshot, args.plan_output)
+        ):
+            raise ValueError(
+                "plan生成には--review、--live-snapshot、--plan-outputが必要です。"
+            )
+        plan = build_plan(args.review, args.live_snapshot)
+        write_json(args.plan_output, plan)
+        plan_label = str(args.plan_output)
     print(
         json.dumps(
-            {"plan": str(args.plan_output), **plan["summary"]},
+            {"plan": plan_label, **plan["summary"]},
             ensure_ascii=False,
         )
     )
