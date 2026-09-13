@@ -1,0 +1,4283 @@
+[
+  {
+    "questionBodyText": "医療法に規定されていない施設はどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問48",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "病院",
+      "歯科医院",
+      "助産所",
+      "接骨院"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q48",
+    "public_question_id": "4afd1bd5de8bdcf6",
+    "original_question_id": "4afd1bd5de8bdcf6",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 4,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      4
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q048",
+    "sourceDisplayedQuestionNumber": 48,
+    "sourceQuestionOrdinal": 48,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      4
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      4
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": true,
+    "lawGroundedExplanationNotNeeded": false,
+    "lawReferences": [
+      [
+        {
+          "article": "第一条の五",
+          "choiceIndex": 0,
+          "lawId": "323AC0000000205",
+          "lawTitle": "医療法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第一条の五第二項",
+          "choiceIndex": 1,
+          "lawId": "323AC0000000205",
+          "lawTitle": "医療法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第二条",
+          "choiceIndex": 2,
+          "lawId": "323AC0000000205",
+          "lawTitle": "医療法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第一条の五・第二条",
+          "choiceIndex": 3,
+          "lawId": "323AC0000000205",
+          "lawTitle": "医療法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawContextForExplanation": "医療法第1条の5が病院・診療所を、第2条が助産所を定義する。接骨院はこれらの施設区分に含まれない。現行法と公式解答の正誤は一致するが、出題時点の条文本文は未取得である。",
+    "sourceQuestionKey": "judoseifukushi:2020:4afd1bd5de8bdcf6",
+    "reviewQuestionId": "4afd1bd5de8bdcf6",
+    "sourceRecordRef": "question_2020_2.json#22",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-08",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/323AC0000000205?asof=2026-09-08",
+        "title": "e-Gov法令検索 医療法"
+      }
+    ],
+    "explanationText": [
+      "間違い。病院は、医療法第1条の5に定義される施設である。",
+      "間違い。歯科医院は、医療法第1条の5第2項が定める診療所に当たる。",
+      "間違い。助産所は、医療法第2条に定義される施設である。",
+      "正しい。接骨院は、医療法第1条の5が定める病院・診療所や、同法第2条が定める助産所には含まれない。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "現行法上の正誤は公式解答と一致する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法上の正誤は公式解答と一致する。出題時点の条文本文は未取得。",
+          "displayRefIds": [],
+          "explanationText": "現行の医療法第1条の5は病院を定義している。",
+          "promptContext": "医療法上の病院の定義を確認する選択肢。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時点の医療法本文はprimaryLawEvidenceで取得されていない。"
+        ],
+        "reconciliationStatus": "reconciled_same_as_current",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法上の正誤は公式解答と一致する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法上の正誤は公式解答と一致する。出題時点の条文本文は未取得。",
+          "displayRefIds": [],
+          "explanationText": "現行の医療法第1条の5第2項は診療所を定義している。",
+          "promptContext": "医療法上の診療所の定義を確認する選択肢。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時点の医療法本文はprimaryLawEvidenceで取得されていない。"
+        ],
+        "reconciliationStatus": "reconciled_same_as_current",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法上の正誤は公式解答と一致する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法上の正誤は公式解答と一致する。出題時点の条文本文は未取得。",
+          "displayRefIds": [],
+          "explanationText": "現行の医療法第2条は助産所を定義している。",
+          "promptContext": "医療法上の助産所の定義を確認する選択肢。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時点の医療法本文はprimaryLawEvidenceで取得されていない。"
+        ],
+        "reconciliationStatus": "reconciled_same_as_current",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法上の正誤は公式解答と一致する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法上の正誤は公式解答と一致する。出題時点の条文本文は未取得。",
+          "displayRefIds": [],
+          "explanationText": "現行の医療法第1条の5及び第2条が定義する施設に接骨院は含まれない。",
+          "promptContext": "医療法に規定される施設の範囲を確認する選択肢。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時点の医療法本文はprimaryLawEvidenceで取得されていない。"
+        ],
+        "reconciliationStatus": "reconciled_same_as_current",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "ギプス包帯の目的で誤っているのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問33",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "整復位の保持",
+      "可動域の制限",
+      "関節拘縮の予防",
+      "変形の矯正"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q33",
+    "public_question_id": "20d5217881a81382",
+    "original_question_id": "20d5217881a81382",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 3,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      3
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q033",
+    "sourceDisplayedQuestionNumber": 33,
+    "sourceQuestionOrdinal": 33,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      3
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      3
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "ギプス包帯の目的を問う臨床・技術問題であり、法令条文を根拠にしない。",
+    "sourceQuestionKey": "judoseifukushi:2020:20d5217881a81382",
+    "reviewQuestionId": "20d5217881a81382",
+    "sourceRecordRef": "question_2020_2.json#7",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。",
+      "正しい。",
+      "間違い。ギプス包帯は関節を固定して可動域を制限するため、長期間の固定では関節拘縮を起こしうる。関節拘縮の予防はギプス包帯の目的ではなく、適切な固定期間や肢位を保ち、固定部位以外を運動させるなどして行う。",
+      "正しい。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "ギプス包帯の目的に関する臨床・技術上の判定であり、法令監査の対象外。",
+          "promptContext": "柔道整復の臨床・技術問題。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度ではなく臨床・技術の問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "ギプス包帯の目的に関する臨床・技術上の判定であり、法令監査の対象外。",
+          "promptContext": "柔道整復の臨床・技術問題。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度ではなく臨床・技術の問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "ギプス包帯の目的に関する臨床・技術上の判定であり、法令監査の対象外。",
+          "promptContext": "柔道整復の臨床・技術問題。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度ではなく臨床・技術の問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時法令と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "ギプス包帯の目的に関する臨床・技術上の判定であり、法令監査の対象外。",
+          "promptContext": "柔道整復の臨床・技術問題。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度ではなく臨床・技術の問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "足関節外側側副靱帯Ⅰ度損傷でみられないのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問30",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "疼痛",
+      "腫脹",
+      "圧痛",
+      "不安定性"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q30",
+    "public_question_id": "25d7114166ae1a09",
+    "original_question_id": "25d7114166ae1a09",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 4,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      4
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q030",
+    "sourceDisplayedQuestionNumber": 30,
+    "sourceQuestionOrdinal": 30,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      4
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      4
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "足関節外側側副靱帯Ⅰ度損傷の臨床所見に関する問題で、法令・制度上の根拠は不要。",
+    "sourceQuestionKey": "judoseifukushi:2020:25d7114166ae1a09",
+    "reviewQuestionId": "25d7114166ae1a09",
+    "sourceRecordRef": "question_2020_2.json#4",
+    "explanationReferences": [],
+    "explanationText": [
+      "間違い。正しくは、足関節外側側副靱帯Ⅰ度損傷では疼痛がみられる。",
+      "間違い。正しくは、足関節外側側副靱帯Ⅰ度損傷では腫脹がみられる。",
+      "間違い。正しくは、足関節外側側副靱帯Ⅰ度損傷では損傷部に圧痛がみられる。",
+      "正しい。Ⅰ度損傷では靱帯の損傷が軽度で、関節の不安定性は通常みられない。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "足関節外側側副靱帯Ⅰ度損傷の臨床所見に基づく判断であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の臨床医学知識として判定した。",
+          "refs": [],
+          "verdict": "法令・制度に関係しない臨床医学の問題である。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "足関節外側側副靱帯Ⅰ度損傷の臨床所見に基づく判断であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の臨床医学知識として判定した。",
+          "refs": [],
+          "verdict": "法令・制度に関係しない臨床医学の問題である。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "足関節外側側副靱帯Ⅰ度損傷の臨床所見に基づく判断であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の臨床医学知識として判定した。",
+          "refs": [],
+          "verdict": "法令・制度に関係しない臨床医学の問題である。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外である。",
+          "displayRefIds": [],
+          "explanationText": "足関節外側側副靱帯Ⅰ度損傷の臨床所見に基づく判断であり、法令根拠は不要である。",
+          "promptContext": "柔道整復師の臨床医学知識として判定した。",
+          "refs": [],
+          "verdict": "法令・制度に関係しない臨床医学の問題である。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable_non_law",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [
+      {
+        "choiceIndex": 3,
+        "items": [
+          {
+            "answer": "Ⅰ度損傷では通常、関節の不安定性はみられない。Ⅱ度損傷では靱帯の部分断裂により、不安定性がみられることがある。",
+            "question": "Ⅰ度損傷とⅡ度損傷は、関節の安定性の点でどのように異なるか。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "questionBodyText": "足関節外側側副靱帯完全断裂時の固定期間で正しいのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問31",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "約1週",
+      "約3週",
+      "約7週",
+      "約12週"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q31",
+    "public_question_id": "64f4fc9b9d1ecc40",
+    "original_question_id": "64f4fc9b9d1ecc40",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 3,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      3
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q031",
+    "sourceDisplayedQuestionNumber": 31,
+    "sourceQuestionOrdinal": 31,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      3
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      3
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "足関節外側側副靱帯完全断裂後の固定期間を問う臨床・柔道整復学上の問題であり、法令条文を根拠にしない。",
+    "sourceQuestionKey": "judoseifukushi:2020:64f4fc9b9d1ecc40",
+    "reviewQuestionId": "64f4fc9b9d1ecc40",
+    "sourceRecordRef": "question_2020_2.json#5",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。足関節外側側副靱帯が完全断裂した場合は、損傷した靱帯の修復を促すため、約7週間固定する。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行時点の法令比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "臨床・柔道整復学上の知識問題であり、法令改訂監査の対象外である。",
+          "promptContext": "足関節外側側副靱帯完全断裂後の固定期間を問う問題である。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行時点の法令比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "臨床・柔道整復学上の知識問題であり、法令改訂監査の対象外である。",
+          "promptContext": "足関節外側側副靱帯完全断裂後の固定期間を問う問題である。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行時点の法令比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "臨床・柔道整復学上の知識問題であり、法令改訂監査の対象外である。",
+          "promptContext": "足関節外側側副靱帯完全断裂後の固定期間を問う問題である。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行時点の法令比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "臨床・柔道整復学上の知識問題であり、法令改訂監査の対象外である。",
+          "promptContext": "足関節外側側副靱帯完全断裂後の固定期間を問う問題である。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "柔道整復師法に規定されている免許の欠格事由で、意見の聴取が行われるのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問42",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "麻薬中毒",
+      "精神機能障害",
+      "罰金以上の刑",
+      "柔道整復の業務の不正行為"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q42",
+    "public_question_id": "59dd109d47fca596",
+    "original_question_id": "59dd109d47fca596",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 2,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      2
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q042",
+    "sourceDisplayedQuestionNumber": 42,
+    "sourceQuestionOrdinal": 42,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      2
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      2
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": true,
+    "lawGroundedExplanationNotNeeded": false,
+    "lawReferences": [
+      [
+        {
+          "article": "4条2号",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "7条",
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "4条1号",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "1条",
+          "choiceIndex": 1,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "7条",
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "4条3号",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "7条",
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "4条4号",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "7条",
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_api_v2",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawContextForExplanation": "柔道整復師法第4条第1号から第4号が欠格事由を定め、第7条の意見聴取は第4条第1号に限られる。精神の機能の障害の具体的範囲は柔道整復師法施行規則第1条に定められる。出題時点の法令本文は未取得だが、公式正答と現行法判定は一致する。",
+    "sourceQuestionKey": "judoseifukushi:2020:59dd109d47fca596",
+    "reviewQuestionId": "59dd109d47fca596",
+    "sourceRecordRef": "question_2020_2.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法（e-Gov法令検索）"
+      },
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+        "title": "柔道整復師法施行規則（e-Gov法令検索）"
+      }
+    ],
+    "explanationText": [
+      "間違い。意見の聴取が行われるのは、柔道整復師法第4条第1号の欠格事由に該当する場合である。麻薬中毒は同条第2号に当たり、第7条の意見聴取の対象ではない。",
+      "正しい。精神機能障害は、柔道整復師法第4条第1号の欠格事由に該当し得る。具体的な対象は柔道整復師法施行規則第1条に定められ、この場合に同法第7条の意見聴取が行われる。",
+      "間違い。罰金以上の刑に処せられた者は、柔道整復師法第4条第3号の欠格事由に当たる。しかし、第7条の意見聴取の対象は第4条第1号に限られる。",
+      "間違い。柔道整復の業務に関する犯罪又は不正の行為は、柔道整復師法第4条第4号の欠格事由に当たる。しかし、第7条の意見聴取の対象は第4条第1号に限られる。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時点の法令本文は取得できず、出題時点と現行法の条文比較は未実施。",
+          "公式元正答と現行法判定はいずれも間違い。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の法令本文は未取得。正答変更なし。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法第4条第2号は麻薬、大麻又はあへんの中毒者を欠格事由とするが、第7条の意見聴取対象は第4条第1号である。",
+          "promptContext": "麻薬中毒と意見の聴取の関係。",
+          "refs": [],
+          "verdict": "現行法では間違い。公式正答と一致。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法では麻薬中毒は柔道整復師法第4条第2号に該当し、第7条の意見聴取対象ではない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current;exam_time_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "出題時点の法令本文は取得できず、出題時点と現行法の条文比較は未実施。",
+          "公式元正答と現行法判定はいずれも正しい。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の法令本文は未取得。正答変更なし。",
+          "displayRefIds": [],
+          "explanationText": "精神の機能の障害により業務を適正に行えない者として省令で定める者は、柔道整復師法第4条第1号の欠格事由に該当し得る。",
+          "promptContext": "精神機能障害と意見の聴取の関係。",
+          "refs": [],
+          "verdict": "現行法では正しい。公式正答と一致。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "精神機能障害は柔道整復師法第4条第1号及び同法施行規則第1条の対象であり、第7条の意見聴取につながる。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current;exam_time_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時点の法令本文は取得できず、出題時点と現行法の条文比較は未実施。",
+          "公式元正答と現行法判定はいずれも間違い。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の法令本文は未取得。正答変更なし。",
+          "displayRefIds": [],
+          "explanationText": "罰金以上の刑に処せられた者は第4条第3号の欠格事由に該当するが、第7条の意見聴取対象は第4条第1号である。",
+          "promptContext": "罰金以上の刑と意見の聴取の関係。",
+          "refs": [],
+          "verdict": "現行法では間違い。公式正答と一致。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "罰金以上の刑は柔道整復師法第4条第3号の欠格事由だが、第7条の意見聴取対象ではない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current;exam_time_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時点の法令本文は取得できず、出題時点と現行法の条文比較は未実施。",
+          "公式元正答と現行法判定はいずれも間違い。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の法令本文は未取得。正答変更なし。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復の業務に関する犯罪又は不正の行為は第4条第4号の欠格事由だが、第7条の意見聴取対象は第4条第1号である。",
+          "promptContext": "業務上の犯罪又は不正行為と意見の聴取の関係。",
+          "refs": [],
+          "verdict": "現行法では間違い。公式正答と一致。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "柔道整復の業務に関する犯罪又は不正の行為は柔道整復師法第4条第4号の欠格事由だが、第7条の意見聴取対象ではない。"
+        ],
+        "reconciliationStatus": "official_answer_matches_current;exam_time_law_text_unavailable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "膝関節内側側副靱帯損傷の固定肢位はどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問28",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "膝関節完全伸展位",
+      "膝関節軽度屈曲位",
+      "膝関節60度屈曲位",
+      "膝関節直角位"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q28",
+    "public_question_id": "a99ab275dcc4168d",
+    "original_question_id": "a99ab275dcc4168d",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 2,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      2
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q028",
+    "sourceDisplayedQuestionNumber": 28,
+    "sourceQuestionOrdinal": 28,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      2
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      2
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "膝関節内側側副靱帯損傷の固定肢位を問う整形外科の技術問題であり、法令・制度上の根拠は不要。",
+    "sourceQuestionKey": "judoseifukushi:2020:a99ab275dcc4168d",
+    "reviewQuestionId": "a99ab275dcc4168d",
+    "sourceRecordRef": "question_2020_2.json#2",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。膝関節内側側副靱帯損傷では、損傷部を保護して安定させるため、膝関節軽度屈曲位で固定する。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "膝関節完全伸展位は、内側側副靱帯損傷の標準的な固定肢位ではない。",
+          "promptContext": "整形外科の固定肢位に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "膝関節軽度屈曲位は、内側側副靱帯損傷で損傷部を保護して安定させる固定肢位である。",
+          "promptContext": "整形外科の固定肢位に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "膝関節60度屈曲位は、問われている固定肢位である軽度屈曲位には当たらない。",
+          "promptContext": "整形外科の固定肢位に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "膝関節直角位は、内側側副靱帯損傷で用いる軽度屈曲位ではない。",
+          "promptContext": "整形外科の固定肢位に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      }
+    ]
+  },
+  {
+    "questionBodyText": "柔道整復師の施術における医師の同意で誤っているのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問45",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "同意は書面でも口頭でもよい。",
+      "患者が医師から同意を得てもよい。",
+      "同意は歯科医師でもよい。",
+      "医師の診察は必要である。"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q45",
+    "public_question_id": "b393d53991528088",
+    "original_question_id": "b393d53991528088",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 3,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      3
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q045",
+    "sourceDisplayedQuestionNumber": 45,
+    "sourceQuestionOrdinal": 45,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      3
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      3
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": true,
+    "lawGroundedExplanationNotNeeded": false,
+    "lawReferences": [
+      [
+        {
+          "article": "17",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_html",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawContextForExplanation": "柔道整復師法第17条は、脱臼又は骨折の患部への施術について、応急手当の場合を除き医師の同意を求めている。したがって、同意を得る相手は医師であり、歯科医師ではない。",
+    "sourceQuestionKey": "judoseifukushi:2020:b393d53991528088",
+    "reviewQuestionId": "b393d53991528088",
+    "sourceRecordRef": "question_2020_2.json#19",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法（昭和四十五年法律第十九号）第17条"
+      }
+    ],
+    "explanationText": [
+      "正しい。",
+      "正しい。",
+      "間違い。正しくは、同意を得る相手は医師であり、歯科医師の同意では足りない。柔道整復師法第17条は、脱臼又は骨折の患部への施術について、医師の同意を得た場合を除き施術してはならないと定めている。",
+      "正しい。医師の診察を受け、医師の同意を得たうえで施術する必要がある。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点の公式法令本文が入力されていないため、出題時点と現行法の差分を確定できない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の公式法令本文がないため差分未確定。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法第17条は、脱臼又は骨折の患部への施術に医師の同意を求めている。",
+          "promptContext": "2020年出題問題の現行法監査情報。",
+          "refs": [],
+          "verdict": "現行法では判断可能だが、出題時点との比較は保留。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法の確認は完了している。"
+        ],
+        "reconciliationStatus": "held_exam_time_evidence_missing",
+        "reviewState": "primary_verified_exam_time_unverified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点の公式法令本文が入力されていないため、出題時点と現行法の差分を確定できない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の公式法令本文がないため差分未確定。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法第17条は、脱臼又は骨折の患部への施術に医師の同意を求めている。",
+          "promptContext": "2020年出題問題の現行法監査情報。",
+          "refs": [],
+          "verdict": "現行法では判断可能だが、出題時点との比較は保留。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法の確認は完了している。"
+        ],
+        "reconciliationStatus": "held_exam_time_evidence_missing",
+        "reviewState": "primary_verified_exam_time_unverified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "試験時点の公式法令本文が入力されていないため、出題時点と現行法の差分を確定できない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の公式法令本文がないため差分未確定。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法第17条が求めるのは医師の同意であり、歯科医師の同意ではない。",
+          "promptContext": "2020年出題問題の現行法監査情報。",
+          "refs": [],
+          "verdict": "現行法では判断可能だが、出題時点との比較は保留。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現行法の確認は完了している。"
+        ],
+        "reconciliationStatus": "held_exam_time_evidence_missing",
+        "reviewState": "primary_verified_exam_time_unverified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "hold",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "試験時点の公式法令本文が入力されていないため、出題時点と現行法の差分を確定できない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点の公式法令本文がないため差分未確定。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法第17条は、脱臼又は骨折の患部への施術に医師の同意を求めている。",
+          "promptContext": "2020年出題問題の現行法監査情報。",
+          "refs": [],
+          "verdict": "現行法では判断可能だが、出題時点との比較は保留。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "現行法の確認は完了している。"
+        ],
+        "reconciliationStatus": "held_exam_time_evidence_missing",
+        "reviewState": "primary_verified_exam_time_unverified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "医療におけるリスクマネジメントの概念で誤っているのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問41",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "医療事故の防止",
+      "危機管理",
+      "医療に対する苦情対応",
+      "利益の誘導"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q41",
+    "public_question_id": "c5711b1ab7ae9e55",
+    "original_question_id": "c5711b1ab7ae9e55",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 4,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      4
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q041",
+    "sourceDisplayedQuestionNumber": 41,
+    "sourceQuestionOrdinal": 41,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      4
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      4
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "医療リスクマネジメントの一般概念に関する問題で、法令条文を根拠にしない。",
+    "sourceQuestionKey": "judoseifukushi:2020:c5711b1ab7ae9e55",
+    "reviewQuestionId": "c5711b1ab7ae9e55",
+    "sourceRecordRef": "question_2020_2.json#15",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。医療リスクマネジメントでは、医療事故が起こる可能性を把握し、事故を防ぐ対策を講じる。",
+      "正しい。危機管理は、事故や重大な問題が起きた場合の被害を抑え、適切に対応するための重要な要素である。",
+      "正しい。医療に対する苦情は、事故や安全上の問題を把握して改善する手掛かりになるため、リスクマネジメントの対象となる。",
+      "間違い。正しくは、医療リスクマネジメントは医療事故の防止や危機への対応、苦情を踏まえた改善を目的とする。医療者や医療機関の利益を誘導することは、その目的に含まれない。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "医療リスクマネジメントの一般概念に関する選択肢である。",
+          "promptContext": "法令根拠を要しない一般概念の確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "危機管理を医療リスクマネジメントの構成要素として扱う一般概念の選択肢である。",
+          "promptContext": "法令根拠を要しない一般概念の確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "医療に対する苦情対応をリスクマネジメントの対象として扱う一般概念の選択肢である。",
+          "promptContext": "法令根拠を要しない一般概念の確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "利益の誘導を医療リスクマネジメントの目的に含める選択肢である。",
+          "promptContext": "法令根拠を要しない一般概念の確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "患部と固定包帯の組合せで誤っているのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問36",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "肘関節部－5裂",
+      "肩関節部－4裂",
+      "胸部－3裂",
+      "足関節部－2裂"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q36",
+    "public_question_id": "e353616348e4d045",
+    "original_question_id": "e353616348e4d045",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 4,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      4
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q036",
+    "sourceDisplayedQuestionNumber": 36,
+    "sourceQuestionOrdinal": 36,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      4
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      4
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "固定包帯の裂数と患部の組合せを問う技術知識の問題であり、法令条文を根拠としない。",
+    "sourceQuestionKey": "judoseifukushi:2020:e353616348e4d045",
+    "reviewQuestionId": "e353616348e4d045",
+    "sourceRecordRef": "question_2020_2.json#10",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。",
+      "正しい。",
+      "正しい。",
+      "間違い。正しくは、足関節部には2裂ではなく、4裂又は5裂などの固定包帯を用いる。2裂は幅が広く、足関節部の固定には適さない。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は固定包帯の技術知識で正しいと判定される。",
+          "promptContext": "固定包帯の技術知識を確認する選択肢である。",
+          "refs": [],
+          "verdict": "法令改訂の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく固定包帯の技術知識に基づく選択肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は固定包帯の技術知識で正しいと判定される。",
+          "promptContext": "固定包帯の技術知識を確認する選択肢である。",
+          "refs": [],
+          "verdict": "法令改訂の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく固定包帯の技術知識に基づく選択肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は固定包帯の技術知識で正しいと判定される。",
+          "promptContext": "固定包帯の技術知識を確認する選択肢である。",
+          "refs": [],
+          "verdict": "法令改訂の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく固定包帯の技術知識に基づく選択肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改訂による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "足関節部と2裂の組合せが誤りであることは、固定包帯の技術知識に基づく判断である。",
+          "promptContext": "固定包帯の技術知識を確認する選択肢である。",
+          "refs": [],
+          "verdict": "法令改訂の対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく固定包帯の技術知識に基づく選択肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "下腿三頭筋肉ばなれで痛みが誘発されない足関節運動はどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問29",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "自動屈曲",
+      "自動伸展",
+      "他動屈曲",
+      "他動伸展"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q29",
+    "public_question_id": "f25abaea6d31b922",
+    "original_question_id": "f25abaea6d31b922",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 3,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      3
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q029",
+    "sourceDisplayedQuestionNumber": 29,
+    "sourceQuestionOrdinal": 29,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      3
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      3
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawContextForExplanation": "下腿三頭筋の解剖・運動学と筋損傷時の疼痛誘発を問う問題で、法令・制度上の根拠は不要である。",
+    "sourceQuestionKey": "judoseifukushi:2020:f25abaea6d31b922",
+    "reviewQuestionId": "f25abaea6d31b922",
+    "sourceRecordRef": "question_2020_2.json#3",
+    "explanationReferences": [],
+    "explanationText": [
+      "間違い。自動屈曲では下腿三頭筋が収縮するため、損傷部に収縮時痛が生じる。",
+      "間違い。自動伸展では下腿三頭筋が伸ばされるため、損傷部に伸張痛が生じる。",
+      "正しい。",
+      "間違い。他動伸展では下腿三頭筋が伸ばされるため、損傷部に伸張痛が生じる。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "解剖・運動学による判定であり、法令根拠は不要である。",
+          "promptContext": "自動屈曲では下腿三頭筋が収縮し、疼痛が誘発される。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "解剖・運動学による判定であり、法令根拠は不要である。",
+          "promptContext": "自動伸展では下腿三頭筋が伸張され、疼痛が誘発される。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "解剖・運動学による判定であり、法令根拠は不要である。",
+          "promptContext": "他動屈曲では下腿三頭筋の収縮も伸張も生じにくく、疼痛が誘発されない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "解剖・運動学による判定であり、法令根拠は不要である。",
+          "promptContext": "他動伸展では下腿三頭筋が伸張され、疼痛が誘発される。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "基本包帯法で誤っているのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問34",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "環行帯－第1行の上にそのまま重ねて第2行を巻く。",
+      "螺旋帯－包帯が重ならないように間隔をあけて巻く。",
+      "亀甲帯－屈側で交差させ8の字を描くように巻く。",
+      "麦穂帯－8の字の交点が順次少しずれるように巻く。"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q34",
+    "public_question_id": "f3739c71d52f84d7",
+    "original_question_id": "f3739c71d52f84d7",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 2,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      2
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q034",
+    "sourceDisplayedQuestionNumber": 34,
+    "sourceQuestionOrdinal": 34,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      2
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      2
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "基本包帯法の技術的な巻き方を問う問題で、法令条文や制度上の義務を根拠にしない。",
+    "sourceQuestionKey": "judoseifukushi:2020:f3739c71d52f84d7",
+    "reviewQuestionId": "f3739c71d52f84d7",
+    "sourceRecordRef": "question_2020_2.json#8",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。",
+      "間違い。螺旋帯は、包帯の各周を前の周に重ねながら巻く。間隔をあけて巻くのは誤りである。",
+      "正しい。",
+      "正しい。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "法令改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法を比較する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は基本包帯法の技術的な巻き方に関するもので、法令の適用対象ではない。",
+          "promptContext": "基本包帯法の巻き方の違いを問う問題である。",
+          "refs": [],
+          "verdict": "technical_bandage_question"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法を比較する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は基本包帯法の技術的な巻き方に関するもので、法令の適用対象ではない。",
+          "promptContext": "基本包帯法の巻き方の違いを問う問題である。",
+          "refs": [],
+          "verdict": "technical_bandage_question"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法を比較する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は基本包帯法の技術的な巻き方に関するもので、法令の適用対象ではない。",
+          "promptContext": "基本包帯法の巻き方の違いを問う問題である。",
+          "refs": [],
+          "verdict": "technical_bandage_question"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "法令改正による正答への影響はない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法を比較する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は基本包帯法の技術的な巻き方に関するもので、法令の適用対象ではない。",
+          "promptContext": "基本包帯法の巻き方の違いを問う問題である。",
+          "refs": [],
+          "verdict": "technical_bandage_question"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "デゾー包帯で「三角帯」を用いるのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問35",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "第1帯",
+      "第2帯",
+      "第3帯",
+      "第4帯"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q35",
+    "public_question_id": "016b10ac5090bd9d",
+    "original_question_id": "016b10ac5090bd9d",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 3,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      3
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q035",
+    "sourceDisplayedQuestionNumber": 35,
+    "sourceQuestionOrdinal": 35,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      3
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      3
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "デゾー包帯の装着手技に関する技術問題であり、法令・制度上の根拠は不要である。",
+    "sourceQuestionKey": "judoseifukushi:2020:016b10ac5090bd9d",
+    "reviewQuestionId": "016b10ac5090bd9d",
+    "sourceRecordRef": "question_2020_2.json#9",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。デゾー包帯で三角帯を用いるのは第3帯である。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異はない。",
+          "displayRefIds": [],
+          "explanationText": "法令改正による差異はなく、デゾー包帯の装着手技に関する技術問題である。",
+          "promptContext": "第1帯が正しいかを問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異はない。",
+          "displayRefIds": [],
+          "explanationText": "法令改正による差異はなく、デゾー包帯の装着手技に関する技術問題である。",
+          "promptContext": "第2帯が正しいかを問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異はない。",
+          "displayRefIds": [],
+          "explanationText": "法令改正による差異はなく、デゾー包帯の装着手技に関する技術問題である。",
+          "promptContext": "第3帯が正しいかを問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差異はない。",
+          "displayRefIds": [],
+          "explanationText": "法令改正による差異はなく、デゾー包帯の装着手技に関する技術問題である。",
+          "promptContext": "第4帯が正しいかを問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "インフォームド・コンセントはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問38",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "患者を差別しないこと。",
+      "患者の優先順位を決定すること。",
+      "患者の治療歴を聴取すること。",
+      "患者に説明して同意を得ること。"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q38",
+    "public_question_id": "4727ee4095c64204",
+    "original_question_id": "4727ee4095c64204",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 4,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      4
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q038",
+    "sourceDisplayedQuestionNumber": 38,
+    "sourceQuestionOrdinal": 38,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      4
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      4
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "医療倫理上の概念であり、法令根拠を要しない。患者への説明と理解に基づく同意がインフォームド・コンセントの中核である。",
+    "sourceQuestionKey": "judoseifukushi:2020:4727ee4095c64204",
+    "reviewQuestionId": "4727ee4095c64204",
+    "sourceRecordRef": "question_2020_2.json#12",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。インフォームド・コンセントとは、患者に病状や治療内容などを説明し、患者が理解したうえで同意を得ることである。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "患者を差別しないことは、インフォームド・コンセントの定義ではない。",
+          "promptContext": "法令根拠を要しない医療倫理の問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医療倫理上の用語定義であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "患者の優先順位を決定することは、インフォームド・コンセントの定義ではない。",
+          "promptContext": "法令根拠を要しない医療倫理の問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医療倫理上の用語定義であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "患者の治療歴を聴取することは、インフォームド・コンセントの定義ではない。",
+          "promptContext": "法令根拠を要しない医療倫理の問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "医療倫理上の用語定義であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "患者に説明して同意を得ることが、インフォームド・コンセントの定義である。",
+          "promptContext": "法令根拠を要しない医療倫理の問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "医療倫理上の用語定義であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "基本包帯で表巻きと裏巻きを交互に繰り返すのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問37",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "亀甲帯",
+      "折転帯",
+      "麦穂帯",
+      "螺旋帯"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q37",
+    "public_question_id": "a6feb3cfcecb28f4",
+    "original_question_id": "a6feb3cfcecb28f4",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 2,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      2
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q037",
+    "sourceDisplayedQuestionNumber": 37,
+    "sourceQuestionOrdinal": 37,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      2
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      2
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "基本包帯の巻き方に関する技術的な問題で、法令・制度を根拠にしない。",
+    "sourceQuestionKey": "judoseifukushi:2020:a6feb3cfcecb28f4",
+    "reviewQuestionId": "a6feb3cfcecb28f4",
+    "sourceRecordRef": "question_2020_2.json#11",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。折転帯は、表巻きと裏巻きを交互に繰り返す巻き方である。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査の対象外で、試験時点と現行法の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "基本包帯の巻き方に関する技術問題であり、法令改廃による正誤変化はない。",
+          "promptContext": "基本包帯の巻き方を問う技術問題。",
+          "refs": [],
+          "verdict": "法令・制度問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査の対象外で、試験時点と現行法の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "基本包帯の巻き方に関する技術問題であり、法令改廃による正誤変化はない。",
+          "promptContext": "基本包帯の巻き方を問う技術問題。",
+          "refs": [],
+          "verdict": "法令・制度問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査の対象外で、試験時点と現行法の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "基本包帯の巻き方に関する技術問題であり、法令改廃による正誤変化はない。",
+          "promptContext": "基本包帯の巻き方を問う技術問題。",
+          "refs": [],
+          "verdict": "法令・制度問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査の対象外で、試験時点と現行法の比較は不要。",
+          "displayRefIds": [],
+          "explanationText": "基本包帯の巻き方に関する技術問題であり、法令改廃による正誤変化はない。",
+          "promptContext": "基本包帯の巻き方を問う技術問題。",
+          "refs": [],
+          "verdict": "法令・制度問題ではない"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "ラックマンテストで被験者の姿勢はどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問26",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "背臥位",
+      "側臥位",
+      "腹臥位",
+      "坐位"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q26",
+    "public_question_id": "24399e53af3c11d8",
+    "original_question_id": "24399e53af3c11d8",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 1,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 1 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      1
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q026",
+    "sourceDisplayedQuestionNumber": 26,
+    "sourceQuestionOrdinal": 26,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      1
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      1
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "ラックマンテストの実施姿勢に関する臨床検査の知識問題であり、法令根拠は不要。",
+    "sourceQuestionKey": "judoseifukushi:2020:24399e53af3c11d8",
+    "reviewQuestionId": "24399e53af3c11d8",
+    "sourceRecordRef": "question_2020_2.json#0",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。ラックマンテストは、被験者を背臥位（あお向け）にして膝を軽く曲げ、脛骨を前方へ引き出し、主に前十字靱帯の損傷などを評価する検査である。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "ラックマンテストの実施姿勢を問う臨床検査問題である。",
+          "promptContext": "法令ではなく臨床検査の基本知識で判断する。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "臨床検査の知識問題であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "ラックマンテストの実施姿勢を問う臨床検査問題である。",
+          "promptContext": "法令ではなく臨床検査の基本知識で判断する。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床検査の知識問題であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "ラックマンテストの実施姿勢を問う臨床検査問題である。",
+          "promptContext": "法令ではなく臨床検査の基本知識で判断する。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床検査の知識問題であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の比較対象外。",
+          "displayRefIds": [],
+          "explanationText": "ラックマンテストの実施姿勢を問う臨床検査問題である。",
+          "promptContext": "法令ではなく臨床検査の基本知識で判断する。",
+          "refs": [],
+          "verdict": "法令根拠不要"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "臨床検査の知識問題であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "業務独占と名称独占の両方を有する資格はどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問43",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "柔道整復師",
+      "はり師",
+      "理学療法士",
+      "医師"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q43",
+    "public_question_id": "3b6083c4fd5c64f3",
+    "original_question_id": "3b6083c4fd5c64f3",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 4,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      4
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q043",
+    "sourceDisplayedQuestionNumber": 43,
+    "sourceQuestionOrdinal": 43,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      4
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      4
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": true,
+    "lawGroundedExplanationNotNeeded": false,
+    "lawReferences": [
+      [
+        {
+          "article": "15",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "1",
+          "choiceIndex": 1,
+          "lawId": "322AC0000000217",
+          "lawTitle": "あん摩マツサージ指圧師、はり師、きゆう師等に関する法律",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 2,
+          "lawId": "340AC0000000137",
+          "lawTitle": "理学療法士及び作業療法士法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 3,
+          "lawId": "323AC0000000201",
+          "lawTitle": "医師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "18",
+          "choiceIndex": 3,
+          "lawId": "323AC0000000201",
+          "lawTitle": "医師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawContextForExplanation": "業務独占と名称独占の比較。柔道整復師は柔道整復師法第15条、はり師はあん摩マツサージ指圧師、はり師、きゆう師等に関する法律第1条、理学療法士は理学療法士及び作業療法士法第17条、医師は医師法第17条・第18条を根拠とする。",
+    "sourceQuestionKey": "judoseifukushi:2020:3b6083c4fd5c64f3",
+    "reviewQuestionId": "3b6083c4fd5c64f3",
+    "sourceRecordRef": "question_2020_2.json#17",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法第15条"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/322AC0000000217?asof=2026-09-09",
+        "title": "あん摩マツサージ指圧師、はり師、きゆう師等に関する法律第1条"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/340AC0000000137?asof=2026-09-09",
+        "title": "理学療法士及び作業療法士法第17条"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/323AC0000000201?asof=2026-09-09",
+        "title": "医師法第17条・第18条"
+      }
+    ],
+    "explanationText": [
+      "正しい。医師は、医師でなければ医業を行えず（医師法第17条）、医師でなければ「医師」又はこれに紛らわしい名称を用いることもできない（同法第18条）ため、業務独占と名称独占の両方を有する。柔道整復師は柔道整復師法第15条で業務が制限され、はり師はあん摩マツサージ指圧師、はり師、きゆう師等に関する法律第1条で免許が必要とされ、理学療法士は理学療法士及び作業療法士法第17条で名称使用が制限されている。これらは確認した規定上、業務独占と名称独占の両方を有する資格ではない。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答の当該判定と現行法上の判定は一致した。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師でなければ、原則として業として柔道整復を行えない。",
+          "promptContext": "業務独占と名称独占の比較問題における柔道整復師の選択肢。",
+          "refs": [],
+          "verdict": "柔道整復師法第15条により業務独占の根拠を確認したが、名称独占の両方を有する資格とはいえない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceに試験時点本文がないため、出題時条文は推測していない。出題時判定は公式元正答に基づく。"
+        ],
+        "reconciliationStatus": "reconciled_with_current_law_basis",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答の当該判定と現行法上の判定は一致した。",
+          "displayRefIds": [],
+          "explanationText": "はりを業としようとする者は、はり師免許を受けなければならない。",
+          "promptContext": "業務独占と名称独占の比較問題におけるはり師の選択肢。",
+          "refs": [],
+          "verdict": "あん摩マツサージ指圧師、はり師、きゆう師等に関する法律第1条により、はり師免許の根拠を確認したが、業務独占と名称独占の両方を有する資格とはいえない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceに試験時点本文がないため、出題時条文は推測していない。出題時判定は公式元正答に基づく。"
+        ],
+        "reconciliationStatus": "reconciled_with_current_law_basis",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答の当該判定と現行法上の判定は一致した。",
+          "displayRefIds": [],
+          "explanationText": "理学療法士でない者は、理学療法士又は紛らわしい名称を使用できない。",
+          "promptContext": "業務独占と名称独占の比較問題における理学療法士の選択肢。",
+          "refs": [],
+          "verdict": "理学療法士及び作業療法士法第17条により、理学療法士の名称使用制限を確認したが、業務独占と名称独占の両方を有する資格とはいえない。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceに試験時点本文がないため、出題時条文は推測していない。出題時判定は公式元正答に基づく。"
+        ],
+        "reconciliationStatus": "reconciled_with_current_law_basis",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答の当該判定と現行法上の判定は一致した。",
+          "displayRefIds": [],
+          "explanationText": "医師でなければ医業を行えず、医師でなければ医師又は紛らわしい名称を用いることもできない。",
+          "promptContext": "業務独占と名称独占の比較問題における医師の選択肢。",
+          "refs": [],
+          "verdict": "医師法第17条・第18条により、医師の業務独占と名称独占の両方の根拠を確認した。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "primaryLawEvidenceに試験時点本文がないため、出題時条文は推測していない。出題時判定は公式元正答に基づく。"
+        ],
+        "reconciliationStatus": "reconciled_with_current_law_basis",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "柔道整復師法の施術所の構造設備基準で専用でなければならないと規定されているのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問46",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "受付",
+      "更衣室",
+      "待合室",
+      "施術室"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q46",
+    "public_question_id": "ef0992b6887ec00b",
+    "original_question_id": "ef0992b6887ec00b",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 4,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      4
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q046",
+    "sourceDisplayedQuestionNumber": 46,
+    "sourceQuestionOrdinal": 46,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      4
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      4
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": true,
+    "lawGroundedExplanationNotNeeded": false,
+    "lawReferences": [
+      [
+        {
+          "article": "第18条",
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第18条",
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第18条第2号",
+          "choiceIndex": 2,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第18条第1号",
+          "choiceIndex": 3,
+          "lawId": "402M50000100020",
+          "lawTitle": "柔道整復師法施行規則",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "https://laws.e-gov.go.jp/api/2/law_file/xml/402M50000100020?asof=2026-09-09",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawContextForExplanation": "柔道整復師法施行規則第18条第1号は6.6平方メートル以上の専用施術室を定め、第2号は待合室の面積のみを定める。",
+    "sourceQuestionKey": "judoseifukushi:2020:ef0992b6887ec00b",
+    "reviewQuestionId": "ef0992b6887ec00b",
+    "sourceRecordRef": "question_2020_2.json#20",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://www.mhlw.go.jp/web/t_doc?dataId=80150000&dataType=0&pageNo=1",
+        "title": "柔道整復師法施行規則（平成二年厚生省令第二十号）"
+      }
+    ],
+    "explanationText": [
+      "正しい。専用と定められているのは施術室である。柔道整復師法施行規則（平成二年厚生省令第二十号）第18条第1号は、6.6平方メートル以上の専用の施術室を求めている。同条第2号の待合室には3.3平方メートル以上の面積基準があるが、専用とは定めていない。受付と更衣室は同条の構造設備基準に含まれない。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点本文は未取得。公式元正答に基づく試験時点判定と現行法判定はいずれも間違い。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法施行規則第18条に、受付を専用とする規定はない。",
+          "promptContext": "受付が専用でなければならないかを問う。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点本文はprimaryLawEvidenceにないため、出題時のlawRevisionIdや条文根拠は作成していない。公式元正答は第4肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点本文は未取得。公式元正答に基づく試験時点判定と現行法判定はいずれも間違い。",
+          "displayRefIds": [],
+          "explanationText": "現行の柔道整復師法施行規則第18条に、更衣室を専用とする規定はない。",
+          "promptContext": "更衣室が専用でなければならないかを問う。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点本文はprimaryLawEvidenceにないため、出題時のlawRevisionIdや条文根拠は作成していない。公式元正答は第4肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点本文は未取得。公式元正答に基づく試験時点判定と現行法判定はいずれも間違い。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第18条第2号は待合室の面積を定めるが、専用とは定めていない。",
+          "promptContext": "待合室に専用性が求められるかを問う。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点本文はprimaryLawEvidenceにないため、出題時のlawRevisionIdや条文根拠は作成していない。公式元正答は第4肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点本文は未取得。公式元正答に基づく試験時点判定と現行法判定はいずれも正しい。",
+          "displayRefIds": [],
+          "explanationText": "柔道整復師法施行規則第18条第1号は、6.6平方メートル以上の専用の施術室を定めている。",
+          "promptContext": "専用でなければならない設備を問う。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "試験時点本文はprimaryLawEvidenceにないため、出題時のlawRevisionIdや条文根拠は作成していない。公式元正答は第4肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "tertiary_verified"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "医療現場においてインシデントはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問40",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "ヒヤリ・ハット",
+      "医療事故",
+      "医療過誤",
+      "医療過失"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q40",
+    "public_question_id": "7a82cc5ea04da3ea",
+    "original_question_id": "7a82cc5ea04da3ea",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 1,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 1 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      1
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q040",
+    "sourceDisplayedQuestionNumber": 40,
+    "sourceQuestionOrdinal": 40,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      1
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      1
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "医療安全に関する一般用語の問題であり、法令条文を根拠にしない。",
+    "sourceQuestionKey": "judoseifukushi:2020:7a82cc5ea04da3ea",
+    "reviewQuestionId": "7a82cc5ea04da3ea",
+    "sourceRecordRef": "question_2020_2.json#14",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。インシデントとは、患者に実害は生じなかったものの、事故につながるおそれがあった出来事をいう。ヒヤリ・ハットがこれに当たる。医療事故、医療過誤、医療過失は、患者への損害や過失の有無に関係する別の概念である。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医療安全用語の定義確認であり、法令改正の影響はない。",
+          "promptContext": "医療安全に関する一般用語問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医療安全用語の定義確認であり、法令改正の影響はない。",
+          "promptContext": "医療安全に関する一般用語問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医療安全用語の定義確認であり、法令改正の影響はない。",
+          "promptContext": "医療安全に関する一般用語問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "医療安全用語の定義確認であり、法令改正の影響はない。",
+          "promptContext": "医療安全に関する一般用語問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "急性期の半月板損傷でみられないのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問27",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "腫脹",
+      "圧痛",
+      "不安定性",
+      "運動制限"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q27",
+    "public_question_id": "5b2604b43ff36ba0",
+    "original_question_id": "5b2604b43ff36ba0",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 3,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      3
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q027",
+    "sourceDisplayedQuestionNumber": 27,
+    "sourceQuestionOrdinal": 27,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      3
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      3
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawContextForExplanation": "急性期の半月板損傷にみられる臨床所見を問う問題で、法令・制度上の根拠は不要。",
+    "sourceQuestionKey": "judoseifukushi:2020:5b2604b43ff36ba0",
+    "reviewQuestionId": "5b2604b43ff36ba0",
+    "sourceRecordRef": "question_2020_2.json#1",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。急性期の半月板損傷では、関節内の出血や炎症による腫脹、損傷部位に一致した圧痛、疼痛や引っ掛かりによる運動制限がみられる。一方、不安定性は主に靱帯損傷でみられる所見であり、半月板損傷の代表的な急性期所見ではない。"
+    ],
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。法令対象外。",
+          "displayRefIds": [],
+          "explanationText": "腫脹は急性期の半月板損傷でみられ得る所見である。",
+          "promptContext": "急性期の半月板損傷に関する臨床所見の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の論点ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。法令対象外。",
+          "displayRefIds": [],
+          "explanationText": "圧痛は急性期の半月板損傷でみられ得る所見である。",
+          "promptContext": "急性期の半月板損傷に関する臨床所見の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の論点ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。法令対象外。",
+          "displayRefIds": [],
+          "explanationText": "不安定性は急性期の半月板損傷で通常みられない所見であり、靱帯損傷でみられやすい。",
+          "promptContext": "急性期の半月板損傷に関する臨床所見の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度上の論点ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。法令対象外。",
+          "displayRefIds": [],
+          "explanationText": "疼痛などに伴う運動制限は急性期の半月板損傷でみられ得る所見である。",
+          "promptContext": "急性期の半月板損傷に関する臨床所見の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の論点ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "柔道整復師療養費の受領委任(協定・契約)で正しいのはどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問50",
+    "questionType": "true_false",
+    "choiceTextList": [
+      "登録・承諾施術所以外でも請求ができる。",
+      "柔道整復師は療養費の支給を保険者に申請することができる。",
+      "患者の一部負担金は減免できる。",
+      "施術録は施術完結日から1年間保存する。"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q50",
+    "public_question_id": "7bfd9d9fc35d4448",
+    "original_question_id": "7bfd9d9fc35d4448",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 2,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      2
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q050",
+    "sourceDisplayedQuestionNumber": 50,
+    "sourceQuestionOrdinal": 50,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      2
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      2
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": true,
+    "lawGroundedExplanationNotNeeded": false,
+    "lawReferences": [
+      [
+        {
+          "article": "一〇",
+          "choiceIndex": 0,
+          "lawId": "00tb0501",
+          "lawTitle": "柔道整復師の施術に係る療養費について",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "mhlw_official",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第4章25",
+          "choiceIndex": 1,
+          "lawId": "300524_2-2_jyuusei",
+          "lawTitle": "柔道整復師の施術に係る療養費の受領委任の取扱い（協定・契約）",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "mhlw_official",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "一五",
+          "choiceIndex": 2,
+          "lawId": "00tb0501",
+          "lawTitle": "柔道整復師の施術に係る療養費について",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "mhlw_official",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "一七",
+          "choiceIndex": 3,
+          "lawId": "00tb0501",
+          "lawTitle": "柔道整復師の施術に係る療養費について",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "mhlw_official",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawContextForExplanation": "厚生労働省の受領委任通知・協定契約により、承諾施術所の限定、施術管理者による請求、一部負担金の減免禁止、施術録の5年保存を確認した。出題時条文本文は取得できないため、当時の公式正答を保持する。",
+    "sourceQuestionKey": "judoseifukushi:2020:7bfd9d9fc35d4448",
+    "reviewQuestionId": "7bfd9d9fc35d4448",
+    "sourceRecordRef": "question_2020_2.json#24",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://kouseikyoku.mhlw.go.jp/chugokushikoku/gyomu/gyomu/tsuchi/documents/k036_2.pdf",
+        "title": "受領委任の取扱い（協定・契約）"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/jyuudou/index.html",
+        "title": "柔道整復師等の施術にかかる療養費の取扱いについて"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://www.mhlw.go.jp/web/t_doc?dataId=00tb0501&dataType=1&pageNo=1",
+        "title": "柔道整復師の施術に係る療養費について"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://www.mhlw.go.jp/web/t_doc?dataId=00tb0501&dataType=1&pageNo=1",
+        "title": "柔道整復師の施術に係る療養費について"
+      }
+    ],
+    "explanationText": [
+      "間違い。受領委任は登録施術所又は承諾施術所でのみ認められ、これら以外で扱うには別途の登録・承諾が必要です。「柔道整復師の施術に係る療養費について」一〇及び「柔道整復師の施術に係る療養費の受領委任の取扱い（協定・契約）」第2章12が根拠です。",
+      "正しい。受領委任では、施術管理者である柔道整復師が申請書を作成して保険者等へ療養費を請求します。「柔道整復師の施術に係る療養費の受領委任の取扱い（協定・契約）」第4章25に定められています。",
+      "間違い。患者から受ける一部負担金に相当する金額は、減免又は超過徴収できません。「柔道整復師の施術に係る療養費について」一五及び「柔道整復師の施術に係る療養費の受領委任の取扱い（協定・契約）」第3章18が根拠です。",
+      "間違い。受領委任に係る施術録は、施術が完結した日から5年間保存します。「柔道整復師の施術に係る療養費について」一七及び「柔道整復師の施術に係る療養費の受領委任の取扱い（協定・契約）」第3章21が根拠です。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文本文は未取得。公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行資料では登録・承諾施術所以外での受領委任は別途手続が必要であり、記述は誤り。",
+          "promptContext": "2020年試験の公式元正答と、2026年9月9日時点の厚生労働省資料を照合した。",
+          "refs": [],
+          "verdict": "official_answer_matches_current_law"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "2020年3月1日の公式元正答は2。出題時条文本文は取得できないため、出題時条文の同一性は推測しない。"
+        ],
+        "reconciliationStatus": "reconciled_same_answer",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文本文は未取得。公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行の協定・契約第4章25は、施術管理者が申請書を作成して保険者等へ請求することを定めている。",
+          "promptContext": "2020年試験の公式元正答と、2026年9月9日時点の厚生労働省資料を照合した。",
+          "refs": [],
+          "verdict": "official_answer_matches_current_law"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "2020年3月1日の公式元正答は2。出題時条文本文は取得できないため、出題時条文の同一性は推測しない。"
+        ],
+        "reconciliationStatus": "reconciled_same_answer",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文本文は未取得。公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行資料は一部負担金の減免又は超過徴収を禁止しているため、記述は誤り。",
+          "promptContext": "2020年試験の公式元正答と、2026年9月9日時点の厚生労働省資料を照合した。",
+          "refs": [],
+          "verdict": "official_answer_matches_current_law"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "2020年3月1日の公式元正答は2。出題時条文本文は取得できないため、出題時条文の同一性は推測しない。"
+        ],
+        "reconciliationStatus": "reconciled_same_answer",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時条文本文は未取得。公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行資料は受領委任に係る施術録を施術完結日から5年間保存すると定めているため、1年間とする記述は誤り。",
+          "promptContext": "2020年試験の公式元正答と、2026年9月9日時点の厚生労働省資料を照合した。",
+          "refs": [],
+          "verdict": "official_answer_matches_current_law"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "2020年3月1日の公式元正答は2。出題時条文本文は取得できないため、出題時条文の同一性は推測しない。"
+        ],
+        "reconciliationStatus": "reconciled_same_answer",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
+  },
+  {
+    "questionBodyText": "柔道整復師法で医師の同意が必要な施術はどれか。",
+    "qualificationName": "柔道整復師",
+    "examLabel": "第28回（2020年） 午前問題",
+    "questionLabel": "問44",
+    "questionType": "flash_card",
+    "choiceTextList": [
+      "骨折・脱臼の応急処置",
+      "骨折・脱臼の後療法",
+      "打撲・捻挫の応急処置",
+      "打撲・捻挫の後療法"
+    ],
+    "originalQuestionChoiceImageUrls": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "category": "午前問題",
+    "examYear": 2020,
+    "examOccurrenceId": "2020-r28",
+    "list_group_id": "2020",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_28/#q44",
+    "public_question_id": "4ef67113801362d9",
+    "original_question_id": "4ef67113801362d9",
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 2,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "explanation_choice_correctness": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      2
+    ],
+    "source_question_id": "judoseifukushi:2020:r28:q044",
+    "sourceDisplayedQuestionNumber": 44,
+    "sourceQuestionOrdinal": 44,
+    "sourceAnswerStatus": "answer_table",
+    "answerTableCorrectChoiceNumbers": [
+      2
+    ],
+    "choiceClassCorrectChoiceNumbers": [
+      2
+    ],
+    "isCalculationQuestion": false,
+    "isLawRelated": true,
+    "lawGroundedExplanationNotNeeded": false,
+    "lawReferences": [
+      [
+        {
+          "article": "17",
+          "choiceIndex": 0,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 1,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 2,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "17",
+          "choiceIndex": 3,
+          "lawId": "345AC1000000019",
+          "lawTitle": "柔道整復師法",
+          "referenceDate": "2026-09-09",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawContextForExplanation": "柔道整復師法第17条は、医師の同意なしに脱臼又は骨折の患部へ施術することを原則禁止し、応急手当を例外とする。したがって、同意が必要なのは骨折・脱臼の後療法であり、打撲・捻挫は対象外である。",
+    "sourceQuestionKey": "judoseifukushi:2020:4ef67113801362d9",
+    "reviewQuestionId": "4ef67113801362d9",
+    "sourceRecordRef": "question_2020_2.json#18",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-09-09",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC1000000019?asof=2026-09-09",
+        "title": "柔道整復師法第17条（施術の制限）"
+      }
+    ],
+    "explanationText": [
+      "正しい。医師の同意が必要なのは、骨折・脱臼の患部に応急手当以外の施術をする場合である。骨折・脱臼の応急処置は例外として同意を要しない。打撲・捻挫はこの同意制限の対象ではないため、該当するのは「骨折・脱臼の後療法」である。根拠は柔道整復師法第17条である。試験時点の条文本文は確認できないが、出題時の公式正答「2」と現行法の判定は一致する。"
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は出題時の公式正答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "骨折・脱臼の応急手当は、柔道整復師法第17条の医師同意制限の例外である。",
+          "promptContext": "骨折・脱臼の応急手当に医師の同意が必要かを判定する。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の条文本文は未取得。出題時の公式正答をexamTime判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は出題時の公式正答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "骨折・脱臼の後療法は応急手当ではないため、柔道整復師法第17条により医師の同意が必要である。",
+          "promptContext": "骨折・脱臼の後療法に医師の同意が必要かを判定する。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "試験時点の条文本文は未取得。出題時の公式正答をexamTime判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は出題時の公式正答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "打撲・捻挫は、柔道整復師法第17条の医師同意制限の対象ではない。",
+          "promptContext": "打撲・捻挫の応急処置に医師の同意が必要かを判定する。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の条文本文は未取得。出題時の公式正答をexamTime判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法判定は出題時の公式正答と一致する。",
+          "displayRefIds": [],
+          "explanationText": "打撲・捻挫は、柔道整復師法第17条の医師同意制限の対象ではない。",
+          "promptContext": "打撲・捻挫の後療法に医師の同意が必要かを判定する。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の条文本文は未取得。出題時の公式正答をexamTime判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
+  }
+]
