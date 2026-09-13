@@ -48,12 +48,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 50
-  remaining_questions: 180
+  completed_questions: 75
+  remaining_questions: 155
   total_files: 10
-  completed_files: 2
+  completed_files: 3
 
-active_task: T004
+active_task: T005
 
 tasks:
   - id: T001
@@ -77,7 +77,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     summary: "問51〜問75（question_2014_3.json）の目視精査・パッチ生成・検証"
     target_file: "output/judoseifukushi/questions_json/2014/00_source/question_2014_3.json"
   - id: T005
