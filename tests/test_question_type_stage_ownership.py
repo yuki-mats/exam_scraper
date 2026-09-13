@@ -1,4 +1,5 @@
 import copy
+import ast
 import json
 import unittest
 from pathlib import Path
@@ -15,6 +16,14 @@ from tools.question_review_console.question_candidate import (
 
 
 class QuestionTypeStageOwnershipTests(unittest.TestCase):
+    def test_source_scrapers_do_not_emit_a_guessed_question_type(self):
+        root = Path(__file__).resolve().parents[1]
+        for filename in ("code.py", "scrape_gassyunin.py"):
+            tree = ast.parse((root / filename).read_text(encoding="utf-8"))
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Dict):
+                    self.assertFalse(any(isinstance(key, ast.Constant) and key.value == "questionType" for key in node.keys), filename)
+
     def test_source_choice_repair_does_not_classify_answer_operation(self):
         html = """<h2>問3</h2><div class="num-choice-box">
         <div><strong>1</strong>独立した記述A</div>

@@ -499,7 +499,8 @@ class WorkflowCatalogTests(unittest.TestCase):
                 }
             )
         )
-        self.assertEqual(catalog["evaluation"]["policyVersion"], "5.2")
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "5.3")
+        self.assertIn("prompt/01_prompt_fix_questionType.md", catalog["evaluation"]["documents"])
         explanation_targets = {
             target["selectionId"]: target
             for target in stage_by_id["explanation"]["updateTargets"]

@@ -2366,19 +2366,7 @@ def main() -> None:
         # 互換のため保持（旧: スニペットから直接判定していた）
         raw_correct_choice_texts = []
 
-        # questionType の判定
-        # choiceTextList が空白のみの場合は group_choice とする（ユーザー要望）
-        choices_are_blank = all(not (t or "").strip() for t in final_choice_text_list)
-        if choices_are_blank:
-            question_type_val = "group_choice"
-        else:
-            # 複数選択肢の正誤が判定できる場合は true_false、
-            # それ以外は flash_card とする。
-            count_choices_with_snippets = sum(1 for s in all_choice_snippets if len(s) > 0)
-            if count_choices_with_snippets > 1:
-                question_type_val = "true_false"
-            else:
-                question_type_val = "flash_card"
+        # questionTypeは取得時に推測せず、01が本文・選択肢・画像から確定する。
 
         # 解説から正解番号を推測して補完（None 混在、または全肢同一の場合に再構成）
         needs_answer_based_rebuild = (
@@ -2455,7 +2443,6 @@ def main() -> None:
                     "questionBodyText": body_key,
                     "examLabel": question_data.exam_label,
                     "questionLabel": question_data.question_label,
-                    "questionType": question_type_val,
                     "choiceTextList": final_choice_text_list,
                     "originalQuestionChoiceImageUrls": final_choice_image_storage_urls_by_choice,
                     "category": category_val,
@@ -2556,7 +2543,6 @@ def main() -> None:
                 # --- Firestore Fields ---
                 "questionSetId": "",  # ユーザー要望: "現在は空白で良い"
                 "questionText": final_question_text,
-                "questionType": question_type_val,
                 "questionImageUrls": question_image_storage_urls,
                 
                 # Firestore ドキュメント ID 用（インポート時に使用）

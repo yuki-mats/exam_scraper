@@ -2337,6 +2337,20 @@ class QuestionEvaluationService:
         *,
         retry_feedback: Mapping[str, Any] | None = None,
     ) -> str:
+        policy_relative = Path("prompt/01_prompt_fix_questionType.md")
+        policy_path = self.repo_root / policy_relative
+        if not policy_path.is_file():
+            policy_path = Path(__file__).resolve().parents[2] / policy_relative
+        try:
+            policy_text = policy_path.read_text(encoding="utf-8")
+            heading = "## `questionType`の判定\n"
+            start = policy_text.index(heading) + len(heading)
+            end = policy_text.index("## `isCalculationQuestion`の判定", start)
+            question_type_guidance = policy_text[start:end].strip()
+            if not question_type_guidance:
+                raise ValueError("判定基準が空です")
+        except (OSError, ValueError) as exc:
+            raise EvaluationError("01の問題形式判定の正本を読み込めません。") from exc
         projected = question.get("projected")
         projected = projected if isinstance(projected, Mapping) else {}
         input_payload = {
@@ -2395,8 +2409,8 @@ class QuestionEvaluationService:
 7. 現在の正誤対応との比較はPython serverが行う。推測して出力へ加えない。
 8. questionTypeがtrue_falseの場合、各選択肢は公開時に独立した○×問題になる。元問題のquestionIntentや「どれか」という表現から正しい肢・誤った肢の個数を一つへ制限せず、各命題を独立に判定する。複数のtrue又はfalseがあることだけをcriticalIssuesや要再整備理由にしない。
 9. 公式問題のquestionTypeはtrue_false、flash_card、group_choiceの3分類だけを使う。single_choiceとfill_in_blankはユーザー作成問題用なので、公式問題の再整備候補として提案しない。
-10. questionTypeがflash_cardの場合、問題文の条件、知識、図又は計算から答えを一意に導き、選択肢は導いた答えとの照合に使う。計算で一つの数値を求め、その値に最も近い数値候補を選ぶ問題もflash_cardである。数値候補を一つずつ計算結果と照合することだけを理由にtrue_false化せず、5択から1件を選ぶことだけを理由にsingle_choice化又は要再整備にしない。
-11. questionTypeがgroup_choiceの場合、選択肢側の情報又は候補比較が解答に不可欠な問題として評価する。複数選択形式と誤解して分類変更を求めない。
+10. 問題形式は下記の01正本の判定基準を使い、本文・全選択肢・必要画像から独立に評価する。入力questionTypeと解説の件数は評価対象であって、分類の正本ではない。
+11. 内容から判定した形式と入力questionTypeが異なる場合は、具体的な不一致をcriticalIssuesと01のreworkItemsへ記録する。評価sessionではfieldを書き換えず、01での再判定と必要な後工程の再整備へ戻す。
 12. isCalculationQuestionは計算過程が主要な学習対象かを表し、questionTypeとは独立に評価する。questionTypeから値を推測したり、questionType変更の理由にしたりしない。
 13. questionImageStorageUrls又はoriginalQuestionChoiceImageUrlsが空でなければ、図表画像は問題に添付されている。本文へ図表の文字が転記されていないことだけで画像欠落と判定せず、必要なら渡されたURLの画像を確認して問題と解説を評価する。両方が空で、本文又は選択肢が解答に必要な図表を参照している場合だけ画像欠落を指摘する。
 14. 法令名、技術基準又は公式規程が背景資料に含まれることだけでisLawRelated=trueとは判定しない。法令の定義、義務、禁止、数値基準又は適用関係そのものが正答を直接決める問題だけを法令問題とする。資格別正本が純粋な技術計算を非法令問題と定めている場合、技術式の裏取りに公式規程を使ったことだけを理由にlawReferencesの追加又は法令工程への再整備を求めない。
@@ -2427,6 +2441,10 @@ class QuestionEvaluationService:
 
 内部思考過程は出力せず、指定JSON schemaに一致する結果だけを返してください。choiceIndexは0始まりで、0から{max(int(question.get('choiceCount') or 0) - 1, 0)}までを重複なく全件返してください。
 {retry_section}
+
+## 問題形式の判定基準（01正本からの引用）
+
+{question_type_guidance}
 
 ## 評価input
 

@@ -130,7 +130,7 @@ def compare_entries(
 
         question_type = patch.get("questionType")
         if question_type not in MAINTENANCE_QUESTION_TYPES:
-            if question_type == src.get("questionType"):
+            if question_type in {"single_choice", "fill_in_blank"} and question_type == src.get("questionType"):
                 warnings.append(
                     f"index {idx}: legacy questionType preserved: {question_type}"
                 )

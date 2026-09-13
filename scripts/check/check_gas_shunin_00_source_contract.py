@@ -342,7 +342,8 @@ def validate_question(
         issue("missing_questionBodyText", "questionBodyText is required")
     if not isinstance(choices, list) or not choices or not all(isinstance(item, str) for item in choices):
         issue("invalid_choiceTextList", "choiceTextList must be a non-empty string array")
-    if question.get("questionType") not in VALID_QUESTION_TYPES:
+    # sourceは未分類を許す。01 patchと公開変換の形式必須条件は緩めない。
+    if "questionType" in question and question["questionType"] not in VALID_QUESTION_TYPES:
         issue("invalid_questionType", f"questionType={question.get('questionType')!r}")
     if not isinstance(correct, list) or len(correct) != count:
         issue("invalid_correctChoiceText_length", f"correctChoiceText length must equal statement count {count}")

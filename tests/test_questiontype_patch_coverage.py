@@ -10,6 +10,12 @@ from scripts.common.aggregate_answer_decomposition import (
 
 
 class QuestionTypePatchCoverageTest(unittest.TestCase):
+    def test_unclassified_source_does_not_make_an_unclassified_patch_valid(self):
+        source = self.source()
+        source.pop("questionType")
+        issues, _ = compare_entries([source], [self.patch(None)])
+        self.assertTrue(any("questionType must be one of" in issue for issue in issues))
+
     def test_allows_tool_sliced_aggregate_answer_choices(self):
         source = self.source()
         source["canonical_question_key"] = "sample:2026:q001"

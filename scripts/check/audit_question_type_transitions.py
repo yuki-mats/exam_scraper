@@ -55,7 +55,11 @@ def type_transitions(before: dict, after: dict) -> list[dict[str, Any]]:
 
 def audit(repo: Path, revision: str) -> dict[str, Any]:
     revision = git(repo, "rev-parse", "--verify", f"{revision}^{{commit}}").strip()
-    paths = git(repo, "ls-tree", "-r", "--name-only", revision, "--", PATCH_PATHSPEC).splitlines()
+    paths = [path for path in git(repo, "ls-tree", "-r", "--name-only", revision, "output").splitlines()
+             if len(Path(path).parts) == 6
+             and Path(path).parts[2] == "questions_json"
+             and Path(path).parts[4] == "10_questionType_fixed"
+             and path.endswith(".json")]
     current = {}
     errors = []
 
@@ -114,6 +118,12 @@ def audit(repo: Path, revision: str) -> dict[str, Any]:
             }
         records[key]["transitions"].append(transition)
     counts = Counter((r["qualification"], r["currentPatchType"]) for r in records.values())
+    current_group_counts = Counter(
+        path.split("/")[1]
+        for path, entries in current.items()
+        for row in entries.values()
+        if row.get("questionType") == "group_choice"
+    )
     return {
         "schemaVersion": "question-type-transition-audit/v1",
         "revision": revision,
@@ -125,6 +135,7 @@ def audit(repo: Path, revision: str) -> dict[str, Any]:
         ],
         "summary": {"patchFileCount": len(paths), "historyCommitCount": len(commits), "transitionCount": len(transitions), "recordCount": len(records), "readErrorCount": len(errors)},
         "counts": [{"qualification": q, "currentPatchType": t, "count": n} for (q, t), n in sorted(counts.items(), key=lambda item: str(item[0]))],
+        "currentGroupChoiceCounts": dict(sorted(current_group_counts.items())),
         "errors": errors,
         "records": sorted(records.values(), key=lambda r: (r["qualification"], r["path"], r["recordId"])),
     }

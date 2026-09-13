@@ -133,7 +133,7 @@ class ScrapeGassyuninTests(unittest.TestCase):
             ],
         )
 
-    def test_parse_numbered_choice_box_as_group_choice(self) -> None:
+    def test_parse_numbered_choice_box_without_classifying_question_type(self) -> None:
         html = """
         <h1>2018年（平成30年）甲種 過去問題</h1>
         <div class="tab-content-kiso">
@@ -159,7 +159,7 @@ class ScrapeGassyuninTests(unittest.TestCase):
 
         self.assertEqual(len(questions), 1)
         question = questions[0]
-        self.assertEqual(question["questionType"], "group_choice")
+        self.assertNotIn("questionType", question)
         self.assertEqual(question["choiceTextList"], ["1060", "1080", "1100"])
         self.assertEqual(question["choiceTextMarkedList"], ["1060", "1080", "1100"])
         self.assertEqual(question["correctChoiceText"], ["不正解", "正解", "不正解"])
@@ -181,7 +181,7 @@ class ScrapeGassyuninTests(unittest.TestCase):
         )
         question = find_question(questions, category="基礎理論", question_label="問1")
 
-        self.assertEqual(question["questionType"], "group_choice")
+        self.assertNotIn("questionType", question)
         self.assertEqual(question["choiceTextList"], ["1060", "1080", "1100", "1120", "1140"])
         self.assertEqual(question["correctChoiceText"], ["正解", "不正解", "不正解", "不正解", "不正解"])
         self.assertEqual(question["answer_result_inferred_correct_choice_numbers"], [1])

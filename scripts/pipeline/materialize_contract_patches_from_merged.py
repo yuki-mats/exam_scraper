@@ -21,7 +21,6 @@ SOURCE_SUBDIR = "00_source"
 MERGED_SUBDIR = "30_merged_2"
 CURRENT_CORRECT_SUBDIR = "23_correctChoiceText_fixed"
 
-QTYPE_SUBDIR = "10_questionType_fixed"
 INTENT_SUBDIR = "15_correctChoiceText_fixed"
 EXPLANATION_SUBDIR = "21_explanationText_added"
 QUESTION_SET_SUBDIR = "22_questionSetId_linked"
@@ -176,19 +175,6 @@ def normalized_law_references(value: Any) -> Any:
     return normalized
 
 
-def build_question_type_entry(
-    source_question: dict[str, Any],
-    merged_question: dict[str, Any],
-) -> dict[str, Any]:
-    return {
-        "questionBodyText": source_question.get("questionBodyText", ""),
-        "choiceTextList": source_question.get("choiceTextList", []),
-        "questionType": merged_question.get("questionType") or source_question.get("questionType", ""),
-        "original_question_id": source_id(source_question),
-        "question_url": source_question.get("question_url", ""),
-    }
-
-
 def build_intent_entry(
     source_question: dict[str, Any],
     merged_question: dict[str, Any],
@@ -292,7 +278,6 @@ def materialize_for_source_file(
     merged_by_id = {source_id(question): question for question in merged_questions}
     source_stem = source_path.stem
 
-    question_type_entries: list[dict[str, Any]] = []
     intent_entries: list[dict[str, Any]] = []
     explanation_entries: list[dict[str, Any]] = []
     question_set_entries: list[dict[str, Any]] = []
@@ -304,7 +289,6 @@ def materialize_for_source_file(
             raise ContractPatchMaterializeError(
                 f"{source_path.name}: merged question not found for {oid}"
             )
-        question_type_entries.append(build_question_type_entry(source_question, merged_question))
         intent_entries.append(
             build_intent_entry(source_question, merged_question, current_correct_overrides)
         )
@@ -312,10 +296,6 @@ def materialize_for_source_file(
         question_set_entries.append(build_question_set_entry(source_question, merged_question))
 
     outputs = [
-        (
-            list_group_dir / QTYPE_SUBDIR / f"{source_stem}_questionType_fixed_{timestamp}.json",
-            question_type_entries,
-        ),
         (
             list_group_dir / INTENT_SUBDIR / f"{source_stem}_merged_correctChoiceText_fixed_{timestamp}.json",
             intent_entries,
@@ -359,7 +339,7 @@ def materialize_contract_patches(list_group_dir: Path, timestamp: str) -> list[P
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="最新30_merged_2からquality-gate契約準拠の10/15/21/22 patchを再生成します。"
+        description="旧成果物移行用に30_merged_2から15/21/22 patchを生成します。01は独立整備で確定し、この処理では作成・変更しません。"
     )
     parser.add_argument("--list-group-dir", required=True, type=Path)
     parser.add_argument("--timestamp", required=True)

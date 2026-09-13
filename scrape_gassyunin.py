@@ -494,7 +494,6 @@ def parse_subject_section(
         marker_alignment_mode = "no_marker_data"
         marker_mismatch_detected = False
         answer_result_numbers_remapped = False
-        question_type = "flash_card"
         explanation_choice_correctness: list[str | None] = []
 
         if details is not None:
@@ -510,7 +509,6 @@ def parse_subject_section(
             )
 
             if row_records:
-                question_type = "true_false"
                 choice_marker_source = "judge"
                 if question_choice_markers and judge_choice_markers and question_choice_markers != judge_choice_markers:
                     marker_mismatch_detected = True
@@ -543,7 +541,6 @@ def parse_subject_section(
                 explanation_choice_snippets = [row_record["snippet"] for row_record in row_records]
                 explanation_choice_correctness = [None for _ in choice_text_list]
             elif numbered_choice_texts:
-                question_type = "group_choice"
                 choice_text_list = numbered_choice_texts
                 choice_text_marked_list = numbered_choice_texts.copy()
                 correct_choice_texts = build_group_choice_correctness(
@@ -561,7 +558,6 @@ def parse_subject_section(
             "questionBodyText": question_body_text,
             "examLabel": exam_label,
             "questionLabel": question_label,
-            "questionType": question_type,
             "choiceTextList": choice_text_list,
             "choiceTextMarkedList": choice_text_marked_list,
             "questionChoiceMarkers": question_choice_markers,

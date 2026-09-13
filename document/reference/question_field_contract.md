@@ -56,6 +56,8 @@
 
 01で形式を確定した後、02以降は自工程のfieldだけを整備し、mergeとconvertは確定結果を機械的に投影します。形式の誤りが疑われたら、その一問を01の再整備対象に戻して本文・全選択肢から再判定し、実際に形式が変わった場合は後続の解説等を再整備・再評価します。現在の`true_false`を一律固定するのでも、検査を通すため`group_choice`へ合わせるのでもありません。
 
+旧移行用の`materialize_contract_patches_from_merged.py`及び`generate_anma_01_03_patches.py`は01を生成しません。後工程のmergedやsourceの暫定値から01 patchを逆生成すると、後工程の値が分類正本へ戻ってしまうためです。独立評価は01の判定節を同じfileから読み込み、入力形式を評価対象として照合します。
+
 問題整備システムは、`00_source`へ確定済みpatchを物理Mergeと同じ順で重ねた一問ごとの`logicalProjection`を各工程へ渡します。01〜02aは、後続結果を含むmerged artifactを自工程の入力にしません。
 
 | 工程 | 独立に確定する内容 | 所有しない内容 |
@@ -185,7 +187,7 @@
 | `fill_in_blank` | ユーザー作成問題で本文の空欄を埋める。公式問題ではlegacyデータの読取互換に限る。 | `fillInBlanks` が必要。公式問題の新規整備又は洗い替えでは使わない。 |
 | `group_choice` | 同一設問の選択肢群を並べ、比較して1つだけ選ぶグループ出題専用。公開時の正答は1件。 | 正解 doc と誤答の `isChoiceOnly=true` doc を作る。単体出題不可。 |
 
-公式問題には、公式過去問と暗記プラス運営が整備する独自問題を含みます。`isOfficial=true`である公式問題は`examYear`の有無にかかわらず、`true_false`、`flash_card`、`group_choice`の3形式だけを使います。各選択肢の記述ごとに正誤を学ぶ問題を`true_false`、問題文の条件や知識から答えを導いて選択肢で照合する問題を`flash_card`、選択肢側の情報又は候補比較が解答に不可欠な問題を`group_choice`とします。計算式へ与条件を代入して答えを一意に求められる問題は`flash_card`です。複数の独立した選択肢を正答として選ぶ問題は、各選択肢を個別に判定する`true_false`です。`group_choice`は複数選択形式ではありません。
+公式問題には、公式過去問と暗記プラス運営が整備する独自問題を含みます。`isOfficial=true`である公式問題は`examYear`の有無にかかわらず、`true_false`、`flash_card`、`group_choice`の3形式だけを使います。形式の意味判断と具体的な境界は[01の判定基準](../../prompt/01_prompt_fix_questionType.md#questiontypeの判定)を正本とします。独立記述の正誤を学ぶ`true_false`と、候補間の関係を一体として比較する`group_choice`を、正答数や選択肢を読む必要の有無で取り違えません。`group_choice`は複数選択形式ではありません。
 
 `questionType`は回答操作、`questionIntent`は設問が求める正誤方向、`correctChoiceText`は問題文と各選択肢から作る完全な命題の正誤を表します。選択肢がそれだけで真偽を判定できる完結した記述なら、「誤っているものを選べ」などの解答指示は`questionIntent`だけに反映し、記述自体の`correctChoiceText`を反転しません。選択肢が設備名、名詞句、数値などの断片なら、問題文の述語を一度だけ補って完全な命題を作り、その正誤を`correctChoiceText`にします。例えば「この規定に該当しないもの」を設備名から選ぶ問題は、「設備Xはこの規定に該当しない」という命題が成立する肢を`正しい`とし、`questionIntent=select_correct`にします。3fieldはそれぞれ内容に基づいて独立に確定し、未精査の値や期待する正答数から逆算しません。全工程の完了後、`flash_card`又は`group_choice`なのに正答が1件でないなどの不整合があれば公開変換を停止し、どのfieldも自動修正せず再確認します。
 

@@ -12,7 +12,6 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 QUESTIONS_ROOT = ROOT_DIR / "output" / "anma" / "questions_json"
 
 PATCH_DEFS = {
-    "10_questionType_fixed": "questionType_fixed",
     "15_correctChoiceText_fixed": "correctChoiceText_fixed",
     "21_explanationText_added": "explanationText_added",
 }
@@ -85,19 +84,6 @@ def question_prompt_core(body: str) -> str:
             text = text[: -len(suffix)].rstrip("、 ,")
             break
     return text.strip()
-
-
-def build_question_type_entries(questions: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return [
-        {
-            "questionBodyText": question.get("questionBodyText", ""),
-            "choiceTextList": question.get("choiceTextList", []),
-            "questionType": question.get("questionType", ""),
-            "original_question_id": resolve_original_id(question),
-            "question_url": question.get("question_url", ""),
-        }
-        for question in questions
-    ]
 
 
 def build_intent_entries(questions: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -224,7 +210,6 @@ def process_year(year: str, *, overwrite: bool) -> None:
         questions = [question for question in questions if isinstance(question, dict)]
 
         outputs = {
-            "10_questionType_fixed": build_question_type_entries(questions),
             "15_correctChoiceText_fixed": build_intent_entries(questions),
             "21_explanationText_added": build_explanation_entries(questions),
         }
@@ -237,7 +222,7 @@ def process_year(year: str, *, overwrite: bool) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate anma 10/15/21 patches from 00_source.")
+    parser = argparse.ArgumentParser(description="Legacy anma 15/21 migration. Stage 01 must be reviewed independently and is never generated from source guesses.")
     parser.add_argument("--years", nargs="+", required=True, help="target years, e.g. 2026")
     parser.add_argument(
         "--overwrite",

@@ -34,6 +34,8 @@ site、実装、認証、既知制約の対応は[site台帳](../sources/README.
 
 ## IDと出典
 
+回答操作の`questionType`は取得処理では推測せず、01の正本で判定します。kakomonn系とgassyuninの新規取得ではfieldを省略し、空白の選択肢、画像、数値候補又は解説スニペットの件数から形式を自動設定しません。既存sourceの値は取得時点の参考情報として読取互換を保ちますが、01の判定を代替しません。選択肢や画像が不足して01で判断できない場合は、その問題を保留します。
+
 - 公式過去問のcanonical identityは資格、試験回、問番号、必要なsectionを基にし、site固有IDと分離する。
 - `question_url`、`source_question_id`、`questionSourceSite`はprovenanceとして保持する。
 - 既存Firestore IDがある更新では、その対応を維持する。

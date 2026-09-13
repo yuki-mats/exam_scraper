@@ -1613,6 +1613,22 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertNotIn('"uniqueItems"', schema_text)
         self.assertIn("Truth value of the choice statement itself", schema_text)
 
+    def test_prompt_reads_stage_01_policy_instead_of_an_embedded_classification(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "prompt/01_prompt_fix_questionType.md"
+            path.parent.mkdir(parents=True)
+            path.write_text("## `questionType`の判定\n変更した正本の判定基準\n## `isCalculationQuestion`の判定\n", encoding="utf-8")
+            service = QuestionEvaluationService(root, "secret", result_runner=lambda _prompt: evaluation_result())
+            question = question_payload()
+            question["projected"]["questionType"] = "group_choice"
+            prompt = service._build_prompt(question)
+            self.assertIn("変更した正本の判定基準", prompt)
+            self.assertIn("入力questionTypeと解説の件数は評価対象", prompt)
+            path.write_text("判定節が欠落した正本", encoding="utf-8")
+            with self.assertRaises(EvaluationError):
+                service._build_prompt(question)
+
     def test_prompt_defines_verdict_as_the_choice_statement_truth_value(self):
         with tempfile.TemporaryDirectory() as directory:
             service = QuestionEvaluationService(
@@ -1629,9 +1645,11 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("公式問題のquestionTypeはtrue_false、flash_card、group_choiceの3分類だけ", prompt)
         self.assertIn("single_choiceとfill_in_blankはユーザー作成問題用", prompt)
         self.assertIn("計算で一つの数値を求め", prompt)
-        self.assertIn("その値に最も近い数値候補を選ぶ問題もflash_card", prompt)
-        self.assertIn("数値候補を一つずつ計算結果と照合することだけを理由にtrue_false化せず", prompt)
-        self.assertIn("複数選択形式と誤解して分類変更を求めない", prompt)
+        self.assertIn("その値に最も近い数値候補を選ぶ問題", prompt)
+        self.assertIn("正答が1つであることは`group_choice`の十分条件ではありません", prompt)
+        self.assertIn("入力questionTypeと解説の件数は評価対象", prompt)
+        self.assertIn("01のreworkItemsへ記録", prompt)
+        self.assertNotIn("questionTypeがgroup_choiceの場合、選択肢側の情報", prompt)
         self.assertIn("isCalculationQuestionは計算過程が主要な学習対象かを表し", prompt)
         self.assertIn("questionTypeとは独立に評価", prompt)
         self.assertIn("flutter_math_fork対応", prompt)
@@ -1776,7 +1794,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.2")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.3")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 

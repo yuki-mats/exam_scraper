@@ -46,12 +46,14 @@
 
 計算問題などで`各選択肢の判定`がなく、問題直下に`.num-choice-box`又は`ol.choice-list`がある場合は、`strong`の連番と表示テキストを直接読みます。`正解: (n)`が単一かつ選択肢範囲内であることを必須とし、次のように保存します。
 
-- `questionType`: `group_choice`
+- `questionType`: 取得時には設定しない。01が問題内容から独立に判定する。
 - `choiceTextList`, `choiceTextMarkedList`: HTMLに明示された選択肢
 - `correctChoiceText`: 正答だけ`正解`、その他は`不正解`
 - `explanation_choice_correctness`: `correctChoiceText`と同じ配列
 
 選択肢番号が非連続、正答番号が複数、又は範囲外の場合は停止します。
+
+`各選択肢の判定`の有無、数値候補の存在、正答番号の件数は抽出方法を選ぶ情報であり、アプリの回答操作を確定する根拠ではありません。新規sourceは全形式で`questionType`を省略します。既存sourceの形式は読取互換として保持しますが、確定値として採用せず01で再判定します。
 
 ## 監査field
 
