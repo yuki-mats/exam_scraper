@@ -1,0 +1,148 @@
+version: 2
+
+goal:
+  title: "柔道整復師 2023年 目視整備 patch 品質向上"
+  slug: "judoseifukushi-2023-manual-patch-quality"
+  kind: existing_plan
+  tranche: "judoseifukushi / 2023年 の全250問を一問ずつ目視で精査・整備する。"
+  status: in_progress
+  oracle:
+    signal: "対象250問について正しい回答・意図・専門家水準の解説品質が確認され、patch更新、coverage check、不変性検査に通っている。"
+    cadence: "各ファイル（25問）完了後および最終監査時"
+    final_proof: "全10ファイル（250問）のpatch成果物、検証コマンド結果、最終監査記録。"
+  intake:
+    original_request: "未整備となっている直近年度（2025年 → 2024年 → 2023年）から1問ずつ目視整備を進めてほしい。 /goal"
+    interpreted_outcome: "2023年の全250問を棚卸し一覧化し、1問ずつ目視確認しながら最新基準（形式10・意図15・正答23・解説21）で高品質に整備を完遂する。"
+    input_shape: existing_plan
+    audience: "柔道整復師国家試験の受験者と運用者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "全250問が目視処理され、coverage checkを全件通過し、mainブランチに直接コミット・プッシュされること。"
+    likely_misfire: "スクリプトによる一括自動置換、検証スクリプトのみでの形骸的完了。"
+    blind_spots_considered:
+      - "断片肢の否定設問におけるquestionIntentの統一適用（select_correct）"
+      - "文化庁基準に基づく文頭結論（正しい。/間違い。）および自然な主語（法令名を主語にしない）"
+      - "関係法規設問における正確な条文・制度根拠の紐付け"
+    existing_plan_facts:
+      - "会話・報告は日本語で行う。"
+      - "変更時には作業内容と保存先を明示する。"
+      - "スクリプトによる一括機械生成は禁止。既存ツールのみ活用。"
+      - "1問ずつ問題文・全選択肢・公式解答を目視確認する。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+
+progress:
+  total_questions: 250
+  completed_questions: 0
+  remaining_questions: 250
+  total_files: 10
+  completed_files: 0
+
+active_task: T002
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: done
+    receipt: "docs/goals/judoseifukushi-2023-manual-patch-quality/question_inventory.md 作成完了（全250問）"
+    objective: "2023年全250問の棚卸しを行い、question_inventory.mdとして一覧化する。"
+
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: in_progress
+    objective: "問1〜問25（question_2023_1.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_1.json"
+    question_labels: "問1〜問25"
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問26〜問50（question_2023_2.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_2.json"
+    question_labels: "問26〜問50"
+
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問51〜問75（question_2023_3.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_3.json"
+    question_labels: "問51〜問75"
+
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問76〜問100（question_2023_4.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_4.json"
+    question_labels: "問76〜問100"
+
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問101〜問125（question_2023_5.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_5.json"
+    question_labels: "問101〜問125"
+
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問126〜問150（question_2023_6.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_6.json"
+    question_labels: "問126〜問150"
+
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問151〜問175（question_2023_7.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_7.json"
+    question_labels: "問151〜問175"
+
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問176〜問200（question_2023_8.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_8.json"
+    question_labels: "問176〜問200"
+
+  - id: T010
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問201〜問225（question_2023_9.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_9.json"
+    question_labels: "問201〜問225"
+
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "問226〜問250（question_2023_10.json）の目視整備と検証・コミット。"
+    target_file: "output/judoseifukushi/questions_json/2023/00_source/question_2023_10.json"
+    question_labels: "問226〜問250"
+
+  - id: T012
+    type: judge
+    assignee: Judge
+    status: queued
+    objective: "2023年全250問の最終品質監査、全件カバレッジチェック、不変性検証。"
