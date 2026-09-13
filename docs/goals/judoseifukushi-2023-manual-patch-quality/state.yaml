@@ -5,11 +5,13 @@ goal:
   slug: "judoseifukushi-2023-manual-patch-quality"
   kind: existing_plan
   tranche: "judoseifukushi / 2023年 の全250問を一問ずつ目視で精査・整備する。"
-  status: in_progress
+  status: done
   oracle:
     signal: "対象250問について正しい回答・意図・専門家水準の解説品質が確認され、patch更新、coverage check、不変性検査に通っている。"
     cadence: "各ファイル（25問）完了後および最終監査時"
     final_proof: "全10ファイル（250問）のpatch成果物、検証コマンド結果、最終監査記録。"
+    verified: true
+    verified_at: "2026-09-13T12:44:00+09:00"
   intake:
     original_request: "未整備となっている直近年度（2025年 → 2024年 → 2023年）から1問ずつ目視整備を進めてほしい。 /goal"
     interpreted_outcome: "2023年の全250問を棚卸し一覧化し、1問ずつ目視確認しながら最新基準（形式10・意図15・正答23・解説21）で高品質に整備を完遂する。"
@@ -51,7 +53,7 @@ progress:
   total_files: 10
   completed_files: 10
 
-active_task: T012
+active_task: none
 
 tasks:
   - id: T001
@@ -154,5 +156,6 @@ tasks:
   - id: T012
     type: judge
     assignee: Judge
-    status: queued
+    status: done
+    receipt: "全10ファイル（250問）の4種公式チェッカー全件PASS確認、00_source不変性確認、audit_report.md作成完了。"
     objective: "2023年全250問の最終品質監査、全件カバレッジチェック、不変性検証。"
