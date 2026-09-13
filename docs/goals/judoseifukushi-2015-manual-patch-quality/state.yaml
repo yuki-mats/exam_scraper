@@ -46,12 +46,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 200
-  remaining_questions: 30
+  completed_questions: 225
+  remaining_questions: 5
   total_files: 10
-  completed_files: 8
+  completed_files: 9
 
-active_task: T010
+active_task: T011
 
 tasks:
   - id: T001
@@ -136,7 +136,8 @@ tasks:
   - id: T010
     type: worker
     assignee: Worker
-    status: in_progress
+    status: done
+    receipt: "question_2015_9.json（問201〜問225）の目視精査と各工程パッチ作成・検証完了。問201, 202, 212のflash_card複数正答対応、問205, 207, 210, 211, 217, 220, 221, 224の否定設問対応、柔道整復臨床実地・脱臼・骨折根拠、4種の公式チェッカー通過。"
     objective: "問201〜問225（question_2015_9.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2015/00_source/question_2015_9.json"
     question_labels: "問201〜問225"
@@ -144,7 +145,7 @@ tasks:
   - id: T011
     type: worker
     assignee: Worker
-    status: queued
+    status: in_progress
     objective: "問226〜問230（question_2015_10.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2015/00_source/question_2015_10.json"
     question_labels: "問226〜問230"
