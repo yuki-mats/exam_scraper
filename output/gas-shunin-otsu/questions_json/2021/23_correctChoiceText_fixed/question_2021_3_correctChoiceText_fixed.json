@@ -330,7 +330,7 @@
       "正しい。潜熱回収型給湯器の中和器では、酸性の排ガス凝縮水を中和するため、炭酸カルシウムが硝酸などと反応して硝酸カルシウムなどを生成する。",
       "正しい。先止め式貯湯湯沸器は出湯側に給湯配管を接続して使用する方式であり、複数箇所への給湯に対応できる。",
       "正しい。現在販売されている開放式小型湯沸器には、不完全燃焼防止装置が複数回連続して作動した場合に通常操作で再点火できなくするインターロック機能が搭載されている。",
-      "間違い。設定温度との差を検出して補正する制御は、目標値との差に応じて修正動作を行うフィードバック制御である。フィードフォワード制御としている点が誤り。"
+      "間違い。設定温度との差を検出して補正する制御は、目標値との差に応じて修正動作を行うフィードバック制御である。選択肢はこれをフィードフォワード制御としているため誤りである。"
     ],
     "suggestedQuestions": [
       "正しい。給湯器の自己診断機能には、給排気通路の閉そく状態を検知する方法として、燃焼状態による診断と、給気ファンの風量低下による診断がある。",
@@ -365,7 +365,10 @@
     "lawGroundedExplanationNotNeeded": true,
     "questionSetId": "chiefgasengineerlicense-B-1880",
     "reviewQuestionId": "205b3fd5ba830110",
-    "sourceRecordRef": "question_2021_3.json#1"
+    "sourceRecordRef": "question_2021_3.json#1",
+    "correctChoiceText_changed": true,
+    "correctChoiceText_change_detail": "questionTypeをtrue_falseへ修正し、各肢の記述自体の真偽へ統一。",
+    "correctChoiceText_change_reason": "初回整備時からgroup_choiceとして登録されていたため。"
   },
   {
     "answerResultNumbersRemapped": false,

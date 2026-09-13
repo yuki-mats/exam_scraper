@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "gas-shunin-current-group-choice-review/v1",
+  "reviewedAt": "2026-09-13T05:28:00Z",
+  "scope": {
+    "description": "甲種・乙種の現行10_questionType_fixedに残るgroup_choice全件を、問題本文と全選択肢で個別確認",
+    "currentGroupChoiceCountBefore": 30,
+    "sourceMutated": false
+  },
+  "counts": {
+    "change:true_false": 10,
+    "retain:group_choice": 20,
+    "currentGroupChoiceCountAfter": 20
+  },
+  "retainedGroupChoice": {
+    "combinationOrSequenceCount": 17,
+    "singleConceptSelectionCount": 3,
+    "recordIds": [
+      "firestore:gasushunin-koushu-gizyutsu-2021-6-1,gasushunin-koushu-gizyutsu-2021-6-2,gasushunin-koushu-gizyutsu-2021-6-3,gasushunin-koushu-gizyutsu-2021-6-4,gasushunin-koushu-gizyutsu-2021-6-5",
+      "85637e8473839657",
+      "413d0ba55da13c90",
+      "95c473a1002c1207",
+      "592f58edb670503a",
+      "21a44e9856984944",
+      "6411ee204d633c39",
+      "963e0ea3649101da",
+      "11e45cb9ebc00dc2",
+      "aacce362b22eb526",
+      "72bacbc34e83663b",
+      "250fbc3bceff6113",
+      "52282e43fcced9ec",
+      "da3050a1bed2ae44",
+      "8a222b34c430cbf7",
+      "77cab6125409ca95",
+      "cdb9cad7080f3d37",
+      "515727ddd8156a5d",
+      "6602bb83e4a77334",
+      "ca6ffbbb1cc30192"
+    ],
+    "reason": "各選択肢が独立した正誤命題ではなく、空欄の組合せ、作業順序、又は一つの概念・名称を選ぶ選択肢であるため。"
+  },
+  "reviews": [
+    {
+      "recordId": "819623c75a7c52aa",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:seizo:q02",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢が都市ガス製造設備に関する独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "aaa15653ce69291a",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:kyokyu:q12",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢がマイコンメーターに関する独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "44c63530e14a4ba5",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:kyokyu:q18",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢が地震対策に関する独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "2c38b3edaeaf24a9",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:shohi:q20",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢がガス燃焼に関する独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "926e9e893655f2d8",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2021:law:q04",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢が事故速報の対象該否を表す独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "9b3bf0ec5c52e855",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2021:law:q10",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢がガス発生設備に関する独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "4b28ac5a4dc1dc80",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2021:law:q15",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢が周知・調査・保安業務規程に関する独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "b7db75cab073fa14",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2021:law:q16",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢が消費機器の技術基準に関する独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "205b3fd5ba830110",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2021:shohi:q21",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢が家庭用ガス温水機器に関する独立した記述で、各肢を個別に正誤判定できる。"
+    },
+    {
+      "recordId": "60d5be92ebd868da",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q20",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "reviewDecision": "change",
+      "reason": "5肢がフラッシュバックの原因に関する独立した記述で、各肢を個別に正誤判定できる。"
+    }
+  ]
+}

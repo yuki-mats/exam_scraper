@@ -27,8 +27,6 @@ from scripts.upload.firebase_credentials import (  # noqa: E402
 SCHEMA_VERSION = "question-type-transition-firestore-repair/v1"
 UPDATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
 TARGET_QUALIFICATION = "gas-shunin-otsu"
-EXPECTED_QUESTION_COUNT = 23
-EXPECTED_DOCUMENT_COUNT = 115
 DELETE_FIELDS = ("suggestedQuestionDetails", "suggestedQuestions")
 PRECONDITION_FIELDS = (
     "qualificationId",
@@ -192,8 +190,8 @@ def build_plan(review_path: Path, live_snapshot_path: Path) -> dict[str, Any]:
         and row.get("reviewDecision") == "change"
         and row.get("questionTypeAfter") == "true_false"
     ]
-    if len(review_rows) != EXPECTED_QUESTION_COUNT:
-        raise ValueError(f"更新対象問題数が{len(review_rows)}問です。")
+    if not review_rows:
+        raise ValueError("更新対象問題がありません。")
 
     operations: list[dict[str, Any]] = []
     for row in review_rows:
@@ -208,14 +206,12 @@ def build_plan(review_path: Path, live_snapshot_path: Path) -> dict[str, Any]:
             ),
             expected_id,
         )
-        correct = find_record(
-            stage_path(
-                qtype_path,
-                "23_correctChoiceText_fixed",
-                "_correctChoiceText_fixed.json",
-            ),
-            expected_id,
+        correct_path = stage_path(
+            qtype_path,
+            "23_correctChoiceText_fixed",
+            "_correctChoiceText_fixed.json",
         )
+        correct = find_record(correct_path, expected_id) if correct_path.exists() else None
         question_set = find_record(
             stage_path(
                 qtype_path,
@@ -226,7 +222,11 @@ def build_plan(review_path: Path, live_snapshot_path: Path) -> dict[str, Any]:
         )
         choices = qtype.get("choiceTextList")
         explanations = explanation.get("explanationText")
-        verdicts = correct.get("correctChoiceText")
+        verdicts = (
+            correct.get("correctChoiceText")
+            if correct is not None
+            else explanation.get("sourceExplanationChoiceCorrectness")
+        )
         choice_question_sets = question_set.get("choiceQuestionSetIds")
         if not all(isinstance(value, list) for value in (choices, explanations, verdicts)):
             raise ValueError(f"{expected_id}: 選択肢別fieldの型が不正です。")
@@ -308,7 +308,16 @@ def build_plan(review_path: Path, live_snapshot_path: Path) -> dict[str, Any]:
         if seen_indexes != set(range(len(choices))):
             raise ValueError(f"{expected_id}: 全選択肢を対応できません。")
 
-    if len(operations) != EXPECTED_DOCUMENT_COUNT:
+    expected_document_count = sum(
+        len(
+            find_record(
+                ROOT / str(row["questionTypePath"]), str(row["recordId"])
+            ).get("choiceTextList")
+            or []
+        )
+        for row in review_rows
+    )
+    if len(operations) != expected_document_count:
         raise ValueError(f"更新対象document数が{len(operations)}件です。")
     plan: dict[str, Any] = {
         "schemaVersion": SCHEMA_VERSION,
@@ -325,8 +334,8 @@ def build_plan(review_path: Path, live_snapshot_path: Path) -> dict[str, Any]:
             "sha256": file_hash(live_snapshot_path),
         },
         "summary": {
-            "questionCount": EXPECTED_QUESTION_COUNT,
-            "documentCount": EXPECTED_DOCUMENT_COUNT,
+            "questionCount": len(review_rows),
+            "documentCount": expected_document_count,
             "userDataWrites": 0,
             "hardDeletes": 0,
         },
@@ -355,7 +364,18 @@ def apply_plan(
     if project_id != DEFAULT_PROJECT_ID or plan.get("projectId") != DEFAULT_PROJECT_ID:
         raise ValueError("本番projectIdが想定値と一致しません。")
     operations = plan.get("operations") or []
-    if len(operations) != EXPECTED_DOCUMENT_COUNT:
+    summary = plan.get("summary") or {}
+    expected_document_count = summary.get("documentCount")
+    expected_question_count = summary.get("questionCount")
+    if (
+        not isinstance(expected_document_count, int)
+        or expected_document_count <= 0
+        or len(operations) != expected_document_count
+        or not isinstance(expected_question_count, int)
+        or expected_question_count <= 0
+        or len({str(item.get("originalQuestionId")) for item in operations})
+        != expected_question_count
+    ):
         raise ValueError("Firestore更新対象件数が想定値と一致しません。")
     db, firestore = firestore_client(project_id, credentials_json)
     refs = [db.collection("questions").document(item["questionId"]) for item in operations]
