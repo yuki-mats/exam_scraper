@@ -5,7 +5,7 @@ goal:
   slug: "judoseifukushi-2009-manual-patch-quality"
   kind: existing_plan
   tranche: "judoseifukushi / 2009年 の全230問を一問ずつ目視で精査・整備する。"
-  status: in_progress
+  status: done
   oracle:
     signal: "対象230問について正しい回答・意図・専門家水準の解説品質が確認され、patch更新、coverage check、不変性検査に通っている。"
     cadence: "各ファイル（約25問）完了後および最終監査時"
@@ -52,7 +52,7 @@ progress:
   total_files: 10
   completed_files: 10
 
-active_task: T012
+active_task: null
 
 tasks:
   - id: T001
@@ -145,5 +145,5 @@ tasks:
   - id: T012
     type: judge
     assignee: Judge
-    status: ready
+    status: done
     objective: "2009年全230問の一括検証、監査報告書の作成とゴール完了判定。"
