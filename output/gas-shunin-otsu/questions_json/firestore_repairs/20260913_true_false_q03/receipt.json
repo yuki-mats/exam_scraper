@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "gas-shunin-question-type-repair-receipt/v1",
+  "completedAt": "2026-09-13T03:14:14Z",
+  "projectId": "repaso-rbaqy4",
+  "qualificationId": "gas-shunin-otsu",
+  "listGroupId": "2022",
+  "originalQuestionId": "335a0acfe7454e65",
+  "sourceQuestionKey": "gas-shunin:otsu:2022:law:q03",
+  "reason": "A true_false source decision was overwritten as group_choice in a later patch update.",
+  "questionRepair": {
+    "artifactSha256": "ce935268c1147e5b60abe8019794b452c7fc2527c5a60730f2729105fe2d219e",
+    "expectedLiveFingerprint": "0778382418ccbd92eaa5ec86b939e6a7f13943382226a9fb4ee2ed7b0d8092d5",
+    "documentCount": 5,
+    "writtenCount": 5,
+    "readbackMatchCount": 5,
+    "questionIds": [
+      "gas-shunin-otsu-2022-law-q03-s01",
+      "gas-shunin-otsu-2022-law-q03-s02",
+      "gas-shunin-otsu-2022-law-q03-s03",
+      "gas-shunin-otsu-2022-law-q03-s04",
+      "gas-shunin-otsu-2022-law-q03-s05"
+    ],
+    "expectedState": {
+      "questionType": "true_false",
+      "isChoiceOnly": false,
+      "isGroupable": true,
+      "hasPerStatementExplanation": true,
+      "hasPerStatementLawReferences": true
+    },
+    "createdAtPreservedCount": 5
+  },
+  "categoryRepair": {
+    "writtenCount": 4,
+    "readbackMatchCount": 4,
+    "documents": [
+      {
+        "path": "folders/chiefgasengineerlicense-B-10",
+        "beforeQuestionCount": 295,
+        "afterQuestionCount": 299,
+        "isDeleted": false
+      },
+      {
+        "path": "questionSets/chiefgasengineerlicense-B-1130",
+        "beforeQuestionCount": 2,
+        "afterQuestionCount": 3,
+        "isDeleted": false
+      },
+      {
+        "path": "questionSets/chiefgasengineerlicense-B-1200",
+        "beforeQuestionCount": 30,
+        "afterQuestionCount": 31,
+        "isDeleted": false
+      },
+      {
+        "path": "questionSets/chiefgasengineerlicense-B-1230",
+        "beforeQuestionCount": 0,
+        "afterQuestionCount": 2,
+        "isDeleted": false
+      }
+    ]
+  },
+  "verification": {
+    "preSnapshotQuestionsSha256": "7740b7c32537e9bca6ad2fece44e46bcdd38d0a0ba23ad7a9df12ea541b542e8",
+    "postSnapshotQuestionsSha256": "bb13278b8c355ff9bb8e4a2c609874ac6f873481b0b08142ad97f20c9414a520",
+    "activeDisplayQuestionCountBefore": 1913,
+    "activeDisplayQuestionCountAfter": 1917,
+    "folderCountMismatchAfter": 0,
+    "questionSetCountMismatchAfter": 0,
+    "qualityGate": "pass"
+  },
+  "sourceProtection": {
+    "protected00SourceWriteCount": 0,
+    "sourceSha256": "f1904e1532cc6ddf28c338203aa281f8b091d5bab1bf605849bf97c99932400d",
+    "sourceGitBlobBeforeAndAfter": "d531826e320f93add18e470f50b9dc15f1e6480f"
+  },
+  "rollbackArtifactSha256": "4ca1cdfd1595e85256fbf9743a1f0814e2bb442d87cf3bf9b88436d39e8677e2",
+  "userDataWrites": 0,
+  "hardDeletes": 0
+}
