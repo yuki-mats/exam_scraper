@@ -29,6 +29,7 @@
 - 独立評価が01の正本変更を読み込み、判定節欠落時は停止する。
 - Gitの履歴抽出は固定revisionを読み、作業treeを変更しない。
 - `git diff --check`、変更したroot scraperと旧移行スクリプトのcompile確認を実施。
+- 稼働serverについて乙種・柔道整復師のactiveRunなし、全資格のrecovery sidecarなしを確認し、同じローカルport `49866`で再起動。`/api/workflow-catalog`の01版`6.1`、`restartRequired=false`及び文書APIの改訂判定文をreadbackした。
 
 これは実装の回帰検証であり、実LLMによる全問題の意味判定が正しいことの証明ではない。既存問題の個別精査と公開前の確認は別工程として残る。
 
