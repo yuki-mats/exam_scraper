@@ -46,12 +46,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 125
-  remaining_questions: 105
+  completed_questions: 150
+  remaining_questions: 80
   total_files: 10
-  completed_files: 5
+  completed_files: 6
 
-active_task: T007
+active_task: T008
 
 tasks:
   - id: T001
@@ -112,7 +112,8 @@ tasks:
   - id: T007
     type: worker
     assignee: Worker
-    status: in_progress
+    status: done
+    receipt: "question_2016_6.json（問126〜問150）の目視精査と各工程パッチ作成・検証完了。問126のflash_card設定、法規・リハビリ・診断学根拠、4種の公式チェッカー通過。"
     objective: "問126〜問150（question_2016_6.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2016/00_source/question_2016_6.json"
     question_labels: "問126〜問150"
@@ -120,7 +121,7 @@ tasks:
   - id: T008
     type: worker
     assignee: Worker
-    status: queued
+    status: in_progress
     objective: "問151〜問175（question_2016_7.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2016/00_source/question_2016_7.json"
     question_labels: "問151〜問175"
