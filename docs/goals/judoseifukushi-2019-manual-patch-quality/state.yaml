@@ -46,12 +46,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 150
-  remaining_questions: 80
+  completed_questions: 175
+  remaining_questions: 55
   total_files: 10
-  completed_files: 6
+  completed_files: 7
 
-active_task: T008
+active_task: T009
 
 tasks:
   - id: T001
@@ -118,7 +118,8 @@ tasks:
   - id: T008
     type: worker
     assignee: Worker
-    status: in_progress
+    status: done
+    receipt: "question_2019_7.json（問151〜問175）の目視精査と各工程パッチ作成・検証完了。4種の公式チェッカー通過。"
     objective: "問151〜問175（question_2019_7.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2019/00_source/question_2019_7.json"
     question_labels: "問151〜問175"
@@ -126,7 +127,7 @@ tasks:
   - id: T009
     type: worker
     assignee: Worker
-    status: queued
+    status: in_progress
     objective: "問176〜問200（question_2019_8.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2019/00_source/question_2019_8.json"
     question_labels: "問176〜問200"
