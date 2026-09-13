@@ -205,7 +205,7 @@ def repair_question(question: dict[str, Any], page_html: str) -> tuple[dict[str,
     correct_choice_text = build_correct_choice_text(len(choices), correct_number)
 
     repaired = copy.deepcopy(question)
-    repaired["questionType"] = "group_choice"
+    # 取得補修は選択肢を復元するだけ。回答操作の分類は01が内容から判定する。
     repaired["choiceTextList"] = choices
     repaired["choiceTextMarkedList"] = choices.copy()
     repaired["correctChoiceText"] = correct_choice_text

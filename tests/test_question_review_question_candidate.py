@@ -1354,19 +1354,7 @@ class QuestionCandidateTest(unittest.TestCase):
             ],
         )
         self.assertIn(
-            "choiceTextListをその答えとの照合にだけ使う問題はflash_card",
-            rules["questionType"]["description"],
-        )
-        self.assertIn(
-            "単一の計算結果に最も近い数値候補を選ぶ問題もflash_card",
-            rules["questionType"]["description"],
-        )
-        self.assertIn(
-            "比較対象そのものを持つ場合もtrue_false",
-            rules["questionType"]["description"],
-        )
-        self.assertIn(
-            "blockedにする理由にしない",
+            "prompt/01_prompt_fix_questionType.mdを正本とする",
             rules["questionType"]["description"],
         )
         candidate = _parse_prepared_candidates(

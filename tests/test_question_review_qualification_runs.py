@@ -636,7 +636,7 @@ class EvaluationReworkStageTests(unittest.TestCase):
 
         self.assertEqual(stages, ["02b", "03b"])
 
-    def test_question_type_field_rule_matches_single_result_calculation_policy(
+    def test_question_type_field_rule_delegates_classification_to_stage_prompt(
         self,
     ):
         rules = _semantic_field_rules(
@@ -653,13 +653,11 @@ class EvaluationReworkStageTests(unittest.TestCase):
 
         description = rules["questionType"]["description"]
         self.assertIn(
-            "単一の計算結果に最も近い数値候補を選ぶ問題もflash_card",
+            "prompt/01_prompt_fix_questionType.mdを正本とする",
             description,
         )
-        self.assertIn(
-            "肢ごとに独立して正誤を判定する問題はtrue_false",
-            description,
-        )
+        self.assertNotIn("group_choice", description)
+        self.assertNotIn("true_false", description)
 
         prompt = (
             Path(__file__).resolve().parents[1]
@@ -669,6 +667,7 @@ class EvaluationReworkStageTests(unittest.TestCase):
         self.assertIn("問題文の共通述語を各候補に補って判定", prompt)
         self.assertIn("他の候補の判定と切り離して", prompt)
         self.assertIn("選択肢を見る前に導き", prompt)
+        self.assertIn("最も近い数値候補を選ぶ問題", prompt)
 
 
 class PipelineTelemetryContractTests(unittest.TestCase):

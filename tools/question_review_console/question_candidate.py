@@ -689,22 +689,9 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
             "type": "string",
             "allowedValues": list(OFFICIAL_QUESTION_TYPES),
             "description": (
-                "公式過去問とexamYearのない暗記プラス独自問題は、いずれも"
-                "true_false、flash_card、group_choiceの3分類で回答体験を表す。"
-                "single_choiceとfill_in_blankはユーザー作成問題だけに使う。"
-                "問題文の条件、知識、図又は計算から具体的な答えを一意に導き、"
-                "choiceTextListをその答えとの照合にだけ使う問題はflash_cardとする。"
-                "単一の計算結果に最も近い数値候補を選ぶ問題もflash_cardであり、"
-                "数値候補を順番に照合することだけを理由にtrue_falseへ変えない。"
-                "choiceTextListの各肢が互いに異なる条件、物質、反応式などの"
-                "計算対象を持ち、肢ごとに独立して正誤を判定する問題はtrue_false"
-                "とする。最大・最小などを問う問題で、"
-                "choiceTextListが組合せ番号ではなく比較対象そのものを持つ場合も"
-                "true_falseとする。最終回答となる組合せ候補そのものが"
-                "choiceTextListに並び、そこから正答を1つ選ぶ場合だけgroup_choice"
-                "とする。現行correctChoiceText、"
-                "answer_result_text又は組合せmappingの欠落・不整合は、"
-                "後続の正答精査で扱うため、このfieldをblockedにする理由にしない。"
+                "回答操作を表す分類。判定基準はこの工程に添付された"
+                "prompt/01_prompt_fix_questionType.mdを正本とする。"
+                "現在値や後工程の正答・解説の形から逆算せず、問題内容から独立に判定する。"
             ),
         },
         "isCalculationQuestion": {"type": "boolean"},
