@@ -1,0 +1,318 @@
+{
+  "decisionSummary": {
+    "planReasonCounts": {
+      "holdout:content_review_not_ready": 10,
+      "holdout:site_statement_level_question_set_unassigned": 40,
+      "upload:preserve_firestore_source_conflict": 122,
+      "upload:review_ok": 761,
+      "upload:site_shadow_new_documents": 1
+    },
+    "planRowDecisionCounts": {
+      "holdout": 50,
+      "upload": 884
+    },
+    "plannedQuestionIdDecisionCounts": {
+      "holdout": 248,
+      "upload": 4390
+    }
+  },
+  "fileSummaries": [
+    {
+      "excludedQuestionCount": 50,
+      "excludedSamples": [
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q03-s01",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q03-s02",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q03-s03",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q03-s04",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q03-s05",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q07-s01",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q07-s02",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q07-s03",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q07-s04",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "questionId": "gas-shunin-otsu-2024-law-q07-s05",
+          "reason": "missing_plan_decision"
+        },
+        {
+          "planSequence": 826,
+          "questionId": "gas-shunin-otsu-2024-law-q08-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q08"
+        },
+        {
+          "planSequence": 826,
+          "questionId": "gas-shunin-otsu-2024-law-q08-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q08"
+        },
+        {
+          "planSequence": 826,
+          "questionId": "gas-shunin-otsu-2024-law-q08-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q08"
+        },
+        {
+          "planSequence": 826,
+          "questionId": "gas-shunin-otsu-2024-law-q08-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q08"
+        },
+        {
+          "planSequence": 826,
+          "questionId": "gas-shunin-otsu-2024-law-q08-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q08"
+        },
+        {
+          "planSequence": 827,
+          "questionId": "gas-shunin-otsu-2024-law-q09-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q09"
+        },
+        {
+          "planSequence": 827,
+          "questionId": "gas-shunin-otsu-2024-law-q09-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q09"
+        },
+        {
+          "planSequence": 827,
+          "questionId": "gas-shunin-otsu-2024-law-q09-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q09"
+        },
+        {
+          "planSequence": 827,
+          "questionId": "gas-shunin-otsu-2024-law-q09-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q09"
+        },
+        {
+          "planSequence": 827,
+          "questionId": "gas-shunin-otsu-2024-law-q09-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:law:q09"
+        },
+        {
+          "planSequence": 843,
+          "questionId": "gas-shunin-otsu-2024-kiso-q09-s01",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q09"
+        },
+        {
+          "planSequence": 843,
+          "questionId": "gas-shunin-otsu-2024-kiso-q09-s02",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q09"
+        },
+        {
+          "planSequence": 843,
+          "questionId": "gas-shunin-otsu-2024-kiso-q09-s03",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q09"
+        },
+        {
+          "planSequence": 843,
+          "questionId": "gas-shunin-otsu-2024-kiso-q09-s04",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q09"
+        },
+        {
+          "planSequence": 843,
+          "questionId": "gas-shunin-otsu-2024-kiso-q09-s05",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q09"
+        },
+        {
+          "planSequence": 844,
+          "questionId": "gas-shunin-otsu-2024-kiso-q10-s01",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q10"
+        },
+        {
+          "planSequence": 844,
+          "questionId": "gas-shunin-otsu-2024-kiso-q10-s02",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q10"
+        },
+        {
+          "planSequence": 844,
+          "questionId": "gas-shunin-otsu-2024-kiso-q10-s03",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q10"
+        },
+        {
+          "planSequence": 844,
+          "questionId": "gas-shunin-otsu-2024-kiso-q10-s04",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q10"
+        },
+        {
+          "planSequence": 844,
+          "questionId": "gas-shunin-otsu-2024-kiso-q10-s05",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q10"
+        },
+        {
+          "planSequence": 845,
+          "questionId": "gas-shunin-otsu-2024-kiso-q11-s01",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q11"
+        },
+        {
+          "planSequence": 845,
+          "questionId": "gas-shunin-otsu-2024-kiso-q11-s02",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q11"
+        },
+        {
+          "planSequence": 845,
+          "questionId": "gas-shunin-otsu-2024-kiso-q11-s03",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q11"
+        },
+        {
+          "planSequence": 845,
+          "questionId": "gas-shunin-otsu-2024-kiso-q11-s04",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q11"
+        },
+        {
+          "planSequence": 845,
+          "questionId": "gas-shunin-otsu-2024-kiso-q11-s05",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q11"
+        },
+        {
+          "planSequence": 846,
+          "questionId": "gas-shunin-otsu-2024-kiso-q12-s01",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q12"
+        },
+        {
+          "planSequence": 846,
+          "questionId": "gas-shunin-otsu-2024-kiso-q12-s02",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q12"
+        },
+        {
+          "planSequence": 846,
+          "questionId": "gas-shunin-otsu-2024-kiso-q12-s03",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q12"
+        },
+        {
+          "planSequence": 846,
+          "questionId": "gas-shunin-otsu-2024-kiso-q12-s04",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q12"
+        },
+        {
+          "planSequence": 846,
+          "questionId": "gas-shunin-otsu-2024-kiso-q12-s05",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q12"
+        },
+        {
+          "planSequence": 847,
+          "questionId": "gas-shunin-otsu-2024-kiso-q13-s01",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q13"
+        },
+        {
+          "planSequence": 847,
+          "questionId": "gas-shunin-otsu-2024-kiso-q13-s02",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q13"
+        },
+        {
+          "planSequence": 847,
+          "questionId": "gas-shunin-otsu-2024-kiso-q13-s03",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q13"
+        },
+        {
+          "planSequence": 847,
+          "questionId": "gas-shunin-otsu-2024-kiso-q13-s04",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q13"
+        },
+        {
+          "planSequence": 847,
+          "questionId": "gas-shunin-otsu-2024-kiso-q13-s05",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q13"
+        },
+        {
+          "planSequence": 848,
+          "questionId": "gas-shunin-otsu-2024-kiso-q14-s01",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q14"
+        },
+        {
+          "planSequence": 848,
+          "questionId": "gas-shunin-otsu-2024-kiso-q14-s02",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q14"
+        },
+        {
+          "planSequence": 848,
+          "questionId": "gas-shunin-otsu-2024-kiso-q14-s03",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q14"
+        },
+        {
+          "planSequence": 848,
+          "questionId": "gas-shunin-otsu-2024-kiso-q14-s04",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q14"
+        },
+        {
+          "planSequence": 848,
+          "questionId": "gas-shunin-otsu-2024-kiso-q14-s05",
+          "reason": "missing_question_set_id",
+          "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q14"
+        }
+      ],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 240,
+      "missingPlanDecisionCount": 10,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_q828/2024_firestore_20260701_121619.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2024_firestore_20260701_121619.json"
+    }
+  ],
+  "generatedAt": "2026-07-01T03:16:32Z",
+  "outputDir": "output/gas-shunin-otsu/questions_json/upload_ready_subset_q828",
+  "outputFiles": [
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_q828/2024_firestore_20260701_121619.json"
+  ],
+  "plan": "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl",
+  "schemaVersion": "gas-shunin-upload-ready-subset/v1"
+}

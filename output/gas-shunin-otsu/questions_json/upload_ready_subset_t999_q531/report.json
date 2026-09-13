@@ -1,0 +1,36 @@
+{
+  "decisionSummary": {
+    "planReasonCounts": {
+      "holdout:content_review_not_ready": 6,
+      "upload:preserve_firestore_source_conflict": 125,
+      "upload:review_ok": 802,
+      "upload:site_shadow_new_documents": 1
+    },
+    "planRowDecisionCounts": {
+      "holdout": 6,
+      "upload": 928
+    },
+    "plannedQuestionIdDecisionCounts": {
+      "holdout": 28,
+      "upload": 4610
+    }
+  },
+  "fileSummaries": [
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 290,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_t999_q531/2019_firestore_20260701_163252.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2019_firestore_20260701_163252.json"
+    }
+  ],
+  "generatedAt": "2026-07-01T07:33:01Z",
+  "outputDir": "output/gas-shunin-otsu/questions_json/upload_ready_subset_t999_q531",
+  "outputFiles": [
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_t999_q531/2019_firestore_20260701_163252.json"
+  ],
+  "plan": "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl",
+  "schemaVersion": "gas-shunin-upload-ready-subset/v1"
+}

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728203554-214337e690",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-214337e6905c8c95e8b1"
+  ],
+  "inputCaseHashes": {
+    "ui-official-214337e6905c8c95e8b1": "214337e6905c8c95e8b1423f307c709b6efb9c51241f740575a3793e5f86e031"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "79396e9f63deb6b2e7aaa6128d1c18e458edb1445c9f7fdd365943e16ccd2ca6",
+    "9b8b94564ff682d05cda760db600a7712394eb26e2f85aef5b9af1282667c2e0"
+  ],
+  "challengeReviewHash": "6c46abe2bf78415eb9847fbfc04e0daec8d9a28d3c16b595408db1f0b96c6fad",
+  "createdAt": "2026-07-28T20:37:56.995393Z",
+  "entries": [
+    {
+      "original_question_id": "18936637c9a688f4",
+      "sourceQuestionKey": "gas-shunin:otsu:2021:seizo:q01",
+      "reviewQuestionId": "18936637c9a688f4",
+      "sourceRecordRef": "question_2021_2.json#6",
+      "expectedBeforeHash": "8718a5fcaa6a392013d479de3c1212d2e114b6b00b347ae84763d9f7d2108dcd",
+      "changes": {
+        "choiceTextList": [
+          "バイオガスは二酸化炭素や有害成分が含まれるため、都市ガス原料とするには精製する必要がある。",
+          "天然ガスの液化工程において行われる\n重質分除去\nは、低温部材として広く利用されるアルミニウムの腐食防止の観点から重要である。",
+          "LNGポンプの運転においては、\n急激な圧力上昇や温度低下\nにより、キャビテーションが発生しないように注意する。",
+          "配管等をクールダウンする際は、配管下部と上部の温度差が大きくなることによりボーイングが発生しないよう、時間をかけることが必要である。",
+          "軽質と重質の異種LNGを同じ貯槽に受け入れる場合、ロールオーバーの原因となる層状化を生じさせないよう注意深く受入方法を設定する必要がある。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "document/sources/gas-shunin/official_exam_pdf_catalog.json -> output/pdf/gas-shunin-official/2021/q_otsu_r3.pdf, PDF 18ページ/冊子17ページ, ガス技術 問1 選択肢イ",
+          "title": "令和3年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:37:00Z",
+          "contentHash": "d9c966e579dfb4f8d43ce8ab1e96086caabb213a4787a11bd04bf335ed02548d"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2021/page-18.png / ガス技術 問1（PDF 18ページ、冊子17ページ）",
+          "title": "令和3年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:37:00Z",
+          "contentHash": "7a2a750a24e5bb2f17d6e2a56719179282ef49d31561e22c210dfbb5d5174f7d"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "document/sources/gas-shunin/official_exam_pdf_catalog.json: 2021年 乙種 mark_sheet_question localPath=output/pdf/gas-shunin-official/2021/q_otsu_r3.pdf",
+          "title": "令和3年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:36:40Z",
+          "contentHash": "d9c966e579dfb4f8d43ce8ab1e96086caabb213a4787a11bd04bf335ed02548d"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2021/page-18.png / ガス技術 問1（PDF 18ページ、冊子17ページ）",
+          "title": "令和3年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:36:40Z",
+          "contentHash": "7a2a750a24e5bb2f17d6e2a56719179282ef49d31561e22c210dfbb5d5174f7d"
+        }
+      ]
+    }
+  ]
+}

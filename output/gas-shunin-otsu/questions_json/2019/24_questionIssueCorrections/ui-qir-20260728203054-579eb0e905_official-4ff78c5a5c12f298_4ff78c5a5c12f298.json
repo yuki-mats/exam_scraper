@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728203054-579eb0e905",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-579eb0e9052aa442d002"
+  ],
+  "inputCaseHashes": {
+    "ui-official-579eb0e9052aa442d002": "579eb0e9052aa442d0023a1abd7e78c32befdf4842702c1bb941cf54f859d35b"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "c8fa4fab06cbd0877cf8e77c396049be78db243e7cfd5ff48def597f6c0980d1",
+    "1f56f075811247aa55ae5d8beb613d4d56b95d8d082f0866fa6439d3e19cfac5"
+  ],
+  "challengeReviewHash": "0db0d83ea7236e40a16279af7f59059b941c4d576c47dbdf23cbb52622f7712b",
+  "createdAt": "2026-07-28T20:32:53.616678Z",
+  "entries": [
+    {
+      "original_question_id": "4ff78c5a5c12f298",
+      "sourceQuestionKey": "gas-shunin:otsu:2019:kyokyu:q18",
+      "reviewQuestionId": "4ff78c5a5c12f298",
+      "sourceRecordRef": "question_2019_2.json#23",
+      "expectedBeforeHash": "9bb0b15031afd65bda0f22b1fd6691be2992c3832b760575e3b7fcc7f65565f6",
+      "changes": {
+        "choiceTextList": [
+          "中圧導管被害の一つの要因となる非裏波溶接とは、溶融した金属が溶接した面の裏側まで溶け込んでいないものをいう。",
+          "液状化とは、通常は支持力のある地盤が地震によって液体状になる現象をいう。",
+          "供給停止ブロックには、「単位ブロック」と、いくつかの単位ブロックを一括して供給停止するための「統合ブロック」がある。",
+          "供給継続地区の需要家からのガス漏えい通報に対しては、供給停止地区に優先して迅速かつ適切に対応し、二次災害防止に必要な措置を講ずる。",
+          "移動式ガス発生設備は、災害時のみ使用可能\nである。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "contentHash": "3e941c9c5d537f8a2c2c59bbebb698980d563516e716a81fc3ed6be462adc9a6",
+          "locator": "tmp/pdfs/gas-otsu-2019/page-28.png / ガス技術 問18（PDF 28ページ、冊子27ページ）",
+          "sourceClass": "official",
+          "title": "令和元年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:31:45Z"
+        },
+        {
+          "contentHash": "eb8ae60d0b0b1568be1242f83c0a323c841f80927773c85882f186fe03ed462e",
+          "locator": "output/pdf/gas-shunin-official/2019/q_otsu_r1.pdf; originalUrl=https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r1.pdf",
+          "sourceClass": "official",
+          "title": "令和元年度 ガス主任技術者試験 乙種問題 PDF",
+          "verifiedAt": "2026-07-28T20:31:45Z"
+        },
+        {
+          "contentHash": "eb8ae60d0b0b1568be1242f83c0a323c841f80927773c85882f186fe03ed462e",
+          "locator": "document/sources/gas-shunin/official_exam_pdf_catalog.json -> output/pdf/gas-shunin-official/2019/q_otsu_r1.pdf",
+          "sourceClass": "official",
+          "title": "令和元年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:31:34Z"
+        },
+        {
+          "contentHash": "3e941c9c5d537f8a2c2c59bbebb698980d563516e716a81fc3ed6be462adc9a6",
+          "locator": "tmp/pdfs/gas-otsu-2019/page-28.png / ガス技術 問18（PDF 28ページ、冊子27ページ）",
+          "sourceClass": "official",
+          "title": "令和元年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:31:34Z"
+        }
+      ]
+    }
+  ]
+}

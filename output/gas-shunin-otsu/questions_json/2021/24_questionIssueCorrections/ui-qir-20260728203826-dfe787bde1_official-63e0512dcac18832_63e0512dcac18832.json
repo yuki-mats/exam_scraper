@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728203826-dfe787bde1",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-dfe787bde14bcd6182a6"
+  ],
+  "inputCaseHashes": {
+    "ui-official-dfe787bde14bcd6182a6": "dfe787bde14bcd6182a65fce572b49b98b1da7291f9de8a0cf2ba7c6f00fae26"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "2bbb64d49e15da79b2a240848b4c9aae6fc7d790c7c47d8d4d74f10edf8dd123",
+    "2e7bd79896b8e12739e96d27385197d5da793c5a9d880051b9587d2fc169aed7"
+  ],
+  "challengeReviewHash": "0ae3399b03914214a174f8ed7470a337e57c284be4347147a853a3a1127fba12",
+  "createdAt": "2026-07-28T20:41:03.993779Z",
+  "entries": [
+    {
+      "original_question_id": "63e0512dcac18832",
+      "sourceQuestionKey": "gas-shunin:otsu:2021:kyokyu:q17",
+      "reviewQuestionId": "63e0512dcac18832",
+      "sourceRecordRef": "question_2021_2.json#22",
+      "expectedBeforeHash": "8221b97f6b36e301b3bbfaa753cf846e2efac228f5c247dc21fbfa5a781c5ff7",
+      "changes": {
+        "choiceTextList": [
+          "半導体式ガス検知器は、半導体の電導度が\n雰囲気ガスの燃焼によって変化\nすることを利用したもので、検知可能なガスは可燃性であることに限定される。",
+          "埋設部のガス漏えい箇所を早期に発見し適切な修理を行うことは、地下水による浸水予防対策としても有効である。",
+          "敷地内の他工事対策の1つとして、ガス設備の資産区分、解体、改装時の注意事項等を記載したチラシ等を配付し需要家への注意喚起を図る。",
+          "更生修理工法施工済み導管についてモニタリングを実施し、材料の耐久性を確認する。",
+          "鋼製修理バンド工法とは、管体の修理箇所に鋼製修理バンドを\n突合せ溶接\nにより取り付ける工法である。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "output/pdf/gas-shunin-official/2021/q_otsu_r3.pdf PDF 25ページ（冊子24ページ）問17ホ",
+          "title": "令和3年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:39:30Z",
+          "contentHash": "d9c966e579dfb4f8d43ce8ab1e96086caabb213a4787a11bd04bf335ed02548d"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2021/page-25.png / ガス技術 問17（PDF 25ページ、冊子24ページ）",
+          "title": "令和3年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:39:30Z",
+          "contentHash": "954fd6c8510ea880b54da067f4d401fb810f4447e8d7bf41987bc0f7176a89d2"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2021/page-25.png / ガス技術 問17（PDF 25ページ、冊子24ページ）",
+          "title": "令和3年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:39:25Z",
+          "contentHash": "954fd6c8510ea880b54da067f4d401fb810f4447e8d7bf41987bc0f7176a89d2"
+        }
+      ]
+    }
+  ]
+}

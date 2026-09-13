@@ -1,0 +1,72 @@
+{
+  "distributions": {
+    "firestoreStatementsBySubject": {
+      "kiso": 300,
+      "kyokyu": 180,
+      "law": 234,
+      "seizo": 180,
+      "shohi": 180
+    },
+    "firestoreStatementsByYear": {
+      "2020": 210,
+      "2021": 290,
+      "2022": 284,
+      "2023": 290
+    },
+    "gassyuninStatementsBySubject": {
+      "kiso": 675,
+      "kyokyu": 398,
+      "law": 720,
+      "seizo": 402,
+      "shohi": 404
+    },
+    "gassyuninStatementsByYear": {
+      "2017": 290,
+      "2018": 290,
+      "2019": 290,
+      "2020": 288,
+      "2021": 290,
+      "2022": 281,
+      "2023": 290,
+      "2024": 290,
+      "2025": 290
+    },
+    "matchedStatementsBySubject": {
+      "kiso": 300,
+      "kyokyu": 173,
+      "law": 234,
+      "seizo": 177,
+      "shohi": 179
+    },
+    "matchedStatementsByYear": {
+      "2020": 208,
+      "2021": 290,
+      "2022": 275,
+      "2023": 290
+    }
+  },
+  "firestoreSnapshotDir": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-otsu/firestore_snapshot/20260619T155816Z",
+  "generatedAt": "2026-06-19T16:02:03Z",
+  "keyPolicy": {
+    "originalQuestionId": "Existing Firestore field is preserved",
+    "questionId": "Firestore document id is preserved",
+    "sourceQuestionKey": "gas-shunin:{grade}:{year}:{subject}:q{questionNo}",
+    "sourceUniqueKey": "gas-shunin:{grade}:{year}:{subject}:q{questionNo}:s{statementNo}",
+    "textPolicy": "No generated question, choice, or explanation text; source text is copied only"
+  },
+  "outputDir": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-otsu/merge_mapping/20260619T160203Z",
+  "qualification": "gas-shunin-otsu",
+  "summary": {
+    "duplicateFirestoreSourceUniqueKeyCount": 0,
+    "duplicateGassyuninSourceQuestionKeyCount": 0,
+    "duplicateGassyuninSourceUniqueKeyCount": 0,
+    "firestoreStatementCount": 1074,
+    "gassyuninQuestionCount": 522,
+    "gassyuninStatementCount": 2599,
+    "invalidFirestoreRecordCount": 0,
+    "invalidGassyuninRecordCount": 0,
+    "matchedStatementCount": 1063,
+    "unmatchedFirestoreStatementCount": 11,
+    "unmatchedGassyuninStatementCount": 1536
+  }
+}

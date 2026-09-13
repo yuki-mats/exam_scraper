@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728205517-272e8807be",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-272e8807be62faac3c2a"
+  ],
+  "inputCaseHashes": {
+    "ui-official-272e8807be62faac3c2a": "272e8807be62faac3c2a2ce4464254684235309e628698cee3eddd539cd74462"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "c4c071a7a1f43ee4b99b4d4b66698c3146b1248ad6f7602a0285dc5c6bf9e019",
+    "5fa1480d82dcbe72a4dacd0ea34f808ebf1a09e55c9f854aeb6ceaca5e52a8c3"
+  ],
+  "challengeReviewHash": "042fd4f3444e4d27e16e388da4a32fe12b54cdbf31bc3c60a9f7e7e04c689635",
+  "createdAt": "2026-07-28T20:57:08.315164Z",
+  "entries": [
+    {
+      "original_question_id": "515727ddd8156a5d",
+      "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q05",
+      "reviewQuestionId": "515727ddd8156a5d",
+      "sourceRecordRef": "question_2024_2.json#10",
+      "expectedBeforeHash": "257edca1a581e31ad20a42a3b470511906b417831ba478ca10ca71551d0ef6c3",
+      "changes": {
+        "questionBodyText": "次表は、都市ガスの付臭方式の特徴をまとめたものである。次表の(イ)～(ハ)に当てはまる語句の組合せとして最も適切なものはどれか。\n\n付臭方式 | (イ) | (ロ) | (ハ)\n適正な処理能力 | 小 | 小～中 | 中～大\n混合付臭剤使用の適否 | 不適* | 適 | 適\n建設費 | 小 | 中 | 大\n設置面積 | 中 | 中 | 大\n* 沸点が近い臭物質を混合した付臭剤はこの限りではない。"
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2024/page-26.png / ガス技術 問5（PDF 26ページ、冊子25ページ）",
+          "title": "令和6年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:55:17.404442Z",
+          "contentHash": "6e9d659373ebeed003011b9914b92110c2d252ec9b4c6bbdb50e4c4c40ac12b6"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "output/pdf/gas-shunin-official/2024/q_otsu_r6.pdf",
+          "title": "令和6年度 ガス主任技術者試験 乙種問題 PDF",
+          "verifiedAt": "2026-07-28T20:56:06Z",
+          "contentHash": "59c4d7b13289bfa20916504b16cc829a4046b9baa05e6cac4e3737bd9ba54282"
+        }
+      ]
+    }
+  ]
+}

@@ -25,7 +25,7 @@ from typing import Any, Iterable
 ROOT_DIR = Path(__file__).resolve().parents[2]
 QUALIFICATIONS = ("gas-shunin-kou", "gas-shunin-otsu")
 YEARS = tuple(range(2017, 2026))
-EXPECTED_COUNTS = {"gas-shunin-kou": 2212, "gas-shunin-otsu": 1913}
+EXPECTED_COUNTS = {"gas-shunin-kou": 2212, "gas-shunin-otsu": 1917}
 SCHEMA_VERSION = "gas-shunin-verified-publication/v1"
 MERGED_SCHEMA_VERSION = "gas-shunin-verified-merged/v1"
 METADATA_FIELDS = {

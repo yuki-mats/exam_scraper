@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728202815-b3ef91ab65",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-b3ef91ab6521e0cefbbe"
+  ],
+  "inputCaseHashes": {
+    "ui-official-b3ef91ab6521e0cefbbe": "b3ef91ab6521e0cefbbe21c0f2f33fb659b2f12bffdf6114065dbc2309165486"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "fb3a460d88b09cadf382052770c9d4f9ecc6bbc17958639536bae38a3475f591",
+    "f3e19dff774f8a85d53a548027e6c0e444cd86a9a8480d948d4fcf433c9626aa"
+  ],
+  "challengeReviewHash": "2f08ab85787d9c8f987a54b5d5592956102a551a44e85113fa639532a028d0c7",
+  "createdAt": "2026-07-28T20:30:31.871371Z",
+  "entries": [
+    {
+      "original_question_id": "be16e16dc9ec58c3",
+      "sourceQuestionKey": "gas-shunin:otsu:2019:law:q10",
+      "reviewQuestionId": "be16e16dc9ec58c3",
+      "sourceRecordRef": "question_2019_1.json#9",
+      "expectedBeforeHash": "6e1621fbc87fdea4f3fa0e58fbf57deebb9b583f5fdaf285adc8b6c6696db8ad",
+      "changes": {
+        "choiceTextList": [
+          "ガス栓であって、ガス出口側の形状が、ゴム管口又は迅速継手のものは、その形状がJISのガス栓の規格に適合するものであること。",
+          "水のたまるおそれのある導管には、適切な水取り器を設けなければならない。",
+          "道路以外の地盤面下に埋設される最高使用圧力が中圧以上の本支管には、掘削等による損傷を防止するための適切な措置を講じなければならない。ただし、他工事による損傷のおそれがないものにあっては、この限りでない。",
+          "高層建物にガスを供給する\n最高使用圧力が低圧の導管には、その導管が当該建物の外壁を貫通する箇所の付近に、危急の場合に当該建物へのガスの供給を、当該建物内におけるガス漏れ等の情報を把握できる適切な場所から直ちに遮断することができる適切な装置を設けなければならない。",
+          "ガスの使用者との取引のために使用するガスメーター(使用最大流量が16m³/h以下、使用最大圧力が4kPa以下及び口径250mm以下のものに限る。)は、ガスが流入している状態において、\n災害の発生のおそれ\nのある大きさの地震動、過大なガスの流量又は異常なガス圧力の上昇を検知した場合にガスを速やかに遮断する機能を有するものでなければならない。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r1.pdf; localPath=output/pdf/gas-shunin-official/2019/q_otsu_r1.pdf; PDF 10ページ・冊子9ページ・法令問10ハ",
+          "title": "令和元年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:29:02Z",
+          "contentHash": "eb8ae60d0b0b1568be1242f83c0a323c841f80927773c85882f186fe03ed462e"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2019/page-10.png / 法令 問10（PDF 10ページ、冊子9ページ）",
+          "title": "令和元年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:29:02Z",
+          "contentHash": "a03dcc6cb8f832239f10f44a0ce4fca5cb99b2cd86e7d90aca997e8a7aaa7ba0"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2019/page-10.png / 法令 問10（PDF 10ページ、冊子9ページ）",
+          "title": "令和元年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:28:28Z",
+          "contentHash": "a03dcc6cb8f832239f10f44a0ce4fca5cb99b2cd86e7d90aca997e8a7aaa7ba0"
+        }
+      ]
+    }
+  ]
+}

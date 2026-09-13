@@ -1,0 +1,68 @@
+{
+  "decisionSummary": {
+    "planReasonCounts": {
+      "holdout:content_review_not_ready": 6,
+      "holdout:site_statement_level_question_set_unassigned": 1,
+      "upload:preserve_firestore_source_conflict": 125,
+      "upload:review_ok": 801,
+      "upload:site_shadow_new_documents": 1
+    },
+    "planRowDecisionCounts": {
+      "holdout": 7,
+      "upload": 927
+    },
+    "plannedQuestionIdDecisionCounts": {
+      "holdout": 33,
+      "upload": 4605
+    }
+  },
+  "fileSummaries": [
+    {
+      "excludedQuestionCount": 5,
+      "excludedSamples": [
+        {
+          "planSequence": 531,
+          "questionId": "gas-shunin-otsu-2019-law-q03-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2019:law:q03"
+        },
+        {
+          "planSequence": 531,
+          "questionId": "gas-shunin-otsu-2019-law-q03-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2019:law:q03"
+        },
+        {
+          "planSequence": 531,
+          "questionId": "gas-shunin-otsu-2019-law-q03-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2019:law:q03"
+        },
+        {
+          "planSequence": 531,
+          "questionId": "gas-shunin-otsu-2019-law-q03-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2019:law:q03"
+        },
+        {
+          "planSequence": 531,
+          "questionId": "gas-shunin-otsu-2019-law-q03-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2019:law:q03"
+        }
+      ],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 285,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_t999_q532/2019_firestore_20260701_162939.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2019_firestore_20260701_162939.json"
+    }
+  ],
+  "generatedAt": "2026-07-01T07:29:50Z",
+  "outputDir": "output/gas-shunin-otsu/questions_json/upload_ready_subset_t999_q532",
+  "outputFiles": [
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_t999_q532/2019_firestore_20260701_162939.json"
+  ],
+  "plan": "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl",
+  "schemaVersion": "gas-shunin-upload-ready-subset/v1"
+}

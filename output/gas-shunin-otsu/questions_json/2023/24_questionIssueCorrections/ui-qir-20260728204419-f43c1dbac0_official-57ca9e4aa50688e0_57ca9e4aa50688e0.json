@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20260728204419-f43c1dbac0",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-f43c1dbac0e97abbb87c"
+  ],
+  "inputCaseHashes": {
+    "ui-official-f43c1dbac0e97abbb87c": "f43c1dbac0e97abbb87c96ab0653e51bfd09894e39127660b8bb0153357f3ddc"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "26c1ccde416d688892c17af148a9894ac4daaa52e22e0c6987e0b4fd21cd0c6c",
+    "7a90a9536aadf5871f451531d1767cf352f3562eaecc465bed7b3940d20df761"
+  ],
+  "challengeReviewHash": "45973ef8b2320790390d873ee67980b33e5e9915c94f51037c2ffcd25d569d43",
+  "createdAt": "2026-07-28T20:46:39.602387Z",
+  "entries": [
+    {
+      "original_question_id": "57ca9e4aa50688e0",
+      "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q17",
+      "reviewQuestionId": "57ca9e4aa50688e0",
+      "sourceRecordRef": "question_2023_2.json#22",
+      "expectedBeforeHash": "df3c4d063ae2ecac63c34784904d770b3e9ad8dfc2cc30bbfe32fe610c2ac6c4",
+      "changes": {
+        "choiceTextList": [
+          "地中探査レーダーは、地中に向けて電磁波を入射して\n埋設管の周囲にできる磁束\nを測定することにより、埋設管の位置、深さを推定する方法である。",
+          "接触燃焼式ガス検知器は、ガス中の可燃性ガスを検知することができ、メタンの識別も可能である。",
+          "金属テープによる外面シールは、低圧導管の\n継手\nの腐食や損傷による貫通孔に対する漏えい修理方法である。",
+          "他工事管理における巡回とは\n、他工事企業者との協議により定めた時期に、本支管等の位置及び保安措置の実施状況等の必要な事項について、他工事企業者と相互に確認することをいう。",
+          "内面樹脂ライニング工法は、高速空気流によってエポキシ樹脂を管内壁に沿って搬送し、管内壁にライニング膜を形成して漏えい箇所を修理する工法である。"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "locator": "document/sources/gas-shunin/official_exam_pdf_catalog.json: year=2023, grade=otsu, documentType=mark_sheet_question, localPath=output/pdf/gas-shunin-official/2023/q_otsu_r5.pdf; PDF 34ページ、冊子33ページ、供給 問17",
+          "title": "令和5年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:45:04Z",
+          "contentHash": "9f74082b5e177c74cdbfeaee27d0d372351108cb778a060caccf3d17e02af831"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2023/page-34.png / ガス技術 問17（PDF 34ページ、冊子33ページ）",
+          "title": "令和5年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:45:04Z",
+          "contentHash": "0ad32ba2020afdcf456713e11dc2a7b3c6ec87e65d11aad748c9d3179b956181"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "document/sources/gas-shunin/official_exam_pdf_catalog.json: 2023 otsu mark_sheet_question localPath=output/pdf/gas-shunin-official/2023/q_otsu_r5.pdf; PDF 34ページ、冊子33ページ、問17",
+          "title": "令和5年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:44:36Z",
+          "contentHash": "9f74082b5e177c74cdbfeaee27d0d372351108cb778a060caccf3d17e02af831"
+        },
+        {
+          "sourceClass": "official",
+          "locator": "tmp/pdfs/gas-otsu-2023/page-34.png / ガス技術 問17（PDF 34ページ、冊子33ページ）",
+          "title": "令和5年度 ガス主任技術者試験 乙種問題",
+          "verifiedAt": "2026-07-28T20:44:36Z",
+          "contentHash": "0ad32ba2020afdcf456713e11dc2a7b3c6ec87e65d11aad748c9d3179b956181"
+        }
+      ]
+    }
+  ]
+}

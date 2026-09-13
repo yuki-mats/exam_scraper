@@ -1,0 +1,248 @@
+{
+  "decisionSummary": {
+    "planReasonCounts": {
+      "holdout:content_review_not_ready": 10,
+      "holdout:site_statement_level_question_set_unassigned": 36,
+      "upload:preserve_firestore_source_conflict": 122,
+      "upload:review_ok": 765,
+      "upload:site_shadow_new_documents": 1
+    },
+    "planRowDecisionCounts": {
+      "holdout": 46,
+      "upload": 888
+    },
+    "plannedQuestionIdDecisionCounts": {
+      "holdout": 228,
+      "upload": 4410
+    }
+  },
+  "fileSummaries": [
+    {
+      "excludedQuestionCount": 35,
+      "excludedSamples": [
+        {
+          "planSequence": 763,
+          "questionId": "gas-shunin-otsu-2023-law-q03-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q03"
+        },
+        {
+          "planSequence": 763,
+          "questionId": "gas-shunin-otsu-2023-law-q03-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q03"
+        },
+        {
+          "planSequence": 763,
+          "questionId": "gas-shunin-otsu-2023-law-q03-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q03"
+        },
+        {
+          "planSequence": 763,
+          "questionId": "gas-shunin-otsu-2023-law-q03-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q03"
+        },
+        {
+          "planSequence": 763,
+          "questionId": "gas-shunin-otsu-2023-law-q03-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q03"
+        },
+        {
+          "planSequence": 765,
+          "questionId": "gas-shunin-otsu-2023-law-q05-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q05"
+        },
+        {
+          "planSequence": 765,
+          "questionId": "gas-shunin-otsu-2023-law-q05-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q05"
+        },
+        {
+          "planSequence": 765,
+          "questionId": "gas-shunin-otsu-2023-law-q05-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q05"
+        },
+        {
+          "planSequence": 765,
+          "questionId": "gas-shunin-otsu-2023-law-q05-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q05"
+        },
+        {
+          "planSequence": 765,
+          "questionId": "gas-shunin-otsu-2023-law-q05-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q05"
+        },
+        {
+          "planSequence": 767,
+          "questionId": "gas-shunin-otsu-2023-law-q07-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q07"
+        },
+        {
+          "planSequence": 767,
+          "questionId": "gas-shunin-otsu-2023-law-q07-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q07"
+        },
+        {
+          "planSequence": 767,
+          "questionId": "gas-shunin-otsu-2023-law-q07-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q07"
+        },
+        {
+          "planSequence": 767,
+          "questionId": "gas-shunin-otsu-2023-law-q07-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q07"
+        },
+        {
+          "planSequence": 767,
+          "questionId": "gas-shunin-otsu-2023-law-q07-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q07"
+        },
+        {
+          "planSequence": 768,
+          "questionId": "gas-shunin-otsu-2023-law-q08-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q08"
+        },
+        {
+          "planSequence": 768,
+          "questionId": "gas-shunin-otsu-2023-law-q08-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q08"
+        },
+        {
+          "planSequence": 768,
+          "questionId": "gas-shunin-otsu-2023-law-q08-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q08"
+        },
+        {
+          "planSequence": 768,
+          "questionId": "gas-shunin-otsu-2023-law-q08-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q08"
+        },
+        {
+          "planSequence": 768,
+          "questionId": "gas-shunin-otsu-2023-law-q08-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q08"
+        },
+        {
+          "planSequence": 769,
+          "questionId": "gas-shunin-otsu-2023-law-q09-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q09"
+        },
+        {
+          "planSequence": 769,
+          "questionId": "gas-shunin-otsu-2023-law-q09-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q09"
+        },
+        {
+          "planSequence": 769,
+          "questionId": "gas-shunin-otsu-2023-law-q09-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q09"
+        },
+        {
+          "planSequence": 769,
+          "questionId": "gas-shunin-otsu-2023-law-q09-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q09"
+        },
+        {
+          "planSequence": 769,
+          "questionId": "gas-shunin-otsu-2023-law-q09-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q09"
+        },
+        {
+          "planSequence": 770,
+          "questionId": "gas-shunin-otsu-2023-law-q10-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q10"
+        },
+        {
+          "planSequence": 770,
+          "questionId": "gas-shunin-otsu-2023-law-q10-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q10"
+        },
+        {
+          "planSequence": 770,
+          "questionId": "gas-shunin-otsu-2023-law-q10-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q10"
+        },
+        {
+          "planSequence": 770,
+          "questionId": "gas-shunin-otsu-2023-law-q10-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q10"
+        },
+        {
+          "planSequence": 770,
+          "questionId": "gas-shunin-otsu-2023-law-q10-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q10"
+        },
+        {
+          "planSequence": 771,
+          "questionId": "gas-shunin-otsu-2023-law-q11-s01",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q11"
+        },
+        {
+          "planSequence": 771,
+          "questionId": "gas-shunin-otsu-2023-law-q11-s02",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q11"
+        },
+        {
+          "planSequence": 771,
+          "questionId": "gas-shunin-otsu-2023-law-q11-s03",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q11"
+        },
+        {
+          "planSequence": 771,
+          "questionId": "gas-shunin-otsu-2023-law-q11-s04",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q11"
+        },
+        {
+          "planSequence": 771,
+          "questionId": "gas-shunin-otsu-2023-law-q11-s05",
+          "reason": "site_statement_level_question_set_unassigned",
+          "sourceQuestionKey": "gas-shunin:otsu:2023:law:q11"
+        }
+      ],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 255,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_q773/2023_firestore_20260701_123206.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2023_firestore_20260701_123206.json"
+    }
+  ],
+  "generatedAt": "2026-07-01T03:32:12Z",
+  "outputDir": "output/gas-shunin-otsu/questions_json/upload_ready_subset_q773",
+  "outputFiles": [
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_q773/2023_firestore_20260701_123206.json"
+  ],
+  "plan": "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl",
+  "schemaVersion": "gas-shunin-upload-ready-subset/v1"
+}
