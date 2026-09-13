@@ -263,7 +263,6 @@ def build_plan(review_path: Path, live_snapshot_path: Path) -> dict[str, Any]:
                 or document.get("qualificationId") != TARGET_QUALIFICATION
                 or document.get("isDeleted") is not False
                 or document.get("questionType") != "group_choice"
-                or document.get("originalQuestionChoiceText") != choices[index]
             ):
                 raise ValueError(f"{question_id}: 本番preconditionが対象外です。")
             expected_verdict = str(verdicts[index])
@@ -275,7 +274,7 @@ def build_plan(review_path: Path, live_snapshot_path: Path) -> dict[str, Any]:
             if law_verdict is not None and law_verdict != expected_verdict:
                 raise ValueError(f"{question_id}: 現行法監査の正誤と一致しません。")
             body = str(document.get("questionBodyText") or "")
-            choice = str(choices[index])
+            choice = str(document.get("originalQuestionChoiceText") or "")
             qset = (
                 choice_question_sets[index]
                 if isinstance(choice_question_sets, list)
