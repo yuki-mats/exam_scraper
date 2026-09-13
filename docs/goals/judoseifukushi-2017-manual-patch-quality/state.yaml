@@ -46,20 +46,23 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 75
-  remaining_questions: 155
+  completed_questions: 100
+  remaining_questions: 130
   total_files: 10
-  completed_files: 3
+  completed_files: 4
 
-active_task: T005
+active_task: T006
 
 tasks:
   - id: T001
     type: pm
     assignee: PM
     status: done
-    receipt: "2017年全230問の棚卸しとquestion_inventory.mdの作成完了。"
-    objective: "2017年全230問の構造確認と計画化。"
+    receipt: "2017年の全230問棚卸し、全10ファイル、複数正答・法規問題の分布をquestion_inventory.mdに記録完了。"
+    objective: "2017年の全230問の棚卸しと計画策定。"
+    deliverables:
+      - "docs/goals/judoseifukushi-2017-manual-patch-quality/question_inventory.md"
+      - "docs/goals/judoseifukushi-2017-manual-patch-quality/state.yaml"
 
   - id: T002
     type: worker
@@ -91,7 +94,8 @@ tasks:
   - id: T005
     type: worker
     assignee: Worker
-    status: in_progress
+    status: done
+    receipt: "question_2017_4.json（問76〜問100）の目視精査と各工程パッチ作成・検証完了。4種の公式チェッカー通過。"
     objective: "問76〜問100（question_2017_4.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2017/00_source/question_2017_4.json"
     question_labels: "問76〜問100"
@@ -99,7 +103,7 @@ tasks:
   - id: T006
     type: worker
     assignee: Worker
-    status: queued
+    status: in_progress
     objective: "問101〜問125（question_2017_5.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2017/00_source/question_2017_5.json"
     question_labels: "問101〜問125"
