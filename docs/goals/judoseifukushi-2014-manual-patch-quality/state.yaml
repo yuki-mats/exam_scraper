@@ -48,12 +48,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 175
-  remaining_questions: 55
+  completed_questions: 200
+  remaining_questions: 30
   total_files: 10
-  completed_files: 7
+  completed_files: 8
 
-active_task: T009
+active_task: T010
 
 tasks:
   - id: T001
@@ -107,7 +107,7 @@ tasks:
   - id: T009
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     summary: "問176〜問200（question_2014_8.json）の目視精査・パッチ生成・検証（問178, 179: 複数正答）"
     target_file: "output/judoseifukushi/questions_json/2014/00_source/question_2014_8.json"
   - id: T010
