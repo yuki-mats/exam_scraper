@@ -46,12 +46,12 @@ rules:
 
 progress:
   total_questions: 250
-  completed_questions: 225
-  remaining_questions: 25
+  completed_questions: 250
+  remaining_questions: 0
   total_files: 10
-  completed_files: 9
+  completed_files: 10
 
-active_task: T011
+active_task: T012
 
 tasks:
   - id: T001
@@ -145,7 +145,8 @@ tasks:
   - id: T011
     type: worker
     assignee: Worker
-    status: in_progress
+    status: done
+    receipt: "question_2024_10.json（問226〜問250）の目視精査と各工程パッチ作成・検証完了。4種の公式チェッカー通過（問250は複数正答true_false対応）。"
     objective: "問226〜問250（question_2024_10.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2024/00_source/question_2024_10.json"
     question_labels: "問226〜問250"
@@ -153,5 +154,5 @@ tasks:
   - id: T012
     type: judge
     assignee: Judge
-    status: queued
+    status: in_progress
     objective: "2024年全250問の最終品質監査、全件カバレッジチェック、不変性検証。"
