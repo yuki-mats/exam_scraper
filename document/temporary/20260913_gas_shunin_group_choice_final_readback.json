@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "gas-shunin-group-choice-final-readback/v1",
+  "verifiedAt": "2026-09-13T06:00:00Z",
+  "projectId": "repaso-rbaqy4",
+  "scope": {
+    "qualifications": [
+      "gas-shunin-kou",
+      "gas-shunin-otsu"
+    ],
+    "method": "本番Firestoreの全active group_choiceをoriginalQuestionId単位で復元し、問題本文と全選択肢を個別精査したreview集合と突合"
+  },
+  "correctionBatches": [
+    {
+      "basis": "過去のtrue_falseからgroup_choiceへの遷移履歴",
+      "questionCount": 23,
+      "firestoreDocumentCount": 115
+    },
+    {
+      "basis": "現行ローカルquestionType成果物の全group_choice精査",
+      "questionCount": 10,
+      "firestoreDocumentCount": 50
+    },
+    {
+      "basis": "本番Firestoreの全active group_choice精査",
+      "questionCount": 19,
+      "firestoreDocumentCount": 95
+    }
+  ],
+  "productionReadback": {
+    "correctedQuestionCount": 52,
+    "correctedFirestoreDocumentCount": 260,
+    "additionalQuestionCountInFullCurrentAudit": 29,
+    "additionalFirestoreDocumentCountInFullCurrentAudit": 145,
+    "correctedQuestionType": "true_false",
+    "correctedQuestionIsChoiceOnly": false,
+    "correctedQuestionIsGroupable": true,
+    "remainingActiveGroupChoiceOriginalQuestionCount": 58,
+    "remainingActiveGroupChoiceByQualification": {
+      "gas-shunin-kou": 32,
+      "gas-shunin-otsu": 26
+    },
+    "remainingActiveGroupChoiceDocumentCount": 290,
+    "remainingActiveGroupChoiceExactSetMatchesManualReview": true,
+    "remainingTrueFalseMisclassifiedAsGroupChoiceCount": 0,
+    "unexpectedRemainingGroupChoice": [],
+    "missingReviewedGroupChoice": []
+  },
+  "countReadback": {
+    "gas-shunin-kou": {
+      "activeDisplayQuestionCount": 2212,
+      "folderCountMismatchCount": 0,
+      "questionSetCountMismatchCount": 0
+    },
+    "gas-shunin-otsu": {
+      "activeDisplayQuestionCount": 2125,
+      "folderCountMismatchCount": 0,
+      "questionSetCountMismatchCount": 0
+    }
+  },
+  "safety": {
+    "source00Mutated": false,
+    "hardDeletes": 0,
+    "userDataWrites": 0,
+    "questionIdsChanged": 0
+  },
+  "evidence": {
+    "manualReview": "document/temporary/20260913_gas_shunin_live_group_choice_review.json",
+    "firstAdditionalApplyReceipt": "document/temporary/20260913_gas_shunin_initial_group_choice_firestore_apply_receipt.json",
+    "secondAdditionalApplyReceipt": "document/temporary/20260913_gas_shunin_live_group_choice_firestore_apply_receipt.json",
+    "countApplyReceipt": "document/temporary/20260913_gas_shunin_live_group_choice_count_apply_receipt.json",
+    "kouSnapshot": "output/gas-shunin-kou/firestore_snapshot/20260913T060000Z",
+    "otsuSnapshot": "output/gas-shunin-otsu/firestore_snapshot/20260913T060000Z"
+  }
+}
