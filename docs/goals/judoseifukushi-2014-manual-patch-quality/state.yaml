@@ -48,12 +48,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 200
-  remaining_questions: 30
+  completed_questions: 225
+  remaining_questions: 5
   total_files: 10
-  completed_files: 8
+  completed_files: 9
 
-active_task: T010
+active_task: T011
 
 tasks:
   - id: T001
@@ -113,7 +113,7 @@ tasks:
   - id: T010
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     summary: "問201〜問225（question_2014_9.json）の目視精査・パッチ生成・検証（問205, 210: 複数正答, 問206: 解なし）"
     target_file: "output/judoseifukushi/questions_json/2014/00_source/question_2014_9.json"
   - id: T011
