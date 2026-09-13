@@ -5,7 +5,7 @@ goal:
   slug: "judoseifukushi-2020-manual-patch-quality"
   kind: existing_plan
   tranche: "judoseifukushi / 2020年 の全250問を一問ずつ目視で精査・整備する。"
-  status: queued
+  status: in_progress
   oracle:
     signal: "対象250問について正しい回答・意図・専門家水準の解説品質が確認され、patch更新、coverage check、不変性検査に通っている。"
     cadence: "各ファイル（約25問）完了後および最終監査時"
@@ -20,7 +20,7 @@ goal:
     completion_proof: "全250問が目視処理され、coverage checkを全件通過し、mainブランチに直接コミット・プッシュされること。"
     likely_misfire: "スクリプトによる一括自動置換、検証スクリプトのみでの形骸的完了。"
     blind_spots_considered:
-      - "断片肢の否定設問におけるquestionIntentの統一適用（select_correct）"
+      - "断片肢の否定設問におけるquestionIntentの統一適用"
       - "文化庁基準に基づく文頭結論（正しい。/間違い。）および自然な主語（法令名を主語にしない）"
       - "関係法規設問における正確な条文・制度根拠の紐付け"
     existing_plan_facts:
@@ -51,20 +51,20 @@ progress:
   total_files: 10
   completed_files: 0
 
-active_task: T001
+active_task: T002
 
 tasks:
   - id: T001
     type: pm
     assignee: PM
     status: done
-    receipt: "docs/goals/judoseifukushi-2020-manual-patch-quality/question_inventory.md 作成完了（全250問）"
-    objective: "2020年全250問の棚卸しを行い、question_inventory.mdとして一覧化する。"
+    receipt: "2020年全250問の棚卸しとquestion_inventory.mdの作成完了。"
+    objective: "2020年全250問の構造確認と計画化。"
 
   - id: T002
     type: worker
     assignee: Worker
-    status: queued
+    status: in_progress
     objective: "問1〜問25（question_2020_1.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2020/00_source/question_2020_1.json"
     question_labels: "問1〜問25"
