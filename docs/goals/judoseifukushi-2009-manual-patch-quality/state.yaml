@@ -47,12 +47,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 225
-  remaining_questions: 5
+  completed_questions: 230
+  remaining_questions: 0
   total_files: 10
-  completed_files: 9
+  completed_files: 10
 
-active_task: T011
+active_task: T012
 
 tasks:
   - id: T001
@@ -137,7 +137,7 @@ tasks:
   - id: T011
     type: worker
     assignee: Worker
-    status: ready
+    status: done
     objective: "問226〜問230（question_2009_10.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2009/00_source/question_2009_10.json"
     question_labels: "問226〜問230"
