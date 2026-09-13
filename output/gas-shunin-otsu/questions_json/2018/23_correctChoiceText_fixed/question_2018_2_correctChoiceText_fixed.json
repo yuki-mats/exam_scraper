@@ -21,13 +21,13 @@
       "層流の速度分布は放物線であり、管中心で最大速度になる。",
       "乱流における管摩擦係数は、管壁面の粗さに依存しない。"
     ],
-  "correctChoiceText": [
-    "正しい",
-    "正しい",
-    "正しい",
-    "正しい",
-    "間違い"
-  ],
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
     "examLabel": "2018年（平成３０年）乙種 基礎理論",
     "examOccurrenceId": "2018",
     "examYear": 2018,
@@ -1473,7 +1473,10 @@
     "lawGroundedExplanationNotNeeded": true,
     "questionSetId": "chiefgasengineerlicense-B-2020",
     "reviewQuestionId": "0f231aa84f04c2d7",
-    "sourceRecordRef": "question_2018_2.json#16"
+    "sourceRecordRef": "question_2018_2.json#16",
+    "correctChoiceText_changed": true,
+    "correctChoiceText_change_detail": "questionTypeをtrue_falseへ復元したため、各肢の記述自体の真偽へ復元。",
+    "correctChoiceText_change_reason": "group_choice化で正解選択肢フラグへ上書きされていたため。"
   },
   {
     "answerResultNumbersRemapped": false,
@@ -2578,7 +2581,10 @@
     "lawGroundedExplanationNotNeeded": true,
     "questionSetId": "chiefgasengineerlicense-B-2060",
     "reviewQuestionId": "8fe55bc9f9b8f49e",
-    "sourceRecordRef": "question_2018_2.json#22"
+    "sourceRecordRef": "question_2018_2.json#22",
+    "correctChoiceText_changed": true,
+    "correctChoiceText_change_detail": "questionTypeをtrue_falseへ復元したため、各肢の記述自体の真偽へ復元。",
+    "correctChoiceText_change_reason": "group_choice化で正解選択肢フラグへ上書きされていたため。"
   },
   {
     "answerResultNumbersRemapped": false,
@@ -2762,7 +2768,10 @@
     "lawGroundedExplanationNotNeeded": true,
     "questionSetId": "chiefgasengineerlicense-B-2070",
     "reviewQuestionId": "c2109c9ceec89dc6",
-    "sourceRecordRef": "question_2018_2.json#23"
+    "sourceRecordRef": "question_2018_2.json#23",
+    "correctChoiceText_changed": true,
+    "correctChoiceText_change_detail": "questionTypeをtrue_falseへ復元したため、各肢の記述自体の真偽へ復元。",
+    "correctChoiceText_change_reason": "group_choice化で正解選択肢フラグへ上書きされていたため。"
   },
   {
     "answerResultNumbersRemapped": false,
@@ -3154,13 +3163,13 @@
       "ピトー管による流量測定は、外側の管に孔がある二重構造の管を流体中に挿入して、先端部と側面部の差圧を測定し流量に換算する。",
       "静電容量式レベル計は、蒸留水のような誘電率の小さい液体には不向きである。"
     ],
-  "correctChoiceText": [
-    "間違い",
-    "正しい",
-    "正しい",
-    "正しい",
-    "正しい"
-  ],
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
     "examLabel": "2018年（平成３０年）乙種 製造",
     "examOccurrenceId": "2018",
     "examYear": 2018,
@@ -3279,7 +3288,7 @@
       "正しい。ブルドン管式圧力計は、圧力によるブルドン管の弾性変形を指針変位に変換する圧力計であり、構造が比較的簡単で広い測定範囲に使える一方、弾性要素を用いるためクリープやヒステリシスに注意が必要である。",
       "正しい。膜式流量計は容積式流量計の一種で、一定容積の計量室を膜で区切って通過量を積算する方式であり、気体の流量測定に適している。",
       "正しい。ピトー管による流量測定では、流体中に挿入した二重管構造の管で先端部の全圧と側面部の静圧との差圧を測定し、流速や流量に換算する。",
-    "正しい。公式正答に基づくと、この設問では、誘電率の小さい液体は液位変化に伴う静電容量の変化が小さく、静電容量式レベル計では感度を得にくいという趣旨で扱われている。なお、例示された蒸留水は一般に比誘電率が大きいため、この例示自体には技術的な疑義がある。試験上の正誤と測定原理を分けて確認する必要がある。"
+      "正しい。公式正答に基づくと、この設問では、誘電率の小さい液体は液位変化に伴う静電容量の変化が小さく、静電容量式レベル計では感度を得にくいという趣旨で扱われている。なお、例示された蒸留水は一般に比誘電率が大きいため、この例示自体には技術的な疑義がある。試験上の正誤と測定原理を分けて確認する必要がある。"
     ],
     "suggestedQuestions": [
       "バイメタル式温度計と熱電対温度計の測定原理はどう違うか。",

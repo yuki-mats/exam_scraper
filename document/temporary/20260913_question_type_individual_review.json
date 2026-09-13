@@ -1,0 +1,2734 @@
+{
+  "schemaVersion": "question-type-individual-review/v1",
+  "reviewedAt": "2026-09-13T13:39:26+09:00",
+  "fixedRevision": "9623f600da8b1272db63c6e02fdd9e67660116e7",
+  "scope": {
+    "description": "Git履歴でtrue_falseからgroup_choiceへの遷移が確認された全92問",
+    "recordCount": 92,
+    "sourceMutated": false
+  },
+  "counts": {
+    "change:true_false": 67,
+    "retain:true_false": 3,
+    "change:flash_card": 12,
+    "hold:group_choice": 6,
+    "retain:group_choice": 4
+  },
+  "changedRecordCount": 79,
+  "changedFileCount": 100,
+  "preSnapshotRoot": "/private/tmp/20260913_question_type_individual_review_pre",
+  "files": [
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json",
+      "beforeSha256": "155f969927d8926c497c207cb476d23a609e872fc0d6b31ebac102f64827a65d",
+      "afterSha256": "8a85932d4e211bf3ded6876ca995cb61ed674f9ce8aafdfb8061254ef87c9f39"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+      "beforeSha256": "ad3370ff4d35146832acd10adac403efe1805fc6e719a4d0500f7d60c92bedda",
+      "afterSha256": "9ad3aeede6fda83c6fada54e7aefa804a32752fa384e9a4abd8859dbdf3170e6"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json",
+      "beforeSha256": "506189d00863f9aeabfd05a9c7b70a909ff50e866f44d52860a94dad788724de",
+      "afterSha256": "bfa68cf277687d8d03c23d8fb15bcf20f999d7d5b60fdfa5898ec29ed4561b6f"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json",
+      "beforeSha256": "6cecf515435dac1e368987312c1e4e05816953bd057a3e2cfb5300dae52499e4",
+      "afterSha256": "4752b1d1e25f049959afa8ad3fe0a15e8df5445e6e0c2344b6c6eb00b154826a"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_2_explanationText_added.json",
+      "beforeSha256": "f97fda7f03438a5735a59fffa1065d65dfbc1c881d756fc5a3b19e4f5b78b104",
+      "afterSha256": "449a6bbc75b1edb9956685ea7e21851ffd6b306915ee63001e1d9a634f8bdf38"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_3_explanationText_added.json",
+      "beforeSha256": "896dcde2cc797f6b8b053c1cdd1ec8c5a2659c82855cc9827bb6b28e31b302e9",
+      "afterSha256": "0b79bb5c9436f507f1155e0997ea59990960c4d1f72d68f485a2dfe7cebd6421"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json",
+      "beforeSha256": "9c473b7b71ae4001136ca560a1f58e95c3d1569e45a98fa49467a16069b48686",
+      "afterSha256": "4da3a3f6bad3a93ebc7fa4b53404be390c0f415d3adfe89dc60bb92a412a1437"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_3_explanationText_added.json",
+      "beforeSha256": "3608c0279ee881f940a71f44b58c493543645bb5281ca5810a65c8244fca83e8",
+      "afterSha256": "4fa62b291bf108ebf000a60df4cd1f2eea31560f9630de47c0abfa4a77a743b5"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json",
+      "beforeSha256": "052c70c266af0bea369cd442e673a6d2c393275470e20777d64fba1fb03a5f58",
+      "afterSha256": "69b2b750d8330952319ff780127b7055622f3cafec580b86e999a29afd2f9fda"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+      "beforeSha256": "15b1d5bc53351d4324f34d3e412c4f091d2aa387186560d5d2d38362a2f3136e",
+      "afterSha256": "18aac424581f4b598e4b4b40a4f8938a117671913dadbd9c178e3215118ffa2c"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json",
+      "beforeSha256": "2bfbf6a8f078e70603f22b24cc59e3ee78f1785cddfe2fea5905ecec830ffb9c",
+      "afterSha256": "354f6d0d6dcc08823612c4abe05bb77d3ffa235fa33eb59e5e1ae242e1eeb280"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json",
+      "beforeSha256": "154fe9b9bcd85950e97d814d162a630346bbe34d08d7a6a1065fc6899e4bd261",
+      "afterSha256": "62b39353ee625e0e69a823610a4a5172cae1faf64806d932196129146addc336"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json",
+      "beforeSha256": "861531955a9c7e0fa3afdae70b90abbcc17c3e5898591d66105828703429623c",
+      "afterSha256": "6f04296dc7a2dea043d87f1b317ffc1eaa00b2c1b5870e933e15b4765ae0901a"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json",
+      "beforeSha256": "3216f2b48b8438301d8f3b1b78fe2b3014502cdcf39aac10cd47a7023c2fcf96",
+      "afterSha256": "41dbb202f2e259cae517769269a64e00d10489fff03580e50987f62d36e579fe"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_2_explanationText_added.json",
+      "beforeSha256": "6dbe599306e464a34bc758fa235e1aa9e552574de47755aa6360a4fa10becd20",
+      "afterSha256": "b65d5d4eea007c6fb8bbaa2936b342c0ae22f5dacf705825a4ba73d06cb6236b"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_3_explanationText_added.json",
+      "beforeSha256": "98016242ff140a7f9d65216133df23c3093e97df8a930690c1bba2be1b3a7e9e",
+      "afterSha256": "7e9b7cc383117923a2f25984e82b8d93ff0998d5cc92a868a0ddf184731878cc"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json",
+      "beforeSha256": "5a1e4ddd2096eda31398cd3911ba91e34a5f8868e79277426099c3671519df7a",
+      "afterSha256": "b9252f72f6ddbc24bb5d619606a5c926ee166fa6c6c56f5352f10463a2ad76cd"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "beforeSha256": "43ebd51755884f5703b7c9b5459eb796c536012f9b49f1f68372ce47bc549cbf",
+      "afterSha256": "c6c16dd2788d31985a7b49a5f68f7d3b569b0dc89f07fd571bace1cf19481e53"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json",
+      "beforeSha256": "c277df2f112632dda4fac95968af60899de6a345a2cb79e0568ebae5778e0d17",
+      "afterSha256": "5cdfff1db32956dd565c315fb6dc6d0f915d55f10e9cb8641fdf26275257aa67"
+    },
+    {
+      "path": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+      "beforeSha256": "7a42a4098e2745d7f6d6fa1f5f4264a1d98943d3621b5c371b8c384bd1939c71",
+      "afterSha256": "11c81dc17659deb7e0766f2e2fa5ed5fc3734e74fd28f391abf35a3aa7833abd"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_6_questionType_fixed.json",
+      "beforeSha256": "af689c406f224b5cd180e46581fcff5f5a1ac4988403ff5f99296a9d85e31b81",
+      "afterSha256": "d984657c8c4b76d2161b6af9bf6475d254973d3ce3ffb43fceb643e9a583bc18"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_6_explanationText_added.json",
+      "beforeSha256": "3a0045d1373c843b9f917bb8a4d078d31ab942adf77ca1a9da1eb5c142d277e4",
+      "afterSha256": "cec5fd24e5e2ef40cd6e75c76d6ab4b1e61a167261bcedff56ff6f5ae4453219"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_6_questionType_fixed.json",
+      "beforeSha256": "87629e266964e672bf5218995593e70ead3303d7f49a824054967db493819ae7",
+      "afterSha256": "8e39927f9af4c2d7719504686c5debf83dc3d54628f1500bb4658478769c6792"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_6_explanationText_added.json",
+      "beforeSha256": "57636b5f6d790bc6fb0de925a54aa02e4c4115198277650f6835bc363e4ffa63",
+      "afterSha256": "836a30ba4cb1838c05196b5bd4e0fa0cb79f83ada32b1184b23423cab7be771c"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_1_questionType_fixed.json",
+      "beforeSha256": "3e4d35ee9a8da63cc26c62c36d4951fbc7ed25b0206946e0db9865a1a2078b9f",
+      "afterSha256": "2421eaaa09aa3d19beeb14658850e67e1cdb53ebfc367d053b8055777a469b2a"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_5_questionType_fixed.json",
+      "beforeSha256": "31296d3d16589e54f84b4092d7a0822f92ceda3a00dc7616b2cf08e87994e5d8",
+      "afterSha256": "3e62e9a1049446bf22ff988e146d2648592675e9afd9b244e601568826467676"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_7_questionType_fixed.json",
+      "beforeSha256": "175c8a9a7ace276eacd2cd5c884b52b25dfc43b314b0927821dec14121a617fa",
+      "afterSha256": "11d34b3861d7638a860a33f76de4ac050451710a2c7051ed344591e56a9e2fff"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_8_questionType_fixed.json",
+      "beforeSha256": "f2fc1956348b39ecf80ccd6ef3c49b00a11e73701ec8c2275747a5c3f4321005",
+      "afterSha256": "1fe56ff01f51db5382b1de4a239e1723178e5ecf2fce152d9cde5c8235564220"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_5_explanationText_added.json",
+      "beforeSha256": "24d79c920f3bac565253c2b0b1d1d34ac9d8ada0d08bbcb20d55a34238bd57e6",
+      "afterSha256": "e34b72e6425bb96ef7c021b4cab1f0b7a3fe0ffd0a72a85b2fb0b83a8601a0e6"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_7_explanationText_added.json",
+      "beforeSha256": "8435ab32a0d43016c7ac6666ce898b7a700222a30020e92ad7388bdc8c4196ce",
+      "afterSha256": "c08b15be7de0b4c78018f8bd73dbf03e74b6458f7d6674f0059c391dfb43df17"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_8_explanationText_added.json",
+      "beforeSha256": "4f8cd68447749c570506f3fc4ae5c9a5e674bd92c16f32418cc31880ca33588b",
+      "afterSha256": "d9d5ea8ea07068311c8ee32efced5877898f7df8c1b40da049f1204234487f08"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_1_questionType_fixed.json",
+      "beforeSha256": "e46c1800a5456c19ff58fb457449888953fd932769c5bf8f8e08acb4aa7b417d",
+      "afterSha256": "0c6d8828a8a6fb25dc756b311556042c6095dcff58d504c6bea5a21af9dd53ba"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_3_questionType_fixed.json",
+      "beforeSha256": "ee68a21feb568d6b90515c324e8d3cc25743bdace0ffee8f38574844c8666fb3",
+      "afterSha256": "f1fea64ceb8175ae4435a6881ee1194b1d6a3d5b752337bf125e39b970833742"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_5_questionType_fixed.json",
+      "beforeSha256": "3e952e18ef255656522d39f83c4e95448d955bcfeacc77186a055bd55363e9e1",
+      "afterSha256": "d7d97ea34c0fe52c7a6894bf48519b519d37205546e399e29c65cb32860a044e"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_6_questionType_fixed.json",
+      "beforeSha256": "e01cdb372409e1ddd85e63d76651447bb1e18d6b0b5f4d4ada87b57be34d393b",
+      "afterSha256": "eb82ad1ae5a367dde7a86b68206135d164b044102fe284335e0de7dabd8fc3ee"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_3_explanationText_added.json",
+      "beforeSha256": "f08f902eb1c4f7017ff1ba187a669f23b85e9994016200c24f3c62bb75a21268",
+      "afterSha256": "a35010f8c225d69e078827555318ba33e43bc33b073d94edd033f136d9b4dd2f"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_5_explanationText_added.json",
+      "beforeSha256": "9a195fb40acd1e722b8e9c75a2fa63a19d8859663fd1751bcf97fa2530248c40",
+      "afterSha256": "3990382a125014774f917fbe9764e643b5f622083f6031c0ab83045f378ebee5"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_6_explanationText_added.json",
+      "beforeSha256": "a940d70aba3bbbe29a7634a9ecc8ef850e5436dc102aeae83533a72adfda5463",
+      "afterSha256": "57e49e54e50f12d7dcf0be1dce937afc023c81038b525b0497c83079642aa668"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_1_questionType_fixed.json",
+      "beforeSha256": "83b5390144ce738723d4507fbb039d6989d979352a08b8a37c375c58109c8e3e",
+      "afterSha256": "fb0ee28d836f70c2826f5c83e35c9616251810bdad6c4bbde4d5b9d80d586d4a"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_4_questionType_fixed.json",
+      "beforeSha256": "e0e86f99707ecd49abc1cb14f83f83e203f7a1ec72f47476fa02c21014a4703c",
+      "afterSha256": "545e3ab1c431086cbb01ee42fcb189c103a7b333f8d2f1e23a65085a63465da9"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_5_questionType_fixed.json",
+      "beforeSha256": "c99158a093c8a92c340ec275b5e6e70de53bc5157b44def710cecdefa76b7673",
+      "afterSha256": "42d0d7feebff6226354f6ec9713d5a59e1475710b28ee146c59d2ee8da05d28e"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_7_questionType_fixed.json",
+      "beforeSha256": "a69db80c25154fd94aff314741158040d063691d7604c76eff28c23341361f94",
+      "afterSha256": "1997fdeb7579320da81c81279f9c9fd687bfcbee07bae5d00fe161565ff56fe4"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json",
+      "beforeSha256": "be49ab40d0fbcebaa08c24b3dd17e3daf11d9d9d43ba70039bb3e77a369f70d1",
+      "afterSha256": "9cbdb3f10ce47522a40eb861145bf0734e442b3ac3d34f8dd14817660d0600df"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_1_explanationText_added.json",
+      "beforeSha256": "784b7c2006990dc5a5294196396f1daaa203494237ea89f0322486e8a5227a18",
+      "afterSha256": "1092d9f3ab71240a09318c3c3d660f43ca19f08143ec9dbe682513f87f0847bd"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_4_explanationText_added.json",
+      "beforeSha256": "e602afad5493b2cde147fc40522991fdd894f0420c4d6a3a016c5a8d3175177e",
+      "afterSha256": "fa2757188f3830a5e777d7840370936a9778fd0088a1b8d033c327d1b147c806"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_5_explanationText_added.json",
+      "beforeSha256": "a87cba66c88fc23f2dbe65780386131916f726fa177082a3a8c2b3e2e10b3de2",
+      "afterSha256": "c0e0f302e8513eafec43c7b6aa20ad4e46c89fb48f4fa416e9fef0af6b462e6e"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_7_explanationText_added.json",
+      "beforeSha256": "bf4133556e884abcf2677db9ebb715e11e95b80fa8ddc36bac1eaa89e07641ae",
+      "afterSha256": "9624358966670e415be975ca05c6c006c8226af42a177090a0a4549203fc8240"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_8_explanationText_added.json",
+      "beforeSha256": "82f9533d8dee9fb870548e4a18d41d499e272f852f2cbdf91be20faa2dfbfefd",
+      "afterSha256": "393b431a52d4e98d0c3dd5df040306d4b5983546fb6c7b6b625df8a70292a369"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_5_questionType_fixed.json",
+      "beforeSha256": "52ce02c8769276df5c5398d99e73877a9d009049ea52e48cc0a556300f76c271",
+      "afterSha256": "e528762c6a6006c80cc6211679e01a6fe66a5e3d996c2cd7297e258666f07052"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_6_questionType_fixed.json",
+      "beforeSha256": "1c4673bc24480bc53e71df5f0209c200547689a93538774063c76c25e8b0ae8a",
+      "afterSha256": "bad7179b19d5648cba7319b6ef435426f2f550574abe8970f0f09cfc3db4c9b3"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_7_questionType_fixed.json",
+      "beforeSha256": "b731b7912b8a239c7f5841464d5ee55a265ce80dce8047fbd39606d4dde17b3a",
+      "afterSha256": "ea36c1aca9bed3cf71e2a3876b3744c73ea0c42b7af77ced5c49e853dd643714"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_5_explanationText_added.json",
+      "beforeSha256": "8ea75c108541a6da69ea8bdedcab080c3d0e95118078a70bddb44f0894313f77",
+      "afterSha256": "f14e0e62529ff753104be4d82a569bfbfe0b9f8b4d1e2659c069d84cd16d77bb"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_6_explanationText_added.json",
+      "beforeSha256": "d81bde3ff95f72011e30342f54eaf6422534fc2742371bbedfd627196fe022c3",
+      "afterSha256": "409fd6b77a37d6120ee7f8fa4b0119748c252a955cf54996173fda7df31a2b65"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_7_explanationText_added.json",
+      "beforeSha256": "18ffc45b5cc371f7d8237b7dc3c42f2debde37983a7aa6b277df20d2280188f2",
+      "afterSha256": "4f9a53b3a56c09ae665907bd176b58f7995c5f5c6b042508e9af0109174c6177"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_4_questionType_fixed.json",
+      "beforeSha256": "9ffa8922a2965f437121ba6ec9049e088970b538c4dfcc4bb9b53209dbb40f50",
+      "afterSha256": "e2c6be858e134aff6dc4adf369f680b1f7cc109b0e0ff3e9c5aadb0be65e9f4e"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_5_questionType_fixed.json",
+      "beforeSha256": "c442095bf661c2865f2a160bd6c361a09c5c0b3b91961f6481984912ff719af8",
+      "afterSha256": "cacf998aae5b31e4030fda0b7f1203daecdc229e349922f963ceb7dea2379d7f"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_4_explanationText_added.json",
+      "beforeSha256": "ccb70d997d8f41e69905d1edb5fbb81c0a2f2fa5b222be2143800ad4d2d91892",
+      "afterSha256": "29e619bb6aea4c845c4056fadca7ffa005cca5cb5bc9f81264b46019c19d3390"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_5_explanationText_added.json",
+      "beforeSha256": "9a8ca4203f45974ccb1190ae2ba32e5c4a43172503c137ded1bcd1e2cc8d48ce",
+      "afterSha256": "90ad9656ae5e6b6a6d648fbfb747992299eb54492374bd8bee0333e0ff5e9881"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_1_questionType_fixed.json",
+      "beforeSha256": "b42dc22a2db60b003fe0fe10b69473c21532317b6ad4a3a4ef680d9361d64a93",
+      "afterSha256": "5b760e01ccad6e7c222b008cf3700ad405094cf6fa7d98165f14bb8cfbc78340"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_3_questionType_fixed.json",
+      "beforeSha256": "451b975d0e2e0c7f50df61435fa84828a27ef01ea2187bd74a805948a521821e",
+      "afterSha256": "4e9619d54fb1414e0bbdc4d93dcab7e3f89e63a98ce3fe95a9045fa1b330771c"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_1_explanationText_added.json",
+      "beforeSha256": "6a3186ed90989ccd748d39ff47c78d4dd2a19cd6120f72a280e8ceb04fb1eb3f",
+      "afterSha256": "fa8ecef5f9ae77e94f44ee400fe019c8de4c7ab58489fca48736a17ebc21c935"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_3_explanationText_added.json",
+      "beforeSha256": "1729300bf540c3f94ed6ff8b0951227f20ce4fea137ab54c7cec18806e0e0732",
+      "afterSha256": "a317abefa07ae29ad15bd165ca425a0518d06ccc6bd690f749cfd4c951bae6bf"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_4_questionType_fixed.json",
+      "beforeSha256": "cb6ebe8454f5b0f949da838a0c7965e2196a3072ab1d6165ff60358e3776c5ba",
+      "afterSha256": "dba86a52b3a1ed4d4dd8ab51fec3c225c2450e8c9ca7fa367b9081fb82f1292f"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_6_questionType_fixed.json",
+      "beforeSha256": "1bf69b30d43db6ca75bcf06a9d13df73db9f9cdd1f2f62020eb6cef0997d50fa",
+      "afterSha256": "53ebd4a4ea434a64537530f13ae617a251b9aec01c9355b78c43de015d177d77"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_4_explanationText_added.json",
+      "beforeSha256": "85edd054e2592d30fde51c88e99420801c1d261021f74ef2f58430efb3553fae",
+      "afterSha256": "183c7b32090c3a33a304c8bb185c75fd76588de43379af504298f2f41de8db94"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_6_explanationText_added.json",
+      "beforeSha256": "9cbbe29fa97b919995d3c43d7d38aaa3478d0c280106eec184068ae23cd758e2",
+      "afterSha256": "16ecdacfe6ebe158fc38c56d798e84ef08d9989a066746f8c8cd5dcc67fe03b3"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_1_questionType_fixed.json",
+      "beforeSha256": "895de75ba0eb4e21136151dbb8d3052211096730af9207529cfaf6d51ecdb607",
+      "afterSha256": "b8687a79b5a05351b4cfff91454e34898fefea86e6330f29e95dcdd7cb11e62e"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_2_questionType_fixed.json",
+      "beforeSha256": "b9cb1d2259db7c5b82f48aa60eaf94caa16b5fdb3799df396a5074ca5262eb99",
+      "afterSha256": "8da3577875fa4bef9b373ba3c848e9dcca7ba3680bcb46b0c4e85777bc9c5df7"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2002/21_explanationText_added/question_2002_1_explanationText_added.json",
+      "beforeSha256": "8f7276f381e200f78be726b42e9a3b1ea8e013ff5711f327b81b817e120d32b7",
+      "afterSha256": "a1a432de9152e308dabf7a5eb64296ecd7b71046e33bf207a597426307caaae3"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2002/21_explanationText_added/question_2002_2_explanationText_added.json",
+      "beforeSha256": "99e61782b650bb53d907a8b41affe211548df5ff663d9d556effa66474e8b488",
+      "afterSha256": "70fbfa46539e5a2f4ea5874f829a8ff378db9bb8b8e293ec34a6be389b8ebf40"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2003/10_questionType_fixed/question_2003_4_questionType_fixed.json",
+      "beforeSha256": "7e057ed11f01f231e6ffe6ad9a40778c4faafe916b23ea45b6b90da32a57ac8c",
+      "afterSha256": "ed15f62fe0689f9fd8d1a036f69c3c811da71b0d8c1cd3f3ee161498a6f1042e"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_1_questionType_fixed.json",
+      "beforeSha256": "a57a53213f216eb96f1e297bd3cd193e6af015d89aa510909e5337e012139063",
+      "afterSha256": "4123156414bfa25ccbf8653747e231862970ac655a81aa65fe10e98e43ab4c11"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_2_questionType_fixed.json",
+      "beforeSha256": "62abb52a433531e8451e802be120876864cc4920553eb663b263bef39c20b658",
+      "afterSha256": "c7172b66ce1315050a202968dd800ab4f80319d3a66c96582d6dc55db9e89a59"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_3_questionType_fixed.json",
+      "beforeSha256": "4dec81fea1a17a2f068509de4706da46c67c4639999507122cb3f5c37a041bd9",
+      "afterSha256": "a0fa9bf75a60ea44a750d70fec6f436111fe0c9f4e76992c708ad84fc741388e"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_4_questionType_fixed.json",
+      "beforeSha256": "b64b16367e6b95e0e4395fff30cb6d96480b9cd16ecce46c6dfd24eaad6c357a",
+      "afterSha256": "8b82d2d705d77b81b1e433b9989a6f2db15cb0f83aae69506a191d11327b189c"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2004/21_explanationText_added/question_2004_2_explanationText_added.json",
+      "beforeSha256": "b6a6c64f4a6457155fe4cf4fee7bb67a4c8dff0df52501d1e79a7ad9edfbc917",
+      "afterSha256": "680ca559953452e806f94324934bcc11f62782b648ffd04abfcf449e850d8a59"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2004/21_explanationText_added/question_2004_3_explanationText_added.json",
+      "beforeSha256": "f6b3c1a9c4706e531a897836725b845f617b49150b2ad4e34bb169eecbd054c8",
+      "afterSha256": "455cc88b2b219b5666c7b25c2ee7bb4e852f6807eb5a5b4a7a2894bf5c729c8b"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_4_questionType_fixed.json",
+      "beforeSha256": "1943ecd95ee8459f0864d349daf0f344b2517bb7e1d787367b521e7a7e524e75",
+      "afterSha256": "e3632e7a62f088a5fc16c91415a4cf5e4cb9bd2c36e9adf55b945a915cf4eeb8"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_5_questionType_fixed.json",
+      "beforeSha256": "9ea8217f43cc4e8451e1d175bbb02c07920d63fa5d0d43999da666f0de228bf6",
+      "afterSha256": "0fd417a429077b467efdb4af2e3d171879e03b66cd0e599b42cd92a5254164ac"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_7_questionType_fixed.json",
+      "beforeSha256": "1e494f741d25f8c9229109cdd685d0e3b638a61d6ae66c654af76583e61ec9de",
+      "afterSha256": "c33207d0749e70c21b2843bb7e5586594ca1f1fc82a793de1e922481e8650b7d"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2005/21_explanationText_added/question_2005_4_explanationText_added.json",
+      "beforeSha256": "a9c8cb0bdc0b799aa7bf43173d4924c8a63ecccd8a2aa01dd5c0dff991d47f2e",
+      "afterSha256": "23e25b4a7ab091b6b4e3bc315a0b60f595ca9970594f0a2daaac3531d0f9016e"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2005/21_explanationText_added/question_2005_5_explanationText_added.json",
+      "beforeSha256": "6f4e82ac0bba3e0800c93811e59da31b291b2aa92a1e85fecbceb5a4b3932586",
+      "afterSha256": "b101b62eb4cc6eec85cd8c0337d4cd1d01972529c14908c18887b71e0a452cbf"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2005/21_explanationText_added/question_2005_7_explanationText_added.json",
+      "beforeSha256": "13dc4d41861f2d1fa63522f87e326bae15f41e2e92b9e874ef8fb160b95e2a27",
+      "afterSha256": "72eddad89224bb2f91a4cb2dbfd79c372ff76378b476ff4fc7ce55188f0968f3"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_7_questionType_fixed.json",
+      "beforeSha256": "63622f1576a03850776c7e9900b1011cf60e4338fb69a4fce2067c492e1bbca4",
+      "afterSha256": "7ec26f769c209d79ceae58d8675ff96812b07c8ae99b66bdeb4e253301d8b862"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_8_questionType_fixed.json",
+      "beforeSha256": "c1212adb0927f0c183e23afd9a143f3f97d9e9d75c0d9efd6e30df73cad5eba4",
+      "afterSha256": "5e286bdb08d268c82ff2b3ac3969f3fb10c4f22511522edd84d2a5ef87cdd966"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_7_explanationText_added.json",
+      "beforeSha256": "bf30491dd33c750089a98c923d948cee92172efb71ca980d3ed02f5934a18773",
+      "afterSha256": "76e64b1e4e306992503bd883d1d68d13ef3433184333ebd316282198fe3fb674"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_8_explanationText_added.json",
+      "beforeSha256": "aaf1b524fcaca5102dcc7872f4c6c6c6e197a723765aa002a80868deb61b54b9",
+      "afterSha256": "a606648986e02acaa570472b5f0ad8684be8072e6650d94c12d008cba20c6e5a"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_3_questionType_fixed.json",
+      "beforeSha256": "d48d7a7610df54c7152890af63d84717020d64a49e62d1072a7905e1f74ed944",
+      "afterSha256": "6815b990b908dec300c9f5f6a82f438b503ee02ea38178cc1cba772ec1cbe005"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_6_questionType_fixed.json",
+      "beforeSha256": "4df960a161bbd9aebeaafe1696ef277d4f4dbcd7fd399a5272b5d2483e4818df",
+      "afterSha256": "827f6c52ea4d9eadfaed7c20f5ef4d9730dc01befa766170572075bd155d290b"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_7_questionType_fixed.json",
+      "beforeSha256": "7a1448968d9c2bdc6fafd1a65dae82fd5e857d9c331b5d3e667d936863850732",
+      "afterSha256": "b6b6205171db7a4427558ca0fd7070cd5d6c2e57c6f4300ef33df5129a57a8e8"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2007/21_explanationText_added/question_2007_3_explanationText_added.json",
+      "beforeSha256": "3a66ea5e694cfd06736e4ffa10f29b2a41f1d123153b64bd7e93029a2d31491b",
+      "afterSha256": "4c87ec1ed7d4c2e1d2c6a20c7c77c47b48b05c4164446235fc783f9815401a5f"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2007/21_explanationText_added/question_2007_7_explanationText_added.json",
+      "beforeSha256": "d40ee611583da4de56810a941b29cfafaeab36715063fd6d35a91035e30e12a5",
+      "afterSha256": "e333f635d4dd67656ae333497725b63de141a92471f0656bff86b121b91f6d18"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2009/10_questionType_fixed/question_2009_5_questionType_fixed.json",
+      "beforeSha256": "92759ce9ad0d8820bf52e62b58295e7c7090e1ffacb23eef16eabfa19a9ee6e8",
+      "afterSha256": "4b840e39bd15fb60a3bfae1eb98bc87b2cd8901ffbd4d7ab27fd24431c6c2834"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2009/10_questionType_fixed/question_2009_9_questionType_fixed.json",
+      "beforeSha256": "ccc59ade6e64cd673035c8bba6d645375aa9b34f39237fcbe1bf5be53e127440",
+      "afterSha256": "48dff73e1fb3cc49dbe4058f67261572124c297dda4d5f9cc2d7b97ecf977d45"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2009/21_explanationText_added/question_2009_5_explanationText_added.json",
+      "beforeSha256": "3c24303241d07beeb9b185320626b22ac264dbfdd763da785cdeafa79a4e94e5",
+      "afterSha256": "41e999963baf776ed100e048841293d29b02a49a6e720d995cbccc977a5e87b9"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2009/21_explanationText_added/question_2009_9_explanationText_added.json",
+      "beforeSha256": "512e0c7835d26d88e9440a7775827e787f9d56f5cc0eb61d721f220856973efe",
+      "afterSha256": "77d6fea417c0842922de2b3bf04788636e3a88904892accbfee9e9c3fede685b"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2010/10_questionType_fixed/question_2010_6_questionType_fixed.json",
+      "beforeSha256": "8afdd6fb0123a0aa4e7f5fe1be54741cf54551d0617600bd4f6f461ebf91a27c",
+      "afterSha256": "89fbdfcd38fddc55427198dde5942564546a4cd28b4ac85ef6635d9dde5cfddc"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2010/21_explanationText_added/question_2010_6_explanationText_added.json",
+      "beforeSha256": "4f68582bbe45fbd13603bb3412605654e327e8d9a0f93e65a033bf95430b63ac",
+      "afterSha256": "87033d4bd9c21dd48010d481b4aebd1507ccc2053a5cc13c1d9e0b0d37b08f9a"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2011/10_questionType_fixed/question_2011_7_questionType_fixed.json",
+      "beforeSha256": "389892a70aac8435e1bd4d5e8be46a81d136816ec8b3952d59075f791f9e622d",
+      "afterSha256": "3b8f259eaf87d485ad253835e44a5b25695a46f8a683239db0800ae2bd6372f4"
+    },
+    {
+      "path": "output/judoseifukushi/questions_json/2011/21_explanationText_added/question_2011_7_explanationText_added.json",
+      "beforeSha256": "745122bc461da9a6865306ce9a1a18099ed79464cb441cf7262e7481047d1808",
+      "afterSha256": "a532c2f0a9ed8d43ad91bde8dc4068c925d070974d946a55bca9a305bfe1fb00"
+    }
+  ],
+  "reviews": [
+    {
+      "recordId": "19e9a8c53cf00144",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:law:q09",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "ed07428c79ace508",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:kiso:q09",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "f0f1d2993d5671e6",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2017:law:q16",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "0f231aa84f04c2d7",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2018:kyokyu:q11",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+    },
+    {
+      "recordId": "8fe55bc9f9b8f49e",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2018:kyokyu:q17",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+    },
+    {
+      "recordId": "c2109c9ceec89dc6",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2018:kyokyu:q18",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+    },
+    {
+      "recordId": "26d0da537de18d3c",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2018:shohi:q24",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "b801ef30ef188c60",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2018:shohi:q26",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "aa5362d51ab6739d",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2019:shohi:q20",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "cc5e5726835b5585",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2019:shohi:q26",
+      "questionTypeBefore": "true_false",
+      "reviewDecision": "retain",
+      "questionTypeAfter": "true_false",
+      "reason": "現在値を再確認。各選択肢の記述を独立に正誤判定する学習単位であり、true_falseが妥当。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "24cc2bac28af7e28",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2020:law:q16",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "ed514632195d598c",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2020:law:q13",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "646a578413a7d557",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2020:kyokyu:q11",
+      "questionTypeBefore": "true_false",
+      "reviewDecision": "retain",
+      "questionTypeAfter": "true_false",
+      "reason": "現在値を再確認。各選択肢の記述を独立に正誤判定する学習単位であり、true_falseが妥当。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+    },
+    {
+      "recordId": "321401935b2c0752",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:kiso:q05",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "335a0acfe7454e65",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:law:q03",
+      "questionTypeBefore": "true_false",
+      "reviewDecision": "retain",
+      "questionTypeAfter": "true_false",
+      "reason": "現在値を再確認。各選択肢の記述を独立に正誤判定する学習単位であり、true_falseが妥当。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "d281a1bfaca91985",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:kiso:q15",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+    },
+    {
+      "recordId": "5a3b87a2d19bd625",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q21",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "2401c6d4fa7111a5",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2024:law:q11",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "7b372e50d597c363",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2024:law:q05",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "c8af1e8b0c970ab1",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2024:law:q03",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "db637cee87824d57",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2024:law:q10",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "02995d8bb53f6d42",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2025:law:q12",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "270520054cd311ea",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2025:law:q05",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "675ce6f3db722a24",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2025:law:q01",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "7bd905381415c9b4",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2025:law:q15",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "f73181ec7b58db9a",
+      "qualification": "gas-shunin-otsu",
+      "sourceQuestionKey": "gas-shunin:otsu:2025:law:q14",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "21fe56c6367a9315",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1993:21fe56c6367a9315",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "718afcdc87dda47f",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1994:718afcdc87dda47f",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "d8e4af8319541082",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1995:d8e4af8319541082",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "affdcb9571d4eb86",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1995:affdcb9571d4eb86",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "2500bb7b93418ce0",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1995:2500bb7b93418ce0",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "87648b487d38fbdb",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1995:87648b487d38fbdb",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_8_questionType_fixed.json"
+    },
+    {
+      "recordId": "5ac7c510af9de964",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1996:5ac7c510af9de964",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "010e73656ecf4d28",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1996:010e73656ecf4d28",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "133a6201a8bf9773",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1996:133a6201a8bf9773",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "7b6b5906b886885f",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1996:7b6b5906b886885f",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "22ae677a1feb24dc",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1996:22ae677a1feb24dc",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "2d65df4a98dc9d41",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:2d65df4a98dc9d41",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "94963a60f501d749",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:94963a60f501d749",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "26b37ce61c88106d",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:26b37ce61c88106d",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "5adabc5c04035bfc",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:5adabc5c04035bfc",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "6fe7bd5fe917786b",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:6fe7bd5fe917786b",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "a2ed34a83b836fb0",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:a2ed34a83b836fb0",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "0cf78ebd2e5ad0d3",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:0cf78ebd2e5ad0d3",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json"
+    },
+    {
+      "recordId": "3c1037cd85171b1f",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:3c1037cd85171b1f",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json"
+    },
+    {
+      "recordId": "ed94fc7aec8ef4c8",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1997:ed94fc7aec8ef4c8",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json"
+    },
+    {
+      "recordId": "603a149632d1f5dd",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1998:603a149632d1f5dd",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "d73f08580e90c86b",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1998:d73f08580e90c86b",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "1acc6d6c398909a5",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1998:1acc6d6c398909a5",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "e87c17c84d9d6e97",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1998:e87c17c84d9d6e97",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "2cc551d587f695ef",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1998:2cc551d587f695ef",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "d8b5e157091e4bf3",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1999:d8b5e157091e4bf3",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "a9e785fe229d99c3",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1999:a9e785fe229d99c3",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "a6cc81725e3c6411",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1999:a6cc81725e3c6411",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "hold",
+      "questionTypeAfter": "group_choice",
+      "reason": "00_sourceに選択肢画像がなく画像プレースホルダーだけのため、画像を見ずに形式を確定できない。現行値は変更しない。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "e7d98463729d2705",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:1999:e7d98463729d2705",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "hold",
+      "questionTypeAfter": "group_choice",
+      "reason": "00_sourceに選択肢画像がなく画像プレースホルダーだけのため、画像を見ずに形式を確定できない。現行値は変更しない。",
+      "questionTypePath": "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "38b2aec65e31732c",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2000:38b2aec65e31732c",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "5b402cc59061b28f",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2000:5b402cc59061b28f",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "b31b62ef374e2d82",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2000:b31b62ef374e2d82",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "b887f9ef73a58708",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2000:b887f9ef73a58708",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "retain",
+      "questionTypeAfter": "group_choice",
+      "reason": "a〜d又はA/Bの判定結果を組み合わせた最終回答候補を一体として比較する。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "b00b5ab53f66ce2a",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2000:b00b5ab53f66ce2a",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "retain",
+      "questionTypeAfter": "group_choice",
+      "reason": "a〜d又はA/Bの判定結果を組み合わせた最終回答候補を一体として比較する。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "120dad01fac08f5c",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2000:120dad01fac08f5c",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "hold",
+      "questionTypeAfter": "group_choice",
+      "reason": "00_sourceに選択肢画像がなく画像プレースホルダーだけのため、画像を見ずに形式を確定できない。現行値は変更しない。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "d28a8368fe75671e",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2000:d28a8368fe75671e",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "hold",
+      "questionTypeAfter": "group_choice",
+      "reason": "00_sourceに選択肢画像がなく画像プレースホルダーだけのため、画像を見ずに形式を確定できない。現行値は変更しない。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "10c3c940ed870e4b",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2001:10c3c940ed870e4b",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "8e08a66a123f8c9d",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2001:8e08a66a123f8c9d",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "dca823db075038aa",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2001:dca823db075038aa",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "457cbc3efb17aaeb",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2002:457cbc3efb17aaeb",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "dbe691df9734854a",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2002:dbe691df9734854a",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "aa44687db0bc8808",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2002:aa44687db0bc8808",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_2_questionType_fixed.json"
+    },
+    {
+      "recordId": "5784a56b41f911b4",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2003:5784a56b41f911b4",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "retain",
+      "questionTypeAfter": "group_choice",
+      "reason": "a〜d又はA/Bの判定結果を組み合わせた最終回答候補を一体として比較する。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2003/10_questionType_fixed/question_2003_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "9bf2aaa46439916a",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2003:9bf2aaa46439916a",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2003/10_questionType_fixed/question_2003_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "c2dc61675860026f",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2004:c2dc61675860026f",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_1_questionType_fixed.json"
+    },
+    {
+      "recordId": "68f9582c5311d3d5",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2004:68f9582c5311d3d5",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_2_questionType_fixed.json"
+    },
+    {
+      "recordId": "ad5d56b1a0a533a2",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2004:ad5d56b1a0a533a2",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "1b163e484907d92d",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2004:1b163e484907d92d",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "5d33c47431ade76a",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2004:5d33c47431ade76a",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "hold",
+      "questionTypeAfter": "group_choice",
+      "reason": "00_sourceに選択肢画像がなく画像プレースホルダーだけのため、画像を見ずに形式を確定できない。現行値は変更しない。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "b77e5dc4664a88cb",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2004:b77e5dc4664a88cb",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "retain",
+      "questionTypeAfter": "group_choice",
+      "reason": "a〜d又はA/Bの判定結果を組み合わせた最終回答候補を一体として比較する。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "d83e43467753bd60",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2005:d83e43467753bd60",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_4_questionType_fixed.json"
+    },
+    {
+      "recordId": "9275a05f53ffba66",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2005:9275a05f53ffba66",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "71feb43c5efa9a0f",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2005:71feb43c5efa9a0f",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "34a41ccc41559801",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2006:34a41ccc41559801",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "3b51f458f904284e",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2006:3b51f458f904284e",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_8_questionType_fixed.json"
+    },
+    {
+      "recordId": "776d0ffe6a6b3386",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2007:776d0ffe6a6b3386",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_3_questionType_fixed.json"
+    },
+    {
+      "recordId": "156f84896520e1c0",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2007:156f84896520e1c0",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "27e1fd23fa978fba",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2007:27e1fd23fa978fba",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "flash_card",
+      "reason": "問題文の条件・知識から単一の答えを想起でき、選択肢は導いた答えとの照合に使う。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "ac0001491c091a96",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2007:ac0001491c091a96",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "31ca202949547006",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2009:31ca202949547006",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "hold",
+      "questionTypeAfter": "group_choice",
+      "reason": "00_sourceに選択肢画像がなく画像プレースホルダーだけのため、画像を見ずに形式を確定できない。現行値は変更しない。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2009/10_questionType_fixed/question_2009_10_questionType_fixed.json"
+    },
+    {
+      "recordId": "c1d665e8c6eed4ba",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2009:c1d665e8c6eed4ba",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2009/10_questionType_fixed/question_2009_5_questionType_fixed.json"
+    },
+    {
+      "recordId": "0a7b05bfd9bf8cae",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2009:0a7b05bfd9bf8cae",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2009/10_questionType_fixed/question_2009_9_questionType_fixed.json"
+    },
+    {
+      "recordId": "7d78d38d7e4f85d3",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2010:7d78d38d7e4f85d3",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2010/10_questionType_fixed/question_2010_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "e16e443515e5af5d",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2010:e16e443515e5af5d",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2010/10_questionType_fixed/question_2010_6_questionType_fixed.json"
+    },
+    {
+      "recordId": "4a3fc0ca277fa0f3",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2011:4a3fc0ca277fa0f3",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2011/10_questionType_fixed/question_2011_7_questionType_fixed.json"
+    },
+    {
+      "recordId": "a9ce7ee57c99e3a7",
+      "qualification": "judoseifukushi",
+      "sourceQuestionKey": "judoseifukushi:2011:a9ce7ee57c99e3a7",
+      "questionTypeBefore": "group_choice",
+      "reviewDecision": "change",
+      "questionTypeAfter": "true_false",
+      "reason": "各選択肢が独立した記述又は対応関係であり、共通述語を補えば肢ごとに正誤・適否を判定できる。",
+      "questionTypePath": "output/judoseifukushi/questions_json/2011/10_questionType_fixed/question_2011_7_questionType_fixed.json"
+    }
+  ],
+  "changes": [
+    {
+      "recordId": "19e9a8c53cf00144",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "a1f476cf3b4cf0b56f073fb7d2b2854e985c51b0"
+    },
+    {
+      "recordId": "ed07428c79ace508",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "f0f1d2993d5671e6",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "7cf41ffe96cb3a73a655af944292417b701d96ff"
+    },
+    {
+      "recordId": "0f231aa84f04c2d7",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_2_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "8fe55bc9f9b8f49e",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_2_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "c2109c9ceec89dc6",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_2_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "26d0da537de18d3c",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_3_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "b801ef30ef188c60",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_3_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "aa5362d51ab6739d",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_3_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "24cc2bac28af7e28",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "eacf1fba70e728df3beb1b3f27a1b0cef16ccd31"
+    },
+    {
+      "recordId": "ed514632195d598c",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "321401935b2c0752",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "d281a1bfaca91985",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_2_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "5a3b87a2d19bd625",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_3_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "2401c6d4fa7111a5",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "7b372e50d597c363",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "c8af1e8b0c970ab1",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "db637cee87824d57",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "02995d8bb53f6d42",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "270520054cd311ea",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "f8b04ed7a9de805577884976687b0bc566014e00"
+    },
+    {
+      "recordId": "675ce6f3db722a24",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "7bd905381415c9b4",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "f73181ec7b58db9a",
+      "questionTypePath": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "74a4e80d0d2c77d6cd5b5aa0116cd73d53083a23"
+    },
+    {
+      "recordId": "21fe56c6367a9315",
+      "questionTypePath": "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_6_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "718afcdc87dda47f",
+      "questionTypePath": "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_6_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "d8e4af8319541082",
+      "questionTypePath": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "affdcb9571d4eb86",
+      "questionTypePath": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "2500bb7b93418ce0",
+      "questionTypePath": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_7_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_7_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "87648b487d38fbdb",
+      "questionTypePath": "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_8_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_8_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "5ac7c510af9de964",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "010e73656ecf4d28",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_3_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "133a6201a8bf9773",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "7b6b5906b886885f",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "22ae677a1feb24dc",
+      "questionTypePath": "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_6_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "2d65df4a98dc9d41",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "94963a60f501d749",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "26b37ce61c88106d",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_4_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_4_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "5adabc5c04035bfc",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "6fe7bd5fe917786b",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "a2ed34a83b836fb0",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_7_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_7_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "0cf78ebd2e5ad0d3",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_8_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "3c1037cd85171b1f",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_8_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "ed94fc7aec8ef4c8",
+      "questionTypePath": "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "603a149632d1f5dd",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "d73f08580e90c86b",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "1acc6d6c398909a5",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_6_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "e87c17c84d9d6e97",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_6_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "2cc551d587f695ef",
+      "questionTypePath": "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_7_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_7_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "d8b5e157091e4bf3",
+      "questionTypePath": "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_4_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_4_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "a9e785fe229d99c3",
+      "questionTypePath": "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "38b2aec65e31732c",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "5b402cc59061b28f",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "b31b62ef374e2d82",
+      "questionTypePath": "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_3_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "10c3c940ed870e4b",
+      "questionTypePath": "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_4_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_4_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "8e08a66a123f8c9d",
+      "questionTypePath": "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_4_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "dca823db075038aa",
+      "questionTypePath": "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_6_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "457cbc3efb17aaeb",
+      "questionTypePath": "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2002/21_explanationText_added/question_2002_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "dbe691df9734854a",
+      "questionTypePath": "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2002/21_explanationText_added/question_2002_1_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "aa44687db0bc8808",
+      "questionTypePath": "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2002/21_explanationText_added/question_2002_2_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "9bf2aaa46439916a",
+      "questionTypePath": "output/judoseifukushi/questions_json/2003/10_questionType_fixed/question_2003_4_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "c2dc61675860026f",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_1_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "68f9582c5311d3d5",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_2_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2004/21_explanationText_added/question_2004_2_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "ad5d56b1a0a533a2",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2004/21_explanationText_added/question_2004_3_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "1b163e484907d92d",
+      "questionTypePath": "output/judoseifukushi/questions_json/2004/10_questionType_fixed/question_2004_4_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "d83e43467753bd60",
+      "questionTypePath": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_4_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2005/21_explanationText_added/question_2005_4_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "9275a05f53ffba66",
+      "questionTypePath": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2005/21_explanationText_added/question_2005_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "71feb43c5efa9a0f",
+      "questionTypePath": "output/judoseifukushi/questions_json/2005/10_questionType_fixed/question_2005_7_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2005/21_explanationText_added/question_2005_7_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "34a41ccc41559801",
+      "questionTypePath": "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_7_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_7_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "3b51f458f904284e",
+      "questionTypePath": "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_8_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_8_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "776d0ffe6a6b3386",
+      "questionTypePath": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_3_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2007/21_explanationText_added/question_2007_3_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "156f84896520e1c0",
+      "questionTypePath": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "27e1fd23fa978fba",
+      "questionTypePath": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "flash_card"
+    },
+    {
+      "recordId": "ac0001491c091a96",
+      "questionTypePath": "output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_7_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2007/21_explanationText_added/question_2007_7_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "c1d665e8c6eed4ba",
+      "questionTypePath": "output/judoseifukushi/questions_json/2009/10_questionType_fixed/question_2009_5_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2009/21_explanationText_added/question_2009_5_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "0a7b05bfd9bf8cae",
+      "questionTypePath": "output/judoseifukushi/questions_json/2009/10_questionType_fixed/question_2009_9_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2009/21_explanationText_added/question_2009_9_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "7d78d38d7e4f85d3",
+      "questionTypePath": "output/judoseifukushi/questions_json/2010/10_questionType_fixed/question_2010_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2010/21_explanationText_added/question_2010_6_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "e16e443515e5af5d",
+      "questionTypePath": "output/judoseifukushi/questions_json/2010/10_questionType_fixed/question_2010_6_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2010/21_explanationText_added/question_2010_6_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "4a3fc0ca277fa0f3",
+      "questionTypePath": "output/judoseifukushi/questions_json/2011/10_questionType_fixed/question_2011_7_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2011/21_explanationText_added/question_2011_7_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    },
+    {
+      "recordId": "a9ce7ee57c99e3a7",
+      "questionTypePath": "output/judoseifukushi/questions_json/2011/10_questionType_fixed/question_2011_7_questionType_fixed.json",
+      "questionTypeBefore": "group_choice",
+      "questionTypeAfter": "true_false",
+      "explanationPath": "output/judoseifukushi/questions_json/2011/21_explanationText_added/question_2011_7_explanationText_added.json",
+      "restoredExplanationFromRevision": "437b1acf4634e79c84e4a6c84f8076e0202bfeed"
+    }
+  ],
+  "correctChoiceRestore": {
+    "recordCount": 67,
+    "changedFiles": [
+      "output/gas-shunin-otsu/questions_json/2017/23_correctChoiceText_fixed/question_2017_1_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2018/23_correctChoiceText_fixed/question_2018_2_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2018/23_correctChoiceText_fixed/question_2018_3_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2019/23_correctChoiceText_fixed/question_2019_3_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2020/23_correctChoiceText_fixed/question_2020_1_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2022/23_correctChoiceText_fixed/question_2022_1_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2022/23_correctChoiceText_fixed/question_2022_2_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2022/23_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2024/23_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
+      "output/gas-shunin-otsu/questions_json/2025/23_correctChoiceText_fixed/question_2025_1_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1993/23_correctChoiceText_fixed/question_1993_6_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1994/23_correctChoiceText_fixed/question_1994_6_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1995/23_correctChoiceText_fixed/question_1995_5_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1995/23_correctChoiceText_fixed/question_1995_7_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1995/23_correctChoiceText_fixed/question_1995_8_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1996/23_correctChoiceText_fixed/question_1996_3_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1996/23_correctChoiceText_fixed/question_1996_5_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1996/23_correctChoiceText_fixed/question_1996_6_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1997/23_correctChoiceText_fixed/question_1997_1_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1997/23_correctChoiceText_fixed/question_1997_4_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1997/23_correctChoiceText_fixed/question_1997_5_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1997/23_correctChoiceText_fixed/question_1997_7_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1997/23_correctChoiceText_fixed/question_1997_8_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1998/23_correctChoiceText_fixed/question_1998_5_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1998/23_correctChoiceText_fixed/question_1998_6_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1998/23_correctChoiceText_fixed/question_1998_7_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1999/23_correctChoiceText_fixed/question_1999_4_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/1999/23_correctChoiceText_fixed/question_1999_5_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2000/23_correctChoiceText_fixed/question_2000_1_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2000/23_correctChoiceText_fixed/question_2000_3_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2001/23_correctChoiceText_fixed/question_2001_4_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2001/23_correctChoiceText_fixed/question_2001_6_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2002/23_correctChoiceText_fixed/question_2002_1_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2002/23_correctChoiceText_fixed/question_2002_2_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2004/23_correctChoiceText_fixed/question_2004_2_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2004/23_correctChoiceText_fixed/question_2004_3_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2005/23_correctChoiceText_fixed/question_2005_4_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2005/23_correctChoiceText_fixed/question_2005_5_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2005/23_correctChoiceText_fixed/question_2005_7_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2006/23_correctChoiceText_fixed/question_2006_7_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2006/23_correctChoiceText_fixed/question_2006_8_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2007/23_correctChoiceText_fixed/question_2007_3_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2007/23_correctChoiceText_fixed/question_2007_7_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2009/23_correctChoiceText_fixed/question_2009_5_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2009/23_correctChoiceText_fixed/question_2009_9_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2010/23_correctChoiceText_fixed/question_2010_6_correctChoiceText_fixed.json",
+      "output/judoseifukushi/questions_json/2011/23_correctChoiceText_fixed/question_2011_7_correctChoiceText_fixed.json"
+    ],
+    "records": [
+      {
+        "recordId": "19e9a8c53cf00144",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "ed07428c79ace508",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "f0f1d2993d5671e6",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "0f231aa84f04c2d7",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "正しい",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "8fe55bc9f9b8f49e",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "c2109c9ceec89dc6",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "26d0da537de18d3c",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "b801ef30ef188c60",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "aa5362d51ab6739d",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "24cc2bac28af7e28",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "ed514632195d598c",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "321401935b2c0752",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "d281a1bfaca91985",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "5a3b87a2d19bd625",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "2401c6d4fa7111a5",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "7b372e50d597c363",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "c8af1e8b0c970ab1",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "db637cee87824d57",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "02995d8bb53f6d42",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "270520054cd311ea",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "正しい",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "675ce6f3db722a24",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "7bd905381415c9b4",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "f73181ec7b58db9a",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "21fe56c6367a9315",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "718afcdc87dda47f",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "affdcb9571d4eb86",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "2500bb7b93418ce0",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "87648b487d38fbdb",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "010e73656ecf4d28",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "7b6b5906b886885f",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "22ae677a1feb24dc",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "2d65df4a98dc9d41",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "26b37ce61c88106d",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "5adabc5c04035bfc",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "6fe7bd5fe917786b",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "a2ed34a83b836fb0",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "0cf78ebd2e5ad0d3",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "3c1037cd85171b1f",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "603a149632d1f5dd",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "d73f08580e90c86b",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "1acc6d6c398909a5",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "e87c17c84d9d6e97",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "2cc551d587f695ef",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "d8b5e157091e4bf3",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "a9e785fe229d99c3",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "5b402cc59061b28f",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "b31b62ef374e2d82",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "10c3c940ed870e4b",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "dca823db075038aa",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "457cbc3efb17aaeb",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "dbe691df9734854a",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "aa44687db0bc8808",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "68f9582c5311d3d5",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "ad5d56b1a0a533a2",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "d83e43467753bd60",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "9275a05f53ffba66",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "71feb43c5efa9a0f",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "34a41ccc41559801",
+        "correctChoiceText": [
+          "正しい",
+          "正しい",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "3b51f458f904284e",
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "776d0ffe6a6b3386",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "ac0001491c091a96",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "c1d665e8c6eed4ba",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "0a7b05bfd9bf8cae",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "7d78d38d7e4f85d3",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "e16e443515e5af5d",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "間違い",
+          "間違い"
+        ]
+      },
+      {
+        "recordId": "4a3fc0ca277fa0f3",
+        "correctChoiceText": [
+          "間違い",
+          "正しい",
+          "正しい",
+          "正しい"
+        ]
+      },
+      {
+        "recordId": "a9ce7ee57c99e3a7",
+        "correctChoiceText": [
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ]
+      }
+    ]
+  }
+}

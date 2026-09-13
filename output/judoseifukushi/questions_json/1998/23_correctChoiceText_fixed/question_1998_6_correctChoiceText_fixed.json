@@ -1,12 +1,12 @@
 [
   {
     "correctChoiceText_changed": true,
-    "correctChoiceText_change_detail": "no-answer labels normalized to all incorrect for answerless true_false item",
-    "correctChoiceText_change_reason": "公式解答が『解なし』のため、選択肢1〜4をいずれも正答肢として扱わず、true_false の正誤ラベルをすべて『間違い』に固定する。",
+    "correctChoiceText_change_detail": "questionTypeをtrue_falseへ復元したため、各肢の記述自体の真偽へ復元。",
+    "correctChoiceText_change_reason": "group_choice化で正解選択肢フラグへ上書きされていたため。",
     "original_question_id": "e87c17c84d9d6e97",
     "correctChoiceText": [
       "間違い",
-      "正しい",
+      "間違い",
       "間違い",
       "間違い"
     ],
@@ -17,12 +17,12 @@
   },
   {
     "correctChoiceText_changed": true,
-    "correctChoiceText_change_detail": "no-answer labels normalized to all incorrect for answerless true_false item",
-    "correctChoiceText_change_reason": "公式解答が『解なし』のため、選択肢1〜4をいずれも正答肢として扱わず、true_false の正誤ラベルをすべて『間違い』に固定する。",
+    "correctChoiceText_change_detail": "questionTypeをtrue_falseへ復元したため、各肢の記述自体の真偽へ復元。",
+    "correctChoiceText_change_reason": "group_choice化で正解選択肢フラグへ上書きされていたため。",
     "original_question_id": "1acc6d6c398909a5",
     "correctChoiceText": [
       "間違い",
-      "正しい",
+      "間違い",
       "間違い",
       "間違い"
     ],
