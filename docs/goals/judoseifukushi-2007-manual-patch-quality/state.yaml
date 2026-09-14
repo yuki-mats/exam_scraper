@@ -47,12 +47,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 0
-  remaining_questions: 230
+  completed_questions: 25
+  remaining_questions: 205
   total_files: 10
-  completed_files: 0
+  completed_files: 1
 
-active_task: T002
+active_task: T003
 
 tasks:
   - id: T001
@@ -64,7 +64,7 @@ tasks:
   - id: T002
     type: worker
     assignee: Worker
-    status: ready
+    status: done
     objective: "問1〜問25（question_2007_1.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2007/00_source/question_2007_1.json"
     question_labels: "問1〜問25"
