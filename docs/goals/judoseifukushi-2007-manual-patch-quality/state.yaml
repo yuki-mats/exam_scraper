@@ -47,12 +47,12 @@ rules:
 
 progress:
   total_questions: 230
-  completed_questions: 150
-  remaining_questions: 80
+  completed_questions: 175
+  remaining_questions: 55
   total_files: 10
-  completed_files: 6
+  completed_files: 7
 
-active_task: T008
+active_task: T009
 
 tasks:
   - id: T001
@@ -112,7 +112,7 @@ tasks:
   - id: T008
     type: worker
     assignee: Worker
-    status: ready
+    status: done
     objective: "問151〜問175（question_2007_7.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2007/00_source/question_2007_7.json"
     question_labels: "問151〜問175"
