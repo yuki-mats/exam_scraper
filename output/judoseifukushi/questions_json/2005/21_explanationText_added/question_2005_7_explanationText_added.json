@@ -1,2819 +1,621 @@
 [
   {
-    "explanationText": [
-      "正しい。心室性期外収縮は心室起源の早期収縮で、この異常波形に合う。",
-      "間違い。上室性期外収縮ならQRSは比較的正常幅で、波形の特徴が異なる。",
-      "間違い。発作性上室性頻脈は規則正しい頻拍が主体で、この所見とは違う。",
-      "間違い。心房細動はP波消失とRR不整が主体で、単発の早期収縮とは異なる。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 1 です。心室性期外収縮の早期収縮波形に合う。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「心電図を示す。この波形が表しているのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "ec5a7323daa8778a",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q151"
-  },
-  {
+    "public_question_id": "ec5a7323daa8778a",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q151",
+    "sourceQuestionKey": "ec5a7323daa8778a",
+    "reviewQuestionId": "ec5a7323daa8778a",
+    "sourceRecordRef": null,
+    "questionLabel": "問151",
     "explanationText": [
-      "正しい。輸血ではアレルギー反応が起こることがある。",
-      "正しい。輸血を介してウイルスに感染することがある。",
-      "正しい。輸血後の移植片対宿主反応は、輸血されたリンパ球が受血者の組織を攻撃する重篤な副作用である。",
-      "間違い。血糖値上昇は一般的な輸血副作用ではない。輸血の副作用としては、アレルギー反応、感染症、移植片対宿主反応などが挙げられる。"
+      "正しい。心電図上、先行するP波を伴わず幅広く変形したQRS波が早期に出現し、その後に完全代償性休止期を伴っていることから、心室性期外収縮（VPC/PVC）の波形です。",
+      "間違い。上室性期外収縮（APC/PAC）では、異常な先行P波に伴って正常形態に近い狭いQRS波が出現します。",
+      "間違い。発作性上室性頻脈（PSVT）は、突然発症・停止する規則正しい頻拍（心拍数150〜200回/分程度）であり、単発の幅広QRS波ではありません。",
+      "間違い。心房細動（Af）は、基線の細かな不規則動揺（f波）と絶対的不整（RR間隔の不規則）を主徴とします。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "701f3bea0f3fd3bf",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q152",
-    "sourceQuestionKey": "judoseifukushi:2005:701f3bea0f3fd3bf",
-    "reviewQuestionId": "701f3bea0f3fd3bf",
-    "sourceRecordRef": "question_2005_7.json#1",
-    "explanationReferences": [],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "輸血副作用の医学的知識を問う問題で、法令・制度上の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "法令ではなく輸血医学の基本知識で判定する。",
-          "promptContext": "輸血のアレルギー反応に関する医学的知識。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識による判定であり、法令改正による影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "法令ではなく輸血医学の基本知識で判定する。",
-          "promptContext": "輸血を介したウイルス感染に関する医学的知識。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識による判定であり、法令改正による影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "法令ではなく輸血医学の基本知識で判定する。",
-          "promptContext": "輸血後移植片対宿主反応に関する医学的知識。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識による判定であり、法令改正による影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "血糖値上昇は一般的な輸血副作用ではない。",
-          "promptContext": "輸血副作用ではないものを判定する医学的知識。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学的知識による判定であり、法令改正による影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。発症年齢は、先天性疾患、てんかん、脳血管障害など、痙攣の原因を推定する重要な手がかりになる。",
-      "間違い。痙攣の初期対応では、手足を無理に押さえつけない。周囲の危険物を取り除いて安全を確保し、気道や呼吸の状態を確認することを優先する。",
-      "正しい。脳血管障害では、脳の損傷や血流障害によって痙攣が起こることがある。",
-      "正しい。てんかん大発作では、筋肉が硬直する強直期に続いて、手足をリズミカルに動かす間代期が現れる強直間代痙攣をきたす。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "4a4560ab2673cd73",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q153",
-    "sourceQuestionKey": "judoseifukushi:2005:4a4560ab2673cd73",
-    "reviewQuestionId": "4a4560ab2673cd73",
-    "sourceRecordRef": "question_2005_7.json#2",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "医学的な痙攣の原因推定、初期対応、発作型を問う問題で、法令・制度上の根拠を必要としない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令による時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "第1選択肢は医学知識に基づく記述で、法令上の正誤判定を含まない。",
-          "promptContext": "発症年齢が痙攣の原因推定に有用かを問う選択肢。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令による時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "第2選択肢は痙攣時の初期対応に関する医学知識で、法令上の正誤判定を含まない。",
-          "promptContext": "痙攣時に手足を拘束することの適否を問う選択肢。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令による時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "第3選択肢は脳血管障害と痙攣の関係に関する医学知識で、法令上の正誤判定を含まない。",
-          "promptContext": "脳血管障害が痙攣の原因となるかを問う選択肢。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令による時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "第4選択肢はてんかん大発作の発作型に関する医学知識で、法令上の正誤判定を含まない。",
-          "promptContext": "てんかん大発作が強直間代痙攣をきたすかを問う選択肢。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。移植は、提供者と受け手の遺伝的な関係や種の違いで分類する。本人の組織を本人へ移すのが自家移植、遺伝的に同一の個体間で行うのが同系移植、同じ種の異なる個体間で行うのが同種移植、異なる種の個体間で行うのが異種移植である。親子は同じヒトという種に属する異なる個体なので、親子間の移植は同種移植に当たる。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "9cea81a5fb341a8b",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q154",
-    "sourceQuestionKey": "judoseifukushi:2005:9cea81a5fb341a8b",
-    "reviewQuestionId": "9cea81a5fb341a8b",
-    "sourceRecordRef": "question_2005_7.json#3",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "移植の分類を問う医学知識の問題であり、法令根拠は不要である。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行時点の法令差は対象外である。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学知識の分類問題である。",
-          "promptContext": "自家移植、同系移植、同種移植、異種移植の分類を確認した。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行時点の法令差は対象外である。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学知識の分類問題である。",
-          "promptContext": "自家移植、同系移植、同種移植、異種移植の分類を確認した。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行時点の法令差は対象外である。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学知識の分類問題である。",
-          "promptContext": "自家移植、同系移植、同種移植、異種移植の分類を確認した。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行時点の法令差は対象外である。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学知識の分類問題である。",
-          "promptContext": "自家移植、同系移植、同種移植、異種移植の分類を確認した。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "間違い。正しくは、頭蓋内出血では出血部位や原因に応じた止血処置を行い、内頚動脈結紮法をこの組合せには用いない。",
-      "正しい。ベロックのタンポン法は、鼻出血を圧迫して止血する方法である。",
-      "正しい。ブレークモアチューブは、食道静脈瘤破裂による出血を圧迫して止血するために用いる。",
-      "正しい。心嚢ドレナージ法は、心嚢液を排出して心臓への圧迫を解除する処置である。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "18ce8b2541df1351",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q155",
-    "sourceQuestionKey": "judoseifukushi:2005:18ce8b2541df1351",
-    "reviewQuestionId": "18ce8b2541df1351",
-    "sourceRecordRef": "question_2005_7.json#4",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "救急処置の適応に関する医学・外科の知識問題で、法令条文を根拠にしない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学・外科の知識問題であり、法令根拠を要しない。",
-          "promptContext": "救急処置の適応に関する知識問題。",
-          "refs": [],
-          "verdict": "law_not_applicable"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学・外科の知識問題であり、法令根拠を要しない。",
-          "promptContext": "救急処置の適応に関する知識問題。",
-          "refs": [],
-          "verdict": "law_not_applicable"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学・外科の知識問題であり、法令根拠を要しない。",
-          "promptContext": "救急処置の適応に関する知識問題。",
-          "refs": [],
-          "verdict": "law_not_applicable"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学・外科の知識問題であり、法令根拠を要しない。",
-          "promptContext": "救急処置の適応に関する知識問題。",
-          "refs": [],
-          "verdict": "law_not_applicable"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。緊急開頭手術を必要とするのは急性硬膜外血腫である。急性硬膜外血腫は出血が進むと意識障害や頭蓋内圧亢進を急速に起こすため、血腫を取り除く緊急開頭手術の適応となる。脳振盪は通常、手術ではなく経過を観察する。頭蓋底骨折も重症になり得るが、骨折だけで直ちに緊急開頭手術を行うわけではない。頭蓋骨膜下血腫も、通常は緊急開頭手術の直接の適応ではない。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "4ac2945dee507760",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q156",
-    "sourceQuestionKey": "judoseifukushi:2005:4ac2945dee507760",
-    "reviewQuestionId": "4ac2945dee507760",
-    "sourceRecordRef": "question_2005_7.json#5",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "医学的な緊急手術適応を問う問題であり、法令条文を根拠にしない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行時点の法令比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "脳振盪は通常、緊急開頭手術を必要としない。",
-          "promptContext": "緊急開頭手術の適応を問う医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行時点の法令比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "頭蓋底骨折だけでは、直ちに緊急開頭手術の適応とはならない。",
-          "promptContext": "緊急開頭手術の適応を問う医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行時点の法令比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "急性硬膜外血腫は急速に意識障害や頭蓋内圧亢進を起こし得るため、緊急開頭手術の適応となる。",
-          "promptContext": "緊急開頭手術の適応を問う医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行時点の法令比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "頭蓋骨膜下血腫は通常、緊急開頭手術の直接の適応ではない。",
-          "promptContext": "緊急開頭手術の適応を問う医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。ジャパン・コーマ・スケール（JCS）300は、痛み刺激を加えても反応しない状態を示す。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "4e44072e53eb3915",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q157",
-    "sourceQuestionKey": "judoseifukushi:2005:4e44072e53eb3915",
-    "reviewQuestionId": "4e44072e53eb3915",
-    "sourceRecordRef": "question_2005_7.json#6",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "ジャパン・コーマ・スケールの臨床的分類を問う問題であり、法令・制度上の根拠は不要。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の差分はない。法令監査対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度ではなく、ジャパン・コーマ・スケールの臨床的分類で正誤を判断する。",
-          "promptContext": "痛み刺激に対するジャパン・コーマ・スケール300の反応を問う問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "臨床知識の問題であり、現行法監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の差分はない。法令監査対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度ではなく、ジャパン・コーマ・スケールの臨床的分類で正誤を判断する。",
-          "promptContext": "痛み刺激に対するジャパン・コーマ・スケール300の反応を問う問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "臨床知識の問題であり、現行法監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の差分はない。法令監査対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度ではなく、ジャパン・コーマ・スケールの臨床的分類で正誤を判断する。",
-          "promptContext": "痛み刺激に対するジャパン・コーマ・スケール300の反応を問う問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "臨床知識の問題であり、現行法監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の差分はない。法令監査対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度ではなく、ジャパン・コーマ・スケールの臨床的分類で正誤を判断する。",
-          "promptContext": "痛み刺激に対するジャパン・コーマ・スケール300の反応を問う問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "臨床知識の問題であり、現行法監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。答えはくも膜下出血である。突然、頭の中を爆発させられたように感じる激しい頭痛（雷鳴頭痛）は、くも膜下出血を強く疑う重要な手掛かりである。脳動脈瘤などが破裂してくも膜下腔に出血すると、発症時から極めて強い頭痛が現れることがある。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "5aa11104c1dd4a22",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q158",
-    "sourceQuestionKey": "judoseifukushi:2005:5aa11104c1dd4a22",
-    "reviewQuestionId": "5aa11104c1dd4a22",
-    "sourceRecordRef": "question_2005_7.json#7",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "突然発症する爆発性頭痛から疾患を判断する医学知識の問題で、法令条文を根拠にしない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "突然発症する爆発性頭痛は、くも膜下出血を強く疑う症候である。",
-          "promptContext": "医学知識による判定である。",
-          "refs": [],
-          "verdict": "法令対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "一過性脳虚血発作は、典型的な爆発性頭痛を示す疾患ではない。",
-          "promptContext": "医学知識による判定である。",
-          "refs": [],
-          "verdict": "法令対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "脳内出血は鑑別に入るが、典型的な爆発性頭痛から最も考えられる疾患ではない。",
-          "promptContext": "医学知識による判定である。",
-          "refs": [],
-          "verdict": "法令対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "脳梗塞は典型的に突然の爆発性頭痛を示す疾患ではない。",
-          "promptContext": "医学知識による判定である。",
-          "refs": [],
-          "verdict": "法令対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "scenario_application",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。",
-      "間違い。正しくは、横断性脊髄腫瘍では病変以下の両側性の運動障害がみられる。片側上下肢麻痺は、この組合せに対応する典型的な所見ではない。",
-      "正しい。",
-      "正しい。腎破裂では後腹膜血腫によって腸腰筋陰影が消失することがある。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "66e85cd0d2e09cba",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q159",
-    "sourceQuestionKey": "judoseifukushi:2005:66e85cd0d2e09cba",
-    "reviewQuestionId": "66e85cd0d2e09cba",
-    "sourceRecordRef": "question_2005_7.json#8",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "外傷・神経症状に関する医学的知識の問題で、法令条文を根拠にしない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学的知識の選択肢である。",
-          "promptContext": "外傷・神経症状に関する医学的知識の問題。",
-          "refs": [],
-          "verdict": "医学知識に基づく選択肢で、法令改正の影響はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学的知識の選択肢である。",
-          "promptContext": "外傷・神経症状に関する医学的知識の問題。",
-          "refs": [],
-          "verdict": "医学知識に基づく選択肢で、法令改正の影響はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学的知識の選択肢である。",
-          "promptContext": "外傷・神経症状に関する医学的知識の問題。",
-          "refs": [],
-          "verdict": "医学知識に基づく選択肢で、法令改正の影響はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学的知識の選択肢である。",
-          "promptContext": "外傷・神経症状に関する医学的知識の問題。",
-          "refs": [],
-          "verdict": "医学知識に基づく選択肢で、法令改正の影響はない。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。急に生じた強い単関節痛に、腫脹、熱感、膝蓋跳動、微熱を伴っている。関節内注射の既往も感染を考える手掛かりとなるため、化膿性関節炎を最も疑う。痛風も急性単関節炎を起こすが、この症例では関節内感染を示唆する所見が前面に出ている。特発性骨壊死は急性の炎症所見を説明しにくく、関節リウマチは通常、慢性に複数の関節を侵す。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "502fb0bbadd41864",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q160",
-    "sourceQuestionKey": "judoseifukushi:2005:502fb0bbadd41864",
-    "reviewQuestionId": "502fb0bbadd41864",
-    "sourceRecordRef": "question_2005_7.json#9",
-    "explanationReferences": [
-      {
-        "referenceDate": "2026-09-09",
-        "sourceUrl": "https://www.joa.or.jp/topics/2023/files/guideline.pdf",
-        "title": "変形性膝関節症診療ガイドライン"
-      }
-    ],
-    "isLawRelated": false,
-    "lawContextForExplanation": "臨床所見を基に疾患を鑑別する問題であり、法令条文や制度上の基準を根拠にしない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外。",
-          "displayRefIds": [],
-          "explanationText": "選択肢1は急性炎症を伴う単関節炎の臨床像に合致する。",
-          "promptContext": "臨床所見を基に疾患を鑑別する問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "臨床医学上の疾患鑑別であり、法令・制度の論点ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外。",
-          "displayRefIds": [],
-          "explanationText": "選択肢2は鑑別対象となる疾患だが、この症例では関節内感染を示唆する所見がより強い。",
-          "promptContext": "臨床所見を基に疾患を鑑別する問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "臨床医学上の疾患鑑別であり、法令・制度の論点ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外。",
-          "displayRefIds": [],
-          "explanationText": "選択肢3は急性の炎症所見を伴う本症例とは合いにくい。",
-          "promptContext": "臨床所見を基に疾患を鑑別する問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "臨床医学上の疾患鑑別であり、法令・制度の論点ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外。",
-          "displayRefIds": [],
-          "explanationText": "選択肢4は通常、慢性に複数関節を侵す関節リウマチの特徴と合わない。",
-          "promptContext": "臨床所見を基に疾患を鑑別する問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "臨床医学上の疾患鑑別であり、法令・制度の論点ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "scenario_application",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。Morton病は第3・4趾間に起こりやすい。",
-      "間違い。Blount病は脛骨内反変形で、脛骨外側顆ではない。",
-      "間違い。第1ケーラー病は舟状骨で、立方骨ではない。",
-      "間違い。Segond病は脛骨外側の剥離骨折であり内側顆ではない。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "71feb43c5efa9a0f",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q161",
-    "sourceQuestionKey": "judoseifukushi:2005:71feb43c5efa9a0f",
-    "reviewQuestionId": "71feb43c5efa9a0f",
-    "sourceRecordRef": "question_2005_7.json#10",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "整形外科の疾患・解剖学的知識を問う問題で、法令条文や制度上の基準を根拠にしない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "整形外科の疾患と解剖学的部位の対応を問う技術問題である。",
-          "promptContext": "法令根拠を用いず、医学的知識に基づいて判定する。",
-          "refs": [],
-          "verdict": "法令監査対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "法令・制度問題ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "整形外科の疾患と解剖学的部位の対応を問う技術問題である。",
-          "promptContext": "法令根拠を用いず、医学的知識に基づいて判定する。",
-          "refs": [],
-          "verdict": "法令監査対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "法令・制度問題ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "整形外科の疾患と解剖学的部位の対応を問う技術問題である。",
-          "promptContext": "法令根拠を用いず、医学的知識に基づいて判定する。",
-          "refs": [],
-          "verdict": "法令監査対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "法令・制度問題ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "整形外科の疾患と解剖学的部位の対応を問う技術問題である。",
-          "promptContext": "法令根拠を用いず、医学的知識に基づいて判定する。",
-          "refs": [],
-          "verdict": "法令監査対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "法令・制度問題ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "間違い。外反母趾は男性より女性に多い。",
-      "間違い。外反母趾では母趾が外反し、回内を伴う。外旋が主体という説明は誤りである。",
-      "正しい。外反母趾では開張足を伴うことがある。",
-      "正しい。第1中足骨頭の内側にバニオンを認める。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "2e1f6c5b8e633c40",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q162",
-    "sourceQuestionKey": "judoseifukushi:2005:2e1f6c5b8e633c40",
-    "reviewQuestionId": "2e1f6c5b8e633c40",
-    "sourceRecordRef": "question_2005_7.json#11",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "外反母趾の整形外科・医学的知識を問う問題で、法令根拠は不要。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "外反母趾の性別頻度に関する医学的知識であり、法令監査の対象外である。",
-          "promptContext": "外反母趾の性別頻度に関する医学的知識を問う選択肢。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "外反母趾の変形方向に関する医学的知識であり、法令監査の対象外である。",
-          "promptContext": "母趾の変形方向を問う医学的選択肢。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "外反母趾に伴う足部変形に関する医学的知識であり、法令監査の対象外である。",
-          "promptContext": "開張足の合併に関する医学的選択肢。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "外反母趾にみられるバニオンに関する医学的知識であり、法令監査の対象外である。",
-          "promptContext": "第1中足骨頭内側のバニオンに関する医学的選択肢。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。痛風の診断基準に含まれないのはＣＲＰの陽性である。単関節炎、関節周囲の発赤、血清尿酸値の上昇はいずれも痛風を疑う際の重要な所見である。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "2969effc4e991bfc",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q163",
-    "sourceQuestionKey": "judoseifukushi:2005:2969effc4e991bfc",
-    "reviewQuestionId": "2969effc4e991bfc",
-    "sourceRecordRef": "question_2005_7.json#12",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "痛風の診断基準に関する医学知識の問題であり、法令条文や制度上の義務・手続を根拠にしない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法との比較対象なし。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令上の正誤判定ではない。",
-          "promptContext": "法令監査対象外の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法との比較対象なし。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令上の正誤判定ではない。",
-          "promptContext": "法令監査対象外の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法との比較対象なし。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令上の正誤判定ではない。",
-          "promptContext": "法令監査対象外の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法との比較対象なし。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令上の正誤判定ではない。",
-          "promptContext": "法令監査対象外の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": [
-      {
-        "choiceIndex": 1,
-        "items": [
-          {
-            "answer": "発作時には血清尿酸値が一時的に低下することがあるため、発作中の正常値だけで痛風を否定することはできない。",
-            "question": "痛風発作中に血清尿酸値が正常になることがあるのはなぜか。"
-          }
-        ]
-      }
     ]
   },
   {
+    "original_question_id": "701f3bea0f3fd3bf",
+    "public_question_id": "701f3bea0f3fd3bf",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q152",
+    "sourceQuestionKey": "701f3bea0f3fd3bf",
+    "reviewQuestionId": "701f3bea0f3fd3bf",
+    "sourceRecordRef": null,
+    "questionLabel": "問152",
     "explanationText": [
-      "間違い。陥凹を伴う筋損傷でも、原則は保存的に治療する。観血的治療は、損傷の部位や範囲、機能障害などを踏まえて必要性を判断する。",
-      "間違い。脱臼は腫脹が強くなるのを待たず、損傷部位と全身状態を確認したうえで、できるだけ早期に整復する。",
-      "正しい。転位のある関節内骨折では、関節面を正確に整復し、機能を保つ必要があるため、原則として観血的に治療する。",
-      "間違い。小児の骨幹部骨折は、骨癒合が早く、多少の転位は成長に伴う矯正が期待できるため、原則として保存的に治療する。"
+      "正しい。輸血用血液に含まれる血漿蛋白やアレルゲンに対する過敏反応により、蕁麻疹や掻痒感、アナフィラキシーなどのアレルギー反応が生じるため、正しい記述です。",
+      "正しい。スクリーニング検査をすり抜けた微量ウイルスにより、B型肝炎（HBV）、C型肝炎（HCV）、HIV等のウイルス感染症が稀に伝播するため、正しい記述です。",
+      "正しい。輸血血液中の供血者リンパ球が受血者体内で増殖し受血者組織を攻撃する輸血後移植片対宿主病（PT-GVHD）は重篤な致死的副作用であり、正しい記述です。",
+      "間違い。輸血の主な代謝性合併症には、抗凝固剤（クエン酸）のキレート作用による低カルシウム血症や、保存血赤血球破壊に伴う高カリウム血症などがあり、血糖値上昇は輸血の典型的副作用ではありません。"
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "original_question_id": "615d77d127eac599",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q164",
-    "sourceQuestionKey": "judoseifukushi:2005:615d77d127eac599",
-    "reviewQuestionId": "615d77d127eac599",
-    "sourceRecordRef": "question_2005_7.json#13",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "医学的な治療原則を問う問題であり、法令根拠は不要である。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学問題である。",
-          "promptContext": "筋損傷の治療原則に基づいて判定する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学的知識の問題であり、法令改正監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学問題である。",
-          "promptContext": "脱臼の整復時期に関する治療原則に基づいて判定する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学的知識の問題であり、法令改正監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学問題である。",
-          "promptContext": "転位のある関節内骨折の治療原則に基づいて判定する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識の問題であり、法令改正監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学問題である。",
-          "promptContext": "小児の骨幹部骨折の治療原則に基づいて判定する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学的知識の問題であり、法令改正監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
+    "suggestedQuestionDetailsByChoice": [],
     "questionLearningPatternId": "principles_exceptions",
-    "suggestedQuestionDetailsByChoice": []
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
+    "original_question_id": "4a4560ab2673cd73",
+    "public_question_id": "4a4560ab2673cd73",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q153",
+    "sourceQuestionKey": "4a4560ab2673cd73",
+    "reviewQuestionId": "4a4560ab2673cd73",
+    "sourceRecordRef": null,
+    "questionLabel": "問153",
     "explanationText": [
-      "正しい。横紋筋肉腫は小児期に好発する代表的な悪性腫瘍である。悪性線維性組織球腫と脂肪肉腫は成人に多く、滑膜肉腫は若年成人に多いため、小児期に好発する腫瘍としては横紋筋肉腫を選ぶ。"
+      "正しい。小児期の熱性痙攣や点頭てんかん、青年期の特発性てんかん、高齢者の脳血管障害や脳腫瘍に伴う症候性てんかんなど、発症年齢は原因疾患を推定する極めて重要な情報であり、正しい記述です。",
+      "間違い。痙攣発作中に手足を力任せに強く拘束すると、急激な筋収縮に抵抗して骨折、関節脱臼、筋断裂などの外傷を誘発するため禁忌です。危険物を遠ざけ、側臥位にして気道を確保することが初期対応の原則です。",
+      "正しい。脳梗塞や脳出血、くも膜下出血などの脳血管障害急性期および陳旧期病変は、大脳皮質の器質的障害により痙攣発作の直接原因となるため、正しい記述です。",
+      "正しい。てんかんの大発作（全般強直間代発作）は、全身の骨格筋が硬直する強直相に続いて律動的な痙攣を繰り返す間代相を呈するため、正しい記述です。"
     ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
     "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "9cea81a5fb341a8b",
+    "public_question_id": "9cea81a5fb341a8b",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q154",
+    "sourceQuestionKey": "9cea81a5fb341a8b",
+    "reviewQuestionId": "9cea81a5fb341a8b",
+    "sourceRecordRef": null,
+    "questionLabel": "問154",
+    "explanationText": [
+      "間違い。自家移植は、同一生体内の健常部から病変部へ組織を移植すること（自己植皮など）を指します。",
+      "間違い。同系移植は、一卵性双生児間や同一近交系動物間など遺伝的に同一な個体間で行われる移植を指します。",
+      "正しい。同種移植（同種異系移植：allograft）は、ヒトとヒトのように同一種内の遺伝的に異なる個体間で行われる移植であり、親子間や兄弟間、非血縁者間の移植はすべてこれに該当します。",
+      "間違い。異種移植は、ブタからヒトへの異種臓器移植のように異なる生物種間で行われる移植を指します。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "18ce8b2541df1351",
+    "public_question_id": "18ce8b2541df1351",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q155",
+    "sourceQuestionKey": "18ce8b2541df1351",
+    "reviewQuestionId": "18ce8b2541df1351",
+    "sourceRecordRef": null,
+    "questionLabel": "問155",
+    "explanationText": [
+      "間違い。頭蓋内出血（血腫）に対して内頸動脈を結紮すると、患側大脳半球の広範な虚血壊死（脳梗塞）を不可逆的に引き起こすため禁忌です。頭蓋内出血の治療は開頭血腫除去術や血管内治療、減圧開頭術等が行われます。",
+      "正しい。後部鼻出血（蝶口蓋動脈破裂など）では、咽頭後方から後鼻孔を閉塞するベロックのタンポン法が有効な圧迫止血法であり、正しい組合せです。",
+      "正しい。食道静脈瘤破裂に伴う大量吐血に対しては、ブレークモアチューブ（S-Bチューブ）を胃・食道内に挿入しバルーン拡張による機械的圧迫止血を行うため、正しい組合せです。",
+      "正しい。心嚢内に急速に血液・液体が貯留して心臓の拡張障害をきたす心タンポナーデに対しては、剣状突起下からの心嚢穿刺・ドレナージによる減圧が救命処置となるため、正しい組合せです。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "4ac2945dee507760",
+    "public_question_id": "4ac2945dee507760",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q156",
+    "sourceQuestionKey": "4ac2945dee507760",
+    "reviewQuestionId": "4ac2945dee507760",
+    "sourceRecordRef": null,
+    "questionLabel": "問156",
+    "explanationText": [
+      "間違い。脳振盪は、頭部外傷直後に一過性の意識障害を生じるものの頭蓋内に器質的病変を伴わない病態であり、開頭手術の適応はありません。",
+      "間違い。頭蓋底骨折は、髄液漏（髄液鼻漏・耳漏）の自然治癒を期待した保存的治療（頭部挙上・抗菌薬投与など）が原則であり、直ちに緊急開頭手術を行う適応ではありません。",
+      "正しい。急性硬膜外血腫は、中硬膜動脈などの動脈性出血により血腫が急速に増大し、短時間で脳ヘルニア・脳幹圧迫から致死的転帰をたどるため、直ちに緊急開頭血腫除去術を行う絶対的適応です。",
+      "間違い。頭蓋骨膜下血腫は、骨膜と頭蓋骨外板との間に生じる帽状腱膜下・骨膜下の頭皮下血腫であり、自然吸収を待つ保存的治療が原則です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "4e44072e53eb3915",
+    "public_question_id": "4e44072e53eb3915",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q157",
+    "sourceQuestionKey": "4e44072e53eb3915",
+    "reviewQuestionId": "4e44072e53eb3915",
+    "sourceRecordRef": null,
+    "questionLabel": "問157",
+    "explanationText": [
+      "間違い。刺激により開眼するのは、ジャパン・コーマスケール（JCS）の1桁（刺激なしで覚醒している状態）または2桁（刺激により覚醒する状態：JCS 10〜30）の反応です。",
+      "間違い。痛み刺激に対して払いのける動作をするのはJCS 100の判定基準です。",
+      "間違い。痛み刺激に対して手足を少し動かしたり顔をしかめたりするのはJCS 200の判定基準です。",
+      "正しい。ジャパン・コーマスケール（JCS）の300は、3桁（刺激しても覚醒しない状態）の最重度であり、「強い痛み刺激に対しても全く反応しない（手足の動きや顔のゆがみ等もみられない）」状態と定義されています。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "5aa11104c1dd4a22",
+    "public_question_id": "5aa11104c1dd4a22",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q158",
+    "sourceQuestionKey": "5aa11104c1dd4a22",
+    "reviewQuestionId": "5aa11104c1dd4a22",
+    "sourceRecordRef": null,
+    "questionLabel": "問158",
+    "explanationText": [
+      "正しい。「頭の中で爆発が起きたような」「バットで殴られたような」突然発症の激しい頭痛、嘔吐、項部硬直を主徴とするのは、脳動脈瘤破裂等によるくも膜下出血（SAH）の典型的臨床像です。",
+      "間違い。一過性脳虚血発作（TIA）は、一過性の片麻痺や言語障害などが突発し24時間以内に完全消失する病態で、激烈な頭痛は通常伴いません。",
+      "間違い。脳内出血も活動時に頭痛や片麻痺、意識障害で発症しますが、「爆発するような激痛が突然完成する」特徴的病歴はくも膜下出血を最も強く示唆します。",
+      "間違い。脳梗塞は、血管閉塞に伴い片麻痺や感覚障害、失語などが徐々にまたは突発して完成する病態で、通常激しい頭痛を伴うことは稀です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "66e85cd0d2e09cba",
+    "public_question_id": "66e85cd0d2e09cba",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q159",
+    "sourceQuestionKey": "66e85cd0d2e09cba",
+    "reviewQuestionId": "66e85cd0d2e09cba",
+    "sourceRecordRef": null,
+    "questionLabel": "問159",
+    "explanationText": [
+      "正しい。前頭蓋底骨折では篩板の骨折と硬膜断裂により髄液鼻漏を生じるため、正しい組合せです。",
+      "間違い。脊髄の横断性病変（横断性脊髄腫瘍など）では、病変部以下の両側に対称性の運動麻痺（対麻痺または四肢麻痺）や感覚脱失、排尿障害が生じます。片側の上下肢麻痺（片麻痺）は反対側の大脳皮質や内包など上位脳病変に特徴的であり、誤った組合せです。",
+      "正しい。連続する複数の肋骨がそれぞれ2箇所以上で骨折すると、胸壁の支持性が失われ奇異呼吸を呈する動揺胸郭（flail chest）となるため、正しい組合せです。",
+      "正しい。後腹膜臓器である腎臓の破裂や後腹膜血腫では、腹部単純X線像で腸腰筋陰影（psoas shadow）の消失や不鮮明化がみられるため、正しい組合せです。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "502fb0bbadd41864",
+    "public_question_id": "502fb0bbadd41864",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q160",
+    "sourceQuestionKey": "502fb0bbadd41864",
+    "reviewQuestionId": "502fb0bbadd41864",
+    "sourceRecordRef": null,
+    "questionLabel": "問160",
+    "explanationText": [
+      "正しい。関節内注射後に急性発症した強い単関節痛、局所の発赤・腫脹・熱感、関節液貯留（膝蓋跳動）、発熱を認める病態では、穿刺手技に伴う細菌の関節内侵入による化膿性関節炎が最も強く疑われます。",
+      "間違い。痛風は尿酸塩結晶による急性関節炎ですが、関節内注射の既往直後の発症や膝関節単独での発熱・強い関節液貯留では化膿性関節炎の鑑別が最優先されます。",
+      "間違い。特発性大腿骨顆部骨壊死症は、高齢女性の内側顆に好発し荷重時痛で発症しますが、局所の著明な熱感や37.5℃の発熱を伴うことは典型的ではありません。",
+      "間違い。関節リウマチは、多発性かつ対称性の慢性滑膜炎を主徴とする自己免疫疾患であり、一関節のみの急性発症・発熱病態とは合致しません。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "71feb43c5efa9a0f",
+    "public_question_id": "71feb43c5efa9a0f",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q161",
+    "sourceQuestionKey": "71feb43c5efa9a0f",
+    "reviewQuestionId": "71feb43c5efa9a0f",
+    "sourceRecordRef": null,
+    "questionLabel": "問161",
+    "explanationText": [
+      "正しい。モートン病（Morton病）は、第3・第4中足骨頭間（趾間）を通る足底神経が圧迫・牽引されて偽神経腫を形成し、足趾への放散痛やしびれをきたす絞扼性神経障害であり、正しい組合せです。",
+      "間違い。ブラント病（Blount病）は、脛骨近位「内側」骨端部（骨幹端）の成長障害により進行性の内反膝（O脚）を生じる骨端症です。",
+      "間違い。第1ケーラー病（Kohler病）は、足の「舟状骨」の無腐性壊死（骨端症）です。立方骨の骨端症ではありません。",
+      "間違い。セゴン（Segond）骨折・病変は、脛骨近位「外側」関節面の裂離骨折であり、前十字靭帯（ACL）断裂に高率に合併します。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "2e1f6c5b8e633c40",
+    "public_question_id": "2e1f6c5b8e633c40",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q162",
+    "sourceQuestionKey": "2e1f6c5b8e633c40",
+    "reviewQuestionId": "2e1f6c5b8e633c40",
+    "sourceRecordRef": null,
+    "questionLabel": "問162",
+    "explanationText": [
+      "正しい。外反母趾では、中足骨間靭帯の弛緩により足の横アーチが平坦化する開張足を高頻度に合併し、第1中足骨頭内側の突出部には摩擦と圧迫による滑液包炎・骨隆起であるバニオン（bunion）が形成されます。好発は中年以降の女性であり、母趾基節骨は外反および回内（内旋）変形を呈します。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "2969effc4e991bfc",
+    "public_question_id": "2969effc4e991bfc",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q163",
+    "sourceQuestionKey": "2969effc4e991bfc",
+    "reviewQuestionId": "2969effc4e991bfc",
+    "sourceRecordRef": null,
+    "questionLabel": "問163",
+    "explanationText": [
+      "正しい。急激に発症する単関節炎（特に第1中足趾節関節の激痛・腫脹）は痛風診断の主要項目に含まれます。",
+      "間違い。CRP陽性は急性炎症一般を反映する非特異的所見であり、米国リウマチ学会（ACR）の痛風診断基準の個別項目には含まれません。",
+      "正しい。罹患関節周囲の著明な発赤や熱感は、痛風発作の特徴的徴候として診断基準に含まれます。",
+      "正しい。血清尿酸値の上昇（高尿酸血症）は、尿酸塩結晶沈着の基盤病態として診断基準に含まれます。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "615d77d127eac599",
+    "public_question_id": "615d77d127eac599",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q164",
+    "sourceQuestionKey": "615d77d127eac599",
+    "reviewQuestionId": "615d77d127eac599",
+    "sourceRecordRef": null,
+    "questionLabel": "問164",
+    "explanationText": [
+      "間違い。陥凹を伴う筋損傷（肉離れ・筋部分断裂）の大部分は、RICE処置や弾力包帯固定などの保存療法で良好に治癒し、直ちに観血的治療（手術）の適応とはなりません。",
+      "間違い。外傷性脱臼は、整復が遅れるほど筋痙攣や局所浮腫が増悪し整復困難となるため、腫脹の出現を待つことなく受傷直後に速やかに愛護的徒手整復を行います。",
+      "正しい。関節面の不整やステップオフを伴う転位のある関節内骨折は、解剖学的整復と強固な内固定を行わないと早期に変形性関節症を残すため、原則として観血的治療（手術）を行います。",
+      "間違い。小児の骨幹部骨折は骨膜が厚く強固で旺盛な自家矯正力を有するため、原則として保存療法（徒手整復と外固定）が適用されます。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
     "original_question_id": "7a489dbab5663de7",
+    "public_question_id": "7a489dbab5663de7",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q165",
-    "sourceQuestionKey": "judoseifukushi:2005:7a489dbab5663de7",
+    "sourceQuestionKey": "7a489dbab5663de7",
     "reviewQuestionId": "7a489dbab5663de7",
-    "sourceRecordRef": "question_2005_7.json#14",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問165",
+    "explanationText": [
+      "間違い。悪性線維性組織球腫（未分化多形肉腫）は、中高年以降の四肢深部軟部組織に好発する悪性腫瘍です。",
+      "間違い。脂肪肉腫は、成人・中高齢者の大腿や後腹膜などに好発する代表的な軟部肉腫です。",
+      "正しい。横紋筋肉腫（特に胎児型・胞巣型）は、小児および若年者の頭頸部、泌尿生殖器、四肢に好発する小児期最多の悪性軟部腫瘍です。",
+      "間違い。滑膜肉腫は、20〜40歳代の若年成人・青年の四肢大関節近傍に好発する軟部肉腫です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "小児期に好発する腫瘍に関する一般医学の問題で、法令・制度上の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度ではなく、小児期に好発する腫瘍の医学知識を問う。",
-          "promptContext": "柔道整復師の一般医学問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "一般医学の知識問題であり、法令の現行法監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度ではなく、小児期に好発する腫瘍の医学知識を問う。",
-          "promptContext": "柔道整復師の一般医学問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "一般医学の知識問題であり、法令の現行法監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度ではなく、小児期に好発する腫瘍の医学知識を問う。",
-          "promptContext": "柔道整復師の一般医学問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "一般医学の知識問題であり、法令の現行法監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度ではなく、小児期に好発する腫瘍の医学知識を問う。",
-          "promptContext": "柔道整復師の一般医学問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "一般医学の知識問題であり、法令の現行法監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。骨軟化症では、石灰化障害によって石灰化されない類骨が増加する。",
-      "正しい。くる病では、成長部位である骨幹端部に盃状変化がみられる。",
-      "正しい。慢性の胆道閉塞は脂溶性ビタミンDの吸収を妨げ、骨軟化症の原因となる。",
-      "間違い。正しくは、低リン血症性くる病では血清カルシウム値は通常低下せず、主な異常は血清リン値の低下である。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "126957be04af7072",
+    "public_question_id": "126957be04af7072",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q166",
-    "sourceQuestionKey": "judoseifukushi:2005:126957be04af7072",
+    "sourceQuestionKey": "126957be04af7072",
     "reviewQuestionId": "126957be04af7072",
-    "sourceRecordRef": "question_2005_7.json#15",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問166",
+    "explanationText": [
+      "正しい。骨軟化症およびくる病の本態は、骨基質の石灰化障害であり、組織学的に未石灰化の類骨層（osteoid）が著明に増加するため、正しい記述です。",
+      "正しい。くる病の骨X線像では、成長軟骨板の石灰化遅延に伴い骨幹端部が杯状に凹み拡大する盃状変化（cuppingやflaring）がみられるため、正しい記述です。",
+      "正しい。慢性胆道閉塞や胆汁うっ滞では、脂溶性ビタミンであるビタミンDの腸管吸収が障害され、二次的に骨軟化症を引き起こすため、正しい記述です。",
+      "間違い。低リン血症性くる病（ビタミンD抵抗性くる病）は、腎尿細管でのリン再吸収障害により著明な低リン血症を呈しますが、血清カルシウム値は正常範囲に保たれます。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "骨軟化症とくる病の病態・所見を問う医学問題であり、法令根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "第1肢は骨軟化症の組織像に関する医学知識であり、法令の改廃による影響はない。",
-          "promptContext": "骨軟化症とくる病の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識問題であり法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "第2肢はくる病のエックス線所見に関する医学知識であり、法令の改廃による影響はない。",
-          "promptContext": "骨軟化症とくる病の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識問題であり法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "第3肢は慢性胆道閉塞と骨軟化症の原因に関する医学知識であり、法令の改廃による影響はない。",
-          "promptContext": "骨軟化症とくる病の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識問題であり法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "第4肢は低リン血症性くる病の血液所見に関する医学知識であり、法令の改廃による影響はない。",
-          "promptContext": "骨軟化症とくる病の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識問題であり法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。成長期に発症しやすく、肥満は発症リスクの一つである。",
-      "間違い。患側股関節は内旋位ではなく外旋位をとる。股関節の内旋制限と外旋位は、大腿骨頭すべり症でみられる重要な所見である。",
-      "正しい。陳旧例で無理に徒手整復すると、骨頭への血流を損なって大腿骨頭壊死を起こす危険があるため、禁忌である。",
-      "正しい。骨切り術後には、大腿骨頭壊死が合併することがある。骨切り術では骨頭への血流を損なわないよう注意が必要である。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "f07880da4527db5c",
+    "public_question_id": "f07880da4527db5c",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q167",
-    "sourceQuestionKey": "judoseifukushi:2005:f07880da4527db5c",
+    "sourceQuestionKey": "f07880da4527db5c",
     "reviewQuestionId": "f07880da4527db5c",
-    "sourceRecordRef": "question_2005_7.json#16",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問167",
+    "explanationText": [
+      "正しい。大腿骨頭すべり症は、成長スパート期（思春期）の肥満傾向のある男児に好発するため、正しい記述です。",
+      "間違い。大腿骨頭すべり症では、大腿骨頭が後下方にすべるため頸部および大腿骨幹部は前上方へ偏位し、患肢は「外旋位」をとります（股関節屈曲時に外旋が強制されるドレーマン徴候が陽性となります）。内旋位をとる記述は誤りです。",
+      "正しい。陳旧例に対して無理な徒手整復を行うと、大腿骨頭への血流障害を悪化させ大腿骨頭壊死を誘発するため禁忌であり、正しい記述です。",
+      "正しい。大腿骨頭すべり症の外科的治療（骨切り術や固定術）の重篤な合併症として、大腿骨頭壊死や軟骨溶解症が知られており、正しい記述です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "大腿骨頭すべり症の病態、臨床所見および治療に関する医学知識の問題で、法令根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学知識問題である。",
-          "promptContext": "大腿骨頭すべり症の病態と肥満との関連に関する問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学知識問題である。",
-          "promptContext": "大腿骨頭すべり症における患側股関節の肢位に関する問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題であり法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学知識問題である。",
-          "promptContext": "大腿骨頭すべり症の陳旧例に対する徒手整復の適否に関する問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令根拠を要しない医学知識問題である。",
-          "promptContext": "大腿骨頭すべり症に対する骨切り術後の合併症に関する問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題であり法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。",
-      "間違い。急性化膿性骨髄炎の初期は画像上の変化が乏しく、骨膜反応が著明になるのは発症直後ではない。",
-      "正しい。",
-      "間違い。赤沈値やCRPは補助的な炎症所見であり、検査値だけで急性化膿性骨髄炎と診断して初期から抗菌薬を投与することはできない。臨床症状、画像検査、培養検査などを総合して判断する。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "7a135e1d1ebb9380",
+    "public_question_id": "7a135e1d1ebb9380",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q168",
-    "sourceQuestionKey": "judoseifukushi:2005:7a135e1d1ebb9380",
+    "sourceQuestionKey": "7a135e1d1ebb9380",
     "reviewQuestionId": "7a135e1d1ebb9380",
-    "sourceRecordRef": "question_2005_7.json#17",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問168",
+    "explanationText": [
+      "正しい。急性化膿性骨髄炎は、血行感染により血流が豊富で血管終末部がループを形成する長管骨骨幹端部に好発し、骨内圧上昇に伴い安静時でも治まらない激しい自発痛と叩打痛を呈します。発症初期の骨膜反応は軽微であり、赤沈・CRPの著明な亢進を伴います。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "急性化膿性骨髄炎に関する医学・臨床知識の問題で、法令・制度上の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現在の法令比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "医学知識に基づく選択肢で、法令改正による影響はない。",
-          "promptContext": "急性化膿性骨髄炎の好発部位に関する医学知識。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現在の法令比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "医学知識に基づく選択肢で、法令改正による影響はない。",
-          "promptContext": "急性化膿性骨髄炎の初期画像所見に関する医学知識。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現在の法令比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "医学知識に基づく選択肢で、法令改正による影響はない。",
-          "promptContext": "急性化膿性骨髄炎の疼痛に関する医学知識。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現在の法令比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "医学知識に基づく選択肢で、法令改正による影響はない。",
-          "promptContext": "急性化膿性骨髄炎における炎症所見と抗菌薬投与判断に関する医学知識。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。該当するのは骨形成不全症である。骨形成不全症はⅠ型コラーゲンの異常によって骨がもろくなり、長管骨の骨幹部に骨折や変形が生じやすい。これに対し、モルキオ病は全身の軟骨・骨の発育障害、マルファン症候群は結合組織の異常、軟骨無形成症は軟骨内骨化の障害が主な病態であり、主な病変部位を骨幹部とする疾患ではない。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "f97bc607858a91d1",
+    "public_question_id": "f97bc607858a91d1",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q169",
-    "sourceQuestionKey": "judoseifukushi:2005:f97bc607858a91d1",
+    "sourceQuestionKey": "f97bc607858a91d1",
     "reviewQuestionId": "f97bc607858a91d1",
-    "sourceRecordRef": "question_2005_7.json#18",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問169",
+    "explanationText": [
+      "間違い。モルキオ病（ムコ多糖症Ⅳ型）は、主に椎体や長管骨骨端部の異形成（脊椎骨端異形成症）を主徴とします。",
+      "間違い。マルファン症候群は、結合組織異常（フィブリリン1変異）により四肢骨の過成長（クモ状指、高身長）や大動脈解離、水晶体亜脱臼をきたす疾患で、骨幹部特異的な病変ではありません。",
+      "間違い。軟骨無形成症は、線維芽細胞増殖因子受容体（FGFR3）変異により成長軟骨板の軟骨内骨化が障害され、近位優位の四肢短縮型低身長をきたす疾患です。",
+      "正しい。骨形成不全症（OI）は、Ⅰ型コラーゲンの先天的異常により骨幹部の皮質骨形成（膜性骨化）が障害され、骨幹部が菲薄化・脆弱化して易骨折性や骨変形をきたします。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "医学知識のみで正誤を判断する問題であり、法令・制度上の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "モルキオ病の病態は法令ではなく医学知識に基づいて判断する。",
-          "promptContext": "病変部位に関する医学知識の問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の選択肢であり、法令改正の確認対象ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "マルファン症候群の病態は法令ではなく医学知識に基づいて判断する。",
-          "promptContext": "病変部位に関する医学知識の問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の選択肢であり、法令改正の確認対象ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "軟骨無形成症の病態は法令ではなく医学知識に基づいて判断する。",
-          "promptContext": "病変部位に関する医学知識の問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の選択肢であり、法令改正の確認対象ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "骨形成不全症の病態は法令ではなく医学知識に基づいて判断する。",
-          "promptContext": "病変部位に関する医学知識の問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の選択肢であり、法令改正の確認対象ではない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。",
-      "正しい。",
-      "正しい。",
-      "間違い。全型の腕神経根引き抜き損傷では上肢全体に広範な運動麻痺と知覚障害が起こるが、上腕内側上1/2の知覚は主に肋間上腕神経が支配するため、この部位の障害とする記述は誤りである。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "13271ac8eeac5d11",
+    "public_question_id": "13271ac8eeac5d11",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q170",
-    "sourceQuestionKey": "judoseifukushi:2005:13271ac8eeac5d11",
+    "sourceQuestionKey": "13271ac8eeac5d11",
     "reviewQuestionId": "13271ac8eeac5d11",
-    "sourceRecordRef": "question_2005_7.json#19",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問170",
+    "explanationText": [
+      "正しい。神経根引き抜き損傷（節前損傷）は脊髄根部での断裂であり、神経縫合や神経移植による直接修復は不能であるため、正しい記述です。",
+      "正しい。脊髄造影（ミエログラフィー）では、硬膜スリーブの破綻に伴い造影剤が硬膜外へ漏出する外傷性偽性髄膜瘤の像がみられるため、正しい記述です。",
+      "正しい。Th1神経根の交感神経節前線維障害により、同側の縮瞳、眼瞼下垂、眼球陥凹を呈するホルネル（Horner）症候群を伴うため、正しい記述です。",
+      "間違い。上腕内側上1/2の知覚は第2肋間神経（T2）外側皮枝に由来する肋間上腕神経によって支配されているため、腕神経叢（C5〜Th1）全型引き抜き損傷でも感覚は温存されます。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "腕神経叢引き抜き損傷の病態・症候に関する医学知識の問題で、法令条文を根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改訂の対象ではない。",
-          "displayRefIds": [],
-          "explanationText": "医学知識に基づく選択肢である。",
-          "promptContext": "腕神経叢全型神経根引き抜き損傷の病態・症候を問う問題。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改訂の対象ではない。",
-          "displayRefIds": [],
-          "explanationText": "医学知識に基づく選択肢である。",
-          "promptContext": "腕神経叢全型神経根引き抜き損傷の病態・症候を問う問題。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改訂の対象ではない。",
-          "displayRefIds": [],
-          "explanationText": "医学知識に基づく選択肢である。",
-          "promptContext": "腕神経叢全型神経根引き抜き損傷の病態・症候を問う問題。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改訂の対象ではない。",
-          "displayRefIds": [],
-          "explanationText": "上腕内側上1/2の知覚は主に肋間上腕神経が支配するため、全型腕神経叢引き抜き損傷の知覚障害部位とする記述は誤りである。",
-          "promptContext": "腕神経叢全型神経根引き抜き損傷の病態・症候を問う問題。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "間違い。椎間板ヘルニアもあるが、この経過とMRI所見には合いにくい。",
-      "正しい。後縦靱帯骨化症は頸髄症の原因になり、巧緻障害と歩行障害に合う。",
-      "間違い。硬膜内腫瘍なら別の画像所見が前景に出る。",
-      "間違い。椎体すべり症だけでは数年来の頸髄症像を説明しにくい。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は 2 です。後縦靱帯骨化症は頸髄症の原因になり、巧緻障害と歩行障害に合う。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解肢は定義、分類、代表例のいずれかが設問条件と一致しない。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "設問「56歳の男性。巧緻障害と歩行が不自由になったとの訴えで来院した。数年前から肩こりと上肢の感覚障害とがあった。来院時のＭＲＩ像(別冊No.1ＡＢ)を別に示す。考えられるのはどれか。」を基本知識に照らしてそのまま判定すること。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "6ff2628f828e7013",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q171"
+    "public_question_id": "6ff2628f828e7013",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q171",
+    "sourceQuestionKey": "6ff2628f828e7013",
+    "reviewQuestionId": "6ff2628f828e7013",
+    "sourceRecordRef": null,
+    "questionLabel": "問171",
+    "explanationText": [
+      "間違い。頸椎椎間板ヘルニアは、椎間板髄核の脱出により神経根や脊髄を圧迫する病態ですが、MRI像では椎体後面に帯状に連続する低信号の骨化病変が特徴的です。",
+      "正しい。頸椎椎体後面に連続する肥厚・骨化巣により脊髄が前途から圧迫されているMRI像所見、および中年以降の男性に生じた進行性の手指巧緻運動障害（箸やボタンの扱いづらさ）と痙性歩行障害から、頸椎後縦靭帯骨化症（OPLL）による頸髄症と考えられます。",
+      "間違い。硬膜内腫瘍（神経鞘腫や髄膜腫など）は、硬膜嚢内に限局した腫瘤影として描出され、椎体後縦靭帯に沿った帯状骨化所見とは異なります。",
+      "間違い。椎体すべり症は、椎体のアライメントが前後にずれる病態であり、本MRI像の骨化病変とは異なります。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。小児では骨癒合が良好で、転位に対する自家矯正力も期待できるため、骨折の状態によっては保存療法を原則とする。",
-      "正しい。小児の多発骨折は、通常の受傷機転だけでは説明できないことがあり、虐待を疑う重要な手掛かりとなる。",
-      "間違い。関節拘縮に対して、骨折後の関節を無理に徒手矯正するのは適切でない。疼痛や骨癒合の状態を確認しながら、運動療法や装具などで保存的に対応する。",
-      "正しい。小児骨折では成長に伴う自家矯正力が働き、関節の屈伸運動方向に一致する転位は矯正されやすい。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "a870e3dd51cdd0b8",
+    "public_question_id": "a870e3dd51cdd0b8",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q172",
-    "sourceQuestionKey": "judoseifukushi:2005:a870e3dd51cdd0b8",
+    "sourceQuestionKey": "a870e3dd51cdd0b8",
     "reviewQuestionId": "a870e3dd51cdd0b8",
-    "sourceRecordRef": "question_2005_7.json#21",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問172",
+    "explanationText": [
+      "正しい。小児の骨折は骨膜が厚く強固で旺盛な自家矯正力を有するため、原則として保存的治療が行われ、正しい記述です。",
+      "正しい。多発骨折や受傷機転と合致しない不自然な骨折、異なる時期の骨折痕は、被虐待児症候群（児童虐待）を疑う重要な指標であり、正しい記述です。",
+      "間違い。小児の骨折後拘縮に対して無理な徒手矯正（愛護的でない他動運動）を行うと、関節周囲の筋腱組織の微小損傷や骨膜損傷を招き、骨化性筋炎を誘発して拘縮を悪化させるため禁忌です。自動運動を促すことが基本です。",
+      "正しい。関節の屈伸運動方向（生理的運動方向）に一致する角状変形転位は、旺盛なリモデリング（自家矯正能）によって経時的に矯正されやすいため、正しい記述です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "小児骨折に関する医学・臨床知識の問題であり、法令条文を根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による正誤差分はない。",
-          "displayRefIds": [],
-          "explanationText": "小児骨折の保存療法と自家矯正力に関する医学的判断である。",
-          "promptContext": "法令根拠を用いず、医学・臨床知識として判定した。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学・臨床知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による正誤差分はない。",
-          "displayRefIds": [],
-          "explanationText": "小児の多発骨折と虐待を疑う判断に関する医学的知識である。",
-          "promptContext": "法令根拠を用いず、医学・臨床知識として判定した。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学・臨床知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による正誤差分はない。",
-          "displayRefIds": [],
-          "explanationText": "小児骨折後の関節拘縮に対する徒手矯正の適否に関する医学的判断である。",
-          "promptContext": "法令根拠を用いず、医学・臨床知識として判定した。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学・臨床知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による正誤差分はない。",
-          "displayRefIds": [],
-          "explanationText": "小児骨折における転位方向と自家矯正力の関係に関する医学的判断である。",
-          "promptContext": "法令根拠を用いず、医学・臨床知識として判定した。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学・臨床知識の問題であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。",
-      "間違い。捻転転位は、近位骨片の長軸に沿った末梢牽引だけでは整復できない。牽引に加えて、転位した骨片の回旋を正す操作が必要である。",
-      "正しい。",
-      "正しい。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "b5900a79bf0583bd",
+    "public_question_id": "b5900a79bf0583bd",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q173",
-    "sourceQuestionKey": "judoseifukushi:2005:b5900a79bf0583bd",
+    "sourceQuestionKey": "b5900a79bf0583bd",
     "reviewQuestionId": "b5900a79bf0583bd",
-    "sourceRecordRef": "question_2005_7.json#22",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問173",
+    "explanationText": [
+      "正しい。骨片端が噛み合って短縮している横骨折では、骨折部を一度屈曲させて骨片端を適合させた後に伸展させる屈曲整復法が適用されるため、正しい記述です。",
+      "間違い。捻転転位（回旋転位）は牽引力だけでは整復されず、近位骨片の捻転位置に合わせて遠位骨片を同一方向に回旋（回旋矯正）させる操作が必要です。牽引のみで整復されるとする記述は誤りです。",
+      "正しい。骨折端間に筋肉や骨膜などの軟部組織が介在・挟み込まれている場合、徒手整復は極めて困難となり観血的整復の適応となるため、正しい記述です。",
+      "正しい。筋緊張などにより近位骨片は整復操作で動かしにくいため、可動性のある遠位骨片を近位骨片の位置と軸に合わせて整復することが原則であり、正しい記述です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "骨折の整復法に関する医学・技術知識の問題で、法令条文を根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学・技術知識のため法令監査対象外。",
-          "promptContext": "法令ではなく骨折の整復法に関する知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学・技術知識のため法令監査対象外。",
-          "promptContext": "法令ではなく骨折の整復法に関する知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学・技術知識のため法令監査対象外。",
-          "promptContext": "法令ではなく骨折の整復法に関する知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学・技術知識のため法令監査対象外。",
-          "promptContext": "法令ではなく骨折の整復法に関する知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。骨折の固定は、整復位を保持し、骨片の再転位を防ぐ目的で行う。",
-      "正しい。固定範囲は、骨折部の上下にある関節をそれぞれ一つ含める。",
-      "正しい。骨折は原則として、関節の動きを保ちやすい機能的肢位で固定する。",
-      "間違い。固定期間は年齢、骨折部位、骨折の状態などに応じて決める。年齢にかかわらず、グルトの骨癒合日数を一律に適用するものではない。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "38eeb111318aaf93",
+    "public_question_id": "38eeb111318aaf93",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q174",
-    "sourceQuestionKey": "judoseifukushi:2005:38eeb111318aaf93",
+    "sourceQuestionKey": "38eeb111318aaf93",
     "reviewQuestionId": "38eeb111318aaf93",
-    "sourceRecordRef": "question_2005_7.json#23",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問174",
+    "explanationText": [
+      "正しい。骨折固定の最大の目的は、整復によって得られた解剖学的整復位を維持し、再転位を防止することであるため、正しい記述です。",
+      "正しい。確実な固定性を得るため、骨折部を挟む上下の各一関節を含めて固定（三点固定の原則）することが基本であり、正しい記述です。",
+      "正しい。長期固定に伴う関節拘縮が発生した場合でも日常生活への支障を最小限にするため、原則として機能的肢位（良肢位）で固定を行うため、正しい記述です。",
+      "間違い。骨癒合日数は年齢に大きく依存し、小児ではグルトの骨癒合日数よりもはるかに短期間で骨癒合が完了します。年齢にかかわらず一律とする記述は誤りです。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "骨折固定法の医学的・技術的知識を問う問題であり、法令条文を根拠としない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "骨折固定の目的に関する医学的知識で判定する。",
-          "promptContext": "骨折の固定法で誤っているものを選ぶ。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的・技術的知識による判定であり、法令改正の影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "骨折部の上下の関節を含めて固定するという医学的知識で判定する。",
-          "promptContext": "骨折の固定法で誤っているものを選ぶ。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的・技術的知識による判定であり、法令改正の影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "骨折を原則として機能的肢位で固定するという医学的知識で判定する。",
-          "promptContext": "骨折の固定法で誤っているものを選ぶ。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的・技術的知識による判定であり、法令改正の影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の時点差はない。",
-          "displayRefIds": [],
-          "explanationText": "固定期間は年齢や骨折の状態などに応じて決めるという医学的知識で判定する。",
-          "promptContext": "骨折の固定法で誤っているものを選ぶ。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学的・技術的知識による判定であり、法令改正の影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "conditions_scope",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "間違い。限局性圧痛は骨折でみられるが、靱帯損傷などでも生じるため、それだけで骨折とは断定できない。",
-      "正しい。軋轢音は骨折部で骨片がこすれたときに生じ、骨折を示唆する所見である。",
-      "間違い。関節の動揺性は靱帯損傷でみられるが、関節周囲の骨折や脱臼などでも生じるため、それだけで靱帯損傷とは断定できない。",
-      "間違い。関節内血腫は靱帯損傷だけでなく関節内骨折などでも生じるため、それだけで靱帯損傷とはいえない。"
-    ],
-    "lawGroundedExplanationNotNeeded": true,
     "original_question_id": "73f2c46bc342d68d",
+    "public_question_id": "73f2c46bc342d68d",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_13/#q175",
-    "sourceQuestionKey": "judoseifukushi:2005:73f2c46bc342d68d",
+    "sourceQuestionKey": "73f2c46bc342d68d",
     "reviewQuestionId": "73f2c46bc342d68d",
-    "sourceRecordRef": "question_2005_7.json#24",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問175",
+    "explanationText": [
+      "間違い。限局性圧痛は、骨折部のみならず靭帯損傷（靭帯付着部や実質部）でも高頻度に認められるため、両者の鑑別決定打にはなりません。",
+      "正しい。軋轢音（crepitus）は骨折端同士が擦れ合うことで生じる骨折の固有症状（絶対的確証徴候）であり、靭帯損傷単独では決して生じないため確実な鑑別所見です。",
+      "間違い。関節の動揺性は靭帯損傷の特徴ですが、骨折（関節内骨折や靭帯付着部裂離骨折）に伴っても動揺性が生じることがあるため、動揺性のみで直ちに靭帯損傷と断定することはできません。",
+      "間違い。関節内血腫は靭帯断裂（前十字靭帯断裂等）でも関節内骨折でも同様に生じるため、両者の特異的な鑑別点にはなりません。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "骨折と靱帯損傷の鑑別に関する臨床的・技術的知識の問題で、法令条文を根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正の確認対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令問題ではない。",
-          "promptContext": "骨折と靱帯損傷の臨床的鑑別問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正の確認対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令問題ではない。",
-          "promptContext": "骨折と靱帯損傷の臨床的鑑別問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正の確認対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令問題ではない。",
-          "promptContext": "骨折と靱帯損傷の臨床的鑑別問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正の確認対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令問題ではない。",
-          "promptContext": "骨折と靱帯損傷の臨床的鑑別問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   }
 ]
