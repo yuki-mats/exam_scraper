@@ -47,12 +47,12 @@ rules:
 
 progress:
   total_questions: 200
-  completed_questions: 100
-  remaining_questions: 100
+  completed_questions: 125
+  remaining_questions: 75
   total_files: 8
-  completed_files: 4
+  completed_files: 5
 
-active_task: T006
+active_task: T007
 
 tasks:
   - id: T001
@@ -96,7 +96,7 @@ tasks:
   - id: T006
     type: worker
     assignee: Worker
-    status: in_progress
+    status: done
     objective: "問101〜問125（question_2004_5.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2004/00_source/question_2004_5.json"
     question_labels: "問101〜問125"
@@ -104,7 +104,7 @@ tasks:
   - id: T007
     type: worker
     assignee: Worker
-    status: queued
+    status: in_progress
     objective: "問126〜問150（question_2004_6.json）の目視整備と検証・コミット。"
     target_file: "output/judoseifukushi/questions_json/2004/00_source/question_2004_6.json"
     question_labels: "問126〜問150"

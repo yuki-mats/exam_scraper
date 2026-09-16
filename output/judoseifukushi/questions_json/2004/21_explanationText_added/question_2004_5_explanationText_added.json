@@ -1,2715 +1,615 @@
 [
   {
-    "explanationText": [
-      "正しい。うっ血性心不全は、レイノー現象を典型的に示す疾患ではない。",
-      "間違い。全身性進行性硬化症では、末梢血管の異常によってレイノー現象を伴うことが多い。",
-      "間違い。頸肋などによって上肢の血管が圧迫されると、血流障害からレイノー現象を示すことがある。",
-      "間違い。振動病では、手指の血管が発作的に収縮して白くなるレイノー現象を示すことがある。"
-    ],
     "original_question_id": "db257635f20b2ddb",
+    "public_question_id": "db257635f20b2ddb",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q101",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:db257635f20b2ddb",
+    "sourceQuestionKey": "db257635f20b2ddb",
     "reviewQuestionId": "db257635f20b2ddb",
-    "sourceRecordRef": "question_2004_5.json#0",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "レイノー現象と各疾患の医学的関連を問う問題で、法令・制度上の根拠は不要。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の問題であり、法令根拠は不要。",
-          "promptContext": "レイノー現象と疾患の医学的関連を判定する問題。",
-          "refs": [],
-          "verdict": "法令・制度問題ではない"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の問題であり、法令根拠は不要。",
-          "promptContext": "レイノー現象と疾患の医学的関連を判定する問題。",
-          "refs": [],
-          "verdict": "法令・制度問題ではない"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の問題であり、法令根拠は不要。",
-          "promptContext": "レイノー現象と疾患の医学的関連を判定する問題。",
-          "refs": [],
-          "verdict": "法令・制度問題ではない"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の問題であり、法令根拠は不要。",
-          "promptContext": "レイノー現象と疾患の医学的関連を判定する問題。",
-          "refs": [],
-          "verdict": "法令・制度問題ではない"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
+    "sourceRecordRef": null,
+    "questionLabel": "問101",
     "explanationText": [
-      "正しい。腹水では腹腔内に液体がたまるため、打診で濁音を示す。",
-      "正しい。腹水が増えると腹部が前方へ張り出し、視診で膨隆を認める。",
-      "間違い。有響性金属音は腸閉塞などで腸管内のガスや液体の移動が強くなったときに聴取される所見であり、腹水の代表的な所見ではない。",
-      "正しい。腹水がたまると、触診で液体の揺れを伝える波動を認めることがある。"
+      "正しい。うっ血性心不全では全身の循環不全・浮腫が生じますが、手指動脈の攣縮によるレイノー現象は示しません。",
+      "間違い。全身性進行性硬化症（強皮症）では初発症状としてほぼ全例にレイノー現象がみられます。",
+      "間違い。頸肋（胸郭出口症候群）では鎖骨下動脈や腕神経叢の圧迫により手指のレイノー現象を伴うことがあります。",
+      "間違い。振動病（局所振動障害）では手指末梢循環障害によりレイノー現象（白指）を呈します。"
     ],
-    "original_question_id": "c5f1281fece99a30",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q102",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:c5f1281fece99a30",
-    "reviewQuestionId": "c5f1281fece99a30",
-    "sourceRecordRef": "question_2004_5.json#1",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "腹水時の身体診察所見を問う医学知識の問題で、法令・制度上の根拠は不要。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度問題ではないため、法令根拠は不要。",
-          "promptContext": "腹水時の腹部診察所見を問う医学知識問題。",
-          "refs": [],
-          "verdict": "腹水にみられる所見である。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "法令・制度問題ではないため、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度問題ではないため、法令根拠は不要。",
-          "promptContext": "腹水時の腹部診察所見を問う医学知識問題。",
-          "refs": [],
-          "verdict": "腹水時の腹部所見として正しい。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "法令・制度問題ではないため、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度問題ではないため、法令根拠は不要。",
-          "promptContext": "腹水時の腹部診察所見を問う医学知識問題。",
-          "refs": [],
-          "verdict": "有響性金属音は腹水の代表的所見ではない。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "法令・制度問題ではないため、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度問題ではないため、法令根拠は不要。",
-          "promptContext": "腹水時の腹部診察所見を問う医学知識問題。",
-          "refs": [],
-          "verdict": "腹水にみられる所見である。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "法令・制度問題ではないため、法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。胸水貯留 は設問「肺の聴診で呼吸音が減弱するのはどれか。2つ選べ。」に合致します。",
-      "間違い。肺結核 は設問「肺の聴診で呼吸音が減弱するのはどれか。2つ選べ。」に合致しません。",
-      "正しい。気胸 は設問「肺の聴診で呼吸音が減弱するのはどれか。2つ選べ。」に合致します。",
-      "正しい。肺気腫 は設問「肺の聴診で呼吸音が減弱するのはどれか。2つ選べ。」に合致します。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「胸水貯留」、「気胸」、「肺気腫」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「肺の聴診で呼吸音が減弱するのはどれか。2つ選べ。」の条件と、各選択肢の用語・機能・関係を照合することです。"
-      }
-    ],
-    "original_question_id": "8425462828362e5f",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q103",
-    "lawGroundedExplanationNotNeeded": true
-  },
-  {
-    "explanationText": [
-      "正しい。甲状腺機能低下症では、甲状腺ホルモンが不足して基礎代謝と熱産生が低下するため、低体温を来しやすい。全身性エリテマトーデス、髄膜炎、マラリアは、この設問で問われる典型的な低体温の原因ではなく、発熱を示すことが多い。"
-    ],
-    "original_question_id": "ebe56c0fa3d4b15d",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q104",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:ebe56c0fa3d4b15d",
-    "reviewQuestionId": "ebe56c0fa3d4b15d",
-    "sourceRecordRef": "question_2004_5.json#3",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "病態と体温変化の関係を問う医学知識問題であり、法令条文や制度上の義務・基準を判断根拠としない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令改正による正答影響はない。",
-          "promptContext": "低体温の原因となる病態を問う問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令改正による正答影響はない。",
-          "promptContext": "低体温の原因となる病態を問う問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令改正による正答影響はない。",
-          "promptContext": "甲状腺機能低下症と低体温の関係を問う問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令改正による正答影響はない。",
-          "promptContext": "低体温の原因となる病態を問う問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "間違い。起立性低血圧では、立ち上がったときの血圧低下を補うため交感神経が働き、通常は心拍数が増加する。",
-      "間違い。貧血では、酸素不足を補うため心拍出量を増やそうとして、通常は心拍数が増加する。",
-      "間違い。甲状腺機能亢進では、甲状腺ホルモンの作用で代謝と交感神経の反応が高まり、通常は頻脈になる。",
-      "正しい。脳圧亢進では、脳幹が圧迫されるなどして血圧上昇と心拍数低下を示すクッシング現象が起こり、徐脈になる。"
-    ],
-    "original_question_id": "f4777ca096ede36d",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q105",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:f4777ca096ede36d",
-    "reviewQuestionId": "f4777ca096ede36d",
-    "sourceRecordRef": "question_2004_5.json#4",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "徐脈の原因を問う生理学・病態生理の問題で、法令条文や制度上の根拠は不要。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令ではなく生理学的機序で判断する。",
-          "promptContext": "徐脈の原因を問う生理学・病態生理の問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "生理学・病態生理の問題で法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令ではなく生理学的機序で判断する。",
-          "promptContext": "徐脈の原因を問う生理学・病態生理の問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "生理学・病態生理の問題で法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令ではなく生理学的機序で判断する。",
-          "promptContext": "徐脈の原因を問う生理学・病態生理の問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "生理学・病態生理の問題で法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "法令ではなく生理学的機序で判断する。",
-          "promptContext": "徐脈の原因を問う生理学・病態生理の問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "生理学・病態生理の問題で法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "正しい。チェーン・ストークス呼吸は、呼吸が次第に深くなった後に浅くなり、無呼吸を挟む周期性の呼吸である。",
-      "間違い。正しくは、クスマウル呼吸は糖尿病性ケトアシドーシスなどでみられる、深く大きい呼吸が持続する異常呼吸である。呼吸期と無呼吸期が交互に現れる呼吸ではない。",
-      "正しい。ビオー呼吸は、深さや速さが不規則な呼吸と無呼吸が交互に現れる異常呼吸である。",
-      "間違い。正しくは、過換気呼吸は必要以上に換気が増えた状態であり、呼吸期と無呼吸期が周期的に交互に現れる呼吸パターンではない。"
-    ],
-    "original_question_id": "47d768de492e3610",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q106",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:47d768de492e3610",
-    "reviewQuestionId": "47d768de492e3610",
-    "sourceRecordRef": "question_2004_5.json#5",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "呼吸パターンの医学・生理学的知識を問う問題で、法令条文や制度上の基準を根拠にしない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "この選択肢は呼吸パターンの医学的知識に関するもので、法令監査の対象外である。",
-          "promptContext": "呼吸期と無呼吸期が交互に現れる呼吸パターンの定義を確認する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "この選択肢は呼吸パターンの医学的知識に関するもので、法令監査の対象外である。",
-          "promptContext": "呼吸期と無呼吸期が交互に現れる呼吸パターンの定義を確認する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "この選択肢は呼吸パターンの医学的知識に関するもので、法令監査の対象外である。",
-          "promptContext": "呼吸期と無呼吸期が交互に現れる呼吸パターンの定義を確認する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "この選択肢は呼吸パターンの医学的知識に関するもので、法令監査の対象外である。",
-          "promptContext": "呼吸期と無呼吸期が交互に現れる呼吸パターンの定義を確認する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "間違い。テタニー症状は、過換気による呼吸性アルカローシスで血中のイオン化カルシウムが低下すると起こるため、過換気症候群でみられる。",
-      "間違い。過換気症候群では、発作への不安や恐怖感を伴うことがあるため、不安・恐怖感はみられる症状である。",
-      "間違い。過換気症候群では、呼吸性アルカローシスによって四肢のしびれ感が生じることがある。",
-      "正しい。ミオクローヌスは筋肉が一瞬ぴくつく不随意運動で、過換気症候群の典型的な症状ではない。"
-    ],
-    "original_question_id": "d5624dcc6b384aff",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q107",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:d5624dcc6b384aff",
-    "reviewQuestionId": "d5624dcc6b384aff",
-    "sourceRecordRef": "question_2004_5.json#6",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "過換気症候群の症候に関する医学的な問題で、法令・制度上の根拠は不要。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の試験時点と現行時点の比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "医学的な症候の問題であり、法令改正の影響を受けない。",
-          "promptContext": "柔道整復師の医学知識に関する問題で、法令・制度論ではない。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の試験時点と現行時点の比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "医学的な症候の問題であり、法令改正の影響を受けない。",
-          "promptContext": "柔道整復師の医学知識に関する問題で、法令・制度論ではない。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の試験時点と現行時点の比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "医学的な症候の問題であり、法令改正の影響を受けない。",
-          "promptContext": "柔道整復師の医学知識に関する問題で、法令・制度論ではない。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の試験時点と現行時点の比較は不要。",
-          "displayRefIds": [],
-          "explanationText": "医学的な症候の問題であり、法令改正の影響を受けない。",
-          "promptContext": "柔道整復師の医学知識に関する問題で、法令・制度論ではない。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
-  },
-  {
-    "explanationText": [
-      "間違い。心房細動 は設問「心電図を示す。正しいのはどれか。」に合致しません。",
-      "間違い。上室性期外収縮 は設問「心電図を示す。正しいのはどれか。」に合致しません。",
-      "正しい。心室性期外収縮 は設問「心電図を示す。正しいのはどれか。」に合致します。",
-      "間違い。心室頻拍 は設問「心電図を示す。正しいのはどれか。」に合致しません。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「心室性期外収縮」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「心電図を示す。正しいのはどれか。」の条件と、各選択肢の用語・機能・関係を照合することです。"
-      }
-    ],
-    "original_question_id": "1253007c926caeef",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q108",
-    "lawGroundedExplanationNotNeeded": true
-  },
-  {
-    "explanationText": [
-      "正しい。",
-      "正しい。",
-      "間違い。消化性潰瘍瘢痕狭窄症では幽門付近が狭くなるため、嘔吐物は通常、胆汁を含まない。胆汁が混入するのは、胆汁が流れ込む部位より下流で閉塞が起こる場合である。",
-      "正しい。先天性幽門狭窄症では、授乳後に噴射性の嘔吐を起こす。"
-    ],
-    "original_question_id": "793e892368b4fc4a",
-    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q109",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:793e892368b4fc4a",
-    "reviewQuestionId": "793e892368b4fc4a",
-    "sourceRecordRef": "question_2004_5.json#8",
-    "explanationReferences": [],
-    "isLawRelated": false,
-    "lawContextForExplanation": "医学的な嘔吐所見と疾患の組合せを問う問題で、法令・制度上の根拠を要しない。",
-    "lawReferences": [
-      [],
-      [],
-      [],
-      []
-    ],
-    "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行の判断に差はない。",
-          "displayRefIds": [],
-          "explanationText": "この選択肢の正誤は医学的な嘔吐所見と疾患の対応で決まり、法令根拠を要しない。",
-          "promptContext": "設問は誤っている組合せを選ぶ形式である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識に基づく技術肢であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行の判断に差はない。",
-          "displayRefIds": [],
-          "explanationText": "この選択肢の正誤は医学的な嘔吐所見と疾患の対応で決まり、法令根拠を要しない。",
-          "promptContext": "設問は誤っている組合せを選ぶ形式である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識に基づく技術肢であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行の判断に差はない。",
-          "displayRefIds": [],
-          "explanationText": "消化性潰瘍瘢痕狭窄症では幽門付近が狭くなるため、嘔吐物は通常、胆汁を含まない。",
-          "promptContext": "設問は誤っている組合せを選ぶ形式である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学的知識に基づく技術肢であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行の判断に差はない。",
-          "displayRefIds": [],
-          "explanationText": "先天性幽門狭窄症では、授乳後に噴射性の嘔吐を起こす。",
-          "promptContext": "設問は誤っている組合せを選ぶ形式である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識に基づく技術肢であり、法令監査対象外。"
-        ],
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified"
-      }
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
     ]
   },
   {
+    "original_question_id": "c5f1281fece99a30",
+    "public_question_id": "c5f1281fece99a30",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q102",
+    "sourceQuestionKey": "c5f1281fece99a30",
+    "reviewQuestionId": "c5f1281fece99a30",
+    "sourceRecordRef": null,
+    "questionLabel": "問102",
     "explanationText": [
-      "正しい。急性膵炎の原因とならないのは急性ウイルス性肝炎である。急性膵炎は、胆石症、流行性耳下腺炎などのウイルス感染、副甲状腺機能亢進症などによって起こる。一方、急性ウイルス性肝炎は肝臓の炎症であり、急性膵炎の原因として扱わない。なお、選択肢の「副甲状腺機能亢進賞」は「副甲状腺機能亢進症」を指すものとして判断する。"
+      "間違い。腹水が貯留した部位の打診音は濁音を呈し、体位変換により濁音部が移動します（移動性濁音）。",
+      "間違い。多量の腹水貯留により腹部全体、特に両側腹部が外側に膨隆します（蛙腹）。",
+      "正しい。有響性金属音（金属音）は機械的腸閉塞（イレウス）の聴診所見であり、腹水貯留の所見ではないため誤りです。",
+      "間違い。一方の側腹部を軽く叩いた衝撃が対側の手に波として伝わる波動（波動感）が触知されます。"
     ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "8425462828362e5f",
+    "public_question_id": "8425462828362e5f",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q103",
+    "sourceQuestionKey": "8425462828362e5f",
+    "reviewQuestionId": "8425462828362e5f",
+    "sourceRecordRef": null,
+    "questionLabel": "問103",
+    "explanationText": [
+      "正しい。胸水貯留および気胸では胸腔内に液体や空気が貯留して音の伝導が遮断され、肺気腫では肺胞破壊と過膨張により気流速度が低下するため、いずれも呼吸音が減弱・消失します。肺結核では浸潤影や空洞形成に伴い局所で呼吸音の増強や断続性ラ音が聴取されます。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "ebe56c0fa3d4b15d",
+    "public_question_id": "ebe56c0fa3d4b15d",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q104",
+    "sourceQuestionKey": "ebe56c0fa3d4b15d",
+    "reviewQuestionId": "ebe56c0fa3d4b15d",
+    "sourceRecordRef": null,
+    "questionLabel": "問104",
+    "explanationText": [
+      "間違い。全身性エリテマトーデス（SLE）などの膠原病では活動期に発熱がみられます。",
+      "間違い。細菌性やウイルス性の髄膜炎では高熱や頭痛、項部硬直を呈します。",
+      "正しい。甲状腺機能低下症では基礎代謝の低下により熱産生が減少し、低体温や寒がりを呈します。",
+      "間違い。マラリアはマラリア原虫感染により周期的な高熱（発熱発作）を繰り返します。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "f4777ca096ede36d",
+    "public_question_id": "f4777ca096ede36d",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q105",
+    "sourceQuestionKey": "f4777ca096ede36d",
+    "reviewQuestionId": "f4777ca096ede36d",
+    "sourceRecordRef": null,
+    "questionLabel": "問105",
+    "explanationText": [
+      "間違い。起立性低血圧では血圧低下を代償するために反射性の頻脈がみられます。",
+      "間違い。貧血では酸素運搬能の低下を補うため心拍出量が増加し頻脈となります。",
+      "間違い。甲状腺機能亢進症（バセドウ病など）では交感神経緊張亢進により頻脈を呈します。",
+      "正しい。頭蓋内圧亢進症では延髄血管運動中枢等の刺激により血圧上昇とともに徐脈を呈します（クッシング現象）。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "47d768de492e3610",
+    "public_question_id": "47d768de492e3610",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q106",
+    "sourceQuestionKey": "47d768de492e3610",
+    "reviewQuestionId": "47d768de492e3610",
+    "sourceRecordRef": null,
+    "questionLabel": "問106",
+    "explanationText": [
+      "正しい。チェーン・ストークス呼吸（呼吸振幅の漸増・漸減を伴う周期性呼吸）およびビオー呼吸（不規則な深呼吸と突然の無呼吸が交代する呼吸）は、いずれも呼吸期と無呼吸期が交互に繰り返される異常呼吸パターンです。クスマウル呼吸は持続的な深い大呼吸、過換気呼吸は深くて速い換気の持続です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "d5624dcc6b384aff",
+    "public_question_id": "d5624dcc6b384aff",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q107",
+    "sourceQuestionKey": "d5624dcc6b384aff",
+    "reviewQuestionId": "d5624dcc6b384aff",
+    "sourceRecordRef": null,
+    "questionLabel": "問107",
+    "explanationText": [
+      "間違い。呼吸性アルカローシスに伴うイオン化カルシウム低下によりテタニー症状（助産師の手など）が出現します。",
+      "間違い。強い不安や精神的緊張・恐怖感が誘因となり、発作中も不安・恐怖感を伴います。",
+      "間違い。末梢神経の興奮性亢進により四肢末端や口唇周囲のしびれ感（知覚異常）がみられます。",
+      "正しい。ミオクローヌスは急激な筋肉の不随意収縮であり、過換気症候群の定型的な臨床症状ではありません。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "1253007c926caeef",
+    "public_question_id": "1253007c926caeef",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q108",
+    "sourceQuestionKey": "1253007c926caeef",
+    "reviewQuestionId": "1253007c926caeef",
+    "sourceRecordRef": null,
+    "questionLabel": "問108",
+    "explanationText": [
+      "間違い。心房細動ではP波が消失し基線が小刻みに揺れ（f波）、RR間隔が絶対的不整となります。",
+      "間違い。上室性期外収縮では変形したP'波に続き正常幅のQRS波（narrow QRS）が出現します。",
+      "正しい。先行するP波を欠き幅広く変形したQRS波が早期に出現する波形は心室性期外収縮（PVC）です。",
+      "間違い。心室頻拍（VT）は幅の広い変形QRS波が連続して高頻度（100回/分以上）に出現する調律です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "original_question_id": "793e892368b4fc4a",
+    "public_question_id": "793e892368b4fc4a",
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q109",
+    "sourceQuestionKey": "793e892368b4fc4a",
+    "reviewQuestionId": "793e892368b4fc4a",
+    "sourceRecordRef": null,
+    "questionLabel": "問109",
+    "explanationText": [
+      "間違い。低位の小腸閉塞や大腸閉塞（イレウス）では腸内細菌の繁殖により糞臭を帯びた吐物がみられます。",
+      "間違い。マロリー・ワイス症候群では激しい嘔吐により食道胃接合部粘膜が裂傷し吐血（血液混入）をきたします。",
+      "正しい。消化性潰瘍瘢痕による幽門狭窄ではファーター乳頭より上部で閉塞するため吐物に胆汁は混入せず、誤った組合せです。",
+      "間違い。先天性肥厚性幽門狭窄症では生後数週から無胆汁性の噴水状（噴射性）嘔吐を呈します。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  {
     "original_question_id": "e63886d5460b2cf0",
+    "public_question_id": "e63886d5460b2cf0",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q110",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:e63886d5460b2cf0",
+    "sourceQuestionKey": "e63886d5460b2cf0",
     "reviewQuestionId": "e63886d5460b2cf0",
-    "sourceRecordRef": "question_2004_5.json#9",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問110",
+    "explanationText": [
+      "間違い。ムンプスウイルス感染（流行性耳下腺炎）は合併症として急性膵炎を引き起こすことがあります。",
+      "間違い。胆石の総胆管嵌頓・乳頭部閉塞は急性膵炎の代表的な主要原因です。",
+      "間違い。副甲状腺機能亢進症に伴う高カルシウム血症はトリプシノーゲンの自己活性化を促し急性膵炎の原因となります。",
+      "正しい。急性ウイルス性肝炎は肝実質の炎症性疾患であり、急性膵炎の直接的な発症原因には含まれません。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "急性膵炎の原因に関する医学知識の問題であり、法令・制度上の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異なし。",
-          "displayRefIds": [],
-          "explanationText": "流行性耳下腺炎は急性膵炎の原因となり得るため、選択肢は間違い。",
-          "promptContext": "医学知識の問題であり、現行法監査の対象外。",
-          "refs": [],
-          "verdict": "法令対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異なし。",
-          "displayRefIds": [],
-          "explanationText": "胆石症は急性膵炎の原因となり得るため、選択肢は間違い。",
-          "promptContext": "医学知識の問題であり、現行法監査の対象外。",
-          "refs": [],
-          "verdict": "法令対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異なし。",
-          "displayRefIds": [],
-          "explanationText": "副甲状腺機能亢進症は急性膵炎の原因となり得るため、選択肢は間違い。",
-          "promptContext": "医学知識の問題であり、現行法監査の対象外。",
-          "refs": [],
-          "verdict": "法令対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異なし。",
-          "displayRefIds": [],
-          "explanationText": "急性ウイルス性肝炎は急性膵炎の原因として扱わないため、選択肢は正しい。",
-          "promptContext": "医学知識の問題であり、現行法監査の対象外。",
-          "refs": [],
-          "verdict": "法令対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "間違い。血友病AはX連鎖劣性遺伝をするため、常染色体劣性遺伝とするこの記述は誤りである。",
-      "正しい。",
-      "正しい。",
-      "正しい。"
-    ],
     "original_question_id": "173f89ff8d409373",
+    "public_question_id": "173f89ff8d409373",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q111",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:173f89ff8d409373",
+    "sourceQuestionKey": "173f89ff8d409373",
     "reviewQuestionId": "173f89ff8d409373",
-    "sourceRecordRef": "question_2004_5.json#10",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問111",
+    "explanationText": [
+      "正しい。血友病AはX連鎖潜性遺伝（伴性劣性遺伝）をする疾患であり、常染色体劣性遺伝とする記述は誤りです。",
+      "間違い。血友病Aは血液凝固第VIII因子の先天的欠乏・活性低下によって発症します。",
+      "間違い。凝固因子の障害（二次止血不全）により、膝関節や肘関節などの関節内出血や筋肉内出血を好発します。",
+      "間違い。血小板による一次止血は保たれますがフィブリン形成が遅れるため、一度止血した後に再出血（遅延性出血）しやすいです。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "血友病Aに関する医学的知識の問題であり、法令・制度上の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "血友病Aの遺伝形式に関する医学的知識である。",
-          "promptContext": "法令・制度上の根拠は不要。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学的知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "血液凝固第VIII因子欠乏に関する医学的知識である。",
-          "promptContext": "法令・制度上の根拠は不要。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "血友病Aにみられる出血部位に関する医学的知識である。",
-          "promptContext": "法令・制度上の根拠は不要。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の出題時点と現行時点の差はない。",
-          "displayRefIds": [],
-          "explanationText": "血友病Aにおける再出血傾向に関する医学的知識である。",
-          "promptContext": "法令・制度上の根拠は不要。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学的知識の問題であり、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。低血糖は、副腎皮質ホルモンが不足するアジソン病でみられる。コルチゾールが不足すると糖新生が低下し、血糖を保ちにくくなる。褐色細胞腫はカテコールアミン、原発性副甲状腺機能低下症は副甲状腺ホルモン、原発性アルドステロン症はアルドステロンに関する疾患であり、低血糖を生じる代表的な疾患ではない。"
-    ],
     "original_question_id": "3adc7cd9c7fa726b",
+    "public_question_id": "3adc7cd9c7fa726b",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q112",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:3adc7cd9c7fa726b",
+    "sourceQuestionKey": "3adc7cd9c7fa726b",
     "reviewQuestionId": "3adc7cd9c7fa726b",
-    "sourceRecordRef": "question_2004_5.json#11",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問112",
+    "explanationText": [
+      "間違い。褐色細胞腫はカテコラミン過剰分泌によりグリコーゲン分解が促進され高血糖を呈します。",
+      "正しい。アジソン病ではコルチゾール分泌低下に伴い肝臓での糖新生が低下し、低血糖をきたしやすいです。",
+      "間違い。原発性副甲状腺機能低下症の主症状は低カルシウム血症（テタニー）です。",
+      "間違い。原発性アルドステロン症の主症状は高血圧および低カリウム血症です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "内分泌疾患の症候と疾患の対応を問う医学知識の問題であり、法令・制度上の基準は正誤判断に関係しない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外である。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度問題ではなく、医学知識の問題である。",
-          "promptContext": "内分泌疾患の症候と疾患の対応を問う問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外である。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度問題ではなく、医学知識の問題である。",
-          "promptContext": "内分泌疾患の症候と疾患の対応を問う問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外である。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度問題ではなく、医学知識の問題である。",
-          "promptContext": "内分泌疾患の症候と疾患の対応を問う問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "現行法監査の対象外である。",
-          "displayRefIds": [],
-          "explanationText": "法令・制度問題ではなく、医学知識の問題である。",
-          "promptContext": "内分泌疾患の症候と疾患の対応を問う問題である。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "間違い。全身性進行性硬化症 は設問「悪性腫瘍を最も合併しやすいのはどれか。」に合致しません。",
-      "正しい。皮膚肝炎 は設問「悪性腫瘍を最も合併しやすいのはどれか。」に合致します。",
-      "間違い。全身性エリテマトーデス は設問「悪性腫瘍を最も合併しやすいのはどれか。」に合致しません。",
-      "間違い。関節リウマチ は設問「悪性腫瘍を最も合併しやすいのはどれか。」に合致しません。"
-    ],
-    "suggestedQuestions": [
-      "正解肢はなぜこれか。",
-      "他の選択肢が誤りな理由は何か。",
-      "この設問の判断ポイントは何か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正解肢はなぜこれか。",
-        "answer": "正解は「皮膚肝炎」です。設問の条件に合う選択肢を選びます。"
-      },
-      {
-        "question": "他の選択肢が誤りな理由は何か。",
-        "answer": "不正解の選択肢は、定義・条件・数値・対象範囲のいずれかが設問と一致しません。"
-      },
-      {
-        "question": "この設問の判断ポイントは何か。",
-        "answer": "判断ポイントは「悪性腫瘍を最も合併しやすいのはどれか。」の条件と、各選択肢の用語・機能・関係を照合することです。"
-      }
-    ],
     "original_question_id": "34d8f5a8cdcdce41",
+    "public_question_id": "34d8f5a8cdcdce41",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q113",
-    "lawGroundedExplanationNotNeeded": true
+    "sourceQuestionKey": "34d8f5a8cdcdce41",
+    "reviewQuestionId": "34d8f5a8cdcdce41",
+    "sourceRecordRef": null,
+    "questionLabel": "問113",
+    "explanationText": [
+      "間違い。全身性進行性硬化症でも肺癌等の合併はありますが、頻度は皮膚筋炎ほど高くありません。",
+      "正しい。皮膚筋炎（成人例）は膠原病の中で最も悪性腫瘍（胃癌・肺癌・卵巣癌等）の合併頻度が高い疾患です。",
+      "間違い。全身性エリテマトーデス（SLE）における悪性腫瘍合併頻度は皮膚筋炎に比べて高くありません。",
+      "間違い。関節リウマチにおける悪性腫瘍の直接合併頻度は皮膚筋炎に比べて高くありません。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ]
   },
   {
-    "explanationText": [
-      "間違い。脳塞栓は血栓などが脳血管に突然詰まるため、一般に急に発症する。緩徐な発症は脳塞栓を識別する重要な所見ではない。",
-      "正しい。心房細動では心房内に血栓ができやすく、その血栓が脳へ飛ぶ心原性脳塞栓症を起こすため、脳塞栓を識別する重要な手掛かりになる。",
-      "間違い。突然の頭痛はくも膜下出血で重視される所見であり、脳塞栓を識別する所見ではない。",
-      "間違い。意識障害は脳卒中でみられることがある重症所見だが、脳塞栓に特有ではなく、識別の決め手にはならない。"
-    ],
     "original_question_id": "8452eba0e0397d13",
+    "public_question_id": "8452eba0e0397d13",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q114",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:8452eba0e0397d13",
+    "sourceQuestionKey": "8452eba0e0397d13",
     "reviewQuestionId": "8452eba0e0397d13",
-    "sourceRecordRef": "question_2004_5.json#13",
-    "explanationReferences": [
-      {
-        "referenceDate": "2025-10-15",
-        "sourceUrl": "https://kennet.mhlw.go.jp/information/information/metabolic/m-05-006.html",
-        "title": "脳血管障害・脳卒中（厚生労働省 e-ヘルスネット）"
-      },
-      {
-        "referenceDate": "2023-03-31",
-        "sourceUrl": "https://www.mhlw.go.jp/web/t_doc?dataId=00tc7580&dataType=1&pageNo=1",
-        "title": "疾病・事業及び在宅医療に係る医療体制について（厚生労働省）"
-      }
+    "sourceRecordRef": null,
+    "questionLabel": "問114",
+    "explanationText": [
+      "間違い。脳塞栓症は数秒から数分で症状が最大となる突発的発症を特徴とします。",
+      "正しい。心房細動は左心房内血栓形成の最大原因であり、心原性脳塞栓症の鑑別に最も重要な所見です。",
+      "間違い。突然の激しい頭痛はクモ膜下出血の典型的所見です。",
+      "間違い。意識障害は広範な脳梗塞等で生じますが、塞栓症固有の鑑別点としては心房細動が最も決定的です。"
     ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "脳塞栓の発症機序や臨床所見に関する医学知識の問題で、法令根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異なし。",
-          "displayRefIds": [],
-          "explanationText": "脳塞栓の発症経過に関する医学知識であり、法令根拠を要しない。",
-          "promptContext": "柔道整復師の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題で法令監査対象外。"
-        ],
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異なし。",
-          "displayRefIds": [],
-          "explanationText": "心房細動と心原性脳塞栓症の関係に関する医学知識であり、法令根拠を要しない。",
-          "promptContext": "柔道整復師の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の問題で法令監査対象外。"
-        ],
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異なし。",
-          "displayRefIds": [],
-          "explanationText": "突然の頭痛と脳血管疾患の鑑別に関する医学知識であり、法令根拠を要しない。",
-          "promptContext": "柔道整復師の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題で法令監査対象外。"
-        ],
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異なし。",
-          "displayRefIds": [],
-          "explanationText": "意識障害の特異性に関する医学知識であり、法令根拠を要しない。",
-          "promptContext": "柔道整復師の医学知識問題。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の問題で法令監査対象外。"
-        ],
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。Ｌ-ドーパはパーキンソン病の基本的な治療薬である。",
-      "間違い。パーキンソン病の手の振戦は典型的には安静時に目立ち、物を取ろうとする随意運動で増強するとはいえない。物を取ろうとするときに増強するのは、企図振戦の特徴である。",
-      "正しい。パーキンソン病の症状は一側から始まり、発症時には左右差を伴うことが多い。",
-      "正しい。歩行時の突進現象は、パーキンソン病にみられる姿勢反射障害の一つである。"
-    ],
     "original_question_id": "dd5e6d4a59109fd1",
+    "public_question_id": "dd5e6d4a59109fd1",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q115",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:dd5e6d4a59109fd1",
+    "sourceQuestionKey": "dd5e6d4a59109fd1",
     "reviewQuestionId": "dd5e6d4a59109fd1",
-    "sourceRecordRef": "question_2004_5.json#14",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問115",
+    "explanationText": [
+      "間違い。L-ドパ（レボドパ）製剤はドパミン補充療法としてパーキンソン病の最も基本的かつ有効な治療薬です。",
+      "正しい。パーキンソン病の振戦は安静時に出現する静止時振戦であり、随意運動時に増強する企図振戦とする記述は誤りです。",
+      "間違い。パーキンソン病は一側の上下肢から初発し、左右非対称性に症状が進行することが特徴です。",
+      "間違い。歩行開始時に前傾姿勢となり歩調が次第に速くなって止まれなくなる突進現象（加速歩行）がみられます。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "パーキンソン病の症状と治療に関する医学知識の問題で、法令・制度を根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "パーキンソン病の治療薬に関する医学知識を問う。",
-          "promptContext": "柔道整復師国家試験の医学知識問題。",
-          "refs": [],
-          "verdict": "法令・制度に関係しない医学知識の選択肢である。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "安静時振戦と企図振戦の違いに関する医学知識を問う。",
-          "promptContext": "柔道整復師国家試験の医学知識問題。",
-          "refs": [],
-          "verdict": "法令・制度に関係しない医学知識の選択肢である。"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "パーキンソン病の発症時にみられる左右差に関する医学知識を問う。",
-          "promptContext": "柔道整復師国家試験の医学知識問題。",
-          "refs": [],
-          "verdict": "法令・制度に関係しない医学知識の選択肢である。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "パーキンソン病にみられる歩行時の突進現象に関する医学知識を問う。",
-          "promptContext": "柔道整復師国家試験の医学知識問題。",
-          "refs": [],
-          "verdict": "法令・制度に関係しない医学知識の選択肢である。"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "間違い。筋萎縮性側索硬化症では、眼球運動は通常保たれる。",
-      "間違い。筋萎縮性側索硬化症は主に運動ニューロンが障害されるため、感覚障害は通常みられない。",
-      "間違い。筋萎縮性側索硬化症では、膀胱機能は通常保たれる。",
-      "正しい。延髄の運動ニューロンが障害されると、舌や口、咽頭の筋力が低下し、構音障害がみられる。"
-    ],
     "original_question_id": "7d5a4c126154c01f",
+    "public_question_id": "7d5a4c126154c01f",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q116",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:7d5a4c126154c01f",
+    "sourceQuestionKey": "7d5a4c126154c01f",
     "reviewQuestionId": "7d5a4c126154c01f",
-    "sourceRecordRef": "question_2004_5.json#15",
-    "explanationReferences": [
-      {
-        "referenceDate": "2026-09-08",
-        "sourceUrl": "https://www.ninds.nih.gov/current-research/focus-disorders/focus-amyotrophic-lateral-sclerosis",
-        "title": "National Institute of Neurological Disorders and Stroke: Focus on Amyotrophic Lateral Sclerosis"
-      }
+    "sourceRecordRef": null,
+    "questionLabel": "問116",
+    "explanationText": [
+      "間違い。外眼筋を支配する動眼神経核などは保たれるため、眼球運動障害は原則として生じません（四大陰性徴候）。",
+      "間違い。運動ニューロンのみが選択的に障害されるため、感覚障害はみられません（四大陰性徴候）。",
+      "間違い。仙髄のオヌフ核が保たれるため、膀胱直腸障害（排尿障害）は末期までみられません（四大陰性徴候）。",
+      "正しい。球麻痺（舌下神経や迷走神経の運動核障害）により、舌萎縮とともに構音障害や嚥下障害が高頻度にみられます。"
     ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "医学知識の問題であり、法令・制度上の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象なし。",
-          "displayRefIds": [],
-          "explanationText": "医学知識で判定する選択肢であり、法令監査の対象外である。",
-          "promptContext": "筋萎縮性側索硬化症の症状判定。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象なし。",
-          "displayRefIds": [],
-          "explanationText": "医学知識で判定する選択肢であり、法令監査の対象外である。",
-          "promptContext": "筋萎縮性側索硬化症の症状判定。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象なし。",
-          "displayRefIds": [],
-          "explanationText": "医学知識で判定する選択肢であり、法令監査の対象外である。",
-          "promptContext": "筋萎縮性側索硬化症の症状判定。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の比較対象なし。",
-          "displayRefIds": [],
-          "explanationText": "医学知識で判定する選択肢であり、法令監査の対象外である。",
-          "promptContext": "筋萎縮性側索硬化症の症状判定。",
-          "refs": [],
-          "verdict": "非法令問題"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。上気道や消化器の感染が発症に先行することが多い。",
-      "正しい。免疫グロブリン療法はギラン・バレー症候群の治療に用いられる。",
-      "間違い。ギラン・バレー症候群ではバビンスキー徴候は通常陽性とならず、腱反射の低下や消失がみられる。バビンスキー徴候陽性は錐体路障害を示す所見である。",
-      "正しい。呼吸筋が麻痺して呼吸障害を起こすことがあるため、呼吸状態を十分に観察する必要がある。"
-    ],
     "original_question_id": "fee818db7f675b80",
+    "public_question_id": "fee818db7f675b80",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q117",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:fee818db7f675b80",
+    "sourceQuestionKey": "fee818db7f675b80",
     "reviewQuestionId": "fee818db7f675b80",
-    "sourceRecordRef": "question_2004_5.json#16",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問117",
+    "explanationText": [
+      "間違い。発症の1〜3週間前に上気道感染や胃腸炎（カンピロバクター腸炎など）が先行することが多いです。",
+      "間違い。大量免疫グロブリン静注療法（IVIg）や血漿交換療法が有効です。",
+      "正しい。ギラン・バレー症候群は末梢神経障害であり、深部腱反射は消失し病的反射（バビンスキー徴候）は陰性となるため誤りです。",
+      "間違い。急速に麻痺が上行し呼吸筋麻痺をきたす危険があるため、呼吸管理が極めて重要です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "ギラン・バレー症候群の臨床症状、治療、合併症および神経学的所見を問う医学知識問題で、法令根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識問題であり、法令による正誤変更はない。",
-          "promptContext": "ギラン・バレー症候群の先行感染に関する医学知識。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識問題のため法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識問題であり、法令による正誤変更はない。",
-          "promptContext": "ギラン・バレー症候群の免疫グロブリン療法に関する医学知識。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識問題のため法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識問題であり、法令による正誤変更はない。",
-          "promptContext": "ギラン・バレー症候群におけるバビンスキー徴候に関する医学知識。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識問題のため法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識問題であり、法令による正誤変更はない。",
-          "promptContext": "ギラン・バレー症候群の呼吸障害に関する医学知識。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識問題のため法令監査対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "間違い。アルツハイマー病の大半は遺伝歴をもたない孤発性であり、「ほとんどは遺伝歴がある」とはいえない。家族性の早発型は一部にみられる。",
-      "間違い。反社会的行動はアルツハイマー病に特徴的な症状ではない。進行すると性格や行動の変化がみられることはあるが、代表的な初期症状とはいえない。",
-      "正しい。",
-      "間違い。失語は病気の進行に伴ってみられることがあるが、アルツハイマー病では近時記憶の障害が初期から強く現れることが多く、失語が初期症状であることが多いとはいえない。"
-    ],
     "original_question_id": "f8f72dc0440d116d",
+    "public_question_id": "f8f72dc0440d116d",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q118",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:f8f72dc0440d116d",
+    "sourceQuestionKey": "f8f72dc0440d116d",
     "reviewQuestionId": "f8f72dc0440d116d",
-    "sourceRecordRef": "question_2004_5.json#17",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問118",
+    "explanationText": [
+      "間違い。アルツハイマー病の大部分（90％以上）は明らかな遺伝歴のない孤発性発症です。",
+      "間違い。脱抑制や反社会的行動が初期から目立つのは前頭側頭型認知症（ピック病）の特徴です。",
+      "正しい。海馬や大脳皮質の変性により、初期から著しい近時記憶障害（直前の出来事の忘却）が出現します。",
+      "間違い。初期の主症状は近時記憶障害であり、失語等の高次脳機能障害は病期の進行に伴って顕在化します。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "アルツハイマー病の症状・経過に関する医学知識問題で、法令条文や制度上の基準を根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改訂による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "アルツハイマー病の遺伝歴に関する医学知識であり、法令根拠を要しない。",
-          "promptContext": "症状・経過に関する医学知識問題。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識問題であり、法令改訂の影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改訂による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "アルツハイマー病の行動症状に関する医学知識であり、法令根拠を要しない。",
-          "promptContext": "症状・経過に関する医学知識問題。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識問題であり、法令改訂の影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改訂による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "アルツハイマー病の近時記憶障害に関する医学知識であり、法令根拠を要しない。",
-          "promptContext": "症状・経過に関する医学知識問題。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識問題であり、法令改訂の影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改訂による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "アルツハイマー病の失語の出現時期に関する医学知識であり、法令根拠を要しない。",
-          "promptContext": "症状・経過に関する医学知識問題。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識問題であり、法令改訂の影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。子宮筋腫による月経量の増加が続くと鉄が不足し、鉄欠乏性貧血を起こしやすい。動悸、息切れ、顔面蒼白に加え、爪がスプーン状になって柔らかくなる匙状爪も鉄欠乏性貧血に特徴的な所見である。"
-    ],
     "original_question_id": "1d16a2ebd3fe4159",
+    "public_question_id": "1d16a2ebd3fe4159",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q119",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:1d16a2ebd3fe4159",
+    "sourceQuestionKey": "1d16a2ebd3fe4159",
     "reviewQuestionId": "1d16a2ebd3fe4159",
-    "sourceRecordRef": "question_2004_5.json#18",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問119",
+    "explanationText": [
+      "正しい。過多月経による慢性失血、貧血症状、および匙状爪（スプーン状爪）の所見から鉄欠乏性貧血と診断されます。",
+      "間違い。悪性貧血（ビタミンB12欠乏症）では巨赤芽球性貧血やハンター舌炎、亜急性連合性脊髄変性症を呈します。",
+      "間違い。急性白血病では骨髄増殖障害に伴う汎血球減少（発熱、出血傾向、高度貧血）が急激に出現します。",
+      "間違い。多発性骨髄腫は形質細胞の腫瘍性増殖により骨病変、高カルシウム血症、腎障害等を呈します。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "法令・制度ではなく、鉄欠乏性貧血の臨床所見を問う医学知識問題である。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差はない。",
-          "displayRefIds": [],
-          "explanationText": "鉄欠乏性貧血の臨床所見に関する医学知識である。",
-          "promptContext": "医学知識問題として判定した。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差はない。",
-          "displayRefIds": [],
-          "explanationText": "悪性貧血に関する医学知識である。",
-          "promptContext": "医学知識問題として判定した。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差はない。",
-          "displayRefIds": [],
-          "explanationText": "急性白血病に関する医学知識である。",
-          "promptContext": "医学知識問題として判定した。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差はない。",
-          "displayRefIds": [],
-          "explanationText": "多発性骨髄腫に関する医学知識である。",
-          "promptContext": "医学知識問題として判定した。",
-          "refs": [],
-          "verdict": "法令非該当"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "scenario_application",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。扁桃腺炎の約2週間後に顔面浮腫、高血圧、血尿、蛋白尿、乏尿が現れているため、急性糸球体腎炎が考えられる。この疾患では糸球体の炎症によって血尿や蛋白尿が生じ、腎機能低下により乏尿や水分貯留もみられる。一方、ビリルビン尿は胆汁うっ滞や肝疾患などでみられる所見であり、この疾患の代表的な尿所見ではない。したがって、みられないのはビリルビン尿である。"
-    ],
     "original_question_id": "98c44494a33ab660",
+    "public_question_id": "98c44494a33ab660",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q120",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:98c44494a33ab660",
+    "sourceQuestionKey": "98c44494a33ab660",
     "reviewQuestionId": "98c44494a33ab660",
-    "sourceRecordRef": "question_2004_5.json#19",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問120",
+    "explanationText": [
+      "間違い。糸球体基底膜の炎症性障害により軽度〜中等度の蛋白尿がみられます。",
+      "間違い。糸球体濾過量（GFR）の低下に伴い尿量減少（乏尿）がみられます。",
+      "間違い。糸球体毛細血管の破綻により肉眼的血尿（コーラ色尿）や顕微鏡的血尿（赤血球円柱）が出現します。",
+      "正しい。ビリルビン尿は肝胆道疾患に伴う直接ビリルビン血症で生じる所見であり、急性糸球体腎炎の尿所見ではありません。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "腎疾患の病態と尿所見を問う医学知識の問題で、法令・制度上の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令・制度上の正誤判定を要しない。",
-          "promptContext": "腎疾患の病態と尿所見に関する問題。",
-          "refs": [],
-          "verdict": "法令監査対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令・制度上の正誤判定を要しない。",
-          "promptContext": "腎疾患の病態と尿所見に関する問題。",
-          "refs": [],
-          "verdict": "法令監査対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令・制度上の正誤判定を要しない。",
-          "promptContext": "腎疾患の病態と尿所見に関する問題。",
-          "refs": [],
-          "verdict": "法令監査対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "試験時点と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "医学知識の選択肢であり、法令・制度上の正誤判定を要しない。",
-          "promptContext": "腎疾患の病態と尿所見に関する問題。",
-          "refs": [],
-          "verdict": "法令監査対象外"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "scenario_application",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。腹部血管造影検査は、出血源の確認や血管内治療が必要な場合に選択する検査であり、腹部打撲後に直ちに全例で行う検査ではない。",
-      "間違い。腹部単純エックス線検査は、腹部打撲の初期評価で用いる検査の一つであり、直ちに行わない検査には当たらない。",
-      "間違い。血液一般・生化学検査は、出血や臓器障害の有無を初期に評価するため、腹部打撲後に直ちに行う検査に含まれる。",
-      "間違い。腹部超音波検査は、腹腔内出血や腹部臓器の損傷を初期に確認するため、腹部打撲後に直ちに行う検査の一つである。"
-    ],
     "original_question_id": "0d90f090f07a87ca",
+    "public_question_id": "0d90f090f07a87ca",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q121",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:0d90f090f07a87ca",
+    "sourceQuestionKey": "0d90f090f07a87ca",
     "reviewQuestionId": "0d90f090f07a87ca",
-    "sourceRecordRef": "question_2004_5.json#20",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問121",
+    "explanationText": [
+      "正しい。腹部血管造影検査は侵襲性と所要時間が大きく、初期スクリーニングとして直ちに行う検査ではありません。",
+      "間違い。腹部単純エックス線検査は消化管穿孔に伴う遊離ガス（フリーエアー）や骨折の有無を迅速に評価できます。",
+      "間違い。血液一般検査や生化学検査は臓器損傷や出血の初期評価に必須です。",
+      "間違い。腹部超音波検査（FAST）は腹腔内出血をベッドサイドで即座に検出できる最優先検査です。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "腹部打撲に対する初期検査の適応を問う医学的・技術的問題であり、法令条文を根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令の出題時点と現行時点の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "腹部打撲後の初期検査に関する医学的知識を問う選択肢である。",
-          "promptContext": "腹部打撲に対して直ちに行う検査でないものを判断する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令の出題時点と現行時点の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "腹部打撲後の初期検査に関する医学的知識を問う選択肢である。",
-          "promptContext": "腹部打撲に対して直ちに行う検査でないものを判断する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令の出題時点と現行時点の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "腹部打撲後の初期検査に関する医学的知識を問う選択肢である。",
-          "promptContext": "腹部打撲に対して直ちに行う検査でないものを判断する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令の出題時点と現行時点の比較対象外である。",
-          "displayRefIds": [],
-          "explanationText": "腹部打撲後の初期検査に関する医学的知識を問う選択肢である。",
-          "promptContext": "腹部打撲に対して直ちに行う検査でないものを判断する。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "conditions_scope",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。",
-      "正しい。",
-      "正しい。静脈性出血は、一般に拍動せず持続的に流れ出る。",
-      "間違い。毛細血管性出血は、血液がにじむように出るため、出血部を直接圧迫して止血する。緊縛法は適していない。"
-    ],
     "original_question_id": "be21bc89808de154",
+    "public_question_id": "be21bc89808de154",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q122",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:be21bc89808de154",
+    "sourceQuestionKey": "be21bc89808de154",
     "reviewQuestionId": "be21bc89808de154",
-    "sourceRecordRef": "question_2004_5.json#21",
-    "explanationReferences": [
-      {
-        "referenceDate": "2026-09-08",
-        "sourceUrl": "https://www.jrc.or.jp/activity/study/safety/bleed/index.html",
-        "title": "多量の出血｜講習の内容について｜日本赤十字社"
-      },
-      {
-        "referenceDate": "2026-09-08",
-        "sourceUrl": "https://www.jrc.or.jp/vcms_lf/seisyonen130408-01.pdf",
-        "title": "高校生ハンドブック 表1表4｜日本赤十字社"
-      }
+    "sourceRecordRef": null,
+    "questionLabel": "問122",
+    "explanationText": [
+      "間違い。動脈性出血は拍動性に鮮紅色の血液が噴出し急速に多量出血に至るため、直ちに緊急止血操作を行う必要があります。",
+      "間違い。動脈性出血の間接圧迫止血法では、創部よりも心臓に近い中枢側の止血点（圧迫点）を骨に向かって圧迫します。",
+      "間違い。静脈性出血は暗赤色の血液が持続的・非拍動性に湧き出るように流出します。",
+      "正しい。毛細血管性出血には直接圧迫止血法が適しており、阻血障害や神経損傷のリスクがある緊縛法を用いるのは誤りです。"
     ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "医学・救急処置の知識に基づく問題であり、法令根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "動脈性出血では緊急の止血が必要である。",
-          "promptContext": "第1選択肢の医学・救急処置に関する判定。",
-          "refs": [],
-          "verdict": "正しい"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学・救急処置の内容であり、法令改正の影響を受けない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "動脈性出血では、出血血管の中枢側を圧迫する。",
-          "promptContext": "第2選択肢の医学・救急処置に関する判定。",
-          "refs": [],
-          "verdict": "正しい"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学・救急処置の内容であり、法令改正の影響を受けない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "静脈性出血は、一般に拍動せず持続的に流れ出る。",
-          "promptContext": "第3選択肢の医学・救急処置に関する判定。",
-          "refs": [],
-          "verdict": "正しい"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学・救急処置の内容であり、法令改正の影響を受けない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差分なし。",
-          "displayRefIds": [],
-          "explanationText": "毛細血管性出血には直接圧迫止血が適し、緊縛法は適さない。",
-          "promptContext": "第4選択肢の医学・救急処置に関する判定。",
-          "refs": [],
-          "verdict": "間違い"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学・救急処置の内容であり、法令改正の影響を受けない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "間違い。SIRSの診断基準には体温が含まれ、38℃を超えるか36℃未満であることが基準の一つとなる。",
-      "正しい。意識はSIRSの診断基準に含まれない。",
-      "間違い。SIRSの診断基準には脈拍数が含まれ、毎分90回を超えることが基準の一つとなる。",
-      "間違い。SIRSの診断基準には白血球数が含まれ、1μL当たり12,000個を超えるか4,000個未満、又は未熟好中球が10％を超えることが基準となる。"
-    ],
     "original_question_id": "a99ec8d14e227130",
+    "public_question_id": "a99ec8d14e227130",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q123",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:a99ec8d14e227130",
+    "sourceQuestionKey": "a99ec8d14e227130",
     "reviewQuestionId": "a99ec8d14e227130",
-    "sourceRecordRef": "question_2004_5.json#22",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問123",
+    "explanationText": [
+      "間違い。体温（38℃超または36℃未満）はSIRS診断基準の必須項目の一つです。",
+      "正しい。意識状態はSIRSの診断基準4項目には含まれません（qSOFAなどの敗血症スクリーニング項目と異なります）。",
+      "間違い。心拍数・脈拍数（90回/分超）はSIRS診断基準の必須項目の一つです。",
+      "間違い。白血球数（12000/μL超、4000/μL未満、または桿状核球10％超）はSIRS診断基準の必須項目の一つです。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "SIRSの診断基準を問う医学的知識であり、法令・制度の根拠は不要。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異はない。",
-          "displayRefIds": [],
-          "explanationText": "医学的知識の問題で、法令監査対象外である。",
-          "promptContext": "体温はSIRSの診断基準に含まれる。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異はない。",
-          "displayRefIds": [],
-          "explanationText": "医学的知識の問題で、法令監査対象外である。",
-          "promptContext": "意識はSIRSの診断基準に含まれない。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異はない。",
-          "displayRefIds": [],
-          "explanationText": "医学的知識の問題で、法令監査対象外である。",
-          "promptContext": "脈拍数はSIRSの診断基準に含まれる。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令改正による差異はない。",
-          "displayRefIds": [],
-          "explanationText": "医学的知識の問題で、法令監査対象外である。",
-          "promptContext": "白血球数はSIRSの診断基準に含まれる。",
-          "refs": [],
-          "verdict": "not_law_related"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。",
-      "正しい。",
-      "間違い。脊椎麻酔は、くも膜下腔に局所麻酔薬を注入して感覚や運動を遮断する局所麻酔である。筋弛緩薬を用いる全身麻酔とは異なる。",
-      "間違い。皮膚感染部位への浸潤麻酔は、感染を周囲へ広げるおそれがあるため適さない。感染部位を避けて麻酔する。"
-    ],
     "original_question_id": "e9958abc86d700da",
+    "public_question_id": "e9958abc86d700da",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q124",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:e9958abc86d700da",
+    "sourceQuestionKey": "e9958abc86d700da",
     "reviewQuestionId": "e9958abc86d700da",
-    "sourceRecordRef": "question_2004_5.json#23",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問124",
+    "explanationText": [
+      "正しい。静脈内への麻酔薬投与によって中枢神経系を抑制する静脈麻酔は全身麻酔に分類され、消化管内視鏡検査時には咽頭粘膜等にリドカイン等の表面麻酔が広く行われます。脊椎麻酔（クモ膜下麻酔）は局所麻酔薬のみで運動麻痺・筋弛緩が得られるため筋弛緩薬は用いず、感染・炎症部位は組織が酸性化して麻酔効果が著しく低下するため浸潤麻酔は適しません。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "麻酔法の分類と適応に関する医学的知識の問題で、法令条文を根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の差異なし。",
-          "displayRefIds": [],
-          "explanationText": "静脈麻酔は全身麻酔に分類される。",
-          "promptContext": "麻酔法の分類を問う選択肢。",
-          "refs": [],
-          "verdict": "正しい"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の選択肢であり、法令改正による影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の差異なし。",
-          "displayRefIds": [],
-          "explanationText": "表面麻酔は消化管内視鏡検査で用いられる。",
-          "promptContext": "麻酔法の適応を問う選択肢。",
-          "refs": [],
-          "verdict": "正しい"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "医学知識の選択肢であり、法令改正による影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の差異なし。",
-          "displayRefIds": [],
-          "explanationText": "脊椎麻酔は局所麻酔であり、筋弛緩薬を用いる全身麻酔とは異なる。",
-          "promptContext": "脊椎麻酔の分類と作用を問う選択肢。",
-          "refs": [],
-          "verdict": "間違い"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の選択肢であり、法令改正による影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "法令上の差異なし。",
-          "displayRefIds": [],
-          "explanationText": "皮膚感染部位への浸潤麻酔は感染拡大のおそれがあり適さない。",
-          "promptContext": "浸潤麻酔の適応を問う選択肢。",
-          "refs": [],
-          "verdict": "間違い"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "医学知識の選択肢であり、法令改正による影響はない。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   },
   {
-    "explanationText": [
-      "正しい。頭部を後屈させてあご先を挙上すると、舌が気道をふさぐのを防ぎ、空気の通り道を確保できる。",
-      "間違い。正しくは、口-口人工呼吸では気道を確保するために頭部を後屈させる。前屈すると気道が狭くなり、空気が入りにくくなる。",
-      "間違い。正しくは、心肺蘇生では胸骨圧迫と人工呼吸を行う。ハイムリッヒ法は、異物による気道閉塞を除去するための方法であり、心肺蘇生そのものではない。",
-      "正しい。胸骨の下1/3を圧迫して心臓を間接的に押し、血液を循環させる。"
-    ],
     "original_question_id": "736c6bc3de9cf064",
+    "public_question_id": "736c6bc3de9cf064",
     "question_url": "https://kurohon.jp/gakusei/exams_js/js_12/#q125",
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceQuestionKey": "judoseifukushi:2004:736c6bc3de9cf064",
+    "sourceQuestionKey": "736c6bc3de9cf064",
     "reviewQuestionId": "736c6bc3de9cf064",
-    "sourceRecordRef": "question_2004_5.json#24",
-    "explanationReferences": [],
+    "sourceRecordRef": null,
+    "questionLabel": "問125",
+    "explanationText": [
+      "正しい。心肺蘇生における気道確保は舌根沈下を解除する頭部後屈あご先挙上法が基本であり、胸骨圧迫（心マッサージ）の圧迫部位は胸骨下部（下半分〜下1/3）です。人工呼吸時に頭部を前屈させると気道が閉塞し、ハイムリッヒ法は気道異物による窒息の解除法であり心肺蘇生法ではありません。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "principles_exceptions",
     "isLawRelated": false,
-    "lawContextForExplanation": "救急処置の技術的手順を問う問題で、法令・制度条文を正誤判定の根拠にしない。",
+    "lawGroundedExplanationNotNeeded": true,
     "lawReferences": [
       [],
       [],
       [],
       []
-    ],
-    "lawRevisionFacts": [
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "頭部後屈あご先挙上法による気道確保の手順を問う。",
-          "promptContext": "救急処置の技術的手順。",
-          "refs": [],
-          "verdict": "技術問題"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "法令・制度問題ではなく、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "口-口人工呼吸時の頭部の位置を問う。",
-          "promptContext": "救急処置の技術的手順。",
-          "refs": [],
-          "verdict": "技術問題"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "法令・制度問題ではなく、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "間違い"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "心肺蘇生とハイムリッヒ法の目的の違いを問う。",
-          "promptContext": "救急処置の技術的手順。",
-          "refs": [],
-          "verdict": "技術問題"
-        },
-        "examTime": {
-          "correctChoiceText": "間違い"
-        },
-        "notes": [
-          "法令・制度問題ではなく、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      },
-      {
-        "answerImpactFacts": [],
-        "auditStatus": "not_law_related",
-        "current": {
-          "correctChoiceText": "正しい"
-        },
-        "differenceFacts": [],
-        "evidenceSummary": {
-          "differenceSummary": "出題時と現行法の比較対象外。",
-          "displayRefIds": [],
-          "explanationText": "心マッサージの圧迫部位を問う。",
-          "promptContext": "救急処置の技術的手順。",
-          "refs": [],
-          "verdict": "技術問題"
-        },
-        "examTime": {
-          "correctChoiceText": "正しい"
-        },
-        "notes": [
-          "法令・制度問題ではなく、法令監査の対象外。"
-        ],
-        "reconciliationStatus": "not_applicable",
-        "reviewState": "secondary_verified"
-      }
-    ],
-    "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    ]
   }
 ]
