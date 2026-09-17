@@ -47,12 +47,12 @@ rules:
 
 progress:
   total_questions: 160
-  completed_questions: 50
-  remaining_questions: 110
+  completed_questions: 75
+  remaining_questions: 85
   total_files: 7
-  completed_files: 2
+  completed_files: 3
 
-active_task: T004
+active_task: T005
 
 tasks:
   - id: T001
@@ -80,7 +80,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: in_progress
+    status: done
     objective: "問51〜問75（question_2016_3.json）の目視整備と検証・コミット。"
     target_file: "output/shinkyu/questions_json/2016/00_source/question_2016_3.json"
     question_labels: "問51〜問75"
@@ -88,7 +88,7 @@ tasks:
   - id: T005
     type: worker
     assignee: Worker
-    status: queued
+    status: in_progress
     objective: "問76〜問100（question_2016_4.json）の目視整備と検証・コミット。"
     target_file: "output/shinkyu/questions_json/2016/00_source/question_2016_4.json"
     question_labels: "問76〜問100"
