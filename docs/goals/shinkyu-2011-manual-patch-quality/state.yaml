@@ -2,8 +2,8 @@ goal_id: shinkyu-2011-manual-patch-quality
 title: 2011年（第19回）はり師・きゅう師国家試験 全160問 目視精査・4パッチ整備・品質検証
 status: in_progress
 total_questions: 160
-completed_questions: 150
-active_task: T008
+completed_questions: 160
+active_task: T009
 tasks:
 - id: T001
   title: 全160問棚卸し台帳（question_inventory.md）策定
@@ -28,7 +28,7 @@ tasks:
   status: done
 - id: T008
   title: 問151〜問160（question_2011_7.json）目視精査・4パッチ整備・4種検証
-  status: in_progress
+  status: done
 - id: T009
   title: 2011年全160問統合検証（verify_all_2011.py）実行・最終監査レポート作成
-  status: pending
+  status: in_progress
