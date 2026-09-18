@@ -45,11 +45,11 @@ rules:
   no_completion_on_weak_proof: true
 progress:
   total_questions: 160
-  completed_questions: 25
-  remaining_questions: 135
+  completed_questions: 50
+  remaining_questions: 110
   total_files: 7
-  completed_files: 1
-active_task: T003
+  completed_files: 2
+active_task: T004
 tasks:
 - id: T001
   type: pm
@@ -66,7 +66,7 @@ tasks:
 - id: T003
   type: worker
   assignee: Worker
-  status: queued
+  status: done
   objective: 問26〜問50（question_2012_2.json）の目視整備と検証・コミット。
   target_file: output/shinkyu/questions_json/2012/00_source/question_2012_2.json
   question_labels: 問26〜問50
