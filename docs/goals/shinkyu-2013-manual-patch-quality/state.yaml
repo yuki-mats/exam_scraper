@@ -47,12 +47,12 @@ rules:
 
 progress:
   total_questions: 160
-  completed_questions: 125
-  remaining_questions: 35
+  completed_questions: 150
+  remaining_questions: 10
   total_files: 7
-  completed_files: 5
+  completed_files: 6
 
-active_task: T007
+active_task: T008
 
 tasks:
   - id: T001
@@ -104,7 +104,7 @@ tasks:
   - id: T007
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     objective: "問126〜問150（question_2013_6.json）の目視整備と検証・コミット。"
     target_file: "output/shinkyu/questions_json/2013/00_source/question_2013_6.json"
     question_labels: "問126〜問150"
