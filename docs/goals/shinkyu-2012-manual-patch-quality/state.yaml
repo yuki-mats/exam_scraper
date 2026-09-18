@@ -49,7 +49,7 @@ progress:
   remaining_questions: 10
   total_files: 7
   completed_files: 6
-active_task: T008
+active_task: T009
 tasks:
 - id: T001
   type: pm
@@ -101,12 +101,13 @@ tasks:
 - id: T008
   type: worker
   assignee: Worker
-  status: queued
+  status: done
   objective: 問151〜問160（question_2012_7.json）の目視整備と検証・コミット。
   target_file: output/shinkyu/questions_json/2012/00_source/question_2012_7.json
   question_labels: 問151〜問160
 - id: T009
   type: pm
   assignee: PM
-  status: queued
+  status: in_progress
   objective: 2012年全160問の最終監査（audit_report.md）と品質証明。
+completed_questions: 160
