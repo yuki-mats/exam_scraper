@@ -49,7 +49,7 @@ progress:
   remaining_questions: 10
   total_files: 7
   completed_files: 6
-active_task: T009
+active_task: null
 tasks:
 - id: T001
   type: pm
@@ -108,6 +108,7 @@ tasks:
 - id: T009
   type: pm
   assignee: PM
-  status: in_progress
+  status: done
   objective: 2012年全160問の最終監査（audit_report.md）と品質証明。
 completed_questions: 160
+status: completed
