@@ -1,0 +1,34 @@
+goal_id: shinkyu-2010-manual-patch-quality
+title: 2010年（第18回）はり師・きゅう師国家試験 全160問 目視精査・4パッチ整備・品質検証
+status: in_progress
+total_questions: 160
+completed_questions: 0
+active_task: T002
+tasks:
+- id: T001
+  title: 全160問棚卸し台帳（question_inventory.md）策定
+  status: done
+- id: T002
+  title: 問1〜問25（question_2010_1.json）目視精査・4パッチ整備・4種検証
+  status: in_progress
+- id: T003
+  title: 問26〜問50（question_2010_2.json）目視精査・4パッチ整備・4種検証
+  status: pending
+- id: T004
+  title: 問51〜問75（question_2010_3.json）目視精査・4パッチ整備・4種検証
+  status: pending
+- id: T005
+  title: 問76〜問100（question_2010_4.json）目視精査・4パッチ整備・4種検証
+  status: pending
+- id: T006
+  title: 問101〜問125（question_2010_5.json）目視精査・4パッチ整備・4種検証
+  status: pending
+- id: T007
+  title: 問126〜問150（question_2010_6.json）目視精査・4パッチ整備・4種検証
+  status: pending
+- id: T008
+  title: 問151〜問160（question_2010_7.json）目視精査・4パッチ整備・4種検証
+  status: pending
+- id: T009
+  title: 2010年全160問統合検証（verify_all_2010.py）実行・最終監査レポート作成
+  status: pending
