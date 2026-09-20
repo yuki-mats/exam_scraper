@@ -874,7 +874,13 @@ def resume_plan(
             )
             previous = previous_items.get(work_item_key(target, stage_id))
             current_target_exists = question_id in targets_by_stage.get(stage_id, {})
-            if previous is None:
+            if str(plan.get("mode") or "") == "needed":
+                # The current needed plan is the authoritative read of the
+                # artifacts after the interrupted run. Resume the earliest
+                # stage it still selects and do not resurrect older pending
+                # stages that the current workflow no longer requires.
+                needs_resume = current_target_exists
+            elif previous is None:
                 # partial再開は未完了問題のscopeだけを継承し、その中では
                 # 現在のworkflowが必要とする工程を正本とする。再開を重ねて
                 # 直前runから先行工程が省かれていても、古い方針へ固定しない。
@@ -908,6 +914,12 @@ def resume_plan(
         if question_id not in canonical_targets:
             continue
         if unfinished_only and question_id not in unfinished_question_ids:
+            continue
+        owner_stage_id = str(question_stage_plans[owner_index].get("stageId") or "")
+        if (
+            str(plan.get("mode") or "") == "needed"
+            and question_id not in targets_by_stage.get(owner_stage_id, {})
+        ):
             continue
         current_index = resume_start_by_question.get(question_id)
         if current_index is None or owner_index < current_index:

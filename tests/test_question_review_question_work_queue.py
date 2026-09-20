@@ -420,6 +420,74 @@ class QuestionWorkQueueTests(unittest.TestCase):
         )
         self.assertEqual(resumed["policyTargets"], {"law_audit": ["q2"]})
 
+    def test_needed_resume_restarts_currently_selected_validated_stage(self) -> None:
+        executions = build_question_executions(self.plan)
+        executions[0]["stages"][0]["status"] = "validated"
+        executions[0]["stages"][1]["status"] = "blocked"
+        for stage in executions[1]["stages"]:
+            stage["status"] = "validated"
+
+        current_first = stage_plan("explanation", [self.targets[0]])
+        current_second = stage_plan("law_audit", [])
+        current = {
+            **current_first,
+            "stageId": "multi",
+            "stageIds": ["explanation", "law_audit"],
+            "stagePlans": [current_first, current_second],
+            "targetCount": 1,
+            "workItemCount": 1,
+            "mode": "needed",
+            "policyTargets": {"explanation": ["q1"]},
+        }
+
+        resumed = resume_plan(current, executions, unfinished_only=True)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(resumed["targetCount"], 1)
+        self.assertEqual(resumed["workItemCount"], 2)
+        self.assertEqual(
+            [
+                (question["questionId"], stage["stageId"])
+                for question in rebuilt
+                for stage in question["stages"]
+            ],
+            [("q1", "explanation"), ("q1", "law_audit")],
+        )
+
+    def test_needed_resume_does_not_restore_stage_absent_from_current_plan(self) -> None:
+        executions = build_question_executions(self.plan)
+        executions[0]["stages"][0]["status"] = "blocked"
+        executions[0]["stages"][1]["status"] = "blocked"
+        for stage in executions[1]["stages"]:
+            stage["status"] = "validated"
+
+        current_first = stage_plan("explanation", [])
+        current_second = stage_plan("law_audit", [self.targets[0]])
+        current = {
+            **current_second,
+            "stageId": "multi",
+            "stageIds": ["explanation", "law_audit"],
+            "stagePlans": [current_first, current_second],
+            "targetCount": 1,
+            "workItemCount": 1,
+            "mode": "needed",
+            "policyTargets": {"law_audit": ["q1"]},
+        }
+
+        resumed = resume_plan(current, executions, unfinished_only=True)
+        rebuilt = build_question_executions(resumed)
+
+        self.assertEqual(resumed["targetCount"], 1)
+        self.assertEqual(resumed["workItemCount"], 1)
+        self.assertEqual(
+            [
+                (question["questionId"], stage["stageId"])
+                for question in rebuilt
+                for stage in question["stages"]
+            ],
+            [("q1", "law_audit")],
+        )
+
     def test_resume_separates_selection_count_from_pending_queue_total(self) -> None:
         targets = [target(f"q{index}", index) for index in range(1, 844)]
         stage_ids = [f"stage_{index}" for index in range(1, 7)]
