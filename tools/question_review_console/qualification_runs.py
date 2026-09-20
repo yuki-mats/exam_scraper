@@ -2335,9 +2335,9 @@ def _structured_candidate_stage_context(
             "rules": [
                 "既存lawReferencesは正答根拠として信用せず、lawId・article又は保存済みURLから一次情報本文を直接開く入口として先に使う。",
                 "既存の紐付け先だけで全選択肢を十分に説明できると確認した場合は、広域検索とlawReferencesの再構築を行わず、有効な紐付けを保持する。",
-                "不足又は不一致がある場合だけ、その選択肢と不足箇所に限定して一次情報を探索する。",
+                "不足、404又は内容不一致がある場合だけ、その選択肢と不足箇所に限定してe-Gov又は所管官庁の一次情報を探索する。",
                 "primaryLawEvidenceがない又はstatus=not_applicableであること自体はhold理由にしない。lawReferenceDiscoveryPlanがdiscover_requiredなら、Codex組み込みweb検索からe-Gov又は所管官庁の一次情報を開き、法令名、lawId、条番号、本文の一致を確認する。",
-                "保存先が404、法令名不一致又は本文不足の場合は推測で補正せず、対象問題だけholdにする。",
+                "追加探索後も法令名、条項、基準日に適用される本文を確認できない場合は、未確認事項を明記して対象問題だけholdにする。一次情報で確認できないlawIdや改正versionは作らない。",
                 "別問題のlawReferencesを類似性だけで流用しない。",
             ],
         }
