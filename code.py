@@ -235,6 +235,14 @@ class AnswerResultData:
     inferred_correct_choice_numbers: List[int]
 
 
+class AnswerResultFetchError(RuntimeError):
+    """回答結果 API への到達後に、再試行しても取得できなかった。"""
+
+
+class IncompleteScrapeError(RuntimeError):
+    """取得対象と取得結果が一致せず、安全に保存できない。"""
+
+
 @dataclass
 class QuestionData:
     question_url: str
@@ -1105,10 +1113,56 @@ def fetch_answer_result_data(
         except Exception as answer_error:
             print(f"[WARN] answer result fetch failed ({question_url}): {answer_error}")
             if retry_index == 1:
-                return None
+                raise AnswerResultFetchError(
+                    f"回答結果を再試行しても取得できませんでした: {question_url}"
+                ) from answer_error
             slow_down(0.3, 0.3)
 
     return None
+
+
+def validate_complete_question_scrape(
+    target_question_urls: List[str],
+    all_question_data: List[QuestionData],
+) -> None:
+    """取得対象を欠落・重複なく処理できたことを、保存前に検証する。"""
+    expected_urls = list(target_question_urls)
+    actual_urls = [question.question_url for question in all_question_data]
+
+    if len(actual_urls) != len(expected_urls):
+        raise IncompleteScrapeError(
+            "取得問題数が対象URL数と一致しません: "
+            f"対象={len(expected_urls)}, 取得={len(actual_urls)}"
+        )
+    if len(set(expected_urls)) != len(expected_urls):
+        raise IncompleteScrapeError("取得対象URLに重複があります。")
+    if len(set(actual_urls)) != len(actual_urls):
+        raise IncompleteScrapeError("取得結果のURLに重複があります。")
+    if set(actual_urls) != set(expected_urls):
+        missing_urls = sorted(set(expected_urls) - set(actual_urls))
+        unexpected_urls = sorted(set(actual_urls) - set(expected_urls))
+        raise IncompleteScrapeError(
+            "取得対象URLと取得結果が一致しません: "
+            f"未取得={missing_urls[:3]}, 対象外={unexpected_urls[:3]}"
+        )
+
+    kakomonn_questions = [
+        question
+        for question in all_question_data
+        if common_source_site_from_url(question.question_url) == "kakomonn"
+    ]
+    missing_answer_urls = [
+        question.question_url
+        for question in kakomonn_questions
+        if question.answer_result_data is None
+        or not question.answer_result_data.answer_result_text.strip()
+        or not question.answer_result_data.inferred_correct_choice_numbers
+    ]
+    if missing_answer_urls:
+        raise IncompleteScrapeError(
+            "正答根拠を取得できなかった問題があります: "
+            f"件数={len(missing_answer_urls)}, URL={missing_answer_urls[:3]}"
+        )
 
 
 def update_correct_choices_from_text(
@@ -2642,6 +2696,9 @@ def main() -> None:
 
         # 問題ごとに少し休む（短め）
         slow_down(0.1, 0.2)
+
+    # 取得途中の通信失敗や重複を成功扱いにせず、既存 00_source を上書きする前に止める。
+    validate_complete_question_scrape(target_question_urls, all_question_data)
 
     # UPDATE_JSON_MODE の場合はここで既存ファイルを更新して終了
     if UPDATE_JSON_MODE:
