@@ -24,7 +24,8 @@ class ScrapePresetTests(unittest.TestCase):
         self.assertEqual(preset.qualification_name, "貸金業務取扱主任者")
         self.assertEqual(preset.scraper_type, "kakomonn")
         self.assertEqual(preset.list_group_ids, [str(group) for group in range(93011, 93000, -1)])
-        self.assertEqual(preset.expected_question_count, 50)
+        # Published counts can differ by year; the scraper checks URL-set parity.
+        self.assertIsNone(preset.expected_question_count)
         for group in preset.list_group_ids:
             self.assertEqual(
                 build_list_first_page_url(preset, group),
