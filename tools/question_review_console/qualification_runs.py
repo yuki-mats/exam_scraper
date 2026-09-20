@@ -111,6 +111,7 @@ from tools.question_review_console.codex_app_server import (
     TURN_REASONING_EFFORT,
     CodexAppServerError,
     CodexControlRequestTimeoutError,
+    CodexRpcError,
     CodexTerminalTurnFailedError,
     CodexTurnTimeoutError,
     SubscriptionGateError,
@@ -1562,13 +1563,7 @@ def _exception_chain(exc: BaseException) -> Iterable[BaseException]:
 
 def _external_provider_failure(exc: BaseException) -> CodexAppServerError | None:
     chain = tuple(_exception_chain(exc))
-    if any(
-        isinstance(
-            current,
-            (CodexTurnTimeoutError, CodexControlRequestTimeoutError),
-        )
-        for current in chain
-    ):
+    if _isolated_turn_failure(exc) is not None:
         return None
     return next(
         (
@@ -1610,6 +1605,11 @@ def _isolated_turn_failure(exc: BaseException) -> CodexAppServerError | None:
             if isinstance(
                 current,
                 (CodexTurnTimeoutError, CodexControlRequestTimeoutError),
+            )
+            or (
+                isinstance(current, CodexRpcError)
+                and current.method in {"thread/start", "turn/start"}
+                and current.code in {-32600, -32602}
             )
         ),
         None,

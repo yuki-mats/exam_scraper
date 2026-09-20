@@ -13,6 +13,7 @@ from tests.qualification_run_test_support import *  # noqa: F403
 from tools.question_review_console.codex_app_server import (
     CodexAppServerError,
     CodexControlRequestTimeoutError,
+    CodexRpcError,
     CodexTerminalTurnFailedError,
     CodexTurnTimeoutError,
     SubscriptionGateError,
@@ -4163,6 +4164,41 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             _isolated_turn_timeout(wrapped_control_timeout)
         )
 
+    def test_question_input_rpc_rejection_does_not_reduce_provider_capacity(self):
+        from tools.question_review_console.adaptive_scheduler import AdaptiveLimits
+
+        limits = AdaptiveLimits(parallel_turns=100)
+        for method in ("thread/start", "turn/start"):
+            for code in (-32600, -32602):
+                with self.subTest(method=method, code=code):
+                    error = CodexRpcError(
+                        "input rejected", method=method, code=code, data_type=None
+                    )
+                    wrapped = RuntimeError("candidate failed")
+                    wrapped.__cause__ = error
+                    self.assertIsNone(_external_provider_failure(wrapped))
+                    self.assertIs(_isolated_turn_failure(wrapped), error)
+                    limits.observe(
+                        provider_failure=_external_provider_failure(wrapped) is not None,
+                        isolated_failure=_isolated_turn_failure(wrapped) is not None,
+                    )
+                    self.assertEqual(limits.parallel_turns, 100)
+
+    def test_provider_rpc_errors_are_not_hidden_as_question_input_errors(self):
+        for method, code in (
+            ("turn/start", -32603),
+            ("turn/start", "service_unavailable"),
+            ("turn/start", "auth_required"),
+            ("initialize", -32600),
+            ("account/read", -32602),
+        ):
+            with self.subTest(method=method, code=code):
+                error = CodexRpcError(
+                    "request rejected", method=method, code=code, data_type=None
+                )
+                self.assertIs(_external_provider_failure(error), error)
+                self.assertIsNone(_isolated_turn_failure(error))
+
     @staticmethod
     def _invalid_resolved_aggregate_checkpoint(question_id, source_text):
         candidates = generate_statement_candidates(source_text)
@@ -8031,6 +8067,41 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         }
         self.assertEqual(sorted(counts.values()), [1, 1, 1, 1, 1, 2])
         self.assertEqual(completed["adaptiveScheduler"]["parallelTurns"], 5)
+
+    def test_invalid_question_input_keeps_other_questions_running(self):
+        class InvalidInputAppServer(PerQuestionQueueAppServer):
+            def run_turn(self, prompt, **kwargs):
+                question_ids = self._question_ids(prompt)
+                if (
+                    kwargs["work_type"] == "maintenance_question_type_candidate"
+                    and question_ids == ["new-exam-2026-q1"]
+                ):
+                    with self._lock:
+                        self.batch_calls.append(tuple(question_ids))
+                    kwargs["on_thread_started"]("thread-invalid", "session-invalid")
+                    raise CodexRpcError(
+                        "remote image URLs are not supported",
+                        method="turn/start", code=-32600, data_type=None,
+                    )
+                return super().run_turn(prompt, **kwargs)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            app_server = InvalidInputAppServer()
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root, CountedSourceInventory(6), ["question_type"],
+                app_server=app_server,
+            )
+            self._write_counted_sources(root, 6)
+            coordinator._run_maintenance_flow(
+                "new-exam", parent["runId"], lambda _message: None,
+            )
+            completed = coordinator.store.get("new-exam", parent["runId"])
+
+        self.assertEqual(completed["validatedQuestionCount"], 5)
+        self.assertEqual(completed["blockedQuestionCount"], 1)
+        self.assertEqual(completed["adaptiveScheduler"]["parallelTurns"], 5)
+        self.assertEqual(app_server.batch_calls.count(("new-exam-2026-q1",)), 3)
 
     def test_timeout_keeps_started_review_slot_and_blocks_without_rerun(self):
         class ReviewTimeoutAppServer(PerQuestionQueueAppServer):
