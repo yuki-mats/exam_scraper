@@ -104,7 +104,9 @@ def run_scraper_command(
         except subprocess.CalledProcessError:
             if attempt >= total_attempts:
                 raise
-            wait_seconds = min(5 * attempt, 15)
+            # 問題単位の短い再試行で回復しないDNS・回線断は、同じ年度を
+            # 直ちに再開しても再発しやすい。年度再試行は段階的に間隔を広げる。
+            wait_seconds = min(15 * (2 ** (attempt - 1)), 60)
             print(
                 f"[RETRY] group scrape failed: attempt={attempt}/{total_attempts} "
                 f"retry_in={wait_seconds}s",

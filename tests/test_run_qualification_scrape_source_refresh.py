@@ -32,7 +32,35 @@ class QualificationScrapeSourceRefreshTests(unittest.TestCase):
         )
 
         self.assertEqual(run_mock.call_count, 2)
-        sleep_mock.assert_called_once_with(5)
+        sleep_mock.assert_called_once_with(15)
+
+    @patch("scripts.scrape.run_qualification_scrape.time.sleep")
+    @patch("scripts.scrape.run_qualification_scrape.subprocess.run")
+    def test_group_retry_backoff_grows_and_caps_at_one_minute(
+        self,
+        run_mock,
+        sleep_mock,
+    ) -> None:
+        run_mock.side_effect = [
+            CalledProcessError(1, ["python", "code.py"]),
+            CalledProcessError(1, ["python", "code.py"]),
+            CalledProcessError(1, ["python", "code.py"]),
+            CalledProcessError(1, ["python", "code.py"]),
+            None,
+        ]
+
+        run_scraper_command(
+            ["python", "code.py"],
+            cwd=Path("."),
+            env={},
+            group_retries=4,
+        )
+
+        self.assertEqual(run_mock.call_count, 5)
+        self.assertEqual(
+            [call.args[0] for call in sleep_mock.call_args_list],
+            [15, 30, 60, 60],
+        )
 
 
 if __name__ == "__main__":
