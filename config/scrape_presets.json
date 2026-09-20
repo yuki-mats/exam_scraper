@@ -1,4 +1,14 @@
 {
+  "kashikin": {
+    "scraper_type": "kakomonn",
+    "qualification_name": "貸金業務取扱主任者",
+    "list_first_page_url_template": "https://kashikin.kakomonn.com/list1/{list_group_id}?page=1",
+    "expected_question_count": 50,
+    "list_group_ids": [
+      "93011", "93010", "93009", "93008", "93007", "93006",
+      "93005", "93004", "93003", "93002", "93001"
+    ]
+  },
   "kaigofukushi": {
     "scraper_type": "kakomonn",
     "qualification_name": "介護福祉士",

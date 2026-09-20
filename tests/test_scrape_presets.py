@@ -19,6 +19,18 @@ from scripts.scrape.run_qualification_scrape import (
 
 
 class ScrapePresetTests(unittest.TestCase):
+    def test_kashikin_reuses_kakomonn_with_existing_group_ids(self) -> None:
+        preset = load_scrape_preset("kashikin")
+        self.assertEqual(preset.qualification_name, "貸金業務取扱主任者")
+        self.assertEqual(preset.scraper_type, "kakomonn")
+        self.assertEqual(preset.list_group_ids, [str(group) for group in range(93011, 93000, -1)])
+        self.assertEqual(preset.expected_question_count, 50)
+        for group in preset.list_group_ids:
+            self.assertEqual(
+                build_list_first_page_url(preset, group),
+                f"https://kashikin.kakomonn.com/list1/{group}?page=1",
+            )
+
     def test_keepitup_is_registered_as_source_refresh_capable(self) -> None:
         self.assertIn("keepitup", SOURCE_REFRESH_SCRAPER_TYPES)
 

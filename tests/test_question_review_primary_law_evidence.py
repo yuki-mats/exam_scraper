@@ -125,6 +125,24 @@ class PrimaryLawEvidenceTests(unittest.TestCase):
                 ),
             )
 
+    def test_repository_kashikin_catalog_covers_all_source_groups(self):
+        repo_root = Path(__file__).resolve().parents[1]
+        resolver = PrimaryLawEvidenceResolver(repo_root)
+        dates = [
+            "2015-11-15", "2016-11-20", "2017-11-19", "2018-11-18",
+            "2019-11-17", "2020-11-15", "2021-11-21", "2022-11-20",
+            "2023-11-19", "2024-11-17", "2025-11-16",
+        ]
+        expected = {
+            str(group): (exam_date, "document/sources/kashikin/official_exam_pdf_catalog.json")
+            for group, exam_date in zip(range(93001, 93012), dates)
+        }
+        self.assertEqual(
+            {group: value for (qualification, group), value in resolver._exam_dates.items()
+             if qualification == "kashikin"},
+            expected,
+        )
+
     def test_locator_parser_accepts_articles_and_appendix_tables(self):
         self.assertEqual(
             locator_parts("第11条、別表第三（二）"),
