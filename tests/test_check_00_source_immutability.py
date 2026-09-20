@@ -225,7 +225,8 @@ class SourceImmutabilityTest(unittest.TestCase):
         )
         self.assertEqual(load_manifest(self.manifest), source_hashes(self.root))
 
-    def test_scrape_refresh_rejects_difference_outside_scope(self) -> None:
+    def test_scrape_refresh_preserves_difference_outside_scope(self) -> None:
+        self.source.write_text('{"value":"changed"}\n', encoding="utf-8")
         other = self.root / "output/other/00_source/question_1.json"
         other.parent.mkdir(parents=True)
         other.write_text('{"value":"other"}\n', encoding="utf-8")
@@ -242,9 +243,15 @@ class SourceImmutabilityTest(unittest.TestCase):
                     "output/sample/00_source",
                 ]
             ),
-            1,
+            0,
         )
-        self.assertEqual(len(load_manifest(self.manifest)), 1)
+        manifest = load_manifest(self.manifest)
+        source_path = str(self.source.relative_to(self.root))
+        self.assertEqual(
+            manifest,
+            {source_path: source_hashes(self.root)[source_path]},
+        )
+        self.assertNotIn(str(other.relative_to(self.root)), manifest)
 
     def test_scrape_refresh_records_multiple_successful_group_scopes(self) -> None:
         self.source.write_text('{"value":"changed"}\n', encoding="utf-8")

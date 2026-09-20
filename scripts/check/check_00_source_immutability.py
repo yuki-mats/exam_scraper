@@ -142,17 +142,11 @@ def record_scrape_refresh(
             "scrape対象scopeの00_sourceに消失があるため更新を登録できません: "
             + ", ".join(missing_in_scope[:10])
         )
-    changed_paths = [*diff["改変"], *diff["未登録"]]
-    outside_scope = [
+    changed_paths = [
         path
-        for path in changed_paths
-        if not any(path.startswith(scope_prefix) for scope_prefix in scope_prefixes)
+        for path in [*diff["改変"], *diff["未登録"]]
+        if any(path.startswith(scope_prefix) for scope_prefix in scope_prefixes)
     ]
-    if outside_scope:
-        raise ValueError(
-            "scrape対象外の00_source差分があるため登録できません: "
-            + ", ".join(outside_scope[:10])
-        )
     updated = dict(manifest)
     for path in changed_paths:
         updated[path] = current[path]
