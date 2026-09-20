@@ -301,6 +301,26 @@ class SourceImmutabilityTest(unittest.TestCase):
                 scope="output/sample/00_source",
             )
 
+    def test_scrape_refresh_preserves_nonresident_paths_outside_scope(self) -> None:
+        missing_path = "output/not-resident/00_source/question_2.json"
+        manifest = {
+            "output/sample/00_source/question_1.json": "before",
+            missing_path: "not-resident",
+        }
+        current = {
+            "output/sample/00_source/question_1.json": "after",
+        }
+
+        updated = record_scrape_refresh(
+            manifest,
+            current,
+            differences(manifest, current),
+            scope="output/sample/00_source",
+        )
+
+        self.assertEqual(updated["output/sample/00_source/question_1.json"], "after")
+        self.assertEqual(updated[missing_path], "not-resident")
+
     def test_difference_names_are_simple(self) -> None:
         self.assertEqual(
             differences({"a": "1", "b": "2"}, {"a": "9", "c": "3"}),

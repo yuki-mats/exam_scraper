@@ -132,8 +132,16 @@ def record_scrape_refresh(
         normalize_source_scope(requested_scope) + "/"
         for requested_scope in requested_scopes
     ]
-    if diff["消失"]:
-        raise ValueError("00_sourceの消失があるためscrape更新を登録できません")
+    missing_in_scope = [
+        path
+        for path in diff["消失"]
+        if any(path.startswith(scope_prefix) for scope_prefix in scope_prefixes)
+    ]
+    if missing_in_scope:
+        raise ValueError(
+            "scrape対象scopeの00_sourceに消失があるため更新を登録できません: "
+            + ", ".join(missing_in_scope[:10])
+        )
     changed_paths = [*diff["改変"], *diff["未登録"]]
     outside_scope = [
         path
