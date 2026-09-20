@@ -1991,6 +1991,7 @@ def _structured_candidate_prompt(
             "対象を特定できない場合や根拠が足りない場合は、その問題だけblockedにする。",
             "一問だけを判断し、decision、summary、updateだけを返す。questionIdと反映先はserverが確定する。",
             "setFieldsはfieldとnative JSONのvalueの配列とする。",
+            "blockedにする場合は理由をsummaryへ書き、setFieldsとunsetFieldsはどちらも空配列にする。部分的な更新候補は返さない。",
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
             "requiredSemanticFieldsは今回のcandidateで一度ずつ確定するfieldの完全な一覧である。candidateでは一覧外のfieldを追加せず、一覧内の各fieldをsetFields又はunsetFieldsのどちらか一方へ一度だけ入れる。",
             "各semantic fieldは一度だけsetFields又はunsetFieldsへ入れ、反映先はserverに任せる。",

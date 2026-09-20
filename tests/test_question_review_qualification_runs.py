@@ -2374,6 +2374,7 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
             ["isLawRelated", "lawReferences"],
         )
         self.assertIn("requiredSemanticFieldsは今回のcandidate", prompt)
+        self.assertIn("setFieldsとunsetFieldsはどちらも空配列", prompt)
         self.assertIn("setFieldsへ転載しない", prompt)
 
     def test_server_primary_law_evidence_is_embedded_in_attempt_prompt(self):
