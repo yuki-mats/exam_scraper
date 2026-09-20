@@ -66,6 +66,13 @@ _MARKER_PATTERNS = (
         ),
     ),
     (
+        "latin_inline",
+        re.compile(
+            rf"(?<!\S)(?P<marker>(?P<label>[A-Za-zＡ-Ｚａ-ｚ])){_LIST_SPACE}+",
+            re.MULTILINE,
+        ),
+    ),
+    (
         "latin",
         re.compile(
             rf"{_LIST_BOUNDARY}(?P<marker>(?P<label>[A-Za-zＡ-Ｚａ-ｚ])){_LIST_SPACE}+",

@@ -63,6 +63,28 @@ class AggregateAnswerDecompositionTests(unittest.TestCase):
             ],
         )
 
+    def test_bare_latin_markers_extract_inline_source_slices(self) -> None:
+        source_text = (
+            "A 第一の作業を行う B 第二の作業を行う "
+            "C 第三の作業を行う D 第四の作業を行う"
+        )
+
+        candidate_set = generate_statement_candidates(source_text)
+        candidate = candidate_set["candidates"][0]
+
+        self.assertEqual(
+            [
+                source_text[span["start"] : span["end"]]
+                for span in candidate["spans"]
+            ],
+            [
+                "A 第一の作業を行う",
+                "B 第二の作業を行う",
+                "C 第三の作業を行う",
+                "D 第四の作業を行う",
+            ],
+        )
+
     def test_existing_uppercase_candidate_identity_is_unchanged(self) -> None:
         candidate_set = generate_statement_candidates(SOURCE_TEXT)
 
