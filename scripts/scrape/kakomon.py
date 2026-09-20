@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
+import gzip
 import hashlib
 import json
 import os
@@ -24,6 +26,7 @@ from scripts.scrape.common import (
     choice_truth_labels,
     create_http_session,
     download_image_with_retry,
+    extract_text_with_subsup,
     fetch_html_text,
     guess_image_extension,
     load_local_secure_env,
@@ -101,6 +104,36 @@ def _path_match(page_url: str) -> re.Match[str]:
     return match
 
 
+def discover_groups(html: str, *, page_url: str) -> dict[str, list[str]]:
+    """資格トップの実リンクから試験回と科目開始URLを列挙する。"""
+    slug = urlparse(page_url).path.strip("/")
+    groups: dict[str, list[str]] = {}
+    for anchor in BeautifulSoup(html, "html.parser").select("a[href]"):
+        url = urljoin(page_url, anchor["href"])
+        match = QUESTION_PATH_RE.fullmatch(urlparse(url).path)
+        if match and match["site_qualification"] == slug:
+            urls = groups.setdefault(match["source_group"], [])
+            if url not in urls:
+                urls.append(url)
+    if not groups:
+        raise ValueError("資格トップから試験回を取得できません")
+    return groups
+
+
+def extract_question_text(element: Tag) -> str:
+    """サイト固有の分数と小字の添字を標準HTMLへ変換し、既存の共通抽出を使う。"""
+    copy = BeautifulSoup(str(element), "html.parser")
+    for small in copy.select("small"):
+        small.name = "sub"
+    for fraction in reversed(copy.select(".fraction")):
+        parts = fraction.find_all(recursive=False)
+        if len(parts) != 2 or "numerator" not in parts[0].get("class", []):
+            raise ValueError("未対応の分数構造です")
+        numerator, denominator = (normalize_inline_text(extract_text_with_subsup(part)) for part in parts)
+        fraction.replace_with(f"({numerator})/({denominator})")
+    return normalize_inline_text(extract_text_with_subsup(copy).replace("\n", " "))
+
+
 def parse_question_page(html: str, *, page_url: str) -> ParsedQuestion:
     match = _path_match(page_url)
     question_number = int(match.group("number"))
@@ -127,7 +160,7 @@ def parse_question_page(html: str, *, page_url: str) -> ParsedQuestion:
         re.sub(
             r"^[１-５1-5]\s*[：:]\s*",
             "",
-            normalize_inline_text(choice.get_text(" ", strip=True)),
+            extract_question_text(choice),
         )
         for choice in choices
     )
@@ -150,8 +183,17 @@ def parse_question_page(html: str, *, page_url: str) -> ParsedQuestion:
 
     heading = soup.select_one("h1.entry-title") or soup.find("h1")
     title = normalize_inline_text(heading.get_text(" ", strip=True)) if heading else ""
-    if not re.search(rf"問\s*{question_number}\D*$", title):
+    label = re.search(r"(?:-([AB]))?-問\s*(\d+)\s*$", title)
+    displayed_number = int(label[2]) if label else -1
+    if label and label[1] == "B":
+        displayed_number += 20
+    if displayed_number != question_number:
         raise ValueError(f"ページ題名と問題番号が一致しません: {title} / {page_url}")
+    # supplementary statements/tables belong to the question, not the choices.
+    subs = container.select_one(".question-subs")
+    body_text = extract_question_text(body)
+    subs_text = extract_question_text(subs) if subs else ""
+    question_text = "\n".join(text for text in (body_text, subs_text) if text)
 
     explanation_items = tuple(
         normalize_inline_text(item.get_text(" ", strip=True))
@@ -172,7 +214,7 @@ def parse_question_page(html: str, *, page_url: str) -> ParsedQuestion:
         question_number=question_number,
         question_url=page_url,
         title=title,
-        question_text=normalize_inline_text(body.get_text(" ", strip=True)),
+        question_text=question_text,
         choices=choice_texts,
         correct_choice_number=correct_choice_number,
         category=_table_value(soup, "カテゴリ"),
@@ -453,9 +495,6 @@ def main(argv: list[str] | None = None) -> int:
     site_qualification = list_match.group("site_qualification")
     count = min(args.max_questions or args.expected_question_count, args.expected_question_count)
 
-    session = create_http_session()
-    # このsiteは長時間のkeep-alive接続を途中で切ることがあるため、各GETを独立させる。
-    session.headers["Connection"] = "close"
     json_dir_raw, image_dir_raw = prepare_output_dirs(
         args.output_dir,
         args.qualification_code,
@@ -473,21 +512,31 @@ def main(argv: list[str] | None = None) -> int:
     with tempfile.TemporaryDirectory(prefix=".kakomon-", dir=output_root) as temporary_dir:
         staged_image_dir = Path(temporary_dir) / "images"
         staged_image_dir.mkdir()
-        records: list[dict[str, Any]] = []
-        for number in range(1, count + 1):
+        evidence_dir = output_root / args.qualification_code / "verification" / "html" / source_group_id
+        evidence_dir.mkdir(parents=True, exist_ok=True)
+
+        def fetch_record(number: int) -> dict[str, Any]:
             url = question_url(site_qualification, source_group_id, number)
-            parsed = parse_question_page(fetch_html_text(session, url), page_url=url)
-            records.append(
-                build_source_record(
+            with create_http_session() as question_session:
+                question_session.headers["Connection"] = "close"
+                html = fetch_html_text(question_session, url)
+                with gzip.open(evidence_dir / f"{number:03d}.html.gz", "wt", encoding="utf-8") as evidence:
+                    evidence.write(html)
+                parsed = parse_question_page(html, page_url=url)
+                record = build_source_record(
                     parsed,
                     qualification_code=args.qualification_code,
                     qualification_name=args.qualification_name,
                     output_list_group_id=args.output_list_group_id,
-                    session=session,
+                    session=question_session,
                     staged_image_dir=staged_image_dir,
                 )
-            )
             print(f"[FETCH] {source_group_id} {number}/{count} answer={parsed.correct_choice_number}")
+            return record
+
+        # Small fixed concurrency; each request retains common delay/retry handling.
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            records = list(executor.map(fetch_record, range(1, count + 1)))
 
         validate_source_records(records, expected_count=count)
         existing = _records_by_source_id(output_path)

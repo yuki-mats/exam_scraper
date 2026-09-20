@@ -9,10 +9,14 @@ import requests
 
 from scripts.scrape.kakomon import (
     build_source_record,
+    discover_groups,
+    extract_question_text,
     determine_question_intent,
     parse_question_page,
     question_url,
 )
+from scripts.check.check_kakomon_acquisition import audit_page, visible_text
+from bs4 import BeautifulSoup
 
 
 class KakomonTests(unittest.TestCase):
@@ -61,6 +65,57 @@ class KakomonTests(unittest.TestCase):
                 html,
                 page_url="https://kako-mon.com/bo-1/2025-2-01-001/",
             )
+
+    def test_supplementary_statements_are_preserved(self) -> None:
+        html = self.html.replace('<img src="/q.png">', '<p>A　記述A。</p><p>B　記述B。</p>')
+        parsed = parse_question_page(html, page_url="https://kako-mon.com/bo-1/2025-2-01-001/")
+        self.assertEqual(parsed.question_text, "適切でないものはどれか。\nA 記述A。 B 記述B。")
+
+    def test_fraction_and_scripts_keep_their_mathematical_meaning(self) -> None:
+        html = '<p><span class="fraction"><span class="numerator">π(d<small>t</small>)<sup>2</sup></span><span>4</span></span>、CO<sub>2</sub>、m<sup>3</sup></p>'
+        self.assertEqual(extract_question_text(BeautifulSoup(html, "html.parser").p), "(π(dₜ)²)/(4)、CO₂、m³")
+        self.assertEqual(visible_text(BeautifulSoup(html, "html.parser").p), "(π(dₜ)²)/(4)、CO₂、m³")
+
+    def test_inventory_excludes_other_qualifications_and_deduplicates(self) -> None:
+        html = '''<a href="/bo-1/2025-2-01-001/">問1</a>
+        <a href="/bo-1/2025-2-01-001/">問1再掲</a>
+        <a href="/bo-1/2009-1-04-031/">法令</a>
+        <a href="/bo-2/2025-2-01-001/">別資格</a>'''
+        inventory = discover_groups(html, page_url="https://kako-mon.com/bo-1/")
+        self.assertEqual(list(inventory), ["2025-2", "2009-1"])
+        self.assertEqual(len(inventory["2025-2"]), 1)
+
+    def test_independent_audit_detects_omission_and_shift(self) -> None:
+        html = self.html.replace('<img src="/q.png">', '<p>A 記述A。</p>')
+        html += '''<link rel="canonical" href="https://kako-mon.com/bo-1/2025-2-01-001/">
+        <a class="question-next" href="https://kako-mon.com/bo-1/2025-2-01-002/">次</a>'''
+        record = {
+            "questionBodyText": "適切でないものはどれか。\nA 記述A。",
+            "choiceTextList": [f"肢{i}" for i in range(1, 6)],
+            "answer_result_inferred_correct_choice_numbers": [3],
+            "question_url": "https://kako-mon.com/bo-1/2025-2-01-001/",
+            "questionImageSourceUrls": [],
+            "choiceImageSourceUrlsByChoice": [[] for _ in range(5)],
+        }
+        self.assertEqual(audit_page(html, record, number=1, group="2025-2"), [])
+        cases = {
+            "questionBodyText": ("適切でないものはどれか。", "question_text"),
+            "choiceTextList": (["肢2", "肢1", "肢3", "肢4", "肢5"], "choice_1"),
+            "answer_result_inferred_correct_choice_numbers": ([2], "answer"),
+            "questionImageSourceUrls": (["https://kako-mon.com/wrong.png"], "image_assignment"),
+        }
+        for field, (value, failure) in cases.items():
+            with self.subTest(field=field):
+                self.assertIn(failure, audit_page(html, {**record, field: value}, number=1, group="2025-2"))
+        self.assertIn("exam_year_term", audit_page(html, record, number=1, group="2024-2"))
+        self.assertIn("question_number", audit_page(html, record, number=2, group="2025-2"))
+
+    def test_old_b_paper_number_is_mapped_to_url_sequence(self) -> None:
+        html = self.html.replace("令和7年後期-問1", "平成21年前期-B-問20")
+        parsed = parse_question_page(html, page_url="https://kako-mon.com/bo-1/2009-1-04-040/")
+        self.assertEqual(parsed.question_number, 40)
+        with self.assertRaisesRegex(ValueError, "ページ題名"):
+            parse_question_page(html, page_url="https://kako-mon.com/bo-1/2009-1-04-039/")
 
     def test_question_url_and_intent(self) -> None:
         self.assertEqual(

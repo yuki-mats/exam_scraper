@@ -391,6 +391,123 @@ def extract_image_urls_from_element(
     return image_url_list
 
 
+SUPERSCRIPT_MAP = {
+    "0": "⁰",
+    "1": "¹",
+    "2": "²",
+    "3": "³",
+    "4": "⁴",
+    "5": "⁵",
+    "6": "⁶",
+    "7": "⁷",
+    "8": "⁸",
+    "9": "⁹",
+    "+": "⁺",
+    "-": "⁻",
+    "=": "⁼",
+    "(": "⁽",
+    ")": "⁾",
+    "a": "ᵃ",
+    "b": "ᵇ",
+    "c": "ᶜ",
+    "d": "ᵈ",
+    "e": "ᵉ",
+    "f": "ᶠ",
+    "g": "ᵍ",
+    "h": "ʰ",
+    "i": "ⁱ",
+    "j": "ʲ",
+    "k": "ᵏ",
+    "l": "ˡ",
+    "m": "ᵐ",
+    "n": "ⁿ",
+    "o": "ᵒ",
+    "p": "ᵖ",
+    "r": "ʳ",
+    "s": "ˢ",
+    "t": "ᵗ",
+    "u": "ᵘ",
+    "v": "ᵛ",
+    "w": "ʷ",
+    "x": "ˣ",
+    "y": "ʸ",
+    "z": "ᶻ",
+}
+
+SUBSCRIPT_MAP = {
+    "0": "₀",
+    "1": "₁",
+    "2": "₂",
+    "3": "₃",
+    "4": "₄",
+    "5": "₅",
+    "6": "₆",
+    "7": "₇",
+    "8": "₈",
+    "9": "₉",
+    "+": "₊",
+    "-": "₋",
+    "=": "₌",
+    "(": "₍",
+    ")": "₎",
+    "a": "ₐ",
+    "b": "ᵦ",
+    "e": "ₑ",
+    "h": "ₕ",
+    "i": "ᵢ",
+    "j": "ⱼ",
+    "k": "ₖ",
+    "l": "ₗ",
+    "m": "ₘ",
+    "n": "ₙ",
+    "o": "ₒ",
+    "p": "ₚ",
+    "r": "ᵣ",
+    "s": "ₛ",
+    "t": "ₜ",
+    "u": "ᵤ",
+    "v": "ᵥ",
+    "x": "ₓ",
+    "y": "ᵧ",
+}
+
+
+def to_superscript(text: str) -> str:
+    return "".join(SUPERSCRIPT_MAP.get(ch, SUPERSCRIPT_MAP.get(ch.lower(), ch)) for ch in text)
+
+
+def to_subscript(text: str) -> str:
+    return "".join(SUBSCRIPT_MAP.get(ch, SUBSCRIPT_MAP.get(ch.lower(), ch)) for ch in text)
+
+
+def extract_text_with_subsup(element: Tag | NavigableString) -> str:
+    """
+    Extract text while preserving <sub>/<sup> as Unicode sub/superscripts.
+    """
+    block_tags = {"p", "div", "tr", "td", "th", "li"}
+
+    def render(node: Tag | NavigableString) -> str:
+        if isinstance(node, NavigableString):
+            return str(node)
+        if isinstance(node, Tag):
+            name = node.name.lower()
+            if name == "br":
+                return "\n"
+            if name == "sub":
+                inner = "".join(render(child) for child in node.children).strip()
+                return to_subscript(inner)
+            if name == "sup":
+                inner = "".join(render(child) for child in node.children).strip()
+                return to_superscript(inner)
+            text = "".join(render(child) for child in node.children)
+            if name in block_tags:
+                return text + "\n"
+            return text
+        return ""
+
+    return render(element)
+
+
 def normalize_question_body_text(text: str) -> str:
     if not text:
         return text
