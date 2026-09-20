@@ -4,6 +4,7 @@ import base64
 import copy
 import json
 import math
+import mimetypes
 import os
 import queue
 import re
@@ -31,22 +32,53 @@ from tools.question_review_console.turn_budget import (
     GlobalTurnBudget,
 )
 from tools.question_review_console.http_transport import IPv4HTTPSHandler
+from scripts.common.image_storage_urls import extract_storage_object_path
 
 
 DEFAULT_CODEX_PATH = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
 MAX_INPUT_IMAGE_BYTES = 20 * 1024 * 1024
 
 
-def _inline_image_url(url: str) -> str:
+def _local_input_image(url: str, repo_root: Path) -> tuple[bytes, str] | None:
+    object_path = extract_storage_object_path(url)
+    parts = object_path.split("/") if object_path else []
+    if len(parts) != 4 or parts[:2] != ["question_images", "official"]:
+        return None
+    qualification, filename = parts[2:]
+    if any(not re.fullmatch(r"[A-Za-z0-9_.-]+", part) or part in {".", ".."}
+           for part in (qualification, filename)):
+        raise ValueError("ローカル画像の参照が不正です。")
+    root = (repo_root / "output" / qualification / "question_images").resolve()
+    if not root.is_relative_to(repo_root.resolve()):
+        raise ValueError("画像の保存先がrepository外です。")
+    content: bytes | None = None
+    for path in sorted(root.rglob(filename)):
+        if not path.resolve().is_relative_to(root):
+            raise ValueError("画像の参照先が保存先の外です。")
+        with path.open("rb") as stream:
+            candidate = stream.read(MAX_INPUT_IMAGE_BYTES + 1)
+        if content is not None and candidate != content:
+            raise ValueError("同名のローカル画像の内容が一致しません。")
+        content = candidate
+    if content is None:
+        return None
+    return content, mimetypes.guess_type(filename)[0] or "application/octet-stream"
+
+
+def _inline_image_url(url: str, repo_root: Path | None = None) -> str:
     """Send image bytes: the subscription App Server rejects remote image URLs."""
-    opener = urllib.request.build_opener(IPv4HTTPSHandler())
-    with opener.open(url, timeout=30) as response:
-        if not response.geturl().startswith("https://"):
-            raise ValueError("画像の取得先はhttpsに限定してください。")
-        mime_type = response.headers.get_content_type()
-        if mime_type not in {"image/png", "image/jpeg", "image/webp", "image/gif"}:
-            raise ValueError("画像入力のContent-Typeが対応形式ではありません。")
-        body = response.read(MAX_INPUT_IMAGE_BYTES + 1)
+    local = _local_input_image(url, repo_root) if repo_root is not None else None
+    if local is not None:
+        body, mime_type = local
+    else:
+        opener = urllib.request.build_opener(IPv4HTTPSHandler())
+        with opener.open(url, timeout=30) as response:
+            if not response.geturl().startswith("https://"):
+                raise ValueError("画像の取得先はhttpsに限定してください。")
+            mime_type = response.headers.get_content_type()
+            body = response.read(MAX_INPUT_IMAGE_BYTES + 1)
+    if mime_type not in {"image/png", "image/jpeg", "image/webp", "image/gif"}:
+        raise ValueError("画像入力のContent-Typeが対応形式ではありません。")
     if not body or len(body) > MAX_INPUT_IMAGE_BYTES:
         raise ValueError("画像入力が空又は20 MiBを超えています。")
     return f"data:{mime_type};base64,{base64.b64encode(body).decode('ascii')}"
@@ -1902,7 +1934,7 @@ class CodexAppServerClient:
             {"type": "text", "text": prompt, "text_elements": []}
         ]
         turn_input.extend(
-            {"type": "image", "url": _inline_image_url(image_url)}
+            {"type": "image", "url": _inline_image_url(image_url, self.repo_root)}
             for image_url in normalized_image_urls
         )
         params: dict[str, Any] = {

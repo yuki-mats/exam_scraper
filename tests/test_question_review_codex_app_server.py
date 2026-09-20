@@ -3056,6 +3056,26 @@ class AppServerTurnTests(unittest.TestCase):
             [method for method, _params in client.calls],
         )
 
+    @patch("tools.question_review_console.codex_app_server.urllib.request.build_opener")
+    def test_unpublished_local_images_are_used_only_when_unambiguous(self, opener):
+        from scripts.common.image_storage_urls import build_public_storage_url
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            first = root / "output/sample/question_images/2025/image.webp"
+            second = root / "output/sample/question_images/2026/image.webp"
+            first.parent.mkdir(parents=True)
+            second.parent.mkdir(parents=True)
+            first.write_bytes(b"image-bytes")
+            url = build_public_storage_url("sample", "image.webp")
+            self.assertEqual(_inline_image_url(url, root), "data:image/webp;base64,aW1hZ2UtYnl0ZXM=")
+            second.write_bytes(b"image-bytes")
+            self.assertEqual(_inline_image_url(url, root), "data:image/webp;base64,aW1hZ2UtYnl0ZXM=")
+            second.write_bytes(b"different-image")
+            with self.assertRaisesRegex(ValueError, "同名"):
+                _inline_image_url(url, root)
+            opener.assert_not_called()
+
     def test_fast_mode_is_rejected_before_provider_request(self):
         client = ProtocolClient()
 
