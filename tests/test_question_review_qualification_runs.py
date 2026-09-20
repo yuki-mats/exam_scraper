@@ -2502,6 +2502,56 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
             prompt,
         )
 
+    def test_law_audit_prompt_marks_sidecar_fields_that_must_be_set(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        candidate_target = CandidateTarget(
+            target_id="question-1:law_audit",
+            role="law_audit",
+            path="output/sample/review/law_revision_audit/group.jsonl",
+            allowed_fields=(
+                "auditStatus",
+                "holdReason",
+                "isLawRelated",
+                "lawReferences",
+                "lawRevisionFacts",
+                "reviewState",
+            ),
+        )
+        prompt = _structured_candidate_prompt(
+            "現行法を監査する。",
+            [target],
+            stage_id="law_audit",
+            records_by_question={
+                "question-1": {
+                    "choiceTextList": ["A", "B"],
+                    "isLawRelated": False,
+                }
+            },
+            candidate_targets_by_question={
+                "question-1": (candidate_target,)
+            },
+            feedback_by_question={},
+        )
+
+        question = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            question["semanticFieldsMustBeSet"],
+            [
+                "auditStatus",
+                "isLawRelated",
+                "lawReferences",
+                "lawRevisionFacts",
+                "reviewState",
+            ],
+        )
+        self.assertIn("isLawRelated=falseのlawReferencesは削除せず", prompt)
+
     def test_law_stage_context_requires_discovery_when_primary_evidence_is_absent(self):
         context = _structured_candidate_stage_context(
             Path("."),

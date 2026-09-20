@@ -814,6 +814,22 @@ _CANONICAL_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
     ),
 }
 
+_MUST_SET_FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
+    "law_audit": frozenset(
+        {
+            "auditStatus",
+            "reviewState",
+            "sourceSummary",
+            "reconciliationStatus",
+            "lawRevisionFacts",
+            "lawReferences",
+            "isLawRelated",
+            "examTimeDecision",
+            "currentLawDecision",
+        }
+    ),
+}
+
 SERVER_OWNED_LAW_AUDIT_FIELDS = frozenset(
     {
         "qualification",
@@ -1127,7 +1143,9 @@ def output_schema(
     field_rules = _semantic_field_rules(
         question_id, targets_by_question.get(question_id, ())
     )
-    field_names = sorted(field_rules)
+    target_values = tuple(targets_by_question.get(question_id, ()))
+    must_set_fields = semantic_fields_must_be_set(target_values)
+    field_names = sorted(set(field_rules) - must_set_fields)
     set_variants = [
         {
             "type": "object",
@@ -1185,6 +1203,25 @@ def _reject_duplicate_object_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any
             raise QuestionCandidateError(f"JSON object keyが重複しています: {key}")
         value[key] = item
     return value
+
+
+def semantic_fields_must_be_set(
+    targets: Iterable[CandidateTarget],
+) -> set[str]:
+    """Return semantic fields whose canonical target requires an explicit value."""
+
+    target_values = tuple(targets)
+    allowed_fields = {
+        field
+        for target in target_values
+        for field in target.allowed_fields
+    }
+    return {
+        field
+        for target in target_values
+        for field in _MUST_SET_FIELDS_BY_ROLE.get(target.role, frozenset())
+        if field in allowed_fields
+    }
 
 
 def _matches_rule(value: Any, rule: Mapping[str, Any]) -> bool:
@@ -1602,9 +1639,9 @@ def _parse_semantic_candidate(
         raise QuestionCandidateError("model候補のupdate形式が不正です。")
     if decision == "blocked" and (set_fields or unset_fields):
         raise QuestionCandidateError("blocked候補はupdateを空にしてください。")
-    rules = _semantic_field_rules(
-        question_id, targets_by_question.get(question_id, ())
-    )
+    target_values = tuple(targets_by_question.get(question_id, ()))
+    rules = _semantic_field_rules(question_id, target_values)
+    must_set_fields = semantic_fields_must_be_set(target_values)
     values: dict[str, Any] = {}
     for item in set_fields:
         if not isinstance(item, Mapping) or set(item) != {"field", "value"}:
@@ -1629,6 +1666,12 @@ def _parse_semantic_candidate(
         or len(unset_fields) != len(set(unset_fields))
     ):
         raise QuestionCandidateError("unsetFieldsが対象外又は重複です。")
+    invalid_unset_fields = sorted(set(unset_fields) & must_set_fields)
+    if invalid_unset_fields:
+        raise QuestionCandidateError(
+            "この工程では値を明示する必要があるためunsetできません: "
+            + ",".join(invalid_unset_fields)
+        )
     if set(values) & set(unset_fields):
         raise QuestionCandidateError("同じfieldに設定と削除があります。")
     resolved_fields = set(values) | set(unset_fields)

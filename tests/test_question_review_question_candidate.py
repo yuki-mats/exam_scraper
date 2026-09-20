@@ -4,6 +4,7 @@ import unittest
 from tools.question_review_console.question_candidate import (
     CANDIDATE_PAYLOAD_SCHEMA_VERSION,
     CANDIDATE_VALIDATION_ISSUE_SCHEMA_VERSION,
+    CandidateTarget,
     QuestionCandidateError,
     candidate_targets,
     output_schema,
@@ -1835,6 +1836,48 @@ class QuestionCandidateTest(unittest.TestCase):
                     assert_strict(child)
 
         assert_strict(schema)
+
+    def test_law_audit_schema_requires_sidecar_fields_to_be_set(self):
+        targets = candidate_targets(
+            "q1",
+            "law_audit",
+            {
+                "allowedPatchFiles": [
+                    "output/sample/questions_json/2026/"
+                    "21_explanationText_added/patch.json"
+                ],
+                "allowedWriteFiles": [
+                    "output/sample/review/law_revision_audit/2026.jsonl"
+                ],
+            },
+        )
+        schema = output_schema(["q1"], {"q1": targets})
+        unset_fields = schema["properties"]["update"]["properties"][
+            "unsetFields"
+        ]["items"]["enum"]
+
+        self.assertNotIn("lawReferences", unset_fields)
+        self.assertNotIn("lawRevisionFacts", unset_fields)
+        self.assertNotIn("auditStatus", unset_fields)
+        self.assertIn("holdReason", unset_fields)
+
+        minimal_target = CandidateTarget(
+            target_id="q1:law_audit",
+            role="law_audit",
+            path="output/sample/review/law_revision_audit/2026.jsonl",
+            allowed_fields=("holdReason", "lawReferences"),
+        )
+        with self.assertRaisesRegex(
+            QuestionCandidateError,
+            "値を明示する必要があるためunsetできません: lawReferences",
+        ):
+            parse_model_candidate_v3(
+                '{"decision":"candidate","summary":"非法令問題",'
+                '"update":{"setFields":[{"field":"holdReason","value":""}],'
+                '"unsetFields":["lawReferences"]}}',
+                ["q1"],
+                {"q1": (minimal_target,)},
+            )
 
     def test_output_schema_is_strict_for_all_candidate_stages(self):
         paths = [

@@ -143,6 +143,7 @@ from tools.question_review_console.question_candidate import (
     output_schema as candidate_output_schema,
     parse_model_candidate_v3,
     parse_prepared_candidate_payload,
+    semantic_fields_must_be_set,
     validate_candidate_content_issues,
     aggregate_answer_review_schema,
     parse_aggregate_answer_reviews,
@@ -1919,6 +1920,9 @@ def _structured_candidate_prompt(
             "sourceIdentity": binding.as_mapping(),
             "currentRecord": records_by_question[question_id],
             "requiredSemanticFields": sorted(allowed_fields),
+            "semanticFieldsMustBeSet": sorted(
+                semantic_fields_must_be_set(candidate_targets)
+            ),
             "topLevelSemanticFieldsAlsoNested": nested_rule_field_names(
                 candidate_targets,
                 allowed_fields,
@@ -2040,6 +2044,7 @@ def _structured_candidate_prompt(
             "blockedにする場合は理由をsummaryへ書き、setFieldsとunsetFieldsはどちらも空配列にする。部分的な更新候補は返さない。",
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
             "requiredSemanticFieldsは今回のcandidateで一度ずつ確定するfieldの完全な一覧である。candidateでは一覧外のfieldを追加せず、一覧内の各fieldをsetFields又はunsetFieldsのどちらか一方へ一度だけ入れる。",
+            "semanticFieldsMustBeSetにあるfieldはunsetFieldsへ入れず、現在値を保持する場合もsetFieldsへ完全な値を一度入れる。isLawRelated=falseのlawReferencesは削除せず、choiceTextListと同じ件数の空配列を入れる。",
             "topLevelSemanticFieldsAlsoNestedにfield名がある場合、そのfieldは別fieldのvalue内にも現れる。value内の同名keyはトップレベルsemantic fieldの確定として数えない。該当field名自体をsetFields又はunsetFieldsへ必ず一度入れる。",
             "semanticFieldsSharedAcrossTargetsにfield名がある場合も、保存先候補が複数あるだけでsemantic fieldは一つである。同じfieldを役割別に繰り返さず、setFields又はunsetFieldsへ合計一度だけ入れる。反映先はserverが確定する。",
             "各semantic fieldは一度だけsetFields又はunsetFieldsへ入れ、反映先はserverに任せる。",
