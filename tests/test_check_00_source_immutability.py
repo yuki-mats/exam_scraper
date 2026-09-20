@@ -246,6 +246,30 @@ class SourceImmutabilityTest(unittest.TestCase):
         )
         self.assertEqual(len(load_manifest(self.manifest)), 1)
 
+    def test_scrape_refresh_records_multiple_successful_group_scopes(self) -> None:
+        self.source.write_text('{"value":"changed"}\n', encoding="utf-8")
+        other = self.root / "output/sample/questions_json/2025/00_source/question_2.json"
+        other.parent.mkdir(parents=True)
+        other.write_text('{"value":"new"}\n', encoding="utf-8")
+
+        self.assertEqual(
+            main(
+                [
+                    "--root",
+                    str(self.root),
+                    "--manifest",
+                    str(self.manifest),
+                    "--record-scrape-refresh",
+                    "--scope",
+                    "output/sample/00_source",
+                    "--scope",
+                    "output/sample/questions_json/2025/00_source",
+                ]
+            ),
+            0,
+        )
+        self.assertEqual(load_manifest(self.manifest), source_hashes(self.root))
+
     def test_scrape_refresh_rejects_deleted_source(self) -> None:
         self.source.unlink()
 

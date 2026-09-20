@@ -119,16 +119,26 @@ def record_scrape_refresh(
     current: dict[str, str],
     diff: dict[str, list[str]],
     *,
-    scope: str,
+    scope: str | None = None,
+    scopes: list[str] | None = None,
 ) -> dict[str, str]:
     """scraper成功後、対象groupの新規・更新hashだけを登録する。"""
-    normalized_scope = normalize_source_scope(scope)
-    scope_prefix = normalized_scope + "/"
+    if scope and scopes:
+        raise ValueError("scopeとscopesは同時に指定できません")
+    requested_scopes = list(scopes or ([scope] if scope else []))
+    if not requested_scopes:
+        raise ValueError("scrape更新の対象00_sourceを指定してください")
+    scope_prefixes = [
+        normalize_source_scope(requested_scope) + "/"
+        for requested_scope in requested_scopes
+    ]
     if diff["消失"]:
         raise ValueError("00_sourceの消失があるためscrape更新を登録できません")
     changed_paths = [*diff["改変"], *diff["未登録"]]
     outside_scope = [
-        path for path in changed_paths if not path.startswith(scope_prefix)
+        path
+        for path in changed_paths
+        if not any(path.startswith(scope_prefix) for scope_prefix in scope_prefixes)
     ]
     if outside_scope:
         raise ValueError(
@@ -213,8 +223,12 @@ def main(argv: list[str] | None = None) -> int:
     action.add_argument("--check-staged", action="store_true")
     parser.add_argument(
         "--scope",
-        default="",
-        help="--record-scrape-refreshの対象00_source directory。repo相対pathで指定する",
+        action="append",
+        default=[],
+        help=(
+            "--record-scrape-refreshの対象00_source directory。repo相対pathで指定し、"
+            "複数groupは繰り返し指定する"
+        ),
     )
     args = parser.parse_args(argv)
 
@@ -266,7 +280,7 @@ def main(argv: list[str] | None = None) -> int:
                 manifest,
                 current,
                 diff,
-                scope=args.scope,
+                scopes=args.scope,
             )
             save_manifest(manifest_path, updated)
             print(

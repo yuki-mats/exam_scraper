@@ -8,7 +8,7 @@ from pathlib import Path
 
 CURRENT_FILE = Path(__file__).resolve()
 REPO_ROOT = CURRENT_FILE.parents[2]
-SOURCE_REFRESH_SCRAPER_TYPES = {"keepitup", "udemy"}
+SOURCE_REFRESH_SCRAPER_TYPES = {"kakomonn", "keepitup", "udemy"}
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
