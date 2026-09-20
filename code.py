@@ -169,6 +169,29 @@ def extract_1st_class_kenchikushi_section_code(exam_label: str | None) -> str | 
     return None
 
 
+def extract_birukan_section_code(exam_label: str | None) -> str | None:
+    if not exam_label:
+        return None
+
+    section_codes = {
+        "建築物衛生行政概論": "eisei-gyosei",
+        "建築物の環境衛生": "kankyo-eisei",
+        "空気環境の調整": "kuki-kankyo",
+        "建築物の構造概論": "kozo-gairon",
+        "給水及び排水の管理": "kyusui-haisui",
+        "清掃": "seiso",
+        "ねずみ、昆虫等の防除": "nezumi-konchu",
+    }
+    return next(
+        (
+            section_code
+            for section_label, section_code in section_codes.items()
+            if section_label in exam_label
+        ),
+        None,
+    )
+
+
 def extract_list_group_id_from_url(list_page_url: str) -> str | None:
     """
     LIST_FIRST_PAGE_URL から「71013」のようなグループIDを取り出す。
@@ -2271,6 +2294,8 @@ def main() -> None:
         section_code = None
         if QUALIFICATION_CODE == "1st-class-kenchikushi":
             section_code = extract_1st_class_kenchikushi_section_code(question_data.exam_label)
+        elif QUALIFICATION_CODE == "birukan":
+            section_code = extract_birukan_section_code(question_data.exam_label)
         canonical_question_key = make_canonical_question_key(
             exam_occurrence_id=exam_occurrence_id,
             exam_year=exam_year,
