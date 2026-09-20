@@ -1,10 +1,8 @@
 from __future__ import annotations
 
 import hashlib
-import http.client
 import json
 import re
-import socket
 import threading
 import time
 import urllib.error
@@ -18,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 from tools.question_review_console.review_store import atomic_write
+from tools.question_review_console.http_transport import IPv4HTTPSHandler
 
 
 PRIMARY_LAW_EVIDENCE_SCHEMA = "primary-law-evidence/v2"
@@ -65,52 +64,6 @@ class LawFileSnapshot:
     source_url: str
     revision_id: str
     xml_text: str
-
-
-def _create_ipv4_connection(
-    address: tuple[str, int],
-    timeout: float | object = socket._GLOBAL_DEFAULT_TIMEOUT,
-    source_address: tuple[str, int] | None = None,
-) -> socket.socket:
-    """Create one TCP connection without waiting on a broken IPv6 route."""
-
-    host, port = address
-    last_error: OSError | None = None
-    for family, socktype, proto, _canonname, sockaddr in socket.getaddrinfo(
-        host,
-        port,
-        socket.AF_INET,
-        socket.SOCK_STREAM,
-    ):
-        sock = socket.socket(family, socktype, proto)
-        try:
-            if timeout is not socket._GLOBAL_DEFAULT_TIMEOUT:
-                sock.settimeout(timeout)
-            if source_address:
-                sock.bind(source_address)
-            sock.connect(sockaddr)
-            return sock
-        except OSError as exc:
-            last_error = exc
-            sock.close()
-    if last_error is not None:
-        raise last_error
-    raise OSError(f"IPv4 addressを解決できません: {host}:{port}")
-
-
-class _IPv4HTTPSConnection(http.client.HTTPSConnection):
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super().__init__(*args, **kwargs)
-        self._create_connection = _create_ipv4_connection
-
-
-class _IPv4HTTPSHandler(urllib.request.HTTPSHandler):
-    def https_open(self, request: urllib.request.Request) -> Any:
-        return self.do_open(
-            _IPv4HTTPSConnection,
-            request,
-            context=self._context,
-        )
 
 
 def _sha256(value: str) -> str:
@@ -290,7 +243,7 @@ class PrimaryLawEvidenceResolver:
             0.0,
             float(failure_cache_ttl_seconds),
         )
-        self._url_opener = urllib.request.build_opener(_IPv4HTTPSHandler())
+        self._url_opener = urllib.request.build_opener(IPv4HTTPSHandler())
         self._registry_lock = threading.Lock()
         self._key_locks: dict[tuple[str, str], threading.Lock] = {}
         self._failure_lock = threading.Lock()

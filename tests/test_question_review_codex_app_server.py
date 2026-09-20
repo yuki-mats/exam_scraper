@@ -35,6 +35,7 @@ from tools.question_review_console.codex_app_server import (
     STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS,
     SUBSCRIPTION_STATUS_READ_ATTEMPTS,
     SubscriptionGateError,
+    _inline_image_url,
     _NonBlockingObserverAdapter,
     _TurnState,
     adapt_output_schema_for_app_server,
@@ -2978,7 +2979,9 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual(result.model, "gpt-5.6-luna")
         self.assertEqual(result.reasoning_effort, "high")
 
-    def test_turn_attaches_unique_https_images_after_prompt(self):
+    @patch("tools.question_review_console.codex_app_server._inline_image_url",
+           side_effect=["data:image/png;base64,AQ==", "data:image/png;base64,Ag=="])
+    def test_turn_attaches_unique_https_images_after_prompt(self, inline_image):
         client = ProtocolClient()
 
         client.run_turn(
@@ -3004,10 +3007,37 @@ class AppServerTurnTests(unittest.TestCase):
                     "text": "inspect the diagram",
                     "text_elements": [],
                 },
-                {"type": "image", "url": "https://example.com/question.png"},
-                {"type": "image", "url": "https://example.com/choice.png"},
+                {"type": "image", "url": "data:image/png;base64,AQ=="},
+                {"type": "image", "url": "data:image/png;base64,Ag=="},
             ],
         )
+        self.assertEqual(inline_image.call_count, 2)
+
+    @patch("tools.question_review_console.codex_app_server.urllib.request.build_opener")
+    def test_inline_image_preserves_bytes_and_rejects_invalid_downloads(self, build_opener):
+        urlopen = build_opener.return_value.open
+        response = urlopen.return_value.__enter__.return_value
+        response.geturl.return_value = "https://example.com/image.webp"
+        response.headers.get_content_type.return_value = "image/webp"
+        response.read.return_value = b"image-bytes"
+        self.assertEqual(
+            _inline_image_url("https://example.com/image.webp"),
+            "data:image/webp;base64,aW1hZ2UtYnl0ZXM=",
+        )
+        urlopen.assert_called_with("https://example.com/image.webp", timeout=30)
+        response.headers.get_content_type.return_value = "text/html"
+        with self.assertRaisesRegex(ValueError, "Content-Type"):
+            _inline_image_url("https://example.com/image.webp")
+        response.headers.get_content_type.return_value = "image/webp"
+        response.geturl.return_value = "http://example.com/image.webp"
+        with self.assertRaisesRegex(ValueError, "https"):
+            _inline_image_url("https://example.com/image.webp")
+        response.geturl.return_value = "https://example.com/image.webp"
+        for body in (b"", b"12345"):
+            response.read.return_value = body
+            with patch("tools.question_review_console.codex_app_server.MAX_INPUT_IMAGE_BYTES", 4):
+                with self.assertRaisesRegex(ValueError, "空又は"):
+                    _inline_image_url("https://example.com/image.webp")
 
     def test_turn_rejects_non_https_image_before_generation(self):
         client = ProtocolClient()

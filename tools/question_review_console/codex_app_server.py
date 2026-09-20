@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import copy
 import json
 import math
@@ -13,6 +14,7 @@ import tempfile
 import threading
 import time
 import tomllib
+import urllib.request
 from collections import OrderedDict, deque
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -28,9 +30,28 @@ from tools.question_review_console.turn_budget import (
     GLOBAL_TURN_CAPACITY,
     GlobalTurnBudget,
 )
+from tools.question_review_console.http_transport import IPv4HTTPSHandler
 
 
 DEFAULT_CODEX_PATH = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
+MAX_INPUT_IMAGE_BYTES = 20 * 1024 * 1024
+
+
+def _inline_image_url(url: str) -> str:
+    """Send image bytes: the subscription App Server rejects remote image URLs."""
+    opener = urllib.request.build_opener(IPv4HTTPSHandler())
+    with opener.open(url, timeout=30) as response:
+        if not response.geturl().startswith("https://"):
+            raise ValueError("画像の取得先はhttpsに限定してください。")
+        mime_type = response.headers.get_content_type()
+        if mime_type not in {"image/png", "image/jpeg", "image/webp", "image/gif"}:
+            raise ValueError("画像入力のContent-Typeが対応形式ではありません。")
+        body = response.read(MAX_INPUT_IMAGE_BYTES + 1)
+    if not body or len(body) > MAX_INPUT_IMAGE_BYTES:
+        raise ValueError("画像入力が空又は20 MiBを超えています。")
+    return f"data:{mime_type};base64,{base64.b64encode(body).decode('ascii')}"
+
+
 SAFE_SHELL_PATH = (
     "/usr/bin:/bin:/usr/sbin:/sbin:"
     "/Applications/ChatGPT.app/Contents/Resources"
@@ -1881,7 +1902,7 @@ class CodexAppServerClient:
             {"type": "text", "text": prompt, "text_elements": []}
         ]
         turn_input.extend(
-            {"type": "image", "url": image_url}
+            {"type": "image", "url": _inline_image_url(image_url)}
             for image_url in normalized_image_urls
         )
         params: dict[str, Any] = {
