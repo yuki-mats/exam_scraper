@@ -2377,6 +2377,60 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertIn("setFieldsとunsetFieldsはどちらも空配列", prompt)
         self.assertIn("setFieldsへ転載しない", prompt)
 
+    def test_prompt_marks_required_fields_that_also_appear_nested(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        candidate_target = CandidateTarget(
+            target_id="question-1:law_audit",
+            role="law_audit",
+            path="output/sample/review/law_revision_audit/group.jsonl",
+            allowed_fields=(
+                "auditStatus",
+                "correctChoiceText",
+                "evidenceSummary",
+                "lawRevisionFacts",
+                "reconciliationStatus",
+                "reviewState",
+            ),
+        )
+        prompt = _structured_candidate_prompt(
+            "現行法を監査する。",
+            [target],
+            stage_id="law_audit",
+            records_by_question={
+                "question-1": {
+                    "choiceTextList": ["A", "B"],
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": False,
+                }
+            },
+            candidate_targets_by_question={
+                "question-1": (candidate_target,)
+            },
+            feedback_by_question={},
+        )
+
+        question = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            question["topLevelSemanticFieldsAlsoNested"],
+            [
+                "auditStatus",
+                "correctChoiceText",
+                "evidenceSummary",
+                "reconciliationStatus",
+                "reviewState",
+            ],
+        )
+        self.assertIn(
+            "value内の同名keyはトップレベルsemantic fieldの確定として数えない",
+            prompt,
+        )
+
     def test_server_primary_law_evidence_is_embedded_in_attempt_prompt(self):
         target = {
             "id": "question-1",

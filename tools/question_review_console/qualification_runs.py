@@ -1835,6 +1835,30 @@ def _structured_candidate_prompt(
         str, Mapping[str, Any]
     ] | None = None,
 ) -> str:
+    def nested_rule_field_names(
+        candidate_targets: Iterable[CandidateTarget],
+        allowed_fields: set[str],
+    ) -> list[str]:
+        nested_keys: set[str] = set()
+
+        def collect(value: Any) -> None:
+            if isinstance(value, Mapping):
+                nested_keys.update(str(key) for key in value)
+                for item in value.values():
+                    collect(item)
+            elif isinstance(value, list):
+                for item in value:
+                    collect(item)
+
+        for candidate_target in candidate_targets:
+            prompt_value = candidate_target.prompt_value()
+            field_rules = prompt_value.get("fieldRules")
+            if not isinstance(field_rules, Mapping):
+                continue
+            for rule in field_rules.values():
+                collect(rule)
+        return sorted(allowed_fields & nested_keys)
+
     questions: list[dict[str, Any]] = []
     evidence_by_question = original_aggregate_evidence_by_question or {}
     originalization_sources = originalization_source_by_question or {}
@@ -1880,6 +1904,10 @@ def _structured_candidate_prompt(
             "sourceIdentity": binding.as_mapping(),
             "currentRecord": records_by_question[question_id],
             "requiredSemanticFields": sorted(allowed_fields),
+            "topLevelSemanticFieldsAlsoNested": nested_rule_field_names(
+                candidate_targets,
+                allowed_fields,
+            ),
             "candidateTargets": [
                 value.prompt_value()
                 for value in candidate_targets
@@ -1994,6 +2022,7 @@ def _structured_candidate_prompt(
             "blockedにする場合は理由をsummaryへ書き、setFieldsとunsetFieldsはどちらも空配列にする。部分的な更新候補は返さない。",
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
             "requiredSemanticFieldsは今回のcandidateで一度ずつ確定するfieldの完全な一覧である。candidateでは一覧外のfieldを追加せず、一覧内の各fieldをsetFields又はunsetFieldsのどちらか一方へ一度だけ入れる。",
+            "topLevelSemanticFieldsAlsoNestedにfield名がある場合、そのfieldは別fieldのvalue内にも現れる。value内の同名keyはトップレベルsemantic fieldの確定として数えない。該当field名自体をsetFields又はunsetFieldsへ必ず一度入れる。",
             "各semantic fieldは一度だけsetFields又はunsetFieldsへ入れ、反映先はserverに任せる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
             *law_reference_contract_lines,
