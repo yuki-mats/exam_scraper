@@ -1859,6 +1859,21 @@ def _structured_candidate_prompt(
                 collect(rule)
         return sorted(allowed_fields & nested_keys)
 
+    def shared_semantic_field_roles(
+        candidate_targets: Iterable[CandidateTarget],
+    ) -> dict[str, list[str]]:
+        roles_by_field: dict[str, list[str]] = {}
+        for candidate_target in candidate_targets:
+            for field in candidate_target.allowed_fields:
+                roles = roles_by_field.setdefault(field, [])
+                if candidate_target.role not in roles:
+                    roles.append(candidate_target.role)
+        return {
+            field: roles_by_field[field]
+            for field in sorted(roles_by_field)
+            if len(roles_by_field[field]) > 1
+        }
+
     questions: list[dict[str, Any]] = []
     evidence_by_question = original_aggregate_evidence_by_question or {}
     originalization_sources = originalization_source_by_question or {}
@@ -1907,6 +1922,9 @@ def _structured_candidate_prompt(
             "topLevelSemanticFieldsAlsoNested": nested_rule_field_names(
                 candidate_targets,
                 allowed_fields,
+            ),
+            "semanticFieldsSharedAcrossTargets": shared_semantic_field_roles(
+                candidate_targets,
             ),
             "candidateTargets": [
                 value.prompt_value()
@@ -2023,6 +2041,7 @@ def _structured_candidate_prompt(
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
             "requiredSemanticFieldsは今回のcandidateで一度ずつ確定するfieldの完全な一覧である。candidateでは一覧外のfieldを追加せず、一覧内の各fieldをsetFields又はunsetFieldsのどちらか一方へ一度だけ入れる。",
             "topLevelSemanticFieldsAlsoNestedにfield名がある場合、そのfieldは別fieldのvalue内にも現れる。value内の同名keyはトップレベルsemantic fieldの確定として数えない。該当field名自体をsetFields又はunsetFieldsへ必ず一度入れる。",
+            "semanticFieldsSharedAcrossTargetsにfield名がある場合も、保存先候補が複数あるだけでsemantic fieldは一つである。同じfieldを役割別に繰り返さず、setFields又はunsetFieldsへ合計一度だけ入れる。反映先はserverが確定する。",
             "各semantic fieldは一度だけsetFields又はunsetFieldsへ入れ、反映先はserverに任せる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
             *law_reference_contract_lines,

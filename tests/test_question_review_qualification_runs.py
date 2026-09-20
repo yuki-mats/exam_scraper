@@ -2431,6 +2431,67 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
             prompt,
         )
 
+    def test_prompt_marks_semantic_fields_shared_across_targets(self):
+        target = {
+            "id": "question-1",
+            "listGroupId": "group",
+            "reviewQuestionId": "review-1",
+            "sourceQuestionKey": "sample:group:q1",
+            "sourceRecordRef": "source.json#0",
+        }
+        prompt = _structured_candidate_prompt(
+            "法令根拠と解説を整える。",
+            [target],
+            stage_id="explanation",
+            records_by_question={
+                "question-1": {
+                    "choiceTextList": ["A", "B"],
+                    "correctChoiceText": ["正しい", "間違い"],
+                    "isLawRelated": False,
+                }
+            },
+            candidate_targets_by_question={
+                "question-1": (
+                    CandidateTarget(
+                        target_id="question-1:law_context",
+                        role="law_context",
+                        path="output/sample/18_law_context_prepared/question.json",
+                        allowed_fields=(
+                            "isLawRelated",
+                            "lawGroundedExplanationNotNeeded",
+                        ),
+                    ),
+                    CandidateTarget(
+                        target_id="question-1:explanation",
+                        role="explanation",
+                        path="output/sample/21_explanationText_added/question.json",
+                        allowed_fields=(
+                            "explanationText",
+                            "isLawRelated",
+                            "lawGroundedExplanationNotNeeded",
+                        ),
+                    ),
+                )
+            },
+            feedback_by_question={},
+        )
+
+        question = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            question["semanticFieldsSharedAcrossTargets"],
+            {
+                "isLawRelated": ["law_context", "explanation"],
+                "lawGroundedExplanationNotNeeded": [
+                    "law_context",
+                    "explanation",
+                ],
+            },
+        )
+        self.assertIn(
+            "保存先候補が複数あるだけでsemantic fieldは一つ",
+            prompt,
+        )
+
     def test_server_primary_law_evidence_is_embedded_in_attempt_prompt(self):
         target = {
             "id": "question-1",
