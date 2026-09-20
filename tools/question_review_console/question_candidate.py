@@ -1598,8 +1598,17 @@ def _parse_semantic_candidate(
         if not isinstance(item, Mapping) or set(item) != {"field", "value"}:
             raise QuestionCandidateError("setFieldsのfieldが不正です。")
         field = item.get("field")
-        if not isinstance(field, str) or field not in rules or field in values:
-            raise QuestionCandidateError("setFieldsのfieldが対象外又は重複です。")
+        if not isinstance(field, str):
+            raise QuestionCandidateError("setFieldsのfieldが文字列ではありません。")
+        if field not in rules:
+            raise QuestionCandidateError(
+                "setFieldsに対象外fieldがあります: "
+                f"{field} / allowed={','.join(sorted(rules))}"
+            )
+        if field in values:
+            raise QuestionCandidateError(
+                f"setFieldsのfieldが重複しています: {field}"
+            )
         if not _matches_rule(item.get("value"), rules[field]):
             raise QuestionCandidateError(f"setFields.valueの型が不正です: {field}")
         values[field] = _normalized_candidate_value(field, item.get("value"))
@@ -1610,9 +1619,12 @@ def _parse_semantic_candidate(
         raise QuestionCandidateError("unsetFieldsが対象外又は重複です。")
     if set(values) & set(unset_fields):
         raise QuestionCandidateError("同じfieldに設定と削除があります。")
-    if decision == "candidate" and set(values) | set(unset_fields) != set(rules):
+    resolved_fields = set(values) | set(unset_fields)
+    if decision == "candidate" and resolved_fields != set(rules):
+        missing_fields = sorted(set(rules) - resolved_fields)
         raise QuestionCandidateError(
             "candidateは全allowed semantic fieldを一度だけ確定してください。"
+            f" missing={','.join(missing_fields) or '-'}"
         )
     allowed_targets = {
         target.target_id: target

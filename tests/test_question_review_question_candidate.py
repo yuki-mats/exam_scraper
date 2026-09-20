@@ -2711,6 +2711,42 @@ class QuestionCandidateTest(unittest.TestCase):
             with self.subTest(value=value), self.assertRaises(QuestionCandidateError):
                 parse_model_candidate_v3(value, ["q1"], {"q1": targets})
 
+    def test_semantic_v3_error_names_unknown_duplicate_and_missing_fields(self):
+        targets = candidate_targets("q1", "question_type", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        })
+        cases = (
+            (
+                '{"decision":"candidate","summary":"x","update":'
+                '{"setFields":[{"field":"unexpected","value":false}],'
+                '"unsetFields":[]}}',
+                "対象外fieldがあります: unexpected",
+            ),
+            (
+                '{"decision":"candidate","summary":"x","update":'
+                '{"setFields":[{"field":"questionType","value":"true_false"},'
+                '{"field":"questionType","value":"true_false"}],'
+                '"unsetFields":[]}}',
+                "fieldが重複しています: questionType",
+            ),
+            (
+                '{"decision":"candidate","summary":"x","update":'
+                '{"setFields":[{"field":"questionType","value":"true_false"}],'
+                '"unsetFields":[]}}',
+                "missing=isCalculationQuestion",
+            ),
+        )
+        for payload, expected_message in cases:
+            with self.subTest(expected_message=expected_message):
+                with self.assertRaisesRegex(
+                    QuestionCandidateError,
+                    expected_message,
+                ):
+                    parse_model_candidate_v3(payload, ["q1"], {"q1": targets})
+
     def test_semantic_v3_requires_exactly_one_question_and_empty_blocked_update(self):
         targets = candidate_targets("q1", "question_type", {
             "allowedPatchFiles": [

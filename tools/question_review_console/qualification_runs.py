@@ -1879,6 +1879,7 @@ def _structured_candidate_prompt(
             "displayLabel": str(target.get("displayLabel") or question_id),
             "sourceIdentity": binding.as_mapping(),
             "currentRecord": records_by_question[question_id],
+            "requiredSemanticFields": sorted(allowed_fields),
             "candidateTargets": [
                 value.prompt_value()
                 for value in candidate_targets
@@ -1991,6 +1992,7 @@ def _structured_candidate_prompt(
             "一問だけを判断し、decision、summary、updateだけを返す。questionIdと反映先はserverが確定する。",
             "setFieldsはfieldとnative JSONのvalueの配列とする。",
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
+            "requiredSemanticFieldsは今回のcandidateで一度ずつ確定するfieldの完全な一覧である。candidateでは一覧外のfieldを追加せず、一覧内の各fieldをsetFields又はunsetFieldsのどちらか一方へ一度だけ入れる。",
             "各semantic fieldは一度だけsetFields又はunsetFieldsへ入れ、反映先はserverに任せる。",
             "fieldRulesがあるfieldは、そこに示す型とallowedValuesを厳守する。",
             *law_reference_contract_lines,
