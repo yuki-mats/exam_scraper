@@ -66,7 +66,9 @@ _MARKER_PATTERNS = (
         ),
     ),
     (
-        "latin_inline",
+        # Whitespace and sentence boundaries are two spellings of the same
+        # bare-letter list. Splitting them into families can drop its first item.
+        "latin",
         re.compile(
             rf"(?<!\S)(?P<marker>(?P<label>[A-Za-zＡ-Ｚａ-ｚ])){_LIST_SPACE}+",
             re.MULTILINE,

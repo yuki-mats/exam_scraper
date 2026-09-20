@@ -85,6 +85,30 @@ class AggregateAnswerDecompositionTests(unittest.TestCase):
             ],
         )
 
+    def test_bare_latin_markers_share_a_run_across_boundary_styles(self) -> None:
+        for labels in ("abcd", "ＡＢＣＤ"):
+            with self.subTest(labels=labels):
+                statements = [
+                    f"{label}　記述{index}である。"
+                    for index, label in enumerate(labels, 1)
+                ]
+                # A starts after a newline, B after punctuation, C after a space.
+                # All belong to the same bare-letter list, not separate families.
+                source_text = (
+                    "正しい記述の個数を選べ。\n"
+                    + statements[0] + statements[1] + " "
+                    + statements[2] + statements[3]
+                )
+                candidates = generate_statement_candidates(source_text)["candidates"]
+                self.assertEqual(len(candidates), 1)
+                self.assertEqual(
+                    [
+                        source_text[span["start"]:span["end"]]
+                        for span in candidates[0]["spans"]
+                    ],
+                    statements,
+                )
+
     def test_existing_uppercase_candidate_identity_is_unchanged(self) -> None:
         candidate_set = generate_statement_candidates(SOURCE_TEXT)
 
