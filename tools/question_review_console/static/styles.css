@@ -991,6 +991,10 @@ legend { padding: 0 5px; color: #4f5964; font-size: 12px; }
 .run-concurrency-options input:checked + span { color: #fff; background: var(--blue); font-weight: 750; }
 .run-concurrency-options input:focus-visible + span { outline: 3px solid rgba(22, 102, 168, 0.25); outline-offset: -3px; }
 .run-concurrency-note { display: block; margin-top: 7px; color: var(--text-muted); font-size: 10px; line-height: 1.45; }
+.run-target-count-control { display: flex; align-items: center; gap: 7px; max-width: 180px; color: var(--text); font-size: 12px; font-weight: 700; }
+.run-target-count-control input { width: 100%; min-width: 0; padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 4px; background: #fff; color: var(--text); font: inherit; }
+.run-target-count-control input:focus { outline: 3px solid rgba(22, 102, 168, 0.18); border-color: var(--blue); }
+.run-target-count-note { display: block; margin-top: 7px; color: var(--text-muted); font-size: 10px; line-height: 1.45; }
 .run-preview { min-height: 68px; display: grid; align-content: center; gap: 5px; padding: 11px 12px; border: 1px solid var(--line); background: #fff; }
 .run-preview[hidden] { display: none; }
 .run-preview strong { font-size: 14px; }
@@ -1377,6 +1381,8 @@ html.workflow-guide-open, body.workflow-guide-open { overflow: hidden; }
   .run-mode-options span { min-height: 48px; padding: 8px 10px; font-size: 13px; line-height: 1.4; }
   .run-concurrency-options span { min-height: 48px; padding: 8px 6px; font-size: 12px; line-height: 1.35; }
   .run-concurrency-note { font-size: 11px; }
+  .run-target-count-control { max-width: none; font-size: 13px; }
+  .run-target-count-note { font-size: 11px; }
   .run-preview { min-height: auto; padding: 10px; }
   .run-preview strong { overflow-wrap: anywhere; }
   .run-preview-count { font-size: 18px !important; line-height: 1.25; }

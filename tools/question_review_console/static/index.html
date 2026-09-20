@@ -300,6 +300,14 @@
               <input type="radio" name="qualification-run-mode" value="outdated" hidden>
             </div>
           </fieldset>
+          <fieldset id="qualification-run-target-count-fieldset">
+            <legend>一度に整備する問題数</legend>
+            <label class="run-target-count-control" for="qualification-run-target-count">
+              <input id="qualification-run-target-count" type="number" min="1" max="500" step="1" value="100" inputmode="numeric">
+              <span>問</span>
+            </label>
+            <small class="run-target-count-note">1〜500問で指定できます。対象候補が指定数より少ない場合は、候補すべてを整備します。</small>
+          </fieldset>
           <fieldset id="qualification-run-concurrency-fieldset">
             <legend>同時処理上限</legend>
             <div class="run-concurrency-options">

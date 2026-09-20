@@ -6,6 +6,8 @@ const QUALIFICATION_PREVIEW_TIMEOUT_MS = 1800000;
 const QUALIFICATION_RUN_POLL_MS = 3000;
 const QUALIFICATION_RUN_IDLE_POLL_MS = 30000;
 const AUTO_QUESTION_CONCURRENCY = 1;
+const DEFAULT_QUALIFICATION_TARGET_COUNT = 100;
+const MAX_QUALIFICATION_TARGET_COUNT = 500;
 const MAX_PUBLICATION_QUEUE_SIZE = 100;
 const DEFAULT_QUALIFICATION_SPEED_MODE = "standard";
 const DEFAULT_QUESTION_SORT = "updated_desc";
@@ -231,6 +233,7 @@ const state = {
     listGroupIds: [],
     updateTargetIds: [],
     questionIds: [],
+    questionLimit: DEFAULT_QUALIFICATION_TARGET_COUNT,
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     previewController: null,
@@ -1259,6 +1262,7 @@ function bindControls() {
       previewQualificationRun();
     }
   });
+  $("#qualification-run-target-count").addEventListener("change", previewQualificationRun);
   $("#workflow-guide-close").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-backdrop").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-action").addEventListener("click", executeWorkflowGuideAction);
@@ -3152,6 +3156,27 @@ function selectedQualificationRunConcurrency() {
     : AUTO_QUESTION_CONCURRENCY;
 }
 
+function selectedQualificationRunTargetLimit() {
+  const value = Number($("#qualification-run-target-count")?.value);
+  return Number.isInteger(value)
+    && value >= 1
+    && value <= MAX_QUALIFICATION_TARGET_COUNT
+    ? value
+    : null;
+}
+
+function qualificationRunLimitedQuestionIds(preview, explicitQuestionIds, limit) {
+  if (explicitQuestionIds.length || !Number.isInteger(limit)) return [];
+  if (!["human", "orchestration"].includes(preview.kind)) return [];
+  const targetCount = Number(preview.targetCount || 0);
+  if (targetCount <= limit) return [];
+  const questionIds = preview.targetIdentity?.questionIds || [];
+  if (questionIds.length !== targetCount) {
+    throw new Error("問題数を限定するためのserver確定対象identityが不完全です。");
+  }
+  return questionIds.slice(0, limit);
+}
+
 function selectedQualificationRunSpeedMode() {
   return DEFAULT_QUALIFICATION_SPEED_MODE;
 }
@@ -3672,6 +3697,7 @@ function openQualificationRunDialog(stage, options = {}) {
     listGroupIds: selectedGroupIds,
     updateTargetIds: selectedUpdateTargetIds,
     questionIds: selectedQuestionIds,
+    questionLimit: Number(options.questionLimit || DEFAULT_QUALIFICATION_TARGET_COUNT),
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     previewController: null,
@@ -3724,6 +3750,16 @@ function openQualificationRunDialog(stage, options = {}) {
       ?.kind === "human"
   ));
   $("#qualification-run-concurrency-fieldset").hidden = !supportsConcurrency;
+  const targetCountFieldset = $("#qualification-run-target-count-fieldset");
+  const targetCountInput = $("#qualification-run-target-count");
+  targetCountFieldset.hidden = !supportsConcurrency || Boolean(selectedQuestionIds.length);
+  targetCountInput.disabled = targetCountFieldset.hidden;
+  targetCountInput.value = String(
+    Math.min(
+      MAX_QUALIFICATION_TARGET_COUNT,
+      Math.max(1, state.qualificationRunDialog.questionLimit),
+    ),
+  );
   const requestedConcurrency = Number(
     options.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
   );
@@ -3822,6 +3858,14 @@ async function previewQualificationRun() {
     return;
   }
   const questionIds = state.qualificationRunDialog.questionIds || [];
+  const questionLimit = questionIds.length ? null : selectedQualificationRunTargetLimit();
+  if (!questionIds.length && questionLimit === null) {
+    setQualificationRunPreviewState(
+      "blocked",
+      `問題数は1〜${MAX_QUALIFICATION_TARGET_COUNT}問で指定してください。`,
+    );
+    return;
+  }
   state.qualificationRunDialog.updateTargetIds = updateTargetIds;
   const stage = qualificationWorkflowStage(stageId);
   const supportsScope = qualificationRunSupportsGroupScope(stage, stageIds);
@@ -3845,7 +3889,7 @@ async function previewQualificationRun() {
     blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
     resumedFrom: qualificationRunResumedFrom() || undefined,
   };
-  const signature = qualificationRunPreviewSignature(requestBody);
+  const signature = qualificationRunPreviewSignature({ ...requestBody, questionLimit });
   state.qualificationRunDialog.previewSignature = signature;
   state.qualificationRunDialog.previewController = controller;
   let timedOut = false;
@@ -3855,11 +3899,30 @@ async function previewQualificationRun() {
   }, QUALIFICATION_PREVIEW_TIMEOUT_MS);
   setQualificationRunPreviewState("loading", "対象を確認しています。");
   try {
-    const preview = await api("/api/qualification-runs/preview", {
+    let preview = await api("/api/qualification-runs/preview", {
       method: "POST",
       signal: controller.signal,
       body: requestBody,
     });
+    const availableTargetCount = Number(preview.targetCount || 0);
+    const limitedQuestionIds = qualificationRunLimitedQuestionIds(
+      preview,
+      questionIds,
+      questionLimit,
+    );
+    if (limitedQuestionIds.length) {
+      preview = await api("/api/qualification-runs/preview", {
+        method: "POST",
+        signal: controller.signal,
+        body: { ...requestBody, questionIds: limitedQuestionIds },
+      });
+      if (
+        sequence !== state.qualificationRunDialog.previewSequence
+        || signature !== state.qualificationRunDialog.previewSignature
+      ) return;
+    }
+    preview.requestedTargetLimit = questionLimit;
+    preview.availableTargetCount = availableTargetCount;
     if (
       sequence !== state.qualificationRunDialog.previewSequence
       || signature !== state.qualificationRunDialog.previewSignature
@@ -3980,6 +4043,17 @@ function renderQualificationRunPreview(preview) {
           `1問1model turnで最大${preview.questionConcurrency}問を同時整備・Standard（設定上限内、検査と確定も1問ずつ）`,
         ),
       );
+      if (preview.requestedTargetLimit) {
+        container.append(
+          element(
+            "span",
+            "run-preview-target-limit",
+            preview.availableTargetCount > preview.targetCount
+              ? `問題数指定 ${preview.targetCount}問（候補${preview.availableTargetCount}問からserver確定）`
+              : `問題数指定 上限${preview.requestedTargetLimit}問（候補${preview.availableTargetCount}問）`,
+          ),
+        );
+      }
     }
     if (preview.scopeListGroupIds?.length) {
       const scopeName = scopeLabelForGroups(preview.scopeListGroupIds);
