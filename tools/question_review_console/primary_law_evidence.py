@@ -536,8 +536,17 @@ class PrimaryLawEvidenceResolver:
         kind: str,
         number: LocatorNumber,
     ) -> dict[str, Any]:
+        title_element = ET.fromstring(snapshot.xml_text).find("LawBody/LawTitle")
+        law_title = (
+            "".join(title_element.itertext()).strip()
+            if title_element is not None
+            else ""
+        )
+        if not law_title:
+            raise PrimaryLawEvidenceError("取得した法令XMLに正式法令名がありません。")
         text = extract_locator_text(snapshot.xml_text, kind, number)
         return {
+            "lawTitle": law_title,
             "asOf": snapshot.as_of,
             "revisionId": snapshot.revision_id,
             "sourceUrl": snapshot.source_url,
@@ -621,6 +630,16 @@ class PrimaryLawEvidenceResolver:
                         kind=kind,
                         number=number,
                     )
+                    item["resolvedLawTitle"] = current["lawTitle"]
+                    declared_title = _SPACE_RE.sub("", item["lawTitle"])
+                    if declared_title and declared_title != _SPACE_RE.sub(
+                        "", current["lawTitle"]
+                    ):
+                        raise PrimaryLawEvidenceError(
+                            f"法令名が一致しません: 宣言={item['lawTitle']} / "
+                            f"取得本文={current['lawTitle']} / lawId={law_id}。"
+                            "法令名とIDの紐付けを一次情報で再確認してください。"
+                        )
                     item["currentSnapshot"] = current
                     if exam_as_of:
                         exam = self._snapshot_payload(

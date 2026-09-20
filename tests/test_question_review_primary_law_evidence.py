@@ -20,6 +20,7 @@ def _law_xml(*, article_text: str, appendix_text: str = "別表本文") -> str:
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <Law>
   <LawBody>
+    <LawTitle>試験法</LawTitle>
     <MainProvision>
       <Article Num="11">
         <ArticleTitle>第十一条</ArticleTitle>
@@ -37,6 +38,40 @@ def _law_xml(*, article_text: str, appendix_text: str = "別表本文") -> str:
 
 
 class PrimaryLawEvidenceTests(unittest.TestCase):
+    def test_wrong_law_title_is_not_accepted_as_primary_evidence(self):
+        def fetcher(law_id, as_of):
+            return LawFileSnapshot(
+                law_id=law_id, as_of=as_of,
+                source_url="https://example.test/law", revision_id="revision-1",
+                xml_text=_law_xml(article_text="同じ条番号の別の法律の本文"),
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            resolver = PrimaryLawEvidenceResolver(Path(directory), fetcher=fetcher)
+            for title, expected_status in (("別の法律", "partial"), ("試験法", "complete")):
+                with self.subTest(title=title):
+                    result = resolver.resolve({"lawReferences": [{
+                        "lawId": "123AC0000000001", "lawTitle": title,
+                        "article": "11", "role": "current_basis",
+                    }]}, current_as_of="2026-09-21")
+                    self.assertEqual(result["status"], expected_status)
+                    item = result["items"][0]
+                    self.assertEqual(item["resolvedLawTitle"], "試験法")
+                    if expected_status == "partial":
+                        self.assertIn("法令名が一致しません", item["error"])
+                        self.assertNotIn("currentSnapshot", item)
+                    else:
+                        self.assertEqual(item["currentSnapshot"]["lawTitle"], "試験法")
+
+    def test_xml_without_law_title_is_not_accepted(self):
+        snapshot = LawFileSnapshot(
+            law_id="123AC0000000001", as_of="2026-09-21",
+            source_url="https://example.test/law", revision_id="revision-1",
+            xml_text=_law_xml(article_text="本文").replace("<LawTitle>試験法</LawTitle>", ""),
+        )
+        with self.assertRaisesRegex(PrimaryLawEvidenceError, "正式法令名"):
+            PrimaryLawEvidenceResolver._snapshot_payload(snapshot, kind="article", number=11)
+
     def test_repository_boiler_catalogs_cover_every_source_period(self):
         repo_root = Path(__file__).resolve().parents[1]
         resolver = PrimaryLawEvidenceResolver(repo_root)
