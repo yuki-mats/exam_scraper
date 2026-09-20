@@ -2441,6 +2441,32 @@ def _structured_candidate_inputs(
     return records, targets
 
 
+def _candidate_image_urls(
+    records_by_question: Mapping[str, Mapping[str, Any]],
+    question_ids: Iterable[str],
+) -> tuple[str, ...]:
+    """Return public question images in prompt order for multimodal turns."""
+
+    image_urls: list[str] = []
+
+    def add(value: Any) -> None:
+        if isinstance(value, str):
+            url = value.strip()
+            if url.startswith("https://") and url not in image_urls:
+                image_urls.append(url)
+        elif isinstance(value, list):
+            for item in value:
+                add(item)
+
+    for question_id in question_ids:
+        record = records_by_question.get(str(question_id))
+        if not isinstance(record, Mapping):
+            continue
+        add(record.get("questionImageStorageUrls"))
+        add(record.get("originalQuestionChoiceImageUrls"))
+    return tuple(image_urls)
+
+
 def _projected_question_issue_evidence(
     repo_root: Path,
     target: Mapping[str, Any],
@@ -16138,6 +16164,10 @@ class QualificationRunCoordinator:
                         work_type=f"maintenance_{stage_id}_candidate",
                         sandbox="read-only",
                         emit=emit,
+                        image_urls=_candidate_image_urls(
+                            records_by_question,
+                            candidate_question_ids,
+                        ),
                         output_schema=candidate_output_schema(
                             candidate_question_ids,
                             targets_by_question,

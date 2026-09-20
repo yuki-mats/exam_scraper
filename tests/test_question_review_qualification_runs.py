@@ -36,6 +36,7 @@ from tools.question_review_console.qualification_runs import (
     _aggregate_downstream_source_evidence,
     _aggregate_review_source_records,
     _candidate_unset_fields,
+    _candidate_image_urls,
     _canonical_document_guidance,
     _external_provider_failure,
     evaluation_rework_stage_codes,
@@ -1983,6 +1984,35 @@ class SourceBindingAliasTests(unittest.TestCase):
 
 
 class StructuredCandidateStageContextTests(unittest.TestCase):
+    def test_candidate_image_urls_flattens_and_deduplicates_public_images(self):
+        self.assertEqual(
+            _candidate_image_urls(
+                {
+                    "question-1": {
+                        "questionImageStorageUrls": [
+                            "https://example.com/question.png",
+                        ],
+                        "originalQuestionChoiceImageUrls": [
+                            [],
+                            ["https://example.com/choice.png"],
+                            ["https://example.com/question.png"],
+                        ],
+                    },
+                    "question-2": {
+                        "questionImageStorageUrls": [
+                            "http://example.com/insecure.png",
+                            "",
+                        ],
+                    },
+                },
+                ["question-1", "question-2"],
+            ),
+            (
+                "https://example.com/question.png",
+                "https://example.com/choice.png",
+            ),
+        )
+
     def test_canonical_document_guidance_embeds_document_body(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

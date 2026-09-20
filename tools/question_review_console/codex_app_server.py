@@ -1618,6 +1618,7 @@ class CodexAppServerClient:
         work_type: str,
         sandbox: str,
         emit: Callable[[str], None],
+        image_urls: Iterable[str] = (),
         output_schema: Mapping[str, Any] | None = None,
         on_thread_started: Callable[[str, str], None] | None = None,
         on_turn_started: Callable[[str, str], None] | None = None,
@@ -1638,6 +1639,7 @@ class CodexAppServerClient:
             work_type=work_type,
             sandbox=sandbox,
             emit=emit,
+            image_urls=image_urls,
             output_schema=output_schema,
             on_thread_started=on_thread_started,
             on_turn_started=on_turn_started,
@@ -1664,6 +1666,7 @@ class CodexAppServerClient:
         work_type: str,
         sandbox: str,
         emit: Callable[[str], None],
+        image_urls: Iterable[str] = (),
         output_schema: Mapping[str, Any] | None = None,
         on_thread_started: Callable[[str, str], None] | None = None,
         on_turn_started: Callable[[str, str], None] | None = None,
@@ -1865,9 +1868,25 @@ class CodexAppServerClient:
                 "excludeTmpdirEnvVar": True,
                 "excludeSlashTmp": True,
             }
+        normalized_image_urls: list[str] = []
+        for raw_url in image_urls:
+            image_url = str(raw_url or "").strip()
+            if not image_url:
+                continue
+            if not image_url.startswith("https://"):
+                raise ValueError("画像入力URLはhttpsに限定してください。")
+            if image_url not in normalized_image_urls:
+                normalized_image_urls.append(image_url)
+        turn_input: list[dict[str, Any]] = [
+            {"type": "text", "text": prompt, "text_elements": []}
+        ]
+        turn_input.extend(
+            {"type": "image", "url": image_url}
+            for image_url in normalized_image_urls
+        )
         params: dict[str, Any] = {
             "threadId": thread_id,
-            "input": [{"type": "text", "text": prompt, "text_elements": []}],
+            "input": turn_input,
             "cwd": str(turn_cwd),
             "approvalPolicy": approval_policy,
             "approvalsReviewer": "user",

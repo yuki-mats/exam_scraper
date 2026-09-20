@@ -2978,6 +2978,54 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual(result.model, "gpt-5.6-luna")
         self.assertEqual(result.reasoning_effort, "high")
 
+    def test_turn_attaches_unique_https_images_after_prompt(self):
+        client = ProtocolClient()
+
+        client.run_turn(
+            "inspect the diagram",
+            work_type="maintenance_correct_choice_candidate",
+            sandbox="read-only",
+            emit=lambda _line: None,
+            image_urls=(
+                "https://example.com/question.png",
+                "https://example.com/question.png",
+                "https://example.com/choice.png",
+            ),
+        )
+
+        turn_params = next(
+            params for method, params in client.calls if method == "turn/start"
+        )
+        self.assertEqual(
+            turn_params["input"],
+            [
+                {
+                    "type": "text",
+                    "text": "inspect the diagram",
+                    "text_elements": [],
+                },
+                {"type": "image", "url": "https://example.com/question.png"},
+                {"type": "image", "url": "https://example.com/choice.png"},
+            ],
+        )
+
+    def test_turn_rejects_non_https_image_before_generation(self):
+        client = ProtocolClient()
+
+        with self.assertRaisesRegex(ValueError, "https"):
+            client.run_turn(
+                "inspect the diagram",
+                work_type="maintenance_correct_choice_candidate",
+                sandbox="read-only",
+                emit=lambda _line: None,
+                image_urls=("file:///tmp/question.png",),
+            )
+
+        self.assertNotIn(
+            "turn/start",
+            [method for method, _params in client.calls],
+        )
+
     def test_fast_mode_is_rejected_before_provider_request(self):
         client = ProtocolClient()
 
