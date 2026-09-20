@@ -411,6 +411,22 @@ def normalize_inline_text(text: str) -> str:
     return re.sub(r"\s+", " ", normalized).strip()
 
 
+def choice_truth_labels(
+    *,
+    choice_count: int,
+    correct_choice_numbers: Iterable[int],
+    question_intent: str,
+) -> list[str]:
+    """正答番号と設問の尋ね方から、各選択肢の真偽ラベルを作る。"""
+    correct = {int(number) for number in correct_choice_numbers}
+    selected_label = "間違い" if question_intent == "select_incorrect" else "正しい"
+    unselected_label = "正しい" if question_intent == "select_incorrect" else "間違い"
+    return [
+        selected_label if index in correct else unselected_label
+        for index in range(1, choice_count + 1)
+    ]
+
+
 def prepare_output_dirs(
     output_dir: str,
     qualification_code: str,

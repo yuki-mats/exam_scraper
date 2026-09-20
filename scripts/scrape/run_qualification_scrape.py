@@ -9,7 +9,7 @@ from pathlib import Path
 
 CURRENT_FILE = Path(__file__).resolve()
 REPO_ROOT = CURRENT_FILE.parents[2]
-SOURCE_REFRESH_SCRAPER_TYPES = {"kakomonn", "keepitup", "udemy"}
+SOURCE_REFRESH_SCRAPER_TYPES = {"kakomon", "kakomonn", "keepitup", "udemy"}
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -198,6 +198,7 @@ def main() -> int:
 
     scraper_script_by_type = {
         "kakomonn": "code.py",
+        "kakomon": "scrape_kakomon.py",
         "gassyunin": "scrape_gassyunin.py",
         "sgsiken": "scrape_sgsiken.py",
         "mecnet": "scrape_mecnet_kokushi.py",
@@ -221,6 +222,8 @@ def main() -> int:
         env["SCRAPER_QUALIFICATION_NAME"] = preset.qualification_name
         env["SCRAPER_LIST_FIRST_PAGE_URL"] = list_url
         env["SCRAPER_OUTPUT_LIST_GROUP_ID"] = list_group_id
+        if preset.expected_question_count is not None:
+            env["SCRAPER_EXPECTED_QUESTION_COUNT"] = str(preset.expected_question_count)
 
         if args.max_questions is not None:
             env["SCRAPER_MAX_QUESTIONS"] = str(args.max_questions)

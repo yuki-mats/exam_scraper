@@ -242,6 +242,18 @@ class ScrapePresetTests(unittest.TestCase):
         self.assertEqual(preset.list_group_ids[0], "202502")
         self.assertEqual(preset.list_group_ids[-1], "201701")
 
+    def test_load_scrape_preset_for_boiler1(self) -> None:
+        preset = load_scrape_preset("boiler1")
+
+        self.assertEqual(preset.qualification_name, "一級ボイラー技士")
+        self.assertEqual(preset.scraper_type, "kakomon")
+        self.assertEqual(preset.expected_question_count, 40)
+        self.assertEqual(preset.list_group_ids, ["2025-2", "2025-1", "2024-2"])
+        self.assertEqual(
+            build_list_first_page_url(preset, "2025-2"),
+            "https://kako-mon.com/bo-1/2025-2-01-001/",
+        )
+
     def test_build_list_first_page_url_for_second_class_doboku_sekou(self) -> None:
         preset = load_scrape_preset("2nd-class-doboku-sekou")
         url = build_list_first_page_url(preset, "202502")

@@ -15,6 +15,7 @@
 | `scraper_type` | domain | entrypoint | ページ構成・認証 | 主な検証 |
 | --- | --- | --- | --- | --- |
 | `kakomonn` | `*.kakomonn.com` | `code.py` | 一覧をページ送りし、各問題ページと解答endpointを取得。公開ページ。 | `tests/test_kakomonn_inventory.py`, `tests/test_scrape_identity_keys.py`, `tests/test_scrape_presets.py` |
+| `kakomon` | `kako-mon.com` | `scrape_kakomon.py` | 資格slugと試験回をpresetから受け取り、1問1ページを取得。公開ページ。 | [抽出契約](kako-mon/source_contract.md), `tests/test_scrape_kakomon.py`, `tests/test_scrape_presets.py` |
 | `gassyunin` | `gassyunin.com` | `scrape_gassyunin.py` | 年度ごとの単一ページ内に5科目。公開ページ。 | [抽出契約](gas-shunin/gassyunin_source_contract.md), `tests/test_scrape_gassyunin.py` |
 | `sgsiken` | `sg-siken.com`, `nw-siken.com` | `scrape_sgsiken.py` | 一覧から午前問題と午後の共通問題ページを収集。公開ページ。 | `tests/test_scrape_sgsiken.py`, `tests/test_scrape_presets.py` |
 | `kurohon` | `kurohon.jp` | `scrape_kurohon.py` | 1試験回のページから問題ブロックと正答表を対応付ける。公開ページ。 | `tests/test_scrape_kurohon.py`, `tests/test_scrape_presets.py` |

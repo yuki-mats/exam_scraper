@@ -13,6 +13,7 @@ from typing import Any, Iterable
 from urllib.parse import urlparse
 
 from scripts.scrape.common import (
+    choice_truth_labels,
     create_http_session,
     download_image_with_retry,
     guess_image_extension,
@@ -119,15 +120,6 @@ def determine_question_intent(question_text: str) -> str:
         if any(re.search(pattern, question_text or "") for pattern in INCORRECT_PATTERNS)
         else "select_correct"
     )
-
-
-def choice_truth_labels(
-    *, choice_count: int, correct_choice_numbers: Iterable[int], question_intent: str
-) -> list[str]:
-    correct = {int(value) for value in correct_choice_numbers}
-    if question_intent == "select_incorrect":
-        return ["間違い" if index in correct else "正しい" for index in range(1, choice_count + 1)]
-    return ["正しい" if index in correct else "間違い" for index in range(1, choice_count + 1)]
 
 
 def build_answer_result_text(correct_choice_numbers: Iterable[int]) -> str:

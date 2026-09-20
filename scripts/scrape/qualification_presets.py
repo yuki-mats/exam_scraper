@@ -23,6 +23,7 @@ class ScrapePreset:
     scraper_type: str
     list_first_page_url_template: str
     scrape_targets: list[ScrapeTarget]
+    expected_question_count: int | None = None
 
     @property
     def list_group_ids(self) -> list[str]:
@@ -74,6 +75,11 @@ def load_scrape_preset(
             )
             for target in raw_targets
         ],
+        expected_question_count=(
+            int(preset["expected_question_count"])
+            if preset.get("expected_question_count") is not None
+            else None
+        ),
     )
 
 

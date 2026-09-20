@@ -17,7 +17,7 @@ python3 scripts/scrape/run_qualification_scrape.py <qualification> <list_group_i
 - `code.py`: kakomonn系の互換入口。
 - `scrape_<site>.py`: site固有parser。
 
-ランナーがscraperへ渡す環境変数は`SCRAPER_QUALIFICATION_CODE`、`SCRAPER_QUALIFICATION_NAME`、`SCRAPER_LIST_FIRST_PAGE_URL`、`SCRAPER_OUTPUT_LIST_GROUP_ID`、任意の`SCRAPER_MAX_QUESTIONS`と`SCRAPER_OUTPUT_DIR`です。新しい設定値を増やす場合はpreset schema、runner、testsを同時に更新します。
+ランナーがscraperへ渡す環境変数は`SCRAPER_QUALIFICATION_CODE`、`SCRAPER_QUALIFICATION_NAME`、`SCRAPER_LIST_FIRST_PAGE_URL`、`SCRAPER_OUTPUT_LIST_GROUP_ID`、presetに定義した場合の`SCRAPER_EXPECTED_QUESTION_COUNT`、任意の`SCRAPER_MAX_QUESTIONS`と`SCRAPER_OUTPUT_DIR`です。新しい設定値を増やす場合はpreset schema、runner、testsを同時に更新します。
 
 ## 新しい資格・サイトの追加
 

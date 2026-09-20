@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup
 from bs4.element import Tag
 
 from scripts.scrape.common import (
+    choice_truth_labels,
     create_http_session,
     guess_image_extension,
     load_local_secure_env,
@@ -354,21 +355,6 @@ def determine_question_intent(question_text: str) -> str:
     if any(re.search(pattern, normalized) for pattern in INCORRECT_PATTERNS):
         return "select_incorrect"
     return "select_correct"
-
-
-def choice_truth_labels(
-    *,
-    choice_count: int,
-    correct_choice_numbers: Iterable[int],
-    question_intent: str,
-) -> list[str]:
-    selected = {int(number) for number in correct_choice_numbers}
-    selected_label = "間違い" if question_intent == "select_incorrect" else "正しい"
-    unselected_label = "正しい" if question_intent == "select_incorrect" else "間違い"
-    return [
-        selected_label if index in selected else unselected_label
-        for index in range(1, choice_count + 1)
-    ]
 
 
 def build_answer_result_text(correct_choice_numbers: Iterable[int]) -> str:
