@@ -4,6 +4,7 @@ import argparse
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 CURRENT_FILE = Path(__file__).resolve()
@@ -73,11 +74,43 @@ def parse_args() -> argparse.Namespace:
         help="既に 00_source が存在する list_group_id も再取得する",
     )
     parser.add_argument(
+        "--group-retries",
+        type=int,
+        default=2,
+        help="一時失敗したlist_group_idの追加試行回数。既定: 2",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="実行せず、処理予定だけ表示する",
     )
     return parser.parse_args()
+
+
+def run_scraper_command(
+    command: list[str],
+    *,
+    cwd: Path,
+    env: dict[str, str],
+    group_retries: int,
+) -> None:
+    if group_retries < 0:
+        raise ValueError("--group-retriesは0以上で指定してください")
+    total_attempts = group_retries + 1
+    for attempt in range(1, total_attempts + 1):
+        try:
+            subprocess.run(command, cwd=cwd, env=env, check=True)
+            return
+        except subprocess.CalledProcessError:
+            if attempt >= total_attempts:
+                raise
+            wait_seconds = min(5 * attempt, 15)
+            print(
+                f"[RETRY] group scrape failed: attempt={attempt}/{total_attempts} "
+                f"retry_in={wait_seconds}s",
+                file=sys.stderr,
+            )
+            time.sleep(wait_seconds)
 
 
 def main() -> int:
@@ -132,9 +165,28 @@ def main() -> int:
     source_manifest_checker = (
         REPO_ROOT / "scripts" / "check" / "check_00_source_immutability.py"
     )
+    source_scopes = [
+        (
+            Path("output")
+            / preset.qualification_code
+            / "questions_json"
+            / list_group_id
+            / "00_source"
+        ).as_posix()
+        for list_group_id, _ in run_targets
+    ]
     if manifest_managed_refresh:
         subprocess.run(
-            [args.python_executable, str(source_manifest_checker)],
+            [
+                args.python_executable,
+                str(source_manifest_checker),
+                "--check-scrape-refresh",
+                *[
+                    value
+                    for source_scope in source_scopes
+                    for value in ("--scope", source_scope)
+                ],
+            ],
             cwd=REPO_ROOT,
             check=True,
         )
@@ -175,31 +227,28 @@ def main() -> int:
         if args.output_dir:
             env["SCRAPER_OUTPUT_DIR"] = args.output_dir
 
-        subprocess.run(
+        run_scraper_command(
             [args.python_executable, str(REPO_ROOT / scraper_script)],
             cwd=REPO_ROOT,
             env=env,
+            group_retries=args.group_retries,
+        )
+
+    if manifest_managed_refresh:
+        subprocess.run(
+            [
+                args.python_executable,
+                str(source_manifest_checker),
+                "--record-scrape-refresh",
+                *[
+                    value
+                    for source_scope in source_scopes
+                    for value in ("--scope", source_scope)
+                ],
+            ],
+            cwd=REPO_ROOT,
             check=True,
         )
-        if manifest_managed_refresh:
-            source_scope = (
-                Path("output")
-                / preset.qualification_code
-                / "questions_json"
-                / list_group_id
-                / "00_source"
-            ).as_posix()
-            subprocess.run(
-                [
-                    args.python_executable,
-                    str(source_manifest_checker),
-                    "--record-scrape-refresh",
-                    "--scope",
-                    source_scope,
-                ],
-                cwd=REPO_ROOT,
-                check=True,
-            )
 
     return 0
 

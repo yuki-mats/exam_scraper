@@ -219,6 +219,7 @@ def main(argv: list[str] | None = None) -> int:
     action.add_argument("--initialize", action="store_true")
     action.add_argument("--record-new", action="store_true")
     action.add_argument("--record-scrape-refresh", action="store_true")
+    action.add_argument("--check-scrape-refresh", action="store_true")
     action.add_argument("--record-moves", action="store_true")
     action.add_argument("--check-staged", action="store_true")
     parser.add_argument(
@@ -260,6 +261,20 @@ def main(argv: list[str] | None = None) -> int:
 
         current = source_hashes(root)
         diff = differences(manifest, current)
+        if args.check_scrape_refresh:
+            if not args.scope:
+                raise ValueError("--check-scrape-refreshには--scopeが必要です")
+            record_scrape_refresh(
+                manifest,
+                current,
+                diff,
+                scopes=args.scope,
+            )
+            print(
+                "[OK] scrape更新scope確認: "
+                f"更新={len(diff['改変'])} 新規={len(diff['未登録'])} files"
+            )
+            return 0
         if args.record_moves:
             updated = record_parent_moves(manifest, current, diff)
             save_manifest(manifest_path, updated)

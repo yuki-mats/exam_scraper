@@ -270,6 +270,26 @@ class SourceImmutabilityTest(unittest.TestCase):
         )
         self.assertEqual(load_manifest(self.manifest), source_hashes(self.root))
 
+    def test_check_scrape_refresh_scope_is_read_only(self) -> None:
+        before = load_manifest(self.manifest)
+        self.source.write_text('{"value":"changed"}\n', encoding="utf-8")
+
+        self.assertEqual(
+            main(
+                [
+                    "--root",
+                    str(self.root),
+                    "--manifest",
+                    str(self.manifest),
+                    "--check-scrape-refresh",
+                    "--scope",
+                    "output/sample/00_source",
+                ]
+            ),
+            0,
+        )
+        self.assertEqual(load_manifest(self.manifest), before)
+
     def test_scrape_refresh_rejects_deleted_source(self) -> None:
         self.source.unlink()
 
