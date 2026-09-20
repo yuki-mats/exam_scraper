@@ -30,6 +30,7 @@ from tools.question_review_console.qualification_runs import (
     QuestionQueuePaused,
     QualificationRunCoordinator,
     _PipelineRuntimeTelemetry,
+    _aggregate_answer_adjudication_prompt,
     _aggregate_answer_review_prompt,
     _aggregate_calculation_flag,
     _aggregate_downstream_source_evidence,
@@ -4066,6 +4067,10 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 "question-1": {
                     "questionBodyText": source_text,
                     "choiceTextList": ["アとイ", "アのみ"],
+                    "questionImageStorageUrls": ["https://example.com/question.png"],
+                    "originalQuestionChoiceImageUrls": [
+                        "https://example.com/original-choice.png"
+                    ],
                 }
             },
             {"question-1": candidate_set},
@@ -4080,6 +4085,19 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertIn("choiceTextListに受験者が選ぶ個別の命題", prompt)
         self.assertIn("最初にquestionBodyTextとchoiceTextListの役割を確認する", prompt)
         self.assertIn("「組合せ」又は「いくつ」とあってもnon_target", prompt)
+        self.assertIn("図表内ラベル（A、B、C等）の組合せ", prompt)
+        self.assertIn(
+            "画像内ラベルを本文から欠落した記述とみなしてmissing_statementにしない",
+            prompt,
+        )
+        self.assertIn(
+            '"questionImageStorageUrls":["https://example.com/question.png"]',
+            prompt,
+        )
+        self.assertIn(
+            '"originalQuestionChoiceImageUrls":["https://example.com/original-choice.png"]',
+            prompt,
+        )
         self.assertIn("candidateSetsが空又は不完全であることだけを理由にholdにしない", prompt)
         self.assertIn('"choiceTextList":["アとイ","アのみ"]', prompt)
         self.assertIn("前提や入力を含まないcandidateId", prompt)
@@ -4094,6 +4112,40 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertIn("missing_statement", prompt)
         self.assertNotIn("正解", prompt)
         self.assertNotIn("answer", prompt.casefold())
+
+    def test_aggregate_adjudication_prompt_treats_image_label_combinations_as_non_target(
+        self,
+    ):
+        source_text = "下の図のA〜Dから、暖房時に好ましい組合せを選べ。"
+        prompt = _aggregate_answer_adjudication_prompt(
+            [{"id": "question-1"}],
+            {
+                "question-1": {
+                    "questionBodyText": source_text,
+                    "choiceTextList": ["AとC", "BとD"],
+                    "questionImageStorageUrls": [
+                        "https://example.com/question.png"
+                    ],
+                }
+            },
+            {"question-1": generate_statement_candidates(source_text)},
+            {
+                "question-1": [
+                    {"classification": "hold"},
+                    {"classification": "non_target"},
+                ]
+            },
+        )
+
+        self.assertIn("図表内ラベル（A、B、C等）の組合せ", prompt)
+        self.assertIn(
+            "画像内ラベルを本文から欠落した記述とみなしてmissing_statementにしない",
+            prompt,
+        )
+        self.assertIn(
+            '"questionImageStorageUrls":["https://example.com/question.png"]',
+            prompt,
+        )
 
     def test_aggregate_review_reread_uses_immutable_source_choices(self):
         with tempfile.TemporaryDirectory() as directory:

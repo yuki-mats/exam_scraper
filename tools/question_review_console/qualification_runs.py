@@ -561,7 +561,7 @@ MAX_PROGRESS_BYTES = 8 * 1024 * 1024
 MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
-AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v5"
+AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v6"
 AGGREGATE_ADJUDICATION_PROMPT_CONTRACT_VERSION = (
     "aggregate-answer-adjudication-prompt/v1"
 )
@@ -2225,6 +2225,12 @@ def _aggregate_answer_review_questions(
             "sourceHash": source_text_hash(source_text),
             "questionBodyText": source_text,
             "choiceTextList": copy.deepcopy(record.get("choiceTextList") or []),
+            "questionImageStorageUrls": copy.deepcopy(
+                record.get("questionImageStorageUrls") or []
+            ),
+            "originalQuestionChoiceImageUrls": copy.deepcopy(
+                record.get("originalQuestionChoiceImageUrls") or []
+            ),
             "candidateSets": candidate_views,
         }
         if independent_reviews_by_question is not None:
@@ -2255,6 +2261,7 @@ def _aggregate_answer_review_prompt(
             "targetは、元の回答が複数記述の正誤を個数、組合せその他の一つの回答へ集約し、candidateSetsの各境界が受験者に個別の正誤判定を求める命題そのものである場合に限る。",
             "問題が事実として与える設例条件や共通前提、並べ替える項目、空欄へ入れる語句又は数値、計算の入力は、列挙されていても個別の正誤判定対象ではないためtargetにしない。",
             "choiceTextListに受験者が選ぶ個別の命題が既に並ぶ通常問題もtargetにしない。choiceTextListが個数又は組合せ等の集約回答で、個別に判定する全命題がquestionBodyText内にあるかを確認する。",
+            "questionBodyTextが図表又は画像を参照し、choiceTextListが図表内ラベル（A、B、C等）の組合せだけを選ぶ形式で、questionImageStorageUrls又はoriginalQuestionChoiceImageUrlsに画像がある場合はnon_targetとする。画像内ラベルを本文から欠落した記述とみなしてmissing_statementにしない。画像がなく、原文からラベルの内容を確認できない場合に限りholdを検討する。",
             "targetとして承認できる場合は、個別に判定する全命題を過不足なく含み、前提や入力を含まないcandidateIdを一つだけ選ぶ。",
             "正誤を解かず、正しい項目だけを選ばない。",
             "命題と前提を区別できない場合又は適切なcandidateIdがない場合はambiguous_target、ambiguous_boundary又はmissing_statementでholdにする。",
@@ -2288,6 +2295,7 @@ def _aggregate_answer_adjudication_prompt(
             "candidateSetsはserverが原文から機械生成した候補であり、文章や文字位置を作成・修正しない。",
             "targetは、元の回答が本文内の複数命題の正誤を個数、組合せその他の一つの回答へ集約し、選択したcandidateIdが個別判定すべき全命題を過不足なく含む場合に限る。",
             "choiceTextListに受験者が選ぶ個別命題が既に並ぶ通常問題、計算結果、穴埋め、並べ替え、設例条件や共通前提はtargetにしない。",
+            "questionBodyTextが図表又は画像を参照し、choiceTextListが図表内ラベル（A、B、C等）の組合せだけを選ぶ形式で、questionImageStorageUrls又はoriginalQuestionChoiceImageUrlsに画像がある場合はnon_targetとする。画像内ラベルを本文から欠落した記述とみなしてmissing_statementにしない。画像がなく、原文からラベルの内容を確認できない場合に限りholdを検討する。",
             "原文と候補だけでは一意に確定できない場合に限り、ambiguous_target、ambiguous_boundary又はmissing_statementでholdにする。",
             "正誤を解かず、正しい項目だけを選ばない。",
             "記述本文、理由、summary、説明、start/endその他の文字位置は出力しない。",
