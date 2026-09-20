@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import tempfile
 import threading
+import time
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from tools.question_review_console.primary_law_evidence import (
     LawFileSnapshot,
+    PrimaryLawEvidenceError,
     PrimaryLawEvidenceResolver,
     extract_locator_text,
     locator_parts,
@@ -293,3 +295,84 @@ class PrimaryLawEvidenceTests(unittest.TestCase):
             {snapshot.revision_id for snapshot in snapshots},
             {"revision-1"},
         )
+
+    def test_concurrent_fetch_failure_is_shared_for_the_same_revision(self):
+        call_count = 0
+        call_lock = threading.Lock()
+
+        def fetcher(law_id: str, as_of: str) -> LawFileSnapshot:
+            nonlocal call_count
+            with call_lock:
+                call_count += 1
+            time.sleep(0.02)
+            raise PrimaryLawEvidenceError(
+                f"official endpoint unavailable: {law_id} / {as_of}"
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            resolver = PrimaryLawEvidenceResolver(
+                Path(directory),
+                fetcher=fetcher,
+                failure_cache_ttl_seconds=60,
+            )
+            with ThreadPoolExecutor(max_workers=8) as executor:
+                futures = [
+                    executor.submit(
+                        resolver.law_file,
+                        "346M50000400027",
+                        "2026-07-30",
+                    )
+                    for _index in range(16)
+                ]
+                for future in futures:
+                    with self.assertRaisesRegex(
+                        PrimaryLawEvidenceError,
+                        "official endpoint unavailable",
+                    ):
+                        future.result()
+
+        self.assertEqual(call_count, 1)
+
+    def test_official_fetch_concurrency_is_bounded_across_revisions(self):
+        active_count = 0
+        peak_count = 0
+        count_lock = threading.Lock()
+
+        def fetcher(law_id: str, as_of: str) -> LawFileSnapshot:
+            nonlocal active_count, peak_count
+            with count_lock:
+                active_count += 1
+                peak_count = max(peak_count, active_count)
+            try:
+                time.sleep(0.03)
+                return LawFileSnapshot(
+                    law_id=law_id,
+                    as_of=as_of,
+                    source_url="https://example.test/law",
+                    revision_id=f"{law_id}-{as_of}",
+                    xml_text=_law_xml(article_text="条文"),
+                )
+            finally:
+                with count_lock:
+                    active_count -= 1
+
+        with tempfile.TemporaryDirectory() as directory:
+            resolver = PrimaryLawEvidenceResolver(
+                Path(directory),
+                fetcher=fetcher,
+                max_parallel_fetches=3,
+            )
+            with ThreadPoolExecutor(max_workers=12) as executor:
+                snapshots = list(
+                    executor.map(
+                        lambda index: resolver.law_file(
+                            f"law-{index}",
+                            "2026-07-30",
+                        ),
+                        range(12),
+                    )
+                )
+
+        self.assertEqual(len(snapshots), 12)
+        self.assertGreaterEqual(peak_count, 2)
+        self.assertLessEqual(peak_count, 3)

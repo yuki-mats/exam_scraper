@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import hashlib
+import http.client
 import json
 import re
+import socket
 import threading
 import time
 import urllib.error
@@ -35,6 +37,8 @@ _OMITTED_ARTICLE_RE = re.compile(
 )
 _APPENDIX_RE = re.compile(r"別表第?\s*([0-9０-９一二三四五六七八九十百]+)")
 _REVISION_FILENAME_RE = re.compile(r'filename="?([^";]+)"?')
+_DEFAULT_MAX_PARALLEL_FETCHES = 8
+_DEFAULT_FAILURE_CACHE_TTL_SECONDS = 60.0
 _KANJI_DIGITS = {
     "零": 0,
     "〇": 0,
@@ -61,6 +65,52 @@ class LawFileSnapshot:
     source_url: str
     revision_id: str
     xml_text: str
+
+
+def _create_ipv4_connection(
+    address: tuple[str, int],
+    timeout: float | object = socket._GLOBAL_DEFAULT_TIMEOUT,
+    source_address: tuple[str, int] | None = None,
+) -> socket.socket:
+    """Create one TCP connection without waiting on a broken IPv6 route."""
+
+    host, port = address
+    last_error: OSError | None = None
+    for family, socktype, proto, _canonname, sockaddr in socket.getaddrinfo(
+        host,
+        port,
+        socket.AF_INET,
+        socket.SOCK_STREAM,
+    ):
+        sock = socket.socket(family, socktype, proto)
+        try:
+            if timeout is not socket._GLOBAL_DEFAULT_TIMEOUT:
+                sock.settimeout(timeout)
+            if source_address:
+                sock.bind(source_address)
+            sock.connect(sockaddr)
+            return sock
+        except OSError as exc:
+            last_error = exc
+            sock.close()
+    if last_error is not None:
+        raise last_error
+    raise OSError(f"IPv4 addressを解決できません: {host}:{port}")
+
+
+class _IPv4HTTPSConnection(http.client.HTTPSConnection):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self._create_connection = _create_ipv4_connection
+
+
+class _IPv4HTTPSHandler(urllib.request.HTTPSHandler):
+    def https_open(self, request: urllib.request.Request) -> Any:
+        return self.do_open(
+            _IPv4HTTPSConnection,
+            request,
+            context=self._context,
+        )
 
 
 def _sha256(value: str) -> str:
@@ -219,6 +269,8 @@ class PrimaryLawEvidenceResolver:
         fetcher: Callable[[str, str], LawFileSnapshot] | None = None,
         timeout_seconds: float = 30.0,
         retry_count: int = 3,
+        max_parallel_fetches: int = _DEFAULT_MAX_PARALLEL_FETCHES,
+        failure_cache_ttl_seconds: float = _DEFAULT_FAILURE_CACHE_TTL_SECONDS,
     ) -> None:
         self.repo_root = repo_root.resolve()
         self.cache_root = (
@@ -231,8 +283,18 @@ class PrimaryLawEvidenceResolver:
         self.timeout_seconds = timeout_seconds
         self.retry_count = retry_count
         self._fetcher = fetcher or self._fetch_official
+        self._fetch_slots = threading.BoundedSemaphore(
+            max(1, int(max_parallel_fetches))
+        )
+        self.failure_cache_ttl_seconds = max(
+            0.0,
+            float(failure_cache_ttl_seconds),
+        )
+        self._url_opener = urllib.request.build_opener(_IPv4HTTPSHandler())
         self._registry_lock = threading.Lock()
         self._key_locks: dict[tuple[str, str], threading.Lock] = {}
+        self._failure_lock = threading.Lock()
+        self._recent_failures: dict[tuple[str, str], tuple[float, str]] = {}
         self._exam_dates = self._load_exam_dates()
 
     def _load_exam_dates(self) -> dict[tuple[str, str], tuple[str, str]]:
@@ -326,6 +388,31 @@ class PrimaryLawEvidenceResolver:
         safe_law_id = re.sub(r"[^0-9A-Za-z_-]+", "_", law_id)
         return self.cache_root / safe_law_id / f"{as_of}.json"
 
+    def _clear_recent_failure(self, key: tuple[str, str]) -> None:
+        with self._failure_lock:
+            self._recent_failures.pop(key, None)
+
+    def _recent_failure(self, key: tuple[str, str]) -> str | None:
+        with self._failure_lock:
+            failure = self._recent_failures.get(key)
+            if failure is None:
+                return None
+            failed_at, message = failure
+            if time.monotonic() - failed_at < self.failure_cache_ttl_seconds:
+                return message
+            self._recent_failures.pop(key, None)
+            return None
+
+    def _remember_failure(self, key: tuple[str, str], message: str) -> None:
+        now = time.monotonic()
+        with self._failure_lock:
+            self._recent_failures = {
+                cached_key: failure
+                for cached_key, failure in self._recent_failures.items()
+                if now - failure[0] < self.failure_cache_ttl_seconds
+            }
+            self._recent_failures[key] = (now, message)
+
     def _fetch_official(self, law_id: str, as_of: str) -> LawFileSnapshot:
         encoded_id = urllib.parse.quote(law_id, safe="")
         encoded_date = urllib.parse.quote(as_of, safe="")
@@ -337,7 +424,7 @@ class PrimaryLawEvidenceResolver:
                 headers={"User-Agent": "exam-scraper-question-maintenance/1"},
             )
             try:
-                with urllib.request.urlopen(
+                with self._url_opener.open(
                     request,
                     timeout=self.timeout_seconds,
                 ) as response:
@@ -402,11 +489,21 @@ class PrimaryLawEvidenceResolver:
         if not law_id:
             raise PrimaryLawEvidenceError("法令根拠にlawIdがありません。")
         path = self._cache_path(law_id, as_of)
+        key = (law_id, as_of)
         with self._key_lock(law_id, as_of):
             cached = self._read_cache(path)
             if cached is not None:
+                self._clear_recent_failure(key)
                 return cached
-            snapshot = self._fetcher(law_id, as_of)
+            recent_failure = self._recent_failure(key)
+            if recent_failure is not None:
+                raise PrimaryLawEvidenceError(recent_failure)
+            try:
+                with self._fetch_slots:
+                    snapshot = self._fetcher(law_id, as_of)
+            except PrimaryLawEvidenceError as exc:
+                self._remember_failure(key, str(exc))
+                raise
             atomic_write(
                 path,
                 json.dumps(
@@ -429,6 +526,7 @@ class PrimaryLawEvidenceResolver:
                 raise PrimaryLawEvidenceError(
                     f"法令根拠cacheを再読検証できません: {path}"
                 )
+            self._clear_recent_failure(key)
             return reread
 
     @staticmethod
