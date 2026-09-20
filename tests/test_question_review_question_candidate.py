@@ -1809,6 +1809,15 @@ class QuestionCandidateTest(unittest.TestCase):
         targets = candidate_targets("q1", "explanation", self.plan())
         schema = output_schema(["q1"], {"q1": targets})
 
+        self.assertIn(
+            "blockedを選ぶ場合は部分更新を返さず",
+            schema["properties"]["decision"]["description"],
+        )
+        self.assertIn(
+            "decision=blocked",
+            schema["properties"]["update"]["description"],
+        )
+
         def assert_strict(value):
             if isinstance(value, dict):
                 self.assertNotIn("uniqueItems", value)

@@ -2376,6 +2376,15 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         )
         self.assertIn("requiredSemanticFieldsは今回のcandidate", prompt)
         self.assertIn("setFieldsとunsetFieldsはどちらも空配列", prompt)
+        self.assertIn("# 出力直前の確認", prompt)
+        self.assertIn(
+            "decision=blockedなら、理由はsummaryだけに書き",
+            prompt,
+        )
+        self.assertIn(
+            "decision=candidateなら、requiredSemanticFieldsの各field",
+            prompt,
+        )
         self.assertIn("setFieldsへ転載しない", prompt)
 
     def test_prompt_marks_required_fields_that_also_appear_nested(self):
@@ -2491,6 +2500,21 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertIn(
             "保存先候補が複数あるだけでsemantic fieldは一つ",
             prompt,
+        )
+
+    def test_law_stage_context_requires_discovery_when_primary_evidence_is_absent(self):
+        context = _structured_candidate_stage_context(
+            Path("."),
+            "sample",
+            "law_context",
+        )
+
+        self.assertTrue(
+            any(
+                "status=not_applicableであること自体はhold理由にしない" in rule
+                and "discover_required" in rule
+                for rule in context["rules"]
+            )
         )
 
     def test_server_primary_law_evidence_is_embedded_in_attempt_prompt(self):

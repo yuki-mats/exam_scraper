@@ -1145,19 +1145,31 @@ def output_schema(
         "additionalProperties": False,
         "required": ["decision", "summary", "update"],
         "properties": {
-            "decision": {"type": "string", "enum": ["candidate", "blocked"]},
+            "decision": {
+                "type": "string",
+                "enum": ["candidate", "blocked"],
+                "description": (
+                    "candidateはrequiredSemanticFieldsをすべて確定できる場合だけ選ぶ。"
+                    "blockedを選ぶ場合は部分更新を返さず、updateの二配列を空にする。"
+                ),
+            },
             "summary": {"type": "string", "minLength": 1},
             "update": {
                 "type": "object",
+                "description": (
+                    "decision=blockedではsetFieldsとunsetFieldsを必ず空配列にする。"
+                ),
                 "additionalProperties": False,
                 "required": ["setFields", "unsetFields"],
                 "properties": {
                     "setFields": {
                         "type": "array",
+                        "description": "decision=blockedでは空配列にする。",
                         "items": {"anyOf": set_variants},
                     },
                     "unsetFields": {
                         "type": "array",
+                        "description": "decision=blockedでは空配列にする。",
                         "items": {"type": "string", "enum": field_names},
                     },
                 },

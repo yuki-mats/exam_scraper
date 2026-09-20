@@ -1365,6 +1365,43 @@ class QualificationWorkflow:
             )
             for stage_id in ordered
         ]
+        if {"law_context", "explanation", "law_audit"}.issubset(ordered):
+            # 全法令工程を連続実行する場合、02bが法令コンテキスト、03bが
+            # 現行法監査を正本として担当する。03は学習者向け解説に集中し、
+            # 同じ法令fieldを途中で再確定して03bの入力不足で止めない。
+            for stage_plan in stage_plans:
+                if str(stage_plan.get("stageId") or "") != "explanation":
+                    continue
+                law_support_targets = [
+                    target
+                    for target in stage_plan.get("selectedUpdateTargets") or []
+                    if str(target.get("id") or "") == "law_support"
+                ]
+                law_support_fields = {
+                    str(field)
+                    for target in law_support_targets
+                    for field in target.get("fields") or []
+                    if field
+                }
+                selected_by_stage = dict(
+                    stage_plan.get("selectedFieldsByStage") or {}
+                )
+                selected_by_stage["explanation"] = [
+                    field
+                    for field in selected_by_stage.get("explanation") or []
+                    if str(field) not in law_support_fields
+                ]
+                stage_plan["selectedFieldsByStage"] = selected_by_stage
+                stage_plan["selectedUpdateTargets"] = [
+                    target
+                    for target in stage_plan.get("selectedUpdateTargets") or []
+                    if str(target.get("id") or "") != "law_support"
+                ]
+                stage_plan["selectedUpdateTargetIds"] = [
+                    value
+                    for value in stage_plan.get("selectedUpdateTargetIds") or []
+                    if not str(value).endswith(".law_support")
+                ]
         aggregate_plans = stage_plans
         group_scoped_plans = [
             plan

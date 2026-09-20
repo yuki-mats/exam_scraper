@@ -1700,11 +1700,28 @@ class QualificationWorkflowTests(unittest.TestCase):
         audit_plan = next(
             item for item in plan["stagePlans"] if item["stageId"] == "law_audit"
         )
+        explanation_plan = next(
+            item
+            for item in plan["stagePlans"]
+            if item["stageId"] == "explanation"
+        )
         self.assertEqual(result["stageIds"], stage_ids)
         self.assertEqual(result["targetCount"], 2)
         self.assertEqual(result["workItemCount"], 8)
         self.assertEqual(audit_plan["targetCount"], 2)
         self.assertTrue(audit_plan["allQuestionGate"])
+        self.assertNotIn(
+            "lawRevisionFacts",
+            explanation_plan["selectedFieldsByStage"]["explanation"],
+        )
+        self.assertNotIn(
+            "explanation.law_support",
+            explanation_plan["selectedUpdateTargetIds"],
+        )
+        self.assertIn(
+            "lawRevisionFacts",
+            audit_plan["selectedFieldsByStage"]["law_audit"],
+        )
         self.assertIn("対象問題: `2問すべて`", result["prompt"])
         self.assertIn("工程判定: `延べ8件`", result["prompt"])
         self.assertIn("選択工程を上記順序で完了してから次の問題へ進む", result["prompt"])

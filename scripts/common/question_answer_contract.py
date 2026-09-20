@@ -43,6 +43,14 @@ SELECTED_CHOICE_COUNT_PATTERNS = (
     ),
 )
 COMBINATION_CHOICE_PATTERN = re.compile(r"組(?:合せ|み合わせ)")
+_COMBINATION_LABEL = (
+    r"[A-Za-zＡ-Ｚａ-ｚア-ン0-9０-９①②③④⑤⑥⑦⑧⑨⑩]"
+)
+COMBINATION_LABEL_CHOICE_PATTERN = re.compile(
+    rf"^[（(]?{_COMBINATION_LABEL}[）)]?(?:のみ|"
+    rf"(?:(?:、|,|，|・|と|及び|および|並びに)[（(]?"
+    rf"{_COMBINATION_LABEL}[）)]?)+)$"
+)
 ALL_CORRECT_CHOICE_SENTINEL_PATTERN = re.compile(
     r"選択肢\s*[（(]\s*([0-9０-９]+)\s*[）)]"
     r"\s*は\s*(?:すべて|全て)\s*正しい"
@@ -182,12 +190,48 @@ def asks_for_selected_choice_count(value: Any) -> bool:
     return any(pattern.search(text) for pattern in SELECTED_CHOICE_COUNT_PATTERNS)
 
 
-def asks_for_combination_choice(value: Any) -> bool:
-    """Return whether the official number selects a combination answer."""
+def asks_for_combination_choice(
+    value: Any,
+    choice_texts: Any = None,
+) -> bool:
+    """Return whether the official number selects a label-combination answer."""
 
-    return COMBINATION_CHOICE_PATTERN.search(
+    if COMBINATION_CHOICE_PATTERN.search(
         re.sub(r"\s+", "", str(value or ""))
-    ) is not None
+    ) is None:
+        return False
+    if choice_texts is None:
+        return True
+    if not isinstance(choice_texts, Sequence) or isinstance(
+        choice_texts, (str, bytes)
+    ):
+        return False
+    normalized = [re.sub(r"\s+", "", str(choice)) for choice in choice_texts]
+    return bool(normalized) and all(
+        COMBINATION_LABEL_CHOICE_PATTERN.fullmatch(choice)
+        for choice in normalized
+    )
+
+
+def official_answer_uses_combination_choice(record: Any) -> bool:
+    """Return whether one official number refers to a source combination option."""
+
+    if not isinstance(record, dict):
+        return False
+    source_text = record.get("questionBodyText")
+    if asks_for_combination_choice(source_text, record.get("choiceTextList")):
+        return True
+    if not asks_for_combination_choice(source_text):
+        return False
+    return any(
+        field in record
+        for field in (
+            "sourceStatementCount",
+            "choiceMarkerSource",
+            "judgeChoiceMarkers",
+            "aggregateAnswerDecomposition",
+        )
+    )
 
 
 def all_correct_choice_sentinel_number(value: Any) -> int | None:
@@ -420,7 +464,7 @@ def official_answer_alignment_issue(record: Any) -> str | None:
         )
     if set(official_numbers) == set(independently_selected):
         return None
-    if asks_for_combination_choice(source_text):
+    if official_answer_uses_combination_choice(record):
         if uses_trusted_gassyunin_judge_answers(record):
             # gassyuninの正解番号は元の組合せ肢を指す。judge sectionが各記述の
             # source truthなので、組合せmappingなしで記述indexとは比較しない。

@@ -442,6 +442,31 @@ class QuestionAnswerContractTests(unittest.TestCase):
             )
         )
 
+    def test_item_pairing_wording_is_not_a_label_combination_answer(self) -> None:
+        record = {
+            "questionBodyText": (
+                "定期自主検査の項目と点検事項との組合せとして、"
+                "法令に定められていないものはどれか。"
+            ),
+            "choiceTextList": [
+                "圧力調節装置 --- 機能の異常の有無",
+                "ストレーナ --- つまり又は損傷の有無",
+                "油加熱器 --- 保温の状態",
+            ],
+            "questionIntent": "select_incorrect",
+            "correctChoiceText": ["正しい", "正しい", "間違い"],
+            "answer_result_text": "正解は 3 です。",
+        }
+
+        self.assertIsNone(official_answer_alignment_issue(record))
+
+        record["questionIntent"] = "select_correct"
+        issue = official_answer_alignment_issue(record)
+        self.assertIsNotNone(issue)
+        assert issue is not None
+        self.assertNotIn("検証済みmapping", issue)
+        self.assertIn("公式解答と独立判定", issue)
+
     def test_combination_answer_accepts_trusted_gassyunin_judge_answers(self) -> None:
         self.assertIsNone(
             official_answer_alignment_issue(
