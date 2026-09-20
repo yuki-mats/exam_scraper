@@ -12,7 +12,7 @@
 - `updated_to_current_law`は`tertiary_verified`後だけ公開確定する。
 - 03bの改訂では[共通の作業バージョン規則](local_question_review_console.md#作業バージョン)を使う。問題単位の`auditMethodVersion`は使用した監査方式の証跡であり、作業版の代わりにしない。
 
-Codex App Serverは、保存済み`lawReferences`に`lawId`と条・別表のlocatorがある場合、e-Gov法令API v2から試験時点とrun開始日の法令XMLを決定的に取得し、該当条・別表の本文、改正version、hash、比較結果を一問のmodel入力へ渡します。試験日は、出題時根拠に明示された`referenceDate`、問題recordの`examDate`、取得元別の公式試験資料catalogの順で解決します。ガス主任技術者試験は[`official_exam_pdf_catalog.json`](../sources/gas-shunin/official_exam_pdf_catalog.json)、建築物環境衛生管理技術者試験は[公式事業報告catalog](../sources/birukan/official_exam_pdf_catalog.json)の`examDates`をそれぞれ正本とします。`第4条の4の7`のような枝番はe-Gov XMLの`Num="4_4_7"`へ、`64第1項`のような条の省略表記は第64条へ正規化します。
+Codex App Serverは、保存済み`lawReferences`に`lawId`と条・別表のlocatorがある場合、e-Gov法令API v2から試験時点とrun開始日の法令XMLを決定的に取得し、該当条・別表の本文、改正version、hash、比較結果を一問のmodel入力へ渡します。試験日は、出題時根拠に明示された`referenceDate`、問題recordの`examDate`、取得元別の公式試験資料catalogの順で解決します。ガス主任技術者試験は[`official_exam_pdf_catalog.json`](../sources/gas-shunin/official_exam_pdf_catalog.json)、一級・二級ボイラー技士は[一級](../sources/boiler1/official_exam_pdf_catalog.json)・[二級](../sources/boiler2/official_exam_pdf_catalog.json)の公式実施期間catalog、建築物環境衛生管理技術者試験は[公式事業報告catalog](../sources/birukan/official_exam_pdf_catalog.json)の`examDates`をそれぞれ正本とします。ボイラー公表問題は個別受験日ではなく、安全衛生技術試験協会が示す半期の実施期間の末日を法令比較基準日とします。`第4条の4の7`のような枝番はe-Gov XMLの`Num="4_4_7"`へ、`64第1項`のような条の省略表記は第64条へ正規化します。
 
 同じ`lawId`・基準日は資格内で共有cacheと一つの取得処理を使います。試験日を解決できた`current_basis`も、試験時点と現在時点の本文を比較します。`status=complete`かつ`comparison=unchanged`なら、参照のroleが`current_basis`であることだけを理由に`hold`へ送りません。宣言済み根拠が不足又は不一致の場合だけ、組み込みweb検索を一次情報の入口として使います。外部MCP、Lawzilla、Firestore条文検索は使いません。保存済みの`lawReferences`、`lawRevisionFacts`は候補であり、server取得又は検索で開いた一次情報と一致した場合だけ根拠にします。
 

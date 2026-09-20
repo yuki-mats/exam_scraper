@@ -35,6 +35,36 @@ def _law_xml(*, article_text: str, appendix_text: str = "別表本文") -> str:
 
 
 class PrimaryLawEvidenceTests(unittest.TestCase):
+    def test_repository_boiler_catalogs_cover_every_source_period(self):
+        repo_root = Path(__file__).resolve().parents[1]
+        resolver = PrimaryLawEvidenceResolver(repo_root)
+
+        expected_boiler1 = {}
+        for year in range(2009, 2026):
+            expected_boiler1[f"{year}-1"] = f"{year}-06-30"
+            expected_boiler1[f"{year}-2"] = f"{year}-12-31"
+        actual_boiler1 = {
+            list_group_id: value[0]
+            for (qualification, list_group_id), value in resolver._exam_dates.items()
+            if qualification == "boiler1"
+        }
+        self.assertEqual(actual_boiler1, expected_boiler1)
+
+        expected_boiler2 = {}
+        group_id = 60001
+        for year in range(2015, 2026):
+            expected_boiler2[str(group_id)] = f"{year - 1}-12-31"
+            group_id += 1
+            expected_boiler2[str(group_id)] = f"{year}-06-30"
+            group_id += 1
+        expected_boiler2["60023"] = "2025-12-31"
+        actual_boiler2 = {
+            list_group_id: value[0]
+            for (qualification, list_group_id), value in resolver._exam_dates.items()
+            if qualification == "boiler2"
+        }
+        self.assertEqual(actual_boiler2, expected_boiler2)
+
     def test_repository_birukan_catalog_covers_all_source_groups(self):
         repo_root = Path(__file__).resolve().parents[1]
         resolver = PrimaryLawEvidenceResolver(repo_root)
