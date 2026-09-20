@@ -35,6 +35,29 @@ def _law_xml(*, article_text: str, appendix_text: str = "別表本文") -> str:
 
 
 class PrimaryLawEvidenceTests(unittest.TestCase):
+    def test_repository_birukan_catalog_covers_all_source_groups(self):
+        repo_root = Path(__file__).resolve().parents[1]
+        resolver = PrimaryLawEvidenceResolver(repo_root)
+
+        expected = {
+            "95001": "2018-10-07",
+            "95002": "2019-10-06",
+            "95003": "2020-10-04",
+            "95004": "2021-10-03",
+            "95005": "2022-10-02",
+            "95006": "2023-10-01",
+            "95007": "2024-10-06",
+            "95008": "2025-10-05",
+        }
+        for list_group_id, exam_date in expected.items():
+            self.assertEqual(
+                resolver._exam_dates[("birukan", list_group_id)],
+                (
+                    exam_date,
+                    "document/sources/birukan/official_exam_pdf_catalog.json",
+                ),
+            )
+
     def test_locator_parser_accepts_articles_and_appendix_tables(self):
         self.assertEqual(
             locator_parts("第11条、別表第三（二）"),
