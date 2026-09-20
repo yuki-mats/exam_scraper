@@ -2608,9 +2608,22 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertEqual(question["primaryLawEvidence"], evidence)
         self.assertIn("e-Gov法令API v2", prompt)
 
+    def test_explanation_stage_context_leaves_exam_time_audit_to_03b(self):
+        context = _structured_candidate_stage_context(
+            Path("."), "sample", "explanation"
+        )
+        rules = " ".join(context["rules"])
+
+        self.assertIn("correctChoiceText", rules)
+        self.assertIn("lawContextForExplanation", rules)
+        self.assertIn("examAsOfSource", rules)
+        self.assertIn("03bの未完了だけで解説を止めない", rules)
+
     def test_other_stage_context_is_empty(self):
         self.assertEqual(
-            _structured_candidate_stage_context(Path("."), "sample", "explanation"),
+            _structured_candidate_stage_context(
+                Path("."), "sample", "correct_choice"
+            ),
             {},
         )
 

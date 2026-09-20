@@ -2322,6 +2322,14 @@ def _structured_candidate_stage_context(
     qualification: str,
     stage_id: str,
 ) -> dict[str, Any]:
+    if stage_id == "explanation":
+        return {
+            "rules": [
+                "03解説は、02aで確定したcorrectChoiceTextと02bのlawContextForExplanationを上流の確定入力として読み、その範囲で初学者向けの解説を完成させる。",
+                "出題時と現行法の差分確定とlawRevisionFactsの整備は03bの責務である。primaryLawEvidence.examAsOfSourceがない、examAsOfがnull、又はcomparison=current_onlyであることだけを理由に03をholdにしない。",
+                "上流のcorrectChoiceTextとlawContextForExplanationが明白に矛盾する場合は推測で埋めず、02a又02bの問題としてholdにする。矛盾がなければ、03bの未完了だけで解説を止めない。",
+            ],
+        }
     if stage_id in {"law_context", "law_audit"}:
         return {
             "rules": [
