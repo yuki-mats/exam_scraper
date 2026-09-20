@@ -64,6 +64,10 @@ JSON_SUBDIR_NAME = "00_source"
 # テスト実行時は例: MAX_QUESTIONS = 5 などに変更
 MAX_QUESTIONS = None
 
+# 回答結果APIは取得元側の一時的な遅延があるため、問題単位で段階的に再試行する。
+# ここで回復しなければ年度単位のrunner再試行へ委ね、途中結果は保存しない。
+ANSWER_RESULT_MAX_ATTEMPTS = 4
+
 # JSON/画像の出力ルート
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
@@ -1073,7 +1077,7 @@ def fetch_answer_result_data(
         "Accept": "application/json, text/javascript, */*; q=0.01",
     }
 
-    for retry_index in range(2):
+    for retry_index in range(ANSWER_RESULT_MAX_ATTEMPTS):
         try:
             slow_down(0.15, 0.15)
             response = http_session.post(
@@ -1111,12 +1115,17 @@ def fetch_answer_result_data(
                 inferred_correct_choice_numbers=inferred_correct_choice_numbers,
             )
         except Exception as answer_error:
-            print(f"[WARN] answer result fetch failed ({question_url}): {answer_error}")
-            if retry_index == 1:
+            attempt = retry_index + 1
+            print(
+                "[WARN] answer result fetch failed "
+                f"({attempt}/{ANSWER_RESULT_MAX_ATTEMPTS}, {question_url}): "
+                f"{answer_error}"
+            )
+            if attempt == ANSWER_RESULT_MAX_ATTEMPTS:
                 raise AnswerResultFetchError(
                     f"回答結果を再試行しても取得できませんでした: {question_url}"
                 ) from answer_error
-            slow_down(0.3, 0.3)
+            slow_down(2 ** retry_index, 0.5)
 
     return None
 

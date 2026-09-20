@@ -3,6 +3,10 @@ from __future__ import annotations
 import importlib.util
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+
+import requests
+from bs4 import BeautifulSoup
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +45,34 @@ def make_question(url: str, *, with_answer: bool = True):
 
 
 class ScrapeCompletenessTests(unittest.TestCase):
+    def test_answer_result_uses_bounded_request_level_retries(self) -> None:
+        class FailingSession:
+            def __init__(self) -> None:
+                self.calls = 0
+
+            def post(self, *args, **kwargs):
+                self.calls += 1
+                raise requests.ReadTimeout("temporary timeout")
+
+        session = FailingSession()
+        soup = BeautifulSoup(
+            """
+            <html><head><meta name="csrf-token" content="token"></head>
+            <body><input id="intStudyRandumId" value="1"></body></html>
+            """,
+            "html.parser",
+        )
+
+        with patch.object(code_module, "slow_down"):
+            with self.assertRaises(code_module.AnswerResultFetchError):
+                code_module.fetch_answer_result_data(
+                    session,
+                    soup,
+                    "https://birukan.kakomonn.com/questions/1",
+                )
+
+        self.assertEqual(session.calls, code_module.ANSWER_RESULT_MAX_ATTEMPTS)
+
     def test_accepts_complete_kakomonn_group(self) -> None:
         urls = [
             "https://birukan.kakomonn.com/questions/1",
