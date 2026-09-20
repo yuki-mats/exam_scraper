@@ -33,6 +33,7 @@ from scripts.common.repaso_firestore_schema import (
 from scripts.merge.patch_views import validate_originalized_entry
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
+    law_evidence_utilization_issues,
 )
 from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
@@ -1981,6 +1982,8 @@ def _validate_candidate_content_messages(
                 "updated_to_current_lawにはtertiary_verifiedが必要です。"
             )
     if validate_law_revision_facts:
+        # Reject repairable content before entering the canonical write transaction.
+        errors.extend(law_evidence_utilization_issues(logical))
         fact_items = (
             list(facts)
             if isinstance(facts, list)

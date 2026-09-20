@@ -2443,6 +2443,72 @@ class QuestionCandidateTest(unittest.TestCase):
         )
         self.assertIn("explanationText", fields_by_role["law_audit"])
 
+    def test_law_update_explanation_is_retryable_before_commit(self):
+        from tools.question_review_console.validation_feedback import build_child_feedback
+
+        targets = candidate_targets("q1", "law_audit", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+            ],
+            "allowedWriteFiles": ["output/sample/review/law_revision_audit/2026.jsonl"],
+        })
+        audit = next(target for target in targets if target.role == "law_audit")
+        values = {
+            "auditStatus": "updated_to_current_law",
+            "reviewState": "tertiary_verified",
+            "sourceSummary": "試験法第1条を確認した。",
+            "verificationSummary": "出題時と現行法の判定を照合した。",
+            "reconciliationStatus": "matched",
+            "examTimeDecision": ["間違い"],
+            "currentLawDecision": ["正しい"],
+            "isLawRelated": True,
+            "lawReferences": [[{
+                "role": "current_basis", "scope": "choice", "choiceIndex": 0,
+                "lawId": "123AC0000000001", "lawTitle": "試験法", "article": "1",
+                "referenceDate": "2026-09-21", "verificationStatus": "verified",
+                "source": "egov_xml",
+            }]],
+            "lawRevisionFacts": {
+                "auditStatus": "updated_to_current_law",
+                "reviewState": "tertiary_verified",
+                "examTime": {"correctChoiceText": ["間違い"]},
+                "current": {"correctChoiceText": ["正しい"]},
+                "evidenceSummary": {
+                    "verdict": "updated_to_current_law",
+                    "explanationText": "試験法第1条の対象範囲が変わった。",
+                },
+            },
+        }
+        candidate = _parse_prepared_candidates({
+            "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+            "questionResults": [{
+                "questionId": "q1", "status": "candidate", "summary": "監査済み",
+                "updates": [{
+                    "targetId": audit.target_id,
+                    "setFields": [{"field": key, "value": value} for key, value in values.items()],
+                    "unsetFields": [],
+                }],
+            }],
+        }, ["q1"], {"q1": targets})[0]
+        record = {
+            "questionType": "true_false", "choiceTextList": ["条文上の対象に含まれる。"],
+            "correctChoiceText": ["正しい"],
+            "explanationText": ["正しい。試験法第1条の対象に含まれる。"],
+        }
+        issues = validate_candidate_content_issues(candidate, targets, record)
+        self.assertEqual(len(issues), 1, issues)
+        self.assertIn("must distinguish current law", issues[0]["message"])
+        self.assertEqual(issues[0]["ownerStageId"], "law_audit")
+        feedback = build_child_feedback({
+            "status": "failed", "validationIssues": list(issues),
+            "result": {"commands": [{"command": "question content", "status": "fail"}]},
+        }, attempt=1, question_id="q1", stage_id="law_audit")
+        self.assertEqual(feedback["status"], "retryable")
+        record["explanationText"] = [
+            "正しい。現行法では試験法第1条の対象に含まれる。出題当時は対象外だった。"
+        ]
+        self.assertEqual(validate_candidate_content_issues(candidate, targets, record), ())
+
     def test_law_audit_rejects_legacy_string_references_and_weak_facts(self):
         plan = {
             "allowedPatchFiles": [
