@@ -2029,6 +2029,30 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertIn("## prompt/qualification_docs/sample/README.md", guidance)
         self.assertIn("資格固有の確認済みルール", guidance)
 
+    def test_correct_choice_guidance_distinguishes_correction_from_conflict(self):
+        root = Path(__file__).resolve().parents[1]
+        guidance = _canonical_document_guidance(
+            root, ["prompt/02a_prompt_review_correctChoiceText.md"]
+        )
+        prompt = _structured_candidate_prompt(
+            "正答を精査する。",
+            [{"id": "question-1"}],
+            canonical_guidance=guidance,
+            stage_id="correct_choice",
+            records_by_question={
+                "question-1": {"choiceTextList": ["割合が大きい。"]}
+            },
+            candidate_targets_by_question={"question-1": ()},
+            feedback_by_question={
+                "question-1": [{"reason": "前回は資料の矛盾と判断した。"}]
+            },
+        )
+        self.assertIn("選択肢の引用と、誤りを訂正した説明を区別", prompt)
+        self.assertIn("文言の違い自体は資料の矛盾ではありません", prompt)
+        self.assertIn("実際に確認した資料と該当内容", prompt)
+        self.assertIn("元解説へ自動追随", prompt)
+        self.assertIn("各選択肢を同じ根拠基準で独立に判定", prompt)
+
     def test_structured_candidate_prompt_contains_canonical_guidance(self):
         target = {
             "id": "question-1",
