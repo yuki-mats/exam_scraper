@@ -489,13 +489,13 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "10.2")
+        self.assertEqual(version_by_stage["explanation"], "10.3")
         self.assertEqual(version_by_stage["law_audit"], "5.1")
         self.assertEqual(version_by_stage["law_context"], "2.0")
         self.assertEqual(version_by_stage["originalize"], "2.9")
         self.assertEqual(version_by_stage["question_type"], "6.1")
         self.assertEqual(version_by_stage["question_intent"], "5.0")
-        self.assertEqual(version_by_stage["correct_choice"], "5.0")
+        self.assertEqual(version_by_stage["correct_choice"], "5.1")
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
@@ -675,6 +675,8 @@ class WorkflowCatalogTests(unittest.TestCase):
         )
         self.assertIn("問題単位の解説は`正しい。`", prompt)
         self.assertIn("正しい記述は本文だけで完結していれば`正しい。`", prompt)
+        self.assertIn("追加価値がなければ`正しい。`だけへ縮めます", prompt)
+        self.assertIn("同じ`sourceUrl`を同じ対象へ複数登録せず", prompt)
         self.assertIn("中学生でも意味を追える言葉", prompt)
         self.assertIn("公式を一般形で先に示し", prompt)
         self.assertIn("すべての変数を初学者にも分かる日本語", prompt)

@@ -162,7 +162,8 @@ kind = "human"
 # 3.1: gassyunin URLとjudge対応を保持するFirestore snapshot 2問も同じ正答証拠契約で扱う。
 # 4.0: 「選択肢(N)はすべて正しい」の明示規約を、該当肢数Nではなく元の選択肢番号として照合する。
 # 5.0: 共通述語の否定を選択方向と分離し、分解済み組合せ問題の記述順正誤を機械照合して全問を洗い替える。
-policy_version = "5.0"
+# 5.1: 出典のない一般知識だけで整合する公式解答と訂正文を衝突扱いせず、個数回答を分解後の正しい記述数として照合する。
+policy_version = "5.1"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -238,7 +239,8 @@ kind = "human"
 # 10.0: 条件と例外を分けた八分類へ更新し、法令・順序・計算の解説構成を初学者向けに統一する。
 # 10.1: AWSサービスの提供状況は、資格別正本で確認した新規受付と既存利用者の条件を分けて説明する。
 # 10.2: 誤り肢の訂正文と選択肢本文の差を正常系として扱い、正誤自体が矛盾する場合だけ02aへ戻す。
-policy_version = "10.2"
+# 10.3: 根拠URLの同一対象内重複と、正しい肢の再掲を検証結果に従って解消する。
+policy_version = "10.3"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",

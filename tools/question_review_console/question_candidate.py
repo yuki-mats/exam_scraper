@@ -462,6 +462,7 @@ _EXPLANATION_FIELD_RULES: dict[str, Any] = {
             "各要素はtitle、sourceUrl、referenceDateだけを必須とし、"
             "特定の選択肢だけに対応する場合のみ0始まりのchoiceIndexを加える。"
             "sourceUrlはHTTPS URL、referenceDateはYYYY-MM-DD形式とする。"
+            "同じsourceUrlを同じ対象へ複数登録せず、一つの参照にまとめる。"
             "候補、未確認、非公式の参照先は正式patchへ保存しない。"
         ),
         "items": {

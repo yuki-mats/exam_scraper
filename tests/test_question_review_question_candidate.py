@@ -1383,6 +1383,10 @@ class QuestionCandidateTest(unittest.TestCase):
             "間違いの選択肢は正しい内容と判断を分ける差を必ず説明",
             rules["explanationText"]["description"],
         )
+        self.assertIn(
+            "同じsourceUrlを同じ対象へ複数登録せず",
+            rules["explanationReferences"]["description"],
+        )
         supplement = rules["suggestedQuestionDetailsByChoice"]
         self.assertIn("基本解説に答えがある", supplement["description"])
         self.assertIn("追加情報がなければ必ず空配列", supplement["description"])
