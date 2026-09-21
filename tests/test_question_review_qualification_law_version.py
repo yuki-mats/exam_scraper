@@ -3,6 +3,60 @@ from tests.qualification_run_test_support import *  # noqa: F403
 
 class QualificationLawVersionTests(QualificationRunTestSupport):
 
+    def test_question_turn_projection_invalidates_inventory_before_reading(self):
+        class CachedInventory(SourceOnlyInventory):
+            def __init__(self):
+                self.invalidated = []
+
+            def invalidate(self, qualification, list_group_id):
+                self.invalidated.append((qualification, list_group_id))
+
+        with tempfile.TemporaryDirectory() as directory:
+            inventory = CachedInventory()
+            workflow = QualificationWorkflow(Path(directory), inventory)
+            coordinator = QualificationRunCoordinator(
+                Path(directory),
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+
+            def project_question(qualification, target):
+                self.assertEqual(
+                    inventory.invalidated,
+                    [("new-exam", "2026")],
+                )
+                return SimpleNamespace(
+                    record={
+                        "isLawRelated": False,
+                        "explanationText": ["正しい。"],
+                    },
+                    applied_files=("new-patch.json",),
+                )
+
+            coordinator._project_question_now = project_question
+            questions = coordinator._projected_policy_questions(
+                {
+                    "qualification": "new-exam",
+                    "progressTargets": [
+                        {
+                            "id": "new-exam-2026-q1",
+                            "reviewQuestionId": "new-exam-2026-q1",
+                            "sourceQuestionKey": "new-exam:2026:q1",
+                            "sourceRecordRef": "question_2026_1.json#0",
+                            "listGroupId": "2026",
+                        }
+                    ],
+                }
+            )
+
+        self.assertEqual(
+            questions[0]["projected"]["explanationText"],
+            ["正しい。"],
+        )
+        self.assertEqual(questions[0]["paths"]["patches"], ["new-patch.json"])
+
     def test_validated_run_records_only_the_manifest_stage_version(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

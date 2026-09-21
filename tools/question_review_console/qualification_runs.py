@@ -18237,6 +18237,14 @@ class QualificationRunCoordinator:
                 "一問patch反映の工程バージョン対象が1問ではありません。"
             )
         target = targets[0]
+        # The candidate transaction may have just created a patch file.  The
+        # inventory projection is cached per qualification/group, so make the
+        # canonical write visible before recording the work-version receipt.
+        inventory = getattr(self.workflow, "inventory", None)
+        invalidate = getattr(inventory, "invalidate", None)
+        list_group_id = str(target.get("listGroupId") or "")
+        if callable(invalidate) and list_group_id:
+            invalidate(qualification, list_group_id)
         try:
             projection = self._project_question_now(qualification, target)
         except QuestionItemError as exc:

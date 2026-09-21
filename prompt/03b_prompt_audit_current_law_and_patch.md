@@ -45,6 +45,7 @@
 法令根拠が見つからないこと自体を理由に、技術問題を`isLawRelated=true`又は`hold`へ変更してはいけません。
 
 - 技術知識や計算だけで正誤を判断できる問題は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`とする。
+- `isLawRelated=false`で正誤を直接決める法令根拠がない技術問題は、03bで技術内容を再判定しない。02aで確定した`correctChoiceText`と03の解説を保持し、古い法令参照だけを除いて`not_law_related/secondary_verified`として閉じる。
 - `isLawRelated=false`から`true`へ変更する場合は、正誤を直接決める法令名、`lawId`、条番号を少なくとも一つ確認し、その接続をsidecarの`sourceSummary`へ残す。
 - 法令名が背景として現れるだけの問題や、資格別方針の「作らないケース」は法令問題にしない。
 - 法令肢と技術肢が混在する問題は、少なくとも一肢が法令関連なら問題全体を`isLawRelated=true`とする。選択肢別の`lawRevisionFacts`では、法令肢を`same_as_current`又は`updated_to_current_law`、技術肢を`auditStatus="not_law_related"`かつ`reviewState="secondary_verified"`として独立に確定する。
@@ -56,6 +57,7 @@
 - 公式過去問の元正答と、現行法ベースの学習用正誤を混同しない。
 - `answer_result_text`は試験当時の公式解答としてそのまま保持する。現行法上の正答番号又は正誤を表す文へ置き換えない。
 - 現行法で正誤が明らかに変わる場合だけ、正誤と解説を更新する。
+- `same_as_current`で既存の解説が工程03の検証を通る場合は、その本文を保持し、検証済み法令locatorの訂正に必要な箇所だけを更新する。計算式、数値の代入、途中計算及び結果を削除しない。法改正により解説を書き換える場合も、既存の有効なFlutter数式と計算過程を残す。
 - `updated_to_current_law`の公開確定は`tertiary_verified`後に限る。
 - 条文本文、法令名、条・項・号、基準日を確認できない場合は推測で`correctChoiceText`を変えない。
 - `primaryLawEvidence.examAsOfSource`は試験日の一次資料又はrecord上の根拠を示す。modelが別の日付を推測して置き換えない。
@@ -114,6 +116,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - 法令関連性と根拠候補は`18_law_context_prepared/`、解説と`lawRevisionFacts`は`21_explanationText_added/`へ反映する。
 - `isLawRelated=true`の全問に`lawRevisionFacts`を保存する。差分なしは`same_as_current`、未確定は`hold`とする。
 - 複数選択肢では`lawRevisionFacts`を選択肢順の配列とし、各`current.correctChoiceText`をトップレベルの同じ選択肢と一致させる。
+- `lawRevisionFacts`は`choiceTextList`と同じ件数にし、問題全体だけを説明する追加要素を末尾へ作らない。問題全体の要約は監査sidecarの`sourceSummary`等へ保存する。
 - `lawReferences`の`verified`は、法令名、`lawId`、条番号まで確認できた場合だけ使う。現行法は`current_basis`、確認済みの出題時法令は`exam_time_basis`とする。
 - 長い条文本文を保存せず、locatorとhashを残す。
 - `isLawRelated=true`では、正誤変更の有無にかかわらず、`explanationText`に検証済みの法令名、条項、別表又は公的基準名を明記する。正誤を変更した場合は、現行法に合わせたことと出題時正答との関係も受験者へ明示する。

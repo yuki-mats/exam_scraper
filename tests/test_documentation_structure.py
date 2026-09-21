@@ -323,9 +323,9 @@ class DocumentationStructureTests(unittest.TestCase):
             )
         )
         stages = {stage["id"]: stage for stage in workflow["stages"]}
-        self.assertEqual(stages["explanation"]["policy_version"], "10.1")
-        self.assertEqual(stages["law_audit"]["policy_version"], "4.5")
-        self.assertEqual(stages["law_context"]["policy_version"], "1.4")
+        self.assertEqual(stages["explanation"]["policy_version"], "10.2")
+        self.assertEqual(stages["law_audit"]["policy_version"], "4.6")
+        self.assertEqual(stages["law_context"]["policy_version"], "1.5")
 
     def test_qualification_specific_explanation_strategies_do_not_return(self):
         qualification_root = ROOT / "prompt" / "qualification_docs"
@@ -392,7 +392,7 @@ class DocumentationStructureTests(unittest.TestCase):
         self.assertIn("他の候補の判定と切り離して", prompt)
         self.assertIn("選択肢を見る前に導き", prompt)
         self.assertIn("該当候補の数だけでは決めません", prompt)
-        self.assertEqual(stages["question_type"]["policy_version"], "6.0")
+        self.assertEqual(stages["question_type"]["policy_version"], "6.1")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import re
+import unicodedata
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -13,11 +15,15 @@ from scripts.common.suggested_question_contract import (
 from scripts.common.explanation_contract import (
     explanation_shape_errors,
 )
-from scripts.common.aggregate_answer_decomposition import REVIEW_SCHEMA_VERSION
+from scripts.common.aggregate_answer_decomposition import (
+    REVIEW_SCHEMA_VERSION,
+    is_approved_target,
+)
 from scripts.common.explanation_references import explanation_reference_errors
 from scripts.common.question_answer_contract import (
     explicit_statement_question_intent,
     official_answer_alignment_issue,
+    parse_official_answer_numbers,
     question_level_answer_cardinality_issue,
 )
 from scripts.common.question_learning_patterns import QUESTION_LEARNING_PATTERN_IDS
@@ -60,6 +66,82 @@ _CORRECT_CHOICE_REQUIRES_VALID_INTENT = (
 
 class QuestionCandidateError(ValueError):
     pass
+
+
+def _aggregate_combination_expected_verdicts(
+    projected_record: Mapping[str, Any],
+    original_source_record: Mapping[str, Any] | None,
+) -> list[str] | None:
+    """Derive statement verdicts only for an unambiguous source combination."""
+
+    if not isinstance(original_source_record, Mapping):
+        return None
+    source_text = projected_record.get("questionBodyText")
+    decomposition = projected_record.get("aggregateAnswerDecomposition")
+    if not isinstance(source_text, str) or not is_approved_target(
+        decomposition,
+        source_text,
+    ):
+        return None
+    source_choices = original_source_record.get("choiceTextList")
+    current_choices = projected_record.get("choiceTextList")
+    if (
+        not isinstance(source_choices, list)
+        or not source_choices
+        or not isinstance(current_choices, list)
+        or not current_choices
+    ):
+        return None
+
+    def combination_labels(value: Any) -> tuple[str, ...] | None:
+        normalized = unicodedata.normalize("NFKC", str(value or "")).lower()
+        compact = re.sub(r"[\s,、，・/＋+&＆]", "", normalized)
+        if not re.fullmatch(r"[a-z]{2,}", compact):
+            return None
+        labels = tuple(compact)
+        return labels if len(set(labels)) == len(labels) else None
+
+    parsed_combinations = [combination_labels(value) for value in source_choices]
+    if any(value is None for value in parsed_combinations):
+        return None
+    official_numbers = parse_official_answer_numbers(
+        original_source_record.get("answer_result_text")
+    )
+    if len(official_numbers) != 1:
+        return None
+    official_index = official_numbers[0] - 1
+    if official_index < 0 or official_index >= len(parsed_combinations):
+        return None
+    selected_labels = set(parsed_combinations[official_index] or ())
+
+    statement_labels: list[str] = []
+    for value in current_choices:
+        normalized = unicodedata.normalize("NFKC", str(value or "")).lower()
+        match = re.match(r"^\s*([a-z])(?:\s|[.:：)）.、])", normalized)
+        if match is None:
+            return None
+        statement_labels.append(match.group(1))
+    if len(set(statement_labels)) != len(statement_labels):
+        return None
+    all_combination_labels = {
+        label
+        for combination in parsed_combinations
+        for label in (combination or ())
+    }
+    if all_combination_labels != set(statement_labels) or not selected_labels:
+        return None
+    intent = projected_record.get("questionIntent")
+    if intent == "select_correct":
+        return [
+            "正しい" if label in selected_labels else "間違い"
+            for label in statement_labels
+        ]
+    if intent == "select_incorrect":
+        return [
+            "間違い" if label in selected_labels else "正しい"
+            for label in statement_labels
+        ]
+    return None
 
 
 def aggregate_answer_review_schema(
@@ -1848,6 +1930,18 @@ def _validate_candidate_content_messages(
             official_answer_issue = official_answer_alignment_issue(logical)
             if official_answer_issue:
                 errors.append(official_answer_issue)
+        aggregate_expected = _aggregate_combination_expected_verdicts(
+            logical,
+            original_source_record,
+        )
+        if aggregate_expected is not None and correct != aggregate_expected:
+            errors.append(
+                "元の組合せ肢と公式解答から一意に決まる抽出記述の正誤順に"
+                "一致しません"
+                f"（期待={aggregate_expected} / 候補={correct}）。"
+                "元の組合せ肢単位のcorrectChoiceTextを抽出記述へ転記せず、"
+                "現在のa〜dの順で判定してください。"
+            )
     if any(target.role == "originalized" for target in target_values):
         try:
             validate_originalized_entry(

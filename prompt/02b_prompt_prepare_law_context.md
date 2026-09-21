@@ -30,6 +30,7 @@
 - `isLawRelated=false`: 法令・制度論点ではない。原則 `lawGroundedExplanationNotNeeded=true`。
 - `lawReferences` が非空なら、必ず `isLawRelated=true` かつ `lawGroundedExplanationNotNeeded=false`。
 - `isLawRelated=false` の問題に `lawReferences` を入れてはいけない。
+- JIS、技術基準又は工学上の一般則だけで正誤が決まる問題は、それが法令へ直接取り込まれ、又は法令が当該基準を直接参照して正誤を決めることを確認できない限り`isLawRelated=false`とする。技術用語や数値が法令にも現れ得るというだけで法令問題にしない。
 
 `lawGroundedExplanationNotNeeded` は旧「条文に基づき解説」導線との互換フラグです。AI解説・条文確認の正本は03bで作る `lawRevisionFacts` へ寄せます。02bでは、03/03bが迷わないように法令関連性と現行法根拠候補を準備します。
 
@@ -43,6 +44,8 @@
 - 選択肢単位で紐づく場合は `scope="choice"` とし、`choiceIndex` を 0-based で入れる。
 - 全体設問に紐づく場合は `scope="question"` にする。
 - `verified` にするのは、法令名、`lawId`、条番号まで一次情報相当で確認できた場合だけ。
+- 類似する条文を語句だけで選ばず、条文の見出し、規律対象、申請・登録の種類、義務を負う者が設問と一致するかを確認する。例えば貸金業者の登録拒否と貸金業務取扱主任者の登録拒否は別の規律として照合する。
+- 例外、代替、みなし又は「代えて」の規定は、元の義務のどこを置き換えるかと、なお残る交付・記載・手続の義務を分けて`lawContextForExplanation`へ残す。「代えられる」を「書面等が一切不要」と読み替えない。
 - 条文探索中の候補は `candidate` または `unverified` にする。
 - 条文本文は保存しない。
 - 既存の`lawReferences`に`lawId`と条番号又は保存済みURLがある場合は、その紐付け先の一次情報本文を最初に確認する。

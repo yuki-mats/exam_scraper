@@ -1,6 +1,7 @@
 import json
 import unittest
 
+from scripts.common.aggregate_answer_decomposition import source_text_hash
 from tools.question_review_console.question_candidate import (
     CANDIDATE_PAYLOAD_SCHEMA_VERSION,
     CANDIDATE_VALIDATION_ISSUE_SCHEMA_VERSION,
@@ -134,6 +135,93 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertTrue(
             any("検証済みsourceAnswerEvidence" in error for error in errors),
+            errors,
+        )
+
+    def test_candidate_rejects_original_combination_verdict_order(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2025/"
+                "23_correctChoiceText_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+            "selectedFieldsByStage": {
+                "correct_choice": ["correctChoiceText"]
+            },
+        }
+        targets = candidate_targets("q1", "correct_choice", plan)
+        candidate = _parse_prepared_candidates(
+            {
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "元の組合せ肢の正誤配列を転記した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:correct_choice",
+                                "setFields": [
+                                    {
+                                        "field": "correctChoiceText",
+                                        "value": [
+                                            "間違い",
+                                            "間違い",
+                                            "正しい",
+                                            "間違い",
+                                        ],
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        body = "適切なものの組合せを選べ。a 甲。b 乙。c 丙。d 丁。"
+        starts = [body.index(f"{label} ") for label in "abcd"]
+        spans = [
+            {
+                "start": start,
+                "end": starts[index + 1] if index + 1 < len(starts) else len(body),
+            }
+            for index, start in enumerate(starts)
+        ]
+        projected = {
+            "questionBodyText": body,
+            "choiceTextList": ["a 甲。", "b 乙。", "c 丙。", "d 丁。"],
+            "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+            "questionType": "true_false",
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は 3 です。",
+            "aggregateAnswerDecomposition": {
+                "schemaVersion": "aggregate-answer-decomposition/v1",
+                "sourceHash": source_text_hash(body),
+                "classification": "target",
+                "spans": spans,
+                "decision": "approve",
+                "issueCodes": [],
+            },
+        }
+        original = {
+            "questionBodyText": body,
+            "choiceTextList": ["ab", "ac", "bd", "cd"],
+            "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+            "answer_result_text": "正解は 3 です。",
+        }
+
+        errors = validate_candidate_content(
+            candidate,
+            targets,
+            projected,
+            original,
+        )
+
+        self.assertTrue(
+            any("抽出記述の正誤順" in error for error in errors),
             errors,
         )
 
