@@ -162,8 +162,7 @@ kind = "human"
 # 3.1: gassyunin URLとjudge対応を保持するFirestore snapshot 2問も同じ正答証拠契約で扱う。
 # 4.0: 「選択肢(N)はすべて正しい」の明示規約を、該当肢数Nではなく元の選択肢番号として照合する。
 # 5.0: 共通述語の否定を選択方向と分離し、分解済み組合せ問題の記述順正誤を機械照合して全問を洗い替える。
-# 5.1: 出典のない一般知識だけで、整合する公式解答と訂正文を衝突扱いしない。
-policy_version = "5.1"
+policy_version = "5.0"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
