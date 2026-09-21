@@ -503,6 +503,9 @@ _LAW_AUDIT_EXPLANATION_TEXT_RULE: dict[str, Any] = {
         " correctChoiceTextが変わらず、currentRecordの解説が品質検証を通る場合は、"
         "法令差分の反映が不要な選択肢の本文をそのまま保持する。計算問題では既存の"
         "数式、数値代入、等号、途中計算及び結果を削除しない。"
+        " currentRecordのlawRevisionFactsがupdated_to_current_lawかつ"
+        "tertiary_verifiedで、解説が現行法と出題時の扱いを既に区別している場合は、"
+        "そのexplanationTextを一字も変えずに返す。"
     ),
 }
 
@@ -518,9 +521,13 @@ _LAW_AUDIT_SUGGESTED_QUESTION_RULE: dict[str, Any] = {
 _CHOICE_DECISION_RULE: dict[str, Any] = {
     "type": "array",
     "description": (
-        "choiceTextListと必ず同じ件数にし、選択肢順の非空stringを入れる。"
+        "choiceTextListと必ず同じ件数にし、選択肢順に正しい又は間違いだけを入れる。"
+        "理由、条文、時点説明その他の文章を混ぜない。"
     ),
-    "items": {"type": "string", "minLength": 1},
+    "items": {
+        "type": "string",
+        "allowedValues": ["正しい", "間違い"],
+    },
 }
 
 _LAW_REFERENCES_RULE: dict[str, Any] = {

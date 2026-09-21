@@ -59,6 +59,8 @@
 - 現行法で正誤が明らかに変わる場合だけ、正誤と解説を更新する。
 - `same_as_current`で既存の解説が工程03の検証を通る場合は、その本文を保持し、検証済み法令locatorの訂正に必要な箇所だけを更新する。計算式、数値の代入、途中計算及び結果を削除しない。法改正により解説を書き換える場合も、既存の有効なFlutter数式と計算過程を残す。
 - `updated_to_current_law`の公開確定は`tertiary_verified`後に限る。
+- `examTimeDecision`と`currentLawDecision`には、選択肢順に`正しい`又は`間違い`だけを入れる。理由、条文、時点説明は各decisionへ混ぜず、`sourceSummary`、`verificationSummary`、`lawRevisionFacts`及び解説へ分ける。
+- 既存の`lawRevisionFacts`が`updated_to_current_law`かつ`tertiary_verified`で、現在の解説が現行法と出題時正答の違いを既に明示している場合は、その`explanationText`を一字も変えずに保持する。
 - 条文本文、法令名、条・項・号、基準日を確認できない場合は推測で`correctChoiceText`を変えない。
 - `primaryLawEvidence.examAsOfSource`は試験日の一次資料又はrecord上の根拠を示す。modelが別の日付を推測して置き換えない。
 - e-Gov等に出題時revisionがない場合は、現行法のみで監査できる。`examTime`に公式元正答と未参照理由を残し、出題時の`lawRevisionId`や根拠を作らない。

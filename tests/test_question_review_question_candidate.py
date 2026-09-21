@@ -1937,6 +1937,14 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertIn("choiceTextListと必ず同じ件数", rules["lawReferences"]["description"])
         self.assertIn("choiceTextListと必ず同じ件数", rules["examTimeDecision"]["description"])
         self.assertIn("choiceTextListと必ず同じ件数", rules["currentLawDecision"]["description"])
+        self.assertEqual(
+            rules["examTimeDecision"]["items"]["allowedValues"],
+            ["正しい", "間違い"],
+        )
+        self.assertEqual(
+            rules["currentLawDecision"]["items"]["allowedValues"],
+            ["正しい", "間違い"],
+        )
 
     def test_parses_only_allowed_problem_fields(self):
         targets = candidate_targets("q1", "explanation", self.plan())
