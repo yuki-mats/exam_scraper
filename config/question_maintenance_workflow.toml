@@ -100,11 +100,12 @@ kind = "human"
 # 6.0: 共通述語を各候補に補って個別判定する複数選択はtrue_falseとする一般境界を明確化する。
 # 6.1: 単一正答の独立記述もtrue_falseとする既存基準を明示し、schemaの重複分類規則を正本へ一本化する。
 # 6.2: 法令・規格の基準値と既記載値の単純比較を計算問題から除外する。
+# 6.3: 資格別文書も同じ境界へ統一し、基準値照合を計算問題へ戻さない。
 # 4.0: 複数選択問題をgroup_choiceではなく選択肢別true_falseとして再判定するため洗い替える。
 # 3.0: 全問題を二重read-onlyレビューした後にserver合意を作り、通常候補を生成するため洗い替える。
 # 2.0: isCalculationQuestionを既存問題にも再判定するため洗い替える。
 # 洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げる。
-policy_version = "6.2"
+policy_version = "6.3"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -172,7 +173,8 @@ kind = "human"
 # 5.5: 解説fieldを02aの正誤正本から除外し、解説候補の矛盾は03で修復する。
 # 5.6: 下線部番号肢の正誤を、参照先の語句単体ではなく設問述語込みで確定する。
 # 5.7: 下線部番号肢は参照先自体の正誤を記録し、対象系の条件を固定して別用途の一般論と分離する。
-policy_version = "5.7"
+# 5.8: server投影のcurrentRecordを判定対象本文とし、物理source内の解説断片を元肢と再誤認しない。
+policy_version = "5.8"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"

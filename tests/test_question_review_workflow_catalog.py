@@ -262,12 +262,23 @@ class WorkflowCatalogTests(unittest.TestCase):
 
         self.assertIn("法令や規格の基準値", question_type)
         self.assertIn("単純比較", question_type)
+        boiler1_guidance = (
+            ROOT / "prompt/qualification_docs/boiler1/README.md"
+        ).read_text(encoding="utf-8")
+        kashikin_guidance = (
+            ROOT / "prompt/qualification_docs/kashikin/02_law_reference_scope.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("計算問題として扱いません", boiler1_guidance)
+        self.assertIn("`isCalculationQuestion=false`", kashikin_guidance)
         self.assertIn("否定は選択方向", correct_choice)
         self.assertIn("否定がAとBの双方に掛かるのか", correct_choice)
         self.assertIn("条文の肯定条件`A又はBを満たすもの`の補集合", correct_choice)
         self.assertIn("元の問題文を訂正した証拠ではありません", correct_choice)
         self.assertIn("現行条文が異なる可能性だけを02aの衝突", correct_choice)
         self.assertIn("解説の食い違いだけで02aを`hold`", correct_choice)
+        self.assertIn("`currentRecord.questionBodyText`", correct_choice)
+        self.assertIn("repository内の物理ファイルを開いて別の本文を探しません", correct_choice)
+        self.assertIn("解説断片を原文として両者を入れ替えません", correct_choice)
         self.assertIn("番号は本文中の語句又は記述へのポインタ", correct_choice)
         self.assertIn("対象系の条件を先に固定", correct_choice)
         self.assertIn("元の組合せ肢4件", correct_choice)
@@ -522,9 +533,9 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["law_audit"], "5.4")
         self.assertEqual(version_by_stage["law_context"], "2.3")
         self.assertEqual(version_by_stage["originalize"], "2.9")
-        self.assertEqual(version_by_stage["question_type"], "6.2")
+        self.assertEqual(version_by_stage["question_type"], "6.3")
         self.assertEqual(version_by_stage["question_intent"], "5.2")
-        self.assertEqual(version_by_stage["correct_choice"], "5.7")
+        self.assertEqual(version_by_stage["correct_choice"], "5.8")
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],

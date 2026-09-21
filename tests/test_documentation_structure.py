@@ -398,7 +398,7 @@ class DocumentationStructureTests(unittest.TestCase):
         self.assertIn("他の候補の判定と切り離して", prompt)
         self.assertIn("選択肢を見る前に導き", prompt)
         self.assertIn("該当候補の数だけでは決めません", prompt)
-        self.assertEqual(stages["question_type"]["policy_version"], "6.2")
+        self.assertEqual(stages["question_type"]["policy_version"], "6.3")
 
 
 if __name__ == "__main__":

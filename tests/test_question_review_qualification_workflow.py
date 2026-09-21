@@ -982,7 +982,7 @@ class QualificationWorkflowTests(unittest.TestCase):
         )
         self.assertIn("23_correctChoiceText_fixed", prompt)
         self.assertIn("prompt/02a_prompt_review_correctChoiceText.md", prompt)
-        self.assertIn("correct_choice=v5.7", prompt)
+        self.assertIn("correct_choice=v5.8", prompt)
         canonical_prompt = (
             Path(__file__).resolve().parents[1]
             / "prompt"
