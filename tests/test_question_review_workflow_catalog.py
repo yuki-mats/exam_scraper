@@ -263,7 +263,8 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("元の問題文を訂正した証拠ではありません", correct_choice)
         self.assertIn("現行条文が異なる可能性だけを02aの衝突", correct_choice)
         self.assertIn("解説の食い違いだけで02aを`hold`", correct_choice)
-        self.assertIn("下線部Nの語句は誤っている", correct_choice)
+        self.assertIn("番号は本文中の語句又は記述へのポインタ", correct_choice)
+        self.assertIn("対象系の条件を先に固定", correct_choice)
         self.assertIn("元の組合せ肢4件", correct_choice)
         self.assertIn("条文の見出し、規律対象", law_context)
         self.assertIn("なお残る交付・記載・手続の義務", law_context)
@@ -504,7 +505,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 for stage in catalog["stages"]
                 if stage["id"] == "question_intent"
             ),
-            "5.1",
+            "5.2",
         )
         self.assertEqual(
             owned_fields["correct_choice"],
@@ -516,8 +517,8 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["law_context"], "2.3")
         self.assertEqual(version_by_stage["originalize"], "2.9")
         self.assertEqual(version_by_stage["question_type"], "6.1")
-        self.assertEqual(version_by_stage["question_intent"], "5.1")
-        self.assertEqual(version_by_stage["correct_choice"], "5.6")
+        self.assertEqual(version_by_stage["question_intent"], "5.2")
+        self.assertEqual(version_by_stage["correct_choice"], "5.7")
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
