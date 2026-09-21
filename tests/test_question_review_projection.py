@@ -272,6 +272,57 @@ class QuestionReviewProjectionTests(unittest.TestCase):
         )
         self.assertEqual(projected.errors, ())
 
+    def test_law_context_patch_overrides_stale_explanation_law_fields(self):
+        source = {
+            "original_question_id": "q1",
+            "questionBodyText": "法令上、正しいものを選べ。",
+            "choiceTextList": ["A", "B"],
+        }
+        law_context = PatchEntry(
+            Path("18.json"),
+            {
+                "original_question_id": "q1",
+                "isLawRelated": True,
+                "lawGroundedExplanationNotNeeded": False,
+                "lawReferences": [[{"lawName": "現行の根拠法令"}], []],
+                "lawContextForExplanation": "現行の根拠法令を使う。",
+            },
+        )
+        explanation = PatchEntry(
+            Path("21.json"),
+            {
+                "original_question_id": "q1",
+                "explanationText": ["Aの解説", "Bの解説"],
+                "lawRevisionFacts": {"auditStatus": "same_as_current"},
+                "lawReferences": [[{"lawName": "古い根拠法令"}], []],
+                "lawContextForExplanation": "古い根拠法令を使う。",
+            },
+        )
+
+        projected = project_merge_record(
+            source,
+            law_context=(law_context,),
+            explanation=(explanation,),
+        )
+
+        self.assertEqual(
+            projected.merged2["explanationText"],
+            ["Aの解説", "Bの解説"],
+        )
+        self.assertEqual(
+            projected.merged2["lawRevisionFacts"],
+            {"auditStatus": "same_as_current"},
+        )
+        self.assertEqual(
+            projected.merged2["lawReferences"],
+            [[{"lawName": "現行の根拠法令"}], []],
+        )
+        self.assertEqual(
+            projected.merged2["lawContextForExplanation"],
+            "現行の根拠法令を使う。",
+        )
+        self.assertEqual(projected.update_counts["law_context_merged2"], 4)
+
     def test_record_projection_does_not_classify_without_patch_files(self):
         projected = project_merge_record(
             {

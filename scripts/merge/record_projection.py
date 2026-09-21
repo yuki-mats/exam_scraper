@@ -301,6 +301,12 @@ def project_merge_record(
     counts["explanation"] = _apply_candidates(
         merged2, explanation, apply_explanation_fields
     )
+    # 18 is the canonical owner of the law-context contract.  Historical 21
+    # patches may still carry the same fields for backward compatibility, but
+    # they must not restore stale references after 02b has refreshed them.
+    counts["law_context_merged2"] = _apply_candidates(
+        merged2, law_context, apply_law_context_fields
+    )
     counts["question_set"] = _apply_candidates(
         merged2, question_set, apply_question_set
     )
