@@ -235,7 +235,8 @@ kind = "human"
 # 9.0: 七分類をquestionLearningPatternIdとして解説と同時に保存する。
 # 10.0: 条件と例外を分けた八分類へ更新し、法令・順序・計算の解説構成を初学者向けに統一する。
 # 10.1: AWSサービスの提供状況は、資格別正本で確認した新規受付と既存利用者の条件を分けて説明する。
-policy_version = "10.1"
+# 10.2: 誤り肢の訂正文と選択肢本文の差を正常系として扱い、正誤自体が矛盾する場合だけ02aへ戻す。
+policy_version = "10.2"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",

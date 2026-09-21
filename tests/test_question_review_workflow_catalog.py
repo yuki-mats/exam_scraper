@@ -470,7 +470,7 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "10.1")
+        self.assertEqual(version_by_stage["explanation"], "10.2")
         self.assertEqual(version_by_stage["law_audit"], "4.5")
         self.assertEqual(version_by_stage["law_context"], "1.4")
         self.assertEqual(version_by_stage["originalize"], "2.9")
@@ -646,6 +646,14 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("各工程の役割と次へ進める理由", prompt)
         self.assertIn("question_learning_patterns.json", prompt)
         self.assertIn("`間違い。正しくは、〜。`", prompt)
+        self.assertIn(
+            "解説に示す正しい命題が選択肢本文と異なるのは正常です",
+            prompt,
+        )
+        self.assertIn(
+            "正誤と矛盾する場合又は正誤を確定できない場合に限り",
+            prompt,
+        )
         self.assertIn("問題単位の解説は`正しい。`", prompt)
         self.assertIn("正しい記述は本文だけで完結していれば`正しい。`", prompt)
         self.assertIn("中学生でも意味を追える言葉", prompt)

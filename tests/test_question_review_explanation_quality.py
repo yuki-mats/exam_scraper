@@ -246,15 +246,25 @@ E &= \frac{V}{d} \\
 
         self.assertTrue(any("flutter_math_fork対応" in issue for issue in issues))
 
-    def test_calculation_rejects_inline_only_math(self):
+    def test_calculation_accepts_short_inline_arithmetic(self):
         issues = explanation_style_issues(
-            [r"正しい。\(E = V / d = 100 / 0.001 = 100000\)である。"],
+            [r"正しい。\(245\,\mathrm{m^2}\times2=490\,\mathrm{m^2}\)である。"],
+            ["正しい"],
+            choice_texts=["伝熱面積を求める。"],
+            is_calculation_question=True,
+        )
+
+        self.assertEqual(issues, [])
+
+    def test_calculation_rejects_formula_without_numeric_result(self):
+        issues = explanation_style_issues(
+            [r"正しい。\(E=V/d\)を用いる。"],
             ["正しい"],
             choice_texts=["電界の強さを求める。"],
             is_calculation_question=True,
         )
 
-        self.assertTrue(any("表示用" in issue for issue in issues))
+        self.assertTrue(any("数値の代入と結果" in issue for issue in issues))
 
     def test_rejects_unclosed_math_delimiter(self):
         issues = explanation_style_issues(

@@ -229,13 +229,11 @@ def _math_markup_issues(text: str, *, is_calculation_question: bool) -> list[str
             issues.append(
                 "計算問題は途中式をflutter_math_fork対応の数式として記述してください。"
             )
-        elif not any(segment.is_block for segment in segments):
-            issues.append("計算問題の途中式は表示用の$$...$$又は\\[...\\]で囲んでください。")
         combined = "\n".join(segment.content for segment in segments)
-        if segments and (combined.count("=") < 2 or not re.search(r"\d", combined)):
+        if segments and ("=" not in combined or not re.search(r"\d", combined)):
             issues.append(
-                "計算問題の数式には、一般式、数値の代入、途中計算又は最終値が"
-                "追えるよう、数字と2個以上の等号を含めてください。"
+                "計算問題の数式には、数値の代入と結果が追えるよう、数字と等号を"
+                "含めてください。複数段の計算は途中計算も示してください。"
             )
     return issues
 
