@@ -253,6 +253,9 @@ class WorkflowCatalogTests(unittest.TestCase):
         law_audit = (
             ROOT / "prompt/03b_prompt_audit_current_law_and_patch.md"
         ).read_text(encoding="utf-8")
+        explanation = (
+            ROOT / "prompt/03_prompt_add_explanationText.md"
+        ).read_text(encoding="utf-8")
 
         self.assertIn("否定は選択方向", correct_choice)
         self.assertIn("否定がAとBの双方に掛かるのか", correct_choice)
@@ -263,6 +266,9 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("なお残る交付・記載・手続の義務", law_context)
         self.assertIn("現行条文から正しい記述数を再計算しません", law_context)
         self.assertIn("正しく対応付けた`current_basis`を破棄", law_context)
+        self.assertIn("外側配列を`choiceTextList`と同じ件数・順序", law_context)
+        self.assertIn("条文の肯定条件`A又はBを満たすもの`の補集合", explanation)
+        self.assertIn("現行法だけの差は03bへ渡します", explanation)
         self.assertIn("03bで技術内容を再判定しない", law_audit)
         self.assertIn("既存の有効なFlutter数式", law_audit)
         self.assertIn("取得サイトが過去問の数値又は文言を現行法へ現在化", law_audit)
@@ -495,9 +501,9 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "10.3")
+        self.assertEqual(version_by_stage["explanation"], "10.4")
         self.assertEqual(version_by_stage["law_audit"], "5.2")
-        self.assertEqual(version_by_stage["law_context"], "2.1")
+        self.assertEqual(version_by_stage["law_context"], "2.2")
         self.assertEqual(version_by_stage["originalize"], "2.9")
         self.assertEqual(version_by_stage["question_type"], "6.1")
         self.assertEqual(version_by_stage["question_intent"], "5.0")

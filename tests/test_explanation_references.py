@@ -4,6 +4,7 @@ import unittest
 from datetime import datetime
 
 from scripts.common.explanation_references import (
+    dedupe_exact_explanation_references,
     explanation_reference_errors,
     normalize_explanation_references,
 )
@@ -16,6 +17,25 @@ from scripts.upload import upload_questions_to_firestore as upload_module
 
 
 class ExplanationReferencesTests(unittest.TestCase):
+    def test_exact_duplicates_are_deduped_but_conflicts_remain_visible(self) -> None:
+        reference = {
+            "title": "公式資料",
+            "sourceUrl": "https://example.com/reference",
+            "referenceDate": "2026-09-22",
+            "choiceIndex": 0,
+        }
+        conflicting = {**reference, "title": "別の資料名"}
+
+        self.assertEqual(
+            dedupe_exact_explanation_references([reference, dict(reference)]),
+            [reference],
+        )
+        retained = dedupe_exact_explanation_references([reference, conflicting])
+        self.assertEqual(len(retained), 2)
+        self.assertTrue(
+            any("重複" in error for error in explanation_reference_errors(retained))
+        )
+
     def test_contract_accepts_minimal_official_reference(self) -> None:
         references = [
             {

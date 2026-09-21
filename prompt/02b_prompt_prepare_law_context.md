@@ -42,6 +42,7 @@
 資格別方針で `lawReferences` を出す資格では、現行法の根拠候補をできるだけ02bで作ります。
 
 - 現行法根拠は `role="current_basis"` にする。
+- 選択肢別の`lawReferences`は外側配列を`choiceTextList`と同じ件数・順序にし、根拠がない肢も`[]`で位置を保持する。肢を省略又は前詰めしない。
 - 選択肢単位で紐づく場合は `scope="choice"` とし、`choiceIndex` を 0-based で入れる。
 - 全体設問に紐づく場合は `scope="question"` にする。
 - `verified` にするのは、法令名、`lawId`、条番号まで一次情報相当で確認できた場合だけ。

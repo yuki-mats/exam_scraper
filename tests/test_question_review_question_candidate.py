@@ -9,6 +9,7 @@ from tools.question_review_console.question_candidate import (
     QuestionCandidateError,
     candidate_targets,
     output_schema,
+    _normalized_candidate_value,
     _parse_prepared_candidates,
     parse_model_candidate_v3,
     parse_prepared_candidate_payload,
@@ -20,6 +21,20 @@ from tools.question_review_console.question_candidate import (
 
 
 class QuestionCandidateTest(unittest.TestCase):
+    def test_candidate_normalization_dedupes_identical_explanation_references(self):
+        reference = {
+            "title": "公式資料",
+            "sourceUrl": "https://example.com/reference",
+            "referenceDate": "2026-09-22",
+            "choiceIndex": 0,
+        }
+        self.assertEqual(
+            _normalized_candidate_value(
+                "explanationReferences", [reference, dict(reference)]
+            ),
+            [reference],
+        )
+
     @staticmethod
     def _question_intent_candidate(value):
         plan = {

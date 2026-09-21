@@ -192,7 +192,8 @@ kind = "human"
 # 1.4: 公式試験日catalogと枝番を含むlocatorを使い、出題時・現在時点の本文を決定的に比較する。
 # 2.0: 条文の規律対象と代替規定の残存義務を照合し、技術基準への誤った法令紐付けを全問で洗い替える。
 # 2.1: 出題時正誤の再判定を02a、現行法差分の確定を03bへ戻し、02bは正しい根拠候補を渡す。
-policy_version = "2.1"
+# 2.2: 選択肢別lawReferencesの外側配列をchoiceTextListと同じ件数・順序で保持する。
+policy_version = "2.2"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -243,7 +244,8 @@ kind = "human"
 # 10.1: AWSサービスの提供状況は、資格別正本で確認した新規受付と既存利用者の条件を分けて説明する。
 # 10.2: 誤り肢の訂正文と選択肢本文の差を正常系として扱い、正誤自体が矛盾する場合だけ02aへ戻す。
 # 10.3: 根拠URLの同一対象内重複と、正しい肢の再掲を検証結果に従って解消する。
-policy_version = "10.3"
+# 10.4: 共有否定を論理正規化し、出題時解説と現行法監査の責務を分離する。
+policy_version = "10.4"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",

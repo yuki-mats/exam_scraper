@@ -13,6 +13,19 @@ EXPLANATION_REFERENCE_FIELDS = {
 }
 
 
+def dedupe_exact_explanation_references(value: object) -> object:
+    """Remove only exact duplicates; keep conflicting metadata visible."""
+
+    if not isinstance(value, list):
+        return value
+    deduped: list[object] = []
+    for reference in value:
+        if any(reference == existing for existing in deduped):
+            continue
+        deduped.append(reference)
+    return deduped
+
+
 def explanation_reference_errors(value: object) -> list[str]:
     """Validate the small, qualification-agnostic official-reference contract."""
 

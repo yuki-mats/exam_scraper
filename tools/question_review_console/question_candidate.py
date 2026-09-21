@@ -19,7 +19,10 @@ from scripts.common.aggregate_answer_decomposition import (
     REVIEW_SCHEMA_VERSION,
     is_approved_target,
 )
-from scripts.common.explanation_references import explanation_reference_errors
+from scripts.common.explanation_references import (
+    dedupe_exact_explanation_references,
+    explanation_reference_errors,
+)
 from scripts.common.question_answer_contract import (
     explicit_statement_question_intent,
     official_answer_alignment_issue,
@@ -956,6 +959,8 @@ SERVER_OWNED_LAW_AUDIT_FIELDS = frozenset(
 
 
 def _normalized_candidate_value(field: str, value: Any) -> Any:
+    if field == "explanationReferences":
+        return dedupe_exact_explanation_references(value)
     if field != "tertiaryAuditRunId":
         return value
     if value is None:
