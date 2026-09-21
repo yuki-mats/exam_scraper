@@ -667,7 +667,18 @@ def materialize_decomposition(
     source_text = source_question.get("questionBodyText")
     if not isinstance(source_text, str):
         raise ValueError("questionBodyText must be string")
-    decomposition = reconcile_reviews(source_text, reviews)
+    raw_choices = source_question.get("_aggregateSourceChoiceTextList")
+    if not isinstance(raw_choices, list):
+        raw_choices = source_question.get("choiceTextList")
+    candidate_set = generate_statement_candidates(
+        source_text,
+        raw_choices if isinstance(raw_choices, list) else None,
+    )
+    decomposition = reconcile_reviews(
+        source_text,
+        reviews,
+        candidate_set=candidate_set,
+    )
     result: dict[str, Any] = {
         "aggregateAnswerDecomposition": decomposition,
     }

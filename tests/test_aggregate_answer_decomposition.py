@@ -74,6 +74,40 @@ class AggregateAnswerDecompositionTests(unittest.TestCase):
             ],
         )
 
+    def test_materialize_uses_source_choices_for_kana_e_ocr_alias(self) -> None:
+        source_text = (
+            "組合せを選べ。\n"
+            "ア　第一の記述。\n"
+            "イ　第二の記述。\n"
+            "ウ　第三の記述。\n"
+            "工　第四の記述。"
+        )
+        source_question = {
+            "canonical_question_key": "sample:2026:q001",
+            "questionBodyText": source_text,
+            "choiceTextList": ["アとウとエ", "イとエ"],
+        }
+        candidate = generate_statement_candidates(
+            source_text,
+            source_question["choiceTextList"],
+        )["candidates"][0]
+        review = {
+            "schemaVersion": REVIEW_SCHEMA_VERSION,
+            "sourceHash": source_text_hash(source_text),
+            "classification": "target",
+            "candidateId": candidate["candidateId"],
+            "decision": "approve",
+            "issueCodes": [],
+        }
+
+        materialized = materialize_decomposition(
+            source_question,
+            [review, dict(review)],
+        )
+
+        self.assertEqual(len(materialized["choiceTextList"]), 4)
+        self.assertEqual(materialized["choiceTextList"][-1], "工　第四の記述。")
+
     def test_lowercase_period_markers_extract_inline_source_slices(self) -> None:
         source_text = (
             "次の記述のうち、正しいものの組合せはどれか。"
