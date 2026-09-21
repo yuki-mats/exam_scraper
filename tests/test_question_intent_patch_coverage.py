@@ -29,6 +29,10 @@ class QuestionIntentPatchCoverageTests(unittest.TestCase):
                 "questionBodyText": (
                     "次の記述のうち、誤っているものはいくつあるか。"
                 ),
+                "choiceTextList": [
+                    "条件Aを満たす。",
+                    "条件Bを満たさない。",
+                ],
             }
         ]
         patch = [
@@ -55,6 +59,7 @@ class QuestionIntentPatchCoverageTests(unittest.TestCase):
                 "questionBodyText": (
                     "次の設備のうち、この規定に該当しないものはどれか。"
                 ),
+                "choiceTextList": ["設備A", "設備B"],
             }
         ]
         patch = [

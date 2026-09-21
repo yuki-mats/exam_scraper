@@ -2053,6 +2053,9 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertIn("実際に確認した資料と該当内容", prompt)
         self.assertIn("元解説へ自動追随", prompt)
         self.assertIn("各選択肢を同じ根拠基準で独立に判定", prompt)
+        self.assertIn("問題文の述語を否定語も含めて一度だけ補い", prompt)
+        self.assertIn("振動レベルは検査項目に含まれない", prompt)
+        self.assertIn("questionIntent`に合わせて再反転しません", prompt)
 
     def test_structured_candidate_prompt_contains_canonical_guidance(self):
         target = {

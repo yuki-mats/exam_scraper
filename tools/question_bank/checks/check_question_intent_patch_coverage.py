@@ -83,7 +83,10 @@ def compare_entries(
         source_body = match.source.get("questionBodyText")
         if not isinstance(source_body, str) or not source_body.strip():
             source_body = match.source.get("originalQuestionBodyText")
-        explicit_intent = explicit_statement_question_intent(source_body)
+        explicit_intent = explicit_statement_question_intent(
+            source_body,
+            match.source.get("choiceTextList"),
+        )
         if explicit_intent is not None and intent != explicit_intent:
             errors.append(
                 f"index {idx}: questionIntent conflicts with the explicit "

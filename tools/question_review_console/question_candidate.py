@@ -397,7 +397,9 @@ _CORRECT_CHOICE_TEXT_RULE: dict[str, Any] = {
         "questionTypeにかかわらずchoiceTextListと必ず同じ件数にし、"
         "選択肢順に正しい又は間違いを入れる。正解、不正解、誤り等の"
         "表記ゆれは使わない。flash_cardとgroup_choiceでも正答だけへ縮めず、"
-        "全選択肢分を保持する。"
+        "全選択肢分を保持する。名詞句等の断片肢では、問題文の述語を否定語も"
+        "含めて一度だけ補った完全命題を直接判定する。元の肯定命題へ置き換えて"
+        "から、公式解答又はquestionIntentに合わせて再反転しない。"
     ),
     "items": {
         "type": "string",

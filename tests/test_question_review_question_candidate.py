@@ -1309,6 +1309,8 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertIn("choiceTextListと必ず同じ件数", rule["description"])
         self.assertIn("表記ゆれは使わない", rule["description"])
+        self.assertIn("問題文の述語を否定語も含めて一度だけ補った完全命題", rule["description"])
+        self.assertIn("questionIntentに合わせて再反転しない", rule["description"])
         self.assertEqual(rule["items"]["allowedValues"], ["正しい", "間違い"])
 
     def test_question_intent_target_cannot_update_correct_choice(self):
