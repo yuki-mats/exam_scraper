@@ -244,6 +244,9 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertNotIn("question_bank.py quality-gate", prompt)
 
     def test_review_prompts_preserve_selection_and_existing_explanation_contracts(self):
+        question_type = (
+            ROOT / "prompt/01_prompt_fix_questionType.md"
+        ).read_text(encoding="utf-8")
         correct_choice = (
             ROOT / "prompt/02a_prompt_review_correctChoiceText.md"
         ).read_text(encoding="utf-8")
@@ -257,6 +260,8 @@ class WorkflowCatalogTests(unittest.TestCase):
             ROOT / "prompt/03_prompt_add_explanationText.md"
         ).read_text(encoding="utf-8")
 
+        self.assertIn("法令や規格の基準値", question_type)
+        self.assertIn("単純比較", question_type)
         self.assertIn("否定は選択方向", correct_choice)
         self.assertIn("否定がAとBの双方に掛かるのか", correct_choice)
         self.assertIn("条文の肯定条件`A又はBを満たすもの`の補集合", correct_choice)
@@ -274,6 +279,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("更新期限だけを定める項を根拠にしない", law_context)
         self.assertIn("条文の肯定条件`A又はBを満たすもの`の補集合", explanation)
         self.assertIn("同じ境界を述べる場合は矛盾ではない", explanation)
+        self.assertIn("選択肢本文を丸ごと再掲", explanation)
         self.assertIn("YはEに含まれない", explanation)
         self.assertIn("表示文言が現在化された候補", explanation)
         self.assertIn("`lawRevisionFacts`未作成は停止理由にしません", explanation)
@@ -512,11 +518,11 @@ class WorkflowCatalogTests(unittest.TestCase):
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "10.6")
+        self.assertEqual(version_by_stage["explanation"], "10.7")
         self.assertEqual(version_by_stage["law_audit"], "5.4")
         self.assertEqual(version_by_stage["law_context"], "2.3")
         self.assertEqual(version_by_stage["originalize"], "2.9")
-        self.assertEqual(version_by_stage["question_type"], "6.1")
+        self.assertEqual(version_by_stage["question_type"], "6.2")
         self.assertEqual(version_by_stage["question_intent"], "5.2")
         self.assertEqual(version_by_stage["correct_choice"], "5.7")
         self.assertEqual(version_by_stage["question_set"], "2.0")

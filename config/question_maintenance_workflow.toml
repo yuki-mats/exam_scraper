@@ -99,11 +99,12 @@ kind = "human"
 # 5.2: 単一の計算結果に最も近い数値候補を選ぶ問題はflash_cardであることを明確化する。
 # 6.0: 共通述語を各候補に補って個別判定する複数選択はtrue_falseとする一般境界を明確化する。
 # 6.1: 単一正答の独立記述もtrue_falseとする既存基準を明示し、schemaの重複分類規則を正本へ一本化する。
+# 6.2: 法令・規格の基準値と既記載値の単純比較を計算問題から除外する。
 # 4.0: 複数選択問題をgroup_choiceではなく選択肢別true_falseとして再判定するため洗い替える。
 # 3.0: 全問題を二重read-onlyレビューした後にserver合意を作り、通常候補を生成するため洗い替える。
 # 2.0: isCalculationQuestionを既存問題にも再判定するため洗い替える。
 # 洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げる。
-policy_version = "6.1"
+policy_version = "6.2"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -254,7 +255,8 @@ kind = "human"
 # 10.4: 共有否定を論理正規化し、出題時解説と現行法監査の責務を分離する。
 # 10.5: 肯定条件とその補集合を同じ境界として照合し、lawRevisionFacts未作成を03の停止理由にしない。
 # 10.6: 除外集合とその例外を正規化し、取得サイトの現在化候補を03bへ渡す。
-policy_version = "10.6"
+# 10.7: 正しい肢の追加根拠は選択肢全文の再掲後でなく、原則・例外・主体・条文位置から書き始める。
+policy_version = "10.7"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",
