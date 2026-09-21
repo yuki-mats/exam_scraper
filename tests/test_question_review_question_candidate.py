@@ -3291,7 +3291,7 @@ class QuestionCandidateTest(unittest.TestCase):
         invalid_values = [
             '{"decision":"blocked","decision":"candidate","summary":"x","update":{"setFields":[],"unsetFields":[]}}',
             '{"decision":"candidate","summary":"x","extra":1,"update":{"setFields":[],"unsetFields":[]}}',
-            '{"decision":"candidate","summary":"x","update":{"setFields":[{"field":"questionType","value":"true_false"},{"field":"questionType","value":"true_false"}],"unsetFields":[]}}',
+            '{"decision":"candidate","summary":"x","update":{"setFields":[{"field":"questionType","value":"true_false"},{"field":"questionType","value":"group_choice"}],"unsetFields":[]}}',
             '{"decision":"candidate","summary":"x","update":{"setFields":[],"unsetFields":["questionType","questionType"]}}',
             '{"decision":"candidate","summary":"x","update":{"setFields":[{"field":"questionType","value":"true_false"}],"unsetFields":["questionType"]}}',
             '{"decision":"candidate","summary":"x","update":{"setFields":[{"field":"isCalculationQuestion","value":"false"}],"unsetFields":[]}}',
@@ -3317,9 +3317,9 @@ class QuestionCandidateTest(unittest.TestCase):
             (
                 '{"decision":"candidate","summary":"x","update":'
                 '{"setFields":[{"field":"questionType","value":"true_false"},'
-                '{"field":"questionType","value":"true_false"}],'
+                '{"field":"questionType","value":"group_choice"}],'
                 '"unsetFields":[]}}',
-                "fieldが重複しています: questionType",
+                "fieldに異なる値が重複しています: questionType",
             ),
             (
                 '{"decision":"candidate","summary":"x","update":'
@@ -3335,6 +3335,28 @@ class QuestionCandidateTest(unittest.TestCase):
                     expected_message,
                 ):
                     parse_model_candidate_v3(payload, ["q1"], {"q1": targets})
+
+    def test_semantic_v3_normalizes_same_field_same_value_duplicate(self):
+        targets = candidate_targets("q1", "question_type", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/10_questionType_fixed/patch.json"
+            ],
+            "allowedWriteFiles": [],
+        })
+        candidate = parse_model_candidate_v3(
+            '{"decision":"candidate","summary":"x","update":'
+            '{"setFields":[{"field":"questionType","value":"true_false"},'
+            '{"field":"questionType","value":"true_false"},'
+            '{"field":"isCalculationQuestion","value":false}],'
+            '"unsetFields":[]}}',
+            ["q1"],
+            {"q1": targets},
+        )[0]
+
+        self.assertEqual(
+            candidate.updates[0].set_fields,
+            {"questionType": "true_false", "isCalculationQuestion": False},
+        )
 
     def test_semantic_v3_requires_exactly_one_question_and_empty_blocked_update(self):
         targets = candidate_targets("q1", "question_type", {

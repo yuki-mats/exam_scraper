@@ -1805,13 +1805,16 @@ def _parse_semantic_candidate(
                 "setFieldsに対象外fieldがあります: "
                 f"{field} / allowed={','.join(sorted(rules))}"
             )
-        if field in values:
-            raise QuestionCandidateError(
-                f"setFieldsのfieldが重複しています: {field}"
-            )
         if not _matches_rule(item.get("value"), rules[field]):
             raise QuestionCandidateError(f"setFields.valueの型が不正です: {field}")
-        values[field] = _normalized_candidate_value(field, item.get("value"))
+        normalized_value = _normalized_candidate_value(field, item.get("value"))
+        if field in values:
+            if values[field] != normalized_value:
+                raise QuestionCandidateError(
+                    f"setFieldsのfieldに異なる値が重複しています: {field}"
+                )
+            continue
+        values[field] = normalized_value
     if (
         any(not isinstance(field, str) or field not in rules for field in unset_fields)
         or len(unset_fields) != len(set(unset_fields))
@@ -2062,8 +2065,31 @@ def _validate_candidate_content_messages(
                 if not current_shape and isinstance(current_explanations, list)
                 else current_shape
             )
+            calculation_regression = False
             if (
-                explanation_issues
+                logical.get("isCalculationQuestion") is True
+                and isinstance(current_explanations, list)
+                and len(current_explanations) == len(explanations)
+            ):
+                def has_numeric_equation(value: Any) -> bool:
+                    text = str(value or "")
+                    return (
+                        (r"\(" in text or r"\[" in text)
+                        and "=" in text
+                        and re.search(r"\d", text) is not None
+                    )
+
+                calculation_regression = any(
+                    has_numeric_equation(current_value)
+                    and not has_numeric_equation(candidate_value)
+                    for current_value, candidate_value in zip(
+                        current_explanations,
+                        explanations,
+                        strict=True,
+                    )
+                )
+            if (
+                (explanation_issues or calculation_regression)
                 and not current_issues
                 and logical.get("correctChoiceText")
                 == projected_record.get("correctChoiceText")

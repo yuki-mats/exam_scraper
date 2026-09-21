@@ -4289,6 +4289,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             prompt,
         )
         self.assertIn("candidateSetsが空又は不完全であることだけを理由にholdにしない", prompt)
+        self.assertIn("工をエのOCR表記揺れとして境界候補へ含める", prompt)
         self.assertIn('"choiceTextList":["アとイ","アのみ"]', prompt)
         self.assertIn("前提や入力を含まないcandidateId", prompt)
         self.assertIn("正誤を解かず", prompt)

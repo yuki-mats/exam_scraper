@@ -40,6 +40,40 @@ def approved_review() -> dict[str, object]:
 
 
 class AggregateAnswerDecompositionTests(unittest.TestCase):
+    def test_kana_e_ocr_alias_requires_matching_answer_choice_labels(self) -> None:
+        source_text = (
+            "組合せを選べ。\n"
+            "ア　第一の記述。\n"
+            "イ　第二の記述。\n"
+            "ウ　第三の記述。\n"
+            "工　第四の記述。"
+        )
+
+        without_choices = generate_statement_candidates(source_text)
+        with_choices = generate_statement_candidates(
+            source_text,
+            ["アとウとエ", "イとエ"],
+        )
+
+        self.assertEqual(
+            len(without_choices["candidates"][0]["spans"]),
+            3,
+        )
+        self.assertEqual(len(with_choices["candidates"]), 1)
+        candidate = with_choices["candidates"][0]
+        self.assertEqual(
+            [
+                source_text[span["start"] : span["end"]]
+                for span in candidate["spans"]
+            ],
+            [
+                "ア　第一の記述。",
+                "イ　第二の記述。",
+                "ウ　第三の記述。",
+                "工　第四の記述。",
+            ],
+        )
+
     def test_lowercase_period_markers_extract_inline_source_slices(self) -> None:
         source_text = (
             "次の記述のうち、正しいものの組合せはどれか。"

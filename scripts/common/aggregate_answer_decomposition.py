@@ -50,6 +50,7 @@ _LIST_SPACE = r"[ \t\u3000\u00a0]"
 _LIST_BOUNDARY = rf"(?P<boundary>^|[\r\n。！？]){_LIST_SPACE}*"
 _CIRCLED_DIGITS = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳"
 _KANA_LABELS = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワ"
+_KANA_MARKER_LABELS = _KANA_LABELS + "工"
 _TRAILING_NOTE = re.compile(
     rf"\r?\n{_LIST_SPACE}*[（(]注(?:{_LIST_SPACE}*[0-9０-９]+)?[）)]"
 )
@@ -102,7 +103,7 @@ _MARKER_PATTERNS = (
     (
         "kana_bracket",
         re.compile(
-            rf"{_LIST_BOUNDARY}(?P<marker>【{_LIST_SPACE}*(?P<label>[{_KANA_LABELS}]){_LIST_SPACE}*】){_LIST_SPACE}*",
+            rf"{_LIST_BOUNDARY}(?P<marker>【{_LIST_SPACE}*(?P<label>[{_KANA_MARKER_LABELS}]){_LIST_SPACE}*】){_LIST_SPACE}*",
             re.MULTILINE,
         ),
     ),
@@ -123,7 +124,7 @@ _MARKER_PATTERNS = (
     (
         "kana",
         re.compile(
-            rf"{_LIST_BOUNDARY}(?P<marker>(?P<label>[{_KANA_LABELS}])){_LIST_SPACE}+",
+            rf"{_LIST_BOUNDARY}(?P<marker>(?P<label>[{_KANA_MARKER_LABELS}])){_LIST_SPACE}+",
             re.MULTILINE,
         ),
     ),
@@ -139,6 +140,8 @@ def _marker_ordinal(family: str, label: str) -> int:
     if family == "number_parenthesis":
         return int(label)
     if family.startswith("kana"):
+        if label == "工":
+            return _KANA_LABELS.index("エ")
         return _KANA_LABELS.index(label)
     raise ValueError("unsupported statement marker family")
 
@@ -176,7 +179,28 @@ def statement_candidate_id(
     return f"candidate:{digest[:24]}"
 
 
-def generate_statement_candidates(source_text: str) -> dict[str, Any]:
+def _allow_kana_e_ocr_alias(
+    source_text: str,
+    choice_texts: Sequence[Any] | None,
+) -> bool:
+    """Recognize only the mechanically provable アイウ工 -> アイウエ label typo."""
+
+    if not choice_texts:
+        return False
+    compact_source = re.sub(r"[ \t\u3000\u00a0]", "", source_text)
+    if not all(label in compact_source for label in ("ア", "イ", "ウ", "工")):
+        return False
+    compact_choices = "".join(
+        re.sub(r"[ \t\u3000\u00a0]", "", str(value or ""))
+        for value in choice_texts
+    )
+    return "エ" in compact_choices and "工" not in compact_choices
+
+
+def generate_statement_candidates(
+    source_text: str,
+    choice_texts: Sequence[Any] | None = None,
+) -> dict[str, Any]:
     """Mechanically enumerate sequential list-marker runs in the immutable source."""
 
     source_hash = source_text_hash(source_text)
@@ -184,6 +208,11 @@ def generate_statement_candidates(source_text: str) -> dict[str, Any]:
     occupied_starts: set[int] = set()
     for family, pattern in _MARKER_PATTERNS:
         for match in pattern.finditer(source_text):
+            if match.group("label") == "工" and not _allow_kana_e_ocr_alias(
+                source_text,
+                choice_texts,
+            ):
+                continue
             start = match.start("marker")
             if start in occupied_starts:
                 continue
