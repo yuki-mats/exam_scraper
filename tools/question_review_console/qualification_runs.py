@@ -2427,6 +2427,7 @@ def _structured_candidate_inputs(
             question_id,
             stage_id,
             question_plan,
+            current_record=records[question_id],
         )
         binding = SourceIdentityBinding.from_mapping(raw_target)
         scopes = question_plan.get("targetRecordScopes") or {}
@@ -12667,6 +12668,7 @@ class QualificationRunCoordinator:
                     question_id,
                     stage_id,
                     scoped_plan,
+                    current_record=projection["record"],
                 )
                 binding = SourceIdentityBinding.from_mapping(target)
                 scopes = scoped_plan.get("targetRecordScopes") or {}

@@ -1048,6 +1048,8 @@ def candidate_targets(
     question_id: str,
     stage_id: str,
     plan: Mapping[str, Any],
+    *,
+    current_record: Mapping[str, Any] | None = None,
 ) -> tuple[CandidateTarget, ...]:
     stage_roles = _STAGE_ROLES.get(str(stage_id), frozenset())
     if not stage_roles:
@@ -1066,6 +1068,51 @@ def candidate_targets(
     if stage_id == "law_audit":
         selected_fields -= SERVER_OWNED_LAW_AUDIT_FIELDS
         selected_fields.discard("questionLearningPatternId")
+        if current_record is not None:
+            choices = current_record.get("choiceTextList")
+            choice_count = len(choices) if isinstance(choices, list) else 0
+            verified_current_law = (
+                verified_current_law_verdicts(
+                    current_record.get("lawRevisionFacts"),
+                    choice_count=choice_count,
+                )
+                if choice_count
+                else None
+            )
+            explanations = current_record.get("explanationText")
+            explanation_shape = explanation_shape_errors(
+                explanations,
+                question_type=current_record.get("questionType"),
+                choice_count=choice_count,
+            )
+            explanation_style = (
+                explanation_style_issues(
+                    explanations,
+                    verified_current_law,
+                    choice_texts=choices,
+                    question_type=current_record.get("questionType"),
+                    is_calculation_question=current_record.get(
+                        "isCalculationQuestion"
+                    )
+                    is True,
+                )
+                if not explanation_shape and isinstance(explanations, list)
+                else explanation_shape
+            )
+            has_valid_public_explanation = bool(
+                not explanation_shape
+                and not explanation_style
+                and not law_evidence_utilization_issues(dict(current_record))
+            )
+            if verified_current_law and has_valid_public_explanation:
+                # 03b has already independently established the current-law
+                # verdict and the public explanation satisfies its temporal
+                # disclosure.  Preserve that text and let the audit update only
+                # unresolved metadata or the canonical answer patch.  Asking the
+                # model to rewrite valid prose makes a retry less reliable and
+                # can regress an already verified explanation.
+                selected_fields.discard("explanationText")
+                selected_fields.discard("suggestedQuestionDetailsByChoice")
     supported_fields = set().union(*(_FIELDS_BY_ROLE[role] for role in stage_roles))
     unsupported_fields = selected_fields - supported_fields
     if unsupported_fields:

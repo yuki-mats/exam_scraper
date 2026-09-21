@@ -1946,6 +1946,90 @@ class QuestionCandidateTest(unittest.TestCase):
             ["正しい", "間違い"],
         )
 
+    def test_law_audit_preserves_verified_current_law_explanation(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/18_law_context_prepared/patch.json",
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026_law_revision_audit.jsonl"
+            ],
+        }
+        current_record = {
+            "choiceTextList": ["記述A"],
+            "isLawRelated": True,
+            "explanationText": [
+                "間違い。現行法では要件が変わる。出題時は正しい扱いだった。"
+            ],
+            "suggestedQuestionDetailsByChoice": [],
+            "lawRevisionFacts": [
+                {
+                    "auditStatus": "updated_to_current_law",
+                    "reviewState": "tertiary_verified",
+                    "examTime": {"correctChoiceText": "正しい"},
+                    "current": {"correctChoiceText": "間違い"},
+                }
+            ],
+        }
+
+        targets = candidate_targets(
+            "q1",
+            "law_audit",
+            plan,
+            current_record=current_record,
+        )
+
+        self.assertTrue(targets)
+        self.assertTrue(
+            all("explanationText" not in target.allowed_fields for target in targets)
+        )
+        self.assertTrue(
+            all(
+                "suggestedQuestionDetailsByChoice" not in target.allowed_fields
+                for target in targets
+            )
+        )
+        audit = next(target for target in targets if target.role == "law_audit")
+        self.assertIn("currentLawDecision", audit.allowed_fields)
+        correct = next(target for target in targets if target.role == "correct_choice")
+        self.assertIn("correctChoiceText", correct.allowed_fields)
+
+    def test_law_audit_rewrites_unverified_current_law_explanation(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json"
+            ],
+            "allowedWriteFiles": [
+                "output/sample/review/law_revision_audit/2026_law_revision_audit.jsonl"
+            ],
+        }
+        current_record = {
+            "choiceTextList": ["記述A"],
+            "isLawRelated": True,
+            "explanationText": ["間違い。要件が変わった。"],
+            "lawRevisionFacts": [
+                {
+                    "auditStatus": "updated_to_current_law",
+                    "reviewState": "tertiary_verified",
+                    "examTime": {"correctChoiceText": "正しい"},
+                    "current": {"correctChoiceText": "間違い"},
+                }
+            ],
+        }
+
+        targets = candidate_targets(
+            "q1",
+            "law_audit",
+            plan,
+            current_record=current_record,
+        )
+
+        self.assertTrue(
+            any("explanationText" in target.allowed_fields for target in targets)
+        )
+
     def test_parses_only_allowed_problem_fields(self):
         targets = candidate_targets("q1", "explanation", self.plan())
         payload = {

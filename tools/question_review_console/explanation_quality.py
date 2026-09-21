@@ -33,6 +33,7 @@ TEX_SIZE_COMMAND = re.compile(
 CURRENT_LAW_TERMS = ("現行法", "現在", "現行")
 EXAM_TIME_TERMS = (
     "出題当時",
+    "出題時",
     "出題時点",
     "当時",
     "試験当時",
