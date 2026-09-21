@@ -256,6 +256,8 @@ class WorkflowCatalogTests(unittest.TestCase):
 
         self.assertIn("否定は選択方向", correct_choice)
         self.assertIn("否定がAとBの双方に掛かるのか", correct_choice)
+        self.assertIn("条文の肯定条件`A又はBを満たすもの`の補集合", correct_choice)
+        self.assertIn("元の問題文を訂正した証拠ではありません", correct_choice)
         self.assertIn("元の組合せ肢4件", correct_choice)
         self.assertIn("条文の見出し、規律対象", law_context)
         self.assertIn("なお残る交付・記載・手続の義務", law_context)
@@ -497,7 +499,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["originalize"], "2.9")
         self.assertEqual(version_by_stage["question_type"], "6.1")
         self.assertEqual(version_by_stage["question_intent"], "5.0")
-        self.assertEqual(version_by_stage["correct_choice"], "5.2")
+        self.assertEqual(version_by_stage["correct_choice"], "5.3")
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],

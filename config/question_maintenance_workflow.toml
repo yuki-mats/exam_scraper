@@ -164,7 +164,8 @@ kind = "human"
 # 5.0: 共通述語の否定を選択方向と分離し、分解済み組合せ問題の記述順正誤を機械照合して全問を洗い替える。
 # 5.1: 出典のない一般知識だけで整合する公式解答と訂正文を衝突扱いせず、個数回答を分解後の正しい記述数として照合する。
 # 5.2: 並列述語の末尾に置かれた共有否定の作用域を文法・条文・公式解答で照合する。
-policy_version = "5.2"
+# 5.3: 並列条件全体の否定を条文の肯定条件の補集合へ正規化し、肯定形の解説をsource訂正と誤認しない。
+policy_version = "5.3"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
