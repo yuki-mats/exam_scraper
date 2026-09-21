@@ -982,6 +982,20 @@ class QualificationWorkflowTests(unittest.TestCase):
         )
         self.assertIn("23_correctChoiceText_fixed", prompt)
         self.assertIn("prompt/02a_prompt_review_correctChoiceText.md", prompt)
+        self.assertIn("correct_choice=v5.1", prompt)
+        canonical_prompt = (
+            Path(__file__).resolve().parents[1]
+            / "prompt"
+            / "02a_prompt_review_correctChoiceText.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            "出典を示さない一般知識又は「技術的には正しい」という断定だけ",
+            canonical_prompt,
+        )
+        self.assertIn(
+            "資料名と具体的内容を示せないモデル内部の記憶",
+            canonical_prompt,
+        )
 
     def test_law_context_and_explanation_follow_the_merged_filename_contract(self):
         with tempfile.TemporaryDirectory() as directory:
