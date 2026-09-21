@@ -272,6 +272,32 @@ class QualificationLawVersionTests(QualificationRunTestSupport):
                     ]
                 )
 
+    def test_explanation_version_recording_uses_verified_current_law_verdict(self):
+        QualificationRunCoordinator._validate_explanation_quality(
+            [
+                {
+                    "originalQuestionId": "q1",
+                    "projected": {
+                        "questionType": "true_false",
+                        "choiceTextList": ["改正前の要件である。"],
+                        "correctChoiceText": ["正しい"],
+                        "explanationText": [
+                            "間違い。現行法では要件が変わった。"
+                            "出題当時は正しい扱いだった。"
+                        ],
+                        "lawRevisionFacts": [
+                            {
+                                "auditStatus": "updated_to_current_law",
+                                "reviewState": "tertiary_verified",
+                                "examTime": {"correctChoiceText": "正しい"},
+                                "current": {"correctChoiceText": "間違い"},
+                            }
+                        ],
+                    },
+                }
+            ]
+        )
+
     def test_law_audit_version_recording_also_rejects_bad_explanation_format(self):
         class BadLawExplanationInventory(LawSourceInventory):
             def group(self, qualification, list_group_id):

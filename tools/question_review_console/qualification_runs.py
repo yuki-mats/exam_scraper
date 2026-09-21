@@ -92,6 +92,7 @@ from tools.question_review_console.explanation_quality import (
 )
 from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
+    verified_current_law_verdicts,
 )
 from tools.question_review_console.law_audit_contract import is_law_audit_review
 from tools.question_review_console.law_audit_sidecar_normalizer import (
@@ -18356,11 +18357,16 @@ class QualificationRunCoordinator:
                 errors.append(f"{label}: explanationTextを確認できません。")
                 continue
             choices = projected.get("choiceTextList")
+            choice_count = len(choices) if isinstance(choices, list) else 0
+            effective_correct = verified_current_law_verdicts(
+                projected.get("lawRevisionFacts"),
+                choice_count=choice_count,
+            ) or projected.get("correctChoiceText")
             errors.extend(
                 f"{label} {issue}"
                 for issue in explanation_style_issues(
                     explanations,
-                    projected.get("correctChoiceText"),
+                    effective_correct,
                     choice_texts=choices,
                     question_type=projected.get("questionType"),
                     is_calculation_question=projected.get(
@@ -18388,12 +18394,16 @@ class QualificationRunCoordinator:
                 continue
             choices = projected.get("choiceTextList")
             choices = choices if isinstance(choices, list) else []
+            effective_correct = verified_current_law_verdicts(
+                projected.get("lawRevisionFacts"),
+                choice_count=len(choices),
+            ) or projected.get("correctChoiceText")
             issues = suggested_question_validation_errors(
                 projected.get("suggestedQuestionDetailsByChoice"),
                 choice_count=len(choices),
                 allowed_choice_indexes=public_choice_indexes(
                     projected.get("questionType"),
-                    projected.get("correctChoiceText"),
+                    effective_correct,
                     len(choices),
                     projected.get("questionIntent"),
                 ),
