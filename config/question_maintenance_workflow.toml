@@ -191,7 +191,8 @@ kind = "human"
 # 1.3: 宣言済みlawId・条番号はserverがe-Gov API v2の試験時点・現在時点本文を取得して先に渡す。
 # 1.4: 公式試験日catalogと枝番を含むlocatorを使い、出題時・現在時点の本文を決定的に比較する。
 # 2.0: 条文の規律対象と代替規定の残存義務を照合し、技術基準への誤った法令紐付けを全問で洗い替える。
-policy_version = "2.0"
+# 2.1: 出題時正誤の再判定を02a、現行法差分の確定を03bへ戻し、02bは正しい根拠候補を渡す。
+policy_version = "2.1"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",

@@ -325,7 +325,7 @@ class DocumentationStructureTests(unittest.TestCase):
         stages = {stage["id"]: stage for stage in workflow["stages"]}
         self.assertEqual(stages["explanation"]["policy_version"], "10.3")
         self.assertEqual(stages["law_audit"]["policy_version"], "5.2")
-        self.assertEqual(stages["law_context"]["policy_version"], "2.0")
+        self.assertEqual(stages["law_context"]["policy_version"], "2.1")
 
     def test_qualification_specific_explanation_strategies_do_not_return(self):
         qualification_root = ROOT / "prompt" / "qualification_docs"
