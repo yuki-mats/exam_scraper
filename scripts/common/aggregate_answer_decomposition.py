@@ -50,6 +50,9 @@ _LIST_SPACE = r"[ \t\u3000\u00a0]"
 _LIST_BOUNDARY = rf"(?P<boundary>^|[\r\n。！？]){_LIST_SPACE}*"
 _CIRCLED_DIGITS = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳"
 _KANA_LABELS = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワ"
+_TRAILING_NOTE = re.compile(
+    rf"\r?\n{_LIST_SPACE}*[（(]注(?:{_LIST_SPACE}*[0-9０-９]+)?[）)]"
+)
 _MARKER_PATTERNS = (
     (
         "latin_bracket",
@@ -67,17 +70,32 @@ _MARKER_PATTERNS = (
     ),
     (
         # Whitespace and sentence boundaries are two spellings of the same
-        # bare-letter list. Splitting them into families can drop its first item.
-        "latin",
+        # bare-letter list. Case remains distinct so party names A/B do not
+        # interrupt a later statement list a-d in the same question.
+        "latin_lower",
         re.compile(
-            rf"(?<!\S)(?P<marker>(?P<label>[A-Za-zＡ-Ｚａ-ｚ])){_LIST_SPACE}+",
+            rf"(?<!\S)(?P<marker>(?P<label>[a-zａ-ｚ])){_LIST_SPACE}+",
             re.MULTILINE,
         ),
     ),
     (
-        "latin",
+        "latin_lower",
         re.compile(
-            rf"{_LIST_BOUNDARY}(?P<marker>(?P<label>[A-Za-zＡ-Ｚａ-ｚ])){_LIST_SPACE}+",
+            rf"{_LIST_BOUNDARY}(?P<marker>(?P<label>[a-zａ-ｚ])){_LIST_SPACE}+",
+            re.MULTILINE,
+        ),
+    ),
+    (
+        "latin_upper",
+        re.compile(
+            rf"(?<!\S)(?P<marker>(?P<label>[A-ZＡ-Ｚ])){_LIST_SPACE}+",
+            re.MULTILINE,
+        ),
+    ),
+    (
+        "latin_upper",
+        re.compile(
+            rf"{_LIST_BOUNDARY}(?P<marker>(?P<label>[A-ZＡ-Ｚ])){_LIST_SPACE}+",
             re.MULTILINE,
         ),
     ),
@@ -233,12 +251,52 @@ def generate_statement_candidates(source_text: str) -> dict[str, Any]:
             {"start": int(span["start"]), "end": int(span["end"])}
             for span in spans
         ]
-        candidates.append(
-            {
-                "candidateId": statement_candidate_id(source_hash, offset_spans),
-                "spans": spans,
-            }
+        candidate_span_sets = [spans]
+        last_span = spans[-1]
+        note_match = _TRAILING_NOTE.search(
+            source_text,
+            int(last_span["start"]),
+            int(last_span["end"]),
         )
+        if note_match is not None:
+            trimmed_end = note_match.start()
+            while (
+                trimmed_end > int(last_span["start"])
+                and source_text[trimmed_end - 1].isspace()
+            ):
+                trimmed_end -= 1
+            if trimmed_end > int(last_span["start"]):
+                trimmed_spans = [dict(span) for span in spans]
+                trimmed_spans[-1] = {
+                    "boundaryId": statement_boundary_id(
+                        source_hash,
+                        int(last_span["start"]),
+                        trimmed_end,
+                    ),
+                    "start": int(last_span["start"]),
+                    "end": trimmed_end,
+                }
+                candidate_span_sets.append(trimmed_spans)
+        for candidate_spans in candidate_span_sets:
+            candidate_offsets = [
+                {"start": int(span["start"]), "end": int(span["end"])}
+                for span in candidate_spans
+            ]
+            candidates.append(
+                {
+                    "candidateId": statement_candidate_id(
+                        source_hash,
+                        candidate_offsets,
+                    ),
+                    "spans": candidate_spans,
+                }
+            )
+    candidates = list(
+        {
+            str(candidate["candidateId"]): candidate
+            for candidate in candidates
+        }.values()
+    )
     candidates.sort(key=lambda value: str(value["candidateId"]))
     return {
         "schemaVersion": CANDIDATE_SCHEMA_VERSION,

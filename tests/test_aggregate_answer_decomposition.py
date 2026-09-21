@@ -109,6 +109,55 @@ class AggregateAnswerDecompositionTests(unittest.TestCase):
                     statements,
                 )
 
+    def test_lowercase_statement_list_is_not_interrupted_by_uppercase_parties(
+        self,
+    ) -> None:
+        source_text = (
+            "貸金業者 A は、顧客 B と契約した。"
+            "次の a 〜 d の記述から組合せを選べ。\n"
+            "a　A は調査する。"
+            "b　A は記録する。"
+            "c　B は通知する。"
+            "d　B は返済する。"
+        )
+
+        candidates = generate_statement_candidates(source_text)["candidates"]
+        statement_slices = [
+            [source_text[span["start"] : span["end"]] for span in candidate["spans"]]
+            for candidate in candidates
+        ]
+
+        self.assertIn(
+            [
+                "a　A は調査する。",
+                "b　A は記録する。",
+                "c　B は通知する。",
+                "d　B は返済する。",
+            ],
+            statement_slices,
+        )
+
+    def test_trailing_notes_are_available_outside_the_last_statement(self) -> None:
+        source_text = (
+            "組合せを選べ。\n"
+            "a　最初の記述。"
+            "b　二番目の記述。"
+            "c　三番目の記述。"
+            "d　四番目の記述。\n"
+            "（注1）用語の定義。\n"
+            "（注2）別の用語の定義。"
+        )
+
+        candidates = generate_statement_candidates(source_text)["candidates"]
+        last_slices = [
+            source_text[candidate["spans"][-1]["start"] : candidate["spans"][-1]["end"]]
+            for candidate in candidates
+            if len(candidate["spans"]) == 4
+        ]
+
+        self.assertIn("d　四番目の記述。", last_slices)
+        self.assertTrue(any("（注1）用語の定義。" in value for value in last_slices))
+
     def test_existing_uppercase_candidate_identity_is_unchanged(self) -> None:
         candidate_set = generate_statement_candidates(SOURCE_TEXT)
 
