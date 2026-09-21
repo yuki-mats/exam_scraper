@@ -490,12 +490,12 @@ class WorkflowCatalogTests(unittest.TestCase):
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
         self.assertEqual(version_by_stage["explanation"], "10.2")
-        self.assertEqual(version_by_stage["law_audit"], "4.6")
-        self.assertEqual(version_by_stage["law_context"], "1.5")
+        self.assertEqual(version_by_stage["law_audit"], "5.0")
+        self.assertEqual(version_by_stage["law_context"], "2.0")
         self.assertEqual(version_by_stage["originalize"], "2.9")
         self.assertEqual(version_by_stage["question_type"], "6.1")
         self.assertEqual(version_by_stage["question_intent"], "5.0")
-        self.assertEqual(version_by_stage["correct_choice"], "4.1")
+        self.assertEqual(version_by_stage["correct_choice"], "5.0")
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
