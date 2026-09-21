@@ -166,7 +166,8 @@ kind = "human"
 # 5.2: 並列述語の末尾に置かれた共有否定の作用域を文法・条文・公式解答で照合する。
 # 5.3: 並列条件全体の否定を条文の肯定条件の補集合へ正規化し、肯定形の解説をsource訂正と誤認しない。
 # 5.4: 出題時公式解答と現行法の差を02aの衝突にせず、03bへ時点差確認を渡す。
-policy_version = "5.4"
+# 5.5: 解説fieldを02aの正誤正本から除外し、解説候補の矛盾は03で修復する。
+policy_version = "5.5"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -194,7 +195,8 @@ kind = "human"
 # 2.0: 条文の規律対象と代替規定の残存義務を照合し、技術基準への誤った法令紐付けを全問で洗い替える。
 # 2.1: 出題時正誤の再判定を02a、現行法差分の確定を03bへ戻し、02bは正しい根拠候補を渡す。
 # 2.2: 選択肢別lawReferencesの外側配列をchoiceTextListと同じ件数・順序で保持する。
-policy_version = "2.2"
+# 2.3: 許可基準の肢へ更新期限の条項を割り当てず、条文本文と命題の対応を厳密化する。
+policy_version = "2.3"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -247,7 +249,8 @@ kind = "human"
 # 10.3: 根拠URLの同一対象内重複と、正しい肢の再掲を検証結果に従って解消する。
 # 10.4: 共有否定を論理正規化し、出題時解説と現行法監査の責務を分離する。
 # 10.5: 肯定条件とその補集合を同じ境界として照合し、lawRevisionFacts未作成を03の停止理由にしない。
-policy_version = "10.5"
+# 10.6: 除外集合とその例外を正規化し、取得サイトの現在化候補を03bへ渡す。
+policy_version = "10.6"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",
@@ -308,7 +311,8 @@ kind = "human"
 # 5.0: 非法令技術問題を再判定せず、差分なし監査で既存解説と計算式を保持して全問を洗い替える。
 # 5.1: 正誤が変わらない監査で検証済み解説から品質が落ちた候補を退行として再試行する。
 # 5.2: 取得サイトが現在化した文言と出題時原問題を分離し、時点別正誤を別々に確定する。
-policy_version = "5.2"
+# 5.3: 現在化前の文言を保持していなくても選択位置不変なら、推測せず時点別判定を継続する。
+policy_version = "5.3"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
