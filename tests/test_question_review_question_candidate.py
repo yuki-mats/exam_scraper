@@ -2675,6 +2675,215 @@ class QuestionCandidateTest(unittest.TestCase):
         ]
         self.assertEqual(validate_candidate_content_issues(candidate, targets, record), ())
 
+    def test_law_audit_uses_exam_time_verdict_for_official_answer(self):
+        targets = candidate_targets("q1", "law_audit", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+            ],
+            "allowedWriteFiles": ["output/sample/review/law_revision_audit/2026.jsonl"],
+        })
+        audit = next(target for target in targets if target.role == "law_audit")
+        facts = {
+            "auditStatus": "updated_to_current_law",
+            "reviewState": "tertiary_verified",
+            "examTime": {"correctChoiceText": ["正しい"]},
+            "current": {"correctChoiceText": ["間違い"]},
+            "evidenceSummary": {
+                "verdict": "updated_to_current_law",
+                "explanationText": "試験法第1条の要件が改正された。",
+            },
+        }
+        values = {
+            "auditStatus": "updated_to_current_law",
+            "reviewState": "tertiary_verified",
+            "sourceSummary": "試験当時の公式正答を確認した。",
+            "verificationSummary": "現行の試験法第1条と照合した。",
+            "reconciliationStatus": "matched",
+            "examTimeDecision": ["正しい"],
+            "currentLawDecision": ["間違い"],
+            "lawRevisionFacts": facts,
+            "correctChoiceText": ["間違い"],
+            "explanationText": [
+                "間違い。現行法では対象外である。出題当時は正しい扱いだった。"
+            ],
+        }
+        candidate = _parse_prepared_candidates({
+            "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+            "questionResults": [{
+                "questionId": "q1", "status": "candidate", "summary": "法改正を反映",
+                "updates": [{
+                    "targetId": audit.target_id,
+                    "setFields": [
+                        {"field": key, "value": value}
+                        for key, value in values.items()
+                    ],
+                    "unsetFields": [],
+                }],
+            }],
+        }, ["q1"], {"q1": targets})[0]
+        record = {
+            "questionType": "true_false",
+            "questionIntent": "select_correct",
+            "questionBodyText": "正しいものはどれか。",
+            "choiceTextList": ["試験法上の対象である。"],
+            "correctChoiceText": ["正しい"],
+            "answer_result_text": "1",
+        }
+
+        self.assertEqual(validate_candidate_content(candidate, targets, record), ())
+
+    def test_law_audit_requires_current_verdict_in_correct_choice_patch(self):
+        targets = candidate_targets("q1", "law_audit", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+            ],
+            "allowedWriteFiles": ["output/sample/review/law_revision_audit/2026.jsonl"],
+        })
+        audit = next(target for target in targets if target.role == "law_audit")
+        values = {
+            "auditStatus": "updated_to_current_law",
+            "reviewState": "tertiary_verified",
+            "sourceSummary": "試験当時の公式正答を確認した。",
+            "verificationSummary": "現行法と照合した。",
+            "reconciliationStatus": "matched",
+            "examTimeDecision": ["正しい"],
+            "currentLawDecision": ["間違い"],
+            "lawRevisionFacts": {
+                "auditStatus": "updated_to_current_law",
+                "reviewState": "tertiary_verified",
+                "examTime": {"correctChoiceText": ["正しい"]},
+                "current": {"correctChoiceText": ["間違い"]},
+                "evidenceSummary": {
+                    "verdict": "updated_to_current_law",
+                    "explanationText": "試験法の要件が改正された。",
+                },
+            },
+            "explanationText": [
+                "間違い。現行法では対象外である。出題当時は正しい扱いだった。"
+            ],
+        }
+        candidate = _parse_prepared_candidates({
+            "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+            "questionResults": [{
+                "questionId": "q1", "status": "candidate", "summary": "正答patchを省略",
+                "updates": [{
+                    "targetId": audit.target_id,
+                    "setFields": [
+                        {"field": key, "value": value}
+                        for key, value in values.items()
+                    ],
+                    "unsetFields": [],
+                }],
+            }],
+        }, ["q1"], {"q1": targets})[0]
+        errors = validate_candidate_content(candidate, targets, {
+            "questionType": "true_false",
+            "choiceTextList": ["試験法上の対象である。"],
+            "correctChoiceText": ["正しい"],
+        })
+
+        self.assertTrue(any("23正答patch" in error for error in errors), errors)
+
+    def test_law_audit_rejects_prose_in_decision_arrays(self):
+        targets = candidate_targets("q1", "law_audit", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+            ],
+            "allowedWriteFiles": ["output/sample/review/law_revision_audit/2026.jsonl"],
+        })
+        audit = next(target for target in targets if target.role == "law_audit")
+        values = {
+            "auditStatus": "same_as_current",
+            "reviewState": "secondary_verified",
+            "sourceSummary": "公式正答を確認した。",
+            "verificationSummary": "現行法と照合した。",
+            "reconciliationStatus": "matched",
+            "examTimeDecision": ["出題時は正しい。"],
+            "currentLawDecision": ["現行法でも正しい。"],
+            "lawRevisionFacts": {
+                "auditStatus": "same_as_current",
+                "reviewState": "secondary_verified",
+                "examTime": {"correctChoiceText": ["正しい"]},
+                "current": {"correctChoiceText": ["正しい"]},
+                "evidenceSummary": {
+                    "verdict": "same_as_current",
+                    "explanationText": "判定は変わらない。",
+                },
+            },
+        }
+        candidate = _parse_prepared_candidates({
+            "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+            "questionResults": [{
+                "questionId": "q1", "status": "candidate", "summary": "文章入り判定",
+                "updates": [{
+                    "targetId": audit.target_id,
+                    "setFields": [
+                        {"field": key, "value": value}
+                        for key, value in values.items()
+                    ],
+                    "unsetFields": [],
+                }],
+            }],
+        }, ["q1"], {"q1": targets})[0]
+        errors = validate_candidate_content(candidate, targets, {
+            "questionType": "true_false",
+            "choiceTextList": ["試験法上の対象である。"],
+            "correctChoiceText": ["正しい"],
+        })
+
+        self.assertTrue(
+            any("examTimeDecisionが選択肢と同じ件数の正誤配列" in error for error in errors),
+            errors,
+        )
+        self.assertTrue(
+            any("currentLawDecisionが選択肢と同じ件数の正誤配列" in error for error in errors),
+            errors,
+        )
+
+    def test_explanation_uses_verified_current_law_verdict(self):
+        targets = candidate_targets("q1", "explanation", self.plan())
+        explanation = next(
+            target for target in targets if target.role == "explanation"
+        )
+        candidate = _parse_prepared_candidates({
+            "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+            "questionResults": [{
+                "questionId": "q1", "status": "candidate", "summary": "現行法で解説",
+                "updates": [{
+                    "targetId": explanation.target_id,
+                    "setFields": [
+                        {"field": "questionLearningPatternId", "value": "conditions"},
+                        {
+                            "field": "explanationText",
+                            "value": [
+                                "間違い。現行法では対象外である。出題当時は正しい扱いだった。"
+                            ],
+                        },
+                    ],
+                    "unsetFields": [],
+                }],
+            }],
+        }, ["q1"], {"q1": targets})[0]
+        record = {
+            "questionType": "true_false",
+            "choiceTextList": ["試験法上の対象である。"],
+            "correctChoiceText": ["正しい"],
+            "lawRevisionFacts": {
+                "auditStatus": "updated_to_current_law",
+                "reviewState": "tertiary_verified",
+                "examTime": {"correctChoiceText": ["正しい"]},
+                "current": {"correctChoiceText": ["間違い"]},
+                "evidenceSummary": {
+                    "verdict": "updated_to_current_law",
+                    "explanationText": "試験法の要件が改正された。",
+                },
+            },
+        }
+
+        self.assertEqual(validate_candidate_content(candidate, targets, record), ())
+
     def test_law_audit_rejects_legacy_string_references_and_weak_facts(self):
         plan = {
             "allowedPatchFiles": [

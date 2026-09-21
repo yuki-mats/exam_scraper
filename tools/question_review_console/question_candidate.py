@@ -43,6 +43,8 @@ from tools.question_review_console.explanation_quality import (
 )
 from tools.question_review_console.law_audit_quality import (
     law_revision_current_verdict_issues,
+    verified_current_law_verdicts,
+    verified_exam_time_law_verdicts,
 )
 
 
@@ -1838,6 +1840,8 @@ def _validate_candidate_content_messages(
         for field in update.unset_fields:
             logical.pop(field, None)
 
+    audit = dict(audit_payloads[-1]) if audit_payloads else {}
+
     errors: list[str] = []
     independently_required_fields = {
         field
@@ -1930,7 +1934,13 @@ def _validate_candidate_content_messages(
             )
             if answer_contract_issue:
                 errors.append(answer_contract_issue)
-            official_answer_issue = official_answer_alignment_issue(logical)
+            alignment_record = dict(logical)
+            audit_facts = audit.get("lawRevisionFacts")
+            if audit_facts is not None:
+                alignment_record["lawRevisionFacts"] = audit_facts
+            official_answer_issue = official_answer_alignment_issue(
+                alignment_record
+            )
             if official_answer_issue:
                 errors.append(official_answer_issue)
         aggregate_expected = _aggregate_combination_expected_verdicts(
@@ -1953,6 +1963,12 @@ def _validate_candidate_content_messages(
             )
         except ValueError as exc:
             errors.append(str(exc))
+    facts = logical.get("lawRevisionFacts")
+    verified_current_correct = verified_current_law_verdicts(
+        facts,
+        choice_count=len(choices),
+    )
+    effective_explanation_correct = verified_current_correct or correct
     explanations = logical.get("explanationText")
     if "explanationText" in changed_fields and explanations is not None:
         explanation_shape = explanation_shape_errors(
@@ -1964,7 +1980,7 @@ def _validate_candidate_content_messages(
         if not explanation_shape and isinstance(explanations, list):
             explanation_issues = explanation_style_issues(
                 explanations,
-                correct,
+                effective_explanation_correct,
                 choice_texts=choices,
                 question_type=logical.get("questionType"),
                 is_calculation_question=logical.get("isCalculationQuestion")
@@ -2071,7 +2087,7 @@ def _validate_candidate_content_messages(
             choice_count=len(choices),
             allowed_choice_indexes=public_choice_indexes(
                 logical.get("questionType"),
-                correct,
+                effective_explanation_correct,
                 len(choices),
                 logical.get("questionIntent"),
             ),
@@ -2081,7 +2097,6 @@ def _validate_candidate_content_messages(
                 "suggestedQuestionDetailsByChoiceが選択肢別・最大3件の契約を満たしません: "
                 + " / ".join(suggestion_errors)
             )
-    facts = logical.get("lawRevisionFacts")
     law_revision_facts_targeted = any(
         "lawRevisionFacts" in target.allowed_fields for target in target_values
     )
@@ -2099,7 +2114,6 @@ def _validate_candidate_content_messages(
     if has_law_audit_target:
         if not audit_payloads:
             errors.append("監査sidecarの更新候補がありません。")
-        audit = dict(audit_payloads[-1]) if audit_payloads else {}
         for field in (
             "auditStatus",
             "reviewState",
@@ -2112,12 +2126,66 @@ def _validate_candidate_content_messages(
             value = audit.get(field)
             if value in (None, "", []):
                 errors.append(f"監査sidecarの{field}がありません。")
+        exam_time_decision = audit.get("examTimeDecision")
+        current_law_decision = audit.get("currentLawDecision")
+        for field, value in (
+            ("examTimeDecision", exam_time_decision),
+            ("currentLawDecision", current_law_decision),
+        ):
+            if (
+                not isinstance(value, list)
+                or len(value) != len(choices)
+                or any(item not in {"正しい", "間違い"} for item in value)
+            ):
+                errors.append(
+                    f"監査sidecarの{field}が選択肢と同じ件数の正誤配列ではありません。"
+                )
         if (
             audit.get("auditStatus") == "updated_to_current_law"
             and audit.get("reviewState") != "tertiary_verified"
         ):
             errors.append(
                 "updated_to_current_lawにはtertiary_verifiedが必要です。"
+            )
+        if (
+            audit.get("auditStatus") == "updated_to_current_law"
+            and isinstance(current_law_decision, list)
+            and len(current_law_decision) == len(choices)
+            and all(
+                item in {"正しい", "間違い"}
+                for item in current_law_decision
+            )
+            and correct != current_law_decision
+        ):
+            errors.append(
+                "updated_to_current_lawではcorrectChoiceTextを"
+                "currentLawDecisionと一致させて23正答patchへ保存してください。"
+            )
+        audit_current_correct = verified_current_law_verdicts(
+            audit.get("lawRevisionFacts"),
+            choice_count=len(choices),
+        )
+        audit_exam_time_correct = verified_exam_time_law_verdicts(
+            audit.get("lawRevisionFacts"),
+            choice_count=len(choices),
+        )
+        if (
+            audit.get("auditStatus") == "updated_to_current_law"
+            and isinstance(current_law_decision, list)
+            and audit_current_correct != current_law_decision
+        ):
+            errors.append(
+                "監査sidecarのcurrentLawDecisionと"
+                "lawRevisionFacts.current.correctChoiceTextが一致しません。"
+            )
+        if (
+            audit.get("auditStatus") == "updated_to_current_law"
+            and isinstance(exam_time_decision, list)
+            and audit_exam_time_correct != exam_time_decision
+        ):
+            errors.append(
+                "監査sidecarのexamTimeDecisionと"
+                "lawRevisionFacts.examTime.correctChoiceTextが一致しません。"
             )
     if validate_law_revision_facts:
         # Reject repairable content before entering the canonical write transaction.
@@ -2180,6 +2248,7 @@ def _validate_candidate_content_messages(
             for issue in law_revision_current_verdict_issues(
                 correct_choice_text=correct,
                 law_revision_facts=facts,
+                compare_with_correct_choice=has_law_audit_target,
             )
         )
         if logical.get("isLawRelated") is True:

@@ -2331,6 +2331,7 @@ def _structured_candidate_stage_context(
             "rules": [
                 "03解説は、02aで確定したcorrectChoiceTextと02bのlawContextForExplanationを上流の確定入力として読み、その範囲で初学者向けの解説を完成させる。",
                 "出題時と現行法の差分確定とlawRevisionFactsの整備は03bの責務である。primaryLawEvidence.examAsOfSourceがない、examAsOfがnull、又はcomparison=current_onlyであることだけを理由に03をholdにしない。",
+                "既存lawRevisionFactsにupdated_to_current_lawかつtertiary_verifiedがある場合、その差分は03bで解決済みである。current.correctChoiceTextを現行法の判定として解説し、examTime.correctChoiceTextとの違いを公開文で明示する。02aが公式元正答を一時的に復元したことだけを矛盾又はhold理由にしない。",
                 "上流のcorrectChoiceTextとlawContextForExplanationが明白に矛盾する場合は推測で埋めず、02a又02bの問題としてholdにする。矛盾がなければ、03bの未完了だけで解説を止めない。",
             ],
         }

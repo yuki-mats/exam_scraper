@@ -108,6 +108,8 @@ fieldの型、保存先、CLIはリンク先を正本とします。入力され
 
 実際に確認した公式一次資料だけを`explanationReferences`へ残します。判断に必要な1〜3件へ絞り、取得元の問題ページ、検索結果、未確認の候補は含めません。出題時と現行法が異なる場合は、`tertiary_verified`になった`updated_to_current_law`だけを公開文へ反映します。
 
+既存の`lawRevisionFacts`が`updated_to_current_law`かつ`tertiary_verified`なら、その法改正差分は03bで確認済みです。`current.correctChoiceText`を現在の正誤として解説し、`examTime.correctChoiceText`との違いを本文で明示します。02aが公式元正答を一時的に復元していても、それだけを矛盾又は保留理由にしません。未確認の差分を03で推測して補うことはせず、確認済みの監査情報だけを使います。
+
 ## 完成前の確認
 
 - 正答、解説、法令情報が同じ結論を示している。

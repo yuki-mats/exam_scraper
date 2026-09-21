@@ -20,6 +20,92 @@ def _normalized_verdicts(value: Any) -> list[str] | None:
     return [verdict] if verdict in VALID_VERDICTS else None
 
 
+def _verified_law_snapshot_verdicts(
+    law_revision_facts: Any,
+    *,
+    choice_count: int,
+    snapshot: str,
+) -> list[str] | None:
+    if isinstance(law_revision_facts, list):
+        if len(law_revision_facts) != choice_count:
+            return None
+        verdicts: list[str] = []
+        has_verified_update = False
+        for facts in law_revision_facts:
+            if not isinstance(facts, Mapping):
+                return None
+            audit_status = facts.get("auditStatus")
+            review_state = facts.get("reviewState")
+            if audit_status == "updated_to_current_law":
+                if review_state != "tertiary_verified":
+                    return None
+                has_verified_update = True
+            elif audit_status in {"same_as_current", "not_law_related"}:
+                if review_state not in {"secondary_verified", "tertiary_verified"}:
+                    return None
+            else:
+                return None
+            selected_snapshot = facts.get(snapshot)
+            actual = (
+                _normalized_verdicts(selected_snapshot.get("correctChoiceText"))
+                if isinstance(selected_snapshot, Mapping)
+                else None
+            )
+            if actual is None or len(actual) != 1:
+                return None
+            verdicts.append(actual[0])
+        return verdicts if has_verified_update else None
+
+    if not isinstance(law_revision_facts, Mapping):
+        return None
+    if (
+        law_revision_facts.get("auditStatus") != "updated_to_current_law"
+        or law_revision_facts.get("reviewState") != "tertiary_verified"
+    ):
+        return None
+    selected_snapshot = law_revision_facts.get(snapshot)
+    verdicts = (
+        _normalized_verdicts(selected_snapshot.get("correctChoiceText"))
+        if isinstance(selected_snapshot, Mapping)
+        else None
+    )
+    return verdicts if verdicts is not None and len(verdicts) == choice_count else None
+
+
+def verified_current_law_verdicts(
+    law_revision_facts: Any,
+    *,
+    choice_count: int,
+) -> list[str] | None:
+    """Return a complete current-law verdict only for a resolved law update.
+
+    Explanation generation may run after 02a has restored the official
+    exam-time answer and before 03b writes the current-law answer back to 23.
+    A previously verified law snapshot is therefore the only safe source for
+    the effective verdict during that interval.
+    """
+
+    return _verified_law_snapshot_verdicts(
+        law_revision_facts,
+        choice_count=choice_count,
+        snapshot="current",
+    )
+
+
+def verified_exam_time_law_verdicts(
+    law_revision_facts: Any,
+    *,
+    choice_count: int,
+) -> list[str] | None:
+    """Return the exam-time half of a resolved current-law update."""
+
+    return _verified_law_snapshot_verdicts(
+        law_revision_facts,
+        choice_count=choice_count,
+        snapshot="examTime",
+    )
+
+
 def law_revision_current_verdict_issues(
     *,
     correct_choice_text: Any,
