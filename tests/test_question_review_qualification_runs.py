@@ -2057,6 +2057,16 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertIn("振動レベルは検査項目に含まれない", prompt)
         self.assertIn("questionIntent`に合わせて再反転しません", prompt)
 
+    def test_explanation_guidance_forbids_point_is_wrong_template(self):
+        root = Path(__file__).resolve().parents[1]
+        guidance = _canonical_document_guidance(
+            root, ["prompt/03_prompt_add_explanationText.md"]
+        )
+
+        self.assertIn("選択肢は〜としているため誤りである", guidance)
+        self.assertIn("〜としている点が誤り", guidance)
+        self.assertIn("選択肢の全文又はほぼ同じ文を繰り返さず", guidance)
+
     def test_structured_candidate_prompt_contains_canonical_guidance(self):
         target = {
             "id": "question-1",

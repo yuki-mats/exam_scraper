@@ -1313,6 +1313,21 @@ class QuestionCandidateTest(unittest.TestCase):
         self.assertIn("questionIntentに合わせて再反転しない", rule["description"])
         self.assertEqual(rule["items"]["allowedValues"], ["正しい", "間違い"])
 
+    def test_explanation_target_describes_concrete_difference_wording(self):
+        plan = {
+            "allowedPatchFiles": [
+                "output/sample/21_explanationText_added/patch.json"
+            ]
+        }
+        target = candidate_targets("q1", "explanation", plan)[0]
+        description = target.prompt_value()["fieldRules"]["explanationText"][
+            "description"
+        ]
+
+        self.assertIn("選択肢は〜としているため誤りである", description)
+        self.assertIn("〜としている点が誤り", description)
+        self.assertIn("選択肢を再掲しない", description)
+
     def test_question_intent_target_cannot_update_correct_choice(self):
         plan = {
             "allowedPatchFiles": [
