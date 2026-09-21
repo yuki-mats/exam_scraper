@@ -1751,6 +1751,61 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertIn("既存のisLawRelatedだけで対象を絞らず", result["prompt"])
         self.assertNotIn("## 問題文", result["prompt"])
 
+    def test_bundled_law_flow_needed_selects_before_excluding_law_support(self):
+        item = question(law_related=True)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [item]}],
+                ),
+            )
+            policies = workflow.versioned_policies("sample")
+            for stage_id in ("law_context", "law_audit"):
+                workflow.work_versions.record_stage(
+                    [item],
+                    policies[stage_id],
+                    run_id=f"run-{stage_id}",
+                    source="validated_run",
+                )
+            explanation_targets = [
+                "explanation.learning_pattern",
+                "explanation.basic_explanation",
+                "explanation.supplementary_questions",
+            ]
+            workflow.work_versions.record_stage(
+                [item],
+                policies["explanation"],
+                run_id="run-explanation",
+                source="validated_run",
+                target_ids=explanation_targets,
+            )
+
+            single = workflow.plan(
+                "sample",
+                "explanation",
+                "needed",
+                update_target_ids=explanation_targets,
+            )
+            bundled = workflow.plan_many(
+                "sample",
+                ["law_context", "explanation", "law_audit"],
+                "needed",
+            )
+
+        explanation_plan = next(
+            plan
+            for plan in bundled["stagePlans"]
+            if plan["stageId"] == "explanation"
+        )
+        self.assertEqual(single["targetCount"], 0)
+        self.assertEqual(explanation_plan["targetCount"], 0)
+        self.assertEqual(explanation_plan["selectedUpdateTargetIds"], explanation_targets)
+        self.assertEqual(bundled["targetCount"], 0)
+
     def test_multiple_stage_plan_reuses_catalog_and_qualification_data(self):
         class CountingWorkflow(QualificationWorkflow):
             def __init__(self, *args, **kwargs):

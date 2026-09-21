@@ -256,6 +256,20 @@ E &= \frac{V}{d} \\
 
         self.assertEqual(issues, [])
 
+    def test_calculation_does_not_require_formula_in_every_choice(self):
+        issues = explanation_style_issues(
+            [
+                "正しい。熱伝導率が大きい材料ほど熱を伝えやすい。",
+                r"間違い。正しくは、\(1\,\mathrm{kWh}=3.6\,\mathrm{MJ}\)である。",
+                "正しい。飽和温度は圧力に応じて定まる。",
+            ],
+            ["正しい", "間違い", "正しい"],
+            choice_texts=["熱伝導の記述", "単位換算の記述", "飽和温度の記述"],
+            is_calculation_question=True,
+        )
+
+        self.assertEqual(issues, [])
+
     def test_calculation_rejects_formula_without_numeric_result(self):
         issues = explanation_style_issues(
             [r"正しい。\(E=V/d\)を用いる。"],

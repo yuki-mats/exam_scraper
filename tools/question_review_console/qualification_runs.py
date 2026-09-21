@@ -11311,7 +11311,7 @@ class QualificationRunCoordinator:
         run_id: str,
         phase_id: str,
         **changes: Any,
-    ) -> dict[str, Any]:
+    ) -> None:
         parent = self.store.get_compact(qualification, run_id)
         executions = [
             dict(value)
@@ -11328,10 +11328,11 @@ class QualificationRunCoordinator:
             raise QualificationRunError(
                 f"トップ整備の工程記録が見つかりません: {phase_id}"
             )
-        return self.store.update(
+        self.store.update(
             qualification,
             run_id,
             phaseExecutions=executions,
+            hydrate_result=False,
         )
 
     @staticmethod
@@ -12426,8 +12427,9 @@ class QualificationRunCoordinator:
         phases: list[dict[str, Any]],
         phase_child_ids: Mapping[str, list[str]],
         phase_runtime: Mapping[str, Mapping[str, Any]],
+        *,
+        parent: Mapping[str, Any],
     ) -> None:
-        parent = self.store.get(qualification, run_id)
         for phase in phases:
             stage_id = str(phase["id"])
             if stage_id in {"setup", "category_setup"}:
@@ -14638,6 +14640,7 @@ class QualificationRunCoordinator:
         self.store.update(
             qualification,
             run_id,
+            hydrate_result=False,
             modelAttemptMetrics={
                 "localPrimaryCount": sum(
                     str(value.get("attemptMode") or "") == "local_primary"
@@ -14664,11 +14667,17 @@ class QualificationRunCoordinator:
             phases,
             phase_child_ids,
             phase_runtime,
+            parent=metrics_source,
+        )
+        execution_summary = queue_summary(
+            metrics_source.get("questionExecutions") or []
         )
         return {
             "childRunIds": child_run_ids,
             "workVersionReceipts": work_version_receipts,
             "confirmedGroupIds": sorted(confirmed_group_ids),
+            "executionSummary": execution_summary,
+            "questionExecutions": metrics_source.get("questionExecutions") or [],
         }
 
     def _record_improvement_report(
@@ -14676,16 +14685,23 @@ class QualificationRunCoordinator:
         qualification: str,
         run_id: str,
         emit: Callable[[str], None],
+        *,
+        question_executions: Iterable[Mapping[str, Any]] | None = None,
     ) -> str | None:
-        current = self.store.get(qualification, run_id)
+        executions = (
+            list(question_executions)
+            if question_executions is not None
+            else self.store.get(qualification, run_id).get("questionExecutions") or []
+        )
         try:
             report_path = write_improvement_report(
                 self.store.root / qualification / run_id,
-                build_improvement_report(current.get("questionExecutions") or []),
+                build_improvement_report(executions),
             )
             self.store.update(
                 qualification,
                 run_id,
+                hydrate_result=False,
                 improvementReportPath=str(report_path.relative_to(self.repo_root)),
                 improvementReportWarning=None,
             )
@@ -14698,6 +14714,7 @@ class QualificationRunCoordinator:
             self.store.update(
                 qualification,
                 run_id,
+                hydrate_result=False,
                 improvementReportPath=None,
                 improvementReportWarning=warning,
             )
@@ -14837,8 +14854,7 @@ class QualificationRunCoordinator:
             confirmed_group_ids.update(
                 queue_result["confirmedGroupIds"]
             )
-            parent = self.store.get(qualification, run_id)
-            execution_summary = queue_summary(parent.get("questionExecutions") or [])
+            execution_summary = dict(queue_result["executionSummary"])
             if execution_summary["pendingWorkItemCount"]:
                 raise QualificationRunError(
                     "一問queueに未確定の工程が残っているため、"
@@ -14852,8 +14868,8 @@ class QualificationRunCoordinator:
                 qualification,
                 run_id,
                 emit,
+                question_executions=queue_result["questionExecutions"],
             )
-            parent = self.store.get(qualification, run_id)
             unique_work_version_receipts: list[dict[str, Any]] = []
             seen_work_version_receipts: set[str] = set()
             for receipt in work_version_receipts:
@@ -14889,9 +14905,10 @@ class QualificationRunCoordinator:
                     str(value)
                     for value in parent.get("targetGroupIds") or []
                 ]
-            parent = self.store.update(
+            self.store.update(
                 qualification,
                 run_id,
+                hydrate_result=False,
                 status="validating",
                 queueStatus=queue_status,
                 executionPhase="final_validation",
@@ -14976,6 +14993,7 @@ class QualificationRunCoordinator:
                 self.store.update(
                     qualification,
                     run_id,
+                    hydrate_result=False,
                     queueStatus=queue_status,
                     executionPhase="done",
                     currentPhaseId=None,
@@ -14998,6 +15016,7 @@ class QualificationRunCoordinator:
             self.store.update(
                 qualification,
                 run_id,
+                hydrate_result=False,
                 status="succeeded",
                 queueStatus=queue_status,
                 executionPhase="done",

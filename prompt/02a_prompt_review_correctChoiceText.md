@@ -8,6 +8,7 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 
 - 入力は`00_source`と01・02までの確定patchを重ねた`logicalProjection`です。02a自身の結果を含む物理的なmerged artifactを入力にしません。
 - `questionBodyText`と各`choiceTextList`を結合した完全な命題を一肢ずつ読み、出題時点の公式解答、元解説、資格別方針で認めた根拠と照合します。
+- 元の問題文・選択肢の文言は`questionBodyText`と`choiceTextList`だけで確認します。`explanation_common_prefix`、`explanation_choice_snippets`などの解説fieldは、誤りを直した文章を含む参照資料であり、`00_source`の選択肢本文ではありません。解説内の訂正文を「元肢」又は「00_sourceの文言」として扱いません。
 - 02aが所有するのは通常`correctChoiceText`だけです。`questionType`、`isCalculationQuestion`、`questionIntent`、問題文、選択肢、解説、IDを変更しません。
 - 現在の`correctChoiceText`、正答数、`questionType`又は`questionIntent`から各肢の正誤を逆算しません。各選択肢を同じ根拠基準で独立に判定します。
 - `sourceAnswerEvidence`は、`00_source`から分離した更新不能な正答証拠です。`evidenceType=trusted_gassyunin_judge_statement_verdicts`かつ`verdictSemantics=final_correct_choice_text_for_source_text`では、取得元のjudge欄がsourceの問題文と各選択肢を組み合わせた最終命題へ`correctChoiceText`を対応付け、件数・順序・出所を機械検証済みです。gassyunin URLとjudge対応を保持したFirestore snapshotも同じ検証を通った場合だけ含みます。`appliesToCurrentText=true`なら現在の本文・選択肢と完全一致するため、この配列を最終正誤として扱い、否定語又は`questionIntent`で再反転しません。モデル内部の記憶や出典を示さない一般知識だけを、この証拠との明白な衝突とは扱いません。公式解答又は確認済みの公式・一次資料と衝突する場合は、配列を推測で変更せず、確認した資料を要約して`hold`にします。`appliesToCurrentText=false`ならsource配列を現在値へ転記せず、現在の完全な命題を独立に判定します。公式解答番号は`answerResultSemantics`に従って数、元の組合せ肢番号又は選択肢番号として解釈します。問題文に「選択肢(N)はすべて正しい」と明示され、`answerResultSemantics=count_choice_index_with_all_correct_sentinel`である場合、公式解答Nは該当肢がN件という意味ではありません。`select_incorrect`では誤った記述が0件、`select_correct`では全記述が正しいことと照合します。
@@ -23,7 +24,7 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
    元解説を使うときは、選択肢の引用と、誤りを訂正した説明を区別します。選択肢が「大きい」、元解説が「小さい」と述べていても、元解説がその選択肢の誤りを訂正しているなら、文言の違い自体は資料の矛盾ではありません。どちらの内容が根拠に合うかを確認し、選択肢に書かれた命題を判定します。元解説へ自動追随したり、訂正文を選択肢へ置き換えたりしません。
    出題時の公式解答と、選択肢の誤りを直した元解説が同じ判定を示す場合、モデル内部の記憶、出典を示さない一般知識又は「技術的には正しい」という断定だけを、それらとの衝突根拠にしません。反対の判定へ変える又は`hold`にするには、実際に確認した公式資料、一次資料若しくは資格別方針で認めた根拠の名称と、矛盾する具体的内容を示します。そのような根拠がなければ、公式解答と訂正文を独立判定の証拠として採用し、選択肢本文の正誤を確定します。これは公式解答番号から配列を自動生成する規則ではなく、確認できない一般論を証拠扱いしないための基準です。
 3. 全肢の判定後にだけ、02で確定した`questionIntent`と出題時の公式解答を使って、選ばれる肢との整合を確認します。
-4. 不整合があれば`hold`にし、02又は02aのどちらが正しいかをこの照合だけで決めません。根拠との衝突を理由にする場合は、実際に確認した資料の名称と該当内容、選択肢又は公式解答との食い違いを示します。資料名と具体的内容を示せないモデル内部の記憶、前回の保留理由又は出典不明の「確認資料上」という記述だけを、新しい判定や`hold`の根拠にはしません。
+4. 不整合があれば`hold`にし、02又は02aのどちらが正しいかをこの照合だけで決めません。根拠との衝突を理由にする場合は、実際に確認した資料と該当内容を特定し、選択肢又は公式解答との食い違いを示します。資料名と具体的内容を示せないモデル内部の記憶、前回の保留理由又は出典不明の「確認資料上」という記述だけを、新しい判定や`hold`の根拠にはしません。
 
 `answer_result_text`は最後の整合確認に使い、そこから`correctChoiceText`を自動割当しません。`true_false`では各記述の事実上の正誤を判定します。`flash_card`と`group_choice`でも正答だけへ配列を縮めず、各候補が問題文の条件を満たすかを全件判定します。単一正答が期待される形式でも、先に「正しい」を1件へ固定してから他の肢を合わせません。
 

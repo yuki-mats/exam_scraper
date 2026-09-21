@@ -473,7 +473,27 @@ def explanation_style_issues(
             f"{item_label}: {issue}"
             for issue in _math_markup_issues(
                 text,
-                is_calculation_question=is_calculation_question,
+                is_calculation_question=False,
             )
         )
+    if is_calculation_question:
+        combined_text = "\n".join(
+            str(value or "").strip()
+            for value in explanation_values
+            if str(value or "").strip()
+        )
+        segments, _ = _extract_math_segments(combined_text)
+        if not segments:
+            issues.append(
+                "計算問題は、計算を要する解説に途中式を"
+                "flutter_math_fork対応の数式として記述してください。"
+            )
+        else:
+            combined_math = "\n".join(segment.content for segment in segments)
+            if "=" not in combined_math or not re.search(r"\d", combined_math):
+                issues.append(
+                    "計算問題の数式には、数値の代入と結果が追えるよう、"
+                    "数字と等号を含めてください。複数段の計算は途中計算も"
+                    "示してください。"
+                )
     return issues

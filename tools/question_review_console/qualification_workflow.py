@@ -1259,6 +1259,18 @@ class QualificationWorkflow:
             if update_target_ids is not None
             else None
         )
+        bundled_law_flow = {
+            "law_context",
+            "explanation",
+            "law_audit",
+        }.issubset(ordered)
+        effective_requested_update_target_ids = requested_update_target_ids
+        if bundled_law_flow and requested_update_target_ids is not None:
+            effective_requested_update_target_ids = [
+                value
+                for value in requested_update_target_ids
+                if value != "explanation.law_support"
+            ]
         available_update_target_ids = {
             str(target.get("selectionId") or "")
             for stage_id in ordered
@@ -1280,7 +1292,7 @@ class QualificationWorkflow:
                 if definitions[stage_id].get("updateTargets")
                 and not any(
                     value.startswith(f"{stage_id}.")
-                    for value in requested_update_target_ids
+                    for value in effective_requested_update_target_ids or []
                 )
             ]
             if missing_target_stages:
@@ -1343,11 +1355,25 @@ class QualificationWorkflow:
                     else None
                 ),
                 update_target_ids=(
-                    None
+                    [
+                        str(target.get("selectionId") or "")
+                        for target in definitions[stage_id].get("updateTargets") or []
+                        if str(target.get("selectionId") or "")
+                        and not (
+                            bundled_law_flow
+                            and stage_id == "explanation"
+                            and str(target.get("selectionId") or "")
+                            == "explanation.law_support"
+                        )
+                    ]
                     if requested_update_target_ids is None
+                    and bundled_law_flow
+                    and stage_id == "explanation"
+                    else None
+                    if effective_requested_update_target_ids is None
                     else [
                         value
-                        for value in requested_update_target_ids
+                        for value in effective_requested_update_target_ids
                         if value.startswith(f"{stage_id}.")
                     ]
                 ),
@@ -1365,43 +1391,6 @@ class QualificationWorkflow:
             )
             for stage_id in ordered
         ]
-        if {"law_context", "explanation", "law_audit"}.issubset(ordered):
-            # 全法令工程を連続実行する場合、02bが法令コンテキスト、03bが
-            # 現行法監査を正本として担当する。03は学習者向け解説に集中し、
-            # 同じ法令fieldを途中で再確定して03bの入力不足で止めない。
-            for stage_plan in stage_plans:
-                if str(stage_plan.get("stageId") or "") != "explanation":
-                    continue
-                law_support_targets = [
-                    target
-                    for target in stage_plan.get("selectedUpdateTargets") or []
-                    if str(target.get("id") or "") == "law_support"
-                ]
-                law_support_fields = {
-                    str(field)
-                    for target in law_support_targets
-                    for field in target.get("fields") or []
-                    if field
-                }
-                selected_by_stage = dict(
-                    stage_plan.get("selectedFieldsByStage") or {}
-                )
-                selected_by_stage["explanation"] = [
-                    field
-                    for field in selected_by_stage.get("explanation") or []
-                    if str(field) not in law_support_fields
-                ]
-                stage_plan["selectedFieldsByStage"] = selected_by_stage
-                stage_plan["selectedUpdateTargets"] = [
-                    target
-                    for target in stage_plan.get("selectedUpdateTargets") or []
-                    if str(target.get("id") or "") != "law_support"
-                ]
-                stage_plan["selectedUpdateTargetIds"] = [
-                    value
-                    for value in stage_plan.get("selectedUpdateTargetIds") or []
-                    if not str(value).endswith(".law_support")
-                ]
         aggregate_plans = stage_plans
         group_scoped_plans = [
             plan
