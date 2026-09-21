@@ -69,3 +69,6 @@
 - `judoseifukushi`
 - `shinkyu`
 - `kashikin`
+- `boiler1`
+- `boiler2`
+- `birukan`

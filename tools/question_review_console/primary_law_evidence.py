@@ -38,6 +38,7 @@ _APPENDIX_RE = re.compile(r"別表第?\s*([0-9０-９一二三四五六七八九
 _REVISION_FILENAME_RE = re.compile(r'filename="?([^";]+)"?')
 _DEFAULT_MAX_PARALLEL_FETCHES = 8
 _DEFAULT_FAILURE_CACHE_TTL_SECONDS = 60.0
+_HISTORICAL_API_MIN_DATE = date(2017, 4, 1)
 _KANJI_DIGITS = {
     "零": 0,
     "〇": 0,
@@ -595,18 +596,27 @@ class PrimaryLawEvidenceResolver:
                         )
                     item["currentSnapshot"] = current
                     if exam_as_of:
-                        exam = self._snapshot_payload(
-                            self.law_file(law_id, exam_as_of),
-                            kind=kind,
-                            number=number,
-                        )
-                        item["examSnapshot"] = exam
                         item["examAsOfSource"] = exam_as_of_source
-                        item["comparison"] = (
-                            "unchanged"
-                            if exam["textHash"] == current["textHash"]
-                            else "changed"
-                        )
+                        if date.fromisoformat(exam_as_of) < _HISTORICAL_API_MIN_DATE:
+                            item["examSnapshotStatus"] = "unavailable"
+                            item["examSnapshotUnavailableReason"] = (
+                                "e-Gov法令API Version2の過去データ対応範囲"
+                                "（2017-04-01以降）より前"
+                            )
+                            item["comparison"] = "not_available_pre_2017_04_01"
+                        else:
+                            exam = self._snapshot_payload(
+                                self.law_file(law_id, exam_as_of),
+                                kind=kind,
+                                number=number,
+                            )
+                            item["examSnapshot"] = exam
+                            item["examSnapshotStatus"] = "available"
+                            item["comparison"] = (
+                                "unchanged"
+                                if exam["textHash"] == current["textHash"]
+                                else "changed"
+                            )
                     else:
                         item["comparison"] = "current_only"
                     item["status"] = "complete"

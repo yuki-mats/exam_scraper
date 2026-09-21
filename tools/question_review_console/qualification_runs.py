@@ -2013,6 +2013,10 @@ def _structured_candidate_prompt(
             "comparison=unchangedなら試験時点と現在時点の条文が同一である。",
             "comparison=changedなら二つの本文を比較して判定し、current_onlyなら"
             "現在時点の根拠として使う。status=partialの不足箇所だけ追加確認する。",
+            "comparison=not_available_pre_2017_04_01は、e-Gov法令API Version2の"
+            "公式な過去データ対応範囲外を示す。この場合は出題時本文がないことだけで"
+            "holdにせず、00_sourceの公式元正答をexamTime、currentSnapshotを現行判定の"
+            "根拠として独立に使う。条文本文が不変だったとは記載しない。",
             "status=completeかつcomparison=unchangedの場合、lawReferencesのroleが"
             "current_basisであることだけを理由にholdへ送らない。",
             "examAsOfSourceは試験日の根拠であり、公式試験日catalog又はrecordを示す。",
@@ -2065,7 +2069,7 @@ def _structured_candidate_prompt(
             "currentRecordとは分離して独立に照合し、元解説又は元正答をsetFieldsへ転載せず、"
             "correctChoiceTextをsource値から自動割当しない。確認済み根拠との衝突はblockedにする。",
             "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
-            "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。元正答が示す組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
+            "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。originalAggregateAnswerEvidence.statementVerdictsAvailable=falseなら、配列位置をa、b、c等の抽出記述へ対応付けてはならない。selectedOriginalChoicesが示す元の組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
             "sourceAnswerEvidenceがある場合、それは00_sourceから分離した更新不能な正答証拠である。"
             "evidenceType=trusted_gassyunin_judge_statement_verdictsは、取得元のjudge欄が"
             "sourceの問題文と各選択肢を組み合わせた最終命題へcorrectChoiceTextを直接対応付け、"
@@ -2337,7 +2341,8 @@ def _structured_candidate_stage_context(
                 "既存の紐付け先だけで全選択肢を十分に説明できると確認した場合は、広域検索とlawReferencesの再構築を行わず、有効な紐付けを保持する。",
                 "不足、404又は内容不一致がある場合だけ、その選択肢と不足箇所に限定してe-Gov又は所管官庁の一次情報を探索する。",
                 "primaryLawEvidenceがない又はstatus=not_applicableであること自体はhold理由にしない。lawReferenceDiscoveryPlanがdiscover_requiredなら、Codex組み込みweb検索からe-Gov又は所管官庁の一次情報を開き、法令名、lawId、条番号、本文の一致を確認する。",
-                "追加探索後も法令名、条項、基準日に適用される本文を確認できない場合は、未確認事項を明記して対象問題だけholdにする。一次情報で確認できないlawIdや改正versionは作らない。",
+                "出題時本文だけを取得できない場合は、それだけでholdにしない。00_sourceの公式元正答をexamTime、確認済みcurrentSnapshotを現行判定として独立に記録し、両者の正誤が一致すればsame_as_current、異なればupdated_to_current_lawの三次確認へ送る。本文が不変だったとは記載せず、未参照理由をnotesへ残す。",
+                "現行本文又は公式元正答を確認できない場合、又は両者と現在の問題内容が衝突する場合だけ、未確認事項を明記して対象問題をholdにする。一次情報で確認できないlawIdや改正versionは作らない。",
                 "別問題のlawReferencesを類似性だけで流用しない。",
             ],
         }
@@ -2629,6 +2634,9 @@ def _aggregate_downstream_source_evidence(
     for question_id in aggregate_ids:
         source = source_records[question_id]
         evidence[question_id] = {
+            "schemaVersion": "original-aggregate-answer-evidence/v2",
+            "verdictSemantics": "original_option_verdicts_not_statement_verdicts",
+            "statementVerdictsAvailable": False,
             "sourceRecordRef": SourceIdentityBinding.from_mapping(
                 next(
                     target
@@ -2646,6 +2654,20 @@ def _aggregate_downstream_source_evidence(
             "answerResultText": copy.deepcopy(
                 source.get("_aggregateSourceAnswerResultText")
             ),
+            "selectedOriginalChoices": [
+                {
+                    "originalChoiceIndex": index,
+                    "choiceText": choice,
+                }
+                for index, (choice, verdict) in enumerate(
+                    zip(
+                        source.get("_aggregateSourceChoiceTextList") or [],
+                        source.get("_aggregateSourceCorrectChoiceText") or [],
+                        strict=False,
+                    )
+                )
+                if verdict == "正しい"
+            ],
         }
     return evidence
 

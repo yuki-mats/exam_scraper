@@ -311,6 +311,39 @@ class PrimaryLawEvidenceTests(unittest.TestCase):
             ],
         )
 
+    def test_pre_2017_exam_date_is_explicit_coverage_limit_not_fetch_failure(self):
+        calls: list[tuple[str, str]] = []
+
+        def fetcher(law_id: str, as_of: str) -> LawFileSnapshot:
+            calls.append((law_id, as_of))
+            return LawFileSnapshot(
+                law_id=law_id,
+                as_of=as_of,
+                source_url=f"https://example.test/{law_id}?asof={as_of}",
+                revision_id=f"{law_id}_{as_of}",
+                xml_text=_law_xml(article_text="現行条文"),
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            resolver = PrimaryLawEvidenceResolver(Path(directory), fetcher=fetcher)
+            result = resolver.resolve(
+                {"lawReferences": [{
+                    "role": "exam_time_basis",
+                    "lawId": "307AC0000000020",
+                    "lawTitle": "試験法",
+                    "article": "第11条",
+                    "referenceDate": "2015-11-15",
+                }]},
+                current_as_of="2026-09-21",
+            )
+
+        self.assertEqual(result["status"], "complete")
+        item = result["items"][0]
+        self.assertEqual(item["comparison"], "not_available_pre_2017_04_01")
+        self.assertEqual(item["examSnapshotStatus"], "unavailable")
+        self.assertNotIn("examSnapshot", item)
+        self.assertEqual(calls, [("307AC0000000020", "2026-09-21")])
+
     def test_shared_cache_fetches_one_law_revision_once_under_concurrency(self):
         call_count = 0
         call_lock = threading.Lock()

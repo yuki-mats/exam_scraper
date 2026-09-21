@@ -16,6 +16,8 @@ Codex App Serverは、保存済み`lawReferences`に`lawId`と条・別表のloc
 
 同じ`lawId`・基準日は資格内で共有cacheと一つの取得処理を使います。試験日を解決できた`current_basis`も、試験時点と現在時点の本文を比較します。`status=complete`かつ`comparison=unchanged`なら、参照のroleが`current_basis`であることだけを理由に`hold`へ送りません。宣言済み根拠が不足又は不一致の場合だけ、組み込みweb検索を一次情報の入口として使います。外部MCP、Lawzilla、Firestore条文検索は使いません。保存済みの`lawReferences`、`lawRevisionFacts`は候補であり、server取得又は検索で開いた一次情報と一致した場合だけ根拠にします。
 
+e-Gov法令API Version2の過去データ対応範囲は2017年4月1日以降です。それより前の試験日は、取得失敗として無限再試行せず`comparison=not_available_pre_2017_04_01`と明示します。この場合は公式元正答を出題時判定、取得できた現行本文を現行判定として独立に扱います。両判定が一致すれば`same_as_current`、異なれば三次確認を要する`updated_to_current_law`とし、過去と現在の条文本文が同一だったとは記録しません。
+
 ### 既存の法令紐付けを使う順序
 
 1. 既存の`lawReferences`に`lawId`と条番号又は保存済みURLがあれば、その一次情報本文を先に開く。

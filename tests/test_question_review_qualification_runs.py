@@ -4472,6 +4472,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(prompt_evidence["correctChoiceText"], ["正しい", "間違い"])
         self.assertEqual(prompt_evidence["answerResultText"], "正解は 1 です。")
         self.assertEqual(
+            prompt_evidence["verdictSemantics"],
+            "original_option_verdicts_not_statement_verdicts",
+        )
+        self.assertFalse(prompt_evidence["statementVerdictsAvailable"])
+        self.assertEqual(
+            prompt_evidence["selectedOriginalChoices"],
+            [{"originalChoiceIndex": 0, "choiceText": "A、B"}],
+        )
+        self.assertEqual(
             questions[0]["candidateTargets"][0]["allowedFields"],
             ["correctChoiceText"],
         )
