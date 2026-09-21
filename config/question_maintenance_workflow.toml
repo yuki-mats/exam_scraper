@@ -136,7 +136,8 @@ kind = "human"
 # 3.1: 断片肢へ否定述語を補う問題では、成立する完全命題を選ぶselect_correctとする実行契約を明示する。
 # 4.0: 記述の正誤方向を本文が明示する問題では、短い肢を理由に選択方向を反転しない。
 # 5.0: 完結記述肢と断片肢を構造で区別し、断片肢は補完した完全命題の真偽側を使う。
-policy_version = "5.0"
+# 5.1: 下線部番号肢は参照先に設問述語を補い、番号肢の完全命題として判定する。
+policy_version = "5.1"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -167,7 +168,8 @@ kind = "human"
 # 5.3: 並列条件全体の否定を条文の肯定条件の補集合へ正規化し、肯定形の解説をsource訂正と誤認しない。
 # 5.4: 出題時公式解答と現行法の差を02aの衝突にせず、03bへ時点差確認を渡す。
 # 5.5: 解説fieldを02aの正誤正本から除外し、解説候補の矛盾は03で修復する。
-policy_version = "5.5"
+# 5.6: 下線部番号肢の正誤を、参照先の語句単体ではなく設問述語込みで確定する。
+policy_version = "5.6"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -312,7 +314,8 @@ kind = "human"
 # 5.1: 正誤が変わらない監査で検証済み解説から品質が落ちた候補を退行として再試行する。
 # 5.2: 取得サイトが現在化した文言と出題時原問題を分離し、時点別正誤を別々に確定する。
 # 5.3: 現在化前の文言を保持していなくても選択位置不変なら、推測せず時点別判定を継続する。
-policy_version = "5.3"
+# 5.4: 共有否定を条文の肯定条件と照合し、監査情報だけの更新では既存解説を保持する。
+policy_version = "5.4"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",

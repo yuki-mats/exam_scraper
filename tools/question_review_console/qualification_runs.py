@@ -1836,6 +1836,7 @@ def _structured_candidate_prompt(
     primary_law_evidence_by_question: Mapping[
         str, Mapping[str, Any]
     ] | None = None,
+    current_record_fields: Iterable[str] | None = None,
 ) -> str:
     def nested_rule_field_names(
         candidate_targets: Iterable[CandidateTarget],
@@ -1882,6 +1883,11 @@ def _structured_candidate_prompt(
     issue_evidence_by_question = question_issue_evidence_by_question or {}
     answer_evidence_by_question = source_answer_evidence_by_question or {}
     law_evidence_by_question = primary_law_evidence_by_question or {}
+    visible_current_record_fields = (
+        {str(field) for field in current_record_fields if str(field)}
+        if current_record_fields is not None
+        else None
+    )
     for target in targets:
         question_id = str(target.get("id") or target.get("uiQuestionId") or "")
         binding = SourceIdentityBinding.from_mapping(target)
@@ -1891,6 +1897,14 @@ def _structured_candidate_prompt(
             for candidate_target in candidate_targets
             for field in candidate_target.allowed_fields
         }
+        current_record = records_by_question[question_id]
+        if visible_current_record_fields is not None:
+            visible_fields = visible_current_record_fields | allowed_fields
+            current_record = {
+                field: copy.deepcopy(value)
+                for field, value in current_record.items()
+                if field in visible_fields
+            }
         previous_feedback = []
         for raw_feedback in feedback_by_question.get(question_id) or []:
             feedback = reclassify_feedback(
@@ -1919,7 +1933,7 @@ def _structured_candidate_prompt(
             "questionId": question_id,
             "displayLabel": str(target.get("displayLabel") or question_id),
             "sourceIdentity": binding.as_mapping(),
-            "currentRecord": records_by_question[question_id],
+            "currentRecord": current_record,
             "requiredSemanticFields": sorted(allowed_fields),
             "semanticFieldsMustBeSet": sorted(
                 semantic_fields_must_be_set(candidate_targets)
@@ -12994,6 +13008,11 @@ class QualificationRunCoordinator:
                 ),
                 primary_law_evidence_by_question=(
                     primary_law_evidence_by_question
+                ),
+                current_record_fields=(
+                    (batch_plan.get("readFieldsByStage") or {}).get(stage_id)
+                    if isinstance(batch_plan.get("readFieldsByStage"), Mapping)
+                    else None
                 ),
             )
             child = self.store.create_question_attempt(

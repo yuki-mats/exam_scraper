@@ -2097,6 +2097,43 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertIn("AWSの承認済み例", prompt)
         self.assertLess(prompt.index("AWSの承認済み例"), prompt.index("# 実行対象"))
 
+    def test_structured_candidate_prompt_limits_current_record_to_stage_contract(self):
+        target = {"id": "question-1"}
+        candidate_target = CandidateTarget(
+            target_id="question-1:correct-choice",
+            role="correct_choice",
+            path="output/sample/23_correctChoiceText_fixed/question.json",
+            allowed_fields=("correctChoiceText",),
+        )
+
+        prompt = _structured_candidate_prompt(
+            "正答を判定する。",
+            [target],
+            stage_id="correct_choice",
+            records_by_question={
+                "question-1": {
+                    "questionBodyText": "本文",
+                    "choiceTextList": ["選択肢"],
+                    "correctChoiceText": ["正しい"],
+                    "explanationText": ["後続工程の解説"],
+                    "explanation_choice_snippets": ["取得元の解説候補"],
+                }
+            },
+            candidate_targets_by_question={"question-1": (candidate_target,)},
+            feedback_by_question={},
+            current_record_fields=("questionBodyText", "choiceTextList"),
+        )
+
+        payload = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(
+            payload["currentRecord"],
+            {
+                "questionBodyText": "本文",
+                "choiceTextList": ["選択肢"],
+                "correctChoiceText": ["正しい"],
+            },
+        )
+
     def test_aggregate_calculation_requires_a_candidate_when_selected(self):
         with self.assertRaisesRegex(
             QualificationRunError,

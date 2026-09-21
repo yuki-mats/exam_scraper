@@ -263,6 +263,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("元の問題文を訂正した証拠ではありません", correct_choice)
         self.assertIn("現行条文が異なる可能性だけを02aの衝突", correct_choice)
         self.assertIn("解説の食い違いだけで02aを`hold`", correct_choice)
+        self.assertIn("下線部Nの語句は誤っている", correct_choice)
         self.assertIn("元の組合せ肢4件", correct_choice)
         self.assertIn("条文の見出し、規律対象", law_context)
         self.assertIn("なお残る交付・記載・手続の義務", law_context)
@@ -279,6 +280,8 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("既存の有効なFlutter数式", law_audit)
         self.assertIn("取得サイトが過去問の数値又は文言を現行法へ現在化", law_audit)
         self.assertIn("原文言未保持", law_audit)
+        self.assertIn("A又はBを満たさなければEに含まれない", law_audit)
+        self.assertIn("正誤理由が正しい既存`explanationText`は一字も書き換えず", law_audit)
         self.assertIn("問題全体だけを説明する追加要素", law_audit)
 
     def test_question_set_policy_uses_complete_question_and_canonical_taxonomy(self):
@@ -501,7 +504,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 for stage in catalog["stages"]
                 if stage["id"] == "question_intent"
             ),
-            "5.0",
+            "5.1",
         )
         self.assertEqual(
             owned_fields["correct_choice"],
@@ -509,12 +512,12 @@ class WorkflowCatalogTests(unittest.TestCase):
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
         self.assertEqual(version_by_stage["explanation"], "10.6")
-        self.assertEqual(version_by_stage["law_audit"], "5.3")
+        self.assertEqual(version_by_stage["law_audit"], "5.4")
         self.assertEqual(version_by_stage["law_context"], "2.3")
         self.assertEqual(version_by_stage["originalize"], "2.9")
         self.assertEqual(version_by_stage["question_type"], "6.1")
-        self.assertEqual(version_by_stage["question_intent"], "5.0")
-        self.assertEqual(version_by_stage["correct_choice"], "5.5")
+        self.assertEqual(version_by_stage["question_intent"], "5.1")
+        self.assertEqual(version_by_stage["correct_choice"], "5.6")
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
