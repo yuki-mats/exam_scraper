@@ -172,7 +172,7 @@ def record_law_audit_version(root: Path, group, version: str, *, questions=None)
         list(questions or group["questions"]),
         {
             "id": "law_audit",
-            "policyVersion": "4.0",
+            "policyVersion": "5.2",
             "policyFingerprint": "law-audit-policy",
         },
         run_id="law-audit-run" if version != "0.0" else None,
@@ -450,7 +450,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             group = sync_group_fixture(root, is_law_related=True)
-            record_law_audit_version(root, group, "4.0")
+            record_law_audit_version(root, group, "5.2")
             commands = []
 
             def run(command, *, cwd, env, emit):
@@ -497,7 +497,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             group = sync_group_fixture(root, is_law_related=True)
-            record_law_audit_version(root, group, "4.0")
+            record_law_audit_version(root, group, "5.2")
             projected = group["questions"][0]["projected"]
             projected["correctChoiceText"] = ["間違い"]
             commands = []
@@ -525,7 +525,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             group = sync_group_fixture(root, is_law_related=True)
-            record_law_audit_version(root, group, "4.0")
+            record_law_audit_version(root, group, "5.2")
             group["questions"][0]["projected"].pop("lawRevisionFacts")
             synchronizer = ArtifactSynchronizer(
                 root,
@@ -584,7 +584,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
                 }
             )
             group["questions"].append(legacy)
-            record_law_audit_version(root, group, "4.0", questions=[modern])
+            record_law_audit_version(root, group, "5.2", questions=[modern])
             record_law_audit_version(root, group, "0.0", questions=[legacy])
             commands = []
 
@@ -617,7 +617,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             group = sync_group_fixture(root, is_law_related=True)
-            record_law_audit_version(root, group, "4.0")
+            record_law_audit_version(root, group, "5.2")
             rules_path = root / "config" / "qualification_rules.json"
             rules_path.parent.mkdir(parents=True, exist_ok=True)
             rules_path.write_text(
