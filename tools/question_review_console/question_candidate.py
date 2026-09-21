@@ -498,6 +498,9 @@ _LAW_AUDIT_EXPLANATION_TEXT_RULE: dict[str, Any] = {
         _EXPLANATION_FIELD_RULES["explanationText"]["description"]
         + " isLawRelated=trueでは、検証済みlawReferencesと対応する具体的な法令名、"
         "条項又は別表等の根拠位置を公開文面にも明記する。"
+        " correctChoiceTextが変わらず、currentRecordの解説が品質検証を通る場合は、"
+        "法令差分の反映が不要な選択肢の本文をそのまま保持する。計算問題では既存の"
+        "数式、数値代入、等号、途中計算及び結果を削除しない。"
     ),
 }
 
@@ -1959,16 +1962,49 @@ def _validate_candidate_content_messages(
         )
         errors.extend(explanation_shape)
         if not explanation_shape and isinstance(explanations, list):
-            errors.extend(
+            explanation_issues = explanation_style_issues(
+                explanations,
+                correct,
+                choice_texts=choices,
+                question_type=logical.get("questionType"),
+                is_calculation_question=logical.get("isCalculationQuestion")
+                is True,
+            )
+            errors.extend(explanation_issues)
+            current_explanations = projected_record.get("explanationText")
+            current_shape = explanation_shape_errors(
+                current_explanations,
+                question_type=projected_record.get("questionType"),
+                choice_count=len(projected_record.get("choiceTextList") or []),
+            )
+            current_issues = (
                 explanation_style_issues(
-                    explanations,
-                    correct,
-                    choice_texts=choices,
-                    question_type=logical.get("questionType"),
-                    is_calculation_question=logical.get("isCalculationQuestion")
+                    current_explanations,
+                    projected_record.get("correctChoiceText"),
+                    choice_texts=projected_record.get("choiceTextList") or [],
+                    question_type=projected_record.get("questionType"),
+                    is_calculation_question=projected_record.get(
+                        "isCalculationQuestion"
+                    )
                     is True,
                 )
+                if not current_shape and isinstance(current_explanations, list)
+                else current_shape
             )
+            if (
+                explanation_issues
+                and not current_issues
+                and logical.get("correctChoiceText")
+                == projected_record.get("correctChoiceText")
+            ):
+                errors.append(
+                    "候補のexplanationTextで、検証済みの現在値から文章品質が"
+                    "退行しています。正誤が変わらず、法令差分の反映が不要な"
+                    "選択肢はcurrentRecord.explanationTextをそのまま保持し、"
+                    "変更が必要な選択肢だけを修正してください。計算問題では、"
+                    "既存の数式、数値代入、等号、途中計算及び結果を削除しないで"
+                    "ください。"
+                )
     if "explanationReferences" in changed_fields:
         errors.extend(
             explanation_reference_errors(logical.get("explanationReferences"))

@@ -324,7 +324,7 @@ class DocumentationStructureTests(unittest.TestCase):
         )
         stages = {stage["id"]: stage for stage in workflow["stages"]}
         self.assertEqual(stages["explanation"]["policy_version"], "10.2")
-        self.assertEqual(stages["law_audit"]["policy_version"], "5.0")
+        self.assertEqual(stages["law_audit"]["policy_version"], "5.1")
         self.assertEqual(stages["law_context"]["policy_version"], "2.0")
 
     def test_qualification_specific_explanation_strategies_do_not_return(self):
@@ -346,6 +346,12 @@ class DocumentationStructureTests(unittest.TestCase):
                 encoding="utf-8"
             ),
         )
+        kashikin_scope = (
+            qualification_root / "kashikin" / "02_law_reference_scope.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("貸金業法第6条", kashikin_scope)
+        self.assertIn("貸金業法第24条の27", kashikin_scope)
+        self.assertIn("公示日前60日以内", kashikin_scope)
         adjustment_owners = []
         for path in qualification_root.glob("**/*.md"):
             heading_count = len(

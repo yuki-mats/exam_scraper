@@ -68,3 +68,4 @@
 - `nw`
 - `judoseifukushi`
 - `shinkyu`
+- `kashikin`

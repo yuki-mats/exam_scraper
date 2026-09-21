@@ -297,7 +297,8 @@ kind = "human"
 # 4.4: run開始時に旧sidecar identityを正規化し、server取得のe-Gov時点比較を監査入力へ含める。
 # 4.5: 公式試験日catalogと枝番を含むlocatorで試験時点・現在時点を機械比較する。
 # 5.0: 非法令技術問題を再判定せず、差分なし監査で既存解説と計算式を保持して全問を洗い替える。
-policy_version = "5.0"
+# 5.1: 正誤が変わらない監査で検証済み解説から品質が落ちた候補を退行として再試行する。
+policy_version = "5.1"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",

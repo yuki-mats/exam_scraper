@@ -752,6 +752,67 @@ class QuestionCandidateTest(unittest.TestCase):
             "allowedWriteFiles": [],
         }
 
+    def test_explanation_candidate_reports_regression_from_valid_calculation(self):
+        plan = {
+            **self.plan(),
+            "selectedFieldsByStage": {
+                "explanation": ["explanationText"],
+            },
+        }
+        targets = candidate_targets("q1", "explanation", plan)
+        candidate = _parse_prepared_candidates(
+            {
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+                "questionResults": [
+                    {
+                        "questionId": "q1",
+                        "status": "candidate",
+                        "summary": "法令監査で数値条件を説明した。",
+                        "updates": [
+                            {
+                                "targetId": "q1:explanation",
+                                "setFields": [
+                                    {
+                                        "field": "explanationText",
+                                        "value": [
+                                            "正しい。合算額は基準額を超える。"
+                                            "\\[40+70=110>100\\]",
+                                            "正しい。貸付額は基準額を超える。",
+                                        ],
+                                    }
+                                ],
+                                "unsetFields": [],
+                            }
+                        ],
+                    }
+                ],
+            },
+            ["q1"],
+            {"q1": targets},
+        )[0]
+        record = {
+            "questionType": "true_false",
+            "questionIntent": "select_correct",
+            "choiceTextList": ["合計額を確認する。", "貸付額を確認する。"],
+            "correctChoiceText": ["正しい", "正しい"],
+            "isCalculationQuestion": True,
+            "explanationText": [
+                "正しい。合算額は基準額を超える。\\[40+70=110>100\\]",
+                "正しい。貸付額は基準額を超える。\\[貸付額=100>50\\]",
+            ],
+        }
+
+        errors = validate_candidate_content(candidate, targets, record)
+
+        self.assertTrue(
+            any("検証済みの現在値から文章品質が退行" in error for error in errors),
+            errors,
+        )
+        self.assertTrue(
+            any("既存の数式、数値代入、等号、途中計算" in error for error in errors),
+            errors,
+        )
+
     def test_builds_targets_without_exposing_unrelated_paths(self):
         targets = candidate_targets("q1", "explanation", self.plan())
 
