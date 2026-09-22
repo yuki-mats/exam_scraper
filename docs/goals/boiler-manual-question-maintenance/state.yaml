@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T010
+active_task: T011
 
 tasks:
   - id: T001
@@ -789,7 +789,7 @@ tasks:
   - id: T010
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問10だけを一問ずつ目視計算し、現行扱いの01〜03bと解説をread-onlyで確認したうえで、未記録の04完全identity rowを22 patch末尾のindex 15へ追加し、questionSetIdをboiler1_qs01_06_performanceに設定する。22以外は変更せず、commitしてorigin/mainへpushする。"
     allowed_files:
@@ -822,6 +822,61 @@ tasks:
       - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
       - "同一phaseのread-only verifyが原因確認後も二回失敗する。"
       - "pushが拒否される、又はremote mainが予期せず進んでいる。force pushは行わない。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "[pre_edit] main、clean、基準commit ancestor、origin差分0/0、全指定hash一致"
+          status: pass
+        - cmd: "[review] 問10本文・全5肢・公式解答5・21・03b・category全候補を目視し低発熱量を独立計算"
+          status: pass
+        - cmd: "[post_edit] 基準15 row、index15 identity、16 row、一意性、category、diff、変更限定、最終hash"
+          status: pass
+        - cmd: "git commit -m 'Add boiler1 2009-1 question 10 category link'"
+          status: pass
+        - cmd: "[post_commit] clean、変更一件、基準15 row、identity、16 row、一意性、hash一致"
+          status: pass
+        - cmd: "git push origin main and remote ref equality"
+          status: pass
+      summary: "給水比エンタルピを約84kJ/kgとして低発熱量を約42.0MJ/kgと目視計算し、第5肢・公式解答・21・03bが一致することを確認した。全category候補からboiler1_qs01_06_performanceを確定し、問10 rowだけをindex 15へ追加。最終hashはc367c07a557ad2cc5c3d84f5775c97ed7331e1d9d38758b149b6891f47141522。commit 5a741f4355a319de29654198686ddf8cbac6fc19をorigin/mainへpushし、remote一致・cleanを確認した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      pre_work_hashes:
+        22: ea4e6978fca484c0cf753094bd57aa74a443e9cd8188456d823f61f768333fb4
+      post_work_hashes:
+        22: c367c07a557ad2cc5c3d84f5775c97ed7331e1d9d38758b149b6891f47141522
+      commit: 5a741f4355a319de29654198686ddf8cbac6fc19
+      deviations: []
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問11だけを一問一肢ずつ目視し、現行扱いの01〜03bをread-onlyで確認したうえで、未記録の04完全identity rowを22 patch末尾のindex 16へ追加し、questionSetIdをboiler1_qs02_01_startup_operationに設定する。22以外は変更せず、commitしてorigin/mainへpushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "00_sourceの問11本文・全5肢・source identity・公式解答4を確認する。"
+      - "各肢の圧力上昇速度、水位調整、エコノマイザ循環、空気予熱器の監視位置、空気抜き・ドレン切りを独立に判定する。"
+      - "21と03bをread-onlyで照合し、非法令の起動運転問題という判定と解説が妥当か確認する。"
+      - "全category候補から起動・圧力上昇を主論点としてboiler1_qs02_01_startup_operationを独立に確定する。"
+      - "commit 5a741f4355a319de29654198686ddf8cbac6fc19の22全16 rowを保持し、問11 rowだけをindex 16へappendする。"
+      - "pre_edit、post_edit、post_commitを順に実行し、pre_edit hashは編集後に再実行しない。work_versionsへ手入力しない。"
+    verify:
+      - "[pre_edit] main、clean、基準commit ancestor、origin差分0/0、22 hash=c367c07a557ad2cc5c3d84f5775c97ed7331e1d9d38758b149b6891f47141522。"
+      - "[pre_edit and post_edit] 00_source、21、03b、categoryのhashはT009 receipt記録値、問11 work_versions hash=7c5705824286d6e06f64487a95745f3d8367ac1634c392664ff062cb9820669e。"
+      - "[post_edit] 基準16 rowと現行先頭16 rowが一致する。length=17、index16のref=#10、source ID末尾011、identity=ea1c7c82e17b4b53、questionSetId=boiler1_qs02_01_startup_operation。"
+      - "[post_edit] identity各一意、category存在、diff check、変更ファイル限定、最終hash記録。"
+      - "[post_commit] clean、HEAD変更一件、基準16 row、index16 identity、17 row、一意性、hash一致、origin/main pushとremote ref一致。"
+    stop_if:
+      - "21又は03bの内容、正答、非法令判定に誤りがあり変更が必要になる。"
+      - "問11の01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準16 rowが変わる、分類・identityを一意に確定できない、又は問11以外を変更する必要がある。"
+      - "生成・一括補正・自動レビュー・work_versions手入力が必要になる。"
+      - "同一phaseの検証が原因確認後も二回失敗する、又はpush/remote競合がある。"
     receipt: null
   - id: T999
     type: judge
