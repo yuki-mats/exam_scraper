@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T021
+active_task: T022
 
 tasks:
   - id: T001
@@ -1295,7 +1295,7 @@ tasks:
   - id: T021
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問24だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 26へ追加し、questionSetIdをboiler1_qs03_02_combustion_equipmentに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1311,6 +1311,50 @@ tasks:
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "precondition main clean origin一致 baseline/read-only hash確認"
+          status: pass
+        - cmd: "問24の01〜03b・work_versions・category候補をread-only目視確認"
+          status: pass
+        - cmd: "apply_patchでindex26へ問24を追加"
+          status: pass
+        - cmd: "post_edit 既存26 row一致 length=27 identity一意 category/diff/read-only hash確認"
+          status: pass
+        - cmd: "git commit b2604ec8eed36dd437e9ed0097653ce0cda97540"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "post_commit remote一致 clean 変更ファイル1件 最終hash確認"
+          status: pass
+      summary: "全5肢を目視し、粘度低下は微粒化を容易にし、B/C重油の提示温度は低すぎるため肢2が誤り、過熱時のベーパロック、バーナタイルによる加熱・気化、残さ粒子の分解燃焼は正しいと独立確認した。非法令の噴霧式燃焼・バーナ問題としてboiler1_qs03_02_combustion_equipmentへ分類。commit b2604ec8eed36dd437e9ed0097653ce0cda97540をpush済み。最終22 hashは860fac6205b287a1eb521eecca0d1437e441277d6d790f569331a5f9ac2e2aab。clean・remote一致を確認した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T022
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問25だけを一問ずつ目視計算し、01〜03bをread-only確認後、未記録04 rowを22 index 27へ追加し、questionSetIdをboiler1_qs03_05_combustion_calculationに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "硫黄1kgの完全燃焼について、S+O2→SO2、22.4/32=0.7m3N/kg、0.7/0.21≒3.3m3N/kgを独立計算し、全5選択肢・公式解答3を確認する。"
+      - "21・03bの非法令判定・計算解説と全category候補をread-only確認し、燃焼計算・空気量として分類する。"
+      - "commit b2604ec8eed36dd437e9ed0097653ce0cda97540の既存27 rowを保持し問25だけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=860fac6205b287a1eb521eecca0d1437e441277d6d790f569331a5f9ac2e2aab。"
+      - "[pre/post] read-only hash不変、問25 work_versions hash=352b22e2544ae5c80f5c02cce1c76c20d8c3c5a3cb2160353ef80af98a49b690。"
+      - "[post_edit] 基準27 row一致、length=28、index27 ref=#24、source ID末尾025、identity=3179a01126973052、questionSetId=boiler1_qs03_05_combustion_calculation。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・計算・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
