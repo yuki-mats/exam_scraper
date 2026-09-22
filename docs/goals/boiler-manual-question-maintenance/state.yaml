@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T009
+active_task: T010
 
 tasks:
   - id: T001
@@ -725,7 +725,7 @@ tasks:
   - id: T009
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問7だけを一問一肢ずつ目視し、現行扱いの01〜03bと法令関連肢をread-onlyで確認したうえで、未記録の04完全identity rowを22 patch末尾のindex 14へ追加し、questionSetIdをboiler1_qs01_04_auxiliary_water_feedに設定する。22以外は変更せず、commitしてorigin/mainへpushする。"
     allowed_files:
@@ -756,6 +756,69 @@ tasks:
       - "基準commitの14 rowと編集後先頭14 rowが一致しない。"
       - "boiler1_qs01_04_auxiliary_water_feed又はsource identityを一意に確定できない。"
       - "問7以外のrow又はallowed_files外を変更する必要がある。"
+      - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
+      - "同一phaseのread-only verifyが原因確認後も二回失敗する。"
+      - "pushが拒否される、又はremote mainが予期せず進んでいる。force pushは行わない。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "[pre_edit] main、clean、基準commit ancestor、main...origin/main=0/0、指定hash一致"
+          status: pass
+        - cmd: "[review] 問7本文・全5肢・公式解答5・21・03b・ボイラー構造規格第75条・category全候補を目視確認"
+          status: pass
+        - cmd: "[post_edit] 読取専用hash、基準14 row、index 14 identity、length=15、一意性、category存在、diff、変更ファイル限定"
+          status: pass
+        - cmd: "[post_commit] clean、変更ファイル一件、基準14 row、index 14 identity、length=15、一意性、HEAD/作業ファイルhash一致"
+          status: pass
+        - cmd: "[post_commit] origin/main push、main...origin/main=0/0、remote ref=HEAD"
+          status: pass
+      summary: "問7を一肢ずつ確認。肢1は遠心ポンプの呼び水、肢2は最低流量確保による過熱防止、肢3は多段化による高圧化、肢4は給水弁をボイラー側へ置くため正しい。肢5は逆止め弁の形式が誤りで、公式解答5と一致した。第4肢は03b記録のボイラー構造規格第75条とread-onlyで照合し変更不要。全候補からboiler1_qs01_04_auxiliary_water_feedへ分類し、index 14へ追加。commit 4e5523628eeb108a4969c8815279646224b912e5をpushしremote一致・cleanを確認した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+      pre_work_hashes:
+        22: 200d4c27a5f7604e169781bbef17b5fb37133f0ffdc23a86f702da1fbce2df99
+      post_work_hashes:
+        22: ea4e6978fca484c0cf753094bd57aa74a443e9cd8188456d823f61f768333fb4
+      commit: 4e5523628eeb108a4969c8815279646224b912e5
+      deviations:
+        - "初回post_edit検証はjqの一意性式で演算子優先順位を誤り失敗した。データ変更は行わず、式を括弧で修正して同一phaseを再実行し全検証がpassした。"
+  - id: T010
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問10だけを一問ずつ目視計算し、現行扱いの01〜03bと解説をread-onlyで確認したうえで、未記録の04完全identity rowを22 patch末尾のindex 15へ追加し、questionSetIdをboiler1_qs01_06_performanceに設定する。22以外は変更せず、commitしてorigin/mainへpushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問8・問9はwork_versionsのquestion_set=2.0を含む全対象工程が現行MAJORのため、次の未完問題はsource順の問10である。"
+      - "00_sourceの問10本文、全5選択肢、source ID、original_question_id、公式解答5を確認する。"
+      - "蒸発量10t/h、蒸気比エンタルピ2760kJ/kg、給水20℃、効率85%、燃料750kg/hから低発熱量を自分で一問計算し、約42.0MJ/kgとなることを確認する。"
+      - "21と03bをread-onlyで照合し、非法令の計算問題という判定、式、単位換算、日本語が妥当か確認する。"
+      - "category.jsonの全候補を読み、ボイラー効率・燃料消費量・低発熱量の計算を主論点としてboiler1_qs01_06_performanceを独立に確定する。"
+      - "commit 4e5523628eeb108a4969c8815279646224b912e5の22全15 rowを一字も変えず、問10 rowだけをindex 15へappendする。"
+      - "verifyをpre_edit、post_edit、post_commitの順に一度ずつ実行し、pre_edit専用hashは編集後に再実行しない。"
+      - "work_versionsへ手入力しない。"
+    verify:
+      - "[pre_edit] main、clean、commit 4e5523628eeb108a4969c8815279646224b912e5がancestor、main...origin/main=0/0。"
+      - "[pre_edit only] 22 hash=ea4e6978fca484c0cf753094bd57aa74a443e9cd8188456d823f61f768333fb4。"
+      - "[pre_edit and post_edit] 00_source、21、03b、categoryのhashはT009 receipt記録値と一致し、問10 work_versions hash=401249c0f3f124f0a5a602d9a8976e363007b580c0edb096099f136561de84c6。"
+      - "[post_edit] 基準commitの22全15 rowと現行先頭15 rowがjq -Sで一致する。"
+      - "[post_edit] length=16で、index 15がsourceRecordRef=question_2009-1.json#9、source_question_id=boiler1:kako-mon-com:bo-1:2009-1-01-010、public/original/reviewQuestionId=fa92532fb67813e5、sourceQuestionKey=boiler1:2009-1:fa92532fb67813e5、questionSetId=boiler1_qs01_06_performance。"
+      - "[post_edit] identityが各一意、categoryに指定IDが存在、git diff --checkがpass、変更はallowed_files一件。最終22 hashを記録する。"
+      - "[post_commit] clean、HEAD変更ファイル一件、基準15 row、index 15 identity、16 row、一意性、HEAD/作業ファイルhash一致を確認する。"
+      - "[post_commit] origin/mainへpushし、main...origin/main=0/0、remote ref=HEADを確認する。"
+    stop_if:
+      - "21又は03bの内容、正答、式、単位換算に誤りがあり変更が必要になる。"
+      - "問10の01、02、02a、02b又は03bを変更する必要がある。"
+      - "00_source、21、03b、category、work_versions、merged、convert又はupload-readyの変更が必要になる。"
+      - "基準commitの15 rowと編集後先頭15 rowが一致しない。"
+      - "boiler1_qs01_06_performance又はsource identityを一意に確定できない。"
+      - "問10以外のrow又はallowed_files外を変更する必要がある。"
       - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
       - "同一phaseのread-only verifyが原因確認後も二回失敗する。"
       - "pushが拒否される、又はremote mainが予期せず進んでいる。force pushは行わない。"
