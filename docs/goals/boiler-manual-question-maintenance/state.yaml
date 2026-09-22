@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T008
+active_task: T009
 
 tasks:
   - id: T001
@@ -642,7 +642,7 @@ tasks:
   - id: T008
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問5だけを一問一肢ずつ目視し、21と03bの非法令・解説用法令情報が妥当であることを確認したうえで、04の完全identity rowを22 patch末尾のindex 13へ追加し、questionSetIdをboiler1_qs01_02_boiler_typesに設定する。21、03b、00_source、category、work_versionsは変更せず、22だけをcommitしてorigin/mainへpushする。"
     allowed_files:
@@ -688,6 +688,76 @@ tasks:
       - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
       - "work_versionsを手入力でcurrent扱いする必要がある。"
       - "同一phaseのread-only verifyが原因確認後も二回失敗する。pre_edit専用hashは編集後に再実行しない。"
+      - "pushが拒否される、又はremote mainが予期せず進んでいる。force pushは行わない。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "[pre_edit] branch=main、clean、基準commit ancestor、main...origin/main=0/0"
+          status: pass
+        - cmd: "[pre_edit] 22 hash=87da27c7205ac4ecf50500329f9abc379fbb2b022e9c9fc926d08f1cdd1801dc"
+          status: pass
+        - cmd: "[pre_edit] 00_source、21、03b、category、work_versionsのbaseline hash一致"
+          status: pass
+        - cmd: "[review] 00_source問5、21全5肢、03b sidecar、category全候補を目視確認"
+          status: pass
+        - cmd: "[post_edit] 基準13 row一致、index 13 identity、14 row、一意性、category存在、diff check、変更ファイル限定"
+          status: pass
+        - cmd: "[post_edit] 22 hash=200d4c27a5f7604e169781bbef17b5fb37133f0ffdc23a86f702da1fbce2df99"
+          status: pass
+        - cmd: "[post_commit] clean、変更ファイル限定、基準13 row、index 13 identity、14 row、一意性、HEAD/作業ファイルhash一致"
+          status: pass
+        - cmd: "[post_commit] origin/main push、main...origin/main=0/0、remote ref=HEAD"
+          status: pass
+      summary: "問5をindex 13へ追加。肢1は不同膨張に弱く誤り、肢2は上昇・下降管が逆、肢3はスタッドで高伝熱面負荷となり正しい、肢4は給水管の直接接続が誤り、肢5は蒸気暖房の熱容量大小が逆。21/03bの非法令判定と解説は妥当。分類はboiler1_qs01_02_boiler_types。22 hashは87da27c…から200d4c27…へ変更。commit=b391ba2eaaa737f676afd80061e4e239cccf4ec4。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      pre_work_hashes:
+        22: 87da27c7205ac4ecf50500329f9abc379fbb2b022e9c9fc926d08f1cdd1801dc
+      post_work_hashes:
+        22: 200d4c27a5f7604e169781bbef17b5fb37133f0ffdc23a86f702da1fbce2df99
+      commit: b391ba2eaaa737f676afd80061e4e239cccf4ec4
+      deviations:
+        - "初回はpre_edit専用hashを誤phaseで再実行して停止したが、変更は復元済み。今回は更新後phaseどおり完了。"
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問7だけを一問一肢ずつ目視し、現行扱いの01〜03bと法令関連肢をread-onlyで確認したうえで、未記録の04完全identity rowを22 patch末尾のindex 14へ追加し、questionSetIdをboiler1_qs01_04_auxiliary_water_feedに設定する。22以外は変更せず、commitしてorigin/mainへpushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問6はwork_versionsのquestion_set=2.0を含む全対象工程が現行MAJORのため、次の未完問題はsource順の問7である。"
+      - "00_sourceの問7本文と5肢を最初から最後まで読み、source ID、original_question_id、公式解答5を確認する。"
+      - "各肢の遠心ポンプ呼び水、過熱防止戻し配管、多段ディフューザポンプ、給水弁と逆止め弁の取付位置、逆止め弁の形式を独立に判定する。"
+      - "21と03bを全5肢に照合する。第4肢は既存03bのボイラー構造規格第75条との照合をread-onlyで確認し、内容変更が必要なら停止する。"
+      - "category.jsonの全候補を読み、給水装置の構造を主論点としてboiler1_qs01_04_auxiliary_water_feedを独立に確定する。"
+      - "commit b391ba2eaaa737f676afd80061e4e239cccf4ec4の22全14 rowを一字も変えず、問7 rowだけをindex 14へappendする。"
+      - "verifyをpre_edit、post_edit、post_commitの順に一度ずつ実行し、pre_edit専用hashは編集後に再実行しない。"
+      - "work_versionsへ手入力しない。"
+    verify:
+      - "[pre_edit] main、clean、commit b391ba2eaaa737f676afd80061e4e239cccf4ec4がancestor、main...origin/main=0/0。"
+      - "[pre_edit only] 22 hash=200d4c27a5f7604e169781bbef17b5fb37133f0ffdc23a86f702da1fbce2df99。"
+      - "[pre_edit and post_edit] 00_source hash=5382cd55c4f16cebc2ef1d525b0407ed5e6e1dded05d9e89188f49842b204cf0、21 hash=33b04f0abef353f6ce3f8496be9dffbb14e28d6566b499e48b8e139f0143a7f2、03b hash=7b00422c02449065dcbc09225542943e26620120ac82e977aaa87eaad03ba7eb、category hash=e107241b213b54f7adda33aa452a6071a956631eb81a70bb12ce6203e0cf73c9、問7 work_versions hash=40d07a620c6353ea3d09787bd78fc24783c14d3bcc39b7e2a29c57060ec325e3。"
+      - "[post_edit] commit b391ba2eaaa737f676afd80061e4e239cccf4ec4の22全14 rowと現行先頭14 rowをjq -Sで比較して一致する。"
+      - "[post_edit] length=15で、index 14がsourceRecordRef=question_2009-1.json#6、source_question_id=boiler1:kako-mon-com:bo-1:2009-1-01-007、public/original/reviewQuestionId=443609f5796bcb96、sourceQuestionKey=boiler1:2009-1:443609f5796bcb96、questionSetId=boiler1_qs01_04_auxiliary_water_feed。"
+      - "[post_edit] sourceRecordRef、source_question_id、original_question_idが各一意で、categoryに指定questionSetIdが存在する。"
+      - "[post_edit] git diff --checkがpassし、変更ファイルはallowed_files一件だけ。最終22 hashをreceiptへ記録する。"
+      - "[post_commit] clean、HEADの変更ファイル一件、基準14 row、index 14 identity、15 row、一意性、HEAD/作業ファイルhash一致を確認する。"
+      - "[post_commit] origin/mainへpushし、main...origin/main=0/0、remote ref=HEADを確認する。"
+    stop_if:
+      - "21又は03bの内容、正答、法令関連性、現行法判定に誤りがあり変更が必要になる。"
+      - "問7の01、02、02a、02b又は03bを変更する必要がある。"
+      - "00_source、21、03b、category、work_versions、merged、convert又はupload-readyの変更が必要になる。"
+      - "基準commitの14 rowと編集後先頭14 rowが一致しない。"
+      - "boiler1_qs01_04_auxiliary_water_feed又はsource identityを一意に確定できない。"
+      - "問7以外のrow又はallowed_files外を変更する必要がある。"
+      - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
+      - "同一phaseのread-only verifyが原因確認後も二回失敗する。"
       - "pushが拒否される、又はremote mainが予期せず進んでいる。force pushは行わない。"
     receipt: null
   - id: T999
