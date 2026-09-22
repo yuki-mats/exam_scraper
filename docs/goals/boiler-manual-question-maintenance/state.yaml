@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T023
+active_task: T024
 
 tasks:
   - id: T001
@@ -1385,7 +1385,7 @@ tasks:
   - id: T023
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問26だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 28へ追加し、questionSetIdをboiler1_qs03_02_combustion_equipmentに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1398,6 +1398,50 @@ tasks:
       - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=b0369fe0596a495b2edc2e9dbe8670da55e8fca703e0873c94b8bfc39278fe70。"
       - "[pre/post] read-only hash不変、問26 work_versions hash=70e9b451949b2ebd7855ea74f829464f8a370938b81cba4e783efeb0253d84b6。"
       - "[post_edit] 基準28 row一致、length=29、index28 ref=#25、source ID末尾026、identity=b0690e61bc74fbd2、questionSetId=boiler1_qs03_02_combustion_equipment。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "precondition main clean ancestor origin baseline hashes"
+          status: pass
+        - cmd: "問26 01〜03b・21・category全候補のread-only目視確認"
+          status: pass
+        - cmd: "apply_patch index28"
+          status: pass
+        - cmd: "post_edit baseline 28 rows identity uniqueness category diff hashes"
+          status: pass
+        - cmd: "git commit 52fbc62a526de3bc9ca8d6c13f7314af892358e8"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "post_commit remote ref clean origin 0/0 hashes"
+          status: pass
+      summary: "問26全5肢を独立確認。単室形オートクリーナ、移送/噴燃ポンプ、蒸気噴霧式の調節範囲、低圧気流噴霧式の媒体を誤り、エアレジスタを正しいと判断し公式解答5と一致。非法令の液体燃料供給・油バーナ問題としてboiler1_qs03_02_combustion_equipmentを追加。commit 52fbc62a526de3bc9ca8d6c13f7314af892358e8、最終22 hash 3aeeaaa0a3f72259ac3e19b840b63dcda21fdab5f4cb3c6f9fd103e9310e9cbf。push、clean、remote一致を確認。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T024
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問27だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 29へ追加し、questionSetIdをboiler1_qs03_02_combustion_equipmentに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "ロータリバーナのアトマイジングカップ、油膜・飛散、空気流の旋回方向、内蔵機器を全5肢・公式解答4から独立確認する。"
+      - "21・03bの非法令判定・解説と全category候補をread-only確認し、油バーナとして分類する。"
+      - "commit 52fbc62a526de3bc9ca8d6c13f7314af892358e8の既存29 rowを保持し問27だけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=3aeeaaa0a3f72259ac3e19b840b63dcda21fdab5f4cb3c6f9fd103e9310e9cbf。"
+      - "[pre/post] read-only hash不変、問27 work_versions hash=e98f2538bef3c6adfa05ab5836f35584c55bb038db298aa188650671307d495d。"
+      - "[post_edit] 基準29 row一致、length=30、index29 ref=#26、source ID末尾027、identity=37ff496ce3a9fb24、questionSetId=boiler1_qs03_02_combustion_equipment。"
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
