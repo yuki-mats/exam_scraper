@@ -1,0 +1,159 @@
+version: 2
+
+goal:
+  title: "一級・二級ボイラー技士の一問ずつ目視問題整備"
+  slug: boiler-manual-question-maintenance
+  kind: specific
+  tranche: "未完工程を現物から確定し、各問題を一問ずつ目視で整備して、両資格の必要工程を完了する"
+  status: active
+  oracle:
+    signal: "boiler1とboiler2の全対象問題について、未完工程の台帳と一問単位の目視整備receiptが対応し、00_source不変のまま公式workflowの完了条件を満たす"
+    cadence: "各問題の目視整備後と最終監査時"
+    final_proof: "全対象IDの工程完了対応、目視根拠、00_source不変、公式workflow完了条件を示す最終監査receipt"
+  intake:
+    original_request: "一級ボイラー、二級ボイラーの未整備工程を洗い出し、機械的な作業をせず、一問ずつ目視で整備する"
+    interpreted_outcome: "boiler1とboiler2の未完工程を現物で確定し、内容判断と修正を必ず一問ずつ目視で行って全対象を完了させる"
+    input_shape: specific
+    audience: "資格試験の受験者と問題整備担当者"
+    authority: requested
+    proof_type: review
+    completion_proof: "両資格の全対象問題に一問単位の目視receiptがあり、未完工程が残らず、00_source不変と公式完了条件を確認できる"
+    likely_misfire: "自動生成や一括補正で見かけの進捗だけを埋める、または一部の問題だけで全体完了とする"
+    blind_spots_considered:
+      - "既存runの進捗率やファイル件数だけでは完了を判定できない"
+      - "問題由来・法令根拠・解説品質は別々に確定する必要がある"
+      - "二級ボイラーには39問の回があり、欠問調査と問題整備を混同しない"
+    existing_plan_facts:
+      - "対象資格はboiler1とboiler2"
+      - "未完工程を先に洗い出す"
+      - "内容の確認と整備は一問ずつ目視で行う"
+      - "機械的な生成・一括補正・自動レビューを行わない"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "運用正本と現行成果物を読み、boiler1とboiler2の未完工程・対象問題ID・最初に目視整備する一問を確定する。"
+    inputs:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "config/question_maintenance_workflow.toml"
+      - "boiler1とboiler2の現行manifest、progress、patch層、source台帳"
+    constraints:
+      - "読み取り専用。"
+      - "問題ファイルやpatchを変更しない。"
+      - "生成、一括補正、自動レビュー、整備内容の機械判定を実行しない。"
+      - "件数や進捗率だけで完了を判定しない。"
+      - "00_sourceを変更しない。"
+    expected_output:
+      - "資格別の未完工程一覧と根拠path"
+      - "全対象問題IDの確認方法"
+      - "最初に目視整備する一問と、その一問で必要な工程"
+      - "後続Workerのallowed_files、目視手順、read-only verify、stop_if案"
+    receipt: null
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "T001の棚卸しを疑って確認し、未完工程台帳と最初に目視整備する一問の安全な作業境界を確定する。"
+    inputs:
+      - "T001 receipt"
+      - "docs/goals/boiler-manual-question-maintenance/goal.md"
+    constraints:
+      - "読み取り専用。"
+      - "問題やpatchを変更しない。"
+      - "複数問題を一つのWorker taskへまとめない。"
+      - "自動生成・一括補正・自動レビューを提案しない。"
+    expected_output:
+      - "inventory accepted | revise"
+      - "最初の一問のsource IDと選定理由"
+      - "その一問だけの正確なWorker objective"
+      - "allowed_files"
+      - "一問単位の目視確認手順"
+      - "read-only verify"
+      - "stop_if"
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "T002が確定した最初の一問だけを目視で確認し、必要な未完工程を責務別patch層へ整備する。"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "指定された一問以外の内容変更が必要。"
+      - "00_sourceの変更が必要。"
+      - "自動生成、一括補正、scriptによるpatch生成、又は自動レビューが必要。"
+      - "公式資料又は正本から正答・法令根拠・問題由来を確定できない。"
+      - "T002がallowed_files又は目視手順を確定していない。"
+      - "read-only検証が二回失敗する。"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "boiler1とboiler2の全対象問題が一問ずつ目視整備され、未完工程がなく、元の依頼全体を満たすか最終監査する。"
+    inputs:
+      - "全done taskのreceipt"
+      - "資格別未完工程台帳"
+      - "全対象問題ID"
+      - "最後のread-only検証"
+      - "現在のGit差分とpush readback"
+    constraints:
+      - "実装しない。"
+      - "未整備問題、未完工程、未記録問題、hold未解決、未push変更があれば完了を拒否する。"
+      - "件数、進捗率、又はvalidator成功だけで完了を認めない。"
+      - "一問単位の目視receiptがない問題を完了扱いしない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "資格別・工程別・問題ID別の証拠対応"
+      - "不足証拠"
+      - "not_completeの場合の次の一問"
+    receipt: null
+
+checks:
+  dirty_fingerprint: clean-main-equal-origin-main-at-prep
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
