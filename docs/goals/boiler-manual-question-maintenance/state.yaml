@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T030
+active_task: T031
 
 tasks:
   - id: T001
@@ -1693,7 +1693,7 @@ tasks:
   - id: T030
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問35だけを一問一肢ずつ目視し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 35へ追加し、questionSetIdをboiler1_qs04_03_location_roomに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1707,6 +1707,49 @@ tasks:
       - "[pre/post] read-only hash不変、問35 work_versions hash=98d1e8183a65a64f429184a863034cd2c1fe35adfdfb4885c5c4b110a3c001c8。"
       - "[post_edit] 基準35 row一致、length=36、index35 ref=#34、source ID末尾035、identity=336d5962c0e954ea、questionSetId=boiler1_qs04_03_location_room。"
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "precondition baseline and read-only hashes"
+          status: pass
+        - cmd: "問35全5肢・規則29条・category目視確認"
+          status: pass
+        - cmd: "apply_patch index35"
+          status: pass
+        - cmd: "post_edit identity diff hashes"
+          status: pass
+        - cmd: "git commit 722f3ceb38c020a8312f7320b6909230e11518aa"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "post_commit remote clean"
+          status: pass
+      summary: "問35全5肢を規則29条と照合し、掲示対象を全取扱者とした肢2が誤りで公式解答2と一致。出題時本文未取得を保持し、boiler1_qs04_03_location_roomを追加。commit 722f3ceb38c020a8312f7320b6909230e11518aa、最終hash 7fafcdc93d9002b07db8ec8addeeb94c642832fbd847ffd92a48a53836f76ec7。push・clean・remote一致。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T031
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問36だけを一問一肢ずつ目視し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 36へ追加し、questionSetIdをboiler1_qs04_08_feedwater_safetyに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問36の給水管等防護、安全弁、計器温度、圧力表示、返り管凍結防止を全5肢・公式解答4から独立確認する。"
+      - "21と03bの規則28条監査、category全候補をread-only確認し、附属品の管理として分類する。出題時本文未取得を保持する。"
+      - "commit 722f3ceb38c020a8312f7320b6909230e11518aaの既存36 rowを保持し問36だけappend。生成・一括処理禁止。"
+    verify:
+      - "baseline 22 hash=7fafcdc93d9002b07db8ec8addeeb94c642832fbd847ffd92a48a53836f76ec7、問36 work hash=42f503c3e7e3adc6f6e58baf30debbad23699da316f74fc1e77d8a533f24f390。"
+      - "length=37、index36 ref=#35、source ID末尾036、identity=d5a205076813b8cf、questionSetId=boiler1_qs04_08_feedwater_safety。"
+      - "既存36 row一致、identity一意、read-only hash不変、変更一件、commit、push、clean、remote一致。"
     stop_if:
       - "正答・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
