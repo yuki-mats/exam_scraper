@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T003
+active_task: T005
 
 tasks:
   - id: T001
@@ -222,7 +222,7 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: medium
     objective: "boiler1 2009-1 問1だけを目視し、未記録の03 law_supportを確認して必要時のみ21 patchの当該fieldを修正し、04のquestionSetIdを22 patch末尾へ一行追加する。01、02、02a、02b、03b、00_source、work_versionsは変更せず、検証後にmainへcommit・origin/mainへpushする。"
     allowed_files:
@@ -255,6 +255,174 @@ tasks:
       - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
       - "手入力でwork_versionsをcurrent扱いするよう求められる。"
       - "read-only検証が二回失敗する。"
+    receipt:
+      result: blocked
+      blocked_reason: "22 patchは作業前にGit未追跡・ignore対象で、HEAD^に比較元が存在せず、指定した既存9行の独立比較verifyを実行できなかった。内容変更とpushは完了しているが、T003自身は検証不足のためdoneにしない。"
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: "jqで21 patchのsourceRecordRef=question_2009-1.json#0が一意であることを確認"
+          status: pass
+        - cmd: "jqで22 patchが10行、index 9が問1かつquestionSetId=boiler1_qs01_01_thermal_steamであることを確認"
+          status: pass
+        - cmd: "HEAD^の22 patch先頭9行と現行先頭9行を比較"
+          status: fail
+        - cmd: "00_sourceがcommit cf95e01d9で不変であることを確認"
+          status: pass
+        - cmd: "03b sidecarがcommit cf95e01d9で不変であることを確認"
+          status: pass
+        - cmd: "work_versionsがcommit cf95e01d9で不変であることを確認"
+          status: pass
+        - cmd: "commit cf95e01d9の変更ファイルが22 patch一件だけであることを確認"
+          status: pass
+        - cmd: "main...origin/mainが0 0であることを確認"
+          status: pass
+        - cmd: "git ls-remote origin refs/heads/mainがcf95e01d994ca987d06ad41bb62a7065c2eeeefeであることを確認"
+          status: pass
+      summary: "問1「伝熱」の5肢を目視し、肢4の『絶対温度の2乗』が誤りで正しくは4乗、公式解答4を確認した。全肢は工学知識で判定でき、21/03bの非法令判断は妥当なため21未変更。全29分類から熱・蒸気・伝熱を選び、22末尾へ問1を追加してcommit cf95e01d9をpushした。正確なapply_patchは既存末尾行を保持して問1オブジェクトをappendする局所変更だったが、事前snapshot/hashがなく独立比較不能。"
+      evidence:
+        commit: cf95e01d994ca987d06ad41bb62a7065c2eeeefe
+        remote_ref: cf95e01d994ca987d06ad41bb62a7065c2eeeefe
+        exact_apply_patch_scope: "既存末尾のquestionSetId行を同値で保持し、その直後に問1objectをappendして配列を閉じた。既存9行内部への変更なし。"
+        post_patch_length: 10
+        post_patch_last_source_record_ref: "question_2009-1.json#0"
+        git_tracking_limit: "作業前22 patchは.gitignoreのoutput/対象でGit blobがない。"
+      spawned_tasks:
+        - T004
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "T003のcommit cf95e01d9と正確なapply_patch証拠を独立監査し、boiler1 2009-1 問1の目視整備を受理できるか、修復が必要かを判定する。"
+    inputs:
+      - "T003 blocked receipt"
+      - "commit cf95e01d994ca987d06ad41bb62a7065c2eeeefe"
+      - "T003 Workerが返したexact_apply_patchとpost-patch readback"
+      - "boiler1 2009-1 問1の00_source、21、03b、category、22"
+    constraints:
+      - "読み取り専用。"
+      - "問題やpatchを変更しない。"
+      - "事前hashがない事実を隠さない。"
+      - "局所apply_patch証拠、commit内容、現行artifactを相互照合する。"
+      - "受理する場合もwork_versionsをcurrent扱いしない。"
+    expected_output:
+      - "accepted | repair_required"
+      - "問1の目視内容判断と分類判断の妥当性"
+      - "既存9行不変について証明できる範囲と残る限界"
+      - "次に目視整備する一問"
+      - "次Workerのallowed_files、verify、stop_if"
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "accepted。問1の正答4、非法令判定、伝熱分類は現物間で一致し、00_source hashもmanifestと一致する。局所apply_patch証拠は当該操作が末尾追加だけだったことを示すが、事前hashがないため既存9行の全履歴不変を独立証明しない。この限界を残したまま、現行artifactを受理基準点とする。work_versionsの03 law_supportと04は未記録のままでcurrent扱いしない。"
+      evidence:
+        - acceptance: accepted
+          question: "boiler1 2009-1 問1"
+          source_question_id: "boiler1:kako-mon-com:bo-1:2009-1-01-001"
+          original_question_id: 43772608e1fc66c3
+        - source_integrity: "[object Object]"
+        - manual_content_judgment: "[object Object]"
+        - category_judgment: "[object Object]"
+        - commit_audit: "[object Object]"
+        - post_patch_readback: "[object Object]"
+        - existing_nine_rows_proof: "[object Object]"
+        - official_status: "[object Object]"
+        - next_question_selection: "[object Object]"
+      next_allowed_task:
+        id: T005
+        objective: "boiler1 2009-1 問2だけを一問一肢ずつ目視し、21と03bの非法令・解説用法令情報が妥当であることを確認したうえで、04の完全identity rowを22 patch末尾のindex 10へ追加し、questionSetIdをboiler1_qs01_02_boiler_typesに設定する。21、03b、00_source、category、work_versionsは変更せず、22だけをcommitしてorigin/mainへpushする。"
+        allowed_files:
+          - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+        manual_review_steps:
+          - "00_sourceの問2本文と5肢を最初から最後まで読み、source ID、original_question_id、公式解答5を確認する。"
+          - "各肢について、炉筒煙管ボイラーの構造、スパイラル管、ウェットバック、戻り燃焼、熱回収設備と効率の記述を独立に判定する。"
+          - "21のisLawRelated、lawGroundedExplanationNotNeeded、lawReferences、lawContextForExplanation、lawRevisionFacts、解説を全5肢と照合する。既存値だけを理由に採用しない。"
+          - "03b sidecarをread-onlyで照合し、技術問題として出題時・現時点の判定が一致するか確認する。"
+          - "category.jsonの全候補を読み、炉筒煙管ボイラーの種類・構造を主論点としてboiler1_qs01_02_boiler_typesを独立に確定する。"
+          - "cf95e01d994ca987d06ad41bb62a7065c2eeeefeの22全10 rowを基準に、既存rowを一字も変えず、問2の完全identity rowだけをindex 10へappendする。"
+          - "receiptへ目視判断、21未変更、03 law_supportと04がwork_versions上は未記録のままであることを明記する。"
+        verify:
+          - "git merge-base --is-ancestor cf95e01d994ca987d06ad41bb62a7065c2eeeefe HEAD"
+          - "git rev-list --left-right --count main...origin/main"
+          - "00_source、21、03b、category、work_versionsの指定sha256確認"
+          - "22先頭10 rowをcommit cf95e01d9と比較"
+          - "22が11行でindex 10の完全identityとquestionSetIdを満たすことをjq確認"
+          - "22内のsourceRecordRef、source_question_id、original_question_idの一意性をjq確認"
+          - "categoryにboiler1_qs01_02_boiler_typesが存在することをjq確認"
+          - "commit変更path、main...origin/main、remote refを確認"
+        stop_if:
+          - "21又は03bの内容に誤りがあり、変更が必要になる。"
+          - "問2の01、02、02a、02b又は03bを変更する必要がある。"
+          - "00_source、21、03b、category、work_versions、merged、convert又はupload-readyの変更が必要になる。"
+          - "cf95e01d994ca987d06ad41bb62a7065c2eeeefeの22先頭10 rowと作業中の先頭10 rowが一致しない。"
+          - "boiler1_qs01_02_boiler_typesを問題全文とcategory.jsonから一意に確定できない。"
+          - "source identityが一意に一致しない。"
+          - "問2以外のrowを追加又は変更する必要がある。"
+          - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
+          - "work_versionsを手入力でcurrent扱いする必要がある。"
+          - "read-only verifyが二回失敗する。"
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "一問一Worker制約があり、年度共有の22 patchを連続更新するため、T005だけを単独実行する。"
+      blocked_tasks: []
+      missing_evidence:
+        - "T003作業開始前の22全体hash又はsnapshotがなく、既存9 rowの完全なbefore/after同一性は証明できない。"
+        - "21と03bもignore対象で事前hashがなく、commitだけではT003中の不変を証明できない。正確なapply_patch証拠と現行内容整合を受理根拠とした。"
+        - "問1の03 law_support及び04を正式なvalidated_runとしてwork_versionsへ記録した証拠はない。"
+      required_board_updates:
+        - "T004をdoneにし、問1をaccepted manual receipt、work_versions_current=falseとして記録する。"
+        - "T003のblocked receiptと事前hash欠落の限界を保持し、T004の独立監査が内容受理を解決したことを関連付ける。"
+        - "T005を次の唯一のactive taskとして追加し、上記objective、allowed_files、manual_review_steps、verify、stop_ifを転記する。"
+        - "今後の一問作業では変更対象とread-only入力の作業前hashをreceiptへ必ず残す。"
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問2だけを一問一肢ずつ目視し、21と03bの非法令・解説用法令情報が妥当であることを確認したうえで、04の完全identity rowを22 patch末尾のindex 10へ追加し、questionSetIdをboiler1_qs01_02_boiler_typesに設定する。21、03b、00_source、category、work_versionsは変更せず、22だけをcommitしてorigin/mainへpushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "00_sourceの問2本文と5肢を最初から最後まで読み、source ID、original_question_id、公式解答5を確認する。"
+      - "各肢の炉筒煙管ボイラーの構造、スパイラル管、ウェットバック、戻り燃焼、熱回収設備と効率を独立に判定する。"
+      - "21の法令関連fieldと解説を全5肢に照合し、既存値だけを理由に採用しない。"
+      - "03b sidecarをread-onlyで照合し、技術問題として出題時・現時点の判定が一致するか確認する。"
+      - "category.jsonの全候補を読み、boiler1_qs01_02_boiler_typesを独立に確定する。"
+      - "commit cf95e01d9の22全10 rowを基準に、一字も変えず問2 rowだけをindex 10へappendする。"
+      - "作業前の変更対象とread-only入力のhashをreceiptへ残す。"
+      - "work_versionsへ手入力しない。"
+    verify:
+      - "git merge-base --is-ancestor cf95e01d994ca987d06ad41bb62a7065c2eeeefe HEAD"
+      - "git rev-list --left-right --count main...origin/main"
+      - "test \"$(sha256sum output/boiler1/questions_json/2009-1/00_source/question_2009-1.json | cut -d' ' -f1)\" = \"$(jq -r 'select(.path==\"output/boiler1/questions_json/2009-1/00_source/question_2009-1.json\")|.sha256' docs/contracts/00_source_sha256_manifest.jsonl)\""
+      - "test \"$(sha256sum output/boiler1/questions_json/2009-1/21_explanationText_added/question_2009-1_merged_explanationText_added.json | cut -d' ' -f1)\" = \"33b04f0abef353f6ce3f8496be9dffbb14e28d6566b499e48b8e139f0143a7f2\""
+      - "test \"$(sha256sum output/boiler1/review/law_revision_audit/2009-1_law_revision_audit.jsonl | cut -d' ' -f1)\" = \"7b00422c02449065dcbc09225542943e26620120ac82e977aaa87eaad03ba7eb\""
+      - "test \"$(sha256sum output/boiler1/category/category.json | cut -d' ' -f1)\" = \"e107241b213b54f7adda33aa452a6071a956631eb81a70bb12ce6203e0cf73c9\""
+      - "test \"$(sha256sum output/question_review_console/boiler1/2009-1/work_versions/ecdbb7c2e310a2e5034a565b.json | cut -d' ' -f1)\" = \"3857692e9f21007f2e3749de2ea2e45d80d5af12dfce099edd2180d87f0386d7\""
+      - "git diff --check -- output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+      - "diff -u <(git show cf95e01d994ca987d06ad41bb62a7065c2eeeefe:output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json | jq -S '.') <(jq -S '.[0:10]' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json)"
+      - "jq -e 'length==11 and .[10].sourceRecordRef==\"question_2009-1.json#1\" and .[10].source_question_id==\"boiler1:kako-mon-com:bo-1:2009-1-01-002\" and .[10].public_question_id==\"a59c74833709e3e6\" and .[10].original_question_id==\"a59c74833709e3e6\" and .[10].sourceQuestionKey==\"boiler1:2009-1:a59c74833709e3e6\" and .[10].reviewQuestionId==\"a59c74833709e3e6\" and .[10].questionSetId==\"boiler1_qs01_02_boiler_types\"' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+      - "jq -e '([.[]|.sourceRecordRef]|unique|length)==length and ([.[]|.source_question_id]|unique|length)==length and ([.[]|.original_question_id]|unique|length)==length' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+      - "jq -e '.questionSets | any(.questionSetId==\"boiler1_qs01_02_boiler_types\")' output/boiler1/category/category.json"
+      - "git diff-tree --no-commit-id --name-only -r HEAD"
+      - "git rev-list --left-right --count main...origin/main"
+      - "test \"$(git ls-remote origin refs/heads/main | cut -f1)\" = \"$(git rev-parse HEAD)\""
+    stop_if:
+      - "21又は03bの内容に誤りがあり、変更が必要になる。"
+      - "問2の01、02、02a、02b又は03bを変更する必要がある。"
+      - "00_source、21、03b、category、work_versions、merged、convert又はupload-readyの変更が必要になる。"
+      - "commit cf95e01d9の22先頭10 rowと作業中の先頭10 rowが一致しない。"
+      - "boiler1_qs01_02_boiler_typesを問題全文とcategory.jsonから一意に確定できない。"
+      - "source identityが一意に一致しない。"
+      - "問2以外のrowを追加又は変更する必要がある。"
+      - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
+      - "work_versionsを手入力でcurrent扱いする必要がある。"
+      - "read-only verifyが二回失敗する。"
     receipt: null
   - id: T999
     type: judge
