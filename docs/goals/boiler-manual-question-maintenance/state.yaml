@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T020
+active_task: T021
 
 tasks:
   - id: T001
@@ -1251,7 +1251,7 @@ tasks:
   - id: T020
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問23だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 25へ追加し、questionSetIdをboiler1_qs03_01_fuel_propertiesに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1264,6 +1264,50 @@ tasks:
       - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=29acb067bb19bf829756d64c35b3e4441f344a2175462be8ff1547f8c67be35e。"
       - "[pre/post] read-only hash不変、問23 work_versions hash=be3e8a059ecd9f971b71b029ba0c0ae62beeaa33876399bcc6935d6d71c403de。"
       - "[post_edit] 基準25 row一致、length=26、index25 ref=#22、source ID末尾023、identity=0b77cb3c00b324fb、questionSetId=boiler1_qs03_01_fuel_properties。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "precondition main clean ancestor origin baseline hashes"
+          status: pass
+        - cmd: "問23 01〜03b・21・category全候補のread-only目視確認"
+          status: pass
+        - cmd: "apply_patch index25"
+          status: pass
+        - cmd: "post_edit baseline 25 rows identity uniqueness category diff hashes"
+          status: pass
+        - cmd: "git commit 962589dcdacb316768d56579686add13a02583b5"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "post_commit remote ref clean origin 0/0 hashes"
+          status: pass
+      summary: "問23全5肢を独立確認し、低炭化度石炭は揮発分が多いので肢4が誤り、公式解答4と一致した。非法令の石炭性質問題としてboiler1_qs03_01_fuel_propertiesをindex25へ追加。既存25行とread-only資料は不変。最終hash ecb88b9c12a5cdaed85b403f088cdbbb3e6bc8ee30c5d6cbe26e265fff5a20e1。commit・push・remote一致・cleanを確認した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T021
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問24だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 26へ追加し、questionSetIdをboiler1_qs03_02_combustion_equipmentに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問24の粘度低下、B/C重油の適温、ベーパロック、バーナタイルによる加熱・気化、固形残さ粒子の燃焼を全5肢・公式解答2から独立確認する。"
+      - "21・03bの非法令判定・解説と全category候補をread-only確認し、液体燃料の噴霧・バーナとして分類する。"
+      - "commit 962589dcdacb316768d56579686add13a02583b5の既存26 rowを保持し問24だけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=ecb88b9c12a5cdaed85b403f088cdbbb3e6bc8ee30c5d6cbe26e265fff5a20e1。"
+      - "[pre/post] read-only hash不変、問24 work_versions hash=aa71b651955964968ebbe35e62782061aeace6d4fe1dd477b1e91f2518677671。"
+      - "[post_edit] 基準26 row一致、length=27、index26 ref=#23、source ID末尾024、identity=b1ed2ca450c2da6b、questionSetId=boiler1_qs03_02_combustion_equipment。"
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
