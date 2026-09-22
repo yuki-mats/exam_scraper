@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T025
+active_task: T026
 
 tasks:
   - id: T001
@@ -1473,7 +1473,7 @@ tasks:
   - id: T025
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問29だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 30へ追加し、questionSetIdをboiler1_qs03_04_draft_fansに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1489,6 +1489,50 @@ tasks:
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "precondition main clean baseline ancestor origin 0/0 hashes"
+          status: pass
+        - cmd: "問29の01〜03b・work_versions・category全候補をread-only目視確認"
+          status: pass
+        - cmd: "apply_patchでindex30へ問29のみ追加"
+          status: pass
+        - cmd: "post_edit length 31 baseline 30 rows identity uniqueness category diff hashes"
+          status: pass
+        - cmd: "git commit 84daa7b725cf42225054a51f718d94936dcd8017"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "post_commit remote一致 clean read-only hashes"
+          status: pass
+      summary: "問29を目視し、肢1の理論通風力式、肢2・3の誘引通風、肢4の平衡通風は正しいと確認した。肢5は原文が『所要動力は小さい』であり誤り、公式解答5と一致。非法令の通風・ファン問題としてboiler1_qs03_04_draft_fansを設定した。commit 84daa7b725cf42225054a51f718d94936dcd8017、最終22 hash 803fa6fb3c19b381a96745f43178d3cd2c001b5be131d4960a83379ffc0f6e0f。push、clean、remote一致を確認した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T026
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問31だけを一問一肢ずつ目視し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 31へ追加し、questionSetIdをboiler1_qs04_03_location_roomに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問30はquestion_set=2.0で現行のため重複編集しない。問31の移動式ボイラー、天井距離、立てボイラー側方距離、可燃物被覆、燃料距離を全5肢・公式解答3から独立確認する。"
+      - "21と03bの現行法監査（ボイラー及び圧力容器安全規則18条、20条1項・2項、21条1項・2項）を一肢ずつread-onlyで確認し、出題時本文未取得の残余リスクも保持する。"
+      - "全category候補をread-only確認し、設置場所・ボイラー室として分類する。commit 84daa7b725cf42225054a51f718d94936dcd8017の既存31 rowを保持し問31だけappend。生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=803fa6fb3c19b381a96745f43178d3cd2c001b5be131d4960a83379ffc0f6e0f。"
+      - "[pre/post] read-only hash不変、問31 work_versions hash=85fae1f646630b3d365e031442007d1d46dc27d0419fdf4c7cf133cab295f682。"
+      - "[post_edit] 基準31 row一致、length=32、index31 ref=#30、source ID末尾031、identity=405b948b96c85f30、questionSetId=boiler1_qs04_03_location_room。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
