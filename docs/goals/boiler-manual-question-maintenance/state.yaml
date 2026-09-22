@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T018
+active_task: T019
 
 tasks:
   - id: T001
@@ -1161,7 +1161,7 @@ tasks:
   - id: T018
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問20だけを目視計算し、01〜03bをread-only確認後、未記録04 rowを22 index 23へ追加し、questionSetIdをboiler1_qs02_05_blowdownに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1177,6 +1177,52 @@ tasks:
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・式・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "pre status branch origin ancestor hashes"
+          status: pass
+        - cmd: "問20 read-only review and manual mass-balance calculation"
+          status: pass
+        - cmd: "apply_patch index23"
+          status: pass
+        - cmd: "targeted identity category diff hash checks"
+          status: pass
+        - cmd: "questionSetId checker"
+          status: pass
+        - cmd: "commit and push"
+          status: pass
+        - cmd: "remote clean checks"
+          status: pass
+      summary: "問20を独立計算しX=12×15/(450−15)=0.4138t/日=17.24kg/h、正答2を確認。非法令のブロー量計算としてboiler1_qs02_05_blowdownをindex23へ追加。commit 7b75972156d3cbfc5feb7326f5862c253b0b6e40、最終hash 92f6459962025dd785e709f8d4f3951594af181bdfd99c1675912fc2d59a86fd、push・clean・remote一致。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      commit: 7b75972156d3cbfc5feb7326f5862c253b0b6e40
+      deviations: []
+  - id: T019
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問21だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 24へ追加し、questionSetIdをboiler1_qs03_01_fuel_propertiesに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "高/低発熱量、着火温度、引火点、灯油・重油の温度関係を全5肢と公式解答5から独立確認する。"
+      - "21・03bの非法令判定・解説、全category候補をread-only確認し、燃料性質として分類する。"
+      - "commit 7b7597215の既存24 rowを保持し問21だけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=92f6459962025dd785e709f8d4f3951594af181bdfd99c1675912fc2d59a86fd。"
+      - "[pre/post] read-only hash不変、問21 work_versions hash=dcbba0c9d2e4a6c4b63c29251d80676252e4ffbc96105b6a0bad463f5f58f1fa。"
+      - "[post_edit] 基準24 row一致、length=25、index24 ref=#20、source ID末尾021、identity=f38b7d6d68b7cbd0、questionSetId=boiler1_qs03_01_fuel_properties。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
