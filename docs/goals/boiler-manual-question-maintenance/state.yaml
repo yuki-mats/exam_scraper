@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T026
+active_task: T027
 
 tasks:
   - id: T001
@@ -1517,7 +1517,7 @@ tasks:
   - id: T026
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問31だけを一問一肢ずつ目視し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 31へ追加し、questionSetIdをboiler1_qs04_03_location_roomに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1533,6 +1533,50 @@ tasks:
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "precondition main clean ancestor origin baseline hashes"
+          status: pass
+        - cmd: "問31本文・全5肢・21・03b・全category候補のread-only目視確認"
+          status: pass
+        - cmd: "apply_patch index31"
+          status: pass
+        - cmd: "post_edit baseline 31 rows identity uniqueness category diff hashes"
+          status: pass
+        - cmd: "git commit 63a5c861533debb5f1617755c8d7c5357d151ea0"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "post_commit remote ref clean origin 0/0 hashes"
+          status: pass
+      summary: "問31の5肢を目視し、規則18条、20条1・2項、21条1・2項から移動式除外、天井1.2m、立てボイラー側方0.3m、0.15m以内は金属以外の不燃材、燃料原則2m・固体1.2mを確認。正答3と一致した。出題時本文未取得のため不変性は未断定。設置場所・ボイラー室へ分類しindex31へ追加。commit 63a5c8615、最終22 hash 80367bcef143b74545930b3e73553c2402fee9510f77a3e604cbb1582acdda0f。push、clean、remote一致を確認。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T027
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問32だけを一問一肢ずつ目視計算し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 32へ追加し、questionSetIdをboiler1_qs04_04_supervisorに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問32の5肢について伝熱面積を独立計算し、一級を選任できない526m2の肢1・公式解答1を確認する。"
+      - "21と03bの現行法監査（規則2条4号・24条）をread-only確認し、電気ボイラー60kW/m2への改正は計算結果が変わっても正誤を変えないこと、出題時本文未取得を保持する。"
+      - "全category候補をread-only確認し、取扱作業主任者として分類する。commit 63a5c861533debb5f1617755c8d7c5357d151ea0の既存32 rowを保持し問32だけappend。生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=80367bcef143b74545930b3e73553c2402fee9510f77a3e604cbb1582acdda0f。"
+      - "[pre/post] read-only hash不変、問32 work_versions hash=ed94c59a661a73edb78e4ecc43642a3131310068733f83491077e3414c0cb00d。"
+      - "[post_edit] 基準32 row一致、length=33、index32 ref=#31、source ID末尾032、identity=56d2e02fcd193fba、questionSetId=boiler1_qs04_04_supervisor。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・計算・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
