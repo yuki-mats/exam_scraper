@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T022
+active_task: T023
 
 tasks:
   - id: T001
@@ -1339,7 +1339,7 @@ tasks:
   - id: T022
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問25だけを一問ずつ目視計算し、01〜03bをread-only確認後、未記録04 rowを22 index 27へ追加し、questionSetIdをboiler1_qs03_05_combustion_calculationに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1355,6 +1355,52 @@ tasks:
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・計算・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "precondition main clean ancestor origin baseline hashes"
+          status: pass
+        - cmd: "問25本文・全5選択肢・01〜03b・全category候補のread-only目視確認"
+          status: pass
+        - cmd: "S+O2→SO2、22.4/32=0.7、0.7/0.21≒3.3m3N/kgの独立計算"
+          status: pass
+        - cmd: "apply_patch index27"
+          status: pass
+        - cmd: "post_edit baseline 27 rows identity uniqueness category diff hashes"
+          status: pass
+        - cmd: "git commit 371a75586f6753827da365f1cf088eb543353147"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "post_commit remote ref clean origin 0/0 hashes"
+          status: pass
+      summary: "問25を手計算し、理論空気量は約3.3m³N/kgとなるため選択肢3・公式解答3を独立確認した。非法令の燃焼計算・空気量問題としてboiler1_qs03_05_combustion_calculationをindex27へ追加。既存27行とread-only資料は不変。最終22 hashはb0369fe0596a495b2edc2e9dbe8670da55e8fca703e0873c94b8bfc39278fe70。commit・push・remote一致・cleanを確認した。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T023
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問26だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 28へ追加し、questionSetIdをboiler1_qs03_02_combustion_equipmentに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "単室形オートクリーナ、移送ポンプと噴燃ポンプ、蒸気（空気）噴霧式、低圧気流噴霧式、エアレジスタを全5肢・公式解答5から独立確認する。"
+      - "21・03bの非法令判定・解説と全category候補をread-only確認し、液体燃料供給・油バーナとして分類する。"
+      - "commit 371a75586f6753827da365f1cf088eb543353147の既存28 rowを保持し問26だけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=b0369fe0596a495b2edc2e9dbe8670da55e8fca703e0873c94b8bfc39278fe70。"
+      - "[pre/post] read-only hash不変、問26 work_versions hash=70e9b451949b2ebd7855ea74f829464f8a370938b81cba4e783efeb0253d84b6。"
+      - "[post_edit] 基準28 row一致、length=29、index28 ref=#25、source ID末尾026、identity=b0690e61bc74fbd2、questionSetId=boiler1_qs03_02_combustion_equipment。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
