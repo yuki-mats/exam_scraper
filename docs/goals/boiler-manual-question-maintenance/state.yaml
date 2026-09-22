@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T005
+active_task: T006
 
 tasks:
   - id: T001
@@ -382,7 +382,7 @@ tasks:
   - id: T005
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問2だけを一問一肢ずつ目視し、21と03bの非法令・解説用法令情報が妥当であることを確認したうえで、04の完全identity rowを22 patch末尾のindex 10へ追加し、questionSetIdをboiler1_qs01_02_boiler_typesに設定する。21、03b、00_source、category、work_versionsは変更せず、22だけをcommitしてorigin/mainへpushする。"
     allowed_files:
@@ -420,6 +420,91 @@ tasks:
       - "boiler1_qs01_02_boiler_typesを問題全文とcategory.jsonから一意に確定できない。"
       - "source identityが一意に一致しない。"
       - "問2以外のrowを追加又は変更する必要がある。"
+      - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
+      - "work_versionsを手入力でcurrent扱いする必要がある。"
+      - "read-only verifyが二回失敗する。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "git merge-base --is-ancestor cf95e01d994ca987d06ad41bb62a7065c2eeeefe HEAD"
+          status: pass
+        - cmd: "git rev-list --left-right --count main...origin/main"
+          status: pass
+        - cmd: "00_source hash matches manifest"
+          status: pass
+        - cmd: "21 explanation patch sha256 matches 33b04f0abef353f6ce3f8496be9dffbb14e28d6566b499e48b8e139f0143a7f2"
+          status: pass
+        - cmd: "03b sidecar sha256 matches 7b00422c02449065dcbc09225542943e26620120ac82e977aaa87eaad03ba7eb"
+          status: pass
+        - cmd: "category sha256 matches e107241b213b54f7adda33aa452a6071a956631eb81a70bb12ce6203e0cf73c9"
+          status: pass
+        - cmd: "question 2 work_versions sha256 matches 3857692e9f21007f2e3749de2ea2e45d80d5af12dfce099edd2180d87f0386d7"
+          status: pass
+        - cmd: "git diff --check on 22 patch"
+          status: pass
+        - cmd: "22 first 10 rows equal commit cf95e01d9"
+          status: pass
+        - cmd: "question 2 complete identity and questionSetId readback"
+          status: pass
+        - cmd: "22 sourceRecordRef, source_question_id and original_question_id uniqueness"
+          status: pass
+        - cmd: "category contains boiler1_qs01_02_boiler_types"
+          status: pass
+        - cmd: "HEAD changes only 22 patch"
+          status: pass
+        - cmd: "main...origin/main is 0 0"
+          status: pass
+        - cmd: "origin/main remote ref equals HEAD"
+          status: pass
+      summary: "問2を目視確認。肢1は内部が狭く水処理が必要で正、肢2はスパイラル管の伝熱促進で正、肢3は水に囲まれたウェットバックで正、肢4は火炎が反転する戻り燃焼で正、肢5は熱回収設備を設けにくく効率も低いため誤。公式解答5、21、03bの非法令判定は妥当。全category候補から炉筒煙管を直接扱うboiler1_qs01_02_boiler_typesへ分類。22 hashは作業前a3f40506b5e617b6afb5d29038a8e1e820729e650c4fea10c129bdf33c7106c6、作業後8e24556f52d6959e8542039b35c91bea9dcb1923fb52a2798d8765f8596f621b。読取専用hashは00_source=5382cd55、21=33b04f0a、03b=7b00422c、category=e107241b、work_versions=3857692eで不変。commit 413c3d8fd168eed95c10b51a65bf2cbb67395851をorigin/mainへpushしremote完全一致、作業ツリーclean。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問3だけを一問一肢ずつ目視し、21と03bの非法令・解説用法令情報が妥当であることを確認したうえで、04の完全identity rowを22 patch末尾のindex 11へ追加し、questionSetIdをboiler1_qs01_02_boiler_typesに設定する。21、03b、00_source、category、work_versionsは変更せず、22だけをcommitしてorigin/mainへpushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "00_sourceの問3本文と5肢を最初から最後まで読み、source ID、original_question_id、公式解答5を確認する。"
+      - "各肢の水処理、水冷壁管、保有水量と起動、2胴形・3胴形、高温高圧時の蒸発部と過熱器の熱吸収を独立に判定する。"
+      - "21の法令関連fieldと解説を全5肢に照合し、既存値だけを理由に採用しない。"
+      - "03b sidecarをread-onlyで照合し、技術問題として出題時・現時点の判定が一致するか確認する。"
+      - "category.jsonの全候補を読み、水管ボイラーの種類・構造を主論点としてboiler1_qs01_02_boiler_typesを独立に確定する。"
+      - "commit 413c3d8fd168eed95c10b51a65bf2cbb67395851の22全11 rowを基準に、一字も変えず問3 rowだけをindex 11へappendする。"
+      - "作業前の変更対象とread-only入力のhashをreceiptへ残す。"
+      - "work_versionsへ手入力しない。"
+    verify:
+      - "git merge-base --is-ancestor 413c3d8fd168eed95c10b51a65bf2cbb67395851 HEAD"
+      - "git rev-list --left-right --count main...origin/main"
+      - "test \"$(sha256sum output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json | cut -d' ' -f1)\" = \"8e24556f52d6959e8542039b35c91bea9dcb1923fb52a2798d8765f8596f621b\""
+      - "test \"$(sha256sum output/boiler1/questions_json/2009-1/00_source/question_2009-1.json | cut -d' ' -f1)\" = \"5382cd55c4f16cebc2ef1d525b0407ed5e6e1dded05d9e89188f49842b204cf0\""
+      - "test \"$(sha256sum output/boiler1/questions_json/2009-1/21_explanationText_added/question_2009-1_merged_explanationText_added.json | cut -d' ' -f1)\" = \"33b04f0abef353f6ce3f8496be9dffbb14e28d6566b499e48b8e139f0143a7f2\""
+      - "test \"$(sha256sum output/boiler1/review/law_revision_audit/2009-1_law_revision_audit.jsonl | cut -d' ' -f1)\" = \"7b00422c02449065dcbc09225542943e26620120ac82e977aaa87eaad03ba7eb\""
+      - "test \"$(sha256sum output/boiler1/category/category.json | cut -d' ' -f1)\" = \"e107241b213b54f7adda33aa452a6071a956631eb81a70bb12ce6203e0cf73c9\""
+      - "test \"$(sha256sum output/question_review_console/boiler1/2009-1/work_versions/afa9eadabe9823372f4118e6.json | cut -d' ' -f1)\" = \"9025997d4f95d20b108387c3d07fdc3202384c926804e4dc2ff42cc71b755deb\""
+      - "git diff --check -- output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+      - "diff -u <(git show 413c3d8fd168eed95c10b51a65bf2cbb67395851:output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json | jq -S '.') <(jq -S '.[0:11]' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json)"
+      - "jq -e 'length==12 and .[11].sourceRecordRef==\"question_2009-1.json#2\" and .[11].source_question_id==\"boiler1:kako-mon-com:bo-1:2009-1-01-003\" and .[11].public_question_id==\"cf4c2c550ac99ff0\" and .[11].original_question_id==\"cf4c2c550ac99ff0\" and .[11].sourceQuestionKey==\"boiler1:2009-1:cf4c2c550ac99ff0\" and .[11].reviewQuestionId==\"cf4c2c550ac99ff0\" and .[11].questionSetId==\"boiler1_qs01_02_boiler_types\"' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+      - "jq -e '([.[]|.sourceRecordRef]|unique|length)==length and ([.[]|.source_question_id]|unique|length)==length and ([.[]|.original_question_id]|unique|length)==length' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+      - "jq -e '.questionSets | any(.questionSetId==\"boiler1_qs01_02_boiler_types\")' output/boiler1/category/category.json"
+      - "git diff-tree --no-commit-id --name-only -r HEAD"
+      - "git rev-list --left-right --count main...origin/main"
+      - "test \"$(git ls-remote origin refs/heads/main | cut -f1)\" = \"$(git rev-parse HEAD)\""
+    stop_if:
+      - "21又は03bの内容に誤りがあり、変更が必要になる。"
+      - "問3の01、02、02a、02b又は03bを変更する必要がある。"
+      - "00_source、21、03b、category、work_versions、merged、convert又はupload-readyの変更が必要になる。"
+      - "commit 413c3d8fd168eed95c10b51a65bf2cbb67395851の22先頭11 rowと作業中の先頭11 rowが一致しない。"
+      - "boiler1_qs01_02_boiler_typesを問題全文とcategory.jsonから一意に確定できない。"
+      - "source identityが一意に一致しない。"
+      - "問3以外のrowを追加又は変更する必要がある。"
       - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
       - "work_versionsを手入力でcurrent扱いする必要がある。"
       - "read-only verifyが二回失敗する。"
