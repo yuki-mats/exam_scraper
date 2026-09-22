@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T013
+active_task: T014
 
 tasks:
   - id: T001
@@ -947,7 +947,7 @@ tasks:
   - id: T013
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問14だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 18へ追加し、questionSetIdをboiler1_qs02_01_startup_operationに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -966,6 +966,48 @@ tasks:
     stop_if:
       - "正答・解説・非法令判定に誤りがあり、01〜03b又はallowed_files外の変更が必要になる。"
       - "基準row、分類、identity、問14一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "[pre] main、clean、基準、origin、hash"
+          status: pass
+        - cmd: "[review] 問14一問一肢、21・03b・category"
+          status: pass
+        - cmd: "[post_edit] 基準18 row、identity、19 row、一意性、diff"
+          status: pass
+        - cmd: "commit and push"
+          status: pass
+        - cmd: "[post_commit] clean、hash、remote一致"
+          status: pass
+      summary: "問14の燃焼異常を一肢ずつ確認し、公式解答3、21、03bは妥当。boiler1_qs02_01_startup_operationとしてindex18へ追加。commit 92888b9f5、最終hash 910c21b89d410e55ffdef59e8ffe6f5b01683d0d692762b2d8d9405dff8763d9、push・clean・remote一致。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      commit: 92888b9f5
+      deviations: []
+  - id: T014
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問16だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 19へ追加し、questionSetIdをboiler1_qs02_03_safety_valve_operationに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問15はquestion_set=2.0で現行。問16本文・5肢・公式解答4・安全弁調整を独立確認する。"
+      - "21・03bの第28条関連肢と技術肢、全category候補をread-only確認し、安全弁の調整として分類する。"
+      - "commit 92888b9f5の既存19 rowを保持し、問16 rowだけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=910c21b89d410e55ffdef59e8ffe6f5b01683d0d692762b2d8d9405dff8763d9。"
+      - "[pre/post] read-only hash不変、問16 work_versions hash=ce774fdff09b280f1027a3447f0e4ef0693bb01b71911b8968ca20ff279ca5e6。"
+      - "[post_edit] 基準19 row一致、length=20、index19 ref=#15、source ID末尾016、identity=f40baf129c25a95e、questionSetId=boiler1_qs02_03_safety_valve_operation。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・法令監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
     type: judge
