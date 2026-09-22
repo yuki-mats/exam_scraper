@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T029
+active_task: T030
 
 tasks:
   - id: T001
@@ -1649,7 +1649,7 @@ tasks:
   - id: T029
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問34だけを一問一肢ずつ目視し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 34へ追加し、questionSetIdをboiler1_qs04_02_installation_inspectionに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1662,6 +1662,50 @@ tasks:
       - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=16a3ea3908f5a8173ad3c8adf063870d7a0c994d704e7ab3127acf09d31acb8a。"
       - "[pre/post] read-only hash不変、問34 work_versions hash=ffca64063e0b3e84eea38e93df4627756dcaaf0dd8f1f0799dd1e3f86105916e。"
       - "[post_edit] 基準34 row一致、length=35、index34 ref=#33、source ID末尾034、identity=43623c5ecfdbc81c、questionSetId=boiler1_qs04_02_installation_inspection。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "基準状態・baseline hash・read-only hash確認"
+          status: pass
+        - cmd: "問34の5肢・公式解答2・規則6/13/14/15/37/38/40条を目視照合"
+          status: pass
+        - cmd: "category全候補を確認しindex34へapply_patch"
+          status: pass
+        - cmd: "length35・既存34行一致・identity一意・変更1件・hash不変確認"
+          status: pass
+        - cmd: "git commit 2d631b7d98a63bd019d8196be5fc35a112f0f459"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "remote一致・clean確認"
+          status: pass
+      summary: "問34の全5肢を独立確認。落成検査前提は14条、水圧試験準備は13・6条、検査証交付は15条、有効期間更新は37・38条、性能検査立会いは40・6条に対応し、第2肢のみ誤りで公式解答2と一致。出題時本文未取得が残余事項。分類はboiler1_qs04_02_installation_inspection。commit・push済み。最終hash 36cdcde51a81efdd477af2ec61f9632fcbcf916aea9782443a4eb9aebe5829a4。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T030
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問35だけを一問一肢ずつ目視し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 35へ追加し、questionSetIdをboiler1_qs04_03_location_roomに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問35の立入禁止掲示、掲示対象者、予備品・工具、れんが積み補修、引火物持込みを全5肢・公式解答2から独立確認する。"
+      - "21と03bの現行法監査（規則29条）をread-only確認し、出題時本文未取得を保持する。全category候補から設置場所・ボイラー室として分類する。"
+      - "commit 2d631b7d98a63bd019d8196be5fc35a112f0f459の既存35 rowを保持し問35だけappend。生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=36cdcde51a81efdd477af2ec61f9632fcbcf916aea9782443a4eb9aebe5829a4。"
+      - "[pre/post] read-only hash不変、問35 work_versions hash=98d1e8183a65a64f429184a863034cd2c1fe35adfdfb4885c5c4b110a3c001c8。"
+      - "[post_edit] 基準35 row一致、length=36、index35 ref=#34、source ID末尾035、identity=336d5962c0e954ea、questionSetId=boiler1_qs04_03_location_room。"
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
