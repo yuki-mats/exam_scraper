@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T014
+active_task: T015
 
 tasks:
   - id: T001
@@ -991,7 +991,7 @@ tasks:
   - id: T014
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問16だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 19へ追加し、questionSetIdをboiler1_qs02_03_safety_valve_operationに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1007,6 +1007,48 @@ tasks:
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・法令監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "pre_edit branch clean ancestor origin hashes"
+          status: pass
+        - cmd: "manual review 問16原文5肢正答21 03b category"
+          status: pass
+        - cmd: "post_edit 基準19行 identity 20行 一意性 diff"
+          status: pass
+        - cmd: "commit and push"
+          status: pass
+        - cmd: "post_commit hash clean remote一致"
+          status: pass
+      summary: "問16を一問一肢目視し、正答、法令監査、解説、分類を確認。既存19行を保持しindex19へ追加、boiler1_qs02_03_safety_valve_operation。commit 95e2b2b06、最終22 hash 61089e3415a5c291234865b2c1cedbe75b646d7770635a4fbc94b7aef5cbb4a5、push・clean・remote一致。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+      commit: 95e2b2b06
+      deviations: []
+  - id: T015
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問17だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 20へ追加し、questionSetIdをboiler1_qs02_06_maintenanceに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問17本文・5肢・公式解答4、排水温度、清掃時期、機械的清掃、チューブクリーナの対象面、酸洗浄安全を独立確認する。"
+      - "21・03bの非法令判定と解説、全category候補をread-only確認し、清掃・保全として分類する。"
+      - "commit 95e2b2b06の既存20 rowを保持し、問17 rowだけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=61089e3415a5c291234865b2c1cedbe75b646d7770635a4fbc94b7aef5cbb4a5。"
+      - "[pre/post] read-only hash不変、問17 work_versions hash=e7d185a069353cb882311b816f55c0bbf2bd4d92b55a663796d3e0be7275c497。"
+      - "[post_edit] 基準20 row一致、length=21、index20 ref=#16、source ID末尾017、identity=c85999b5a694488f、questionSetId=boiler1_qs02_06_maintenance。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
