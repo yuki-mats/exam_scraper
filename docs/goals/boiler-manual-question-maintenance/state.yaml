@@ -62,13 +62,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T001
+active_task: T003
 
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "運用正本と現行成果物を読み、boiler1とboiler2の未完工程・対象問題ID・最初に目視整備する一問を確定する。"
     inputs:
@@ -86,11 +86,61 @@ tasks:
       - "全対象問題IDの確認方法"
       - "最初に目視整備する一問と、その一問で必要な工程"
       - "後続Workerのallowed_files、目視手順、read-only verify、stop_if案"
-    receipt: null
+    receipt:
+      result: done
+      summary: "現行version台帳をsource順に照合した。boiler1は1360問、boiler2は914問。両資格とも01〜04に未完があり、物理patchの存在だけでは完了しない。最初の対象はboiler1 2009-1 問1（source ID boiler1:kako-mon-com:bo-1:2009-1-01-001）。01、02、02a、02b、03、03b、04を一問ずつ目視で再確認する。"
+      evidence:
+        - path: document/operations/exam_pipeline_manual_and_automation.md
+          finding: "一問は問題文・全選択肢・正答・解説を一体で扱い、最初の未完工程から順に再開する。00_sourceは手作業で変更しない。"
+        - path: config/question_maintenance_workflow.toml
+          finding: "現行versionは01=6.3、02=5.2、02a=5.8、02b=2.3、03=10.7、03b=5.4、04=2.0。03cは資格単位1.0。"
+        - path: "output/question_review_console/boiler1/*/work_versions/*.json"
+          finding: "1360問。未完数は01=1198、02=1001、02a=1198、02b=1001、03=923、03b=1001、04=1160。"
+        - path: "output/question_review_console/boiler2/*/work_versions/*.json"
+          finding: "914問。未完数は01=914、02=914、02a=914、02b=914、03=746、03b=914、04=714。"
+        - path: output/boiler1/questions_json/2009-1/00_source/question_2009-1.json
+          finding: "source先頭は問1、original_question_id=43772608e1fc66c3、source_question_id=boiler1:kako-mon-com:bo-1:2009-1-01-001。"
+        - path: output/question_review_console/boiler1/2009-1/work_versions/39916529127a64ae7f06ea8f.json
+          finding: "問1の記録versionは01=6.1、02=5.0、02a=5.1、02b=2.0、03=10.1、03b=5.1、04未記録で、全工程が現行未達。"
+        - path: output/boiler1/questions_json/2009-1/21_explanationText_added/question_2009-1_merged_explanationText_added.json
+          finding: "問1には既存解説と非法令監査情報があるため、削除せず現行基準で目視再確認する対象。"
+        - path: output/boiler1/category/category.json
+          finding: "boiler1の資格単位taxonomyは存在する。04ではこれを読み、問1のquestionSetIdだけを目視確定する。"
+        - path: output/boiler1/review/law_revision_audit/2009-1_law_revision_audit.jsonl
+          finding: "問1の03b監査記録が存在するが現行5.4未達。非法令問題としての判定も一問一肢ずつ再確認が必要。"
+      facts:
+        - qualification: boiler1
+          target_count: 1360
+          unfinished_stages: "[object Object]"
+        - qualification: boiler2
+          target_count: 914
+          unfinished_stages: "[object Object]"
+        - all_target_ids_confirmation: "各00_sourceのquestion_bodiesをsource順に読み、original_question_id・source_question_idを抽出し、originalQuestionIdで対応するwork_versions一件へ結合する。boiler1は34 sourceファイル・1360問、boiler2は46 sourceファイル・914問。source台帳 docs/contracts/00_source_sha256_manifest.jsonl と突合し、39問回は欠問と即断せず現存IDだけを問題整備対象とする。"
+        - first_question: "[object Object]"
+        - worker_allowed_files: "output/boiler1/questions_json/2009-1/10_questionType_fixed/question_2009-1_questionType_fixed.json,output/boiler1/questions_json/2009-1/15_correctChoiceText_fixed/question_2009-1_correctChoiceText_fixed.json,output/boiler1/questions_json/2009-1/23_correctChoiceText_fixed/question_2009-1_correctChoiceText_fixed.json,output/boiler1/questions_json/2009-1/18_law_context_prepared/question_2009-1_merged_lawContext_prepared.json,output/boiler1/questions_json/2009-1/21_explanationText_added/question_2009-1_merged_explanationText_added.json,output/boiler1/review/law_revision_audit/2009-1_law_revision_audit.jsonl,output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json,output/question_review_console/boiler1/2009-1/work_versions/39916529127a64ae7f06ea8f.json"
+        - worker_manual_steps: "00_sourceの問1を読み、問題文と5肢を完全な命題として一肢ずつ確認する。,01で回答体験からquestionTypeと計算フラグを独立判定する。,02で設問方向、02aで全肢と取得元正解表示を照合して正答を確定する。,02bで法令関連性と肢別根拠を確認する。技術問題だからという既存値を無条件に踏襲しない。,03で各肢の正誤理由、日本語、学習分類、補足質問の追加価値を目視確認する。,03bで一肢ずつ出題時・現行時点を確認し、非法令なら既存技術解説を保持する。,04でcategory.jsonと問題内容を読み、問1だけのquestionSetIdを確定する。,各工程の変更は対応patchの問1レコードだけに限定し、最後にwork_versionsへ目視完了の現行versionを記録する。"
+        - read_only_verify: "00_source問1のhashと内容が作業前後で同一であることを確認する。,allowed_filesの差分がoriginal_question_id=43772608e1fc66c3のレコードだけであることをgit diffで確認する。,各patchから問1だけをjqでreadbackし、01〜04の所有fieldとIDが保持されていることを確認する。,work_versionsの問1が01=6.3、02=5.2、02a=5.8、02b=2.3、03の全target=10.7、03b=5.4、04=2.0であることをreadbackする。これは内容の正しさを機械判定するものではない。"
+        - stop_if: "00_source、merged、convert、upload-readyの変更が必要になる。,問1以外のレコード変更が必要になる。,正答又は根拠をsource・正本・一次資料から目視確定できない。,法令関連性又は時点差を確定できずholdが必要になる。,scriptによるpatch生成、一括補正、自動レビューが必要になる。,既存の一問単位ID対応が崩れている。,read-only検証が二回失敗する。"
+      contradictions:
+        - finding: "両資格には各patchファイルが広く存在するが、work_versionsは現行MAJOR未達を多数示す。ファイル存在や件数だけを完了根拠にできない。"
+        - finding: "boiler1問1には03b相当のlawRevisionFactsが既にある一方、台帳は03b=5.1で現行5.4未達。既存内容を保持しつつ目視再監査が必要。"
+        - finding: "boiler2はsource台帳46ファイルだが対象は914問で、全回40問という仮定と一致しない。欠問調査と問題整備を分離する必要がある。"
+      ambiguity_requiring_judge:
+        - "手作業で現行versionを記録する際、work_versionsのsource値として既存schemaが許容する正式値を確認する必要がある。"
+        - "03b sidecarを直接更新するか、現行の手動保存契約に沿う別receiptを作るかをJudgeが確定する必要がある。"
+        - "04 patchへ問1を追加する際、既存9件配列の順序契約とquestionSetId候補をcategory.jsonから確認する必要がある。"
+      commands:
+        - "sed -n on operation manual, workflow config, and board state"
+        - "rg/find inventory for boiler artifacts and source ledger"
+        - "jq inspection of source, patch, cache, and work-version schemas"
+        - "jq aggregation of current-version gaps for both qualifications"
+        - "source-order readback for the first records of boiler1/2009-1 and boiler2/60001"
+        - "rg read-only lookup of the first question across audit and artifact paths"
+      note_needed: false
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "T001の棚卸しを疑って確認し、未完工程台帳と最初に目視整備する一問の安全な作業境界を確定する。"
     inputs:
@@ -109,21 +159,101 @@ tasks:
       - "一問単位の目視確認手順"
       - "read-only verify"
       - "stop_if"
-    receipt: null
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "inventoryはrevise。T001はMINOR差を未完扱いしたが、正本は同一MAJORをcurrentとする。問1の未完は03のlaw_support未記録と04未記録だけで、01、02、02a、02b、03bはcurrent。安全な次作業は問1だけの目視確認と21/22 patch整備である。work_versionsと03b sidecarの直接編集は認めない。"
+      evidence:
+        - inventory: revise
+          method: "QuestionWorkVersionStore.status_forによる現行MAJOR基準のread-only集計"
+          boiler1: "[object Object]"
+          boiler2: "[object Object]"
+        - first_question: "[object Object]"
+        - first_question_stage_status: "[object Object]"
+        - work_versions_source_contract: "[object Object]"
+        - law_audit_sidecar: "[object Object]"
+        - question_set_patch: "[object Object]"
+      next_allowed_task:
+        id: T003
+        objective: "boiler1 2009-1 問1だけを目視し、未記録の03 law_supportを確認して必要時のみ21 patchの当該fieldを修正し、04のquestionSetIdを22 patch末尾へ一行追加する。01、02、02a、02b、03b、00_source、work_versionsは変更せず、検証後にmainへcommit・origin/mainへpushする。"
+        allowed_files:
+          - output/boiler1/questions_json/2009-1/21_explanationText_added/question_2009-1_merged_explanationText_added.json
+          - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+        manual_review_steps:
+          - "00_sourceの問1本文と5肢を最初から最後まで読み、source ID、original_question_id、sourceRecordRef、公式解答4を確認する。"
+          - "既存21 rowのisLawRelated、lawGroundedExplanationNotNeeded、lawReferences、lawContextForExplanation、lawRevisionFactsを5肢と照合する。非法令技術問題という判断を既存値だけから採用しない。"
+          - "既存03b sidecarをread-onlyで照合する。03bはcurrentなので、内容差がなければ変更しない。"
+          - "category.jsonの全候補を読み、問1全体の主論点からboiler1_qs01_01_thermal_steamを独立に確認する。sourceCategoryだけから決めない。"
+          - "21は目視で誤りを発見した場合だけlaw_support所有fieldを問1 rowに限定して修正する。"
+          - "22は既存9 rowの順序と内容を保持し、完全identityを持つ問1 rowをindex 9へappendしてquestionSetIdを設定する。"
+          - "work_versionsへ手入力せず、Worker receiptに目視判断、変更有無、未記録工程がserver上は未記録のままであることを明記する。"
+        verify:
+          - "git diff --check"
+          - "jq -e '[.[] | select(.sourceRecordRef==\"question_2009-1.json#0\")]|length==1' output/boiler1/questions_json/2009-1/21_explanationText_added/question_2009-1_merged_explanationText_added.json"
+          - "jq -e 'length==10 and .[9].sourceRecordRef==\"question_2009-1.json#0\" and .[9].source_question_id==\"boiler1:kako-mon-com:bo-1:2009-1-01-001\" and .[9].questionSetId==\"boiler1_qs01_01_thermal_steam\"' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+          - "diff -u <(git show HEAD^:output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json | jq -S '.[0:9]') <(jq -S '.[0:9]' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json)"
+          - "git diff --quiet HEAD^ HEAD -- output/boiler1/questions_json/2009-1/00_source/question_2009-1.json"
+          - "git diff --quiet HEAD^ HEAD -- output/boiler1/review/law_revision_audit/2009-1_law_revision_audit.jsonl"
+          - "git diff --quiet HEAD^ HEAD -- output/question_review_console/boiler1/2009-1/work_versions/39916529127a64ae7f06ea8f.json"
+          - "git diff-tree --no-commit-id --name-only -r HEAD"
+          - "git rev-list --left-right --count main...origin/main"
+        stop_if:
+          - "問1の01、02、02a、02b又は03bを変更する必要がある。"
+          - "00_source、work_versions、merged、convert、upload-ready又は03b sidecarの変更が必要になる。"
+          - "問1以外のrow又は22の既存9 rowを変更する必要がある。"
+          - "boiler1_qs01_01_thermal_steamを問題全文とcategory.jsonから一意に確定できない。"
+          - "source identityが一意に一致しない。"
+          - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
+          - "手入力でwork_versionsをcurrent扱いするよう求められる。"
+          - "read-only verifyが二回失敗する。"
+      subgoal_contract: null
+      parallel_safety:
+        safe: false
+        reason: "一問一Workerというgoal制約があり、21/22は年度共有patchである。T003だけを単独実行する。"
+      blocked_tasks: []
+      missing_evidence:
+        - "手作業の目視receiptを正式なvalidated_runとしてserver管理のwork_versionsへ記録する専用経路は確認できない。T003はwork_versionsを偽装せず、patch内容整備と目視receiptまでに限定する。"
+      required_board_updates:
+        - "T001の工程別未完数を現行MAJOR基準の集計へ訂正する。"
+        - "T001の問1必要工程を01〜04全工程から03 law_supportと04だけへ訂正する。"
+        - "T003へnext_allowed_taskのobjective、allowed_files、verify、stop_ifを転記する。"
+        - "work_versions直接編集と03b sidecar編集をT003 scopeから除外する。"
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
-    objective: "T002が確定した最初の一問だけを目視で確認し、必要な未完工程を責務別patch層へ整備する。"
-    allowed_files: []
-    verify: []
+    objective: "boiler1 2009-1 問1だけを目視し、未記録の03 law_supportを確認して必要時のみ21 patchの当該fieldを修正し、04のquestionSetIdを22 patch末尾へ一行追加する。01、02、02a、02b、03b、00_source、work_versionsは変更せず、検証後にmainへcommit・origin/mainへpushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/21_explanationText_added/question_2009-1_merged_explanationText_added.json"
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "00_sourceの問1本文と5肢を最初から最後まで読み、source ID、original_question_id、sourceRecordRef、公式解答4を確認する。"
+      - "既存21 rowの法令関連fieldを5肢と照合し、既存値だけで非法令技術問題と決めない。"
+      - "03b sidecarはread-onlyで照合し、変更しない。"
+      - "category.jsonの全候補を読み、問1全体の主論点からquestionSetIdを独立に確定する。"
+      - "21は誤りを発見した場合だけ、問1のlaw_support所有fieldに限定して修正する。"
+      - "22は既存9 rowの順序と内容を保ち、完全identityを持つ問1 rowをindex 9へappendする。"
+      - "work_versionsへ手入力せず、目視判断と未記録状態をreceiptへ残す。"
+    verify:
+      - "git diff --check"
+      - "jq -e '[.[] | select(.sourceRecordRef==\"question_2009-1.json#0\")]|length==1' output/boiler1/questions_json/2009-1/21_explanationText_added/question_2009-1_merged_explanationText_added.json"
+      - "jq -e 'length==10 and .[9].sourceRecordRef==\"question_2009-1.json#0\" and .[9].source_question_id==\"boiler1:kako-mon-com:bo-1:2009-1-01-001\" and .[9].questionSetId==\"boiler1_qs01_01_thermal_steam\"' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+      - "diff -u <(git show HEAD^:output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json | jq -S '.[0:9]') <(jq -S '.[0:9]' output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json)"
+      - "git diff --quiet HEAD^ HEAD -- output/boiler1/questions_json/2009-1/00_source/question_2009-1.json"
+      - "git diff --quiet HEAD^ HEAD -- output/boiler1/review/law_revision_audit/2009-1_law_revision_audit.jsonl"
+      - "git diff --quiet HEAD^ HEAD -- output/question_review_console/boiler1/2009-1/work_versions/39916529127a64ae7f06ea8f.json"
+      - "git diff-tree --no-commit-id --name-only -r HEAD"
+      - "git rev-list --left-right --count main...origin/main"
     stop_if:
-      - "指定された一問以外の内容変更が必要。"
-      - "00_sourceの変更が必要。"
-      - "自動生成、一括補正、scriptによるpatch生成、又は自動レビューが必要。"
-      - "公式資料又は正本から正答・法令根拠・問題由来を確定できない。"
-      - "T002がallowed_files又は目視手順を確定していない。"
+      - "問1の01、02、02a、02b又は03bを変更する必要がある。"
+      - "00_source、work_versions、merged、convert、upload-ready又は03b sidecarの変更が必要になる。"
+      - "問1以外のrow又は22の既存9 rowを変更する必要がある。"
+      - "boiler1_qs01_01_thermal_steamを問題全文とcategory.jsonから一意に確定できない。"
+      - "source identityが一意に一致しない。"
+      - "scriptによるpatch生成、一括補正、自動生成又は自動レビューが必要になる。"
+      - "手入力でwork_versionsをcurrent扱いするよう求められる。"
       - "read-only検証が二回失敗する。"
     receipt: null
   - id: T999
