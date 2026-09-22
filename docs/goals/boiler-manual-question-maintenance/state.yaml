@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T017
+active_task: T018
 
 tasks:
   - id: T001
@@ -1119,7 +1119,7 @@ tasks:
   - id: T017
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問19だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 22へ追加し、questionSetIdをboiler1_qs02_06_maintenanceに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1135,6 +1135,48 @@ tasks:
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "preflight branch status origin ancestor hashes"
+          status: pass
+        - cmd: "問19 01-03b and category manual review"
+          status: pass
+        - cmd: "post_edit row identity category diff hashes"
+          status: pass
+        - cmd: "commit de308ef5f69f094b03def7faa4c0daf25355b17e and push"
+          status: pass
+        - cmd: "remote origin clean final hash"
+          status: pass
+      summary: "問19を一問一肢確認し、正答4（水酸化イオン、水酸化第一鉄、水酸化第二鉄）、非法令監査、解説、腐食・保全分類を確認。index22へboiler1_qs02_06_maintenanceとして追加。commit de308ef5f69f094b03def7faa4c0daf25355b17e、最終hash cfc48652a89669d5aa91ceae6ee23827a6fa2df435e407e97e29d5383333ba1b、push・clean・remote一致。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      commit: de308ef5f69f094b03def7faa4c0daf25355b17e
+      deviations: []
+  - id: T018
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問20だけを目視計算し、01〜03bをread-only確認後、未記録04 rowを22 index 23へ追加し、questionSetIdをboiler1_qs02_05_blowdownに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "蒸発量12t/日、給水15mg/L、許容450mg/Lから物質収支を独立計算し、約17kg/h・公式解答2を確認する。"
+      - "21・03bの非法令判定、式、単位換算、全category候補をread-only確認し、ブロー量計算として分類する。"
+      - "commit de308ef5fの既存23 rowを保持し問20だけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=cfc48652a89669d5aa91ceae6ee23827a6fa2df435e407e97e29d5383333ba1b。"
+      - "[pre/post] read-only hash不変、問20 work_versions hash=1c221c6c069a194eccb2203c49b7e7b5c5fcf0cf0d08489fa10743e72ac02ec8。"
+      - "[post_edit] 基準23 row一致、length=24、index23 ref=#19、source ID末尾020、identity=559ec4e2e3acced6、questionSetId=boiler1_qs02_05_blowdown。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・式・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
