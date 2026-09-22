@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T027
+active_task: T028
 
 tasks:
   - id: T001
@@ -1561,7 +1561,7 @@ tasks:
   - id: T027
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問32だけを一問一肢ずつ目視計算し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 32へ追加し、questionSetIdをboiler1_qs04_04_supervisorに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1577,6 +1577,50 @@ tasks:
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・計算・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "precondition main clean ancestor origin baseline hashes"
+          status: pass
+        - cmd: "問32の01〜03b・21・category全候補をread-only目視確認"
+          status: pass
+        - cmd: "apply_patchでindex32へ問32のみ追加"
+          status: pass
+        - cmd: "post_edit既存32行・identity・分類・read-only hash・diff検証"
+          status: pass
+        - cmd: "git commit 847bc7adf983f38c372f892f9c2938d8482c068d"
+          status: pass
+        - cmd: "git push origin main"
+          status: pass
+        - cmd: "post_commit remote一致・clean・最終hash検証"
+          status: pass
+      summary: "5肢を独立計算し、526m²、約133.33m²、400m²、486m²、490m²を確認した。肢1のみ特級が必要で公式解答1と一致。規則2条4号・24条を確認し、電気ボイラーの60kW/m²改正で数値は変わるが正誤不変、出題時本文未取得も保持した。取扱作業主任者分類boiler1_qs04_04_supervisorを追加。commit 847bc7adf、最終22 hash 6ce341c8f258710bb82e3f028142176ec4dbe7811876aaea12130d0c9bbb0a2b。push、clean、remote一致済み。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+  - id: T028
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問33だけを一問一肢ずつ目視し、現行の01〜03b法令監査をread-only確認後、未記録04 rowを22 index 33へ追加し、questionSetIdをboiler1_qs04_04_supervisorに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問33の水面測定装置点検頻度、記録、自動制御装置、最高使用圧力、圧力・水位・燃焼状態監視を全5肢・公式解答1から独立確認する。"
+      - "21と03bの現行法監査（規則25条）をread-only確認し、原則1日1回、認定自動制御ボイラーの例外3日1回、出題時本文未取得を保持する。"
+      - "全category候補をread-only確認し、取扱作業主任者として分類する。commit 847bc7adf983f38c372f892f9c2938d8482c068dの既存33 rowを保持し問33だけappend。生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=6ce341c8f258710bb82e3f028142176ec4dbe7811876aaea12130d0c9bbb0a2b。"
+      - "[pre/post] read-only hash不変、問33 work_versions hash=e8dcdf4f4f0ce2dbeb1851668864836803466b02dcdebab56d392b679ea3ecb1。"
+      - "[post_edit] 基準33 row一致、length=34、index33 ref=#32、source ID末尾033、identity=22d5c9ab64b8c724、questionSetId=boiler1_qs04_04_supervisor。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・現行法監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
       - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
     receipt: null
   - id: T999
