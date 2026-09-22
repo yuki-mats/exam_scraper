@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/boiler-manual-question-maintenance/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/boiler-manual-question-maintenance"
 
-active_task: T015
+active_task: T016
 
 tasks:
   - id: T001
@@ -1033,7 +1033,7 @@ tasks:
   - id: T015
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "boiler1 2009-1 問17だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 20へ追加し、questionSetIdをboiler1_qs02_06_maintenanceに設定する。22以外は変更せずcommit・pushする。"
     allowed_files:
@@ -1046,6 +1046,49 @@ tasks:
       - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=61089e3415a5c291234865b2c1cedbe75b646d7770635a4fbc94b7aef5cbb4a5。"
       - "[pre/post] read-only hash不変、問17 work_versions hash=e7d185a069353cb882311b816f55c0bbf2bd4d92b55a663796d3e0be7275c497。"
       - "[post_edit] 基準20 row一致、length=21、index20 ref=#16、source ID末尾017、identity=c85999b5a694488f、questionSetId=boiler1_qs02_06_maintenance。"
+      - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
+    stop_if:
+      - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
+      - "基準row、分類、identity、一問境界、検証又はremote競合に問題がある。"
+    receipt:
+      result: done
+      changed_files:
+        - output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json
+      commands:
+        - cmd: "pre main clean ancestor origin hashes"
+          status: pass
+        - cmd: "review 問17本文5肢正答21 03b category"
+          status: pass
+        - cmd: "post_edit 基準20 row identity 21 row unique diff"
+          status: pass
+        - cmd: "commit and push"
+          status: pass
+        - cmd: "post_commit clean hash remote"
+          status: pass
+      summary: "問17の清掃を一肢ずつ確認し、公式解答4、21、03bは妥当。boiler1_qs02_06_maintenanceとしてindex20へ追加。commit 242c56c014、最終hash a7a1384eb105413612d4fbe3facedf6f40e27d79ec70618c97d393eea6d1356f、push・clean・remote一致。"
+      remaining_blockers: []
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+      commit: 242c56c014
+      deviations:
+        - "全件coverage checkerは途中の部分patchには不適用。限定row検証には影響なし。"
+  - id: T016
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "boiler1 2009-1 問18だけを一問一肢ずつ目視し、01〜03bをread-only確認後、未記録04 rowを22 index 21へ追加し、questionSetIdをboiler1_qs02_04_water_qualityに設定する。22以外は変更せずcommit・pushする。"
+    allowed_files:
+      - "output/boiler1/questions_json/2009-1/22_questionSetId_linked/question_2009-1_questionSetId_linked.json"
+    constraints:
+      - "問18本文・5組合せ・公式解答2、強酸性陽イオン交換樹脂、Na塔、食塩水再生を独立確認する。"
+      - "21・03bの非法令判定と解説、全category候補をread-only確認し、水質・軟化処理として分類する。"
+      - "commit 242c56c014の既存21 rowを保持し、問18 rowだけappend。phase順検証、手入力・生成・一括処理禁止。"
+    verify:
+      - "[pre] main、clean、基準ancestor、origin 0/0、22 hash=a7a1384eb105413612d4fbe3facedf6f40e27d79ec70618c97d393eea6d1356f。"
+      - "[pre/post] read-only hash不変、問18 work_versions hash=d950063bc8be3fd27ab4126ded4ce634056536b482c8820f180a7f9b0f3611fb。"
+      - "[post_edit] 基準21 row一致、length=22、index21 ref=#17、source ID末尾018、identity=e84e92f3a99e9bb1、questionSetId=boiler1_qs02_04_water_quality。"
       - "[post] identity一意、category、diff、変更一件、最終hash、commit、push、clean、remote一致。"
     stop_if:
       - "正答・監査・解説に誤りがあり01〜03b又はallowed_files外を変更する必要がある。"
