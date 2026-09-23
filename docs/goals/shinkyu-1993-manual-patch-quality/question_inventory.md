@@ -7,6 +7,6 @@
 | 3 | `question_1993_3.json` | 25 | `cbfb04b11cdd6606` 〜 `33258e263ca5f11d` | 完了 |
 | 4 | `question_1993_4.json` | 25 | `b2d7c05e6f570261` 〜 `ce505b22ec708d0a` | 完了 |
 | 5 | `question_1993_5.json` | 25 | `7a62750e495dd7e6` 〜 `019dccc0ffe24d49` | 完了 |
-| 6 | `question_1993_6.json` | 25 | `5aab85e76388fc52` 〜 `d8a36b4d86b3791e` | 未着手 |
+| 6 | `question_1993_6.json` | 25 | `5aab85e76388fc52` 〜 `d8a36b4d86b3791e` | 完了 |
 | 7 | `question_1993_7.json` | 10 | `15187078a521c9f1` 〜 `7fea0a464e960c3a` | 未着手 |
 | **合計** | **全7ファイル** | **160問** | - | - |
