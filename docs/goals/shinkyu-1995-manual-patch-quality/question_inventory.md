@@ -3,7 +3,7 @@
 | No. | ファイル名 | 問題数 | original_question_id 範囲 | 状態 |
 |---|---|---|---|---|
 | 1 | `question_1995_1.json` | 25 | `6319aa513308607c` 〜 `e692e7691635dc22` | 完了 |
-| 2 | `question_1995_2.json` | 25 | `e21cd219953ebc64` 〜 `0a81cf557891476a` | 未着手 |
+| 2 | `question_1995_2.json` | 25 | `e21cd219953ebc64` 〜 `0a81cf557891476a` | 完了 |
 | 3 | `question_1995_3.json` | 25 | `5caaedf28b61ead0` 〜 `879e5c3f47f9e153` | 未着手 |
 | 4 | `question_1995_4.json` | 25 | `d4108edc4d4bb71d` 〜 `0cf24a2061a35ee0` | 未着手 |
 | 5 | `question_1995_5.json` | 25 | `28a60730d5ef68ce` 〜 `1011114198baa061` | 未着手 |
