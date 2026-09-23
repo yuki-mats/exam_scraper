@@ -19,11 +19,11 @@ goal:
     completion_proof: 全160問が目視処理され、coverage checkを全件通過し、mainブランチに直接コミット・プッシュされること。
 progress:
   total_questions: 160
-  completed_questions: 50
-  remaining_questions: 110
+  completed_questions: 75
+  remaining_questions: 85
   total_files: 7
-  completed_files: 2
-active_task: T004
+  completed_files: 3
+active_task: T005
 tasks:
 - id: T001
   type: pm
@@ -47,14 +47,14 @@ tasks:
 - id: T004
   type: worker
   assignee: Worker
-  status: in_progress
+  status: done
   objective: 問51〜問75（question_2009_3.json）の目視整備と検証・コミット。
   target_file: output/shinkyu/questions_json/2009/00_source/question_2009_3.json
   question_labels: 問51〜問75
 - id: T005
   type: worker
   assignee: Worker
-  status: todo
+  status: in_progress
   objective: 問76〜問100（question_2009_4.json）の目視整備と検証・コミット。
   target_file: output/shinkyu/questions_json/2009/00_source/question_2009_4.json
   question_labels: 問76〜問100
