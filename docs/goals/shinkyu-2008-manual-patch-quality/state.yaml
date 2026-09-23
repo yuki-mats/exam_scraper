@@ -4,7 +4,7 @@ goal:
   slug: shinkyu-2008-manual-patch-quality
   kind: existing_plan
   tranche: shinkyu / 2008年 の全160問を一問ずつ目視で精査・整備する。
-  status: in_progress
+  status: done
   oracle:
     signal: 対象160問について正しい回答・意図・専門家水準の解説品質が確認され、patch更新、coverage check、不変性検査に通っている。
     cadence: 各ファイル（約25問）完了後および最終監査時
@@ -19,11 +19,11 @@ goal:
     completion_proof: 全160問が目視処理され、coverage checkを全件通過し、mainブランチに直接コミット・プッシュされること。
 progress:
   total_questions: 160
-  completed_questions: 150
-  remaining_questions: 10
+  completed_questions: 160
+  remaining_questions: 0
   total_files: 7
-  completed_files: 6
-active_task: T008
+  completed_files: 7
+active_task: none
 tasks:
 - id: T001
   type: pm
@@ -75,12 +75,12 @@ tasks:
 - id: T008
   type: worker
   assignee: Worker
-  status: in_progress
+  status: done
   objective: 問151〜問160（question_2008_7.json）の目視整備と検証・コミット。
   target_file: output/shinkyu/questions_json/2008/00_source/question_2008_7.json
   question_labels: 問151〜問160
 - id: T009
   type: pm
   assignee: PM
-  status: todo
-  objective: 2008年全160問の最終監査（audit_report.md）と品質証明。
+  status: done
+  objective: 全7ファイル・全160問の総合検証（全28項目合格）および最終監査レポート策定。
