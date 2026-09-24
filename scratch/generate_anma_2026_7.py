@@ -1,0 +1,144 @@
+import json
+import os
+from scripts.common.question_identity import review_question_id
+
+source_path = 'output/anma/questions_json/2026/00_source/question_81011_7.json'
+with open(source_path, 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+questions = data.get('question_bodies', [])
+
+p10 = []
+p15 = []
+p23 = []
+p21 = []
+
+explanations = {
+    "cd3494bd3bf715cd": [ # Q151 (問3)
+        "正しい。強擦法は皮膚とともに皮下組織や筋膜を強くこすり動かす手技であり、腱鞘・筋膜の癒着剥離や瘢痕組織の軟化に最も適している。",
+        "間違い。腹部内臓の機能調節は、主に軽擦法、圧迫法、振動法や按腹手技などが適応となる。",
+        "間違い。神経機能の興奮性惹起は、短時間の強い叩打法や振顫法などの刺激手技が適応となる。",
+        "間違い。リンパの還流促進は、体表を心臓方向へ軽快に擦過する求心性軽擦法の主作用である。"
+    ],
+    "efca4409f7632c23": [ # Q152 (問4)
+        "正しい。指圧の押圧三原則の一つである持続の圧は、生体組織に対して垂直に加えた圧力を緩めずに一定時間保持し、深部組織へ浸透させる原則である。",
+        "間違い。押圧しながら振動を加えるのは振動圧法の手技法であり、押圧三原則（垂直・持続・集中）には含まれない。",
+        "間違い。押圧三原則は垂直の圧・持続の圧・集中の圧であり、軽圧や快圧などの圧の段階区分は原則の定義ではない。",
+        "間違い。指圧の基本操作は緩やかに加圧・維持・減圧を行う緩圧法であり、急激に圧を抜く急減圧操作は三原則に含まれない。"
+    ],
+    "c11806efab0ccf8c": [ # Q153 (問5)
+        "間違い。関節モビリゼーションは脊椎だけでなく四肢を含めた全身の関節可動域改善や疼痛緩和を対象とする手技である。",
+        "間違い。結合織マッサージ（ディッケ提唱）は皮下結合組織の緊張異常や内臓・体性反射帯を対象とする手技である。",
+        "正しい。カイロプラクティック（パーマー創始）は、脊椎の変位（サブラクセーション）が神経障害の原因になると捉え、脊椎を主な治療対象として徒手矯正を行う。",
+        "間違い。オステオパシー（スティル創始）は骨格系だけでなく筋膜、内臓、頭蓋仙骨系など全身の構造と機能を包括的な治療対象とする。"
+    ],
+    "db37338113114501": [ # Q154 (問6)
+        "間違い。ドロップアームテスト陽性は肩腱板の完全断裂を示唆し、急性期断裂病変として整形外科的精査が優先され施術適応外である。",
+        "正しい。エリーテスト陽性は腹臥位で膝関節を他動屈曲した際に同側殿部が浮き上がる現象で、大腿直筋の拘縮・柔軟性低下を示し、筋緊張緩和を目的とする施術の適応となる。",
+        "間違い。ラックマンテスト陽性は膝前十字靭帯（ACL）損傷・断裂を示し、関節不安定性や関節内病変を伴うため施術適応外である。",
+        "間違い。トンプソンテスト陽性はアキレス腱完全断裂を示し、速やかな固定や外科的処置が必要なため施術適応外である。"
+    ],
+    "6efecb32bddb842c": [ # Q155 (問7)
+        "間違い。パチニ小体は真皮深層や皮下組織のほか、骨膜、関節包、腸間膜など深部組織にも広く分布する。",
+        "正しい。メルケル盤（触板）は表皮基底層など皮膚のみに分布し、持続的な触圧刺激（形態や輪郭の識別）を受容する。",
+        "間違い。ルフィニ終末は真皮深層のほか、関節包や靭帯などにも広く分布し、組織の伸張刺激を受容する。",
+        "間違い。自由神経終末は皮膚（表皮・真皮）だけでなく筋膜、腱、骨膜、関節包、内臓など全身組織に広く分布する。"
+    ],
+    "7cb51af1ac437d4c": [ # Q156 (問8)
+        "間違い。脊髄側角（中間外側核）は交感神経節前線維の細胞体が存在する自律神経遠心路の中枢である。",
+        "間違い。脊髄前角は骨格筋を支配する運動ニューロン（α・γ運動ニューロン）の細胞体が存在する遠心路部位である。",
+        "正しい。筋紡錘や腱器官からの筋伸張刺激（深部感覚情報）は、脊髄後根から入り脊髄後索（薄束・楔状束）を上行して延髄後索核へ伝導される。",
+        "間違い。脊髄前索は前脊髄視床路（粗大触圧覚）や前皮質脊髄路などの伝導路が通る部位である。"
+    ],
+    "95c45c4b56f01f12": [ # Q157 (問9)
+        "間違い。内臓−内臓反射は内臓受容器への刺激が自律神経を介して他の内臓効果器に影響を及ぼす反射（胃結腸反射など）である。",
+        "正しい。体性−内臓反射は、皮膚や筋肉などの体性受容器への刺激が自律神経遠心路を介して内臓効果器の機能調節を引き起こす反射（腹部皮膚刺激による胃運動抑制など）である。",
+        "間違い。内臓−体性反射は内臓疾患や内臓受容器への刺激が体壁筋の筋緊張亢進（筋性防御）や皮膚知覚過敏を引き起こす反射である。",
+        "間違い。体性−体性反射は体性受容器への刺激が骨格筋などの体性効果器に運動反応を引き起こす反射（伸張反射・屈曲反射など）である。"
+    ],
+    "cc8b098881501662": [ # Q158 (問10)
+        "間違い。小脳は身体の平衡保持や随意運動の協調的・円滑な制御を担う中枢である。",
+        "間違い。視床は嗅覚を除く各種感覚情報を大脳皮質へ中継する感覚中継中枢である。",
+        "正しい。視床下部は自律神経および内分泌系の統合中枢であり、ストレス反応において交感神経・副腎髄質系（SAM系）および視床下部・下垂体・副腎皮質系（HPA系）を活性化・調節する。",
+        "間違い。大脳基底核は錐体外路系として随意運動の企画・開始・運動パターンの調整を担う。"
+    ],
+    "eeece551f3d051e6": [ # Q159 (問11)
+        "間違い。コルチゾールは血管のカテコールアミン感受性を高め、血圧を維持・上昇させる作用をもつ。",
+        "間違い。コルチゾールは肝臓における糖新生を促進して血糖値を上昇させる作用をもつ。",
+        "正しい。コルチゾール（糖質コルチコイド）は、炎症性因子の産生抑制や毛細血管透過性の亢進抑制により強力な抗炎症作用を発揮する。",
+        "間違い。コルチゾールはリンパ球の遊走抑制や抗体産生抑制など、免疫機能を抑制（免疫抑制作用）する。"
+    ],
+    "12f5f79a366462e1": [ # Q160 (問12)
+        "間違い。運動神経は骨格筋を支配する遠心性神経であり、汗腺の分泌調節には関与しない。",
+        "正しい。圧自律神経反射における局所発汗の抑制は、皮膚圧迫刺激が中枢を介して遠心路である交感神経活動を抑制することにより生じる（汗腺は交感神経単独支配）。",
+        "間違い。汗腺（エクリン腺）には副交感神経支配は存在せず、交感神経（コリン作動性線維）によって単独支配されている。",
+        "間違い。内臓求心性神経は内臓受容器からの求心路であり、皮膚圧迫による体性自律神経反射の遠心路ではない。"
+    ]
+}
+
+for i, q in enumerate(questions):
+    qid = review_question_id(q)
+    url = q.get('question_url', '')
+    label = q.get('questionLabel', '')
+    exam = q.get('examLabel', '')
+    intent = q.get('questionIntent', 'select_correct')
+    raw_correct = q.get('correctChoiceText', [])
+    
+    # 10_questionType
+    p10.append({
+        "original_question_id": qid,
+        "questionType": "true_false",
+        "isCalculationQuestion": False,
+        "question_url": url
+    })
+    
+    # 15_questionIntent (saved in 15_correctChoiceText_fixed)
+    p15.append({
+        "original_question_id": qid,
+        "questionIntent": intent,
+        "question_url": url
+    })
+    
+    # 23_correctChoiceText
+    p23.append({
+        "original_question_id": qid,
+        "correctChoiceText": raw_correct,
+        "question_url": url
+    })
+    
+    # 21_explanationText
+    exp_choices = explanations.get(qid)
+    if not exp_choices:
+        raise ValueError(f"Missing explanation for {qid}")
+    
+    p21.append({
+        "original_question_id": qid,
+        "public_question_id": qid,
+        "question_url": url,
+        "questionLabel": label,
+        "examLabel": exam,
+        "source_filepath": "output/anma/questions_json/2026/00_source/question_81011_7.json",
+        "explanationText": exp_choices,
+        "suggestedQuestionDetailsByChoice": [],
+        "questionLearningPatternId": "principles_exceptions",
+        "isLawRelated": False,
+        "lawGroundedExplanationNotNeeded": True,
+        "lawReferences": [
+            [],
+            [],
+            [],
+            []
+        ]
+    })
+
+def write_patch(path, items):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(items, f, ensure_ascii=False, indent=2)
+
+write_patch('output/anma/questions_json/2026/10_questionType_fixed/question_81011_7_questionType_fixed.json', p10)
+write_patch('output/anma/questions_json/2026/15_correctChoiceText_fixed/question_81011_7_correctChoiceText_fixed.json', p15)
+write_patch('output/anma/questions_json/2026/23_correctChoiceText_fixed/question_81011_7_correctChoiceText_fixed.json', p23)
+write_patch('output/anma/questions_json/2026/21_explanationText_added/question_81011_7_explanationText_added.json', p21)
+
+print(f"Successfully generated patches for {len(questions)} questions in question_81011_7")
