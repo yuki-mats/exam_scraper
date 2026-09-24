@@ -3,7 +3,7 @@
 | No. | ファイル名 | 問題数 | original_question_id 範囲 | 状態 |
 |---|---|---|---|---|
 | 1 | `question_81010_1.json` | 25 | `0c8ee6203874d6a5` 〜 `35c6c93caf55f5ee` | 完了 |
-| 2 | `question_81010_2.json` | 25 | 未調査 | 未着手 |
+| 2 | `question_81010_2.json` | 25 | `f32e3e5195fb4a99` 〜 `991ae84518e42760` | 完了 |
 | 3 | `question_81010_3.json` | 25 | 未調査 | 未着手 |
 | 4 | `question_81010_4.json` | 25 | 未調査 | 未着手 |
 | 5 | `question_81010_5.json` | 25 | 未調査 | 未着手 |
