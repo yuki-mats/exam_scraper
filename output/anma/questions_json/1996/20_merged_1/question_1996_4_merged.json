@@ -28,7 +28,12 @@
       "original_question_id": "bc533c563bae1009",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "気道確保",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -57,8 +62,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "心筋梗塞について誤っている記述はどれか。",
@@ -86,8 +90,13 @@
       "public_question_id": "2af1394a9184f17c",
       "original_question_id": "2af1394a9184f17c",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
-      "correctChoiceText": "ニトログリセリンを治療薬として用いる。",
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
       "explanation_common_summary": [],
@@ -116,8 +125,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "本態性高血圧症の食事で最も控えなければならないのはどれか。",
@@ -146,7 +154,12 @@
       "original_question_id": "1613f8f40b05ba1f",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "ナトリウム",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -175,8 +188,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "肺癌の集団検診で重要な検査はどれか。",
@@ -205,7 +217,12 @@
       "original_question_id": "8d3fef208d10d9f1",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "喀痰細胞診",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
       "explanation_common_summary": [],
@@ -234,8 +251,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "急性糸球体腎炎の症状で誤っているのはどれか。",
@@ -264,7 +280,12 @@
       "original_question_id": "1cb33022f75fd53a",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "多尿",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -293,8 +314,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "急性胆嚢炎で腹壁緊張亢進が最も表れる部位はどれか。",
@@ -323,7 +343,12 @@
       "original_question_id": "b55934b5abf97b9a",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "右上腹部",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -352,8 +377,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "吐血を起こす疾患はどれか。",
@@ -382,7 +406,12 @@
       "original_question_id": "47869d0fea8b862a",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "食道静脈瘤",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -411,8 +440,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "潰瘍性大腸炎の症状として適切でないのはどれか。",
@@ -441,7 +469,12 @@
       "original_question_id": "edf865dea736971f",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "便秘",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -470,8 +503,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "腸閉塞の症状として適切でないのはどれか。",
@@ -500,7 +532,12 @@
       "original_question_id": "757ef53ae597a020",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "排ガス",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -529,8 +566,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "慢性関節リウマチについて誤っている記述はどれか。",
@@ -558,8 +594,13 @@
       "public_question_id": "b435ac1de2236282",
       "original_question_id": "b435ac1de2236282",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
-      "correctChoiceText": "蝶形紅斑がみられる。",
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -588,8 +629,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "急性炎症の全身症状として適切でないのはどれか。",
@@ -618,7 +658,12 @@
       "original_question_id": "570a8632d29b27ce",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "全身浮腫",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
       "explanation_common_summary": [],
@@ -647,8 +692,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "出血性素因について誤っている記述はどれか。",
@@ -676,8 +720,13 @@
       "public_question_id": "48d72f8b50d90951",
       "original_question_id": "48d72f8b50d90951",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
-      "correctChoiceText": "血小板増加により起こる。",
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -706,8 +755,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "性交渉で感染しないのはどれか。",
@@ -736,7 +784,12 @@
       "original_question_id": "3c7e4c4471937ec0",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "破傷風",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -765,8 +818,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "脳血管障害について正しい記述はどれか。",
@@ -795,7 +847,12 @@
       "original_question_id": "1e502260cfe28728",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "一過性脳虚血発作は24時間以内に症状が消失する。",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -824,8 +881,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "メニエール病について誤っている記述はどれか。",
@@ -853,8 +909,13 @@
       "public_question_id": "ec521b0545bf09fd",
       "original_question_id": "ec521b0545bf09fd",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
-      "correctChoiceText": "，中耳の疾患が原因である。",
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -883,8 +944,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "疾患と原因との組合せで正しいのはどれか。",
@@ -913,7 +973,12 @@
       "original_question_id": "09697ef5cddb2e75",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "スモン － キノホルム",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -942,8 +1007,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "正しい組合せはどれか。",
@@ -972,7 +1036,12 @@
       "original_question_id": "782a633b08fa3f2d",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "アキレス腱断裂 － つま先立ち不能",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -1001,8 +1070,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "先天性股関節脱臼の症状で正しい記述はどれか。",
@@ -1031,7 +1099,12 @@
       "original_question_id": "3e4c2b6c7dd6105b",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "開排制限がみられる。",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
       "explanation_common_summary": [],
@@ -1060,8 +1133,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "障害と部位との組合せで正しいのはどれか。",
@@ -1090,7 +1162,12 @@
       "original_question_id": "376615996f7d9573",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "コーレス骨折 － 橈骨下端",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -1119,8 +1196,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "緑内障について誤っている記述はどれか。",
@@ -1148,8 +1224,13 @@
       "public_question_id": "08dab5419bbd093b",
       "original_question_id": "08dab5419bbd093b",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
-      "correctChoiceText": "水晶体が混濁する。",
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -1178,8 +1259,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "意識がなくなる麻酔法はどれか。",
@@ -1208,7 +1288,12 @@
       "original_question_id": "9c8fbb6960592adb",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "吸入麻酔",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -1237,8 +1322,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "身体障害者福祉法に基づく内部障害でないのはどれか。",
@@ -1267,7 +1351,12 @@
       "original_question_id": "f8cf1302c40e04a6",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "肝機能障害",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -1296,8 +1385,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "関節の正常可動範囲で正しいのはどれか。",
@@ -1326,7 +1414,12 @@
       "original_question_id": "6f1af64a99a05e9a",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "足関節底屈：0ﾟ～45ﾟ",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -1355,8 +1448,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "肩関節の運動で誤っているのはどれか。",
@@ -1385,7 +1477,12 @@
       "original_question_id": "86e3ffcb58079e43",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "回内",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -1414,8 +1511,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ],
-      "isCalculationQuestion": false
+      ]
     },
     {
       "questionBodyText": "運動療法で正しい記述はどれか。",
@@ -1444,7 +1540,12 @@
       "original_question_id": "fadfa34fd3f47c4b",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "関節の可動域訓練は筋力のない患者にも行う。",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
       "explanation_common_summary": [],
@@ -1473,8 +1574,7 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ],
-      "isCalculationQuestion": false
+      ]
     }
   ]
 }
