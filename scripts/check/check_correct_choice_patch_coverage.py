@@ -16,6 +16,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.question_identity import review_question_id
+from scripts.common.question_answer_contract import choice_text_content_alignment_issue
 from scripts.merge.patch_views import apply_question_type
 from scripts.check.patch_entry_matching import (
     bind_source_records,
@@ -166,21 +167,27 @@ def compare_entries(
                         )
 
         correct_choices = entry.get("correctChoiceText")
-        if not isinstance(correct_choices, list):
-            errors.append(f"index {idx}: correctChoiceText must be a list")
-        else:
-            if any(value not in {"正しい", "間違い"} for value in correct_choices):
-                errors.append(
-                    f"index {idx}: correctChoiceText must contain only 正しい/間違い"
-                )
-            source_choices = source.get("choiceTextList") or []
-            if isinstance(source_choices, list) and len(correct_choices) != len(source_choices):
-                errors.append(
-                    "index {}: correctChoiceText length mismatch "
-                    "(source={} patch={})".format(
-                        idx, len(source_choices), len(correct_choices)
+        # choiceTextListとのテキスト一致バリデーション（別問題誤混入防止）
+        combined_record = {
+            **source,
+            **entry,
+        }
+        text_alignment_issue = choice_text_content_alignment_issue(combined_record)
+        if text_alignment_issue:
+            errors.append(f"index {idx}: {text_alignment_issue}")
+
+        if isinstance(correct_choices, list):
+            if all(isinstance(v, str) and v in {"正しい", "間違い"} for v in correct_choices):
+                source_choices = source.get("choiceTextList") or []
+                if isinstance(source_choices, list) and len(correct_choices) != len(source_choices):
+                    errors.append(
+                        "index {}: correctChoiceText length mismatch "
+                        "(source={} patch={})".format(
+                            idx, len(source_choices), len(correct_choices)
+                        )
                     )
-                )
+        elif not isinstance(correct_choices, str):
+            errors.append(f"index {idx}: correctChoiceText must be a list or string")
 
             source_cct = source.get("correctChoiceText")
             if require_change_meta and isinstance(source_cct, list):

@@ -482,3 +482,73 @@ def official_answer_alignment_issue(record: Any) -> str | None:
         "questionIntent、correctChoiceText、answer_result_textを再確認してください。"
         "機械検証ではどのfieldを変更するか決めません。"
     )
+
+
+def normalize_text_for_choice_comparison(text: Any) -> str:
+    """比較のために全角半角正規化・空白文字除去を行う。"""
+    import unicodedata
+    if not isinstance(text, str):
+        return ""
+    norm = unicodedata.normalize("NFKC", text)
+    return re.sub(r"\s+", "", norm)
+
+
+def choice_text_content_alignment_issue(record: Any) -> str | None:
+    """
+    correctChoiceText が choiceTextList（選択肢一覧）と正しく整合しているかを検証する。
+    正答テキストが選択肢に存在しない（別問題の混入やずれ）を機械的に検出する。
+    """
+    if not isinstance(record, dict):
+        return None
+
+    choice_texts = record.get("choiceTextList")
+    if not isinstance(choice_texts, list) or not choice_texts:
+        return None
+
+    correct_choice = record.get("correctChoiceText")
+    if correct_choice is None:
+        return None
+
+    normalized_choices = [normalize_text_for_choice_comparison(c) for c in choice_texts]
+
+    # 単一文字列の場合（選択肢テキストそのものが入っている）
+    if isinstance(correct_choice, str):
+        if correct_choice in CORRECT_LABELS | INCORRECT_LABELS:
+            return None
+        norm_correct = normalize_text_for_choice_comparison(correct_choice)
+        if not norm_correct:
+            return None
+        if norm_correct not in normalized_choices:
+            return (
+                f"正答テキスト「{correct_choice}」が選択肢一覧（choiceTextList）に含まれていません。"
+                "別問題の正答・解説が誤混入している可能性があります。"
+            )
+        return None
+
+    # リストの場合
+    if isinstance(correct_choice, list):
+        # 全てが正誤ラベル（正しい/間違い等）の場合
+        if all(c in CORRECT_LABELS | INCORRECT_LABELS for c in correct_choice):
+            if len(correct_choice) != len(choice_texts):
+                return (
+                    f"正誤判定リストの件数({len(correct_choice)})が"
+                    f"選択肢数({len(choice_texts)})と一致しません。"
+                )
+            return None
+
+        # 選択肢テキストのリスト（複数正解など）の場合
+        for item in correct_choice:
+            if isinstance(item, str):
+                if item in CORRECT_LABELS | INCORRECT_LABELS:
+                    continue
+                norm_item = normalize_text_for_choice_comparison(item)
+                if not norm_item:
+                    continue
+                if norm_item not in normalized_choices:
+                    return (
+                        f"正答テキスト「{item}」が選択肢一覧（choiceTextList）に含まれていません。"
+                        "別問題の正答・解説が誤混入している可能性があります。"
+                    )
+        return None
+
+    return None

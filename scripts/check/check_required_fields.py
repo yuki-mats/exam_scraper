@@ -17,6 +17,7 @@ from scripts.common.requirements import (
     load_requirements,
     validate_records,
 )
+from scripts.common.question_answer_contract import choice_text_content_alignment_issue
 
 
 def infer_qualification_from_base_dir(base_dir: Path) -> str | None:
@@ -107,11 +108,21 @@ def main(argv: list[str] | None = None) -> int:
         for path in iter_merged_files(base_dir):
             records = load_records(path, "question_bodies")
             all_errors.extend(validate_records(records=records, rules=rules, source_path=path))
+            for idx, r in enumerate(records, start=1):
+                issue = choice_text_content_alignment_issue(r)
+                if issue:
+                    qid = r.get("original_question_id") or r.get("public_question_id") or f"index_{idx}"
+                    all_errors.append(f"{path}: record {idx} ({qid}): {issue}")
     else:
         rules = get_stage_rules(requirements, stage="firestore", record_array="questions", qualification=qualification)
         for path in iter_firestore_files(base_dir, args.list_group_id):
             records = load_records(path, "questions")
             all_errors.extend(validate_records(records=records, rules=rules, source_path=path, id_keys=("questionId",)))
+            for idx, r in enumerate(records, start=1):
+                issue = choice_text_content_alignment_issue(r)
+                if issue:
+                    qid = r.get("questionId") or f"index_{idx}"
+                    all_errors.append(f"{path}: question {idx} ({qid}): {issue}")
 
     if all_errors:
         try:
