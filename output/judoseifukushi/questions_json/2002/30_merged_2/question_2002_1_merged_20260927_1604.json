@@ -98,7 +98,7 @@
       "original_question_id": "effdb609b8f1d436",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "胸骨",
+      "correctChoiceText": "血漿",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -138,7 +138,12 @@
         []
       ],
       "lawContextForExplanation": "血液成分の容積比率を問う生理学の問題であり、法令・制度上の根拠は不要である。",
-      "explanationText": "「胸骨（胸骨柄・胸骨体・剣状突起）」は扁平骨に分類される骨です。頭頂骨・肩甲骨・腸骨なども扁平骨です。",
+      "explanationText": [
+        "間違い。赤血球は有形成分（全体の約45%）の大部分を占めますが、血液全体の容積比率では血漿（約55%）より小さくなります。",
+        "間違い。白血球は血小板とともに血液全体の1%未満（バフィーコート）しか占めず、容積比率は極めて小さい成分です。",
+        "間違い。血小板は血液全体の1%未満であり、容積比率が最も大きい成分ではありません。",
+        "正しい。血漿は血液全体の容積の約55%を占める液体成分であり、血液成分の中で最も容積比率が大きくなります。"
+      ],
       "questionSetId": "judoseifukushi_qs03_02"
     },
     {
