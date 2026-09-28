@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。LeNetはYann LeCunらが開発した初期のCNNで、手書き数字などの画像認識に用いられた。LeNet-5は1998年の論文で紹介されている。",
+      "間違い。LeNetはAlexNetより前のCNNである。2012年のImageNet大規模画像分類コンテストで成果を示したのはAlexNetで、LeNetではない。",
+      "間違い。LeNet-5には畳み込み層の間にサブサンプリング層があり、画像の特徴マップを小さくする。プーリングに相当する処理がないわけではない。",
+      "間違い。LeNetは手書き文字などの画像を扱うCNNとして開発された。自然言語処理専用のモデルではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "5ed24ec48757b578",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-033",
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:5ed24ec48757b578",
+    "reviewQuestionId": "5ed24ec48757b578",
+    "sourceRecordRef": "question_udemy-7147437-033.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定シラバス2024 v1.4（ディープラーニング）",
+        "sourceUrl": "https://www.jdla.org/download/g%e6%a4%9c%e5%ae%9a%e3%81%ae%e8%a9%a6%e9%a8%93%e5%87%ba%e9%a1%8c%e7%af%84%e5%9b%b2-%ef%bc%88%e3%82%b7%e3%83%a9%e3%83%90%e3%82%b9%ef%bc%89g20246%ef%bd%9ev1-4/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "LeCun et al., Gradient-Based Learning Applied to Document Recognition (1998)",
+        "sourceUrl": "https://bottou.org/papers/lecun-98h",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Krizhevsky et al., ImageNet Classification with Deep Convolutional Neural Networks (2012)",
+        "sourceUrl": "https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
