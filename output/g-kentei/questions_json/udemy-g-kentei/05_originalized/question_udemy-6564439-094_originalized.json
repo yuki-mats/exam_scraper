@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "3bd1e15d1c1dc0a2",
+      "questionBodyText": "ホールドアウト検証の方法として、最も適切な説明を1つ選べ。",
+      "choiceTextList": [
+        "すべてのデータを学習に使い、別のデータでは評価しない。",
+        "データを一度学習用と評価用に分け、必要なら検証用のデータも確保する。",
+        "データを何度も分割し、各回の精度を平均する。",
+        "データを一件ずつ除外して学習と評価を繰り返す。"
+      ],
+      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。"
+    }
+  ]
+}
