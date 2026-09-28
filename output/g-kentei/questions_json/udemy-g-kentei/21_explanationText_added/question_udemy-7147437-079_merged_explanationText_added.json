@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "間違い。Flipは画像を水平方向や垂直方向に反転させるデータ拡張であり、画像を回転させる手法ではない。",
+      "間違い。Cropは画像の一部を切り取るデータ拡張であり、画像の向きを変える処理ではない。",
+      "正しい。Rotateは画像を回転させるデータ拡張である。角度を変えた画像を学習に加えることで、物体の向きや姿勢の違いに対する汎化に役立つ。",
+      "間違い。Normalizeは画素値を一定の範囲へ変換して学習を安定させる前処理であり、画像を回転させるデータ拡張ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "3363b587668bcc35",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-079",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:3363b587668bcc35",
+    "reviewQuestionId": "3363b587668bcc35",
+    "sourceRecordRef": "question_udemy-7147437-079.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Torchvision RandomRotation",
+        "sourceUrl": "https://docs.pytorch.org/vision/2.0/generated/torchvision.transforms.RandomRotation.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Keras RandomRotation layer",
+        "sourceUrl": "https://keras.io/2/api/layers/preprocessing_layers/image_augmentation/random_rotation/",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
