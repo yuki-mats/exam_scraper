@@ -161,3 +161,8 @@
 - 演習問題④問68: データの平均は6、分散は((1-6)^2+(4-6)^2+(5-6)^2+(9-6)^2+(11-6)^2)/5=12.8で、四捨五入すると13になる。取得元と同じ数値・正答を維持する。
 - 演習問題④問69: [VQ-VAE](https://arxiv.org/abs/1711.00937)、[InfoVAE](https://arxiv.org/abs/1706.02262)、[β-VAE](https://openreview.net/pdf/9fcd6616f4c4e9985552865eb0d2383e4fd55a26.pdf)はいずれもVAEを基礎とする変種として問う。
 - 演習問題④問70: [NeRFの原論文](https://arxiv.org/abs/2003.08934)に沿い、複数視点の画像からシーンを表現し、新たな視点の画像を合成する点を問う。
+- 演習問題④問71: [特許庁の精度保証に関する説明](https://www.jpo.go.jp/support/general/open-innovation-portal/document/index/ai-v2_1-riyou_chikujouari.pdf)に沿い、評価条件を限定して一定の精度を保証し得る場合を問う。人間と完全一致することや常に正解を含むこととは区別する。
+- 演習問題④問72: [Google Researchのコールドスタート研究](https://research.google/pubs/content-based-graph-reconstruction-for-cold-start-item-recommendation/)に沿い、内容・属性を利用できる新規商品の推薦に設問を絞る。新規ユーザーにもコンテンツベース方式だけで必ず対応できるとは書かない。
+- 演習問題④問73: [NISTの話者認識の説明](https://www.nist.gov/itl/iad/mltg/speaker-recognition)に沿い、発話内容の文字起こしではなく、音声から話者の人物を識別する点を問う。取得元の「話者ごとに分類」は話者分離と紛らわしいため05で直す。
+- 演習問題④問74: 行動価値関数Q(s,a)が状態と行動の組に与える値をQ値という。選択肢の記号は維持する。
+- 演習問題④問75: [Deep Learningの活性化関数の説明](https://www.deeplearningbook.org/contents/mlp.html)に沿い、深いネットワークの隠れ層ではロジスティックシグモイドが勾配を小さくしやすく、tanhは一般にそれより学習しやすいという相対比較を問う。tanhも飽和して勾配消失を起こし得るため、後続03では「tanhなら勾配消失を解決する」と断定しない。
