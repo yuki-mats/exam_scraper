@@ -28,7 +28,7 @@
       "original_question_id": "118e16d1d3713df2",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "パラフィン浴",
+      "correctChoiceText": "マイクロ波",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -58,7 +58,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "渦流浴は水治療法に含まれます。",
+        "パラフィン浴は温熱療法であり水を用いる治療ではないため、この選択肢が正答です。",
+        "交代浴も水治療法です。",
+        "気泡浴も水治療法に含まれます。"
+      ],
+      "questionSetId": "anma_qs06_04_rehabilitation_treatment"
     },
     {
       "questionBodyText": "脳卒中片麻痺患者の歩行訓練で誤っている記述はどれか。",
@@ -87,7 +94,7 @@
       "original_question_id": "8c165d9a7006d655",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "3点歩行ではまず健側下肢を前に出す。",
+      "correctChoiceText": "患側下肢の振り出しを大きくする。",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
       "explanation_common_summary": [],
@@ -117,7 +124,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "歩行訓練前に立位バランス訓練を行うのは適切です。",
+        "不安定な場合に4脚杖を用いるのも適切です。",
+        "3点歩行で最初に出すのは健側下肢ではなく杖や患側下肢なので、この選択肢が誤りで正答です。",
+        "内反尖足に短下肢装具を用いるのも適切です。"
+      ],
+      "questionSetId": "anma_qs06_06_stroke_head_injury_rehabilitation"
     },
     {
       "questionBodyText": "脊髄損傷急性期の訓練で誤っているのはどれか。",
@@ -146,7 +160,7 @@
       "original_question_id": "a7bd706a06530ef3",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "寝返り動作訓練",
+      "correctChoiceText": "早期の立位訓練",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -176,7 +190,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "関節可動域訓練は急性期から重要です。",
+        "残存筋力維持訓練も行います。",
+        "呼吸訓練も重要です。",
+        "急性期に寝返り動作訓練を誤りとして問うており、この選択肢が正答です。"
+      ],
+      "questionSetId": "anma_qs06_07_spinal_cord_injury_rehabilitation"
     },
     {
       "questionBodyText": "変形性膝関節症で適切でない記述はどれか。",
@@ -205,7 +226,7 @@
       "original_question_id": "901b6c3898076778",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "外反変形が多い。",
+      "correctChoiceText": "患児の希望する姿勢をとらせる。",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -235,7 +256,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "歩行開始時痛はよくみられます。",
+        "関節水腫を起こすことがあります。",
+        "大腿四頭筋萎縮もみられます。",
+        "変形性膝関節症では外反より内反変形が多いため、この選択肢が不適切で正答です。"
+      ],
+      "questionSetId": "anma_qs06_11_musculoskeletal_rehabilitation"
     },
     {
       "questionBodyText": "慢性関節リウマチの温熱療法の効果で誤っている記述はどれか。",
@@ -264,7 +292,7 @@
       "original_question_id": "6e6b1ca6eb9627a4",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "関節の変形が改善する。",
+      "correctChoiceText": "局所血管の収縮",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -294,7 +322,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "温熱療法で関節変形自体が改善するわけではないため、この選択肢が誤りで正答です。",
+        "痛みの軽減は期待できます。",
+        "筋スパズムの軽減にも役立ちます。",
+        "末梢血管拡張も温熱の作用です。"
+      ],
+      "questionSetId": "anma_qs06_11_musculoskeletal_rehabilitation"
     },
     {
       "questionBodyText": "脳性麻痺について誤っている記述はどれか。",
@@ -323,7 +358,7 @@
       "original_question_id": "e6d415cd12d9892a",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "運動療法の開始は3歳まで待つ。",
+      "correctChoiceText": "陰中の陽",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -353,7 +388,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "病型として痙直型が多いです。",
+        "聴力障害は言語発達の遅れにつながります。",
+        "異常な運動パターンを示します。",
+        "運動療法は早期開始が基本であり、3歳まで待つのは誤りなので、この選択肢が正答です。"
+      ],
+      "questionSetId": "anma_qs06_09_pediatric_rehabilitation"
     },
     {
       "questionBodyText": "体の区分で陽に属するのはどれか。",
@@ -382,7 +424,7 @@
       "original_question_id": "d22c8d69501a71c7",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "背部",
+      "correctChoiceText": "恐",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -412,7 +454,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "腹部は陰に属します。",
+        "前腕前面も陰に属する側です。",
+        "下腿内側も陰側です。",
+        "背部は陽に属するため、これが正答です。"
+      ],
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "五行の土に属するのはどれか。",
@@ -471,7 +520,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "風は木に関連します。",
+        "熱は火に関連します。",
+        "湿は土に属するため、これが正答です。",
+        "寒は水に関連します。"
+      ],
+      "questionSetId": "anma_qs10_01_oriental_medicine_basics"
     },
     {
       "questionBodyText": "聞診で診るのはどれか。",
@@ -530,7 +586,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "口臭は聞診で診る内容であり、これが正答です。",
+        "舌の色は望診です。",
+        "意識状態は神や全身状態の観察に関わります。",
+        "体温は一般に切診などで把握します。"
+      ],
+      "questionSetId": "anma_qs10_06_four_examinations"
     },
     {
       "questionBodyText": "肝を傷るのはどれか。",
@@ -589,7 +652,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "怒りは肝を傷るとされ、これが正答です。",
+        "喜びは心と関連します。",
+        "憂いは肺や脾と関連づけられます。",
+        "悲しみは肺を傷るとされます。"
+      ],
+      "questionSetId": "anma_qs10_04_etiology_theory"
     },
     {
       "questionBodyText": "腹診で腎の臓はどこで診るか。",
@@ -648,7 +718,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "臍の上は胃・脾などと関連しやすい部位です。",
+        "腎は腹診で臍の下に対応させるため、これが正答です。",
+        "臍の左だけを示すものではありません。",
+        "臍の右だけを示すものでもありません。"
+      ],
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "内因はどれか。",
@@ -707,7 +784,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "飲食は内因ではなく不内外因に近い扱いです。",
+        "六淫は外因です。",
+        "七情は内因なので、これが正答です。",
+        "労倦も内傷要因ですが、設問では七情が内因として問われています。"
+      ],
+      "questionSetId": "anma_qs10_04_etiology_theory"
     },
     {
       "questionBodyText": "虚の痛みはどれか。",
@@ -766,7 +850,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "虚の痛みでは温めると気持ちがよく、これが正答です。",
+        "赤く腫れて痛むのは実熱の痛みに近い所見です。",
+        "冷やすと快いのも実熱に近いです。",
+        "押さえると痛みが増すのは実証に多いです。"
+      ],
+      "questionSetId": "anma_qs10_05_pattern_theory"
     },
     {
       "questionBodyText": "臓腑の表裏関係で誤っているのはどれか。",
@@ -825,7 +916,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肝と胆は表裏関係です。",
+        "脾と胃も表裏関係です。",
+        "肺の表裏は大腸であり小腸ではないため、この組合せが誤りで正答です。",
+        "腎と膀胱は表裏関係です。"
+      ],
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "祖脈でないのはどれか。",
@@ -884,7 +982,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "浮脈は祖脈に含まれます。",
+        "大脈は祖脈ではないため、この選択肢が正答です。",
+        "遅脈も祖脈に含まれます。",
+        "数脈も祖脈に含まれます。"
+      ],
+      "questionSetId": "anma_qs10_06_four_examinations"
     },
     {
       "questionBodyText": "前腕後面正中を通り、顔面に流注する経絡はどれか。",
@@ -943,7 +1048,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肺経は前腕前面を通ります。",
+        "大腸経は前腕橈側を上行します。",
+        "心経は前腕尺側前面です。",
+        "三焦経は前腕後面正中付近を通って顔面へ流注するため、これが正答です。"
+      ],
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "足の経絡でないのはどれか。",
@@ -1002,7 +1114,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肝経は足の厥陰肝経です。",
+        "脾経は足の太陰脾経です。",
+        "胃経は足の陽明胃経です。",
+        "心経は手の少陰心経であり足の経絡ではないため、この選択肢が正答です。"
+      ],
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "肘に最も近い経穴はどれか。",
@@ -1061,7 +1180,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "郄門は前腕部の経穴です。",
+        "手三里は肘付近に位置し、これが正答です。",
+        "臑兪は肩甲部付近です。",
+        "合谷は手背の経穴です。"
+      ],
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "前脛骨筋上にある経穴はどれか。",
@@ -1120,7 +1246,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "陽陵泉は腓骨頭前下方にあります。",
+        "陰陵泉は脛骨内側後縁です。",
+        "三陰交は脛骨内側縁後方です。",
+        "足三里は前脛骨筋上にあるため、これが正答です。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "第7頸椎棘突起の直下にある経穴はどれか。",
@@ -1179,7 +1312,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "大椎は第7頸椎棘突起の直下にあり、これが正答です。",
+        "身柱はより下位です。",
+        "肺兪は背部外方の兪穴です。",
+        "膈兪も胸椎レベルの兪穴です。"
+      ],
+      "questionSetId": "anma_qs10_12_extraordinary_meridians_with_points"
     },
     {
       "questionBodyText": "第9肋軟骨付着部の下際にある経穴はどれか。(現在は第6肋軟骨)",
@@ -1238,7 +1378,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "中脘は上腹部正中です。",
+        "大横は腹直筋外縁の経穴です。",
+        "期門は肋軟骨付着部下際にあるため、これが正答です。",
+        "天枢は臍傍です。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "下肢にある経穴はどれか。",
@@ -1297,7 +1444,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "神門は手部の経穴です。",
+        "殷門は下肢後面にあるため、これが正答です。",
+        "梁門は腹部の経穴です。",
+        "風門は背部の経穴です。"
+      ],
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "腎経の原穴はどれか。",
@@ -1356,7 +1510,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "太衝は肝経の原穴です。",
+        "太白は脾経の原穴です。",
+        "太淵は肺経の原穴です。",
+        "太谿は腎経の原穴であり、これが正答です。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "総頸動脈拍動部にある経穴はどれか。",
@@ -1415,7 +1576,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "天柱は後頸部の経穴です。",
+        "風池も後頸部です。",
+        "缺盆は鎖骨上窩にあります。",
+        "人迎は総頸動脈拍動部にあるため、これが正答です。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "治療原則で誤っている記述はどれか。",
@@ -1474,7 +1642,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "充血に健部誘導法を用いるのは妥当です。",
+        "神経麻痺に対して持続圧迫法を用いるという記述は適切でないため、この選択肢が誤りで正答です。",
+        "内臓疾患にデルマトームを活用する考え方は用いられます。",
+        "神経痛に圧痛点を活用するのも妥当です。"
+      ],
+      "questionSetId": "anma_qs10_08_treatment_principles"
     }
   ]
 }
