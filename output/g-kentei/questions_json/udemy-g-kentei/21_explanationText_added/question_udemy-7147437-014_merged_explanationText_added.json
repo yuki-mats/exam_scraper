@@ -1,0 +1,16 @@
+[
+  {
+    "explanationText": [
+      "正しい。空欄は最大値プーリングである。特徴マップの小さな領域ごとに最大値を取り出し、強く反応した特徴を残す。特徴の位置が領域内で少し変わっても同じ最大値を得られる場合があるため、局所的な位置ずれの影響を抑えられる。バッチ正規化は層への入力を正規化して学習を安定させる方法、ドロップアウトは学習時に一部のユニットを無効にする方法、L2正則化は重みに対する罰則を加える方法であり、最大値を取り出す操作ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "31743827adf478a1",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-014",
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:31743827adf478a1",
+    "reviewQuestionId": "31743827adf478a1",
+    "sourceRecordRef": "question_udemy-7147437-014.json#0"
+  }
+]
