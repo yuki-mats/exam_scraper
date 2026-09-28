@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "間違い。単語ごとに一つの固定ベクトルを割り当てるのは、Word2VecやGloVeなどの静的な単語埋め込みの特徴である。ELMoは文脈によって表現が変わる。",
+      "間違い。ELMoはTransformerではなく、双方向LSTMを使った言語モデルに基づく。GPTシリーズはTransformerを用いる別系統のモデルである。",
+      "正しい。ELMoは双方向言語モデルの内部表現を利用して、同じ単語でも前後の文脈に応じて異なる表現を生成する。これを文脈化された単語表現という。",
+      "間違い。ELMoが主に生成するのは文全体を一つにまとめた固定ベクトルではなく、文中の各単語に対する文脈依存の表現である。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "a1887c04f2b9eab8",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-081",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:a1887c04f2b9eab8",
+    "reviewQuestionId": "a1887c04f2b9eab8",
+    "sourceRecordRef": "question_udemy-7147437-081.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Deep contextualized word representations",
+        "sourceUrl": "https://arxiv.org/abs/1802.05365",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "AllenNLP ELMo",
+        "sourceUrl": "https://docs.allennlp.org/v2.5.0/api/modules/elmo/",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
