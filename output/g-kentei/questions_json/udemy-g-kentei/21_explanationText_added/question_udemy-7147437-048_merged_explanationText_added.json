@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。データ窃取攻撃は、モデルへの問い合わせで得た出力から学習データを取り出そうとする攻撃である。",
+      "間違い。メンバーシップ推論攻撃は、あるデータが学習に使われたかどうかを推定する。設問のように学習データ自体を取り出すことを直接の目的としない。",
+      "間違い。モデル窃取攻撃は、問い合わせを利用してモデルの構造やパラメータ、機能を推定・模倣する。設問が対象とするのはモデルではなく学習データである。",
+      "間違い。モデル汚染攻撃は、学習用データや更新過程に不正な操作を加え、モデルの動作を変える攻撃である。学習済みモデルの出力からデータを取り出す攻撃とは異なる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "cda867988aebef9f",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-048",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:cda867988aebef9f",
+    "reviewQuestionId": "cda867988aebef9f",
+    "sourceRecordRef": "question_udemy-7147437-048.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "NIST Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations",
+        "sourceUrl": "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
