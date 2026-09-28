@@ -356,3 +356,8 @@
 - 演習問題⑥問63: [DCGAN原論文](https://arxiv.org/abs/1511.06434)に沿い、生成器と識別器にCNNを用いる点を問う。GAN一般より必ず高解像度になるという元の断定は採用しない。
 - 演習問題⑥問64: [EfficientNet原論文](https://arxiv.org/abs/1905.11946)に沿い、深さ・幅・入力解像度の複合スケーリングを問う。
 - 演習問題⑥問65: [MITの勾配降下法の解説](https://introml.mit.edu/notes/gradient_descent.html)に沿い、局所最適解と大域最適解を区別する。学習率調整で大域最適解を必ず得られるという元の説明は削除する。
+- 演習問題⑥問66: [Googleの協調フィルタリングの説明](https://developers.google.com/machine-learning/recommendation/collaborative/basics)に沿い、推薦エンジンで利用者間の類似性を使う手法を問う。コールドスタートだけを協調フィルタリングの専有課題として扱わない。
+- 演習問題⑥問67: tanhの微分の最大値は1、シグモイドの微分の最大値は0.25であることを問う。元の解説にある勾配消失の断定は判断条件に加えない。
+- 演習問題⑥問68: 説明可能AIの略称XAIを問う。元の選択肢と難易度を維持する。
+- 演習問題⑥問69: [NISTのAIバイアス資料](https://www.nist.gov/news-events/news/2022/03/theres-more-ai-bias-biased-data-nist-report-highlights)に沿い、AIシステムの判断に現れた偏りと、モデル構築前の標本抽出に伴う偏りを区別する。
+- 演習問題⑥問70: [Adam原論文](https://arxiv.org/abs/1412.6980)に沿い、過去の勾配の移動平均に関係するモーメンタムを問う。提唱年代や鞍点からの脱出を断定しない。
