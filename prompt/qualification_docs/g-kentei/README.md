@@ -58,3 +58,6 @@
 - 演習問題③問29: 取得元が参照する[Google CloudのMLOps工程](https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)は、事業課題と成功基準を定めた後にデータ分析、学習、評価、監視へ進む。05ではその後のMLパイプライン工程を問う形に絞り、事業課題の分析自体をMLOps全体で不要とはしない。
 - 演習問題③問32: 取得元の4番は、審査員がAIを確実に見分けられない場合だけ賞金が出ると読める。[2019年の主催団体による採点説明](https://aisb.org.uk/aisb-events/)は、最も人間らしいシステムを得点で評価している。05では授賞の厳密な条件を断定せず、テキストでの対話評価に絞る。
 - 演習問題③問33: [国土交通省の自動運転用語資料](https://www.mlit.go.jp/jidosha/anzen/01asv/report06/file/hokokusyo_4_jidountenyogo.pdf)と[SAE J3016](https://saemobilus.sae.org/standards/j3016_202104-taxonomy-definitions-terms-related-driving-automation-systems-road-motor-vehicles)に基づき、条件付のレベル3と、ODD内で運転者の引継ぎを前提としないレベル4を区別する。取得元のレベル5の文面にある文字化けも解消する。
+- 演習問題③問36: 取得元はYOLOをグリッド分割で説明するが、これは初期のYOLOの説明として扱う。05の設問も「初期の」と限定し、後続03で全YOLO実装の共通仕様と断定しない。
+- 演習問題③問38: Attention一般に並列処理能力や長文処理の優位性を無条件に帰すと不正確になる。05ではTransformerの自己注意に対象を絞り、離れた位置を直接参照できることとSGDの更新則とは別物であることを問う。
+- 演習問題③問40: 取得元解説の「AIの能力を評価するのに最適な方法」は根拠のない断定なので、後続03には引き継がない。チューリングテストの対話による判別という論点だけを残す。
