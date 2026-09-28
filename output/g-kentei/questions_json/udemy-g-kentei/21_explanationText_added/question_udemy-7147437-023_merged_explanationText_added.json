@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "正しい。方策勾配法は、行動を選ぶ方策をパラメータで表し、期待報酬が高くなる方向の勾配を用いてパラメータを更新する。確率的な方策を用いる方法が代表的である。",
+      "正しい。行動を直接表す方策は連続的な行動も扱える。Actor-Criticでは、Actorが方策を更新し、Criticが行動や状態の価値を評価して更新を助ける。",
+      "間違い。方策勾配法の中心は方策のパラメータを直接最適化することであり、環境モデルを推定してから最適方策を計算することを要件としない。記述は方策勾配法をモデルベース手法に限定している。",
+      "正しい。REINFORCEは、得られた報酬を使って行動の選択確率を調整する基本的な方策勾配アルゴリズムである。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "d15fa9dc6e042f11",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-023",
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:d15fa9dc6e042f11",
+    "reviewQuestionId": "d15fa9dc6e042f11",
+    "sourceRecordRef": "question_udemy-7147437-023.json#0"
+  }
+]
