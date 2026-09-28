@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "間違い。誤差伝播は、ニューラルネットワークで損失の勾配を各層へ伝えて計算する方法である。分類境界とデータの距離を表す語ではない。",
+      "間違い。損失最小化は、さまざまなモデルに共通する最適化の目的である。設問が問う、分類境界から最も近いサンプルまでの距離を広げる考え方は、マージン最大化と呼ぶ。",
+      "正しい。マージンは分類境界から最も近い学習サンプルまでの距離を指す。SVMはこの距離を大きくするように分類境界を決める。境界の決定に寄与するサンプルをサポートベクターと呼ぶ。",
+      "間違い。正則化はモデルの複雑さや誤分類への罰則を調整する考え方で、SVMにも関係する。設問が示す距離を大きくする考え方の名称は、マージン最大化である。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "c3b93b99fe09f5b4",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-038",
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:c3b93b99fe09f5b4",
+    "reviewQuestionId": "c3b93b99fe09f5b4",
+    "sourceRecordRef": "question_udemy-7147437-038.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn Support Vector Machines",
+        "sourceUrl": "https://scikit-learn.org/1.5/modules/svm.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
