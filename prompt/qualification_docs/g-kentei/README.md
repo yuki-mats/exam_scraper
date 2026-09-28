@@ -296,3 +296,8 @@
 - 演習問題⑥問3: [Googleの多クラス分類の説明](https://developers.google.com/machine-learning/crash-course/neural-networks/multi-class)に沿い、排他的な各クラスのスコアを確率分布へ変換するソフトマックスを問う。
 - 演習問題⑥問4: [経済産業省の営業秘密の説明](https://www.meti.go.jp/policy/economy/chizai/chiteki/trade-secret.html)に沿い、秘密管理性・有用性・非公知性を要件とし、独創性を区別する。
 - 演習問題⑥問5: [MITの探索アルゴリズム講義](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2008/resources/lec13/)に沿い、同じ深さを先に調べる幅優先探索を問う。
+- 演習問題⑥問6: [PyTorchの畳み込み層の説明](https://docs.pytorch.org/docs/main/generated/torch.nn.modules.conv.Conv2d.html)に沿い、フィルタを動かす幅であるストライドを問う。
+- 演習問題⑥問7: [SSD原論文](https://arxiv.org/abs/1512.02325)に沿い、候補領域生成を別段階で行わない1段階検出と処理速度の利点を問う。
+- 演習問題⑥問8: [scikit-learnのSVM解説](https://scikit-learn.org/1.5/modules/svm.html)に沿い、カーネル関数を通じて高次元の特徴空間で分類する点を問う。
+- 演習問題⑥問9: [SegNet原論文](https://arxiv.org/abs/1511.00561)に沿い、エンコーダの最大値プーリング位置をデコーダに渡す特徴を問う。用語を「セマンティック」に統一する。
+- 演習問題⑥問10: セマンティックセグメンテーションは各画素を分類するタスクとして問い、矩形で位置を示す物体検出と区別する。
