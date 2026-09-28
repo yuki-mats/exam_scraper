@@ -246,3 +246,8 @@
 - 演習問題⑤問53: [オントロジーの分類に関する研究](https://asistdl.onlinelibrary.wiley.com/doi/10.1002/bult.2015.1720410407)に沿い、ヘビーウェイトは公理や制約まで含む詳しい定義、ライトウェイトは分類や基本関係を中心とする表現として問う。取得元のAIの柔軟な学習・推論に関する説明は定義の決め手にしない。
 - 演習問題⑤問54: [強化学習の基本文献](https://www.incompleteideas.net/book/bookdraft2018mar21.pdf)に沿い、環境からの報酬と将来の累積報酬の最大化を区別して表す。
 - 演習問題⑤問55: [Pix2Pixの原論文](https://arxiv.org/abs/1611.07004)に沿い、対応する入力・出力画像のペアから画像変換を学習するモデルとして問う。
+- 演習問題⑤問56: [CAMの原論文](https://arxiv.org/abs/1512.04150)と[Grad-CAMの原論文](https://arxiv.org/abs/1610.02391)に沿い、CAMの特徴マップ重み付けとGrad-CAMの勾配利用を区別する。勾配を使わないという肢を誤答にする。
+- 演習問題⑤問57: [Googleの教師あり学習の説明](https://developers.google.com/machine-learning/intro-to-ml/supervised)に沿い、正解ラベルを付ける作業を問う。取得元の「タギング」はアノテーションと重なり得るため、誤答肢をトークン化へ直す。
+- 演習問題⑤問58: [カナダの個人情報保護当局の説明](https://www.priv.gc.ca/en/for-federal-institutions/privacy-act-bulletins/pab_20260119/)に沿い、設計時だけでなく運用までプライバシーに配慮する点を問う。
+- 演習問題⑤問59: [敵対的サンプルの研究例](https://openai.com/index/attacking-machine-learning-with-adversarial-examples/)に沿い、パンダ画像への意図的な微小摂動でテナガザルと誤認識させる例を問う。単なるランダムな雑音追加とは区別する。
+- 演習問題⑤問60: [経産省のAI事業者ガイドライン](https://www.meti.go.jp/press/2024/04/20240419004/20240419004-2.pdf)に沿い、設計前からステークホルダーとリスクを整理する。説明可能性に応じたモデル選択も検討事項とする。
