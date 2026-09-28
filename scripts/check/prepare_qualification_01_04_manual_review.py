@@ -211,7 +211,7 @@ def build_review_row(
     )
     explanation_text = question.get("explanationText")
     question_set_id = question.get("questionSetId")
-    qid = question_id(question)
+    qid = str(question.get("source_question_id") or question.get("question_url") or question_id(question))
     review_id = f"{source_year(source_path)}:{source_path.stem}:{qid}"
 
     stage_paths = {
