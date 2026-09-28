@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "報酬成形に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "報酬を一切与えず、ランダムな探索のみで学習する手法である。",
+        "補助的な報酬を設計して追加する手法である。",
+        "報酬関数をモデルから自動生成するメタ学習手法である。",
+        "報酬を小さく分割しすぎることで学習を遅らせるテクニックである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-020",
+      "public_question_id": "b65d85f1db934828",
+      "original_question_id": "b65d85f1db934828",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:020",
+      "source_public_question_id": "b65d85f1db934828",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:020:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:020:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:020:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:020:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\n報酬成形（Reward Shaping）は、強化学習でエージェントの学習を早めるために、補助的な報酬を設計して追加する方法です。最終報酬までの道のりが長いタスクで特に有効です。\nオプション1は不正解です。\n報酬を与えないと学習が進まないため、ランダム探索のみでは不十分です。\nオプション3は不正解です。\n報酬関数を自動生成するのは逆強化学習（IRL）などの別手法です。\nオプション4は不正解です。\n報酬を分割するだけで性能が向上するわけではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

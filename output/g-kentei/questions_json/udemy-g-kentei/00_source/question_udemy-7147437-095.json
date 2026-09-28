@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "Grad-CAMに関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題95",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CNNの勾配情報を利用して、予測に重要な画像領域をヒートマップとして可視化する手法である。",
+        "最終畳み込み層の後にGAPを配置する特定のネットワーク構造を必要とし、適用にはモデルの変更や再学習が必要である。",
+        "対象データの周辺に複数のサンプルを作り、単純なモデルで局所的に近似して予測根拠を説明する手法である。",
+        "特徴量をランダムに入れ替えた際の予測精度の低下から、各特徴量の重要度を評価する手法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-095",
+      "public_question_id": "47cb82e49359fe10",
+      "original_question_id": "47cb82e49359fe10",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:095",
+      "source_public_question_id": "47cb82e49359fe10",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:095:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:095:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:095:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:095:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。Grad-CAMは、CNNの勾配情報を利用して、画像のどの部分が予測に重要だったかをヒートマップで可視化する手法です。例えば画像を「犬」と判定した場合、犬の顔や体など、判定に強く影響した部分を確認できます。\nオプション2は不正解です。\nこれはCAMの特徴です。CAMは適用できるネットワーク構造に制約がありますが、Grad-CAMはより幅広いCNNに利用できます。\nオプション3は不正解です。\nこれはLIMEの説明です。予測したデータの周辺を単純なモデルで近似して、予測理由を説明します。\nオプション4は不正解です。\nこれはPermutation Importanceの説明です。特徴量を入れ替えたときの予測性能の変化から、その特徴量の重要度を評価します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

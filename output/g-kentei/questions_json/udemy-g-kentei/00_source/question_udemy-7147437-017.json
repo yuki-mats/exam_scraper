@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "CNNにおけるフィルタ（カーネル）に関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "画像から特徴を見つけるために使う小さな数値の集まりである。",
+        "学習によってフィルタの重みが変化し、特徴を検出できるようになる。",
+        "画像の位置ごとに別々のフィルタを使い、すべての特徴を個別に検出する。",
+        "ストライドやパディングを設定することで、出力の大きさを調整できる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-017",
+      "public_question_id": "04bc5446001f6396",
+      "original_question_id": "04bc5446001f6396",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:017",
+      "source_public_question_id": "04bc5446001f6396",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:017:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:017:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:017:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:017:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。CNNでは、同じフィルタを画像全体に使う「重み共有」という仕組みがあります。\n例えば「縦線を見つけるフィルタ」があれば、画像のどこに縦線があっても同じフィルタで検出します。位置ごとに別々のフィルタを使う必要はありません。\nオプション1は不正解です。\nフィルタは小さな数値の集まりで、画像から「縦線」「横線」「丸」などの特徴を見つけるために使います。\nオプション2は不正解です。\nフィルタの中の数値（重み）は学習によって自動で調整されます。最初はランダムですが、学習が進むと特徴を検出しやすい数値に変わっていきます。\nオプション4は不正解です。\nストライド（移動幅）やパディング（余白設定）を調整することで、特徴図のサイズや受容野を制御できます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

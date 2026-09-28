@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ドロップアウトに関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題80",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ニューラルネットワークの学習時に、一部のノードをランダムに無効化して過学習を防ぐ手法である。",
+        "学習時にランダムにノードを無効化するが、推論時には全ノードを使用する。",
+        "正則化手法の一種であり、特定のノード間の依存を減らすことで汎化性能を高める。",
+        "推論時にもランダムにノードを無効化して、予測のばらつきを平均化する手法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-080",
+      "public_question_id": "24dd31f52180bb62",
+      "original_question_id": "24dd31f52180bb62",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:080",
+      "source_public_question_id": "24dd31f52180bb62",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:080:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:080:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:080:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:080:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nドロップアウトは、学習時（トレーニング時）にランダムに一部のノードを無効化して学習を行う正則化手法です。これにより、特定のノード同士の共適応（co-adaptation）を防ぎ、過学習（オーバーフィッティング）を抑制します。\n一方、推論時（テスト時）には全ノードを使用し、学習時に無効化されていた確率に応じてスケーリングして出力を調整します。したがって、「推論時にもノードを無効化する」という記述は誤りです。\nオプション1は不正解です。\nドロップアウトは学習時にノードをランダムに無効化することで過学習を防ぐ手法です。\nオプション2は不正解です。\n推論時には全ノードを使用し、学習時のスケーリングを反映して動作します。\nオプション3は不正解です。\nドロップアウトは特定ノードへの過度な依存を防ぎ、モデルの汎化性能を高める正則化手法です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

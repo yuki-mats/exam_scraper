@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、連続的な潜在変数の代わりに離散的なベクトル空間を用いることで、生成モデルの安定性と表現力を高めたVAEの一種である。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題67",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "β-VAE",
+        "VQ-VAE",
+        "infoVAE",
+        "CVAE（Conditional VAE）"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-067",
+      "public_question_id": "15412bb141b8f056",
+      "original_question_id": "15412bb141b8f056",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:067",
+      "source_public_question_id": "15412bb141b8f056",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:067:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:067:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:067:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:067:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。VQ-VAE（Vector Quantized Variational AutoEncoder）は、VAE（変分オートエンコーダ）の改良版であり、潜在空間を連続値ではなく離散的なベクトルとして表現します。\nこの量子化（Vector Quantization）により、潜在表現がより明確で安定し、生成モデル（例：画像・音声生成）で高品質な結果が得られます。Google DeepMindが開発し、後のVQ-GANやDALL・Eなどの基礎技術となりました。\nオプション1は不正解です。\nβ-VAEは、潜在変数の独立性を高めるためにKL項に重みβを導入したモデルで、表現の解釈性向上を目的とします。\nオプション3は不正解です。infoVAEは、情報理論的な観点からKL項を再定義し、VAEの訓練安定性を改善したモデルです。\nオプション4は不正解です。CVAEは条件付きVAEであり、ラベルやクラス情報を付加して生成を制御します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

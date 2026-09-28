@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ジョルダンネットワーク（Jordan Network）に関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題63",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "出力層の一部をフィードバックして次の時刻の入力とする再帰型ニューラルネットワークである。",
+        "エルマンネットワークと同様に、系列データや時系列予測に用いられる。",
+        "再帰的な接続が中間層（隠れ層）に存在する点が特徴である。",
+        "短期的な記憶能力を持ち、時間的依存関係を扱える。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-063",
+      "public_question_id": "b96ec2045bd7afec",
+      "original_question_id": "b96ec2045bd7afec",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:063",
+      "source_public_question_id": "b96ec2045bd7afec",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:063:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:063:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:063:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:063:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\nジョルダンネットワーク（Jordan Network）では、再帰接続が出力層から入力層にフィードバックされる構造を持ちます。したがって「中間層に再帰がある」という説明は誤りです。\n一方、エルマンネットワークでは、再帰接続は隠れ層（中間層）に存在します。この違いが両者の最も大きな構造的差異です。\nオプション1は不正解です。\nジョルダンネットワークでは出力の一部が入力に戻る構造を持ちます。\nオプション2は不正解です。\nエルマンネットワークと同様に、ジョルダンネットワークも系列データや時系列予測タスクに用いられます。\nオプション4は不正解です。\nジョルダンネットワークは短期的な状態情報を保持できるため、時系列データの依存関係を扱えます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

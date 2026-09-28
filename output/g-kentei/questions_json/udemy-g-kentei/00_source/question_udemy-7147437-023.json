@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "方策勾配法に関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "行動方策を確率的に表現し、そのパラメータを勾配上昇法で最適化する手法である。",
+        "連続行動空間でも利用され、Actor-Criticなどで使われる。",
+        "環境モデルを推定して最適方策を計算するモデルベース手法である。",
+        "REINFORCEアルゴリズムは方策勾配法の代表例である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-023",
+      "public_question_id": "d15fa9dc6e042f11",
+      "original_question_id": "d15fa9dc6e042f11",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:023",
+      "source_public_question_id": "d15fa9dc6e042f11",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:023:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:023:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:023:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:023:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\n方策勾配法は、環境モデルを使わず（モデルフリー）、方策自体を確率的に定義し、そのパラメータを勾配上昇法で直接最適化する手法です。\n代表例としてREINFORCEやActor-Criticなどがあります。\nオプション1は不正解です。\n方策勾配法は、方策を確率分布として定義し、そのパラメータを勾配上昇法で最適化します。\nオプション2は不正解です。\n方策勾配法は連続行動空間に対応しやすく、ロボット制御や自動運転などで広く使われます。Actor-Criticなども代表例です。\nオプション4は不正解です。REINFORCEは方策勾配法の代表的アルゴリズムで、最も基本的な実装です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

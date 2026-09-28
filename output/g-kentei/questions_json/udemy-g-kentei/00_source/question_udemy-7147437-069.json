@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "次元の呪いに関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題69",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "特徴量（次元）の数が増えると、データが空間内に疎に分布するようになる。",
+        "特徴量を増やすことで常にモデルの精度が向上し、過学習のリスクが低下する。",
+        "高次元空間では、距離や密度の概念が意味を持たなくなることがある。",
+        "次元削減手法（PCAなど）は、この問題への対処法の1つとして用いられる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "人工知能をめぐる動向",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-069",
+      "public_question_id": "49cbf932042667b9",
+      "original_question_id": "49cbf932042667b9",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:069",
+      "source_public_question_id": "49cbf932042667b9",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:069:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:069:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:069:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:069:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\n次元の呪いとは、データの次元（特徴量の数）が増えることで、データが疎になり、距離や類似度の計算が難しくなる現象を指します。\n次元が高くなるほど必要なデータ量が指数的に増加し、モデルがうまく学習できなくなることもあります。そのため、特徴量を単純に増やすことが精度向上につながるとは限らず、むしろ過学習（オーバーフィッティング）のリスクが高まることがあります。\nオプション1は不正解です。\n次元が増えると、データ点同士の距離が遠くなり、空間が疎になります。\nオプション3は不正解です。\n高次元になると、全データ間の距離がほぼ等しくなり、近傍探索などが困難になります。\nオプション4は不正解です。\n主成分分析（PCA）やt-SNEなどの次元削減手法は、次元の呪いを軽減する代表的な方法です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

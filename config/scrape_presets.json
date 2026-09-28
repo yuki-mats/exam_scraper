@@ -1133,6 +1133,18 @@
       }
     ]
   },
+  "g-kentei_udemy": {
+    "qualification_code": "g-kentei",
+    "scraper_type": "udemy",
+    "qualification_name": "G検定",
+    "list_first_page_url_template": "https://tokyo-gas-dx.udemy.com/course/{list_group_id}/",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "g-tbyxpv",
+        "output_list_group_id": "udemy-g-kentei"
+      }
+    ]
+  },
   "nw": {
     "scraper_type": "sgsiken",
     "qualification_name": "ネットワークスペシャリスト",

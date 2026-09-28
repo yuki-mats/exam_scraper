@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ベイズ情報量規準（BIC）に関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題85",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "モデルの対数尤度に、パラメータ数に応じたペナルティ項を加えて評価する。",
+        "モデルの複雑さを抑え、過学習を防ぐ目的で用いられる。",
+        "サンプル数が多い場合、複雑なモデルをより強く罰する傾向がある。",
+        "パラメータ数が多いモデルほど高いスコアを得やすく、複雑なモデルを選びやすくする指標である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-085",
+      "public_question_id": "d8aa369b67d30914",
+      "original_question_id": "d8aa369b67d30914",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:085",
+      "source_public_question_id": "d8aa369b67d30914",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:085:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:085:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:085:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:085:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nベイズ情報量規準（Bayesian Information Criterion：BIC）は、モデルの良さを評価するための指標であり、\n「対数尤度 ? (パラメータ数 × log(サンプル数)/2)」\nという式で表されます。\nこのペナルティ項によって、パラメータ数が多い複雑なモデルほど不利になり、過学習を防ぐ効果があります。したがって、「パラメータ数が多いモデルほど高いスコアを得やすい」という説明は誤りです。\nオプション1は不正解です。BICは尤度にペナルティ項を加えた形で定義されます。\nオプション2は不正解です。BICの主な目的は、過学習を防ぎ、より汎化性能の高いモデルを選択することです。\nオプション3は不正解です。\nサンプル数が大きいほど、パラメータ数に対する罰則が強くなります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

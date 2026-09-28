@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ホールドアウト検証に関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題72",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "データを学習用と検証用に分け、検証データでモデルの汎化性能を評価する。",
+        "一度だけデータを分割して検証を行うため、計算コストが低い。",
+        "データの分割方法によっては評価結果が偏る可能性がある。",
+        "クロスバリデーションと同様に、すべてのデータを学習と検証の両方に使用する手法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-072",
+      "public_question_id": "4565abaed6472817",
+      "original_question_id": "4565abaed6472817",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:072",
+      "source_public_question_id": "4565abaed6472817",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:072:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:072:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:072:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:072:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nホールドアウト検証では、データセットを学習データと検証データに一度だけ分割して学習・評価を行います。したがって、「すべてのデータを学習と検証の両方に使う」というのは誤りです。こちらはクロスバリデーション（交差検証）の特徴です。\nオプション1は不正解です。\n学習に使っていないデータで評価することで、モデルの汎化性能（未知データへの適応力）を確認します。\nオプション2は不正解です。\n分割が1回のみなので、クロスバリデーションよりも計算コストが低く、実装が簡単です。\nオプション3は不正解です。\n分割の仕方によって、特定の特徴が偏る（例：学習データが特定の分布に偏る）ため、評価が不安定になることがあります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

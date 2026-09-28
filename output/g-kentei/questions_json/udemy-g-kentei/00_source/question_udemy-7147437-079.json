@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n画像認識モデルの学習時に行うデータ拡張の一つである（　）は、画像を一定の角度で回転させることでデータの多様性を高め、モデルの汎化性能を向上させる手法である。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題79",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Flip",
+        "Crop",
+        "Rotate",
+        "Normalize"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-079",
+      "public_question_id": "3363b587668bcc35",
+      "original_question_id": "3363b587668bcc35",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:079",
+      "source_public_question_id": "3363b587668bcc35",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:079:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:079:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:079:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:079:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。Rotate（回転）は、画像を任意の角度に回転させることで、入力データの方向や姿勢の違いに対するロバスト性を高めるデータ拡張手法です。\n例えば、物体が少し傾いていても正しく認識できるようになります。データ量が限られる場合でも有効な一般的手法です。\nオプション1は不正解です。Flipは画像を水平方向や垂直方向に反転させる拡張手法です。\nオプション2は不正解です。Cropは画像の一部を切り取る手法で、視野の変化に対する学習を助けます。\nオプション4は不正解です。Normalizeはピクセル値をスケーリングして学習を安定させる前処理であり、データ拡張とは異なります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

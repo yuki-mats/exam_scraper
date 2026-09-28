@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "敵対的生成ネットワーク（GAN）に関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題88",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "生成モデルと識別モデルが競い合うように学習を行い、リアルなデータを生成できる。",
+        "画像分類や音声認識のような識別タスク専用のモデルであり、生成は行わない。",
+        "教師データとしてラベル付きデータのみを使用する教師あり学習の一種である。",
+        "強化学習の一種であり、報酬関数を通じて最適な行動を学習する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-088",
+      "public_question_id": "98d6be6de775c406",
+      "original_question_id": "98d6be6de775c406",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:088",
+      "source_public_question_id": "98d6be6de775c406",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:088:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:088:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:088:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:088:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n敵対的生成ネットワーク（GAN：Generative Adversarial Network）は、生成モデル（Generator）と識別モデル（Discriminator）の2つのニューラルネットワークが「敵対的」に学習する構造です。\n生成モデルは偽のデータを作り、識別モデルはそれを本物か偽物か判別しようとします。この競争により、生成モデルが次第に本物に近いデータを生成できるようになります。\nオプション2は不正解です。GANは生成タスクに特化しており、分類などの識別専用ではありません。\nオプション3は不正解です。GANは教師なし学習または半教師あり学習に分類されます。ラベル付きデータを必要としません。\nオプション4は不正解です。GANは強化学習ではなく、生成モデルの一種です。報酬関数を明示的に用いません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

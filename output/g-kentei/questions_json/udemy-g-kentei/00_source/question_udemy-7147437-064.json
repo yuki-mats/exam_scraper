@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "カーネルトリックに関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題64",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "カーネルトリックは、非線形なデータを高次元空間に写像して線形分離を可能にする考え方である。",
+        "カーネル関数を使うことで、高次元特徴を明示的に計算せずに内積を求めることができる。",
+        "SVM（サポートベクターマシン）や主成分分析など、いくつかのアルゴリズムで応用されている。",
+        "カーネルトリックを使うと、すべてのデータを完全に線形分離できるようになる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-064",
+      "public_question_id": "f7f0f8544237c059",
+      "original_question_id": "f7f0f8544237c059",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:064",
+      "source_public_question_id": "f7f0f8544237c059",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:064:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:064:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:064:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:064:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nカーネルトリックを用いることで非線形なデータを高次元空間に写像して線形分離を試みることができますが、すべてのデータが完全に線形分離できるとは限りません。\n適切なカーネル関数（例：RBFカーネル、ポリカーネルなど）とパラメータ設定が必要であり、選び方を誤ると過学習を引き起こすこともあります。\nオプション1は不正解です。\nカーネルトリックは、非線形問題を高次元空間に写像して線形的に扱うことを可能とします。\nオプション2は不正解です。\nカーネル関数によって実際に高次元特徴を計算せずに、内積を効率的に計算できます。これが“トリック”と呼ばれる所以です。\nオプション3は不正解です。SVMだけでなく、カーネルPCA（主成分分析）などでもカーネルトリックが応用されています。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

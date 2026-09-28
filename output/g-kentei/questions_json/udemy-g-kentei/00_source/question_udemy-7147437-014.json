@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、画像を小さな領域ごとに分けて最も強い特徴だけを残す操作で、少し画像が動いても結果が変わりにくい「位置のズレに強いモデル」を作ることができる。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "最大値プーリング",
+        "バッチ正規化",
+        "ドロップアウト",
+        "L2正則化"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-014",
+      "public_question_id": "31743827adf478a1",
+      "original_question_id": "31743827adf478a1",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:014",
+      "source_public_question_id": "31743827adf478a1",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:014:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:014:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:014:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:014:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n最大値プーリングは、画像を小さな四角い領域に分け、その中で最も大きな値（最も強い特徴）だけを残す方法です。\n例えば、3×3の領域に「線を表す強い反応」が1か所あれば、その特徴だけを保持します。これにより、画像が少し動いても結果が変わりにくくなるので、「位置のズレに強いモデル」が作れます。\nオプション2は不正解です。\nバッチ正規化は、学習を安定させるためにデータを正規化する手法で、特徴を抜き出したり位置ズレに強くなるための方法ではありません。\nオプション3は不正解です。\nドロップアウトは、学習時に一部のニューロンを無効化して過学習を防ぐ手法で、特徴の不変性を獲得するためのものではありません。\nオプション4は不正解です。L2正則化は、重みを小さくしてモデルの複雑さを抑えることで過学習を防ぐ方法であり、位置ズレへの強さとは無関係です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

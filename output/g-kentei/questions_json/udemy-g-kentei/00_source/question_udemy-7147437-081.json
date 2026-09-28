@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ELMoに関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題81",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "単語ごとに固定のベクトルを割り当てる手法であり、文脈によらず常に同じ表現を用いる。",
+        "Transformerを用いて単語の意味を表現するモデルであり、GPTシリーズの基礎となった。",
+        "文脈に応じて単語表現を動的に変化させる双方向言語モデルに基づく表現学習手法である。",
+        "文全体の意味を1つの固定ベクトルに変換するエンコーダモデルである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-081",
+      "public_question_id": "a1887c04f2b9eab8",
+      "original_question_id": "a1887c04f2b9eab8",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:081",
+      "source_public_question_id": "a1887c04f2b9eab8",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:081:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:081:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:081:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:081:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。ELMo（Embeddings from Language Models）は、2018年に発表された双方向言語モデルを用いた単語埋め込み手法です。\n従来のWord2VecやGloVeのように「単語＝固定ベクトル」ではなく、文脈に応じて単語の意味表現を変化させる「文脈的埋め込み」を実現しました。BERTなどのモデルの基礎的発想にもつながりました。\nオプション1は不正解です\nWord2VecやGloVeなどの静的埋め込みの説明です。ELMoは文脈依存型です。\nオプション2は不正解です。Transformerを用いたモデルはBERTやGPTであり、ELMoはLSTMを使用しています。\nオプション4は不正解です。\n文全体を固定長ベクトルに変換するのはSentence EmbeddingやDoc2Vecなどの手法であり、ELMoとは異なります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

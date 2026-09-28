@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "RMSpropに関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題94",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "勾配の過去の二乗平均を用いて学習率を調整する。",
+        "AdaGradで問題となる学習率の極端な減少を緩和するよう設計されている。",
+        "勾配が大きいパラメータでは更新幅を抑え、勾配が小さいパラメータでは相対的に更新しやすくする。",
+        "勾配の履歴を保持せず、各ステップで独立に学習率を決定する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-094",
+      "public_question_id": "764e91792e059b4a",
+      "original_question_id": "764e91792e059b4a",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:094",
+      "source_public_question_id": "764e91792e059b4a",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:094:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:094:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:094:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:094:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。RMSprop（Root Mean Square Propagation）は勾配の過去の二乗平均を保持し、それを基に各パラメータの学習率を調整する手法です。したがって、「勾配の履歴を保持しない」という説明が誤りとなります。RMSpropでは過去の勾配情報を指数移動平均として管理します。\nオプション1は不正解です。RMSpropの特徴は、勾配の二乗平均（Root Mean Square）を利用して学習率をスケーリングする点にあります。\nオプション2は不正解です。RMSpropは、AdaGradの「学習率が徐々に小さくなりすぎる問題」を解決するために開発されました。\nオプション3は不正解です。RMSpropでは、パラメータごとに勾配の大きさに応じて学習率を調整します。勾配が大きくなりやすいパラメータでは更新幅を抑え、勾配が小さくなりやすいパラメータでは相対的に更新しやすくすることで、学習を安定させます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

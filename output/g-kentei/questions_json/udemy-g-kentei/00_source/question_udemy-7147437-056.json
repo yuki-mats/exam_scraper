@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。 A3Cは、（　）を用いて複数のエージェントが同時に環境と相互作用することで、学習を安定化させ高速化を実現したアルゴリズムである。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題56",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "同期並列学習",
+        "非同期並列学習",
+        "経験再生",
+        "モンテカルロ木探索"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-056",
+      "public_question_id": "735517e842cbeb40",
+      "original_question_id": "735517e842cbeb40",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:056",
+      "source_public_question_id": "735517e842cbeb40",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:056:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:056:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:056:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:056:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。A3C（Asynchronous Advantage Actor-Critic）は、複数のエージェントが非同期的に並列学習を行うことで、勾配更新のばらつきを平均化し、安定かつ高速な学習を実現します。Replay Bufferを使わず、異なる環境状態から学習を進める点がDQNとは異なります。\nオプション1は不正解です。A3Cは「同期」ではなく「非同期」学習です。各スレッドが独立して環境とやり取りし、一定ステップごとにグローバルネットワークに勾配を反映します。\nオプション3は不正解です。\n経験再生はDQN（Deep Q-Network）で使用される仕組みであり、A3Cでは使われません。\nオプション4は不正解です。\nモンテカルロ木探索（MCTS）はAlphaGoなどで使われる探索手法であり、A3Cの構成要素ではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

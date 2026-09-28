@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、Word2Vecで用いられる学習手法の1つで、中心となる単語から周囲の単語を予測することで単語の意味的な分散表現を学習するモデルである。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題86",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "スキップグラム",
+        "CBOW",
+        "FastText",
+        "GloVe"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-086",
+      "public_question_id": "831cff0931e0dbdb",
+      "original_question_id": "831cff0931e0dbdb",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:086",
+      "source_public_question_id": "831cff0931e0dbdb",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:086:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:086:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:086:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:086:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\nスキップグラムは、Word2Vecで採用されている学習手法の1つで、中心単語から周囲の単語を予測することにより、単語間の意味的関係を学習します。\n大量のテキストから「単語の共起情報」をもとに分散表現を獲得します。文脈理解に強く、語彙の少ないデータでも効果的です。\nオプション2は不正解です。CBOWはスキップグラムの逆で、周囲の単語から中心単語を予測します。学習が速く安定的ですが、スキップグラムほどまれな単語には強くありません。\nオプション3は不正解です。FastTextはWord2Vecを拡張し、単語を文字n-gramの集合として扱うことで未知語にも対応します。\nオプション4は不正解です。GloVe（Global Vectors）は、語の共起確率に基づく統計的手法であり、Word2Vecとは学習原理が異なります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

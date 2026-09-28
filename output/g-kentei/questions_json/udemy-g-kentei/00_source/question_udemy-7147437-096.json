@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、観測できない内部状態（隠れ状態）が確率的に遷移し、それに応じて観測データが生成されるという構造を持つ時系列モデルである。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題96",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "隠れマルコフモデル",
+        "ベイズ推定モデル",
+        "マルコフ連鎖モンテカルロ法",
+        "カルマンフィルタ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-096",
+      "public_question_id": "532029cf588d9d70",
+      "original_question_id": "532029cf588d9d70",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:096",
+      "source_public_question_id": "532029cf588d9d70",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:096:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:096:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:096:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:096:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n隠れマルコフモデル（Hidden Markov Model：HMM）は、観測できない「隠れ状態」が確率的に推移し、それに基づいて「観測データ」が生成されるという2層構造の時系列モデルです。音声認識、自然言語処理（品詞タグ付けなど）、株価や天気の予測など、時系列データの解析に広く利用されます。\nオプション2は不正解です。\nベイズ推定モデルは事前分布と事後分布に基づいてパラメータを推定する手法であり、時系列の隠れ状態遷移を前提とはしていません。\nオプション3は不正解です。\nマルコフ連鎖モンテカルロ法（MCMC）は、確率分布からサンプリングする手法であり、HMMのように観測と隠れ状態の生成過程をモデル化するものではありません。\nオプション4は不正解です。\nカルマンフィルタは、連続値の状態を線形ガウスモデルとして扱うフィルタリング手法であり、HMMのような離散的な状態遷移モデルとは異なります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "パディングに関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題65",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "畳み込みニューラルネットワーク（CNN）で、出力サイズを調整するために入力画像の周囲にゼロを追加する操作である。",
+        "パディングを行うことで、畳み込み処理の繰り返しによる画像のサイズ縮小を防ぐことができる。",
+        "パディングは、RNNやTransformerなどの系列モデルでは、可変長データを同じ長さに揃える目的でも使用される。",
+        "パディングは必ずしもニューラルネットワークに限定されず、主に音声信号の強調を目的とした手法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-065",
+      "public_question_id": "782d76c1241592de",
+      "original_question_id": "782d76c1241592de",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:065",
+      "source_public_question_id": "782d76c1241592de",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:065:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:065:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:065:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:065:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nパディング（Padding）は、主に入力の形状を整える目的で使われる手法であり、音声信号の強調とは関係がありません。畳み込みニューラルネットワーク（CNN）では、入力の周囲にゼロ（Zero Padding）を追加して出力サイズを維持します。\nまた、自然言語処理や音声処理の系列モデル（RNN・Transformerなど）では、長さの異なるデータを同じサイズに揃えるためにパディングが使われます。\nオプション1は不正解です。CNNにおける基本的なパディング手法はゼロパディングです。\nオプション2は不正解です。\nパディングを行わない場合、畳み込みごとに画像が小さくなっていきます。\nオプション3は不正解です。\n可変長の系列データをミニバッチ化して処理する際に、パディングで長さを統一します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

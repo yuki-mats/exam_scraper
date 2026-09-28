@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "AdaGrad（Adaptive Gradient Algorithm）に関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題66",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "パラメータごとに学習率を調整することで、勾配の大きい方向では学習率を小さくする。",
+        "学習率が自動的に減少していく特性を持ち、凸最適化問題では収束性が保証されている。",
+        "長期学習でも学習率が過度に減少しにくいよう、モーメンタムを導入している。",
+        "自然言語処理の初期のモデル（Word2Vecなど）でも利用された最適化アルゴリズムである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-066",
+      "public_question_id": "51c019d4af67f06e",
+      "original_question_id": "51c019d4af67f06e",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:066",
+      "source_public_question_id": "51c019d4af67f06e",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:066:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:066:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:066:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:066:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。AdaGradはパラメータごとに学習率を調整する手法ですが、モーメンタムを導入していません。\n勾配の二乗和を累積して学習率を調整するため、時間が経つと学習率が極端に小さくなり、学習が進まなくなる問題があります。この問題を改善するために登場したのが、RMSPropやAdamです。\nオプション1は不正解です。\n勾配の大きいパラメータには小さな学習率、勾配の小さいパラメータには大きな学習率を割り当てます。\nオプション2は不正解です。AdaGradは凸最適化問題（たとえばロジスティック回帰など）に対して理論的な収束性が示されています。\nオプション4は不正解です。Word2Vec（特にSkip-gramモデル）ではAdaGradが採用されており、自然言語処理における初期の代表的活用例のひとつです。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

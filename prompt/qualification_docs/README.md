@@ -62,6 +62,7 @@
 - `2nd-class-kenchikushi`
 - `gas-shunin-kou`
 - `gas-shunin-otsu`
+- `g-kentei`
 - `kaigofukushi`
 - `kyusuikouji-shunin`
 - `mecnet-kokushi`

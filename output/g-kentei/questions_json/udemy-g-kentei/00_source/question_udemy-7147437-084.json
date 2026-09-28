@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、機械学習モデルの予測結果に対して、各特徴量がどの程度寄与したかをゲーム理論に基づいて定量的に説明する手法である。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題84",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "SHAP",
+        "LIME",
+        "Grad-CAM",
+        "Attention"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-084",
+      "public_question_id": "aacbc76914a09ebb",
+      "original_question_id": "aacbc76914a09ebb",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:084",
+      "source_public_question_id": "aacbc76914a09ebb",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:084:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:084:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:084:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:084:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。SHAP（SHapley Additive exPlanations）は、ゲーム理論のシャプレー値に基づき、各特徴量がモデルの予測にどの程度貢献したかを定量的に評価する手法です。\n様々なモデル（ツリーモデル・ディープラーニングなど）にも適用可能で、モデルの説明可能性を高めるために用いられます。\nオプション2は不正解です。LIMEも説明可能AIの手法ですが、局所的な線形モデルを使って近似的に説明します。SHAPのようにゲーム理論ベースではありません。\nオプション3は不正解です。Grad-CAMはCNNにおける視覚的説明（どの領域に注目したか）を可視化する手法です。\nオプション4は不正解です。Attentionはモデルの構造そのものであり、説明手法ではありません。重要な入力に重みを置く学習機構を指します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

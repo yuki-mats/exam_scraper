@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、学習データを複数の小さなグループに分け、それぞれで勾配を計算してパラメータを更新する手法であり、勾配降下法の安定性と計算効率を両立する。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ミニバッチ学習",
+        "オンライン学習",
+        "バッチ学習",
+        "転移学習"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-018",
+      "public_question_id": "ba826dfde3d48355",
+      "original_question_id": "ba826dfde3d48355",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:018",
+      "source_public_question_id": "ba826dfde3d48355",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:018:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:018:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:018:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:018:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\nミニバッチ学習は、勾配降下法の一種で、データを小さなバッチ単位に分けて学習を進める手法です。\nバッチ学習（全データ使用）より計算が軽く、オンライン学習（1件ずつ）より安定して収束するのが特徴です。\n実際のディープラーニングでは「バッチサイズ＝32?256」などの設定で使用されます。\nオプション2は不正解です。\nオンライン学習は1件のデータごとに逐次学習を行う手法です。リアルタイム学習に向いていることが特徴です。\nオプション3は不正解です。\nバッチ学習は全データを一度に処理し、更新回数が少ないものの計算負荷が大きい手法です。\nオプション4は不正解です。\n転移学習は、あるタスクで学習済みのモデルを別のタスクに再利用する技術であり、学習データの分割方法とは異なります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

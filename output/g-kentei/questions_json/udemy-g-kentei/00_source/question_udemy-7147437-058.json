@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "畳み込みニューラルネットワーク（CNN）におけるストライドに関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題58",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ストライドとは、畳み込みフィルタを適用する際の移動間隔を表すパラメータである。",
+        "ストライドを大きくすると、出力特徴マップのサイズは小さくなり、計算量も減少する。",
+        "ストライドを小さくすると、より細かい特徴を検出できるようになる。",
+        "ストライドを大きくすると、入力画像の解像度が自動的に高くなる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-058",
+      "public_question_id": "651062591810d005",
+      "original_question_id": "651062591810d005",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:058",
+      "source_public_question_id": "651062591810d005",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:058:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:058:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:058:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:058:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nストライドを大きくしても、入力画像の解像度は上がりません。むしろ、ストライドが大きいほどフィルタを飛び飛びに適用するため、出力特徴マップは小さくなり、細かな情報が失われやすくなります。ストライドはあくまで「フィルタの移動間隔」を制御するパラメータです。\nオプション1は不正解です。\nストライドとは、畳み込み演算におけるフィルタの移動幅を意味します。\nオプション2は不正解です。\nストライドを大きくすると、出力の空間解像度が下がるため計算量が減少します。一般的に速度を重視する場合に有効です。\nオプション3は不正解です。\nストライドを小さくすると、フィルタを密に適用できるため、より詳細な特徴（エッジや質感など）を捉えやすくなります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

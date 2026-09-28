@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "強化学習におけるSARSAアルゴリズムに関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題75",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "環境モデルを学習し、将来の状態遷移を予測するモデルベース型手法である。",
+        "オンポリシー型のアルゴリズムであり、実際に選択した行動に基づいてQ値を更新する。",
+        "SARSAの名称は「状態（State）?行動（Action）?報酬（Reward）?次の状態（State）?次の行動（Action）」の頭文字に由来する。",
+        "Q学習のようなオフポリシー手法に比べて、より安全な行動選択を学びやすい。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-075",
+      "public_question_id": "0afad312e63f327b",
+      "original_question_id": "0afad312e63f327b",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:075",
+      "source_public_question_id": "0afad312e63f327b",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:075:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:075:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:075:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:075:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。SARSAは環境モデルを内部的に構築しません。したがって、これはモデルフリー型の手法です。「モデルベース型手法」は環境の状態遷移や報酬関数を推定し、それを利用して計画を立てる手法（例：Dyna-Qなど）を指します。\nオプション2は不正解です。SARSAはオンポリシー型であり、実際に選択された行動（探索を含む）に基づいて学習を行います。したがって、実運用上のリスクを考慮した学習が可能です。\nオプション3は不正解です。SARSAの名称は「状態（State）?行動（Action）?報酬（Reward）?次の状態（State）?次の行動（Action）」という更新の流れを表しています。\nオプション4は不正解です。\nオンポリシーであるSARSAは、Q学習のように理想的な最良行動だけを前提にせず、実際に行った行動に基づくため、よりリスク回避的な学習になりやすい特徴があります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

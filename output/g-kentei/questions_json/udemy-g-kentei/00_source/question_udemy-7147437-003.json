@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "BoW（Bag-of-Words）に関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "文書を語彙の出現回数ベクトルで表し、語順は保持しない。",
+        "語彙数が大きいとベクトルは高次元で疎（多くの要素が0）になりやすい。",
+        "n-gramやTF-IDFを併用して表現力を高められる。",
+        "文脈や単語間の依存関係を正確に捉えられるため、BERTなどのモデルより優れている。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-003",
+      "public_question_id": "075a9103e031d11e",
+      "original_question_id": "075a9103e031d11e",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:003",
+      "source_public_question_id": "075a9103e031d11e",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:003:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:003:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:003:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:003:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。BoWは、文書を単語の出現回数だけで表すシンプルな方法なので、文脈や単語間の関係を正確に捉えることはできません。文脈理解では、BERTなどの文脈ベースの言語モデルの方が優れています。BoWはシンプルで扱いやすい反面、長距離依存や意味的なつながりを学習するのは苦手です。\nオプション1は不正解です。BoWは語順を無視し、単語の出現回数だけを特徴量として使います。\nオプション2は不正解です。\n語彙が多いとベクトルの次元が大きくなり、疎なデータになりやすいのはBoWの特徴です。\nオプション3は不正解です。BoWは文脈を扱えないため、n-gram（連続した単語をまとめる）やTF-IDF（重要な単語に重みを付ける）を組み合わせると表現力を補強することができます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

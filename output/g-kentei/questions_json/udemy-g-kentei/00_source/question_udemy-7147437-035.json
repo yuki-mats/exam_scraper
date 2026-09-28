@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、ニューラルネットワークの学習でよく用いられる最適化手法であり、全データの平均ではなくランダムに抽出したデータ（ミニバッチ）に基づいてパラメータを更新することで、計算コストを大幅に削減する。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題35",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "確率的勾配降下法",
+        "バッチ勾配降下法",
+        "ニュートン法",
+        "ランダムサーチ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-035",
+      "public_question_id": "16f809db70a9d0f3",
+      "original_question_id": "16f809db70a9d0f3",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:035",
+      "source_public_question_id": "16f809db70a9d0f3",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:035:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:035:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:035:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:035:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n確率的勾配降下法（Stochastic Gradient Descent：SGD）は、勾配降下法の一種で、訓練データの一部（ミニバッチ）をランダムに選び、損失関数の勾配を近似的に計算してパラメータを更新します。\n全データを使う「バッチ勾配降下法」に比べて計算量が少なく、大規模データセットにも対応しやすい点が特徴です。\nオプション2は不正解です。\nバッチ勾配降下法は、すべての訓練データを使って勾配を求める手法です。精度は高いものの、計算コストが大きく、SGDよりも非効率です。\nオプション3は不正解です。\nニュートン法は二階微分（ヘッセ行列）を用いて最適化を行う手法で、勾配降下法とは異なります。計算コストが高く、深層学習ではほとんど用いられません。\nオプション4は不正解です。\nランダムサーチは、ハイパーパラメータ探索などで使われる手法で、ランダムに候補を選んで最良値を探します。勾配を用いない探索ベースの方法であり、勾配降下法とは別系統の手法です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

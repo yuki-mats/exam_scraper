@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "交差エントロピー誤差に関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題87",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "回帰問題で予測値と正解値の差を二乗して平均した誤差を求める指標である。",
+        "教師データと出力の差が大きいほど誤差が小さくなる損失関数である。",
+        "主にクラスタリングなどの教師なし学習で使用される損失関数である。",
+        "出力確率分布と正解ラベルの確率分布とのずれを測る損失関数であり、分類問題でよく使われる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-087",
+      "public_question_id": "c8e9b2c845634d1f",
+      "original_question_id": "c8e9b2c845634d1f",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:087",
+      "source_public_question_id": "c8e9b2c845634d1f",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:087:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:087:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:087:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:087:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\n交差エントロピー誤差は、モデルが出力する確率分布と正解ラベルの確率分布との「距離」を測る損失関数です。\n分類問題（特にソフトマックス出力を伴う多クラス分類）で広く使われ、正解クラスに高い確率を与えるほど損失が小さくなります。\nオプション1は不正解です。\n平均二乗誤差（MSE）の説明です。主に回帰問題で使われます。\nオプション2は不正解です。\n交差エントロピー誤差は、出力と正解の差が大きいほど誤差も大きくなる性質を持ちます。\nオプション3は不正解です。\n交差エントロピー誤差は教師あり学習（分類タスク）で使われます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

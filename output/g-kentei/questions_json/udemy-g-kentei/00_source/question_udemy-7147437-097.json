@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "形態素解析に関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題97",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "文章を単語や文節に分割せず、そのままベクトル化する処理である。",
+        "単語の意味的な類似性を数値ベクトルとして表す処理である。",
+        "文全体の構文構造を解析し、主語・述語の関係を明らかにする処理である。",
+        "文を意味を持つ最小単位に分割し、品詞などの情報を付与する手法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-097",
+      "public_question_id": "506c92a857ec9061",
+      "original_question_id": "506c92a857ec9061",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:097",
+      "source_public_question_id": "506c92a857ec9061",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:097:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:097:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:097:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:097:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\n形態素解析（Morphological Analysis）は、文を「形態素（意味を持つ最小単位）」に分割し、それぞれに品詞（名詞・動詞・助詞など）を付与する自然言語処理の基本技術です。\n日本語のように単語の区切りが明示されない言語で特に重要です。代表的なツールにはMeCabやJanomeなどがあります。\nオプション1は不正解です。\nこれは形態素解析を行わずに文全体を処理する手法の説明であり、実際には多くの日本語処理モデルではまず形態素解析を行います。\nオプション2は不正解です。\n単語の意味をベクトルとして表すのは単語埋め込み（Word Embedding）であり、形態素解析とは異なる段階の処理です。\nオプション3は不正解です。\n構文解析（Syntactic Parsing）は、文の構造（主語・述語の関係など）を解析する工程であり、形態素解析の後に行われる上位の処理です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、分類問題においてクラス間の境界から最も近いサンプルとの距離を最大化するように学習する考え方であり、サポートベクターマシン（SVM）で採用されている。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題38",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "誤差伝播",
+        "損失最小化",
+        "マージン最大化",
+        "正則化"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-038",
+      "public_question_id": "c3b93b99fe09f5b4",
+      "original_question_id": "c3b93b99fe09f5b4",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:038",
+      "source_public_question_id": "c3b93b99fe09f5b4",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:038:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:038:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:038:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:038:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\nマージン最大化とは、SVM（サポートベクターマシン）で採用されている学習原理で、クラス境界と最も近いデータ点（サポートベクター）との距離（マージン）を最大化するように分類境界を決定します。これにより、より汎化性能の高い分類器が得られます。\nオプション1は不正解です。\n誤差伝播（Backpropagation）はニューラルネットワークで勾配を計算する手法です。\nオプション2は不正解です。\n損失最小化は多くのモデルで共通する概念であり、マージンの最適化とは異なります。\nオプション4は不正解です。\n正則化は過学習を防ぐためにモデルの複雑さを抑制する手法であり、マージン最大化の直接的な目的ではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "強化学習におけるPPOに関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題51",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "古い方策を完全に破棄して、新しい方策だけで学習する手法である",
+        "方策更新の変化を制限することで、学習を安定させる強化学習アルゴリズムである",
+        "価値関数を使わず、ランダムに行動を選ぶ探索手法である",
+        "Q学習と同じ仕組みで、行動価値関数を直接更新する"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-051",
+      "public_question_id": "a135842a5d02d816",
+      "original_question_id": "a135842a5d02d816",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:051",
+      "source_public_question_id": "a135842a5d02d816",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:051:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:051:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:051:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:051:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。PPO（Proximal Policy Optimization）は、強化学習で使われるアルゴリズムの一つで、方策（行動ルール）の更新幅を制御することで学習を安定させます。大きすぎる更新を防ぐため、「クリッピング」という手法を使うのが特徴です。\nオプション1は不正解です。PPOでは古い方策を完全に捨てるわけではなく、過去の方策を参考にしながら徐々に更新します。\nオプション3は不正解です。PPOは価値関数を活用するアルゴリズムであり、ランダム探索だけで行動を決めるわけではありません。\nオプション4は不正解です。Q学習は行動価値関数を直接更新する手法ですが、PPOは「方策」を最適化する手法であり、アプローチが異なります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ワンホットベクトルに関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題54",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "各単語を実数ベクトルで表し、意味的に近い単語は近いベクトルになる。",
+        "語彙数と同じ長さのベクトルを作り、該当する単語だけ1、それ以外は0で表す。",
+        "単語を意味空間にマッピングし、コサイン類似度で距離を測る。",
+        "文全体を固定長のベクトルに変換し、意味を圧縮する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-054",
+      "public_question_id": "37937d2ec2acc76c",
+      "original_question_id": "37937d2ec2acc76c",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:054",
+      "source_public_question_id": "37937d2ec2acc76c",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:054:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:054:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:054:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:054:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\nワンホットベクトルは、語彙数と同じ長さのベクトルを作り、該当する単語だけを1、その他はすべて0で表す方法です。シンプルで分かりやすい方法ですが、ベクトルが高次元で疎（多くの要素が0）になりやすく、意味的な距離を表現できない欠点があります。\nオプション1は不正解です。\n意味的に近い単語が近いベクトルになるのはWord2Vecなどの分散表現の特徴です。\nオプション3は不正解です。\nコサイン類似度を使うのはWord2VecやBERTなどの分散表現であり、ワンホットベクトルでは使いません。\nオプション4は不正解です。\n文全体を固定長ベクトルに変換するのは、Doc2VecやSentence-BERTなどの方法です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

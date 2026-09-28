@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ニューラルネットワークにおける「重み（Weight）」に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題① 問題34",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "学習過程で最適化されるパラメータで、入力特徴量の重要度を表す。",
+        "損失関数を直接設定するための値である。",
+        "モデルの深さを決めるハイパーパラメータのことを指す。",
+        "学習率と同義である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-034",
+      "public_question_id": "f7b8fb62205c5b48",
+      "original_question_id": "f7b8fb62205c5b48",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:034",
+      "source_public_question_id": "f7b8fb62205c5b48",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:034:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:034:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:034:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:7147437:question:034:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\nニューラルネットワークにおける「重み（Weight）」は、入力データが出力にどれだけ影響を与えるかを表す重要なパラメータです。\n学習の過程で、誤差逆伝播法を用いて損失関数を最小化するように、重みが少しずつ更新されていきます。例えば、画像認識で「猫の耳の特徴」を強く反映させたい場合、その特徴に関連する重みの値が大きくなります。\nオプション2は不正解です。\n損失関数は「予測と正解のズレ」を計算するための式で、重みとは別に設定します。\nオプション3は不正解です。\nモデルの深さはハイパーパラメータであり、重みではありません。\nオプション4は不正解です。\n学習率は重みの更新幅を決めるパラメータであり、重みではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}
