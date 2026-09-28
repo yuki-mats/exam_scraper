@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "間違い。推定報酬が最も高い行動だけを常に選ぶのは貪欲法である。UCB方策は報酬の推定値に探索のための項も加える。",
+      "正しい。UCB方策は、各行動の推定平均報酬に不確実性を表す項を加え、その値が大きい行動を選ぶ。報酬が高そうな行動の活用と、試行回数が少ない行動の探索を両立させる。",
+      "間違い。UCB方策は一様に無作為な行動を選ばない。過去の報酬と試行回数から指標を計算し、その指標に基づいて行動を選ぶ。",
+      "間違い。UCB方策は過去の報酬が低い行動を一律に優先しない。不確実な行動を試すことはあるが、報酬の推定値も考慮して選ぶ。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "4218b08a7ad50f79",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-061",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:4218b08a7ad50f79",
+    "reviewQuestionId": "4218b08a7ad50f79",
+    "sourceRecordRef": "question_udemy-7147437-061.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Finite-time Analysis of the Multiarmed Bandit Problem",
+        "sourceUrl": "https://homes.di.unimi.it/~cesabian/Pubblicazioni/ml-02.pdf",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
