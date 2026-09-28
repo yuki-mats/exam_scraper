@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。オフライン強化学習は、過去に収集した状態、行動、報酬などの固定データを用いて方策を学ぶ。学習中の新たな環境とのやりとりを前提としない。",
+      "正しい。事前に集めたデータから学習できるため、学習中に環境へ行動して経験を追加する必要はない。",
+      "正しい。収集データにほとんど現れない行動の価値は、根拠が乏しいまま推定され、過大評価されることがある。分布外の行動への対処は重要な課題である。",
+      "間違い。データ量が多くても、ある行動が収集データに含まれていなければ、その価値を正確に推定できるとは限らない。行動の分布が十分にカバーされているかが重要になる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "e64c4b1cb7a04f0f",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-042",
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:e64c4b1cb7a04f0f",
+    "reviewQuestionId": "e64c4b1cb7a04f0f",
+    "sourceRecordRef": "question_udemy-7147437-042.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Levine et al., Offline Reinforcement Learning: Tutorial, Review, and Perspectives on Open Problems",
+        "sourceUrl": "https://arxiv.org/abs/2005.01643",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Fujimoto and Gu, A Minimalist Approach to Offline Reinforcement Learning",
+        "sourceUrl": "https://arxiv.org/abs/2106.06860",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
