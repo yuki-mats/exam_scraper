@@ -281,3 +281,8 @@
 - 演習問題⑤問88: [UNESCOのAI倫理勧告](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics?hub=66941)と[NISTのAIリスク管理フレームワーク](https://airc.nist.gov/airmf-resources/airmf/2-sec-audience/)に沿い、データ、開発チーム、利用者の意見と多様性・包摂性の関係を問う。
 - 演習問題⑤問89: [MITの信用割当に関する研究](https://cbmm.mit.edu/publications/error-driven-input-modulation-solving-credit-assignment-problem-without-backward-pass-0)に沿い、出力誤差に対する内部の重みの寄与を割り当てる問題を問う。
 - 演習問題⑤問90: [TensorFlowのモデル最適化の説明](https://www.tensorflow.org/model_optimization/guide)に沿い、プルーニング、量子化、蒸留をモデル圧縮とし、バッチ正規化を区別する。
+- 演習問題⑤問91: [個人情報保護委員会の生成AIに関する注意喚起](https://www.ppc.go.jp/files/pdf/230602_kouhou_houdou.pdf)と[学習済みパラメータのFAQ](https://www.ppc.go.jp/all_faq_index/faq1-q1-8/)に沿い、入力した個人データの目的外利用と、特定個人との対応関係が排斥されたパラメータを区別する。委託先の自社利用を誤答とする。
+- 演習問題⑤問92: [scikit-learnの適合率と再現率の説明](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html)に沿い、誤分類コストに偏りがない場合、両者がともに高い状態を理想とする。
+- 演習問題⑤問93: [PyTorchのモデル解説](https://docs.pytorch.org/tutorials/beginner/introyt/modelsyt_tutorial.html)に沿い、RNNの系列データとCNNの画像データを対応づける。CNNの用途を画像だけに限定しない。
+- 演習問題⑤問94: [Transformer原論文](https://arxiv.org/abs/1706.03762)と[Attentionを用いたエンコーダ・デコーダの研究](https://arxiv.org/abs/1409.0473)に沿い、RNN型Seq2Seq、Attention、Transformerの説明を正確にする。スキップグラムと教師強制を取り違えた肢を誤答とする。
+- 演習問題⑤問95: [公正取引委員会のアルゴリズム／AIと競争政策の報告書](https://www.jftc.go.jp/houdou/pressrelease/2021/mar/210331_digital/210331digital_hokokusho.pdf)と[デジタルプラットフォーム取引の実態調査](https://www.jftc.go.jp/houdou/pressrelease/2021/feb/digital/210217_hontai_rev.pdf)に沿い、ランキング操作、協調的行為、競争を制限する意思の連絡、優越的地位を問う。

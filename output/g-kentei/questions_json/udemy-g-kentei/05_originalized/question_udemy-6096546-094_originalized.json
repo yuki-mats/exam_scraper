@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "a80da166774ea624",
+      "questionBodyText": "系列モデルに関連する手法の説明として、最も不適切なものを1つ選べ。",
+      "choiceTextList": [
+        "初期のRNN型Seq2Seqは、エンコーダとデコーダにRNNを用いる。",
+        "Transformerは、自己注意機構を用いて系列内の離れた要素の関係を捉え、RNN型モデルより並列処理しやすい。",
+        "RNN型エンコーダ・デコーダにAttention機構を加えると、出力時に関連する入力部分を参照できる。",
+        "スキップグラムとは、RNNの学習において各タイムステップでの入力に教師データを用いる手法である。"
+      ],
+      "correctChoiceText": ["正しい", "正しい", "正しい", "間違い"],
+      "questionIntent": "select_incorrect",
+      "answer_result_text": "正解は 4 です。"
+    }
+  ]
+}
