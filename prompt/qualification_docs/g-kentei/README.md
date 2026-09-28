@@ -231,3 +231,8 @@
 - 演習問題⑤問38: [statsmodelsのAIC定義](https://www.statsmodels.org/stable/generated/statsmodels.tsa.statespace.mlemodel.MLEResults.info_criteria.html)に沿い、尤度による当てはまりとパラメータ数へのペナルティーを評価する指標として問う。取得元の「予測精度とのバランス」は直接的すぎるため使わない。
 - 演習問題⑤問39: [NISTのビッグデータ定義](https://csrc.nist.gov/glossary/term/big_data)にある多様性を踏まえ、構造化・半構造化・非構造化のデータを含み得る点を正答とする。三種類への分類だけをビッグデータの定義とはしない。
 - 演習問題⑤問40: [IPAの情報システム・モデル取引・契約書](https://www.ipa.go.jp/digital/model/model20201222.html)と[中小企業庁の知的財産取引ガイドライン](https://www.chusho.meti.go.jp/keiei/torihiki/chizai_guideline.html)に沿い、受託側のノウハウ開示を一律義務とする肢を誤答とする。[民法上の損害賠償要件に関する消費者庁の説明](https://www.caa.go.jp/policies/policy/consumer_system/consumer_contract_act/annotations/assets/consumer_system_cms203_230915_13.pdf)を踏まえ、取得元の「過失がなくとも賠償義務を負う」という無条件の説明を修正する。
+- 演習問題⑤問41: [AdaGradの原論文](https://jmlr.org/papers/v12/duchi11a.html)と[PyTorchの仕様](https://docs.pytorch.org/docs/main/generated/torch.optim.Adagrad.html)に沿い、パラメータごとの過去の勾配二乗和を蓄積して更新幅を調整する点を問う。
+- 演習問題⑤問42: [カナダ個人情報保護当局のPrivacy by Design説明](https://www.priv.gc.ca/en/for-federal-institutions/privacy-act-bulletins/pab_20260119/)と[OECDのAIリスク整理](https://wp.oecd.ai/app/uploads/2025/05/gpai-data-governance-work-framework-paper.pdf)に沿い、設計時の配慮と誤った推論・第三者への影響を問う。
+- 演習問題⑤問43: [Googleのバイアス軽減手法](https://developers.google.com/machine-learning/crash-course/fairness/mitigating-bias)に沿い、センシティブ属性を変えた場合の予測の点検と公平性を考慮した学習を問う。取得元の「属性をランダムに上書きする」は、そのままでは妥当な軽減策と確認できないため採用しない。
+- 演習問題⑤問44: [CMUの音韻研究資料](https://www.cs.cmu.edu/~srallaba/pdfs/jk_phd.pdf)に沿い、言語内で意味を区別する音の体系と、その最小単位の音素を問う。取得元冒頭の不自然な説明を直す。
+- 演習問題⑤問45: [W3CのpartOfの説明](https://www.w3.org/2001/sw/BestPractices/OEP/SimplePartWhole/)に沿い、part-ofは全体と部分の関係とする。取得元の「属性」は誤答肢3と並ぶ別の誤りになるため、05で直す。
