@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。SHAP（SHapley Additive exPlanations）は、協力ゲームのシャプレー値を応用し、個々の予測に対して各特徴量が出力へどれだけ寄与したかを示す説明手法である。",
+      "間違い。LIMEも予測を説明する手法だが、対象の予測の近傍を単純なモデルで近似して説明する。ゲーム理論に基づくSHAPとは仕組みが異なる。",
+      "間違い。Grad-CAMは主に画像認識で、CNNが画像のどの領域を根拠にしたかを特徴マップ上で可視化する手法である。",
+      "間違い。Attentionは入力のどの部分を重視するかを計算するモデル内部の仕組みであり、ここで問うSHAPのような特徴量寄与の説明手法そのものではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "aacbc76914a09ebb",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-084",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:aacbc76914a09ebb",
+    "reviewQuestionId": "aacbc76914a09ebb",
+    "sourceRecordRef": "question_udemy-7147437-084.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "A Unified Approach to Interpreting Model Predictions",
+        "sourceUrl": "https://arxiv.org/abs/1705.07874",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "SHAP: An introduction to explainable AI with Shapley values",
+        "sourceUrl": "https://shap.readthedocs.io/en/latest/example_notebooks/overviews/An_introduction_to_explainable_AI_with_Shapley_values.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
