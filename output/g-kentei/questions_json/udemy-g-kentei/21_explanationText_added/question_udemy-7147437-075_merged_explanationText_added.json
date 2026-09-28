@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "間違い。この説明が最も不適切である。SARSAは環境の遷移モデルを学習して予測するモデルベース手法ではない。経験した状態、行動、報酬からQ値を更新するモデルフリー手法である。",
+      "正しい。SARSAは現在の方策で次に実際に選ぶ行動のQ値を使って更新する。行動選択と学習に同じ方策を使うオンポリシー手法である。",
+      "正しい。SARSAという名称は、状態・行動・報酬・次の状態・次の行動を順に使う更新の流れに由来する。",
+      "正しい。SARSAは探索中に実際に選ぶ行動も更新に反映する。崖歩きのように探索で失敗し得る課題では、Q学習より危険な経路を避ける方策を学ぶ場合がある。常にSARSAのほうが安全という意味ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "0afad312e63f327b",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-075",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:0afad312e63f327b",
+    "reviewQuestionId": "0afad312e63f327b",
+    "sourceRecordRef": "question_udemy-7147437-075.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Andrew G. Barto, Reinforcement Learning",
+        "sourceUrl": "https://people.cs.umass.edu/~barto/RL-handbook-revised.pdf",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Andrew G. Barto, Chapter 6: Temporal Difference Learning",
+        "sourceUrl": "https://people.cs.umass.edu/~barto/courses/cs687/Chapter%206-printable.pdf",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
