@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "間違い。同期並列学習では、ワーカーの処理結果を揃えてから共有モデルを更新する。A3Cの特徴は、各ワーカーが非同期に更新を進める点にある。",
+      "正しい。A3Cは複数のワーカーが別々に環境と相互作用し、共有モデルへ非同期に学習結果を反映する。並列の経験を利用して学習を進める。",
+      "間違い。経験再生は、蓄えた経験を取り出して再利用する方法である。元のA3Cは経験再生に頼らず、複数のワーカーによる非同期更新を利用する。",
+      "間違い。モンテカルロ木探索は、候補となる行動を探索木で評価する方法である。A3Cのワーカーが共有モデルを更新する方式を表さない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "735517e842cbeb40",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-056",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:735517e842cbeb40",
+    "reviewQuestionId": "735517e842cbeb40",
+    "sourceRecordRef": "question_udemy-7147437-056.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Mnih et al. Asynchronous Methods for Deep Reinforcement Learning",
+        "sourceUrl": "https://arxiv.org/abs/1602.01783",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
