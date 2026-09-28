@@ -206,3 +206,8 @@
 - 演習問題⑤問13: tanhの出力は-1から1、ReLUの正の領域の微分は1、シグモイドは微分可能である。多クラス分類の出力層でソフトマックスを使う点を正答とする。
 - 演習問題⑤問14: [NISTの敵対的機械学習の整理](https://www.nist.gov/news-events/news/2024/01/nist-identifies-types-cyberattacks-manipulate-behavior-ai-systems)に沿い、入力の操作などでモデルの誤認識や意図しない応答を狙う攻撃として問う。
 - 演習問題⑤問15: [Googleの勾配降下法の説明](https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent)に沿い、訓練データ上の損失を下げるようパラメータを更新する。取得元の日本語のねじれを直す。
+- 演習問題⑤問16: [IMPALAの原論文](https://arxiv.org/abs/1802.01561)に沿い、分散型強化学習は経験収集や学習を並列化して処理量を高められる。必ず高速化する、CPUだけに限るとは書かない。
+- 演習問題⑤問17: [バッチ正規化の原論文](https://arxiv.org/abs/1502.03167)に沿い、学習中のミニバッチ統計量による正規化を問う。CNNではチャンネルごとに適用する。
+- 演習問題⑤問18: [東京大学の応用音響学資料](https://www.sp.ipc.i.u-tokyo.ac.jp/~saruwatari/AA2019_01.pdf)に沿い、スペクトル包絡は主に音色と対応し、基本周波数と関係する高さと区別する。
+- 演習問題⑤問19: [NIIの2015年成果報告](https://www.nii.ac.jp/news/release/2015/1114.html)では私立441大学1055学部に合格可能性80％以上とされる。「ほとんどの私立大学」は範囲が広すぎるので修正する。[2016年成果報告](https://www.nii.ac.jp/news/release/2016/1114.html)と[参加研究者の報告](https://www.josho.ac.jp/flow/new_wave/oit/flow_73.html)を踏まえ、長文読解を得意とする説明を誤答とする。取得元の「開発が凍結」は研究全体の停止を断定するため、目標未達と研究方向の見直しに改める。
+- 演習問題⑤問20: 予測と正解値のずれを評価する損失関数を問う。選択肢の「価值関数」は日本語の誤字なので「価値関数」に修正する。
