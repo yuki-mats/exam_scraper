@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "正しい。CNNのフィルタは小さな数値の配列で、画像の局所領域に重ねて計算し、線や模様などの特徴への反応を得る。",
+      "正しい。フィルタの数値は学習で更新される重みである。更新を通じて、課題に役立つ特徴へ反応するようになる。",
+      "間違い。通常の畳み込み層では、同じフィルタの重みを画像内の異なる位置で共有する。位置ごとに別のフィルタを用意する仕組みではない。",
+      "正しい。ストライドはフィルタを動かす間隔、パディングは入力の周囲に加える余白である。これらの設定により出力する特徴マップの大きさが変わる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "04bc5446001f6396",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-017",
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:04bc5446001f6396",
+    "reviewQuestionId": "04bc5446001f6396",
+    "sourceRecordRef": "question_udemy-7147437-017.json#0"
+  }
+]
