@@ -291,3 +291,8 @@
 - 演習問題⑤問98: [総務省のプラットフォームサービスに関する第二次とりまとめ](https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000240067)と[偽情報の来歴検証に関する研究](https://arxiv.org/abs/1903.11899)に沿い、事業者の対策と政府による一律削除義務を区別する。ブロックチェーンだけで内容の真偽を証明するとは書かない。
 - 演習問題⑤問99: [statsmodelsのVAR解説](https://www.statsmodels.org/v0.11.1/vector_ar.html)に沿い、複数系列の過去の値を用いるベクトル自己回帰モデルを問う。「单回帰分析」の誤字を修正する。
 - 演習問題⑤問100: [バッチ正規化の原論文](https://arxiv.org/abs/1502.03167)と[LSTM・GRUと勾配消失に関する研究](https://arxiv.org/abs/1801.06105)に沿い、勾配消失を緩和する手法と、過学習を抑えるドロップアウトを区別する。ReLUを「正規化機能」とは説明しない。
+- 演習問題⑥問1: [STRIPS原論文](https://www.cs.cmu.edu/~mmv/planning/readings/strips.pdf)に沿い、行動の前提条件と追加・削除される効果を問う。
+- 演習問題⑥問2: 多層ニューラルネットワークの出力誤差を各層に伝える信用割当問題として、誤差逆伝播法を問う。
+- 演習問題⑥問3: [Googleの多クラス分類の説明](https://developers.google.com/machine-learning/crash-course/neural-networks/multi-class)に沿い、排他的な各クラスのスコアを確率分布へ変換するソフトマックスを問う。
+- 演習問題⑥問4: [経済産業省の営業秘密の説明](https://www.meti.go.jp/policy/economy/chizai/chiteki/trade-secret.html)に沿い、秘密管理性・有用性・非公知性を要件とし、独創性を区別する。
+- 演習問題⑥問5: [MITの探索アルゴリズム講義](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2008/resources/lec13/)に沿い、同じ深さを先に調べる幅優先探索を問う。
