@@ -118,3 +118,7 @@
 - 演習問題④問16: [AdaBoundとAMSBoundの原論文](https://arxiv.org/abs/1902.09843)は、AMSBoundをAMSGradに動的な学習率の上下限を設けてSGDに近い更新へ滑らかに移行させる方法として説明する。取得元の「序盤はAMSGrad、終盤はSGDを使用」という明確な切替えや性能向上の保証は後続03へ引き継がない。
 - 演習問題④問17: [OpenAIの初代DALL·E説明](https://openai.com/index/dall-e/)ではTransformerベースの画像生成モデルである。[DALL·E 3の論文](https://cdn.openai.com/papers/dall-e-3.pdf)では潜在拡散モデルを使うため、05の設問を初代に限定する。
 - 演習問題④問19: TF-IDFは文書中の単語の重み付けであり、Word2Vec・FastText・GloVeのように単語の密な分散表現を学習する手法とは区別する。取得元解説のFastTextはWord2Vecより必ず速いという比較は後続03で用いない。
+- 演習問題④問21: [特許庁の技術的範囲に関する説明](https://www.jpo.go.jp/support/ipr/qanda/q04.html)に沿い、特許権者の業界ではなく特許請求の範囲などから権利の及ぶ技術的範囲を判断する。[侵害時の救済](https://www.jpo.go.jp/support/ipr/patent-kyusai.html)には差止請求や損害賠償請求がある。
+- 演習問題④問22: ジョルダンネットワークは過去の出力をフィードバックして隠れ層に利用する再帰型ネットワークとして問う。隠れ層の出力を戻すエルマンネットワークと区別する。
+- 演習問題④問24: [RandAugmentの原論文](https://arxiv.org/abs/1909.13719)に沿い、事前定義された操作から選ぶ回数と強度を指定する。回数は1にも設定できるため、取得元の1番は「1つ選ぶだけではない」とする説明を使わず、「必ず1種類だけ」として誤答を明確にする。
+- 演習問題④問25: [OpenAIの発表](https://openai.com/index/openai-five-defeats-dota-2-world-champions/)に沿い、OpenAI FiveがDota 2で前年の世界大会優勝チームOGに勝利した事実を問う。将棋・囲碁に勝ったのは別のシステムである。
