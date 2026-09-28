@@ -19,3 +19,5 @@
 - 演習問題①問85: 取得元のBICの説明は対数尤度とペナルティの符号を曖昧にしている。[statsmodelsのBIC定義](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.statespace.mlemodel.MLEResults.info_criteria.html)に従い、05の選択肢1を「負の対数尤度にペナルティを加える」と表現する。
 - 演習問題①問98: 生体情報は、本人を識別できるように変換した符号が個人識別符号に該当する。[個人情報保護委員会のガイドライン](https://www.ppc.go.jp/personalinfo/legal/guidelines_tsusoku/)を確認し、05の設問では顔・指紋の特徴データにこの条件を明示する。
 - 演習問題①問99: SegNetの復元処理は単純な逆畳み込み層だけで表せない。[SegNetの原論文](https://arxiv.org/abs/1511.00561)に基づき、05では畳み込み層を使うEncoder-Decoder構造として説明し、プーリングインデックスを用いる特徴を選択肢3で維持する。
+- 演習問題②問5: 取得元の「CRISP-ML」は、この設問が説明するライフサイクルと品質保証の枠組みを示す原論文の名称「CRISP-ML(Q)」に合わせる。[原論文](https://arxiv.org/abs/2003.05155)に従い、05の設問では正式名称を使用する。
+- 演習問題②問6: 取得元は「has-a」を全体と部分の関係ではないとするが、[W3CのpartOf/hasPartの説明](https://www.w3.org/2001/sw/BestPractices/OEP/SimplePartWhole/)では両者は逆向きの関係として使える。05では`has-a`を下位概念とする誤答肢へ修正し、`is-a`との違いを問う。

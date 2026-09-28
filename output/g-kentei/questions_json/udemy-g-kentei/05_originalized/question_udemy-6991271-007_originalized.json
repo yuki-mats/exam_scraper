@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "d726f4583bca1e6e",
+      "questionBodyText": "学習時に起こる勾配爆発について、最も不適切な説明を1つ選べ。",
+      "choiceTextList": [
+        "逆伝播中に勾配が指数的に大きくなり、学習が不安定になる現象である。",
+        "勾配クリッピングは、勾配爆発を抑制するための実践的な対処法である。",
+        "主に浅いニューラルネットワークで頻発し、深層モデルではほとんど起こらない。",
+        "勾配爆発が起こると、重みが不安定に変動し、損失関数が発散する可能性がある。"
+      ],
+      "correctChoiceText": ["正しい", "正しい", "間違い", "正しい"],
+      "questionIntent": "select_incorrect",
+      "answer_result_text": "正解は 3 です。"
+    }
+  ]
+}
