@@ -266,3 +266,8 @@
 - 演習問題⑤問73: [IBMの交絡の説明](https://www.ibm.com/think/topics/causal-inference)に沿い、共通要因により因果関係がなくても相関が見える疑似相関を問う。元の「直接の相関性がない」は因果関係へ修正する。
 - 演習問題⑤問74: [scikit-learnの探索手法の説明](https://scikit-learn.org/0.16/modules/grid_search.html)に沿い、グリッドサーチは定義済み候補の全組合せ、ランダムサーチは試行回数を決めた標本抽出として問う。
 - 演習問題⑤問75: [IBMのRPAの説明](https://www.ibm.com/think/topics/rpa)に沿い、決まった手順の反復的な事務作業をソフトウェアで自動化する用途を問う。
+- 演習問題⑤問76: [Mask R-CNN原論文](https://openaccess.thecvf.com/content_ICCV_2017/papers/He_Mask_R-CNN_ICCV_2017_paper.pdf)に沿い、同じ種類の個体を区別したピクセル単位の領域分割を問う。
+- 演習問題⑤問77: [Kerasの学習用語](https://keras.io/getting_started/faq/)に沿い、1,000枚を50枚ずつ2エポック学習する場合の40イテレーションを問う。数値と選択肢の対応を維持する。
+- 演習問題⑤問78: [RIETIのAI効果に関する議事概要](https://www.rieti.go.jp/jp/events/15092801/summary.html)に沿い、技術が普及してAIとして意識されにくくなる例を問う。検索エンジン全体を一律にAIでないと断定しない。
+- 演習問題⑤問79: [Mask R-CNN原論文](https://arxiv.org/abs/1703.06870)に沿い、Faster R-CNNへ個体別マスクの予測を加えたモデルを問う。YOLOの派生モデル全般について断定しない。
+- 演習問題⑤問80: [AdaBound原論文](https://arxiv.org/abs/1902.09843)に沿い、適応的学習率へ動的な上下限を設ける特徴を問う。性能の一律な優劣は問わない。
