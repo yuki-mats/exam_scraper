@@ -1,0 +1,39 @@
+[
+  {
+    "explanationText": [
+      "正しい。学習データが特定の集団を十分に含まないと、その集団に対する予測の精度や扱いがほかの集団と異なるおそれがある。データの偏りは公平性を確かめる際の重要な点である。",
+      "正しい。学習データが利用対象を適切に代表するよう、属性の分布や収集方法を確認することは公平性の向上に役立つ。ただし、人数をそろえるだけで公平性が保証されるわけではない。",
+      "間違い。データの偏りは技術面だけの問題ではなく、利用場面によって法的・倫理的な問題につながり得る。例えば、採用AIの結果によって性別ごとに応募者の機会を不均等に扱えば、事業主に募集・採用で均等な機会を与えるよう求める雇用の分野における男女の均等な機会及び待遇の確保等に関する法律（昭和47年法律第113号、男女雇用機会均等法）第5条との関係が問題となる。偏りがあるだけで直ちに違法と決まるわけではない。",
+      "正しい。学習データの属性分布や対象集団の代表性を調べ、偏りを見つけて対処することは、AI開発における公平性の評価に役立つ。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "b076f495b5a63e00",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-012",
+    "questionLearningPatternId": "mechanisms_reasons",
+    "lawReferences": [
+      [],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "347AC0000000113",
+          "lawTitle": "雇用の分野における男女の均等な機会及び待遇の確保等に関する法律（昭和四十七年法律第百十三号）",
+          "referenceDate": "2026-09-29",
+          "article": "5",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "comparisonStatus": "not_checked"
+        }
+      ],
+      []
+    ],
+    "isLawRelated": true,
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:b076f495b5a63e00",
+    "reviewQuestionId": "b076f495b5a63e00",
+    "sourceRecordRef": "question_udemy-7147437-012.json#0"
+  }
+]
