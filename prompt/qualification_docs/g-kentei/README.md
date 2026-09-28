@@ -151,3 +151,8 @@
 - 演習問題④問58: [内閣府の「人間中心のAI社会原則」](https://www8.cao.go.jp/cstp/aigensoku.pdf)にある原則名をそのまま使い、取得元と同じ正答位置を維持する。
 - 演習問題④問59: [エルマンの原論文](https://doi.org/10.1207/S15516709COG1402_1)に沿い、隠れ層の出力を次の時点に戻す構造を問う。取得元解説の「ジョルダンは出力層から入力層へ戻す」という説明は、出力を文脈ユニット経由で隠れ層に使う構造と区別して後続03で書く。
 - 演習問題④問60: [VARの説明](https://otexts.com/fppjp/VAR.html)に沿い、各変数の過去値だけでなく他の変数の過去値も将来値の予測に使う。取得元の「複数系列を扱うが過去の自分だけで予測する」は不正確なので05で直す。
+- 演習問題④問61: [Google ResearchのPaLM紹介](https://research.google/blog/pathways-language-model-palm-scaling-to-540-billion-parameters-for-breakthrough-performance/)に沿い、Googleの大規模言語モデルとして多言語処理や推論を問う。画像分類専用モデルとの混同を避ける。
+- 演習問題④問62: [Stanford CRFMの定義](https://crfm.stanford.edu/2021/10/18/reflections.html)に沿い、幅広いデータで事前学習し、多様な下流タスクへ適応できる点を問う。
+- 演習問題④問63: [Googleの機械学習用語集](https://developers.google.com/machine-learning/glossary)に沿い、自己教師あり学習はラベルのないデータ自体から学習用の正解信号を作る。取得元の「データの一部を疑似ラベル」は一例に見えるため、05では一般的な定義へ直す。
+- 演習問題④問64: [宝くじ仮説の原論文](https://arxiv.org/abs/1803.03635)に沿い、適切な初期重みを持つ疎なサブネットワークが、元のネットワークと同程度の精度まで学習できる点を正答に明記する。
+- 演習問題④問65: [scikit-learnの標準化仕様](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)に沿い、特徴量を平均0・分散1に変換する意味を問う。
