@@ -196,3 +196,8 @@
 - 演習問題⑤問3: [Google CloudのMLOps説明](https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)に沿い、DevOpsの考え方を機械学習の開発・運用へ応用する点を問う。取得元の文法上の乱れを直す。
 - 演習問題⑤問4: [デュエリングネットワークの原論文](https://arxiv.org/abs/1511.06581)に沿い、状態価値とアドバンテージを別々に推定して行動価値を得る。環境からの報酬を構成要素として直接推定するものではない。
 - 演習問題⑤問5: [GoogleのROC/AUC解説](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)に沿い、ランダム分類は期待値で対角線、完全分類なら左上を通る折れ線となる。取得元の「全く予測できない」は逆向き予測とも読めるため、無作為分類へ限定する。
+- 演習問題⑤問6: [GLUEのタスク一覧](https://gluebenchmark.com/tasks/)に沿い、自然言語推論、意味的類似性、SST-2の感情分類を正しい肢に置く。取得元の「文書分類」はSST-2の文単位の分類とずれるため直し、固有表現抽出を誤答肢にする。
+- 演習問題⑤問7: [ENASの原論文](https://arxiv.org/abs/1802.03268)のように計算資源を抑えた構造探索もあるため、「大量GPUの並列利用」をNASの定義としない。構造の自動探索という論点を維持する。
+- 演習問題⑤問8: [米NISTの任意利用のAI RMF](https://www.nist.gov/itl/ai-risk-management-framework)と[欧州委員会のAI Act説明](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)に沿い、米国がソフトローを用いないという肢を誤答とする。EUは既にAI Actを施行しているため、取得元の「予定している」は使わない。
+- 演習問題⑤問9: [GoogleのMLプロジェクト計画](https://developers.google.com/machine-learning/managing-ml-projects/planning)に沿い、初期段階の不確実性に応じた試行錯誤を問う。ウォーターフォール型自体を常に不適切とはせず、検証結果を受けても見直さない進め方を誤答にする。
+- 演習問題⑤問10: Uの平均60.6・中央値71・母分散666.64に対し、U'は平均65.6・中央値77・母分散870.64となる。正答の分散増加を維持する。
