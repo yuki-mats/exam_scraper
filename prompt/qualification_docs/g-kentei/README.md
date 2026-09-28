@@ -64,3 +64,6 @@
 - 演習問題③問42: [ImageNet公式のILSVRC一覧](https://www.image-net.org/challenges/LSVRC/)で2010年から2017年の開催と画像分類・検出を確認した。取得元のWatsonに関する説明はこの設問の正答理由とは関係がないため、後続03へ流用しない。
 - 演習問題③問43: [A3Cの原論文](https://arxiv.org/abs/1602.01783)に沿って複数ワーカーの非同期学習を問う。取得元の3番と4番の解説は取り違えがあるため、後続03では選択肢ごとに説明を作り直す。
 - 演習問題③問45: 取得元解説に「授業員数」という誤記がある。後続03では設問どおり従業員数を用い、複数の説明変数から売上を予測する点を説明する。
+- 演習問題③問46: 取得元の不良品の「割合」と疾病の「確率」は、ポアソン回帰の対象である件数と混同されている。[statsmodelsの離散従属変数の説明](https://www.statsmodels.org/stable/discretemod.html)を踏まえ、05では一定期間の発生件数に統一する。後続03は稀な事象に限ると断定しない。
+- 演習問題③問48: 取得元解説は再販売価格の拘束をカルテルと呼ぶが、[公正取引委員会の流通・取引慣行ガイドライン](https://www.jftc.go.jp/dk/guideline/unyoukijun/ryutsutorihiki.html)では再販売価格維持行為として扱う。[AIと競争政策の報告書](https://www.jftc.go.jp/houdou/pressrelease/2021/mar/210331_digital/210331digital_hokokusho.pdf)は価格協調とランキングの問題を扱い、[不当廉売の考え方](https://www.jftc.go.jp/dk/guideline/unyoukijun/futorenbai.html)は競争者の顧客に限った廉売が問題になり得る場合を示す。05は各行為を混同せず、正答1を維持する。
+- 演習問題③問49: [CAMの原論文](https://openaccess.thecvf.com/content_cvpr_2016/papers/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf)に沿い、対象クラスの判断に寄与する画像領域の可視化を問う。すべての画像認識モデルにそのまま適用できるとは書かない。
