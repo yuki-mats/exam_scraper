@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "間違い。離散値制御では、あらかじめ決めた少数の行動から一つを選ぶ。設問の指令値は0～1の範囲で連続的に変えられる。",
+      "間違い。モデルベース制御は、環境の変化を予測するモデルを利用するという分類である。行動が連続値か離散値かとは別の観点である。",
+      "間違い。「教師なし制御」は、この場面の行動の値を区別する用語ではない。教師なし学習は、正解ラベルのないデータから特徴や構造を学ぶ方法を指す。",
+      "正しい。連続値制御では、力や角度などの行動を連続的な数値で決める。設問のように推力の指令値を範囲内で調整する場合が当てはまる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "scenario_application",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "52095ea55d284b66",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-052",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:52095ea55d284b66",
+    "reviewQuestionId": "52095ea55d284b66",
+    "sourceRecordRef": "question_udemy-7147437-052.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Lillicrap et al. Continuous control with deep reinforcement learning",
+        "sourceUrl": "https://arxiv.org/abs/1509.02971",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
