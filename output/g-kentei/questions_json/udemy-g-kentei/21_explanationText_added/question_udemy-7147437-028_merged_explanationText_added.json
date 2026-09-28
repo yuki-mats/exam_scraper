@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。単回帰分析は、一つの説明変数と数値の目的変数の関係を直線で表す。説明変数が増えれば、別の変数の影響も考える必要がある。",
+      "正しい。複数の説明変数を同じモデルに入れて数値の目的変数を説明する場合は、重回帰分析を用いる。各変数の係数は、ほかの説明変数を考慮した上で求める。",
+      "間違い。説明変数ごとに単回帰分析をしても、ほかの変数の影響を同時には考慮できない。重回帰分析は複数の説明変数を一つのモデルで扱うため、一般に同じ係数や予測結果にはならない。",
+      "正しい。広告費を一つの説明変数、売上を目的変数として数値を予測することは、単回帰分析の例になる。ただし、実際の売上には価格や季節など別の要因も関わり得る。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定シラバス2024 v1.4（教師あり学習）",
+        "sourceUrl": "https://www.jdla.org/download/g%e6%a4%9c%e5%ae%9a%e3%81%ae%e8%a9%a6%e9%a8%93%e5%87%ba%e9%a1%8c%e7%af%84%e5%9b%b2-%ef%bc%88%e3%82%b7%e3%83%a9%e3%83%90%e3%82%b9%ef%bc%89g20246%ef%bd%9ev1-4/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Penn State STAT 501 Multiple Linear Regression",
+        "sourceUrl": "https://online.stat.psu.edu/stat501/Lesson05",
+        "referenceDate": "2026-09-29"
+      }
+    ],
+    "original_question_id": "e7addabbd44b9378",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-028",
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:e7addabbd44b9378",
+    "reviewQuestionId": "e7addabbd44b9378",
+    "sourceRecordRef": "question_udemy-7147437-028.json#0"
+  }
+]
