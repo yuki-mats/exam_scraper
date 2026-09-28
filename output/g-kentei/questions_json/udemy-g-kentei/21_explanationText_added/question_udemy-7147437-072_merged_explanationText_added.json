@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。ホールドアウト検証ではデータを一度分割し、学習に使わない側のデータでモデルを評価する。未知のデータに対する性能を見積もるためである。",
+      "正しい。ホールドアウトでは通常、1回の分割に対して学習と評価を行う。複数回学習するk分割交差検証と比べ、計算の負担を抑えやすい。",
+      "正しい。1回だけの分割では、どのデータが検証用に入るかで評価結果が変わり得る。これがホールドアウト検証の注意点である。",
+      "間違い。ホールドアウトでは学習用と検証用の役割を固定して評価する。k分割交差検証のように、分割ごとに各データの役割を入れ替える方法ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "4565abaed6472817",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-072",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:4565abaed6472817",
+    "reviewQuestionId": "4565abaed6472817",
+    "sourceRecordRef": "question_udemy-7147437-072.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn Cross-validation: evaluating estimator performance",
+        "sourceUrl": "https://scikit-learn.org/stable/modules/cross_validation.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
