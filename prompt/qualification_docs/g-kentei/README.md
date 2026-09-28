@@ -105,3 +105,6 @@
 - 演習問題③問98: ReLU関数は入力が正なら微分値1、負なら0である。取得元の「0以上なら常に1」は0における微分の扱いを無視するため、05では0を含めずに問う。
 - 演習問題③問99: [GoogleのProject Mavenに関する説明](https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/incorporating-googles-ai-principles-google-cloud/)と[DARPAのXAIプログラム](https://www.darpa.mil/research/programs/explainable-artificial-intelligence)に沿って選択肢を整えた。[国連のLAWSに関する政府専門家会合](https://meetings.unoda.org/meeting/79329)は規制を議論しており、すべての国でAIの軍事研究が禁止されたわけではない。
 - 演習問題③問100: [scikit-learnの勾配ブースティング説明](https://scikit-learn.org/stable/modules/ensemble.html#gradient-boosting)に沿い、損失関数の勾配を利用して弱い学習器を順次追加することを問う。回帰にも用いられるため4番が誤りである。
+- 演習問題④問1: [Agent57の原論文](https://proceedings.mlr.press/v119/badia20a.html)に沿い、Atari全57ゲームで人間の基準スコアを上回った点を問う。取得元の「人間の平均スコア」は研究で用いた基準値として説明し、任意の人間の得点を超えたとは書かない。
+- 演習問題④問2: [scikit-learnのPermutation Importance説明](https://scikit-learn.org/stable/modules/permutation_importance.html)に沿い、一つの特徴量の値を標本間で入れ替え、性能変化を測る。取得元の「説明変数の順序を入れ替える」は列の並び順と誤読されるため、値を入れ替えると明記する。
+- 演習問題④問3: [理化学研究所の発表](https://www.riken.jp/pr/news/2024/20240510_1/index.html)に沿い、「富岳」はスーパーコンピュータ、「叡」は量子コンピュータとして区別する。取得元解説のように従来計算機よりすべての計算を圧倒的に速く終えられるとは説明しない。
