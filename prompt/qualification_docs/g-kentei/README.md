@@ -371,3 +371,8 @@
 - 演習問題⑥問78: [CMUの交差エントロピー資料](https://www.cs.cmu.edu/~bhiksha/courses/10-601/hws/spring2016/final.html)に沿い、正解分布と予測分布を使う分類損失を問う。交差エントロピーを単純な分布間距離と断定しない。
 - 演習問題⑥問79: [スケーリング則の原論文](https://arxiv.org/abs/2001.08361)に沿い、パラメータ数・データ量・計算量と損失の経験的関係を問う。規模を増やせば性能が必ず向上するとは断定しない。
 - 演習問題⑥問80: [半教師あり学習の研究](https://arxiv.org/abs/1804.09170)に沿い、少量のラベル付きデータとラベルなしデータを併用する特徴を問う。元の「ラベル付けコストが大きい」は動機としても成立するため、全件ラベル付けが必須という明確な誤答へ修正する。
+- 演習問題⑥問81: [R-CNN原論文](https://arxiv.org/abs/1311.2524)に沿い、領域候補を抽出してからCNN特徴でクラスを判別する流れを問う。
+- 演習問題⑥問82: [scikit-learnの回帰モデル説明](https://scikit-learn.org/stable/auto_examples/linear_model/plot_ols_ridge.html)に沿い、L1正則化のラッソ回帰とL2正則化のリッジ回帰を問う。
+- 演習問題⑥問83: [PyTorchの畳み込み出力サイズの式](https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html)に沿い、元の11・2・3・2の条件を保ち、一辺が7になる計算を問う。
+- 演習問題⑥問84: [scikit-learnのランダムフォレスト説明](https://scikit-learn.org/stable/modules/ensemble.html)に沿い、複数の決定木をまとめるアンサンブル学習を問う。
+- 演習問題⑥問85: [GRU原論文](https://arxiv.org/abs/1406.1078)に沿い、LSTMより簡潔なゲート構成を問う。常に高速になるとの断定は避ける。
