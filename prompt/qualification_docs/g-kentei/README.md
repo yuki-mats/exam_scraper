@@ -316,3 +316,8 @@
 - 演習問題⑥問23: [scikit-learnの交差検証の説明](https://scikit-learn.org/stable/modules/cross_validation.html)に沿い、データが少ない場合に学習・検証へ有効活用できる特徴を問う。
 - 演習問題⑥問24: 形態素解析を、文の分割と品詞判定を行う処理として問う。格解析・構文解析・含意関係解析と区別する。
 - 演習問題⑥問25: [OpenAIのプロンプトエンジニアリングの説明](https://developers.openai.com/api/docs/guides/prompt-engineering)に沿い、入力する指示文そのものの設計・改善を問う。「コンテキストエンジニアリング」を一般に存在しない用語とは扱わない。
+- 演習問題⑥問26: 二人対戦ゲームで自分の評価値を最大化し、相手が同じ値を最小化すると仮定するMini-Max法を問う。
+- 演習問題⑥問27: [機械翻訳の歴史を扱う研究](https://direct.mit.edu/coli/article/43/4/893/1574/Syntax-Based-Statistical-Machine-Translation)に沿い、初期のルールベース方式と1990年代から広まった統計的方式を区別する。「1990年代以降ずっと統計的方式が主流」とはしない。
+- 演習問題⑥問28: [McCarthyらのフレーム問題の説明](https://www-formal.stanford.edu/jmc/mcchay69/node17.html)に沿い、行動に伴い変わる事柄と変わらない事柄の推論を問う。常識獲得全般に広げない。
+- 演習問題⑥問29: [相互情報量と独立性に関するCMUの資料](https://www.cs.cmu.edu/~epxing/Class/10708-05/Slides/structure-learn-annotated.pdf)に沿い、I(X;Y)=0なら確率変数XとYは独立とする。「確率分布XとY」という元の表現を修正する。
+- 演習問題⑥問30: ε-greedyの基本動作はεの確率でランダムに探索し、それ以外で推定価値最大の行動を選ぶ。εを学習とともに減らす運用は定義そのものに含めない。
