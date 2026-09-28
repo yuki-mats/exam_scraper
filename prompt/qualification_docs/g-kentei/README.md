@@ -201,3 +201,8 @@
 - 演習問題⑤問8: [米NISTの任意利用のAI RMF](https://www.nist.gov/itl/ai-risk-management-framework)と[欧州委員会のAI Act説明](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)に沿い、米国がソフトローを用いないという肢を誤答とする。EUは既にAI Actを施行しているため、取得元の「予定している」は使わない。
 - 演習問題⑤問9: [GoogleのMLプロジェクト計画](https://developers.google.com/machine-learning/managing-ml-projects/planning)に沿い、初期段階の不確実性に応じた試行錯誤を問う。ウォーターフォール型自体を常に不適切とはせず、検証結果を受けても見直さない進め方を誤答にする。
 - 演習問題⑤問10: Uの平均60.6・中央値71・母分散666.64に対し、U'は平均65.6・中央値77・母分散870.64となる。正答の分散増加を維持する。
+- 演習問題⑤問11: [経済産業省のカメラ画像利活用ガイドブック](https://www.meti.go.jp/policy/it_policy/privacy/privacy.html)と[改訂概要](https://www.meti.go.jp/policy/it_policy/privacy/02_CameraGuideBook_ver3.0.pdf)に沿い、準公共空間の撮影や特定個人の長期・広域取得には慎重な検討が必要である。公共性だけで無制限の撮影が許されるとはしない。
+- 演習問題⑤問12: [AlphaStarの研究](https://www.nature.com/articles/s41586-019-1724-z)に沿い、複数エージェントの競争を用いた強化学習とAlphaStarを結びつける。
+- 演習問題⑤問13: tanhの出力は-1から1、ReLUの正の領域の微分は1、シグモイドは微分可能である。多クラス分類の出力層でソフトマックスを使う点を正答とする。
+- 演習問題⑤問14: [NISTの敵対的機械学習の整理](https://www.nist.gov/news-events/news/2024/01/nist-identifies-types-cyberattacks-manipulate-behavior-ai-systems)に沿い、入力の操作などでモデルの誤認識や意図しない応答を狙う攻撃として問う。
+- 演習問題⑤問15: [Googleの勾配降下法の説明](https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent)に沿い、訓練データ上の損失を下げるようパラメータを更新する。取得元の日本語のねじれを直す。
