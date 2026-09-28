@@ -331,3 +331,8 @@
 - 演習問題⑥問38: [AWSのエッジ推論の説明](https://aws.amazon.com/what-is/edge-inference/)に沿い、端末側で低遅延の判断を行う自動運転の例を問う。音声認識・翻訳・画像診断を用途名だけでエッジAIから除外しない。
 - 演習問題⑥問39: [scikit-learnの交差検証の説明](https://scikit-learn.org/1.5/modules/cross_validation.html)に沿い、未知データに対する性能の見積もりを主目的とする。過学習を直接抑える手法とは区別する。
 - 演習問題⑥問40: [Vision Transformer原論文](https://arxiv.org/abs/2010.11929)に沿い、画像をパッチに分割し、パッチ埋め込みの系列として入力する点を問う。
+- 演習問題⑥問41: [BPTTを扱う研究論文](https://arxiv.org/abs/1606.03401)に沿い、RNNで用いる時間方向の誤差逆伝播法を問う。
+- 演習問題⑥問42: [PyTorchのLeaky ReLU仕様](https://docs.pytorch.org/docs/stable/generated/torch.nn.LeakyReLU.html)に沿い、負の入力に正の小さな傾きを掛けるため出力も負となる点を問う。
+- 演習問題⑥問43: [経済産業省のAI開発契約ガイドライン](https://www.meti.go.jp/policy/mono_info_service/connected_industries/sharing_and_utilization/20200619001.pdf)に沿い、性能の不確実性を踏まえず従来型の品質保証条項をそのまま適用する説明を誤答とする。
+- 演習問題⑥問44: 第二次AIブームで専門家の知識を推論に使うエキスパートシステムを問う。元の問題文の助詞を修正する。
+- 演習問題⑥問45: [NISTの説明可能AIに関する資料](https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=933399)に沿い、説明による知的財産露出の可能性を問う。元の選択肢3も正しいため、運用開始後に初めて検討すればよいという誤答へ修正する。
