@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "5df3e70fcf75dbd2",
+      "questionBodyText": "アンサンブル学習の一種であるブースティングについて、最も適切な記述を1つ選べ。",
+      "choiceTextList": [
+        "弱学習器を順に学習し、前の学習器が誤った予測を補うように組み合わせる。",
+        "元のデータから復元抽出した複数の標本でモデルを独立に学習し、多数決や平均で予測を決める。",
+        "複数のモデルを互いの学習結果に依存させず、並列に作成する。",
+        "バギングに比べ、予測精度は常に高く、学習時間も必ず短い。"
+      ],
+      "correctChoiceText": ["正しい", "間違い", "間違い", "間違い"],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。"
+    }
+  ]
+}

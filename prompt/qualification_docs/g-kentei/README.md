@@ -256,3 +256,8 @@
 - 演習問題⑤問63: [経産省の限定提供データの説明](https://www.meti.go.jp/policy/economy/chizai/chiteki/pdf/datatebiki.pdf)に沿い、限定提供性、相当蓄積性、電磁的管理性を確認する。少量でも価値の高いデータというだけで一律に保護されるとは書かない。
 - 演習問題⑤問64: [OpenAIの二重降下の研究](https://openai.com/index/deep-double-descent/)に沿い、CNN、ResNet、Transformerで観測された深層ニューラルネットワークの現象として問う。k-NN一般に二重降下が絶対生じないとは主張せず、モデルの種類を区別する。
 - 演習問題⑤問65: [scikit-learnのバイアス・バリアンスの説明](https://scikit-learn.org/0.20/modules/learning_curve.html)に沿い、高バイアスと学習不足、高バリアンスと過学習の関係を傾向として問う。
+- 演習問題⑤問66: [NISTの正規分布の説明](https://itl.nist.gov/div898/handbook/eda/section3/eda3661.htm)に沿い、標準正規分布の平均0・分散1と、標本平均に関する中心極限定理を区別する。標本平均には有限分散の前提を加える。
+- 演習問題⑤問67: [欧州委員会のデータポータビリティの説明](https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/dealing-requests-individuals_en)に沿い、本人が提供したデータの受領と移転を問い、乗換えを促す競争面も残す。
+- 演習問題⑤問68: [ダートマス大学の沿革](https://home.dartmouth.edu/about/artificial-intelligence-ai-coined-dartmouth)に沿い、1956年の研究会が人工知能の研究分野を発展させる契機となった点を問う。
+- 演習問題⑤問69: [デューク大学の意味ネットワークの説明](https://people.duke.edu/~mccann/mwb/15semnet.htm)に沿い、概念を節点、関係を線として表す知識表現を問う。
+- 演習問題⑤問70: [scikit-learnのアンサンブル学習の説明](https://scikit-learn.org/1.4/modules/ensemble.html)に沿い、逐次的なブースティングと独立にモデルを作るバギングを区別し、速度や精度の一律比較を避ける。
