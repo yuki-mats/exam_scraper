@@ -171,3 +171,8 @@
 - 演習問題④問78: [信用割当と逆伝播の研究](https://arxiv.org/abs/1808.03357)に沿い、多層ネットワークの出力誤差を各層の重みに割り当てる文脈へ設問を限定する。
 - 演習問題④問79: [評価データ汚染の研究](https://arxiv.org/abs/2310.18018)に沿い、評価用情報が訓練データへ混入して評価結果を歪める例を問う。取得元の一般的な「本来含むべきでない情報」を具体化する。
 - 演習問題④問80: [OECDの人間中心の原則](https://oecd.ai/en/dashboards/ai-principles/P6)に沿い、状況に応じた人間の監督可能性を維持する。[透明性](https://oecd.ai/en/dashboards/ai-principles/P7)は入力データの全面公開を意味しないため、利用目的や運用方法について必要な透明性とする。
+- 演習問題④問81: [Stanford AI100の説明](https://ai100.stanford.edu/2016-report/section-i-what-artificial-intelligence/defining-ai)に沿い、実現した技術がAIと見なされなくなる現象をAI効果として問う。
+- 演習問題④問82: [SciPyの白色化の説明](https://docs.scipy.org/doc/scipy-1.15.0/reference/generated/scipy.stats.Covariance.whiten.html)に沿い、無相関化と分散1への変換を両方含める。標準化だけでは変数間の相関を除かない。
+- 演習問題④問83: [AdaBoundの原論文](https://arxiv.org/abs/1902.09843)ではAdaBoundはAdam、AMSBoundはAMSGradを基礎とし、ともにSGDへ近づく。設問の「初期はAdam」を維持してAdaBoundを正答とする。
+- 演習問題④問84: [OpenAIのCLIP紹介](https://openai.com/index/clip/)に沿い、画像とテキストの対応を学習して共通の表現空間で扱う点を問う。
+- 演習問題④問85: [AWSのエッジコンピューティングの説明](https://aws.amazon.com/what-is/edge-computing/)に沿い、データの発生源に近い場所で処理する点を問う。
