@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。Cropは画像の一部を切り取るデータ拡張である。切り取る位置や範囲を変えることで、画像の見え方に変化を加え、モデルの汎化性能向上に役立てる。",
+      "間違い。Dropoutは学習中に一部のユニットを無効にして過学習を抑える正則化手法であり、画像そのものを切り取る処理ではない。",
+      "間違い。Resizeは画像の大きさを変更して入力サイズをそろえる処理であり、ランダムに一部を切り取るCropとは異なる。",
+      "間違い。Color Jitterは明るさ、コントラスト、彩度などの色調を変えるデータ拡張であり、画像の一部を切り取る手法ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "4d76549d14766f9e",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-078",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:4d76549d14766f9e",
+    "reviewQuestionId": "4d76549d14766f9e",
+    "sourceRecordRef": "question_udemy-7147437-078.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Torchvision RandomCrop",
+        "sourceUrl": "https://docs.pytorch.org/vision/master/generated/torchvision.transforms.RandomCrop.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Torchvision transforms and data augmentation",
+        "sourceUrl": "https://docs.pytorch.org/vision/stable/transforms.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
