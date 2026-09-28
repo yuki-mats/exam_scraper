@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "6cd04f84ec25e8e2",
+      "questionBodyText": "機械学習で用いるnoising（ノイズ付与）の説明として、適切なものを1つ選べ。",
+      "choiceTextList": [
+        "モデルの推論時に、必ず入力へノイズを加えることが手法である。",
+        "学習時に入力データへノイズを加え、モデルを頑健にする方法である。",
+        "noisingは過学習を悪化させるため一般に避けるべきである。",
+        "ノイズは正解ラベルにのみ加えるのが正しく、入力に加えるのは誤りである。"
+      ],
+      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。"
+    }
+  ]
+}
