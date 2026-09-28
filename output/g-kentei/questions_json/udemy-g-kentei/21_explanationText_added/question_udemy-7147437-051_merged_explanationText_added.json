@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "間違い。PPOは、更新前の方策と更新後の方策を比較しながら学習する。古い方策をまったく参照しないわけではない。",
+      "正しい。PPOは方策を最適化する手法であり、典型的にはクリッピングを使って急激な方策変更を抑える。これにより学習を安定させる。",
+      "間違い。PPOは報酬に基づいて方策を改善する。毎回ランダムに行動を選ぶだけの方法ではなく、価値関数を利用する実装もある。",
+      "間違い。Q学習は行動価値関数を更新する手法である。一方、PPOは方策そのものを最適化するため、同じ仕組みではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "a135842a5d02d816",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-051",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:a135842a5d02d816",
+    "reviewQuestionId": "a135842a5d02d816",
+    "sourceRecordRef": "question_udemy-7147437-051.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Schulman et al. Proximal Policy Optimization Algorithms",
+        "sourceUrl": "https://arxiv.org/abs/1707.06347",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
