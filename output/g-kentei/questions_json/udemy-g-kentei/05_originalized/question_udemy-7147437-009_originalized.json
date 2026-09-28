@@ -7,7 +7,7 @@
         "DQNに複数の改良手法（Double DQN、Prioritized Replayなど）を組み合わせたアルゴリズムである。",
         "モデルベース強化学習の代表的な手法である。",
         "Q学習を使わず、方策勾配法のみで学習するアルゴリズムである。",
-        "ゲーム環境以外ではほとんど利用されないため汎用性は低い。"
+        "RainbowはAtariゲーム専用であり、他の環境には適用できない。"
       ],
       "correctChoiceText": ["正しい", "間違い", "間違い", "間違い"],
       "questionIntent": "select_correct",
