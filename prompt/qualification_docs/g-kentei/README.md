@@ -336,3 +336,8 @@
 - 演習問題⑥問43: [経済産業省のAI開発契約ガイドライン](https://www.meti.go.jp/policy/mono_info_service/connected_industries/sharing_and_utilization/20200619001.pdf)に沿い、性能の不確実性を踏まえず従来型の品質保証条項をそのまま適用する説明を誤答とする。
 - 演習問題⑥問44: 第二次AIブームで専門家の知識を推論に使うエキスパートシステムを問う。元の問題文の助詞を修正する。
 - 演習問題⑥問45: [NISTの説明可能AIに関する資料](https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=933399)に沿い、説明による知的財産露出の可能性を問う。元の選択肢3も正しいため、運用開始後に初めて検討すればよいという誤答へ修正する。
+- 演習問題⑥問46: 物体検出でクラス分類と位置推定を同時に行う例を用い、マルチタスク学習を問う。
+- 演習問題⑥問47: [IBMのCRISP-DMガイド](https://public.dhe.ibm.com/software/analytics/spss/documentation/modeler/14.2/es/CRISP-DM.pdf)に沿い、6段階に「契約」が含まれないことを問う。
+- 演習問題⑥問48: ReLUが正の入力で勾配を保ちやすい点を踏まえ、「勾配消失を防ぐ」との断定を「起こしにくくする」へ修正する。
+- 演習問題⑥問49: [畳み込みの出力サイズに関するPyTorch仕様](https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html)と[dilated convolutionの研究論文](https://arxiv.org/abs/1511.07122)に沿い、空間サイズ維持はパディング等の条件によると明示し、受容野拡大を正答の決め手にする。
+- 演習問題⑥問50: [Network in Network原論文](https://arxiv.org/abs/1312.4400)に沿い、各特徴マップの空間位置全体の平均を問うことで、局所的な平均値プーリングと区別する。
