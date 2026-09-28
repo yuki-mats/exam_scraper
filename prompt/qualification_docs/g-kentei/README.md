@@ -56,3 +56,5 @@
 - 演習問題③問25: DAEを「画像生成には適用できない」とする取得元の解説は過度な断定である。[DAEを生成モデルとして扱う研究](https://arxiv.org/abs/1305.6663)もある。05ではVAE・Pix2Pix・CycleGANと比べ、DAEが主としてノイズ除去・再構成の手法である点を問う。後続03は生成不可能と書かない。
 - 演習問題③問26: 形式知の量や整理も知識獲得の負担になり得るため、取得元の3番をそのまま誤答にはできない。[エキスパートシステムの知識獲得研究](https://www.sciencedirect.com/science/article/pii/0168169989900112)を踏まえ、05の3番を必要な形式知がすでに利用可能な状態へ直す。
 - 演習問題③問29: 取得元が参照する[Google CloudのMLOps工程](https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)は、事業課題と成功基準を定めた後にデータ分析、学習、評価、監視へ進む。05ではその後のMLパイプライン工程を問う形に絞り、事業課題の分析自体をMLOps全体で不要とはしない。
+- 演習問題③問32: 取得元の4番は、審査員がAIを確実に見分けられない場合だけ賞金が出ると読める。[2019年の主催団体による採点説明](https://aisb.org.uk/aisb-events/)は、最も人間らしいシステムを得点で評価している。05では授賞の厳密な条件を断定せず、テキストでの対話評価に絞る。
+- 演習問題③問33: [国土交通省の自動運転用語資料](https://www.mlit.go.jp/jidosha/anzen/01asv/report06/file/hokokusyo_4_jidountenyogo.pdf)と[SAE J3016](https://saemobilus.sae.org/standards/j3016_202104-taxonomy-definitions-terms-related-driving-automation-systems-road-motor-vehicles)に基づき、条件付のレベル3と、ODD内で運転者の引継ぎを前提としないレベル4を区別する。取得元のレベル5の文面にある文字化けも解消する。
