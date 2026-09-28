@@ -286,3 +286,8 @@
 - 演習問題⑤問93: [PyTorchのモデル解説](https://docs.pytorch.org/tutorials/beginner/introyt/modelsyt_tutorial.html)に沿い、RNNの系列データとCNNの画像データを対応づける。CNNの用途を画像だけに限定しない。
 - 演習問題⑤問94: [Transformer原論文](https://arxiv.org/abs/1706.03762)と[Attentionを用いたエンコーダ・デコーダの研究](https://arxiv.org/abs/1409.0473)に沿い、RNN型Seq2Seq、Attention、Transformerの説明を正確にする。スキップグラムと教師強制を取り違えた肢を誤答とする。
 - 演習問題⑤問95: [公正取引委員会のアルゴリズム／AIと競争政策の報告書](https://www.jftc.go.jp/houdou/pressrelease/2021/mar/210331_digital/210331digital_hokokusho.pdf)と[デジタルプラットフォーム取引の実態調査](https://www.jftc.go.jp/houdou/pressrelease/2021/feb/digital/210217_hontai_rev.pdf)に沿い、ランキング操作、協調的行為、競争を制限する意思の連絡、優越的地位を問う。
+- 演習問題⑤問96: [Contrastive Lossの原論文](https://yann.lecun.org/exdb/publis/pdf/hadsell-chopra-lecun-06.pdf)に沿い、似たデータの埋め込みを近づけ、異なるデータを遠ざける目的を問う。
+- 演習問題⑤問97: PCMの標本化、量子化、符号化を問う。暗号化はその変換工程に含まれない。
+- 演習問題⑤問98: [総務省のプラットフォームサービスに関する第二次とりまとめ](https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000240067)と[偽情報の来歴検証に関する研究](https://arxiv.org/abs/1903.11899)に沿い、事業者の対策と政府による一律削除義務を区別する。ブロックチェーンだけで内容の真偽を証明するとは書かない。
+- 演習問題⑤問99: [statsmodelsのVAR解説](https://www.statsmodels.org/v0.11.1/vector_ar.html)に沿い、複数系列の過去の値を用いるベクトル自己回帰モデルを問う。「单回帰分析」の誤字を修正する。
+- 演習問題⑤問100: [バッチ正規化の原論文](https://arxiv.org/abs/1502.03167)と[LSTM・GRUと勾配消失に関する研究](https://arxiv.org/abs/1801.06105)に沿い、勾配消失を緩和する手法と、過学習を抑えるドロップアウトを区別する。ReLUを「正規化機能」とは説明しない。
