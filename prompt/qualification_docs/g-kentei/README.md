@@ -211,3 +211,8 @@
 - 演習問題⑤問18: [東京大学の応用音響学資料](https://www.sp.ipc.i.u-tokyo.ac.jp/~saruwatari/AA2019_01.pdf)に沿い、スペクトル包絡は主に音色と対応し、基本周波数と関係する高さと区別する。
 - 演習問題⑤問19: [NIIの2015年成果報告](https://www.nii.ac.jp/news/release/2015/1114.html)では私立441大学1055学部に合格可能性80％以上とされる。「ほとんどの私立大学」は範囲が広すぎるので修正する。[2016年成果報告](https://www.nii.ac.jp/news/release/2016/1114.html)と[参加研究者の報告](https://www.josho.ac.jp/flow/new_wave/oit/flow_73.html)を踏まえ、長文読解を得意とする説明を誤答とする。取得元の「開発が凍結」は研究全体の停止を断定するため、目標未達と研究方向の見直しに改める。
 - 演習問題⑤問20: 予測と正解値のずれを評価する損失関数を問う。選択肢の「価值関数」は日本語の誤字なので「価値関数」に修正する。
+- 演習問題⑤問21: [エキスパートシステムの知識獲得に関する研究](https://academic-publishing.org/index.php/ejkm/article/view/784)に沿い、専門知識の抽出・表現と知識ベースの保守を課題として問う。専門家自身がデータベース技術を習得することを必須条件とはしない。
+- 演習問題⑤問22: [Googleのデータリーケージの例](https://developers.google.com/machine-learning/crash-course/production-ml-systems/monitoring)に沿い、予測時点では利用できない情報が学習データに入る例を問う。未来情報だけがデータリーケージの定義と読めないようにする。
+- 演習問題⑤問23: [Googleの初代TPUの説明](https://cloud.google.com/blog/products/ai-machine-learning/an-in-depth-look-at-googles-first-tensor-processing-unit-tpu)に沿い、低ビット幅の行列演算を効率よく処理する機械学習専用プロセッサを問う。取得元の「演算精度を犠牲にする」という断定は採用しない。
+- 演習問題⑤問24: [個人情報保護委員会のガイドライン](https://www.ppc.go.jp/personalinfo/legal/guidelines_tsusoku/)では信条、犯罪被害、犯罪歴を要配慮個人情報とする。[同委員会の確認資料](https://www.ppc.go.jp/files/pdf/2811_bessi2-1.pdf)では運転免許証等の臓器提供意思表示は該当しないため、取得元の誤答肢を運転免許証の欄に限定する。
+- 演習問題⑤問25: [scikit-learnのTF-IDFの説明](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)に沿い、文書内の出現頻度と文書集合内での希少さから単語の重みを求める点を問う。
