@@ -87,3 +87,6 @@
 - 演習問題③問77: [ImageNet公式の2012年結果](https://www.image-net.org/challenges/LSVRC/2012/results.html)で優勝を確認した。[AlexNetの原論文](https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)はReLUによる学習の高速化とドロップアウトを述べる。取得元の「ReLUが勾配消失を解決する」という断定を05では避ける。
 - 演習問題③問79: [PyTorchのInstanceNorm2d説明](https://docs.pytorch.org/docs/stable/generated/torch.nn.InstanceNorm2d.html)に沿って、サンプルごと・チャネルごとの空間統計量を正答肢に置く。取得元2番の単なる「画像認識で使用される」は定義として弱く、3番は全チャネル一括という点で誤る。
 - 演習問題③問80: [欧州委員会の十分性認定の説明](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en)に沿って用語を問う。十分性認定は域外移転の唯一の仕組みではなく、[他の移転手段](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/rules-international-data-transfers_en)もあるため、後続03で認定がないと一切移転できないとは書かない。
+- 演習問題③問82: [DQNの原論文](https://www.nature.com/articles/nature14236)に沿って、行動価値関数の近似に深層ニューラルネットワークを使う点を問う。
+- 演習問題③問83: [個人情報保護委員会の統計情報との比較](https://www.ppc.go.jp/all_faq_index/faq1-q15-2/)に沿い、個人単位の情報を保つ匿名加工情報を問う。取得元解説の「統計情報は復元可能な場合がある」という一般化は後続03へ引き継がない。[仮名加工情報との差](https://www.ppc.go.jp/all_faq_index/faq1-q14-1/)も加工要件で説明する。
+- 演習問題③問85: [WaveNetの原論文](https://arxiv.org/abs/1609.03499)に沿い、音声波形生成を正答とする。取得元解説の「ロボット制御には一般的に活用されない」は用途の断定なので後続03で用いない。
