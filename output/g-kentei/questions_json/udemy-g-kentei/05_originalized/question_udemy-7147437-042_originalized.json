@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "e64c4b1cb7a04f0f",
+      "questionBodyText": "オフライン強化学習について、誤っている説明を1つ選べ。",
+      "choiceTextList": [
+        "過去に収集したデータのみを使って学習を行う手法である。",
+        "環境とリアルタイムにやりとりしなくても学習可能である。",
+        "データの分布外にある行動の価値を過大評価しやすいため、注意が必要である。",
+        "十分な量のオフラインデータがあれば、データにない行動の価値も正確に推定できる。"
+      ],
+      "correctChoiceText": ["正しい", "正しい", "正しい", "間違い"],
+      "questionIntent": "select_incorrect",
+      "answer_result_text": "正解は 4 です。"
+    }
+  ]
+}
