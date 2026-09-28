@@ -306,3 +306,8 @@
 - 演習問題⑥問13: RMSEは二乗誤差の平均の平方根、MAEは絶対誤差の平均として計算方法を区別する。
 - 演習問題⑥問14: [経済産業省のAI事業者ガイドラインにおける透明性の整理](https://www.meti.go.jp/shingikai/mono_info_service/ai_utilization_civil/pdf/001_03_00.pdf)に沿い、想定用途、性能、学習データの概要を伝える方法と、内部構造の全面公開を必須とする説明を区別する。
 - 演習問題⑥問15: 状態遷移をたどる探索が適する経路計画やハノイの塔と、主に画像分類として扱う手書き文字認識を区別する。
+- 演習問題⑥問16: [NISTのAIリスク管理フレームワーク](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf)に沿い、法的・倫理的な検討を企画段階から始め、その後も続ける。
+- 演習問題⑥問17: 同じ課題に対する複数モデルの予測を多数決で組み合わせる例を、アンサンブル学習として問う。
+- 演習問題⑥問18: [RNN Encoder-Decoderの原論文](https://arxiv.org/abs/1406.1078)に沿い、機械翻訳を代表例として問う。気温予測に使えないと一律に断定しない。
+- 演習問題⑥問19: [EfficientNet原論文](https://arxiv.org/abs/1905.11946)、[WaveNet原論文](https://arxiv.org/abs/1609.03499)、[音声のDAE研究](https://arxiv.org/abs/2001.01538)に沿い、音声波形や音声系列への直接的な適用例を問う。EfficientNetを画像向けのモデルとして区別する。
+- 演習問題⑥問20: [経済産業省などのカメラ画像利活用ガイドブックver3.0](https://www.meti.go.jp/policy/it_policy/privacy/01_CameraGuideBook_ver3.0.pdf)に沿い、保存済み画像の新目的利用では生活者からの改めての同意が必要な点と、事前告知の伝え方を問う。
