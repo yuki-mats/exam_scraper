@@ -366,3 +366,8 @@
 - 演習問題⑥問73: [Googleの早期終了の説明](https://developers.google.com/machine-learning/crash-course/overfitting/regularization)と[PyTorchのドロップアウト仕様](https://docs.pytorch.org/docs/stable/generated/torch.nn.Dropout)に沿い、正則化の例とスキップ結合を区別する。
 - 演習問題⑥問74: [ノーフリーランチの定理の研究](https://arxiv.org/abs/cs/0303032)に沿い、すべての最適化問題で常に優越する汎用手法はないという判断を問う。
 - 演習問題⑥問75: [FCN原論文](https://arxiv.org/abs/1411.4038)に沿い、全結合層を使わず畳み込みを主体に画素単位予測を行う点を問う。アップサンプリング等もあるため「畳み込み層のみ」という断定は避ける。
+- 演習問題⑥問76: 元の一次式・温度・単位・正答を維持し、売上本数の代入計算を簡潔な文で問う。500×30+2000=17000千本=1700万本。
+- 演習問題⑥問77: [個人情報保護委員会の通則ガイドライン](https://www.ppc.go.jp/personalinfo/legal/guidelines_tsusoku/)と[漏えい通知の説明](https://www.ppc.go.jp/news/kaiseihogohou_checkpoint/)に沿い、生存する個人という定義を問う。顔画像一般ではなく識別用の特徴符号を個人識別符号の例とする。
+- 演習問題⑥問78: [CMUの交差エントロピー資料](https://www.cs.cmu.edu/~bhiksha/courses/10-601/hws/spring2016/final.html)に沿い、正解分布と予測分布を使う分類損失を問う。交差エントロピーを単純な分布間距離と断定しない。
+- 演習問題⑥問79: [スケーリング則の原論文](https://arxiv.org/abs/2001.08361)に沿い、パラメータ数・データ量・計算量と損失の経験的関係を問う。規模を増やせば性能が必ず向上するとは断定しない。
+- 演習問題⑥問80: [半教師あり学習の研究](https://arxiv.org/abs/1804.09170)に沿い、少量のラベル付きデータとラベルなしデータを併用する特徴を問う。元の「ラベル付けコストが大きい」は動機としても成立するため、全件ラベル付けが必須という明確な誤答へ修正する。
