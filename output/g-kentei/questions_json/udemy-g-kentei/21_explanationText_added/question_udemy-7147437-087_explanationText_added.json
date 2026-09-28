@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "間違い。予測値と正解値の差を二乗して平均するのは平均二乗誤差（MSE）で、回帰問題でよく使われる。",
+      "間違い。交差エントロピー誤差は、予測した確率分布が正解ラベルの分布から外れるほど大きくなる。差が大きいほど誤差が小さくなるという説明は逆である。",
+      "間違い。交差エントロピー誤差は正解ラベルを用いる教師あり学習の損失関数であり、クラスタリングのような教師なし学習が主な用途ではない。",
+      "正しい。交差エントロピー誤差は、モデルの出力確率分布と正解ラベルの分布とのずれを表す。特に、ソフトマックス出力を使う多クラス分類などで広く用いられる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "c8e9b2c845634d1f",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-087",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:c8e9b2c845634d1f",
+    "reviewQuestionId": "c8e9b2c845634d1f",
+    "sourceRecordRef": "question_udemy-7147437-087.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "PyTorch CrossEntropyLoss",
+        "sourceUrl": "https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Deep Learning（損失関数と交差エントロピー）",
+        "sourceUrl": "https://www.deeplearningbook.org/contents/mlp.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
