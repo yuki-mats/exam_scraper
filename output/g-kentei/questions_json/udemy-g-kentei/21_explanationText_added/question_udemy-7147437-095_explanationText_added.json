@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。Grad-CAMは、対象クラスの出力に対する畳み込み層の勾配を利用し、予測に寄与した画像領域をヒートマップとして示す。",
+      "間違い。最終畳み込み層の後にGAPを置く構造を前提にするのは元のCAMである。Grad-CAMは勾配を利用するため、既存の幅広いCNNに適用しやすく、通常はモデルをその構造に変更して再学習する必要はない。",
+      "間違い。入力の近傍にサンプルを作り、単純なモデルで局所近似するのはLIMEの説明である。Grad-CAMはCNN内部の勾配と特徴マップを使う。",
+      "間違い。特徴量をランダムに入れ替えたときの性能低下から重要度を測るのはPermutation Importanceであり、Grad-CAMの説明ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "47cb82e49359fe10",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-095",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:47cb82e49359fe10",
+    "reviewQuestionId": "47cb82e49359fe10",
+    "sourceRecordRef": "question_udemy-7147437-095.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization",
+        "sourceUrl": "https://arxiv.org/abs/1610.02391",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Why Should I Trust You?: Explaining the Predictions of Any Classifier",
+        "sourceUrl": "https://arxiv.org/abs/1602.04938",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
