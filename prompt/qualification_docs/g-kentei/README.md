@@ -108,3 +108,6 @@
 - 演習問題④問1: [Agent57の原論文](https://proceedings.mlr.press/v119/badia20a.html)に沿い、Atari全57ゲームで人間の基準スコアを上回った点を問う。取得元の「人間の平均スコア」は研究で用いた基準値として説明し、任意の人間の得点を超えたとは書かない。
 - 演習問題④問2: [scikit-learnのPermutation Importance説明](https://scikit-learn.org/stable/modules/permutation_importance.html)に沿い、一つの特徴量の値を標本間で入れ替え、性能変化を測る。取得元の「説明変数の順序を入れ替える」は列の並び順と誤読されるため、値を入れ替えると明記する。
 - 演習問題④問3: [理化学研究所の発表](https://www.riken.jp/pr/news/2024/20240510_1/index.html)に沿い、「富岳」はスーパーコンピュータ、「叡」は量子コンピュータとして区別する。取得元解説のように従来計算機よりすべての計算を圧倒的に速く終えられるとは説明しない。
+- 演習問題④問8: ロジスティック型シグモイド関数の出力は0より大きく1より小さい。取得元の「最大値1」「最小値0」は到達値としては不正確なので、05では出力範囲を厳密に表す。
+- 演習問題④問9: バッチ、確率的、ミニバッチの区別は、1回の更新で使う学習データの量に基づく。取得元の「再帰的勾配降下法は存在しない」とは断定せず、この分類の一般的な名称に当てはまらないことを問う。
+- 演習問題④問10: [SSDの原論文](https://research.google/pubs/ssd-single-shot-multibox-detector/)では物体のカテゴリとデフォルトボックスからの位置・大きさの補正を予測する。取得元解説の「クラス予測情報を使ってサイズを修正する」は不正確なので05では分けて表す。[PSPNetの原論文](https://openaccess.thecvf.com/content_cvpr_2017/papers/Zhao_Pyramid_Scene_Parsing_CVPR_2017_paper.pdf)がPyramid Pooling Moduleを用いる。
