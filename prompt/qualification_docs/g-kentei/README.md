@@ -138,3 +138,7 @@
 - 演習問題④問43: [ドメインランダマイゼーションの研究](https://arxiv.org/abs/1703.06907)に沿い、仮想環境の背景・照明・視点などを変えることで実環境への適応を目指す。性能改善を必ず保証するとは書かない。
 - 演習問題④問44: [SuttonとBartoの強化学習の教科書](https://www.incompleteideas.net/book/bookdraft2018mar21.pdf)に沿い、割引率は将来報酬の重みを決める。割引率を1とする場合もあるため、取得元の「必ず一定割合で減らす」は05で用いない。
 - 演習問題④問45: [One-shot学習の研究](https://www.cs.cmu.edu/~rsalakhu/papers/oneshot1.pdf)に沿い、新しいクラスの例を一つ与えて識別する設定として問う。取得元の「未学習クラスを一例だけで必ず正しく分類」は成功の保証と混同しない。
+- 演習問題④問46: [scikit-learnのリサンプリング仕様](https://scikit-learn.org/stable/modules/generated/sklearn.utils.resample.html)に沿い、ブートストラップの決め手となる復元抽出を正答肢へ明記する。取得元の単なるランダム抽出では非復元抽出との区別がつかない。
+- 演習問題④問48: [NISTのデータ来歴の説明](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/1500-18/NIST.SP.1500-18r2.html)に沿い、データの出所と収集・加工などの履歴を問う。
+- 演習問題④問49: [Transformerの原論文](https://papers.neurips.cc/paper/7181-attention-is-all-you-need.pdf)に沿い、複数ヘッドが異なる表現空間の情報へ並列に注目する点を問う。取得元の「計算量は増えるが表現力が向上する」は構成次第なので一律には説明しない。
+- 演習問題④問50: [VQAの原論文](https://arxiv.org/abs/1505.00468)に沿い、画像に関する自然言語の質問を受け取って答えるタスクとして問う。
