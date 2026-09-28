@@ -67,3 +67,4 @@
 - 演習問題③問46: 取得元の不良品の「割合」と疾病の「確率」は、ポアソン回帰の対象である件数と混同されている。[statsmodelsの離散従属変数の説明](https://www.statsmodels.org/stable/discretemod.html)を踏まえ、05では一定期間の発生件数に統一する。後続03は稀な事象に限ると断定しない。
 - 演習問題③問48: 取得元解説は再販売価格の拘束をカルテルと呼ぶが、[公正取引委員会の流通・取引慣行ガイドライン](https://www.jftc.go.jp/dk/guideline/unyoukijun/ryutsutorihiki.html)では再販売価格維持行為として扱う。[AIと競争政策の報告書](https://www.jftc.go.jp/houdou/pressrelease/2021/mar/210331_digital/210331digital_hokokusho.pdf)は価格協調とランキングの問題を扱い、[不当廉売の考え方](https://www.jftc.go.jp/dk/guideline/unyoukijun/futorenbai.html)は競争者の顧客に限った廉売が問題になり得る場合を示す。05は各行為を混同せず、正答1を維持する。
 - 演習問題③問49: [CAMの原論文](https://openaccess.thecvf.com/content_cvpr_2016/papers/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf)に沿い、対象クラスの判断に寄与する画像領域の可視化を問う。すべての画像認識モデルにそのまま適用できるとは書かない。
+- 演習問題③問54: 取得元解説の「REINFORCEは価値関数を用いない」は、ベースラインとして価値推定を使う変種まで否定しかねない。05では主な更新対象が方策パラメータであり、価値関数の推定精度そのものが目的ではないことを問う。後続03も価値関数の利用を一律に否定しない。
