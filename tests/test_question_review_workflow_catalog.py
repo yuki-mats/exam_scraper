@@ -345,7 +345,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("### 04の分類field", contract)
         self.assertIn("肢別分類とは別に確定する", contract)
 
-    def test_originalization_policy_preserves_quality_with_minimum_edits(self):
+    def test_originalization_policy_uses_qualification_specific_change_amount(self):
         prompt = (ROOT / "prompt/05_prompt_originalize_question.md").read_text(
             encoding="utf-8"
         )
@@ -377,7 +377,13 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("各誤答が誤りである理由", prompt)
         self.assertIn("正答と解説に照らし", prompt)
         self.assertIn("元の問題文、選択肢、正答、解説を一つの基準セット", prompt)
-        self.assertIn("問題文と選択肢は局所的な微修正", operations)
+        self.assertIn("変更箇所と変更量を決めます", operations)
+        self.assertIn("一定割合で混ぜる運用はしません", operations)
+        g_profile = (
+            ROOT / "prompt/qualification_docs/g-kentei/01_exam_profile.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("局所的な修正にとどまる問も、構成を組み直す問も許容", g_profile)
+        self.assertIn("大幅変更問の割合で合否を決めない", g_profile)
         explanation_prompt = (
             ROOT / "prompt/03_prompt_add_explanationText.md"
         ).read_text(encoding="utf-8")
@@ -532,7 +538,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["explanation"], "10.7")
         self.assertEqual(version_by_stage["law_audit"], "5.4")
         self.assertEqual(version_by_stage["law_context"], "2.3")
-        self.assertEqual(version_by_stage["originalize"], "2.9")
+        self.assertEqual(version_by_stage["originalize"], "2.10")
         self.assertEqual(version_by_stage["question_type"], "6.3")
         self.assertEqual(version_by_stage["question_intent"], "5.2")
         self.assertEqual(version_by_stage["correct_choice"], "5.8")

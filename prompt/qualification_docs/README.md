@@ -57,6 +57,7 @@
 
 ## 現在ある資格
 
+- `g-kentei`
 - `aws-cloud-practitioner`
 - `aws-solutions-architect-associate`
 - `2nd-class-kenchikushi`
