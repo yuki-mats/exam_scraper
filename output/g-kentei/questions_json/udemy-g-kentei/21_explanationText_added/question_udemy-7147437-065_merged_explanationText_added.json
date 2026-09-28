@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。ゼロパディングは、畳み込みの前に入力画像の周囲へゼロを追加する方法である。出力の縦横のサイズを調整するために使える。",
+      "正しい。畳み込みの条件に合わせてパディング幅を設定すると、出力特徴マップの空間サイズを維持できる。幅を指定せずにパディングするだけで、必ず維持されるわけではない。",
+      "正しい。長さの異なる系列をまとめて処理するときは、短い系列に値を追加して長さを揃える。RNNやTransformerへ渡すデータでも使われる。",
+      "間違い。パディングはデータの周囲や不足する位置へ値を加え、サイズや長さを整える処理である。音声を扱う場合にも使えるが、音声信号の強調を主目的とする手法ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "782d76c1241592de",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-065",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:782d76c1241592de",
+    "reviewQuestionId": "782d76c1241592de",
+    "sourceRecordRef": "question_udemy-7147437-065.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "PyTorch Conv2d documentation",
+        "sourceUrl": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "PyTorch pad_sequence documentation",
+        "sourceUrl": "https://docs.pytorch.org/docs/stable/generated/torch.nn.utils.rnn.pad_sequence.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
