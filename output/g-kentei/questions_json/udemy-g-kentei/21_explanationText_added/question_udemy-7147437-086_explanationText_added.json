@@ -1,0 +1,41 @@
+[
+  {
+    "explanationText": [
+      "正しい。スキップグラムは、中心単語から周囲の単語を予測するWord2Vecの学習手法である。単語の共起関係を利用して分散表現を学習する。",
+      "間違い。CBOWはスキップグラムとは逆に、周囲の単語から中心単語を予測する。一般に学習が速い一方、まれな単語の表現ではスキップグラムが有利な場合がある。",
+      "間違い。FastTextは単語を文字n-gramに分解して扱うことで、未知語や形態的に似た単語にも対応しやすくした手法である。中心単語から周囲の単語を予測するWord2Vecの基本手法そのものではない。",
+      "間違い。GloVeはコーパス全体の単語間共起統計を利用して単語表現を学習する手法で、Word2Vecのスキップグラムとは学習の仕組みが異なる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "831cff0931e0dbdb",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-086",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:831cff0931e0dbdb",
+    "reviewQuestionId": "831cff0931e0dbdb",
+    "sourceRecordRef": "question_udemy-7147437-086.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Efficient Estimation of Word Representations in Vector Space",
+        "sourceUrl": "https://arxiv.org/abs/1301.3781",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Enriching Word Vectors with Subword Information",
+        "sourceUrl": "https://arxiv.org/abs/1607.04606",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "GloVe: Global Vectors for Word Representation",
+        "sourceUrl": "https://nlp.stanford.edu/projects/glove/",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
