@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。ダブルDQNは、Q学習で行動の選択と価値の評価に同じ推定値を使うと、Q値が過大評価されやすい問題を緩和する。",
+      "正しい。ダブルDQNでは、オンラインネットワークで次の行動を選び、ターゲットネットワークでその行動の価値を評価する。選択と評価を分けることで過大評価を抑える。",
+      "正しい。原論文では、ダブルDQNが通常のDQNに見られるQ値の過大評価を抑え、いくつかのゲームで性能を改善した。改善の対象は行動価値の推定と学習結果であり、直近の報酬そのものの推定ではない。",
+      "間違い。ダブルDQNでもターゲットネットワークを使う。オンラインネットワークで行動を選び、ターゲットネットワークで価値を評価するため、単一ネットワークだけでQ値を更新する説明は誤りである。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "7a4fc348f26754d1",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-062",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:7a4fc348f26754d1",
+    "reviewQuestionId": "7a4fc348f26754d1",
+    "sourceRecordRef": "question_udemy-7147437-062.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Deep Reinforcement Learning with Double Q-learning",
+        "sourceUrl": "https://arxiv.org/abs/1509.06461",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
