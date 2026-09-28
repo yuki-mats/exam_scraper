@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "9b67e600f6b93c26",
+      "questionBodyText": "教師強制（teacher forcing）について、最も適切な説明を1つ選べ。",
+      "choiceTextList": [
+        "モデルの出力を次の入力とすることで誤差を蓄積させる訓練手法。",
+        "系列モデルの学習時に、直前時点の正解を次の時点の入力として与える手法。",
+        "強化学習において行動価値関数の正解値を固定する方法。",
+        "モデルの誤り出力をそのまま次のステップに入力する訓練手法。"
+      ],
+      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。"
+    }
+  ]
+}
