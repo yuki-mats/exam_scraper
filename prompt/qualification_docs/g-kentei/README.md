@@ -241,3 +241,8 @@
 - 演習問題⑤問48: [Mixupの原論文](https://arxiv.org/abs/1710.09412)に沿い、画像だけでなく対応するラベルも同じ比率で混ぜる点を正答肢に加える。
 - 演習問題⑤問49: [LIMEの原論文](https://arxiv.org/abs/1602.04938)に沿い、説明対象の予測の周辺を単純なモデルで近似し、寄与した特徴を示す点を問う。
 - 演習問題⑤問50: [NISTのブロックチェーン解説](https://www.nist.gov/blockchain)に沿い、前のブロックのハッシュ値による連結が改ざんを検出可能にする理由を問う。
+- 演習問題⑤問51: [原型のGoogLeNet](https://research.google/pubs/going-deeper-with-convolutions/)と[後発のInception-ResNet](https://research.google/pubs/inception-v4-inception-resnet-and-the-impact-of-residual-connections-on-learning/)を区別し、スキップ結合を使わない対象をInception v1に限定する。
+- 演習問題⑤問52: [CycleGAN](https://arxiv.org/abs/1703.10593)、[StackGAN](https://arxiv.org/abs/1612.03242)、[Pix2Pix](https://arxiv.org/abs/1611.07004)、[DCGAN](https://arxiv.org/abs/1511.06434)の各原論文に沿い、画像ペアの要否、テキスト条件、畳み込み層の利用を区別する。取得元の「1対のペア画像だけで学習」はデータセット全体の要件と混同しやすいため直す。
+- 演習問題⑤問53: [オントロジーの分類に関する研究](https://asistdl.onlinelibrary.wiley.com/doi/10.1002/bult.2015.1720410407)に沿い、ヘビーウェイトは公理や制約まで含む詳しい定義、ライトウェイトは分類や基本関係を中心とする表現として問う。取得元のAIの柔軟な学習・推論に関する説明は定義の決め手にしない。
+- 演習問題⑤問54: [強化学習の基本文献](https://www.incompleteideas.net/book/bookdraft2018mar21.pdf)に沿い、環境からの報酬と将来の累積報酬の最大化を区別して表す。
+- 演習問題⑤問55: [Pix2Pixの原論文](https://arxiv.org/abs/1611.07004)に沿い、対応する入力・出力画像のペアから画像変換を学習するモデルとして問う。
