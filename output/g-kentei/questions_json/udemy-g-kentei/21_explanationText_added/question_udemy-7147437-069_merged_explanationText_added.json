@@ -1,0 +1,41 @@
+[
+  {
+    "explanationText": [
+      "正しい。特徴量が増えて空間の次元が高くなると、同じ数のデータ点では空間を密に埋めにくくなる。データが疎になることは次元の呪いの一面である。",
+      "間違い。特徴量を増やしても、予測に役立たない情報が加われば精度は必ずしも上がらない。データ数に対して特徴量が多い場合には、過学習のリスクが高まることもある。",
+      "正しい。高次元では、距離に基づく近傍探索が有効に働きにくくなる場合がある。距離そのものが無意味になると断定する必要はない。",
+      "正しい。PCAなどを用いて次元を減らすことは、高次元データの扱いにくさを緩和する手段の1つである。ただし、必要な情報まで失わないようにする必要がある。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "49cbf932042667b9",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-069",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:49cbf932042667b9",
+    "reviewQuestionId": "49cbf932042667b9",
+    "sourceRecordRef": "question_udemy-7147437-069.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn Nearest Neighbors",
+        "sourceUrl": "https://scikit-learn.org/stable/modules/neighbors.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn Feature selection",
+        "sourceUrl": "https://scikit-learn.org/stable/modules/feature_selection.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn Decomposing signals in components",
+        "sourceUrl": "https://scikit-learn.org/stable/modules/decomposition.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
