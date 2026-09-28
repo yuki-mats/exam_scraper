@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "間違い。コントラスト損失を用いる学習は、同じ元データから作った例などの関係を手掛かりに、ラベルなしでも特徴を学べる。ラベルを利用する方式もあるが、大量の正解ラベルを使うことが定義ではない。",
+      "間違い。すべてのデータの特徴を一つに集めると、異なるデータを区別しにくくなる。コントラスト損失では、近づけたい組と離したい組の違いを学習に使う。",
+      "間違い。設問のようなコントラスト損失では、同じ元データから得た例を近づける一方、異なる元データから得た例を比較対象として扱う。すべてのサンプル間の距離を縮めるわけではない。",
+      "正しい。同じ元データに別々の変換を加えた例を近づけ、別の元データから作った例とは区別するように特徴を学ぶ。これにより、元データの違いを捉えながら変換には左右されにくい表現を得られる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定シラバス2024 v1.4（誤差関数）",
+        "sourceUrl": "https://www.jdla.org/download/g%e6%a4%9c%e5%ae%9a%e3%81%ae%e8%a9%a6%e9%a8%93%e5%87%ba%e9%a1%8c%e7%af%84%e5%9b%b2-%ef%bc%88%e3%82%b7%e3%83%a9%e3%83%90%e3%82%b9%ef%bc%89g20246%ef%bd%9ev1-4/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "A Simple Framework for Contrastive Learning of Visual Representations",
+        "sourceUrl": "https://proceedings.mlr.press/v119/chen20j.html",
+        "referenceDate": "2026-09-29"
+      }
+    ],
+    "original_question_id": "6d2fe05950c958a7",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-025",
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:6d2fe05950c958a7",
+    "reviewQuestionId": "6d2fe05950c958a7",
+    "sourceRecordRef": "question_udemy-7147437-025.json#0"
+  }
+]
