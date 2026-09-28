@@ -351,3 +351,8 @@
 - 演習問題⑥問58: 技術的特異点を表すシンギュラリティを問う。提唱者の記述を判定条件から外し、元の選択肢1の誤記をシンボルグラウンディングへ修正する。
 - 演習問題⑥問59: [UNESCOによるディープフェイクの説明](https://www.unesco.org/en/articles/deepfakes-and-crisis-knowing)に沿い、AIで作られた本物らしい偽画像・偽動画を問う。元の文の主語と述語を整える。
 - 演習問題⑥問60: [MobileNet原論文](https://arxiv.org/abs/1704.04861)に沿い、計算量削減に使うDepthwise Separable Convolutionを問う。
+- 演習問題⑥問61: [SQuAD原論文](https://nlp.stanford.edu/pubs/rajpurkar2016squad.pdf)に沿い、読解・質問応答用データセットを画像用データセットから区別する。
+- 演習問題⑥問62: [PyTorchのLSTM仕様](https://docs.pytorch.org/docs/stable/generated/torch.nn.LSTM.html)と[画像キャプション生成の研究](https://arxiv.org/abs/1509.04942)に沿い、長期依存への対応、忘却ゲート、画像キャプションへの利用を確認する。
+- 演習問題⑥問63: [DCGAN原論文](https://arxiv.org/abs/1511.06434)に沿い、生成器と識別器にCNNを用いる点を問う。GAN一般より必ず高解像度になるという元の断定は採用しない。
+- 演習問題⑥問64: [EfficientNet原論文](https://arxiv.org/abs/1905.11946)に沿い、深さ・幅・入力解像度の複合スケーリングを問う。
+- 演習問題⑥問65: [MITの勾配降下法の解説](https://introml.mit.edu/notes/gradient_descent.html)に沿い、局所最適解と大域最適解を区別する。学習率調整で大域最適解を必ず得られるという元の説明は削除する。
