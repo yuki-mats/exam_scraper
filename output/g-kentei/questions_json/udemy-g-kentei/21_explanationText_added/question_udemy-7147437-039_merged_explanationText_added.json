@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。ノイジーネットワークは、ネットワークの重みにノイズを加えて行動選択を変化させる。強化学習のエージェントがさまざまな行動を試すための探索手法である。",
+      "間違い。学習データへのノイズ付加は、入力の変動に強いモデルを作るために用いられることがある。ノイジーネットワークでノイズを加える対象は、学習データではなくネットワークの重みである。",
+      "間違い。ノイジーネットワークは、出力にノイズを直接加えて過学習を抑える手法ではない。重みにノイズを加え、その結果として行動選択に変化を生む。",
+      "間違い。入力に含まれるノイズを取り除くのは、デノイジングオートエンコーダなどの目的である。ノイジーネットワークは、強化学習での探索を促す。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "89d647c26c19efff",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-039",
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:89d647c26c19efff",
+    "reviewQuestionId": "89d647c26c19efff",
+    "sourceRecordRef": "question_udemy-7147437-039.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Fortunato et al., Noisy Networks for Exploration",
+        "sourceUrl": "https://arxiv.org/abs/1706.10295",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
