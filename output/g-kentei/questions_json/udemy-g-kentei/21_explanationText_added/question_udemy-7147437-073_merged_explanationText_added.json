@@ -1,0 +1,46 @@
+[
+  {
+    "explanationText": [
+      "正しい。LDAは文書ごとのトピック分布と、トピックごとの単語分布を用いる確率的なトピックモデルである。これらの分布にディリクレ事前分布を置く。",
+      "間違い。LSAは文書と単語の行列に特異値分解を適用して低次元の意味空間を得る方法である。ディリクレ事前分布を用いるトピックモデルという説明には当たらない。",
+      "間違い。ベイズ推定は事前分布とデータから事後分布を求める考え方であり、特定のトピックモデルの名前ではない。",
+      "間違い。HMMは隠れた状態の遷移と観測の系列を扱う確率モデルである。文書を複数のトピックの混合として表すモデルではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "4977c0da7bf44eb5",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-073",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:4977c0da7bf44eb5",
+    "reviewQuestionId": "4977c0da7bf44eb5",
+    "sourceRecordRef": "question_udemy-7147437-073.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Latent Dirichlet Allocation",
+        "sourceUrl": "https://www.jmlr.org/papers/v3/blei03a.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn Latent Dirichlet Allocation",
+        "sourceUrl": "https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.LatentDirichletAllocation.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn Truncated SVD and LSA",
+        "sourceUrl": "https://scikit-learn.org/stable/modules/decomposition.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "A tutorial on hidden Markov models and selected applications in speech recognition",
+        "sourceUrl": "https://www.fceia.unr.edu.ar/prodivoz/Rabiner_1989.pdf",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
