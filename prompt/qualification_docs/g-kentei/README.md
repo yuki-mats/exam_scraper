@@ -271,3 +271,8 @@
 - 演習問題⑤問78: [RIETIのAI効果に関する議事概要](https://www.rieti.go.jp/jp/events/15092801/summary.html)に沿い、技術が普及してAIとして意識されにくくなる例を問う。検索エンジン全体を一律にAIでないと断定しない。
 - 演習問題⑤問79: [Mask R-CNN原論文](https://arxiv.org/abs/1703.06870)に沿い、Faster R-CNNへ個体別マスクの予測を加えたモデルを問う。YOLOの派生モデル全般について断定しない。
 - 演習問題⑤問80: [AdaBound原論文](https://arxiv.org/abs/1902.09843)に沿い、適応的学習率へ動的な上下限を設ける特徴を問う。性能の一律な優劣は問わない。
+- 演習問題⑤問81: [CTC原論文](https://www.cs.toronto.edu/~graves/icml_2006.pdf)に沿い、ブランクラベルを使い、入力と出力の対応位置が未指定でも系列を学習できる特徴を問う。
+- 演習問題⑤問82: [scikit-learnのロジスティック回帰の説明](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)に沿い、二値分類のシグモイド関数と、多項モデルのソフトマックス関数を区別する。
+- 演習問題⑤問83: [ケンブリッジ大学の故人再現AIの研究](https://www.repository.cam.ac.uk/items/bc2f1612-f989-4a92-9d1a-7105a3757d7b)と[経産省のAI事業者ガイドライン](https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20260331_report.html)に沿い、故人の再現には本人や遺族への配慮が必要とする。元の選択肢3にある人口についての誤った前提を除き、一つの誤答に戻す。
+- 演習問題⑤問84: [特許庁のAI関連発明の審査事例](https://www.jpo.go.jp/system/laws/rule/guideline/patent/ai_jirei.html)と[進歩性を否定した事例の紹介](https://www.jpo.go.jp/news/kokusai/seminar/document/chizaishihou-2021/30-01.pdf)に沿い、周知の機械学習への単純な置換に格別の技術的効果がない場合の進歩性を問う。特許の対象と進歩性を混同しない。
+- 演習問題⑤問85: [Rumelhartらの誤差逆伝播法の原論文](https://doi.org/10.1038/323533a0)に沿い、多層パーセプトロンの隠れ層と、誤差から勾配を計算する手法を問う。
