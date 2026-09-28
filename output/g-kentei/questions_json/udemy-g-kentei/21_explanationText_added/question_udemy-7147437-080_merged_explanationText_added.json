@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。Dropoutは学習中に一部のノードをランダムに無効化し、特定のノードへの過度な依存を抑えて過学習を防ぐ正則化手法である。",
+      "正しい。通常のDropoutでは学習時にノードを無効化するが、推論時には無効化を行わず、全ノードを使って予測する。学習時の無効化率に合わせて出力を調整する。",
+      "正しい。ノード同士の共適応を抑えることで、学習データへの過度な適合を避け、未知のデータへの汎化を促す。",
+      "間違い。通常のDropoutでノードをランダムに無効化するのは学習時であり、推論時に同じ処理を必須とする説明は誤りである。推論時にも確率的に無効化して予測を平均するMC Dropoutなどは別の利用法である。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "24dd31f52180bb62",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-080",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:24dd31f52180bb62",
+    "reviewQuestionId": "24dd31f52180bb62",
+    "sourceRecordRef": "question_udemy-7147437-080.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+        "sourceUrl": "https://www.jmlr.org/beta/papers/v15/srivastava14a.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Keras Dropout layer",
+        "sourceUrl": "https://keras.io/api/layers/regularization_layers/dropout/",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
