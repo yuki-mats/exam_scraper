@@ -83,3 +83,7 @@
 - 演習問題③問72: ガウス分布か一様分布かはKL情報量が0になるための十分条件ではない。取得元解説の「分布の種類は値に影響しない」という表現は不正確なので後続03で用いない。
 - 演習問題③問74: 転移学習は学習時間短縮や精度向上が常に保証されるものではない。取得元の2番を所要時間の断定ではなく転移元知識を使わないという誤りに変える。[負の転移の研究](https://arxiv.org/abs/2009.00909)も踏まえ、4番を正しい選択肢として維持する。
 - 演習問題③問75: [NISTのブロックチェーン技術概要](https://csrc.nist.gov/pubs/ir/8202/final)は、許可不要型と許可型で管理構造が異なることを示す。05では許可不要のパブリック型に対象を絞り、改ざん困難や分散管理を絶対的な削除不能・管理者不在と表現しない。
+- 演習問題③問76: カーネルトリックは高次元の写像先での内積を明示的な写像なしで計算する工夫であり、常に計算コストを下げるわけではない。05では取得元の計算コスト削減という断定を外す。
+- 演習問題③問77: [ImageNet公式の2012年結果](https://www.image-net.org/challenges/LSVRC/2012/results.html)で優勝を確認した。[AlexNetの原論文](https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)はReLUによる学習の高速化とドロップアウトを述べる。取得元の「ReLUが勾配消失を解決する」という断定を05では避ける。
+- 演習問題③問79: [PyTorchのInstanceNorm2d説明](https://docs.pytorch.org/docs/stable/generated/torch.nn.InstanceNorm2d.html)に沿って、サンプルごと・チャネルごとの空間統計量を正答肢に置く。取得元2番の単なる「画像認識で使用される」は定義として弱く、3番は全チャネル一括という点で誤る。
+- 演習問題③問80: [欧州委員会の十分性認定の説明](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en)に沿って用語を問う。十分性認定は域外移転の唯一の仕組みではなく、[他の移転手段](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/rules-international-data-transfers_en)もあるため、後続03で認定がないと一切移転できないとは書かない。
