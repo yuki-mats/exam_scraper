@@ -29,10 +29,10 @@
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
         "正しい",
-        "間違い"
+        "正しい",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
@@ -64,7 +64,6 @@
         3
       ],
       "isCalculationQuestion": false,
-      "manualQuestionIntentOverride": true,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
       "lawReferences": [
@@ -103,10 +102,10 @@
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
         "正しい",
         "間違い",
-        "間違い"
+        "正しい",
+        "正しい"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
@@ -138,7 +137,6 @@
         2
       ],
       "isCalculationQuestion": false,
-      "manualQuestionIntentOverride": true,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
       "lawReferences": [
@@ -177,10 +175,10 @@
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
-        "正しい"
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
@@ -212,7 +210,6 @@
         4
       ],
       "isCalculationQuestion": false,
-      "manualQuestionIntentOverride": true,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
       "lawReferences": [
@@ -374,7 +371,7 @@
       "qualificationName": "柔道整復師",
       "examLabel": "第5回（1997年） 午後問題",
       "questionLabel": "問131",
-      "questionType": "group_choice",
+      "questionType": "true_false",
       "choiceTextList": [
         "ａ、ｂ",
         "ａ、ｄ",
@@ -752,10 +749,10 @@
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
-        "正しい"
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
@@ -787,7 +784,6 @@
         4
       ],
       "isCalculationQuestion": false,
-      "manualQuestionIntentOverride": true,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
       "lawReferences": [
@@ -949,7 +945,7 @@
       "qualificationName": "柔道整復師",
       "examLabel": "第5回（1997年） 午後問題",
       "questionLabel": "問139",
-      "questionType": "group_choice",
+      "questionType": "true_false",
       "choiceTextList": [
         "ａ、ｂ",
         "ａ、ｄ",
@@ -1106,7 +1102,7 @@
       "public_question_id": "5fab66c8ec11db89",
       "original_question_id": "5fab66c8ec11db89",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
         "間違い",
         "正しい",
@@ -1450,7 +1446,7 @@
       "qualificationName": "柔道整復師",
       "examLabel": "第5回（1997年） 午後問題",
       "questionLabel": "問146",
-      "questionType": "group_choice",
+      "questionType": "true_false",
       "choiceTextList": [
         "ａ、ｂ",
         "ａ、ｄ",
@@ -1534,7 +1530,7 @@
       "public_question_id": "bb8470ba75706b77",
       "original_question_id": "bb8470ba75706b77",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
         "正しい",
         "間違い",
@@ -1570,8 +1566,7 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false,
-      "manualQuestionIntentOverride": true
+      "isCalculationQuestion": false
     },
     {
       "questionBodyText": "脳卒中の早期リハビリテーションで誤っているのはどれか。",
@@ -1709,7 +1704,6 @@
         2
       ],
       "isCalculationQuestion": false,
-      "manualQuestionIntentOverride": true,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
       "lawReferences": [
