@@ -221,3 +221,8 @@
 - 演習問題⑤問28: [Googleのバイアス分類](https://developers.google.com/machine-learning/crash-course/fairness/types-of-bias)に沿い、標本抽出の偏りをサンプリングバイアスとして問う。取得元は正解を2番としながら、正誤ラベルと`questionIntent`を逆に記録しているため、05で整合させる。
 - 演習問題⑤問29: [Dockerの公式説明](https://docs.docker.com/get-started/docker-overview/)に沿い、アプリケーションをコンテナで実行する基盤として問う。
 - 演習問題⑤問30: [BERTの公式実装説明](https://github.com/google-research/bert)に沿い、文中の一部をマスクし、文脈から隠した語を予測するMLMを問う。
+- 演習問題⑤問31: [VAEの原論文](https://arxiv.org/abs/1312.6114)に沿い、入力から潜在変数の分布を推定し、サンプリングしてデータを生成する点を正答肢に明示する。
+- 演習問題⑤問32: [CBOWの原論文](https://arxiv.org/abs/1301.3781)に沿い、周辺の語から対象語を予測する方向を問う。
+- 演習問題⑤問33: [文化庁のAIと著作権に関する考え方](https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html)に沿い、人の創作的寄与がない自律的生成物の著作物性を誤答とする。侵害の民事・刑事責任、私的使用は条件付きで表現する。
+- 演習問題⑤問34: [KerasのZeroPadding2Dの説明](https://keras.io/2/api/layers/reshaping_layers/zero_padding2d/)に沿い、入力の周囲へのパディングで特徴マップの大きさを調整できる点を問う。
+- 演習問題⑤問35: [scikit-learnのアンサンブル手法](https://scikit-learn.org/1.5/modules/ensemble.html)に沿い、バギング、ブースティング、スタッキングを各手法の定義で区別する。取得元の「スタッキングはバギングの応用」という説明は採用しない。
