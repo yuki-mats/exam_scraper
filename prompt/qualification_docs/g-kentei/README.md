@@ -226,3 +226,8 @@
 - 演習問題⑤問33: [文化庁のAIと著作権に関する考え方](https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html)に沿い、人の創作的寄与がない自律的生成物の著作物性を誤答とする。侵害の民事・刑事責任、私的使用は条件付きで表現する。
 - 演習問題⑤問34: [KerasのZeroPadding2Dの説明](https://keras.io/2/api/layers/reshaping_layers/zero_padding2d/)に沿い、入力の周囲へのパディングで特徴マップの大きさを調整できる点を問う。
 - 演習問題⑤問35: [scikit-learnのアンサンブル手法](https://scikit-learn.org/1.5/modules/ensemble.html)に沿い、バギング、ブースティング、スタッキングを各手法の定義で区別する。取得元の「スタッキングはバギングの応用」という説明は採用しない。
+- 演習問題⑤問36: [音声認識の大学教材](https://web.stanford.edu/~jurafsky/slp3/old_aug25/14.pdf)に沿い、音声のスペクトル包絡に現れる共鳴ピークをフォルマントとして問う。
+- 演習問題⑤問37: [Grad-CAMの原論文](https://arxiv.org/abs/1611.07450)、[SHAPの原論文](https://arxiv.org/abs/1705.07874)、[LIMEの原論文](https://arxiv.org/abs/1602.04938)に沿い、Grad-CAMとGuided Backpropagationの組合せ、SHAPの特徴量寄与、LIMEの局所的で解釈可能な近似を区別する。
+- 演習問題⑤問38: [statsmodelsのAIC定義](https://www.statsmodels.org/stable/generated/statsmodels.tsa.statespace.mlemodel.MLEResults.info_criteria.html)に沿い、尤度による当てはまりとパラメータ数へのペナルティーを評価する指標として問う。取得元の「予測精度とのバランス」は直接的すぎるため使わない。
+- 演習問題⑤問39: [NISTのビッグデータ定義](https://csrc.nist.gov/glossary/term/big_data)にある多様性を踏まえ、構造化・半構造化・非構造化のデータを含み得る点を正答とする。三種類への分類だけをビッグデータの定義とはしない。
+- 演習問題⑤問40: [IPAの情報システム・モデル取引・契約書](https://www.ipa.go.jp/digital/model/model20201222.html)と[中小企業庁の知的財産取引ガイドライン](https://www.chusho.meti.go.jp/keiei/torihiki/chizai_guideline.html)に沿い、受託側のノウハウ開示を一律義務とする肢を誤答とする。[民法上の損害賠償要件に関する消費者庁の説明](https://www.caa.go.jp/policies/policy/consumer_system/consumer_contract_act/annotations/assets/consumer_system_cms203_230915_13.pdf)を踏まえ、取得元の「過失がなくとも賠償義務を負う」という無条件の説明を修正する。
