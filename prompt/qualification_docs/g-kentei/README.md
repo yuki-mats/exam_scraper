@@ -16,3 +16,6 @@
 - 演習問題①問70: 取得元は特許を受ける権利が常に発明者へ原始帰属すると説明するが、現行の特許法第35条第3項では、職務発明についてあらかじめ契約や勤務規則などで使用者に取得させると定めた場合、権利は発生時から使用者に帰属する。[特許庁の職務発明制度の概要](https://www.jpo.go.jp/system/patent/shutugan/shokumu/shokumu.html)に従い、05の正答肢にこの条件を加える。後続03の解説も同じ条件で作成する。
 - 演習問題①問71: 取得元は「実際は陽性だが陰性と判定する誤り」の正解を偽陰性（2番）としつつ、正誤ラベルと`questionIntent`を逆に記録している。05では偽陰性だけを正しい選択肢とし、`select_correct`に修正する。
 - 演習問題①問80: 取得元の4番は推論時にもドロップアウトを適用する手法と区別できない。[通常のドロップアウトの原論文](https://www.jmlr.org/papers/v15/srivastava14a.html)と[推論時のドロップアウトに関する研究](https://proceedings.mlr.press/v48/gal16.html)を踏まえ、05では「推論時にも無効化が必須」という誤りに限定する。
+- 演習問題①問85: 取得元のBICの説明は対数尤度とペナルティの符号を曖昧にしている。[statsmodelsのBIC定義](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.statespace.mlemodel.MLEResults.info_criteria.html)に従い、05の選択肢1を「負の対数尤度にペナルティを加える」と表現する。
+- 演習問題①問98: 生体情報は、本人を識別できるように変換した符号が個人識別符号に該当する。[個人情報保護委員会のガイドライン](https://www.ppc.go.jp/personalinfo/legal/guidelines_tsusoku/)を確認し、05の設問では顔・指紋の特徴データにこの条件を明示する。
+- 演習問題①問99: SegNetの復元処理は単純な逆畳み込み層だけで表せない。[SegNetの原論文](https://arxiv.org/abs/1511.00561)に基づき、05では畳み込み層を使うEncoder-Decoder構造として説明し、プーリングインデックスを用いる特徴を選択肢3で維持する。
