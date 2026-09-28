@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。オンライン学習では、新しいデータを順次取り込んでモデルを更新する。データを一件ずつ使う場合も、小さなまとまりで使う場合もある。",
+      "間違い。全データをまとめて使うのはバッチ学習の考え方である。オンライン学習は、新しいデータを順次取り込んで更新する。",
+      "間違い。別の課題で学習したモデルを再利用するのは転移学習である。オンライン学習は、新しいデータを順次取り込みながら学習を進める方法を指す。",
+      "間違い。バッチサイズの大小だけではオンライン学習かどうかは決まらない。新しいデータを順次使ってモデルを更新する点が重要である。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "f1e8a875d83494c5",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-049",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:f1e8a875d83494c5",
+    "reviewQuestionId": "f1e8a875d83494c5",
+    "sourceRecordRef": "question_udemy-7147437-049.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn Strategies to scale computationally: bigger data",
+        "sourceUrl": "https://scikit-learn.org/stable/computing/scaling_strategies.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
