@@ -376,3 +376,8 @@
 - 演習問題⑥問83: [PyTorchの畳み込み出力サイズの式](https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html)に沿い、元の11・2・3・2の条件を保ち、一辺が7になる計算を問う。
 - 演習問題⑥問84: [scikit-learnのランダムフォレスト説明](https://scikit-learn.org/stable/modules/ensemble.html)に沿い、複数の決定木をまとめるアンサンブル学習を問う。
 - 演習問題⑥問85: [GRU原論文](https://arxiv.org/abs/1406.1078)に沿い、LSTMより簡潔なゲート構成を問う。常に高速になるとの断定は避ける。
+- 演習問題⑥問86: [経済産業省のAI開発契約ガイドライン](https://www.meti.go.jp/policy/mono_info_service/connected_industries/sharing_and_utilization/20200619001.pdf)に沿い、異なる得意分野の組織の協力を問う。法的義務の一般的な断定を避け、開発中の連絡と契約内容の確認を誤答との差にする。
+- 演習問題⑥問87: [特許庁の職務発明制度](https://www.jpo.go.jp/system/patent/shutugan/shokumu/shokumu.html)、[ソフトウェア関連発明の審査基準](https://www.jpo.go.jp/system/laws/rule/guideline/patent/document/cs_shinsa/cs_shinsa.pdf)、[文化庁の著作権登録の説明](https://www.bunka.go.jp/seisaku/chosakuken/seidokaisetsu/toroku_seido/faq.html)に沿い、職務発明の権利帰属に規程等の条件を付け、技術的処理も発明になり得る点を問う。
+- 演習問題⑥問88: [音声特徴の研究資料](https://people.csail.mit.edu/jvb/pubs/papers/bouvrie_thesis_2009.pdf)に沿い、MFCCをスペクトル包絡の情報を表す係数として問う。係数そのものを「求める方法」とは呼ばない。
+- 演習問題⑥問89: [IEAのAIと電力需要の分析](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai)に沿い、大規模言語モデルの学習で電力消費を無視できないことを問う。モデル規模と消費電力の関係は同じ構成・処理条件に限る。
+- 演習問題⑥問90: 網羅性の不足を転移学習だけで解消できないことを問う。品質のばらつきを減らし、クラス不均衡は必要に応じて対処する表現に整える。
