@@ -52,3 +52,7 @@
 - 演習問題③問17: 標準RNNは長期依存関係の学習も苦手なため、取得元の3番は一般的な「欠点」を問うと紛らわしい。05の設問を時系列方向の並列処理に限定し、1番を一意の正答にする。
 - 演習問題③問18: [経済産業省のAI開発契約ガイドライン](https://www.meti.go.jp/shingikai/sankoshin/shomu_ryutsu/joho_keizai/it_rikatsuyo/pdf/011_s02_02.pdf)はアセスメント段階での秘密保持契約を例示する。[秘密情報の管理資料](https://www.meti.go.jp/policy/economy/chizai/chiteki/pdf/handbook/chapter3.pdf)も終了時の返還・消去を扱う。05では締結時期を開発段階だけに遅らせず、終了後の取扱いを明確に定める選択肢を正答とする。
 - 演習問題③問20: [NIST AI RMFの信頼性評価](https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/)は安全以外にも複数の特性を扱う。05では倫理アセスメントの目的を事故防止だけに限定する誤りを明確にする。
+- 演習問題③問24: 説明変数を増やせば未知データの予測精度が必ず上がるという取得元の趣旨を、05の誤答肢で明確にする。訓練データへの当てはまりと汎化性能を混同しない。
+- 演習問題③問25: DAEを「画像生成には適用できない」とする取得元の解説は過度な断定である。[DAEを生成モデルとして扱う研究](https://arxiv.org/abs/1305.6663)もある。05ではVAE・Pix2Pix・CycleGANと比べ、DAEが主としてノイズ除去・再構成の手法である点を問う。後続03は生成不可能と書かない。
+- 演習問題③問26: 形式知の量や整理も知識獲得の負担になり得るため、取得元の3番をそのまま誤答にはできない。[エキスパートシステムの知識獲得研究](https://www.sciencedirect.com/science/article/pii/0168169989900112)を踏まえ、05の3番を必要な形式知がすでに利用可能な状態へ直す。
+- 演習問題③問29: 取得元が参照する[Google CloudのMLOps工程](https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)は、事業課題と成功基準を定めた後にデータ分析、学習、評価、監視へ進む。05ではその後のMLパイプライン工程を問う形に絞り、事業課題の分析自体をMLOps全体で不要とはしない。
