@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。ジョルダンネットワークは出力層の情報をコンテキスト層へ戻し、次の時刻の計算に利用する。これにより、前の出力を後の処理に反映できる。",
+      "正しい。ジョルダンネットワークもエルマンネットワークも、前の時刻の情報を後の処理に使う再帰型ネットワークである。系列の処理に利用でき、学習の設定によっては時系列予測にも使える。",
+      "間違い。隠れ層の出力をコンテキスト層へ戻すのはエルマンネットワークの特徴である。ジョルダンネットワークでは、出力層からコンテキスト層へ情報を戻す。",
+      "正しい。コンテキスト層が前の出力に関する情報を保持するため、ジョルダンネットワークは短期的な記憶を使って時間的な関係を扱える。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "b96ec2045bd7afec",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-063",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:b96ec2045bd7afec",
+    "reviewQuestionId": "b96ec2045bd7afec",
+    "sourceRecordRef": "question_udemy-7147437-063.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Serial Order: A Parallel Distributed Processing Approach",
+        "sourceUrl": "https://papers.baulab.info/papers/also/Jordan-1986.pdf",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Finding Structure in Time",
+        "sourceUrl": "https://www2.fiit.stuba.sk/~kvasnicka/NeuralNetworks/6.prednaska/Elman_SRNN_paper.pdf",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
