@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。確率的勾配降下法（SGD）は、学習データの一部から勾配を見積もってパラメータを更新する。ミニバッチを使えば、全データで勾配を計算するより一回の更新に使うデータを少なくできる。",
+      "間違い。バッチ勾配降下法は、学習データ全体を使って勾配を求めてから更新する。設問のようにミニバッチごとに更新する方法とは異なる。",
+      "間違い。ニュートン法は、勾配に加えて二階微分の情報も使って更新方向を求める最適化手法である。ミニバッチから勾配を見積もるSGDの説明には当たらない。",
+      "間違い。ランダムサーチは候補を無作為に試す探索方法で、学習率などの設定を探すときに使われる。勾配から重みを更新する方法ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "16f809db70a9d0f3",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-035",
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:16f809db70a9d0f3",
+    "reviewQuestionId": "16f809db70a9d0f3",
+    "sourceRecordRef": "question_udemy-7147437-035.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定シラバス2024 v1.4（最適化手法）",
+        "sourceUrl": "https://www.jdla.org/download/g%e6%a4%9c%e5%ae%9a%e3%81%ae%e8%a9%a6%e9%a8%93%e5%87%ba%e9%a1%8c%e7%af%84%e5%9b%b2-%ef%bc%88%e3%82%b7%e3%83%a9%e3%83%90%e3%82%b9%ef%bc%89g20246%ef%bd%9ev1-4/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Goodfellow et al., Deep Learning, Chapter 8: Optimization for Training Deep Models",
+        "sourceUrl": "https://www.deeplearningbook.org/contents/optimization.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
