@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。隠れマルコフモデル（HMM）は、直接観測できない隠れ状態が確率的に遷移し、各状態から観測データが確率的に生成される二層構造の時系列モデルである。",
+      "間違い。ベイズ推定は事前分布と観測データから事後分布を求める推定の考え方であり、隠れ状態の遷移と観測の生成を定義する特定の時系列モデルではない。",
+      "間違い。マルコフ連鎖モンテカルロ法（MCMC）は、確率分布からサンプルを得るための計算手法であり、観測と隠れ状態の生成過程を表すモデルそのものではない。",
+      "間違い。カルマンフィルタは、線形ガウス状態空間モデルで連続値の状態を推定する手法である。離散的な隠れ状態と観測記号を扱うHMMとはモデルの前提が異なる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "532029cf588d9d70",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-096",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:532029cf588d9d70",
+    "reviewQuestionId": "532029cf588d9d70",
+    "sourceRecordRef": "question_udemy-7147437-096.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition",
+        "sourceUrl": "https://www.fceia.unr.edu.ar/prodivoz/Rabiner_1989.pdf",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Kalman filtering and optimal estimation",
+        "sourceUrl": "https://www.cs.unc.edu/~welch/kalman/kalmanIntro.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
