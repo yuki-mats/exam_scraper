@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "畳み込みニューラルネットワーク（CNN）の出力層において、出力結果と特徴マップの関連を強めることで解釈性を高めることを目的に、全結合層に代わって用いられる手法として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題50",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "グローバルアベレージプーリング",
+        "最大値プーリング",
+        "平均値プーリング",
+        "サブサンプリング層"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-050",
+      "public_question_id": "98509b1f46bbe4bd",
+      "original_question_id": "98509b1f46bbe4bd",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:050",
+      "source_public_question_id": "98509b1f46bbe4bd",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:050:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:050:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:050:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:050:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\nグローバルアベレージプーリング（GAP）は、各チャネルの特徴マップ全体（縦×横）を平均して、チャネルごとに1つの値にまとめる手法です。これにより、全結合層を使わずに「各特徴マップがどのクラスにどれだけ効いているか」を直接つなげやすくなり、出力（クラススコア）と特徴マップの対応関係が明確になって解釈性が高まります（CAMなどの考え方とも相性が良いです）。\nオプション2は不正解です。\n最大値プーリングは局所領域の最大値を取って特徴を抽出・縮約する手法で、主に中間層で空間サイズを小さくする目的で使われます。出力層で全結合層の代替として用いる代表的手法ではありません。\nオプション3は不正解です。\n平均値プーリング（局所平均プーリング）は局所領域の平均を取る処理で、主にダウンサンプリングのために用いられます。全結合層の代替として「特徴マップと出力の対応を強める」目的で一般的に使われるのはGAPです。\nオプション4は不正解です。\nサブサンプリング層は一般にプーリングなどによるダウンサンプリングを指し、中間層で特徴マップを縮小するために使われます。出力層で全結合層の代わりとして解釈性を高める目的の手法ではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

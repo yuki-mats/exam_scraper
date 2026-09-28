@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "マルコフ決定過程（MDP）に関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題36",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "状態、行動、遷移確率、報酬関数、割引率から構成される形式モデルである。",
+        "ある状態で取られた行動が次の状態と報酬に確率的に影響を与える構造を持つ。",
+        "過去のすべての状態履歴を考慮して将来の状態が決定されるため、記憶性の高いモデルである。",
+        "強化学習において、最適な方策を理論的に定義する基盤としてよく用いられる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-036",
+      "public_question_id": "d6b6d2f041ad703d",
+      "original_question_id": "d6b6d2f041ad703d",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:036",
+      "source_public_question_id": "d6b6d2f041ad703d",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:036:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:036:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:036:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:036:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\nマルコフ決定過程（MDP）は「マルコフ性」に基づいており、将来の状態は現在の状態と行動のみに依存し、過去の履歴には依存しません。この性質は「記憶性が低い」とも言われ、MDPの本質的特徴です。\nオプション1は不正解です。MDPは、状態、行動、遷移確率、報酬関数、割引率の5つで構成されます。\nオプション2は不正解です。MDPの遷移モデルは確率的であり、状態と行動の組に対して次の状態と報酬が確率的に決まります。\nオプション4は不正解です。\n強化学習はMDPの枠組みを理論的基盤として用い、方策や価値関数の定義に役立てます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

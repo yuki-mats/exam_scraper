@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄（A）（B）に最もよく当てはまる選択肢を1つ選べ。Actor-Critic手法は強化学習手法の1つであり、Actorが（A）し、Criticが（B）するという役割を持っています。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "（A）計画を立案（B）行動を決定して実行",
+        "（A）行動の良否を評価（B）行動を決定して実行",
+        "（A）行動を決定して実行（B）実行した行動をルールに従って反復",
+        "（A）行動を決定して実行（B）行動の良否を評価"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-011",
+      "public_question_id": "ea3916f395473f83",
+      "original_question_id": "ea3916f395473f83",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:011",
+      "source_public_question_id": "ea3916f395473f83",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:011:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:011:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:011:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:011:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。Actor-Critic手法は強化学習の代表的な枠組みで、役割を2つに分けて学習を進めます。Actor（方策）は「この状態ではどの行動を取るか」を決めて実行し、Critic（価値評価）はその行動がどれくらい良かったかを評価します。評価には一般に価値関数を用い、実際に得られた報酬と予測との差（TD誤差）などを手がかりにして、Actorがより良い行動を選べるように学習信号を与えます。\nオプション1は不正解です。Actorが行動を決定して実行し、CriticがTD誤差によりその行動の良否を評価します。\nオプション2は不正解です。ActorとCriticの役割が逆となります。\nオプション3は不正解です。Criticは、TD誤差によりActorが実行した行動の良否を評価します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

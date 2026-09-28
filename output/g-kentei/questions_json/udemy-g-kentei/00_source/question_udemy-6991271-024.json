@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "MobileNetに関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "モバイルや組込み機器向けに設計された軽量なニューラルネットワークアーキテクチャである。",
+        "各チャネルごとに独立して空間方向に畳み込みを行う「Depthwise Convolution」を用いることで計算効率を高めている。",
+        "実装の軽さと精度のバランスの良さから、リアルタイム画像認識などに用いられることが多い。",
+        "モデルの軽量化のために、パラメータ数があえて従来のResNetよりも大きくなるように設計されている。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-024",
+      "public_question_id": "cd300dfab70f1980",
+      "original_question_id": "cd300dfab70f1980",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:024",
+      "source_public_question_id": "cd300dfab70f1980",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:024:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:024:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:024:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:024:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。MobileNetは、パラメータ数を極力減らし、モデルを軽量化することを目的に開発されたネットワークであり、ResNetよりも大きなパラメータ数を目指す設計ではありません。各チャネルごとに独立して空間方向に畳み込み（Depthwise Convolution）を行うことにより、演算量とメモリ使用量を抑えつつ、高精度な処理を実現しています。\nオプション1は不正解です。MobileNetはモバイル端末やエッジデバイス向けの軽量モデルです。\nオプション2は不正解です。\n計算効率向上のために、Depthwise Convolutionが採用されています。\nオプション3は不正解です。MobileNetはリアルタイム画像認識などのタスクでも実用化されています。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

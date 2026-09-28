@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "宝くじ仮説（Lottery Ticket Hypothesis）に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題64",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "大規模モデルを圧縮する際、特定のサブネットワークが高性能を維持するという仮説。",
+        "初期のハイパーパラメータ調整によって最適な精度を保証するという統計理論。",
+        "ニューラルネットの構造をランダムに変更することで性能向上を目指す手法。",
+        "学習中にモデルの重みをすべて初期化することで最適解にたどり着けるという理論。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-064",
+      "public_question_id": "c377556a86f15117",
+      "original_question_id": "c377556a86f15117",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:064",
+      "source_public_question_id": "c377556a86f15117",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:064:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:064:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:064:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:064:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1は正解です。\n宝くじ仮説は、ランダムに初期化された大規模ニューラルネットワークの中には、訓練後に高い性能を示す「当たりくじのような」サブネットワークが存在するという仮説です。\nこの仮説は、モデルの圧縮や軽量化技術（プルーニング）において、精度を落とさずに効率的な構造を得るための理論的基盤となっています。\nオプション2は不正解です。\nハイパーパラメータの調整はモデルの最適化に役立つ手法ですが、宝くじ仮説は初期の重み構造の潜在的な性能に関する仮説であり、ハイパーパラメータとは直接関係しません。\nオプション3は不正解です。\n構造をランダムに変更することが目的ではなく、あくまで既存のネットワーク内から優れた部分構造を見つけ出すことに着目しています。\nオプション4は不正解です。\n重みをすべて初期化するという内容は、一般的な訓練プロセスに関する話であり、宝くじ仮説に関する記述としては不十分です。宝くじ仮説のポイントは、初期の重み設定の中に高性能を持つ部分構造（サブネットワーク）がすでに潜んでいるという点です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

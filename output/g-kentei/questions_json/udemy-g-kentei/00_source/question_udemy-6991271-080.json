@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "平均二乗誤差関数（MSE）に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題80",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "分類タスクにおいて正解ラベルの確率分布を学習するために用いられる損失関数である。",
+        "分類よりも回帰タスクで一般的に用いられ、予測値と実測値の差の2乗の平均である。",
+        "出力が2値の場合に使用されることが多く、交差エントロピーとほぼ同義である。",
+        "誤差の絶対値を直接最小化するため、外れ値に対して非常に頑健である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-080",
+      "public_question_id": "7107a11c72c35c15",
+      "original_question_id": "7107a11c72c35c15",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:080",
+      "source_public_question_id": "7107a11c72c35c15",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:080:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:080:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:080:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:080:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\n平均二乗誤差（Mean Squared Error：MSE）は、回帰問題で最も広く使われる損失関数の一つで、予測値と実際の値の差を2乗し、それを平均して算出します。誤差を2乗することで、誤差の大きさに対してより強くペナルティを課す性質があります。\nオプション1は不正解です。\n分類タスクでは交差エントロピー損失などが一般的に使用され、MSEは適さない場合が多いです。\nオプション3は不正解です。MSEと交差エントロピーは全く異なる性質を持つ損失関数です。\nオプション4は不正解です。MSEは2乗誤差を用いるため、外れ値の影響を強く受けるという欠点があります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

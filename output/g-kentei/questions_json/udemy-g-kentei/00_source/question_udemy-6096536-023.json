@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "k-分割交差検証の説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "データセット内の件数が少ないときに用いると効果的である。",
+        "クラス数が少ないときに用いると効果的である。",
+        "入力データの次元が少ないときに用いると効果的である。",
+        "学習に時間がかかるときに用いると効果的である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-023",
+      "public_question_id": "839644934c979e3e",
+      "original_question_id": "839644934c979e3e",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:023",
+      "source_public_question_id": "839644934c979e3e",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:023:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:023:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:023:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:023:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。k-分割交差検証は、手元のデータをk個のグループに分け、1つを検証用、残りk-1個を学習用として学習・評価を行う手順をk回繰り返し、その平均などで性能を見積もる方法です。データが少ない場合でも、各データを学習にも検証にも回せるため、1回だけの単純な分割より評価が安定しやすく、性能の信頼性を確認しやすいという利点があります。\nオプション2は不正解です。\nクラスの数が少ないときは、アンダーサンプリングやオーバーサンプリングなどの不均衡データ対策が効果的です。\nオプション3は不正解です。\n入力データの次元（特徴量の多さ・少なさ）は、k-分割交差検証を行うべきかどうかの直接の条件ではありません。k-分割交差検証は主に「評価を安定させたい」「データを有効活用して汎化性能を見積もりたい」という目的で使われます。\nオプション4は不正解です。\n学習に時間がかかる場合、k-分割交差検証は同じ学習をk回行うため計算コストが増えやすく、むしろ負担が大きくなります。時間が重い場合は、ホールドアウト検証やkを小さくする、サブサンプリングするなどの工夫が検討されます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

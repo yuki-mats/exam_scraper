@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "過去の行動と結果等を経験として保存し、その経験をサンプリングして学習データとする「経験再生（Experience Replay）」を活用するモデルとして、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題③ 問題6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DQN",
+        "GPU",
+        "HMM",
+        "VAE"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6242272/test#question-006",
+      "public_question_id": "6d17258568b7ad30",
+      "original_question_id": "6d17258568b7ad30",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:006",
+      "source_public_question_id": "6d17258568b7ad30",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:006:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:006:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:006:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:006:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。DQN（Deep Q-Network）は、深層強化学習における一つの手法で、Experience Replayという機能を持つことから適切である。Experience Replayを使用すると、過去の経験（状態、行動、報酬、次の状態）の組を保存し、それらをランダムに抽出し、ネットワークの学習に活用することができます。これによって、適応度の低い解答と高い解答が同時に利用され、学習が安定化するというメリットがあります。\nオプション2は不正解です。GPU（Graphics Processing Unit）は、画像処理装置のことです。\nオプション3は不正解です。HMM（Hidden Markov Model）は状態遷移の確率モデルであり、音声認識において音響モデルなどに使用されるモデルです。\nオプション4は不正解です。VAE（Variational AutoEncoder）とは、オートエンコーダ型の生成モデルのことです。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

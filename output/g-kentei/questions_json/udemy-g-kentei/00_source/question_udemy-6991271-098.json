@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "学習率に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題98",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "一度設定すると固定であり、モデルの性能には影響を与えない。",
+        "勾配に基づく更新のステップサイズを決める重要なハイパーパラメータである。",
+        "学習率を0にすると最も安定した学習が可能となり、過学習を完全に防げる。",
+        "損失関数の種類によって自動的に最適化されるため、手動設定は不要である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-098",
+      "public_question_id": "23034c4499c97288",
+      "original_question_id": "23034c4499c97288",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:098",
+      "source_public_question_id": "23034c4499c97288",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:098:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:098:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:098:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:098:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\n学習率は、パラメータ更新時の一歩の大きさ（ステップサイズ）を制御するハイパーパラメータです。学習率が大きすぎると発散し、小さすぎると収束が遅くなるため、適切な値の選定が非常に重要です。学習率スケジューリングや自動調整（例：Adam）なども広く使われます。\nオプション1は不正解です。\n学習率はモデル性能に大きく影響し、固定で良いとは限りません。\nオプション3は不正解です。\n学習率0では学習が全く進まなくなり、過学習を防げても汎化性能も得られません。\nオプション4は不正解です。\n損失関数によって自動最適化されるわけではなく、学習率のチューニングは依然として重要です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄（A）（B）に最もよく当てはまる選択肢を1つ選べ\n（A）は機械翻訳などに用いられるモデルであり、2つのRNNを利用する。これらはエンコーダ/デコーダと呼ばれ、それぞれ（B）という役割を果たす。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題52",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "（A）NSP（B）エンコーダによって翻訳元の文を生成し、デコーダによって内容をコンパクトにまとめる",
+        "（A）Seq2Seq（B）エンコーダによって翻訳元の文の内容をコンパクトにまとめ、デコーダによって目的の文を生成する",
+        "（A）NSP（B）エンコーダによって翻訳元の文の内容をコンパクトにまとめ、デコーダによって目的の文を生成する",
+        "（A）Seq2Seq（B）エンコーダによって翻訳元の文を生成し、デコーダによって内容をコンパクトにまとめる"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-052",
+      "public_question_id": "4ef46171bd22f198",
+      "original_question_id": "4ef46171bd22f198",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:052",
+      "source_public_question_id": "4ef46171bd22f198",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:052:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:052:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:052:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:052:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。Seq2Seq（Sequence to Sequence）は、機械翻訳のように「入力の系列（翻訳元の文）」から「出力の系列（翻訳先の文）」を生成するためのモデルです。シーケンスとは一連の情報のことで、たとえば、一文を構成する単語や一つの音声を構成する音素などがあります。Seq2Seqモデルのエンコーダとデコーダは、RNN（再帰型ニューラルネットワーク）が利用されます。RNNは時系列データを扱うことが可能で、Seq2Seqモデルにおけるエンコーダは入力シーケンスを固定長のベクトルにエンコードし、デコーダはそのベクトルを元に出力シーケンスを生成します。\nオプション1は不正解です。NSP（Next Sentence Prediction）は、2つの文章を繋げて入力し、連続した文かを判定する手法のことです。また、エンコーダとデコーダの役割が逆となります。\nオプション3は不正解です。NSPは誤りです。\nオプション4は不正解です。\nエンコーダとデコーダの役割が逆となります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（ ）は、確率 \"x\" でランダムに行動し、それ以外の確率 \"1-x\" で最も期待値の高い行動を選択する強化学習の手法です。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題90",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DQN",
+        "ポリシー反復法",
+        "VGG",
+        "ε-greedy方策"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-090",
+      "public_question_id": "6533870e9d8fb8ac",
+      "original_question_id": "6533870e9d8fb8ac",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:090",
+      "source_public_question_id": "6533870e9d8fb8ac",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:090:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:090:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:090:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:090:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nε-greedyアルゴリズムは2つの戦略を持ちます。\n戦略①：「ε」の確率でランダムに選択し（探索）行動を選択する。\n戦略②：「1-ε」の確率で報酬の平均が最大の行動を選ぶ（活用）。\nこれによって、データ収集（探索）と最適化（活用）のバランスを取りながら、問題を解くことを可能とします。\nオプション1は不正解です。DQN（Deep Q-Network）は、Q学習を深層学習と組み合わせた手法ですが、設問文で述べられている手法で行動決定しません。\nオプション2は不正解です。\nポリシー反復法は強化学習手法であり、価値が最大となるような行動方針（ポリシー）を逐次的に探索して最適なポリシーを求めますが、設問文で述べられている手法で行動決定しません。\nオプション3は不正解です。VGG（Visual Geometry Group）とは、3×3の畳み込みフィルタを何層も重ねることで高精度な画像認識を可能としたモデルのことです。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

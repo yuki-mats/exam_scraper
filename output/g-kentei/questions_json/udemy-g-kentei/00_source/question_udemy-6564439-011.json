@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "APE-Xに関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "小規模なデータに特化した教師あり学習手法である。",
+        "生成モデルの出力を効率的に制御するためのAttention機構の一種である。",
+        "系列データの自己回帰予測に用いられる時系列分析法である。",
+        "オフポリシーの強化学習アルゴリズムで、分散学習によってスケーラブルに行動価値関数を学習する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-011",
+      "public_question_id": "8587ec151a35d567",
+      "original_question_id": "8587ec151a35d567",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:011",
+      "source_public_question_id": "8587ec151a35d567",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:011:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:011:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:011:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:011:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解です。APE-X（Distributed Prioritized Experience Replay）は、DeepMindが提案した強化学習アルゴリズムで、大規模な分散環境に対応しつつ、効率的に行動価値関数（Q関数）を学習できるように設計されたモデルです。この手法では、複数のエージェント（アクター）が同時に動き、環境とのやり取りから得た経験をリプレイバッファ（共有の記録場所）に集めます。そこから重要な経験を優先的に使って学習を行うことで、効率よく強化学習が進むように設計されています。\nこれにより、単一のエージェントでは学習が難しい大規模・複雑な環境でも高性能なポリシーを獲得することが可能になります。\nオプション1は不正解です。APE-Xは教師あり学習ではなく、強化学習のアルゴリズムです。\nオプション2は不正解です。APE-XはAttention機構とは無関係です。\nオプション3は不正解です。\n時系列予測のモデルではなく、方策学習に関する手法です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

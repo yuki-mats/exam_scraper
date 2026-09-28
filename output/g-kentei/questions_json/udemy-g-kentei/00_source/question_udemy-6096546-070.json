@@ -1,0 +1,81 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ブースティングに関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題70",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "始めに弱学習器で予測を行い、誤分類のサンプルを訂正するように別の学習モデルを追加して予測精度を高める手法のこと。",
+        "データセットから重複を許してランダムに抽出した訓練データを複数用意し、それぞれ独立にモデルを学習させて出力を各モデルの平均や多数決をにより決定する手法のこと。",
+        "複数モデルを並列して一度に作成する手法である。",
+        "バギングと比較して精度が高く 、学習時間が短い手法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-070",
+      "public_question_id": "5df3e70fcf75dbd2",
+      "original_question_id": "5df3e70fcf75dbd2",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:070",
+      "source_public_question_id": "5df3e70fcf75dbd2",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:070:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:070:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:070:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:070:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\nブースティングは逐次学習とも呼ばれ、予測器を逐次的（順次）に学習させ、間違った予測をしたデータに対してペナルティを与え（次回の学習でそのデータを重視する）、各予測器の予測結果を組み合わせることで予測精度を上げることを目的とした手法です。\n▼参考文献\nhttps://www.investor-daiki.com/baggingオプション2は不正解です。\nバギングの説明です。\nオプション3は不正解です。\nバギングの説明です。ブースティングはモデルを逐次的に作成します。\nオプション4は不正解です。\nバギングと比較して精度が高く 、学習時間も長い手法です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [
+        {
+          "title": "https://www.investor-daiki.com/bagging",
+          "url": "https://www.investor-daiki.com/bagging"
+        }
+      ],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

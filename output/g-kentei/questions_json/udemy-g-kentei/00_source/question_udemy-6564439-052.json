@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "モデル窃取（Model Stealing）に関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題52",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "クラウド上の学習済みモデルを削除して不正に損害を与える行為。",
+        "複数の教師モデルの予測結果を平均化して精度を高める技術。",
+        "他者が提供するブラックボックスモデルに対して、APIの入出力を模倣し同等のモデルを再構築する行為。",
+        "ホワイトボックスモデルに対して設計書をもとに性能検証を行う行為。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "AI倫理・AIガバナンス",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-052",
+      "public_question_id": "bbd5645d45be11fa",
+      "original_question_id": "bbd5645d45be11fa",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:052",
+      "source_public_question_id": "bbd5645d45be11fa",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:052:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:052:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:052:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:052:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解です。\nモデル窃取とは、他者が構築・公開しているブラックボックスモデルのAPIなどを用いて、模倣データを生成し、同様の性能を持つローカルモデルを再構築する攻撃手法です。知的財産権の侵害にもつながります。\nオプション1は不正解です。\n「モデルの削除」ではなく「モデルの模倣」となります。\nオプション2は不正解です。\nアンサンブル学習の説明です。\nオプション4は不正解です。\nホワイトボックス前提の検証は窃取とは異なります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

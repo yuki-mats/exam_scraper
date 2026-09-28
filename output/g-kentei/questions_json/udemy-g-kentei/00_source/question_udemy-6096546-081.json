@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ブランクと呼ばれる空白のラベルを導入することによって、入力系列長と出力系列長のズレを解決し、音声認識の精度を高めた手法について、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題81",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "FFT",
+        "CTC",
+        "GAN",
+        "HMM"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-081",
+      "public_question_id": "9d03a00440bb00b2",
+      "original_question_id": "9d03a00440bb00b2",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:081",
+      "source_public_question_id": "9d03a00440bb00b2",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:081:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:081:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:081:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:081:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。CTC（Connectionist Temporal Classification）は、RNNを用いたシーケンス学習において、入力系列長と出力系列長が一致しない可変性の問題について、出力候補に空文字を追加することで対応して解決する手法のことです。CTCは当初音声認識のモデルとして発表されましたが、文字認識や機械翻訳といった分野でも使用されています。\nオプション1は不正解です。FFT（Fast Fourier Transform）は信号処理において時間領域から周波数領域への変換を行う手法のことです。\nオプション3は不正解です。GAN（Generative Adversarial Network：敵対的生成ネットワーク）は画像生成を得意としており、RNNによる音声認識などとは直接関係ありません。\nオプション4は不正解です。HMM（Hidden Markov Model）は状態遷移の確率モデルであり、音声認識において音響モデルなどに使用されるモデルです。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

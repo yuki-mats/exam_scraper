@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "AIの開発契約における品質保証について、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題43",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "品質保証に関して記載がある通常のシステム開発の契約書があれば、その契約書を用いるべきである。",
+        "品質指標や評価方法、合否基準、未達時の対応を事前に定義することが重要である。",
+        "「やってみないと分からない」ということを、開発元、開発側ともに一定理解しておくことが必要である。",
+        "開発プロセスに合わせて、契約を分割することが有効である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "AIに関する法律と契約",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-043",
+      "public_question_id": "0da367aa1a77b936",
+      "original_question_id": "0da367aa1a77b936",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:043",
+      "source_public_question_id": "0da367aa1a77b936",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:043:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:043:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:043:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:043:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。AI開発は、通常のシステム開発と比べて「性能（精度）」がデータや運用環境に強く依存し、事前に確定しづらいという特徴があります。そのため、通常のシステム開発契約書にある品質保証（仕様通り動くか、バグ修正、検収など）だけを前提に「その契約書を用いるべき」と断定するのは不適切です。AI特有の論点（評価データの定義、精度指標、未達時の扱い、再学習やドリフト対応など）を契約に反映させる必要があります。\nオプション2は不正解です。AIの品質保証では、「何をもって良い／悪いと判断するか」を曖昧にするとトラブルの原因となります。そのため、精度などの品質指標、評価方法、合否基準、未達時の対応（追加学習・追加データ・仕様見直し・範囲変更など）を事前に定義することが重要です。\nオプション3は不正解です。\n開発前にAIの精度を予測することは難しく、「やってみないと分からない」ということを、開発元、開発側ともに一定理解しておくことが必要です。\nオプション4は不正解です。AI開発は、PoC→データ整備→モデル作成→評価→運用設計のように段階が分かれやすいため、プロセスに合わせて契約を分割することで各段階の目的・成果・責任分界が明確になり、品質面のリスクを抑えやすくなります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

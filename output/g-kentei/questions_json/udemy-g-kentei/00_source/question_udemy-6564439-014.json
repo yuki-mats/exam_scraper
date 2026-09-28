@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "従来のオートエンコーダ（AE）と比較した際の変分オートエンコーダ（VAE）の特徴として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "圧縮した情報を元の情報に変換するとき、確率モデルを活用している。",
+        "「正解率」「適合率」「再現率」の概念を取り入れている。",
+        "訓練データの全てに対して重みを更新している。",
+        "説明変数を複数使用して分析を行っている。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-014",
+      "public_question_id": "f07783cb52d158f8",
+      "original_question_id": "f07783cb52d158f8",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:014",
+      "source_public_question_id": "f07783cb52d158f8",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:014:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:014:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:014:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:014:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n変分オートエンコーダ（VAE）とオートエンコーダ（AE）の大きな違いは、圧縮した情報を元の情報に変換する際に、確率モデルを活用していることにあります。AEは、単純に来た情報を圧縮して元の情報に戻すもものですが、VAEには確率モデルに基づいて変換します。\nそのため、予想されていないデータが来た場合でも学習データをもとに処理を行うことが可能です。\nオプション2は不正解です。\n機械学習の評価指標の概念です。VAEとは異なります。\nオプション3は不正解です。\nバッチ学習で行われる動作です。\nオプション4は不正解です。\n重回帰分析の説明です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

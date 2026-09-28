@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "勾配爆発に関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "逆伝播中に勾配が指数的に大きくなり、学習が不安定になる現象である。",
+        "勾配クリッピングは、勾配爆発を抑制するための実践的な対処法である。",
+        "主に浅いニューラルネットワークで頻発し、深層モデルではほとんど起こらない。",
+        "勾配爆発が起こると、重みが不安定に変動し、損失関数が発散する可能性がある。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-007",
+      "public_question_id": "d726f4583bca1e6e",
+      "original_question_id": "d726f4583bca1e6e",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:007",
+      "source_public_question_id": "d726f4583bca1e6e",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:007:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:007:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:007:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:007:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\n勾配爆発は、特に「深い」ニューラルネットワークや再帰型ネットワーク（RNN）において発生しやすい問題です。逆伝播の際に連続的な勾配の乗算が行われ、勾配の値が極端に大きくなってしまうことで、学習が不安定になり、最悪の場合は学習が破綻します。浅いネットワークよりも、深層モデルでこそ問題となります。\nオプション1は不正解です。\n勾配爆発の正確な説明です。\nオプション2は不正解です。\n勾配クリッピングは、勾配の上限を制限することで爆発を防ぐ代表的な手法です。\nオプション4は不正解です。\n勾配爆発が生じると、重みが極端に更新されて損失関数が発散する可能性があります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

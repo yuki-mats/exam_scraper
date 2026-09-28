@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n確率分布XとYの相互情報量をI（X、Y）とする。I（X、Y）=0であるときは、（ ）である。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題29",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "XとYの確率分布は同じ",
+        "XとYは相関関係",
+        "XとYは独立の関係",
+        "XとYは反比例の関係"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "AIに必要な数理・統計知識",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-029",
+      "public_question_id": "bdddab90739a543e",
+      "original_question_id": "bdddab90739a543e",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:029",
+      "source_public_question_id": "bdddab90739a543e",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:029:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:029:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:029:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:029:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\n相互情報量I(X, Y)は、確率変数Xを知ることでYについてどれだけ情報が得られるかを表す指標です。I(X, Y)=0のとき、Xを知ってもYについて追加で得られる情報がなく（一方の確率変数が他方の確率変数に何の影響も及ぼさない）、二つの確率変数が独立している場合に相当します。（XY逆も同様です）\nオプション1は不正解です。\n相互情報量が0であることは「分布が同じ」ことを意味しません。XとYの分布が同じでも、両者が関連していれば相互情報量は0になりません。\nオプション2は不正解です。\n相互情報量が0のとき、XとYには依存関係がなく、相関（線形の関係）も基本的にありません。相関がある場合は通常I(X, Y)は0より大きくなります。\nオプション4は不正解です。\n反比例は特定の関数関係の一種であり、相互情報量が0である条件とは無関係です。反比例のようにXとYが関係している場合、一般に相互情報量は0になりません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

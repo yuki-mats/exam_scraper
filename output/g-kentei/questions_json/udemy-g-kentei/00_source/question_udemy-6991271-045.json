@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "RNNにおける「ゲート機構」に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題45",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ニューラルネットワークの出力層で必ず使用される活性化関数の一種である。",
+        "LSTMやGRUにおいて、重要な情報を保持し不要な情報を忘れる制御を行う役割を果たす。",
+        "Attention層で使用されるSoftmax関数の代替として導入された構造である。",
+        "畳み込みニューラルネットワークにおけるフィルタサイズを調整するメカニズムである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-045",
+      "public_question_id": "b47cbd71ec4bfbf1",
+      "original_question_id": "b47cbd71ec4bfbf1",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:045",
+      "source_public_question_id": "b47cbd71ec4bfbf1",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:045:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:045:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:045:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:045:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\nゲート機構は、RNNの改良型であるLSTMやGRUに導入され、記憶すべき情報・忘れるべき情報・出力すべき情報を動的に制御するための仕組みです。これにより、長期依存関係の学習が可能になり、標準RNNの持つ勾配消失問題に対処できます。\nオプション1は不正解です。\n活性化関数とは異なり、ゲート機構は情報の通過や遮断を動的に制御する仕組みです。\nオプション3は不正解です。Attentionとゲートは別概念であり、互いに代替するものではありません。\nオプション4は不正解です。\n畳み込みニューラルネットワーク（CNN）におけるフィルタ調整はゲート機構とは無関係です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

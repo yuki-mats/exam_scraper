@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "LSTMについて、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題62",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "短期記憶が得意であるが、長期記憶が不得意である。",
+        "RNNの課題である勾配消失問題に対応する。",
+        "画像キャプション生成にも活用されている。",
+        "忘却ゲートではシグモイド関数が使用される。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-062",
+      "public_question_id": "afeb9c4b823d5e48",
+      "original_question_id": "afeb9c4b823d5e48",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:062",
+      "source_public_question_id": "afeb9c4b823d5e48",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:062:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:062:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:062:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:062:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。LSTM（Long Short-Term Memory）は、通常のRNNが苦手としやすい「長い時系列で過去の情報が伝わりにくい（長期依存）」問題に対応するために提案されたモデルです。短期的な情報だけでなく、ゲート機構を使って重要な情報を保持・更新できるため、長期的な依存関係も扱いやすいのが特徴です。\nオプション2は不正解です。LSTMはゲート機構やセル状態を用いることで、通常のRNNで起こりやすい勾配消失問題を緩和し、学習を安定させやすくします。\nオプション3は不正解です。\n画像キャプション生成では、画像特徴（CNNなど）を入力として文章を生成する際に、系列生成モデルとしてLSTMが用いられることがあります。\nオプション4は不正解です。LSTMの忘却ゲートは「どれだけ忘れるか」を0〜1の範囲で決める必要があるため、一般にシグモイド関数が用いられます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

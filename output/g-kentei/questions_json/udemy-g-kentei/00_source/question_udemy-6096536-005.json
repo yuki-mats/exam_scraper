@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "探索木の探索において、同階層のノードを全て探索して後に次の階層へ進む手法について、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ハッシュ探索",
+        "幅優先探索",
+        "αβ法",
+        "深さ優先探索"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "人工知能をめぐる動向",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-005",
+      "public_question_id": "0934b6035a00bfd2",
+      "original_question_id": "0934b6035a00bfd2",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:005",
+      "source_public_question_id": "0934b6035a00bfd2",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:005:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:005:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:005:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:005:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\n幅優先探索は、同一階層のノードを全て探索してから次の階層へ進むアルゴリズムです。まず開始ノードから距離（深さ）が1のノードをすべて探索し、その後に距離が2のノードへ進む、というように同じ階層を一巡してから次の階層へ進み、これを繰り返して探索していきます。\nオプション1は不正解です。\nハッシュ探索は、キーに基づいてデータを直接アクセスする手法で、ノードの探索とは関係ありません。\nオプション3は不正解です。\nαβ法は、Mini-Max法により探索を可能な限り減らす手法のことです。\nオプション4は不正解です。\n深さ優先探索は、可能な限り深い階層へ進み、行き止まりになったら戻って別の分岐を探索する手法です。同じ階層のノードをすべて探索してから次の階層へ進むわけではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

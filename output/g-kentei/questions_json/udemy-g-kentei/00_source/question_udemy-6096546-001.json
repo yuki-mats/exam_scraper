@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "BERTについて、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Next Sentence Predicitonを利用している。",
+        "文章の冒頭から末尾にかけ、一方向に対してTransfomerを適用している。",
+        "Masked Langage Modelを利用している。",
+        "ラベルが付与されていないデータを用いて事前学習を行う。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-001",
+      "public_question_id": "88c7967e314572ac",
+      "original_question_id": "88c7967e314572ac",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:001",
+      "source_public_question_id": "88c7967e314572ac",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:001:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:001:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:001:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:001:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。BERTは「双方向」のTransformerを使用して情報を処理し、文脈全体を考慮して各単語を理解します。\nオプション1は不正解です。Next Sentence Predictionは、BERTが事前学習中に使用するタスクです。ある文が別の文の後に来る確率を特定し、これによってBERTは文間の関連性を理解する能力を持ちます。\nオプション3は不正解です。Masked Language ModelはBERTの事前学習に用いられるタスクであり、ランダムにマスクされた単語を元の形に戻すことを学習します。\nオプション4は不正解です。BERTの事前学習は、ラベルが付与されていない大量のテキストデータを用いて行われます。事前学習の目的は、自然言語理解のための一般的な言語モデルを学習することで、これらのデータは特定のタスクから独立した汎用的知識を提供します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。SSDは位置の特定とクラスの識別を同時に行う（A）であり、出力層から入力画像の位置における物体らしさと矩形領域を出力する手法であり、（B）を目的としている。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "（A）1段階モデル（B）処理速度の高速化",
+        "（A）1段階モデル（B）検出精度の向上",
+        "（A）2段階モデル（B）処理速度の高速化",
+        "（A）2段階モデル（B）検出精度の向上"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-007",
+      "public_question_id": "e91a2a3ff33f1e98",
+      "original_question_id": "e91a2a3ff33f1e98",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:007",
+      "source_public_question_id": "e91a2a3ff33f1e98",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:007:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:007:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:007:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:007:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。SSD（Single Shot MultiBox Detector）は、位置の特定とクラスの識別を同時に行う1段階モデルに当たります。これは、単一のネットワークを介して入力画像のそれぞれの位置で物体らしさとバウンディングボックス（物体領域を表す矩形）を生成します。SSDの主な目的は処理速度の高速化であり、そのためにSSDは視覚的スライドウィンドウ探索を行いながら高速での挙動を達成しています。\nオプション2は不正解です。SSDは精度も一定水準を狙いますが、設計思想としては「単一パスで検出する」ことによる速度面の優位性が大きな特徴です。\nオプション3は不正解です。SSD（Single Shot MultiBox Detector）は、位置の特定とクラスの識別を同時に行う1段階モデルに当たります。物体の位置を特定した後で物体のクラスを識別する2段階モデルは、例えばFaster R-CNNのような他の検出手法を指します。\nオプション4は不正解です。SSDは2段階モデルではありません。また、目的も「検出精度の向上」と断定するより、1段階化による処理速度の高速化が主眼です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

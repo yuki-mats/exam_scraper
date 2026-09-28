@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は、バッチサイズに依存せず、チャネルをグループ分けして正規化を行う手法で、少数のデータでも安定して動作する。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "グループ正規化",
+        "バッチ正規化",
+        "レイヤー正規化",
+        "インスタンス正規化"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-003",
+      "public_question_id": "60385cd8eb6bfd0e",
+      "original_question_id": "60385cd8eb6bfd0e",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:003",
+      "source_public_question_id": "60385cd8eb6bfd0e",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:003:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:003:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:003:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:003:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\nグループ正規化は、チャネルを複数のグループに分けて正規化を行うことで、バッチサイズが小さい場合でも安定して動作するよう設計された正規化手法です。画像分類や物体検出など、バッチサイズが制限されるタスクで有効です。\nオプション2は不正解です。\nバッチ正規化はバッチ全体の平均と分散を使うため、バッチサイズに依存します。\nオプション3は不正解です。\nレイヤー正規化は全ニューロンを対象とした正規化で、主にRNNなどに使われます。\nオプション4は不正解です。\nインスタンス正規化は1サンプルの1チャネル単位で正規化し、スタイル変換などに使われます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

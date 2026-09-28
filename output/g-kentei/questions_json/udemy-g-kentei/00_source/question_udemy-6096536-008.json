@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "カーネル関数を用いてデータを高次元空間に写像することで、写像後の空間で線形分類を可能とした手法について、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DCGAN",
+        "VAE",
+        "GPT-4",
+        "SVM"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-008",
+      "public_question_id": "d24c057773179d93",
+      "original_question_id": "d24c057773179d93",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:008",
+      "source_public_question_id": "d24c057773179d93",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:008:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:008:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:008:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:008:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nサポートベクターマシン（SVM）は、データを高次元の特徴空間へ写像し、その空間で線形分類を行うことで、元の空間では線形分離できないデータも分類可能にする手法です。このとき、高次元空間への写像を明示的に計算する代わりに、写像後の内積（類似度）を直接計算する仕組みとして用いられるのがカーネル関数です。その結果、元の空間では非線形な決定境界を、写像後の空間では線形な超平面として表現できます。\nオプション1は不正解です。DCGANは、畳み込みニューラルネットワーク（CNN）を取り入れたGAN（敵対的生成ネットワーク）の一種で、主に画像生成などに用いられます。\nオプション2は不正解です。VAE（Variational AutoEncoder）は、確率的な潜在変数を用いた生成モデル（オートエンコーダ系）であり、データ生成や表現学習に用いられます。\nオプション3は不正解です。GPT4は、OpenAI社が公開した大規模言語モデル（LLM）として自然言語処理を中心に幅広いタスクで利用されるモデルです。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

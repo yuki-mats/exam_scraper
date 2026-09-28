@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "双方向RNN（Bidirectional RNN）に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題29",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "入力系列を前方向と後方向の両方から処理し、より多くの文脈情報を取り入れる構造である。",
+        "系列の順序を無視して並列処理することで計算速度を向上させるアルゴリズムである。",
+        "分類タスクには適さず、回帰タスク専用に設計されている。",
+        "TransformerモデルのAttention機構に代わる最近の標準アーキテクチャである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-029",
+      "public_question_id": "f465315fe284bf4c",
+      "original_question_id": "f465315fe284bf4c",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:029",
+      "source_public_question_id": "f465315fe284bf4c",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:029:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:029:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:029:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:029:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n双方向RNN（Bidirectional RNN）は、入力系列を前方向（過去→現在）と後方向（未来→現在）の2方向から同時に処理することで、前後の文脈を活用してより精度の高い予測や特徴抽出を可能にする構造です。文脈理解が重要な自然言語処理などで有効に機能します。\nオプション2は不正解です。\n双方向RNNは系列の順序を考慮するため、並列処理は困難です。\nオプション3は不正解です。\n双方向RNNは分類タスク（例：感情分類や文書分類など）でも広く使用されます。\nオプション4は不正解です。Transformerの登場以降、双方向RNNの利用は相対的に減っていますが、代替関係ではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

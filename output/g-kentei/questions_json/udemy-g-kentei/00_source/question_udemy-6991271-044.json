@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "Source-Target Attentionに関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題44",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "機械翻訳などで入力文（Source）と出力文（Target）の対応を学習する機構である。",
+        "TransformerにおけるEncoder-Decoder Attentionは、Source-Target Attentionの一種と考えられる。",
+        "出力文の各単語が入力文のすべての単語に注意を向けることができる。",
+        "入力と出力のトークンが同一である必要があるため、主に自己注意（Self-Attention）と同義である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-044",
+      "public_question_id": "d8c45ad3ac336134",
+      "original_question_id": "d8c45ad3ac336134",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:044",
+      "source_public_question_id": "d8c45ad3ac336134",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:044:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:044:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:044:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:044:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。Source-Target Attentionは、入力（Source）と出力（Target）が異なる系列であっても使用できるAttention機構であり、自己注意（Self-Attention）とは別の概念です。機械翻訳などでは、出力文の各単語が、入力文のどの単語に注目すべきかを学習する目的で使用され、トークンの一致は前提条件ではありません。\n自己注意（Self-Attention）とは、入力データ内の各要素が他の要素との関連性を学習し、重要度を評価する仕組みのことです。\nオプション1は不正解です。Source-Target Attentionは、翻訳や要約などで重要な対応関係を学習するために使われます。\nオプション2は不正解です。TransformerモデルにおけるEncoder-Decoder Attentionは、Source-Target Attentionの代表例です。\nオプション3は不正解です。Targetの各トークンは、Source全体に対して注意を分配することが可能です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "SSDモデルに関する説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "エンコーダとデコーダの間にPPM（Pyramid Pooling Module）というモジュールを追加している。",
+        "バウンディングボックスのサイズのズレを、クラスの予測情報を使って修正・学習する。",
+        "畳み込みニューラルネットワーク（CNN）を活用しており、主に画像認識タスクや物体検出タスクで活用される。",
+        "大量の画像データを高速に処理することができ、リアルタイム処理が可能である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-010",
+      "public_question_id": "467c656dff67d784",
+      "original_question_id": "467c656dff67d784",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:010",
+      "source_public_question_id": "467c656dff67d784",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:010:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:010:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:010:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:010:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。SSDモデルの説明ではなく、PSPNetの説明となります。\nオプション2は不正解です。SSD（Single Shot MultiBox Detector）において、バウンティングボックスは物体検出に重要な機能です。バウンティングボックスとは画像中の物体を囲む長方形の領域のことで、このサイズのズレを、クラスの予測情報を使って修正・学習します。\nオプション3は不正解です。SSDは畳み込みニューラルネットワーク（CNN）を活用しており、主に画像認識タスクや物体検出タスクで活用されています。途中の特徴マップから入力画像の各位置における物体領域らしさと矩形領域を直接出力します。\nオプション4は不正解です。SSDモデルの特徴の1つとして、大量の画像データを高速に処理することができ、リアルタイム処理が可能なことが挙げられます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

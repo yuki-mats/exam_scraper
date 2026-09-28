@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。RNN Encoder-Decoderは（ ）に最も適している手法である。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "物体検出",
+        "姿勢推定",
+        "気温の予測",
+        "機械翻訳"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-018",
+      "public_question_id": "265570bc05b2b5f0",
+      "original_question_id": "265570bc05b2b5f0",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:018",
+      "source_public_question_id": "265570bc05b2b5f0",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:018:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:018:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:018:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:018:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。RNN Encoder-Decoderは、入力と出力がどちらも「順序を持つデータ（シーケンス）」であるタスクに向いた手法で、代表例がシーケンス・トゥ・シーケンス（seq2seq）です。エンコーダが入力文（ソース言語）を内部表現にまとめ、デコーダがその情報をもとに出力文（ターゲット言語）を1単語ずつ生成します。このように「ある文章を別の文章へ変換する」構造と相性がよいため、機械翻訳に最も適しています。\nオプション1は不正解です。\n物体検出は画像中の物体の位置（矩形）とクラスを推定するタスクであり、一般にCNNベースの検出モデル（例：SSDやFaster R-CNNなど）が用いられます。\nオプション2は不正解です。\n姿勢推定は、画像や動画から関節位置などを推定するコンピュータビジョンのタスクで、CNN系のモデルが中心です。RNNを使う場合もありますが、典型的に「Encoder-Decoderで別シーケンスへ変換する」機械翻訳型の問題とは異なります。\nオプション3は不正解です。\n気温の予測は時系列予測であり、RNNが使われることはあります。ただし多くの場合は「過去の気温系列から未来の値を予測する」ような単一シーケンスの問題で、Encoder-Decoder構造が必須とは限りません。Encoder-Decoderは特に「入力系列と言語などの出力系列が別物で長さも変わる」場合に強みが出ます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

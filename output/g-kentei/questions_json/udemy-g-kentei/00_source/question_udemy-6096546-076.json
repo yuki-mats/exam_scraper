@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "画像内の物体を個体ごとにピクセル単位で領域分割し、各物体の種類を認識できる手法として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題76",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "姿勢推定",
+        "セマンティックセグメンテーション",
+        "物体検出",
+        "インスタンスセグメンテーション"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-076",
+      "public_question_id": "75712077e72723d2",
+      "original_question_id": "75712077e72723d2",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:076",
+      "source_public_question_id": "75712077e72723d2",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:076:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:076:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:076:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:076:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\n画像内の物体を個体ごとにピクセル単位で分離し、それぞれにラベルを付けて種類を認識する高度な手法です。セマンティックセグメンテーションと物体検出の両方の特性を兼ね備えており、形状の詳細な把握と個体の識別が同時に可能です。代表的な手法に Mask R-CNN があります。\nオプション1は不正解です。\n姿勢推定は人間の姿勢を予測する手法であり、領域分割や物体分類は目的ではありません。\nオプション2は不正解です。\nセマンティックセグメンテーションは、ピクセル単位で分類を行いますが、同一カテゴリ内の複数の物体を個別に区別することはできません。\nオプション3は不正解です。\n物体ごとの位置（バウンディングボックス）と種類を認識しますが、ピクセル単位の領域分割には対応しません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

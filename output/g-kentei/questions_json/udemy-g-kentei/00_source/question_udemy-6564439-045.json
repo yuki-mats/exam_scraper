@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "One-shot学習に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題45",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "1つの例をもとに、未学習のクラスに対しても正しく分類する能力を学習する手法である。",
+        "学習データのすべてを1回だけ用いて一括で学習する訓練方式である。",
+        "1つの入力ベクトルから複数の出力クラスを同時に予測するニューラルネットワーク手法。",
+        "分布全体ではなく一部の代表点に着目して分類するクラスタリング手法。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-045",
+      "public_question_id": "c306241ab7881873",
+      "original_question_id": "c306241ab7881873",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:045",
+      "source_public_question_id": "c306241ab7881873",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:045:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:045:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:045:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:045:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解です。One-shot学習は、たった1つの学習例だけを用いて、新しいクラスに属するデータを正しく分類する能力を獲得する学習手法です。画像認識などでデータが極端に少ない状況において有効で、主にメタラーニングや類似度ベースのモデル（例：Siamese Network）で活用されます。\nオプション2は不正解です。\n学習データを一度だけ用いるという意味ではバッチ学習に近い説明です。One-shot学習は少数データによる汎化能力に焦点を当てた分類タスクであり、学習データは多く用いません。\nオプション3は不正解です。\nマルチラベル分類に関する説明です。\nオプション4は不正解です。\nクラスタリングの手法とは異なます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

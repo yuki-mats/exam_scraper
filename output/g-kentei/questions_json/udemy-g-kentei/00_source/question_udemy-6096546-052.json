@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "敵対的生成ネットワーク（GAN）の派生モデルに関する文章のうち、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題52",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CycleGANは、2つの画像データセット同士のドメインの関係を学習して画像変換を学習するモデルである。",
+        "StackGANは、入力テキストに基いて画像生成ができるモデルである。",
+        "Pix2Pixは、1対のペア画像を用意して敵対生成学習を行うモデルである。",
+        "DCGANは、GeneratorとDiscriminatorそれぞれのネットワークに全結合層を採用したモデルである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-052",
+      "public_question_id": "6a24c9464d1d0224",
+      "original_question_id": "6a24c9464d1d0224",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:052",
+      "source_public_question_id": "6a24c9464d1d0224",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:052:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:052:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:052:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:052:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nこれはGANの説明です。DCGANは、GANを構成するGeneratorとDiscriminatorのネットワークに全結合層ではなくCNNを用いたモデルです。\nオプション1は不正解です。Cycle GANは、2つの画像データセット同士のドメインの関係を学習し、画像変換を学習する手法です。\nオプション2は不正解です。Stack GANとは、入力テキストに基いて画像生成ができるモデルです。\nオプション3は不正解です。Pix2Pixという手法は、1対のペア画像を用意して敵対生成学習を行うモデルです。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

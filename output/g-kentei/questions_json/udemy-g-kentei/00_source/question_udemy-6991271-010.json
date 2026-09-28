@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ベイズ情報量規準（BIC）に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "データのバラツキを最大限保持しながら、次元削減を行うアルゴリズムである。",
+        "モデルのあてはまりと複雑さのバランスを評価し、過学習を防ぐために使われる指標である。",
+        "全てのデータに等しい重みを与えて分類を行う線形識別モデルの一種である。",
+        "深層学習において学習率を自動調整するためのアルゴリズムである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-010",
+      "public_question_id": "7fb84fc532542ea8",
+      "original_question_id": "7fb84fc532542ea8",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:010",
+      "source_public_question_id": "7fb84fc532542ea8",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:010:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:010:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:010:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:010:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。BIC（Bayesian Information Criterion）は、モデルの対数尤度とパラメータ数に基づいてモデル選択を行うための情報量基準です。尤度が高く、かつ複雑すぎないモデルを選ぶために用いられ、AIC（赤池情報量規準）と並んでよく使われます。BICは特に大きなサンプルサイズにおいて過学習を抑える効果があります。\nオプション1は不正解です。PCA（主成分分析）の説明です。\nオプション3は不正解です。\n線形判別分析（LDA）の特徴に関する記述です。\nオプション4は不正解です。\n学習率の自動調整はAdamやAdagradなどの最適化アルゴリズムで扱われます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

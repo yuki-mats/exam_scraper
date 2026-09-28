@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "自然言語処理において、CBOWモデルに関する説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題32",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "文章中のターゲット単語を予測するために、その単語自身の周辺単語を入力として利用する。",
+        "文章中の各単語の出現順序を保持するため、文の単語の並び順を重視するモデルである。",
+        "文中の単語を一つずつ単独で処理し、文脈を考慮しないモデルである。",
+        "単語間の関係を解析する際、文書全体を入力として分類を行うモデルである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-032",
+      "public_question_id": "17eb679553f0dce3",
+      "original_question_id": "17eb679553f0dce3",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:032",
+      "source_public_question_id": "17eb679553f0dce3",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:032:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:032:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:032:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:032:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。CBOW（Continuous Bag-of-Words）は、ある単語（ターゲット単語）を予測するために、その単語の周辺にある単語（文脈単語）を入力として利用します。\n例えば「I ___ to school」という文があったとき、「go」を予測するために「I」「to」「school」という周辺単語を使います。CBOWは周辺単語の情報を平均（または和）して単語ベクトルを作り、中央の単語を予測します。\nオプション1は不正解です。CBOWは単語の「並び順」を保持しません。周辺単語を「Bag-of-Words」として扱うため、順序は無視されます。「Bag-of-Words」という言葉自体が、単語の出現回数は考慮するが順序は考えないことを意味しています。\nオプション2は不正解です。CBOWは文脈を考慮するモデルです。周辺単語を用いてターゲット単語を予測するため、文脈情報を活用している点が特徴です。「単独で処理し文脈を考慮しない」というのは、古典的なBag-of-Words（BoW）モデルの特徴に近いです。\nオプション4は不正解です。CBOWは文書全体を使って分類を行うモデルではなく、局所的な単語（コンテキスト）を使って中央の単語を予測するモデルです。文書分類モデル（例えばDoc2Vecなど）とは異なります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

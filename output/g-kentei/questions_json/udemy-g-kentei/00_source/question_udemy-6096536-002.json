@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "信用割当問題を解決する手法として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "サポートベクターマシン",
+        "誤差逆伝播法",
+        "VARモデル",
+        "単純パーセプトロン"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-002",
+      "public_question_id": "714b52bfb6d30f01",
+      "original_question_id": "714b52bfb6d30f01",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:002",
+      "source_public_question_id": "714b52bfb6d30f01",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:002:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:002:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:002:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:002:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\n信用割当問題とは、出力の誤差（正解との差）が生じたときに「ネットワーク内部のどの重み（パラメータ）がどれくらいその誤差に関係しているか」を割り当てる問題です。誤差逆伝播法（バックプロパゲーション）は、損失の勾配を出力層から入力側へ順に伝えていくことで、各層・各パラメータが誤差にどれだけ影響したかを計算し、重み更新の方向と大きさを決めます。これにより、信用割当を具体的な更新量として反映できます。\nオプション1は不正解です。\nサポートベクターマシン（SVM）は、マージン最大化やカーネル法によって学習するアルゴリズムのことを指し、信用割当問題とを解決するものではありません。\nオプション3は不正解です。VARモデル（ベクトル自己回帰モデル）は、複数の時系列を同時に扱う統計モデルであり、ニューラルネットワークの信用割当問題を解決する仕組みではありません。\nオプション4は不正解です。\n単純パーセプトロンはシングルレイヤのニューラルネットワークであり、深層学習において信用割当問題を解決するものではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

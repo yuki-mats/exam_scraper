@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\nε-greedy法の問題点を解決させたDQNの改良手法を（ ）という。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題86",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ダブルDQN",
+        "デュエリングネットワーク",
+        "A3C",
+        "ノイジーネットワーク"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-086",
+      "public_question_id": "e102c03ed49ce936",
+      "original_question_id": "e102c03ed49ce936",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:086",
+      "source_public_question_id": "e102c03ed49ce936",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:086:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:086:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:086:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:086:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nノイジーネットワークは、ε-greedy法の問題点に着目したDQNの改良手法です。\nε-greedy法とは、εの確率でランダムに行動、それ以外の確率(1-ε) で最も期待値の高い行動を選択する手法です。\nε（イプシロン）-greedy法とは、強化学習における探索と活用のトレードオフを調整するための手法であり、エージェントが行動を選択する際に、以下のように行動します。\n①確率 ε（0から1の間の値）で、ランダムな行動を選択\n②確率 1-ε で、最も期待値の高い行動を選択\nε-greedy法では、ランダムに行動を選択する確率（ε）を設定する必要がありますが、（ε）を適切な値に設定しないと学習がうまく進まないという問題がありました。\nノイジーネットワークでは、ニューラルネットワークのパラメータにノイズを追加することで、行動選択時の探索と活用のバランスを自動的に調整します特徴をもちます。\nオプション1は不正解です。\nダブルDQNはDQNの改良手法の一つですが、これはQ値の過大評価を抑制することを目的にした手法であり、ε-greedy法の問題点に着目した手法ではありません。\nオプション2は不正解です。\nデュエリングネットワークはDQNの改良手法の一つですが、学習を効率化するために状態価値と行動価値を個別に学習する手法であり、ε-greedy法の問題点に着目した手法ではありません。\nオプション3は不正解です。A3C（Asynchronous Advantage Actor-Critic）は、複数のエージェントが異なる環境で学習し、各エージェントの経験を共有することで学習を効率的に進める方法ですが、ε-greedy法の問題点に着目した手法ではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

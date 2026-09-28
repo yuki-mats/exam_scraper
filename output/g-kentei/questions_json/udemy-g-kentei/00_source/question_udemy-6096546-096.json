@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "Contrastive Lossを利用する主な目的として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題96",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "類似したデータポイントを近づけ、異なるデータポイントを遠ざけること。",
+        "分類精度を直接最大化すること。",
+        "データポイント間の距離を無視してラベルだけに基づく学習を行うこと。",
+        "ランダムに生成されたノイズデータを優先して学習すること。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-096",
+      "public_question_id": "59605cfd7f2b861a",
+      "original_question_id": "59605cfd7f2b861a",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:096",
+      "source_public_question_id": "59605cfd7f2b861a",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:096:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:096:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:096:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:096:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。Contrastive Loss（コントラスト損失）は、データ間の「類似性」と「非類似性」に基づいて距離を調整するための損失関数です。主に埋め込み学習（embedding learning）で使用され、たとえば顔認識や画像検索などで重要な役割を果たします。\n類似したデータポイントの距離を縮め、異なるデータポイントの距離を広げることを目的とした損失関数です。\nオプション2は不正解です。Contrastive Lossは分類精度を直接扱うわけではなく、距離の調整に基づいています。\nオプション3は不正解です。Contrastive Lossはデータポイント間の距離を重要視するアルゴリズムです。\nオプション4は不正解です。Contrastive Lossはノイズデータを優先するわけではなく、類似性に基づいて学習します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

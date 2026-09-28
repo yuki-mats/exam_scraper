@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。A3Cは（ ）のアルゴリズムの1つであり、いくつかの複数のエージェントが非同期に学習を行うことで効率的に学習する手法です。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題67",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "教師なし学習",
+        "強化学習",
+        "オフライン学習",
+        "教師あり学習"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-067",
+      "public_question_id": "70d0790e5da77661",
+      "original_question_id": "70d0790e5da77661",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:067",
+      "source_public_question_id": "70d0790e5da77661",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:067:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:067:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:067:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:067:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。A3C（Asynchronous Advantage Actor-Critic）は、強化学習のアルゴリズムの1つです。強化学習とは、エージェントが環境の中で行動し、その結果として得られる報酬をもとに、よりよい行動を学習していく方法です。A3Cでは、複数のワーカーが並行して学習を行い、それぞれの学習結果を共有しながらモデルを更新します。これにより、1つのエージェントだけで順番に学習する場合よりも、効率よく学習を進めやすくなります。\nオプション1は不正解です。\n教師なし学習は、正解ラベルのないデータから特徴や構造を見つける学習方法です。A3Cは教師なし学習ではありません。\nオプション3は不正解です。\nオフライン学習は、あらかじめ集められたデータを使って学習する方法を指します。A3Cは、環境と相互作用しながら報酬をもとに学習する強化学習のアルゴリズムです。\nオプション4は不正解です。\n教師あり学習は、正解ラベル付きのデータを使って学習する方法です。A3Cは正解ラベルではなく、行動の結果得られる報酬をもとに学習します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

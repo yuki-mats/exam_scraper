@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "勾配消失問題を回避するための手法として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題100",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ドロップアウトを行う。",
+        "バッチ正規化を行う。",
+        "LSTMやGRUを使用する。",
+        "ReLU等の正規化機能を持たない活性化関数を用いる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-100",
+      "public_question_id": "ab594af58d3b0477",
+      "original_question_id": "ab594af58d3b0477",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:100",
+      "source_public_question_id": "ab594af58d3b0477",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:100:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:100:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:100:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:100:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n勾配消失問題とは、機械学習において勾配ベースの学習手法と誤差逆伝播法を利用してニューラルネットワークを学習する際、誤差逆伝播に必要な勾配が小さくなり、学習が制御できなくなる問題を指します。\nこの問題を回避するためには、「バッチ正規化」「活性化関数の選択」「勾配クリッピング」「残差接続」「STMやGRUの使用」などが挙げられます。\nドロップアウトは、過学習を防ぐための手法です。一部のノードをランダムに無効化することで、モデルの汎化性能を向上させます。\nオプション2は不正解です。\nバッチ正規化は学習を安定させる手法であり、勾配消失問題を緩和する効果があります。バッチ内の入力値の分布を正規化することで、各層が適応するべきデータの変化を小さくし、勾配を安定化させることが可能になります。\nオプション3は不正解です。\n残差接続は、勾配降下法の逆伝播時に勾配消失問題を軽減する手法です。前の層からの勾配の情報を直接後ろの層に伝達させるため、勾配消失問題を回避します。\nオプション4は不正解です。ReLU等の活性化関数は、非線形性を導入し、モデルに複雑さを与えるために使用されます。特に、ReLU関数は正の入力に対しては勾配が一定であるため、逆伝播時に勾配が消失することを防げ、勾配消失問題を緩和します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

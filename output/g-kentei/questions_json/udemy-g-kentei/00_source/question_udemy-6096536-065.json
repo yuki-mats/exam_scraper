@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄（A）（B）に最もよく当てはまる選択肢を1つ選べ。\n勾配降下法では（A）に収束してしまう可能性が高くなります。これは探索範囲の中で最適な解であって、その範囲外では必ずしも最適ではない可能性がある結果のことです。\nこれを避けて全体最適解である（B）を得るためには、学習率を大きく設定し、適切なタイミングで学習率を小さくしていく必要があります。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題65",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "（A）大域最適解（B）プラトー",
+        "（A）局所最適解（B）大域最適解",
+        "（A）プラトー（B）鞍点",
+        "（A）鞍点（B）局所最適解"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-065",
+      "public_question_id": "5475caf9920b3511",
+      "original_question_id": "5475caf9920b3511",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:065",
+      "source_public_question_id": "5475caf9920b3511",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:065:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:065:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:065:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:065:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\n勾配降下法は、現在位置の周辺で損失が小さくなる方向へ少しずつ移動していくため、途中で「その近所では最も良い点」である局所最適解に捕まってしまう可能性があります。局所最適解は、ある範囲内では最適でも、範囲を広げて見るともっと良い解が存在するかもしれない点です。\n最終的に、全体で最も良い解である大域最適解を得るには、学習率を大きめにして探索の幅を確保しつつ、学習が進んだ段階で学習率を小さくして安定的に収束させる（学習率スケジューリング）といった工夫が有効です。\nオプション1は不正解です。\n大域最適解に陥るという表現は誤りであり、大域最適解は求めるべき最終的な結果です。\nオプション3は不正解です。\nプラトーとは、学習が停滞してしまい進まない現象のことです。\nオプション4は不正解です。\n勾配降下法の目的は全体の観点からいって最適な大域最適解を探索することになります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

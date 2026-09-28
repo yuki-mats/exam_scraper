@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\nリカレントニューラルネットワーク（RNN）は時間ごとに同じ重みを用いて順伝播を行い、出力が得られた後にその誤差を時間方向の反対（過去方向）に逆伝播させて重みの更新を行うものであり、この学習過程が（ ）に該当する。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題③ 問題34",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ELMo",
+        "LSTM",
+        "BPTT",
+        "CBOW"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6242272/test#question-034",
+      "public_question_id": "8e9dede251d0c7d7",
+      "original_question_id": "8e9dede251d0c7d7",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:034",
+      "source_public_question_id": "8e9dede251d0c7d7",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:034:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:034:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:034:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:034:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。RNNの学習には、BPTT（BackPropagation Through Time）という手法が用いられます。これは誤差逆伝播法を時間軸に沿って適用する手法で、RNNが過去の情報を保持し学習することを可能にします。\nオプション1は不正解です。Elmoは、文脈を考慮した単語表現を生成するための深層学習モデルのことです。\nオプション2は不正解です。LSTM（Long Short-Term Memory）は、RNNの一種であり、長期間の依存関係を学習することが可能な構造を持っていますが、これ自体は訓練手法ではなくネットワークの構造を指します。\nオプション4は不正解です。CBOWは、Word2Vecを応用し、周辺の単語から中心語を予測するモデルです。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

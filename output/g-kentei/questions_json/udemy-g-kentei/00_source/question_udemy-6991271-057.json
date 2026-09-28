@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（　）は単語をベクトルとして表現するための手法であり、単語を構成する文字 n-gram を考慮して未知語や綴り揺れにも対応できる。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題57",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ChatGPT",
+        "ELMo",
+        "BERT",
+        "fastText"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-057",
+      "public_question_id": "96cadaf35ed799c9",
+      "original_question_id": "96cadaf35ed799c9",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:057",
+      "source_public_question_id": "96cadaf35ed799c9",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:057:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:057:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:057:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:057:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。fastTextは、Facebookを運営するMeta社によって開発された単語ベクトル表現手法で、単語を文字n-gram単位に分解して扱うことで、未知語や綴りのミスにも強い特徴を持ちます。Word2Vecの拡張として設計され、分類や類似語検索などに広く用いられています。\nオプション1は不正解です。ChatGPTは対話型AIであり、単語埋め込み技術の代表例ではありません。\nオプション2は不正解です。ELMoは文脈依存の単語表現ですが、n-gram分解による未知語対応はしていません。\nオプション3は不正解です。BERTは文全体の双方向文脈を捉えるモデルであり、fastTextのような文字n-gram処理は行いません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

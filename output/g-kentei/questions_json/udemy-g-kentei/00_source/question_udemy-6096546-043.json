@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "AIが有するバイアスを軽減するための手法について、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題43",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "公平性に関する制限を設けて制限付き最適化として学習を行う。",
+        "学習用データセット内のセンシティブ属性について、ランダムに上書きする。",
+        "ガイドラインで規定されているセンシティブ属性を洗い出し、その範囲を守れば良い。",
+        "ユーザーからのフィードバックに耳を傾ける。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "AI倫理・AIガバナンス",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-043",
+      "public_question_id": "a277cf045451094c",
+      "original_question_id": "a277cf045451094c",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:043",
+      "source_public_question_id": "a277cf045451094c",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:043:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:043:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:043:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:043:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\nセンシティブ属性（例：性別、人種、健康情報など）は、差別や不利益につながり得るため慎重な取り扱いが求められる属性です。ただし「ガイドラインに書かれた範囲を守れば十分」とは限りません。利用文脈（目的、対象者、運用環境）によって問題となる属性や不利益の形は変わるため、ステークホルダーの意見や影響評価を踏まえて、継続的に見直す必要があります。\nオプション1は不正解です。\n公平性制約（例：群間で誤り率の差を一定以内にする等）を設け、制約付き最適化として学習する方法は、バイアス軽減の代表的なアプローチです。\nオプション2は不正解です。\nセンシティブ属性をランダム化するなど、属性情報の影響を弱める工夫は一部のケースで有効なことがあります。ただし、データの整合性を損ねたり、別の偏りを生んだりする可能性があるため、効果検証と慎重な設計が必要です。\nオプション4は不正解です。\n開発側だけでバイアスを完全に把握するのは難しいため、利用者や影響を受ける人からのフィードバックを取り入れ、改善を継続することは重要です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

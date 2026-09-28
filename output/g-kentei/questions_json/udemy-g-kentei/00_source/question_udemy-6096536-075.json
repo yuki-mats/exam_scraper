@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n畳み込みニューラルネットワーク（CNN）をセマンティックセグメンテーションタスクに利用した手法であり、畳み込み層のみで構成されるモデルは（ ）である。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題75",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "YOLO",
+        "FCN",
+        "SSD",
+        "FPN"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-075",
+      "public_question_id": "76a0318654ae7c54",
+      "original_question_id": "76a0318654ae7c54",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:075",
+      "source_public_question_id": "76a0318654ae7c54",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:075:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:075:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:075:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:075:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。FCN（Fully Convolutional Network）は、画像の各画素にクラスラベルを割り当てるセマンティックセグメンテーションにCNNを適用した代表的手法です。名前の通り、従来の分類CNNで用いられていた全結合層を使わず、畳み込み層（およびアップサンプリングなどの処理）で構成して、入力画像に対応した画素単位の予測を出力できるようにしたモデルです。\nオプション1は不正解です。YOLOは物体検出タスクに主に利用される手法で、一度の推論で画像全体から物体の位置とクラスを同時に推定するモデルです。全画像に対するセマンティックセグメンテーションではなく、物体レベルの領域予測を行います。\nオプション3は不正解です。SSDも物体検出の手法であり、画像内の物体の位置とクラスを推定します。セマンティックセグメンテーション向けに「畳み込み層のみで構成されるモデル」を指すものではありません。\nオプション4は不正解です。FPN（Feature Pyramid Network）は物体検出やセマンティックセグメンテーション等で用いられますが、畳み込み層のみで構成されるモデルではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

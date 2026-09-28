@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "学習率の上限と下限を設定することで過度な学習率の増加や減少を防ぎ、モデルの訓練を制御する勾配降下法の手法として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題80",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "AdaBound",
+        "Adam",
+        "AdaDelta",
+        "RMSProp"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-080",
+      "public_question_id": "c17d3f40421203a7",
+      "original_question_id": "c17d3f40421203a7",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:080",
+      "source_public_question_id": "c17d3f40421203a7",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:080:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:080:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:080:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:080:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。AdaBoundは、Adamが持つ収束速度の利点と、SGDが持つ良好な汎化性能を兼ね備えた手法であり、学習率の上限と下限を徐々に狭めていくことで、学習の収束を早めます。\nモデルの訓練を安定化し、学習率の調整を自動的に行うことでハイパーパラメータの調整が容易になり、特に大規模なディープラーニングモデルの訓練などにおいてAdamなどと比べて安定性が向上します。\nオプション2は不正解です。Adamは勾配の1次モーメントと2次モーメントの推定を用いた最適化手法です。\nオプション3は不正解です。AdaDeltaは学習係数の更新のために過去の勾配の情報を利用する最適化手法です。\nオプション4は不正解です。RMSPropは学習率を自動調整する最適化手法の一つですが、学習率の上限と下限を徐々に狭めることはしません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ソフトマックス関数の説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題99",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "出力値の総和は必ず1になるため、出力をそのまま確率と利用できる。",
+        "必ず0～1の値が出力される。",
+        "入力値が大きくてもオーバーフローのリスクが高まらない。",
+        "バックプロパゲーションにおいて勾配を計算する際に用いられている。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-099",
+      "public_question_id": "61890ec2232d5fd9",
+      "original_question_id": "61890ec2232d5fd9",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:099",
+      "source_public_question_id": "61890ec2232d5fd9",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:099:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:099:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:099:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:099:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\nソフトマックス関数は指数関数を含んでおり、指数関数は入力値が大きくなるにつれて急速に増加します。そのため、入力値が大きい場合には数値の不安定性が生じ、オーバーフローのリスクが高まります。\nオプション1は不正解です。\nソフトマックス関数の出力の総和は必ず1になる特徴を用いて、出力をそのまま確率と利用することが可能です。\nオプション2は不正解です。\nソフトマックス関数の出力は、0から1の範囲の実数値になります。ソフトマックス関数は指数関数を用いて計算されるため、負の実数値を出力することはありません。\nオプション4は不正解です。\nソフトマックス関数はバックプロパゲーションにおいて勾配を計算する際に用いられています。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

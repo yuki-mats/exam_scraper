@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "RNNの欠点として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題③ 問題17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "学習時の並列処理が困難である。",
+        "短文処理が不得意である。",
+        "長期依存関係の学習が行えない。",
+        "単語の分散表現が獲得できない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6242272/test#question-017",
+      "public_question_id": "6e472cd2caac3737",
+      "original_question_id": "6e472cd2caac3737",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:017",
+      "source_public_question_id": "6e472cd2caac3737",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:017:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:017:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:017:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6242272:question:017:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\nリカレントニューラルネットワーク（RNN）の構造上、時系列データの各ステップを順序に進めていく必要があるため、学習時の並列処理が難しいとされています。\nオプション3,4もRNN単体では欠点としてなり得ますが、課題解決策が講じられるためオプション1が最も適している答えとなります。\nオプション2は不正解です。RNNは短い文章の処理が難しいとは言えません。RNN単体では長文などの長い時系列データを処理する場合、演算量が爆発的に増加し、処理不能となる場合もあります。\nオプション3は不正解です。LSTMやGRUなど、RNNを改良したニューラルネットワークと組み合わせて活用することで、長期依存関係の学習を行うことが可能です。ただし、RNN単体では長期的な依存関係（Long-term dependencies）は苦手という課題はあります。\nオプション4は不正解です。RNN自体は単語の分散表現を獲得する機能はないものの、Embedding層などを用いることで分散表現を獲得することは可能です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

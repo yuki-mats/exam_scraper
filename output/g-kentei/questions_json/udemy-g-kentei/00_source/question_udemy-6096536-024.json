@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "文章を言語上で意味を持つ最小単位に分け、それぞれの品詞などを判別する処理について、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "格解析",
+        "含意関係解析",
+        "形態素解析",
+        "構文解析"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-024",
+      "public_question_id": "bae79b79090dc635",
+      "original_question_id": "bae79b79090dc635",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:024",
+      "source_public_question_id": "bae79b79090dc635",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:024:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:024:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:024:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:024:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\n形態素解析は、文章を言語として意味を持つ最小単位（形態素）に分割し、それぞれについて品詞（名詞・動詞など）や活用形、原形などを判定する処理です。日本語は単語の区切りが空白で明示されないため、まず形態素解析で単語に分けて品詞情報を付けることが、後続の処理（構文解析や意味解析など）の土台になります。\nオプション1は不正解です。\n格解析は、「誰が」「何を」「誰に」など、文の要素が果たす役割（格）や関係性を推定する処理です。単語への分割や品詞判定そのものを指すわけではありません。\nオプション2は不正解です。\n含意関係解析は、2つの文の間で「一方が真ならもう一方も真と言えるか」といった含意（テキスト含意）を判定する処理です。形態素に分割して品詞を判定する処理とは目的が異なります。\nオプション4は不正解です。\n構文解析は、形態素解析で得た単語同士の係り受けや文の構造（どの語がどの語を修飾しているか）を解析する処理です。最小単位への分割と品詞判定そのものは形態素解析に当たります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

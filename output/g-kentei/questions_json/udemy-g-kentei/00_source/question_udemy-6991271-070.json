@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ゲームAIなどにおいて探索効率を高める目的で用いられる「αβ法」に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題70",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "強化学習において学習率と割引率を同時に調整する方法",
+        "探索木において評価値によって不要な分岐を省略する手法",
+        "ニューラルネットワークの出力を確率として正規化する活性化関数",
+        "エージェントが行動を決定するための報酬設計の指針"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "人工知能をめぐる動向",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-070",
+      "public_question_id": "e5451d025f41b358",
+      "original_question_id": "e5451d025f41b358",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:070",
+      "source_public_question_id": "e5451d025f41b358",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:070:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:070:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:070:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:070:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\nαβ法（アルファ・ベータ法） は、主に2人ゼロサムゲームにおけるミニマックス法の枝刈り最適化手法です。探索木を評価する際、既に得られている最善手の情報（αとβ）を利用することで、それ以上探索しても結果が変わらない枝を早期に切り捨てます。これにより探索の計算量を大幅に削減できるため、ゲームAIや意思決定システムなどで広く用いられています。\nオプション1は不正解です。\n強化学習のハイパーパラメータに関する内容であり、αβ法とは関係ありません。\nオプション3は不正解です。\n出力を確率に変換するのはソフトマックス関数などであり、αβ法の枝刈りとは無関係です。\nオプション4は不正解です。\n報酬設計は強化学習の中で重要な概念ですが、探索木の評価効率とは関連しません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

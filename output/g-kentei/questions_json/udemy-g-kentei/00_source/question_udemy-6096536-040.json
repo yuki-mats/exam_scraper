@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "Vision Transformerにおいて画像データを入力値として扱うために行う処理として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題40",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ファインチューニングを行う。",
+        "画像データを白と黒に変換する処理を行う",
+        "画像データをパッチに分割し、特徴抽出する。",
+        "CNN同様に畳み込み処理を行う。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-040",
+      "public_question_id": "8e92894a85afebb3",
+      "original_question_id": "8e92894a85afebb3",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:040",
+      "source_public_question_id": "8e92894a85afebb3",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:040:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:040:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:040:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:040:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。Vision Transformerは、画像をそのまま2次元の配列として扱うのではなく、まず画像を一定サイズの小さな領域（パッチ）に分割し、各パッチを1つの「トークン」として扱える形に変換します。これにより、Transformerが得意な「トークン列（シーケンス）」として画像を処理できるようになります。\nオプション1は不正解です。\nファインチューニングは学習済みのモデルに新たに追加したモデルを追加し、モデル全体を再学習する手法であり、VisionTransformerの処理とは関連ありません。\nオプション2は不正解です。\n画像データを二値化すると、特色やテクスチャー、グラデーションといった画像情報が失われる可能性があります。\nオプション4は不正解です。Vision Transformerは、元の画像からパッチを直接抽出し、そのパッチをトークンとして扱います。CNNのような畳み込み操作は主要部分には用いられておらず、パッチへの分割というステップが代わりに行われます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

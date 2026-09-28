@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄に最もよく当てはまる選択肢を1つ選べ。\n（ ）は、2つの確率分布の差異を表す尺度であると同時に、誤差関数としても用いられる。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題78",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "情報エントロピー",
+        "結合エントロピー",
+        "交差エントロピー",
+        "可逆性エントロピー"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-078",
+      "public_question_id": "f2f352491fb3d4f7",
+      "original_question_id": "f2f352491fb3d4f7",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:078",
+      "source_public_question_id": "f2f352491fb3d4f7",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:078:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:078:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:078:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:078:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\n交差エントロピーは、ある分布（正解ラベルの分布）に対して、別の分布（モデルが出した予測分布）がどれだけ「ずれているか」を表す尺度で、機械学習では分類問題の損失関数（誤差関数）として広く使われます。\n教師データとの差異（学習モデルの予測が正解データと一致する割合）が低いほど、交差エントロピーの値は大きくなり、一致する割合が高いほどその値は0に近づきます。\nオプション1は不正解です。\n情報エントロピーは確率分布の不確実性を表す尺度です。\nオプション2は不正解です。\n結合エントロピーは、2つ以上の確率変数を同時に見たときの不確実性を表す尺度であり、確率分布の差を測る尺度ではありません。\nオプション4は不正解です。\n可逆性エントロピーという名称は一般的な情報理論の指標としては用いられません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

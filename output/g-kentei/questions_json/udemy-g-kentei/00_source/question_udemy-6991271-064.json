@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "Q学習に関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題64",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Q学習では行動価値関数を更新することで最適な方策を学習する。",
+        "環境モデル（遷移確率や報酬関数）をあらかじめ完全に把握しておく必要がある。",
+        "Q値は状態と行動の組に対して定義され、更新式に学習率や割引率が含まれる。",
+        "オフポリシー型の強化学習アルゴリズムに分類される。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-064",
+      "public_question_id": "c7856e0a28885119",
+      "original_question_id": "c7856e0a28885119",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:064",
+      "source_public_question_id": "c7856e0a28885119",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:064:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:064:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:064:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:064:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。Q学習は「モデルフリー」な強化学習手法であり、環境の遷移確率や報酬関数をあらかじめ知っておく必要はありません。試行錯誤によって得られる経験から、行動価値（Q値）を更新していく方式です。\nオプション1は不正解です。Q学習では、Q値（行動価値関数）を更新して、最適な方策（ポリシー）を導き出します。\nオプション3は不正解です。Q値の更新には、学習率（α）と割引率（γ）を用いた更新式が使われます。\nオプション4は不正解です。Q学習は「オフポリシー型」であり、実際に選んだ行動とは別に最良の行動を仮定して学習します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

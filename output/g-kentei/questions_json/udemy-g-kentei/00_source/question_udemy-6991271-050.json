@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "鞍点に関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題50",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "最急降下法において常に最も収束しやすい最小値のことを指す。",
+        "鞍点では、ある方向に対しては最小値、別の方向に対しては最大値となる性質がある。",
+        "多くのニューラルネットワークにおいて、損失関数の形状に鞍点が多数存在することが知られている。",
+        "勾配がゼロになる点であっても、鞍点では最小値とは限らない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-050",
+      "public_question_id": "0d6d63de87525c75",
+      "original_question_id": "0d6d63de87525c75",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:050",
+      "source_public_question_id": "0d6d63de87525c75",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:050:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:050:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:050:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:050:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n鞍点とは、ある方向から見ると最小点でありながら、他の方向からは最大点となるような点のことであり、数学的には勾配がゼロとなる「停留点」の一種です。鞍点は必ずしも最小値ではなく、むしろ最急降下法（勾配降下法）では収束が遅れる原因となることが多いため、「常に収束しやすい最小値」という記述は不適切となります。\nオプション2は不正解です。\n鞍点の定義どおり、方向によって最小にも最大にも見える性質があります。\nオプション3は不正解です。\n深層学習における非凸最適化問題では、鞍点が多く存在することが理論的にも経験的にも知られています。\nオプション4は不正解です。\n勾配がゼロであっても、鞍点であれば極小値ではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

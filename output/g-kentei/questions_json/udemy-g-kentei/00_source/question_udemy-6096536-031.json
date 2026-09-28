@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "シミュレータで学習した方策を、実世界に転移して利用する手法として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題31",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "img2img",
+        "TF-IDF",
+        "Pix2Pix",
+        "sim2real"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-031",
+      "public_question_id": "3a04e3fd8c3afbff",
+      "original_question_id": "3a04e3fd8c3afbff",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:031",
+      "source_public_question_id": "3a04e3fd8c3afbff",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:031:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:031:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:031:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:031:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。sim2real（simulation-to-real）は、シミュレータ上で学習した方策を、実世界のロボットや実環境に移して利用する考え方・手法です。現実環境での学習はコストや危険が大きい一方、シミュレータなら安全かつ大量に試行できるため、まずシミュレーションで学習し、その結果を実世界に転移させます。\n実運用では、シミュレータと現実の差（摩擦、センサー誤差、外乱など）を埋める工夫（例：ドメインランダム化など）と組み合わせて使われることが多いです。\nオプション1は不正解です。img2imgは、画像を別の画像へ変換するタイプの生成・変換タスク（例：スタイル変換など）に関わる表現であり、シミュレータで学習した方策を実世界に転移する手法を指しません。\nオプション2は不正解です。TF-IDFは、単語の重要度を文書集合内の出現頻度から数値化する自然言語処理の特徴量表現です。方策の転移とは無関係です。\nオプション3は不正解です。Pix2Pixは、画像から画像への変換を行うGANベースの手法で、条件付き生成などに用いられます。シミュレーションから実世界への方策転移を指す用語ではありません。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

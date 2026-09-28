@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "畳み込みニューラルネットワーク（CNN）の畳み込み層において、以下のような処理を行った場合の出力サイズについて、最も適切な選択版を一つ選べ。\n・入力サイズ：11×11\n・パディング幅：2\n・カーネル幅：3×3\n・ストライド：2",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題83",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "3",
+        "7",
+        "9",
+        "11"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-083",
+      "public_question_id": "f0d151bc37d0341a",
+      "original_question_id": "f0d151bc37d0341a",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:083",
+      "source_public_question_id": "f0d151bc37d0341a",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:083:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:083:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:083:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:083:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション2が正解となります。\n本設問の各用語の意味は以下になります。\n---\nパディング幅：入力データの周りを一定の値で埋める幅\nカーネル幅：CNNにて特徴抽出を行うためのフィルタ（カーネル）の幅\nストライド：カーネルを移動させる幅\n---\n出力サイズは、以下の式で算出されます。\n出力サイズ＝（入力サイズ＋パディング幅×2ーカーネル幅）÷ストライド＋1よって、（11＋2×2-3）÷2＋1＝7となるため、出力サイズは7×7となります。\nオプション1は不正解です。\n上記の通り、7が正解となります。\nオプション3は不正解です。\n上記の通り、7が正解となります。\nオプション4は不正解です。\n上記の通り、7が正解となります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 2
+    }
+  ]
+}

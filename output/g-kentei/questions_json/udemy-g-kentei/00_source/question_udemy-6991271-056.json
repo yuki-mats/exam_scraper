@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ディープラーニングモデルにおいて、データ前処理後のベクトルやテンソルが最初に渡され、学習の対象としては重み更新が行われない層として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題56",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "出力層",
+        "隠れ層",
+        "活性化関数層",
+        "入力層"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-056",
+      "public_question_id": "cadc673b572bb198",
+      "original_question_id": "cadc673b572bb198",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:056",
+      "source_public_question_id": "cadc673b572bb198",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:056:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:056:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:056:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:056:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\n入力層は、モデルにおいて最初にデータを受け取る層であり、外部からの入力（画像、音声、テキストなど）をネットワークに取り込む役割を果たします。この層は、重みやバイアスを持たないため、学習対象には含まれません。入力層の後にある隠れ層以降で、パラメータの最適化が行われます。\nオプション1は不正解です。\n出力層は、モデルの最終的な予測を生成する層であり、通常は分類タスクであればSoftmax関数を含みます。ここでも重みの学習は行われます。\nオプション2は不正解です。\n隠れ層は、ネットワークの中間に位置し、学習対象となるパラメータ（重み・バイアス）を持ち、非線形変換や特徴抽出を行います。\nオプション3は不正解です。\n活性化関数層は、通常は隠れ層や出力層の直後に配置され、非線形性を導入するために用いられます。学習対象ではありませんが、独立した「層」として分離するケースは設計次第であり、選択肢としては誤解を生む可能性があります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

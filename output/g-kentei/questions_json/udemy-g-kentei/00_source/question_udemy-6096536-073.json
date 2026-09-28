@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "正則化の説明として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題73",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ペナルティー項を付加することで、重みの値の範囲を制限する。",
+        "過学習を避けるために学習を早く打ち切る。",
+        "層を飛び越えた結合を設ける手法である。",
+        "学習の各ステップごとにランダムにニューロンを不活性化させる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-073",
+      "public_question_id": "1d60e7a82c03cfd7",
+      "original_question_id": "1d60e7a82c03cfd7",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:073",
+      "source_public_question_id": "1d60e7a82c03cfd7",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:073:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:073:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:073:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:073:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\n正則化は、学習データに過度に適合してしまう過学習を抑えるための考え方・手法の総称です。代表例として、損失関数にペナルティ項を加えて重みが大きくなりすぎるのを抑える方法（L1/L2正則化）、検証性能が悪化し始めたら学習を止める早期終了、学習中に一部のニューロンをランダムに無効化するドロップアウトなどがあります。\n一方、層を飛び越えた結合（スキップ結合、残差結合）は、深いネットワークでも勾配が伝わりやすくして学習を安定させる目的の設計であり、正則化の説明としては不適切です。\nオプション1は不正解です。\n損失関数にペナルティ項を付加して重みを抑制する方法は、L2正則化（重み減衰）やL1正則化などの代表的な正則化です。重みが過度に大きくなるのを防ぎ、汎化性能の向上を狙います。\nオプション2は不正解です。\n学習を早く打ち切る早期終了（Early Stopping）は、検証誤差が増加し始めた時点で学習を終了し、過学習を防ぐ手法であり、広義の正則化とみなされます。\nオプション4は不正解です。\nドロップアウト（Dropout）は、学習中にランダムにニューロンを無効化する正則化手法であり、過学習を防ぐ目的で用いられています。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

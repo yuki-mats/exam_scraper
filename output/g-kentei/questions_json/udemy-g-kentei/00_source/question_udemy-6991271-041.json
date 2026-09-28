@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "デュエリングネットワークに関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題41",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "状態価値関数とアクションごとの利得関数を統合せずに独立に出力する。",
+        "状態の価値（V）と行動の優位性（Advantage）を別々に推定する構造を持つ。",
+        "Q関数は、状態価値と利得関数の合成により表現されるため、デュエリングネットワークの構造と相性が良い。",
+        "行動の選択に影響しない状態の価値を学習できるという利点がある。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの応用例",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-041",
+      "public_question_id": "ff3380e6fbd488fc",
+      "original_question_id": "ff3380e6fbd488fc",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:041",
+      "source_public_question_id": "ff3380e6fbd488fc",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:041:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:041:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:041:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:041:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\nデュエリングネットワークでは、状態価値関数（V）と利得関数（Advantage）を個別に推定した後、統合してQ値を計算する構造を採用しています。したがって、「統合せずに独立に出力する」という説明は不適切です。実際には、これらの出力を合成して最終的なQ値を得ることが特徴です。\nオプション2は不正解です。\n状態価値と利得関数を別々に推定するというのは、デュエリングネットワークの基本構造です。\nオプション3は不正解です。Q値 = V + A（ある調整を加えた形）として扱われ、Q学習との相性は非常に良いです。\nオプション4は不正解です。\n状態によって最適行動が変わらない場合でも、価値関数を個別に学習できる点が強みです。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

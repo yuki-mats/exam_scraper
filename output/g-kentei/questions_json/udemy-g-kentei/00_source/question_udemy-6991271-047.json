@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "F値に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題47",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "適合率と再現率の調和平均として定義され、分類モデルの性能評価に用いられる。",
+        "誤差平方和を説明変数の数で割ったものであり、回帰モデルの適合度を示す。",
+        "ROC曲線の下の面積を表し、分類モデルの識別性能を可視化する。",
+        "クロスエントロピー誤差と混同されることが多く、主に回帰モデルの誤差評価に使われる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-047",
+      "public_question_id": "ab640a32c8bfe3c0",
+      "original_question_id": "ab640a32c8bfe3c0",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:047",
+      "source_public_question_id": "ab640a32c8bfe3c0",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:047:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:047:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:047:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:047:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。F値は、適合率（Precision）と再現率（Recall）の調和平均であり、2つの指標のバランスを取る形で分類性能を評価します。特にクラス不均衡なデータセットにおいて、有効な指標です。値が1に近いほど、分類の精度と網羅性のバランスが良いとされます。\nオプション2は不正解です。\n回帰モデルの説明であり、F値とは無関係です。\nオプション3は不正解です。AUC（Area Under Curve）に関する説明で、F値とは異なります。\nオプション4は不正解です。\nクロスエントロピー誤差は主に分類の損失関数であり、F値とは別の概念です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

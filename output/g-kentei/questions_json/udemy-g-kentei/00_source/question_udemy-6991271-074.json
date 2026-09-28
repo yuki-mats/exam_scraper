@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "積層オートエンコーダに関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題74",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "出力層が入力層と完全に一致する必要があり、再構成誤差の計算は行われない。",
+        "複数のオートエンコーダを層状に重ねることで、より抽象的な特徴表現を学習できる。",
+        "オートエンコーダは、自己符号化によってデータの次元圧縮やノイズ除去に用いられる。",
+        "教師なし学習の代表的な手法の一つである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-074",
+      "public_question_id": "ce4ff7f064ab11dc",
+      "original_question_id": "ce4ff7f064ab11dc",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:074",
+      "source_public_question_id": "ce4ff7f064ab11dc",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:074:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:074:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:074:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:074:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n積層オートエンコーダでは、入力を出力として再構成することを目的とし、再構成誤差（入力と出力の差）を最小化するように学習します。「再構成誤差の計算は行われない」というのは明確に誤りです。出力層が入力と完全に一致する必要はありませんが、再構成精度の評価が学習の要となります。\nオプション2は不正解です。\n複数のオートエンコーダを層状に重ねることで、より抽象的かつ高次の特徴を抽出できます。\nオプション3は不正解です。\nオートエンコーダは、データの圧縮やノイズ除去といった前処理にも広く活用されます。\nオプション4は不正解です。\n教師なし学習の文脈で、特徴抽出や事前学習として利用される代表的手法です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

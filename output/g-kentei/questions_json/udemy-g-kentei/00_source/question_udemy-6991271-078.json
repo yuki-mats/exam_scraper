@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "早期終了に関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題78",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "検証データに対する損失が増加し始めた時点で学習を打ち切ることで、過学習を防ぐ手法である。",
+        "モデルの重みの初期値をランダムではなく事前に学習済みの値で固定することで、精度を高める手法である。",
+        "学習データをシャッフルせずに固定の順序で使い続けることで、安定性を向上させる手法である。",
+        "訓練誤差が0に近づくまで学習を継続することで、性能を最大化する最適化戦略である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-078",
+      "public_question_id": "c069490788423329",
+      "original_question_id": "c069490788423329",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:078",
+      "source_public_question_id": "c069490788423329",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:078:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:078:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:078:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:078:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション1が正解となります。\n早期終了（Early Stopping）は、検証データの損失が増加に転じた時点で学習を停止することで、過学習（バリデーション性能の低下）を防ぐ正則化手法の一つです。モデルが訓練データに過剰に適応する前に学習を終えることで、汎化性能を維持できます。\nオプション2は不正解です。\n転移学習やファインチューニングに関する説明です。\nオプション3は不正解です。\nデータをシャッフルしないと局所的なパターンに偏って学習が進むリスクがあります。\nオプション4は不正解です。\n訓練誤差だけを下げ続けると過学習が進み、早期終了の目的と逆になります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 1
+    }
+  ]
+}

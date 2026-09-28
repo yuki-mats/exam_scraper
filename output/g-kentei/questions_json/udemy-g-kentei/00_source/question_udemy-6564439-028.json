@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "位置エンコーディングに関する記述として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題④ 問題28",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "畳み込みニューラルネットワークにおける重みの初期値の設計手法である。",
+        "時系列におけるノイズ除去のために用いられるフィルタリング手法。",
+        "画像の回転角度を推定するために用いる回転量の表現手法。",
+        "系列データにおける時間情報を明示的に埋め込む、Transformerで使われる技術。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-028",
+      "public_question_id": "2036e67e0f4e8316",
+      "original_question_id": "2036e67e0f4e8316",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:028",
+      "source_public_question_id": "2036e67e0f4e8316",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:028:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:028:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:028:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6564439:question:028:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解です。\n位置エンコーディング（Positional Encoding）は、Transformerモデルにおいて、トークンの順序情報を明示的に埋め込むために用いられる技術です。Transformerは並列処理を可能にするためにリカレント構造を持たないため、系列内での語順や時間的関係を位置ベクトルとして補う必要があります。\n一般的に、正弦波と余弦波を用いた周期関数や学習可能なベクトルが用いられます。\nオプション1は不正解です。\n重みの初期値の設計（例：Xavier初期化やHe初期化）は、ネットワークの学習安定性に関わる別の技術であり、位置エンコーディングとは関係ありません。\nオプション2は不正解です。\nノイズ除去に使われるフィルタ（例：移動平均フィルタ、カルマンフィルタ）も、時系列解析の話であり、位置エンコーディングとは別の文脈です。\nオプション3は不正解です。\n画像の回転量推定に使われるのは、主に画像認識や幾何変換の技術であり、位置エンコーディングとは無関係です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

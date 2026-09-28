@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "空欄（A）（B）に最もよく当てはまる選択肢を1つ選べ。\n多層パーセプトロンは入力層、（A）、出力層で構成され、非線形な問題が解けることが特徴である。多層パーセプトロンの出力が学習データと一致するよう、各層間の結合荷重を修正するという学習法を（B）という。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題85",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "（A）変換層（B）誤差逆伝播法",
+        "（A）隠れ層（B）バッチ正規化",
+        "（A）変換層（B）バッチ正規化",
+        "（A）隠れ層（B）誤差逆伝播法"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-085",
+      "public_question_id": "175c526a1476d435",
+      "original_question_id": "175c526a1476d435",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:085",
+      "source_public_question_id": "175c526a1476d435",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:085:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:085:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:085:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:085:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\n多層パーセプトロンでは、単純パーセプトロンに比べて、入力層と出力層の間に「隠れ層」を追加し、非線形な活性化関数を使用することで、表現力が向上しています。\nそして層が増えることで重みの調整が必要となりますが、「誤差逆伝播法」により、効率的にネットワークの学習ができるようになりました。\n誤差逆伝播法は、ネットワークの出力結果と望ましい出力との誤差を、出力層から入力層に向かって伝播させながら各層の重みを更新する学習法であり、多層パーセプトロンの効率的な学習に欠かせない手法です。\n▼参考文献\nhttps://www.brain.kyutech.ac.jp/~furukawa/data/bp.htmlオプション1は不正解です。\n変換層という用語は通常使用されません。\nオプション2は不正解です。\nバッチ正規化は、学習の効率化を図る手法ですが、本設問のおいては誤差逆伝播法が適切です。\nオプション3は不正解です。\nオプション1,2の理由から不適切です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

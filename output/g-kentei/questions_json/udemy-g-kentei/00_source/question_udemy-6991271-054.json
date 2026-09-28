@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "畳み込みに関する記述として、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題② 問題54",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "畳み込み演算では、画像に対してフィルタ（カーネル）をスライドさせながら内積を計算する。",
+        "畳み込み操作は、局所的な特徴の抽出や空間的な関係性の把握に有効である。",
+        "畳み込み演算では、入力全体に対する一つの値を出力するため、画像分類タスクに特化している。",
+        "畳み込みニューラルネットワーク（CNN）は、複数の畳み込み層を積み重ねて高次の特徴を抽出する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの要素技術",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-054",
+      "public_question_id": "a48781c27f22ac04",
+      "original_question_id": "a48781c27f22ac04",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:054",
+      "source_public_question_id": "a48781c27f22ac04",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:054:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:054:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:054:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6991271:question:054:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション3が正解となります。\n畳み込み演算は、入力画像の各局所領域にフィルタを適用し、空間的な特徴マップを生成します。そのため、「入力全体に対して1つの値を出力する」わけではなく、画像内の特徴を保持した2次元または3次元の出力を得ます。画像分類だけでなく、セグメンテーションや物体検出など多様なタスクに使われます。\nオプション1は不正解です。\n畳み込み操作では、カーネルを画像上でスライドさせて内積を計算するのが基本です。\nオプション2は不正解です。\n畳み込みは、局所領域の特徴（エッジ、輪郭など）を抽出するのに非常に有効です。\nオプション4は不正解です。CNNは、畳み込み層とプーリング層を組み合わせ、抽象度の高い特徴を段階的に学習します。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 3
+    }
+  ]
+}

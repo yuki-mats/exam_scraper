@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "二重降下現象が発生する可能性のあるネットワークモデルについて、最も不適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題64",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ResNet",
+        "畳み込みニューラルネットワーク(CNN)",
+        "Transformer",
+        "k近傍法（k-NN）"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ディープラーニングの概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-064",
+      "public_question_id": "394466beae92b817",
+      "original_question_id": "394466beae92b817",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:064",
+      "source_public_question_id": "394466beae92b817",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:064:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:064:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:064:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:064:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。k近傍法（k-NN）は、未知のデータに対して、学習データの中から距離の近いk個のデータを参照して分類・回帰を行う機械学習手法であり、ニューラルネットワークモデルではありません。\n二重降下現象とは、モデルの複雑さなどを増加させた際に、汎化誤差（テスト誤差）がいったん減少した後に増加し、さらにモデルを複雑にすると再び減少することがある現象です。モデルサイズだけでなく学習エポック数などに対しても二重降下が観測される場合があります。\nオプション1は不正解です。ResNetは、深いネットワークでも学習を効率的に行えるように設計されており、その構造上二重降下現象が発生し得ます。\nオプション2は不正解です。\n畳み込みニューラルネットワーク（CNN）は深層学習モデルの一種であり、二重降下現象が発生し得ます。\nオプション3は不正解です。Transformerは深層学習モデルの一種であり、二重降下現象が発生し得ます。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

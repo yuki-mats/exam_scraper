@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "ε-greedy方策の説明として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑥ 問題30",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "方策方針を予め設定し、その通りに行動する。",
+        "初めて行う行動を重視して選択する。",
+        "選択回数が少ない行動がある場合、その行動を選択する。",
+        "ランダムに行動を選択し、学習が進むにつれて学習結果に基づいて行動する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-030",
+      "public_question_id": "4583d91149ef4f25",
+      "original_question_id": "4583d91149ef4f25",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:030",
+      "source_public_question_id": "4583d91149ef4f25",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:030:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:030:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:030:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096536:question:030:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nε-greedy方策は、強化学習で「探索」と「活用」のバランスを取るための代表的な方策です。具体的には、以下2つの戦略を持ち合わせています。\n①εの確率でランダムに行動を選ぶ（探索）\n②1−εの確率でこれまでの学習結果から最も良いと推定される行動を選ぶ（活用）\n学習が進むにつれて、εを小さくして探索の割合を減らし、学習結果に基づく行動（活用）を増やす運用がよく行われます。\nオプション1は不正解です。\n方策方針をあらかじめ固定してその通りに行動するのは、探索と活用を切り替えるε-greedy方策の説明ではありません。\nオプション2は不正解です。\n「初めて行う行動を重視する」という考え方はε-greedy方策の定義ではありません。ε-greedyでは、探索時はランダム選択を行います。\nオプション3は不正解です。\n「選択回数が少ない行動を優先する」という発想は、UCB（Upper Confidence Bound）などの方策で見られる考え方です。ε-greedyは選択回数ではなく、εの確率でランダムに探索する点が特徴です。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}

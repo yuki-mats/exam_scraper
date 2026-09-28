@@ -1,0 +1,76 @@
+{
+  "list_group_id": "udemy-g-kentei",
+  "source_list_group_id": "g-tbyxpv",
+  "question_bodies": [
+    {
+      "questionBodyText": "機械学習を用いたスパムフィルターを開発したい。そのときの精度に関する考え方として、最も適切な選択肢を1つ選べ。",
+      "examLabel": "G検定 / Udemy Business",
+      "questionLabel": "演習問題⑤ 問題92",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "適合率は低く、再現率が高いものが良い。",
+        "適合率と再現率がなるべく近似した値が望ましい。",
+        "適合率は高く、再現率は低いものが良い。",
+        "再現率と適合率がバランス良く高くなるものが良い。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "choiceImageSourceUrlsByChoice": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "機械学習の概要",
+      "list_group_id": "udemy-g-kentei",
+      "source_list_group_id": "g-tbyxpv",
+      "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-092",
+      "public_question_id": "0a23307cf1cb46d7",
+      "original_question_id": "0a23307cf1cb46d7",
+      "source_question_id": "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:092",
+      "source_public_question_id": "0a23307cf1cb46d7",
+      "questionSourceSite": "tokyo-gas-dx-udemy-com",
+      "question_id_policy_key": "source-question-id:hmac:v1",
+      "question_id_policy_version": 1,
+      "question_id_source_key_description": "{qualification_code}:tokyo-gas-dx-udemy-com:course:{course_slug}:quiz:{quiz_id}:question:{question_number}",
+      "sourceUniqueKeys": [
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:092:s01",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:092:s02",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:092:s03",
+        "g-kentei:tokyo-gas-dx-udemy-com:course:g-tbyxpv:quiz:6096546:question:092:s04"
+      ],
+      "sourceQuestionInputType": "radio",
+      "questionImageSourceUrls": [],
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "オプション4が正解となります。\nスパムフィルターを考える際の適合率及び再現率についての説明は以下の通りです。\n■適合率 = TP / （TP+FP）\n・スパムであると判定した中にスパムがある割合\n■再現率 = TP / （TP+FN）\n・実際に存在したスパムを発見する割合\n（※TPなどは以下の頭文字）\n・スパムと判定し、スパムだったもの （True Positive）\n・スパムと判定し、スパムでないもの （False Positive）\n・スパムでないと判定し、スパムだったもの （False Negative）\n・スパムでないと判定し、スパムでないもの （True Negative）\n目指すべきスパムフィルターとは、適合率も再現率も高く、どちらもバランス良く獲得することが理想的とされます。\n▼参考文献\nhttps://kamatari.github.io/2014/11/06/indicators-of-the-filter-accuracy/\nオプション1は不正解です。\n適合率が低いと、スパムであると判定した中にスパムがある割合が低くなり、性能は低くなります。\nオプション2は不正解です。\n両者の値が近くても、その値自体が低い場合、スパムフィルターとしての性能は低くなります。\nオプション3は不正解です。\n再現率が低いと、スパムメールを見逃す可能性が高くなります。"
+      ],
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "explanationImageSourceUrls": [],
+      "explanationImageStorageUrls": [],
+      "referenceUrls": [],
+      "explanation_common_prefix_inferred_correct_choice": 4
+    }
+  ]
+}
