@@ -1,0 +1,46 @@
+[
+  {
+    "explanationText": [
+      "間違い。β-VAEは、VAEの目的関数でKLダイバージェンスの項に重みβを付ける手法である。離散的な符号を使うことは、このモデルを識別する特徴ではない。",
+      "正しい。VQ-VAEはベクトル量子化を用い、潜在表現を離散的な符号として扱う。連続的な潜在変数を使う通常のVAEとの違いが判断の手掛かりとなる。",
+      "間違い。infoVAEは、潜在変数を有効に使えるようVAEの学習目的を変更したモデルである。離散的な符号を使うことを主な特徴とするのはVQ-VAEである。",
+      "間違い。CVAEは入力された条件に応じて出力を生成するVAE系のモデルである。問題文が示す離散的な潜在表現は、条件付き生成とは別の特徴である。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "15412bb141b8f056",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-067",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:15412bb141b8f056",
+    "reviewQuestionId": "15412bb141b8f056",
+    "sourceRecordRef": "question_udemy-7147437-067.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Neural Discrete Representation Learning",
+        "sourceUrl": "https://arxiv.org/abs/1711.00937",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "InfoVAE: Information Maximizing Variational Autoencoders",
+        "sourceUrl": "https://arxiv.org/abs/1706.02262",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "beta-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework",
+        "sourceUrl": "https://papers.baulab.info/papers/also/Higgins-2017.pdf",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Learning Structured Output Representation using Deep Conditional Generative Models",
+        "sourceUrl": "https://proceedings.neurips.cc/paper_files/paper/2015/file/8d55a249e6baa5c06772297520da2051-Paper.pdf",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
