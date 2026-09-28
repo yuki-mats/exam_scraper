@@ -95,3 +95,8 @@
 - 演習問題③問88: [ELIZAの原論文](https://doi.org/10.1145/365153.365168)に沿って1960年代の対話プログラムと位置付ける。後続03は利用者の「理解された」という感覚と実際の言語理解を区別する。
 - 演習問題③問89: [IBMのAIOps説明](https://www.ibm.com/think/topics/aiops)に沿い、IT運用へのAI適用を問う。MLOps、DevOps、DataOpsとの違いは目的となる業務で説明する。
 - 演習問題③問90: [MnasNetの原論文](https://openaccess.thecvf.com/content_CVPR_2019/papers/Tan_MnasNet_Platform-Aware_Neural_Architecture_Search_for_Mobile_CVPR_2019_paper.pdf)にある速度比較はMobileNetV2比1.8倍、NASNet比2.3倍で、取得元の1.5倍・2.4倍とは一致しない。05は数値を外し、端末上の推論時間を探索に組み込む特徴を残す。
+- 演習問題③問91: フィルターバブルは利用者ごとの情報の個別化に伴う偏りとして問い、同じ意見の人々との交流によるエコーチェンバーと区別する。
+- 演習問題③問92: [DeepLab v3の原論文](https://arxiv.org/abs/1706.05587)に沿い、セマンティックセグメンテーションを中心に問う。取得元の医療画像解析への用途は特定の実装を断定せず、応用可能性として表現する。
+- 演習問題③問93: AGIは汎用的な知能を目指す概念として問い、取得元解説のように人間と同等の知識・能力を既に持つと断定しない。
+- 演習問題③問94: [ローゼンブラットの1958年の論文](https://web.stanford.edu/class/psych209a/ReadingsByDate/01_30/Rosenblatt58Perceptron.pdf)に沿ってパーセプトロンを問う。取得元解説の「オートエンコーダは2006年に初めて提唱された」という説明は後続03へ引き継がない。
+- 演習問題③問95: [外務省のLAWS資料](https://www.mofa.go.jp/mofaj/dns/ca/page24_001191.html)に沿い、自律型致死兵器システムの用語を問う。人間の関与が全くないことを一律の定義として扱わず、標的の選定や攻撃に自律的な機能を用いる点を正答肢に置く。
