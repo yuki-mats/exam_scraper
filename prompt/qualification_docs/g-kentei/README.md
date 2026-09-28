@@ -191,3 +191,8 @@
 - 演習問題④問98: 勾配消失は逆伝播で前段の勾配が小さくなり、重みを更新しにくくなる現象である。取得元の「学習が制御できなくなる」という断定は使わない。
 - 演習問題④問99: [SciPyのsoftmax仕様](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.softmax.html)に沿い、出力は0から1の範囲で総和1となる。大きな入力値には数値安定化が必要で、実装によってはオーバーフローするため、3番に「数値安定化を行わず」を加える。
 - 演習問題④問100: [LSTMの原論文](https://doi.org/10.1162/neco.1997.9.8.1735)に沿い、CECは誤差の流れを保ち、長期的な勾配消失を緩和する。重みの範囲をペナルティーで制限する仕組みではない。
+- 演習問題⑤問1: [BERTの原論文](https://arxiv.org/abs/1810.04805)に沿い、原型の事前学習にMasked Language ModelとNext Sentence Predictionを用いたこと、Transformerエンコーダが双方向の文脈を扱うことを問う。取得元の英語表記の誤字も直す。
+- 演習問題⑤問2: [NMTの課題を調べた研究](https://arxiv.org/abs/1706.03872)に沿い、分野の違い、対訳文の不足、希少語、長文を課題として問う。取得元の「短文では性能が高まる」は課題として不自然なので対訳文不足へ直し、希少語を常に正確に訳せるという誤答を明確にする。
+- 演習問題⑤問3: [Google CloudのMLOps説明](https://docs.cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)に沿い、DevOpsの考え方を機械学習の開発・運用へ応用する点を問う。取得元の文法上の乱れを直す。
+- 演習問題⑤問4: [デュエリングネットワークの原論文](https://arxiv.org/abs/1511.06581)に沿い、状態価値とアドバンテージを別々に推定して行動価値を得る。環境からの報酬を構成要素として直接推定するものではない。
+- 演習問題⑤問5: [GoogleのROC/AUC解説](https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc)に沿い、ランダム分類は期待値で対角線、完全分類なら左上を通る折れ線となる。取得元の「全く予測できない」は逆向き予測とも読めるため、無作為分類へ限定する。
