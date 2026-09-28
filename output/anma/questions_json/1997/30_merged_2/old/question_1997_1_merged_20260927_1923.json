@@ -28,7 +28,7 @@
       "original_question_id": "c163b240f226c053",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "糖尿病が多い。",
+      "correctChoiceText": "慢性疾患の増加",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -58,7 +58,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "先進国では感染症や栄養失調よりも、生活習慣病や慢性疾患が健康問題の中心になります。",
+        "糖尿病は先進国で多い代表的な生活習慣病であり、正答です。",
+        "栄養失調は開発途上国で大きな課題となることが多いです。",
+        "下痢や腸炎の多発も、一般には衛生環境が不十分な地域で問題となりやすいです。"
+      ],
+      "questionSetId": "anma_qs07_14_global_health"
     },
     {
       "questionBodyText": "医療保険でないのはどれか。",
@@ -87,7 +94,7 @@
       "original_question_id": "ccb9c2006c0749d2",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "生活保護",
+      "correctChoiceText": "労災保険",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
       "explanation_common_summary": [],
@@ -117,7 +124,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "健康保険は公的医療保険の一つです。",
+        "共済組合も被用者向けの医療保険制度です。",
+        "生活保護は扶助制度であり、医療保険そのものではないため正答です。",
+        "船員保険も公的医療保険に含まれます。"
+      ],
+      "questionSetId": "anma_qs09_02_social_security_system"
     },
     {
       "questionBodyText": "空気の異常成分はどれか。",
@@ -146,7 +160,7 @@
       "original_question_id": "c859452716e3abda",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "硫黄酸化物",
+      "correctChoiceText": "二酸化硫黄",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 3,
       "explanation_common_summary": [],
@@ -176,7 +190,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "酸素は空気の正常成分です。",
+        "硫黄酸化物は大気汚染物質として扱われる異常成分であり、正答です。",
+        "窒素は空気中で最も多い正常成分です。",
+        "二酸化炭素も空気中に通常含まれる成分です。"
+      ],
+      "questionSetId": "anma_qs07_04_environment_health"
     },
     {
       "questionBodyText": "喫煙による室内の空気汚染と関係ないのはどれか。",
@@ -235,7 +256,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "喫煙は粒子状物質を発生させ、室内空気を汚染します。",
+        "一酸化炭素も喫煙に伴って発生します。",
+        "たばこの煙による臭気も室内汚染に関係します。",
+        "湿度は喫煙そのものによる代表的な汚染要因ではないため、関係ない選択肢です。"
+      ],
+      "questionSetId": "anma_qs07_04_environment_health"
     },
     {
       "questionBodyText": "食中毒について誤っている記述はどれか。",
@@ -294,7 +322,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "ブドウ球菌食中毒は潜伏期間が短いことで知られ、正しい記述です。",
+        "病原性大腸菌は細菌による食中毒に含まれます。",
+        "サルモネラは十分な加熱で予防できます。",
+        "腸炎ビブリオは塩分に弱いのではなく、むしろ好塩性を示すため誤りです。"
+      ],
+      "questionSetId": "anma_qs07_10_public_health_infectious_diseases"
     },
     {
       "questionBodyText": "健康の保持・増進に役立たないのはどれか。",
@@ -353,7 +388,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "飲酒は過量で健康を損なう要因となりやすく、健康保持増進に役立たない選択肢です。",
+        "休養は疲労回復や健康維持に役立ちます。",
+        "適切な食事は健康保持の基本です。",
+        "運動も健康増進に重要です。"
+      ],
+      "questionSetId": "anma_qs07_03_lifestyle_health"
     },
     {
       "questionBodyText": "輸入感染症はどれか。",
@@ -412,7 +454,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "日本脳炎は国内にも存在する感染症で、輸入感染症の代表ではありません。",
+        "破傷風も輸入感染症ではありません。",
+        "マラリアは海外流行地から持ち込まれる代表的な輸入感染症で、正答です。",
+        "梅毒は性感染症であり、輸入感染症として問う代表ではありません。"
+      ],
+      "questionSetId": "anma_qs07_10_public_health_infectious_diseases"
     },
     {
       "questionBodyText": "手指の消毒で正しいのはどれか。",
@@ -471,7 +520,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "紫外線は器具や空間の消毒には用いられますが、手指消毒の基本ではありません。",
+        "赤外線は手指消毒法ではありません。",
+        "逆性石けんは手指消毒に用いられる消毒薬であり、正答です。",
+        "エチレンオキサイドガスは器材滅菌に用いられ、手指消毒には使いません。"
+      ],
+      "questionSetId": "anma_qs07_11_disinfection"
     },
     {
       "questionBodyText": "ごみ処理で最も多い方法はどれか。",
@@ -530,7 +586,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "直接埋立よりも、我が国ではごみの減量化を兼ねて焼却が広く行われています。",
+        "焼却は我が国で最も多いごみ処理方法で、正答です。",
+        "海洋投棄は現在強く制限されており、一般的な方法ではありません。",
+        "堆肥化は一部の有機性廃棄物には有効ですが、全体で最も多い方法ではありません。"
+      ],
+      "questionSetId": "anma_qs07_04_environment_health"
     },
     {
       "questionBodyText": "精神病でないのはどれか。",
@@ -589,7 +652,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "そううつ病は精神疾患に含まれます。",
+        "精神分裂病は現在の統合失調症に相当し、精神病に含まれます。",
+        "精神遅滞（知的障害）は精神病とは区別されるため、正答です。",
+        "てんかんは神経疾患ですが、当時の設問では精神病と対置される疾患群に含めて扱われています。"
+      ],
+      "questionSetId": "anma_qs07_06_mental_health"
     },
     {
       "questionBodyText": "乳児死亡率が最も低い国はどれか。",
@@ -648,7 +718,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "当時の国際比較では、日本は乳児死亡率が最も低い国として扱われており、正答です。",
+        "アメリカ合衆国は日本より乳児死亡率が高いです。",
+        "イギリスも日本より高い水準です。",
+        "スウェーデンも低水準ですが、本問の正答は日本です。"
+      ],
+      "questionSetId": "anma_qs07_13_health_statistics"
     },
     {
       "questionBodyText": "職場での従業員の健康管理を行う義務のある者は誰か。",
@@ -707,7 +784,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "職場で従業員の健康管理を行う責任主体は事業者であり、正答です。",
+        "産業医は事業者を補佐しますが、最終責任主体そのものではありません。",
+        "労働衛生コンサルタントは助言を行う立場です。",
+        "カウンセラーも健康管理義務の主体ではありません。"
+      ],
+      "questionSetId": "anma_qs07_05_occupational_health"
     },
     {
       "questionBodyText": "伝染病予防法で規定されている法定伝染病はどれか。",
@@ -760,7 +844,14 @@
       "sourceAnswerStatus": "no_answer",
       "answerTableCorrectChoiceNumbers": [],
       "choiceClassCorrectChoiceNumbers": [],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "淋病は伝染病予防法でいう法定伝染病には含まれません。",
+        "エイズも当時この設問でいう法定伝染病の区分ではありません。",
+        "コレラは伝染病予防法で規定される法定伝染病であり、正答です。",
+        "インフルエンザは法定伝染病としては扱われません。"
+      ],
+      "questionSetId": "anma_qs07_10_public_health_infectious_diseases"
     },
     {
       "questionBodyText": "あん摩マッサージ指圧師、はり師、きゅう師等に関する法令について正しい記述はどれか。",
@@ -819,7 +910,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "あはき法では施術所の名称に一定の制限があり、この記述は正しいです。",
+        "施術所は必要に応じて立入検査の対象となるため、「受けることはない」は誤りです。",
+        "あん摩マッサージ指圧師は外科手術を行えません。",
+        "薬剤投与も業務範囲に含まれません。"
+      ],
+      "questionSetId": "anma_qs08_02_ahaki_practice"
     },
     {
       "questionBodyText": "施術に関する法律で正しい記述はどれか。",
@@ -878,7 +976,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "免許登録事項の変更届は都道府県知事ではなく、法で定める登録先に対して行うため誤りです。",
+        "施術所開設は都道府県知事への届出事項であり、正しい記述です。",
+        "広告には出身校を自由に記載できるわけではありません。",
+        "聴力障害は直ちに欠格事由とはされません。"
+      ],
+      "questionSetId": "anma_qs08_02_ahaki_practice"
     },
     {
       "questionBodyText": "正しい記述はどれか。",
@@ -937,7 +1042,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "平滑筋細胞は一般に単核であり、多核細胞ではありません。",
+        "染色体は核内に存在するため、正しい記述です。",
+        "成熟した神経細胞は分裂・増殖しません。",
+        "白血球は核をもつ細胞です。"
+      ],
+      "questionSetId": "anma_qs01_01_body_composition"
     },
     {
       "questionBodyText": "表皮はどの上皮に属するか。",
@@ -996,7 +1108,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "移行上皮は膀胱などにみられ、表皮ではありません。",
+        "単層円柱上皮は消化管などにみられます。",
+        "多列上皮は気道にみられる上皮です。",
+        "表皮は角化を伴う重層扁平上皮に属するため、正答です。"
+      ],
+      "questionSetId": "anma_qs01_01_body_composition"
     },
     {
       "questionBodyText": "大泉門を囲む骨について正しい組合せはどれか。",
@@ -1055,7 +1174,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "大泉門は前頭骨と頭頂骨の間に存在します。",
+        "前頭骨と頭頂骨の組合せが正しく、正答です。",
+        "側頭骨は大泉門を囲む主要骨ではありません。",
+        "後頭骨は後方の小泉門に関係します。"
+      ],
+      "questionSetId": "anma_qs01_02_skeletal_system"
     },
     {
       "questionBodyText": "関節半月をもつ関節はどれか。",
@@ -1114,7 +1240,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肩関節には関節半月はありません。",
+        "腕尺関節にも関節半月はありません。",
+        "股関節には関節唇はありますが、半月ではありません。",
+        "膝関節には内側・外側の半月があり、正答です。"
+      ],
+      "questionSetId": "anma_qs01_02_skeletal_system"
     },
     {
       "questionBodyText": "肩甲骨に停止する筋はどれか。",
@@ -1173,7 +1306,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "胸鎖乳突筋は肩甲骨には停止しません。",
+        "大胸筋は上腕骨に停止します。",
+        "前鋸筋は肩甲骨内側縁に停止するため、正答です。",
+        "鎖骨下筋は鎖骨に付着し、肩甲骨には停止しません。"
+      ],
+      "questionSetId": "anma_qs01_03_muscular_system"
     },
     {
       "questionBodyText": "上腕骨内側上顆から起始する筋はどれか。",
@@ -1232,7 +1372,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "腕橈骨筋は上腕骨外側上顆上稜から起始します。",
+        "回外筋も外側上顆付近から起始します。",
+        "円回内筋は上腕骨内側上顆から起始するため、正答です。",
+        "総指伸筋は外側上顆から起始します。"
+      ],
+      "questionSetId": "anma_qs01_03_muscular_system"
     },
     {
       "questionBodyText": "筋とその作用との組合せで誤っているのはどれか。",
@@ -1291,7 +1438,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "大腰筋は股関節の屈曲に作用するため正しい組合せです。",
+        "恥骨筋は股関節の内転・屈曲に関与し、伸展ではないため誤りです。",
+        "腓腹筋は足関節の底屈に作用します。",
+        "前脛骨筋は足関節の背屈に作用します。"
+      ],
+      "questionSetId": "anma_qs01_03_muscular_system"
     },
     {
       "questionBodyText": "男性生殖器について正しい記述はどれか。",
@@ -1350,7 +1504,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "精子は精巣上体に蓄えられるため、正しい記述です。",
+        "精管は鼡径管を通りますが、鼡径靱帯の下を通るわけではありません。",
+        "前立腺は精管に開口するのではなく、精管は射精管を介して尿道へ注ぎます。",
+        "陰茎には海綿体が2本と尿道海綿体が1本あります。"
+      ],
+      "questionSetId": "anma_qs01_08_reproductive_system"
     },
     {
       "questionBodyText": "内分泌腺とその存在部位との組合せで誤っているのはどれか。",
@@ -1409,7 +1570,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "下垂体はトルコ鞍に存在します。",
+        "甲状腺は気管上部の前外側にあります。",
+        "上皮小体は甲状腺の後面付近にあり、心臓前部ではないため誤りです。",
+        "副腎は腎臓上部に存在します。"
+      ],
+      "questionSetId": "anma_qs01_09_endocrine_system"
     },
     {
       "questionBodyText": "肺門を通らないのはどれか。",
@@ -1468,7 +1636,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "気管支は肺門を通ります。",
+        "肺静脈も肺門を通ります。",
+        "気管支動脈も肺門を通る血管です。",
+        "胸管は縦隔を走行しますが肺門は通らないため、正答です。"
+      ],
+      "questionSetId": "anma_qs01_05_respiratory_system"
     }
   ]
 }

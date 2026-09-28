@@ -28,7 +28,7 @@
       "original_question_id": "8218a6b7b0605358",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "カルシトニン",
+      "correctChoiceText": "パラソルモン",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
       "explanation_common_summary": [],
@@ -58,7 +58,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "アドレナリンは主に循環や代謝を調節する副腎髄質ホルモンです。",
+        "ソマトスタチンは成長ホルモンや消化管ホルモンの分泌抑制に関わり、カルシウム調節の中心ではありません。",
+        "インスリンは血糖低下に関わる膵ホルモンです。",
+        "カルシトニンは血中カルシウム濃度を下げる方向に働くため正答です。"
+      ],
+      "questionSetId": "anma_qs02_09_endocrine"
     },
     {
       "questionBodyText": "神経線維の興奮伝導について誤っている記述はどれか。",
@@ -87,7 +94,7 @@
       "original_question_id": "29ce7629a8315294",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "一方向性伝導をする。",
+      "correctChoiceText": "不応期には興奮性が高まる。",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -117,7 +124,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "絶縁性伝導は神経線維の興奮が隣の線維へ飛び移らず、自分の線維内を伝わる性質を指し正しいです。",
+        "興奮は大きさを保ったまま伝わるため、不減衰伝導も正しいです。",
+        "神経線維の一点を刺激すると興奮は両方向へ伝わり得るため、一方向性伝導とする記述が誤りで正答です。",
+        "伝導速度は一般に線維径が太いほど速くなります。"
+      ],
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "跳躍伝導をする線維はどれか。",
@@ -176,7 +190,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "無髄神経線維では活動電位は連続的に伝わります。",
+        "有髄神経線維ではランビエ絞輪から次の絞輪へ飛び飛びに伝わる跳躍伝導が起こるため正答です。",
+        "骨格筋線維は神経線維ではなく、ここでいう跳躍伝導の対象ではありません。",
+        "心筋線維でもこの意味の跳躍伝導は行いません。"
+      ],
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "反射弓を構成する経路の中で受容器につながるのはどれか。",
@@ -235,7 +256,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "反射中枢は脊髄や脳幹内で情報処理を行う部位で、受容器へ直接つながる経路ではありません。",
+        "遠心性神経は中枢から効果器へ向かいます。",
+        "求心性神経は受容器から中枢へ刺激を伝えるため、受容器につながる経路として正答です。",
+        "効果器は筋や腺であり、受容器側ではありません。"
+      ],
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "脳神経が遠心路でない反射はどれか。",
@@ -294,7 +322,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "眼瞼反射の遠心路は顔面神経です。",
+        "咬筋反射の遠心路は三叉神経下顎枝です。",
+        "膝蓋腱反射の遠心路は大腿神経であり、脳神経ではないため正答です。",
+        "嚥下反射の遠心路には迷走神経などの脳神経が関わります。"
+      ],
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "本能行動をつかさどる脳の部位はどれか。",
@@ -353,7 +388,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "延髄は呼吸、循環、嚥下など生命維持の中枢です。",
+        "橋も脳幹機能に関わりますが、本能行動の中心とはしません。",
+        "小脳は平衡、姿勢、協調運動の調節に関わります。",
+        "大脳辺縁系は情動や動機付け、本能的行動との関連が強く、選択肢中ではこれが正答です。"
+      ],
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "膝蓋腱反射で誤っているのはどれか。",
@@ -412,7 +454,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "膝蓋腱反射は脊髄の反射であり、長脊髄反射ではないためこの記述が誤りで正答です。",
+        "筋が伸ばされて起こるので伸張反射です。",
+        "筋紡錘を受容器とする固有反射でもあります。",
+        "感覚ニューロンと運動ニューロンが直接つながる単シナプス反射です。"
+      ],
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "スピロヘータが原因で起こる疾患はどれか。",
@@ -471,7 +520,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "結核は結核菌による感染症です。",
+        "梅毒はスピロヘータの一種である梅毒トレポネーマによって起こるため正答です。",
+        "エイズはHIV感染症です。",
+        "淋病は淋菌による感染症です。"
+      ],
+      "questionSetId": "anma_qs05_01_infectious_diseases"
     },
     {
       "questionBodyText": "糖尿病の合併症として適切でないのはどれか。",
@@ -530,7 +586,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "網膜症は糖尿病の代表的な細小血管合併症です。",
+        "動脈硬化症も糖尿病で進展しやすい大血管合併症です。",
+        "腎症も糖尿病の代表的合併症です。",
+        "肝硬変は糖尿病の典型的合併症ではないため正答です。"
+      ],
+      "questionSetId": "anma_qs05_09_metabolic_nutritional_diseases"
     },
     {
       "questionBodyText": "溶血性黄疸はどれか。",
@@ -589,7 +652,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "新生児黄疸には赤血球破壊の亢進が関わる型があり、ここでは溶血性黄疸として正答です。",
+        "C型肝炎による黄疸は肝細胞性黄疸です。",
+        "胆石症による黄疸は閉塞性黄疸です。",
+        "膵頭部癌による黄疸も閉塞性黄疸です。"
+      ],
+      "questionSetId": "anma_qs05_08_hematologic_diseases"
     },
     {
       "questionBodyText": "皮膚の疾患と炎症の型との組合せで誤っているのはどれか。",
@@ -648,7 +718,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "靴ずれのまめは漿液がたまる病変であり、壊疽性炎ではないためこの組合せが誤りで正答です。",
+        "面疔は化膿性炎として整理されます。",
+        "ひょう疽は蜂窩織炎の形をとることがあります。",
+        "じんま疹は漿液性炎の性格をもつ病変です。"
+      ],
+      "questionSetId": "anma_qs03_05_inflammation"
     },
     {
       "questionBodyText": "肥大の分類として誤っているのはどれか。",
@@ -707,7 +784,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "代償性肥大は機能補償のために起こる真の肥大です。",
+        "労働性肥大も負荷増大により起こる真の肥大です。",
+        "仮性肥大は脂肪や結合組織の増加による見かけの増大であり、真の肥大分類には入らないため正答です。",
+        "補腔性肥大は内容物減少に伴う拡張・肥大として分類されます。"
+      ],
+      "questionSetId": "anma_qs03_03_cell_injury_repair"
     },
     {
       "questionBodyText": "腺腫の好発部位はどれか。",
@@ -766,7 +850,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肝臓にも腫瘍はできますが、腺腫の好発部位として典型ではありません。",
+        "腎臓も腺腫の頻度では大腸ほど代表的ではありません。",
+        "大腸は腺腫の好発部位であり、腺腫性ポリープがよくみられるため正答です。",
+        "前立腺は腺性臓器ですが、ここでの代表的好発部位としては大腸が適切です。"
+      ],
+      "questionSetId": "anma_qs03_07_tumors"
     },
     {
       "questionBodyText": "腫瘍の組織構造について正しい記述はどれか。",
@@ -825,7 +916,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "腫瘍は腫瘍細胞からなる実質と、それを支持する間質からなるためこの記述が正しく正答です。",
+        "良性腫瘍は一般に発生母組織に類似します。",
+        "悪性腫瘍は異型が強いことが多く、この記述は誤りです。",
+        "蜂巣形成は主に上皮性腫瘍にみられ、非上皮性腫瘍では典型ではありません。"
+      ],
+      "questionSetId": "anma_qs03_07_tumors"
     },
     {
       "questionBodyText": "拍動が触れにくいのはどれか。",
@@ -884,7 +982,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "橈骨動脈は手関節部で表在性に触れやすい動脈です。",
+        "椎骨動脈は深部を走り、通常の触診で拍動を触れにくいため正答です。",
+        "総頸動脈は頸部で触知可能です。",
+        "足背動脈も足背で触知できます。"
+      ],
+      "questionSetId": "anma_qs04_02_physical_examination"
     },
     {
       "questionBodyText": "乏尿の原因疾患はどれか。",
@@ -943,7 +1048,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "急性腎不全では腎機能低下により尿量が減少し、乏尿を来しやすいため正答です。",
+        "糖尿病はむしろ多尿を示すことが多いです。",
+        "膀胱炎は頻尿や排尿痛が主で、乏尿の代表原因ではありません。",
+        "尿崩症は多尿をきたす疾患です。"
+      ],
+      "questionSetId": "anma_qs05_06_genitourinary_diseases"
     },
     {
       "questionBodyText": "経皮的に感染する疾患はどれか。",
@@ -1002,7 +1114,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "日本脳炎は蚊の刺咬により感染するため、皮膚を介した感染として正答です。",
+        "猩紅熱は主に飛沫感染です。",
+        "風疹も主に飛沫感染です。",
+        "麻疹も主に空気・飛沫感染です。"
+      ],
+      "questionSetId": "anma_qs05_01_infectious_diseases"
     },
     {
       "questionBodyText": "腹痛の原因で適切でないのはどれか。",
@@ -1061,7 +1180,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "腸閉塞は腹痛の代表的原因です。",
+        "尿管結石も疝痛性腹痛を起こします。",
+        "急性虫垂炎も腹痛を起こす代表疾患です。",
+        "急性気管支炎は通常腹痛の直接原因ではないため正答です。"
+      ],
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "便秘の原因として適切でないのはどれか。",
@@ -1120,7 +1246,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "生活様式の変化は便秘の一因になり得ます。",
+        "内臓下垂も便秘傾向に関わることがあります。",
+        "腸管癒着は通過障害を介して便秘の原因になり得ます。",
+        "食品アレルギーは便秘の代表的原因ではないため正答です。"
+      ],
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "骨折の症状で誤っているのはどれか。",
@@ -1179,7 +1312,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "限局性圧痛は骨折の代表症状です。",
+        "異常可動性も骨折でみられます。",
+        "ばね様固定は脱臼で特徴的な所見であり、骨折症状としては誤りで正答です。",
+        "機能障害も骨折で一般にみられます。"
+      ],
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "気管支喘息発作時の呼吸で誤っているのはどれか。",
@@ -1238,7 +1378,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "喘息発作では呼吸数は増えやすく、この記述は正しいです。",
+        "気管支喘息では呼気が障害されるため、延長するのは吸気ではなく呼気です。したがって吸気の延長は誤りで正答です。",
+        "起坐位は呼吸を楽にする姿勢としてみられます。",
+        "喘鳴も気道狭窄によりよくみられます。"
+      ],
+      "questionSetId": "anma_qs05_03_respiratory_chest_diseases"
     },
     {
       "questionBodyText": "直腸の指診で検査できないのはどれか。",
@@ -1297,7 +1444,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "前立腺は直腸前壁越しに触診できます。",
+        "子宮も女性では直腸診で間接的に評価できることがあります。",
+        "ダグラス窩も直腸診で圧痛や膨隆をみる対象です。",
+        "虫垂は直腸指診で直接検査できないため正答です。"
+      ],
+      "questionSetId": "anma_qs04_02_physical_examination"
     },
     {
       "questionBodyText": "精神発達遅滞の原因で誤っているのはどれか。",
@@ -1356,7 +1510,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "代謝異常は精神発達遅滞の原因になります。",
+        "妊娠中の異常も胎児脳障害を介して原因となり得ます。",
+        "アルツハイマー病は高齢者の認知症であり、精神発達遅滞の原因ではないため正答です。",
+        "脳炎は小児期の脳障害として原因になり得ます。"
+      ],
+      "questionSetId": "anma_qs05_15_pediatric_diseases"
     },
     {
       "questionBodyText": "精神療法で面接を主体とするのはどれか。",
@@ -1415,7 +1576,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "自律訓練は自己訓練を主体とする方法です。",
+        "行動療法は行動変容技法を用いる治療法です。",
+        "カウンセリングは面接を主体として援助するため正答です。",
+        "作業療法は作業活動を通じて機能回復を目指します。"
+      ],
+      "questionSetId": "anma_qs04_05_psychotherapy"
     },
     {
       "questionBodyText": "病的反射でないのはどれか。",
@@ -1474,7 +1642,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "アシュネル反射は眼球圧迫で徐脈を起こす生理的反射であり、病的反射ではないため正答です。",
+        "チャドック反射は錐体路障害でみられる病的反射です。",
+        "バビンスキー反射も代表的な病的反射です。",
+        "オッペンハイム反射も錐体路障害でみられる病的反射です。"
+      ],
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     }
   ]
 }

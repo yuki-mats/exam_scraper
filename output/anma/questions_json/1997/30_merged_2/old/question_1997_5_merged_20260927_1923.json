@@ -28,7 +28,7 @@
       "original_question_id": "fb3e73010c6d8a1f",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "職業訓練",
+      "correctChoiceText": "泥治療",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -58,7 +58,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "ADL訓練は食事や更衣、移動など日常生活動作の再獲得を目指す作業療法の代表的内容です。",
+        "機能回復訓練は上肢機能や巧緻動作の改善を目的に作業療法でも行われます。",
+        "利き手交換は利き手が使えない患者に対して非利き手の実用性を高める作業療法です。",
+        "通常の医療リハビリテーション施設では職業前評価や職業関連活動の訓練は行っても、専門的な職業訓練そのものは職業リハビリテーション領域で扱うため本問ではこれが誤りです。"
+      ],
+      "questionSetId": "anma_qs06_04_rehabilitation_treatment"
     },
     {
       "questionBodyText": "膝関節について誤っている記述はどれか。",
@@ -87,7 +94,7 @@
       "original_question_id": "2f76ea8ca5a288bf",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "大腿骨と脛骨との角度は軽度内反している。",
+      "correctChoiceText": "関節円板をもつ。",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -117,7 +124,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "成人の膝関節は生理的に軽度外反であり、軽度内反しているという記述は誤りです。",
+        "膝関節には内側半月板と外側半月板があり、この記述は正しいです。",
+        "大腿四頭筋は膝関節の主要な伸筋であり正しい記述です。",
+        "膝蓋骨は大腿四頭筋腱内にある人体最大の種子骨で、この記述は正しいです。"
+      ],
+      "questionSetId": "anma_qs06_05_kinesiology"
     },
     {
       "questionBodyText": "脳卒中急性期の理学療法で適切でないのはどれか。",
@@ -146,7 +160,7 @@
       "original_question_id": "f74a78d57c1be2d8",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "歩行訓練",
+      "correctChoiceText": "疲労困憊するまでの運動",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -176,7 +190,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "体位変換は褥瘡や拘縮の予防に重要で、急性期から行います。",
+        "良肢位の確保は麻痺肢の変形や痛みを防ぐ基本対応です。",
+        "関節可動域訓練は拘縮予防のため急性期にも実施されます。",
+        "歩行訓練は全身状態が安定してから段階的に開始するため、急性期の不適切な選択肢です。"
+      ],
+      "questionSetId": "anma_qs06_06_stroke_head_injury_rehabilitation"
     },
     {
       "questionBodyText": "Ｃ6損傷（第 7 頸髄節以下の損傷）の患者ができない動作はどれか。",
@@ -205,7 +226,7 @@
       "original_question_id": "30ffee9206dda8d2",
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
-      "correctChoiceText": "杖による歩行",
+      "correctChoiceText": "頸髄完全損傷では自力での車椅子駆動は不可能である。",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
       "explanation_common_summary": [],
@@ -235,7 +256,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "C6レベルでは自助具を用いた食事動作の獲得が目標になります。",
+        "手関節背屈を利用した把持や車椅子操作が可能で、駆動訓練の対象になります。",
+        "更衣動作は一部介助を要しても練習で可能になることがあります。",
+        "杖による歩行は下肢機能が不足するC6損傷では通常困難であり、本問でできない動作に当たります。"
+      ],
+      "questionSetId": "anma_qs06_07_spinal_cord_injury_rehabilitation"
     },
     {
       "questionBodyText": "慢性関節リウマチ患者の理学療法で適切でないのはどれか。",
@@ -264,7 +292,7 @@
       "original_question_id": "f152c305a74e4344",
       "questionImageStorageUrls": [],
       "questionIntent": "select_incorrect",
-      "correctChoiceText": "鉄アレーを用いた筋力増強",
+      "correctChoiceText": "骨量減少の防止",
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
@@ -294,7 +322,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "慢性関節リウマチでは炎症関節への強い抵抗負荷は悪化要因になり得るため、鉄アレーを用いた筋力増強は不適切です。",
+        "歩行器を用いた歩行訓練は関節保護と移動能力維持に役立ちます。",
+        "寒冷療法は炎症や疼痛の軽減目的で用いられます。",
+        "パラフィン浴などの温熱療法は慢性期の疼痛やこわばりの緩和に用いられます。"
+      ],
+      "questionSetId": "anma_qs06_11_musculoskeletal_rehabilitation"
     },
     {
       "questionBodyText": "変形性関節症の症状で誤っているのはどれか。",
@@ -353,7 +388,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "変形性関節症では疼痛や可動域制限はみられますが、関節強直は典型症状ではなく本問では誤りです。",
+        "疼痛や変形のため歩行異常を生じやすいです。",
+        "痛みによる廃用や不使用から周囲筋の筋力低下を伴いやすいです。",
+        "荷重時や動作時の痛みは変形性関節症の代表的症状です。"
+      ],
+      "questionSetId": "anma_qs06_11_musculoskeletal_rehabilitation"
     },
     {
       "questionBodyText": "脾の臓は五行のどれに所属するか。",
@@ -412,7 +454,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肝は五行では木に属し、脾ではありません。",
+        "心は火に属し、脾ではありません。",
+        "脾は五行では土に属するため正しい組合せです。",
+        "肺は金に属するため脾には対応しません。"
+      ],
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "六腑に属さないのはどれか。",
@@ -471,7 +520,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "胃は六腑の一つです。",
+        "大腸は六腑の一つです。",
+        "膀胱は六腑の一つです。",
+        "心包は六腑ではなく、心を包む概念として五臓六腑とは別に扱われるため本問ではこれが誤りです。"
+      ],
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "気の作用で正常な体温を維持するのはどれか。",
@@ -530,7 +586,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "温煦作用は身体や臓腑を温め、正常な体温を保つ作用で正解です。",
+        "気化作用は気・血・津液の変化や代謝に関わる働きです。",
+        "防御作用は外邪の侵入を防ぐ働きです。",
+        "固摂作用は汗や血、尿などがむやみに漏れないように保つ働きです。"
+      ],
+      "questionSetId": "anma_qs10_02_qi_blood_fluids"
     },
     {
       "questionBodyText": "八綱病証で病位を示すのはどれか。",
@@ -589,7 +652,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "陰陽は病証の大きな性質をみる分類です。",
+        "虚実は病邪の強さと正気の盛衰を示します。",
+        "表裏は病が体表にあるか体内にあるかという病位を示すため正解です。",
+        "寒熱は病の性質が寒か熱かを示します。"
+      ],
+      "questionSetId": "anma_qs10_05_pattern_theory"
     },
     {
       "questionBodyText": "切診でないのはどれか。",
@@ -648,7 +718,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "腹診は触れて診るため切診に含まれます。",
+        "脈診も触診であり切診に含まれます。",
+        "切経は経絡上の圧痛や陥下などを触れて診る方法で切診です。",
+        "舌診は舌の色や形を観察する望診であり、切診ではないため正答です。"
+      ],
+      "questionSetId": "anma_qs10_06_four_examinations"
     },
     {
       "questionBodyText": "五臓と五主との組合せで正しいのはどれか。",
@@ -707,7 +784,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肝は筋を主り、肌肉ではありません。",
+        "心は血脈を主るため正しい組合せです。",
+        "脾は肌肉を主り、筋ではありません。",
+        "肺は皮毛を主り、骨ではありません。"
+      ],
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "五香を診るのはどれか。",
@@ -766,7 +850,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "望診は視覚的情報をみる方法で、においは扱いません。",
+        "五香はにおいを嗅いで判断するため聞診で診ます。",
+        "問診は患者から訴えを聞く方法です。",
+        "切診は身体に触れて診る方法です。"
+      ],
+      "questionSetId": "anma_qs10_06_four_examinations"
     },
     {
       "questionBodyText": "季肋部で診る腹証はどれか。",
@@ -825,7 +916,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "胸脇苦満は季肋部の抵抗や圧痛をみる腹証で、設問の部位に一致します。",
+        "心下痞硬はみぞおち付近のつかえや硬さを示す腹証です。",
+        "小腹急結は下腹部の瘀血性所見です。",
+        "臍下不仁は臍の下の無力感や知覚鈍麻をみる腹証です。"
+      ],
+      "questionSetId": "anma_qs10_06_four_examinations"
     },
     {
       "questionBodyText": "切経で実の反応はどれか。",
@@ -884,7 +982,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "切経で熱感は実証にみられる代表的な反応で正解です。",
+        "陥下は虚の反応として扱われます。",
+        "不仁は知覚鈍麻や虚の所見としてみます。",
+        "皮膚のざらつきは実証の代表反応とはいえません。"
+      ],
+      "questionSetId": "anma_qs10_06_four_examinations"
     },
     {
       "questionBodyText": "鼻孔の傍らに終わる経絡はどれか。",
@@ -943,7 +1048,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肺経は胸から上肢内側を通り母指側に終わります。",
+        "大腸経は示指から上肢外側、顔面を上行して鼻翼の外方に終わるため正解です。",
+        "胃経は鼻の傍らから始まり下行しますが、終わる経絡ではありません。",
+        "脾経は足から胸腹部へ上行します。"
+      ],
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "腹部を通らない経絡はどれか。",
@@ -1002,7 +1114,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "胃経は胸腹部前面を通るため腹部を通ります。",
+        "脾経は下肢内側から腹部を上行するため腹部を通ります。",
+        "膀胱経は内眼角から頭背部と下肢後面を走行し、腹部前面は通らないため本問ではこれが誤りです。",
+        "腎経は足底から下肢内側を上り腹部前面を通ります。"
+      ],
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "前腕前面の正中を下る経絡はどれか。",
@@ -1061,7 +1180,14 @@
       "choiceClassCorrectChoiceNumbers": [
         3
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肺経は前腕前面でも橈側を走ります。",
+        "心経は前腕前面の尺側を走ります。",
+        "心包経は前腕前面の正中を下るため正解です。",
+        "三焦経は前腕後外側を走ります。"
+      ],
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "陰の経絡の経穴はどれか。",
@@ -1120,7 +1246,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "合谷は手の陽明大腸経の経穴で陽経です。",
+        "曲池は手の陽明大腸経の経穴で陽経です。",
+        "手三里も手の陽明大腸経に属します。",
+        "尺沢は手の太陰肺経の合穴で、陰の経絡に属する経穴です。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "次の文で示す経穴はどれか。「肩関節の下際で上腕後側の上部、腋窩横紋後端の上方約 1 寸に取る。」",
@@ -1179,7 +1312,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "肩貞は肩関節下際、腋窩横紋後端の上方1寸に取るため設問の記載に一致します。",
+        "肩中兪は第7頸椎と第1胸椎の間の外方にある背部の経穴です。",
+        "肩髃は肩峰外側端前下方の陥凹部に取ります。",
+        "肩井は僧帽筋上で大椎と肩峰端の中点に取ります。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "背腰部の経穴でないのはどれか。",
@@ -1238,7 +1378,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "厥陰兪は背部にある膀胱経の兪穴です。",
+        "胃兪は背部にある膀胱経の兪穴です。",
+        "三焦兪も背部の膀胱経上にあります。",
+        "肓兪は腹部の腎経穴であり、背腰部の経穴ではないため正答です。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "腎に関係する経穴はどれか。",
@@ -1297,7 +1444,14 @@
       "choiceClassCorrectChoiceNumbers": [
         1
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "太谿は足の少陰腎経の原穴で、腎に関係する経穴です。",
+        "太白は足の太陰脾経の原穴です。",
+        "地機は足の太陰脾経の郄穴です。",
+        "梁丘は足の陽明胃経の郄穴です。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "臍と胸骨体下端との中間にある経穴はどれか。",
@@ -1356,7 +1510,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "巨闕は臍上6寸で、中間より上にあります。",
+        "中脘は臍上4寸で、臍と胸骨体下端との中間に位置するため正解です。",
+        "水分は臍上1寸にあります。",
+        "関元は臍下3寸にあります。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "経絡と募穴との組合せで正しいのはどれか。",
@@ -1415,7 +1576,14 @@
       "choiceClassCorrectChoiceNumbers": [
         2
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "中極は膀胱の募穴であり、胃経ではありません。",
+        "天枢は大腸の募穴であるため正しい組合せです。",
+        "日月は胆の募穴であり、小腸経ではありません。",
+        "関元は小腸の募穴であり、膀胱経ではありません。"
+      ],
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "あん摩の基本手技でないのはどれか。",
@@ -1474,7 +1642,14 @@
       "choiceClassCorrectChoiceNumbers": [
         4
       ],
-      "isCalculationQuestion": false
+      "isCalculationQuestion": false,
+      "explanationText": [
+        "軽擦法はあん摩の基本手技の一つです。",
+        "圧迫法はあん摩の基本手技の一つです。",
+        "揉捏法もあん摩の基本手技に含まれます。",
+        "強擦法はマッサージに特徴的な手技であり、あん摩の基本手技ではないため正答です。"
+      ],
+      "questionSetId": "anma_qs11_01_anma"
     }
   ]
 }
