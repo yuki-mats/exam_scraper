@@ -430,6 +430,15 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn(clf_readme, originalize["canonicalDocs"])
         self.assertIn("question_ping-t-76_39674.json#0", (ROOT / clf_readme).read_text(encoding="utf-8"))
 
+        g_catalog = QualificationWorkflow(ROOT, None).catalog("g-kentei")
+        g_originalize = next(
+            stage for stage in g_catalog["stages"] if stage["id"] == "originalize"
+        )
+        self.assertIn(
+            "prompt/qualification_docs/g-kentei/01_exam_profile.md",
+            g_originalize["canonicalDocs"],
+        )
+
     def test_production_catalog_is_the_stage_structure_ssot(self):
         catalog = WorkflowCatalog(ROOT).load()
 
