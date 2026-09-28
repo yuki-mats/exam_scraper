@@ -261,3 +261,8 @@
 - 演習問題⑤問68: [ダートマス大学の沿革](https://home.dartmouth.edu/about/artificial-intelligence-ai-coined-dartmouth)に沿い、1956年の研究会が人工知能の研究分野を発展させる契機となった点を問う。
 - 演習問題⑤問69: [デューク大学の意味ネットワークの説明](https://people.duke.edu/~mccann/mwb/15semnet.htm)に沿い、概念を節点、関係を線として表す知識表現を問う。
 - 演習問題⑤問70: [scikit-learnのアンサンブル学習の説明](https://scikit-learn.org/1.4/modules/ensemble.html)に沿い、逐次的なブースティングと独立にモデルを作るバギングを区別し、速度や精度の一律比較を避ける。
+- 演習問題⑤問71: [IBMのレコメンドの説明](https://www.ibm.com/think/topics/content-based-filtering/jcr%3Acontent)に沿い、新しい商品に評価が少ない場合のコールドスタート問題を問う。
+- 演習問題⑤問72: [NISTの分布一覧](https://itl.nist.gov/div898/handbook/eda/section3/eda366.htm)に沿い、正規分布・ベータ分布は連続、二項分布・ポアソン分布は離散として分類する。
+- 演習問題⑤問73: [IBMの交絡の説明](https://www.ibm.com/think/topics/causal-inference)に沿い、共通要因により因果関係がなくても相関が見える疑似相関を問う。元の「直接の相関性がない」は因果関係へ修正する。
+- 演習問題⑤問74: [scikit-learnの探索手法の説明](https://scikit-learn.org/0.16/modules/grid_search.html)に沿い、グリッドサーチは定義済み候補の全組合せ、ランダムサーチは試行回数を決めた標本抽出として問う。
+- 演習問題⑤問75: [IBMのRPAの説明](https://www.ibm.com/think/topics/rpa)に沿い、決まった手順の反復的な事務作業をソフトウェアで自動化する用途を問う。
