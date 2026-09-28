@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "間違い。意味が近い単語を近いベクトルで表せるのは、学習によって得る単語埋め込みなどの特徴である。ワンホットベクトルは単語の位置を示すだけで、意味の近さは表さない。",
+      "正しい。ワンホットベクトルは語彙数と同じ次元を持ち、対象の単語に対応する要素だけを1、ほかを0にする。",
+      "間違い。文中の各単語の出現回数を並べるのは、文書を表すBag-of-Wordsなどの方法である。ワンホットベクトルは一つの単語を一つの1と残りの0で表す。",
+      "間違い。文全体を一つのベクトルにまとめるのは文の表現方法である。設問のワンホットベクトルは、一つの単語を語彙中の位置で表す。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "37937d2ec2acc76c",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-054",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:37937d2ec2acc76c",
+    "reviewQuestionId": "37937d2ec2acc76c",
+    "sourceRecordRef": "question_udemy-7147437-054.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "TensorFlow Word embeddings",
+        "sourceUrl": "https://www.tensorflow.org/text/guide/word_embeddings",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "scikit-learn CountVectorizer",
+        "sourceUrl": "https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
