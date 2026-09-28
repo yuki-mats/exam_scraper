@@ -1,0 +1,46 @@
+[
+  {
+    "explanationText": [
+      "間違い。Whisperは音声を入力として文字起こしなどを行うモデルである。画像とテキストの例から視覚的な質問に答えるモデルではない。",
+      "間違い。CLIPは画像とテキストの対応を学習し、画像分類などに利用できる。少数の画像とテキストの例を提示して視覚的な質問応答を行うモデルとして発表されたのはFlamingoである。",
+      "正しい。Flamingoは画像やテキストを組み合わせた少数の例を入力中に示すことで、画像についての質問応答や説明文の生成などに対応する。DeepMindが発表した視覚と言語のモデルである。",
+      "間違い。DALL·Eはテキストの指示から画像を生成するモデルである。画像を見て質問に答えるという問題文の用途は、Flamingoの特徴に合う。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "9fde8712da5644f1",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-068",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:9fde8712da5644f1",
+    "reviewQuestionId": "9fde8712da5644f1",
+    "sourceRecordRef": "question_udemy-7147437-068.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Flamingo: a Visual Language Model for Few-Shot Learning",
+        "sourceUrl": "https://arxiv.org/abs/2204.14198",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Learning Transferable Visual Models From Natural Language Supervision",
+        "sourceUrl": "https://arxiv.org/abs/2103.00020",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Robust Speech Recognition via Large-Scale Weak Supervision",
+        "sourceUrl": "https://arxiv.org/abs/2212.04356",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Zero-Shot Text-to-Image Generation",
+        "sourceUrl": "https://arxiv.org/abs/2102.12092",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
