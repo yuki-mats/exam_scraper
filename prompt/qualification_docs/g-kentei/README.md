@@ -276,3 +276,8 @@
 - 演習問題⑤問83: [ケンブリッジ大学の故人再現AIの研究](https://www.repository.cam.ac.uk/items/bc2f1612-f989-4a92-9d1a-7105a3757d7b)と[経産省のAI事業者ガイドライン](https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20260331_report.html)に沿い、故人の再現には本人や遺族への配慮が必要とする。元の選択肢3にある人口についての誤った前提を除き、一つの誤答に戻す。
 - 演習問題⑤問84: [特許庁のAI関連発明の審査事例](https://www.jpo.go.jp/system/laws/rule/guideline/patent/ai_jirei.html)と[進歩性を否定した事例の紹介](https://www.jpo.go.jp/news/kokusai/seminar/document/chizaishihou-2021/30-01.pdf)に沿い、周知の機械学習への単純な置換に格別の技術的効果がない場合の進歩性を問う。特許の対象と進歩性を混同しない。
 - 演習問題⑤問85: [Rumelhartらの誤差逆伝播法の原論文](https://doi.org/10.1038/323533a0)に沿い、多層パーセプトロンの隠れ層と、誤差から勾配を計算する手法を問う。
+- 演習問題⑤問86: [NoisyNet原論文](https://arxiv.org/abs/1706.10295)に沿い、DQNなどでε-greedy法に代えて学習可能なパラメータノイズを探索へ用いる特徴を問う。
+- 演習問題⑤問87: [経産省のAI事業者ガイドライン](https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20260331_report.html)に沿い、推論精度を根拠なく楽観視せず、便益とリスクの両面から事業利用を検討する。
+- 演習問題⑤問88: [UNESCOのAI倫理勧告](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics?hub=66941)と[NISTのAIリスク管理フレームワーク](https://airc.nist.gov/airmf-resources/airmf/2-sec-audience/)に沿い、データ、開発チーム、利用者の意見と多様性・包摂性の関係を問う。
+- 演習問題⑤問89: [MITの信用割当に関する研究](https://cbmm.mit.edu/publications/error-driven-input-modulation-solving-credit-assignment-problem-without-backward-pass-0)に沿い、出力誤差に対する内部の重みの寄与を割り当てる問題を問う。
+- 演習問題⑤問90: [TensorFlowのモデル最適化の説明](https://www.tensorflow.org/model_optimization/guide)に沿い、プルーニング、量子化、蒸留をモデル圧縮とし、バッチ正規化を区別する。
