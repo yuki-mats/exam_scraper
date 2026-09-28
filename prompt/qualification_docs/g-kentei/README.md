@@ -386,3 +386,8 @@
 - 演習問題⑥問93: [TensorFlowのファインチューニング説明](https://www.tensorflow.org/guide/keras/transfer_learning)に沿い、学習済みパラメータを対象タスクのデータで追加学習して調整する点を問う。
 - 演習問題⑥問94: サンプリングと量子化によってアナログ音声をデジタル化するA-D変換を問う。元の選択肢と難易度を維持する。
 - 演習問題⑥問95: シグモイド関数の出力を厳密に0より大きく1より小さい連続値と表し、0と1を出力するステップ関数と区別する。
+- 演習問題⑥問96: [scikit-learnの主成分分析の説明](https://scikit-learn.org/1.5/modules/generated/sklearn.decomposition.PCA.html)に沿い、特徴量抽出で次元が必ず増えるという説明を誤答とする。取得元解説の「必ず小さくなる」という逆向きの断定も採用しない。
+- 演習問題⑥問97: [scikit-learnの適合率と再現率の定義](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html)に沿い、元の「正解と予測」を陽性と予測へ言い換え、正解率・適合率・再現率の分母を区別する。
+- 演習問題⑥問98: バッチ学習は更新に使うデータ量の指定であり、早期終了・正則化・ドロップアウトのように過学習抑制を主目的とする手法ではないことを問う。
+- 演習問題⑥問99: CNNの畳み込みで対応する画素値とフィルタ値の積を足し合わせ、特徴マップを得る流れを問う。元の選択肢を維持する。
+- 演習問題⑥問100: [Stanfordの自然言語処理資料](https://www-nlp.stanford.edu/pubs/demarneffe2021universal.pdf)に沿い、固定表現を複数語がまとまって一定の意味を持つ言い回しとして問う。
