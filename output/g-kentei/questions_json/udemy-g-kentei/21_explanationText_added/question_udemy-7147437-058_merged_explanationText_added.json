@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。ストライドは、畳み込みフィルタを入力上で移動させる間隔である。間隔が2なら、フィルタを通常2画素ずつ動かす。",
+      "正しい。入力やフィルタなどの条件を固定すると、ストライドが大きいほど適用位置が減り、出力の空間サイズと畳み込み演算の回数が小さくなる。",
+      "正しい。ストライドを小さくすると、同じ入力上でフィルタをより密に適用する。通常、出力特徴マップの空間サイズも大きくなる。",
+      "間違い。ストライドを大きくしても、入力画像の画素数は変わらない。変化するのはフィルタの移動間隔であり、通常は出力特徴マップの空間サイズが小さくなる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "651062591810d005",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-058",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:651062591810d005",
+    "reviewQuestionId": "651062591810d005",
+    "sourceRecordRef": "question_udemy-7147437-058.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "PyTorch Conv2d documentation",
+        "sourceUrl": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
