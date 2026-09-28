@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "間違い。noisingでは、主に学習時の入力に適度なノイズを加える。推論時に必ずノイズを加える手法ではない。",
+      "正しい。学習用の入力に小さなノイズを加えると、入力のわずかな変化に左右されにくいモデルを目指せる。noisingはデータ拡張や過学習を抑える方法として用いられる。",
+      "間違い。適度なノイズの付与は、特定の学習データに過度に合わせることを抑える場合がある。ただし、ノイズが強すぎれば必要な情報も失われ得る。",
+      "間違い。noisingでは、画像などの入力データにノイズを加えて学習できる。正解ラベルにだけノイズを加える必要はない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "6cd04f84ec25e8e2",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-031",
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:6cd04f84ec25e8e2",
+    "reviewQuestionId": "6cd04f84ec25e8e2",
+    "sourceRecordRef": "question_udemy-7147437-031.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定シラバス2024 v1.4（データ拡張・noising）",
+        "sourceUrl": "https://www.jdla.org/download/g%e6%a4%9c%e5%ae%9a%e3%81%ae%e8%a9%a6%e9%a8%93%e5%87%ba%e9%a1%8c%e7%af%84%e5%9b%b2-%ef%bc%88%e3%82%b7%e3%83%a9%e3%83%90%e3%82%b9%ef%bc%89g20246%ef%bd%9ev1-4/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "TensorFlow tf.keras.layers.GaussianNoise",
+        "sourceUrl": "https://www.tensorflow.org/api_docs/python/tf/keras/layers/GaussianNoise",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
