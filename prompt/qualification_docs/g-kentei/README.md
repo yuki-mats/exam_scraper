@@ -216,3 +216,8 @@
 - 演習問題⑤問23: [Googleの初代TPUの説明](https://cloud.google.com/blog/products/ai-machine-learning/an-in-depth-look-at-googles-first-tensor-processing-unit-tpu)に沿い、低ビット幅の行列演算を効率よく処理する機械学習専用プロセッサを問う。取得元の「演算精度を犠牲にする」という断定は採用しない。
 - 演習問題⑤問24: [個人情報保護委員会のガイドライン](https://www.ppc.go.jp/personalinfo/legal/guidelines_tsusoku/)では信条、犯罪被害、犯罪歴を要配慮個人情報とする。[同委員会の確認資料](https://www.ppc.go.jp/files/pdf/2811_bessi2-1.pdf)では運転免許証等の臓器提供意思表示は該当しないため、取得元の誤答肢を運転免許証の欄に限定する。
 - 演習問題⑤問25: [scikit-learnのTF-IDFの説明](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)に沿い、文書内の出現頻度と文書集合内での希少さから単語の重みを求める点を問う。
+- 演習問題⑤問26: 多クラス分類は三つ以上のクラスから一つを判定する。乗り物の画像の分類先を自動車・電車・船と明示し、スパムか否かの二値分類と区別する。
+- 演習問題⑤問27: [scikit-learnの分解手法一覧](https://scikit-learn.org/stable/api/sklearn.decomposition.html)、[オートエンコーダの研究](https://pubmed.ncbi.nlm.nih.gov/16873662/)及び[デンドログラムの例](https://scikit-learn.org/stable/auto_examples/cluster/index.html)に沿い、次元削減と階層クラスタリングの可視化を区別する。
+- 演習問題⑤問28: [Googleのバイアス分類](https://developers.google.com/machine-learning/crash-course/fairness/types-of-bias)に沿い、標本抽出の偏りをサンプリングバイアスとして問う。取得元は正解を2番としながら、正誤ラベルと`questionIntent`を逆に記録しているため、05で整合させる。
+- 演習問題⑤問29: [Dockerの公式説明](https://docs.docker.com/get-started/docker-overview/)に沿い、アプリケーションをコンテナで実行する基盤として問う。
+- 演習問題⑤問30: [BERTの公式実装説明](https://github.com/google-research/bert)に沿い、文中の一部をマスクし、文脈から隠した語を予測するMLMを問う。
