@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。BICはモデルの対数尤度（ここでは負の対数尤度として表現）に、パラメータ数とサンプル数に応じたペナルティを加えて評価する。一般的な式は -2 log L + k log n である。",
+      "正しい。モデルの複雑さに罰則を設けて選択するため、学習データへの過度な適合を抑える方向に働く。",
+      "正しい。ペナルティには log n が含まれるため、サンプル数 n が増えるほど、同じパラメータ数に対するペナルティも大きくなる。",
+      "間違い。BICはパラメータ数が増えるほどペナルティが大きくなる指標で、通常は値が小さいモデルを選ぶ。したがって、複雑なモデルほど高いスコアを得て選ばれやすいという説明は逆である。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "d8aa369b67d30914",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-085",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:d8aa369b67d30914",
+    "reviewQuestionId": "d8aa369b67d30914",
+    "sourceRecordRef": "question_udemy-7147437-085.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "statsmodels MLEResults.info_criteria（BICの定義）",
+        "sourceUrl": "https://www.statsmodels.org/stable/generated/statsmodels.tsa.statespace.mlemodel.MLEResults.info_criteria.html",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Estimating the Dimension of a Model",
+        "sourceUrl": "https://sites.stat.washington.edu/courses/stat527/s13/readings/ann_stat1978.pdf",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
