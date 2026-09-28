@@ -311,3 +311,8 @@
 - 演習問題⑥問18: [RNN Encoder-Decoderの原論文](https://arxiv.org/abs/1406.1078)に沿い、機械翻訳を代表例として問う。気温予測に使えないと一律に断定しない。
 - 演習問題⑥問19: [EfficientNet原論文](https://arxiv.org/abs/1905.11946)、[WaveNet原論文](https://arxiv.org/abs/1609.03499)、[音声のDAE研究](https://arxiv.org/abs/2001.01538)に沿い、音声波形や音声系列への直接的な適用例を問う。EfficientNetを画像向けのモデルとして区別する。
 - 演習問題⑥問20: [経済産業省などのカメラ画像利活用ガイドブックver3.0](https://www.meti.go.jp/policy/it_policy/privacy/01_CameraGuideBook_ver3.0.pdf)に沿い、保存済み画像の新目的利用では生活者からの改めての同意が必要な点と、事前告知の伝え方を問う。
+- 演習問題⑥問21: [Transformer原論文](https://arxiv.org/abs/1706.03762)に沿い、原提案の構成をAttention中心のモデルとして問う。
+- 演習問題⑥問22: [経済産業省のAIの利用・開発に関する契約チェックリスト](https://www.meti.go.jp/press/2024/02/20250218003/20250218003-a.pdf)に沿い、準委任契約では仕事の完成義務を当然には負わない点を問う。成果や責任は個別の合意に左右されるため、無責任と読める表現は避ける。
+- 演習問題⑥問23: [scikit-learnの交差検証の説明](https://scikit-learn.org/stable/modules/cross_validation.html)に沿い、データが少ない場合に学習・検証へ有効活用できる特徴を問う。
+- 演習問題⑥問24: 形態素解析を、文の分割と品詞判定を行う処理として問う。格解析・構文解析・含意関係解析と区別する。
+- 演習問題⑥問25: [OpenAIのプロンプトエンジニアリングの説明](https://developers.openai.com/api/docs/guides/prompt-engineering)に沿い、入力する指示文そのものの設計・改善を問う。「コンテキストエンジニアリング」を一般に存在しない用語とは扱わない。
