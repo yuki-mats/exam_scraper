@@ -236,3 +236,8 @@
 - 演習問題⑤問43: [Googleのバイアス軽減手法](https://developers.google.com/machine-learning/crash-course/fairness/mitigating-bias)に沿い、センシティブ属性を変えた場合の予測の点検と公平性を考慮した学習を問う。取得元の「属性をランダムに上書きする」は、そのままでは妥当な軽減策と確認できないため採用しない。
 - 演習問題⑤問44: [CMUの音韻研究資料](https://www.cs.cmu.edu/~srallaba/pdfs/jk_phd.pdf)に沿い、言語内で意味を区別する音の体系と、その最小単位の音素を問う。取得元冒頭の不自然な説明を直す。
 - 演習問題⑤問45: [W3CのpartOfの説明](https://www.w3.org/2001/sw/BestPractices/OEP/SimplePartWhole/)に沿い、part-ofは全体と部分の関係とする。取得元の「属性」は誤答肢3と並ぶ別の誤りになるため、05で直す。
+- 演習問題⑤問46: [経産省のセキュリティ・バイ・デザイン資料](https://www.meti.go.jp/shingikai/energy_environment/jisedai_smart_meter/security_kento_wg/pdf/001_04_00.pdf)と[IPAの導入指南書](https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2022/security-by-design.html)に沿い、早期対策が全体コストを必ず増やすという肢を誤答とする。脅威分析、要件、アーキテクチャは実施内容の例として示す。
+- 演習問題⑤問47: [NISTのビッグデータ定義](https://csrc.nist.gov/glossary/term/big_data)と[Dockerのコンテナ説明](https://docs.docker.com/get-started/docker-overview/)を踏まえると、取得元の「コンテナ技術とビッグデータに直接関係がない」は一意に判断しにくい。コンテナ導入だけで収集量が自動増加するという誤りを問う構成へ修正する。
+- 演習問題⑤問48: [Mixupの原論文](https://arxiv.org/abs/1710.09412)に沿い、画像だけでなく対応するラベルも同じ比率で混ぜる点を正答肢に加える。
+- 演習問題⑤問49: [LIMEの原論文](https://arxiv.org/abs/1602.04938)に沿い、説明対象の予測の周辺を単純なモデルで近似し、寄与した特徴を示す点を問う。
+- 演習問題⑤問50: [NISTのブロックチェーン解説](https://www.nist.gov/blockchain)に沿い、前のブロックのハッシュ値による連結が改ざんを検出可能にする理由を問う。
