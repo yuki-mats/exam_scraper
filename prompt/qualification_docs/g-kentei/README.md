@@ -156,3 +156,8 @@
 - 演習問題④問63: [Googleの機械学習用語集](https://developers.google.com/machine-learning/glossary)に沿い、自己教師あり学習はラベルのないデータ自体から学習用の正解信号を作る。取得元の「データの一部を疑似ラベル」は一例に見えるため、05では一般的な定義へ直す。
 - 演習問題④問64: [宝くじ仮説の原論文](https://arxiv.org/abs/1803.03635)に沿い、適切な初期重みを持つ疎なサブネットワークが、元のネットワークと同程度の精度まで学習できる点を正答に明記する。
 - 演習問題④問65: [scikit-learnの標準化仕様](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)に沿い、特徴量を平均0・分散1に変換する意味を問う。
+- 演習問題④問66: [UNESCOのAI倫理勧告](https://www.unesco.org/en/articles/recommendation-ethics-artificial-intelligence)が重視する包摂の考え方を踏まえ、インクルージョンという用語を問う。
+- 演習問題④問67: [A3Cの原論文](https://arxiv.org/abs/1602.01783)に沿い、非同期のActor-Criticが強化学習の手法である点を問う。
+- 演習問題④問68: データの平均は6、分散は((1-6)^2+(4-6)^2+(5-6)^2+(9-6)^2+(11-6)^2)/5=12.8で、四捨五入すると13になる。取得元と同じ数値・正答を維持する。
+- 演習問題④問69: [VQ-VAE](https://arxiv.org/abs/1711.00937)、[InfoVAE](https://arxiv.org/abs/1706.02262)、[β-VAE](https://openreview.net/pdf/9fcd6616f4c4e9985552865eb0d2383e4fd55a26.pdf)はいずれもVAEを基礎とする変種として問う。
+- 演習問題④問70: [NeRFの原論文](https://arxiv.org/abs/2003.08934)に沿い、複数視点の画像からシーンを表現し、新たな視点の画像を合成する点を問う。
