@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "075a9103e031d11e",
+      "questionBodyText": "BoW（Bag-of-Words）の特徴として、最も不適切な記述を1つ選べ。",
+      "choiceTextList": [
+        "文書を語彙の出現回数ベクトルで表し、語順は保持しない。",
+        "語彙数が大きいとベクトルは高次元で疎（多くの要素が0）になりやすい。",
+        "n-gramやTF-IDFを併用して表現力を高められる。",
+        "文脈や単語間の依存関係を正確に捉えられるため、BERTなどのモデルより優れている。"
+      ],
+      "correctChoiceText": ["正しい", "正しい", "正しい", "間違い"],
+      "questionIntent": "select_incorrect",
+      "answer_result_text": "正解は 4 です。"
+    }
+  ]
+}
