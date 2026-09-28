@@ -1,0 +1,31 @@
+[
+  {
+    "explanationText": [
+      "正しい。GANは、データを生成するGeneratorと、本物か生成データかを判別するDiscriminatorを競争させて学習する。学習が進むと、Generatorは本物に近いデータを生成できるようになる。",
+      "間違い。GANは識別専用のモデルではなく、Generatorによって画像などのデータを生成する生成モデルである。",
+      "間違い。GANは通常、正解ラベルを一つずつ付けた教師データだけに依存せず、生成データと実データの違いをDiscriminatorが学習に利用する。条件付きGANなどの拡張もあるため、ラベル付きデータだけを使う教師あり学習と限定する説明は適切でない。",
+      "間違い。GANはGeneratorとDiscriminatorの敵対的な最適化で学習する生成モデルであり、強化学習のように報酬を受けて行動方策を学ぶ仕組みではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "98d6be6de775c406",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-088",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:98d6be6de775c406",
+    "reviewQuestionId": "98d6be6de775c406",
+    "sourceRecordRef": "question_udemy-7147437-088.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Generative Adversarial Nets",
+        "sourceUrl": "https://arxiv.org/abs/1406.2661",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
