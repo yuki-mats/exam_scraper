@@ -176,3 +176,8 @@
 - 演習問題④問83: [AdaBoundの原論文](https://arxiv.org/abs/1902.09843)ではAdaBoundはAdam、AMSBoundはAMSGradを基礎とし、ともにSGDへ近づく。設問の「初期はAdam」を維持してAdaBoundを正答とする。
 - 演習問題④問84: [OpenAIのCLIP紹介](https://openai.com/index/clip/)に沿い、画像とテキストの対応を学習して共通の表現空間で扱う点を問う。
 - 演習問題④問85: [AWSのエッジコンピューティングの説明](https://aws.amazon.com/what-is/edge-computing/)に沿い、データの発生源に近い場所で処理する点を問う。
+- 演習問題④問86: [OpenAIのChatGPT発表](https://openai.com/index/chatgpt/)と[GPT-4技術報告](https://cdn.openai.com/papers/gpt-4.pdf)に沿い、発表主体とGPT系モデルのTransformerアーキテクチャを問う。サービスを常に単一モデルとみなす書き方は避ける。
+- 演習問題④問87: 状態価値関数は方策の下で状態から得られる将来の累積報酬の期待値を表す。即時報酬や行動ごとの価値との違いを維持する。
+- 演習問題④問88: [Deep LearningのCNN解説](https://www.deeplearningbook.org/contents/convnets.html)に沿い、プーリング層が領域を要約し、設定により空間サイズを縮小する点を問う。
+- 演習問題④問89: [Unified-IOの原論文](https://arxiv.org/abs/2206.08916)に沿い、対応する画像・言語などの入出力を離散トークン列へ統一する。「あらゆるモダリティ」は対象外の入出力まで含むため05で限定する。
+- 演習問題④問90: ε-greedy方策は確率εでランダムな行動を、残りで価値が最大の行動を選ぶ。取得元の「最も期待値の高い行動」を行動価値に合わせて明確にする。
