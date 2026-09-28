@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "間違い。形態素解析は、文をそのまま扱うのではなく、意味を持つ最小単位である形態素に分割して各単位の情報を調べる処理である。",
+      "間違い。単語の意味や類似性を数値ベクトルで表すのは、単語埋め込み（Word Embedding）の処理である。形態素解析とは目的が異なる。",
+      "間違い。主語・述語など文全体の構造を明らかにするのは構文解析である。形態素解析で得た単語や品詞の情報を利用する、より上位の処理に当たる。",
+      "正しい。形態素解析は、文を意味を持つ最小単位に分割し、各単位に品詞や活用形などの形態情報を付与する。日本語のように単語の境界が空白で示されない言語で特に重要である。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "506c92a857ec9061",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-097",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:506c92a857ec9061",
+    "reviewQuestionId": "506c92a857ec9061",
+    "sourceRecordRef": "question_udemy-7147437-097.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "MeCab: Yet Another Part-of-Speech and Morphological Analyzer",
+        "sourceUrl": "https://taku910.github.io/mecab/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "A Japanese Morphological Analysis Method for Online Text",
+        "sourceUrl": "https://www.aclweb.org/anthology/P04-1011/",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
