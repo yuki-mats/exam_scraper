@@ -251,3 +251,8 @@
 - 演習問題⑤問58: [カナダの個人情報保護当局の説明](https://www.priv.gc.ca/en/for-federal-institutions/privacy-act-bulletins/pab_20260119/)に沿い、設計時だけでなく運用までプライバシーに配慮する点を問う。
 - 演習問題⑤問59: [敵対的サンプルの研究例](https://openai.com/index/attacking-machine-learning-with-adversarial-examples/)に沿い、パンダ画像への意図的な微小摂動でテナガザルと誤認識させる例を問う。単なるランダムな雑音追加とは区別する。
 - 演習問題⑤問60: [経産省のAI事業者ガイドライン](https://www.meti.go.jp/press/2024/04/20240419004/20240419004-2.pdf)に沿い、設計前からステークホルダーとリスクを整理する。説明可能性に応じたモデル選択も検討事項とする。
+- 演習問題⑤問61: [経産省のAI・データの利用に関する契約ガイドライン](https://www.meti.go.jp/shingikai/sankoshin/shomu_ryutsu/joho_keizai/it_rikatsuyo/pdf/011_s02_02.pdf)に沿い、アセスメント段階の秘密保持契約、PoC段階の導入検証契約、開発段階のソフトウェア開発契約、追加学習段階の利用契約をモデル契約書の対応として問う。契約の一律義務とは書かない。
+- 演習問題⑤問62: [IBMのLLMの説明](https://www.ibm.com/think/topics/large-language-models)に沿い、入力文脈を踏まえた自然言語処理を正答とする。モデルサイズや訓練データと精度の関係を常に単調とする誤答肢には「必ず」を加える。
+- 演習問題⑤問63: [経産省の限定提供データの説明](https://www.meti.go.jp/policy/economy/chizai/chiteki/pdf/datatebiki.pdf)に沿い、限定提供性、相当蓄積性、電磁的管理性を確認する。少量でも価値の高いデータというだけで一律に保護されるとは書かない。
+- 演習問題⑤問64: [OpenAIの二重降下の研究](https://openai.com/index/deep-double-descent/)に沿い、CNN、ResNet、Transformerで観測された深層ニューラルネットワークの現象として問う。k-NN一般に二重降下が絶対生じないとは主張せず、モデルの種類を区別する。
+- 演習問題⑤問65: [scikit-learnのバイアス・バリアンスの説明](https://scikit-learn.org/0.20/modules/learning_curve.html)に沿い、高バイアスと学習不足、高バリアンスと過学習の関係を傾向として問う。
