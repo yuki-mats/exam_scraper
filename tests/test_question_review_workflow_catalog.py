@@ -345,7 +345,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("### 04の分類field", contract)
         self.assertIn("肢別分類とは別に確定する", contract)
 
-    def test_originalization_policy_uses_qualification_specific_change_amount(self):
+    def test_originalization_policy_preserves_quality_with_minimum_edits(self):
         prompt = (ROOT / "prompt/05_prompt_originalize_question.md").read_text(
             encoding="utf-8"
         )
@@ -377,13 +377,10 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertIn("各誤答が誤りである理由", prompt)
         self.assertIn("正答と解説に照らし", prompt)
         self.assertIn("元の問題文、選択肢、正答、解説を一つの基準セット", prompt)
-        self.assertIn("変更箇所と変更量を決めます", operations)
-        self.assertIn("一定割合で混ぜる運用はしません", operations)
-        g_profile = (
-            ROOT / "prompt/qualification_docs/g-kentei/01_exam_profile.md"
-        ).read_text(encoding="utf-8")
-        self.assertIn("局所的な修正にとどまる問も、構成を組み直す問も許容", g_profile)
-        self.assertIn("大幅変更問の割合で合否を決めない", g_profile)
+        self.assertIn("問題文と選択肢は局所的な微修正", operations)
+        self.assertIn("どこを微修正するか一問ずつ決める", prompt)
+        self.assertIn("変更量別の問題数や割合は設けない", prompt)
+        self.assertIn("大きく改変する問題を一定割合で作る条件は設けません", operations)
         explanation_prompt = (
             ROOT / "prompt/03_prompt_add_explanationText.md"
         ).read_text(encoding="utf-8")
@@ -429,15 +426,6 @@ class WorkflowCatalogTests(unittest.TestCase):
         clf_readme = "prompt/qualification_docs/aws-cloud-practitioner/README.md"
         self.assertIn(clf_readme, originalize["canonicalDocs"])
         self.assertIn("question_ping-t-76_39674.json#0", (ROOT / clf_readme).read_text(encoding="utf-8"))
-
-        g_catalog = QualificationWorkflow(ROOT, None).catalog("g-kentei")
-        g_originalize = next(
-            stage for stage in g_catalog["stages"] if stage["id"] == "originalize"
-        )
-        self.assertIn(
-            "prompt/qualification_docs/g-kentei/01_exam_profile.md",
-            g_originalize["canonicalDocs"],
-        )
 
     def test_production_catalog_is_the_stage_structure_ssot(self):
         catalog = WorkflowCatalog(ROOT).load()

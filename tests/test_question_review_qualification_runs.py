@@ -4945,7 +4945,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             prompt,
         )
         self.assertIn(
-            "変更量は資格別資料と工程の品質規則に沿って一問ごとに決める",
+            "元問題の情報と流れを保つ局所的な微修正へ整え直す",
             prompt,
         )
         self.assertIn("prompt内だけの参照資料", prompt)
