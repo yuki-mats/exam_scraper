@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "正しい。BoWは文書中の各語を数値で表す方法である。同じ語が何回現れたかは分かるが、どの順番で並んでいたかは分からない。",
+      "正しい。語彙が増えるほど特徴量の列も増える。一つの文書に現れない語の値は0になるため、ベクトルは疎になりやすい。",
+      "正しい。n-gramは隣り合う語をまとめて扱い、TF-IDFは文書の特徴を示す語に重みを付ける。どちらも単純な出現回数だけでは得にくい情報を補える。",
+      "間違い。正しくは、BoWだけでは語順や前後の文脈を十分に捉えられない。BERTは単語の前後を考慮して表現を作るため、文脈を扱う仕組みが異なる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "original_question_id": "075a9103e031d11e",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-003",
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:075a9103e031d11e",
+    "reviewQuestionId": "075a9103e031d11e",
+    "sourceRecordRef": "question_udemy-7147437-003.json#0"
+  }
+]
