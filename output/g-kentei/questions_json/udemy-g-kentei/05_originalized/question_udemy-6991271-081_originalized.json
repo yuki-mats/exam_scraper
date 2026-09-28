@@ -1,0 +1,17 @@
+{
+  "question_bodies": [
+    {
+      "original_question_id": "eb3e2962e926870d",
+      "questionBodyText": "Question-Answering（QA）システムについて、最も不適切な説明を1つ選べ。",
+      "choiceTextList": [
+        "QAシステムは自然言語で入力された質問に対して、正確な答えを返すことを目的とした技術である。",
+        "BERTなどの言語モデルを使い、文脈から答えに相当する箇所を抽出する手法もある。",
+        "対象領域や参照文書を限定したQAでは、その範囲の情報を使って答える。",
+        "オープンQAでは、あらかじめ答えの候補を一覧で提供しておき、利用者が選択する形式が主流である。"
+      ],
+      "correctChoiceText": ["正しい", "正しい", "正しい", "間違い"],
+      "questionIntent": "select_incorrect",
+      "answer_result_text": "正解は 4 です。"
+    }
+  ]
+}
