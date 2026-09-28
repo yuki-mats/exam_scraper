@@ -100,3 +100,8 @@
 - 演習問題③問93: AGIは汎用的な知能を目指す概念として問い、取得元解説のように人間と同等の知識・能力を既に持つと断定しない。
 - 演習問題③問94: [ローゼンブラットの1958年の論文](https://web.stanford.edu/class/psych209a/ReadingsByDate/01_30/Rosenblatt58Perceptron.pdf)に沿ってパーセプトロンを問う。取得元解説の「オートエンコーダは2006年に初めて提唱された」という説明は後続03へ引き継がない。
 - 演習問題③問95: [外務省のLAWS資料](https://www.mofa.go.jp/mofaj/dns/ca/page24_001191.html)に沿い、自律型致死兵器システムの用語を問う。人間の関与が全くないことを一律の定義として扱わず、標的の選定や攻撃に自律的な機能を用いる点を正答肢に置く。
+- 演習問題③問96: [scikit-learnのBaggingClassifier仕様](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingClassifier.html)に沿い、復元抽出した標本でモデルを別々に学習し予測を統合する手法として問う。並列実行は実装上の選択なので定義にはしない。
+- 演習問題③問97: [サールの原論文](https://zoo.cs.yale.edu/classes/cs471/13s/13s-papers/searle-chinese-room-bbs.pdf)を踏まえ、外から見える応答と実際の理解の区別を問う。取得元解説の「チューリングテストがAIの思考能力を主張する」という説明は後続03で用いない。
+- 演習問題③問98: ReLU関数は入力が正なら微分値1、負なら0である。取得元の「0以上なら常に1」は0における微分の扱いを無視するため、05では0を含めずに問う。
+- 演習問題③問99: [GoogleのProject Mavenに関する説明](https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/incorporating-googles-ai-principles-google-cloud/)と[DARPAのXAIプログラム](https://www.darpa.mil/research/programs/explainable-artificial-intelligence)に沿って選択肢を整えた。[国連のLAWSに関する政府専門家会合](https://meetings.unoda.org/meeting/79329)は規制を議論しており、すべての国でAIの軍事研究が禁止されたわけではない。
+- 演習問題③問100: [scikit-learnの勾配ブースティング説明](https://scikit-learn.org/stable/modules/ensemble.html#gradient-boosting)に沿い、損失関数の勾配を利用して弱い学習器を順次追加することを問う。回帰にも用いられるため4番が誤りである。
