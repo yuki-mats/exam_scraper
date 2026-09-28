@@ -1,0 +1,36 @@
+[
+  {
+    "explanationText": [
+      "正しい。GoogLeNetは2014年のImageNet Large Scale Visual Recognition Challenge（ILSVRC）で優勝したCNNである。",
+      "正しい。Inceptionモジュールは異なる大きさの畳み込みなどを並列に組み合わせ、1種類の畳み込みだけに頼らず特徴を抽出する。1×1畳み込みによる次元削減も計算量の抑制に役立つ。",
+      "間違い。GoogLeNetは非常に浅い3層のネットワークではなく、Inceptionモジュールを重ねた22層の深いCNNとして知られる。このため、浅さを特徴とする説明は不適切である。",
+      "正しい。GoogLeNetのInception構造を発展させた後継モデルとして、Inception-v2、Inception-v3などが提案されている。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "a801b32767c52325",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/7147437/test#question-093",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:a801b32767c52325",
+    "reviewQuestionId": "a801b32767c52325",
+    "sourceRecordRef": "question_udemy-7147437-093.json#0",
+    "explanationReferences": [
+      {
+        "title": "JDLA G検定の試験範囲（シラバス）",
+        "sourceUrl": "https://www.jdla.org/certificate/general/",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "Going Deeper with Convolutions",
+        "sourceUrl": "https://arxiv.org/abs/1409.4842",
+        "referenceDate": "2026-09-29"
+      },
+      {
+        "title": "ImageNet Large Scale Visual Recognition Challenge 2014",
+        "sourceUrl": "https://image-net.org/challenges/LSVRC/2014/",
+        "referenceDate": "2026-09-29"
+      }
+    ]
+  }
+]
