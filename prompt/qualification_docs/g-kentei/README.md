@@ -381,3 +381,8 @@
 - 演習問題⑥問88: [音声特徴の研究資料](https://people.csail.mit.edu/jvb/pubs/papers/bouvrie_thesis_2009.pdf)に沿い、MFCCをスペクトル包絡の情報を表す係数として問う。係数そのものを「求める方法」とは呼ばない。
 - 演習問題⑥問89: [IEAのAIと電力需要の分析](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai)に沿い、大規模言語モデルの学習で電力消費を無視できないことを問う。モデル規模と消費電力の関係は同じ構成・処理条件に限る。
 - 演習問題⑥問90: 網羅性の不足を転移学習だけで解消できないことを問う。品質のばらつきを減らし、クラス不均衡は必要に応じて対処する表現に整える。
+- 演習問題⑥問91: [scikit-learnの特徴選択説明](https://scikit-learn.org/1.5/modules/feature_selection.html)に沿い、次元削減と特徴選択は影響を緩和する手段とし、少量のデータ追加だけで必ず解決するという説明を誤答にする。
+- 演習問題⑥問92: [PyTorchのプルーニング解説](https://docs.pytorch.org/tutorials/intermediate/pruning_tutorial.html)に沿い、重要度の低い重みや接続を取り除くモデル圧縮を問う。
+- 演習問題⑥問93: [TensorFlowのファインチューニング説明](https://www.tensorflow.org/guide/keras/transfer_learning)に沿い、学習済みパラメータを対象タスクのデータで追加学習して調整する点を問う。
+- 演習問題⑥問94: サンプリングと量子化によってアナログ音声をデジタル化するA-D変換を問う。元の選択肢と難易度を維持する。
+- 演習問題⑥問95: シグモイド関数の出力を厳密に0より大きく1より小さい連続値と表し、0と1を出力するステップ関数と区別する。
