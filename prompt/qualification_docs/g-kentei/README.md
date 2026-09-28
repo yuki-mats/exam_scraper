@@ -68,3 +68,7 @@
 - 演習問題③問48: 取得元解説は再販売価格の拘束をカルテルと呼ぶが、[公正取引委員会の流通・取引慣行ガイドライン](https://www.jftc.go.jp/dk/guideline/unyoukijun/ryutsutorihiki.html)では再販売価格維持行為として扱う。[AIと競争政策の報告書](https://www.jftc.go.jp/houdou/pressrelease/2021/mar/210331_digital/210331digital_hokokusho.pdf)は価格協調とランキングの問題を扱い、[不当廉売の考え方](https://www.jftc.go.jp/dk/guideline/unyoukijun/futorenbai.html)は競争者の顧客に限った廉売が問題になり得る場合を示す。05は各行為を混同せず、正答1を維持する。
 - 演習問題③問49: [CAMの原論文](https://openaccess.thecvf.com/content_cvpr_2016/papers/Zhou_Learning_Deep_Features_CVPR_2016_paper.pdf)に沿い、対象クラスの判断に寄与する画像領域の可視化を問う。すべての画像認識モデルにそのまま適用できるとは書かない。
 - 演習問題③問54: 取得元解説の「REINFORCEは価値関数を用いない」は、ベースラインとして価値推定を使う変種まで否定しかねない。05では主な更新対象が方策パラメータであり、価値関数の推定精度そのものが目的ではないことを問う。後続03も価値関数の利用を一律に否定しない。
+- 演習問題③問56: [経済産業省のカメラ画像利活用ガイドブックver3.0](https://www.meti.go.jp/policy/it_policy/privacy/01_CameraGuideBook_ver3.0.pdf)に沿い、店内の動線データを抽出した後に元画像を速やかに破棄するケースを扱う。取得元の「速やかな破棄」を全カメラ利用に共通する法的義務としない。
+- 演習問題③問57: L1正則化は説明変数そのものではなくモデルの係数に罰則を加える。取得元4番の「大きな特徴量へのペナルティー」を05では明確に誤答とし、L1とL2を区別する。
+- 演習問題③問58: カテゴリカルクロスエントロピーは交差エントロピーの一形態であり、取得元の1番と2番はともに正しくなり得る。05では2番を決定係数に変え、損失関数と評価指標を区別する。平均絶対誤差も回帰で有効なので、正解以外を全面否定しない。
+- 演習問題③問60: [FPNの原論文](https://openaccess.thecvf.com/content_cvpr_2017/papers/Lin_Feature_Pyramid_Networks_CVPR_2017_paper.pdf)はトップダウン経路と横方向結合を特徴とする。[SSDの原論文](https://arxiv.org/abs/1512.02325)も複数尺度を扱うため、取得元の「ピラミッド構造」だけでは識別が曖昧になる。05ではFPN固有の構成を問う。
