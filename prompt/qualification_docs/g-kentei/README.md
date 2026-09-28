@@ -341,3 +341,8 @@
 - 演習問題⑥問48: ReLUが正の入力で勾配を保ちやすい点を踏まえ、「勾配消失を防ぐ」との断定を「起こしにくくする」へ修正する。
 - 演習問題⑥問49: [畳み込みの出力サイズに関するPyTorch仕様](https://docs.pytorch.org/docs/stable/generated/torch.nn.Conv2d.html)と[dilated convolutionの研究論文](https://arxiv.org/abs/1511.07122)に沿い、空間サイズ維持はパディング等の条件によると明示し、受容野拡大を正答の決め手にする。
 - 演習問題⑥問50: [Network in Network原論文](https://arxiv.org/abs/1312.4400)に沿い、各特徴マップの空間位置全体の平均を問うことで、局所的な平均値プーリングと区別する。
+- 演習問題⑥問51: [VAE原論文](https://arxiv.org/abs/1312.6114)に沿い、AEとVAEのデコーダに共通する入力再現の役割を問う。元の空欄文の語順を整える。
+- 演習問題⑥問52: [Seq2Seq原論文](https://arxiv.org/abs/1409.3215)に沿い、RNNを使う機械翻訳モデルのエンコーダとデコーダの役割を問う。
+- 演習問題⑥問53: [経済産業省のAI事業者ガイドライン](https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20260331_report.html)に沿い、関係者への説明を開発後に先延ばしにする対応を誤答とする。法令の遵守とガイドラインの参照を区別する。
+- 演習問題⑥問54: [二重降下現象の研究紹介](https://openai.com/index/deep-double-descent/)に沿い、性能という曖昧な表現をテスト誤差の減少・増加・再減少へ明確化する。
+- 演習問題⑥問55: 再帰構造で順序のあるデータを扱うRNNの名称を問う。元の選択肢と難易度を維持する。
