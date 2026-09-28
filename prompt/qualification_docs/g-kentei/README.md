@@ -361,3 +361,8 @@
 - 演習問題⑥問68: 説明可能AIの略称XAIを問う。元の選択肢と難易度を維持する。
 - 演習問題⑥問69: [NISTのAIバイアス資料](https://www.nist.gov/news-events/news/2022/03/theres-more-ai-bias-biased-data-nist-report-highlights)に沿い、AIシステムの判断に現れた偏りと、モデル構築前の標本抽出に伴う偏りを区別する。
 - 演習問題⑥問70: [Adam原論文](https://arxiv.org/abs/1412.6980)に沿い、過去の勾配の移動平均に関係するモーメンタムを問う。提唱年代や鞍点からの脱出を断定しない。
+- 演習問題⑥問71: [個人情報保護委員会の仮名加工情報の説明](https://www.ppc.go.jp/all_faq_index/faq4-q009_/)と[匿名加工情報との違い](https://www.ppc.go.jp/all_faq_index/faq1-q14-1/)に沿い、復元不能を匿名加工情報の説明として区別する。個人情報該当性は作成元と照合できる事業者の条件で表す。
+- 演習問題⑥問72: [TensorFlowの転移学習の説明](https://www.tensorflow.org/tutorials/images/transfer_learning)に沿い、別タスクの学習済み知識を新タスクへ活用する総称を問う。ファインチューニングはその一形態として区別する。
+- 演習問題⑥問73: [Googleの早期終了の説明](https://developers.google.com/machine-learning/crash-course/overfitting/regularization)と[PyTorchのドロップアウト仕様](https://docs.pytorch.org/docs/stable/generated/torch.nn.Dropout)に沿い、正則化の例とスキップ結合を区別する。
+- 演習問題⑥問74: [ノーフリーランチの定理の研究](https://arxiv.org/abs/cs/0303032)に沿い、すべての最適化問題で常に優越する汎用手法はないという判断を問う。
+- 演習問題⑥問75: [FCN原論文](https://arxiv.org/abs/1411.4038)に沿い、全結合層を使わず畳み込みを主体に画素単位予測を行う点を問う。アップサンプリング等もあるため「畳み込み層のみ」という断定は避ける。
