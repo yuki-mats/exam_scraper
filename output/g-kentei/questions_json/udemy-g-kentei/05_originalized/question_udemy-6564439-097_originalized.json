@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "8e039d66dfca380f",
-      "questionBodyText": "モデルが訓練データの傾向も十分に捉えられないアンダーフィッティングの原因として、一般に最も不適切なものを1つ選べ。",
+      "questionBodyText": "ディープラーニングの未学習（学習不足、アンダーフィッティング）の原因として、最も不適切なものを1つ選べ。",
       "choiceTextList": [
-        "モデルの表現力が必要以上に高い。",
-        "訓練に費やした時間が短い。",
-        "予測に必要な特徴量が入力に含まれていない。",
-        "正則化が強すぎる。"
+        "モデルが複雑である。",
+        "訓練時間が短い。",
+        "適切な特徴量が選択されていない。",
+        "データセットが小さい。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 1 です。"
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }

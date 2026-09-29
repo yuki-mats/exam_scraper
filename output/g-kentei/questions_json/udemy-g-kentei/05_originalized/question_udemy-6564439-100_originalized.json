@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "57decc78374effe2",
-      "questionBodyText": "LSTMのConstant Error Carousel（CEC）について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "LSTMのCEC（Constant Error Carousel）について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "LSTMで用いられる仕組みである。",
-        "誤差の情報を内部で保持し、時間方向へ伝える役割がある。",
-        "ペナルティー項を加えて重みの値の範囲を制限する。",
-        "長期的な勾配消失を緩和する。"
+        "LSTMで用いられている。",
+        "誤差を内部にとどめる役割を持つ。",
+        "ペナルティ項を付加し、重みの値の範囲を制限する。",
+        "勾配消失を防ぐ。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "間違い", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 3 です。"
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }

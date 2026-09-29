@@ -4,14 +4,20 @@
       "original_question_id": "61890ec2232d5fd9",
       "questionBodyText": "ソフトマックス関数について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "出力値の総和は1になり、各クラスの確率分布として扱える。",
-        "各出力値は0から1の範囲に収まる。",
-        "入力値が大きくても、数値安定化を行わずに計算すればオーバーフローは起こらない。",
-        "分類モデルの出力層に用いられ、誤差逆伝播ではその勾配が計算される。"
+        "出力値の総和は必ず1になり、出力をそのまま確率として利用できる。",
+        "必ず0から1の範囲の値を出力する。",
+        "入力値が大きくてもオーバーフローのリスクは高まらない。",
+        "バックプロパゲーションで勾配を計算する際に用いられる。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "間違い", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 3 です。"
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }
