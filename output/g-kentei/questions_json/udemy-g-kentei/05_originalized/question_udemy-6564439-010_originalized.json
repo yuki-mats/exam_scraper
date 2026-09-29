@@ -9,9 +9,15 @@
         "畳み込みニューラルネットワークを使い、画像中の物体の位置と種類を検出する。",
         "高速な物体検出を目指して設計されたモデルである。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "正しい", "正しい"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
       "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 1 です。"
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }
