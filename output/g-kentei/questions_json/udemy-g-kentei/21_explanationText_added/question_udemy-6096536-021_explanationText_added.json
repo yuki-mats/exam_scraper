@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "間違い。原論文のTransformerは、RNNによる逐次処理を使わず、Attentionを中心に系列を処理する。",
+      "間違い。Transformerの基本構成はCNNの畳み込みを中心とするものではない。",
+      "正しい。TransformerはAttention機構で系列中のトークン同士の関係を捉える。系列をまとめて処理しやすく、並列計算にも向いている。",
+      "間違い。RNNのように前から順に計算する必要がないため、Transformerは学習時に並列計算しやすい。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "e32dca0aeaffdb4a",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-021",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:e32dca0aeaffdb4a",
+    "reviewQuestionId": "e32dca0aeaffdb4a",
+    "sourceRecordRef": "question_udemy-6096536-021.json#0"
+  }
+]
