@@ -2,16 +2,23 @@
   "question_bodies": [
     {
       "original_question_id": "6465879dcb6afefc",
-      "questionBodyText": "ディープラーニングの発展を支えた要因として、最も不適切なものを1つ選べ。",
+      "questionBodyText": "ディープラーニングの発展を後押しした要因として、最も不適切なものを1つ選べ。",
       "choiceTextList": [
-        "処理を行うコンピュータ自体の性能が向上したため。",
-        "インターネットを活用したサービスが普及したことで、大量のデータが容易に収集できるようになったため。",
-        "決められたルールの中でなら、最適な答えを探すことができるため。",
-        "オープンソースのフレームワークが普及しているため。"
+        "計算を担うコンピュータの性能が向上した。",
+        "インターネットサービスの普及により、大量のデータを収集しやすくなった。",
+        "ルールが決められていれば、常に最適な答えを探索できる。",
+        "オープンソースのフレームワークが広く利用されるようになった。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "間違い", "正しい"],
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
       "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false",
+      "isCalculationQuestion": false
     }
   ]
 }
