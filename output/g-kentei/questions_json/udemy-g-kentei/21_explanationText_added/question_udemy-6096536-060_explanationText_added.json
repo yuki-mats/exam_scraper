@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "間違い。Semantic Convolutionは、MobileNetで計算量を抑える仕組みの一般的な名称ではない。",
+      "間違い。Pointwise Convolutionは1×1畳み込みを指すが、Depthwiseと分離して計算量を削減する仕組み全体の名称ではない。",
+      "正しい。Depthwise Separable Convolutionは、チャネルごとのDepthwise畳み込みと1×1のPointwise畳み込みに分け、通常の畳み込みより計算量を抑える。",
+      "間違い。Dilated Convolutionは畳み込みの間隔を空けて受容野を広げる手法であり、MobileNetの主な軽量化機構ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "c854d4fb98cf78a4",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-060",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:c854d4fb98cf78a4",
+    "reviewQuestionId": "c854d4fb98cf78a4",
+    "sourceRecordRef": "question_udemy-6096536-060.json#0"
+  }
+]
