@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "間違い。LSTMはセル状態とゲートを使い、RNNが苦手とした長期的な情報の保持にも対応しやすくする。",
+      "正しい。LSTMはセル状態と入力・出力・忘却ゲートによって、RNNで起きやすい勾配消失問題の影響を抑える。",
+      "正しい。画像から文章を生成する画像キャプション生成では、画像特徴と単語列を扱う構成の一部にLSTMが使われてきた。",
+      "正しい。忘却ゲートはシグモイド関数で情報をどの程度残すかを計算する。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "afeb9c4b823d5e48",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-062",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:afeb9c4b823d5e48",
+    "reviewQuestionId": "afeb9c4b823d5e48",
+    "sourceRecordRef": "question_udemy-6096536-062.json#0"
+  }
+]
