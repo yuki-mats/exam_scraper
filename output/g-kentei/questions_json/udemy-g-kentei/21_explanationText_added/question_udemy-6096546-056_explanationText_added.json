@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "正しい。Grad-CAMは勾配を利用するため、GAPを持たないCNNにも適用できる。",
+      "正しい。CAMはクラスごとの重みで最後の畳み込み特徴マップを統合し、注目領域を可視化する。",
+      "間違い。Grad-CAMは、対象クラスに対する勾配情報を使って注目領域を求める。",
+      "正しい。CAMは分類に寄与した画像中の領域をヒートマップなどで示す。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "89ebaac9ef7f925e",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-056",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:89ebaac9ef7f925e",
+    "reviewQuestionId": "89ebaac9ef7f925e",
+    "sourceRecordRef": "question_udemy-6096546-056.json#0"
+  }
+]
