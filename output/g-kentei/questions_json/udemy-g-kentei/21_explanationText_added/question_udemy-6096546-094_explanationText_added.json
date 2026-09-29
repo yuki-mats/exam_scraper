@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "正しい。初期のSeq2Seqは、エンコーダとデコーダの双方にRNNを用いて系列変換を行った。",
+      "正しい。Transformerは自己注意機構により離れた要素の関係を捉え、系列の並列処理がしやすい。",
+      "正しい。Attentionを加えると、デコーダが出力ごとに関連する入力部分を参照できる。",
+      "間違い。スキップグラムは、周辺の単語から中心単語を予測して単語表現を学習する手法で、RNNの教師データ方式ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "a80da166774ea624",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096546/test#question-094",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:a80da166774ea624",
+    "reviewQuestionId": "a80da166774ea624",
+    "sourceRecordRef": "question_udemy-6096546-094.json#0"
+  }
+]
