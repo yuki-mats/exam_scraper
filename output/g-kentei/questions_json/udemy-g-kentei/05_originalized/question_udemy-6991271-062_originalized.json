@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "72a60652538d7cf3",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n探索木を浅いノードから順に展開し、各枝のコストが等しい場合に最短解を得られる一方、メモリ使用量が多くなりやすい手法は（　）である。",
+      "questionBodyText": "最も浅いノードから順に展開し、最短解を見つけやすい一方でメモリを多く使いがちな探索を1つ選べ。",
       "choiceTextList": [
         "深さ優先探索",
         "幅優先探索",
         "A*探索",
         "ビーム探索"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }

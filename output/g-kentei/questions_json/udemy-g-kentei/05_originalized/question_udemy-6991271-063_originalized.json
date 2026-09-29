@@ -4,14 +4,20 @@
       "original_question_id": "f20c398ad9334e36",
       "questionBodyText": "職務発明について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "個人が業務とは無関係に趣味で行った発明を指す。",
-        "使用者の業務範囲に属し、従業員の現在または過去の職務に属する発明を指す。",
-        "契約や勤務規則であらかじめ定めた場合、特許を受ける権利が発生時から使用者に帰属することがある。",
+        "個人が業務と無関係に趣味で行った発明を指す。",
+        "企業の業務範囲内で従業員が行った発明を意味する。",
+        "職務発明の権利は原則として発明者に帰属するが、企業との契約で譲渡されることが多い。",
         "職務発明制度は、企業と従業員双方の権利を調整する仕組みである。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 1 です。"
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }

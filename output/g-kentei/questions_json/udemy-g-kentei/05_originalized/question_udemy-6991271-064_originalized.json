@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "c7856e0a28885119",
-      "questionBodyText": "Q学習の特徴として、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "Q学習について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "Q学習では行動価値関数を更新することで最適な方策を学習する。",
-        "環境モデル（遷移確率や報酬関数）をあらかじめ完全に把握しておく必要がある。",
-        "Q値は状態と行動の組に対して定義され、更新式に学習率や割引率が含まれる。",
+        "行動価値関数を更新して最適な方策を学習する。",
+        "環境モデル（遷移確率や報酬関数）をあらかじめ完全に把握する必要がある。",
+        "Q値は状態と行動の組に定義され、更新式に学習率や割引率が含まれる。",
         "オフポリシー型の強化学習アルゴリズムに分類される。"
       ],
-      "correctChoiceText": ["正しい", "間違い", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 2 です。"
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
