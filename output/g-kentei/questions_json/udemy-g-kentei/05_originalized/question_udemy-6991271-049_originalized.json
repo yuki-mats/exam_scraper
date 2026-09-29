@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "f553aa32e048a6b2",
-      "questionBodyText": "分類モデルの評価に用いる混同行列について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "混同行列について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "混同行列は、回帰モデルの残差を行と列で分類した2次元マトリクスである。",
-        "混同行列は、分類問題において予測と正解の組み合わせを集計した表である。",
-        "混同行列には「真陽性」「偽陽性」「偽陰性」「真陰性」といった指標が含まれる。",
-        "混同行列から、精度・適合率・再現率・F値などの評価指標を計算できる。"
+        "回帰モデルの残差を行列に整理した表である。",
+        "分類問題で、予測と正解の組合せを集計する表である。",
+        "真陽性、偽陽性、偽陰性、真陰性などの件数を含む。",
+        "混同行列から正解率、適合率、再現率、F値などを計算できる。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 1 です。"
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }
