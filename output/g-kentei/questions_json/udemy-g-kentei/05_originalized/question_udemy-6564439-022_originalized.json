@@ -9,9 +9,15 @@
         "畳み込み層と全結合層を組み合わせた視覚認識向けのアーキテクチャである。",
         "過去の出力をフィードバックして隠れ層の計算に用いる再帰型ニューラルネットワークである。"
       ],
-      "correctChoiceText": ["間違い", "間違い", "間違い", "正しい"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 4 です。"
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }
