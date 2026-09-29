@@ -2,11 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "eb4713899701d6db",
-      "questionBodyText": "既存の制御器の出力に、強化学習で学んだ補正分を上乗せする手法は（　）である。空欄に入るものを1つ選べ。",
-      "choiceTextList": ["模倣学習", "逆強化学習", "残差強化学習", "自己教師あり学習"],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "questionBodyText": "既存の制御器やルールベース方策を置き換えず、強化学習で補正分を学習して既存方策に加える手法を何というか。最も適切なものを1つ選べ。",
+      "choiceTextList": [
+        "模倣学習",
+        "逆強化学習",
+        "残差強化学習",
+        "自己教師あり学習"
+      ],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
