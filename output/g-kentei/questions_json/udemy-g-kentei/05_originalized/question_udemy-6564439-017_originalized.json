@@ -9,9 +9,15 @@
         "3D構造の画像をボクセル形式で分類するセグメンテーションモデルである。",
         "画像と対応するキャプションを生成する双方向エンコーダ・デコーダ型モデルである。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
