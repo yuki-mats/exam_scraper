@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "96cadaf35ed799c9",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n単語を文字n-gramの情報も使ってベクトル化し、学習時に現れなかった単語にも対応できる手法は（　）である。",
+      "questionBodyText": "単語をベクトル表現し、文字n-gramを考慮して未知語や綴り揺れにも対応できる手法を1つ選べ。",
       "choiceTextList": [
         "ChatGPT",
         "ELMo",
         "BERT",
         "fastText"
       ],
-      "correctChoiceText": ["間違い", "間違い", "間違い", "正しい"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 4 です。"
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }

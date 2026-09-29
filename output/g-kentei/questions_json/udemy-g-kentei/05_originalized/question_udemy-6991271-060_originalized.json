@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "6fecd48e46ae0544",
-      "questionBodyText": "Self-Attention（自己注意）の働きとして、最も適切な説明を1つ選べ。",
+      "questionBodyText": "Self-Attentionについて、最も適切な説明を1つ選べ。",
       "choiceTextList": [
-        "外部の別系列の情報に注意を向けるためのメカニズムである。",
-        "入力系列の順序を保ったままリカレントに処理を行う伝統的なRNN構造である。",
-        "入力データ内の要素が他要素との関連性を学習し、重要度を評価する仕組みである。",
-        "ニューラルネットワークの重みを初期化するための一種の手法である。"
+        "外部の別系列の情報に注意を向ける機構。",
+        "入力系列を順序どおり再帰処理する伝統的なRNN構造。",
+        "入力内の要素が他の要素との関連性を学習し、重要度を評価する仕組み。",
+        "ニューラルネットワークの重みを初期化する手法。"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }

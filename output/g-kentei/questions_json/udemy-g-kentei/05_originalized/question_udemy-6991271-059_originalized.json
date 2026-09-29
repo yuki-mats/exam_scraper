@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "f2ae49719dfeccbb",
-      "questionBodyText": "AIの利用における人間の自律性について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "AIと人間の関係における「人間の自律性」について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "人間の自律性を守るためには、AIが個人の選択や行動に過度に影響を与えないよう設計する必要がある。",
-        "人間の自律性は、AIにすべての意思決定を任せることで効率的に強化される。",
-        "AIの判断は参考として用い、人間が最終的な判断権限を持つ設計が推奨されている。",
-        "教育・医療・司法などの領域では、人間の自律性を尊重したAI導入が強く求められる。"
+        "AIが個人の選択や行動に過度な影響を与えないよう設計する必要がある。",
+        "すべての意思決定をAIに任せることで、人間の自律性は効率的に強化される。",
+        "AIの判断は参考にとどめ、人間が最終的な判断権限を持つ設計が推奨される。",
+        "教育・医療・司法などでは、人間の自律性を尊重したAI導入が求められる。"
       ],
-      "correctChoiceText": ["正しい", "間違い", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 2 です。"
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }

@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "cadc673b572bb198",
-      "questionBodyText": "ディープラーニングモデルで、前処理したベクトルやテンソルを最初に受け取り、重みの更新を行わない層はどれか。",
+      "questionBodyText": "前処理後のベクトルやテンソルが最初に入力され、通常は重み更新の対象にならない層を1つ選べ。",
       "choiceTextList": [
         "出力層",
         "隠れ層",
         "活性化関数層",
         "入力層"
       ],
-      "correctChoiceText": ["間違い", "間違い", "間違い", "正しい"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 4 です。"
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }
