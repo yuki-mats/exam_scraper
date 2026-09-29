@@ -9,9 +9,15 @@
         "画像を確率的に左右または上下へ反転し、向きの異なる学習画像を作る操作である。",
         "画像の解像度をランダムに変更する操作である。"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
