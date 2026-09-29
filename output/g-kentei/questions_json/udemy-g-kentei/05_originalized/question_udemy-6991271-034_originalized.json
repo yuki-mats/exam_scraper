@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "e3d4a8afad7388fa",
-      "questionBodyText": "トピックモデルが文書に対して行う処理として、最も適切なものを1つ選べ。",
+      "questionBodyText": "トピックモデルについて、最も適切な説明を1つ選べ。",
       "choiceTextList": [
-        "教師あり学習で文章の感情を分類するための手法である。",
-        "文書中に潜在する話題構造を自動的に抽出するための教師なし学習手法である。",
-        "トピックごとに正解ラベルが必要で、分類モデルとして訓練される。",
-        "画像認識における物体検出のために用いられることが多い。"
+        "教師あり学習で文章の感情を分類する手法。",
+        "文書に潜む話題構造を自動抽出する教師なし学習手法。",
+        "話題ごとの正解ラベルを必要とする分類モデル。",
+        "画像認識の物体検出に使う手法。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
