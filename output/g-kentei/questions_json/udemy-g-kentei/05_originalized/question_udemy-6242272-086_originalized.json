@@ -9,9 +9,15 @@
         "正解ラベルを使わず入力データだけを分析する教師なし学習と同義である。",
         "行動に報酬を与え、期待報酬を大きくする方策を学習する。"
       ],
-      "correctChoiceText": ["正しい", "間違い", "間違い", "間違い"],
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 1 です。"
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }
