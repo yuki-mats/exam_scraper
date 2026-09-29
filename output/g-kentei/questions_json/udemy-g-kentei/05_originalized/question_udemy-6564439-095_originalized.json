@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "c37cf8e8c3b25483",
-      "questionBodyText": "VAEでは、エンコーダが入力から（A）上の確率分布を推定し、デコーダはそこから（B）した変数を使ってデータを再構築する。空欄（A）（B）の組合せとして、最も適切なものを1つ選べ。",
+      "questionBodyText": "VAEにおける潜在空間について、空欄（A）（B）に当てはまる組合せを1つ選べ。\n（A）はデータ表現のための抽象的な空間であり、VAEは（A）を確率分布として表現する。デコーダはその分布から（B）した（A）を用いてデータを再構築する。",
       "choiceTextList": [
         "（A）確率空間（B）ランダムサンプリング",
         "（A）確率空間（B）正規化",
         "（A）潜在空間（B）ランダムサンプリング",
         "（A）潜在空間（B）正規化"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
