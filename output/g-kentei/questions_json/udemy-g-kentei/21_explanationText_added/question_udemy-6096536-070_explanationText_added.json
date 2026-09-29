@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "間違い。ミニバッチ勾配降下法は、データを小さなバッチに分けて勾配を計算する方法で、過去の勾配による慣性を表す手法ではない。",
+      "正しい。モーメンタムは過去の勾配を蓄積して更新方向に慣性を持たせ、谷を進む速度を高めたり最適化の停滞を和らげたりする。",
+      "間違い。SGDはデータの一部または1件から勾配を計算する最適化方法であり、過去の勾配を慣性として利用する仕組みそのものではない。",
+      "間違い。最急降下法は勾配の方向に従って更新する基本手法であり、過去の更新を蓄積するモーメンタムとは異なる。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "0460218d3d4d580e",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-070",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:0460218d3d4d580e",
+    "reviewQuestionId": "0460218d3d4d580e",
+    "sourceRecordRef": "question_udemy-6096536-070.json#0"
+  }
+]
