@@ -1,0 +1,18 @@
+[
+  {
+    "questionBodyText": "画像特徴マップに使うインスタンス正規化について、最も適切な説明を1つ選べ。",
+    "choiceTextList": [
+      "データ全体の特徴量間の相関をなくす。",
+      "各サンプルの各チャネルについて、空間方向の平均と分散を使って正規化する。",
+      "一つのサンプルで全チャネルをまとめ、平均と分散を一組だけ計算する。",
+      "ミニバッチ全体の統計量を使って、各チャネルを正規化する。"
+    ],
+    "questionType": "true_false",
+    "isCalculationQuestion": false,
+    "original_question_id": "bd67cb168650868e",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6242272/test#question-079",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:bd67cb168650868e",
+    "reviewQuestionId": "bd67cb168650868e",
+    "sourceRecordRef": "question_udemy-6242272-079.json#0"
+  }
+]

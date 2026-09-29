@@ -9,9 +9,15 @@
         "一つのサンプルで全チャネルをまとめ、平均と分散を一組だけ計算する。",
         "ミニバッチ全体の統計量を使って、各チャネルを正規化する。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
