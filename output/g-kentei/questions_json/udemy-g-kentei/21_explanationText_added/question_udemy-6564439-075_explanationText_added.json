@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "正しい。シグモイド関数は深い層で勾配が小さくなりやすく、勾配消失を招きやすい。",
+      "間違い。tanh関数にも飽和による勾配消失はあり得るが、この設問で最も不向きなのはシグモイド関数である。",
+      "間違い。ReLU関数は正の領域で勾配が保たれ、勾配消失の緩和に使われる。",
+      "間違い。Leaky ReLU関数は負の領域にも小さな勾配を持つ。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "b8c534b6a2cbc1e5",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6564439/test#question-075",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:b8c534b6a2cbc1e5",
+    "reviewQuestionId": "b8c534b6a2cbc1e5",
+    "sourceRecordRef": "question_udemy-6564439-075.json#0"
+  }
+]

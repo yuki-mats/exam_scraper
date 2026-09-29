@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "b8c534b6a2cbc1e5",
-      "questionBodyText": "深いニューラルネットワークの隠れ層で勾配消失を緩和したい。次の活性化関数のうち、一般に最も不向きなものを1つ選べ。",
+      "questionBodyText": "深いニューラルネットワークで勾配消失を緩和する活性化関数として、最も不向きなものを1つ選べ。",
       "choiceTextList": [
         "シグモイド関数",
         "tanh関数",
         "ReLU関数",
         "Leaky ReLU関数"
       ],
-      "correctChoiceText": ["間違い", "正しい", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 1 です。"
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }

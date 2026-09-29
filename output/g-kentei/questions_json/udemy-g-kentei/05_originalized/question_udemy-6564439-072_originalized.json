@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "6c45cdba814f14b7",
-      "questionBodyText": "利用履歴の少ない新しい商品を推薦する際、コールドスタート問題に対処する手法として最も適切なものを1つ選べ。",
+      "questionBodyText": "利用履歴の少ない新商品を推薦する際、コールドスタート問題への対処として最も適切なものを1つ選べ。",
       "choiceTextList": [
         "協調フィルタリング",
         "カルマンフィルタリング",
         "ホットスタートフィルタリング",
         "コンテンツベースフィルタリング"
       ],
-      "correctChoiceText": ["間違い", "間違い", "間違い", "正しい"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 4 です。"
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }
