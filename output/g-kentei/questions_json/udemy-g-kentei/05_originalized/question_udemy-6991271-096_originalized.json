@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "39b3706b4fbfbb0e",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n実際は陰性である対象を陽性と予測した場合、その判定を（　）という。",
+      "questionBodyText": "分類問題で、実際には陽性でないのに陽性と予測されたケースを何というか。",
       "choiceTextList": [
         "偽陽性",
         "偽陰性",
         "真陽性",
         "真陰性"
       ],
-      "correctChoiceText": ["正しい", "間違い", "間違い", "間違い"],
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 1 です。"
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }
