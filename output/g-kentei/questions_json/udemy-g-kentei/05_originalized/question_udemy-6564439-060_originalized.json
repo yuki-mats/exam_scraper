@@ -9,9 +9,15 @@
         "2つの画像領域間の対応を学習して画像変換を行う。",
         "一つの時系列について、その系列自身の過去値だけを使って将来を予測する。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
