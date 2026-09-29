@@ -9,9 +9,15 @@
         "データ自体から学習用の正解信号を作り、そのデータの特徴を学習する方式である。",
         "複数のモデルを同時に訓練し、最も性能の高いモデルを選ぶ方式である。"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
