@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "71ab0103e1daeb30",
-      "questionBodyText": "AIによる自動化とスキルの喪失について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "AIや自動化による「スキルの喪失」について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "自動化の進展により、熟練者のノウハウが形式知化され、広く共有されやすくなることがある。",
-        "特定の仕事がAIに代替されることで、関連する技能の継承が困難になる現象を指す。",
+        "自動化により、熟練者のノウハウが形式知化され、広く共有されやすくなる場合がある。",
+        "特定の仕事がAIに代替され、関連技能の継承が難しくなる現象を指す。",
         "単純作業の自動化ではほとんど起こらないため、問題視されることはない。",
-        "AI導入に伴って、再教育（リスキリング）の重要性が増し、人的資源の新たな活用が求められている。"
+        "AI導入に伴ってリスキリングの重要性が増し、人材の新たな活用が求められる。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "間違い", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 3 です。"
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }

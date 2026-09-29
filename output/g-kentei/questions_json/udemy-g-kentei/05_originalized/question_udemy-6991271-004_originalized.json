@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "516c242bab46b2a5",
-      "questionBodyText": "多次元尺度構成法（MDS）の用途として、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "多次元尺度構成法（MDS）について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "観測データ間の類似度や距離に基づき、低次元空間上に配置する手法である。",
-        "主にクラス分類問題に用いられる教師あり学習アルゴリズムである。",
-        "距離情報の保存を重視しており、視覚的なクラスタの傾向を掴むのに使われる。",
-        "非線形MDSでは、距離の単調性を維持したまま低次元空間に写像する手法もある。"
+        "観測データ間の類似度や距離をもとに、低次元空間へ配置する手法である。",
+        "主にクラス分類に用いる教師あり学習アルゴリズムである。",
+        "距離情報の保存を重視し、視覚的にクラスタの傾向を把握するのに使われる。",
+        "非線形MDSには、距離の単調性を保ちながら低次元へ写像する手法もある。"
       ],
-      "correctChoiceText": ["正しい", "間違い", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 2 です。"
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }

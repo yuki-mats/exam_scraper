@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "69e2a3e70b140dc8",
-      "questionBodyText": "CRISP-ML(Q)が対象とする工程について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "CRISP-ML(Q)について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "機械学習プロジェクトにおけるプロセス標準化を目指して設計されたフレームワークである。",
-        "モデル構築に特化し、運用や評価フェーズは対象外とされている。",
-        "ビジネス理解からモデルの提供・運用までをカバーするライフサイクル志向の手法である。",
-        "CRISP-DMの拡張として、ML運用時代に対応した構成を持つ。"
+        "機械学習プロジェクトのプロセス標準化を目指すフレームワークである。",
+        "モデル構築だけを対象とし、運用や評価の段階は対象外である。",
+        "ビジネス理解からモデル提供・運用までを扱うライフサイクル志向の手法である。",
+        "CRISP-DMを拡張し、機械学習の運用にも対応した構成を持つ。"
       ],
-      "correctChoiceText": ["正しい", "間違い", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 2 です。"
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }

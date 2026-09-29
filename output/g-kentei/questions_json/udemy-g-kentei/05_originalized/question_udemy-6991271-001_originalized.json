@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "55c197f0856d8cfa",
-      "questionBodyText": "事前学習済みモデルの利用について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "事前学習済みモデルについて、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
         "大規模なデータセットであらかじめ学習されたモデルである。",
-        "転移学習では、事前学習済みモデルを初期値として使用し、タスクに応じて再学習することがある。",
-        "パラメータが固定されており再学習ができないため、用途が限定される。",
-        "事前学習済みモデルを活用することで、学習コストやデータ量の負担を大幅に削減できる。"
+        "転移学習では、事前学習済みモデルを初期値としてタスクに応じて再学習することがある。",
+        "パラメータが固定されて再学習できないため、用途が限定される。",
+        "事前学習済みモデルの利用により、学習コストや必要なデータ量を大きく減らせる。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "間違い", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 3 です。"
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
