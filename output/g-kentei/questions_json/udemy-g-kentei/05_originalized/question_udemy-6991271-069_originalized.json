@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "e116723a222cac98",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n入力系列を別の系列に変換するため、エンコーダとデコーダを組み合わせるモデルを（　）と呼ぶ。",
+      "questionBodyText": "入力系列を固定長ベクトルに符号化し、別の系列へ復号する構造を持ち、機械翻訳などに使われるモデルを1つ選べ。",
       "choiceTextList": [
         "BERT",
         "GPT",
         "Seq2Seq",
         "gram2vec"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
