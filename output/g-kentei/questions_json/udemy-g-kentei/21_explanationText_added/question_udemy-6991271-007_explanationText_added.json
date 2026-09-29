@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "正しい。逆伝播で勾配が過大になると、学習が不安定になる。",
+      "正しい。勾配のノルムを一定範囲に制限する勾配クリッピングがよく使われる。",
+      "間違い。勾配爆発は深いネットワークや長い系列を扱うモデルでも起こり得る。",
+      "正しい。過大な勾配で重み更新が暴れ、損失が発散することがある。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "d726f4583bca1e6e",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6991271/test#question-007",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:d726f4583bca1e6e",
+    "reviewQuestionId": "d726f4583bca1e6e",
+    "sourceRecordRef": "question_udemy-6991271-007.json#0"
+  }
+]
