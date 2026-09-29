@@ -1,0 +1,22 @@
+[
+  {
+    "explanationText": [
+      "間違い。SENetは、チャネルごとの重要度を学習して特徴を再重み付けするモデルであり、プーリング位置を使うEncoder-Decoder型のセグメンテーションモデルではない。",
+      "間違い。AlexNetは画像分類で大きな成果を上げた畳み込みニューラルネットワークであり、設問の構造には当たらない。",
+      "間違い。GoogLeNetは画像分類を目的とするネットワークで、設問のプーリング位置を使うセグメンテーション構造ではない。",
+      "正しい。SegNetはEncoder-Decoder構造を持ち、Encoderの最大値プーリングで得たインデックスをDecoderの復元に利用して画素単位の分類を行う。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "99edac526dfcc29d",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-009",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:99edac526dfcc29d",
+    "reviewQuestionId": "99edac526dfcc29d",
+    "sourceRecordRef": "question_udemy-6096536-009.json#0",
+    "explanationReferences": [
+      {"title":"SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation","sourceUrl":"https://arxiv.org/abs/1511.00561","referenceDate":"2026-09-29"}
+    ]
+  }
+]
