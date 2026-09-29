@@ -5,13 +5,19 @@
       "questionBodyText": "統計的機械翻訳について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
         "対訳文を集め、統計的な関係を学習して訳文を作る。",
-        "翻訳モデルと言語モデルの確率を用いて訳文の候補を比較する。",
+        "翻訳モデルと言語モデルの確率を用いて訳文候補を比較する。",
         "学習に使える対訳データが少ないと、適切な翻訳が難しくなる場合がある。",
         "従来の機械翻訳で使われた対訳コーパスは、学習に不要である。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "正しい", "間違い"],
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 4 です。"
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }
