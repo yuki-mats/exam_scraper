@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "e5050bbfcec42b4b",
-      "questionBodyText": "画像をパッチに分けてTransformerで処理し、畳み込みに依存しない画像認識モデルはどれか。",
+      "questionBodyText": "画像をパッチに分割してTransformerで処理し、畳み込みに依存せず画像を認識するモデルはどれか。",
       "choiceTextList": [
         "AdaDelta",
         "LIME",
         "Vision Transformer",
         "Deep Blue"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
