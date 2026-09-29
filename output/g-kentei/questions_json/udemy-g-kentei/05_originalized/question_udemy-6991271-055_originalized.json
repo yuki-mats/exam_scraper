@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "5b31e54b50ddc008",
-      "questionBodyText": "隠れマルコフモデル（HMM）の性質について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "隠れマルコフモデル（HMM）について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "観測可能な出力と、それに対応する隠れた状態の遷移を扱う確率モデルである。",
-        "状態遷移がマルコフ性（現在の状態は直前の状態のみに依存）を満たすことが前提となる。",
-        "音声認識、自然言語処理、金融時系列などの分野で応用されている。",
-        "常に各状態が観測可能である前提のもとで動作する決定論的モデルである。"
+        "観測可能な出力と、それに対応する隠れ状態の遷移を扱う確率モデルである。",
+        "状態遷移はマルコフ性を満たし、現在の状態は直前の状態に依存する。",
+        "音声認識、自然言語処理、金融時系列などに応用されている。",
+        "各状態が常に観測可能であることを前提とする決定論的モデルである。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "正しい", "間違い"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 4 です。"
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }
