@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "間違い。物体検出は、画像中の物体の位置とクラスを推定する画像処理タスクで、典型的にはCNN系の検出モデルを用いる。",
+      "間違い。姿勢推定は画像や動画から関節などの位置を求めるタスクであり、RNN Encoder-Decoderの代表的な応用例とはいえない。",
+      "間違い。気温の予測にRNNを使うことはできるが、単一の時系列から値を予測する問題であり、入力系列を別の出力系列へ変換する代表例ではない。",
+      "正しい。RNN Encoder-Decoderは、入力と出力が順序を持つ系列であるseq2seq構造で、入力文を別の言語の出力文へ変換する機械翻訳に利用される。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "sequence_flow",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "265570bc05b2b5f0",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-018",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:265570bc05b2b5f0",
+    "reviewQuestionId": "265570bc05b2b5f0",
+    "sourceRecordRef": "question_udemy-6096536-018.json#0"
+  }
+]
