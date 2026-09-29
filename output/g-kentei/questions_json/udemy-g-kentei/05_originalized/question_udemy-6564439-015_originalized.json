@@ -9,9 +9,15 @@
         "新しいタスクを学習した結果、以前のタスクの性能が大きく低下する現象。",
         "過去の学習データにノイズが多いと発生する性能劣化の一種である。"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
