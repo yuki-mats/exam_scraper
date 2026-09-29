@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "28b8b595fd0afa20",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n1,000を超えるカテゴリと1,400万枚以上のラベル付き画像からなり、深層学習の発展に大きく貢献したデータセットは（　）である。",
+      "questionBodyText": "1,000超のカテゴリと1,400万枚以上のラベル付き画像からなる大規模データセットを1つ選べ。",
       "choiceTextList": [
         "OpenCV",
         "ImageNet",
         "Pascal VOC",
         "ResNet"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
