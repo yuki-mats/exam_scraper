@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "正しい。ソフトマックス関数は、複数クラスのスコアを指数関数で変換して正規化し、合計が1となる確率分布にする。",
+      "間違い。ReLUは0以下を0、正の値をそのまま出力する活性化関数であり、クラス間のスコアを確率分布に正規化する関数ではない。",
+      "間違い。シグモイド関数は各入力を0から1の範囲へ変換するが、多クラスの出力全体の合計を1にする関数ではない。",
+      "間違い。ガンマ補正は画像の明るさなどを調整する変換であり、多クラス分類のスコアを確率分布にする関数ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "d84a1faa651e5571",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-003",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:d84a1faa651e5571",
+    "reviewQuestionId": "d84a1faa651e5571",
+    "sourceRecordRef": "question_udemy-6096536-003.json#0"
+  }
+]
