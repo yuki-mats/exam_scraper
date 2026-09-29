@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "330abcf474c81df3",
-      "questionBodyText": "多層ニューラルネットワークで、出力の誤差を各層の重みにどう割り当てるかという信用割当問題に対処する手法として、最も適切なものを1つ選べ。",
+      "questionBodyText": "ニューラルネットワークの信用割当問題を解決する手法として、最も適切なものを1つ選べ。",
       "choiceTextList": [
         "PCM",
         "ウォード法",
         "誤差逆伝播法",
         "Random Erasing"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
