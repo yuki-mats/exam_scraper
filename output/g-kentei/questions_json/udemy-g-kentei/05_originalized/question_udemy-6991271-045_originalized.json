@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "b47cbd71ec4bfbf1",
-      "questionBodyText": "LSTMやGRUで用いるゲート機構について、最も適切な説明を1つ選べ。",
+      "questionBodyText": "RNNにおけるゲート機構について、最も適切な説明を1つ選べ。",
       "choiceTextList": [
-        "ニューラルネットワークの出力層で必ず使用される活性化関数の一種である。",
-        "LSTMやGRUにおいて、重要な情報を保持し不要な情報を忘れる制御を行う役割を果たす。",
-        "Attention層で使用されるSoftmax関数の代替として導入された構造である。",
-        "畳み込みニューラルネットワークにおけるフィルタサイズを調整するメカニズムである。"
+        "ニューラルネットワークの出力層で必ず使う活性化関数の一種。",
+        "LSTMやGRUで重要情報を保持し、不要な情報を忘れる制御を行う。",
+        "AttentionのSoftmaxを代替するために導入された構造。",
+        "CNNでフィルタサイズを調整するメカニズム。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }

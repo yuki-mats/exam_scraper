@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "ff3380e6fbd488fc",
-      "questionBodyText": "デュエリングネットワークの構造について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "デュエリングネットワークについて、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "状態価値関数と行動ごとのAdvantageを統合せず、それぞれを最終的なQ値として出力する。",
-        "状態の価値（V）と行動の優位性（Advantage）を別々に推定する構造を持つ。",
-        "Q関数は、状態価値と利得関数の合成により表現されるため、デュエリングネットワークの構造と相性が良い。",
-        "行動の選択に影響しない状態の価値を学習できるという利点がある。"
+        "状態価値関数と行動ごとの利得関数を統合せず、独立に出力する。",
+        "状態の価値Vと行動の優位性Advantageを別々に推定する構造を持つ。",
+        "Q関数を状態価値と利得関数の合成で表すため、デュエリング構造と相性がよい。",
+        "行動選択に影響しない状態の価値も学習できる利点がある。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 1 です。"
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }

@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "d8c45ad3ac336134",
-      "questionBodyText": "Source-Target Attentionの説明として、最も不適切なものを1つ選べ。",
+      "questionBodyText": "Source-Target Attentionについて、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
         "機械翻訳などで入力文（Source）と出力文（Target）の対応を学習する機構である。",
-        "TransformerにおけるEncoder-Decoder Attentionは、Source-Target Attentionの一種と考えられる。",
-        "出力文の各単語が入力文のすべての単語に注意を向けることができる。",
-        "入力と出力のトークンが同一である必要があるため、主に自己注意（Self-Attention）と同義である。"
+        "TransformerのEncoder-Decoder AttentionはSource-Target Attentionの一種である。",
+        "出力文の各単語は入力文のすべての単語に注意を向けられる。",
+        "入力と出力のトークンが同一である必要があるため、主に自己注意と同義である。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "正しい", "間違い"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 4 です。"
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }

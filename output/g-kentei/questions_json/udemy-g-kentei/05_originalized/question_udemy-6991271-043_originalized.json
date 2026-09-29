@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "d09f81edd4b80bd8",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n回帰分析で、係数の絶対値の総和を罰則項とする方法を（　）と呼ぶ。",
+      "questionBodyText": "回帰係数の絶対値の総和を罰則項として加える正則化を1つ選べ。",
       "choiceTextList": [
         "L0正則化",
         "L1正則化",
         "L2正則化",
         "リッジ回帰"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
