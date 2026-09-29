@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "間違い。R-CNNは姿勢推定ではなく、画像中の物体の領域とクラスを検出する手法である。",
+      "正しい。R-CNNはまず物体の領域候補を抽出し、各候補をCNNへ入力して特徴を得た後、物体クラスを判別する。",
+      "間違い。R-CNNは領域候補ごとに処理するため、YOLOやSSDなどの一段階検出モデルより一般に処理が遅い。",
+      "間違い。PPMをエンコーダとデコーダの間に加える説明は、セマンティックセグメンテーションの構成に関するもので、R-CNNの定義ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "sequence_flow",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "f2830397f1cda917",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-081",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:f2830397f1cda917",
+    "reviewQuestionId": "f2830397f1cda917",
+    "sourceRecordRef": "question_udemy-6096536-081.json#0"
+  }
+]
