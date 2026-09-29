@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "間違い。入力が負の領域ではReLUの微分値は0になる。",
+      "正しい。入力が正の領域ではReLUの出力は入力そのものなので微分値は1である。",
+      "間違い。ReLUは正の領域で勾配が保たれ、勾配消失の緩和に役立つ。",
+      "間違い。入力が正なら出力は入力値であり、常に1ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "7dfda41166812794",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6242272/test#question-098",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:7dfda41166812794",
+    "reviewQuestionId": "7dfda41166812794",
+    "sourceRecordRef": "question_udemy-6242272-098.json#0"
+  }
+]
