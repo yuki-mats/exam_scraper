@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "12b39fce300b8dd2",
-      "questionBodyText": "主成分分析（PCA）の性質として、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "主成分分析（PCA）について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "教師あり学習の一種であり、ラベル情報に基づいて次元削減を行う。",
-        "高次元データを低次元空間に射影し、情報をできるだけ保ったまま次元削減する。",
-        "データの分散が最大となる方向に基づいて主成分軸を定める。",
-        "PCAの主成分は互いに直交する（相関がない）ことが保証される。"
+        "教師あり学習の一種で、ラベル情報に基づいて次元削減を行う。",
+        "高次元データを低次元へ射影し、情報をできるだけ保ったまま次元削減する。",
+        "データの分散が最大となる方向から主成分軸を定める。",
+        "PCAの主成分は互いに直交し、相関がないことが保証される。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 1 です。"
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }

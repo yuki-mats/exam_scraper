@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "cd300dfab70f1980",
-      "questionBodyText": "MobileNetの軽量化に関する説明として、最も不適切なものを1つ選べ。",
+      "questionBodyText": "MobileNetについて、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "モバイルや組込み機器向けに設計された軽量なニューラルネットワークアーキテクチャである。",
-        "各チャネルごとに独立して空間方向に畳み込みを行う「Depthwise Convolution」を用いることで計算効率を高めている。",
-        "実装の軽さと精度のバランスの良さから、リアルタイム画像認識などに用いられることが多い。",
-        "モデルの軽量化のために、パラメータ数があえて従来のResNetよりも大きくなるように設計されている。"
+        "モバイルや組込み機器向けの軽量なニューラルネットワークである。",
+        "チャネルごとに空間方向の畳み込みを行うDepthwise Convolutionで計算量を減らす。",
+        "軽さと精度のバランスがよく、リアルタイム画像認識などに使われる。",
+        "軽量化のため、パラメータ数が従来のResNetより意図的に大きくなるよう設計されている。"
       ],
-      "correctChoiceText": ["正しい", "正しい", "正しい", "間違い"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 4 です。"
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }
