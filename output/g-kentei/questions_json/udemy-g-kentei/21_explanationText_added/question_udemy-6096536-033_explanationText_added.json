@@ -1,0 +1,19 @@
+[
+  {
+    "explanationText": [
+      "間違い。A3Cは複数のActorが並列に学習する手法だが、優先度付き共有リプレイバッファを使うAPE-Xの説明とは異なる。",
+      "間違い。PPOは方策の更新幅を制限して安定化する方策最適化手法であり、この分散構成そのものを指さない。",
+      "正しい。APE-Xは多数のActorが経験を集め、優先度付きリプレイバッファを共有し、Learnerがその経験から学習する分散強化学習手法である。",
+      "間違い。NeRFは複数の視点の画像から三次元シーンを表現・合成する手法であり、強化学習手法ではない。"
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships",
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "original_question_id": "eb63dd71164be8eb",
+    "question_url": "https://tokyo-gas-dx.udemy.com/course/g-tbyxpv/learn/quiz/6096536/test#question-033",
+    "sourceQuestionKey": "g-kentei:udemy-g-kentei:eb63dd71164be8eb",
+    "reviewQuestionId": "eb63dd71164be8eb",
+    "sourceRecordRef": "question_udemy-6096536-033.json#0"
+  }
+]
