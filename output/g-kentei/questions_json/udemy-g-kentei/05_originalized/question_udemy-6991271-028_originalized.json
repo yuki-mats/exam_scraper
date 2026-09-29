@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "5ee4ee033c65384f",
-      "questionBodyText": "AI技術と気候変動への対応について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "AI技術と気候変動の関係について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "AIは環境に配慮した技術であり、モデルの訓練や運用にはエネルギー消費がほとんど発生しない。",
-        "気候モデルの高度化にAIを活用することで、気象予測や災害対策の精度向上が期待されている。",
-        "AIによって再生可能エネルギーの需給バランスを最適化する取り組みが進んでいる。",
-        "AIのエネルギー効率を高めるためのモデル圧縮やハードウェア改善が行われている。"
+        "AIは環境配慮型の技術であり、訓練や運用でエネルギーをほとんど消費しない。",
+        "気候モデルの高度化にAIを使い、気象予測や災害対策を改善することが期待される。",
+        "AIで再生可能エネルギーの需給バランスを最適化する取組が進んでいる。",
+        "AIのエネルギー効率を高めるため、モデル圧縮やハードウェア改善が行われている。"
       ],
-      "correctChoiceText": ["間違い", "正しい", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 1 です。"
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }
