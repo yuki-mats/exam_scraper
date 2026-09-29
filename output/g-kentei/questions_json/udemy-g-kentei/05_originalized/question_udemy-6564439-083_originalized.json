@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "2d85df77f22d129a",
-      "questionBodyText": "学習の初期にはAdamのように適応的な更新を行い、後半にはSGDに近づく最適化手法を1つ選べ。",
+      "questionBodyText": "序盤はAdam、終盤はSGDに近い振る舞いを示す最適化手法を1つ選べ。",
       "choiceTextList": [
         "AdaBound",
         "TF-IDF",
         "AMSBound",
         "RMSprop"
       ],
-      "correctChoiceText": ["正しい", "間違い", "間違い", "間違い"],
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 1 です。"
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }

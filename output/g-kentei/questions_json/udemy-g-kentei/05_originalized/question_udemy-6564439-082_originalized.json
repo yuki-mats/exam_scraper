@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "8743a996568d6933",
-      "questionBodyText": "入力データの変数間の相関を除き、各変数を平均0・分散1に変換する処理を（A）という。この処理では変数を（B）する。空欄（A）（B）の組合せとして、最も適切なものを1つ選べ。",
+      "questionBodyText": "入力データを（B）した上で平均0、分散1に変換する正規化法を（A）という。空欄（A）（B）に当てはまる組合せを1つ選べ。",
       "choiceTextList": [
         "（A）標準化（B）正則化",
         "（A）標準化（B）無相関化",
         "（A）白色化（B）正則化",
         "（A）白色化（B）無相関化"
       ],
-      "correctChoiceText": ["間違い", "間違い", "間違い", "正しい"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 4 です。"
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }

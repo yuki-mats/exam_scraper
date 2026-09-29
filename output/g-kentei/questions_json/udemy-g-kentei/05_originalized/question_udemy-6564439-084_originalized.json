@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "96672a4bb4369355",
-      "questionBodyText": "CLIPの特徴として、最も適切な説明を1つ選べ。",
+      "questionBodyText": "CLIPについて、最も適切な説明を1つ選べ。",
       "choiceTextList": [
-        "画像分類だけに使う古典的なCNN手法である。",
-        "画像内の文字を抽出するOCR技術である。",
-        "画像とテキストを対応づけて共通の表現空間で扱うモデルである。",
-        "音声命令を解釈して画像を動的に生成するモデルである。"
+        "画像分類専用に設計されたCNNベースの古典的手法である。",
+        "画像から文字を抽出するOCR技術の一種である。",
+        "画像とテキストを共通の埋め込み空間に写像し、マルチモーダルな理解を可能にするモデルである。",
+        "自然言語の音声命令を解釈し、画像を動的に生成するモデルである。"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
