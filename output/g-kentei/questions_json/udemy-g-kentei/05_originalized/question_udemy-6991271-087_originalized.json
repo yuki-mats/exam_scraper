@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "7c4da1339e9b3642",
-      "questionBodyText": "SVMにおけるマージン最大化について、最も不適切な説明を1つ選べ。",
+      "questionBodyText": "マージン最大化について、最も不適切な説明を1つ選べ。",
       "choiceTextList": [
-        "マージンとは、分類境界と最も近い訓練データとの距離を指す。",
-        "マージンを最大化することで、モデルのパラメータ数が増加し過学習が促進される。",
-        "サポートベクターマシン（SVM）は、マージン最大化を基本方針として分類境界を決定する。",
-        "マージンを広げることは、一般的に汎化性能の向上に寄与するとされている。"
+        "マージンは、分類境界と訓練データの最も近い点との距離を表す。",
+        "マージン最大化によりパラメータ数が増え、過学習が促進される。",
+        "SVMはマージン最大化を基本方針として分類境界を決める。",
+        "マージンを広げることは一般に汎化性能の向上に寄与する。"
       ],
-      "correctChoiceText": ["正しい", "間違い", "正しい", "正しい"],
-      "questionIntent": "select_incorrect",
-      "answer_result_text": "正解は 2 です。"
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "正しい",
+        "正しい"
+      ],
+      "questionIntent": "select_correct",
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
