@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "863ed4186198f75f",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n領域提案ネットワーク（RPN）を検出器に組み込み、物体検出の領域提案を高速化したモデルは（　）である。",
+      "questionBodyText": "RPN（領域提案ネットワーク）を導入し、物体検出の提案領域生成を高速・高精度にしたモデルを1つ選べ。",
       "choiceTextList": [
         "YOLO",
         "Faster R-CNN",
         "Fast R-CNN",
         "SSD"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
