@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "47f1af0b9a4adaad",
-      "questionBodyText": "CNNで特徴マップの領域を要約し、空間方向の大きさを小さくする層を（　）という。空欄に当てはまるものを1つ選べ。",
+      "questionBodyText": "CNNで、特徴マップの重要な要素を残しながら空間的な次元を縮小する層を1つ選べ。",
       "choiceTextList": [
         "全結合層",
         "プーリング層",
         "畳み込み層",
         "S細胞層"
       ],
-      "correctChoiceText": ["間違い", "正しい", "間違い", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 2 です。"
+      "answer_result_text": "正解は 2 です。",
+      "questionType": "true_false"
     }
   ]
 }
