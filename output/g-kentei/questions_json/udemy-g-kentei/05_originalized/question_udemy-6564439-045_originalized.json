@@ -5,13 +5,19 @@
       "questionBodyText": "One-shot学習について、最も適切な説明を1つ選べ。",
       "choiceTextList": [
         "新しいクラスの例を一つだけ示して、そのクラスの対象を識別する学習方法である。",
-        "学習データのすべてを1回だけ用いて一括で学習する訓練方式である。",
+        "学習データのすべてを1回だけ用いて一括で学習する訓練方式。",
         "1つの入力ベクトルから複数の出力クラスを同時に予測するニューラルネットワーク手法。",
         "分布全体ではなく一部の代表点に着目して分類するクラスタリング手法。"
       ],
-      "correctChoiceText": ["正しい", "間違い", "間違い", "間違い"],
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 1 です。"
+      "answer_result_text": "正解は 1 です。",
+      "questionType": "true_false"
     }
   ]
 }
