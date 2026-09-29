@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "755723163554f56d",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n人の発話をテキストへ変換し、音声アシスタントや自動字幕生成にも利用される技術は（　）である。",
+      "questionBodyText": "人間の音声をテキストに変換し、音声アシスタントや自動字幕に使われる処理を1つ選べ。",
       "choiceTextList": [
         "音声合成",
         "音響符号化",
         "音声検出",
         "音声認識"
       ],
-      "correctChoiceText": ["間違い", "間違い", "間違い", "正しい"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 4 です。"
+      "answer_result_text": "正解は 4 です。",
+      "questionType": "true_false"
     }
   ]
 }

@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "ff10286edc100ece",
-      "questionBodyText": "AIで用いるオントロジーの説明として、最も適切なものを1つ選べ。",
+      "questionBodyText": "AIにおけるオントロジーについて、最も適切な説明を1つ選べ。",
       "choiceTextList": [
-        "機械学習モデルの重みを効率よく初期化するためのルール群",
-        "AIの学習結果を他のシステムと連携させるためのAPI仕様書",
-        "概念同士の構造を形式化し、AIが意味や関係を理解・推論できるようにする枠組み",
-        "データベースから得られた情報をもとに自動的にアルゴリズムを選定する仕組み"
+        "機械学習モデルの重みを効率的に初期化するルール群。",
+        "AIの学習結果を他システムと連携するためのAPI仕様書。",
+        "概念同士の構造を形式化し、AIが意味や関係を理解・推論できるようにする枠組み。",
+        "データベース情報からアルゴリズムを自動選定する仕組み。"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }

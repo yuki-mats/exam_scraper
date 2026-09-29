@@ -2,16 +2,22 @@
   "question_bodies": [
     {
       "original_question_id": "850cb0967733ec3d",
-      "questionBodyText": "空欄に最もよく当てはまるものを1つ選べ。\n勾配の1次・2次モーメントを用いてパラメータの更新量を調整する最適化アルゴリズムは（　）である。",
+      "questionBodyText": "学習率を勾配の二乗平均で調整し、モーメンタムの考え方も取り入れた最適化アルゴリズムを1つ選べ。",
       "choiceTextList": [
         "AdaDelta",
         "AMSBound",
         "Adam",
         "RMSprop"
       ],
-      "correctChoiceText": ["間違い", "間違い", "正しい", "間違い"],
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
       "questionIntent": "select_correct",
-      "answer_result_text": "正解は 3 です。"
+      "answer_result_text": "正解は 3 です。",
+      "questionType": "true_false"
     }
   ]
 }
