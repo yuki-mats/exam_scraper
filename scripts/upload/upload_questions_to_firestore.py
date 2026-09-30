@@ -125,7 +125,11 @@ def validate_gx_authoring_privacy(questions: list[dict]) -> None:
         qid = str(question.get("questionId") or "unknown")
         if question.get("examSource") != "独自問題":
             raise ValueError(f"GX question must be an Anki Plus original: {qid}")
-        disallowed = sorted(GX_PRIVATE_AUTHORING_FIELDS.intersection(question))
+        disallowed = sorted(
+            field
+            for field in GX_PRIVATE_AUTHORING_FIELDS.intersection(question)
+            if question[field] not in (None, "", [], {})
+        )
         if disallowed:
             raise ValueError(f"GX private authoring fields must stay local: {qid}: {disallowed}")
         public = build_doc_data_base(question)
@@ -429,6 +433,8 @@ def build_doc_data_base(question: dict) -> dict:
         "importKey",
         "originalQuestionChoiceImageUrls",
     ):
+        if question.get("qualificationId") == "gx-kentei" and opt_key in GX_PRIVATE_AUTHORING_FIELDS:
+            continue
         if opt_key in PRODUCTION_CLIENT_OMITTED_FIELDS:
             continue
         if is_choice_only and opt_key in CHOICE_ONLY_OMITTED_FIELDS:
