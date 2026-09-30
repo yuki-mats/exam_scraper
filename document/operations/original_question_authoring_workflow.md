@@ -1,6 +1,21 @@
 # 独自問題作成ワークフロー
 
-この文書は、問題サイトや公式サンプルから取得した問題を、資格特有の出題傾向を保った暗記プラス独自問題として整備する共通方針の正本です。取得方法は[スクレイピングと`00_source`](scraping_workflow.md)、保存先は[artifact契約](artifact_contract.md)、公開fieldは[問題field契約](../reference/question_field_contract.md)を参照してください。
+この文書は、取得した問題を独自問題化する場合と、最初から暗記プラスが自作する場合の正本です。取得方法は[スクレイピングと`00_source`](scraping_workflow.md)、保存先は[artifact契約](artifact_contract.md)、公開fieldは[問題field契約](../reference/question_field_contract.md)を参照してください。
+
+## 最初から自作する問題
+
+試験実施団体の現行シラバスから資格の対象範囲と`category.json`を確定し、問題文、全選択肢、正答番号、解説、`questionSetId`、不変の内部IDを一問ずつ作る。主催団体の例題や第三者の問題文・選択肢を転載しない。外部の問題出典URLは要求しない。解答の事実根拠が変わり得る場合は、作問と評価で一次資料を確認する。
+
+作問時の調査メモ、根拠URL、評価所見は公開用データと分離し、このPCのアクセス制限したローカルファイルに保持する。Firestoreの`questions`/`folders`/`questionSets`、アプリ表示、ストア掲載文へ入れない。GitHubへ保存する場合は対象repoの可視性をその時点で確認し、公開repoには送らない。問題文、正答、解説、分類だけを公開用artifactに進める。
+
+自作した入力JSONを`import_authored_original_questions.py`で検査してから、**新規の**`00_source`へ登録する。入力JSONの`questions[]`は`id`、`questionBodyText`、`choiceTextList`、1始まりの`correctChoiceNumber`、`explanationText`、`questionSetId`を持つ。`question_url`には登録器が内部識別用の`ankiplus://authored/...`を設定する。これは外部の出典や閲覧可能なURLではなく、既存の01〜04 patchとID照合を使うための内部キーである。登録後の`00_source`は取得問題と同じく固定し、解答や解説の修正は後続patchで行う。同じIDの再登録や既存sourceの上書きは拒否する。
+
+```bash
+python3 scripts/pipeline/import_authored_original_questions.py <authored.json> --category output/<qualification>/category/category.json
+python3 scripts/pipeline/import_authored_original_questions.py <authored.json> --category output/<qualification>/category/category.json --write
+```
+
+生成したsourceを00_source SHA256 manifestへ登録し、01〜04の目視記録、別session評価、quality-gate、upload dry-run、Firestore readbackを通す。最初から自作した問題には05の「取得元からの独自化」は適用しない。公開fieldは`examSource=独自問題`、`isOfficial=true`、`examYear`なし。`isOfficial`は運営が公開する問題の意味で、試験実施団体による公式問題を意味しない。アプリ表示とストア掲載文では自作の対策問題と明示する。
 
 ## 適用範囲
 

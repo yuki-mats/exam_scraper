@@ -4,7 +4,7 @@
 
 ## 全体フロー
 
-1. **取得・保護**：`資格・取得設定` → `scrape` → **`00_source`**
+1. **入力・保護**：取得問題は`資格・取得設定` → `scrape`、最初から自作する問題は`import_authored_original_questions.py` → **`00_source`**
 2. **整備**：公式過去問は`01〜03` ／ それ以外・混在は`05 独自問題化` → `01〜03`
 3. **資格別の後工程**：`03b 現行法監査（対象のみ）` → `03c category.json（未準備時）` → `04 問題集`
 4. **公開前検査**：`merge / convert` → `quality-gate / upload dry-run` → **評価待ち**
@@ -40,7 +40,7 @@ flowchart TD
 
 性能改善のため、待ち時間、モデル・ツール・機械チェック・保存の処理時間、再試行・保留理由、実際の同時実行数、工程版、入出力fingerprintを一問・一工程単位で記録します。
 
-通常の順序は次のとおりです。
+通常の順序は次のとおりです。最初から自作する問題の入口は[独自問題作成ワークフロー](original_question_authoring_workflow.md#最初から自作する問題)を参照し、取得元URLの確認と05独自問題化を省きます。下記1〜3は取得問題に適用します。
 
 1. 資格と取得元URLを確認し、問題・画像を取得する。公式過去問以外又は混在する取得元は、全問を独自問題化する。
 2. `00_source`を取得元の現在スナップショットとして保護する。手作業では変更せず、取得元が更新された場合だけ標準scraperで更新する。
@@ -57,7 +57,7 @@ flowchart TD
 | 関心事 | 正本 | 要旨 |
 | --- | --- | --- |
 | 資格追加・スクレイピング | [scraping_workflow.md](scraping_workflow.md) | preset、scraper実装、ID、画像、`00_source`の取得・更新・保護条件を定義する。 |
-| 独自問題化 | [original_question_authoring_workflow.md](original_question_authoring_workflow.md) | 取得元URLの確認、05、独自問題化、資格別ナレッジ、公開条件を定義する。 |
+| 独自問題 | [original_question_authoring_workflow.md](original_question_authoring_workflow.md) | 取得問題の05独自問題化と、最初から自作する問題の登録・公開条件を定義する。 |
 | 工程順・名称・正本文書 | [../../config/question_maintenance_workflow.toml](../../config/question_maintenance_workflow.toml) | 問題整備システムの工程カタログを一元管理する。 |
 | 人間判断prompt | [../../prompt/README.md](../../prompt/README.md) | 各promptが所有する判断方法と実行境界への入口。 |
 | 資格固有資料 | [../../prompt/qualification_docs/README.md](../../prompt/qualification_docs/README.md) | 出題範囲、取得事情、分類、法令スコープを資格単位で定義する。解説は共通03を土台に、必要な資格固有調整だけをREADMEへ置く。 |

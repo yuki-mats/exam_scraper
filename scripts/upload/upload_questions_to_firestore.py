@@ -2,6 +2,7 @@ import json
 import hashlib
 import hmac
 import os
+import re
 import firebase_admin
 from firebase_admin import firestore
 from datetime import datetime
@@ -106,6 +107,43 @@ PRODUCTION_CLIENT_OMITTED_FIELDS = (
     "explanationReferences",
     "questionLearningPatternId",
 )
+GX_PRIVATE_AUTHORING_FIELDS = frozenset(
+    {
+        "explanationReferences", "lawReferences", "lawRevisionFacts",
+        "referenceUrls", "sourceUrl", "knowledgeText",
+    }
+)
+GX_PUBLIC_ATTRIBUTION_PATTERN = re.compile(r"(?:出典|参考文献|参照先)\s*[:：]")
+
+
+def validate_gx_authoring_privacy(questions: list[dict]) -> None:
+    """Keep GX research notes and source attribution off public Firestore docs."""
+
+    for question in questions:
+        if not isinstance(question, dict) or question.get("qualificationId") != "gx-kentei":
+            continue
+        qid = str(question.get("questionId") or "unknown")
+        if question.get("examSource") != "独自問題":
+            raise ValueError(f"GX question must be an Anki Plus original: {qid}")
+        disallowed = sorted(GX_PRIVATE_AUTHORING_FIELDS.intersection(question))
+        if disallowed:
+            raise ValueError(f"GX private authoring fields must stay local: {qid}: {disallowed}")
+        public = build_doc_data_base(question)
+        for field in (
+            "originalQuestionBodyText", "questionBodyText", "originalQuestionChoiceText",
+            "questionText", "explanationText", "suggestedQuestions", "suggestedQuestionDetails",
+        ):
+            value = public.get(field)
+            serialized = json.dumps(value, ensure_ascii=False) if value is not None else ""
+            if (
+                "http://" in serialized
+                or "https://" in serialized
+                or "ankiplus://" in serialized
+                or GX_PUBLIC_ATTRIBUTION_PATTERN.search(serialized)
+            ):
+                raise ValueError(f"GX public content includes source attribution: {qid}: {field}")
+
+
 CHOICE_ONLY_OMITTED_FIELDS = (
     "questionLearningPatternId",
     "explanationText",
@@ -682,6 +720,7 @@ def upload_questions(
         )
     else:
         validate_required_question_fields(questions, str(json_file_path))
+        validate_gx_authoring_privacy(questions)
     exam_years_by_qualification = (
         {} if write_fields else collect_exam_years_by_qualification(questions)
     )
