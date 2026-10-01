@@ -21,9 +21,12 @@ AI解説は公開設定かつ未削除の `memoType=ai_explanation` の利用者
 .venv/bin/python -m tools.question_bank.feedback_daily summary
 .venv/bin/python -m tools.question_bank.feedback_daily list-reports --limit 20
 .venv/bin/python -m tools.question_bank.feedback_daily list-ai --limit 20
+.venv/bin/python -m tools.question_bank.feedback_daily list-improvements --limit 20
 ```
 
 `scan` はFirestoreへ書き込みません。AI候補の全件取得を省く受付経路の確認は `scan --reports-only` を使います。`decide` は対象報告・case・判断・理由・根拠参照を記録し、`propose` は承認前の固定proposal hashとprivate参照先だけを記録します。`propose` でも正式patchは更新されません。報告内容に基づく `24_questionIssueCorrections` の作成・変更は、変更前後の具体的なfield差分と根拠を松田が承認した後だけ実行します。Firestore問題の公開には別の明示確認とlive readbackを要します。
+
+`summary` の `fixesAwaitingProposal` は訂正必要の判断後、まだ承認案を作っていない件数です。`list-reports` には未判断に加え、この状態と承認待ちの報告も残します。
 
 ## 目的と初版の境界
 

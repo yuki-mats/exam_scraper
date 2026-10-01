@@ -423,6 +423,11 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
     pending_approval = connection.execute(
         "SELECT COUNT(*) FROM report_tasks WHERE proposal_hash IS NOT NULL AND patch_ref IS NULL"
     ).fetchone()[0]
+    pending_proposal = connection.execute(
+        """SELECT COUNT(*) FROM report_tasks
+           WHERE decision IN ('fix_required', 'mixed')
+             AND proposal_hash IS NULL AND patch_ref IS NULL"""
+    ).fetchone()[0]
     pending_publication = connection.execute(
         "SELECT COUNT(*) FROM report_tasks WHERE patch_ref IS NOT NULL AND published_at IS NULL"
     ).fetchone()[0]
@@ -439,6 +444,7 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
         "intakeGapTaskIds": gaps or [],
         "rejectedIntake": counts.get("rejected", 0),
         "reportsAwaitingDecision": undecided,
+        "fixesAwaitingProposal": pending_proposal,
         "patchApprovalsWaiting": pending_approval,
         "patchesAwaitingPublication": pending_publication,
         "aiQuestionsAwaitingReview": ai_unreviewed,
@@ -626,10 +632,13 @@ def list_report_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dic
     rows = connection.execute(
         """SELECT task_id, report_id, question_id, categories_json,
                   case_ids_json, case_statuses_json, intake_status,
-                  decision, received_at
+                  decision, proposal_hash, received_at
            FROM report_tasks
            WHERE intake_status='intake_gap' OR decision IS NULL
-           ORDER BY CASE WHEN intake_status='intake_gap' THEN 0 ELSE 1 END,
+              OR (decision IN ('fix_required', 'mixed') AND patch_ref IS NULL)
+           ORDER BY CASE WHEN intake_status='intake_gap' THEN 0
+                         WHEN decision IN ('fix_required', 'mixed') AND proposal_hash IS NULL THEN 1
+                         WHEN proposal_hash IS NOT NULL THEN 2 ELSE 3 END,
                     received_at, task_id LIMIT ?""",
         (limit,),
     ).fetchall()
@@ -641,6 +650,7 @@ def list_report_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dic
             "caseIds": json.loads(row["case_ids_json"]),
             "caseStatuses": json.loads(row["case_statuses_json"]),
             "intakeStatus": row["intake_status"], "decision": row["decision"],
+            "proposalHash": row["proposal_hash"],
             "receivedAt": row["received_at"],
         }
         for row in rows
@@ -663,6 +673,15 @@ def list_ai_candidates(connection: sqlite3.Connection, *, limit: int,
     ]
 
 
+def list_improvement_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dict[str, str]]:
+    rows = connection.execute(
+        """SELECT task_id, title, need, target, status, created_at
+           FROM improvement_tasks WHERE status='open'
+           ORDER BY created_at, task_id LIMIT ?""", (limit,)
+    ).fetchall()
+    return [dict(row) for row in rows]
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
@@ -679,6 +698,8 @@ def _parse_args() -> argparse.Namespace:
     ai_list = sub.add_parser("list-ai")
     ai_list.add_argument("--limit", type=int, default=20)
     ai_list.add_argument("--since", default="")
+    improvements = sub.add_parser("list-improvements")
+    improvements.add_argument("--limit", type=int, default=20)
     inspect = sub.add_parser("inspect-ai")
     inspect.add_argument("candidate_id")
     inspect.add_argument("--credentials-json", type=Path)
@@ -733,6 +754,10 @@ def main() -> int:
     elif args.command == "list-ai":
         result = {"aiQuestionCandidates": list_ai_candidates(
             connection, limit=args.limit, since=args.since,
+        )}
+    elif args.command == "list-improvements":
+        result = {"improvementTasks": list_improvement_tasks(
+            connection, limit=args.limit,
         )}
     elif args.command == "inspect-ai":
         result = inspect_ai_candidate(

@@ -9,6 +9,8 @@ from pathlib import Path
 from tools.question_bank.feedback_daily import (
     _private_db,
     daily_summary,
+    list_improvement_tasks,
+    list_report_tasks,
     promote_ai_candidate,
     reconcile,
     record_decision,
@@ -97,6 +99,8 @@ class FeedbackDailyTest(unittest.TestCase):
             reason="official source differs", evidence_ref="official-pdf:page-2",
             case_id="case-b",
         )
+        self.assertEqual(daily_summary(self.db)["fixesAwaitingProposal"], 1)
+        self.assertIn(task1, [row["taskId"] for row in list_report_tasks(self.db, limit=3)])
         record_proposal(
             self.db, task_id=task1, proposal_hash=sha("proposal"),
             proposal_ref="private:proposal-1",
@@ -104,6 +108,7 @@ class FeedbackDailyTest(unittest.TestCase):
         self.snapshot["cases"][0]["workflowStatus"] = "ready_for_approval"
         result = reconcile(self.db, self.snapshot, source="fixture")
         self.assertEqual(result["patchApprovalsWaiting"], 1)
+        self.assertEqual(result["fixesAwaitingProposal"], 0)
         self.assertEqual(result["reportsAwaitingDecision"], 1)
         self.assertEqual(self.db.execute(
             "SELECT COUNT(*) FROM decision_history WHERE task_id=?", (task1,)
@@ -135,6 +140,16 @@ class FeedbackDailyTest(unittest.TestCase):
             "SELECT COUNT(*) FROM ai_question_candidates"
         ).fetchone()[0], 0)
         self.assertEqual(daily_summary(self.db)["improvementTasksOpen"], 1)
+        self.assertEqual(list_improvement_tasks(self.db, limit=1)[0]["task_id"], need_id)
+
+    def test_new_counts_use_identities_when_candidate_is_replaced(self) -> None:
+        first = reconcile(self.db, self.snapshot, source="fixture")
+        self.assertEqual(first["newReportTasks"], 3)
+        self.assertEqual(first["newAiQuestionCandidates"], 1)
+        self.snapshot["aiQuestions"][0]["sourcePath"] = "memos/memo-3"
+        second = reconcile(self.db, self.snapshot, source="fixture")
+        self.assertEqual(second["newReportTasks"], 0)
+        self.assertEqual(second["newAiQuestionCandidates"], 1)
 
     def test_incomplete_intake_cannot_receive_decision(self) -> None:
         reconcile(self.db, self.snapshot, source="fixture")
