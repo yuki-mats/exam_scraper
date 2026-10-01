@@ -287,10 +287,11 @@ def reconcile(connection: sqlite3.Connection, snapshot: Mapping[str, Any],
     stored_paths = {
         row[0] for row in connection.execute("SELECT source_path FROM report_tasks")
     }
-    previously_known_reports = len(stored_paths)
-    previously_known_ai = connection.execute(
-        "SELECT COUNT(*) FROM ai_question_candidates"
-    ).fetchone()[0]
+    previously_known_ai_paths = {
+        row[0] for row in connection.execute(
+            "SELECT source_path FROM ai_question_candidates"
+        )
+    }
     paths = set(submissions) | set(cases_by_path) | set(receipts) | stored_paths
     gaps = []
     with connection:
@@ -403,13 +404,9 @@ def reconcile(connection: sqlite3.Connection, snapshot: Mapping[str, Any],
             (scan_id, now, source, len(paths), ai_count, len(gaps)),
         )
     summary = daily_summary(connection, scan_id=scan_id, gaps=gaps)
-    summary["newReportTasks"] = max(
-        0, summary["reportTasks"] - previously_known_reports
-    )
+    summary["newReportTasks"] = len(paths - stored_paths)
     summary["newAiQuestionCandidates"] = (
-        max(0, connection.execute(
-            "SELECT COUNT(*) FROM ai_question_candidates"
-        ).fetchone()[0] - previously_known_ai)
+        len(seen_ai_paths - previously_known_ai_paths)
         if "aiQuestions" in snapshot else 0
     )
     return summary
