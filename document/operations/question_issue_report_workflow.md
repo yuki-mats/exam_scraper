@@ -7,7 +7,7 @@
 
 ## 目的と境界
 
-Repaso の公式問題報告を、利用者の主張を正解扱いせず、客観レビューから `exam_scraper` 正本の patch、Firestore 公開、live readback まで処理する。定期 polling や通知は行わず、運用者が「問題報告を棚卸して」と依頼した時だけ Mac の専用 clean clone で起動する。
+Repaso の公式問題報告を、利用者の主張を正解扱いせず、客観レビューから `exam_scraper` 正本の patch、Firestore 公開、live readback まで処理する。この文書の旧batch CLIは運用者が依頼した時に起動する。個別報告の登録漏れを毎日確認する読み取り専用の台帳照合は[ユーザーフィードバック対応システム](user_feedback_response_system.md#個別受付台帳と日次照合先行実装)に従う。
 
 問題データ更新とアプリ更新は別 workflow である。
 

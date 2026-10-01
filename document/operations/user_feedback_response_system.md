@@ -1,12 +1,29 @@
 # ユーザーフィードバック対応システム
 
-状態: 設計確定・実装前
+状態: 実装中。個別受付台帳と読み取り専用の日次照合を先行実装。常駐審査・スマホ承認・自動patch昇格は未実装。
 
-最終更新: 2026-07-19
+最終更新: 2026-10-01
 
-この文書は、Repasoから届くユーザーフィードバックをMac上でAI審査し、松田がスマホから一件ずつ最終判断する「ユーザーフィードバック対応システム」の目標仕様正本です。初版は公式問題の誤り報告だけを処理し、将来はアプリ不具合、UI改善、要望を同じシステムの別レーンとして追加します。
+この文書は、Repasoから届くユーザーフィードバックをMac上で審査し、松田が訂正patchの内容を一件ずつ最終承認する「ユーザーフィードバック対応システム」の目標仕様正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを別に置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
-この仕様はまだ実装されていません。実装完了までは[公式問題の問題報告workflow](question_issue_report_workflow.md)が現行CLIの運用正本です。公式問題レーンのintake schema、blind review、許可field、`24_questionIssueCorrections`契約は同文書と[`config/question_issue_reports.json`](../../config/question_issue_reports.json)を再利用し、この文書では常駐処理、スマホ承認、patch確定、状態遷移だけを定義します。
+常駐審査と承認後の自動patch昇格はまだ実装されていません。実装完了までは[公式問題の問題報告workflow](question_issue_report_workflow.md)が現行CLIの運用正本です。公式問題レーンのintake schema、blind review、許可field、`24_questionIssueCorrections`契約は同文書と[`config/question_issue_reports.json`](../../config/question_issue_reports.json)を再利用します。
+
+## 個別受付台帳と日次照合（先行実装）
+
+`tools/question_bank/feedback_daily.py` はFirestoreを読み取り専用で走査し、各 `users/{uid}/questionIssueReportSubmissions/{reportId}` を1件ずつ私有SQLite台帳へ登録します。複数カテゴリのcaseは一つの報告タスクに関連付け、カテゴリごとの判断を `report_case_decisions` に残します。caseをまとめて修正しても報告タスクを消さず、全カテゴリの判断が揃うまで未判断件数に残します。caseが再開された場合は現在の判断を再確認待ちへ戻し、判断履歴は保持します。
+
+台帳の既定保存先は `~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3` です。同じ場所へ `ledger.backup.sqlite3` を更新します。台帳とbackupはownerのみが読めるpermissionにします。Firestoreの受付原本、receipt、case内のreport linkを毎回照合し、一つでも欠けた報告は `intake_gap` として日次結果に出します。運用者の判断、理由、根拠参照、proposal hashは再走査で上書きしません。報告本文、reporter情報、AI質問本文は台帳、日次JSON、Gitへ複製しません。
+
+AI解説は公開設定かつ未削除の `memoType=ai_explanation` の利用者発話だけを候補にし、source path・問題ID・本文SHA-256だけを台帳へ保存します。AI回答、非公開memo、削除済みmemoは対象外です。利用者が非公開化・削除した候補は次の全件走査で台帳から除きます。候補は即座に改善タスクへ変換せず、一件ずつ内容を確認して必要なニーズのみ `improvement_tasks` へ登録します。既存の改善タスクへ関連候補を追加できます。公開設定は改善分析への同意と同義ではないため、継続運用前に利用目的の説明、App Privacy、保持方針を確認します。
+
+```bash
+.venv/bin/python -m tools.question_bank.feedback_daily scan
+.venv/bin/python -m tools.question_bank.feedback_daily summary
+.venv/bin/python -m tools.question_bank.feedback_daily list-reports --limit 20
+.venv/bin/python -m tools.question_bank.feedback_daily list-ai --limit 20
+```
+
+`scan` はFirestoreへ書き込みません。AI候補の全件取得を省く受付経路の確認は `scan --reports-only` を使います。`decide` は対象報告・case・判断・理由・根拠参照を記録し、`propose` は承認前の固定proposal hashとprivate参照先だけを記録します。`propose` でも正式patchは更新されません。報告内容に基づく `24_questionIssueCorrections` の作成・変更は、変更前後の具体的なfield差分と根拠を松田が承認した後だけ実行します。Firestore問題の公開には別の明示確認とlive readbackを要します。
 
 ## 目的と初版の境界
 
@@ -15,7 +32,7 @@
 - 初版の処理対象は、公式問題の問題文・選択肢、正答、解説、法令・制度、画像、分類、回答形式、その他の報告です。
 - 問題データに差分がなくアプリ側の再現可能な原因がある場合は、question patchを作らず`アプリ不具合`レーンへ保存します。初版ではアプリコードを修正しません。
 - 承認はFirestore公開ではありません。承認済みpatchを検証してGitへ保存し、次回の既存merge・公開フローへ合流させます。
-- 管理者向け通知と、報告者への処理結果通知は初版に含めません。
+- 報告者への処理結果通知と、管理者へのpush・メール通知は初版に含めません。日次の管理者向け台帳確認は別の運用です。
 - OpenAI Platform API、外部AI provider、ローカルLLMへのfallbackは行いません。
 
 ## 全体フロー
