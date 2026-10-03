@@ -2,6 +2,10 @@ from __future__ import annotations
 
 import os
 import re
+import json
+import tempfile
+from pathlib import Path
+from datetime import datetime, timezone
 from typing import Iterable
 from urllib.parse import urljoin
 
@@ -10,10 +14,11 @@ from bs4.element import Tag
 
 from scripts.scrape.common import (
     create_http_session,
-    download_and_save_images,
+    download_and_save_images as _download_and_save_images,
     extract_image_urls_from_element,
     fetch_html_text,
     load_local_secure_env,
+    is_placeholder_image_url,
     make_public_question_id,
     make_storage_url,
     normalize_inline_text,
@@ -76,6 +81,14 @@ def apply_runtime_overrides_from_env() -> None:
         MAX_QUESTIONS = int(max_questions) if max_questions else None
     if output_dir:
         OUTPUT_DIR = output_dir
+
+
+def download_and_save_images(http_session, image_url_list, filename_prefix, *, base_dir):
+    saved = _download_and_save_images(http_session, image_url_list, filename_prefix, base_dir=base_dir)
+    expected = sum(bool(url) and not is_placeholder_image_url(url) for url in image_url_list)
+    if len(saved) != expected:
+        raise ValueError(f"問題画像の取得が不完全です: {filename_prefix}")
+    return saved
 
 
 def normalize_digits(text: str) -> str:
@@ -377,6 +390,7 @@ def parse_q_question_page(
     http_session,
     download_images: bool,
     output_list_group_id: str,
+    existing_identity: dict | None = None,
 ) -> dict | None:
     soup = BeautifulSoup(html_text, "html.parser")
     exam_label, exam_year, _ = extract_exam_meta_from_h2(soup)
@@ -398,7 +412,12 @@ def parse_q_question_page(
         return None
 
     source_question_id = f"{output_list_group_id}:am:{question_label}:{page_url}"
-    public_question_id = make_public_question_id(source_question_id)
+    if existing_identity and existing_identity.get("source_question_id") and existing_identity["source_question_id"] != source_question_id:
+        raise ValueError(f"取得元IDが既存記録と一致しません: {page_url}")
+    public_question_id = (
+        existing_identity["public_question_id"]
+        if existing_identity and existing_identity.get("public_question_id") else make_public_question_id(source_question_id)
+    )
 
     # 選択肢リストは button.selectBtn を含む ul を優先する
     choice_list_wrap = None
@@ -515,7 +534,7 @@ def parse_q_question_page(
         "list_group_id": output_list_group_id,
         "question_url": page_url,
         "public_question_id": public_question_id,
-        "original_question_id": public_question_id,
+        "original_question_id": existing_identity.get("original_question_id", public_question_id) if existing_identity else public_question_id,
         "questionImageStorageUrls": question_image_storage_urls,
         "questionIntent": question_intent,
         "correctChoiceText": correct_choice_texts,
@@ -774,6 +793,79 @@ def parse_pm_question_page(
     return question_bodies
 
 
+def load_existing_identities(group_dir: Path) -> dict[str, dict]:
+    """欠損sourceの復旧でも、過去のIDだけをexact source IDで継承する。"""
+    identities: dict[str, dict] = {}
+    for directory in ("00_source", "12_merged_questionType", "20_merged_1", "30_merged_2", "10_questionType_fixed", "15_correctChoiceText_fixed", "21_explanationText_added", "22_questionSetId_linked", "23_correctChoiceText_fixed"):
+        for path in sorted((group_dir / directory).glob("*.json")):
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            records = payload if isinstance(payload, list) else payload.get("question_bodies", [])
+            for record in records:
+                keys = ("source_question_id", "question_url", "public_question_id", "original_question_id")
+                if not record.get("question_url") or not record.get("original_question_id"):
+                    continue
+                identity = {key: record[key] for key in keys if record.get(key)}
+                url = identity["question_url"]
+                previous = identities.get(url, {})
+                if any(previous[key] != value for key, value in identity.items() if key in previous):
+                    raise ValueError(f"既存記録のIDが競合しています: {url}")
+                identities[url] = {**previous, **identity}
+    return identities
+
+
+def atomic_write_json(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as stream:
+        temporary = Path(stream.name)
+        json.dump(payload, stream, ensure_ascii=False, indent=2)
+        stream.flush()
+        os.fsync(stream.fileno())
+    try:
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def save_validated_source(json_dir: Path, group_id: str, records: list[dict], *, expected_count: int) -> dict:
+    """全件検証後、既存のchunk内IDとfile名を保持して取得結果を保存する。"""
+    source_ids = [record.get("source_question_id") for record in records]
+    if len(records) != expected_count or not all(source_ids) or len(set(source_ids)) != len(source_ids):
+        raise ValueError("取得件数又は取得元IDの検証に失敗しました")
+    for record in records:
+        choices = record.get("choiceTextList")
+        answers = record.get("answer_result_inferred_correct_choice_numbers")
+        if not record.get("questionBodyText") or not choices or not answers or any(
+            not isinstance(answer, int) or not 1 <= answer <= len(choices) for answer in answers
+        ):
+            raise ValueError(f"取得内容が不完全です: {record['source_question_id']}")
+    planned = {}
+    new_ids, changed_ids, unchanged_ids = [], [], []
+    for start in range(0, len(records), 25):
+        path = json_dir / f"question_{group_id}_{start // 25 + 1}.json"
+        chunk = records[start:start + 25]
+        old = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+        old_records = old.get("question_bodies", []) if old else []
+        if old and [r.get("source_question_id") for r in old_records] != [r["source_question_id"] for r in chunk]:
+            raise ValueError(f"既存file内の取得元ID又は順序が変わっています: {path.name}")
+        old_by_id = {r["source_question_id"]: r for r in old_records}
+        for record in chunk:
+            previous = old_by_id.get(record["source_question_id"])
+            if previous and any(previous.get(key) != record.get(key) for key in ("public_question_id", "original_question_id")):
+                raise ValueError(f"既存IDが変わっています: {record['source_question_id']}")
+            target = new_ids if previous is None else unchanged_ids if previous == record else changed_ids
+            target.append(record["source_question_id"])
+        payload = {"list_group_id": group_id, "question_bodies": chunk}
+        if payload != old:
+            planned[path] = payload
+    if set(json_dir.glob("question_*.json")) - set(
+        json_dir / f"question_{group_id}_{i + 1}.json" for i in range((len(records) + 24) // 25)
+    ):
+        raise ValueError("取得一覧にない既存source fileがあります")
+    for path, payload in planned.items():
+        atomic_write_json(path, payload)
+    return {"newSourceQuestionIds": new_ids, "changedSourceQuestionIds": changed_ids, "unchangedSourceQuestionIds": unchanged_ids}
+
+
 def main() -> int:
     load_local_secure_env()
     apply_runtime_overrides_from_env()
@@ -795,6 +887,12 @@ def main() -> int:
     http_session = create_http_session()
     list_html = fetch_html_text(http_session, LIST_FIRST_PAGE_URL)
     q_urls, pm_urls = collect_question_page_urls(list_html, LIST_FIRST_PAGE_URL)
+    if not q_urls and not pm_urls:
+        raise ValueError("取得一覧に問題がありません")
+    expected_count = int(os.environ.get("SCRAPER_EXPECTED_QUESTION_COUNT") or 0)
+    if expected_count and MAX_QUESTIONS is not None:
+        raise ValueError("全件更新では部分取得を使用できません")
+    identities = load_existing_identities(Path(json_output_dir).parent)
 
     question_bodies: list[dict] = []
 
@@ -811,9 +909,10 @@ def main() -> int:
             http_session=http_session,
             download_images=True,
             output_list_group_id=output_list_group_id,
+            existing_identity=identities.get(url),
         )
         if qb is None:
-            continue
+            raise ValueError(f"問題の解析に失敗しました: {url}")
         question_bodies.append(qb)
 
     for url in pm_urls:
@@ -827,16 +926,21 @@ def main() -> int:
             download_images=True,
             output_list_group_id=output_list_group_id,
         )
+        if not qbs:
+            raise ValueError(f"午後問題の解析に失敗しました: {url}")
         for qb in qbs:
             if not can_add_more():
                 break
             question_bodies.append(qb)
 
-    save_question_body_chunks(
-        json_output_dir,
-        output_list_group_id,
-        question_bodies,
-    )
+    if expected_count:
+        details = save_validated_source(Path(json_output_dir), output_list_group_id, question_bodies, expected_count=expected_count)
+        report = {"status": "succeeded", "qualification": QUALIFICATION_CODE, "listGroupId": output_list_group_id,
+                  "sourceListUrl": LIST_FIRST_PAGE_URL, "questionCount": len(question_bodies),
+                  "expectedQuestionCount": expected_count, "completedAt": datetime.now(timezone.utc).isoformat(), **details}
+        atomic_write_json(Path(OUTPUT_DIR) / QUALIFICATION_CODE / "scrape_reports" / f"{output_list_group_id}.json", report)
+    else:
+        save_question_body_chunks(json_output_dir, output_list_group_id, question_bodies)
     print(f"[DONE] saved question bodies: {len(question_bodies)} -> {json_output_dir}")
     return 0
 

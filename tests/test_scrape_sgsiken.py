@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import os
+import json
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
 import unittest
 
 import requests
@@ -10,6 +14,9 @@ from scrape_sgsiken import (
     parse_pm_question_page,
     parse_q_question_page,
     split_classification_hierarchy,
+    save_validated_source,
+    load_existing_identities,
+    download_and_save_images,
 )
 
 
@@ -17,6 +24,46 @@ RUN_LIVE_TESTS = os.environ.get("RUN_LIVE_TESTS") == "1"
 
 
 class ScrapeSgsikenTests(unittest.TestCase):
+    def test_missing_image_stops_source_acquisition(self):
+        with patch("scrape_sgsiken._download_and_save_images", return_value=[]):
+            with self.assertRaises(ValueError):
+                download_and_save_images(None, ["https://example.com/figure.png"], "q1", base_dir=".")
+
+    def test_refresh_preserves_ids_and_reports_changes_after_full_validation(self):
+        record = {"source_question_id": "stable", "questionBodyText": "本文", "choiceTextList": ["A", "B"],
+                  "answer_result_inferred_correct_choice_numbers": [1], "public_question_id": "old-public",
+                  "original_question_id": "old-original"}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            save_validated_source(root, "202501", [record], expected_count=1)
+            path = root / "question_202501_1.json"
+            baseline = path.read_bytes()
+            with self.assertRaises(ValueError):
+                save_validated_source(root, "202501", [record], expected_count=55)
+            with self.assertRaises(ValueError):
+                save_validated_source(root, "202501", [{**record, "public_question_id": "new"}], expected_count=1)
+            with self.assertRaises(ValueError):
+                save_validated_source(root, "202501", [{**record, "answer_result_inferred_correct_choice_numbers": [3]}], expected_count=1)
+            self.assertEqual(path.read_bytes(), baseline)
+            result = save_validated_source(root, "202501", [{**record, "questionBodyText": "取得元の新しい本文"}], expected_count=1)
+            self.assertEqual(result["changedSourceQuestionIds"], ["stable"])
+            result = save_validated_source(root, "202501", [{**record, "questionBodyText": "取得元の新しい本文"}], expected_count=1)
+            self.assertEqual(result["unchangedSourceQuestionIds"], ["stable"])
+
+    def test_identity_recovery_reads_only_exact_identity_and_rejects_conflict(self):
+        record = {"source_question_id": "stable", "question_url": "https://example.com/q1", "public_question_id": "old-public",
+                  "original_question_id": "old-original", "questionBodyText": "古い本文"}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for stage in ("00_source", "12_merged_questionType"):
+                (root / stage).mkdir()
+                (root / stage / "question.json").write_text(json.dumps({"question_bodies": [record]}))
+            identities = load_existing_identities(root)
+            self.assertNotIn("questionBodyText", identities[record["question_url"]])
+            (root / "12_merged_questionType" / "question.json").write_text(json.dumps({"question_bodies": [{**record, "original_question_id": "conflict"}]}))
+            with self.assertRaises(ValueError):
+                load_existing_identities(root)
+
     def setUp(self) -> None:
         os.environ.setdefault("QUESTION_ID_SECRET_KEY", "test-secret")
 
