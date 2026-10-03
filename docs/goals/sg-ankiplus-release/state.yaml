@@ -66,23 +66,24 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/sg-ankiplus-release/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/sg-ankiplus-release"
 
-active_task: T002
+active_task: T001
 
 tasks:
   - id: "T001"
     type: "pm"
     assignee: "PM"
-    status: "done"
+    status: "active"
     objective: "年度別過去問を全件取得し独立HTML照合・画像検証を完了する。"
     inputs: []
     constraints: []
     expected_output:
       - "証拠と完了状態を区別したreceipt"
     receipt:
-      result: done
-      summary: "年度別12回・704問・484ページ・画像209ファイルを取得。独立照合とsource gateで不一致0件。"
+      result: incomplete
+      summary: "再監査で午後解説201問分と解説画像の参照欠落を確認。初回の完了判定を撤回し、取得と検査の修復が必要。"
       evidence:
         - "docs/goals/sg-ankiplus-release/notes/T001-acquisition-receipt.md"
+        - "document/temporary/audits/sg_scrape_reaudit_20261003.md"
         - "output/sg/reports/siken_acquisition_audit.json"
         - "tmp/sg_source_quality_gate_20261003.log"
       commands:
@@ -105,7 +106,7 @@ tasks:
   - id: "T002"
     type: "scout"
     assignee: "Scout"
-    status: "active"
+    status: "queued"
     objective: "整備条件、現行出題範囲、分類、アプリrelease設定をread-onlyで確認する。"
     inputs:
       - "T001 receipt"
@@ -168,6 +169,6 @@ tasks:
 checks:
   dirty_fingerprint: "unknown"
   last_verification:
-    result: "pass"
+    result: "fail"
     task: "T001"
     commands: []
