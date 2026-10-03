@@ -91,10 +91,10 @@
   },
   {
     "explanationText": [
-      "間違い。メモリインターリーブは、連続するアドレスを複数のバンクに分散して並列にアクセスし、実効的なアクセス時間を短縮する。選択肢は同一のバンクに連続してアクセスするとしているため誤りである。",
-      "間違い。メモリインターリーブは、キャッシュミス発生時に限ってアクセス時間を短縮する仕組みではなく、複数のバンクに分散した連続アドレスへ並列にアクセスして性能を高める。選択肢は同一のバンクの連続したアドレスへのアクセスを対象としているため誤りである。",
-      "間違い。正しくは、一つのバンクが故障してもシステムを継続させるには、冗長化やECCなどの仕組みが必要である。選択肢はメモリインターリーブにバンク故障時の継続運転機能があるとしているため誤りである。",
-      "正しい。連続するアドレスを複数のバンクに分散し、複数のバンクへ交互にアクセスすることで、メモリアクセスを並列化して時間を短縮する。"
+      "間違い。メモリインターリーブは、連続するアドレスを複数のバンクに分散し、並列的にアクセスして実効的なアクセス時間を短縮する。選択肢は同一のバンクに連続してアクセスするとアクセス時間を短縮するとしているため誤りである。",
+      "間違い。メモリインターリーブは、キャッシュミスが発生したときだけ働く仕組みではない。連続するアドレスを複数のバンクに分散してアクセスを並列化し、メモリ全体のアクセス性能を高める。選択肢は同一のバンクの連続したアドレスへのアクセスを対象としているため誤りである。",
+      "間違い。メモリインターリーブはアクセスを並列化する仕組みであり、一つのバンクが故障したときにシステムの停止を防ぐ機能はない。選択肢はメモリインターリーブによってバンク故障後もシステムが停止しないとしているため誤りである。",
+      "正しい。連続したアドレスを複数のバンクに分散し、複数のバンクへ並列的にアクセスすることで、メモリアクセスにかかる時間を短縮する。"
     ],
     "original_question_id": "4a514e01e7ceca82",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_4.html",
@@ -214,7 +214,7 @@
   },
   {
     "explanationText": [
-      "正しい。アベイラビリティ（稼働率）は、平均故障間隔MTBFと平均修復時間MTTRを使って、次の式で求める。\n\\[A=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]\nMTBFは故障から次の故障までの平均稼働時間、MTTRは故障してから復旧するまでの平均修復時間である。両方が1.5倍になると、\\[A'=\\frac{1.5\\mathrm{MTBF}}{1.5\\mathrm{MTBF}+1.5\\mathrm{MTTR}}=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}=A\\]となり、共通する1.5倍が分子と分母から消える。そのため、アベイラビリティは変わらない。"
+      "正しい。アベイラビリティ（稼働率）は、平均故障間隔MTBFと平均修復時間MTTRを使って、次の式で求める。\n\\[A=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]\nMTBFは故障から次の故障までの平均稼働時間、MTTRは故障してから復旧するまでの平均修復時間である。両方が1.5倍になると、\\[A'=\\frac{1.5\\mathrm{MTBF}}{1.5\\mathrm{MTBF}+1.5\\mathrm{MTTR}}=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}=A\\]となる。分子と分母に同じ1.5倍が掛かるため、アベイラビリティは変わらない。"
     ],
     "original_question_id": "2c74d74e053c7acd",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_5.html",
@@ -224,14 +224,120 @@
     "sourceRecordRef": "question_201602_1.json#4",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "MTBFとMTTRによるアベイラビリティの計算問題であり、法令条文や制度上の義務を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はアベイラビリティの計算結果と一致しないため、法令ではなく技術計算により間違いと判定する。",
+          "promptContext": "MTBFとMTTRの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はアベイラビリティの計算結果と一致しないため、法令ではなく技術計算により間違いと判定する。",
+          "promptContext": "MTBFとMTTRの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はアベイラビリティの計算結果と一致しないため、法令ではなく技術計算により間違いと判定する。",
+          "promptContext": "MTBFとMTTRの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MTBFとMTTRがともに1.5倍になると、分子と分母に同じ倍率が掛かるため、アベイラビリティは変わらず正しい。",
+          "promptContext": "MTBFとMTTRの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、主記憶の空き領域を結合して一つの連続した領域にする操作は、メモリコンパクションである。選択肢は、この操作を可変区画方式としているため誤りである。",
+      "間違い。正しくは、主記憶の空き領域を結合して一つの連続した領域にする操作は、メモリコンパクションである。可変区画方式は、プログラムの大きさに応じて主記憶を区画する方式であり、空き領域を結合する操作ではない。",
       "正しい。ガーベジコレクションは、プログラムが使用しなくなったヒープ領域を回収し、再利用できるようにする処理である。",
-      "間違い。正しくは、プログラムの実行中に主記憶内でモジュールの格納位置を移動させるのは、動的再配置である。選択肢は、この処理を動的リンキングとしているため誤りである。",
-      "間違い。正しくは、プログラムの実行中に必要になった時点でモジュールをロードするのは、動的リンキングである。選択肢は、このロード処理を動的再配置としているため誤りである。"
+      "間違い。正しくは、プログラムの実行中に主記憶内でモジュールの格納位置を移動させるのは、動的再配置である。動的リンキングは、実行時に必要なモジュールを結合する処理であり、格納位置を移動させる処理ではない。",
+      "間違い。正しくは、プログラムの実行中に必要になった時点でモジュールをロードするのは、動的リンキングである。動的再配置は、主記憶内でモジュールの格納位置を移動させる処理である。"
     ],
     "original_question_id": "bc72429b59188543",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_6.html",
@@ -351,7 +457,7 @@
   },
   {
     "explanationText": [
-      "正しい。XORは二つの入力が異なるときに出力が1になる論理回路である。一方のスイッチを切り替えると、もう一方の状態にかかわらず入力の一致・不一致が反転し、照明の点灯・消灯も切り替わる。この動作が、階段の上下にあるどちらのスイッチでも照明を操作できる条件に一致する。"
+      "正しい。XORは二つの入力が異なるときに出力が1になる論理回路である。一方のスイッチを切り替えると、もう一方の状態にかかわらず二つの入力の一致・不一致が反転するため、照明の点灯・消灯も切り替わる。この動作が、階段の上下にあるどちらのスイッチでも照明を操作できる条件に一致する。"
     ],
     "original_question_id": "85b8347f6881b300",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_7.html",
@@ -471,10 +577,7 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、AjaxはJavaScriptと非同期通信を組み合わせてWebページを動的に更新する実装手法である。選択肢はAjaxをマルチメディアの配置や再生タイミングをXMLで記述するW3C勧告としているため誤りである。",
-      "間違い。正しくは、CSSはWebページの文字や配置、色などの表示を指定するスタイルシート言語である。選択肢はCSSを音声や動画の再生タイミングを記述する仕様としているため誤りである。",
-      "正しい。SMILは、動画、音声、画像、テキストなどの配置や再生タイミングをXMLで記述するW3C勧告である。",
-      "間違い。正しくは、SVGはベクター画像をXMLで表現する仕様である。選択肢はSVGをマルチメディア全体の配置や再生タイミングを記述する仕様としているため誤りである。"
+      "正しい。SMILは、動画や音声などのマルチメディアコンテンツの配置や再生タイミングをXMLで記述するW3C勧告である。"
     ],
     "original_question_id": "86a37d07a968298c",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_8.html",
@@ -601,7 +704,7 @@
   },
   {
     "explanationText": [
-      "正しい。正答はlogXである。B+木では根から葉までの高さに沿ってノードを順に参照する。木の高さはデータ総件数Xに対して対数的に増えるため、ノードへのアクセス回数のオーダーはlogXとなる。"
+      "正しい。正答はlogXである。B⁺木では、根から葉まで各階層のノードをたどって検索する。各ノードが複数の子を持つため、データ総件数Xが増えても木の高さはXに比例せず、対数的に増える。したがって、ノードへのアクセス回数のオーダーはlogXとなる。"
     ],
     "original_question_id": "37c24f696a522fd7",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_9.html",
@@ -901,33 +1004,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n固定パスワードをそのまま暗号化して送るだけではチャレンジレスポンスの本質ではない。サーバ側の乱数入力を毎回変える点が重要である。",
-      "間違い。\n\n端末シリアル番号を秘密鍵で暗号化して送る方式は電子署名や端末証明の考え方であり、典型的なチャレンジレスポンスではない。",
-      "間違い。\n\n毎回異なるトークン表示値を送る方式はワンタイムパスワードであり、チャレンジレスポンスとは別概念である。",
-      "正しい。\n\nチャレンジレスポンス認証では、サーバが送る乱数などのチャレンジと利用者の秘密情報を組み合わせて演算した結果だけを返すため、固定パスワードをそのまま送らずに済む。"
-    ],
-    "suggestedQuestions": [
-      "チャレンジレスポンスでは何を送りますか？",
-      "ワンタイムパスワードとの違いは何ですか？",
-      "なぜ固定パスワード送信より安全ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "チャレンジレスポンスでは何を送りますか？",
-        "answer": "サーバが出した乱数と秘密情報を使って計算した応答値を送る。"
-      },
-      {
-        "question": "ワンタイムパスワードとの違いは何ですか？",
-        "answer": "ワンタイムパスワードは使い捨て値そのものを送るが、チャレンジレスポンスはサーバのチャレンジに対する計算結果を返す。"
-      },
-      {
-        "question": "なぜ固定パスワード送信より安全ですか？",
-        "answer": "毎回異なるチャレンジを使うため、盗聴された応答を再送しても悪用しにくいからである。"
-      }
+      "間違い。正しくは、サーバから送られる毎回異なるチャレンジと秘密情報を使って応答を計算する。選択肢は固定パスワードをTLSで暗号化して送る方式としているため、チャレンジレスポンス認証の特徴とは異なる。",
+      "間違い。正しくは、サーバから送られたチャレンジに対して、秘密情報を使った計算結果を返す。選択肢は端末のシリアル番号を秘密鍵で暗号化して送る方式としており、端末の識別や電子署名に関する仕組みである。",
+      "間違い。正しくは、サーバからのチャレンジと秘密情報を組み合わせて計算した結果を返す。選択肢はトークンが表示した値をそのままパスワードとして送る方式であり、一般的なワンタイムパスワードの説明である。",
+      "正しい。チャレンジレスポンス認証では、サーバが送る毎回異なるランダムなデータと利用者のパスワードなどの秘密情報をクライアント側で演算し、その結果だけを送信する。固定パスワードそのものを送らずに本人確認できる。"
     ],
     "original_question_id": "68e3b4cfe8ee35da",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:68e3b4cfe8ee35da",
+    "reviewQuestionId": "68e3b4cfe8ee35da",
+    "sourceRecordRef": "question_201602_1.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "チャレンジレスポンス認証の技術的特徴を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、TLSによる固定パスワード送信とチャレンジレスポンス認証の違いに基づき判定した。",
+          "promptContext": "第1選択肢の技術的正誤。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、端末シリアル番号の暗号化送信とチャレンジレスポンス認証の違いに基づき判定した。",
+          "promptContext": "第2選択肢の技術的正誤。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、トークン表示値をそのまま送信する方式とチャレンジレスポンス認証の違いに基づき判定した。",
+          "promptContext": "第3選択肢の技術的正誤。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、サーバのランダムデータと秘密情報から応答を計算して送信するというチャレンジレスポンス認証の特徴に基づき判定した。",
+          "promptContext": "第4選択肢の技術的正誤。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -961,10 +1157,10 @@
   },
   {
     "explanationText": [
-      "間違い。IPsecとTLSを選択可能にすることは、暗号アルゴリズムを組み合わせるハイブリッド暗号方式の説明ではない。",
+      "間違い。IPsecとTLSを選択可能にすることは、暗号通信プロトコルの選択に関する説明であり、ハイブリッド暗号方式の特徴ではない。",
       "正しい。ハイブリッド暗号方式は、鍵の配送に公開鍵暗号を使い、実際のデータ暗号化には高速な共通鍵暗号を使う。これにより、公開鍵暗号による鍵管理のしやすさと、共通鍵暗号による高い処理性能を両立する。",
-      "間違い。複数の共通鍵暗号方式を組み合わせることを指すのではない。公開鍵暗号と共通鍵暗号を、鍵配送とデータ暗号化に役割分担させる方式である。",
-      "間違い。複数の公開鍵暗号方式を組み合わせることを指すのではない。公開鍵暗号は主に共通鍵で使うセッション鍵の配送に利用され、データ本体は共通鍵暗号で効率よく暗号化する。"
+      "間違い。複数の共通鍵暗号方式を組み合わせるのではなく、公開鍵暗号と共通鍵暗号を、鍵配送とデータ暗号化に役割分担させる方式である。",
+      "間違い。複数の公開鍵暗号方式を組み合わせるのではなく、公開鍵暗号で共通鍵の配送を行い、データ本体は共通鍵暗号で効率よく暗号化する方式である。"
     ],
     "original_question_id": "fc6127a6f1c0b3ad",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_15.html",
@@ -1085,9 +1281,9 @@
   {
     "explanationText": [
       "間違い。外部イベントに応じたオブジェクトの状態変化を表すのは状態遷移図である。選択肢はユースケース図で状態の遷移を表現するとしているため誤りである。",
-      "間違い。クラスと関連によってシステムの静的な構造を表すのはクラス図である。選択肢はユースケース図でクラス構造を表現するとしているため誤りである。",
+      "間違い。クラスと関連によってシステムの静的な構造を表すのはクラス図である。選択肢はユースケース図でクラスと関連による構造を表現するとしているため誤りである。",
       "正しい。ユースケース図は、利用者や外部システムなどのアクタと、システムが提供する機能との相互作用を表現する。",
-      "間違い。データの流れに注目してシステムの機能を表すのは、DFDなどの図である。選択肢はユースケース図でデータの流れを表現するとしているため誤りである。"
+      "間違い。データの流れに注目してシステムの機能を表すのは、DFD（データフロー図）などである。選択肢はユースケース図でデータの流れを表現するとしているため誤りである。"
     ],
     "original_question_id": "c7e1d40dd30aa77b",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_16.html",
@@ -1297,33 +1493,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n140 日では残工期を少なく見積もり過ぎている。作業配分モデルから全体工期を再計算すると 150 日残る。",
-      "正しい。\n\n要件定義から内部設計までの割合は 0.25+0.21+0.11=0.57 なので、228/0.57=400 日が全体工期である。現時点の進捗割合は 0.57+0.11/2=0.625 だから、残りは 400×(1-0.625)=150 日である。",
-      "間違い。\n\n161 日になるのは進捗割合か全体工期のどちらかを誤って計算している。プログラム開発の半分完了を 0.055 と加算する必要がある。",
-      "間違い。\n\n172 日は残工期を大きく見積もり過ぎている。全体工期 400 日、現進捗 62.5% からは導けない。"
-    ],
-    "suggestedQuestions": [
-      "作業配分モデル問題はどう解きますか？",
-      "なぜ進捗割合に 0.055 を足しますか？",
-      "全体工期 400 日はどう出しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "作業配分モデル問題はどう解きますか？",
-        "answer": "既完了工程の割合から全体工期を逆算し、その後に現在の進捗割合を求めて残日数を計算する。"
-      },
-      {
-        "question": "なぜ進捗割合に 0.055 を足しますか？",
-        "answer": "プログラム開発の期間比 0.11 のうち、200 本中 100 本完了なので半分の 0.055 が進んでいるからである。"
-      },
-      {
-        "question": "全体工期 400 日はどう出しますか？",
-        "answer": "228 日が全体比 0.57 に当たるため、228 ÷ 0.57 = 400 で求まる。"
-      }
+      "正しい。作業配分モデルでは、要件定義から内部設計までの期間比は、\\(0.25+0.21+0.11=0.57\\)である。この3工程に228日掛かったため、プロジェクト全体の期間は次のとおり400日となる。\\n\\[\\n228\\div0.57=400\\,\\text{日}\\n\\]\\nプログラム開発は全200本のうち100本が完了しているため、プログラム開発期間の半分に当たる\\(0.11\\div2=0.055\\)が進捗済みである。現在の進捗率は\\(0.57+0.055=0.625\\)、残りの割合は\\(1-0.625=0.375\\)である。したがって、完了までの残り日数は次のとおりである。\\n\\[\\n400\\times0.375=150\\,\\text{日}\\n\\]\\nよって、正しい答えは150日である。"
     ],
     "original_question_id": "adf7856256322347",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:adf7856256322347",
+    "reviewQuestionId": "adf7856256322347",
+    "sourceRecordRef": "question_201602_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "作業配分モデルと工数・期間の計算で判断する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢140は計算結果150日と一致しない。",
+          "promptContext": "プロジェクト期間の計算問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく作業配分モデルの計算で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢150は計算結果150日と一致する。",
+          "promptContext": "プロジェクト期間の計算問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく作業配分モデルの計算で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢161は計算結果150日と一致しない。",
+          "promptContext": "プロジェクト期間の計算問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく作業配分モデルの計算で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢172は計算結果150日と一致しない。",
+          "promptContext": "プロジェクト期間の計算問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく作業配分モデルの計算で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1357,40 +1643,223 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIT 環境は企業内部だけで完結せず、外部との取引や社会全体における IT 利用状況も含めて捉える。",
-      "正しい。\n\n実施基準では、IT の統制は全般統制と業務処理統制から成ると整理される。前者は共通的な運用管理、後者は個別業務処理の統制である。",
-      "間違い。\n\nIT により自動化された統制活動でも、改ざんや設定不備の可能性を考慮して有効性を評価する必要がある。自動化されているだけで有効とはいえない。",
-      "間違い。\n\n手作業だけで運用していても、必要な統制が機能していれば直ちに不備とはならない。IT 利用の有無そのものが判定基準ではない。"
-    ],
-    "suggestedQuestions": [
-      "IT に係る全般統制と業務処理統制の違いは何ですか？",
-      "自動化された統制でも評価が必要なのはなぜですか？",
-      "IT 環境には何が含まれますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IT に係る全般統制と業務処理統制の違いは何ですか？",
-        "answer": "全般統制はシステム全体に共通する運用管理、業務処理統制は個々の業務処理に埋め込まれた統制である。"
-      },
-      {
-        "question": "自動化された統制でも評価が必要なのはなぜですか？",
-        "answer": "設定誤りや改ざんがあると自動的に誤った処理を続ける可能性があるためである。"
-      },
-      {
-        "question": "IT 環境には何が含まれますか？",
-        "answer": "組織内部だけでなく、外部との取引や社会・市場における IT 利用状況も含む。"
-      }
+      "間違い。正しくは、IT環境には企業内部だけでなく、企業内外におけるITの利用状況が含まれる。選択肢は企業内部に限っているため誤りである。",
+      "正しい。ITの統制は、ITに係る全般統制と業務処理統制に分けて整理する。全般統制はシステムの運用管理やアクセス管理などを支え、業務処理統制は個別の業務処理を正しく行うための統制である。制度上は、金融商品取引法（昭和二十三年法律第二十五号）第24条の4の4第1項および財務計算に関する書類その他の情報の適正性を確保するための体制に関する内閣府令第3条を根拠とする内部統制の評価に関する実施基準で整理される。",
+      "間違い。正しくは、ITで自動化された統制活動も、その設計、設定、変更管理などを確認して有効性を評価する。自動化されているだけで、直ちに有効とはいえない。選択肢は自動化だけを理由に有効と評価しているため誤りである。",
+      "間違い。正しくは、手作業だけで内部統制を運用していても、必要な統制が設計され、実際に機能していれば、ITを利用しないことだけで直ちに内部統制の不備にはならない。選択肢はITを利用していないことだけを理由に直ちに不備としているため誤りである。"
     ],
     "original_question_id": "cd8b461e356d6de5",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_22.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201602:cd8b461e356d6de5",
+    "reviewQuestionId": "cd8b461e356d6de5",
+    "sourceRecordRef": "question_201602_1.json#21",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/323AC0000000025?asof=2026-10-03",
+        "title": "金融商品取引法（昭和二十三年法律第二十五号）第24条の4の4第1項"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "金融商品取引法第24条の4の4第1項および財務計算に関する書類その他の情報の適正性を確保するための体制に関する内閣府令第3条を制度上の根拠とし、ITへの対応は金融庁の「財務報告に係る内部統制の評価及び監査に関する実施基準」で確認する。",
+    "lawReferences": [
+      [
+        {
+          "article": "24条の4の4第1項",
+          "lawId": "323AC0000000025",
+          "lawTitle": "金融商品取引法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "3",
+          "lawId": "419M60000002062",
+          "lawTitle": "財務計算に関する書類その他の情報の適正性を確保するための体制に関する内閣府令",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "24条の4の4第1項",
+          "lawId": "323AC0000000025",
+          "lawTitle": "金融商品取引法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "3",
+          "lawId": "419M60000002062",
+          "lawTitle": "財務計算に関する書類その他の情報を確保するための体制に関する内閣府令",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "24条の4の4第1項",
+          "lawId": "323AC0000000025",
+          "lawTitle": "金融商品取引法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "3",
+          "lawId": "419M60000002062",
+          "lawTitle": "財務計算に関する書類その他の情報を確保するための体制に関する内閣府令",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "24条の4の4第1項",
+          "lawId": "323AC0000000025",
+          "lawTitle": "金融商品取引法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "3",
+          "lawId": "419M60000002062",
+          "lawTitle": "財務計算に関する書類その他の情報を確保するための体制に関する内閣府令",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "question",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "IT環境は企業内部だけに限定されない。現行の金融庁実施基準に照らして選択肢は間違いであり、公式元正答とも一致する。",
+          "promptContext": "金融商品取引法第24条の4の4第1項、内部統制府令第3条および金融庁実施基準を確認。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文の法令スナップショットは取得できないため、本文が不変だったとは判断していない。公式元正答と現行法判定を独立に照合した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "ITの統制は全般統制と業務処理統制から成る。現行の金融庁実施基準に照らして選択肢は正しく、公式元正答とも一致する。",
+          "promptContext": "金融商品取引法第24条の4の4第1項、内部統制府令第3条および金融庁実施基準を確認。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時本文の法令スナップショットは取得できないため、本文が不変だったとは判断していない。公式元正答と現行法判定を独立に照合した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "自動化された統制も設計、設定、変更管理などを含めて有効性を評価する必要がある。自動化だけで有効とはいえず、選択肢は間違いである。",
+          "promptContext": "金融商品取引法第24条の4の4第1項、内部統制府令第3条および金融庁実施基準を確認。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文の法令スナップショットは取得できないため、本文が不変だったとは判断していない。公式元正答と現行法判定を独立に照合した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "手作業のみで内部統制を運用することだけを理由に直ちに不備とはならない。選択肢は間違いである。",
+          "promptContext": "金融商品取引法第24条の4の4第1項、内部統制府令第3条および金融庁実施基準を確認。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文の法令スナップショットは取得できないため、本文が不変だったとは判断していない。公式元正答と現行法判定を独立に照合した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、顧客満足度は顧客の視点で評価するKPIである。選択肢は学習と成長のKPIとして顧客への満足度調査を挙げているため、視点が異なる。",
-      "間違い。正しくは、再利用環境の整備や顧客提案数の増加は、業務の進め方を改善する内部ビジネスプロセスのKPIである。選択肢は学習と成長のKPIとして業務プロセスの成果を挙げているため、視点が異なる。",
-      "正しい。社内要員の育成は、従業員の能力や知識を高める学習と成長のKPIに当たる。",
-      "間違い。正しくは、受注金額やその構成比は財務の視点で評価するKPIである。選択肢は学習と成長のKPIとして売上に関する成果を挙げているため、視点が異なる。"
+      "間違い。正しくは、顧客満足度は顧客の視点で評価するKPIである。選択肢は学習と成長のKPIとして顧客満足度を挙げているため、視点が異なる。",
+      "間違い。正しくは、再利用環境の整備やソリューション事例の登録、顧客提案数の増加は、業務の進め方や業務成果を測る内部ビジネスプロセスのKPIである。選択肢は学習と成長のKPIとして内部ビジネスプロセスに関する目標を挙げているため、視点が異なる。",
+      "正しい。社内要員をITのプロフェッショナルとして育成する目標は、従業員の知識や技能を高める学習と成長のKPIに当たる。",
+      "間違い。正しくは、受注金額やその構成比は財務の視点で評価するKPIである。選択肢は学習と成長のKPIとして受注金額に関する目標を挙げているため、視点が異なる。"
     ],
     "original_question_id": "3250831dffcc5092",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_23.html",
@@ -1510,7 +1979,7 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、BIは組織内外の業務データを分析して、経営判断に役立てる仕組みである。選択肢は競合他社の公開資料を収集して経営戦略や財務状況を把握する活動を示しているため、BIの典型的な活用事例とは異なる。",
+      "間違い。正しくは、BIは組織内外の業務データを分析し、経営判断に役立てる仕組みである。選択肢は競合他社の公開資料を収集して経営戦略や財務状況を把握する活動を示しているため、BIの活用事例とは異なる。",
       "正しい。BIは、業務システムなどに蓄積されたデータを分析し、業績評価や経営戦略の策定などの意思決定に活用する。",
       "間違い。正しくは、電子化された教材をネットワーク経由で提供し、学習や成績を管理するのはeラーニングである。選択肢はeラーニングの活用事例をBIの事例としているため誤りである。",
       "間違い。正しくは、りん議や決裁などの定型業務を電子化して手続を効率化するのは、ワークフローシステムである。選択肢はワークフローシステムの活用事例をBIの事例としているため誤りである。"
@@ -1633,14 +2102,14 @@
   },
   {
     "explanationText": [
-      "正しい。要件定義では成果物や仕様が具体的に確定していないため、経済産業省の「情報システム・モデル取引・契約書」は準委任型を基本としている。",
-      "間違い。正しくは、要件定義ではユーザーが業務要件やシステム要件を主体的に決定・明確化し、契約類型は準委任型を基本とする。選択肢は仕様の決定権をベンダー側にあるとしているため誤りである。民法（明治二十九年法律第八十九号）第六百五十六条は、法律行為でない事務の委託について委任の規定を準用している。",
-      "間違い。正しくは、要件定義の段階で成果物を具体的に特定できない場合は準委任型とする。選択肢は成果物を具体的に想定できない場合に請負契約にしたとしているため誤りである。民法第六百三十二条の請負は、仕事を完成することを約する契約である。",
-      "間違い。正しくは、要件定義ではユーザーが社内のステークホルダの要件を整理し、役割分担と責任を明確にしたうえで、準委任型を基本とする。選択肢は請負契約にすればユーザー内の調整責任が曖昧にならないとしているため誤りである。請負は仕事の完成を目的とする民法第六百三十二条の契約であり、成果物や役割分担が具体化している工程に適する。"
+      "正しい。要件定義では、システムの仕様や成果物が具体的に確定していないため、準委任型を基本とする。",
+      "間違い。正しくは、要件定義ではユーザー企業が業務要件やシステム要件を主体的に決定・明確化し、契約は準委任型を基本とする。選択肢は仕様の決定権がベンダー側にあるとしているため誤りである。",
+      "間違い。正しくは、成果物を具体的に想定できない要件定義では、準委任型を基本とする。選択肢は成果物を具体的に想定できない場合に請負契約にしたとしているため誤りである。請負は仕事の完成を目的とする契約である。",
+      "間違い。正しくは、ユーザー企業が社内のステークホルダと調整して要件を整理し、要件定義は準委任型を基本とする。選択肢は請負契約にすればユーザー内の調整責任が曖昧にならないとしているため誤りである。請負は、成果物や役割分担を具体的に定められる工程に適している。"
     ],
     "original_question_id": "0147e71cf847b95a",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_25.html",
-    "lawGroundedExplanationNotNeeded": false,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceQuestionKey": "nw:201602:0147e71cf847b95a",
     "reviewQuestionId": "0147e71cf847b95a",
     "sourceRecordRef": "question_201602_1.json#24",
@@ -1658,199 +2127,106 @@
     ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
-    "isLawRelated": true,
-    "lawContextForExplanation": "要件定義では成果物や仕様が具体的に確定していないため、経済産業省の「情報システム・モデル取引・契約書」は準委任型を基本とする。民法第632条は仕事の完成を目的とする請負、第656条は法律行為でない事務の委託に関する準委任の根拠を定める。",
+    "isLawRelated": false,
     "lawReferences": [
-      [
-        {
-          "article": "632",
-          "choiceIndex": 0,
-          "lawId": "129AC0000000089",
-          "lawTitle": "民法",
-          "referenceDate": "2026-10-03",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "656",
-          "choiceIndex": 0,
-          "lawId": "129AC0000000089",
-          "lawTitle": "民法",
-          "referenceDate": "2026-10-03",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "632",
-          "choiceIndex": 1,
-          "lawId": "129AC0000000089",
-          "lawTitle": "民法",
-          "referenceDate": "2026-10-03",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "656",
-          "choiceIndex": 1,
-          "lawId": "129AC0000000089",
-          "lawTitle": "民法",
-          "referenceDate": "2026-10-03",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "632",
-          "choiceIndex": 2,
-          "lawId": "129AC0000000089",
-          "lawTitle": "民法",
-          "referenceDate": "2026-10-03",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "656",
-          "choiceIndex": 2,
-          "lawId": "129AC0000000089",
-          "lawTitle": "民法",
-          "referenceDate": "2026-10-03",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ],
-      [
-        {
-          "article": "632",
-          "choiceIndex": 3,
-          "lawId": "129AC0000000089",
-          "lawTitle": "民法",
-          "referenceDate": "2026-10-03",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        },
-        {
-          "article": "656",
-          "choiceIndex": 3,
-          "lawId": "129AC0000000089",
-          "lawTitle": "民法",
-          "referenceDate": "2026-10-03",
-          "role": "current_basis",
-          "scope": "choice",
-          "source": "e-Gov法令検索",
-          "verificationStatus": "verified"
-        }
-      ]
+      [],
+      [],
+      [],
+      []
     ],
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [],
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時本文は未取得。出題時正答と現行判定は一致する。",
+          "differenceSummary": "出題時正答と現行判定は一致する。",
           "displayRefIds": [],
-          "explanationText": "公式元正答では第1選択肢が正しい。現行法上も、要件定義の契約形態を準委任型とする説明は、民法第656条の準委任および民法第632条の請負の区別と整合する。",
-          "promptContext": "要件定義工程で成果物や仕様が具体的に確定していない場合の契約形態を判定した。",
+          "explanationText": "要件定義を準委任型とする判断は、経済産業省の「情報システム・モデル取引・契約書」に基づく。民法は一般的な契約類型の背景であり、選択肢の正誤を直接決めない。",
+          "promptContext": "要件定義における契約形態を判定した。",
           "refs": [],
-          "verdict": "正しい"
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "出題時本文はprimaryLawEvidenceで取得されていない。公式元正答を出題時判定として保持し、現行民法第632条・第656条とモデル契約資料で現行判定を確認した。"
+          "正誤を直接決める根拠は経済産業省のモデル契約資料であり、法令監査対象外と確認した。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [],
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時本文は未取得。出題時正答と現行判定は一致する。",
+          "differenceSummary": "出題時正答と現行判定は一致する。",
           "displayRefIds": [],
-          "explanationText": "仕様の決定権をベンダー側にあるとする選択肢は、要件定義におけるユーザーの主体的な要件決定・明確化と整合しない。",
-          "promptContext": "要件定義工程で仕様の決定権を誰が担うかを含む完全な命題を判定した。",
+          "explanationText": "要件定義ではユーザー企業が要件を主体的に決定・明確化するというモデル契約の考え方に基づく判断である。",
+          "promptContext": "仕様の決定権を含む完全な命題を判定した。",
           "refs": [],
-          "verdict": "間違い"
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "出題時本文はprimaryLawEvidenceで取得されていない。公式元正答を出題時判定として保持し、現行民法第632条・第656条とモデル契約資料で現行判定を確認した。"
+          "正誤を直接決める根拠は経済産業省のモデル契約資料であり、法令監査対象外と確認した。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [],
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時本文は未取得。出題時正答と現行判定は一致する。",
+          "differenceSummary": "出題時正答と現行判定は一致する。",
           "displayRefIds": [],
-          "explanationText": "成果物を具体的に想定できない場合に請負契約とする選択肢は、仕事の完成を目的とする民法第632条の請負の性質および要件定義の契約基本形と整合しない。",
-          "promptContext": "成果物の具体的な想定可否と請負・準委任の対応を判定した。",
+          "explanationText": "成果物を具体的に想定できない要件定義では準委任型を基本とするというモデル契約の考え方に基づく判断である。",
+          "promptContext": "成果物の具体化と契約類型の対応を判定した。",
           "refs": [],
-          "verdict": "間違い"
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "出題時本文はprimaryLawEvidenceで取得されていない。公式元正答を出題時判定として保持し、現行民法第632条・第656条とモデル契約資料で現行判定を確認した。"
+          "正誤を直接決める根拠は経済産業省のモデル契約資料であり、法令監査対象外と確認した。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [],
-        "auditStatus": "same_as_current",
+        "auditStatus": "not_law_related",
         "current": {
           "correctChoiceText": "間違い"
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時本文は未取得。出題時正答と現行判定は一致する。",
+          "differenceSummary": "出題時正答と現行判定は一致する。",
           "displayRefIds": [],
-          "explanationText": "請負契約にすればユーザー内のステークホルダ調整責任が曖昧にならないとする選択肢は、要件定義でユーザーが要件を整理し責任を明確化する考え方と整合しない。",
+          "explanationText": "ユーザー企業がステークホルダと調整して要件を整理するというモデル契約の考え方に基づく判断である。",
           "promptContext": "ステークホルダ調整責任と契約類型の関係を判定した。",
           "refs": [],
-          "verdict": "間違い"
+          "verdict": "not_law_related"
         },
         "examTime": {
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "出題時本文はprimaryLawEvidenceで取得されていない。公式元正答を出題時判定として保持し、現行民法第632条・第656条とモデル契約資料で現行判定を確認した。"
+          "正誤を直接決める根拠は経済産業省のモデル契約資料であり、法令監査対象外と確認した。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"

@@ -61,10 +61,10 @@
   },
   {
     "explanationText": [
-      "間違い。解を逐次改良して精度を高める方法は、探索した解を改善していく手法である。選択肢は問題を分割した部分問題の解を統合する方法としているため誤りである。",
-      "間違い。全ての組合せを調べ、不要な組合せを除いて探索範囲を狭める方法は分枝限定法である。選択肢は分割した部分問題をそれぞれ解いて統合する方法としているため誤りである。",
-      "正しい。分割統治法は、問題を独立に扱える小さな部分問題へ分割し、それぞれを解いた結果を統合して元の問題を解く方法である。マージソートやクイックソートが代表例である。",
-      "間違い。各段階で最もよい選択を積み重ねて全体の解を求める方法は貪欲法である。選択肢は部分問題を分割して解を統合する方法としているため誤りである。"
+      "間違い。正しくは、分割統治法は問題を小さな部分問題に分け、それぞれを解いて結果を統合する方法である。選択肢は、問題の一部について粗い解を出して逐次改良する方法としているため誤りである。",
+      "間違い。正しくは、分割統治法は問題を小さな部分問題に分け、それぞれを解いて結果を統合する方法である。全ての組合せを調べ、不要なものを除いて探索範囲を狭める方法は分枝限定法であり、選択肢はこれを分割統治法としているため誤りである。",
+      "正しい。分割統治法は、問題を小さな部分問題に分割し、それぞれを解いた結果を統合して元の問題を解く方法である。マージソートやクイックソートが代表例である。",
+      "間違い。正しくは、分割統治法は問題を小さな部分問題に分け、それぞれを解いて結果を統合する方法である。各段階で最もよい選択を積み重ねて全体の解を求める方法は貪欲法であり、選択肢はこれを分割統治法としているため誤りである。"
     ],
     "original_question_id": "f4e7d71fe79c364b",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_3.html",
@@ -244,7 +244,7 @@
   },
   {
     "explanationText": [
-      "正しい。必要なページが実記憶にないとページフォールトが発生し、そのページを読み込むためページインが必ず行われる。一方、ページアウトは空きフレームがない場合など、置換するページがあるときだけ必要になる。そのため、ページフォールト＝ページイン≧ページアウトとなる。"
+      "正しい。該当するのは4である。必要なページが主記憶にないとページフォールトが起こり、そのページを主記憶へ読み込むページインが行われるため、両者の回数は常に同じである。ページアウトは置換対象のページを主記憶から追い出す処理で、空きフレームがある場合は発生しない。そのため、ページフォールト＝ページイン≧ページアウトとなる。"
     ],
     "original_question_id": "89bb7a3e4e61e30b",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_6.html",
@@ -410,7 +410,113 @@
       }
     ],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "W3C仕様に基づくSVGの特徴を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OpenGLは画像フォーマットではなく、グラフィックスAPIである。",
+          "promptContext": "技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "PNGはラスター画像形式であり、設問が示すW3C仕様のXMLベースのベクター画像形式ではない。",
+          "promptContext": "技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "SVGはW3Cで仕様が定義されたXMLベースのベクター画像形式で、図形や文字列を記述し、Webページで描画できる。",
+          "promptContext": "技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "TIFFはラスター画像形式であり、設問が示すW3C仕様のXMLベースのベクター画像形式ではない。",
+          "promptContext": "技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -547,7 +653,113 @@
     "sourceRecordRef": "question_202101_1.json#9",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4アドレスとサブネットマスクのビット演算に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法との差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット演算の技術知識で判定し、法令根拠を必要としない。",
+          "promptContext": "IPv4アドレスとサブネットマスクの演算式の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法との差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット演算の技術知識で判定し、法令根拠を必要としない。",
+          "promptContext": "IPv4アドレスとサブネットマスクの演算式の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法との差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット演算の技術知識で判定し、法令根拠を必要としない。",
+          "promptContext": "IPv4アドレスとサブネットマスクの演算式の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法との差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット演算の技術知識で判定し、法令根拠を必要としない。",
+          "promptContext": "IPv4アドレスとサブネットマスクの演算式の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -580,24 +792,111 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": [
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SDNとOpenFlowの技術的な構成・役割分担を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
       {
-        "choiceIndex": 0,
-        "items": [
-          {
-            "answer": "MIB（Management Information Base）である。管理対象の情報をオブジェクトとして定義し、SNMPで参照・操作する。",
-            "question": "SNMPで管理対象の情報を体系化して保持するものは何か。"
-          }
-        ]
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はSNMPによるネットワーク管理の説明であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくSNMPの技術的定義で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
       },
       {
-        "choiceIndex": 3,
-        "items": [
-          {
-            "answer": "ネットワーク全体の経路や方針を決める制御プレーンと、実際にパケットを転送するデータプレーンである。",
-            "question": "SDNで分離される二つの機能は、一般に何と呼ばれるか。"
-          }
-        ]
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は分散型のルーティングプロトコルによる経路制御の説明であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくルーティングプロトコルの技術的定義で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はNFVの説明であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくNFVとSDNの技術的相違で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はSDNの制御機能とデータ転送機能の分離、およびコントローラーによる集中制御の説明であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくSDNとOpenFlowの技術的定義で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
       }
     ]
   },
@@ -633,10 +932,10 @@
   },
   {
     "explanationText": [
-      "正しい。サイバーセキュリティ経営ガイドライン Ver.2.0は、経営者がサイバー攻撃から企業を守るために認識すべき3原則と、CISO等の担当幹部に指示すべき重要10項目をまとめた経営者向けの指針である。",
-      "間違い。正しくは、情報セキュリティマネジメントシステム（ISMS）の要求事項を定めるJIS Q 27001（ISO/IEC 27001）に近い説明である。選択肢はISMSの要求事項をサイバーセキュリティ経営ガイドライン Ver.2.0の内容としているため誤りである。",
-      "間違い。正しくは、ITガバナンスとITマネジメントを分けて40のプロセスを定義する説明は、COBITなどのITガバナンス・マネジメントのフレームワークを指す。選択肢はその内容をサイバーセキュリティ経営ガイドライン Ver.2.0の説明としているため誤りである。",
-      "間違い。正しくは、サイバーセキュリティ基本法は、サイバーセキュリティ施策を総合的かつ効果的に推進するため、国などの責務を定める法律である。選択肢は法律の説明を経営者向けガイドラインの説明としているため誤りである。"
+      "正しい。サイバーセキュリティ経営ガイドライン Ver.2.0は、経営者がサイバー攻撃から企業を守るために認識すべき3原則と、CISOなどの担当幹部に指示すべき重要10項目をまとめた経営者向けの指針である。",
+      "間違い。正しくは、情報セキュリティマネジメントシステム（ISMS）の要求事項を定めるJIS Q 27001（ISO/IEC 27001）の説明である。選択肢はISMSの要求事項や情報資産の継続的な管理をサイバーセキュリティ経営ガイドライン Ver.2.0の内容としているため誤りである。",
+      "間違い。正しくは、企業のITに関するガバナンスとマネジメントを扱い、40のガバナンス・マネジメント目標とそれに対応するプロセスを示すのはCOBIT 2019である。選択肢はCOBITの枠組みをサイバーセキュリティ経営ガイドライン Ver.2.0の説明としているため誤りである。",
+      "間違い。正しくは、サイバーセキュリティ基本法が、サイバーセキュリティ施策を総合的かつ効果的に推進するため、国、地方公共団体などの責務や基本的施策を定めている。選択肢は法律の説明を経営者向けガイドラインの説明としているため誤りである。"
     ],
     "original_question_id": "960817136eca392f",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_13.html",
@@ -653,20 +952,20 @@
       {
         "choiceIndex": 1,
         "referenceDate": "2026-10-03",
-        "sourceUrl": "https://isms.jp/isms/index.html",
+        "sourceUrl": "https://isms.jp/isms/",
         "title": "ISMS（情報セキュリティマネジメントシステム）とは"
       },
       {
         "choiceIndex": 2,
-        "referenceDate": "2026-10-03",
-        "sourceUrl": "https://www.isaca.org/resources/cobit",
-        "title": "COBIT"
+        "referenceDate": "2020-04-22",
+        "sourceUrl": "https://www.isaca.org/resources/news-and-trends/isaca-now-blog/2020/communicating-the-value-of-it-governance",
+        "title": "Communicating the Value of IT Governance"
       },
       {
         "choiceIndex": 3,
         "referenceDate": "2026-10-03",
-        "sourceUrl": "https://www.nisc.go.jp/pdf/policy/kihon-s/cs2021.pdf",
-        "title": "我が国のサイバーセキュリティ政策"
+        "sourceUrl": "https://www.nisc.go.jp/pdf/council/cs/ciip/dai20/20shiryou07-2.pdf",
+        "title": "サイバーセキュリティ基本法（平成26年法律第104号）"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -930,33 +1229,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n図1のクリティカルパスは A→B→E→H→I で 28 日である。図2で E を分割しても新しいクリティカルパスが A→B→D→G の 27 日へ移るため、全体短縮は 3 日ではなく 1 日にとどまる。",
-      "間違い。\n\n2 日短縮ではない。E の作業自体は大きく短縮されても、別経路が新しいクリティカルパスになるため全体では 1 日しか縮まらない。",
-      "間違い。\n\n3 日短縮と考えるのは E の短縮量だけを見た誤りである。クリティカルパスが変わる点を考慮する必要がある。",
-      "間違い。\n\n4 日短縮は過大である。ネットワーク全体では別経路が制約となり、そこまで縮まらない。"
-    ],
-    "suggestedQuestions": [
-      "クリティカルパスが変わるとはどういうことですか？",
-      "ファストトラッキングとは何ですか？",
-      "工程短縮問題はどう考えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クリティカルパスが変わるとはどういうことですか？",
-        "answer": "もともと最長だった経路を短くした結果、別の経路が最長となって全体工期を支配するようになることである。"
-      },
-      {
-        "question": "ファストトラッキングとは何ですか？",
-        "answer": "本来直列で進める作業の一部を重ねて進め、工期短縮を図る手法である。"
-      },
-      {
-        "question": "工程短縮問題はどう考えますか？",
-        "answer": "短縮前後でクリティカルパスを確認し、最長経路がどれだけ変化するかを比較する。"
-      }
+      "正しい。ネットワークの所要日数は、各経路の合計のうち最も長いクリティカルパスで決まる。図1では、経路A→B→E→H→Iが\n\\[\n5+8+9+4+2=28\\text{日}\n\\]\nで最長である。図2では、E1とE2が完了してからE3を開始するため、分割後のEの所要日数は\n\\[\n\\max(3,4)+2=6\\text{日}\n\\]\nとなる。したがって、A→B→E1・E2→E3→H→Iの経路は\n\\[\n5+8+6+4+2=25\\text{日}\n\\]\nである。一方、A→B→D→Gの経路は\n\\[\n5+8+7+7=27\\text{日}\n\\]\nかかるため、変更後のクリティカルパスは27日となる。図1の28日から27日になるので、スケジュールは\n\\[\n28-27=1\\text{日}\n\\]\n短縮できる。"
     ],
     "original_question_id": "296edb7c0cb7e87c",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202101:296edb7c0cb7e87c",
+    "reviewQuestionId": "296edb7c0cb7e87c",
+    "sourceRecordRef": "question_202101_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "工程間の所要日数とクリティカルパスから短縮日数を求める問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "作業日数とクリティカルパスの計算で正誤を判定する。",
+          "promptContext": "選択肢1は短縮日数1日を示す。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を要しない計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "作業日数とクリティカルパスの計算で正誤を判定する。",
+          "promptContext": "選択肢2は短縮日数2日を示す。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "作業日数とクリティカルパスの計算で正誤を判定する。",
+          "promptContext": "選択肢3は短縮日数3日を示す。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "作業日数とクリティカルパスの計算で正誤を判定する。",
+          "promptContext": "選択肢4は短縮日数4日を示す。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -990,9 +1379,9 @@
   },
   {
     "explanationText": [
-      "正しい。可用性は、障害が発生しても必要なサービスを継続して利用できる性質である。",
+      "正しい。可用性は、障害が発生しても必要なサービスを継続して利用できる性質である。サーバの二重化は、障害時にもマスタファイルを利用できるようにする可用性の対策である。",
       "間違い。複数件の検索・加工機能は、利用者の処理を支援する機能であり、可用性を高める対策ではない。選択肢はこの機能の有無を可用性の監査項目としているため誤りである。",
-      "間違い。特権アカウントを持つ者だけにメンテナンスを許す対策は、権限のない者による利用を防ぐ機密性やアクセス制御に関するものである。選択肢はこれを可用性の監査項目としているため誤りである。",
+      "間違い。特権アカウントを付与された者だけにメンテナンスを許す対策は、権限のない者によるアクセスを防ぐ機密性に関するものである。選択肢はこれを可用性の監査項目としているため誤りである。",
       "間違い。入力チェック機能は、誤ったデータの登録を防ぎ、データを正確に保つ完全性に関するものである。選択肢はこれを可用性の監査項目としているため誤りである。"
     ],
     "original_question_id": "3c29a7a16e37864a",
@@ -1143,7 +1532,7 @@
   },
   {
     "explanationText": [
-      "正しい。エンタープライズアーキテクチャの四つの分類体系は、ビジネス、データ、アプリケーション、テクノロジの各アーキテクチャで構成される。したがって、もう一つはデータアーキテクチャである。"
+      "正しい。エンタープライズアーキテクチャの四つの分類体系は、ビジネス、データ、アプリケーション、テクノロジの各アーキテクチャで構成される。したがって、問題の三つに加わるのはデータアーキテクチャである。"
     ],
     "original_question_id": "f97b69daa3f6f062",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_23.html",
@@ -1159,7 +1548,113 @@
       }
     ],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "エンタープライズアーキテクチャの分類に関する技術・管理フレームワークの問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は法令条文ではなく、エンタープライズアーキテクチャの分類知識で判断する。",
+          "promptContext": "法令監査対象外の技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・管理フレームワークの知識で判断するため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は法令条文ではなく、エンタープライズアーキテクチャの分類知識で判断する。",
+          "promptContext": "法令監査対象外の技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・管理フレームワークの知識で判断するため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は法令条文ではなく、エンタープライズアーキテクチャの分類知識で判断する。",
+          "promptContext": "法令監査対象外の技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・管理フレームワークの知識で判断するため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は法令条文ではなく、エンタープライズアーキテクチャの分類知識で判断する。",
+          "promptContext": "法令監査対象外の技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・管理フレームワークの知識で判断するため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1193,10 +1688,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、レベニューシェア契約では、システムから得られる収益を基準に委託側と受託側の報酬を分ける。選択肢は収益と無関係に必要な費用を全て負担するとしているため誤りである。",
-      "間違い。正しくは、レベニューシェア契約では、報酬がシステムから得られる収益に連動する。選択肢は収益に関係なく定額で費用を負担するとしているため、固定報酬型の説明であり誤りである。",
-      "正しい。レベニューシェア契約では、システムから得られる収益を、あらかじめ定めた配分率に従って委託側と受託側で分ける。",
-      "間違い。正しくは、受託側の報酬はシステムから得られる収益に応じて変動する。選択肢は受託側が継続的に固定額の収益を得るとしているため、レベニューシェア契約の特徴とは異なる。"
+      "間違い。正しくは、レベニューシェア契約では、システムから得られる収益に応じて委託側から受託側へ報酬を支払う。選択肢は収益と無関係に開発費用を全て負担するとしているため、収益連動型の説明ではなく誤りである。",
+      "間違い。正しくは、レベニューシェア契約では、受託側への報酬がシステムの収益に連動する。選択肢は収益に関係なく定額で費用を負担するとしているため、固定報酬型の説明であり誤りである。",
+      "正しい。レベニューシェア契約では、システムから得られる収益を基準に、あらかじめ定めた配分率で委託側と受託側の報酬を分ける。",
+      "間違い。正しくは、受託側の報酬はシステムから得られる収益に応じて変動する。選択肢は受託側が継続的に固定額の収益を得るとしているため、収益連動型の契約の特徴とは異なり誤りである。"
     ],
     "original_question_id": "d38423f02e93010a",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_25.html",

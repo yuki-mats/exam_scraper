@@ -1,7 +1,7 @@
 [
   {
     "explanationText": [
-      "正しい。該当する組合せはウである。PPMマトリックスでは、縦軸に市場成長率、横軸に市場占有率を置く。このため、aは市場成長率、bは市場占有率となる。高成長・高占有率の花形、低成長・高占有率の金のなる木、高成長・低占有率の問題児、低成長・低占有率の負け犬という配置にも対応する。"
+      "正しい。該当する組合せはウである。PPMマトリックスでは、縦軸に市場成長率、横軸に市場占有率を置く。そのため、aは市場成長率、bは市場占有率となる。高成長・高占有率の花形、低成長・高占有率の金のなる木、高成長・低占有率の問題児、低成長・低占有率の負け犬という四つの事業分類にも対応する。"
     ],
     "original_question_id": "38e045a8b660c34d",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_26.html",
@@ -151,10 +151,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、オムニチャネルである。店舗やECサイトなどの顧客接点を統合し、一貫した購買体験を提供するサービスを指す。選択肢はこの説明をアグリゲーションサービスとしているため誤りである。",
+      "間違い。正しくは、オムニチャネルである。店舗やECサイトなど複数の顧客接点を統合し、一貫した購買体験を提供するサービスを指す。選択肢はこの説明をアグリゲーションサービスとしているため誤りである。",
       "間違い。正しくは、エスクローサービスである。物品などの売買で中立的な第三者が代金を預かるなどして、取引の安全性を確保する。選択肢はこの説明をアグリゲーションサービスとしているため誤りである。",
-      "正しい。",
-      "間違い。正しくは、フランチャイズである。本部と加盟店が契約し、加盟店が本部の商標や商品、サービス、販売方法などを利用する事業形態を指す。選択肢はこの説明をアグリゲーションサービスとしているため誤りである。"
+      "正しい。複数の事業者や機能をまとめて利用できるようにし、比較や組合せなどを一つの窓口で実現するのがアグリゲーションサービスである。",
+      "間違い。正しくは、フランチャイズである。本部と加盟店が契約し、加盟店が本部の商標、商品、サービス、販売方法などを利用する事業形態を指す。選択肢はこの説明をアグリゲーションサービスとしているため誤りである。"
     ],
     "original_question_id": "47fab7ccc83f3c57",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_28.html",
@@ -304,33 +304,207 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n電子署名法上の電子署名は、電磁的記録に記録でき、かつコンピュータで処理できる情報に関するものである。紙文書などは対象外である。",
-      "正しい。\n\n電子署名法では、本人による電子署名がある電磁的記録について、民事訴訟法上の署名又は押印がある私文書に準じた法的効力が認められる。",
-      "間違い。\n\n認証業務は民間事業者も実施できる。一定要件を満たした特定認証業務について主務大臣の認定を受ける仕組みであり、政府運営の認証局に限られない。",
-      "間違い。\n\n電子署名法は技術中立性を採っており、共通鍵暗号方式に限定していない。実務上は公開鍵暗号方式が広く用いられる。"
-    ],
-    "suggestedQuestions": [
-      "電子署名法で重視される要件は何ですか？",
-      "電子署名と電子証明書の違いは何ですか？",
-      "なぜ民間認証局でもよいのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "電子署名法で重視される要件は何ですか？",
-        "answer": "本人性と非改ざん性を確認できることが重視される。"
-      },
-      {
-        "question": "電子署名と電子証明書の違いは何ですか？",
-        "answer": "電子署名は文書へ付ける署名行為やそのデータ、電子証明書はその署名者の公開鍵などを証明するための証明情報である。"
-      },
-      {
-        "question": "なぜ民間認証局でもよいのですか？",
-        "answer": "法は一定要件を満たす認証業務を認めており、技術中立性と民間活用を前提としているからである。"
-      }
+      "間違い。正しくは、電子署名は電磁的記録に記録することができる情報について行われ、電子計算機による情報処理の用に供されるものが対象である。選択肢は、電磁的記録ではなくコンピュータで処理できないものも電子署名に含むとしているため誤りである。電子署名及び認証業務に関する法律第2条第1項の定義に反する。",
+      "正しい。本人による電子署名が、必要な符号及び物件を本人だけが行えるよう適正に管理されている場合、その電子署名が付された電磁的記録は真正に成立したものと推定される。電子署名及び認証業務に関する法律第3条はこの推定を定め、民事訴訟法第228条第4項も、本人の署名又は押印がある私文書を真正に成立したものと推定している。",
+      "間違い。正しくは、認証業務は民間事業者も行うことができ、特定認証業務を行おうとする者は主務大臣の認定を受けることができる。選択肢は、認証業務を政府が運営する認証局だけに限定しているため誤りである。電子署名及び認証業務に関する法律第2条第2項及び第4条第1項に反する。",
+      "間違い。正しくは、電子署名は共通鍵暗号技術によるものに限られない。電子署名及び認証業務に関する法律第2条第1項は、作成者を示せること及び改変の有無を確認できることを要件としており、特定の暗号方式に限定していない。選択肢は、共通鍵暗号技術によるものだけに限定しているため誤りである。"
     ],
     "original_question_id": "0f72a3d9d28257f9",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_30.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:202101:0f72a3d9d28257f9",
+    "reviewQuestionId": "0f72a3d9d28257f9",
+    "sourceRecordRef": "question_202101_2.json#4",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412AC0000000102?asof=2026-10-03",
+        "title": "電子署名及び認証業務に関する法律（e-Gov法令検索）"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/408AC0000000109?asof=2026-10-03",
+        "title": "民事訴訟法（e-Gov法令検索）"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "電子署名及び認証業務に関する法律第2条が電子署名と認証業務を定義し、第3条が本人による電子署名付き電磁的記録の真正成立を推定する。第4条は特定認証業務の認定制度を定め、民事訴訟法第228条第4項は署名又は押印のある私文書の成立を推定する。",
+    "lawReferences": [
+      [
+        {
+          "article": "第2条第1項",
+          "choiceIndex": 0,
+          "lawId": "412AC0000000102",
+          "lawTitle": "電子署名及び認証業務に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第3条",
+          "choiceIndex": 1,
+          "lawId": "412AC0000000102",
+          "lawTitle": "電子署名及び認証業務に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第228条第4項",
+          "choiceIndex": 1,
+          "lawId": "408AC0000000109",
+          "lawTitle": "民事訴訟法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条第2項",
+          "choiceIndex": 2,
+          "lawId": "412AC0000000102",
+          "lawTitle": "電子署名及び認証業務に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第4条第1項",
+          "choiceIndex": 2,
+          "lawId": "412AC0000000102",
+          "lawTitle": "電子署名及び認証業務に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条第1項",
+          "choiceIndex": 3,
+          "lawId": "412AC0000000102",
+          "lawTitle": "電子署名及び認証業務に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の本文不変は確認していないが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "電子署名及び認証業務に関する法律第2条第1項は、電子署名の対象を電磁的記録に記録することができる情報に関する措置として定義している。",
+          "promptContext": "電子署名の定義を選択肢の完全命題と照合した。",
+          "refs": [],
+          "verdict": "出題時・現行法ともに間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の法令本文は取得されていない。examTime判定は00_sourceの公式解答、current判定は2026-10-03時点のe-Gov本文に基づく。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の本文不変は確認していないが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "電子署名及び認証業務に関する法律第3条は、本人だけが行える電子署名が付された電磁的記録の真正な成立を推定する。民事訴訟法第228条第4項にも私文書の成立推定がある。",
+          "promptContext": "電子署名付き電磁的記録の成立推定を電子署名法第3条及び民事訴訟法第228条第4項と照合した。",
+          "refs": [],
+          "verdict": "出題時・現行法ともに正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "試験時点の法令本文は取得されていない。examTime判定は00_sourceの公式解答、current判定は2026-10-03時点のe-Gov本文に基づく。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の本文不変は確認していないが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "電子署名及び認証業務に関する法律第2条第2項は認証業務を定義し、第4条第1項は特定認証業務を行おうとする者が主務大臣の認定を受けられる制度を定める。政府運営の認証局に限定していない。",
+          "promptContext": "認証業務の主体及び特定認証業務の認定制度を電子署名法第2条第2項及び第4条第1項と照合した。",
+          "refs": [],
+          "verdict": "出題時・現行法ともに間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の法令本文は取得されていない。examTime判定は00_sourceの公式解答、current判定は2026-10-03時点のe-Gov本文に基づく。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時点の本文不変は確認していないが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "電子署名及び認証業務に関する法律第2条第1項は電子署名の機能要件を定めるが、共通鍵暗号技術に限定していない。",
+          "promptContext": "電子署名の法定要件が特定の暗号方式に限定されるかを電子署名法第2条第1項と照合した。",
+          "refs": [],
+          "verdict": "出題時・現行法ともに間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "試験時点の法令本文は取得されていない。examTime判定は00_sourceの公式解答、current判定は2026-10-03時点のe-Gov本文に基づく。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -394,7 +568,7 @@
   },
   {
     "explanationText": [
-      "正しい。OFDM（直交周波数分割多重）は、データを複数の直交したサブキャリアに分けて並列に伝送する方式である。IEEE 802.11a/g/n/acではOFDMが用いられる。ASK、BPSK、FSKは、それぞれ振幅・位相・周波数を変化させる変調方式であり、多重化方式を問う本問の答えとは分類が異なる。"
+      "正しい。OFDM（直交周波数分割多重）は、データを複数の直交したサブキャリアに分けて並列に伝送する方式であり、IEEE 802.11a/g/n/acで用いられる。ASK、BPSK、FSKは、それぞれ振幅・位相・周波数を変化させて情報を表す変調方式で、多重化方式であるOFDMとは分類が異なる。"
     ],
     "original_question_id": "8c89db3fa96db2a2",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_3.html",
@@ -703,7 +877,7 @@
   },
   {
     "explanationText": [
-      "正しい。MTU 1,500オクテットはIPv4パケット全体の最大長であり、MACヘッダやFCSは含めない。TCPで送信できるデータの最大長は、MTUからIPv4ヘッダ20オクテットとTCPヘッダ20オクテットを差し引いて求める。\n\n\\[1,500-20-20=1,460\\]\n\nしたがって、フラグメント化されずに送信できるTCPデータの最大長は1,460オクテットである。"
+      "正しい。MTU 1,500オクテットは、図のMACヘッダとFCSを除いたIPv4データグラム全体の最大長である。図のIPv4ヘッダは20オクテット、TCPヘッダも20オクテットなので、TCPが運べるデータの最大長は次のように求める。\n\n\\[1,500-20-20=1,460\\]\n\nしたがって、フラグメント化されずに送信できるデータの最大長は1,460オクテットである。"
     ],
     "original_question_id": "d35eb6ece7fb65b9",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_7.html",
@@ -711,7 +885,18 @@
     "sourceQuestionKey": "nw:202101:d35eb6ece7fb65b9",
     "reviewQuestionId": "d35eb6ece7fb65b9",
     "sourceRecordRef": "question_202101_2.json#11",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "1981-09-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc791",
+        "title": "RFC 791: Internet Protocol"
+      },
+      {
+        "referenceDate": "2022-08-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9293",
+        "title": "RFC 9293: Transmission Control Protocol (TCP)"
+      }
+    ],
     "questionLearningPatternId": "calculation",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -853,10 +1038,10 @@
   },
   {
     "explanationText": [
-      "間違い。DNSでは、一つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名に同じIPアドレスを対応させることもできる。選択肢は、複数のホスト名に同一のIPアドレスを対応させることはできないとしているため誤りである。",
-      "正しい。DNSでは、一つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名を同じIPアドレスに対応させることもできる。前者は負荷分散など、後者は複数のサービス名を同じサーバーで提供する構成などに用いられる。",
-      "間違い。DNSでは、一つのホスト名に複数のIPアドレスを対応させることもできる。選択肢は、一つのホスト名に複数のIPアドレスを対応させることはできないとしているため誤りである。",
-      "間違い。DNSのホスト名とIPアドレスの対応は、常に一対一とは限らない。一つのホスト名に複数のIPアドレスを対応させたり、複数のホスト名を同じIPアドレスに対応させたりできるため、選択肢は誤りである。"
+      "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名に同じIPアドレスを対応させることもできる。選択肢は、複数のホスト名に同一のIPアドレスを対応させることはできないとしているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応させることもできる。選択肢は、一つのホスト名に複数のIPアドレスを対応させることはできないとしているため誤りである。",
+      "間違い。正しくは、ホスト名とIPアドレスの対応は一対一に限られない。一つのホスト名に複数のIPアドレスを対応させたり、複数のホスト名に同じIPアドレスを対応させたりできる。選択肢は、対応が全て一対一であるとしているため誤りである。"
     ],
     "original_question_id": "4a3c26aebfcbbd4d",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_9.html",
@@ -976,40 +1161,130 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n172.16.1.0/25 は 172.16.1.0〜127 を含むため、既存セグメント B や D と重なる領域があり、全セグメントを重複なく構成できない。",
-      "間違い。\n\n172.16.1.128/25 は 172.16.1.128〜255 を含み、既存のセグメント C や D と重複する範囲が大きく不適切である。",
-      "正しい。\n\n172.16.1.128/26 は 172.16.1.128〜191 の範囲を表し、図の既存セグメントと重複しないようにセグメント A を割り当てられる。可変長サブネットマスクを使う前提に合う。",
-      "間違い。\n\n172.16.1.192/26 は 172.16.1.192〜255 の範囲であり、既存のセグメント D などと重複してしまう。"
-    ],
-    "suggestedQuestions": [
-      "VLSM 問題はどう解きますか？",
-      "なぜ /26 が適切なのですか？",
-      "アドレス重複は何を見て判定しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "VLSM 問題はどう解きますか？",
-        "answer": "各セグメントのネットワーク範囲をアドレスブロックとして書き出し、新規候補がそのどれとも重ならないかを確認する。"
-      },
-      {
-        "question": "なぜ /26 が適切なのですか？",
-        "answer": "/26 は 64 アドレス単位のブロックで、候補の 172.16.1.128〜191 が未使用領域へきれいに収まるからである。"
-      },
-      {
-        "question": "アドレス重複は何を見て判定しますか？",
-        "answer": "各候補サブネットの開始アドレスと終了アドレスを求め、既存セグメント範囲と重なるかで判定する。"
-      }
+      "正しい。セグメントAは、既存のセグメントとアドレス範囲が重ならないように割り当てる。サブネットマスクの最終オクテットから、1サブネットのブロックサイズを次のように求める。\n\\[\n\\text{ブロックサイズ}=256-\\text{サブネットマスクの最終オクテット}\n\\]\nセグメントDは172.16.1.64/26なので、\\(256-192=64\\)より172.16.1.64〜172.16.1.127を使用する。セグメントCは172.16.1.224/30なので、\\(256-252=4\\)より172.16.1.224〜172.16.1.227を使用する。\n\nセグメントAを172.16.1.128/26とすると、\\(256-192=64\\)より、\n\\[\n172.16.1.128\\sim172.16.1.191\n\\]\nとなり、既存のセグメントと重ならない。したがって、ウが適切である。アの172.16.1.0/25は172.16.1.0〜172.16.1.127となりセグメントDと重なり、イの172.16.1.128/25は172.16.1.128〜172.16.1.255となりセグメントCと重なる。エの172.16.1.192/26は172.16.1.192〜172.16.1.255となり、セグメントCと重なる。"
     ],
     "original_question_id": "70aaf79f13d363af",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202101:70aaf79f13d363af",
+    "reviewQuestionId": "70aaf79f13d363af",
+    "sourceRecordRef": "question_202101_2.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サブネットワークアドレスとサブネットマスクの整合性を判断する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サブネット範囲の重複判定により、この選択肢は不適切である。",
+          "promptContext": "ネットワーク技術問題であり、法令根拠は不要である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定した法令監査対象外の選択肢である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サブネット範囲の重複判定により、この選択肢は不適切である。",
+          "promptContext": "ネットワーク技術問題であり、法令根拠は不要である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定した法令監査対象外の選択肢である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "172.16.1.128/26は既存セグメントと重複しないため適切である。",
+          "promptContext": "ネットワーク技術問題であり、法令根拠は不要である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識により判定した法令監査対象外の選択肢である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サブネット範囲の重複判定により、この選択肢は不適切である。",
+          "promptContext": "ネットワーク技術問題であり、法令根拠は不要である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定した法令監査対象外の選択肢である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。IPプロトコルに暗号化や認証などを付加するのはIPsecの説明であり、MPLSの説明ではない。選択肢はセキュリティ機能を付加する規格としているため誤りである。",
-      "間違い。L2FとPPTPを統合・改良したデータリンク層のトンネリングプロトコルはL2TPであり、MPLSではない。選択肢はL2TPの特徴をMPLSの説明としているため誤りである。",
-      "間違い。PPPフレームをカプセル化してIPネットワーク上を通過させるトンネリングプロトコルはPPTPの説明であり、MPLSではない。選択肢はPPPのトンネリングをMPLSの機能としているため誤りである。",
-      "正しい。MPLSはパケットにラベルを付け、そのラベルに基づいて転送する技術である。IPアドレスだけに依存せず、ラベルスイッチング方式でパケットを転送する。"
+      "間違い。IPプロトコルに暗号化や認証などのセキュリティ機能を付加する規格はIPsecである。選択肢はIPsecの機能をMPLSの説明としているため誤りである。",
+      "間違い。L2FとPPTPを統合して改良したデータリンク層のトンネリングプロトコルはL2TPである。選択肢はL2TPの特徴をMPLSの説明としているため誤りである。",
+      "間違い。PPPデータフレームをIPパケットでカプセル化し、インターネットを通過させるトンネリングプロトコルはPPTPである。選択肢はPPTPの機能をMPLSの説明としているため誤りである。",
+      "正しい。MPLSはパケットにラベルを付け、そのラベルに基づいて転送する。IPアドレスだけに依存せず、ラベルスイッチングによってパケットを転送する技術である。"
     ],
     "original_question_id": "9860119b3e8b8e6b",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_11.html",
@@ -1154,7 +1429,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するのはMQTTである。MQTTは、送信側（パブリッシャー）がトピックにメッセージを送信し、受信側（サブスクライバー）が関心のあるトピックを購読するPublish/Subscribe型の軽量な通信プロトコルである。"
+      "正しい。答えはMQTTである。MQTTは、送信側がトピックにメッセージを発行し、受信側が関心のあるトピックを購読するPublish/Subscribe型の軽量な通信プロトコルである。"
     ],
     "original_question_id": "ceca762be929e68c",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_12.html",
@@ -1334,7 +1609,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するのはウである。IEEE 802.11nは2.4GHz帯と5GHz帯の両方を使用でき、IEEE 802.11acは5GHz帯を使用する。この組合せに一致するのはウである。"
+      "正しい。該当するのはウである。IEEE 802.11nは2.4GHz帯と5GHz帯の両方を使用でき、IEEE 802.11acは5GHz帯を使用するため、この組合せが適切である。"
     ],
     "original_question_id": "ac02101cd74c5bcb",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_15.html",
@@ -1343,7 +1618,7 @@
     "reviewQuestionId": "ac02101cd74c5bcb",
     "sourceRecordRef": "question_202101_2.json#19",
     "explanationReferences": [],
-    "questionLearningPatternId": "terms_basics",
+    "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
     "lawContextForExplanation": "IEEE 802.11nおよびIEEE 802.11acの使用周波数帯域を問う技術問題で、法令条文を根拠にしない。",
@@ -1454,10 +1729,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、攻撃者から遠隔操作される性質はボットやRATなどの特徴である。選択肢は遠隔操作されることをポリモーフィック型マルウェアの説明としているため誤りである。",
-      "正しい。ポリモーフィック型マルウェアは、感染のたびにコードの一部や暗号化方法を変えて外形を変化させ、既知のパターンを使うシグネチャ検知を回避しやすくする。",
-      "間違い。正しくは、複数のOSで動作することはマルチプラットフォーム型マルウェアの特徴である。選択肢は対応するOSの広さをポリモーフィック型の特徴としているため誤りである。",
-      "間違い。正しくは、ルートキットなどを使ってマルウェアの存在を隠すことは、ステルス性を持つマルウェアの特徴である。選択肢は隠蔽機能をポリモーフィック型の特徴としているため誤りである。"
+      "間違い。正しくは、攻撃者から遠隔操作される性質は、ボットやRATなどの特徴である。選択肢は遠隔操作されることをポリモーフィック型マルウェアの説明としているため誤りである。",
+      "正しい。ポリモーフィック型マルウェアは、感染するたびにコードの一部や暗号化方法を変化させ、既知のパターンを使うシグネチャ検知を回避しやすくする。",
+      "間違い。正しくは、複数のOSで動作することは、マルチプラットフォーム型マルウェアの特徴である。選択肢は複数のOSで動作することをポリモーフィック型マルウェアの説明としているため誤りである。",
+      "間違い。正しくは、ルートキットなどを使ってマルウェアの存在を隠すことは、ステルス性を持つマルウェアの特徴である。選択肢は隠蔽することをポリモーフィック型マルウェアの説明としているため誤りである。"
     ],
     "original_question_id": "cddb19381dcf85a9",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_16.html",
@@ -1608,7 +1883,7 @@
   {
     "explanationText": [
       "正しい。前方秘匿性は、鍵交換に使った長期秘密鍵が後で漏えいしても、過去の通信で使ったセッション鍵を導けず、過去の暗号文を解読されにくい性質である。",
-      "間違い。正しくは、時系列データをチェーン状につなぎ、複数のノードで共有して改ざんを困難にするのはブロックチェーンの特徴である。選択肢はこのブロックチェーンの説明を前方秘匿性の性質としているため誤りである。",
+      "間違い。正しくは、時系列データをチェーン状につなぎ、複数のノードで共有して改ざんを困難にするのはブロックチェーンの特徴である。選択肢はブロックチェーンの説明を前方秘匿性の性質としているため誤りである。",
       "間違い。正しくは、対になる鍵の一方で暗号化したデータをもう一方の鍵で復号するのは、公開鍵暗号の特徴である。選択肢は公開鍵暗号の説明を前方秘匿性の性質としているため誤りである。",
       "間違い。正しくは、ハッシュ値から元のデータを推測しにくい性質は、ハッシュ関数の一方向性である。選択肢はハッシュ関数の一方向性を前方秘匿性の性質としているため誤りである。"
     ],
@@ -1737,10 +2012,10 @@
   },
   {
     "explanationText": [
-      "正しい。IEEE 802.1Xは、EAPを使って端末と認証サーバの認証を行い、アクセスポイントやスイッチなどの接続ポートへのアクセスを制御する枠組みである。",
-      "間違い。正しくは、IEEE 802.1XはEAPを用いたポートベースのネットワークアクセス制御の枠組みである。選択肢は、認証の枠組みをセッションごとのパスワード生成の仕組みとしているため誤りである。",
-      "間違い。正しくは、WPSは無線LAN機器の接続設定を簡単にするための別仕様である。選択肢は、WPSの仕様をIEEE 802.1Xが定めるものとしているため誤りである。",
-      "間違い。正しくは、CSMA/CDはEthernetで通信媒体へのアクセスを制御する方式である。選択肢は、通信媒体の衝突検知方式をIEEE 802.1Xが定める認証の仕組みとしているため誤りである。"
+      "正しい。IEEE 802.1Xは、EAPなどを使って認証された端末だけにネットワーク接続を許可する、ポートベースのアクセス制御の枠組みである。無線LANでは、アクセスポイントが認証の中継役として働く。",
+      "間違い。正しくは、IEEE 802.1XはEAPを用いたポートベースのネットワークアクセス制御の枠組みである。選択肢は、これを認証後のパスワードをセッションごとに生成する仕組みとしているため誤りである。",
+      "間違い。正しくは、WPSは無線LAN機器の接続設定を簡単にするための別仕様である。選択肢は、WPSの仕様をIEEE 802.1Xが定める認証の枠組みとしているため誤りである。",
+      "間違い。正しくは、CSMA/CDはEthernetで通信媒体へのアクセスを制御し、共有媒体での衝突を検知する方式である。選択肢は、この通信方式をIEEE 802.1Xの認証の仕組みとしているため誤りである。"
     ],
     "original_question_id": "0e9fbaead3c69e51",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_19.html",
@@ -1871,9 +2146,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、メール内容のシグネチャ照合による遮断はコンテンツフィルタリングである。選択肢はメールの内容を判定して遮断するとしているため、送信経路を制限するOP25Bの説明ではない。",
+      "間違い。正しくは、メール内容のシグネチャに基づく遮断はコンテンツフィルタリングである。選択肢はメールの内容を判定して遮断するとしているため、送信元ネットワークから外部のメールサーバへの宛先ポート25番通信を制限するOP25Bとは異なる。",
       "正しい。",
-      "間違い。正しくは、DNSの逆引きができないメールサーバを遮断するのは、逆引き情報を利用した別のスパム対策である。選択肢は逆引きの可否を条件にしているため、ISPのネットワークから外部のメールサーバへの25番ポート通信を制限するOP25Bとは異なる。",
+      "間違い。正しくは、DNSの逆引きができないメールサーバを遮断する対策は、逆引き情報を利用したスパム対策である。選択肢は逆引きの可否を条件にしているため、動的IPアドレスを割り当てたネットワークなどから外部のメールサーバへの25番ポート通信を遮断するOP25Bとは異なる。",
       "間違い。正しくは、メール不正中継の脆弱性をもつメールサーバへの対策は、オープンリレー対策である。選択肢はメールサーバの脆弱性を条件にしているため、送信元ネットワークから外部への25番ポート通信を遮断するOP25Bの説明ではない。"
     ],
     "original_question_id": "3a3476146dbae3a9",

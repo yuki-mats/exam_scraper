@@ -124,7 +124,7 @@
   },
   {
     "explanationText": [
-      "正しい。アンゾフの成長マトリクスは、製品と市場を既存か新規かで組み合わせ、市場浸透、製品開発、市場開拓、多角化の四つの成長戦略を検討する枠組みである。強み・弱み・機会・脅威を整理するのはSWOT分析、市場占有率と市場成長率から事業の資源配分を考えるのはプロダクトポートフォリオマネジメント、製品の導入期から衰退期までの段階に応じて施策を考えるのはプロダクトライフサイクルである。該当するのは2である。"
+      "正しい。アンゾフの成長マトリクスは、製品と市場を既存か新規かで組み合わせ、市場浸透、製品開発、市場開拓、多角化の四つの成長戦略に整理する。強み・弱み・機会・脅威を整理するのはSWOT分析、市場成長率と市場占有率から事業への資源配分を考えるのはプロダクトポートフォリオマネジメント、製品の導入期から衰退期までの段階に応じて施策を考えるのはプロダクトライフサイクルである。"
     ],
     "original_question_id": "d805ff0e6b14ddaa",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_27.html",
@@ -274,10 +274,10 @@
   },
   {
     "explanationText": [
-      "間違い。設計ミスや製造工程で見逃された欠陥による故障は、初期故障期間への対応である。選択肢はこれらの故障への対策をA期間に実施するとしているため誤りである。",
-      "正しい。Aは偶発故障期間であり、故障率が比較的低く安定している。原因を事前に特定しにくい突発故障に備え、予備部品などを用意する。",
-      "間違い。疲労、摩耗、劣化による故障は、故障率が上昇する摩耗故障期間に増える。選択肢はその期間の保全作業をA期間に行うとしているため誤りである。",
-      "間違い。摩耗故障が増える時期に定期保守で事故を防ぐのは、摩耗故障期間への対応である。選択肢はその対応をA期間に行うとしているため誤りである。"
+      "間違い。設計ミスや製造工程で見逃された欠陥による故障は、初期故障期間への対策である。A期間は偶発故障期間なので、選択肢は初期故障への対策として出荷前試運転を行うとしているため誤りである。",
+      "正しい。",
+      "間違い。疲労、摩耗、劣化による故障は、故障率が上昇する摩耗故障期間に増える。A期間は偶発故障期間なので、選択肢は摩耗故障期間の保全作業をA期間に行うとしているため誤りである。",
+      "間違い。摩耗故障が増える時期に定期保守で事故を防ぐのは、摩耗故障期間への対策である。A期間は偶発故障期間なので、選択肢は摩耗故障期間の保守をA期間に行うとしているため誤りである。"
     ],
     "original_question_id": "57f2d17a97e3970a",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_29.html",
@@ -487,69 +487,249 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nX から Y までの同時使用可能回線数は 8 本にはとどまらない。経路全体の多重度を比較するとより大きい値を実現できる。",
-      "間違い。\n\n9 本では 1 本不足する。ボトルネック区間を踏まえると 10 本までは同時使用可能である。",
-      "正しい。\n\n経路群の中で最も制約になる区間の多重度が 10 であり、X から Y まで同時に使用できる論理回線の最大数は 10 本となる。",
-      "間違い。\n\n11 本はボトルネック区間の多重度を超えてしまうため同時使用できない。"
-    ],
-    "suggestedQuestions": [
-      "同時使用可能回線数はどこで決まりますか？",
-      "ボトルネック区間とは何ですか？",
-      "最大流の考え方はどう使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "同時使用可能回線数はどこで決まりますか？",
-        "answer": "複数経路をまとめたときに最も制約の厳しい区間、つまりボトルネックで決まる。"
-      },
-      {
-        "question": "ボトルネック区間とは何ですか？",
-        "answer": "経路全体の処理能力を最も低く制限している区間である。"
-      },
-      {
-        "question": "最大流の考え方はどう使いますか？",
-        "answer": "始点から終点まで流せる回線数の総量を、各区間の上限を超えないように見積もる。"
-      }
+      "正しい。XからYまで同時に使用できる論理回線数は10本である。X側の集合を{X,A,B,C}とすると、この集合から外へ出る回線はA-Dの1本、B-Dの2本、B-Eの3本、C-Fの4本である。したがって、この区間を通過できる回線数の上限は次のとおりである。\\[1+2+3+4=10\\]実際にこの10本は、A-Dへ1本、B-Dへ2本、B-Eへ3本、C-Fへ4本流すことで実現できる。よって、X地点からY地点まで同時に使用できる論理回線の最大数は10本となる。"
     ],
     "original_question_id": "f7821af3d6b2f5e2",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:f7821af3d6b2f5e2",
+    "reviewQuestionId": "f7821af3d6b2f5e2",
+    "sourceRecordRef": "question_201602_2.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "図示されたネットワークの経路と各区間の多重度から最大論理回線数を求める技術計算問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。正しい最大値は10。",
+          "displayRefIds": [],
+          "explanationText": "選択肢8は、図の容量計算で得られる10と一致しない。",
+          "promptContext": "XからYまでの最大同時論理回線数。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワーク容量計算で正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。正しい最大値は10。",
+          "displayRefIds": [],
+          "explanationText": "選択肢9は、図の容量計算で得られる10と一致しない。",
+          "promptContext": "XからYまでの最大同時論理回線数。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワーク容量計算で正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。最大同時論理回線数は10。",
+          "displayRefIds": [],
+          "explanationText": "選択肢10は、X側集合から外へ出る容量1+2+3+4の合計と一致する。",
+          "promptContext": "XからYまでの最大同時論理回線数。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくネットワーク容量計算で正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。正しい最大値は10。",
+          "displayRefIds": [],
+          "explanationText": "選択肢11は、図の容量計算で得られる10と一致しない。",
+          "promptContext": "XからYまでの最大同時論理回線数。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワーク容量計算で正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nこの組合せでは拠点 1 から拠点 3、または拠点 2 から拠点 3 の希望経路条件を同時に満たせない。",
-      "正しい。\n\nOSPF は合計コストが最小の経路を選ぶ。WAN2 側のコスト x, y を 30 にすると、拠点1→拠点3 は WAN1 の 170 が 150+30 より小さくなり、拠点2→拠点3 は WAN2 の 180 が WAN1 側 190 より小さくなるので条件を満たす。",
-      "間違い。\n\nこの組合せでは WAN1/WAN2 の優先関係が設問どおりにならない経路が生じる。",
-      "間違い。\n\nコスト設定が高過ぎる、または低過ぎるため、二つの拠点条件を同時に満たせない。"
-    ],
-    "suggestedQuestions": [
-      "OSPF コストはどう比較しますか？",
-      "希望する WAN を通すには何を調整しますか？",
-      "なぜ x と y を同じ値にしますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OSPF コストはどう比較しますか？",
-        "answer": "候補経路ごとのコスト合計を比較し、最小の経路を選ぶ。"
-      },
-      {
-        "question": "希望する WAN を通すには何を調整しますか？",
-        "answer": "その WAN を含む経路の合計コストが他経路より小さくなるようリンクコストを調整する。"
-      },
-      {
-        "question": "なぜ x と y を同じ値にしますか？",
-        "answer": "WAN2 を通る二経路の条件を対称に保ちつつ、両拠点の優先関係を同時に満たしやすくするためである。"
-      }
+      "正しい。適切な組合せはイ（x=30、y=30）である。OSPFは、各経路のコストを合計し、その値が最小になる経路を選ぶ。拠点1から拠点3までWAN1を通る経路のコストは、図の固定値から\\[30+100+30+10=170\\]である。WAN2側を通る経路は、xまたはyを使うため、x=y=30では\\[40+100+30+10=180\\]となり、WAN1が選ばれる。拠点2から拠点3までWAN2を通る経路は\\[40+100+30+10=180\\]、WAN1を通る経路は\\[50+100+30+10=190\\]となるため、WAN2が選ばれる。したがって、拠点1と拠点3の通信はWAN1を、拠点2と拠点3の通信はWAN2を通過する。"
     ],
     "original_question_id": "984258bca1e3d0bc",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:984258bca1e3d0bc",
+    "reviewQuestionId": "984258bca1e3d0bc",
+    "sourceRecordRef": "question_201602_2.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OSPFの経路コスト設定を問う技術問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コスト設定に関する技術内容のみで判定できる。",
+          "promptContext": "技術問題のため法令監査を適用しない。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFの経路コスト計算による技術肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コスト設定に関する技術内容のみで判定できる。",
+          "promptContext": "技術問題のため法令監査を適用しない。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "OSPFの経路コスト計算による技術肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コスト設定に関する技術内容のみで判定できる。",
+          "promptContext": "技術問題のため法令監査を適用しない。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFの経路コスト計算による技術肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コスト設定に関する技術内容のみで判定できる。",
+          "promptContext": "技術問題のため法令監査を適用しない。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFの経路コスト計算による技術肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
       "正しい。アドミッション制御は、通信を受け入れる前に必要な帯域などの資源を調べ、確保できる見込みがある通信だけを受け入れる制御である。",
-      "間違い。正しくは、入力トラフィックが契約した最大速度を超えたとき、超過分を破棄したり低い優先度で扱ったりするのはポリシングである。選択肢はこの処理をシェーピングとしているため誤りである。シェーピングはパケットを一時的に待たせて送出速度を整える。",
-      "間違い。正しくは、パケットを待たせて送出間隔を調整し、速度を平準化するのはシェーピングである。選択肢はこの処理をポリシングとしているため誤りである。ポリシングは基準を超えたパケットを破棄するなどして、流入トラフィックを監視・制限する。",
+      "間違い。正しくは、入力トラフィックがあらかじめ定めた最大速度を超えたとき、超過分を破棄したり低い優先度で扱ったりするのはポリシングである。選択肢はこの処理をシェーピングとしているため誤りである。シェーピングはパケットを一時的に待たせ、送出速度を整える。",
+      "間違い。正しくは、パケットを待たせて送出間隔を調整し、速度を平準化するのはシェーピングである。選択肢はこの処理をポリシングとしているため誤りである。ポリシングは基準を超えたパケットを破棄又はマーキングするなどして、流入トラフィックを監視・制限する。",
       "間違い。正しくは、フレームの種類や宛先に応じて優先度を変えて中継するのは、分類に基づく優先制御である。選択肢はこの処理をベストエフォートとしているため誤りである。ベストエフォートは、特定の通信に品質を保証せず、利用可能な資源の範囲でできるだけ転送する方式を指す。"
     ],
     "original_question_id": "75a087db24b5ef05",
@@ -688,8 +868,8 @@
     "explanationText": [
       "正しい。Gratuitous ARPは、自端末が使用するIPアドレスをターゲットIPアドレスに指定したARP要求を自発的に送信する。重複IPアドレスの検出や、周囲の端末のARPキャッシュ更新などに利用される。",
       "間違い。通常のARP要求では、通信したい相手のIPアドレスをターゲットIPアドレスに指定して、その相手のMACアドレスを問い合わせる。選択肢は通常のARP要求をGratuitous ARPとしているため誤りである。",
-      "間違い。ARPはIPアドレスからMACアドレスを求めるプロトコルであり、MACアドレスからIPアドレスを求めるものではない。選択肢は逆方向の問い合わせを示しているため誤りである。",
-      "間違い。ARPでは、通信相手のIPアドレスを指定してMACアドレスを問い合わせる。選択肢は相手のMACアドレスを指定してIPアドレスを問い合わせるとしているため、ARPの動作ではなく誤りである。"
+      "間違い。ARPはIPアドレスからMACアドレスを求めるプロトコルであり、MACアドレスからIPアドレスを求めるものではない。選択肢はMACアドレスからIPアドレスを問い合わせるとしているため誤りである。",
+      "間違い。ARPでは、通信相手のIPアドレスを指定してMACアドレスを問い合わせる。選択肢は通信相手のMACアドレスを指定してIPアドレスを問い合わせるとしているため、ARPの動作ではなく誤りである。"
     ],
     "original_question_id": "841eced61a252988",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_6.html",
@@ -965,10 +1145,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、IPsecはIP層で暗号化、認証、完全性などのセキュリティサービスを提供する。選択肢はそれをMPLSの説明としているため誤りである。",
+      "間違い。正しくは、IPsecはIP層で暗号化、認証、完全性などのセキュリティサービスを提供する。選択肢はIPsecの説明をMPLSの説明としているため誤りである。",
       "間違い。正しくは、L2FとPPTPの技術的要素を取り入れたデータリンク層のトンネリングプロトコルはL2TPである。選択肢はL2TPの説明をMPLSの説明としているため誤りである。",
-      "間違い。正しくは、PPPをIPネットワーク上でトンネルする方式はPPTPの説明である。選択肢はPPPフレームをIPでカプセル化するトンネリングをMPLSの説明としているため誤りである。",
-      "正しい。MPLSは、パケットの転送処理にラベルを使い、各ルータがラベルを調べて次の転送先を決める。転送段階でIPアドレスの最長一致を毎回行う従来のIP転送とは異なり、ラベルに基づくラベルスイッチングを行う。"
+      "間違い。正しくは、PPPデータフレームをIPパケットでカプセル化してインターネット上を通すトンネリングプロトコルはPPTPである。選択肢はPPTPの説明をMPLSの説明としているため誤りである。",
+      "正しい。MPLSは、パケットに付けたラベルを使って転送するラベルスイッチング方式である。IPアドレスの最長一致検索だけに依存せず、ラベルに基づいて転送経路を識別できる。"
     ],
     "original_question_id": "536574ccf0bef014",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_9.html",
@@ -1115,8 +1295,8 @@
     "explanationText": [
       "間違い。正しくは、宛先IPアドレスはIPヘッダーに含まれる。選択肢はTCPとUDPのヘッダーに含まれるとしているため誤りである。",
       "間違い。正しくは、宛先MACアドレスはデータリンク層のヘッダーで扱われる。選択肢はTCPとUDPのヘッダーに含まれるとしているため誤りである。",
-      "間違い。正しくは、生存時間（TTL）はIPヘッダーの項目である。選択肢はTCPとUDPのヘッダーに含まれるとしているため誤りである。",
-      "正しい。"
+      "間違い。正しくは、生存時間（TTL）はIPヘッダーに含まれる。選択肢はTCPとUDPのヘッダーに含まれるとしているため誤りである。",
+      "正しい。TCPとUDPはいずれも送信元ポート番号をヘッダーに持ち、通信するアプリケーションを識別する。"
     ],
     "original_question_id": "0bf8903208d5eb2b",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_10.html",
@@ -1252,33 +1432,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n/16 は集約範囲が広過ぎる。共通プレフィックスより短く、不要なネットワークまで含めてしまう。",
-      "間違い。\n\n/17 でもまだ広過ぎる。10〜58 の範囲を最も細かくまとめる共通ビット数には足りない。",
-      "正しい。\n\n192.168.10.0 と 192.168.58.0 を 2 進比較すると、上位 18 ビットが共通する。したがって最もビット数の多い集約経路は 192.168.0.0/18 である。",
-      "間違い。\n\n/19 まで長くすると、対象範囲すべてを包含できない。共通なのは 18 ビットまでである。"
-    ],
-    "suggestedQuestions": [
-      "経路集約はどう求めますか？",
-      "なぜ /18 になりますか？",
-      "長過ぎるプレフィックスだと何が起きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "経路集約はどう求めますか？",
-        "answer": "対象ネットワークアドレスを 2 進数にして、上位から連続して共通するビット長を求める。"
-      },
-      {
-        "question": "なぜ /18 になりますか？",
-        "answer": "192.168.10.0 と 192.168.58.0 の共通プレフィックスが 18 ビットだからである。"
-      },
-      {
-        "question": "長過ぎるプレフィックスだと何が起きますか？",
-        "answer": "一部の対象ネットワークを含められず、集約経路として成立しなくなる。"
-      }
+      "正しい。経路集約では、対象となるネットワークアドレスの先頭から共通するビット数が、集約後のプレフィックス長になる。第3オクテットの範囲は10〜58であり、両端を2進数で表すと次のようになる。\n\\[10=(00001010)_2,\\qquad 58=(00111010)_2\\]\n上位2ビットが共通し、3ビット目から異なるため、192.168.10.0/24〜192.168.58.0/24で共通するのは、最初の2オクテット16ビットに第3オクテットの2ビットを加えた18ビットである。したがって集約経路は次のとおりとなる。\n\\[192.168.0.0/18\\]\n/19では第3オクテット0〜31の範囲しか包含できず、58を含められないため、対象全体を集約できる中で最もビット数が多いのは192.168.0.0/18である。"
     ],
     "original_question_id": "5f042b36ac330988",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:5f042b36ac330988",
+    "reviewQuestionId": "5f042b36ac330988",
+    "sourceRecordRef": "question_201602_2.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4アドレスの経路集約に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4経路集約の技術判定であり、法令根拠は不要である。",
+          "promptContext": "IPv4経路集約のプレフィックス長判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4経路集約の技術判定であり、法令根拠は不要である。",
+          "promptContext": "IPv4経路集約のプレフィックス長判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4経路集約の技術判定であり、法令根拠は不要である。",
+          "promptContext": "IPv4経路集約のプレフィックス長判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4経路集約の技術判定であり、法令根拠は不要である。",
+          "promptContext": "IPv4経路集約のプレフィックス長判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1312,7 +1582,7 @@
   },
   {
     "explanationText": [
-      "正しい。宛先IPアドレス10.100.100.1は、10.0.0.0/8の経路に一致する。一方、10.64.0.0/12、10.96.0.0/14、10.128.0.0/9の経路には一致しない。デフォルトルートにも一致するが、最長一致法ではより長いサブネットマスクを持つ10.0.0.0/8が優先されるため、その経路の送出先であるルータAへ転送する。"
+      "正しい。宛先IPアドレス10.100.100.1は、10.0.0.0/8の経路に一致する。10.64.0.0/12、10.96.0.0/14、10.128.0.0/9には一致せず、デフォルトルートにも一致するが、最長一致法ではサブネットマスクが最も長い10.0.0.0/8が優先される。この経路のネクストホップは192.168.1.254で、ルータAに接続しているため、ルータAへ転送する。"
     ],
     "original_question_id": "28273354ca22b437",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_13.html",
@@ -1561,10 +1831,10 @@
   },
   {
     "explanationText": [
-      "間違い。WebSocketはXMLに限定されず、テキストまたはバイナリのメッセージを送受信する。選択肢は通信データの形式をXMLで定義するとしているため誤りである。",
-      "間違い。WebSocketはRTPを使わず、HTTP Upgradeで接続を切り替えた後、TCP上で双方向通信を行う。選択肢はリアルタイム通信にRTPを使用するとしているため誤りである。",
-      "間違い。XMLHttpRequestは、Webページを再読み込みせずにHTTP通信を行うAjaxなどで使われるAPIである。選択肢はXMLHttpRequestによる非同期通信をWebSocketの特徴としているため誤りである。",
-      "正しい。WebSocketは接続開始時にHTTPのUpgrade要求と応答を使って通信方式を切り替え、その後は同じ接続でサーバとクライアントが双方向にデータを送受信する。"
+      "間違い。WebSocketはテキストまたはバイナリのメッセージを送受信し、XMLでデータ形式を定義するプロトコルではない。選択肢は双方向通信のデータ形式をXMLで定義するとしているため誤りである。",
+      "間違い。WebSocketはRTPを使用せず、HTTPのUpgradeハンドシェイク後に同じTCP接続上で双方向通信を行う。選択肢はリアルタイム性の高い通信にRTPを使用するとしているため誤りである。",
+      "間違い。XMLHttpRequestは、Webページを再読み込みせずにHTTP通信を行うためのAPIであり、WebSocketとは別の仕組みである。選択肢はXMLHttpRequestによる非同期通信をWebSocketの特徴としているため誤りである。",
+      "正しい。WebSocketは最初にHTTPのUpgrade要求を送って通信方式を切り替え、その後は同じ接続でWebブラウザとWebサーバが双方向にデータを送受信する。"
     ],
     "original_question_id": "78c205b75b4c1f75",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_15.html",
@@ -1579,6 +1849,7 @@
         "title": "The WebSocket Protocol (RFC 6455)"
       },
       {
+        "choiceIndex": 2,
         "referenceDate": "2026-10-03",
         "sourceUrl": "https://xhr.spec.whatwg.org/",
         "title": "XMLHttpRequest Standard"
@@ -1695,9 +1966,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、SAMLは認証情報、属性情報、認可情報を交換する仕様である。選択肢はWebサービスの機能を公開・検索する仕様としているため、SAMLの説明ではない。",
-      "間違い。正しくは、SAMLは認証情報、属性情報、認可情報を交換する仕様である。選択肢は電子メールを傍受や改ざんから保護する仕様としているため、SAMLの説明ではない。",
-      "間違い。正しくは、SAMLは認証情報、属性情報、認可情報を交換する仕様である。選択肢はデジタル署名用の鍵情報を管理するWebサービスとしているため、SAMLの説明ではない。",
+      "間違い。正しくは、Webサービスの情報を公開・検索する仕様ではなく、認証情報や属性情報などを連携する仕様である。選択肢はWebサービスの機能を公開して検索可能にする仕様としているため、SAMLの説明ではない。",
+      "間違い。正しくは、SAMLは認証情報や属性情報などを異なるドメイン間で伝達する仕様である。選択肢は電子メールを傍受、読取り、改ざんから保護する仕様としているため、SAMLの説明ではない。",
+      "間違い。正しくは、SAMLは認証情報や属性情報などを連携する仕様であり、デジタル署名に使う鍵情報を管理する仕様ではない。選択肢は鍵情報を管理するWebサービスとしているため、SAMLの説明ではない。",
       "正しい。SAMLは認証情報に加えて属性情報や認可情報を異なるドメイン間で伝達する仕様であり、Webブラウザのシングルサインオンなどに利用される。"
     ],
     "original_question_id": "96c8c7f81e7d882d",
@@ -2013,32 +2284,122 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n静的パケットフィルタでは SMTP 送信に必要な応答方向パケットも明示許可する必要があり、この組合せでは不足または不適切なポートが含まれる。",
-      "間違い。\n\nSMTP 送信に必要な送信元・宛先ポートの方向関係と一致しないため適切ではない。",
-      "正しい。\n\nSMTP は TCP/25 を使う。PC は 1024 以上の動的ポートから SMTP サーバの 25 番へ接続し、応答はサーバ 25 番から PC の 1024 以上へ返るので、その二方向を許可する組合せが正しい。",
-      "間違い。\n\nPOP 用の 110 番など SMTP 送信に不要なポートを含む、または応答方向が合っていないため誤りである。"
-    ],
-    "suggestedQuestions": [
-      "静的パケットフィルタでは何を明示許可しますか？",
-      "SMTP 送信に必要なポート組合せは何ですか？",
-      "なぜ 110 番は不要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "静的パケットフィルタでは何を明示許可しますか？",
-        "answer": "通信開始方向だけでなく、応答で戻る逆方向パケットも明示的に許可する必要がある。"
-      },
-      {
-        "question": "SMTP 送信に必要なポート組合せは何ですか？",
-        "answer": "PC の 1024 以上からサーバの 25 番への発信と、サーバ 25 番から PC 1024 以上への応答である。"
-      },
-      {
-        "question": "なぜ 110 番は不要ですか？",
-        "answer": "110 番は POP3 受信用であり、SMTP によるメール送信には使わないからである。"
-      }
+      "正しい。適切な組合せはウである。SMTP送信では、社内PCが1024以上の動的ポートを送信元、SMTPサーバの25番ポートを宛先として接続する。応答はSMTPサーバの25番ポートからPCの動的ポートへ返るため、静的なパケットフィルタではこの往復のTCPパケットを許可する。アはPC側の送信元ポートを25番としており、イとエはSMTPで使用しない110番ポートを含むため適切ではない。"
     ],
     "original_question_id": "ef31045d0eef4991",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:ef31045d0eef4991",
+    "reviewQuestionId": "ef31045d0eef4991",
+    "sourceRecordRef": "question_201602_2.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SMTPの通信方向とポート番号に関するネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1肢は、社内PCが送信元ポート25番を使用するとしており、SMTP送信時の通常のポート関係と異なる。",
+          "promptContext": "SMTP通信のポート番号判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくSMTP通信のポート番号に関する技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2肢は、SMTP通信に110番ポートを含めており、適切な組合せではない。",
+          "promptContext": "SMTP通信のポート番号判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくSMTP通信のポート番号に関する技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3肢は、社内PCの動的ポートとSMTPサーバの25番ポートを組み合わせており、SMTP送信のポート関係に合致する。",
+          "promptContext": "SMTP通信のポート番号判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくSMTP通信のポート番号に関する技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4肢は、SMTP通信に110番ポートを含めており、適切な組合せではない。",
+          "promptContext": "SMTP通信のポート番号判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくSMTP通信のポート番号に関する技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

@@ -151,7 +151,7 @@
   },
   {
     "explanationText": [
-      "正しい。キーaとbのハッシュ値が衝突するのは、aをnで割った余りとbをnで割った余りが等しいときである。これは、差a−bがnの倍数であることと同じ意味なので、正しい条件は「a−bがnの倍数」である。"
+      "正しい。キーaとbのハッシュ値が衝突するのは、aをnで割った余りとbをnで割った余りが等しいときである。この条件は、差a−bがnの倍数であることと同値なので、正しい条件は「a−bがnの倍数」である。"
     ],
     "original_question_id": "26c977a2e7d51f27",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_3.html",
@@ -271,10 +271,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、キャッシュから不要な情報を追い出す際に主記憶へ書き戻すのはライトバック方式の説明である。選択肢はキャッシュの書戻しを説明しているため、主記憶を複数の区画に分けて連続アクセスを高速化するメモリインターリーブとは異なる。",
-      "間違い。正しくは、主記憶と磁気ディスクのアクセス時間の差を補うのは仮想記憶などの説明である。選択肢は磁気ディスクとの速度差を扱っているため、主記憶内部を複数の区画に分けてアクセスを高速化するメモリインターリーブとは異なる。",
-      "間違い。正しくは、主記憶の更新と同時にキャッシュメモリも更新するのはライトスルー方式の説明である。選択肢はキャッシュの更新方式を説明しているため、主記憶へのアクセスを複数の区画に分散するメモリインターリーブとは異なる。",
-      "正しい。メモリインターリーブは主記憶を複数の区画に分け、連続するデータへのアクセスを各区画に分散して処理することで、主記憶への連続アクセスを高速化する。"
+      "間違い。正しくは、キャッシュから追い出すデータを主記憶へ書き戻すのはライトバック方式である。選択肢はキャッシュの更新方式を説明しているため、主記憶を複数の区画に分けて連続アクセスを高速化するメモリインターリーブとは異なる。",
+      "間違い。正しくは、メモリインターリーブは主記憶を複数の区画に分け、連続するデータへのアクセスを各区画に分散して高速化する。選択肢は主記憶と磁気ディスクのアクセス時間の差を扱っており、主記憶内部のアクセスを高速化するメモリインターリーブとは異なる。",
+      "間違い。正しくは、主記憶の更新と同時にキャッシュメモリも更新するのはライトスルー方式である。選択肢はキャッシュの更新方式を説明しているため、主記憶を複数の区画に分けてアクセスを高速化するメモリインターリーブとは異なる。",
+      "正しい。メモリインターリーブは複数のメモリ区画を順に使えるようにアドレスを分散し、連続するデータの読み書きを重ねて主記憶へのアクセスを高速化する。"
     ],
     "original_question_id": "055e17c568b389b8",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_4.html",
@@ -394,33 +394,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nターンアラウンドタイムは到着から完了までの時間である。ジョブ C は 3 秒時点で到着し 14 秒時点で完了するので、14-3=11 秒となる。",
-      "間違い。\n\nジョブ C の到着から完了までの差は 12 秒ではなく 11 秒である。",
-      "間違い。\n\n待ち時間と実行時間を合わせても、ジョブ C の所要時間は 13 秒にはならない。",
-      "間違い。\n\n完了時刻と到着時刻の差を正しく計算すると 14 秒ではなく 11 秒である。"
-    ],
-    "suggestedQuestions": [
-      "ターンアラウンドタイムとは何ですか？",
-      "待ち時間と実行時間の関係はどうなりますか？",
-      "完了時刻はどう求めますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ターンアラウンドタイムとは何ですか？",
-        "answer": "ジョブを投入してから結果を受け取るまでの総所要時間である。"
-      },
-      {
-        "question": "待ち時間と実行時間の関係はどうなりますか？",
-        "answer": "ターンアラウンドタイムは待ち時間と処理時間の合計になる。"
-      },
-      {
-        "question": "完了時刻はどう求めますか？",
-        "answer": "先行ジョブの実行順序と各処理時間を時系列に並べて求める。"
-      }
+      "正しい。ターンアラウンドタイムは、ジョブの到着から実行完了までの経過時間である。多重度が1なので、Aは0〜5秒、Bは5〜11秒、Cは11〜14秒に実行される。Cの到着時刻は3秒、完了時刻は14秒だから、ターンアラウンドタイムは次のとおり11秒となる。\n\n\\[14-3=11\\,\\mathrm{秒}\\]"
     ],
     "original_question_id": "1eeebc6c94e86b74",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:1eeebc6c94e86b74",
+    "reviewQuestionId": "1eeebc6c94e86b74",
+    "sourceRecordRef": "question_201102_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ジョブの到着時刻と処理時間からターンアラウンドタイムを計算する工学・情報処理の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "ジョブの到着時刻と処理時間からターンアラウンドタイムを計算する問題であり、法令は正誤を直接決めない。",
+          "promptContext": "システム評価指標に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "ジョブの到着時刻と処理時間からターンアラウンドタイムを計算する問題であり、法令は正誤を直接決めない。",
+          "promptContext": "システム評価指標に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "ジョブの到着時刻と処理時間からターンアラウンドタイムを計算する問題であり、法令は正誤を直接決めない。",
+          "promptContext": "システム評価指標に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "ジョブの到着時刻と処理時間からターンアラウンドタイムを計算する問題であり、法令は正誤を直接決めない。",
+          "promptContext": "システム評価指標に関する計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -754,7 +844,7 @@
   },
   {
     "explanationText": [
-      "正しい。デジタル署名の生成では、発信者がメッセージのハッシュ値を発信者の秘密鍵で変換する。受信者は発信者の公開鍵で署名を検証するため、受信者の鍵や発信者の公開鍵を生成には使わない。"
+      "正しい。デジタル署名は、発信者の秘密鍵を用いてメッセージのハッシュ値から署名値を生成する。受信者は発信者の公開鍵で署名を検証するため、受信者の鍵や発信者の公開鍵は署名の生成には使わない。"
     ],
     "original_question_id": "b08f76b90706462f",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_14.html",
@@ -880,10 +970,10 @@
   },
   {
     "explanationText": [
-      "正しい。宛先ポートや送信元・宛先アドレスを条件に、外部公開していないサービスへの通信を遮断できる。公開している必要なサービスへの通信は許可するため、影響を分けて防御できる。",
+      "正しい。宛先ポートや送信元・宛先アドレスを条件に、外部へ公開していないサービスへの通信を遮断できる。必要な公開サービスへの通信は許可することで、サービスごとに通信の可否を分けられる。",
       "間違い。正しくは、サーバで動作するソフトウェアの脆弱性を突く攻撃は、正規に許可されたサービスへの通信を利用して成立することがある。選択肢は通信のアドレスやポートだけを条件に、サービス内部の脆弱性を突く攻撃まで防げるとしているため誤りである。",
       "間違い。正しくは、電子メールに添付されたファイルの内容を検査し、マクロの実行を制限するなどの対策が必要である。選択肢は通信のアドレスやポートだけを制御するパケットフィルタリングで、添付ファイルの内容に含まれるマクロウイルスまで防げるとしているため誤りである。",
-      "間違い。正しくは、電子メール爆弾などのDoS攻撃には、必要なメールサービスへの大量の通信を制限する対策が必要である。選択肢は必要な通信を許可したまま、その通信量によるDoS攻撃までパケットフィルタリングだけで防げるとしているため誤りである。"
+      "間違い。正しくは、電子メール爆弾などのDoS攻撃には、メールの内容や通信量を検査して制限する対策が必要である。選択肢は必要なメールサービスへの通信を許可したまま、同じ通信条件の大量送信をパケットフィルタリングだけで識別して防げるとしているため誤りである。"
     ],
     "original_question_id": "221e7b5aec88735c",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_15.html",
@@ -1137,14 +1227,14 @@
   },
   {
     "explanationText": [
-      "間違い。営業秘密として保護するには、情報が秘密として管理され、公然と知られていないことなどが必要である。社内の秘密保持体制を構築できない場合はこの条件を満たしにくく、選択肢はその状態をノウハウ秘匿に適した例としているため誤りである。",
-      "正しい。特許出願をすると、原則として出願から1年6か月後に、明細書や特許請求の範囲などが出願公開される。セキュリティ分野のアルゴリズムを公開したくない場合は、特許出願をせずノウハウとして管理する方法が適切になり得る。",
-      "間違い。他社へ積極的に技術を利用許諾して収入を得る場合は、特許権に基づく通常実施権を許諾することで、権利の範囲を明確にしやすい。選択肢は特許出願せずにノウハウとして秘匿することを適切な例としているため誤りである。",
-      "間違い。容易にリバースエンジニアリングされる技術は、内容が明らかになりやすく、秘密として維持できないためノウハウによる保護に向かない。選択肢はそのような技術をノウハウ秘匿に適した例としているため誤りである。"
+      "間違い。営業秘密は、秘密として管理され、公然と知られていない有用な情報である（不正競争防止法第2条第6項）。社内の秘密保持体制を構築できない場合は秘密管理ができないため、選択肢はノウハウとして秘匿するのが適切な例としているため誤りである。",
+      "正しい。特許出願をすると、原則として出願から1年6か月後に明細書などが出願公開される（特許法第64条）。アルゴリズムを公開したくない場合は、特許出願をせず、営業秘密として適切に管理する方法が適切になり得る。不正競争防止法第2条第6項の要件を満たす管理が必要である。",
+      "間違い。特許権者は、他人に通常実施権を許諾できる（特許法第78条）。他社に積極的に技術使用許諾してライセンス収入を得たい場合は、特許権に基づく許諾が適切であり、選択肢は特許出願せずにノウハウとして秘匿することを適切な例としているため誤りである。",
+      "間違い。営業秘密には、公然と知られていないことが必要である（不正競争防止法第2条第6項）。容易にリバースエンジニアリングできる技術は内容が明らかになりやすく、秘密として維持しにくいため、選択肢はノウハウとして秘匿するのが適切な例としているため誤りである。"
     ],
     "original_question_id": "aed56d5e005a4e5d",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceQuestionKey": "nw:201102:aed56d5e005a4e5d",
     "reviewQuestionId": "aed56d5e005a4e5d",
     "sourceRecordRef": "question_201102_1.json#16",
@@ -1161,14 +1251,179 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "不正競争防止法第2条第6項は営業秘密に秘密管理性と非公知性を求める。特許法第64条は出願公開、第78条は通常実施権の許諾を定めるため、秘匿と特許活用の適否を判定できる。",
+    "lawReferences": [
+      [
+        {
+          "article": "2条6項",
+          "choiceIndex": 0,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2条6項",
+          "choiceIndex": 1,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "64条",
+          "choiceIndex": 1,
+          "lawId": "334AC0000000121",
+          "lawTitle": "特許法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "78条",
+          "choiceIndex": 2,
+          "lawId": "334AC0000000121",
+          "lawTitle": "特許法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2条6項",
+          "choiceIndex": 3,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_web",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "不正競争防止法第2条第6項の営業秘密要件に照らし、秘密保持体制を構築できない場合はノウハウ秘匿に適さない。",
+          "promptContext": "秘密保持体制がない場合にノウハウ秘匿が適切かを判定する肢。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceはcurrent_onlyで出題時本文を含まない。公式元正答をexamTime判定に用い、条文不変とは記載していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "特許法第64条は特許出願の原則的な出願公開を定めるため、公開を避けたいアルゴリズムを適切に管理できる場合、特許出願をせずノウハウとして秘匿する選択が成立する。不正競争防止法第2条第6項の要件を満たす必要がある。",
+          "promptContext": "アルゴリズムを公開したくない場合にノウハウ秘匿が適切かを判定する肢。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "primaryLawEvidenceはcurrent_onlyで出題時本文を含まない。公式元正答をexamTime判定に用い、条文不変とは記載していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "特許法第78条により、特許権者は他人に通常実施権を許諾できる。ライセンス収入を目的とする場合は特許権による許諾が適切であり、ノウハウ秘匿の例ではない。",
+          "promptContext": "ライセンス収入を得たい場合にノウハウ秘匿が適切かを判定する肢。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceはcurrent_onlyで出題時本文を含まない。公式元正答をexamTime判定に用い、条文不変とは記載していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "不正競争防止法第2条第6項の非公知性に照らし、容易にリバースエンジニアリングできる技術は秘密として維持しにくい。",
+          "promptContext": "容易にリバースエンジニアリングできる技術にノウハウ秘匿が適切かを判定する肢。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceはcurrent_onlyで出題時本文を含まない。公式元正答をexamTime判定に用い、条文不変とは記載していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。",
-      "間違い。作業の前後関係やクリティカルパスを把握するには、アローダイアグラムやPERTなどのネットワーク工程表を用いる。ガントチャートは各作業の期間を示す図表であるため、選択肢は前後関係とクリティカルパスを把握できるとしており誤りである。",
-      "間違い。作業の余裕日数を把握するには、ネットワーク工程表を用いて各作業の最早開始時刻や最遅開始時刻などを計算する。ガントチャートは作業期間を示す図表であるため、選択肢は余裕日数を容易に把握できるとしており誤りである。",
-      "間違い。作業を要素に分解して管理しやすくするのはWBSの役割である。ガントチャートは分解された作業の期間や進捗を示す図表であるため、選択肢は作業の分解によって管理しやすくするとしており誤りである。"
+      "正しい。ガントチャートは、各作業を棒の長さで表し、作業の開始時点、終了時点、期間を把握する図表である。",
+      "間違い。正しくは、作業の前後関係やクリティカルパスを把握するには、アローダイアグラムやPERTなどのネットワーク工程表を用いる。選択肢はガントチャートで前後関係とクリティカルパスが明確になるとしているため誤りである。",
+      "間違い。正しくは、作業の余裕日数を把握するには、ネットワーク工程表で各作業の最早開始時刻や最遅開始時刻などを計算する。選択肢はガントチャートで余裕日数を容易に把握できるとしているため誤りである。",
+      "間違い。正しくは、作業を要素に分解して管理しやすくするのはWBSの役割である。ガントチャートは、分解された作業の期間や進捗を示す。選択肢はガントチャートが作業を要素に分解するとしているため誤りである。"
     ],
     "original_question_id": "21abc8bb93f06d54",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_18.html",

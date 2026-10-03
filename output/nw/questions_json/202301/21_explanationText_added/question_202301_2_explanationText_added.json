@@ -31,33 +31,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n一定期間のエネルギー使用量を把握して最適化するのはエネルギー管理や省電力制御の説明であり、ハーベスティングそのものではない。",
-      "正しい。\n\nエネルギーハーベスティングは、振動、熱、光、電波など周囲にある微小エネルギーを回収して電力へ変換し、IoT デバイスへ供給する技術である。",
-      "間違い。\n\nLAN ケーブルで電力供給するのは PoE の説明である。周囲環境からエネルギーを採取する技術とは異なる。",
-      "間違い。\n\n必要時だけ電源を入れるのはスリープ制御や duty control の考え方であり、発電技術であるエネルギーハーベスティングとは別である。"
-    ],
-    "suggestedQuestions": [
-      "エネルギーハーベスティングは何を電源にしますか？",
-      "PoE との違いは何ですか？",
-      "IoT で有効な理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "エネルギーハーベスティングは何を電源にしますか？",
-        "answer": "振動、熱、光、電磁波など、周囲に存在する微小エネルギーを電力へ変換して使う。"
-      },
-      {
-        "question": "PoE との違いは何ですか？",
-        "answer": "PoE は通信ケーブル経由で外部から給電する。エネルギーハーベスティングは周囲環境から自前で発電する点が違う。"
-      },
-      {
-        "question": "IoT で有効な理由は何ですか？",
-        "answer": "電池交換が難しい場所でも長期間運用しやすくなるからである。低消費電力デバイスと組み合わせると効果が大きい。"
-      }
+      "間違い。エネルギーハーベスティングは、周囲の環境にある微小なエネルギーを回収して電力に変換する技術である。選択肢はエネルギー使用量を把握して電力を最適化する技術を説明しているため、エネルギー管理や省電力制御に当たり、エネルギーハーベスティングとは異なる。",
+      "正しい。エネルギーハーベスティングは、振動、熱、光、電磁波など周囲の環境にある微小なエネルギーを集めて電力に変換し、IoTデバイスへ供給する技術である。",
+      "間違い。LANケーブルで通信機器へ電力を供給する技術はPoEである。ケーブル経由の給電は、周囲の微小なエネルギーを回収して発電するエネルギーハーベスティングとは異なる。",
+      "間違い。必要な時だけ電源を入れて消費電力を抑えるのは、スリープ制御やデューティ制御の考え方である。電力を節約する制御であって、周囲のエネルギーを回収して発電するエネルギーハーベスティングとは異なる。"
     ],
     "original_question_id": "94c476b1caa5bfd9",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_27.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:94c476b1caa5bfd9",
+    "reviewQuestionId": "94c476b1caa5bfd9",
+    "sourceRecordRef": "question_202301_2.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術概念の説明問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はエネルギー管理・省電力制御の説明であり、エネルギーハーベスティングの定義と異なる。",
+          "promptContext": "IoT技術概念の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで正誤を判定した。法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、振動・熱・光・電磁波などの微小なエネルギーを回収して電力へ変換するエネルギーハーベスティングの説明に一致する。",
+          "promptContext": "IoT技術概念の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術概念のみで正誤を判定した。法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はLANケーブル経由のPoE給電の説明であり、環境中の微小なエネルギーを回収する技術ではない。",
+          "promptContext": "IoT技術概念の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで正誤を判定した。法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はスリープ制御やデューティ制御による省電力化の説明であり、エネルギー回収・発電とは異なる。",
+          "promptContext": "IoT技術概念の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで正誤を判定した。法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -151,33 +244,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nARP は IPv4 のアドレス解決プロトコルそのものであり、IPv6 でそのまま使うものではない。",
-      "間違い。\n\nDHCPv6 はアドレスや設定情報の配布に使う。MAC アドレス解決を行う機能ではない。",
-      "正しい。\n\nIPv6 では ARP 相当の機能を ICMPv6 の Neighbor Discovery が担う。近隣探索、重複アドレス検出、ルータ発見などもまとめて扱う。",
-      "間違い。\n\nRARP は MAC アドレスから IP アドレスを知るための古い仕組みであり、IPv6 の近隣探索機能とは無関係である。"
-    ],
-    "suggestedQuestions": [
-      "IPv6 で ARP の代わりになる仕組みは何ですか？",
-      "Neighbor Discovery は何をしますか？",
-      "DHCPv6 との役割分担は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPv6 で ARP の代わりになる仕組みは何ですか？",
-        "answer": "ICMPv6 の Neighbor Discovery である。リンク上の相手の MAC アドレス解決を行う。"
-      },
-      {
-        "question": "Neighbor Discovery は何をしますか？",
-        "answer": "アドレス解決、重複アドレス検出、デフォルトルータ発見などを行う。IPv6 の基本的な近隣制御機能である。"
-      },
-      {
-        "question": "DHCPv6 との役割分担は？",
-        "answer": "DHCPv6 は設定情報配布、Neighbor Discovery は同一リンク内の近隣探索と整理すると理解しやすい。"
-      }
+      "正しい。IPv4のARPに相当するMACアドレス解決機能をIPv6で提供するのはICMPv6である。ICMPv6のNeighbor Discoveryは、近隣探索のほか、重複アドレス検出やルータ発見も担う。DHCPv6はアドレスなどの設定情報を配布するプロトコルで、RARPはMACアドレスからIPアドレスを求める仕組みである。"
     ],
     "original_question_id": "110a50f2d4733f70",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:110a50f2d4733f70",
+    "reviewQuestionId": "110a50f2d4733f70",
+    "sourceRecordRef": "question_202301_2.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv6でARP相当の近隣探索を行うICMPv6を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はIPv4のARP相当機能をIPv6で提供するプロトコルではありません。",
+          "promptContext": "IPv4におけるARPのMACアドレス解決機能をIPv6で実現するプロトコルはどれか。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DHCPv6はアドレスなどの設定情報を配布するプロトコルで、ARP相当のMACアドレス解決機能ではありません。",
+          "promptContext": "IPv4におけるARPのMACアドレス解決機能をIPv6で実現するプロトコルはどれか。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ICMPv6のNeighbor Discoveryが、IPv6でIPv4のARPに相当する近隣探索とMACアドレス解決を担います。",
+          "promptContext": "IPv4におけるARPのMACアドレス解決機能をIPv6で実現するプロトコルはどれか。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RARPはMACアドレスからIPアドレスを求める仕組みで、IPv6のARP相当機能ではありません。",
+          "promptContext": "IPv4におけるARPのMACアドレス解決機能をIPv6で実現するプロトコルはどれか。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -241,63 +424,246 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nBBR は帯域幅と往復遅延時間を推定して送信制御する TCP の輻輳制御アルゴリズムである。輻輳ウィンドウや送信レート制御に関わる。",
-      "間違い。\n\nHMAC はメッセージ認証コードの方式であり、輻輳制御アルゴリズムではない。",
-      "間違い。\n\nRSA は公開鍵暗号方式であり、TCP の送信制御とは関係しない。",
-      "間違い。\n\nSPF は最短経路木計算アルゴリズムであり、OSPF などの経路制御で使う。TCP 輻輳制御ではない。"
-    ],
-    "suggestedQuestions": [
-      "BBR は何を見て輻輳制御しますか？",
-      "TCP 輻輳制御と経路制御の違いは？",
-      "HMAC や RSA が違う理由は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BBR は何を見て輻輳制御しますか？",
-        "answer": "ボトルネック帯域幅と往復遅延時間を推定し、適切な送信量を制御する。損失だけに強く依存しない点が特徴である。"
-      },
-      {
-        "question": "TCP 輻輳制御と経路制御の違いは？",
-        "answer": "輻輳制御は end-to-end の送信量調整、経路制御はどの経路を通すかの決定であり、制御対象が違う。"
-      },
-      {
-        "question": "HMAC や RSA が違う理由は？",
-        "answer": "HMAC は認証、RSA は暗号の技術である。TCP 輻輳制御のアルゴリズム名ではない。"
-      }
+      "正しい。BBRは、ボトルネック帯域幅と往復遅延時間を推定し、TCPの送信レートや輻輳ウィンドウを制御する輻輳制御アルゴリズムである。",
+      "間違い。正しくは、HMACはメッセージの改ざん検出や認証に使うメッセージ認証コードである。選択肢は認証方式をTCPの輻輳制御アルゴリズムとしているため誤りである。",
+      "間違い。正しくは、RSAは公開鍵暗号方式であり、暗号化や電子署名に使われる。選択肢は暗号方式をTCPの輻輳制御アルゴリズムとしているため誤りである。",
+      "間違い。正しくは、SPFはネットワーク内の最短経路木を求める経路計算アルゴリズムであり、OSPFなどの経路制御で使われる。選択肢は経路制御のアルゴリズムをTCPの輻輳制御アルゴリズムとしているため誤りである。"
     ],
     "original_question_id": "81983b2fb93de932",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:81983b2fb93de932",
+    "reviewQuestionId": "81983b2fb93de932",
+    "sourceRecordRef": "question_202301_2.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TCPの輻輳制御アルゴリズムを問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "BBRはTCPの輻輳制御アルゴリズムである。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "HMACはメッセージ認証コードであり、TCPの輻輳制御アルゴリズムではない。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "RSAは公開鍵暗号方式であり、TCPの輻輳制御アルゴリズムではない。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "SPFは最短経路木を求める経路計算アルゴリズムであり、TCPの輻輳制御アルゴリズムではない。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n1446 は Ethernet ヘッダや FCS まで MTU 対象に含めたような値である。MTU の 1500 は IP パケット長に対する上限である。",
-      "間違い。\n\n1456 はヘッダ長の引き方が 4 オクテット不足している。TCP と IPv4 の基本ヘッダを両方差し引く必要がある。",
-      "正しい。\n\nMTU 1500 には IP ヘッダ 20 オクテットと TCP ヘッダ 20 オクテットが含まれる。したがってデータ部最大長は 1500-20-20=1460 オクテットである。",
-      "間違い。\n\n1480 は IP ヘッダだけを差し引いた値であり、TCP ヘッダ 20 オクテット分が未考慮である。"
-    ],
-    "suggestedQuestions": [
-      "MTU に含まれるのはどこまでですか？",
-      "なぜ MAC ヘッダは引かないのですか？",
-      "MSS との関係は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "MTU に含まれるのはどこまでですか？",
-        "answer": "データリンク層で運べる IP パケット長までである。今回なら IPv4 ヘッダ、TCP ヘッダ、TCP データの合計が 1500 以下でなければならない。"
-      },
-      {
-        "question": "なぜ MAC ヘッダは引かないのですか？",
-        "answer": "MAC ヘッダや FCS は IP パケットをイーサネットフレームへ載せるときに付加されるため、IP 層の MTU 計算には含めない。"
-      },
-      {
-        "question": "MSS との関係は何ですか？",
-        "answer": "TCP データ部最大長 1460 は典型的な Ethernet 上の MSS に一致する。MSS は IP/TCP ヘッダを除いた TCP ペイロード長である。"
-      }
+      "正しい。最大データ長は、MTU 1,500オクテットからIPv4ヘッダー20オクテットとTCPヘッダー20オクテットを差し引いて求める。MACヘッダー14オクテットとFCS 4オクテットはIPパケットの長さに含まれないため、計算には入れない。\n\\[1,500-20-20=1,460\\]\nしたがって、送信できるデータの最大長は1,460オクテットである。"
     ],
     "original_question_id": "5df4baf24997bbe6",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:5df4baf24997bbe6",
+    "reviewQuestionId": "5df4baf24997bbe6",
+    "sourceRecordRef": "question_202301_2.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4ヘッダー、TCPヘッダー、MTUから最大データ長を計算する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、IPv4・TCP・MTUの技術計算に関する選択肢である。",
+          "promptContext": "IPv4ネットワークでTCPを使用する場合の最大データ長。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、IPv4・TCP・MTUの技術計算に関する選択肢である。",
+          "promptContext": "IPv4ネットワークでTCPを使用する場合の最大データ長。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、IPv4・TCP・MTUの技術計算に関する選択肢である。",
+          "promptContext": "IPv4ネットワークでTCPを使用する場合の最大データ長。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、IPv4・TCP・MTUの技術計算に関する選択肢である。",
+          "promptContext": "IPv4ネットワークでTCPを使用する場合の最大データ長。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -361,33 +727,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n音声や映像のリアルタイム通信に向く説明は RTP/UDP 系の話であり、CoAP の主用途ではない。",
-      "間違い。\n\n大容量かつ高信頼性データ転送向けというより、CoAP は軽量で制約のあるデバイス向けプロトコルである。",
-      "間違い。\n\n短文のテキストメッセージ中心という説明は MQTT のイメージに近い。CoAP の本質は UDP 上で軽量にやり取りできることにある。",
-      "正しい。\n\nCoAP は小さなヘッダと軽量実装を特徴とし、損失が起きやすい環境でも再送制御を持ちながら、小電力 IoT デバイスに適した通信を行える。"
-    ],
-    "suggestedQuestions": [
-      "CoAP はどんな環境向けですか？",
-      "MQTT との違いは何ですか？",
-      "なぜ小電力デバイス向けと言えるのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CoAP はどんな環境向けですか？",
-        "answer": "無線や低帯域など制約のあるネットワーク上で、小型 IoT デバイスが軽量に通信する環境向けである。"
-      },
-      {
-        "question": "MQTT との違いは何ですか？",
-        "answer": "MQTT は publish/subscribe 型のメッセージングが中心で、CoAP は REST 風の要求応答モデルを軽量に実現する。"
-      },
-      {
-        "question": "なぜ小電力デバイス向けと言えるのですか？",
-        "answer": "ヘッダが小さく、処理負荷や通信量を抑えやすいからである。限られた電力・帯域でも扱いやすい。"
-      }
+      "間違い。正しくは、CoAPは制約のあるノードや低電力・損失の多いネットワーク向けのアプリケーション層プロトコルであり、音声や映像のリアルタイム通信を主な対象としない。選択肢は、リアルタイム性を優先する音声や映像の通信に向いているとしているため誤りである。",
+      "間違い。正しくは、CoAPは大容量データの転送よりも、通信量や処理能力に制約のある機器間で低いオーバーヘッドで通信するためのプロトコルである。選択肢は、大容量で高い信頼性が要求されるデータの通信に向いているとしているため誤りである。",
+      "間違い。正しくは、CoAPはテキストベースではなく、制約環境で扱いやすい軽量なメッセージ形式を用いる。選択肢は、テキストベースで100文字程度の短いメッセージの通信に向いているとしているため誤りである。",
+      "正しい。CoAPは、低電力で処理能力やメモリが限られたデバイスと、パケット損失が起こりやすいネットワークでの利用を想定している。確認が必要なメッセージでは再送制御も行えるため、このようなIoT通信に適している。"
     ],
     "original_question_id": "debf183af7edfa32",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:debf183af7edfa32",
+    "reviewQuestionId": "debf183af7edfa32",
+    "sourceRecordRef": "question_202301_2.json#12",
+    "explanationReferences": [
+      {
+        "referenceDate": "2014-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc7252",
+        "title": "RFC 7252: The Constrained Application Protocol (CoAP)"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IoT向け通信プロトコルの技術的特徴を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "音声・映像のリアルタイム通信を主な対象とするプロトコルではない。",
+          "promptContext": "CoAPの技術的特徴を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CoAPは大容量で高信頼性が要求されるデータ通信を主な対象としない。",
+          "promptContext": "CoAPの技術的特徴を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CoAPはテキストベースではなく、制約環境向けの軽量なメッセージ形式を用いる。",
+          "promptContext": "CoAPの技術的特徴を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CoAPは低電力デバイスやパケット損失が起こりやすいネットワークでの利用を想定する。",
+          "promptContext": "CoAPの技術的特徴を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -481,93 +946,388 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n/16 は 10.8.0.0 から 10.8.255.255 までを含み、集約範囲が広すぎる。最小限の集約にはならない。",
-      "間違い。\n\n/17 でも 10.8.0.0 から 10.8.127.255 までを含み、不要なアドレス範囲を多く含む。",
-      "正しい。\n\n第3オクテット 64,80,96,112 を 2 進数で見ると共通なのは上位 2 ビットまでなので、10.8.64.0/18 が4サブネットを最も狭くまとめる集約経路になる。",
-      "間違い。\n\n/19 だと 10.8.64.0 から 10.8.95.255 までしか覆えず、10.8.96.0/20 と 10.8.112.0/20 を含められない。"
-    ],
-    "suggestedQuestions": [
-      "集約プレフィックスはどう求めますか？",
-      "なぜ /19 では足りませんか？",
-      "2 進数で見ると何が分かりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "集約プレフィックスはどう求めますか？",
-        "answer": "対象ネットワークアドレスを 2 進数で並べ、先頭からどこまで共通かを調べる。共通ビット長が集約プレフィックス長になる。"
-      },
-      {
-        "question": "なぜ /19 では足りませんか？",
-        "answer": "/19 は第3オクテットの上位 3 ビットを固定するため、64 と 80 は含められても 96 と 112 まで同時に覆えない。"
-      },
-      {
-        "question": "2 進数で見ると何が分かりますか？",
-        "answer": "64=01000000、80=01010000、96=01100000、112=01110000 で、共通なのは 01 までと分かる。よって /18 になる。"
-      }
+      "正しい。4つの連続する/20サブネットを一つに集約するには、集約後のプレフィックス長を次の式で求める。\n\n\\[p_{\\mathrm{aggregate}}=p_{\\mathrm{subnet}}-\\log_2 n=20-\\log_2 4=18\\]\n\n\\(p_{\\mathrm{subnet}}\\)は各サブネットのプレフィックス長、\\(n\\)は集約するサブネット数、\\(p_{\\mathrm{aggregate}}\\)は集約後のプレフィックス長である。第3オクテットの64、80、96、112は2進数でそれぞれ01000000、01010000、01100000、01110000となり、共通する上位ビットは2ビットである。したがって、先頭16ビットに共通する2ビットを加えた/18が最も狭い集約範囲になる。集約範囲は10.8.64.0〜10.8.127.255であり、10.8.64.0/20、10.8.80.0/20、10.8.96.0/20、10.8.112.0/20をすべて含む。/19では10.8.96.0/20と10.8.112.0/20を含められず、/17や/16は必要以上に広い範囲を含む。"
     ],
     "original_question_id": "efb963a1d6bb6845",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:efb963a1d6bb6845",
+    "reviewQuestionId": "efb963a1d6bb6845",
+    "sourceRecordRef": "question_202301_2.json#16",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サブネットの経路集約を扱う技術問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、IPv4サブネットの経路集約に関する技術知識で決まり、法令根拠を要しない。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、IPv4サブネットの経路集約に関する技術知識で決まり、法令根拠を要しない。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、IPv4サブネットの経路集約に関する技術知識で決まり、法令根拠を要しない。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、IPv4サブネットの経路集約に関する技術知識で決まり、法令根拠を要しない。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nHTTP 上の SOAP でアプリケーション連携するのは Web サービス系の説明であり、WebDAV ではない。",
-      "正しい。\n\nWebDAV は HTTP を拡張し、サーバ上ファイルの参照、作成、削除、ロック、プロパティ管理などを行える。バージョン管理拡張も関連仕様で扱える。",
-      "間違い。\n\nWeb ブラウザから IMAP サーバを操作する説明は Web メールの仕組みに近い。WebDAV とは異なる。",
-      "間違い。\n\nftp:// による大容量ファイルダウンロードは FTP の利用であり、HTTP 拡張である WebDAV の特徴ではない。"
-    ],
-    "suggestedQuestions": [
-      "WebDAV は HTTP に何を追加しますか？",
-      "ファイル共有でどう使われますか？",
-      "SOAP や FTP との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "WebDAV は HTTP に何を追加しますか？",
-        "answer": "ファイルやコレクションの作成、削除、属性管理、ロックなど、共同編集やリモート管理向けの操作を追加する。"
-      },
-      {
-        "question": "ファイル共有でどう使われますか？",
-        "answer": "Web サーバ上のファイルをリモートで編集・管理する用途で使われる。ネットワークドライブ的に扱う製品もある。"
-      },
-      {
-        "question": "SOAP や FTP との違いは何ですか？",
-        "answer": "SOAP はアプリケーション連携メッセージング、FTP はファイル転送プロトコルである。WebDAV は HTTP 拡張でファイル管理機能を提供する。"
-      }
+      "間違い。正しくは、WebDAVはHTTPを拡張して、Web上のファイルを操作・共有するためのプロトコルである。選択肢はSOAPによるアプリケーション連携を説明しているため、WebDAVの特徴ではない。",
+      "正しい。WebDAVはHTTPを拡張し、サーバ上のファイルの参照、作成、削除、ロック、プロパティ管理などを行える。バージョン管理は関連する拡張仕様で扱われる。",
+      "間違い。正しくは、WebアプリケーションからIMAPサーバに接続して電子メールを操作するのは、Webメールの仕組みである。選択肢はメール操作を説明しているため、WebDAVの特徴ではない。",
+      "間違い。正しくは、ftp://で始まるURLを使ったファイルのダウンロードはFTPの利用である。選択肢はFTPによる転送を説明しているため、HTTPを拡張したWebDAVの特徴ではない。"
     ],
     "original_question_id": "7563905839a61e0f",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:7563905839a61e0f",
+    "reviewQuestionId": "7563905839a61e0f",
+    "sourceRecordRef": "question_202301_2.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "WebDAVのプロトコル機能に関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SOAPによるアプリケーション連携はWebDAVの特徴ではない。",
+          "promptContext": "WebDAVの技術仕様を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WebDAVの技術仕様だけで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "WebDAVはHTTPを拡張し、サーバ上のファイルを参照、作成、削除できる。",
+          "promptContext": "WebDAVの技術仕様を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "WebDAVの技術仕様だけで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IMAPサーバを用いた電子メール操作はWebメールの仕組みであり、WebDAVの特徴ではない。",
+          "promptContext": "WebDAVの技術仕様を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WebDAVの技術仕様だけで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ftp://によるファイルのダウンロードはFTPの利用であり、WebDAVの特徴ではない。",
+          "promptContext": "WebDAVの技術仕様を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WebDAVの技術仕様だけで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n携帯電話事業者のサービスエリアを有線で拡大する説明ではない。ローカル5Gは独自の無線局を構築して限定エリアで運用する。",
-      "間違い。\n\nローカル5Gは携帯電話事業者の一般向け5Gサービスの一種ではない。自営的に構築する地域限定ネットワークである。",
-      "間違い。\n\n5GHz 帯の高速無線 LAN は Wi-Fi の説明であり、ローカル5Gとは無関係である。",
-      "正しい。\n\nローカル5Gは、土地や建物の所有者などが免許を受けて、特定エリア向けの5Gシステムを自ら構築・運用できる制度である。電気通信事業者に限られない。"
-    ],
-    "suggestedQuestions": [
-      "ローカル5Gは誰が構築できますか？",
-      "携帯電話事業者の5Gとの違いは何ですか？",
-      "この問題で制度根拠を確認する価値は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ローカル5Gは誰が構築できますか？",
-        "answer": "制度要件を満たして無線局免許を受ければ、企業や自治体など電気通信事業者以外でも構築できる。"
-      },
-      {
-        "question": "携帯電話事業者の5Gとの違いは何ですか？",
-        "answer": "全国向け公衆サービスではなく、工場、建物、敷地など限定エリア向けに独自構築する点が違う。"
-      },
-      {
-        "question": "この問題で制度根拠を確認する価値は？",
-        "answer": "『誰が免許を受けられるか』が結論を分けるためである。技術だけでなく制度条件を押さえる必要がある。"
-      }
+      "間違い。正しくは、ローカル5Gは携帯電話事業者のサービスエリアを有線で拡大する仕組みではなく、限定された場所に独自の5Gネットワークを構築して利用する仕組みである。選択肢は、携帯電話事業者の基地局と接続してサービスエリアを拡大するとしているため誤りである。",
+      "間違い。正しくは、ローカル5Gは携帯電話事業者が一般利用者向けに提供する5Gサービスの一種ではなく、企業や自治体などが特定の場所で構築・運用する自営のネットワークである。選択肢は、携帯電話事業者による5G移動無線サービスの一つとしているため誤りである。",
+      "間違い。正しくは、ローカル5Gは5G方式の移動通信システムであり、5GHz帯を使う高速無線LANそのものではない。選択肢は、5Gを5GHz帯の無線LANとしているため誤りである。",
+      "正しい。土地や建物の所有者などは、電気通信事業者でなくても、必要な無線局免許を取得すればローカル5Gシステムを構築できる。電波法第4条は、無線局を開設する者に原則として総務大臣の免許を求めている。"
     ],
     "original_question_id": "a5b3b3a6f7e2173c",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_14.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:202301:a5b3b3a6f7e2173c",
+    "reviewQuestionId": "a5b3b3a6f7e2173c",
+    "sourceRecordRef": "question_202301_2.json#18",
+    "explanationReferences": [
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/325AC0000000131?asof=2026-10-03",
+        "title": "電波法（昭和二十五年法律第百三十一号）第4条"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "第4肢は、土地・建物の所有者等が電気通信事業者でなくても、無線局免許を取得してローカル5Gを構築できるという免許制度の説明であり、電波法第4条が根拠となる。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [
+        {
+          "article": "4",
+          "choiceIndex": 3,
+          "lawId": "325AC0000000131",
+          "lawTitle": "電波法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法で判定差なし。",
+          "displayRefIds": [],
+          "explanationText": "技術事項として出題時と現行の判定はともに間違い。法令による正誤判定ではないため、法令参照は付していない。",
+          "promptContext": "ローカル5Gの構成とサービス提供主体に関する技術的命題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "第1肢はローカル5Gを携帯電話事業者の基地局に接続してエリア拡大する仕組みとしており、技術的定義と一致しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法で判定差なし。",
+          "displayRefIds": [],
+          "explanationText": "技術事項として出題時と現行の判定はともに間違い。法令による正誤判定ではないため、法令参照は付していない。",
+          "promptContext": "ローカル5Gの運用主体とサービス形態に関する技術的命題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "第2肢はローカル5Gを携帯電話事業者による一般向け5G移動無線サービスの一つとしており、自営ネットワークという性質と一致しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法で判定差なし。",
+          "displayRefIds": [],
+          "explanationText": "技術事項として出題時と現行の判定はともに間違い。法令による正誤判定ではないため、法令参照は付していない。",
+          "promptContext": "ローカル5Gと5GHz帯無線LANの技術的区別に関する命題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "第3肢はローカル5Gを5GHz帯の高速無線LANとしており、5G方式の移動通信システムという性質と一致しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "公式元正答と現行法判定に差はない。出題時条文が現行と不変だったとは記録していない。",
+          "displayRefIds": [],
+          "explanationText": "電波法第4条の現行本文は、無線局を開設しようとする者に総務大臣の免許を求めている。公式元正答の第4肢と現行法の判定は一致する。提供された根拠では詳細なXML locatorを構造化できないため、refsは空配列とした。",
+          "promptContext": "ローカル5Gを電気通信事業者以外の土地・建物所有者等が免許取得により構築できるかを、電波法上の無線局免許制度と照合した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "公式元正答は第4肢。現行の電波法第4条は無線局を開設しようとする者に原則として総務大臣の免許を要求しており、出題時と現行法の判定は一致する。提供されたprimaryLawEvidenceはcurrent_onlyで、出題時条文の不変性は記録していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -631,63 +1391,255 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nNTP 増幅攻撃では monlist のように小さな要求へ大きな応答を返す機能が悪用される。NTP サーバ側で monlist を無効化するのは代表的な踏み台防止策である。",
-      "間違い。\n\n自ネットワーク外の NTP サーバへ時刻問合せできなくしても、公開 NTP サーバとして外部から悪用される問題を直接は防げない。",
-      "間違い。\n\nブロードキャスト宛て拒否は本件の本質ではない。増幅攻撃は通常、偽装元アドレスを使ってサーバの応答を標的へ送り付ける。",
-      "間違い。\n\nNTP だけを許す設定はむしろ逆効果である。踏み台防止には不要な外部向け NTP 応答機能を抑える必要がある。"
-    ],
-    "suggestedQuestions": [
-      "NTP 増幅攻撃で monlist が悪用される理由は？",
-      "踏み台にされるとはどういうことですか？",
-      "他にどんな対策がありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "NTP 増幅攻撃で monlist が悪用される理由は？",
-        "answer": "小さな問い合わせに対して大きな応答を返すため、送信元アドレス偽装と組み合わせると標的へ大きなトラフィックを浴びせられるからである。"
-      },
-      {
-        "question": "踏み台にされるとはどういうことですか？",
-        "answer": "攻撃者が自分の代わりに第三者サーバへ応答を返させ、標的へ通信を集中させる中継役に使うことを指す。"
-      },
-      {
-        "question": "他にどんな対策がありますか？",
-        "answer": "不要な NTP 公開停止、最新版への更新、アクセス制御、送信元アドレス偽装対策などがある。"
-      }
+      "正しい。NTP増幅攻撃では、monlistのような状態確認機能に小さな要求を送ると大きな応答が返る仕組みが悪用される。そのため、NTPサーバの設定でmonlistを無効にすることは、サーバが攻撃の踏み台にされるのを防ぐ対策になる。",
+      "間違い。正しくは、自サーバが外部から受けるNTPの状態確認要求を制限又は無効化する。自ネットワーク外のNTPサーバへの時刻問合せを禁止しても、自サーバ自身が外部からmonlist要求を受けて応答する経路は残る。選択肢は外部NTPサーバへの時刻問合せだけを禁止すれば踏み台を防げるとしているため誤りである。",
+      "間違い。正しくは、monlistなどのNTP状態確認機能を無効化するか、外部からの問合せを制限する。ブロードキャストアドレス宛てのパケットを拒否しても、攻撃者が自サーバへ送るユニキャストのNTP要求は遮断できない。選択肢はブロードキャスト宛て通信の拒否だけで踏み台を防げるとしているため誤りである。",
+      "間違い。正しくは、不要な外部からのNTP状態問合せを拒否し、monlistを無効化する。NTP増幅攻撃はUDPのNTP機能を悪用するため、外部からのUDPサービスとしてNTPだけを許す設定では攻撃経路を残す。選択肢はNTPへのアクセスを許せば踏み台を防げるとしているため誤りである。"
     ],
     "original_question_id": "a82298e335fa514b",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:a82298e335fa514b",
+    "reviewQuestionId": "a82298e335fa514b",
+    "sourceRecordRef": "question_202301_2.json#21",
+    "explanationReferences": [
+      {
+        "referenceDate": "2024-10-02",
+        "sourceUrl": "https://support.ntp.org/Support/AccessRestrictions",
+        "title": "AccessRestrictions - Network Time Foundation's NTP Support Wiki"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "NTPのmonlist無効化など、技術的なDDoS対策を問う問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NTP増幅型DDoS攻撃に対するmonlist無効化の適否を問う技術問題である。",
+          "promptContext": "ネットワークセキュリティの技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令関連性なし。NTPの技術知識により正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外部NTPサーバへの時刻問合せ禁止では、自サーバが外部から状態確認要求を受ける経路は残る。",
+          "promptContext": "ネットワークセキュリティの技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。NTPの技術知識により正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ブロードキャスト宛て通信の拒否だけでは、ユニキャストのNTP要求を遮断できない。",
+          "promptContext": "ネットワークセキュリティの技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。NTPの技術知識により正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外部からNTPへのアクセスを許す設定では、NTP増幅攻撃の経路が残る。",
+          "promptContext": "ネットワークセキュリティの技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。NTPの技術知識により正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nミラーポート接続で通常状態からの逸脱を判定するなら、プロミスキャスモードのアノマリ型に近い。インラインかつシグネチャ型ではない。",
-      "間違い。\n\nミラーポート接続ではパケットを観測できても経路外なので即時遮断しにくい。これはプロミスキャスモードのシグネチャ型に近い。",
-      "間違い。\n\n通信経路上に設置して通常からの逸脱を検知するのはインラインのアノマリ型である。シグネチャ型ではない。",
-      "正しい。\n\nインラインモードは通信経路上へ IPS を置き、通過パケットをその場で検査する。シグネチャ型なら定義済み異常パターンに合致した通信を即座に遮断できる。"
-    ],
-    "suggestedQuestions": [
-      "インラインモードの特徴は何ですか？",
-      "シグネチャ型とアノマリ型の違いは？",
-      "ミラーポート接続との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "インラインモードの特徴は何ですか？",
-        "answer": "通信経路そのものに設置されるため、検知した通信をその場で遮断できる。一方で性能や故障時影響には注意が必要である。"
-      },
-      {
-        "question": "シグネチャ型とアノマリ型の違いは？",
-        "answer": "シグネチャ型は既知パターン一致、アノマリ型は通常状態からの逸脱検知である。既知攻撃に強いか未知攻撃にも広く見るかが違う。"
-      },
-      {
-        "question": "ミラーポート接続との違いは何ですか？",
-        "answer": "ミラーポート接続は経路外で観測中心、インラインは経路上で遮断可能という違いがある。"
-      }
+      "間違い。正しくは、シグネチャ型IPSは定義済みの攻撃パターンに合致する通信を検知し、インラインモードでは通信経路上で遮断する。選択肢は経路外のミラーポートに接続し、通常時からの逸脱を基準にしているため誤りである。",
+      "間違い。正しくは、インラインモードではIPSを通信経路上に設置する。選択肢はミラーポートに接続する経路外の監視方式を示しているため、インラインモードの特徴としては誤りである。",
+      "間違い。正しくは、シグネチャ型IPSは定義済みの異常な通信パターンに合致する通信を検知する。選択肢は通常時からの逸脱を基準にしているため、アノマリ型の特徴であり誤りである。",
+      "正しい。インラインモードではIPSを通信経路上に設置し、通過する通信を検査して不正な通信を遮断する。シグネチャ型は、あらかじめ定義した異常な通信パターンとの一致を判定する。"
     ],
     "original_question_id": "0129730b29a0be48",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:0129730b29a0be48",
+    "reviewQuestionId": "0129730b29a0be48",
+    "sourceRecordRef": "question_202301_2.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPSの配置方式とシグネチャ型検知の技術的特徴を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "インラインモードは通信経路上に設置する方式である。",
+          "promptContext": "技術知識で判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPSの配置方式と検知方式に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ミラーポート接続は経路外の監視方式であり、インラインモードではない。",
+          "promptContext": "技術知識で判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPSの配置方式と検知方式に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "通常時からの逸脱を基準にするのはアノマリ型検知であり、シグネチャ型ではない。",
+          "promptContext": "技術知識で判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPSの配置方式と検知方式に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "通信経路上に設置し、定義済みの異常な通信との一致で遮断する説明は、インラインモードのシグネチャ型IPSの特徴に合致する。",
+          "promptContext": "技術知識で判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "IPSの配置方式と検知方式に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -721,32 +1673,136 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nシグネチャ該当通信の遮断はコンテンツフィルタ型の説明であり、OP25B の定義ではない。",
-      "正しい。\n\nOP25B は、ISP が自社管理下の動的 IP アドレス利用者から外部のメールサーバへ直接 25 番ポート通信することを遮断し、スパム送信を抑止する施策である。",
-      "間違い。\n\nDNS 逆引き不可サーバ遮断は別のスパム対策であり、OP25B の説明ではない。",
-      "間違い。\n\nオープンリレー脆弱サーバ遮断はブラックリスト運用など別の対策の話である。OP25B は送信経路自体の制御である。"
-    ],
-    "suggestedQuestions": [
-      "OP25B は何を遮断しますか？",
-      "なぜ動的 IP 利用者を対象にしますか？",
-      "サブミッションポートとの関係は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OP25B は何を遮断しますか？",
-        "answer": "ISP 契約利用者の端末から外部メールサーバへ直接送る 25 番ポート通信を遮断する。"
-      },
-      {
-        "question": "なぜ動的 IP 利用者を対象にしますか？",
-        "answer": "家庭や一般契約回線の感染端末が直接スパム送信するのを抑える効果が大きいからである。"
-      },
-      {
-        "question": "サブミッションポートとの関係は？",
-        "answer": "利用者は直接 25 番で外部へ送れなくなる代わりに、自 ISP の送信サーバへ 587 番などのサブミッションポートで認証送信する。"
-      }
+      "間違い。正しくは、ISP管理下の動的IPアドレスから、ISP管理外のメールサーバへ宛先ポート番号25で直接送信する通信を遮断する。選択肢は、スパムメールのシグネチャに一致する通信を内容で遮断するとしているため、OP25Bではなくシグネチャによるフィルタリングの説明である。",
+      "正しい。OP25Bは、ISP管理下の動的IPアドレスから外部のメールサーバへ直接送信される宛先ポート番号25の通信を遮断し、迷惑メールの送信を抑止する。",
+      "間違い。正しくは、ISP管理下の動的IPアドレスから外部のメールサーバへ直接送信される宛先ポート番号25の通信を遮断する。選択肢は、送信元メールサーバのDNS逆引きができない場合に遮断するとしているため、逆引き確認による別の迷惑メール対策の説明である。",
+      "間違い。正しくは、ISP管理下の動的IPアドレスから外部のメールサーバへ直接送信される宛先ポート番号25の通信を遮断する。選択肢は、不正中継の脆弱性をもつメールサーバからの通信を遮断するとしているため、オープンリレー対策の説明であり、OP25Bではない。"
     ],
     "original_question_id": "837b462c3db1df09",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:837b462c3db1df09",
+    "reviewQuestionId": "837b462c3db1df09",
+    "sourceRecordRef": "question_202301_2.json#24",
+    "explanationReferences": [
+      {
+        "referenceDate": "2023-04-16",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ps6vr70000010d6y-att/2023r05h_nw_am2_qs.pdf",
+        "title": "令和5年度春期ネットワークスペシャリスト試験午前Ⅱ問題冊子"
+      },
+      {
+        "referenceDate": "2025-10-12",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/nl10bi0000009lh8-att/2025r07a_ap_pm_cmnt.pdf",
+        "title": "令和7年度秋期応用情報技術者試験午後採点講評"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OP25Bは、動的IPアドレスから外部のメールサーバへ送信される宛先ポート番号25の直接通信をISPが遮断する技術的な迷惑メール対策であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢はスパムメールのシグネチャによる遮断を説明しており、OP25Bの説明ではない。",
+          "promptContext": "OP25Bの技術的定義に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ISP管理下の動的IPアドレスから外部のメールサーバへ宛先ポート番号25で直接送信する通信を遮断する説明であり、OP25Bに該当する。",
+          "promptContext": "OP25Bの技術的定義に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DNSの逆引き可否による遮断は、OP25Bの説明ではない。",
+          "promptContext": "OP25Bの技術的定義に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "メールサーバの不正中継脆弱性への対策は、OP25Bの説明ではない。",
+          "promptContext": "OP25Bの技術的定義に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

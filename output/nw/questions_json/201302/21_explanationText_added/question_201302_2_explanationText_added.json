@@ -121,10 +121,10 @@
   },
   {
     "explanationText": [
-      "間違い。シックスシグマによる工程管理の導入は、製品そのものではなく製造工程を改善するプロセスイノベーションである。選択肢は工程管理の改善をプロダクトイノベーションの例としているため誤りである。",
-      "間違い。ジャストインタイム方式は、必要な部品を必要な時に供給して在庫や生産工程を改善する方法であり、プロセスイノベーションに当たる。選択肢は在庫削減をプロダクトイノベーションの例としているため誤りである。",
-      "間違い。製造方法を見直してコストを下げることは、製品の作り方を改善するプロセスイノベーションである。選択肢は製造方法の改善をプロダクトイノベーションの例としているため誤りである。",
-      "正しい。マルチコアCPUの採用によって高性能で低消費電力の製品を開発することは、製品そのものの機能や価値を高めるプロダクトイノベーションである。"
+      "間違い。シックスシグマによる工程管理の導入は、製品そのものではなく製造工程を改善するプロセスイノベーションである。選択肢は工程の改善をプロダクトイノベーションの例としているため誤りである。",
+      "間違い。ジャストインタイム方式は、部品の調達や生産の進め方を改善して在庫を減らすプロセスイノベーションである。選択肢は生産方法の改善をプロダクトイノベーションの例としているため誤りである。",
+      "間違い。製造方法を見直してコストを下げることは、製品の作り方を改善するプロセスイノベーションである。選択肢は製造工程の改善をプロダクトイノベーションの例としているため誤りである。",
+      "正しい。マルチコアCPUの採用によって製品の性能や消費電力を改善することは、製品そのものの機能や価値を高めるプロダクトイノベーションである。"
     ],
     "original_question_id": "a9f503b559d46fba",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_27.html",
@@ -457,33 +457,131 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nデータ本体だけでも 128,000 バイトあり、回線速度と電文オーバーヘッドを考えると 2.6 秒では到底送れない。",
-      "間違い。\n\nオーバーヘッド付き 128 バイト電文を 1,280 個送る必要があり、送信間隔も含めると 8 秒では足りない。",
-      "間違い。\n\n純データ時間だけ見ても 10 秒超となる。送信間隔まで含めるとさらに長くなる。",
-      "正しい。\n\n必要電文数は 128,000÷100=1,280 個。送信ビット数は 1,280×128×8=1,310,720 ビットで、128kビット/秒では約 10.24 秒。送信間隔 1ms を 1,279 回分加えると約 11.5 秒なので、およそ 12 秒である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ 1,280 個の電文が必要ですか？",
-      "送信間隔は何回分数えますか？",
-      "オーバーヘッドはどこで効きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ 1,280 個の電文が必要ですか？",
-        "answer": "1 電文で実際に運べるデータが 100 バイトなので、128,000 バイトを送るには 128,000÷100=1,280 個必要である。"
-      },
-      {
-        "question": "送信間隔は何回分数えますか？",
-        "answer": "電文の末尾から次の電文の始まりまでの間隔なので、最後の電文の後ろにはなく、1,279 回分を数える。"
-      },
-      {
-        "question": "オーバーヘッドはどこで効きますか？",
-        "answer": "1 電文 128 バイトのうち実データは 100 バイトしかないため、残り 28 バイト分が転送時間の増加要因になる。"
-      }
+      "正しい。データ本体は1電文当たり100バイトなので、必要な電文数は次のとおりである。\n\\[\nN=\\frac{128\\times10^3}{100}=1,280\n\\]\n\\(N\\)は電文数である。1電文は128バイトなので、回線上で送る総ビット数は次のとおりとなる。\n\\[\nB=N\\times128\\times8=1,280\\times128\\times8=1,310,720\\ \\mathrm{bit}\n\\]\n\\(B\\)は送信する総ビット数である。回線速度を\\(R=128\\times10^3\\ \\mathrm{bit/s}\\)とすると、電文の送信に必要な時間は\n\\[\nt_{\\mathrm{data}}=\\frac{B}{R}=\\frac{1,310,720}{128\\times10^3}=10.24\\ \\mathrm{s}\n\\]\nとなる。さらに、電文間には1ミリ秒\\((0.001\\ \\mathrm{s})\\)の間隔があり、1,280個の電文の間隔は1,279回なので、\n\\[\nt_{\\mathrm{interval}}=1,279\\times0.001=1.279\\ \\mathrm{s}\n\\]\nである。したがって、必要な時間は\n\\[\nt=t_{\\mathrm{data}}+t_{\\mathrm{interval}}=10.24+1.279=11.519\\ \\mathrm{s}\n\\]\nとなり、およそ12秒である。"
     ],
     "original_question_id": "d0712b1288552fb3",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:d0712b1288552fb3",
+    "reviewQuestionId": "d0712b1288552fb3",
+    "sourceRecordRef": "question_201302_2.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "回線速度、電文分割、送信間隔から転送時間を求める技術計算の問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外の技術計算問題である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いない技術計算問題である。",
+          "promptContext": "回線速度、電文長、送信間隔の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "既存の正答と解説を保持する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外の技術計算問題である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いない技術計算問題である。",
+          "promptContext": "回線速度、電文長、送信間隔の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "既存の正答と解説を保持する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外の技術計算問題である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いない技術計算問題である。",
+          "promptContext": "回線速度、電文長、送信間隔の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "既存の正答と解説を保持する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令監査対象外の技術計算問題である。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いない技術計算問題である。",
+          "promptContext": "回線速度、電文長、送信間隔の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "既存の正答と解説を保持する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -716,10 +814,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、FCoEはFCフレームをイーサネットフレームにカプセル化して伝送する。イーサネットのパケットサイズに合わせてFCフレーム自体を調整する方式ではないため、選択肢は誤りである。",
-      "間違い。正しくは、FCoEはIPより下位のデータリンク層でFCフレームを伝送し、UDPを使用しない。選択肢は通信のオーバーヘッドを小さくするためにUDPを用いるとしているため、誤りである。",
-      "間違い。正しくは、FCoEはTCPの再送制御で信頼性を確保するのではなく、フレームを失わせにくいイーサネット拡張を利用する。選択肢はTCPを用いるとしているため、誤りである。",
-      "正しい。FCoEは、Data Center Bridgingなどの拡張によってフレームの転送ロスを抑えたイーサネット上で、FCフレームを伝送する技術である。"
+      "間違い。正しくは、FCoEはFCフレームをイーサネットフレームにカプセル化して伝送する。FCフレーム自体をイーサネットのパケットサイズに合わせて調整する方式ではないため、選択肢はFCフレームサイズが調整されるとしているため誤りである。",
+      "間違い。正しくは、FCoEはIPより下位のデータリンク層でFCフレームを伝送し、UDPを使用しない。選択肢は通信のオーバーヘッドを小さくするためにUDPを用いるとしているため誤りである。",
+      "間違い。正しくは、FCoEはTCPの再送制御で信頼性を確保するのではなく、Data Center Bridgingなどのイーサネット拡張によってフレームの転送ロスを抑える。選択肢は通信の信頼性を確保するためにTCPを用いるとしているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "c50598d378fdc5be",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_7.html",
@@ -929,10 +1027,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、PPPはIPだけでなく、複数のネットワーク層プロトコルを扱える。選択肢は、上位プロトコルをIPに限定しているため誤りである。",
-      "間違い。正しくは、PPPは全二重の通信路を前提とする。選択肢は、伝送モードを半二重方式としているため誤りである。",
-      "正しい。PPPには、認証用のPAPやCHAP、圧縮制御プロトコルなどが規定されている。",
-      "間違い。正しくは、PPPはHDLCに似たフレーム形式に基づくプロトコルである。選択肢は、ベーシック手順を基にしているとしているため誤りである。"
+      "間違い。正しくは、PPPはIPに限らず、IPCPなどのネットワーク層プロトコル制御プロトコルを使って複数のネットワーク層プロトコルを扱える。選択肢は、上位プロトコルをIPだけに限定しているため誤りである。",
+      "間違い。正しくは、PPPは全二重の通信路で動作する。選択肢は、伝送モードを半二重方式としているため誤りである。",
+      "正しい。PPPには、PAPやCHAPによる認証や、CCPによる圧縮制御の仕組みが規定されている。",
+      "間違い。正しくは、PPPはHDLCに基づくフレーム形式を用いる。選択肢は、ベーシック手順を基にしたプロトコルとしているため誤りである。"
     ],
     "original_question_id": "04fc2f30f3fd45f7",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_11.html",
@@ -940,16 +1038,135 @@
     "sourceQuestionKey": "nw:201302:04fc2f30f3fd45f7",
     "reviewQuestionId": "04fc2f30f3fd45f7",
     "sourceRecordRef": "question_201302_2.json#15",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "1994-07-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1661",
+        "title": "RFC 1661: The Point-to-Point Protocol (PPP)"
+      },
+      {
+        "referenceDate": "1992-05-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1332",
+        "title": "RFC 1332: The PPP Internet Protocol Control Protocol (IPCP)"
+      },
+      {
+        "referenceDate": "1996-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1962",
+        "title": "RFC 1962: The PPP Compression Control Protocol (CCP)"
+      }
+    ],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PPPの通信機能・プロトコル仕様を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PPPはIPに限らず複数のネットワーク層プロトコルを扱える。",
+          "promptContext": "PPPの上位プロトコル対応",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PPPは全二重の通信路で動作する。",
+          "promptContext": "PPPの伝送モード",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PPPにはPAPやCHAPによる認証、CCPによる圧縮制御の仕組みがある。",
+          "promptContext": "PPPの認証・圧縮プロトコル",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PPPはHDLCに基づくフレーム形式を用いる。",
+          "promptContext": "PPPのフレーム形式",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、ARPはIPアドレスから対応するMACアドレスを求めるプロトコルである。選択肢は、MACアドレスからIPアドレスを求めるRARPの役割としているため誤りである。",
-      "間違い。正しくは、DHCPはIPアドレスなどのネットワーク設定を自動的に割り当てるプロトコルである。選択肢は、DHCPをMACアドレスからIPアドレスを求めるデータリンク層のプロトコルとしているため誤りである。",
-      "間違い。正しくは、DNSはホスト名やドメイン名とIPアドレスなどを対応付ける名前解決のプロトコルである。選択肢は、DNSをMACアドレスからIPアドレスを求めるプロトコルとしているため誤りである。",
-      "正しい。RARPは、自装置のMACアドレスを使って対応するIPアドレスを問い合わせるデータリンク層のプロトコルであり、ブロードキャストを利用する。"
+      "正しい。RARP（Reverse Address Resolution Protocol）は、自装置のMACアドレスからIPアドレスを問い合わせるデータリンク層のプロトコルで、ブロードキャスト媒体を利用する。ARPは逆にIPアドレスからMACアドレスを求めるため、MACアドレスからIPアドレスを求めるこの問題の答えはRARPである。"
     ],
     "original_question_id": "b7a7fab3dc24fc90",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_12.html",
@@ -959,28 +1176,14 @@
     "sourceRecordRef": "question_201302_2.json#16",
     "explanationReferences": [
       {
-        "choiceIndex": 0,
-        "referenceDate": "2026-10-03",
-        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc826.html",
-        "title": "RFC 826 - An Ethernet Address Resolution Protocol"
-      },
-      {
-        "choiceIndex": 1,
-        "referenceDate": "2026-10-03",
-        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2131.html",
-        "title": "RFC 2131 - Dynamic Host Configuration Protocol"
-      },
-      {
-        "choiceIndex": 2,
-        "referenceDate": "2026-10-03",
-        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1034.html",
-        "title": "RFC 1034 - Domain Names - Concepts and Facilities"
-      },
-      {
-        "choiceIndex": 3,
         "referenceDate": "2026-10-03",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc903.html",
         "title": "RFC 903 - A Reverse Address Resolution Protocol"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc826.html",
+        "title": "RFC 826 - An Ethernet Address Resolution Protocol"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -1094,7 +1297,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当する図はアである。3ウェイハンドシェイクでは、接続要求側がSYNを送り、接続受入側がSYN+ACKを返し、最後に接続要求側がACKを返す。この3回の交換によって、TCPコネクションが確立される。"
+      "正しい。該当する図はアである。3ウェイハンドシェイクでは、接続要求側がSYNを送り、接続受入側がSYNとACKを返し、最後に接続要求側がACKを返す。この3回の交換によって、TCPコネクションが確立される。"
     ],
     "original_question_id": "76d37ba39dd29b68",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_13.html",
@@ -1220,33 +1423,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n192.168.0.0/19 は 192.168.0.0 から 31.255 までを含み、15 個のネットワークを包むには広過ぎる。",
-      "正しい。\n\n192.168.1.0/24 から 15.0/24 をまとめるには、192.168.0.0 から 15.255 を含む /20 が最小の集約である。",
-      "間違い。\n\n/21 では 8 個分の /24 しかまとめられず、1.0/24 から 15.0/24 の全範囲を収容できない。",
-      "間違い。\n\n/22 では 4 個分の /24 しか含められず、必要範囲を大きく欠く。"
-    ],
-    "suggestedQuestions": [
-      "/20 だとどの範囲を含みますか？",
-      "なぜ開始アドレスが 192.168.0.0 になりますか？",
-      "集約は最小範囲で考えるのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "/20 だとどの範囲を含みますか？",
-        "answer": "第三オクテットの上位 4 ビットが固定されるので、192.168.0.0 から 192.168.15.255 までを含む。"
-      },
-      {
-        "question": "なぜ開始アドレスが 192.168.0.0 になりますか？",
-        "answer": "1 から 15 を一度に収めるには第三オクテット上位 4 ビットを 0000 にそろえる必要があり、境界は 0 になる。"
-      },
-      {
-        "question": "集約は最小範囲で考えるのですか？",
-        "answer": "通常は対象ネットワーク全体を含みつつ余分な範囲を最小にするプレフィックスを選ぶ。"
-      }
+      "正しい。必要な集約範囲は、192.168.1.0/24から192.168.15.0/24までを含む範囲である。第3オクテットの1〜15を収容するには、0〜15の16個の値を含む必要があるため、/20が最小の集約になる。/20では、192.168.0.0〜192.168.15.255を範囲として含む。CIDRのブロック数は、/24から/20へ4ビット分広がるため、\\(2^{24-20}=16\\)個である。したがって、集約アドレスは192.168.0.0/20である。"
     ],
     "original_question_id": "5c37ef13cd4f0d23",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:5c37ef13cd4f0d23",
+    "reviewQuestionId": "5c37ef13cd4f0d23",
+    "sourceRecordRef": "question_201302_2.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サブネットの集約範囲を計算する技術問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はサブネット集約の計算に関する技術肢であり、法令根拠を要しない。",
+          "promptContext": "技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はサブネット集約の計算に関する技術肢であり、法令根拠を要しない。",
+          "promptContext": "技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はサブネット集約の計算に関する技術肢であり、法令根拠を要しない。",
+          "promptContext": "技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はサブネット集約の計算に関する技術肢であり、法令根拠を要しない。",
+          "promptContext": "技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1280,7 +1573,7 @@
   },
   {
     "explanationText": [
-      "正しい。表示名付きのメールボックスは、表示名に続けて、山括弧で囲んだメールアドレスを置くname-addr形式で記述する。MIMEのencoded-wordで表された表示名の後に<taro@example.jp>を置く3番目の形式が適切である。"
+      "正しい。表示名付きのメールボックスは、表示名を先に置き、その後に山括弧で囲んだメールアドレスを置くname-addr形式で表す。MIMEのencoded-wordで表された表示名に続けて<taro@example.jp>を置く3番目の形式が適切である。"
     ],
     "original_question_id": "974391a07ec46397",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_16.html",
@@ -1297,7 +1590,7 @@
       {
         "referenceDate": "1996-11-01",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2047.html",
-        "title": "RFC 2047 Message Header Extensions"
+        "title": "RFC 2047 Message Header Extensions for Non-ASCII Text"
       }
     ],
     "questionLearningPatternId": "terms_basics",
@@ -1411,10 +1704,10 @@
   },
   {
     "explanationText": [
-      "間違い。OP25Bは、固定IPアドレスからの送信か、広告メールについて受信者の承諾があるかを基準に一律遮断するものではない。選択肢は広告メールであることを遮断条件としているため誤りである。",
-      "間違い。OP25Bの主な遮断対象は、動的IPアドレスから外部のSMTPサーバへ直接送信される通信である。DNSで送信元IPアドレスを逆引きできないことは、この遮断条件ではない。",
+      "間違い。OP25Bは、固定IPアドレスからの送信や、広告メールについて受信者の承諾がないことを一律の遮断条件にはしない。選択肢は、受信者の承諾を得ていない広告メールであることを遮断条件としているため誤りである。",
+      "間違い。OP25Bの主な遮断対象は、動的IPアドレスから外部のSMTPサーバへ直接送信される通信である。送信元IPアドレスをDNSで逆引きできないことは、OP25Bの遮断条件ではない。",
       "間違い。動的IPアドレスから送信しても、ISPのメールサーバを経由すれば外部のSMTPサーバへの直接送信にはならない。選択肢は、ISPのメールサーバを経由する送信まで遮断対象としているため誤りである。",
-      "正しい。OP25Bは、動的IPアドレスの端末から外部のSMTPサーバへ直接送信される通信を、通常25番ポートを使うSMTP通信として遮断する。ISPのメールサーバを経由しないこの送信は、遮断対象に当たる。"
+      "正しい。OP25Bは、動的IPアドレスの端末からISP外のSMTPサーバへ直接送信される通信を、通常25番ポートを使うSMTP通信として遮断する。ISPのメールサーバを経由しないこの送信は、遮断対象に当たる。"
     ],
     "original_question_id": "b61b5e9612fde939",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_17.html",
@@ -1544,14 +1837,120 @@
     "sourceRecordRef": "question_201302_2.json#22",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "共通鍵暗号方式における鍵数の組合せ計算の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の数値は組合せ計算で判定し、法令を使用しない。",
+          "promptContext": "非法令の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "共通鍵暗号方式の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の数値は組合せ計算で判定し、法令を使用しない。",
+          "promptContext": "非法令の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "共通鍵暗号方式の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の数値は組合せ計算で判定し、法令を使用しない。",
+          "promptContext": "非法令の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "共通鍵暗号方式の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の数値は組合せ計算で判定し、法令を使用しない。",
+          "promptContext": "非法令の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "共通鍵暗号方式の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、WPA2ではAESを用いるCCMPを使用する。AHとESPはIPsecで認証や暗号化を行うための機能であり、WPA2の方式ではない。",
-      "正しい。WPA2では、AESを用いるCCMP（Counter-mode with CBC-MAC Protocol）によって無線LANの通信を保護する。",
-      "間違い。正しくは、WPA2の認証にSSL Handshake Protocolを使用するという説明ではない。SSL Handshake ProtocolはTLS/SSLで通信相手の認証や暗号化の設定を行う仕組みであり、WPA2とは異なる。",
-      "間違い。正しくは、WPA2ではAESを用いるCCMPを使用する。RC4とIVを組み合わせてフレームごとに暗号化する方式は、旧来の無線LAN暗号化方式であるWEPの説明である。"
+      "間違い。正しくは、WPA2はAESを用いるCCMP（Counter-mode with CBC-MAC Protocol）で通信を保護する。選択肢はIPsecで用いるAHとESPの機能をWPA2の特徴としているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、WPA2はAESを用いるCCMPで通信を保護する。選択肢はTLS/SSLで用いるSSL Handshake ProtocolをWPA2の認証方式としているため誤りである。",
+      "間違い。正しくは、WPA2はAESを用いるCCMPで通信を保護する。選択肢はRC4とIVを使う旧来の無線LAN暗号方式WEPの特徴をWPA2のものとしているため誤りである。"
     ],
     "original_question_id": "e2d799f9d7fa3a3a",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_19.html",

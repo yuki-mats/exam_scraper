@@ -61,33 +61,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n3通りでは少なすぎる。A,B,C の順列は6通りあるが、そのうちスタックでは 5 通りが実現できる。",
-      "間違い。\n\n4通りでも不足する。スタックはLIFOなので制約はあるが、A-B-C、A-C-B、B-A-C、B-C-A、C-B-Aの5通りは出力できる。",
-      "正しい。\n\n唯一出力できないのは C-A-B である。Cを先に出した時点で、その下にはBがあるのでAをBより先に取り出せず、結果として5通りになる。",
-      "間違い。\n\n6通りすべてが可能ではない。スタックでは後から入れた要素が先に出るので、C-A-B のような順序は構造上実現できない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ C-A-B だけ出力できないのですか？",
-      "スタック順列はどうやって見分けますか？",
-      "キューなら結果はどう変わりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ C-A-B だけ出力できないのですか？",
-        "answer": "Cを出すにはA,B,Cを積んだあとCを取り出す必要があるが、その次にAを出そうとしてもBが上に残っている。LIFOの制約でBを飛ばせないため不可能である。"
-      },
-      {
-        "question": "スタック順列はどうやって見分けますか？",
-        "answer": "実際に push/pop を追うのが確実である。後から入れた要素の下にある要素を先に出そうとしていないかを見ると、不可な順序を見抜きやすい。"
-      },
-      {
-        "question": "キューなら結果はどう変わりますか？",
-        "answer": "キューはFIFOなので、入力順 A-B-C のまましか基本的に出力できない。スタックはLIFOなので、ある程度の並び替えが可能になる。"
-      }
+      "正しい。出力順序は5通りである。3個のデータの全順列は次の式で6通りある。\n\\[3!=3\\times2\\times1=6\\]\nただし、スタックは後から入れたデータを先に取り出すLIFO（Last In, First Out）構造である。Cを最初に出力するにはAとBを先にスタックへ入れる必要があるが、その場合はBがAより上にあるため、C-A-Bの順序は実現できない。したがって、出力可能な順序の数を\\(N\\)とすると、\n\\[N=3!-1=6-1=5\\]\nとなる。"
     ],
     "original_question_id": "665986493e25a6df",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:665986493e25a6df",
+    "reviewQuestionId": "665986493e25a6df",
+    "sourceRecordRef": "question_202501_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "スタック操作に関するアルゴリズム・データ構造の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スタック操作のアルゴリズム知識で判定できる。",
+          "promptContext": "選択肢1の出力順序判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。技術知識のみで判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スタック操作のアルゴリズム知識で判定できる。",
+          "promptContext": "選択肢2の出力順序判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。技術知識のみで判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "3個のデータの出力可能な順序は5通りである。",
+          "promptContext": "選択肢3の出力順序判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当。技術知識のみで判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スタック操作のアルゴリズム知識で判定できる。",
+          "promptContext": "選択肢4の出力順序判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。技術知識のみで判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -121,63 +211,246 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n稼働率が同じでもMTBFとMTTRの絶対値が一致するとは限らない。比が同じなら、両者の大きさが異なる組合せでも同じ稼働率を作れる。",
-      "正しい。\n\n稼働率 α = MTBF / (MTBF + MTTR) を変形すると、MTTR / MTBF = (1-α) / α となる。したがって稼働率が等しいなら MTTR/MTBF の比も等しくなる。",
-      "間違い。\n\n稼働率が高いからといって、MTBFもMTTRも両方大きいとは限らない。高稼働率は『故障間隔が長い』『修復時間が短い』など比率の結果で決まる。",
-      "間違い。\n\n稼働率が高いほど MTTR/MTBF は小さくなるので、不等号の向きが逆である。式を変形して関係を確認すれば誤りに気付きやすい。"
-    ],
-    "suggestedQuestions": [
-      "稼働率の式はどう変形しますか？",
-      "MTBFとMTTRの違いは何ですか？",
-      "同じ稼働率で値が違う例はありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "稼働率の式はどう変形しますか？",
-        "answer": "α = MTBF / (MTBF + MTTR) を変形すると、MTTR/MTBF = (1-α)/α になる。この形にすると、稼働率が同じなら比も同じだと分かる。"
-      },
-      {
-        "question": "MTBFとMTTRの違いは何ですか？",
-        "answer": "MTBFは平均故障間隔、MTTRは平均修復時間である。前者は壊れにくさ、後者は直しやすさを表す。"
-      },
-      {
-        "question": "同じ稼働率で値が違う例はありますか？",
-        "answer": "例えば MTBF=95, MTTR=5 と MTBF=950, MTTR=50 はどちらも稼働率95%になる。絶対値より比率が効いていることが分かる。"
-      }
+      "間違い。稼働率は次の式で決まる。\n\n\\[\\alpha=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]\n\nしたがって、稼働率が同じでも、MTBFとMTTRの絶対値が同じになるとは限らない。例えば、MTBFとMTTRを同じ倍率で変えても、稼働率は変わらない。選択肢は稼働率が等しければMTBFとMTTRもそれぞれ等しいとしているため誤りである。",
+      "正しい。稼働率の式\n\n\\[\\alpha=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]\n\nを変形すると、\n\\[\\alpha(\\mathrm{MTBF}+\\mathrm{MTTR})=\\mathrm{MTBF}\\]\n\\[\\alpha\\,\\mathrm{MTTR}=(1-\\alpha)\\,\\mathrm{MTBF}\\]\n\\[\\frac{\\mathrm{MTTR}}{\\mathrm{MTBF}}=\\frac{1-\\alpha}{\\alpha}\\]\n\nとなる。したがって、稼働率が等しいシステムでは、MTTR/MTBFの比も等しい。",
+      "間違い。稼働率はMTBFそのものの大きさやMTTRそのものの大きさではなく、両者の比で決まる。MTBFが大きくてもMTTRがさらに大きければ稼働率は高くならず、MTBFが小さくてもMTTRが短ければ高い稼働率になり得る。選択肢は稼働率が高ければMTBFとMTTRの両方が大きくなるとしているため誤りである。",
+      "間違い。\\[\\frac{\\mathrm{MTTR}}{\\mathrm{MTBF}}=\\frac{1-\\alpha}{\\alpha}\\] である。\\(0<\\alpha<1\\)では、稼働率\\(\\alpha\\)が高いほど右辺は小さくなる。そのため、\\(\\alpha_a>\\alpha_b\\)なら\n\n\\[\\frac{\\mathrm{MTTR}_a}{\\mathrm{MTBF}_a}<\\frac{\\mathrm{MTTR}_b}{\\mathrm{MTBF}_b}\\]\n\nとなる。選択肢は不等号の向きを逆にしているため誤りである。"
     ],
     "original_question_id": "99280a0f926779a4",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:99280a0f926779a4",
+    "reviewQuestionId": "99280a0f926779a4",
+    "sourceRecordRef": "question_202501_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "稼働率、MTBF、MTTRの定義と関係式に基づく工学的な問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "稼働率、MTBF、MTTRの関係式による技術判定であり、法令根拠は不要である。",
+          "promptContext": "技術知識問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術的な関係式に基づき判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "稼働率、MTBF、MTTRの関係式による技術判定であり、法令根拠は不要である。",
+          "promptContext": "技術知識問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術的な関係式に基づき判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "稼働率、MTBF、MTTRの関係式による技術判定であり、法令根拠は不要である。",
+          "promptContext": "技術知識問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術的な関係式に基づき判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "稼働率、MTBF、MTTRの関係式による技術判定であり、法令根拠は不要である。",
+          "promptContext": "技術知識問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術的な関係式に基づき判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n4000番地には最終的にページ5が残る。LRUでは『最も長く参照されていないページ』を置き換えるため、最後の4は4000番地には入らない。",
-      "間違い。\n\n5000番地には途中でページ6が入る。参照列を追うと、最後に4を入れるときに置き換えられるのは6000番地側のページ3である。",
-      "正しい。\n\n参照列をLRUで追うと、最後の4のページイン時点で最も古いのはページ3であり、それが入っている6000番地が置換対象になる。したがってページ4は6000番地に入る。",
-      "間違い。\n\n7000番地のページ4は途中でページ1に置き換えられており、そのまま残らない。LRUは現在の参照履歴で判定するので、初期配置だけで決めてはいけない。"
-    ],
-    "suggestedQuestions": [
-      "LRUでは何を基準に置き換えますか？",
-      "最後に4を入れる直前のページ枠はどうなっていますか？",
-      "FIFO方式だと結果は変わりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "LRUでは何を基準に置き換えますか？",
-        "answer": "最後に参照されてから最も時間が経っているページを置き換える。『最も古く読み書きされたページ』を追う点がFIFOとの違いである。"
-      },
-      {
-        "question": "最後に4を入れる直前のページ枠はどうなっていますか？",
-        "answer": "参照列を順に追うと、最後の4の直前には 5,6,3,1 が残っている。ここで最も長く参照されていない3が置き換えられる。"
-      },
-      {
-        "question": "FIFO方式だと結果は変わりますか？",
-        "answer": "変わり得る。FIFOは参照履歴ではなく、主記憶に入った順で追い出すため、LRUとは置換対象が一致しないことがある。"
-      }
+      "正しい。LRU方式では、ページフォールトが発生したとき、最も長い間参照されていないページを置き換える。初期配置後の参照順を追うと、各ページ枠の状態は次のように変化する。\n\n\\[\\begin{aligned}\n&1\\to2\\to3\\to4:\\quad 4000=1,\\ 5000=2,\\ 6000=3,\\ 7000=4\\\\\n&5\\text{の参照}:\\quad 4000=5\\\\\n&1\\text{の参照}:\\quad 7000=1\\\\\n&6\\text{の参照}:\\quad 5000=6\\\\\n&4\\text{の参照}:\\quad 6000=4\n\\end{aligned}\\]\n\n最後のページフォールト時点では、ページ3が最も長く参照されていないため、ページ3が入っていた6000番地が置換対象になる。したがって、ページ4は6000番地にページインされる。"
     ],
     "original_question_id": "1f2ae05445eef488",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:1f2ae05445eef488",
+    "reviewQuestionId": "1f2ae05445eef488",
+    "sourceRecordRef": "question_202501_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "仮想記憶、LRU方式、ページイン先の計算に関する技術問題で、法令・制度上の義務や基準を判断に用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "仮想記憶のLRU方式に基づくページ置換え計算で正誤を判定する。",
+          "promptContext": "法令・制度上の義務や基準を判断に用いない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算で判定する問題であり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "仮想記憶のLRU方式に基づくページ置換え計算で正誤を判定する。",
+          "promptContext": "法令・制度上の義務や基準を判断に用いない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算で判定する問題であり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "仮想記憶のLRU方式に基づくページ置換え計算で正誤を判定する。",
+          "promptContext": "法令・制度上の義務や基準を判断に用いない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識と計算で判定する問題であり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "仮想記憶のLRU方式に基づくページ置換え計算で正誤を判定する。",
+          "promptContext": "法令・制度上の義務や基準を判断に用いない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算で判定する問題であり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -271,63 +544,249 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nON DELETE CASCADE は、参照先の行が削除されたとき、対応する参照側の行も自動的に削除する。親子関係のある行を連鎖的に消す動作そのものである。",
-      "間違い。\n\nRESTRICT は参照整合性が崩れる削除や更新を拒否する。自動削除ではなく、そもそも削除を実行させない動作である。",
-      "間違い。\n\nSET DEFAULT は参照先削除時に外部キーへ既定値を入れる。参照側の行自体を削除する動作ではない。",
-      "間違い。\n\nSET NULL は参照先削除時に外部キーをNULLへする。受注行を消したいという要件とは一致しない。"
-    ],
-    "suggestedQuestions": [
-      "CASCADEとRESTRICTの違いは何ですか？",
-      "SET NULLはどんなときに使いますか？",
-      "外部キー制約で見るべき句はどこですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CASCADEとRESTRICTの違いは何ですか？",
-        "answer": "CASCADEは親の削除や更新に連動して子も自動処理する。RESTRICTは参照関係がある限り親の削除や更新を拒否する。"
-      },
-      {
-        "question": "SET NULLはどんなときに使いますか？",
-        "answer": "親レコードが消えても子レコード自体は残したいが、参照先はなくしてよい場合に使う。ただし外部キー列がNULLを許す必要がある。"
-      },
-      {
-        "question": "外部キー制約で見るべき句はどこですか？",
-        "answer": "親削除時の動作なら ON DELETE、親更新時の動作なら ON UPDATE の指定を見る。何をしたいのかを句ごとに対応づけるとよい。"
-      }
+      "正しい。aにはCASCADEが入る。ON DELETE CASCADEは、参照先である「商品」表の行を削除したとき、その商品コードを参照する「受注」表の行も自動的に削除する。RESTRICTは削除を拒否し、SET DEFAULTは外部キーを既定値に、SET NULLはNULLに変更するため、行自体を削除する要件には合わない。"
     ],
     "original_question_id": "8a41c8e61ea78c07",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:8a41c8e61ea78c07",
+    "reviewQuestionId": "8a41c8e61ea78c07",
+    "sourceRecordRef": "question_202501_1.json#9",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.postgresql.org/docs/current/sql-createtable.html",
+        "title": "PostgreSQL 18 CREATE TABLE documentation"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SQLの参照制約における削除動作の技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CASCADEは参照先行の削除時に参照元行も自動削除する。法令根拠は不要である。",
+          "promptContext": "商品表の行削除時に対応する受注表の行を自動削除する指定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "SQLの参照制約に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RESTRICTは参照先行の削除を拒否するため、受注表の行を自動削除する指定にはならない。法令根拠は不要である。",
+          "promptContext": "商品表の行削除時に対応する受注表の行を自動削除する指定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SQLの参照制約に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SET DEFAULTは外部キーを既定値に変更するため、受注表の行自体を削除する指定にはならない。法令根拠は不要である。",
+          "promptContext": "商品表の行削除時に対応する受注表の行を自動削除する指定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SQLの参照制約に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SET NULLは外部キーをNULLに変更するため、受注表の行自体を削除する指定にはならない。法令根拠は不要である。",
+          "promptContext": "商品表の行削除時に対応する受注表の行を自動削除する指定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SQLの参照制約に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nPLCは電力線を通信媒体として使う技術であり、LANケーブル経由で給電する仕組みではない。通信路そのものが異なる。",
-      "正しい。\n\nPoE は Ethernet ケーブルを通じてデータ通信と給電を同時に行う技術である。無線LANアクセスポイントやIP電話機のように設置場所で電源を取りにくい機器でよく使われる。",
-      "間違い。\n\nUPSは停電時に電源供給を継続する無停電電源装置であり、LANケーブル給電の方式ではない。役割が電源バックアップにある。",
-      "間違い。\n\nUSBにも給電機能はあるが、使うのはUSBケーブルでありLANケーブルではない。設問は Ethernet を利用した給電方式を聞いている。"
-    ],
-    "suggestedQuestions": [
-      "PoEはどんな機器で使われますか？",
-      "PoEとUPSの役割は何が違いますか？",
-      "PoEを使う利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PoEはどんな機器で使われますか？",
-        "answer": "無線LANアクセスポイント、IP電話、ネットワークカメラなど、設置場所に電源コンセントを引きにくい機器でよく使われる。"
-      },
-      {
-        "question": "PoEとUPSの役割は何が違いますか？",
-        "answer": "PoEは通信ケーブル経由で給電する方式で、UPSは停電時に電源を維持する装置である。給電経路とバックアップは別の論点である。"
-      },
-      {
-        "question": "PoEを使う利点は何ですか？",
-        "answer": "電源配線を別に用意しなくて済むため、設置工事を簡素化しやすい。集中管理しやすく、機器再起動もスイッチ側から行える場合がある。"
-      }
+      "正しい。LANケーブルでデータ通信と電力供給を同時に行う仕組みはPoE（Power over Ethernet）である。無線LANアクセスポイントやIP電話機など、設置場所で電源を確保しにくい機器への給電に利用される。PLCは電力線を通信に使う技術、UPSは停電時に電力を供給し続ける装置、USBはUSBケーブルを使う接続規格であり、いずれも設問の仕組みではない。"
     ],
     "original_question_id": "bdfb319727cd4adf",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:bdfb319727cd4adf",
+    "reviewQuestionId": "bdfb319727cd4adf",
+    "sourceRecordRef": "question_202501_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PoEの機能を問う技術問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PLCは電力線を通信に使う技術であり、設問の給電方式ではない。",
+          "promptContext": "LANケーブルによる給電方式の判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PoEはLANケーブルでデータ通信と電力供給を同時に行う仕組みである。",
+          "promptContext": "LANケーブルによる給電方式の判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "UPSは停電時に電力を供給し続ける装置であり、LANケーブルで給電する仕組みではない。",
+          "promptContext": "LANケーブルによる給電方式の判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "USBはUSBケーブルを使う接続規格であり、設問のLANケーブルによる給電方式ではない。",
+          "promptContext": "LANケーブルによる給電方式の判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -361,123 +820,530 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nSBOMはソフトウェアを構成する部品やライブラリの一覧管理に使うもので、利用者アカウントの認証情報を一元管理する仕組みではない。認証基盤の論点と混同している。",
-      "正しい。\n\nSBOM管理ツールを使うと、含まれるOSSやライブラリの版を把握でき、既知の脆弱性情報と突き合わせて影響評価しやすい。どの部品に脆弱性があるかを追跡するのに有効である。",
-      "間違い。\n\nソースコードの版管理やアクセス制御、改ざん防止はGitなどのバージョン管理基盤の役割である。SBOMは『何が含まれているか』の管理が中心で、ソースそのものの統制手段ではない。",
-      "間違い。\n\nバックアップやマルウェア混入防止は別のセキュリティ対策である。SBOMは構成部品の可視化と脆弱性把握に強みがあり、用途が異なる。"
-    ],
-    "suggestedQuestions": [
-      "SBOMでは何を一覧化しますか？",
-      "SBOMが脆弱性管理に役立つ理由は何ですか？",
-      "SBOMとバージョン管理ツールの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SBOMでは何を一覧化しますか？",
-        "answer": "ソフトウェアを構成するライブラリ、OSS、依存関係、版情報などを一覧化する。『この製品に何が入っているか』を見える化する資料と考えるとよい。"
-      },
-      {
-        "question": "SBOMが脆弱性管理に役立つ理由は何ですか？",
-        "answer": "脆弱性情報が公開されたとき、自社ソフトにその部品が含まれているかを素早く確認できるからである。影響範囲の特定が速くなる。"
-      },
-      {
-        "question": "SBOMとバージョン管理ツールの違いは何ですか？",
-        "answer": "バージョン管理ツールはソースコード変更履歴を管理し、SBOMはリリース物に含まれる部品構成を管理する。管理対象が異なる。"
-      }
+      "間違い。正しくは、SBOM管理ツールはソフトウェアを構成する部品やライブラリの名称・版などを管理する。選択肢は利用者認証に用いるアカウントを一元管理するとしているため誤りである。",
+      "正しい。SBOM管理ツールを使うと、ソフトウェアに含まれるOSSやライブラリの種類・版を把握し、脆弱性情報と照合して影響を受ける部品を特定できる。",
+      "間違い。正しくは、ソースコードのバージョン管理、アクセス制御及び改ざん防止は、リポジトリやアクセス管理などの仕組みで行う。選択肢はSBOM管理ツールがソースコード自体を管理するとしているため誤りである。",
+      "間違い。正しくは、ソースコードのバックアップやマルウェア混入防止には、それぞれバックアップやマルウェア対策の仕組みを用いる。選択肢はSBOM管理ツールがこれらを行うとしているため誤りである。"
     ],
     "original_question_id": "9b79d2b86c717ea7",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:9b79d2b86c717ea7",
+    "reviewQuestionId": "9b79d2b86c717ea7",
+    "sourceRecordRef": "question_202501_1.json#12",
+    "explanationReferences": [
+      {
+        "referenceDate": "2024-12-20",
+        "sourceUrl": "https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2024/sbn8o10000001y6j-att/sbn8o10000001zcl.pdf",
+        "title": "SBOM導入・運用の手引き"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SBOM管理ツールの用途を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "SBOM管理ツールの用途は技術知識で判定できる。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "SBOMはソフトウェア構成部品と脆弱性情報の対応付けに用いる。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ソースコードの版管理、アクセス制御及び改ざん防止はSBOM管理の用途ではない。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ソースコードのバックアップやマルウェア混入防止はSBOM管理の用途ではない。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nプレースホルダはSQLインジェクション対策として有効だが、OSコマンドインジェクションの直接対策ではない。攻撃対象の層が違う。",
-      "正しい。\n\nOSコマンドインジェクションは、外部入力をシェル起動可能な関数へ渡す実装で生じやすい。そもそもシェル実行機能を使わない設計にするのが根本対策である。",
-      "間違い。\n\n直接メモリアクセスを避けるのはバッファオーバーフローのような問題への対策に近い。OSコマンドの注入とは原因が異なる。",
-      "間違い。\n\nファイル名のディレクトリチェックはディレクトリトラバーサル対策である。OSコマンドインジェクションはコマンド文字列へ不正入力を混入される問題である。"
-    ],
-    "suggestedQuestions": [
-      "OSコマンドインジェクションはどう起きますか？",
-      "プレースホルダが効くのはどの脆弱性ですか？",
-      "根本対策と入力チェックの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OSコマンドインジェクションはどう起きますか？",
-        "answer": "利用者入力をそのままコマンド文字列へ連結し、シェル経由で実行してしまうと起きやすい。想定外のコマンドや引数を差し込まれるのが本質である。"
-      },
-      {
-        "question": "プレースホルダが効くのはどの脆弱性ですか？",
-        "answer": "主にSQLインジェクションである。問い合わせ文と値を分離できるため、SQL構文への注入を防ぎやすい。"
-      },
-      {
-        "question": "根本対策と入力チェックの違いは何ですか？",
-        "answer": "根本対策は危険な実装方式自体を避けることで、入力チェックはその上で不正値を弾く補助策である。OSコマンドインジェクションでは前者が特に重要である。"
-      }
+      "間違い。プレースホルダを使ったSQL文の組立てはSQLインジェクション対策である。OSコマンドインジェクションは、シェルなどへ渡す入力がコマンドとして解釈される問題なので、SQL文の組立てをプレースホルダにしても防げない。選択肢はSQLインジェクション対策を示しているため誤りである。",
+      "正しい。OSコマンドインジェクションは、外部入力をシェル起動可能な関数へ渡す実装で生じやすい。そもそもシェルを起動できる言語機能を使わない設計にすることが、根本的な対策になる。",
+      "間違い。直接メモリにアクセスできる言語機能の利用を避けることは、バッファオーバーフローなどメモリ安全性の問題への対策である。OSコマンドインジェクションとは原因が異なるため、選択肢は別の脆弱性への対策を示しており誤りである。",
+      "間違い。利用者が入力したファイル名からディレクトリを除くチェックは、ディレクトリトラバーサル対策である。OSコマンドインジェクションはコマンド文字列へ不正な入力を混入される問題なので、選択肢は別の脆弱性への対策を示しており誤りである。"
     ],
     "original_question_id": "45c69870b4c7fe01",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:45c69870b4c7fe01",
+    "reviewQuestionId": "45c69870b4c7fe01",
+    "sourceRecordRef": "question_202501_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OSコマンドインジェクション対策は、シェルを起動できる言語機能の利用を避けるという技術的対策で判断する。法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OSコマンドインジェクションとSQLインジェクション対策の違いを技術知識で確認した。法令根拠は使用していない。",
+          "promptContext": "問題文と選択肢を結合した技術命題として判定した。",
+          "refs": [],
+          "verdict": "技術知識に基づき出題時と現行の判定は間違いで一致する。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "シェルを起動できる言語機能の利用を避けることがOSコマンドインジェクション対策になると確認した。法令根拠は使用していない。",
+          "promptContext": "問題文と選択肢を結合した技術命題として判定した。",
+          "refs": [],
+          "verdict": "技術知識に基づき出題時と現行の判定は正しいで一致する。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "直接メモリへのアクセスを避ける対策はメモリ安全性の問題に関するもので、OSコマンドインジェクション対策ではないと確認した。法令根拠は使用していない。",
+          "promptContext": "問題文と選択肢を結合した技術命題として判定した。",
+          "refs": [],
+          "verdict": "技術知識に基づき出題時と現行の判定は間違いで一致する。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "入力ファイル名からディレクトリを除く検査はディレクトリトラバーサル対策であり、OSコマンドインジェクション対策ではないと確認した。法令根拠は使用していない。",
+          "promptContext": "問題文と選択肢を結合した技術命題として判定した。",
+          "refs": [],
+          "verdict": "技術知識に基づき出題時と現行の判定は間違いで一致する。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nIPsec はネットワーク層、L2TP はデータリンク層相当、TLS はトランスポート層で動く。図Aはこの上下関係と一致しない。",
-      "間違い。\n\nL2TP をIPsecより上、あるいはTLSより上に置く関係は誤りである。プロトコル名の『Layer 2』と『Transport』を対応づけて整理すると迷いにくい。",
-      "正しい。\n\nTLS が最も上のトランスポート層、IPsec がネットワーク層、L2TP がデータリンク層相当なので、上から TLS → IPsec → L2TP の並びになる。したがって図Cが正しい。",
-      "間違い。\n\nTLSをIPsecより下に置くと層の関係が崩れる。各プロトコルがどの層で暗号化やトンネリングを提供するかを押さえる必要がある。"
-    ],
-    "suggestedQuestions": [
-      "IPsecとTLSはどの層で動きますか？",
-      "L2TPはなぜデータリンク層相当と考えますか？",
-      "IPsecとL2TPは一緒に使うことがありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPsecとTLSはどの層で動きますか？",
-        "answer": "IPsecはIP層、つまりネットワーク層で動作する。TLSはトランスポート層で通信セッションを保護する。"
-      },
-      {
-        "question": "L2TPはなぜデータリンク層相当と考えますか？",
-        "answer": "PPPフレームなどレイヤ2のデータをトンネリングするためである。名前の Layer 2 Tunneling Protocol がそのままヒントになる。"
-      },
-      {
-        "question": "IPsecとL2TPは一緒に使うことがありますか？",
-        "answer": "ある。L2TPには暗号化機能がないため、暗号化や認証を補う目的でIPsecと組み合わせる構成がよく使われる。"
-      }
+      "正しい。該当するのはCである。L2TPはPPPフレームを運ぶレイヤ2のトンネルプロトコル、IPsecはIP層（ネットワーク層）で通信を保護する仕組み、TLSはトランスポート層の接続を利用してその上位で働くセキュリティプロトコルである。したがって、OSI基本参照モデルの相対関係は、上位からTLS、IPsec、L2TPとなる。"
     ],
     "original_question_id": "fc8141dbe774eea8",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:fc8141dbe774eea8",
+    "reviewQuestionId": "fc8141dbe774eea8",
+    "sourceRecordRef": "question_202501_1.json#14",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4301.html",
+        "title": "RFC 4301: Security Architecture for the Internet Protocol"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2661.html",
+        "title": "RFC 2661: Layer Two Tunneling Protocol \"L2TP\""
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc8446.html",
+        "title": "RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3193.html",
+        "title": "RFC 3193: Securing L2TP using IPsec"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [
+      {
+        "choiceIndex": 2,
+        "items": [
+          {
+            "answer": "L2TPがPPP通信をトンネル化し、IPsecがそのL2TP通信を認証や暗号化などで保護する。L2TP/IPsecは、この役割分担によるVPN方式である。",
+            "question": "L2TPとIPsecはどのように併用されるか。"
+          }
+        ]
+      }
+    ],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OSI基本参照モデルにおけるVPNプロトコルの相対的位置を問う工学・通信技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はOSI基本参照モデルとVPNプロトコルの技術知識で判定する。",
+          "promptContext": "VPNプロトコルのOSI層に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はOSI基本参照モデルとVPNプロトコルの技術知識で判定する。",
+          "promptContext": "VPNプロトコルのOSI層に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はOSI基本参照モデルとVPNプロトコルの技術知識で判定する。",
+          "promptContext": "VPNプロトコルのOSI層に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はOSI基本参照モデルとVPNプロトコルの技術知識で判定する。",
+          "promptContext": "VPNプロトコルのOSI層に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nデザインレビューは、設計工程の途中で成果物を点検し、設計上の問題点や見落としを早期に見つけるために行う。後工程へ欠陥を流さないことが主目的である。",
-      "間違い。\n\n出荷可否判定は品質保証やリリース審査の役割であり、設計レビューの直接目的ではない。工程と責務の違いを区別する必要がある。",
-      "間違い。\n\nプログラムのサンプリング検査は設計レビューではなく、実装後の品質確認に近い。設計工程の成果物を対象にする点がデザインレビューの本質である。",
-      "間違い。\n\nプロジェクト管理プロセスの問題を見るのはマネジメントレビューの論点である。設計レビューは設計成果物そのものの妥当性を確認する。"
-    ],
-    "suggestedQuestions": [
-      "デザインレビューでは何を確認しますか？",
-      "デザインレビューとマネジメントレビューの違いは何ですか？",
-      "設計段階でレビューする利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "デザインレビューでは何を確認しますか？",
-        "answer": "設計書や設計方針が要件を満たしているか、矛盾や漏れがないか、実装に進んでよい品質かを確認する。対象は設計成果物である。"
-      },
-      {
-        "question": "デザインレビューとマネジメントレビューの違いは何ですか？",
-        "answer": "デザインレビューは設計内容の妥当性確認で、マネジメントレビューは進捗、コスト、体制など管理面の確認である。見る対象が違う。"
-      },
-      {
-        "question": "設計段階でレビューする利点は何ですか？",
-        "answer": "実装後に見つけるより手戻りコストを小さくできる。早期に欠陥を除けるほど、後工程への影響を抑えやすい。"
-      }
+      "正しい。",
+      "間違い。正しくは、設計レビューは設計工程内で設計成果物の問題点を発見する活動である。選択肢は品質保証部門が全成果物の出荷可否を判定するとしているため誤りである。",
+      "間違い。正しくは、設計レビューは設計工程内で設計成果物を点検し、設計上の問題点を早期に発見する活動である。選択肢は品質保証部門がプログラムをサンプリング検査して品質上の問題点を発見するとしているため誤りである。",
+      "間違い。正しくは、設計レビューは設計工程内で設計成果物の問題点を発見する活動である。選択肢はプロジェクトマネジメントのプロセス上の問題点を発見するとしているため誤りである。"
     ],
     "original_question_id": "97f36986e7e8d315",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:97f36986e7e8d315",
+    "reviewQuestionId": "97f36986e7e8d315",
+    "sourceRecordRef": "question_202501_1.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア開発工程の品質管理に関する技術問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は設計レビューの目的に合致する。法令根拠は不要である。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。デザインレビューの目的に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は設計レビューの目的を品質保証部門による全成果物の出荷可否判定としており、誤りである。法令根拠は不要である。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。品質保証部門による全成果物の出荷可否判定ではなく、設計レビューの目的に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は品質保証部門によるプログラムのサンプリング検査を設計レビューの目的としており、誤りである。法令根拠は不要である。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。プログラムのサンプリング検査ではなく、設計成果物のレビューに関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はプロジェクトマネジメントのプロセス上の問題点の発見を設計レビューの目的としており、誤りである。法令根拠は不要である。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。プロジェクトマネジメントのプロセス上の問題点ではなく、設計成果物の問題点に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -511,33 +1377,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCPI=0.9 はコスト超過、SPI=1.1 はスケジュール前倒しを示すが、TCPI=1.2 なので残作業で計画以上のコスト効率が必要である。『効率を上げる必要はない』は誤りである。",
-      "正しい。\n\nCPI<1 なので現時点でコスト効率は悪く、BAC超過の恐れがある。一方 SPI>1 でスケジュールには余裕があるため、残作業のコスト効率改善策や予備費活用を検討する評価が適切である。",
-      "間違い。\n\nコストに余裕がある、スケジュールが遅れている、という評価がどちらも逆である。EVM指標の意味を正しく読めていない。",
-      "間違い。\n\nCPI<1 なのでコストに余裕はなく、SPI>1 なので遅れでもない。クラッシングなどの短縮策を優先する場面ではない。"
-    ],
-    "suggestedQuestions": [
-      "CPIとSPIはそれぞれ何を表しますか？",
-      "TCPIが1より大きいと何を意味しますか？",
-      "このケースでスケジュール短縮を優先しない理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CPIとSPIはそれぞれ何を表しますか？",
-        "answer": "CPIはコスト効率指数で、1未満ならコスト超過傾向を示す。SPIはスケジュール効率指数で、1より大きければ計画より進んでいる。"
-      },
-      {
-        "question": "TCPIが1より大きいと何を意味しますか？",
-        "answer": "残作業を完了するために、これまで以上のコスト効率が必要という意味である。計画どおりの予算内完了が厳しくなっている。"
-      },
-      {
-        "question": "このケースでスケジュール短縮を優先しない理由は何ですか？",
-        "answer": "SPIが1.1で、すでにスケジュール上は余裕があるからである。問題はコスト側なので、対策もコスト効率改善が中心になる。"
-      }
+      "正しい。適切な評価は、コスト超過のおそれがある一方でスケジュールには余裕があり、残作業のコスト効率を改善する対策やコンティンジェンシー予備費の使用を検討することである。CPIが1未満の0.9なので、現時点ではコスト効率が計画を下回っている。SPIが1を超える1.1なので、進捗は計画より進んでいる。さらに、BACに基づくTCPIが1.2であるため、完成時総予算内に収めるには、残作業で計画より高いコスト効率を達成しなければならない。したがって、適切なのは2番目の選択肢である。"
     ],
     "original_question_id": "4877a551979c4a66",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:4877a551979c4a66",
+    "reviewQuestionId": "4877a551979c4a66",
+    "sourceRecordRef": "question_202501_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "scenario_application",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "EVMのCPI、SPI、TCPIとプロジェクト管理上の対策を判断する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CPI、SPI、TCPIの意味と数値から選択肢の評価を判定する。",
+          "promptContext": "EVM指標によるコスト・スケジュール評価。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CPIが0.9、SPIが1.1、TCPIが1.2であることから、コスト超過のおそれと進捗の余裕を評価する。",
+          "promptContext": "EVM指標によるコスト・スケジュール評価。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SPIが1.1で進捗は遅れておらず、コストに余裕があるという評価も正しくない。",
+          "promptContext": "EVM指標によるコスト・スケジュール評価。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CPIが0.9でコスト効率は計画を下回っており、コストに余裕があるとはいえない。",
+          "promptContext": "EVM指標によるコスト・スケジュール評価。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -571,63 +1527,257 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n0.4時間では不足する。可用性99.3%は停止率0.7%、目標99.5%は停止率0.5%なので、差の0.2%分だけ停止時間を減らす必要がある。",
-      "正しい。\n\nサービス提供時間は 15時間×20日=300時間である。必要な削減量は 300時間×0.2%=0.6時間 なので、0.6時間が最小である。",
-      "間違い。\n\n1.3時間まで減らせばもちろん条件は満たすが、必要最小限ではない。停止率の差分だけを掛けると0.6時間で足りる。",
-      "間違い。\n\n1.95時間は過大である。可用性の差0.2ポイントを全提供時間へ掛けるだけで必要時間を求められる。"
-    ],
-    "suggestedQuestions": [
-      "可用性99.3%を停止率へ直すとどうなりますか？",
-      "この問題で300時間になる理由は何ですか？",
-      "可用性の差分だけで求められるのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "可用性99.3%を停止率へ直すとどうなりますか？",
-        "answer": "停止率は 100% - 99.3% = 0.7% である。目標の99.5%は停止率0.5%なので、その差0.2%を減らせばよい。"
-      },
-      {
-        "question": "この問題で300時間になる理由は何ですか？",
-        "answer": "1日のサービス提供時間は7時から22時までで15時間、それが月20日あるので 15×20=300時間になる。SLA対象時間だけを使う。"
-      },
-      {
-        "question": "可用性の差分だけで求められるのはなぜですか？",
-        "answer": "実績と目標の違いは停止率の差として扱えるからである。差分0.2%を対象時間300時間へ掛ければ、必要な削減時間が直接出る。"
-      }
+      "正しい。サービス提供時間は、1日15時間（22時−7時）で、月20日なので、月間のサービス提供時間は次のとおりである。\n\\[T=15\\times20=300\\,\\mathrm{時間}\\]\n可用性の実績値99.3%を目標値99.5%以上にするには、可用性を0.2ポイント、すなわち0.002だけ高める必要がある。したがって、減らすべきサービス停止時間は次のとおりである。\n\\[\\Delta t=T\\times(0.995-0.993)=300\\times0.002=0.6\\,\\mathrm{時間}\\]\nここで、\\(T\\)は月間のサービス提供時間、\\(\\Delta t\\)は必要な停止時間の削減量である。したがって、サービス停止時間は最低0.6時間少なければよかった。"
     ],
     "original_question_id": "815329a4e2319de8",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:815329a4e2319de8",
+    "reviewQuestionId": "815329a4e2319de8",
+    "sourceRecordRef": "question_202501_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SLAで定めたサービス提供時間、提供日数、可用性目標値から停止時間の差を計算する技術・サービスマネジメントの問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢0の数値0.4時間は、必要な停止時間の削減量0.6時間と一致しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SLAの計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1の0.6時間が、300時間に可用性差0.002を乗じた必要削減量と一致する。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "SLAの計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢2の1.3時間は、必要な停止時間の削減量0.6時間と一致しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SLAの計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢3の1.95時間は、必要な停止時間の削減量0.6時間と一致しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SLAの計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n資料や文書を入手して内容を点検するのはドキュメントレビュー法の説明である。ウォークスルーは実際の処理の流れを追う点に特徴がある。",
-      "間違い。\n\n関係者へ口頭で問い合わせるのはインタビュー法である。ウォークスルー法は質問だけでなく、処理の流れと統制を実地にたどる。",
-      "正しい。\n\nウォークスルー法は、データの生成から入力、処理、出力、利用までの流れを追いながら、途中に組み込まれたコントロールが機能しているかを確認する方法である。",
-      "間違い。\n\nテストデータを投入して結果を見るのはテストデータ法である。ウォークスルー法は処理過程と統制手続を追跡する監査技法である。"
-    ],
-    "suggestedQuestions": [
-      "ウォークスルー法では何を追いますか？",
-      "ウォークスルー法とインタビュー法の違いは何ですか？",
-      "監査技法はどう整理すると覚えやすいですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ウォークスルー法では何を追いますか？",
-        "answer": "データや業務処理の流れを最初から最後まで追い、どこにどの統制があるかを確認する。単なる文書確認よりも流れに沿った点検が中心である。"
-      },
-      {
-        "question": "ウォークスルー法とインタビュー法の違いは何ですか？",
-        "answer": "インタビュー法は関係者から聞き取る方法で、ウォークスルー法は実際の処理経路や統制をたどって確認する方法である。"
-      },
-      {
-        "question": "監査技法はどう整理すると覚えやすいですか？",
-        "answer": "文書を見る、話を聞く、流れを追う、テストデータを流す、のように何を対象に確認するかで分けると整理しやすい。"
-      }
+      "間違い。正しくは、機密データの保管状況に関する資料や文書類を入手して内容を点検するのは、ドキュメントレビュー法である。選択肢はこの方法をウォークスルー法としているため誤りである。ウォークスルー法は、データや処理の流れを追跡し、組み込まれたコントロールを確認する。",
+      "間違い。正しくは、関係者に口頭で問い合わせて回答を得るのは、インタビュー法である。選択肢はインタビュー法をウォークスルー法としているため誤りである。ウォークスルー法は、質問だけでなく、実際の処理の流れとコントロールをたどって確認する。",
+      "正しい。ウォークスルー法は、データの生成から入力、処理、出力、利活用までの流れを追いながら、そこに組み込まれた一連のコントロールを確認する監査技法である。",
+      "間違い。正しくは、テストデータを監査対象プログラムで処理し、期待した結果が出力されるかを確かめるのは、テストデータ法である。選択肢はテストデータ法をウォークスルー法としているため誤りである。ウォークスルー法は、テストデータによる結果の確認ではなく、処理過程とコントロールを追跡する。"
     ],
     "original_question_id": "9c72ff72a68ab754",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:9c72ff72a68ab754",
+    "reviewQuestionId": "9c72ff72a68ab754",
+    "sourceRecordRef": "question_202501_1.json#20",
+    "explanationReferences": [
+      {
+        "referenceDate": "2025-04-20",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/nl10bi0000009lh8-att/2025r07h_ap_am_qs.pdf",
+        "title": "令和7年度春期応用情報技術者試験 午前 問題冊子"
+      },
+      {
+        "referenceDate": "2025-04-20",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/nl10bi0000009lh8-att/2025r07h_ap_am_ans.pdf",
+        "title": "令和7年度春期応用情報技術者試験 午前 解答例"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査手法の技術知識だけで正誤を判断できるため、法令根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない監査手法の技術問題として、選択肢は誤りと判定した。",
+          "promptContext": "システム監査手法の分類。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ドキュメントレビュー法とウォークスルー法の区別で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない監査手法の技術問題として、選択肢は誤りと判定した。",
+          "promptContext": "システム監査手法の分類。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。インタビュー法とウォークスルー法の区別で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない監査手法の技術問題として、選択肢は正しいと判定した。",
+          "promptContext": "システム監査手法の分類。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。ウォークスルー法の定義に合致する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない監査手法の技術問題として、選択肢は誤りと判定した。",
+          "promptContext": "システム監査手法の分類。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。テストデータ法とウォークスルー法の区別で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -661,92 +1811,484 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nDX認定制度は、DXの成果をすでに達成していることまでは求めていない。認定基準は、経営ビジョンやDX戦略を整備し公表しているかなど、取組体制の整備を中心に見る。",
-      "正しい。\n\n経営ビジョンとビジネスモデルの方向性を公表し、それを実現する方策としてDX戦略を示していることは、DX認定制度の認定基準に含まれる。単なる内部方針ではなく対外的な公表まで求められる点が重要である。",
-      "間違い。\n\nDX認定制度の対象は中小企業に限定されない。企業規模を問わず申請できるため、『中小企業であること』は認定基準ではない。",
-      "間違い。\n\nデジタルガバナンス・コードの全項目への完全対応までは要求されない。認定では、定められた基本事項への対応が確認対象になる。"
-    ],
-    "suggestedQuestions": [
-      "DX認定制度で重視されるのは成果ですか、それとも体制ですか？",
-      "DX戦略の公表が必要なのはなぜですか？",
-      "デジタルガバナンス・コードとの関係はどう整理しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DX認定制度で重視されるのは成果ですか、それとも体制ですか？",
-        "answer": "まず重視されるのは、経営ビジョンやDX戦略、推進体制、指標などを整備して公表しているかという体制面である。成果達成済みであること自体は必須ではない。"
-      },
-      {
-        "question": "DX戦略の公表が必要なのはなぜですか？",
-        "answer": "経営の方向性とDXの取組がどう結び付いているかを社外にも明らかにし、継続的な推進を担保するためである。対外発信まで含めて評価される。"
-      },
-      {
-        "question": "デジタルガバナンス・コードとの関係はどう整理しますか？",
-        "answer": "DX認定は、デジタルガバナンス・コードで示される基本事項への対応状況を土台に評価する。コード全体を網羅的に満たすことがそのまま要件ではない。"
-      }
+      "間違い。正しくは、DX認定制度はDXの成果をすでに達成していることまでは求めていない。情報処理の促進に関する法律第28条を受けた同法施行規則第41条は、経営の方向性やDX戦略の決定・公表、推進体制、評価指標などの取組を認定基準としている。選択肢はデジタル技術活用の成果目標を既に達成していることまで認定基準に含めているため誤りである。",
+      "正しい。経営ビジョン及びビジネスモデルの方向性を公表し、それを実現する方策としてDX戦略を公表していることは、認定基準に含まれる。情報処理の促進に関する法律施行規則第41条第1号イ・ロは、企業経営と情報処理技術の活用の方向性や、具体的な戦略を決定して公表することを定めている。",
+      "間違い。正しくは、DX認定制度は事業者を対象とし、中小企業に限られない。情報処理の促進に関する法律第28条は、事業者からの申請に基づいて認定できると定めている。選択肢は申請対象を中小企業に限定しているため誤りである。",
+      "間違い。正しくは、認定基準は情報処理の促進に関する法律施行規則第41条に定める、経営やDX戦略の公表、推進体制、評価指標、責任者、サイバーセキュリティ対策などへの取組である。デジタルガバナンス・コード3.0の全項目への対応を一律に求める基準ではない。選択肢は全項目への対応を認定基準としているため誤りである。"
     ],
     "original_question_id": "9c913eec279f57b4",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_23.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:202501:9c913eec279f57b4",
+    "reviewQuestionId": "9c913eec279f57b4",
+    "sourceRecordRef": "question_202501_1.json#22",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC0000000090?asof=2026-10-03",
+        "title": "情報処理の促進に関する法律（e-Gov法令検索）"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/428M60000400102?asof=2026-10-03",
+        "title": "情報処理の促進に関する法律施行規則（e-Gov法令検索）"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [
+      {
+        "choiceIndex": 1,
+        "items": [
+          {
+            "answer": "情報処理の促進に関する法律第28条に基づき、申請を受けて認定を行うのは経済産業大臣である。",
+            "question": "DX認定制度の認定を行うのは誰か。"
+          }
+        ]
+      }
+    ],
+    "isLawRelated": true,
+    "lawContextForExplanation": "情報処理の促進に関する法律第28条と同法施行規則第41条がDX認定の根拠・基準を定める。経営ビジョン及びビジネスモデルの方向性とDX戦略の公表は基準に含まれるが、成果達成済み、中小企業限定、デジタルガバナンス・コード3.0全項目対応までは要求されない。",
+    "lawReferences": [
+      [
+        {
+          "article": "28",
+          "choiceIndex": 0,
+          "lawId": "345AC0000000090",
+          "lawTitle": "情報処理の促進に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "41",
+          "choiceIndex": 0,
+          "lawId": "428M60000400102",
+          "lawTitle": "情報処理の促進に関する法律施行規則",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "28",
+          "choiceIndex": 1,
+          "lawId": "345AC0000000090",
+          "lawTitle": "情報処理の促進に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "41",
+          "choiceIndex": 1,
+          "lawId": "428M60000400102",
+          "lawTitle": "情報処理の促進に関する法律施行規則",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "28",
+          "choiceIndex": 2,
+          "lawId": "345AC0000000090",
+          "lawTitle": "情報処理の促進に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "41",
+          "choiceIndex": 2,
+          "lawId": "428M60000400102",
+          "lawTitle": "情報処理の促進に関する法律施行規則",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "28",
+          "choiceIndex": 3,
+          "lawId": "345AC0000000090",
+          "lawTitle": "情報処理の促進に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "41",
+          "choiceIndex": 3,
+          "lawId": "428M60000400102",
+          "lawTitle": "情報処理の促進に関する法律施行規則",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答では選択肢1は正答対象外であり、現行の同法施行規則第41条も成果目標の達成済みまでを認定基準としていない。",
+          "promptContext": "DX認定基準に成果達成済みの要件が含まれるかを判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文は取得していない。00_sourceの公式元正答を出題時判定として使用し、現行法本文を独立に確認した。"
+        ],
+        "reconciliationStatus": "一致確認済み",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答は選択肢2であり、現行の同法施行規則第41条第1号イ・ロは経営の方向性と具体的な戦略を決定し公表することを基準に含めている。",
+          "promptContext": "経営ビジョン及びビジネスモデルの方向性とDX戦略の公表が認定基準に含まれるかを判定した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時法令本文は取得していない。00_sourceの公式元正答を出題時判定として使用し、現行法本文を独立に確認した。"
+        ],
+        "reconciliationStatus": "一致確認済み",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答では選択肢3は正答対象外であり、情報処理の促進に関する法律第28条は認定対象を中小企業に限定していない。",
+          "promptContext": "DX認定制度の申請対象が中小企業に限定されるかを判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文は取得していない。00_sourceの公式元正答を出題時判定として使用し、現行法本文を独立に確認した。"
+        ],
+        "reconciliationStatus": "一致確認済み",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答では選択肢4は正答対象外であり、現行の認定基準は同法施行規則第41条に定められ、デジタルガバナンス・コード3.0の全項目対応をそのまま一律に要求するものではない。",
+          "promptContext": "デジタルガバナンス・コード3.0の全項目対応が認定基準かを判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文は取得していない。00_sourceの公式元正答を出題時判定として使用し、現行法本文を独立に確認した。"
+        ],
+        "reconciliationStatus": "一致確認済み",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n情報システムの企画から保守までを一貫または部分的に提供するのはシステムインテグレーションサービスの説明である。プロビジョニングの説明ではない。",
-      "間違い。\n\n複数組織で共通利用するクラウドの形態はコミュニティクラウドである。需要予測に基づく資源準備とは別の概念である。",
-      "間違い。\n\n自社内で設備を用意して運用するのはオンプレミスの説明である。クラウド提供を迅速化する資源準備の考え方ではない。",
-      "正しい。\n\nプロビジョニングは、利用需要を見込んでネットワーク設備や計算資源を計画的に確保し、要求に応じて迅速にサービス提供できるよう備える考え方である。"
-    ],
-    "suggestedQuestions": [
-      "プロビジョニングとは何を準備することですか？",
-      "オンプレミスとプロビジョニングはどう違いますか？",
-      "クラウドでプロビジョニングが重要な理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "プロビジョニングとは何を準備することですか？",
-        "answer": "サーバ、ストレージ、ネットワーク、アカウントなどの資源を、必要になったときすぐ使えるように割り当て・準備することである。"
-      },
-      {
-        "question": "オンプレミスとプロビジョニングはどう違いますか？",
-        "answer": "オンプレミスは運用形態の分類で、プロビジョニングは必要資源を用意・割り当てる行為や考え方である。分類軸が異なる。"
-      },
-      {
-        "question": "クラウドでプロビジョニングが重要な理由は何ですか？",
-        "answer": "利用需要の変化に応じて資源を素早く確保・拡張できることがクラウドの価値だからである。準備が遅いと俊敏性が失われる。"
-      }
+      "正しい。プロビジョニングは、利用者の需要を予測してネットワーク設備やシステムリソースを計画的に確保し、要求に応じてサービスを迅速に提供できるように準備することである。"
     ],
     "original_question_id": "27c6838b05366ae4",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:27c6838b05366ae4",
+    "reviewQuestionId": "27c6838b05366ae4",
+    "sourceRecordRef": "question_202501_1.json#23",
+    "explanationReferences": [
+      {
+        "referenceDate": "2025-04-20",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/nl10bi0000009lh8-att/2025r07h_nw_am2_qs.pdf",
+        "title": "令和7年度 春期 ネットワークスペシャリスト試験 午前Ⅱ 問題冊子"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "クラウドサービスの提供準備に関する技術・運用上の概念で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はプロビジョニングの説明ではなく、情報システム関連サービスの提供形態に関する説明である。",
+          "promptContext": "技術概念問題の第1選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は共同データセンターを利用する形態の説明であり、プロビジョニングの説明ではない。",
+          "promptContext": "技術概念問題の第2選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は自社で設備を用意して業務パッケージを利用する運用形態の説明であり、プロビジョニングの説明ではない。",
+          "promptContext": "技術概念問題の第3選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、需要を予測して設備やシステムリソースを計画的に確保し、要求に応じたサービス提供に備えるプロビジョニングの説明である。",
+          "promptContext": "技術概念問題の第4選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術概念のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\na,b では、運用テストに当たる d が含まれていない。情報システム・モデル取引・契約書では、要件定義や運用テストのように成果完成より業務遂行を重視する工程が準委任型に寄りやすい。",
-      "正しい。\n\n要件定義フェーズと運用テストフェーズは、成果物完成保証よりも善管注意義務に基づく業務遂行が中心となるため、準委任型が適切とされる。したがって a,d の組合せが正しい。",
-      "間違い。\n\nb,c は内部設計や結合のような請負型が適切な工程側であり、準委任型の組合せではない。工程ごとの契約類型を区別して見る必要がある。",
-      "間違い。\n\nb,d では要件定義の a が漏れている。モデル取引・契約書では、要件定義と運用テストが準委任型の代表例として整理される。"
-    ],
-    "suggestedQuestions": [
-      "準委任型と請負型の違いは何ですか？",
-      "要件定義が準委任型になりやすい理由は何ですか？",
-      "運用テストも準委任型に寄るのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "準委任型と請負型の違いは何ですか？",
-        "answer": "準委任型は業務遂行そのものを引き受け、善管注意義務を負うが完成保証まではしない。請負型は仕事の完成責任を負う。"
-      },
-      {
-        "question": "要件定義が準委任型になりやすい理由は何ですか？",
-        "answer": "要件はユーザー側との協働で固める面が強く、最初から完成物を厳密に確定しにくいからである。成果完成保証より遂行責任が中心になる。"
-      },
-      {
-        "question": "運用テストも準委任型に寄るのはなぜですか？",
-        "answer": "本番運用を見据えた確認や調整が多く、単純な完成物納入型とは性格が異なるからである。実施過程そのものの適切さが重視される。"
-      }
+      "正しい。準委任型が適切とされるのは、要件定義のaと運用テストのdである。これらは成果物の完成を保証するより、要件の整理やテストの実施などの業務遂行を重視する工程である。したがって、正しい組合せはa,dとなる。"
     ],
     "original_question_id": "7f7de866214363a5",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_25.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:7f7de866214363a5",
+    "reviewQuestionId": "7f7de866214363a5",
+    "sourceRecordRef": "question_202501_1.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令条文ではなく、情報システム・モデル取引・契約書に示された契約形態の整理を問う問題。法令根拠は付さない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢a,bの組合せではなく、a,dの組合せが準委任型として適切である。",
+          "promptContext": "契約形態の知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報システムの契約形態に関する技術・実務知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "要件定義のaと運用テストのdの組合せが準委任型として適切である。",
+          "promptContext": "契約形態の知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "情報システムの契約形態に関する技術・実務知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢b,cの組合せは、準委任型として適切なa,dと一致しない。",
+          "promptContext": "契約形態の知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報システムの契約形態に関する技術・実務知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢b,dの組合せは、準委任型として適切なa,dと一致しない。",
+          "promptContext": "契約形態の知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報システムの契約形態に関する技術・実務知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

@@ -31,7 +31,7 @@
   },
   {
     "explanationText": [
-      "正しい。行と列のパリティを確認すると、誤りのある行と列の交点から1ビットの誤り位置を特定して訂正できる。2ビット以上の誤りでは不一致となる行や列が複数になり、誤り位置を一意に定められないため、訂正できるのは1ビットまでである。"
+      "正しい。行と列のパリティを確認し、パリティが合わない行と列の交点を誤り位置として特定できるため、1ビットの誤りを訂正できる。2ビット以上では不一致となる行や列が複数になり、誤り位置を一意に定められないため、訂正できるのは1ビットまでである。"
     ],
     "original_question_id": "0b9b34069eb3715c",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_2.html",
@@ -151,33 +151,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\na と i の ASCII コード差は 8 なので、1 の位は一致せず衝突しない。",
-      "間違い。\n\nb と r の差は 16 であり、10 の倍数ではないので衝突しない。",
-      "間違い。\n\nc と l の差は 9 であり、1 の位は一致しない。",
-      "正しい。\n\nd と x の ASCII コード差は 20 で、10 の倍数だから 1 の位が同じになり同じハッシュ値へ入る。"
-    ],
-    "suggestedQuestions": [
-      "ハッシュ衝突はどんなときに起きますか？",
-      "ASCIIコードの差と1の位はどう関係しますか？",
-      "mod 10 の考え方は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ハッシュ衝突はどんなときに起きますか？",
-        "answer": "異なるキーに対してハッシュ関数の結果が同じになるときに起きる。"
-      },
-      {
-        "question": "ASCIIコードの差と1の位はどう関係しますか？",
-        "answer": "差が 10 の倍数なら 1 の位は一致する。"
-      },
-      {
-        "question": "mod 10 の考え方は何ですか？",
-        "answer": "10 で割った余りだけを見れば、1 の位が同じかどうかを判断できる。"
-      }
+      "間違い。ハッシュ値は、キーのASCIIコードを10で割った余りとして、\\[h(k)=\\operatorname{ASCII}(k)\\bmod 10\\] で求める。2文字のASCIIコード差を\\(\\Delta\\)とすると、\\[\\Delta=\\operatorname{ASCII}(k_2)-\\operatorname{ASCII}(k_1)\\] が10の倍数のときに1の位が一致して衝突する。aとiのコード差は\\(\\Delta=8\\)で10の倍数ではないため、ハッシュ値は異なり衝突しない。選択肢は衝突する組合せとしているため誤りである。",
+      "間違い。ハッシュ値はASCIIコードを10で割った余りである。bとrのASCIIコード差は\\(\\Delta=16\\)で、\\[16\\bmod 10=6\\] となるため1の位は一致しない。したがって同じハッシュ値にはならず、衝突しない。選択肢は衝突する組合せとしているため誤りである。",
+      "間違い。ASCIIコードはアルファベット順に1ずつ増えるため、cとlのコード差は\\(\\Delta=9\\)である。\\[9\\bmod 10=9\\] で10の倍数ではないので、1の位は一致せず衝突しない。選択肢は衝突する組合せとしているため誤りである。",
+      "正しい。ハッシュ値はASCIIコードを10で割った余りであり、ASCIIコード差が10の倍数なら1の位が一致する。dとxのコード差は\\(\\Delta=20\\)で、\\[20\\bmod 10=0\\] となるため、両者は同じハッシュ値になり衝突する。"
     ],
     "original_question_id": "3803f88728640d55",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:3803f88728640d55",
+    "reviewQuestionId": "3803f88728640d55",
+    "sourceRecordRef": "question_201502_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ハッシュ関数、ASCIIコード、衝突判定に関するアルゴリズムの問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ASCIIコード差が10の倍数でないため、aとiは衝突しない。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "アルゴリズム上の判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ASCIIコード差が10の倍数でないため、bとrは衝突しない。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "アルゴリズム上の判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ASCIIコード差が10の倍数でないため、cとlは衝突しない。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "アルゴリズム上の判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ASCIIコード差が20で10の倍数のため、dとxは衝突する。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "アルゴリズム上の判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -211,8 +304,8 @@
   },
   {
     "explanationText": [
-      "間違い。ホットプラグは、システムの電源を切らずに部品を取り付けたり交換したりする機能である。選択肢は、障害時にアプリケーションを代替ノードへ切り替える機能をホットプラグとしているため誤りである。",
-      "間違い。障害が発生した場合は、稼働可能な代替ノードへアプリケーションの処理を引き継がせる。選択肢は、代替ノードを再起動してアプリケーションを動かす機能としているため誤りである。",
+      "間違い。ホットプラグは、システムの電源を切らずに機器や部品を取り付けたり交換したりできる機能である。選択肢は、障害時にアプリケーションを代替ノードへ切り替える機能をホットプラグとしているため誤りである。",
+      "間違い。フェールオーバーでは、障害ノードの処理を稼働中の代替ノードへ引き継がせる。選択肢は、代替ノードを再起動する機能としているため誤りである。",
       "正しい。フェールオーバーは、障害が発生したノードから代替ノードへアプリケーションの処理を切り替え、サービスを継続させる機能である。",
       "間違い。フェールバックは、障害から復旧した元のノードへ処理を戻す機能である。選択肢は、ノード間の通信断によるクラスタの再構成をフェールバックとしているため誤りである。"
     ],
@@ -574,33 +667,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nホスト処理時間を差し引くと端末 A の往復伝送時間は 80ms であり、片道 10ms にはならない。",
-      "間違い。\n\n端末 B の回線が 10 倍遅いことからホスト処理時間を求めると 20ms となり、片道 20ms では足りない。",
-      "間違い。\n\nホスト処理時間 20ms を引いた残り 80ms は往復分なので、片道は 30ms ではなく 40ms である。",
-      "正しい。\n\n端末 A のターンアラウンド時間を 100ms、ホスト処理時間を a とすると往復伝送時間は 100-a、端末 B は 820-a である。回線速度差 10 倍より (100-a)×10=820-a となり a=20。よって端末 A の片道伝送時間は (100-20)÷2=40ms。"
-    ],
-    "suggestedQuestions": [
-      "なぜホスト処理時間を文字で置きますか？",
-      "回線速度差10倍はどう式に入れますか？",
-      "片道時間は最後にどう求めますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜホスト処理時間を文字で置きますか？",
-        "answer": "端末 A と B で共通の未知量だから、方程式を立てて消去できる。"
-      },
-      {
-        "question": "回線速度差10倍はどう式に入れますか？",
-        "answer": "同じメッセージ長なら伝送時間は回線速度に反比例するので、遅い側の往復時間は速い側の 10 倍になる。"
-      },
-      {
-        "question": "片道時間は最後にどう求めますか？",
-        "answer": "端末 A の往復伝送時間からホスト処理時間を除き、その半分を取る。"
-      }
+      "正しい。端末Aの片道伝送時間を\\(t\\)ミリ秒、ホストコンピュータの処理時間を\\(h\\)ミリ秒とする。ターンアラウンドタイムは往復の伝送時間と処理時間の合計なので、端末Aでは \\(2t+h=100\\) である。端末Bの回線速度は端末Aの10分の1だから、同じ長さのデータの片道伝送時間は\\(10t\\)ミリ秒となり、端末Bでは \\(20t+h=820\\) である。2式の差から \\(18t=720\\)、したがって \\(t=40\\) ミリ秒である。よって、端末Aからホストコンピュータへの片道の伝送時間は40ミリ秒となる。\n\n\\[2t+h=100\\]\n\\[20t+h=820\\]\n\\[18t=820-100=720\\]\n\\[t=\\frac{720}{18}=40\\,\\mathrm{ms}\\]"
     ],
     "original_question_id": "8a0bb645df732631",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:8a0bb645df732631",
+    "reviewQuestionId": "8a0bb645df732631",
+    "sourceRecordRef": "question_201502_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "回線速度、伝送時間、ターンアラウンドタイムを用いる工学・ネットワーク性能の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "回線速度と伝送時間の関係を用いる計算問題であり、法令根拠を必要としない。",
+          "promptContext": "端末Aの片道伝送時間を求める。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "回線速度と伝送時間の関係を用いる計算問題であり、法令根拠を必要としない。",
+          "promptContext": "端末Aの片道伝送時間を求める。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "回線速度と伝送時間の関係を用いる計算問題であり、法令根拠を必要としない。",
+          "promptContext": "端末Aの片道伝送時間を求める。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "回線速度と伝送時間の関係を用いる計算問題であり、法令根拠を必要としない。",
+          "promptContext": "端末Aの片道伝送時間を求める。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識と計算だけで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -614,7 +797,113 @@
     "sourceRecordRef": "question_201502_1.json#11",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "公開鍵暗号方式のアルゴリズムを問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AESは公開鍵暗号方式ではなく、法令根拠を要しない技術事項である。",
+          "promptContext": "選択肢1の技術的正誤を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "KCipher-2は公開鍵暗号方式ではなく、法令根拠を要しない技術事項である。",
+          "promptContext": "選択肢2の技術的正誤を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RSAは公開鍵暗号方式のアルゴリズムであり、法令根拠を要しない技術事項である。",
+          "promptContext": "選択肢3の技術的正誤を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SHA-256はハッシュ関数であり、公開鍵暗号方式のアルゴリズムではない。法令根拠を要しない技術事項である。",
+          "promptContext": "選択肢4の技術的正誤を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -771,10 +1060,10 @@
   },
   {
     "explanationText": [
-      "間違い。暗号方式と鍵長が設計仕様と一致するかを確認するのは、暗号設定のレビューや構成検査の目的である。選択肢は設計値との一致確認を目的としているため、攻撃を試して侵入可能性を確かめるペネトレーションテストの目的とは異なる。",
-      "間違い。入力に対する出力が仕様どおりかを確認するのは、ブラックボックステストの目的である。選択肢は機能仕様との一致確認を目的としているため、侵入可能性を検証するペネトレーションテストの目的とは異なる。",
-      "間違い。ファイアウォールが単位時間当たりに処理できるセッション数を確認するのは、負荷試験や性能試験の目的である。選択肢は処理能力の測定を目的としているため、脆弱性を利用した侵入可能性を検証するペネトレーションテストの目的とは異なる。",
-      "正しい。ペネトレーションテストは攻撃者の視点から、ファイアウォールや公開サーバに実際に侵入したり権限を取得したりできるかを試し、脆弱性が実際の被害につながるかを検証する。"
+      "間違い。暗号方式と鍵長が設計仕様と一致するかを確認するのは、暗号設定のレビューや構成検査である。ペネトレーションテストは、実際に攻撃を試して侵入できるかを確かめるため、選択肢の目的とは異なる。",
+      "間違い。入力に対する出力が仕様どおりかを確認するのは、ブラックボックステストである。ブラックボックステストは機能の正しさを検証するものであり、侵入可能性を調べるペネトレーションテストとは目的が異なる。",
+      "間違い。ファイアウォールが単位時間当たりに処理できるセッション数を確認するのは、負荷試験や性能試験である。処理能力を測定する選択肢の目的は、脆弱性を利用して侵入できるかを検証するペネトレーションテストとは異なる。",
+      "正しい。ペネトレーションテストは攻撃者の視点から、ファイアウォールや公開サーバへ実際に侵入したり権限を取得したりできるかを試す。これにより、脆弱性が実際の被害につながる可能性を検証する。"
     ],
     "original_question_id": "893ba896617ca9f1",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_15.html",
@@ -954,7 +1243,7 @@
   },
   {
     "explanationText": [
-      "正しい。EVMの管理対象の組合せは、コストとスケジュールである。EVMは作業の進捗を出来高として金額に換算し、計画と実績の差から、費用の超過や進捗の遅れを同時に把握する。品質やリスクは重要な管理領域だが、EVMが直接測定する対象ではない。"
+      "正しい。EVM（Earned Value Management）は、作業の出来高を基準に、計画と実績を比較してプロジェクトの進捗と費用の状況を測定する手法である。そのため、管理対象の組合せはコストとスケジュールとなる。品質やリスクは重要な管理領域だが、EVMが直接測定する対象ではない。"
     ],
     "original_question_id": "878a362d9f634c2c",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_18.html",
@@ -1074,33 +1363,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nB はクリティカルパス上にあるが、費用増加率が E より高いので最小費用にはならない。",
-      "間違い。\n\nC はクリティカルパス上にないため、1 日短縮しても全体完了日は縮まらない。",
-      "間違い。\n\nD もクリティカルパス外なので、A の遅れを取り戻す対象として不適切である。",
-      "正しい。\n\n当初のクリティカルパスは A→B→E→G である。A が 1 日遅れたら同じクリティカルパス上の作業を 1 日短縮する必要があり、候補 B・E・G のうち費用増加率が最も小さい E を短縮するのが最小費用となる。"
-    ],
-    "suggestedQuestions": [
-      "クリティカルパスはどう求めますか？",
-      "なぜCやDを短縮してもだめですか？",
-      "最小費用はどう選びますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クリティカルパスはどう求めますか？",
-        "answer": "開始から終了までの各経路の所要日数を比べ、最も長い経路を特定する。"
-      },
-      {
-        "question": "なぜCやDを短縮してもだめですか？",
-        "answer": "全体日程を決めている経路上にないので、短縮してもプロジェクト全体の完了日は変わらない。"
-      },
-      {
-        "question": "最小費用はどう選びますか？",
-        "answer": "短縮すべき作業候補の中で、1 日短縮当たりの増加費用が最小の作業を選ぶ。"
-      }
+      "正しい。最小費用で短縮すべき作業はEである。各経路の所要日数は、A→B→E→Gが\\[4+6+5+5=20\\]日、A→C→Gが\\[4+8+5=17\\]日、A→D→F→Gが\\[4+4+4+5=17\\]日である。最長のA→B→E→Gがクリティカルパスとなる。作業Aの遅れを1日取り戻すには、この経路上の作業を1日短縮する必要がある。選択肢のうちクリティカルパス上にあるBとEの費用増加率を比べると、Bは1日当たり6、Eは1日当たり5である。\\[5<6\\]なので、Eを1日短縮する費用が最も少ない。CやDを短縮してもクリティカルパス上にないため、全体の完了日は早まらない。"
     ],
     "original_question_id": "b52c5a4a687cc095",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:b52c5a4a687cc095",
+    "reviewQuestionId": "b52c5a4a687cc095",
+    "sourceRecordRef": "question_201502_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "工程短縮と費用増加率を比較する工程管理・数理的判断の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "作業Bの正誤はクリティカルパスと費用増加率の比較で決まり、法令の適用はない。",
+          "promptContext": "作業Bを1日短縮する費用増加率を、作業Eなどの候補と比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算によって判定する問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "作業Cの正誤は経路日数とクリティカルパスの比較で決まり、法令の適用はない。",
+          "promptContext": "作業Cを短縮しても、最長経路の完了日短縮にはつながらない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算によって判定する問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "作業Dの正誤は経路日数とクリティカルパスの比較で決まり、法令の適用はない。",
+          "promptContext": "作業Dを短縮しても、最長経路の完了日短縮にはつながらない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算によって判定する問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "作業Eはクリティカルパス上にあり、Bより費用増加率が低いため、1日短縮の候補として正しい。",
+          "promptContext": "作業Eを1日短縮すると、クリティカルパスを1日短縮でき、費用増加率は5である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識と計算によって判定する問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1134,10 +1513,10 @@
   },
   {
     "explanationText": [
-      "間違い。監査項目や監査手続を具体化し，個別監査計画書に記載する作業は，予備調査で情報を集めた後に行う個別監査計画策定の段階である。選択肢はこれを予備調査の作業としているため誤りである。",
-      "間違い。経営戦略や経営上の問題を経営トップへのヒアリングで確認し，監査テーマを設定する作業は，個別監査に先立つ監査計画の立案に当たる。選択肢は監査テーマの設定を予備調査の作業としているため誤りである。",
-      "間違い。被監査部門との監査スケジュールの調整は，予備調査で把握した情報を踏まえて個別監査計画を策定する際に行う。選択肢はこの計画策定時の調整を予備調査そのものとしているため誤りである。",
-      "正しい。予備調査では，事前に入手した文書や資料を閲覧し，監査対象のシステムや業務の詳細，業務内容，業務分掌などの実態を把握する。得られた情報は，その後の本調査を適切かつ効率的に進めるために用いる。"
+      "間違い。正しくは、監査項目と監査手続を具体化して個別監査計画書に記載するのは、予備調査の後に行う個別監査計画の策定である。選択肢はこの作業を予備調査の作業としているため誤りである。",
+      "間違い。正しくは、経営トップへのヒアリングで経営戦略・方針や問題認識を確認し、監査テーマを設定するのは、個別監査に先立つ監査計画の立案である。選択肢はこの作業を予備調査の作業としているため誤りである。",
+      "間違い。正しくは、被監査部門との監査スケジュールの調整は、予備調査で得た情報を基に個別監査計画を策定する段階で行う。選択肢はこの調整を予備調査の作業としているため誤りである。",
+      "正しい。予備調査では、事前に入手した文書や資料を閲覧し、監査対象のシステムや業務の実態を把握する。得られた情報は、その後の本調査を適切かつ効率的に進めるために用いる。"
     ],
     "original_question_id": "f74493e5be77fe52",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_21.html",
@@ -1323,10 +1702,10 @@
   },
   {
     "explanationText": [
-      "正しい。RFIはRequest for Informationの略で、調達者が供給者候補にシステム化の目的や業務内容などを示し、提案を検討するための情報提供を求めるものである。",
+      "正しい。RFIはRequest for Informationの略で、調達者が供給者候補からシステム化の目的や業務内容に関する情報を集めるために使う。",
       "間違い。提案書の提出を依頼するのはRFP（Request for Proposal）である。選択肢はRFIを提案書の提出依頼としているため誤りである。",
-      "間違い。契約内容の変更を要請するのはRFC（Request for Change）である。選択肢はRFIを契約内容の変更要請としているため誤りである。",
-      "間違い。RFIは調達の初期段階で供給者候補から情報を集めるためのもので、契約の締結を要請するものではない。選択肢はRFIを契約締結の要請としているため誤りである。"
+      "間違い。変更を要請するのはRFC（Request for Change）である。選択肢はRFIを契約内容の変更要請としているため誤りである。",
+      "間違い。RFIは調達の初期段階で情報を集めるためのもので、契約の締結を要請するものではない。選択肢はRFIを契約締結の要請としているため誤りである。"
     ],
     "original_question_id": "62fdd2ee3ed3e706",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_24.html",

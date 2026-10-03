@@ -31,63 +31,243 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n33% では利用率/(1-利用率)=0.33/0.67 で 1 未満なので、平均待ち時間は T 秒以上にならない。",
-      "正しい。\n\nM/M/1 の平均待ち時間は 利用率/(1-利用率)×平均処理時間 である。平均処理時間が T 秒なので、T 以上となる条件は 利用率/(1-利用率)≧1、すなわち利用率≧0.5 であり、50%以上である。",
-      "間違い。\n\n67% でも条件は満たすが、設問は『少なくとも何%以上』かを問うので最小境界の 50% ではない。",
-      "間違い。\n\n80% は過大である。待ち時間が T 秒以上になる境界は 50% である。"
-    ],
-    "suggestedQuestions": [
-      "M/M/1 の待ち時間式はどう使いますか？",
-      "なぜ 50% が境界ですか？",
-      "利用率が高いと何が起こりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "M/M/1 の待ち時間式はどう使いますか？",
-        "answer": "平均待ち時間＝利用率/(1-利用率)×平均サービス時間 に代入して不等式を解く。"
-      },
-      {
-        "question": "なぜ 50% が境界ですか？",
-        "answer": "利用率/(1-利用率)=1 を解くと利用率=0.5 になるからである。"
-      },
-      {
-        "question": "利用率が高いと何が起こりますか？",
-        "answer": "分母 1-利用率 が小さくなり、待ち時間が急増しやすくなる。"
-      }
+      "正しい。M/M/1待ち行列の平均待ち時間は、利用率をρ、平均処理時間をTとすると、次の式で表される。\n\\[W_q=\\frac{ρ}{1-ρ}T\\]\n平均待ち時間がT秒以上となる条件は、\n\\[\\frac{ρ}{1-ρ}T\\geq T\\]\n\\[\\frac{ρ}{1-ρ}\\geq1\\]\n\\[ρ\\geq1-ρ\\]\n\\[2ρ\\geq1\\]\n\\[ρ\\geq0.5\\]\nしたがって、処理装置の利用率が50%以上になると、平均待ち時間はT秒以上となる。"
     ],
     "original_question_id": "553afe1f44877074",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:553afe1f44877074",
+    "reviewQuestionId": "553afe1f44877074",
+    "sourceRecordRef": "question_201802_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "M/M/1待ち行列モデルに基づく数理・性能評価の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢の33%は、平均待ち時間がT秒以上となる条件ρ>=0.5を満たさない。",
+          "promptContext": "M/M/1待ち行列モデルの数理判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・数理問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢の50%は、平均待ち時間がT秒以上となる条件ρ>=0.5を満たす。",
+          "promptContext": "M/M/1待ち行列モデルの数理判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・数理問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢の67%は条件を満たすが、問われている正答の選択肢は50%である。",
+          "promptContext": "M/M/1待ち行列モデルの数理判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・数理問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢の80%は条件を満たすが、問われている正答の選択肢は50%である。",
+          "promptContext": "M/M/1待ち行列モデルの数理判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・数理問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "matched",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n教科 A は 90 点が平均からより右側に離れており、90点以上の裾部分は B より小さい。",
-      "正しい。\n\n正規分布では、90点が平均から何標準偏差だけ右にあるかで 90点以上の人数が決まる。図の各教科を比べると B が 90 点に対して最も有利な位置関係となり、90点以上の割合が最大になる。",
-      "間違い。\n\n教科 C は平均やばらつきの位置関係から、B ほど 90点以上の領域が広くない。",
-      "間違い。\n\n教科 D も 90 点が分布のより右側に位置し、90点以上の人数は B を上回らない。"
-    ],
-    "suggestedQuestions": [
-      "正規分布では何を見れば比較できますか？",
-      "標準偏差はどう効きますか？",
-      "図問題はどう判断すると速いですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正規分布では何を見れば比較できますか？",
-        "answer": "基準点が平均から何標準偏差だけ離れているかを比べれば、上側確率の大小を判断しやすい。"
-      },
-      {
-        "question": "標準偏差はどう効きますか？",
-        "answer": "同じ平均でも標準偏差が大きいほど分布が広がり、基準点に対する上側確率が変わる。"
-      },
-      {
-        "question": "図問題はどう判断すると速いですか？",
-        "answer": "90点線を引いたときに右側に残る面積が最も大きい分布を探すとよい。"
-      }
+      "正しい。90点以上の割合は、各教科で90点が平均から何標準偏差離れているかを比べて判断する。標準化した値は、教科Aが\\((90-45)/18=2.5\\)、Bが\\((90-60)/15=2\\)、Cが\\((90-70)/8=2.5\\)、Dが\\((90-75)/5=3\\)である。正規分布では、この値が小さいほど90点以上の上側確率が大きい。したがって、90点以上の得点者が最も多いと推定できるのは教科Bである。"
     ],
     "original_question_id": "cbc7319660e5e328",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:cbc7319660e5e328",
+    "reviewQuestionId": "cbc7319660e5e328",
+    "sourceRecordRef": "question_201802_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "4教科の得点分布と正規分布を用いて90点以上の人数を推定する統計問題であり、法令・制度上の義務、定義、手続又は基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "教科Aの90点は平均から2.5標準偏差離れており、選択肢Aの正答とはならない。",
+          "promptContext": "90点以上の人数を正規分布の上側確率で比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。統計知識に基づく判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "教科Bの90点は平均から2標準偏差離れており、4教科の中で上側確率が最も大きい。",
+          "promptContext": "90点以上の人数を正規分布の上側確率で比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。統計知識に基づく判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "教科Cの90点は平均から2.5標準偏差離れており、選択肢Cの正答とはならない。",
+          "promptContext": "90点以上の人数を正規分布の上側確率で比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。統計知識に基づく判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "教科Dの90点は平均から3標準偏差離れており、上側確率は教科Bより小さい。",
+          "promptContext": "90点以上の人数を正規分布の上側確率で比較する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。統計知識に基づく判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -211,7 +391,7 @@
   },
   {
     "explanationText": [
-      "正しい。答えはハミング符号である。複数の検査ビットを組み合わせて誤りの位置を特定するため、1ビット誤りを訂正できる。さらに、拡張ハミング符号では2ビット誤りを検出できる。単一のパリティやチェックサムは誤りの検出が主で、誤り位置を特定して訂正する機能は持たない。"
+      "正しい。ハミング符号は、複数の検査ビットで誤りの位置を特定し、1ビットの誤りを訂正できる。また、拡張ハミング符号では2ビットの誤りを検出できる。パリティやチェックサムは誤りの検出には使えるが、誤りの位置を特定して訂正する機能はない。"
     ],
     "original_question_id": "8844a10fb1c5cc29",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_5.html",
@@ -331,33 +511,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n0.25 ではページインだけの割合が少なすぎる。平均時間は 20P+60(1-P)=50ms となり 30ms にならない。",
-      "間違い。\n\n0.33 でも加重平均は約 46.8ms であり、条件を満たさない。",
-      "間違い。\n\n0.67 では加重平均は約 33.2ms となり、まだ 30ms より長い。",
-      "正しい。\n\nページインだけの割合を P とすると、20P+60(1-P)=30 を解いて P=0.75 となる。"
-    ],
-    "suggestedQuestions": [
-      "加重平均はどう立てますか？",
-      "ページアウトあり・なしをどう表しますか？",
-      "なぜ 0.75 になりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "加重平均はどう立てますか？",
-        "answer": "各処理時間に発生割合を掛けて足し合わせ、全体平均 30ms と等置する。"
-      },
-      {
-        "question": "ページアウトあり・なしをどう表しますか？",
-        "answer": "ページインだけを P、ページアウトありを 1-P と置けばよい。"
-      },
-      {
-        "question": "なぜ 0.75 になりますか？",
-        "answer": "20P+60-60P=30 から -40P=-30、よって P=0.75 となる。"
-      }
+      "正しい。ページインだけの処理の割合をPとすると、ページアウトを伴う処理の割合は1−Pである。平均処理時間は次の式で表せる。\n\n\\[20P+60(1-P)=30\\]\n\nこれを解くと、\\(20P+60-60P=30\\)、\\(-40P=-30\\)より、\\(P=0.75\\)となる。したがって、ページアウトを伴わないページインだけの処理の割合は0.75である。"
     ],
     "original_question_id": "5ac0a2fd6533b1dd",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:5ac0a2fd6533b1dd",
+    "reviewQuestionId": "5ac0a2fd6533b1dd",
+    "sourceRecordRef": "question_201802_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ページング方式の仮想記憶におけるページフォールト処理時間の計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "20P+60(1-P)=30よりP=0.75ではないため、この選択肢は不適切である。",
+          "promptContext": "ページング方式の平均処理時間の計算で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術的な計算問題のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "20P+60(1-P)=30よりP=0.75ではないため、この選択肢は不適切である。",
+          "promptContext": "ページング方式の平均処理時間の計算で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術的な計算問題のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "20P+60(1-P)=30よりP=0.75ではないため、この選択肢は不適切である。",
+          "promptContext": "ページング方式の平均処理時間の計算で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術的な計算問題のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "20P+60(1-P)=30を解くとP=0.75となるため、この選択肢は適切である。",
+          "promptContext": "ページング方式の平均処理時間の計算で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術的な計算問題のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -482,9 +752,9 @@
   {
     "explanationText": [
       "間違い。正しくは、ウェアラブルカメラや慣性センサーを用いて非言語情報を認識する処理は、センシングや認識の処理である。選択肢は非言語情報の認識をレンダリングとしているため誤りである。",
-      "正しい。レンダリングは、仮想世界の3次元モデルや光源などの情報を、ディスプレイに表示できる2次元画像へ変換する処理である。",
-      "間違い。正しくは、現実世界と仮想世界の3次元座標を一致させる処理は、位置合わせやレジストレーションである。選択肢は座標の一致をレンダリングとしているため誤りである。",
-      "間違い。正しくは、物体の移動や変化を物理法則などに基づいて更新する処理は、シミュレーションである。選択肢は物理法則に基づく変化の計算をレンダリングとしているため誤りである。"
+      "正しい。レンダリングは、仮想世界のモデルなどの情報を、ディスプレイに表示できる画像へ変換する処理である。",
+      "間違い。正しくは、現実世界と仮想世界の3次元座標を一致させる処理は、位置合わせ（レジストレーション）である。選択肢は座標の一致をレンダリングとしているため誤りである。",
+      "間違い。正しくは、物体の移動や変化を物理法則などに基づいて計算する処理は、シミュレーションである。選択肢は物理法則に基づく変化の計算をレンダリングとしているため誤りである。"
     ],
     "original_question_id": "ba69eda3ef99aa7a",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_8.html",
@@ -604,33 +874,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n193 では 1168-571=597、1566-1168=398 の両方を割り切れず、3つが同じ剰余にはならない。",
-      "間違い。\n\n197 でも 597 も 995 も割り切れないので衝突条件を満たさない。",
-      "正しい。\n\n全てのハッシュ値が同じなら、各キーの差は除数で割り切れる必要がある。1168-571=597、1566-571=995 であり、597=199×3、995=199×5 なので除数は 199 である。",
-      "間違い。\n\n211 は 597 や 995 を割り切らないので、3つの値が同じ剰余になることはない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ差を見ればよいですか？",
-      "剰余が一致する条件は何ですか？",
-      "ハッシュ表では何が重要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ差を見ればよいですか？",
-        "answer": "同じ除数で同じ剰余を持つ 2 数の差は、その除数の倍数になるからである。"
-      },
-      {
-        "question": "剰余が一致する条件は何ですか？",
-        "answer": "a mod m = b mod m なら a-b は m で割り切れる。"
-      },
-      {
-        "question": "ハッシュ表では何が重要ですか？",
-        "answer": "衝突を減らすことと、データ分布に合ったハッシュ関数や表サイズを選ぶことである。"
-      }
+      "正しい。全てのハッシュ値が衝突する除数は199である。同じ剰余になるには、各キー値の差が除数で割り切れる必要がある。\n\n\\[d\\mid(1168-571)=597\\]\n\\[d\\mid(1566-571)=995\\]\n\n\\[597=199\\times3,\\qquad995=199\\times5\\]\n\nしたがって、両方の差を割り切る選択肢は199であり、使用した除数は199である。"
     ],
     "original_question_id": "7d20406caefff72c",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:7d20406caefff72c",
+    "reviewQuestionId": "7d20406caefff72c",
+    "sourceRecordRef": "question_201802_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ハッシュ値の衝突条件を数理的に判定する問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ハッシュ値の衝突条件を数理的に判定する問題であり、法令監査対象外である。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を要しない計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ハッシュ値の衝突条件を数理的に判定する問題であり、法令監査対象外である。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を要しない計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ハッシュ値の衝突条件を数理的に判定する問題であり、法令監査対象外である。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度上の根拠を要しない計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ハッシュ値の衝突条件を数理的に判定する問題であり、法令監査対象外である。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を要しない計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -788,8 +1148,8 @@
   {
     "explanationText": [
       "間違い。TLS通信は利用者PCとDMZ上のWebサーバとの間で行われる。選択肢はDBサーバとの通信を暗号化し、DBサーバの正当性を検証するとしているため誤りである。",
-      "間違い。利用者のデジタル証明書を使うTLSでは、利用者PCとWebサーバとの通信を暗号化し、証明書によって利用者を認証できる。選択肢はDBサーバとの直接通信で利用者を認証するとしているため誤りである。",
-      "間違い。TLSによって利用者PCとWebサーバとの通信を暗号化でき、サーバ証明書によって接続先のWebサーバを検証できる。ただし、選択肢はその検証対象をDBサーバとしているため誤りである。",
+      "間違い。利用者のデジタル証明書を用いるTLSでは、利用者PCとWebサーバとの通信を暗号化し、その証明書によって利用者を認証できる。選択肢はDBサーバとの通信で利用者を認証するとしているため誤りである。",
+      "間違い。TLSによって利用者PCとWebサーバとの通信を暗号化し、Webサーバの証明書によって接続先が正当なWebサーバかを検証できる。選択肢は検証対象をDBサーバとしているため誤りである。",
       "正しい。利用者のデジタル証明書を用いるTLSでは、利用者PCとDMZ上のWebサーバとの通信を暗号化し、クライアント証明書によって利用者を認証できる。"
     ],
     "original_question_id": "374f5648289783d4",
@@ -910,10 +1270,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、Webページへ出力するデータをHTMLとして解釈されないようにエスケープするなど、Webアプリケーション側で処理する。SNMPエージェントの常時稼働は監視のための仕組みであり、入力データがスクリプトとして実行されることを防ぐ対策ではない。",
-      "間違い。正しくは、Webページへ出力するデータをHTMLとして解釈されないようにエスケープするなど、Webアプリケーション側で処理する。OSへのセキュリティパッチ適用はOSの脆弱性を修正する対策であり、Webアプリケーションの出力処理の不備によるXSSを直接防ぐものではない。",
-      "正しい。Webページへ出力するデータをHTMLエスケープし、タグやスクリプトとして解釈されないように処理することは、XSSの基本的な対策である。",
-      "間違い。正しくは、Webページへ出力するデータをHTMLとして解釈されないようにエスケープするなど、Webアプリケーション側で処理する。入力データの大きさを制限する対策は、過大入力による障害やバッファオーバーフローなどには関係するが、入力値がスクリプトとして実行されることは防がない。"
+      "間違い。正しくは、Webページへ出力するデータをHTMLエスケープするなど、入力値がタグやスクリプトとして解釈されないように処理する。選択肢はSNMPエージェントを常時稼働させればXSSを検知できるとしているため誤りである。SNMPは機器の監視に使う仕組みであり、Webアプリケーションの出力処理の不備は防がない。",
+      "間違い。正しくは、Webページへ出力するデータをHTMLエスケープするなど、入力値がタグやスクリプトとして解釈されないように処理する。選択肢はWebサーバのOSにセキュリティパッチを適用すればXSSを防げるとしているため誤りである。OSのパッチはOSの脆弱性を修正する対策であり、Webアプリケーションの出力処理の不備を直接防ぐものではない。",
+      "正しい。Webページへ出力するデータをHTMLエスケープし、入力値がタグやスクリプトとして解釈されないようにする処理は、XSSの基本的な対策である。",
+      "間違い。正しくは、Webページへ出力するデータをHTMLエスケープするなど、入力値がタグやスクリプトとして解釈されないように処理する。選択肢は入力データの大きさを制限すればXSSを防げるとしているため誤りである。データサイズの制限は過大入力による障害などへの対策であり、入力値がスクリプトとして実行されることは防がない。"
     ],
     "original_question_id": "859b25b54378adf2",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_13.html",
@@ -1213,10 +1573,10 @@
   },
   {
     "explanationText": [
-      "正しい。イテレーションを短く繰り返すことで、顧客の要求とのずれを早期に見つけて修正し、要求の変化にも柔軟に対応できる。",
-      "間違い。タスクの実施状況を可視化するのは、かんばんやタスクボードなどの運用の目的である。選択肢はタスクの可視化をイテレーションの目的としているため誤りである。",
-      "間違い。ペアプログラミングでは、ドライバとナビゲータを交代させながら開発する。選択肢はこの役割を固定化しない運用をイテレーションの目的としているため誤りである。",
-      "間違い。毎日決めた時刻に集まって進捗や問題を共有するのは、デイリースクラムの目的である。選択肢はデイリースクラムの目的をイテレーションの目的としているため誤りである。"
+      "正しい。イテレーションは短い開発サイクルを繰り返し、顧客の要求とのずれを早期に見つけて修正し、要求の変化にも柔軟に対応するために行う。",
+      "間違い。タスクの実施状況を可視化するのは、かんばんやタスクボードなどの運用である。選択肢はタスクの可視化をイテレーションの目的としているため誤りである。",
+      "間違い。ペアプログラミングでは、ドライバとナビゲータを交代させながら開発する。選択肢は役割の固定化を避けることをイテレーションの目的としているため誤りである。",
+      "間違い。毎日決めた時刻に集まり、進捗や問題を共有するのはデイリースクラムである。選択肢はデイリースクラムの目的をイテレーションの目的としているため誤りである。"
     ],
     "original_question_id": "beeea532c48b1c21",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_17.html",
@@ -1336,10 +1696,10 @@
   },
   {
     "explanationText": [
-      "間違い。責任分担表は、作業に関与する人と担当する責任を対応付けて示す。選択肢はこの内容をトレンドチャートとしているため誤りである。",
-      "間違い。ガントチャートは、作業日程の計画と実績を帯状に示して比較する。選択肢はガントチャートの説明をトレンドチャートとしているため誤りである。",
-      "正しい。トレンドチャートは、作業の進捗状況や予算の消費状況など、複数の指標の推移を時系列の折れ線で示し、計画との差や変化の傾向を把握するために用いる。",
-      "間違い。アローダイアグラムやプレシデンスダイアグラムは、作業の順序や相互関係をネットワーク図で示す。選択肢はネットワーク図で工程の関係を示す手法をトレンドチャートとしているため誤りである。"
+      "間違い。正しくは、責任分担表は、作業に関与する人と各人の責任をマトリックスで示す。選択肢は責任分担表の説明をトレンドチャートとしているため誤りである。",
+      "間違い。正しくは、ガントチャートは、作業日程の計画と実績を帯状に示して比較する。選択肢はガントチャートの説明をトレンドチャートとしているため誤りである。",
+      "正しい。トレンドチャートは、作業の進捗状況や予算の消費状況などの推移を時系列の折れ線で示し、計画との差や変化の傾向を把握するために用いる。",
+      "間違い。正しくは、アローダイアグラムやプレシデンスダイアグラムは、作業の順序や相互関係をネットワーク図で示す。選択肢はネットワーク図で工程の関係を示す手法をトレンドチャートとしているため誤りである。"
     ],
     "original_question_id": "778ab92c7043df74",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_18.html",
@@ -1459,10 +1819,7 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、調整前FPは利用者に提供する機能を数えて求める。選択肢は開発者数を挙げているため誤りである。開発者数は工数や体制の見積りに関係するが、機能量そのものではない。",
-      "正しい。調整前FPは、外部入力・外部出力・外部照会・内部論理ファイル・外部インタフェースファイルなど、利用者から見える機能を数えて求める。画面数は、これらの機能を把握するための情報になる。",
-      "間違い。正しくは、調整前FPは利用者から見える機能を基に算出する。選択肢はプログラムステップ数を挙げているため誤りである。プログラムステップ数は、ソースコードの規模を表すLOCベースの見積りで用いる情報である。",
-      "間違い。正しくは、調整前FPを求めるには機能の種類と複雑さを把握する。選択肢は利用者数を挙げているため誤りである。利用者数だけでは、システムが提供する機能量や複雑さを判断できない。"
+      "正しい。調整前FPは、外部入力・外部出力・外部照会・内部論理ファイル・外部インタフェースファイルという利用者から見た機能の種類と複雑さを基に算出する。画面数は、利用者との入出力機能を把握するための手掛かりになる。一方、開発者数や利用者数は体制・利用規模に関する情報であり、プログラムステップ数はソースコードの規模を表すため、調整前FPの算定対象ではない。"
     ],
     "original_question_id": "5fb511dc45dbcf37",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_19.html",
@@ -2019,7 +2376,7 @@
     "explanationText": [
       "正しい。システム化構想の立案では、技術動向や業務上の課題を調べ、情報技術をどう活用すれば顧客対応の省力化や品質向上、競争優位につながるかを分析する。",
       "間違い。正しくは、信頼性や効率性などの品質に関する要件は、構想を具体化する後続の要件定義工程で定める。選択肢は、システム化構想の立案段階で品質要件を定義するとしているため誤りである。",
-      "間違い。正しくは、必要な機能や性能をシステム要件として定義し、システム要素へ割り当てる作業は、構想立案後のシステム要件定義や方式設計で行う。選択肢は、この後続作業をシステム化構想の立案で行うとしているため誤りである。",
+      "間違い。正しくは、必要な機能や能力をシステム要件として定義し、システム要素へ割り当てる作業は、構想立案後の要件定義や方式設計の工程で行う。選択肢は、この後続作業をシステム化構想の立案で行うとしているため誤りである。",
       "間違い。正しくは、実現方式やインタフェースの設計は、構想に基づいて要件を具体化した後の設計工程で行う。選択肢は、要件定義や設計をシステム化構想の立案で行うとしているため誤りである。"
     ],
     "original_question_id": "a4f0ee3616f681d3",

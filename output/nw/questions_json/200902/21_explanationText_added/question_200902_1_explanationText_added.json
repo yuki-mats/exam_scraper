@@ -1,8 +1,8 @@
 [
   {
     "explanationText": [
-      "間違い。ビット誤りの検出には、パリティビットなどを用いる。選択肢は、1のビットを数えるだけでビット誤りを検出できるとしているため誤りである。",
-      "正しい。2の補数表現を使うと、減算を引く数の2の補数を加算する処理に置き換えられるため、加算回路を利用して減算を実行できる。",
+      "間違い。ビット誤りの検出には、あらかじめ定めたパリティなどの誤り検出方式を用いる。選択肢は、1のビットを数えるだけでビット誤りを検出できるとしているため誤りである。",
+      "正しい。2の補数表現を使うと、減算を引く数の2の補数の加算に置き換えられるため、加算回路を利用して減算を実行できる。",
       "間違い。2の補数を使う主な理由は、減算を負数の加算に置き換えられることである。選択肢は、除算を減算の組合せで行うことが2の補数を使う理由としているため誤りである。",
       "間違い。ビットを反転しただけで得られるのは1の補数であり、2の補数では反転後に1を加える。選択肢は、ビットの反転だけで負数を求められるとしているため誤りである。"
     ],
@@ -124,8 +124,8 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、検査用データは検査対象のデータを生成多項式で割ったときの余りであり、生成多項式の次数に応じた複数ビットになる。選択肢は検査用データを1ビットの値としているため誤りである。",
-      "間違い。正しくは、受信側は受信した検査対象のデータと検査用データを合わせたビット列を生成多項式で割り、余りがないかを確認する。選択肢は検査対象のデータを検査用データで割るとしているため誤りである。",
+      "間違い。正しくは、検査対象のデータに生成多項式の次数分の0を付けて割った余りが検査用データであり、通常は複数ビットになる。選択肢は検査用データを1ビットの値としているため誤りである。",
+      "間違い。正しくは、受信側は検査対象のデータと付加された検査用データを合わせたビット列を生成多項式で割り、余りが0かどうかを確認する。選択肢は検査対象のデータを検査用データで割るとしているため誤りである。",
       "正しい。",
       "間違い。正しくは、送信側と受信側は同じ生成多項式を用いて検査結果を一致させる。選択肢は送信側と受信側で異なる生成多項式を用いるとしているため誤りである。"
     ],
@@ -247,37 +247,127 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n実装方法 1 では追加も削除も末尾近くまでたどる必要があるため、g(n)/f(n) はほぼ 1 であり、この組合せではない。",
-      "正しい。\n\nfront だけの実装では追加も削除も O(n) で比はほぼ 1、rear も持つ実装では追加は O(1) だが削除は末尾直前までたどる必要があり、比は n に比例する。",
-      "間違い。\n\nrear を持っても単方向リストでは末尾の一つ前へ戻れないため、削除だけ O(1) にはならない。",
-      "間違い。\n\n実装方法 2 の追加は定数時間で済むので、両方とも同じ比になるわけではない。"
-    ],
-    "suggestedQuestions": [
-      "rear を持つと何が速くなりますか？",
-      "単方向リストで末尾削除が遅い理由は何ですか？",
-      "双方向リストならどう変わりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "rear を持つと何が速くなりますか？",
-        "answer": "末尾セルへ直ちに到達できるため、末尾追加を O(1) にしやすい。"
-      },
-      {
-        "question": "単方向リストで末尾削除が遅い理由は何ですか？",
-        "answer": "末尾セルの一つ前のセルを知るために、先頭から順にたどる必要があるからである。"
-      },
-      {
-        "question": "双方向リストならどう変わりますか？",
-        "answer": "前方向へのポインタもあれば末尾から一つ前へ戻れるため、末尾削除を効率化しやすい。"
-      }
+      "正しい。該当するのはイである。実装方法1はfrontだけをもつため、末尾への追加では末尾までたどり、末尾の削除では末尾の一つ前までたどる必要がある。したがって、追加時間と削除時間はともに比例し、\n\\[f_1(n)=\\Theta(n),\\qquad g_1(n)=\\Theta(n),\\qquad \\frac{g_1(n)}{f_1(n)}=\\Theta(1)\\]\nとなる。実装方法2はrearをもつので末尾への追加は定数時間で行えるが、単方向リストでは末尾の一つ前へ戻れないため、末尾の削除には先頭からたどる必要がある。したがって、\n\\[f_2(n)=\\Theta(1),\\qquad g_2(n)=\\Theta(n),\\qquad \\frac{g_2(n)}{f_2(n)}=\\Theta(n)\\]\nとなる。つまり、実装方法1の比はほぼ一定で、実装方法2の比はnに比例する。"
     ],
     "original_question_id": "85dc0379967e0c5a",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:85dc0379967e0c5a",
+    "reviewQuestionId": "85dc0379967e0c5a",
+    "sourceRecordRef": "question_200902_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "連結リストのポインタ構成と計算量を問うアルゴリズム上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は連結リストの末尾操作の計算量に関する技術的主張であり、法令根拠を必要としない。",
+          "promptContext": "連結リストのポインタ構成と計算量の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は実装方法1で比がほぼ1になり、実装方法2でnに比例するという計算量上の主張であり、法令根拠を必要としない。",
+          "promptContext": "連結リストのポインタ構成と計算量の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は実装方法1と実装方法2の比の挙動を逆に示しており、技術的な計算量判定で誤りと分かる。法令根拠は不要である。",
+          "promptContext": "連結リストのポインタ構成と計算量の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は両実装方法の比がnに比例するとしているが、実装方法1の比はほぼ一定であるため誤りであり、法令根拠は不要である。",
+          "promptContext": "連結リストのポインタ構成と計算量の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。パイプラインの実行時間は、最初の命令が全段を通過する時間に、後続の命令が完了するまでの追加時間を合わせて求める。公式は \\[T=(I+D-1)P\\] である。\\(T\\)は全命令の実行時間、\\(I\\)は命令数、\\(D\\)はパイプラインの段数、\\(P\\)は1ステージを処理する時間（ピッチ）を表す。最初の命令には\\(D\\)ピッチかかり、残りの\\(I-1\\)命令は1命令ごとに1ピッチずつ追加されるため、合計は\\((D+I-1)P\\)となる。したがって、正しい式は「(I＋D－1)×P」である。"
+      "正しい。最初の命令がD段すべてを通過するのにDピッチかかり、その後のI−1個の命令は1個につき1ピッチずつ完了する。したがって、全体の実行時間は次の式で求められる。\\[T=(D+I-1)P=(I+D-1)P\\] \\(T\\)は全命令の実行時間、\\(I\\)は命令数、\\(D\\)はパイプラインの段数、\\(P\\)は1ステージを処理する時間（ピッチ）である。よって、正しい式は「(I＋D－1)×P」である。"
     ],
     "original_question_id": "2484c9ae41884c25",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_4.html",
@@ -397,7 +487,10 @@
   },
   {
     "explanationText": [
-      "正しい。フェールセーフは、障害や誤動作が起きても危険な状態へ進まず、安全側に移行するように設計する考え方である。機能を縮退させて運用を続けるのはフェールソフト、重要な構成要素を多重化して故障後も機能を維持するのはフォールトトレラント、誤操作を起こしにくくするのはフールプルーフであり、それぞれ目的が異なる。"
+      "正しい。フェールセーフは、障害や誤動作が起きても危険な状態へ進まず、安全側に移行するように設計する考え方である。",
+      "間違い。正しくは、機能を縮退させて運用を継続するのはフェールソフトである。選択肢は、機能を縮退させて運用を継続する考え方をフェールセーフとしているため誤りである。",
+      "間違い。正しくは、重要な構成要素を複数備えて故障後も機能を維持するのはフォールトトレラントである。選択肢は、構成要素を複数備えて信頼性を高める考え方をフェールセーフとしているため誤りである。",
+      "間違い。正しくは、不特定多数の人が操作しても誤動作しにくくするのはフールプルーフである。選択肢は、誤操作を防ぎやすくする設計をフェールセーフとしているため誤りである。"
     ],
     "original_question_id": "67f9e0c8b31f845a",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_5.html",
@@ -407,37 +500,233 @@
     "sourceRecordRef": "question_200902_1.json#4",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム構成・信頼性に関する技術概念の問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行時で法令上の判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "フェールセーフは、障害や誤動作が起きても安全側へ移行させる設計概念である。",
+          "promptContext": "技術概念問題のため法令監査対象外。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくフェールセーフの技術概念で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行時で法令上の判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "機能を縮退させて運用を継続する考え方はフェールソフトであり、フェールセーフではない。",
+          "promptContext": "技術概念問題のため法令監査対象外。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくフェールソフトの技術概念との区別で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行時で法令上の判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "重要な構成要素を複数備えて故障後も機能を維持する考え方はフォールトトレラントであり、フェールセーフではない。",
+          "promptContext": "技術概念問題のため法令監査対象外。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくフォールトトレラントの技術概念との区別で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行時で法令上の判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "誤操作を防ぎやすくする設計はフールプルーフであり、フェールセーフではない。",
+          "promptContext": "技術概念問題のため法令監査対象外。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくフールプルーフの技術概念との区別で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n片方だけ稼働する確率は 0.7×0.4 + 0.3×0.6 = 0.46 であり、0.18 にはならない。",
-      "間違い。\n\n0.28 は『1 台目が稼働し 2 台目が停止』だけであり、逆のケース 0.18 を足していない。",
-      "間違い。\n\n0.42 は両方が稼働する確率であって、片方だけ稼働する確率ではない。",
-      "正しい。\n\n片方だけ稼働する確率は、1 台目のみ稼働 0.7×0.4 と 2 台目のみ稼働 0.3×0.6 の和で、0.28 + 0.18 = 0.46 となる。"
-    ],
-    "suggestedQuestions": [
-      "片方だけ稼働する確率はどう分けますか？",
-      "独立であることはどこで使いますか？",
-      "両方稼働する確率は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "片方だけ稼働する確率はどう分けますか？",
-        "answer": "『1 台目のみ稼働』と『2 台目のみ稼働』の二つの排反事象に分けて足し合わせる。"
-      },
-      {
-        "question": "独立であることはどこで使いますか？",
-        "answer": "同時事象の確率を、それぞれの確率の積で求めるところで使う。"
-      },
-      {
-        "question": "両方稼働する確率は何ですか？",
-        "answer": "0.7 × 0.6 = 0.42 である。"
-      }
+      "正しい。片方だけが稼働する確率は、1台目だけが稼働する場合と2台目だけが稼働する場合を足し合わせて求める。稼働率をそれぞれ\\(p_1\\)、\\(p_2\\)とすると、確率\\(P\\)は次の式で表される。\\n\\[\\nP=p_1(1-p_2)+(1-p_1)p_2\\n\\]\\n値を代入すると、\\n\\[\\nP=0.7(1-0.6)+(1-0.7)0.6\\n\\]\\n\\[\\n=0.7\\times0.4+0.3\\times0.6=0.28+0.18=0.46\\n\\]\\nしたがって、正答は\\(0.46\\)である。"
     ],
     "original_question_id": "552715e617304f80",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:552715e617304f80",
+    "reviewQuestionId": "552715e617304f80",
+    "sourceRecordRef": "question_200902_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "稼働率と独立事象の確率計算だけで正誤が決まる技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠は不要であり、技術計算のみで判定できる。",
+          "promptContext": "1台目だけ又は2台目だけが稼働する確率を判定する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。稼働率と独立事象の確率計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠は不要であり、技術計算のみで判定できる。",
+          "promptContext": "1台目だけ又は2台目だけが稼働する確率を判定する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。稼働率と独立事象の確率計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠は不要であり、技術計算のみで判定できる。",
+          "promptContext": "1台目だけ又は2台目だけが稼働する確率を判定する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。稼働率と独立事象の確率計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠は不要であり、技術計算のみで判定できる。",
+          "promptContext": "1台目だけ又は2台目だけが稼働する確率を判定する。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当。稼働率と独立事象の確率計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -570,7 +859,7 @@
   },
   {
     "explanationText": [
-      "正しい。図はNAND型SRラッチである。Sを0にするとセット動作が起こり、Xは1、Yは0になる。その後Sを1に戻すと、S＝1、R＝1は状態を保持する入力なので、X＝1、Y＝0が保たれる。"
+      "正しい。NAND型SRラッチでは、回路の論理式は次のとおりである。\n\\[X=\\overline{S\\land Y},\\qquad Y=\\overline{R\\land X}\\]\n初期状態は \\(S=1,R=1,X=0,Y=1\\) である。Sを0にすると、\n\\[X=\\overline{0\\land1}=1,\\qquad Y=\\overline{1\\land1}=0\\]\nとなる。その後Sを1に戻しても、\n\\[X=\\overline{1\\land0}=1,\\qquad Y=\\overline{1\\land1}=0\\]\nとなり、この状態が保持される。したがって、操作後はX＝1、Y＝0である。"
     ],
     "original_question_id": "2bfb20e7dbd61e86",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_8.html",
@@ -580,7 +869,113 @@
     "sourceRecordRef": "question_200902_1.json#7",
     "explanationReferences": [],
     "questionLearningPatternId": "sequence_flow",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "論理回路の動作を問う問題で、法令・制度上の根拠を用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はNAND型SRラッチの動作結果と一致しない。",
+          "promptContext": "NAND型SRラッチの動作判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理回路の技術知識で判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はNAND型SRラッチの動作結果と一致しない。",
+          "promptContext": "NAND型SRラッチの動作判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理回路の技術知識で判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はSを0にしてから1へ戻した後のNAND型SRラッチの状態と一致する。",
+          "promptContext": "NAND型SRラッチの動作判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "論理回路の技術知識で判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はNAND型SRラッチの動作結果と一致しない。",
+          "promptContext": "NAND型SRラッチの動作判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理回路の技術知識で判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1007,7 +1402,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するのは共通フレームである。共通フレームは、取得者と供給者の取引を対象に、企画、要件定義、開発、運用、保守など、システムのライフサイクル全体に関わる作業を共通の基準で整理する。国際規格ISO/IEC 12207と整合する枠組みである。CMMIはプロセス改善の成熟度モデル、PMBOKはプロジェクトマネジメントの知識体系、ソフトウェア保守規格は主に保守を対象とするため、共通フレームには該当しない。"
+      "正しい。該当するのは共通フレームである。共通フレームは、取得者と供給者の取引を対象に、システムの企画、要件定義、開発、運用、保守などのライフサイクル全体に関わる作業を共通の基準で整理する。CMMIはプロセス改善の成熟度モデル、PMBOKはプロジェクトマネジメントの知識体系、ソフトウェア保守規格は主に保守を対象とするため、この問題の説明には当てはまらない。"
     ],
     "original_question_id": "bf92963e12925b2e",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_17.html",
@@ -1127,37 +1522,127 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n現在のコスト効率は EV/AC = 40/60 = 2/3 なので、完成時総コストは予算 100 万円を上回り、110 万円では収まらない。",
-      "間違い。\n\n120 万円だとコスト超過を十分反映しておらず、現在の効率を前提にすると不足する。",
-      "間違い。\n\n135 万円でも低すぎ、EAC = BAC / CPI = 100 ÷ (2/3) = 150 万円となる。",
-      "正しい。\n\nCPI = EV/AC = 40/60 = 2/3 だから、EAC = BAC/CPI = 100 ÷ (2/3) = 150 万円である。"
-    ],
-    "suggestedQuestions": [
-      "EACはどの式で求めますか？",
-      "CPIは何を表しますか？",
-      "EVとACの関係から何が分かりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EACはどの式で求めますか？",
-        "answer": "代表式は EAC = BAC / CPI、または EAC = AC + ETC である。"
-      },
-      {
-        "question": "CPIは何を表しますか？",
-        "answer": "コスト効率指数で、投入した実コストに対してどれだけ価値を生んだかを表す。"
-      },
-      {
-        "question": "EVとACの関係から何が分かりますか？",
-        "answer": "EV が AC を下回ると、完了済み作業に対してコスト超過であることが分かる。"
-      }
+      "正しい。現在のコスト効率指数（CPI）は、出来高（EV）を実コスト（AC）で割って求める。完成時総コスト見積り（EAC）は、予算（BAC）をCPIで割る。\\n\\n\\[CPI=\\frac{EV}{AC}=\\frac{40}{60}=\\frac{2}{3}\\]\\n\\n\\[EAC=\\frac{BAC}{CPI}=\\frac{100}{2/3}=150\\text{万円}\\]\\n\\nしたがって、EACは150万円である。"
     ],
     "original_question_id": "81f156287441621f",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:81f156287441621f",
+    "reviewQuestionId": "81f156287441621f",
+    "sourceRecordRef": "question_200902_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "アーンドバリュー分析とコスト効率に基づく計算問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はEACの計算結果150万円と一致しない。",
+          "promptContext": "EAC計算問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はEACの計算結果150万円と一致しない。",
+          "promptContext": "EAC計算問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はEACの計算結果150万円と一致しない。",
+          "promptContext": "EAC計算問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CPIは40÷60＝2/3、EACは100÷(2/3)＝150万円となるため、この選択肢が正しい。",
+          "promptContext": "EAC計算問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。開発規模が大きくなるほど、要員間のコミュニケーションや管理・調整の負担が増えるため、開発工数は規模に単純比例せず、より急激に増加する。"
+      "正しい。開発規模が大きくなるほど、要員間のコミュニケーションや管理・調整の負担が増えるため、開発工数は規模に単純比例せず、より急激に増加する。したがって、開発規模の増加に伴って曲線の傾きが大きくなるグラフが該当する。"
     ],
     "original_question_id": "c2283754f8bea46b",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_19.html",

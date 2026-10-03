@@ -1,10 +1,7 @@
 [
   {
     "explanationText": [
-      "間違い。正しくは、因果関係分析法は事象の原因と結果の関係を整理・分析する手法である。選択肢は専門家への反復アンケートで意見を収束させる手法としているため誤りである。",
-      "間違い。正しくは、クロスセクション法は同じ時点における複数の対象を比較する手法である。選択肢は専門家への反復アンケートで意見を収束させる手法としているため誤りである。",
-      "間違い。正しくは、時系列回帰分析法は過去の時系列データを回帰分析し、将来の値を予測する手法である。選択肢は専門家への反復アンケートで意見を収束させる手法としているため誤りである。",
-      "正しい。デルファイ法は、専門家に複数回アンケートを行い、集計結果を参考に回答を繰り返し修正してもらうことで、集団としての意見を収束させる手法である。"
+      "正しい。デルファイ法は、専門家に複数回アンケートを行い、集計結果を参考に回答を繰り返し修正してもらうことで、集団としての意見を収束させる手法である。因果関係分析法は原因と結果の関係を分析し、クロスセクション法は同じ時点の複数の対象を比較する。時系列回帰分析法は過去の時系列データから将来の値を予測する。"
     ],
     "original_question_id": "852ce28ef5582168",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_26.html",
@@ -547,10 +544,10 @@
   },
   {
     "explanationText": [
-      "正しい。プリアンブルは、受信側が信号のタイミングを合わせるため、イーサネットフレームの先頭に置かれる信号列である。",
-      "間違い。正しくは、フレーム内のデータ誤りを検出するためフレーム末尾に置かれるのはFCSである。選択肢は、FCSの役割をプリアンブルの役割としているため誤りである。",
-      "間違い。正しくは、プリアンブルは受信側の同期を取るためにフレーム先頭へ置かれる。選択肢は、データの前後に付けてデータを取り出す情報としているため誤りである。",
-      "間違い。正しくは、フレームの長さを調整する場合はパディングを用いる。選択肢は、長さ調整用の情報をプリアンブルとしてフレーム末尾に置くため誤りである。"
+      "正しい。プリアンブルは、受信側が信号のタイミングを合わせるため、フレームの先頭に置かれる信号列である。",
+      "間違い。正しくは、フレーム内のデータ誤りを検出するFCSをフレーム末尾に置く。選択肢は、FCSの役割と位置をプリアンブルのものとしているため誤りである。",
+      "間違い。正しくは、プリアンブルは受信側の同期を取るためフレーム先頭に置かれる。選択肢は、データの前後に置いてデータを取り出す情報としているため誤りである。",
+      "間違い。正しくは、フレームの長さを調整するにはパディングを用いる。選択肢は、長さ調整用の情報をフレーム末尾に置くものとしているため誤りである。"
     ],
     "original_question_id": "e1b69f308d56e22a",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_8.html",
@@ -670,7 +667,7 @@
   },
   {
     "explanationText": [
-      "正しい。負荷分散装置は、宛先IPアドレスを接続先サーバのまま保持し、次に転送するルータ1又はルータ2を選択する。そのルータへフレームを渡すため、宛先MACアドレスを選択したルータのMACアドレスに置き換える。"
+      "正しい。負荷分散装置は、接続先サーバを示す宛先IPアドレスを維持したまま、次に転送するルータ1又はルータ2を選択する。選択したルータへフレームを渡すため、宛先MACアドレスをそのルータのMACアドレスに置き換える。"
     ],
     "original_question_id": "65d56d76cfb0ed68",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_9.html",
@@ -946,63 +943,249 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nSYN/ACK では確認応答番号がクライアント初期シーケンス番号+1 になる必要があり、この組合せは条件を満たさない。",
-      "間違い。\n\nサーバの SYN/ACK では自分の初期シーケンス番号を出しつつ、相手 SYN を受けた確認応答番号を返す必要があるが、この組合せは一致しない。",
-      "正しい。\n\n3 ウェイハンドシェイクでは、サーバからの SYN/ACK のシーケンス番号 A はサーバ側初期シーケンス番号、確認応答番号 B はクライアント SYN のシーケンス番号+1 となる。これに合うのはウである。",
-      "間違い。\n\n確認応答番号の増分やシーケンス番号の扱いが 3 ウェイハンドシェイクの規則と合っていない。"
-    ],
-    "suggestedQuestions": [
-      "SYN/ACK の確認応答番号は何を表しますか？",
-      "なぜ +1 するのですか？",
-      "3 ウェイハンドシェイクの順序はどうなりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SYN/ACK の確認応答番号は何を表しますか？",
-        "answer": "相手から受け取った SYN のシーケンス番号に 1 を加えた、次に期待する番号を表す。"
-      },
-      {
-        "question": "なぜ +1 するのですか？",
-        "answer": "SYN フラグ付きセグメントはシーケンス番号を 1 つ消費するからである。"
-      },
-      {
-        "question": "3 ウェイハンドシェイクの順序はどうなりますか？",
-        "answer": "クライアントが SYN、サーバが SYN/ACK、クライアントが ACK を返して確立する。"
-      }
+      "正しい。該当するのはウである。SYN/ACKのシーケンス番号Aはサーバが送ったSYNの初期シーケンス番号であり、確認応答番号BはクライアントのSYNのシーケンス番号に1を加えた値になる。SYNはシーケンス番号を1つ消費するため、次のACKの値からAを求める。\n\n\\[B=11111+1=11112\\]\n\n\\[A+1=22223\\]\n\n\\[A=22223-1=22222\\]\n\nしたがって、\\(A=22222\\)、\\(B=11112\\)となり、正しい組合せはウである。"
     ],
     "original_question_id": "4de18ae401b5fa3f",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:4de18ae401b5fa3f",
+    "reviewQuestionId": "4de18ae401b5fa3f",
+    "sourceRecordRef": "question_201102_2.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9293.html",
+        "title": "RFC 9293: Transmission Control Protocol (TCP)"
+      }
+    ],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TCPの3ウェイハンドシェイクにおけるシーケンス番号と確認応答番号を扱う通信プロトコルの技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの技術知識で判定でき、法令根拠は不要である。",
+          "promptContext": "TCPの3ウェイハンドシェイク。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCP仕様に基づく技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの技術知識で判定でき、法令根拠は不要である。",
+          "promptContext": "TCPの3ウェイハンドシェイク。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCP仕様に基づく技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの技術知識で判定でき、法令根拠は不要である。",
+          "promptContext": "TCPの3ウェイハンドシェイク。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "TCP仕様に基づく技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの技術知識で判定でき、法令根拠は不要である。",
+          "promptContext": "TCPの3ウェイハンドシェイク。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCP仕様に基づく技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n4 個の /24 ネットワークをまとめるには 2 ビットぶん上位を広げる必要があり、この組合せでは範囲が合わない。",
-      "正しい。\n\n192.168.32.0〜35.0 は 32 から 35 まで連続する 4 個の /24 なので、2 ビットをまとめた /22 に集約できる。ネットワーク番号は 192.168.32.0、マスクは 255.255.252.0 となり、該当するのはイである。",
-      "間違い。\n\nこの組合せでは包含範囲が広すぎるか、連続する 4 ネットワークを正しく表せない。",
-      "間違い。\n\nネットワーク開始位置やマスク長が適切でなく、4 個の /24 をちょうどまとめる形になっていない。"
-    ],
-    "suggestedQuestions": [
-      "CIDR で 4 個の /24 をまとめると何になりますか？",
-      "なぜ /22 になるのですか？",
-      "スーパーネット化の条件は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CIDR で 4 個の /24 をまとめると何になりますか？",
-        "answer": "連続する 4 個なら上位 2 ビットをまとめて /22 にできる。"
-      },
-      {
-        "question": "なぜ /22 になるのですか？",
-        "answer": "4=2^2 個まとめるため、ホスト部へ戻すビットを 2 つ増やして /24 から /22 へする。"
-      },
-      {
-        "question": "スーパーネット化の条件は何ですか？",
-        "answer": "同じサイズのネットワークが連続しており、境界が 2 のべき乗個単位で揃っている必要がある。"
-      }
+      "正しい。4個の同じ大きさのネットワークを集約するため、集約後のプレフィックス長は、元のプレフィックス長から個数の2を底とする対数を引いて求める。\n\n\\[24-\\log_2 4=24-2=22\\]\n\n/22のサブネットマスクは、上位22ビットを1にするため、255.255.252.0となる。192.168.32.0、192.168.33.0、192.168.34.0、192.168.35.0は連続しており、最初の192.168.32.0から最後の192.168.35.255までをちょうど含む。したがって、ネットワーク番号は192.168.32.0、サブネットマスクは255.255.252.0であり、該当するのはイである。"
     ],
     "original_question_id": "23e4d5196d034589",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:23e4d5196d034589",
+    "reviewQuestionId": "23e4d5196d034589",
+    "sourceRecordRef": "question_201102_2.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CIDRによるスーパーネット化とネットワーク番号・サブネットマスクの計算を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術問題である。",
+          "promptContext": "CIDRスーパーネット化",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CIDR計算による技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術問題である。",
+          "promptContext": "CIDRスーパーネット化",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "CIDR計算による技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術問題である。",
+          "promptContext": "CIDRスーパーネット化",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CIDR計算による技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術問題である。",
+          "promptContext": "CIDRスーパーネット化",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CIDR計算による技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1145,10 +1328,7 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ルートリフレクションは、受け取った経路をほかのBGPルータへ反射して配布し、すべてのBGPルータ同士がIBGPセッションを張る必要をなくす。カットスルーはスイッチの転送方式であり、IBGPのセッション数を削減する技術ではない。",
-      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ファストリルートは、障害発生時に迂回経路へ高速に切り替える技術であり、IBGPセッション数を削減するものではない。",
-      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ラベルスイッチングは、ラベルを使ってパケットを転送する技術であり、IBGPのセッション構成を簡略化するものではない。",
-      "正しい。ルートリフレクションでは、特定のBGPルータが受け取った経路をほかのルータへ反射して配布する。これにより、AS内のすべてのBGPルータが相互にIBGPセッションを張る必要がなくなり、フルメッシュによるセッション数の増大を抑えられる。"
+      "正しい。BGP-4のIBGPフルメッシュによるスケーラビリティ問題は、ルートリフレクションで回避できる。ルートリフレクタが受け取った経路をほかのBGPルータへ反射して配布するため、AS内のすべてのBGPルータ同士が相互にIBGPセッションを張る必要がなくなり、セッション数の増大を抑えられる。"
     ],
     "original_question_id": "0812ca46b51e007a",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_15.html",

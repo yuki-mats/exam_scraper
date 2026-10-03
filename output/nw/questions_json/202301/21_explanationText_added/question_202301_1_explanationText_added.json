@@ -31,33 +31,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n平均 60 の正規分布は 60 を中心に左右対称になる。標準偏差 10 なら平均±10、つまり 50 から 70 に全体の約 68% が入る形を示すグラフが正しい。",
-      "間違い。\n\n中心位置か広がりのどちらかが条件と合わない。平均 60、標準偏差 10 の両方を満たす必要がある。",
-      "間違い。\n\n正規分布は左右対称な釣鐘形になる。左右非対称な形や中心がずれた形は正規分布の条件を満たさない。",
-      "間違い。\n\n標準偏差は分布の広がりを表すので、中心が 60 でも広がりが違えば別の分布である。平均と標準偏差を同時に確認する必要がある。"
-    ],
-    "suggestedQuestions": [
-      "正規分布で標準偏差は何を表しますか？",
-      "平均 60 はグラフのどこを見れば分かりますか？",
-      "平均±1σ の範囲はなぜ重要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正規分布で標準偏差は何を表しますか？",
-        "answer": "データの散らばり具合を表す。標準偏差が大きいほど山は低く広くなり、小さいほど山は高く狭くなる。"
-      },
-      {
-        "question": "平均 60 はグラフのどこを見れば分かりますか？",
-        "answer": "左右対称な正規分布では頂点が平均値に一致する。山の中心が 60 にあるかを確認すればよい。"
-      },
-      {
-        "question": "平均±1σ の範囲はなぜ重要ですか？",
-        "answer": "正規分布では全体の約 68% が平均±1σ に入るため、広がりの目安として使いやすい。今回なら 50 から 70 が基準になる。"
-      }
+      "正しい。正規分布は平均を中心に左右対称な釣鐘形になり、平均60、標準偏差10では中心が60で、平均から約10離れた50と70付近までの広がりを示す。アはこの条件に合う。イは中心が60でも広がりが狭く、ウとエは左右対称な正規分布の形になっていない。"
     ],
     "original_question_id": "aa4dde3451886295",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:aa4dde3451886295",
+    "reviewQuestionId": "aa4dde3451886295",
+    "sourceRecordRef": "question_202301_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "統計・応用数学の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "平均60を中心とする左右対称の釣鐘形で、標準偏差10に対応する広がりを示すため正しい。",
+          "promptContext": "正規分布の統計知識で判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "統計・応用数学の技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "正規分布の中心は60でも、図の広がりが標準偏差10の条件に合わないため間違い。",
+          "promptContext": "正規分布の統計知識で判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "統計・応用数学の技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "図が左右対称な正規分布の形になっていないため間違い。",
+          "promptContext": "正規分布の統計知識で判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "統計・応用数学の技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "図が左右対称な正規分布の形になっていないため間違い。",
+          "promptContext": "正規分布の統計知識で判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "統計・応用数学の技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -91,33 +181,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n0.8 だと 1 命令当たり 1 未満のサイクルになり、今回の条件では合わない。平均 CPI はクロック数を命令数で割って求める。",
-      "正しい。\n\n1.25GHz は 1 秒間に 12.5 億サイクルを意味し、命令実行数は 10 億回である。したがって CPI は 12.5 億 ÷ 10 億 = 1.25 になる。",
-      "間違い。\n\n2.5 になるなら 1 秒当たり 25 億サイクルなど別条件が必要である。与えられた周波数と命令数からは導けない。",
-      "間違い。\n\n10 は 1 命令に 10 サイクル必要な計算で、実際の周波数と命令実行数から大きく外れる。"
-    ],
-    "suggestedQuestions": [
-      "CPI はどう計算しますか？",
-      "1.25GHz をサイクル数に直すには？",
-      "IPC と CPI の関係はどうなりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CPI はどう計算しますか？",
-        "answer": "Cycles Per Instruction なので、総サイクル数を総命令数で割る。単位をそろえてから計算すると迷いにくい。"
-      },
-      {
-        "question": "1.25GHz をサイクル数に直すには？",
-        "answer": "1GHz は 1 秒間に 10 億サイクルなので、1.25GHz は 12.5 億サイクル/秒になる。"
-      },
-      {
-        "question": "IPC と CPI の関係はどうなりますか？",
-        "answer": "IPC は 1 サイクル当たり命令数、CPI は 1 命令当たりサイクル数で互いに逆数の関係にある。CPI 1.25 なら IPC は 0.8 である。"
-      }
+      "正しい。平均CPIは、1秒間のクロックサイクル数を1秒間に実行する命令数で割って求める。公式は次のとおりである。\n\\[\\mathrm{CPI}=\\frac{\\text{クロックサイクル数}}{\\text{命令実行数}}=\\frac{\\text{動作周波数}}{\\text{命令実行速度}}\\]\n動作周波数1.25GHzは、1秒間に\\(1.25\\times10^9\\)サイクルを意味する。命令実行数は\\(1.0\\times10^9\\)命令なので、\n\\[\\mathrm{CPI}=\\frac{1.25\\times10^9}{1.0\\times10^9}=1.25\\]\nしたがって、平均CPIは1.25である。"
     ],
     "original_question_id": "dc48444d5de62c93",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:dc48444d5de62c93",
+    "reviewQuestionId": "dc48444d5de62c93",
+    "sourceRecordRef": "question_202301_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CPU性能指標の計算問題で、法令・制度上の根拠を必要としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は平均CPI 1.25と一致しないため間違い。",
+          "promptContext": "技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CPU性能指標の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢の1.25は、1.25GHzを1秒間の命令実行数1.0×10^9で割った平均CPIと一致する。",
+          "promptContext": "技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "CPU性能指標の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢の2.5は平均CPIの計算結果1.25と一致しないため間違い。",
+          "promptContext": "技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CPU性能指標の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢の10は平均CPIの計算結果1.25と一致しないため間違い。",
+          "promptContext": "技術計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CPU性能指標の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -151,33 +331,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nデータ件数に比例して探索時間が伸びるグラフなら線形探索のイメージに近い。衝突がないハッシュ表の理論値とは合わない。",
-      "間違い。\n\n対数時間のようにゆるやかに増えるグラフでもない。ハッシュ値から直接位置を求めるので、件数増加の影響は理論上ほぼ受けない。",
-      "間違い。\n\n2 次曲線のような増え方はハッシュ探索の説明にならない。衝突なしという条件も与えられている。",
-      "正しい。\n\n衝突がなければハッシュ表はキーから格納位置を一発で特定できるので、探索時間はデータ件数によらず一定時間とみなせる。したがって横ばいのグラフが正しい。"
-    ],
-    "suggestedQuestions": [
-      "なぜハッシュ表は平均 O(1) と言えますか？",
-      "この問題で『衝突がない』条件はなぜ重要ですか？",
-      "二分探索との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜハッシュ表は平均 O(1) と言えますか？",
-        "answer": "キーにハッシュ関数を適用して添字を直接求めるため、データ件数全体を順に見る必要がないからである。"
-      },
-      {
-        "question": "この問題で『衝突がない』条件はなぜ重要ですか？",
-        "answer": "衝突があると同じ位置に複数要素が集まり、探索時間が伸びる可能性がある。衝突なしなら理論上は定数時間としやすい。"
-      },
-      {
-        "question": "二分探索との違いは何ですか？",
-        "answer": "二分探索は整列済み配列を前提に O(log n) で探索する。ハッシュ表は整列不要で、適切なハッシュなら O(1) を狙える。"
-      }
+      "正しい。該当するのはエである。衝突がないハッシュ表では、キーからハッシュ値を計算して格納位置を直接求められるため、データ件数が増えても探索時間は理論上一定である。したがって、横軸のデータ件数に対して探索時間がほぼ変わらないグラフが正しい。"
     ],
     "original_question_id": "3fdd8408151f4fe2",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:3fdd8408151f4fe2",
+    "reviewQuestionId": "3fdd8408151f4fe2",
+    "sourceRecordRef": "question_202301_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ハッシュ表の理論的な探索時間を問う計算機科学上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令の適用ではなく、ハッシュ表の探索時間に関する技術知識で判定する。",
+          "promptContext": "ハッシュ表の理論的な探索時間を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令の適用ではなく、ハッシュ表の探索時間に関する技術知識で判定する。",
+          "promptContext": "ハッシュ表の理論的な探索時間を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令の適用ではなく、ハッシュ表の探索時間に関する技術知識で判定する。",
+          "promptContext": "ハッシュ表の理論的な探索時間を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令の適用ではなく、衝突がないハッシュ表の探索時間に関する技術知識で判定する。",
+          "promptContext": "ハッシュ表の理論的な探索時間を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -211,63 +481,246 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n全ピクセルごとに視線と物体の交点を求めて陰面消去する説明はレイトレーシング寄りであり、テクスチャマッピングではない。",
-      "間違い。\n\n周囲の場の値から滑らかな物体形状を作るのがメタボールであり、与えられた空間データから輝度計算する説明とは異なる。",
-      "正しい。\n\nラジオシティ法は、面同士の相互反射によるエネルギー交換を考慮して輝度を求める。拡散反射主体の室内表現などでよく使われる。",
-      "間違い。\n\n物体表面に模様を貼り付けるのはテクスチャマッピングである。レイトレーシングは光線追跡により反射や屈折を表現する手法である。"
-    ],
-    "suggestedQuestions": [
-      "ラジオシティ法は何を考慮しますか？",
-      "レイトレーシングとの違いは何ですか？",
-      "テクスチャマッピングは何をする技術ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ラジオシティ法は何を考慮しますか？",
-        "answer": "拡散反射面同士の相互反射を考慮する。光が壁や床で回り込むような柔らかな明るさを表現しやすい。"
-      },
-      {
-        "question": "レイトレーシングとの違いは何ですか？",
-        "answer": "レイトレーシングは視線や反射光線を追跡して鏡面反射や屈折を表す。ラジオシティ法は主に拡散反射面のエネルギー交換を扱う。"
-      },
-      {
-        "question": "テクスチャマッピングは何をする技術ですか？",
-        "answer": "別に用意した画像や模様を物体表面へ貼り付けて見た目を表現する技術である。"
-      }
+      "間違い。視線と物体の交点を求め、最も近い交点から見える面を決めるのはレイトレーシングによる陰面消去である。テクスチャマッピングは、物体表面に画像や模様を対応付ける手法であるため、選択肢はテクスチャマッピングを陰面消去の手法としているため誤りである。",
+      "間違い。メタボールは、空間中に定義した複数の点や場の影響を合成し、滑らかにつながった物体形状を表現する手法である。与えられた空間データから輝度を計算するのはボリュームレンダリングなどの説明であり、選択肢はメタボールの役割を別の手法の説明に置き換えているため誤りである。",
+      "正しい。ラジオシティ法は、拡散反射面同士の相互反射による光エネルギーの交換を計算し、各面の明るさを求める手法である。",
+      "間違い。物体表面に別の画像や模様を貼り付けて画像を作るのはテクスチャマッピングである。レイトレーシングは、視点からの光線と物体との交点を追跡し、反射や屈折などを表現する手法であるため、選択肢は両者を取り違えている。"
     ],
     "original_question_id": "84b36cee45380f93",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:84b36cee45380f93",
+    "reviewQuestionId": "84b36cee45380f93",
+    "sourceRecordRef": "question_202301_1.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "コンピュータグラフィックスの技術概念に関する問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "テクスチャマッピング、レイトレーシング、メタボール、ボリュームレンダリングの技術概念で判定した。",
+          "promptContext": "法令関連性監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "メタボールは滑らかにつながった物体形状を表現する技術であり、空間データから輝度を計算する説明ではない。",
+          "promptContext": "法令関連性監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ラジオシティ法は拡散反射面間の相互反射を考慮して各面の輝度を求める技術である。",
+          "promptContext": "法令関連性監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "物体表面に模様を貼り付けるのはテクスチャマッピングであり、レイトレーシングではない。",
+          "promptContext": "法令関連性監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\na または b のどちらかが 1 つに固定されており、所属履歴を複数持ち得る条件を表せていない。部署異動の可能性を反映できない。",
-      "間違い。\n\n部門には 1 人以上の社員が所属し、社員は異動により複数の所属履歴を持ち得る。0..1 や 1 だけでは条件不足である。",
-      "間違い。\n\n所属履歴は部門から見ても社員から見ても 1 件以上になり得るので、片側だけを多重にした組合せでは足りない。",
-      "正しい。\n\n1 つの部門には 1 人以上の社員が所属するため、その部門に対応する所属履歴も 1..* になる。社員も入社時点で少なくとも 1 件、異動があれば複数件の所属履歴を持つので b も 1..* である。"
-    ],
-    "suggestedQuestions": [
-      "多重度 1..* は何を意味しますか？",
-      "社員側も 1..* になる理由は？",
-      "所属履歴クラスを分ける利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "多重度 1..* は何を意味しますか？",
-        "answer": "関連先が 1 件以上存在することを表す。0 件は許されず、複数件の可能性もあるという意味である。"
-      },
-      {
-        "question": "社員側も 1..* になる理由は？",
-        "answer": "各社員は必ずどこかの部門に所属するので最低 1 件の所属履歴を持つ。異動すれば履歴が増えるため上限は * になる。"
-      },
-      {
-        "question": "所属履歴クラスを分ける利点は何ですか？",
-        "answer": "部門と社員の単純な所属関係だけでなく、いつ所属していたかという履歴情報を保持できる。時系列管理が必要な設計で有効である。"
-      }
+      "正しい。該当する組合せはエである。所属履歴は一つの部門と一人の社員に対応するため、所属履歴側から見た多重度はどちらも1になる。一方、部門には1人以上の社員が所属し、社員には所属履歴を1件以上記録するため、部門側と社員側から見た所属履歴の多重度はどちらも1..*である。したがって、aとbはともに1..*になる。"
     ],
     "original_question_id": "55f9d352e56940fd",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:55f9d352e56940fd",
+    "reviewQuestionId": "55f9d352e56940fd",
+    "sourceRecordRef": "question_202301_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "UMLの関連の多重度を条件から判断するデータモデリングの問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、部門・社員・所属履歴の関連条件から多重度を判定する。",
+          "promptContext": "UMLデータモデルのaに対応する選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの多重度を条件から判断する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、部門・社員・所属履歴の関連条件から多重度を判定する。",
+          "promptContext": "UMLデータモデルのbに対応する選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの多重度を条件から判断する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、部門・社員・所属履歴の関連条件から多重度を判定する。",
+          "promptContext": "選択肢ウの組合せ判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの多重度を条件から判断する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令ではなく、部門・社員・所属履歴の関連条件から多重度を判定する。",
+          "promptContext": "選択肢エの組合せ判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "UMLの多重度を条件から判断する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -301,63 +754,254 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nテザリングはモバイル端末を経由して他の端末へ通信を提供する機能であり、基地局切替えの名称ではない。",
-      "正しい。\n\nハンドオーバーは、移動中の端末が通信を切らずに接続先基地局を切り替える仕組みである。セルラー通信での継続性確保に不可欠な機能である。",
-      "間違い。\n\nフォールバックは機能や方式を下位互換側へ切り替える意味で使われることが多い。基地局間の引継ぎを表す語ではない。",
-      "間違い。\n\nローミングは他事業者網などを利用して接続を継続する仕組みを指し、同一移動中の基地局切替えそのものとは異なる。"
-    ],
-    "suggestedQuestions": [
-      "ハンドオーバーはなぜ必要ですか？",
-      "ローミングとの違いは何ですか？",
-      "ハンドオフとハンドオーバーは同じですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ハンドオーバーはなぜ必要ですか？",
-        "answer": "端末が移動すると電波の強い基地局が変わるため、通話や通信を切断せずに接続先を引き継ぐ必要があるからである。"
-      },
-      {
-        "question": "ローミングとの違いは何ですか？",
-        "answer": "ローミングは契約外または他事業者の網を利用する仕組みまで含む。ハンドオーバーは接続維持のための基地局切替え動作そのものを指す。"
-      },
-      {
-        "question": "ハンドオフとハンドオーバーは同じですか？",
-        "answer": "ほぼ同義として使われることが多い。文脈により用語差はあるが、移動中の接続引継ぎを表す点は共通である。"
-      }
+      "正しい。移動中のモバイル端末が通信を継続したまま、接続先の基地局を切り替えることをハンドオーバーという。テザリングは端末を経由して他の端末に通信を提供する機能、フォールバックは通信方式などを下位の方式へ切り替えること、ローミングは他事業者などのネットワークを利用することを指し、基地局間の切替えとは異なる。"
     ],
     "original_question_id": "ee796aeb12f01ba0",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:ee796aeb12f01ba0",
+    "reviewQuestionId": "ee796aeb12f01ba0",
+    "sourceRecordRef": "question_202301_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "モバイル通信における通信技術用語の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "テザリングは基地局間の通信切替えを指さない。法令根拠は不要である。",
+          "promptContext": "第1選択肢の用語判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術用語の知識で正誤を確定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令監査対象外"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ハンドオーバーは、通信を継続したまま接続先の基地局を切り替えることを指す。法令根拠は不要である。",
+          "promptContext": "第2選択肢の用語判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術用語の知識で正誤を確定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フォールバックは通信方式などを下位の方式へ切り替えることを指し、基地局間の切替えではない。法令根拠は不要である。",
+          "promptContext": "第3選択肢の用語判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術用語の知識で正誤を確定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ローミングは他事業者などのネットワークを利用することを指し、基地局間の切替えそのものではない。法令根拠は不要である。",
+          "promptContext": "第4選択肢の用語判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術用語の知識で正誤を確定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nC&C サーバは、ボット化された端末へ命令を送り、情報窃取や DDoS などの攻撃活動を統制する中枢である。Command and Control の名称どおり、遠隔指揮を担う。",
-      "間違い。\n\n踏み台サーバからの通信を遮断するのは防御側の対策の説明であり、C&C サーバの役割ではない。",
-      "間違い。\n\n偽証明書の発行命令という限定的な説明は C&C サーバの一般的役割を表していない。C&C はより広く感染端末群へ命令を与える。",
-      "間違い。\n\n不正 Web コンテンツの素材管理は Web サーバや CMS の役割に近い。ボットネットの統制点である C&C サーバの説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "C&C サーバは何の略ですか？",
-      "ボットネットではどんな命令が送られますか？",
-      "C&C 通信の検知で見るポイントは？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "C&C サーバは何の略ですか？",
-        "answer": "Command and Control の略である。感染端末を遠隔から指揮統制するサーバを指す。"
-      },
-      {
-        "question": "ボットネットではどんな命令が送られますか？",
-        "answer": "攻撃開始、標的変更、追加マルウェア取得、情報送信などの命令が送られる。"
-      },
-      {
-        "question": "C&C 通信の検知で見るポイントは？",
-        "answer": "不審な定期通信先、既知の悪性ドメイン、暗号化された異常トラフィック、Beaconing の周期性などを確認する。"
-      }
+      "正しい。C&Cサーバは、ボット化された端末へ命令を送り、情報収集やDDoSなどの攻撃活動を指示・統制する。",
+      "間違い。正しくは、C&Cサーバは感染端末へ命令を送って活動を統制する。選択肢は、攻撃の踏み台となったサーバの通信を防御側が遮断する対策としているため誤りである。",
+      "間違い。正しくは、C&Cサーバはボット化された端末へ攻撃や情報収集を指示する。選択肢は、偽のデジタル証明書を発行する命令に役割を限定しているため、C&Cサーバの一般的な役割の説明として誤りである。",
+      "間違い。正しくは、C&Cサーバは感染端末群を遠隔から指揮・統制する。選択肢は、不正なWebコンテンツの素材を管理するサーバやCMSの機能としているため誤りである。"
     ],
     "original_question_id": "15650a828474291e",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:15650a828474291e",
+    "reviewQuestionId": "15650a828474291e",
+    "sourceRecordRef": "question_202301_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ボットネットとC&Cサーバの技術的役割を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "C&Cサーバの技術的役割を確認した。",
+          "promptContext": "ボットネットにおけるC&Cサーバの役割。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "C&Cサーバの役割と防御側の通信遮断対策を区別した。",
+          "promptContext": "ボットネットにおけるC&Cサーバの役割。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "C&Cサーバの一般的な指揮・統制機能と、偽のデジタル証明書発行を区別した。",
+          "promptContext": "ボットネットにおけるC&Cサーバの役割。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は評価対象外。",
+          "displayRefIds": [],
+          "explanationText": "C&Cサーバの指揮・統制機能と、Webコンテンツ管理機能を区別した。",
+          "promptContext": "ボットネットにおけるC&Cサーバの役割。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -391,33 +1035,154 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nSPF レコード照会は送信ドメイン認証の一部であり、サブミッションポート導入の主目的ではない。",
-      "間違い。\n\nDNS に公開鍵を置いて署名検証するのは DKIM や DNSSEC 系の話であり、ポート 587 の説明ではない。",
-      "間違い。\n\nPOP before SMTP は古い認証方式の一つだが、サブミッションポート導入の中心は SMTP-AUTH と組み合わせた送信者認証である。",
-      "正しい。\n\nサブミッションポート 587 はメール送信用ポートとして、SMTP-AUTH による利用者認証を行い、不正中継やスパム送信を抑止する目的で使われる。"
-    ],
-    "suggestedQuestions": [
-      "サブミッションポートとは何ですか？",
-      "25 番ポートとの違いは何ですか？",
-      "SMTP-AUTH は何を認証しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "サブミッションポートとは何ですか？",
-        "answer": "利用者がメールクライアントから送信サーバへ投稿するときに使うポートで、一般に 587 番が用いられる。"
-      },
-      {
-        "question": "25 番ポートとの違いは何ですか？",
-        "answer": "25 番は主にサーバ間配送、587 番は利用者から送信サーバへの投稿向けである。587 番では認証を前提にしやすい。"
-      },
-      {
-        "question": "SMTP-AUTH は何を認証しますか？",
-        "answer": "送信サーバを利用しようとするユーザやクライアントの正当性を認証する。これにより第三者による無断送信を防ぎやすくなる。"
-      }
+      "間違い。サブミッションポート587は、利用者からメールを投稿する処理を中継処理から分離し、認証などの制御を行うために使う。SPFレコードの照会は、送信元ドメインが許可した送信サーバをDNSで確認する仕組みであり、587を導入する目的ではない。選択肢はSPFレコードの照会を587の導入目的としているため誤りである。",
+      "間違い。DNSに登録された公開鍵でメールのデジタル署名を検証するのは、DKIMなどの送信ドメイン認証の仕組みである。サブミッションポート587は、メール投稿の受付と認証を中継用のSMTPから分離するために使う。選択肢は署名検証を587の導入目的としているため誤りである。",
+      "間違い。POP before SMTPは、メール受信時のPOP認証を先に行い、その接続元からの送信を一時的に許可する方式である。サブミッションポート587で一般に用いる認証はSMTP-AUTHであり、SMTPセッション中に利用者を認証する。選択肢はPOP before SMTPによる認証を587の導入目的としているため誤りである。",
+      "正しい。サブミッションポート587は、メールの投稿を中継から分離し、投稿時に利用者認証などの制御を適用するために使う。SMTP-AUTHはSMTPセッションで利用者を認証する拡張なので、587と組み合わせて不正なメール送信や不正中継を抑止できる。"
     ],
     "original_question_id": "53a0955dbed2f14b",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:53a0955dbed2f14b",
+    "reviewQuestionId": "53a0955dbed2f14b",
+    "sourceRecordRef": "question_202301_1.json#13",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6409.html",
+        "title": "Message Submission for Mail (RFC 6409)"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4954.html",
+        "title": "SMTP Service Extension for Authentication (RFC 4954)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サブミッションポート587とSMTP-AUTHに関する技術仕様の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "現行法監査による正誤変更なし。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "技術仕様に基づく選択肢であり、法令改正による判定差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "サブミッションポート587、SPF、DKIM、POP before SMTP、SMTP-AUTHの役割は技術仕様で判断できる。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を直接必要としない技術問題として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法監査による正誤変更なし。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "技術仕様に基づく選択肢であり、法令改正による判定差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "サブミッションポート587、SPF、DKIM、POP before SMTP、SMTP-AUTHの役割は技術仕様で判断できる。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を直接必要としない技術問題として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法監査による正誤変更なし。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "技術仕様に基づく選択肢であり、法令改正による判定差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "サブミッションポート587、SPF、DKIM、POP before SMTP、SMTP-AUTHの役割は技術仕様で判断できる。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を直接必要としない技術問題として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "現行法監査による正誤変更なし。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "技術仕様に基づく選択肢であり、法令改正による判定差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は判定対象外。",
+          "displayRefIds": [],
+          "explanationText": "サブミッションポート587とSMTP-AUTHの役割は技術仕様で判断できる。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を直接必要としない技術問題として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -481,33 +1246,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n他システムからサービス稼働を監視するのは監視ツールの役割であり、サーバプロビジョニングツールの主目的ではない。",
-      "間違い。\n\nインストール済みソフトウェアの棚卸し管理だけなら資産管理や構成管理の説明に近い。プロビジョニングの中核ではない。",
-      "間違い。\n\n性能監視はモニタリング製品の役割である。プロビジョニングはサーバ構築そのものを自動化する。 ",
-      "正しい。\n\nサーバプロビジョニングツールは、OS 設定やミドルウェア設定をコードや定義ファイルで記述し、その内容に従ってサーバを自動構成するために使う。"
-    ],
-    "suggestedQuestions": [
-      "プロビジョニングツールは何を自動化しますか？",
-      "構成管理ツールとの関係は？",
-      "Infrastructure as Code とのつながりは？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "プロビジョニングツールは何を自動化しますか？",
-        "answer": "OS 初期設定、パッケージ導入、ミドルウェア設定、ユーザ作成などのサーバ構築手順を自動化する。"
-      },
-      {
-        "question": "構成管理ツールとの関係は？",
-        "answer": "Ansible や Chef などは構成管理とプロビジョニングの両面を持つことが多い。狙いは手作業を減らし、同一構成を再現可能にすることにある。"
-      },
-      {
-        "question": "Infrastructure as Code とのつながりは？",
-        "answer": "サーバ構成をコード化して自動適用する考え方が IaC であり、プロビジョニングツールはその実行手段の一つである。"
-      }
+      "正しい。サーバプロビジョニングツールは、OSやミドルウェアなどの設定を定義ファイルやコードに記述し、その内容に従ってサーバを自動的に構成するために使う。サービスの稼働状況や性能を確認するのは監視ツール、インストール済みソフトウェアを管理するのは資産管理・構成管理ツールの役割である。"
     ],
     "original_question_id": "3a8c6c9967ac4866",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:3a8c6c9967ac4866",
+    "reviewQuestionId": "3a8c6c9967ac4866",
+    "sourceRecordRef": "question_202301_1.json#16",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サーバ構成をあらかじめ記述し、自動的に構成する技術の目的を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サーバサービスのリモート監視ではなく、サーバプロビジョニングの目的を問う技術問題である。",
+          "promptContext": "技術知識問題",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "インストール済みソフトウェアの一元管理ではなく、サーバプロビジョニングの目的を問う技術問題である。",
+          "promptContext": "技術知識問題",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サーバやアプリケーションの性能監視ではなく、サーバプロビジョニングの目的を問う技術問題である。",
+          "promptContext": "技術知識問題",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "システム構成をあらかじめ記述し、その内容に従ってサーバを自動構成することがサーバプロビジョニングの目的である。",
+          "promptContext": "技術知識問題",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -541,63 +1396,246 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n140 日になるには全体期間や進捗率のどこかを過小評価している。作業配分モデルの割合から計算すると足りない。",
-      "正しい。\n\n前半工程の割合は 0.25+0.21+0.11=0.57 なので、228 日は全体の 57% に当たる。全体期間は 228/0.57=400 日、プログラム開発は半分完了だから進捗率は 0.57+0.11/2=0.625、残りは 400×(1-0.625)=150 日である。",
-      "間違い。\n\n161 日は進捗率や全体期間の算定がずれている。モデルの各比率をそのまま使えば 150 日に収束する。",
-      "間違い。\n\n172 日も同様に、前半 228 日が全体の 57% である点を正しく反映できていない。"
-    ],
-    "suggestedQuestions": [
-      "この問題の全体期間 400 日はどう出しますか？",
-      "プログラム開発の半分完了はどの割合を足しますか？",
-      "作業配分モデル問題の解き方の型は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この問題の全体期間 400 日はどう出しますか？",
-        "answer": "既に完了した工程の比率 0.57 が 228 日に対応するので、228 を 0.57 で割れば全体期間 400 日が求まる。"
-      },
-      {
-        "question": "プログラム開発の半分完了はどの割合を足しますか？",
-        "answer": "作業配分モデルでプログラム開発の期間比が 0.11 なので、その半分の 0.055 を既完了割合へ加える。"
-      },
-      {
-        "question": "作業配分モデル問題の解き方の型は？",
-        "answer": "まず既に終わった工程が全体の何割かを求め、その割合と実日数から全体日数を逆算する。その後、現在進捗の割合を使って残り日数を出す。"
-      }
+      "正しい。作業配分モデルでは、システム要件定義からシステム内部設計までの期間比は、\\(0.25+0.21+0.11=0.57\\)である。この228日が全体期間の57%に当たるため、プロジェクト全体の期間は次のように求められる。\\n\\[\\n228\\div0.57=400\\ \\mathrm{日}\\n\\]\\nプログラム開発の期間比は0.11で、200本のうち100本が完了しているため、プログラム開発の半分が経過している。現在までの経過割合は\\(0.25+0.21+0.11+0.11\\div2=0.625\\)、残りの割合は\\(1-0.625=0.375\\)である。したがって、プロジェクト全体の完了までの残期間は次のとおりである。\\n\\[\\n400\\times0.375=150\\ \\mathrm{日}\\n\\]\\nよって、あと150日掛かる。"
     ],
     "original_question_id": "d7e7da2faf460bb4",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:d7e7da2faf460bb4",
+    "reviewQuestionId": "d7e7da2faf460bb4",
+    "sourceRecordRef": "question_202301_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "過去実績に基づく作業配分モデルとプログラムの進捗から残期間を計算する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は作業配分モデルと進捗割合の計算で決まり、法令根拠を要しない。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は作業配分モデルと進捗割合の計算で決まり、法令根拠を要しない。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は作業配分モデルと進捗割合の計算で決まり、法令根拠を要しない。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は作業配分モデルと進捗割合の計算で決まり、法令根拠を要しない。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nSLA に大きな変更があったときだけではない。JIS Q 20000-1:2020 では、サービスレベル目標に照らしたパフォーマンスを定期的にレビューすることを求めている。",
-      "正しい。\n\nJIS Q 20000-1:2020 では、サービスレベル目標に照らしたパフォーマンスを監視し、あらかじめ定めた間隔でレビューし、顧客へ報告することを求めている。",
-      "間違い。\n\n必要時のみ実施ではレビュー間隔が組織任せになり過ぎる。規格は定期的なレビューを要求している。",
-      "間違い。\n\n未達成が続いたときだけに限定していない。達成状況を継続的かつ計画的に確認することがポイントである。"
-    ],
-    "suggestedQuestions": [
-      "JIS Q 20000-1 でここが定期レビューなのはなぜですか？",
-      "監視とレビューの違いは何ですか？",
-      "この問題で公式文言を当てるコツは？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "JIS Q 20000-1 でここが定期レビューなのはなぜですか？",
-        "answer": "サービス品質を安定的に管理するには、達成・未達を場当たり的に見るのでなく、決めた周期で継続評価する必要があるからである。"
-      },
-      {
-        "question": "監視とレビューの違いは何ですか？",
-        "answer": "監視は日常的な測定や記録、レビューはその結果を振り返り評価する活動である。規格は両方を区別して要求している。"
-      },
-      {
-        "question": "この問題で公式文言を当てるコツは？",
-        "answer": "規格問題では『必要に応じて』より『あらかじめ定めた間隔で』のような定期性を示す文言が正答になりやすい。"
-      }
+      "間違い。正しくは、あらかじめ定めた間隔でレビューする。選択肢はSLAに大きな変更があったときだけ実施するとしているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、あらかじめ定めた間隔でレビューする。選択肢は間隔を定めず、必要に応じて実施するとしているため誤りである。",
+      "間違い。正しくは、あらかじめ定めた間隔でレビューする。選択肢はサービス目標の未達成が続いたときだけ実施するとしているため誤りである。"
     ],
     "original_question_id": "d4b75d178754ba6e",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_20.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:d4b75d178754ba6e",
+    "reviewQuestionId": "d4b75d178754ba6e",
+    "sourceRecordRef": "question_202301_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "JIS Q 20000-1:2020の規格要求に基づく問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はJIS Q 20000-1:2020のレビュー実施条件と一致しない。",
+          "promptContext": "法令根拠を直接必要としない規格知識問題として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "JIS Q 20000-1:2020に基づく技術・規格問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はJIS Q 20000-1:2020のレビュー実施条件と一致する。",
+          "promptContext": "法令根拠を直接必要としない規格知識問題として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "JIS Q 20000-1:2020に基づく技術・規格問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はレビューの実施間隔を定めないとしており、JIS Q 20000-1:2020の要求と一致しない。",
+          "promptContext": "法令根拠を直接必要としない規格知識問題として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "JIS Q 20000-1:2020に基づく技術・規格問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は未達成が続いたときだけレビューするとしており、JIS Q 20000-1:2020の要求と一致しない。",
+          "promptContext": "法令根拠を直接必要としない規格知識問題として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "JIS Q 20000-1:2020に基づく技術・規格問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -691,62 +1729,248 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n移行マニュアルや運用マニュアルの整備は文書化の話であり、要求と成果物の追跡可能性そのものを示してはいない。",
-      "間違い。\n\n調達先選定や契約締結の固定化はトレーサビリティの説明ではない。要求から成果物への対応関係を追えることが論点である。",
-      "間違い。\n\nモジュール相互依存が確定して以後変更不能という説明は、むしろ柔軟性を欠く。トレーサビリティは変更時に根拠へ遡って影響を確認できることをいう。",
-      "正しい。\n\nトレーサビリティが確保されているとは、要求の根拠と要件、設計、成果物の関係が文書化され、仕様変更があっても元の要求や品質目標へ遡って妥当性を確認できる状態である。"
-    ],
-    "suggestedQuestions": [
-      "トレーサビリティは何を追跡できる状態ですか？",
-      "なぜ仕様変更時に重要ですか？",
-      "要求トレーサビリティマトリクスとは？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "トレーサビリティは何を追跡できる状態ですか？",
-        "answer": "要求の発生源から要件、設計、実装、テスト結果までの対応関係を追跡できる状態である。"
-      },
-      {
-        "question": "なぜ仕様変更時に重要ですか？",
-        "answer": "どの成果物やテストに影響するかを漏れなく確認できるため、変更の妥当性判断と影響管理がしやすくなる。"
-      },
-      {
-        "question": "要求トレーサビリティマトリクスとは？",
-        "answer": "各要求と、それを実現・検証する設計書、実装、テスト項目などの対応を一覧化した管理表である。"
-      }
+      "間違い。正しくは、トレーサビリティとは、要求から要件、設計、成果物までの対応関係を追跡できることである。選択肢はマニュアルの文書化が完了していることを説明しているため、要求と成果物の追跡可能性を示していない。",
+      "間違い。正しくは、トレーサビリティとは、要求の根拠と成果物の対応関係を追跡できることである。選択肢は外製部分の決定や調達先との契約を説明しているため、要求から成果物までの追跡可能性を示していない。",
+      "間違い。正しくは、トレーサビリティが確保されていても、仕様変更そのものが禁止されるわけではない。選択肢はモジュールの相互依存関係が確定し、仕様を変更できないとしているため、変更の影響を要求や品質目標へ遡って確認できるという意味と異なる。",
+      "正しい。要求の根拠と要件、設計、成果物の相互関係が文書化されていれば、仕様変更が生じたときに元の要求や求められる品質へ遡って妥当性と影響を確認できる。"
     ],
     "original_question_id": "03f4f938b450d95d",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:03f4f938b450d95d",
+    "reviewQuestionId": "03f4f938b450d95d",
+    "sourceRecordRef": "question_202301_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム要件定義におけるトレーサビリティの概念を問う技術・開発プロセスの問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "トレーサビリティの定義に照らして誤りである。",
+          "promptContext": "技術内容のみで判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "調達先の決定や契約締結は、要求と成果物の追跡可能性を示さない。",
+          "promptContext": "技術内容のみで判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "トレーサビリティは変更禁止を意味せず、変更の影響を要求や品質へ遡って確認できることをいう。",
+          "promptContext": "技術内容のみで判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "要求の根拠と成果物の相互関係を追跡できるため、トレーサビリティが確保されている。",
+          "promptContext": "技術内容のみで判定。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nRFI は Request for Information の略で、調達者が供給者候補へ情報提供を依頼する文書である。システム化目的や業務概要を示し、市場情報や実現手段を収集する段階で使う。",
-      "間違い。\n\n提案書提出を依頼するのは RFP の説明である。RFI はその前段で情報収集する位置付けであることが多い。",
-      "間違い。\n\n契約内容変更の要請は RFI ではない。調達プロセス後段の契約管理に関する話である。",
-      "間違い。\n\n役割分担確認と契約締結要請も RFI の目的ではない。RFI は候補ベンダから必要情報を得るための照会文書である。"
-    ],
-    "suggestedQuestions": [
-      "RFI と RFP の違いは何ですか？",
-      "RFI ではどんな情報を集めますか？",
-      "調達初期に RFI を出す利点は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RFI と RFP の違いは何ですか？",
-        "answer": "RFI は情報提供依頼、RFP は提案依頼である。RFI で市場や候補手段を把握し、その後に具体提案を求める流れが一般的である。"
-      },
-      {
-        "question": "RFI ではどんな情報を集めますか？",
-        "answer": "実現方法、製品やサービスの概要、概算費用、導入実績、ベンダの対応範囲などを集める。"
-      },
-      {
-        "question": "調達初期に RFI を出す利点は？",
-        "answer": "市場の選択肢や実現可能性を早めに把握でき、要件や RFP の精度を上げやすくなる。"
-      }
+      "正しい。RFI（Request for Information）は、調達者が供給者候補から製品・サービスや実現方法などの情報を集めるために依頼する文書である。",
+      "間違い。正しくは、提案書の提出を依頼するのはRFP（Request for Proposal）である。選択肢は、RFIではなくRFPの説明としているため誤りである。",
+      "間違い。正しくは、契約内容の変更を要請することは契約締結後の契約管理に関する手続である。選択肢は、情報提供を依頼するRFIとは異なる内容としているため誤りである。",
+      "間違い。正しくは、双方の役割分担の確認や契約締結の要請は、契約条件の調整・締結に関する手続である。選択肢は、供給者候補から情報を集めるRFIとは異なる内容としているため誤りである。"
     ],
     "original_question_id": "3722d687035f88fb",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:3722d687035f88fb",
+    "reviewQuestionId": "3722d687035f88fb",
+    "sourceRecordRef": "question_202301_1.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "情報システム調達におけるRFI（情報提供依頼）の一般的な定義を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RFIは情報提供依頼を指す一般的な調達用語である。",
+          "promptContext": "第1選択肢のRFIの定義",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "RFIの一般的な定義に基づく技術・調達知識問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "提案書の提出依頼はRFIではなくRFPの説明である。",
+          "promptContext": "第2選択肢のRFIとRFPの区別",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "RFPとの用語区別に基づく一般的な調達知識問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "契約内容の変更要請は、情報提供を依頼するRFIの説明ではない。",
+          "promptContext": "第3選択肢の契約変更要請",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "契約管理に関する一般的な知識であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "役割分担の確認や契約締結の要請は、RFIの説明ではない。",
+          "promptContext": "第4選択肢の契約締結手続",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "契約条件の調整・締結に関する一般的な知識であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

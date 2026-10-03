@@ -1,7 +1,7 @@
 [
   {
     "explanationText": [
-      "正しい。答えはクラスタ分析法である。クラスタ分析法は、観測データ同士の類似性に基づいてデータをいくつかの群に分け、各群の特徴を分析する手法である。指数平滑法は時系列データの予測、デルファイ法は専門家の意見集約、モンテカルロ法は乱数を用いたシミュレーションに用いる。"
+      "正しい。クラスタ分析法は、観測データ同士の類似性に基づいてデータをいくつかの群に分け、各群の特徴や要因を分析する手法である。指数平滑法は時系列データの予測、デルファイ法は専門家の意見集約、モンテカルロ法は乱数を用いたシミュレーションに用いる。"
     ],
     "original_question_id": "e36720eac7030a48",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_26.html",
@@ -121,10 +121,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、人が遠隔から操作命令を送るのは「制御」の段階である。選択肢は保守員が操作命令を送信するとしているため、自律化の例ではない。",
-      "間違い。正しくは、センサーで機械のデータを収集して蓄積するのは「監視」の段階である。選択肢はデータを収集・蓄積するとしているため、自律化の例ではない。",
-      "正しい。機械同士が状態を監視・分析し、人手を介さず目標に合わせて協調動作するのは「自律化」の段階である。",
-      "間違い。正しくは、収集した情報を基に保守員が故障部位を分析・特定するのは、人が判断する「最適化」の段階である。選択肢は保守員が分析して特定するとしているため、自律化の例ではない。"
+      "間違い。正しくは、保守員が遠隔から操作命令を送るのは「制御」の段階である。選択肢は人が機械を操作するとしているため、自律化の例ではない。",
+      "間違い。正しくは、センサーで機械の状態を収集して蓄積するのは「監視」の段階である。選択肢はデータの収集と蓄積を示しているため、自律化の例ではない。",
+      "正しい。機械同士が互いの状態を監視・分析し、人手を介さず目標に合わせて協調動作するのは「自律化」の段階である。",
+      "間違い。正しくは、収集した情報を基に保守員が故障部位を分析・特定するのは、人が判断する「最適化」の段階である。選択肢は保守員が分析するとしているため、自律化の例ではない。"
     ],
     "original_question_id": "f467088a508bec71",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_27.html",
@@ -274,33 +274,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n3,200 万円では変動費率が過小で、利益差の条件を説明できない。",
-      "間違い。\n\n4,000 万円でも売上高差 2,000 万円に対する利益差 800 万円と整合しない。",
-      "正しい。\n\n売上高 7,000 万円で -200、9,000 万円で 600 なので、売上高 2,000 万円増加に対し利益は 800 万円増える。したがって限界利益率は 800/2,000=0.4、変動費率は 0.6 である。売上高 8,000 万円の変動費は 8,000×0.6=4,800 万円となる。",
-      "間違い。\n\n5,600 万円は変動費率 0.7 に相当し、与えられた利益条件と合わない。"
-    ],
-    "suggestedQuestions": [
-      "変動費率はどう求めますか？",
-      "利益差から何が分かりますか？",
-      "限界利益率との関係は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "変動費率はどう求めますか？",
-        "answer": "売上増加額に対する利益増加額から限界利益率を出し、1 から引けば変動費率になる。"
-      },
-      {
-        "question": "利益差から何が分かりますか？",
-        "answer": "固定費一定なら、利益差は売上増に伴う限界利益の増加分に等しい。"
-      },
-      {
-        "question": "限界利益率との関係は何ですか？",
-        "answer": "限界利益率=1-変動費率 である。"
-      }
+      "正しい。売上高をS、固定費をF、変動費率をr、利益をPとすると、利益は次の式で表せる。\n\\[P=S(1-r)-F\\]\n売上高が7,000万円から9,000万円へ2,000万円増えたとき、利益はマイナス200万円から600万円へ800万円増えている。したがって限界利益率は、\n\\[\\frac{600-(-200)}{9,000-7,000}=\\frac{800}{2,000}=0.4\\]\nとなる。変動費率は限界利益率の補数なので、\n\\[r=1-0.4=0.6\\]\nである。売上高8,000万円の変動費は、\n\\[8,000\\times0.6=4,800\\text{万円}\\]\nとなる。したがって、答えは4,800万円である。"
     ],
     "original_question_id": "ae11eb5ece811b65",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_29.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:ae11eb5ece811b65",
+    "reviewQuestionId": "ae11eb5ece811b65",
+    "sourceRecordRef": "question_201802_2.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "売上高、損益、固定費及び変動費率から変動費を計算する問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、損益計算の結果によって判定する。",
+          "promptContext": "技術・計算問題として判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を用いない計算問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、損益計算の結果によって判定する。",
+          "promptContext": "技術・計算問題として判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を用いない計算問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、損益計算の結果によって判定する。",
+          "promptContext": "技術・計算問題として判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度上の根拠を用いない計算問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、損益計算の結果によって判定する。",
+          "promptContext": "技術・計算問題として判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を用いない計算問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -394,10 +484,10 @@
   },
   {
     "explanationText": [
-      "正しい。アドミッション制御は、新たな通信要求に対して帯域などの資源を確認し、必要な資源を確保できる場合だけ通信を受け入れる制御である。",
-      "間違い。正しくは、入力トラフィックが最大速度を超えたときに、超過分のパケットを破棄したり優先度を下げたりするのはポリシングである。シェーピングは、パケットを一時的に蓄積するなどして送出速度を調整する。選択肢は、このポリシングの説明をシェーピングとしているため誤りである。",
+      "正しい。アドミッション制御は、新たな通信要求に対して帯域などの資源を確保できるか確認し、確保できる場合だけ通信を受け入れる制御である。",
+      "間違い。正しくは、入力トラフィックが規定速度を超えたときに、超過分のパケットを破棄したり優先度を下げたりするのはポリシングである。シェーピングは、パケットを一時的に蓄積するなどして送出速度を調整する。選択肢は、ポリシングの説明をシェーピングとしているため誤りである。",
       "間違い。正しくは、パケットの送出間隔を調整して規定速度を超えないようにトラフィックを平準化するのはシェーピングである。ポリシングは、規定速度を超えたトラフィックを監視し、パケットの破棄や優先度の低下によって制御する。選択肢は、シェーピングの説明をポリシングとしているため誤りである。",
-      "間違い。正しくは、フレームの種類や宛先に応じて優先度を変えて中継するのは優先制御の説明である。ベストエフォートは、QoSによる帯域や遅延などの保証を設けず、到着したパケットを通常の扱いで転送する方式である。選択肢は、優先制御の説明をベストエフォートとしているため誤りである。"
+      "間違い。正しくは、フレームの種類や宛先に応じて優先度を変えて中継するのは優先制御である。ベストエフォートは、帯域や遅延などを保証せず、到着したパケットを通常の扱いで転送する方式である。選択肢は、優先制御の説明をベストエフォートとしているため誤りである。"
     ],
     "original_question_id": "aeb3aab41495c77f",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_3.html",
@@ -517,7 +607,7 @@
   },
   {
     "explanationText": [
-      "正しい。MTUは、ネットワーク層のIPパケットの最大長を指す。この図では、IPヘッダー、TCPヘッダー、データを合わせた部分がIPパケットに当たる。MACヘッダー、FCS、プリアンブルは、それぞれイーサネットフレームの転送や誤り検出、同期に使われる部分であり、MTUには含めない。したがって、該当するのは「IPヘッダー＋TCPヘッダー＋データ」である。"
+      "正しい。MTUは、ネットワーク層で扱うIPパケットの最大長を指す。この問題では、IPヘッダー、TCPヘッダー、データを合わせた部分がIPパケットに当たる。MACヘッダーとFCSはイーサネットフレームの構成要素であり、プリアンブルはフレーム送信時の同期に使われるため、いずれもMTUには含めない。"
     ],
     "original_question_id": "75e7ef03aa5d16b2",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_4.html",
@@ -787,10 +877,10 @@
   },
   {
     "explanationText": [
-      "間違い。1つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名に同一のIPアドレスを対応させることもできる。選択肢は複数のホスト名に同一のIPアドレスを対応させることはできないとしているため誤りである。",
-      "正しい。DNSでは、1つのホスト名に複数のIPアドレスを対応させるために複数のAレコードを登録できる。また、別名などによって複数のホスト名を同じホストやIPアドレスに対応させることもできる。",
-      "間違い。1つのホスト名に複数のIPアドレスを対応させることもできる。選択肢は一つのホスト名に複数のIPアドレスを対応させることはできないとしているため誤りである。",
-      "間違い。ホスト名とIPアドレスの対応は常に1対1ではなく、1つのホスト名に複数のIPアドレスを対応させたり、複数のホスト名を同じIPアドレスに対応させたりできる。選択肢はすべての対応が1対1であるとしているため誤りである。"
+      "間違い。正しくは、1つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名に同じIPアドレスを対応させることもできる。選択肢は、複数のホスト名に同一のIPアドレスを対応させることはできないとしているため誤りである。",
+      "正しい。DNSでは、1つのホスト名に複数のIPアドレスを対応させたり、複数のホスト名に同じIPアドレスを対応させたりできる。",
+      "間違い。正しくは、1つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名に同じIPアドレスを対応させることもできる。選択肢は、1つのホスト名に複数のIPアドレスを対応させることはできないとしているため誤りである。",
+      "間違い。正しくは、ホスト名とIPアドレスの対応は常に1対1ではない。1つのホスト名に複数のIPアドレスを対応させたり、複数のホスト名に同じIPアドレスを対応させたりできる。選択肢は、すべての対応が1対1であるとしているため誤りである。"
     ],
     "original_question_id": "b64548f39e77e1d0",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_7.html",
@@ -981,7 +1071,7 @@
   },
   {
     "explanationText": [
-      "正しい。サブネットマスク FFFFFF80 は 255.255.255.128 で、プレフィックス長は /25 である。ホスト部は7ビットなので、全組合せは \\(2^7=128\\) 個となる。このうちネットワークアドレスとブロードキャストアドレスはホストに割り当てられないため、利用可能なホスト数は \\(128-2=126\\) である。"
+      "正しい。サブネットマスク FFFFFF80 は 255.255.255.128 なので、プレフィックス長は /25 である。IPv4アドレスは32ビットで構成されるため、ホスト部は \\(32-25=7\\) ビットとなる。ホスト部のビット数を \\(h\\) とすると、利用可能なホスト数は \\(2^h-2\\) で求められる。\\(h=7\\) を代入すると、\\(2^7-2=128-2=126\\) である。全128通りのうち、ネットワークアドレスとブロードキャストアドレスの2通りはホストに割り当てられないため、最大126台が利用できる。"
     ],
     "original_question_id": "6a9a3454d668a0bb",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_10.html",
@@ -991,7 +1081,113 @@
     "sourceRecordRef": "question_201802_2.json#14",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPアドレスのサブネット計算に基づく技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による判定差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は、FFFF​FF80が/25で利用可能ホスト数126となる計算結果と一致する。",
+          "promptContext": "IPv4サブネット計算",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "IPv4サブネット計算による技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による判定差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢の127は、ネットワークアドレスとブロードキャストアドレスを除いた利用可能ホスト数126と一致しない。",
+          "promptContext": "IPv4サブネット計算",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4サブネット計算による技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による判定差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢の254は、/24の場合に相当する値であり、/25の利用可能ホスト数126ではない。",
+          "promptContext": "IPv4サブネット計算",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4サブネット計算による技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による判定差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢の255は、/25でネットワークアドレスとブロードキャストアドレスを除く計算結果ではない。",
+          "promptContext": "IPv4サブネット計算",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4サブネット計算による技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1145,10 +1341,10 @@
   },
   {
     "explanationText": [
-      "間違い。HTTP GETを大量に送信してWebサーバへ処理負荷を掛ける攻撃は、HTTP GET Floodである。選択肢はHTTP GETリクエストによる攻撃をICMP Floodとしているため誤りである。",
-      "正しい。pingによる大量のICMP Echo Requestを送信し、回線やサーバを過負荷にしてアクセスを妨害する攻撃は、ICMP Floodに該当する。",
-      "間違い。SYNパケットを大量に送信して接続要求への応答処理を集中させる攻撃は、SYN Floodである。選択肢はSYN Floodの特徴をICMP Floodとしているため誤りである。",
-      "間違い。大量のTCPコネクションを確立・維持してサーバの接続リソースを枯渇させる攻撃は、TCP Connection Floodなどに分類される。選択肢はTCPコネクションを使う攻撃をICMP Floodとしているため誤りである。"
+      "間違い。HTTP GETリクエストを大量に送信してWebサーバに処理負荷を掛ける攻撃は、HTTP GET Floodである。選択肢はHTTP GETによる攻撃をICMP Floodとしているため誤りである。",
+      "正しい。pingはICMP Echo Requestを送信する。これを大量に発信して回線やサーバを過負荷にし、アクセスを妨害する攻撃がICMP Floodである。",
+      "間違い。SYNパケットを大量に送信して接続要求への応答処理を集中させる攻撃は、SYN Floodである。選択肢はSYN FloodをICMP Floodとしているため誤りである。",
+      "間違い。大量のTCPコネクションを確立・維持して接続用リソースを枯渇させる攻撃は、TCP Connection Floodなどに分類される。選択肢はTCPコネクションを使う攻撃をICMP Floodとしているため誤りである。"
     ],
     "original_question_id": "7baaf4174baa69ac",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_16.html",
@@ -1268,7 +1464,7 @@
   },
   {
     "explanationText": [
-      "正しい。クライアント証明書を用いる代表的な方式はEAP-TLSである。EAP-TLSはTLSによる相互認証を行い、クライアント証明書とサーバ証明書を使う。EAP-MD5はチャレンジレスポンス方式で証明書を使わない。EAP-FASTとEAP-TTLSは認証用のトンネルを作った後、その内部で別の認証方式を使えるため、クライアント証明書の使用が方式の必須条件ではない。"
+      "正しい。該当するのはEAP-TLSである。EAP-TLSはTLSを用いてサーバとクライアントを相互認証し、クライアント証明書を使う。EAP-MD5はチャレンジレスポンス方式で証明書を使わない。EAP-FASTとEAP-TTLSは認証用のトンネルを作り、その内部で別の認証方式を使える方式であり、クライアント証明書の使用が必須ではない。"
     ],
     "original_question_id": "e3ff1e0076d0c17c",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_17.html",
@@ -1448,10 +1644,10 @@
   },
   {
     "explanationText": [
-      "間違い。証明書にはDNS名（FQDN）を記載でき、接続時はその名前と接続先が対応していればよい。選択肢はWebサーバのIPアドレスが証明書に必ず組み込まれるとしているため、IPアドレスを変更するだけで常に証明書の再取得が必要になるわけではない。",
-      "間違い。TLSで使う共通鍵の長さは、選択した暗号スイートで定められる。選択肢は128ビット未満の長さを任意に指定するとしているため誤りである。",
+      "間違い。Webサーバの証明書にはDNS名（FQDN）を記載できるため、IPアドレスを変更しても、証明書の名前と接続に使う名前が変わらなければ、常に再取得が必要になるわけではない。選択肢はIPアドレスの組込みが必須としているため誤りである。",
+      "間違い。TLSの共通鍵の長さは、選択した暗号方式（暗号スイート）で定められ、利用者が128ビット未満の長さを任意に指定するものではない。",
       "正しい。TLSのクライアント認証で使うデジタル証明書と秘密鍵は、ICカードなどの持ち運べる媒体に格納できる。そのため、利用するPCを一台に固定する必要はない。",
-      "間違い。TLSは暗号化や通信相手の認証を行うプロトコルであり、クライアント証明書による個人認証も必要な場合に選択できる。選択肢は特定の利用者による通信と事前のWebサーバへの利用者登録をTLSの必須条件としているため誤りである。"
+      "間違い。TLSは通信の暗号化や通信相手の認証を行うプロトコルであり、必要に応じてクライアント証明書による個人認証を利用できる。選択肢は特定の利用者による通信と、Webサーバへの事前登録をTLSの必須条件としているため誤りである。"
     ],
     "original_question_id": "da767aff471f3792",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_20.html",

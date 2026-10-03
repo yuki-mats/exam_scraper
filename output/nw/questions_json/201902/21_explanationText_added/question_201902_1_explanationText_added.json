@@ -1,63 +1,243 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nA の補集合と B の積集合、すなわち Ā∩B は『B に属し、かつ A には属さない要素』の集合であり、これは B−A と等しい。",
-      "間違い。\n\n(Ā∪B̄)−(A∩B) のような形ではなく、和集合から積集合を引く式は対称差に相当し、Ā∩B とは異なる。",
-      "間違い。\n\n(S−A)∪(S−B) はド・モルガンの法則により (A∩B)̄ に等しい。Ā∩B ではない。",
-      "間違い。\n\nS−(A∩B) も (A∩B)̄ を表す。Ā∩B は『B だけに属する部分』であり、より狭い集合である。"
-    ],
-    "suggestedQuestions": [
-      "差集合と補集合の関係はどう整理しますか？",
-      "ド・モルガンの法則はどう使いますか？",
-      "ベン図でどう考えると分かりやすいですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "差集合と補集合の関係はどう整理しますか？",
-        "answer": "B−A は『B に属し A に属さない要素』なので、B∩Ā と表せる。"
-      },
-      {
-        "question": "ド・モルガンの法則はどう使いますか？",
-        "answer": "(A∩B)̄=Ā∪B̄、(A∪B)̄=Ā∩B̄ のように補集合を分配して変形する。"
-      },
-      {
-        "question": "ベン図でどう考えると分かりやすいですか？",
-        "answer": "全体集合の中で B の領域から A と重なる部分を除いた領域を塗ると、B−A と Ā∩B が同じになる。"
-      }
+      "正しい。A̅－Bは、A̅に属する要素からBに属する要素を除いた集合である。したがって、A̅に属し、かつBに属さない要素の集合であるA̅∩B̅と等しい。"
     ],
     "original_question_id": "e1f4be864ad6149a",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:e1f4be864ad6149a",
+    "reviewQuestionId": "e1f4be864ad6149a",
+    "sourceRecordRef": "question_201902_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "集合演算の数学的性質で正誤が決まる問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "A̅－BはA̅∩B̅と等しい。",
+          "promptContext": "集合演算として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。集合演算の数学的性質により判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の式はA̅∩B̅と同値ではない。",
+          "promptContext": "集合演算として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。集合演算の数学的性質により判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "(S－A)∪(S－B)はA̅∪B̅であり、A̅∩B̅とは異なる。",
+          "promptContext": "集合演算として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。集合演算の数学的性質により判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "S－(A∩B)はA̅∪B̅であり、A̅∩B̅とは異なる。",
+          "promptContext": "集合演算として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。集合演算の数学的性質により判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n回線利用率 0.4 のとき、回線利用率/(1-回線利用率)=0.4/0.6=2/3 で 1 未満なので、平均回線待ち時間は平均伝送時間より短い。",
-      "正しい。\n\n平均回線待ち時間が平均伝送時間より長くなるには、回線利用率/(1-回線利用率)>1 である必要がある。これを解くと回線利用率>0.5 となるため、最初に長くなるのは 0.5 を超えたときである。",
-      "間違い。\n\n0.6 を超えたときには確かに待ち時間は長いが、もっと早い段階である 0.5 を超えた時点で既に平均伝送時間を上回る。",
-      "間違い。\n\n0.7 は条件を満たすが、最初に超える境界ではない。境界は 0.5 である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ 0.5 が境界になるのですか？",
-      "M/M/1 で利用率が高いと何が起こりますか？",
-      "待ち時間式の見方はどう覚えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ 0.5 が境界になるのですか？",
-        "answer": "回線利用率/(1-回線利用率)=1 を解くと利用率=0.5 になり、これを超えると平均回線待ち時間が平均伝送時間を上回るからである。"
-      },
-      {
-        "question": "M/M/1 で利用率が高いと何が起こりますか？",
-        "answer": "待ち行列が急増しやすくなり、待ち時間が急激に長くなる。"
-      },
-      {
-        "question": "待ち時間式の見方はどう覚えますか？",
-        "answer": "利用率 ρ が 1 に近づくほど分母 1-ρ が小さくなり、待ち時間が増えると理解するとよい。"
-      }
+      "正しい。正答は0.5である。平均回線待ち時間が平均伝送時間を上回る条件を、回線利用率を \\(\\rho\\)、平均回線待ち時間を \\(W_q\\)、平均伝送時間を \\(T\\) として計算する。関係式は次のとおりである。\\n\\[W_q=T\\frac{\\rho}{1-\\rho}\\]\\nここで、\\(\\rho\\) は回線利用率、\\(T\\) は平均伝送時間、\\(W_q\\) は平均回線待ち時間である。\\(W_q>T\\) となる条件は、\\n\\[T\\frac{\\rho}{1-\\rho}>T\\]\\nであり、平均伝送時間 \\(T\\) は正なので、\\n\\[\\frac{\\rho}{1-\\rho}>1\\]\\nとなる。両辺に \\(1-\\rho\\) を掛けると、\\n\\[\\rho>1-\\rho\\]\\n\\[2\\rho>1\\]\\n\\[\\rho>0.5\\]\\nを得る。したがって、平均回線待ち時間が平均伝送時間より最初に長くなる境界は0.5であり、回線利用率が0.5を超えたときに条件を満たす。"
     ],
     "original_question_id": "a25559f0b0c05bee",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:a25559f0b0c05bee",
+    "reviewQuestionId": "a25559f0b0c05bee",
+    "sourceRecordRef": "question_201902_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "M/M/1待ち行列モデルの式から回線利用率を計算する性能・数学の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "0.4はM/M/1待ち行列モデルの計算結果に該当しない。",
+          "promptContext": "技術・数学問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連のため法令改正差分なし。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "0.5は平均回線待ち時間が平均伝送時間を上回る境界値である。",
+          "promptContext": "技術・数学問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非関連のため法令改正差分なし。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "0.6は境界値を超えるが、問われている最初の境界値0.5ではない。",
+          "promptContext": "技術・数学問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連のため法令改正差分なし。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "0.7は境界値を超えるが、問われている最初の境界値0.5ではない。",
+          "promptContext": "技術・数学問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連のため法令改正差分なし。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -151,7 +331,7 @@
   },
   {
     "explanationText": [
-      "正しい。必要な容量は、同時に存在する一時ファイルの最大個数に、1個当たりの容量を掛けて求める。ジョブB・Cの実行後、B・Cの一時ファイルを残したままジョブD・Eが実行される時点で、4個の一時ファイルが同時に存在する。したがって、必要な容量は次のとおりである。\n\n\\[50\\,\\mathrm{Mバイト}\\times4=200\\,\\mathrm{Mバイト}\\]\n\nよって、最低200Mバイトが必要である。"
+      "正しい。必要な容量は、同時に存在する一時ファイルの最大個数に、1個当たりの容量を掛けて求める。ジョブB・Cの実行後、B・Cの一時ファイルを残したままジョブD・Eが実行されるため、最大4個の一時ファイルが同時に存在する。したがって、必要な容量は次のとおりである。\n\n\\[50\\,\\mathrm{Mバイト}\\times4=200\\,\\mathrm{Mバイト}\\]\n\nよって、最低200Mバイトが必要である。"
     ],
     "original_question_id": "a1c46637711f20d3",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_6.html",
@@ -301,10 +481,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、周囲の光、熱、振動、押す力などの微小なエネルギーを電力に変換して利用する。選択肢はAC電源で充電したバッテリの電力を使うため、周囲のエネルギーを電力として回収するエネルギーハーベスティングではない。",
-      "間違い。正しくは、インバータ制御によるエアーコンディショナの室外機は、運転状態に応じて出力を調整して消費電力を抑える省エネ技術である。選択肢は電力の使用効率を高める技術を示しており、周囲のエネルギーを電力へ変換して利用するエネルギーハーベスティングの適用例ではない。",
+      "間違い。エネルギーハーベスティングは、周囲の光、熱、振動、押す力などの微小なエネルギーを電力に変換して利用する技術である。選択肢はAC電源で充電したバッテリの電力で駆動するため、周囲のエネルギーを回収する適用例ではない。",
+      "間違い。インバータ制御によるエアーコンディショナの室外機は、運転状態に応じて出力を調整し、消費電力を抑える省エネ技術である。選択肢は電力の使い方を効率化する技術を示しており、周囲のエネルギーを電力へ変換するエネルギーハーベスティングではない。",
       "正しい。スイッチを押す力という機械エネルギーを電力に変換し、その電力でRFリモコンを動作させているため、エネルギーハーベスティングの適用例である。",
-      "間違い。正しくは、無停電電源装置は外部電源が途絶えたときにバッテリなどから電力を供給し、機器の動作を継続させる装置である。選択肢はあらかじめ蓄えた電力を使うバックアップの仕組みを示しており、周囲のエネルギーを回収して発電するエネルギーハーベスティングではない。"
+      "間違い。無停電電源装置は、外部電源が途絶えたときにバッテリなどに蓄えた電力を供給し、機器の動作を継続させる装置である。選択肢は電力を蓄えておくバックアップの仕組みを示しており、周囲のエネルギーを回収して発電するエネルギーハーベスティングではない。"
     ],
     "original_question_id": "aa1fdfd08e459bc8",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_8.html",
@@ -313,7 +493,7 @@
     "reviewQuestionId": "aa1fdfd08e459bc8",
     "sourceRecordRef": "question_201902_1.json#7",
     "explanationReferences": [],
-    "questionLearningPatternId": "terms_basics",
+    "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
     "lawContextForExplanation": "エネルギーハーベスティングに関する工学・技術上の問題で、法令条文を根拠にしない。",
@@ -456,8 +636,8 @@
     "explanationText": [
       "正しい。",
       "間違い。タイムスロット単位で通信を分けるのはTDMAの説明であり、CSMA/CDではない。選択肢はTDMAの方式をCSMA/CDとしているため誤りである。",
-      "間違い。RTS/CTSやACKを用いるのは無線LANで使われるCSMA/CAの説明であり、衝突を検知して再送するEthernetのCSMA/CDとは異なる。選択肢はCSMA/CAの特徴をCSMA/CDとしているため誤りである。",
-      "間違い。伝送路上のトークンを受け取った端末だけが送信するのは、トークンパッシング方式である。選択肢はトークンパッシングの方式をCSMA/CDとしているため誤りである。"
+      "間違い。RTS/CTSやACKを用いるのは無線LANで使われるCSMA/CAの説明であり、衝突を検知して再送するCSMA/CDとは異なる。選択肢はCSMA/CAの特徴をCSMA/CDとしているため誤りである。",
+      "間違い。伝送路上のトークンを受け取った端末だけが送信するのは、トークンパッシング方式である。選択肢はトークンパッシング方式をCSMA/CDとしているため誤りである。"
     ],
     "original_question_id": "a3dd53b73b731474",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_10.html",
@@ -577,10 +757,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、Webサーバ側の代理としてクライアントからの要求を受け、Webサーバへ転送するのはリバースプロキシである。選択肢はWebサーバの代理として応答するとしているため誤りである。",
-      "間違い。正しくは、フォワードプロキシはクライアントが選んで利用するメッセージ転送エージェントであり、Webブラウザと同じ組織内に置くことは必須ではない。選択肢は同一組織内でなければならないとしているため誤りである。",
-      "正しい。フォワードプロキシはWebブラウザなどのクライアントに代わって、Webサーバへのリクエストを送信する。",
-      "間違い。正しくは、電子メールを複数のサーバ経由で転送するのはメール配送の仕組みに関する説明である。選択肢は電子メールの転送をフォワードプロキシの説明としているため誤りである。"
+      "間違い。正しくは、クライアントからの要求を受けてWebサーバ側の代理として応答するのはリバースプロキシである。選択肢はWebサーバの代理として応答するとしているため、フォワードプロキシの説明ではない。",
+      "間違い。正しくは、フォワードプロキシはクライアントの代理として通信するため、Webブラウザと同じ組織内に置く必要はない。選択肢は同一組織内になければならないとしているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、電子メールを複数のサーバ経由で転送するのはメール配送の仕組みに関する説明であり、フォワードプロキシの役割ではない。選択肢は電子メールの転送をフォワードプロキシの説明としているため誤りである。"
     ],
     "original_question_id": "e1049ba561e6a40f",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_11.html",
@@ -736,9 +916,9 @@
   },
   {
     "explanationText": [
-      "間違い。チャレンジレスポンス方式は、サーバから受け取った毎回異なるチャレンジ値と秘密情報を使って応答を計算する。選択肢は固定パスワードをTLSで暗号化して送るだけとしているため誤りである。",
-      "間違い。チャレンジレスポンス方式では、サーバが送ったランダムなチャレンジ値に対する応答を計算する。選択肢は端末のシリアル番号を秘密鍵で暗号化して送るとしているため誤りである。",
-      "間違い。トークンが認証のたびに異なる値を表示し、それをパスワードとして使うのはワンタイムパスワード方式の説明である。選択肢はこの方式をチャレンジレスポンス方式としているため誤りである。",
+      "間違い。チャレンジレスポンス方式は、サーバから受け取った毎回異なるチャレンジ値と秘密情報を使って応答を計算する。固定パスワードをTLSで暗号化して送るだけの方式は、チャレンジレスポンス方式ではない。",
+      "間違い。チャレンジレスポンス方式では、サーバが送ったランダムなチャレンジ値に対する応答を計算する。端末のシリアル番号を秘密鍵で暗号化して送る方式は、チャレンジ値を用いた応答計算ではない。",
+      "間違い。トークンが認証のたびに異なる値を表示し、それをパスワードとして使うのはワンタイムパスワード方式の説明である。これは、サーバのチャレンジ値に対する応答を計算するチャレンジレスポンス方式とは異なる。",
       "正しい。利用者が入力したパスワードなどの秘密情報と、サーバから受け取ったランダムなチャレンジ値をクライアントで演算し、その結果をサーバへ送信して認証する。"
     ],
     "original_question_id": "ca846b279a7aee9f",
@@ -979,10 +1159,10 @@
   },
   {
     "explanationText": [
-      "間違い。関連する複数のプロジェクトに影響する制約条件やコンフリクトを調整するのは、プログラム・マネジャーの役割である。選択肢はこれをPMOの役割としているため誤りである。",
+      "間違い。関連する複数のプロジェクト間の制約条件やコンフリクトを調整するのは、プログラム・マネジャーの役割である。選択肢はこれをPMOの役割としているため誤りである。",
       "間違い。戦略目標の達成に向けてプロジェクトやプログラムの組合せを選び、優先順位と資源配分を決めるのは、ポートフォリオ・マネジャーの役割である。選択肢はこれをPMOの役割としているため誤りである。",
-      "正しい。PMOはプロジェクトに関するガバナンス・プロセスを標準化し、資源、方法論、ツール、技法を組織内で共有できるようにする。",
-      "間違い。個別プロジェクトの要求事項を満たすため、知識、スキル、ツール、技法を活動へ適用するのは、プロジェクト・マネジャーの役割である。選択肢はこれをPMOの役割としているため誤りである。"
+      "正しい。",
+      "間違い。個別プロジェクトの要求事項を満たすため、知識、スキル、ツール、技法をプロジェクト活動へ適用するのは、プロジェクト・マネジャーの役割である。選択肢はこれをPMOの役割としているため誤りである。"
     ],
     "original_question_id": "64cfd92215578863",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_18.html",
@@ -1138,10 +1318,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、サービスデスクに対する顧客満足度がサービス目標を満たしているかを評価し、改善の機会を特定するレビューは、サービスレベル管理の活動である。選択肢はこれをインシデント及びサービス要求管理の活動としているため誤りである。",
-      "間違い。正しくは、ディスクの空き容量がしきい値に近づいた場合に必要な対策を検討するのは、資源の容量を適正に保つキャパシティ管理の活動である。選択肢はこれをインシデント及びサービス要求管理の活動としているため誤りである。",
-      "間違い。正しくは、プログラム変更による影響度を調査するのは、変更の安全性や影響を評価する変更管理の活動である。選択肢はこれをインシデント及びサービス要求管理の活動としているため誤りである。",
-      "正しい。利用者から障害報告を受けた後、既知の誤りに該当するかを照合することは、障害への対応や迅速な復旧につなげるインシデント及びサービス要求管理の活動である。"
+      "間違い。正しくは、サービスデスクに対する顧客満足度が合意したサービス目標を満たしているかを評価し、改善の機会を特定するレビューは、サービスレベル管理の活動である。選択肢はこれをインシデント管理及びサービス要求管理の活動としているため誤りである。",
+      "間違い。正しくは、ディスクの空き容量がしきい値に近づいた場合に対策を検討するのは、必要な容量を予測し、資源を適正に保つキャパシティ管理の活動である。選択肢はこれをインシデント管理及びサービス要求管理の活動としているため誤りである。",
+      "間違い。正しくは、プログラム変更による影響度を調査するのは、変更によるリスクや影響を評価する変更管理の活動である。選択肢はこれをインシデント管理及びサービス要求管理の活動としているため誤りである。",
+      "正しい。利用者から障害報告を受け、既知の誤りに該当するかを照合することは、障害を分類・診断し、早期復旧につなげるインシデント管理の活動である。"
     ],
     "original_question_id": "ecc6610bd0a43324",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_20.html",
@@ -1272,10 +1452,10 @@
   },
   {
     "explanationText": [
-      "間違い。IDの一元管理は、認証や利用者管理を効率化するための論点である。選択肢はこの可用性・運用管理の論点を、クラウド上の情報消失を予防するチェックポイントとしているため誤りである。",
-      "間違い。最大許容停止時間は、障害が発生したときにサービスをどれだけ早く復旧させるかという可用性や事業継続の論点である。選択肢はサービス停止時間の管理を、保存情報そのものの消失を予防するチェックポイントとしているため誤りである。",
+      "間違い。IDの一元管理は、利用者の認証やアカウント管理に関するチェックポイントである。選択肢は認証・利用者管理の論点を、保存情報の消失を予防するチェックポイントとしているため誤りである。",
+      "間違い。最大許容停止時間は、障害発生時にサービスをどれだけの時間までに復旧させるかという可用性や事業継続に関するチェックポイントである。選択肢はサービス停止時間の管理を、保存情報の消失を予防するチェックポイントとしているため誤りである。",
       "正しい。クラウド事業者の信頼性と、事業やサービスが継続して提供される見込みを確認することは、事業者の撤退やサービス終了によって情報へアクセスできなくなったり、情報が失われたりするリスクの予防につながる。",
-      "間違い。施設内ネットワークの暗号化通信は、通信内容を盗み見られないようにする機密性の論点である。選択肢は通信の機密性を、クラウド上に保存した情報の消失を予防するチェックポイントとしているため誤りである。"
+      "間違い。施設内ネットワークの暗号化通信は、通信内容を盗み見られないようにする機密性に関するチェックポイントである。選択肢は通信の機密性の論点を、保存情報の消失を予防するチェックポイントとしているため誤りである。"
     ],
     "original_question_id": "8c907918212b98fe",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_21.html",
@@ -1548,40 +1728,130 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n現在の評価点は 27 点、満点相当は 75 点なので 27% ではない。割合計算が不足している。",
-      "正しい。\n\n現在の評価点は 省電力効果 3×5=15、期間の短縮 0×8=0、情報の統合化 1×12=12 の合計 27 点である。全て目標通りなら 3×5 + 3×8 + 3×12 = 75 点なので、達成度は 27/75=0.36=36% となる。",
-      "間違い。\n\n43% にはならない。重み付き合計と満点をきちんと比べると 36% である。",
-      "間違い。\n\n52% も過大である。現在点 27 と満点 75 の比を取る必要がある。"
-    ],
-    "suggestedQuestions": [
-      "重み付き評価はどう計算しますか？",
-      "なぜ満点は 75 点ですか？",
-      "割合問題でミスしないコツはありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "重み付き評価はどう計算しますか？",
-        "answer": "各項目の評価点へ重みを掛けて合計し、その合計を比較する。"
-      },
-      {
-        "question": "なぜ満点は 75 点ですか？",
-        "answer": "3 段階相当の最高評価が各項目で 3 点なので、3×5 + 3×8 + 3×12 = 75 点になるからである。"
-      },
-      {
-        "question": "割合問題でミスしないコツはありますか？",
-        "answer": "まず現在点と基準点を別々に出し、最後に『現在点÷基準点』の順で割ると整理しやすい。"
-      }
+      "正しい。評価点は、各評価項目の重みと4段階評価の結果を掛けて合計する。現在の評価点は、省力化効果の\\(5×3=15\\)点、期間の短縮の\\(8×0=0\\)点、情報の統合化の\\(12×1=12\\)点で、合計\\(27\\)点である。全て目標通りの場合は各評価が3なので、満点は\\(5×3+8×3+12×3=75\\)点となる。目標達成度は、現在の評価点を満点で割って百分率にするため、\\[\\frac{27}{75}×100=36\\%\\]となる。したがって、該当する値は36%である。"
     ],
     "original_question_id": "85947030b668f3ec",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:85947030b668f3ec",
+    "reviewQuestionId": "85947030b668f3ec",
+    "sourceRecordRef": "question_201902_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "重みと4段階評価から目標達成度を算出する計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は計算結果27%を示すが、計算結果は36%である。",
+          "promptContext": "重み付き評価点の計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令に依存しない計算問題として確認した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢の36%が、27点を75点で割って百分率にした正しい結果である。",
+          "promptContext": "重み付き評価点の計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令に依存しない計算問題として確認した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢の43%は、現在の評価点27点と満点75点から得られる割合ではない。",
+          "promptContext": "重み付き評価点の計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令に依存しない計算問題として確認した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢の52%は、現在の評価点27点と満点75点から得られる割合ではない。",
+          "promptContext": "重み付き評価点の計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令に依存しない計算問題として確認した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、商号や商標の使用権と一定地域内での商品独占販売権を与えるのは、フランチャイズ契約に近い事業形態である。選択肢はこの販売契約の説明をファウンドリーサービスとしているため誤りである。",
-      "間違い。正しくは、自社で企画・設計から製造まで行い、自社ブランドで販売するのはIDM（垂直統合型デバイスメーカー）である。選択肢はIDMの説明をファウンドリーサービスとしているため誤りである。",
-      "間違い。正しくは、製造設備を持たず、半導体製品の企画・設計・開発に特化するのはファブレス企業である。選択肢はファブレス企業の説明をファウンドリーサービスとしているため誤りである。",
-      "正しい。ファウンドリーサービスは、他社から製造を受託し、半導体製品を製造する事業形態である。ファブレス企業のように製造設備を持たない企業から、製造工程を引き受ける。"
+      "間違い。正しくは、商号や商標の使用権と一定地域内での商品独占販売権を与えるのは、フランチャイズ方式の説明である。選択肢はこの販売契約の説明をファウンドリーサービスとしているため誤りである。",
+      "間違い。正しくは、自社で半導体製品の企画・設計から製造まで一貫して行い、自社ブランドで販売するのはIDM（垂直統合型デバイスメーカー）である。選択肢はIDMの説明をファウンドリーサービスとしているため誤りである。",
+      "間違い。正しくは、製造設備を持たず、半導体製品の企画・設計・開発を専門に行うのはファブレス企業である。選択肢はファブレス企業の説明をファウンドリーサービスとしているため誤りである。",
+      "正しい。ファウンドリーサービスは、他社から製造を受託して半導体製品を製造する事業形態である。主に、製造設備を持たず設計・開発に特化したファブレス企業などから製造工程を引き受ける。"
     ],
     "original_question_id": "6f07dcef642712f7",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_25.html",

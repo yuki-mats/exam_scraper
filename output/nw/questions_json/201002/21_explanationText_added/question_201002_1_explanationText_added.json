@@ -151,37 +151,127 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n整列済み表 a は 2 分探索、頻度順表 b は先頭から探す線形探索、コードから位置が決まる c はハッシュ表探索が最も平均計算量を小さくしやすい。",
-      "間違い。\n\n整列済み表 a に線形探索を当てると、2 分探索より平均比較回数が多くなりやすい。",
-      "間違い。\n\n頻度順表 b は整列されていないため 2 分探索を使えない。",
-      "間違い。\n\nc 表はキーから直接位置を計算する前提なので、ハッシュ表探索を外す組合せは不適切である。"
-    ],
-    "suggestedQuestions": [
-      "2分探索が有利な条件は何ですか？",
-      "線形探索が頻度順表に向く理由は何ですか？",
-      "ハッシュ表探索の平均計算量はなぜ小さいですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "2分探索が有利な条件は何ですか？",
-        "answer": "探索表がキー順に整列されていることが前提である。"
-      },
-      {
-        "question": "線形探索が頻度順表に向く理由は何ですか？",
-        "answer": "よく使う要素を先頭に置けば、平均的に短い回数で見つけられるからである。"
-      },
-      {
-        "question": "ハッシュ表探索の平均計算量はなぜ小さいですか？",
-        "answer": "キーから格納位置を直接求められ、比較回数をほぼ一定にできるからである。"
-      }
+      "正しい。該当するのはアである。aはコード順に整列されているため、探索範囲を半分ずつ絞る2分探索が適している。bは使用頻度の高いコードから並んでいるため、先頭から調べる線形探索の平均計算量が小さくなる。cはコードから格納位置を求められるため、ハッシュ探索を用いる。"
     ],
     "original_question_id": "59488346ae7d6f8d",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:59488346ae7d6f8d",
+    "reviewQuestionId": "59488346ae7d6f8d",
+    "sourceRecordRef": "question_201002_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "探索アルゴリズムの平均計算量を比較する技術問題で、法令・制度上の義務や基準を判断根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行時点の判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "aはコード順に整列されており、2分探索が適する。",
+          "promptContext": "探索アルゴリズムの技術判定。",
+          "refs": [],
+          "verdict": "法令非関連で正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識により判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行時点の判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "bの使用頻度順の探索には線形探索が適するため、選択肢の組合せは正しくない。",
+          "promptContext": "探索アルゴリズムの技術判定。",
+          "refs": [],
+          "verdict": "法令非関連で間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行時点の判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "cのコードから格納位置を求める構成にはハッシュ探索が適するため、選択肢の組合せは正しくない。",
+          "promptContext": "探索アルゴリズムの技術判定。",
+          "refs": [],
+          "verdict": "法令非関連で間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行時点の判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "a、b、cに適した探索法の組合せはアであり、他の組合せは適切でない。",
+          "promptContext": "探索アルゴリズムの技術判定。",
+          "refs": [],
+          "verdict": "法令非関連で間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。キャッシュメモリにデータが存在する確率は\\(1-r\\)、存在しない確率は\\(r\\)である。存在する場合は\\(x\\)ナノ秒、存在しない場合は主記憶へのアクセスに\\(y\\)ナノ秒かかるため、平均アクセス時間は次のように確率で重み付けして求める。\\n\\[\\text{平均アクセス時間}=(1-r)x+ry\\]\\n容量\\(a\\)、\\(b\\)は、ヒット率とミス率が既に与えられているこの計算には影響しない。"
+      "正しい。キャッシュメモリにデータが存在する確率は\\(1-r\\)、存在しない確率は\\(r\\)である。キャッシュに存在する場合のアクセス時間は\\(x\\)ナノ秒、存在しない場合に主記憶へアクセスする時間は\\(y\\)ナノ秒なので、平均アクセス時間は各時間を発生確率で重み付けして求める。\\n\\[\\text{平均アクセス時間}=(1-r)x+ry\\]\\n\\(r\\)はキャッシュミス率、\\(x\\)はキャッシュメモリのアクセス時間、\\(y\\)は主記憶のアクセス時間を表す。容量\\(a\\)と\\(b\\)は、ヒット率とミス率が既に与えられているこの計算には影響しない。"
     ],
     "original_question_id": "d4377e9ecd8542fa",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_4.html",
@@ -302,8 +392,8 @@
   {
     "explanationText": [
       "間違い。正しくは、故障時にあらかじめ指定した安全な状態にシステムを保つのはフェールセーフである。選択肢はこの機能をフェールソフトとしているため誤りである。",
-      "間違い。正しくは、故障時に縮小した範囲のサービスを提供して稼働を続けるのはフェールソフトである。選択肢はこれをフォールトマスキングとしているため誤りである。",
-      "間違い。正しくは、故障の影響が誤りとして外部に出ないよう内部で吸収・訂正するのはフォールトマスキングである。選択肢はこれをフェールセーフとしているため誤りである。",
+      "間違い。正しくは、故障時にサービス範囲を縮小しても稼働を続けるのはフェールソフトである。選択肢はこれをフォールトマスキングとしているため誤りである。",
+      "間違い。正しくは、故障の影響を誤りとして外部に出さないようにするのはフォールトマスキングである。選択肢はこれをフェールセーフとしているため誤りである。",
       "正しい。フォールトアボイダンスは、故障が発生してから影響を抑えるのではなく、設計や品質管理によって故障そのものを避ける考え方である。"
     ],
     "original_question_id": "1401ed41e3fe2653",
@@ -583,7 +673,7 @@
   },
   {
     "explanationText": [
-      "正しい。正答は排他的論理和素子（XOR）である。XORは二つの入力が異なるときだけ1を出力し、同じときは0を出力する。図の回路もこの出力条件になる。"
+      "正しい。図の回路は排他的論理和素子（XOR）と等価である。XORは二つの入力が異なるときだけ1を出力し、同じときは0を出力する。したがって、等価な回路は排他的論理和素子である。"
     ],
     "original_question_id": "2ef1d78b89c8fb35",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_8.html",
@@ -823,7 +913,7 @@
   },
   {
     "explanationText": [
-      "正しい。SOAPは、分散環境で他のコンピュータ上のデータやサービスを呼び出すために利用できる、XMLベースのプロトコルである。SOAPメッセージは、全体を包むEnvelope、必要に応じて付加情報を入れるHeader、宛先へ渡す情報を入れる必須のBodyで構成される。"
+      "正しい。SOAPは、分散環境でほかのコンピュータ上のデータやサービスを呼び出すために利用できる、XMLベースのプロトコルである。SOAPメッセージは、全体を包むEnvelope、付加情報を入れるHeader、実際に受け渡す情報を入れる必須のBodyで構成される。"
     ],
     "original_question_id": "006cc766227389a9",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_13.html",
@@ -949,7 +1039,7 @@
   },
   {
     "explanationText": [
-      "正しい。公開鍵暗号方式では、各利用者が公開鍵と秘密鍵を1個ずつ持つ。利用者数を n、人あたりの鍵数を 2個とすると、必要な鍵の総数 K は次の式で求められる。\n\n\\[K=2n\\]\n\nしたがって、n人が相互に通信する場合の異なる鍵の総数は \\(2n\\) 個である。例えば、3人なら公開鍵3個と秘密鍵3個の合計6個になる。\\(n(n-1)/2\\) は、利用者の組ごとに共通鍵を1個用意する共通鍵暗号方式の鍵数であり、公開鍵暗号方式には当てはまらない。"
+      "正しい。公開鍵暗号方式では、各利用者が公開鍵と秘密鍵を1個ずつ持つ。利用者数をn人とすると、必要な鍵の総数は次の式で求められる。\n\n\\[K=2n\\]\n\nしたがって、n人が相互に通信する場合の異なる鍵の総数は2n個である。例えば3人なら、公開鍵3個と秘密鍵3個の合計6個になる。なお、\\(n(n-1)/2\\)は、利用者の組ごとに共通鍵を1個用意する共通鍵暗号方式の鍵数である。"
     ],
     "original_question_id": "1f1d56584fc0d4d9",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_14.html",
@@ -959,7 +1049,113 @@
     "sourceRecordRef": "question_201002_1.json#13",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "公開鍵暗号方式の鍵数を計算する技術問題であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は公開鍵暗号方式の鍵数に関する技術判断であり、法令根拠を要しない。",
+          "promptContext": "公開鍵暗号方式の鍵数",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。公開鍵暗号方式の技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は公開鍵暗号方式の鍵数に関する技術判断であり、法令根拠を要しない。",
+          "promptContext": "公開鍵暗号方式の鍵数",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当。公開鍵暗号方式の技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は公開鍵暗号方式の鍵数に関する技術判断であり、法令根拠を要しない。",
+          "promptContext": "公開鍵暗号方式の鍵数",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。公開鍵暗号方式の技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は公開鍵暗号方式の鍵数に関する技術判断であり、法令根拠を要しない。",
+          "promptContext": "公開鍵暗号方式の鍵数",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。公開鍵暗号方式の技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1083,7 +1279,7 @@
   },
   {
     "explanationText": [
-      "正しい。マッシュアップは、複数の提供元によるAPIを組み合わせ、新しいサービスを構築する手法である。既存のプログラムを解析して仕様を得るリバースエンジニアリングや、ソフトウェア部品を組み合わせて新規プログラムを開発するソフトウェア再利用とは異なる。"
+      "正しい。マッシュアップは、公開されている複数のサービスやAPIを組み合わせ、新しいサービスとして提供する手法である。既存のプログラムから仕様を推定するのはリバースエンジニアリング、既存のプログラムやクラスライブラリを組み合わせて開発するのはソフトウェア再利用に当たり、公開サービスを組み合わせるマッシュアップとは異なる。"
     ],
     "original_question_id": "08105478263200f0",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_16.html",
@@ -1241,8 +1437,8 @@
     "explanationText": [
       "間違い。正しくは、ワークパッケージはWBSで作業を管理できる最下位の単位である。選択肢は、OBSのチームへの人員割当てをワークパッケージの説明としているため誤りである。",
       "間違い。正しくは、ワークパッケージは作業の見積りや管理ができるWBSの最下位の単位である。選択肢は、関連する要素成果物をまとめたものとしているため誤りである。",
-      "正しい。ワークパッケージは、作業を管理できる最下位の単位であり、必要に応じてアクティビティへ分解される。",
-      "間違い。正しくは、一つの上位要素成果物の下に複数のワークパッケージを置くことができる。選択肢は、上位の要素成果物とワークパッケージが1対1に対応するとしているため誤りである。"
+      "正しい。ワークパッケージは、必要に応じて、さらに具体的なアクティビティへ分解される。",
+      "間違い。正しくは、一つの上位要素の下に複数のワークパッケージを置くことができる。選択肢は、上位の要素成果物とワークパッケージが1対1に対応するとしているため誤りである。"
     ],
     "original_question_id": "8a9f73af4e8152c8",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_18.html",
@@ -1392,7 +1588,7 @@
   },
   {
     "explanationText": [
-      "正しい。必要な磁気テープは14本である。6か月前の同一日まで復元するには、通常は6か月分を保持する。ただし、6か月前に同一日が存在しない場合は、その月の月末までさかのぼるため、最悪の場合は4月から10月までの7か月分が必要になる。各月について、フルバックアップ用と差分バックアップ用に1本ずつ使うので、必要本数は次のように求められる。\n\\[\\text{必要本数}=\\text{保持月数}\\times(\\text{フル用テープ数}+\\text{差分用テープ数})\\]\n\\[7\\times(1+1)=14\\text{本}\\]\nしたがって、必要な磁気テープは14本である。"
+      "正しい。必要な磁気テープは14本である。6か月前の同一日まで復元するには、通常は6か月分を保持する。ただし、6か月前に同じ日付がない場合は、その月の月末まで保持する。したがって、10月31日を基準にすると、4月30日から10月31日までの7か月分が必要になる。各月について、毎月1日のフルバックアップ用に1本、差分バックアップ用に1本を使うため、必要本数は次のとおりである。\n\\[\\text{必要本数}=\\text{保持する月数}\\times(\\text{フルバックアップ用テープ数}+\\text{差分バックアップ用テープ数})\\]\n\\[7\\times(1+1)=14\\text{本}\\]\nよって、必要な磁気テープは14本である。"
     ],
     "original_question_id": "c496da717adbfa47",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_20.html",
@@ -1402,11 +1598,117 @@
     "sourceRecordRef": "question_201002_1.json#19",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令条文ではなく、バックアップ運用条件から必要な磁気テープ本数を計算する技術・運用設計問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、計算結果との一致を判定する選択肢である。",
+          "promptContext": "バックアップ媒体本数の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文による判定対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、計算結果との一致を判定する選択肢である。",
+          "promptContext": "バックアップ媒体本数の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文による判定対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、処理条件から算出した14本との一致を判定する選択肢である。",
+          "promptContext": "バックアップ媒体本数の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文による判定対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、計算結果との一致を判定する選択肢である。",
+          "promptContext": "バックアップ媒体本数の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文による判定対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。可用性は、サービス提供時間のうち利用できた時間の割合である。提供時間は7:00から19:00までの12時間で、故障による停止は16:00から19:00までの3時間となる。したがって、可用性は \\((12-3)÷12×100=75\\)％であり、答えは75である。"
+      "正しい。可用性は、サービス提供時間のうち利用できた時間の割合である。提供時間は7:00から19:00までの12時間で、故障による停止は16:00から提供終了時刻の19:00までの3時間となる。修理が21:00までかかったことによる停止は、提供時間外なので計算に含めない。したがって、可用性は \\((12-3)÷12×100=75\\)％であり、答えは75である。"
     ],
     "original_question_id": "4d40b79ac29f39f6",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_21.html",
@@ -1526,10 +1828,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、コンピュータウイルスへの対策に対象を絞った基準の説明である。選択肢は、情報システム全体を管理するシステム管理基準としているため誤りである。",
-      "間違い。正しくは、不正アクセスへの対策に対象を絞った基準の説明である。選択肢は、組織の情報システムを総合的に管理するシステム管理基準としているため誤りである。",
-      "正しい。システム管理基準は、情報戦略に基づいて情報システムの企画、開発、運用、保守、評価などを適切に管理するための基準である。",
-      "間違い。正しくは、ソフトウェアの違法複製を防止するためのソフトウェア管理に関する指針の説明である。選択肢は、情報システム全体を管理するシステム管理基準としているため誤りである。"
+      "間違い。正しくは、コンピュータウイルスの予防、発見、駆除、復旧などに対象を絞った基準の説明である。選択肢は、ウイルス対策の基準をシステム管理基準の説明としているため誤りである。",
+      "間違い。正しくは、コンピュータ不正アクセスの予防、発見、再発防止などに対象を絞った基準の説明である。選択肢は、不正アクセス対策の基準をシステム管理基準の説明としているため誤りである。",
+      "正しい。システム管理基準は、情報戦略に沿って、情報システムの企画、開発、運用、保守、評価などを適切に管理するための基準であり、情報システム全体を対象とする。",
+      "間違い。正しくは、ソフトウェアの違法複製を防止するためのソフトウェア管理の指針の説明である。選択肢は、ソフトウェアの違法複製対策に対象を絞った指針をシステム管理基準の説明としているため誤りである。"
     ],
     "original_question_id": "a38f3a196c9513b3",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_22.html",
@@ -1656,10 +1958,10 @@
   },
   {
     "explanationText": [
-      "間違い。IT戦略を策定・実行し、企業をあるべき方向へ導く組織能力は、ITガバナンスの説明である。選択肢はITガバナンスをエンタープライズアーキテクチャとしているため誤りである。",
+      "間違い。IT戦略を策定・実行し、企業を望ましい方向へ導く組織能力は、ITガバナンスの説明である。選択肢はITガバナンスをエンタープライズアーキテクチャとしているため誤りである。",
       "間違い。承認された業務が正確に処理・記録されるよう業務プロセスに組み込まれた統制は、業務処理統制の説明である。選択肢は業務処理統制をエンタープライズアーキテクチャとしているため誤りである。",
-      "正しい。エンタープライズアーキテクチャは、組織全体の業務とシステムを統一的にモデル化し、業務とシステムの全体最適を図る手法である。",
-      "間違い。出来高の価値によって進捗や作業実績を定量化し、プロジェクトの状況を評価する手法はEVMである。選択肢はEVMをエンタープライズアーキテクチャとしているため誤りである。"
+      "正しい。エンタープライズアーキテクチャは、組織全体の業務とシステムを統一的にモデル化し、両者の全体最適を図る手法である。",
+      "間違い。出来高の価値で進捗や作業実績を定量化し、プロジェクトの状況を評価する手法はEVMである。選択肢はEVMをエンタープライズアーキテクチャとしているため誤りである。"
     ],
     "original_question_id": "55452c8624db3bb9",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_23.html",
@@ -1782,7 +2084,7 @@
       "間違い。正しくは、既存の組織や業務ルールを抜本的に見直して業務プロセスを再構築する手法はBPRである。選択肢はBPRをSOAとしているため誤りである。",
       "間違い。正しくは、部門ごとの業務を統合的に管理する基幹業務システムはERPである。選択肢はERPをSOAとしているため誤りである。",
       "間違い。正しくは、発注者とサービス提供者がサービス品質について合意した文書はSLAである。選択肢はSLAをSOAとしているため誤りである。",
-      "正しい。SOAは、業務機能を独立したサービスとして捉え、必要なサービスを組み合わせてシステムを構成する考え方である。"
+      "正しい。SOAは、業務機能を独立したサービスとして捉え、それらを組み合わせてシステムを構成する考え方である。"
     ],
     "original_question_id": "a0ba471b94586dff",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_24.html",

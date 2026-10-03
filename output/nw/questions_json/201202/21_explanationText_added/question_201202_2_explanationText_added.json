@@ -31,10 +31,7 @@
   },
   {
     "explanationText": [
-      "正しい。技術のSカーブは、技術の導入期から成長期、成熟期を経て、性能や普及の伸びが限界に近づくまでの進化過程を表す。",
-      "間違い。正しくは、需要曲線は価格と需要量の関係を表す。選択肢は需要曲線が技術の進化過程を表すとしているため誤りである。",
-      "間違い。正しくは、バスタブ曲線は製品や設備の故障率が時間とともにどう変化するかを表す。選択肢はバスタブ曲線が技術の進化過程を表すとしているため誤りである。",
-      "間違い。正しくは、ラーニングカーブは、経験や習熟によって作業時間や製造コストが低下する関係を表す。選択肢はラーニングカーブが技術の進化過程を表すとしているため誤りである。"
+      "正しい。技術のSカーブは、技術の導入期から成長期、成熟期を経て、性能や普及の伸びが限界に近づくまでの進化過程を表す。需要曲線は価格と需要量の関係、バスタブ曲線は製品や設備の故障率の変化、ラーニングカーブは経験や習熟に伴う作業時間や製造コストの低下を表す。"
     ],
     "original_question_id": "d0a79da13027e2ba",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_27.html",
@@ -473,7 +470,7 @@
   },
   {
     "explanationText": [
-      "正しい。正答はOFDMである。OFDMはデータ信号を複数のサブキャリアに分け、各サブキャリアを互いに直交するように配置して同時に伝送する多重化方式である。"
+      "正しい。OFDMは、データ信号を複数のサブキャリアに分け、それぞれを互いに直交するように配置して同時に伝送する多重化方式である。サブキャリアを直交させることで、周波数が近くても相互干渉を抑えられる。"
     ],
     "original_question_id": "142c5133b3aa703c",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_2.html",
@@ -1202,7 +1199,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当する組合せはウである。IPv6の`2001:db8:100:1000::/56`は先頭56ビットが固定されるため、先頭3つの16進フィールドと、4つ目のフィールドの先頭2桁が一致する必要がある。ウの4つ目のフィールドは`1010`と`1020`で、どちらも先頭2桁が`10`であるため、2台とも同じ`/56`サブネットに入る。アは`aa`と`cc`、イは`10`と`20`、エは`11`と`12`で先頭2桁が一致しない。"
+      "正しい。該当する組合せはウである。IPv6アドレスの`/56`は、先頭56ビットをネットワークプレフィックスとして比較する。IPv6の1フィールドは16ビットなので、判定に使う範囲は次のとおりである。\\[56=16\\times3+8\\]\\[/56の比較範囲＝先頭3フィールド＋第4フィールドの先頭8ビット\\]したがって、`2001:db8:100:1000::/56`に入るには、先頭3フィールドが`2001:db8:100`で、第4フィールドの先頭2桁が`10`でなければならない。ウは第4フィールドが`1010`と`1020`で、どちらも先頭2桁が`10`である。アは`aa`と`cc`、イは`10`と`20`、エは`11`と`12`で第4フィールドの先頭8ビットが一致しないため、同じ`/56`サブネットには入らない。"
     ],
     "original_question_id": "7e6444dbdccf9458",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_14.html",
@@ -1476,33 +1473,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n/16は集約できるが共通ビット長を最大化しておらず、必要以上に広い範囲をまとめてしまう。",
-      "間違い。\n\n/17でもまだ共通プレフィックスを十分活用していない。さらに長い共通部分まで取れる。",
-      "正しい。\n\n192.168.10.0と192.168.58.0を2進比較すると上位18ビットが共通なので、最も長い集約経路は192.168.0.0/18である。",
-      "間違い。\n\n/19にすると 10 と 58 を同一範囲へ収められず、指定された全ネットワークを一括集約できない。"
-    ],
-    "suggestedQuestions": [
-      "経路集約はどう求めますか？",
-      "/18は何個の/24を含みますか？",
-      "なぜ/19では収まらないのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "経路集約はどう求めますか？",
-        "answer": "対象ネットワークの開始・終了アドレスを2進数で比較し、先頭から共通するビット長を求める。"
-      },
-      {
-        "question": "/18は何個の/24を含みますか？",
-        "answer": "24-18=6ビット分だけ/24が変化できるので、64個の/24ネットワークを含む。"
-      },
-      {
-        "question": "なぜ/19では収まらないのですか？",
-        "answer": "/19では第3オクテットの範囲が32刻みとなり、10と58を同じブロックへ入れられないためである。"
-      }
+      "正しい。指定されたネットワークの第3オクテットは10から58までである。集約範囲の先頭を0とすると、/18は第3オクテット0〜63を含むため、すべてのネットワークを一つにまとめられる。/19では第3オクテット0〜31又は32〜63のどちらか一方しか含められず、10と58を同時に収められない。したがって、最も多くのビットを共通化できるネットワークアドレスは192.168.0.0/18である。\n\nIPv4の集約では、対象アドレスの共通ビット長を求める。第3オクテットの範囲を比較すると、10は2進数で00001010、58は00111010であり、上位2ビットが共通する。先頭2オクテットの16ビットと合わせて共通するのは18ビットなので、集約経路は次のようになる。\n\\[16+2=18\\]\n\\[192.168.0.0/18\\]\nこのため、正答は192.168.0.0/18である。"
     ],
     "original_question_id": "6301cb3027a6110c",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:6301cb3027a6110c",
+    "reviewQuestionId": "6301cb3027a6110c",
+    "sourceRecordRef": "question_201202_2.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4アドレスの経路集約に関する技術問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3オクテット10は192.168.0.0/19の範囲に含まれるが、58は含まれない。",
+          "promptContext": "技術肢として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4経路集約の技術判定であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3オクテット10から58までを一つに含めるには、192.168.0.0/17ではなく、より長い共通プレフィックスを確認する必要がある。",
+          "promptContext": "技術肢として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4経路集約の技術判定であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "192.168.0.0/18は第3オクテット0〜63を含み、10から58までの全ネットワークを一つに集約できる。",
+          "promptContext": "技術肢として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "IPv4経路集約の技術判定であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "192.168.0.0/16は対象を集約できるが、/18より共通化できるビット数が少ない。",
+          "promptContext": "技術肢として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4経路集約の技術判定であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1640,7 +1727,7 @@
   },
   {
     "explanationText": [
-      "正しい。答えはWebDAVである。WebDAVはHTTPを拡張したプロトコルで、Webサーバ上のコンテンツのアップロードや更新、移動などを可能にする。"
+      "正しい。WebDAVはHTTPを拡張したプロトコルで、Webサーバ上のコンテンツのアップロードや更新、移動などを可能にする。"
     ],
     "original_question_id": "ef160d76b1c55967",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_18.html",
@@ -1760,7 +1847,7 @@
   },
   {
     "explanationText": [
-      "正しい。CRLは、認証局が発行する証明書失効リストであり、有効期間内に失効した証明書をシリアル番号で識別する。証明書の有効期限が切れたかどうかや公開鍵そのものを列挙するリストではない。"
+      "正しい。CRLは、認証局が発行した証明書のうち、有効期間内に失効したものをシリアル番号で識別するリストである。証明書の有効期限切れや公開鍵そのものを一覧にするものではない。"
     ],
     "original_question_id": "9982296279adabd5",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_19.html",
@@ -1886,9 +1973,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、サーバが送るランダムなデータと秘密情報を組み合わせて応答する方式である。選択肢は固定のパスワードをSSLで暗号化して送るとしており、チャレンジに応じて応答を変える仕組みではない。",
-      "間違い。正しくは、サーバから受け取ったランダムなデータと秘密情報を使って応答を作る方式である。選択肢は端末のシリアル番号を秘密鍵で暗号化して送るとしており、サーバからのチャレンジへの応答を説明していない。",
-      "間違い。正しくは、サーバから送られたランダムなデータを利用して応答を計算する方式である。選択肢はトークンが表示する毎回異なる値をパスワードとして送るワンタイムパスワード方式を説明している。",
+      "間違い。正しくは、サーバから送られたランダムなデータと秘密情報を組み合わせて応答する。選択肢は固定のパスワードをSSLで暗号化して送るとしており、サーバのチャレンジに応じて応答を変える方式ではない。",
+      "間違い。正しくは、サーバから受け取ったランダムなデータと秘密情報を使って応答を作る。選択肢は端末のシリアル番号を秘密鍵で暗号化して送るとしており、サーバからのチャレンジへの応答を説明していない。",
+      "間違い。正しくは、サーバから送られたランダムなデータを利用して応答を計算する。選択肢はトークンが表示する毎回異なる値をパスワードとして送るワンタイムパスワード方式を説明している。",
       "正しい。サーバが送るランダムなデータと利用者だけが知る秘密情報をクライアント側で演算し、その結果を送信する。秘密のパスワード自体を送らず、チャレンジごとに異なる応答を返すことで認証する。"
     ],
     "original_question_id": "7aade85d7c63b504",

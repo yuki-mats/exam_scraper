@@ -1,7 +1,7 @@
 [
   {
     "explanationText": [
-      "正しい。",
+      "正しい。正の傾きを持つ直線上に全ての標本点がある場合、二つの変量には完全な正の線形関係があるため、相関係数は＋1になる。",
       "間違い。相関係数が0になるのは、二つの変量の間に線形な相関がない場合である。選択肢は線形の関係があると相関係数が0になるとしているため誤りである。",
       "間違い。非線形の関係だけでは、相関係数が負になるとは限らない。非線形の関係では、相関係数が正、0付近、負のいずれになる場合もある。選択肢は非線形の関係なら相関係数が負になるとしているため誤りである。",
       "間違い。無相関のとき、相関係数は0である。相関係数が－1になるのは、二つの変量が完全な負の線形関係にある場合である。選択肢は無相関のとき相関係数が－1になるとしているため誤りである。"
@@ -124,33 +124,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n可変長符号の平均ビット長は 1×0.4+2×0.3+3×0.2+3×0.1=1.9 ビットなので、変換後／変換前の比は 1.9÷2=0.95 であり 0.75 にはならない。",
-      "間違い。\n\n平均ビット長 1.9 ビットを固定長 2 ビットで割ると 0.95 になるため、0.85 は過小である。",
-      "間違い。\n\n可変長符号化後の平均ビット長は 1.9 ビットなので、比は 0.90 ではなく 0.95 である。",
-      "正しい。\n\na, b, c, d の符号長はそれぞれ 1, 2, 3, 3 ビットであり、出現確率で重み付けした平均ビット長は 1.9 ビットである。固定長 2 ビットに対する比は 1.9÷2=0.95 となる。"
-    ],
-    "suggestedQuestions": [
-      "平均ビット長はどう計算しますか？",
-      "可変長符号はなぜ圧縮できますか？",
-      "固定長符号との比較はどう行いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "平均ビット長はどう計算しますか？",
-        "answer": "各記号の符号長に出現確率を掛けて合計する。"
-      },
-      {
-        "question": "可変長符号はなぜ圧縮できますか？",
-        "answer": "出現頻度の高い記号に短い符号を割り当てることで平均長を短くできるためである。"
-      },
-      {
-        "question": "固定長符号との比較はどう行いますか？",
-        "answer": "可変長符号の平均ビット長を、固定長符号 1 文字当たりのビット数で割って比を求める。"
-      }
+      "正しい。可変長符号の平均ビット長は、各符号のビット長を出現確率で重み付けして求める。a、b、c、dの符号長はそれぞれ1、2、3、3ビットなので、平均ビット長は \\(1×0.4+2×0.3+3×0.2+3×0.1=1.9\\)ビットとなる。変換前は各アルファベットを2ビットで表しているため、変換後と変換前のビット列の長さの比は \\(1.9÷2=0.95\\) である。"
     ],
     "original_question_id": "065a5e7e548f2c9f",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:065a5e7e548f2c9f",
+    "reviewQuestionId": "065a5e7e548f2c9f",
+    "sourceRecordRef": "question_201702_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "情報理論上の可変長符号と出現確率に基づく計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は計算結果0.75と一致しない。",
+          "promptContext": "情報理論の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、可変長符号の平均ビット長の計算で判定する。"
+        ],
+        "reconciliationStatus": "consistent_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は計算結果0.85と一致しない。",
+          "promptContext": "情報理論の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、可変長符号の平均ビット長の計算で判定する。"
+        ],
+        "reconciliationStatus": "consistent_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は計算結果0.90と一致しない。",
+          "promptContext": "情報理論の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、可変長符号の平均ビット長の計算で判定する。"
+        ],
+        "reconciliationStatus": "consistent_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢の0.95は、平均ビット長1.9を変換前の2ビットで割った値と一致する。",
+          "promptContext": "情報理論の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく、可変長符号の平均ビット長の計算で判定する。"
+        ],
+        "reconciliationStatus": "consistent_non_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -164,11 +254,117 @@
     "sourceRecordRef": "question_201702_1.json#2",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "非負整数の階乗を再帰的に定義するアルゴリズムの問題で、法令条文や制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は、n=0の階乗を0としており誤りである。",
+          "promptContext": "再帰的な階乗定義の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の適用対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、nをn+1して再帰するため終了せず、階乗の定義にもならない。",
+          "promptContext": "再帰的な階乗定義の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の適用対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、0!=1を基底条件とし、n×fact(n−1)で再帰するため正しい。",
+          "promptContext": "再帰的な階乗定義の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の適用対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、nをn+1して再帰するため終了せず、階乗の定義にもならない。",
+          "promptContext": "再帰的な階乗定義の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の適用対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled_non_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。キャッシュに命令コードが存在しない確率が r なので、存在する確率（ヒット率）は 1−r である。平均アクセス時間は、キャッシュヒット時のアクセス時間 x と、キャッシュミス時の主記憶のアクセス時間 y を、それぞれの確率で加重して求める。\n\n\\[平均アクセス時間=(1-r)\\times x+r\\times y\\]\n\n容量 a、bは記憶装置の大きさを表す値であり、この平均アクセス時間の加重には使わない。"
+      "正しい。キャッシュに命令コードが存在する確率はヒット率である1−r、存在しない確率はrである。したがって、平均アクセス時間は、キャッシュヒット時の時間xとキャッシュミス時の主記憶の時間yをそれぞれの確率で加重して求める。\\[平均アクセス時間=(1-r)x+ry\\]容量aとbは記憶装置の容量を表す値であり、この平均アクセス時間の計算には使わない。"
     ],
     "original_question_id": "a246182fd7040174",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_4.html",
@@ -288,10 +484,10 @@
   },
   {
     "explanationText": [
-      "正しい。エラーログは障害発生時の状態や原因を調べる手掛かりを残すため、原因特定と修復を早め、平均修復時間を表すMTTRの短縮に役立つ。",
-      "間違い。ビット誤り訂正機能は、記憶装置で発生したビット誤りを検出・訂正し、障害の発生を抑える機能である。選択肢はMTTRの短縮に役立つとしているが、主に故障間隔を表すMTBFの向上に寄与する。",
-      "間違い。命令再試行機能は、一時的なエラーが発生したときに同じ命令を再実行し、処理を継続しやすくする機能である。選択肢はMTTRの短縮に役立つとしているが、主な効果は故障による停止を減らしてMTBFを長くすることである。",
-      "間違い。予防保守は、故障する前に点検や部品交換を行い、障害を未然に防ぐ保守である。選択肢はMTTRの短縮に役立つとしているが、主に故障の発生を抑えてMTBFを改善する。"
+      "正しい。エラーログは障害発生時の状態や原因を調べる手掛かりを残すため、原因の特定と修復を早め、平均修復時間を表すMTTRの短縮に役立つ。",
+      "間違い。ビット誤り訂正機能は、記憶装置で発生したビット誤りを検出・訂正し、障害や処理停止を防ぐ機能である。選択肢はMTTRの短縮に役立つとしているが、主な効果は故障間隔を表すMTBFの向上である。",
+      "間違い。命令再試行機能は、一時的なエラーが発生したときに同じ命令を再実行し、処理を継続しやすくする機能である。選択肢はMTTRの短縮に役立つとしているが、主な効果は故障による停止を減らし、MTBFを長くすることである。",
+      "間違い。予防保守は、故障する前に点検や部品交換を行い、障害を未然に防ぐ保守である。選択肢はMTTRの短縮に役立つとしているが、主な効果は故障の発生を抑えてMTBFを改善することである。"
     ],
     "original_question_id": "0b5b55fd30cd17b2",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_5.html",
@@ -411,7 +607,7 @@
   },
   {
     "explanationText": [
-      "正しい。プリエンプションは、実行中のタスクがCPUの使用権を一時的に失い、処理を再開できる実行可能状態へ戻る動作である。タスクが終了したり、入出力などの事象を待つ待ち状態へ移ったりするわけではない。"
+      "正しい。プリエンプションは、実行中のタスクからCPUの使用権を取り上げ、処理を再開できる実行可能状態へ戻す動作である。タスクの終了や、入出力などの事象を待つ待ち状態への遷移ではない。"
     ],
     "original_question_id": "6029d1eaa126145b",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_6.html",
@@ -531,7 +727,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当する回路はウである。ウは排他的論理和（XOR）を二つ使い、上段でX=A⊕G、下段でY=B⊕Gを実現する。G=0ならX=A、Y=Bとなり、G=1ならX=¬A、Y=¬Bとなるため、問題の条件に一致する。"
+      "正しい。該当する回路はウである。排他的論理和（XOR）は、制御入力Gが0のとき入力をそのまま出力し、Gが1のとき入力を反転して出力する。したがって、ウではX=A⊕G、Y=B⊕Gとなり、G=0ならX=A、Y=B、G=1ならX=Ā、Y=B̄となる。"
     ],
     "original_question_id": "43307f7e8da3a57d",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_7.html",
@@ -541,7 +737,113 @@
     "sourceRecordRef": "question_201702_1.json#6",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "論理回路の動作を扱う工学・技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による出題時と現行時の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は論理回路の工学知識で判定し、法令根拠を用いない。",
+          "promptContext": "入力Gと出力X・Yの関係を判定する回路問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による出題時と現行時の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は論理回路の工学知識で判定し、法令根拠を用いない。",
+          "promptContext": "入力Gと出力X・Yの関係を判定する回路問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による出題時と現行時の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はXOR回路の動作に一致し、法令根拠を用いない。",
+          "promptContext": "入力Gが0のときは入力をそのまま出力し、1のときは入力を反転して出力する回路を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による出題時と現行時の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は論理回路の工学知識で判定し、法令根拠を用いない。",
+          "promptContext": "入力Gと出力X・Yの関係を判定する回路問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -605,10 +907,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、データウェアハウスの説明である。データウェアハウスは、基幹業務システムとは分けて大量のデータを蓄積し、分析に利用する。選択肢はこの内容をデータマイニングとしているため誤りである。",
-      "間違い。正しくは、データマートの説明である。データマートは、全社的なデータから部門や目的ごとに必要な範囲を切り出した、分析しやすいデータ集合である。選択肢はこの内容をデータマイニングとしているため誤りである。",
-      "間違い。正しくは、OLAPの説明である。OLAPは、スライシングやダイシング、ドリルダウンなどで集計データを異なる視点から対話的に分析する。選択肢はこの操作をデータマイニングとしているため誤りである。",
-      "正しい。データマイニングは、統計解析やニューラルネットワークなどを用いて、大量データから人が気付きにくい規則性や特徴的なパターンを発見する手法である。"
+      "間違い。正しくは、データウェアハウスの説明である。データウェアハウスは、基幹業務システムとは分けてデータを蓄積し、分析に利用する。選択肢はこの内容をデータマイニングとしているため誤りである。",
+      "間違い。正しくは、データマートの説明である。データマートは、部門や目的ごとに必要な範囲を切り出した、分析しやすいデータ集合である。選択肢はこの内容をデータマイニングとしているため誤りである。",
+      "間違い。正しくは、OLAPの説明である。OLAPは、スライシング、ダイシング、ドリルダウンなどによって集計データを異なる視点から対話的に分析する。選択肢はこの操作をデータマイニングとしているため誤りである。",
+      "正しい。データマイニングは、統計解析やニューラルネットワークなどを用いて、大量のデータから人が気付きにくい規則性や特徴的なパターンを発見する手法である。"
     ],
     "original_question_id": "09ba69503f9647fb",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_10.html",
@@ -739,7 +1041,7 @@
   },
   {
     "explanationText": [
-      "正しい。衝突が増えると再送や待ち時間が増え、有効なデータ転送に使える時間の割合が下がるため、スループットは低下する。",
+      "正しい。",
       "間違い。正しくは、送信前に搬送波を検出しても、別のステーションがほぼ同時に送信すれば、データ送出後に衝突が発生し得る。選択肢は、搬送波を検出してから送信すれば衝突は発生しないとしているため誤りである。",
       "間違い。正しくは、リピータハブで複数のステーションを共有媒体に接続した構成でも、CSMA/CDによる衝突検出が可能である。選択肢は、ハブで分岐接続すると衝突を検出できないとしているため誤りである。",
       "間違い。正しくは、Ethernetのフレームはオクテット単位で構成されるため、フレーム長はオクテットの整数倍になる。選択肢は、任意長のビット列をフレームとして送出し、オクテットの整数倍である必要はないとしているため誤りである。"
@@ -1052,9 +1354,9 @@
   {
     "explanationText": [
       "正しい。WAFはWebアプリケーションへのHTTP/HTTPS通信を監視し、SQLインジェクションやクロスサイトスクリプティング（XSS）などの攻撃を検知・遮断する。",
-      "間違い。PC上でWebブラウザの通信改ざんを監視・検出するのは、ブラウザや端末側のセキュリティ対策である。選択肢はPC内で監視するとしているため誤りである。",
-      "間違い。サーバのOSへの不正ログインを監視するのは、OSの認証機能、ホスト型侵入検知システム（HIDS）又はログ監視の役割である。選択肢はOSへのログインを監視するとしているため誤りである。",
-      "間違い。ファイルのマルウェア感染を監視・検出するのは、ウイルス対策ソフトやEDRの役割である。選択肢はファイルの感染を監視するとしているため誤りである。"
+      "間違い。Webブラウザの通信内容を改ざんする攻撃をPC内で監視・検出するのは、端末側のセキュリティ対策の役割である。WAFはPC内ではなく、Webアプリケーションへの通信を監視する。",
+      "間違い。サーバのOSへの不正なログインを監視するのは、OSの認証機能、ホスト型侵入検知システム（HIDS）又はログ監視の役割である。WAFが監視するのは、サーバOSへのログインではなくWebアプリケーションへの通信である。",
+      "間違い。ファイルのマルウェア感染を監視・検出するのは、ウイルス対策ソフトやEDRの役割である。WAFはファイルの感染を監視するのではなく、Webアプリケーションへの攻撃を検知・遮断する。"
     ],
     "original_question_id": "dc4b7753e35edaab",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_15.html",
@@ -1174,10 +1476,10 @@
   },
   {
     "explanationText": [
-      "正しい。機能的強度は、一つの目的に必要な処理とデータを一つのモジュールにまとめ、外部から内部を隠蔽するもので、結束性が最も高い。",
-      "間違い。正しくは、同じ時点に実行する処理をまとめたものは時間的強度である。選択肢は複数機能の初期設定を実行時期だけで一つにまとめているため、機能的強度より結束性が低い。",
-      "間違い。正しくは、引数によって複数の機能を切り替える構成は論理的強度である。選択肢は機能Aと機能Bを一つのモジュールに同居させ、引数で使い分けているため、結束性が低い。",
-      "間違い。正しくは、機能Aの計算結果を機能Bが利用する関係でまとめたものは連絡的強度である。選択肢は処理順序とデータの受渡しを根拠にしており、機能的強度には当たらない。"
+      "正しい。機能的強度は、単一の目的に必要な処理を一つのモジュールにまとめたもので、内部データを外部から隠蔽する設計とも結び付く。",
+      "間違い。正しくは、同じ時点で実行する複数の機能をまとめたものは時間的強度である。選択肢は初期設定という実行時期を基準に複数の機能を一つにまとめているため、機能的強度より結束性が低い。",
+      "間違い。正しくは、引数によって複数の機能を切り替える構成は論理的強度である。選択肢は機能Aと機能Bを一つのモジュールにまとめ、引数で使い分けているため、機能的強度には当たらない。",
+      "間違い。正しくは、機能Aの計算結果を機能Bが利用する順序でまとめたものは順次的強度である。選択肢は二つの機能を処理順序とデータの受渡しで結び付けているため、単一の目的を持つ機能的強度には当たらない。"
     ],
     "original_question_id": "0f1742dc4c7b012f",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_16.html",
@@ -1327,7 +1629,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するのは「コスト，スケジュール」である。EVM（Earned Value Management）は、予算、作業の出来高、実際にかかったコストを比較し、コストとスケジュールの進み具合を定量的に把握する手法である。リスクや品質は重要な管理対象だが、EVMが直接測定する組合せではない。"
+      "正しい。該当するのは「コスト，スケジュール」である。EVM（Earned Value Management）は、計画した予算、実際の出来高、実際にかかったコストを比較し、コストの状況とスケジュールの進み具合を定量的に把握する手法である。リスクや品質は重要な管理対象だが、EVMが直接測定する組合せではない。"
     ],
     "original_question_id": "9a6ce98f4b52520a",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_18.html",
@@ -1336,7 +1638,7 @@
     "reviewQuestionId": "9a6ce98f4b52520a",
     "sourceRecordRef": "question_201702_1.json#17",
     "explanationReferences": [],
-    "questionLearningPatternId": "mechanisms_reasons",
+    "questionLearningPatternId": "terms_basics",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
     "lawContextForExplanation": "EVMはプロジェクトのコストとスケジュールを統合的に測定・管理する手法であり、法令根拠を要しない。",
@@ -1537,9 +1839,9 @@
   },
   {
     "explanationText": [
-      "間違い。適切な購入業者を自動選定することは、購買処理の妥当性や効率性を確認する観点である。選択肢は購入業者の選定について述べており、入庫・出庫記録が漏れなく記録されているかという網羅性を直接確認していない。",
-      "間違い。適正在庫高について責任者の承認を得ることは、承認手続が適切に行われているかを確認する統制である。選択肢は承認の有無を示しているだけで、すべての入庫・出庫記録が記録されていることの確認にはならない。",
-      "間違い。発注点に達したときの自動発注は、適正在庫量を維持するための在庫管理上の制御である。選択肢は発注処理の仕組みを示しており、入庫・出庫記録の漏れや重複を確認する網羅性のチェックではない。",
+      "間違い。購入業者の自動選定は、購買処理の妥当性や効率性を確認する観点である。選択肢は購入業者の選定を示しており、入庫・出庫記録が漏れなく記録されているかという網羅性を確認していない。",
+      "間違い。適正在庫高について責任者の承認を得ることは、承認手続や在庫基準の妥当性を確認する統制である。選択肢は承認の有無を示しているだけで、すべての入庫・出庫記録が記録されていることの確認にはならない。",
+      "間違い。発注点に達したときの自動発注は、適正在庫量を維持するための発注処理の制御である。選択肢は発注の仕組みを示しており、入庫・出庫記録の漏れや重複を確認する網羅性のチェックではない。",
       "正しい。入庫及び出庫記録に連番を付けると、欠番や重複を調べられるため、すべての取引が漏れなく記録されているかを確認しやすい。"
     ],
     "original_question_id": "9b1183eb810dd635",
@@ -1660,10 +1962,7 @@
   },
   {
     "explanationText": [
-      "間違い。EA参照モデルは、業務・情報・アプリケーション・技術などを整理するための標準的なモデル群である。選択肢はEA参照モデルを業務と情報システムの理想を表すモデルとしているため誤りである。",
-      "正しい。To-Beモデルは、現状のAs-Isモデルと対比して、将来あるべき業務と情報システムの姿を表す。",
-      "間違い。ザックマンモデルは、EAを構成する対象を複数の観点と関係者の立場から整理するフレームワークである。選択肢はザックマンモデルを業務と情報システムの理想を表すモデルとしているため誤りである。",
-      "間違い。データモデルは、業務で扱うデータの種類やデータ間の関係を表すモデルである。選択肢はデータモデルを業務と情報システム全体の将来像としているため誤りである。"
+      "正しい。業務と情報システムの将来あるべき姿を表すのがTo-Beモデルである。現状を表すAs-Isモデルと対比して、目指す状態を描く。EA参照モデルは業務・情報・アプリケーション・技術などの構成要素を整理するモデル群、ザックマンモデルはEAを複数の視点と関係者の立場から整理するフレームワーク、データモデルはデータの種類や相互関係を表すモデルである。"
     ],
     "original_question_id": "28044196c73705f7",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_23.html",
@@ -1672,7 +1971,7 @@
     "reviewQuestionId": "28044196c73705f7",
     "sourceRecordRef": "question_201702_1.json#22",
     "explanationReferences": [],
-    "questionLearningPatternId": "terms_basics",
+    "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
     "lawContextForExplanation": "エンタープライズアーキテクチャのモデルに関する技術・知識問題で、法令条文を根拠にしない。",
@@ -1783,10 +2082,10 @@
   },
   {
     "explanationText": [
-      "正しい。多段階契約は、前工程の結果によって後工程の見積りの前提やリスクが変わった場合に、その時点の情報で再見積りや契約内容の見直しを行えるようにする考え方である。",
-      "間違い。サービスレベルの達成条件、未達時の協議手続やペナルティなどを定めるのは、SLA（サービスレベル合意）に関する事項である。選択肢はSLAの内容を多段階契約の目的としているため誤りである。",
-      "間違い。正式契約前に着手する場合に仮発注合意書（LOI）を交わすのは、契約締結前の着手に関する措置である。選択肢はLOIの目的を多段階契約の目的としているため誤りである。",
-      "間違い。多段階契約では、各工程の契約でユーザーとベンダーの役割や責任を明確にすることもできる。しかし主な目的は、前工程の結果を踏まえて後工程の見積りを改めて行えるようにすることである。選択肢は役割分担をあらかじめ詳細に決定することを目的としているため誤りである。"
+      "正しい。多段階契約は、前工程の結果によって後工程の見積り前提やリスクに変更が生じた場合に、後工程の開始時点で改めて見積り、契約内容を確定できるようにする仕組みである。",
+      "間違い。サービスレベルの達成条件や未達時の協議手続、ペナルティなどを定めるのは、SLA（サービスレベル合意）に関する事項である。選択肢はSLAの内容を多段階契約の目的としているため誤りである。",
+      "間違い。正式契約前に作業へ着手する場合、仮発注合意書（Letter of Intent：LOI）によって着手条件などを確認する。選択肢は契約締結前の着手に関する措置を、多段階契約の目的としているため誤りである。",
+      "間違い。多段階契約は、工程ごとに契約を締結し、前工程の結果を踏まえて後工程の見積りや契約内容を見直せるようにする仕組みである。選択肢は、システムライフサイクルに応じた役割分担をあらかじめ詳細に決めることを、多段階契約の目的としているため誤りである。"
     ],
     "original_question_id": "4516fd2eb6587456",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_24.html",

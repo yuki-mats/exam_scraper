@@ -1,152 +1,617 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nIEEE 802.1X はポートベースアクセス制御の枠組みであり、無線 LAN ではアクセスポイントがオーセンティケータとなって EAP を中継し、クライアント認証を行う。",
-      "間違い。\n\n認証局と連携してセッションごとにパスワードを生成する規格ではない。802.1X は認証の枠組みを定めるもので、具体認証方式は EAP 内で扱う。",
-      "間違い。\n\nWPS は無線 LAN 接続設定を簡易化する仕組みであり、802.1X が定める認証枠組みとは別である。",
-      "間違い。\n\nCSMA/CD は有線 Ethernet での衝突検出方式である。無線 LAN は衝突検出が難しいため CSMA/CA を用いる。"
-    ],
-    "suggestedQuestions": [
-      "IEEE 802.1X では誰が何の役割を持ちますか？",
-      "EAP は 802.1X の中でどう使われますか？",
-      "無線 LAN で CSMA/CD を使わない理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IEEE 802.1X では誰が何の役割を持ちますか？",
-        "answer": "クライアントがサプリカント、アクセスポイントやスイッチがオーセンティケータ、RADIUS などが認証サーバになる。認証可否を中継してアクセス制御する。"
-      },
-      {
-        "question": "EAP は 802.1X の中でどう使われますか？",
-        "answer": "EAP はクライアントと認証サーバ間の認証メッセージ形式として使われる。802.1X はその EAP を LAN 上で運ぶ枠組みを提供する。"
-      },
-      {
-        "question": "無線 LAN で CSMA/CD を使わない理由は何ですか？",
-        "answer": "送信中に同時に受信して衝突を検出するのが無線では難しいからである。そのため衝突回避の CSMA/CA が採用される。"
-      }
+      "正しい。IEEE 802.1Xはポートベースのアクセス制御を定める枠組みで、無線LANではアクセスポイントが認証側としてEAPを中継し、接続しようとするクライアントを認証する。",
+      "間違い。正しくは、IEEE 802.1Xは認証局と連携してセッションごとのパスワードを生成する仕組みではなく、ネットワークへ接続させるかを認証する枠組みである。選択肢は、認証局との連携とセッションごとのパスワード生成を802.1X自体の機能としているため誤りである。",
+      "間違い。正しくは、WPSは無線LANの接続設定を簡単にするための仕様であり、IEEE 802.1Xの認証枠組みとは別である。選択肢は、WPSの仕様をIEEE 802.1Xが定めるものとしているため誤りである。",
+      "間違い。正しくは、CSMA/CDは有線Ethernetで通信の衝突を検出する方式であり、無線LANでは主にCSMA/CAを用いる。選択肢は、無線LANでCSMA/CDによって衝突を検知するとしているため誤りである。"
     ],
     "original_question_id": "db28657dfa28e9d0",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:db28657dfa28e9d0",
+    "reviewQuestionId": "db28657dfa28e9d0",
+    "sourceRecordRef": "question_202301_3.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IEEE 802.1Xの技術仕様を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はない。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.1Xが無線LANでEAPを用いたクライアント認証の枠組みを提供するため正しい。",
+          "promptContext": "無線LAN認証の技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "IEEE 802.1Xの技術仕様に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はない。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.1Xはネットワーク接続の認証枠組みであり、選択肢の説明は誤りである。",
+          "promptContext": "無線LAN認証の技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "認証局との連携やセッションごとのパスワード生成はIEEE 802.1X自体の定義ではない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はない。",
+          "displayRefIds": [],
+          "explanationText": "WPSの仕様をIEEE 802.1Xが定めるという説明は誤りである。",
+          "promptContext": "無線LAN接続設定の技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WPSは無線LANの接続設定を簡単にする仕様であり、IEEE 802.1Xとは別の技術である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はない。",
+          "displayRefIds": [],
+          "explanationText": "無線LANの信号レベルでCSMA/CDにより衝突を検知するという説明は誤りである。",
+          "promptContext": "無線LANの媒体アクセス制御。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CSMA/CDは有線Ethernetの衝突検出方式で、無線LANでは主にCSMA/CAを用いる。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n外部記憶を使って主記憶より広いアドレス空間を見せるのは仮想記憶の説明である。メモリインターリーブではない。",
-      "間違い。\n\n主記憶と磁気ディスクの間に置くバッファはディスクキャッシュやバッファリングの説明である。",
-      "間違い。\n\nCPU を介さずに入出力装置と主記憶の間で転送するのは DMA である。メモリインターリーブの話ではない。",
-      "正しい。\n\nメモリインターリーブは主記憶を複数バンクへ分け、連続アクセスを並列的に処理しやすくする方式である。見掛け上のアクセス速度向上を狙う。"
-    ],
-    "suggestedQuestions": [
-      "メモリインターリーブは何を速くしますか？",
-      "DMA との違いは何ですか？",
-      "バンク分割すると何が起こりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "メモリインターリーブは何を速くしますか？",
-        "answer": "連続したメモリアクセスを複数バンクへ振り分けることで、待ち時間を減らし実効的な主記憶アクセス性能を上げる。"
-      },
-      {
-        "question": "DMA との違いは何ですか？",
-        "answer": "DMA は転送主体を CPU から外す仕組み、メモリインターリーブは主記憶内部構成を工夫して並列アクセスしやすくする仕組みである。"
-      },
-      {
-        "question": "バンク分割すると何が起こりますか？",
-        "answer": "あるバンクが次アクセスの準備中でも、別バンクへアクセスできるため、連続アクセスのスループットが上がりやすくなる。"
-      }
+      "間違い。正しくは、外部記憶装置を使って主記憶の物理容量を超えるメモリ空間を利用可能にするのは仮想記憶である。選択肢は仮想記憶の仕組みをメモリインターリーブの説明としているため誤りである。",
+      "間違い。正しくは、主記憶と磁気ディスク装置の速度差を補うためにバッファメモリを置くのは、ディスクキャッシュやバッファリングの説明である。選択肢は記憶装置間の速度差を補う仕組みをメモリインターリーブとしているため誤りである。",
+      "間違い。正しくは、CPUを介さずに主記憶と入出力装置の間でデータを転送するのはDMAである。選択肢はDMAの仕組みをメモリインターリーブとしているため誤りである。",
+      "正しい。メモリインターリーブは、主記憶を複数のバンクに分け、アクセスを複数のバンクへ振り分けて並列的に処理しやすくする方式である。これにより、主記憶への見掛け上のアクセス速度の向上を図る。"
     ],
     "original_question_id": "b04ab6cdf5a84fae",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:b04ab6cdf5a84fae",
+    "reviewQuestionId": "b04ab6cdf5a84fae",
+    "sourceRecordRef": "question_202301_3.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "メモリインターリーブの技術的な仕組みを問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外部記憶装置による主記憶容量の拡張は仮想記憶の説明であり、メモリインターリーブではない。",
+          "promptContext": "技術知識による選択肢判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査は不要。"
+        ],
+        "reconciliationStatus": "aligned",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "主記憶と磁気ディスク装置の速度差を補うバッファメモリは、ディスクキャッシュやバッファリングの説明である。",
+          "promptContext": "技術知識による選択肢判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査は不要。"
+        ],
+        "reconciliationStatus": "aligned",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CPUを介さず主記憶と入出力装置の間でデータ転送を行うのはDMAの説明である。",
+          "promptContext": "技術知識による選択肢判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査は不要。"
+        ],
+        "reconciliationStatus": "aligned",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "メモリインターリーブは主記憶を複数のバンクに分け、アクセス要求を並列的に処理しやすくする方式である。",
+          "promptContext": "技術知識による選択肢判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査は不要。"
+        ],
+        "reconciliationStatus": "aligned",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n演算、ストレージ、ネットワークなどの基盤資源を利用者へ提供するのは IaaS の特徴である。FaaS ではない。",
-      "間違い。\n\n仮想デスクトップ環境を遠隔利用するのは DaaS の説明である。",
-      "間違い。\n\n事業者が用意したアプリケーションをそのまま使うのは SaaS の特徴である。",
-      "正しい。\n\nFaaS は関数単位でコードを実行できるサーバレス実行環境であり、利用者は OS やサーバ管理を意識せずに実行基盤を使える。"
-    ],
-    "suggestedQuestions": [
-      "FaaS がサーバレスと呼ばれる理由は？",
-      "IaaS や SaaS との違いは何ですか？",
-      "FaaS はどんな用途に向きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "FaaS がサーバレスと呼ばれる理由は？",
-        "answer": "実際にはサーバがあるが、利用者がその管理を意識せず関数コードだけを配置して実行できるからである。"
-      },
-      {
-        "question": "IaaS や SaaS との違いは何ですか？",
-        "answer": "IaaS は基盤資源、SaaS は完成済みアプリ、FaaS はイベント駆動で関数コードを実行する環境を提供する。"
-      },
-      {
-        "question": "FaaS はどんな用途に向きますか？",
-        "answer": "イベント処理、API の一部機能、バッチ処理の一部など、短時間で独立した処理に向く。"
-      }
+      "間違い。正しくは、演算機能、ストレージ、ネットワークなどの基盤資源を提供するのはIaaSである。選択肢は基盤資源を利用できるサービスをFaaSとしているため誤りである。",
+      "間違い。正しくは、仮想化したデスクトップ環境を遠隔利用するのはDaaSである。選択肢はDaaSの特徴をFaaSとしているため誤りである。",
+      "間違い。正しくは、事業者が提供するアプリケーションを利用するのはSaaSである。選択肢はSaaSの特徴をFaaSとしているため誤りである。",
+      "正しい。FaaSは関数単位でプログラムを実行するサービスであり、利用者は実行に必要なサーバやOSの管理を意識せずに利用できる。"
     ],
     "original_question_id": "79f09a6b1aa76d94",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:79f09a6b1aa76d94",
+    "reviewQuestionId": "79f09a6b1aa76d94",
+    "sourceRecordRef": "question_202301_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "FaaS、IaaS、DaaS、SaaSのサービスモデルに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "演算機能、ストレージ、ネットワークなどの基盤資源を提供するサービスはIaaSであり、FaaSではない。",
+          "promptContext": "第1選択肢の技術的正誤を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、IaaSのサービスモデルに関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "仮想化したデスクトップ環境を遠隔利用するサービスはDaaSであり、FaaSではない。",
+          "promptContext": "第2選択肢の技術的正誤を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、DaaSのサービスモデルに関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "事業者が提供するアプリケーションを利用するサービスはSaaSであり、FaaSではない。",
+          "promptContext": "第3選択肢の技術的正誤を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、SaaSのサービスモデルに関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FaaSでは利用者がサーバやOSなどの実行環境を管理せず、プログラムを実行できる。",
+          "promptContext": "第4選択肢の技術的正誤を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく、FaaSのサービスモデルに関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n画像なしで数式を表示する XML マークアップ言語は MathML の説明であり、SysML ではない。",
-      "正しい。\n\nSysML は UML を基に拡張されたシステム工学向けのグラフィカルモデリング言語であり、システムの設計や検証に用いられる。",
-      "間違い。\n\nC/C++ ベースのシステムレベル記述言語は SystemC の説明である。",
-      "間違い。\n\nFPGA 向けハードウェア記述言語は VHDL や Verilog HDL の説明であり、SysML ではない。"
-    ],
-    "suggestedQuestions": [
-      "SysML は UML とどう違いますか？",
-      "SysML ではどんな図を使いますか？",
-      "SystemC との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SysML は UML とどう違いますか？",
-        "answer": "UML を基にしつつ、要求図やパラメトリック図などシステム工学向け要素を追加している。ソフトウェア以外も含むシステム全体を扱いやすい。"
-      },
-      {
-        "question": "SysML ではどんな図を使いますか？",
-        "answer": "ブロック定義図、内部ブロック図、要求図、アクティビティ図、状態遷移図などを使う。構造、振る舞い、要求を統合的に表せる。"
-      },
-      {
-        "question": "SystemC との違いは何ですか？",
-        "answer": "SystemC は記述言語、SysML はグラフィカルなモデリング言語である。目的も表現手段も異なる。"
-      }
+      "間違い。正しくは、画像を使わず数式を表示するXMLマークアップ言語はMathMLである。選択肢はMathMLの説明をSysMLとしているため誤りである。",
+      "正しい。SysMLは、UMLを基にシステム工学向けに拡張したグラフィカルなモデリング言語であり、システムの設計や検証に用いられる。",
+      "間違い。正しくは、C++を基盤とするシステムレベルの設計・検証用ライブラリはSystemCである。選択肢はSystemCの説明をSysMLとしているため誤りである。",
+      "間違い。正しくは、FPGAで動作させるハードウェア論理の記述には、VHDLやVerilog HDLなどのハードウェア記述言語を用いる。選択肢はハードウェア記述言語の説明をSysMLとしているため誤りである。"
     ],
     "original_question_id": "454fec8f2051dcf5",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:454fec8f2051dcf5",
+    "reviewQuestionId": "454fec8f2051dcf5",
+    "sourceRecordRef": "question_202301_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SysMLの定義を問う技術・標準知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はMathMLの説明であり、法令根拠を必要としない。",
+          "promptContext": "法令関連性監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・標準知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はSysMLの定義に合致する技術・標準知識であり、法令根拠を必要としない。",
+          "promptContext": "法令関連性監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・標準知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はSystemCの説明であり、法令根拠を必要としない。",
+          "promptContext": "法令関連性監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・標準知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はハードウェア記述言語の説明であり、法令根拠を必要としない。",
+          "promptContext": "法令関連性監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・標準知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nプラグインで動画やアニメーションを表示するのはブラウザ拡張機能や表示技術の話であり、複数 Web サービスの組合せではない。",
-      "間違い。\n\n地図上のカーソル移動に伴ってページ遷移なしに表示を更新するのは Ajax のような動的表示技術の説明に近い。",
-      "間違い。\n\n単に他社ページへのリンクを並べるだけでは、他サイトのデータや機能を統合利用しているとは言いにくい。マッシュアップの例として弱い。",
-      "正しい。\n\n店舗案内ページ上で他サイト提供の地図検索機能を利用して情報を組み合わせて表示するのは、外部 Web サービスを組み合わせるマッシュアップの典型例である。"
-    ],
-    "suggestedQuestions": [
-      "マッシュアップとは何ですか？",
-      "Ajax との違いは何ですか？",
-      "地図サービス統合が典型例になる理由は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "マッシュアップとは何ですか？",
-        "answer": "複数の Web サービスや外部データを組み合わせ、新しいサービスや表示を作る手法である。"
-      },
-      {
-        "question": "Ajax との違いは何ですか？",
-        "answer": "Ajax はページ遷移なしでデータ更新する技術、マッシュアップは外部サービス統合という構成上の考え方である。"
-      },
-      {
-        "question": "地図サービス統合が典型例になる理由は？",
-        "answer": "自サイトの店舗情報と外部地図 API の機能を組み合わせ、単独ではない新しい価値を作っているからである。"
-      }
+      "間違い。正しくは、プラグインを使って動画やアニメーションを表示するのは、ブラウザの機能を拡張する表示技術である。選択肢はプラグインによる表示だけを述べており、複数のWebサービスを組み合わせていないため、マッシュアップの例ではない。",
+      "間違い。正しくは、Webページを切り替えずに表示内容を更新するのは、Ajaxなどの動的表示技術の例である。選択肢はページ遷移を伴わない表示更新を述べているだけで、外部のWebサービスや情報を組み合わせていないため、マッシュアップではない。",
+      "間違い。正しくは、鉄道経路の探索結果に他社Webページへのリンクを表示するだけでは、外部サービスの機能や情報を組み合わせたことにはならない。選択肢はリンクを示しているだけで、マッシュアップの例ではない。",
+      "正しい。マッシュアップは、複数のWebサービスや外部サイトが提供する機能・情報を組み合わせて、一つのWebコンテンツとして表示する技術である。店舗案内ページで他サイトの地図検索機能を利用して地図情報を表示する例は、マッシュアップに当たる。"
     ],
     "original_question_id": "e9d6f9824c427261",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:e9d6f9824c427261",
+    "reviewQuestionId": "e9d6f9824c427261",
+    "sourceRecordRef": "question_202301_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術知識のみで判定できるマッシュアップの概念問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プラグインによる動画・アニメーション表示はマッシュアップではない。",
+          "promptContext": "技術知識問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術概念に基づき判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ページ遷移なしの表示更新はマッシュアップではない。",
+          "promptContext": "技術知識問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術概念に基づき判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外部サイトへのリンク表示だけではマッシュアップではない。",
+          "promptContext": "技術知識問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術概念に基づき判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外部サイトの地図検索機能を利用して情報を表示する例はマッシュアップに該当する。",
+          "promptContext": "技術知識問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術概念に基づき判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

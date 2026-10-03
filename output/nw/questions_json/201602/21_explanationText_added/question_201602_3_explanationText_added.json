@@ -1,10 +1,7 @@
 [
   {
     "explanationText": [
-      "間違い。SSIDを知っていることは接続許可の条件ではなく、SSIDの設定や認証に関する説明である。選択肢は、アクセスポイントの識別子を知る利用者だけに接続を許可するとしているため誤りである。",
-      "正しい。プライバシーセパレータは、同じアクセスポイントに接続している無線端末同士の通信を遮断する機能である。端末間の不正アクセスや情報の盗み見を抑止できる。",
-      "間違い。登録済みのMACアドレスをもつ機器だけに接続を許可するのは、MACアドレスフィルタリングの説明である。選択肢はMACアドレスによる接続制限をプライバシーセパレータの機能としているため誤りである。",
-      "間違い。建物外への電波漏えいを抑えて盗聴を防ぐのは、電波出力の調整や遮へいなどの設置上の対策である。選択肢は電波の漏えい防止を、アクセスポイントに接続した端末同士を隔離する機能としているため誤りである。"
+      "正しい。プライバシーセパレータ（アクセスポイントアイソレーション）は、同じ無線LANアクセスポイントに接続している端末同士の直接通信を遮断する機能である。端末間の不正アクセスや情報の盗み見を抑止する。"
     ],
     "original_question_id": "61ebb8d2b7d5b334",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_21.html",
@@ -135,7 +132,7 @@
   },
   {
     "explanationText": [
-      "正しい。適切な順序は、ユーザーモードから特権モードへ移行し、復帰用にプログラムレジスタ（プログラムカウンター）などを退避し、割込み処理ルーチンの開始番地を決定してから実行する流れである。したがって、②→①→③→④となる。"
+      "正しい。割込みを受けると、まずユーザーモードから特権モードへ移行し、元の処理へ戻るためにプログラムレジスタなどを退避する。次に割込み処理ルーチンの開始番地を決定し、そのルーチンを実行するため、正しい組合せは②→①→③→④である。"
     ],
     "original_question_id": "28adffbb5b75fb6e",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_22.html",
@@ -285,37 +282,135 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nシステム方式設計、ソフトウェア方式設計、ソフトウェア詳細設計に対応するテスト工程の組合せが V 字モデルの対応関係と一致していない。",
-      "間違い。\n\n詳細設計に対応するのはソフトウェアユニットテストであり、より上位の結合テストを割り当てるこの組合せは不適切である。",
-      "正しい。\n\nテスト要求事項は、設計工程と対になる形で定義される。一般に、システム方式設計はシステム結合テスト、ソフトウェア方式設計はソフトウェア結合テスト、ソフトウェア詳細設計はソフトウェアユニットテストに対応するため、この組合せが適切である。",
-      "間違い。\n\n上位設計と下位設計に対応するテスト工程が入れ替わっており、V 字モデルの対応関係から外れている。"
-    ],
-    "suggestedQuestions": [
-      "V字モデルでは設計工程とテスト工程をどう対応付けますか？",
-      "ソフトウェア詳細設計に対応するテストは何ですか？",
-      "結合テストとユニットテストの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "V字モデルでは設計工程とテスト工程をどう対応付けますか？",
-        "answer": "上流の設計成果物ほど上位のテストで確認し、下流の詳細設計ほど下位のテストで確認するよう対応付ける。"
-      },
-      {
-        "question": "ソフトウェア詳細設計に対応するテストは何ですか？",
-        "answer": "モジュール単位を確認するソフトウェアユニットテストである。"
-      },
-      {
-        "question": "結合テストとユニットテストの違いは何ですか？",
-        "answer": "結合テストはモジュール間やサブシステム間の接続を確認し、ユニットテストは個々のモジュール内部の仕様実装を確認する。"
-      }
+      "正しい。該当するのはウである。V字モデルでは、システム方式設計にシステム結合テスト、ソフトウェア方式設計にソフトウェア結合テスト、ソフトウェア詳細設計にソフトウェアユニットテストを対応させる。この対応関係と一致するため、ウが適切である。"
     ],
     "original_question_id": "075980996d610180",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:075980996d610180",
+    "reviewQuestionId": "075980996d610180",
+    "sourceRecordRef": "question_201602_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェアテストの工程・テスト種別の対応を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外の技術肢。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いず、技術知識により判定した。",
+          "promptContext": "テスト要求事項を定義するアクティビティとテストの対応を判定する。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ソフトウェアテスト工程の知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外の技術肢。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いず、技術知識により判定した。",
+          "promptContext": "テスト要求事項を定義するアクティビティとテストの対応を判定する。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ソフトウェアテスト工程の知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令監査対象外の技術肢。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いず、V字モデルのテスト工程対応により判定した。",
+          "promptContext": "テスト要求事項を定義するアクティビティとテストの対応を判定する。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "V字モデルのテスト工程対応で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外の技術肢。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いず、技術知識により判定した。",
+          "promptContext": "テスト要求事項を定義するアクティビティとテストの対応を判定する。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ソフトウェアテスト工程の知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、Webサービスのインタフェースや通信方法を記述するのはWSDLなどである。選択肢は、これをSOAの説明としているため誤りである。",
+      "間違い。正しくは、Webサービスのインタフェースや通信方法を記述するのはWSDLなどである。選択肢は、WSDLの説明をSOAとしているため誤りである。",
       "間違い。正しくは、XMLを利用してWebサービスを検索する仕組みはUDDIである。選択肢は、UDDIの説明をSOAとしているため誤りである。",
       "正しい。SOAは、業務機能を独立したサービスとして切り出し、それらを組み合わせてシステムを構築する設計思想である。",
       "間違い。正しくは、サービスの内容や品質水準を提供者と利用者の間で合意するのはSLAである。選択肢は、SLAの説明をSOAとしているため誤りである。"

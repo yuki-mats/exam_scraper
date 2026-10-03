@@ -1,10 +1,10 @@
 [
   {
     "explanationText": [
-      "間違い。正しくは、Webサーバの証明書は通常、FQDNなどのホスト名を識別するために用いられ、IPアドレスの組込みは必須ではない。IPアドレスを証明書の識別名として使用している場合に、そのアドレスを変更すれば再発行が必要になる。選択肢はIPアドレスの組込みを必須としているため誤りである。",
-      "正しい。個人認証用の証明書はICカードなどの媒体に格納できるため、特定のPCだけで使う必要はない。",
-      "間違い。正しくは、TLSは通信相手の認証と通信内容の暗号化を行うプロトコルであり、Web以外の通信にも利用できる。利用者がWebサーバ提供者へ事前登録することも、TLSの必須条件ではない。選択肢はTLSを特定利用者間のWeb通信専用で、事前登録が不可欠としているため誤りである。",
-      "間違い。正しくは、日本国内でTLSの共通鍵長を一律に128ビット未満へ制限する決まりはない。実際には、128ビットや256ビットなどの鍵長を持つ暗号方式が利用される。選択肢は共通鍵長を128ビット未満に制限しているため誤りである。"
+      "間違い。正しくは、Webサーバのデジタル証明書は通常、FQDNなどのホスト名を識別するために用いられ、IPアドレスの組込みは必須ではない。証明書にIPアドレスを識別情報として組み込んでいる場合に、そのアドレスを変更すると再発行が必要になる。選択肢はIPアドレスの組込みを必須としているため誤りである。",
+      "正しい。個人認証用のデジタル証明書はICカードなどに格納できるため、特定のPCに格納場所を限定する必要はない。",
+      "間違い。正しくは、TLSは通信相手の認証や通信内容の暗号化を行うプロトコルであり、Web以外の通信にも利用できる。利用者がWebサーバ提供者へ事前登録することも必須ではない。選択肢はTLSを特定の利用者間のWeb通信専用とし、事前登録を不可欠としているため誤りである。",
+      "間違い。正しくは、日本国内でTLSの共通鍵長を一律に128ビット未満へ制限する決まりはない。TLSでは128ビットや256ビットなどの鍵長を持つ暗号方式が利用される。選択肢は共通鍵長を128ビット未満に制限しているため誤りである。"
     ],
     "original_question_id": "43134c0160c721cd",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_21.html",
@@ -145,7 +145,113 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RAIDの構成方式に関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RAID 1はミラーリング方式であり、設問の記述には該当しない。",
+          "promptContext": "選択肢1をRAIDの構成方式として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令改正差分の確認対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RAID 3はビット又はバイト単位のストライピングを行うため、ブロック単位という記述には該当しない。",
+          "promptContext": "選択肢2をRAIDの構成方式として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令改正差分の確認対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RAID 4はブロック単位でストライピングし、パリティ情報を専用ディスクに保存する。",
+          "promptContext": "選択肢3をRAIDの構成方式として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令改正差分の確認対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RAID 5はブロック単位のストライピングを行うが、パリティを各ディスクに分散保存するため、専用ディスクを用いる記述には該当しない。",
+          "promptContext": "選択肢4をRAIDの構成方式として判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令改正差分の確認対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -209,8 +315,8 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、サービスは利用者の状態を保持しないステートレスなインタフェースとする。利用者ごとの状態に依存しないため、サービスの再利用や変更に適している。選択肢は可用性を高めるためにステートフルなインタフェースとするとしているため誤りである。",
-      "間違い。正しくは、サービスの命名は業務上の機能や概念を表すものとする。業務から独立した役割を表すだけでは、サービスがどの業務機能を提供するか分かりにくい。選択肢は業務からの独立性を確保するために、サービスの命名は役割を表すものとするとしているため誤りである。",
+      "間違い。正しくは、サービスは利用者の状態を保持しないステートレスなインタフェースとする。状態に依存しないため、複数の利用者や処理から利用しやすくなる。選択肢は可用性を高めるためにステートフルなインタフェースとするとしているため誤りである。",
+      "間違い。正しくは、サービスの命名は業務上の機能や概念を表すものとする。役割だけを表す名前では、どの業務機能を提供するサービスか分かりにくい。選択肢は業務からの独立性を確保するために、サービスの命名は役割を表すものとするとしているため誤りである。",
       "正しい。サービス間の関係を疎結合にすると、あるサービスの変更が他のサービスへ及ぼす影響を抑えられるため、業務の変化に対応しやすい。",
       "間違い。正しくは、SOAでは開発したサービスを複数の業務やシステムで再利用する。再利用によって開発効率と柔軟性を高められる。選択肢はセキュリティを高めるために、一度開発したサービスは再利用しない方がよいとしているため誤りである。"
     ],

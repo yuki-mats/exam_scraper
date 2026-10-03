@@ -1,33 +1,126 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nESPのトンネルモードは元のIPパケット全体を新しいIPパケットで包むので、元のIPヘッダーを含めて暗号化できる。外側に付く新しいIPヘッダーは経路制御のために平文で残る。",
-      "間違い。\n\nIKEはIPsecで利用する鍵やSecurity Associationを交渉するプロトコルで、通常はUDP500番やNAT越え時のUDP4500番を使う。80番はHTTPのポートであり、鍵交換には使わない。",
-      "間違い。\n\nHMAC-SHA1は改ざん検知や送信元認証のためのメッセージ認証方式であり、暗号化アルゴリズムではない。IPsecで暗号化に使うのはAESなどの共通鍵暗号である。",
-      "間違い。\n\n認証方式や暗号アルゴリズムを両端で合意する役割はAHヘッダーではなくIKEが担う。AHは認証専用、ESPは暗号化と認証の両方に対応する。"
-    ],
-    "suggestedQuestions": [
-      "ESPのトンネルモードでは何が暗号化されますか？",
-      "IKEとESPは役割がどう違いますか？",
-      "AHとESPはどう使い分けますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ESPのトンネルモードでは何が暗号化されますか？",
-        "answer": "元のIPヘッダーとその後ろのペイロードを含む、元のIPパケット全体が暗号化対象になる。転送のために外側へ新しいIPヘッダーを付けて運ぶ点がトランスポートモードとの違いである。"
-      },
-      {
-        "question": "IKEとESPは役割がどう違いますか？",
-        "answer": "IKEは鍵交換やSecurity Associationの交渉を行う制御用プロトコルである。ESPは交渉結果に基づいて実際のIPパケットを暗号化し、完全性保護も行う。"
-      },
-      {
-        "question": "AHとESPはどう使い分けますか？",
-        "answer": "AHは完全性保護と認証が中心で、暗号化機能は持たない。機密性まで確保したいIPsec通信ではESPを使うのが基本である。"
-      }
+      "正しい。ESPのトンネルモードでは、元のIPパケット全体を新しいIPパケットで包むため、エンドツーエンド通信で使う元のIPヘッダーも暗号化される。経路制御に使う外側のIPヘッダーは暗号化されない。",
+      "間違い。IKEはIPsecで使用する鍵やSecurity Associationを交渉するプロトコルで、通常はUDP 500番、NATトラバーサル時はUDP 4500番を使う。選択肢はポート番号80を使うとしているため誤りである。",
+      "間違い。HMAC-SHA1はデータの完全性確認や送信元認証に使うメッセージ認証方式であり、暗号化アルゴリズムではない。選択肢はHMAC-SHA1を暗号化アルゴリズムとしているため誤りである。暗号化にはAESなどの暗号アルゴリズムを用いる。",
+      "間違い。認証方式や暗号アルゴリズムを通信の両端で合意する役割は、AHヘッダーではなくIKEが担う。AHは主に認証と完全性確認に用いられ、ESPは暗号化に加えて認証と完全性確認にも対応する。選択肢はAHヘッダーを使って合意するとしているため誤りである。"
     ],
     "original_question_id": "a0b7ef6ce75bf728",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:a0b7ef6ce75bf728",
+    "reviewQuestionId": "a0b7ef6ce75bf728",
+    "sourceRecordRef": "question_202401_3.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPsec、IKE、HMAC-SHA1、ESP及びAHの技術仕様を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ESPトンネルモードの仕様から正しいと判断できる。",
+          "promptContext": "IPsec技術仕様の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IKEの使用ポート番号に関する技術仕様から間違いと判断できる。",
+          "promptContext": "IKE技術仕様の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "HMAC-SHA1は暗号化アルゴリズムではないという技術仕様から間違いと判断できる。",
+          "promptContext": "HMAC-SHA1技術仕様の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "認証や暗号化アルゴリズムの合意はIKEが担うという技術仕様から間違いと判断できる。",
+          "promptContext": "AHとIKEの役割に関する技術仕様の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -91,62 +184,245 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nフールプルーフは、利用者の誤操作や不正入力を前提にして、入力チェックや再入力要求で事故を未然に防ぐ設計方針である。設問の『前提条件を満たさない入力に対してエラーを出す』という説明に一致する。",
-      "間違い。\n\nフェールセーフは故障や異常が起きたときに危険側へ倒れず安全側へ移行させる考え方である。誤入力を事前に防ぐ方針そのものを指す言葉ではない。",
-      "間違い。\n\nフェールソフトは障害発生時に一部機能や性能を落としてもサービス継続を優先する設計である。入力ミス対策を厚くするという話ではない。",
-      "間違い。\n\nフォールトトレランスは故障しても冗長構成などで機能提供を続ける考え方である。利用者の単純ミスを受け止める設計はフールプルーフと区別して覚える必要がある。"
-    ],
-    "suggestedQuestions": [
-      "フールプルーフとフェールセーフは何が違いますか？",
-      "フェールソフトとフォールトトレランスはどう違いますか？",
-      "試験ではこの4用語をどう見分けますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フールプルーフとフェールセーフは何が違いますか？",
-        "answer": "フールプルーフは人の誤操作を起こしても危険な処理へ進ませない予防的な設計である。フェールセーフは故障後に安全な状態へ移す考え方で、異常発生後の振る舞いに着目する。"
-      },
-      {
-        "question": "フェールソフトとフォールトトレランスはどう違いますか？",
-        "answer": "フェールソフトは機能縮退を許容しながら継続運転する考え方である。フォールトトレランスは冗長化や切替えで故障の影響を吸収し、必要機能を保ち続けることを重視する。"
-      },
-      {
-        "question": "試験ではこの4用語をどう見分けますか？",
-        "answer": "人の誤操作対策ならフールプルーフ、安全側へ止めるならフェールセーフ、性能を落として継続ならフェールソフト、冗長化で止めないならフォールトトレランスと対応づけると整理しやすい。"
-      }
+      "正しい。フールプルーフは、利用者の誤操作や不正な入力を前提に、入力チェックや再入力要求によって事故を防ぐ設計方針である。故障時に安全側へ移行させるのはフェールセーフ、機能や性能を一部低下させても処理を継続するのはフェールソフト、故障しても冗長構成などで機能を維持するのはフォールトトレランスである。"
     ],
     "original_question_id": "c3ebae4712a62487",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:c3ebae4712a62487",
+    "reviewQuestionId": "c3ebae4712a62487",
+    "sourceRecordRef": "question_202401_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "プログラム設計上のフールプルーフに関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "利用者の誤操作や不正入力を検出して再入力を促す設計方針に該当する。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "フールプルーフの定義に基づく技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フェールセーフは故障時に安全側へ移行する設計であり、入力チェックによる誤操作防止とは異なる。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "フェールセーフの定義に該当しないため誤り。法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フェールソフトは機能や性能を一部低下させても処理を継続する設計であり、入力チェックによる誤操作防止とは異なる。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "フェールソフトの定義に該当しないため誤り。法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フォールトトレランスは冗長構成などによって故障後も機能を維持する設計であり、入力チェックによる誤操作防止とは異なる。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "フォールトトレランスの定義に該当しないため誤り。法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nソースコードを見ながら実行制御や変数監視を行うのはデバッガの機能である。バグトラッキングシステムは実行時解析ではなく、発見された不具合情報の管理を目的とする。",
-      "間違い。\n\nテストケースやテストプログラムの作成を支援するのはテスト支援ツールやテスト自動化ツールの役割である。バグトラッキングシステム自体はテスト設計ツールではない。",
-      "間違い。\n\nバグ件数や規模から品質メトリクスを算定するのはメトリクス分析の用途であり、バグトラッキングシステムの中心機能ではない。記録した不具合情報を集計することはあっても、説明の主眼が違う。",
-      "正しい。\n\nバグトラッキングシステムは、見つかった不具合の内容、発生条件、対象バージョン、担当者、修正状況、履歴を一元管理する。修正漏れや重複対応を防ぎ、テストから保守までの変更管理を支える。"
-    ],
-    "suggestedQuestions": [
-      "バグトラッキングシステムには何を記録しますか？",
-      "デバッガとバグトラッキングシステムは何が違いますか？",
-      "バグ管理が構成管理や保守に役立つのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "バグトラッキングシステムには何を記録しますか？",
-        "answer": "不具合の内容、再現条件、発生したバージョン、優先度、担当者、修正状況、修正履歴などを記録する。誰が何をいつ直したかを追跡できることが重要である。"
-      },
-      {
-        "question": "デバッガとバグトラッキングシステムは何が違いますか？",
-        "answer": "デバッガはプログラム実行を観察して原因を調べるための解析ツールである。バグトラッキングシステムは発見済みの不具合を台帳化し、対応状況を管理する運用ツールである。"
-      },
-      {
-        "question": "バグ管理が構成管理や保守に役立つのはなぜですか？",
-        "answer": "どの版にどの不具合があり、どの修正が入ったかを追えるため、リリース判断や再発防止に直結するからである。障害対応後の履歴を残せるので保守計画とも結び付きやすい。"
-      }
+      "間違い。ソースコードを見ながら実行を制御し、変数の値を確認する機能を提供するのはデバッガである。選択肢はデバッガの機能をバグトラッキングシステムの説明としているため誤りである。",
+      "間違い。テストケースやテストプログラムの開発を支援するのは、テスト支援ツールやテスト自動化ツールである。選択肢はテスト設計・開発支援の機能をバグトラッキングシステムの説明としているため誤りである。",
+      "間違い。バグの件数やソースプログラムの規模から品質メトリクスを算定するのは、メトリクス分析の機能である。選択肢は品質指標の算定をバグトラッキングシステムの中心機能としているため誤りである。",
+      "正しい。バグトラッキングシステムは、発見された不具合の内容、発生したソフトウェアのバージョン、担当者、修正状況、修正履歴などを記録し、修正計画と対応状況を管理する。"
     ],
     "original_question_id": "013a28c72eeac215",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:013a28c72eeac215",
+    "reviewQuestionId": "013a28c72eeac215",
+    "sourceRecordRef": "question_202401_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア開発管理技術の機能比較に関する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による変更なし。",
+          "displayRefIds": [],
+          "explanationText": "デバッガの機能をバグトラッキングシステムの説明としているため誤りである。",
+          "promptContext": "バグトラッキングシステムの機能比較。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づく判定を維持する。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による変更なし。",
+          "displayRefIds": [],
+          "explanationText": "テストケースやテストプログラムの開発支援は、バグトラッキングシステムの中心機能ではない。",
+          "promptContext": "バグトラッキングシステムの機能比較。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づく判定を維持する。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による変更なし。",
+          "displayRefIds": [],
+          "explanationText": "品質メトリクスの算定は、バグトラッキングシステムの中心機能ではない。",
+          "promptContext": "バグトラッキングシステムの機能比較。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づく判定を維持する。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による変更なし。",
+          "displayRefIds": [],
+          "explanationText": "不具合内容、発生バージョン、修正計画、修正履歴を管理することはバグトラッキングシステムの機能である。",
+          "promptContext": "バグトラッキングシステムの機能比較。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づく判定を維持する。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

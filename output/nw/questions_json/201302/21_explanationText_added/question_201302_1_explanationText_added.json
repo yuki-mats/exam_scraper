@@ -1,10 +1,10 @@
 [
   {
     "explanationText": [
-      "正しい。桁落ちは、ほぼ等しい値同士を減算したときに有効桁が失われ、結果の相対誤差が大きくなる現象である。",
+      "正しい。桁落ちは、ほぼ等しい値同士を減算したときに有効桁数が減り、相対誤差が大きくなりやすい現象である。",
       "間違い。正しくは、指定した有効桁数に合わせて切捨てや四捨五入で下位桁を削ることによる丸め誤差である。選択肢は丸め誤差を桁落ちとしているため誤りである。",
-      "間違い。正しくは、絶対値が大きく異なる数値を加減算したときに小さい数値の情報が反映されにくくなる情報落ちである。選択肢は情報落ちを桁落ちとしているため誤りである。",
-      "間違い。正しくは、無限級数などの計算を有限項で途中終了することによる打切り誤差である。選択肢は打切り誤差を桁落ちとしているため誤りである。"
+      "間違い。正しくは、絶対値が大きく異なる数値を加算・減算したときに小さい数値の情報が反映されにくくなる情報落ちである。選択肢は情報落ちを桁落ちとしているため誤りである。",
+      "間違い。正しくは、無限級数などの計算を有限項で打ち切ることによる打切り誤差である。選択肢は打切り誤差を桁落ちとしているため誤りである。"
     ],
     "original_question_id": "42e3137a588b46a0",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_1.html",
@@ -124,7 +124,7 @@
   },
   {
     "explanationText": [
-      "正しい。ハッシュ値が衝突するとは、h(a)=h(b)、つまりaをnで割った余りとbをnで割った余りが等しいことである。この条件はa−bがnの倍数であることと同じである。"
+      "正しい。ハッシュ値が衝突するとは、h(a)=h(b)、つまりaをnで割った余りとbをnで割った余りが等しいことである。この条件は、a−bがnの倍数であることと同じである。"
     ],
     "original_question_id": "93a755f643064329",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_2.html",
@@ -134,7 +134,113 @@
     "sourceRecordRef": "question_201302_1.json#1",
     "explanationReferences": [],
     "questionLearningPatternId": "conditions_scope",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ハッシュ関数 h(x)=x mod n の衝突条件を問う数学・アルゴリズム上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "技術知識・数学的性質による判定。",
+          "promptContext": "ハッシュ関数の衝突条件。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくハッシュ関数の数学的性質で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "a−bがnの倍数なら、aとbをnで割った余りが等しくなる。",
+          "promptContext": "ハッシュ関数の衝突条件。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくハッシュ関数の数学的性質で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "a＋bがnの倍数であることは、ハッシュ値の衝突条件ではない。",
+          "promptContext": "ハッシュ関数の衝突条件。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくハッシュ関数の数学的性質で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "nがa−bの倍数であることは、a−bがnの倍数であることと同値ではない。",
+          "promptContext": "ハッシュ関数の衝突条件。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくハッシュ関数の数学的性質で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -168,39 +274,129 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n容量比で重み付けしており、キャッシュヒット確率 r を反映していない。平均アクセス時間の式ではない。",
-      "正しい。\n\nキャッシュにある確率は 1-r で時間 x、ない確率は r で主記憶時間 y が掛かるので平均は (1-r)x+ry である。",
-      "間違い。\n\nこれも容量比を使っており、ヒット率とミス率の考え方になっていない。",
-      "間違い。\n\nr はキャッシュに存在しない確率なので、係数の掛け先が逆である。"
-    ],
-    "suggestedQuestions": [
-      "キャッシュミス率 r は何を表しますか？",
-      "平均アクセス時間はどう考えますか？",
-      "この式でオーバーヘッドを無視するのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "キャッシュミス率 r は何を表しますか？",
-        "answer": "CPU が参照したデータがキャッシュに存在せず、主記憶アクセスが必要になる確率を表す。"
-      },
-      {
-        "question": "平均アクセス時間はどう考えますか？",
-        "answer": "各事象の発生確率に、その事象で掛かる時間を掛けて合計する期待値で求める。"
-      },
-      {
-        "question": "この式でオーバーヘッドを無視するのはなぜですか？",
-        "answer": "設問がキャッシュ管理の付加処理を考えない前提なので、ヒット時 x とミス時 y だけで平均化できる。"
-      }
+      "正しい。キャッシュにデータがある確率は1−rなのでアクセス時間xを、ない確率はrなので主記憶のアクセス時間yを掛ける。したがって、平均アクセス時間Tは次のように求められる。\\n\\[T=(1-r)x+ry=x-rx+ry\\]\\n問題では具体的な数値が与えられていないため、確率とアクセス時間を記号のまま代入している。容量aとbは平均アクセス時間の重み付けには使わない。"
     ],
     "original_question_id": "28b90bc7a4adf17f",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:28b90bc7a4adf17f",
+    "reviewQuestionId": "28b90bc7a4adf17f",
+    "sourceRecordRef": "question_201302_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令根拠を用いないキャッシュメモリと主記憶の平均アクセス時間の技術計算問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく平均アクセス時間の計算で判定する。",
+          "promptContext": "問題文と選択肢を結合した技術命題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はキャッシュヒット率1−rと主記憶アクセス率rを用いる平均アクセス時間の式として判定する。",
+          "promptContext": "問題文と選択肢を結合した技術命題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はキャッシュヒット率とミス率の対応が逆になるため、技術計算として判定する。",
+          "promptContext": "問題文と選択肢を結合した技術命題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はキャッシュヒット率とミス率の対応が逆になるため、技術計算として判定する。",
+          "promptContext": "問題文と選択肢を結合した技術命題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
       "正しい。フェールセーフは、故障が発生しても危険側へ進まないよう、安全側の状態に制御する考え方である。",
       "間違い。正しくは、機能を縮退させながら運用を継続するのはフェールソフトの考え方である。選択肢は、障害時に機能を縮退して運用を継続するとしているため誤りである。",
-      "間違い。正しくは、重要な構成要素を複数備え、故障しても機能を維持するのはフォールトトレラントの考え方である。選択肢は、信頼性に影響する要素を複数備えて信頼性を高めるとしているため誤りである。",
+      "間違い。正しくは、重要な構成要素を複数備え、故障しても機能を維持するのはフォールトトレラントの考え方である。選択肢は、信頼性に大きく影響する要素を複数備えて信頼性を高めるとしているため誤りである。",
       "間違い。正しくは、誰が操作しても誤操作しにくいように設計するのはフールプルーフの考え方である。選択肢は、操作する人にかかわらず誤動作を起こしにくくするとしているため誤りである。"
     ],
     "original_question_id": "a81b817d7cc9e41c",
@@ -471,10 +667,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、サブネットマスクのビットは左から1が連続し、その後に0が続く。255.255.255.1の末尾は2進数で00000001であり、左から1が連続する形式になっていない。選択肢は255.255.255.1をサブネットマスクとしているため誤りである。",
-      "間違い。正しくは、サブネットマスクのビットは左から1が連続し、その後に0が続く。255.255.255.32の末尾は2進数で00100000であり、左から1が連続する形式になっていない。選択肢は255.255.255.32をサブネットマスクとしているため誤りである。",
-      "間違い。正しくは、サブネットマスクのビットは左から1が連続し、その後に0が続く。255.255.255.64の末尾は2進数で01000000であり、左から1が連続する形式になっていない。選択肢は255.255.255.64をサブネットマスクとしているため誤りである。",
-      "正しい。サブネットマスクは、ネットワーク部を示す1が左から連続し、その後にホスト部を示す0が続く。"
+      "間違い。正しくは、サブネットマスクは2進数で左から1が連続し、その後に0が続く形である。255.255.255.1の末尾1は2進数で00000001となり、1が左から連続していない。選択肢は255.255.255.1をサブネットマスクとしているため誤りである。",
+      "間違い。正しくは、サブネットマスクは2進数で左から1が連続し、その後に0が続く形である。255.255.255.32の末尾32は2進数で00100000となり、1が左から連続していない。選択肢は255.255.255.32をサブネットマスクとしているため誤りである。",
+      "間違い。正しくは、サブネットマスクは2進数で左から1が連続し、その後に0が続く形である。255.255.255.64の末尾64は2進数で01000000となり、1が左から連続していない。選択肢は255.255.255.64をサブネットマスクとしているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "c6e87992015daa38",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_11.html",
@@ -900,10 +1096,10 @@
   },
   {
     "explanationText": [
-      "正しい。多対多の関連では、一つの組織が複数の親組織や子組織を持てるため、親組織の数が子組織の数を上回る可能性がある。",
-      "間違い。多重度は0個以上を許すため、子組織を一つも持たない組織も存在できる。選択肢は、全ての組織が子組織を持つとしているため誤りである。",
-      "間違い。親子関係がさらに別の組織へ連なることで、階層は2段階に限られない。選択肢は、組織が2段階の階層構造だけであるとしているため誤りである。",
-      "間違い。一つの組織が複数の親組織や子組織を持てるため、組織間の関係は木構造に限られず、ネットワーク構造になり得る。選択肢は、組織がネットワーク構造になっていないとしているため誤りである。"
+      "正しい。多対多の親子関係では、親組織と子組織の数が同じになるとは限らないため、ある組織の親組織の数が子組織の数を上回ることもある。",
+      "間違い。図の「*」は、関連する組織が0個以上であることを示すため、子組織を持たない組織も存在できる。選択肢は、全ての組織が必ず子組織を持つとしているため誤りである。",
+      "間違い。親子関係をさらに別の組織へたどることができ、図には階層を2段階に限る条件が示されていない。選択肢は、組織が2段階の階層構造であるとしているため誤りである。",
+      "間違い。多対多の関係では、一つの組織が複数の親組織や子組織と結び付くため、組織間の関係はネットワーク構造になり得る。選択肢は、組織がネットワーク構造になっていないとしているため誤りである。"
     ],
     "original_question_id": "cd4a1f5d5298c6c7",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_16.html",
@@ -1023,7 +1219,7 @@
   },
   {
     "explanationText": [
-      "正しい。分岐網羅は各判定のYesとNoを少なくとも一度ずつ通ること、条件網羅は各基本条件が真と偽の両方になることを確認する。エでは、x≧1とy＝1がそれぞれ真偽となり、最初の判定のYes・Noを通る。また、y＞1も真偽となるため、二つの判定の分岐網羅と各条件の条件網羅をともに満たす。"
+      "正しい。該当するのはエである。分岐網羅は各判定のYesとNoを通ること、条件網羅は各基本条件が真と偽になることを確認する。エの(1,2)では第1判定がYes、第2判定がYes、(0,1)では第1判定がYes、第2判定がNo、(0,2)では第1判定がNo、第2判定がYesとなる。また、第1判定を構成するx≧1とy＝1も、それぞれ真と偽の両方になる。アは第1判定のNoを通らず、イはy＝1が真にならず、ウは第1判定のNoを通らないため、両方の網羅を満たさない。"
     ],
     "original_question_id": "c2a955441e8a7611",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_17.html",
@@ -1031,7 +1227,13 @@
     "sourceQuestionKey": "nw:201302:c2a955441e8a7611",
     "reviewQuestionId": "c2a955441e8a7611",
     "sourceRecordRef": "question_201302_1.json#16",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2013-10-20",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p900000027za-att/2013h25a_koudo_am1_qs.pdf",
+        "title": "平成25年度秋期 ネットワークスペシャリスト試験 午前I 問題冊子 問17"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -1143,40 +1345,130 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n要件定義から内部設計までが全体の 57% で 228 日なので総期間は 400 日、現在は 62.5% 消化済みで残りは 150 日である。140 日にはならない。",
-      "正しい。\n\n228 日が全体の 57% なので総期間は 400 日。プログラム開発比率 11% の半分が済んでいるから進捗は 57%+5.5%=62.5%、残りは 400×37.5%=150 日である。",
-      "間違い。\n\n総期間 400 日までは合っても、現在進捗を 62.5% と見ないと残日数は求まらない。161 日にはならない。",
-      "間違い。\n\nプログラム開発 100/200 本完了を進捗へ適切に反映すると残りは 172 日ではなく 150 日である。"
-    ],
-    "suggestedQuestions": [
-      "228 日から総期間 400 日をどう出しますか？",
-      "なぜ現在進捗が 62.5% になりますか？",
-      "作業配分モデルは何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "228 日から総期間 400 日をどう出しますか？",
-        "answer": "228 日が全体の 57% に当たるので、228÷0.57=400 と逆算する。"
-      },
-      {
-        "question": "なぜ現在進捗が 62.5% になりますか？",
-        "answer": "設計完了までの 57% に加えて、プログラム開発比率 11% の半分である 5.5% が終わっているからである。"
-      },
-      {
-        "question": "作業配分モデルは何に使いますか？",
-        "answer": "工程別の比率から、現在進捗や残期間、残工数を推定するのに使う。"
-      }
+      "正しい。要件定義からシステム内部設計までの期間比は、表の0.25＋0.21＋0.11＝0.57である。この期間が228日なので、プロジェクト全体の期間は次のとおり400日となる。\n\\[228÷0.57=400\\text{日}\\]\nプログラム開発は全体の0.11で、200本のうち100本が完了しているため、完了した割合は0.11×100÷200＝0.055である。現在までの進捗率は0.57＋0.055＝0.625、残りの割合は1−0.625＝0.375となる。\n\\[400×0.375=150\\text{日}\\]\nしたがって、プロジェクト全体の完了までにあと150日かかる。"
     ],
     "original_question_id": "eaf8b4b1a98fbc9b",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:eaf8b4b1a98fbc9b",
+    "reviewQuestionId": "eaf8b4b1a98fbc9b",
+    "sourceRecordRef": "question_201302_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "工数比・期間比と進捗率を用いるプロジェクト管理上の計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、法令ではなく作業配分モデルと進捗率の計算で決まる。",
+          "promptContext": "法令監査対象外の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなく、問題文の数値計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、法令ではなく作業配分モデルと進捗率の計算で決まる。",
+          "promptContext": "法令監査対象外の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文ではなく、問題文の数値計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、法令ではなく作業配分モデルと進捗率の計算で決まる。",
+          "promptContext": "法令監査対象外の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなく、問題文の数値計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、法令ではなく作業配分モデルと進捗率の計算で決まる。",
+          "promptContext": "法令監査対象外の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文ではなく、問題文の数値計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。損失をプロジェクト内で受け入れて吸収する対応は、リスクを第三者へ移す転嫁ではない。選択肢は、あるサブプロジェクトの損失を別のサブプロジェクトの利益で相殺するとしているため、転嫁に該当しない。",
-      "間違い。個人情報をマスキングして、漏えい時の影響や発生確率を小さくする対応はリスク軽減である。選択肢は、本番データの個人情報部分をマスキングするとしているため、転嫁ではない。",
-      "正しい。損害賠償保険を利用すると、損害が発生した際の金銭的な負担を保険会社へ移せる。これはリスクを第三者へ移転する転嫁の典型例である。",
-      "間違い。危険が予想される取引そのものをやめる対応はリスク回避である。選択肢は、信用に不安のある取引先との新規取引を止めるとしているため、転嫁ではない。"
+      "間違い。プロジェクト内で損失を別の利益で相殺する対応は、リスクを第三者へ移す転嫁ではない。選択肢は、あるサブプロジェクトの損失を別のサブプロジェクトの利益で相殺するとしているため、転嫁に該当しない。",
+      "間違い。個人情報をマスキングして、情報漏えいが起きた場合の影響を小さくする対応は、リスクの軽減である。選択肢は、本番データの個人情報部分をマスキングするとしているため、転嫁ではない。",
+      "正しい。損害賠償保険を利用すると、損害が発生したときの金銭的な負担を保険会社へ移せる。このようにリスクの影響を第三者へ移す対応が転嫁である。",
+      "間違い。危険が予想される取引そのものをやめる対応は、リスク回避である。選択肢は、信用に不安のある取引先との新規取引を止めるとしているため、転嫁ではない。"
     ],
     "original_question_id": "0bdeadb181c05210",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_19.html",
@@ -1298,7 +1590,7 @@
     "explanationText": [
       "間違い。ミッションクリティカルシステムは、障害や停止が企業活動などに重大な影響を及ぼすシステムを指す。OSのように業務システムの稼働に必要な基盤であることだけでは、この定義にはならない。",
       "間違い。ミッションクリティカルシステムは、性能限界に近い条件で稼働しているかどうかではなく、障害や停止が及ぼす影響の重大さで判断する。",
-      "正しい。ミッションクリティカルシステムは、障害や停止が起きると企業活動などに重大な影響を及ぼすシステムである。",
+      "正しい。",
       "間違い。先行して試験導入し、成功後に本格導入するシステムは、パイロットシステムなどと呼ぶ。ミッションクリティカルシステムは、試験導入の段階ではなく、障害時の影響の重大さに着目した用語である。"
     ],
     "original_question_id": "356204cf5465899c",
@@ -1449,9 +1741,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、経営目的と情報システム全体との整合を踏まえ、利用部門の要望も反映して開発計画を策定する。選択肢は全体最適よりも利用部門の利便性を優先するとしているため誤りである。",
-      "間違い。正しくは、開発作業に着手する前に開発計画を策定し、組織内の承認を得る。選択肢は着手後に承認を得るとしているため、事前承認を行えず誤りである。",
-      "正しい。複数の代替案を作成し、費用と効果を比較検討することで、目的に対して過剰な開発や不必要なコストを避けられる。",
+      "間違い。正しくは、経営目的と情報システム全体との整合を図りながら、利用部門の要望も反映して開発計画を策定する。選択肢は全体最適よりも業務上の利便性を優先するとしているため誤りである。",
+      "間違い。正しくは、開発作業に着手する前に開発計画を策定し、組織内の承認を得る。選択肢は開発作業の着手後に承認を得るとしているため誤りである。",
+      "正しい。複数の代替案を作成して費用と効果を比較すれば、情報システムの目的に対して過剰な開発や不必要なコストを避けられる。",
       "間違い。正しくは、利用部門とシステム部門の役割分担と責任を明確にして開発計画を策定する。選択肢は役割分担を決めずに策定するとしているため、責任の所在が不明確になり誤りである。"
     ],
     "original_question_id": "47c729fcefc8bba6",
@@ -1461,7 +1753,7 @@
     "reviewQuestionId": "47c729fcefc8bba6",
     "sourceRecordRef": "question_201302_1.json#21",
     "explanationReferences": [],
-    "questionLearningPatternId": "terms_basics",
+    "questionLearningPatternId": "principles_exceptions",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
     "lawContextForExplanation": "内部統制・開発計画の一般的な管理論点で、法令条文を根拠にしない。",
@@ -1572,9 +1864,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、活動基準原価計算（ABC）が、活動の種類に基づいて間接費を製品やサービスへ配賦する手法である。選択肢は、ABC原価計算の説明をITポートフォリオとしているため誤りである。",
+      "間違い。正しくは、活動基準原価計算（ABC）が、活動の種類に基づいて間接費を製品やサービスへ配賦する手法である。選択肢は、ABCの説明をITポートフォリオとしているため誤りである。",
       "間違い。正しくは、企業の経営戦略を多面的な視点で管理し、業績を評価する手法はバランススコアカードである。選択肢は、バランススコアカードの説明をITポートフォリオとしているため誤りである。",
-      "間違い。正しくは、統一的な評価尺度を使って自社の実績や投資効果を比較・測定する考え方はベンチマーキングである。選択肢は、ベンチマーキングに当たる説明をITポートフォリオとしているため誤りである。",
+      "間違い。正しくは、統一的な評価尺度を用いて自社の実績や投資効果を比較・測定する考え方はベンチマーキングである。選択肢は、ベンチマーキングの説明をITポートフォリオとしているため誤りである。",
       "正しい。ITポートフォリオは、情報化投資を価値やリスクなどの観点で分類し、ビジネス戦略の実現に向けて資源を適切に配分・管理する手法である。"
     ],
     "original_question_id": "9982f3377195593a",
@@ -1695,10 +1987,10 @@
   },
   {
     "explanationText": [
-      "間違い。現状の業務機能を分析して体系化する説明であり、業務のあるべき姿を表す新論理モデルではない。選択肢は現状の業務機能を表すものとしているため誤りである。",
-      "正しい。業務のあるべき姿を表す新論理モデルは、経営目標の達成に必要な業務機能を定義し、体系化したものである。",
-      "間違い。現状の業務機能と情報システムでの処理の関係を分析する説明は、現物理モデルに当たる。選択肢は現状業務とシステム処理の関係を表すものとしているため誤りである。",
-      "間違い。本来あるべき業務機能と現状との差異を分析して評価するのは、ギャップ分析である。選択肢は差異の分析・評価を論理モデルそのものとしているため誤りである。"
+      "間違い。現状の業務機能を分析して体系化するのは、現状の業務モデルであり、業務のあるべき姿を表す論理モデルではない。選択肢は現状の業務機能を表すものとしているため誤りである。",
+      "正しい。経営目標の達成に必要な業務機能を定義し、体系化したものが、業務のあるべき姿を表す新論理モデルである。",
+      "間違い。現状の業務機能と情報システムの処理の関係を分析するのは、現物理モデルである。選択肢は現状の業務とシステム処理の関係を表すものとしているため誤りである。",
+      "間違い。本来あるべき業務機能と現状との差を分析・評価するのは、ギャップ分析である。選択肢は差異の分析・評価を論理モデルとしているため誤りである。"
     ],
     "original_question_id": "53a5fb93a664c313",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_24.html",

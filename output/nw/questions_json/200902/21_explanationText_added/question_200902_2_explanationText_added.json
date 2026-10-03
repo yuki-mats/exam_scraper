@@ -184,44 +184,131 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n1 席当たり 3.75 人では必要利益に届かず、売上が不足する。",
-      "間違い。\n\n4 人でも固定費と変動費を差し引いた後の目標利益 10 万円には足りない。",
-      "間違い。\n\n4.2 人では端数を含めてもなお不足し、目標利益を満たせない。",
-      "正しい。\n\n売上を 500n、費用を 300,000 + 100n として 100,000 = 500n - (300,000 + 100n) を解くと月間 1,000 人必要で、20 日営業・10 席だから 1 席当たり 1 日 5 人となる。"
-    ],
-    "suggestedQuestions": [
-      "損益計算はどう立てますか？",
-      "固定費と変動費の違いは何ですか？",
-      "1席当たり人数へどう換算しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "損益計算はどう立てますか？",
-        "answer": "利益 = 売上 - 費用として、客数を変数にして方程式を作る。"
-      },
-      {
-        "question": "固定費と変動費の違いは何ですか？",
-        "answer": "固定費は客数によらず一定、変動費は客数や販売数に応じて増減する費用である。"
-      },
-      {
-        "question": "1席当たり人数へどう換算しますか？",
-        "answer": "月間必要客数を営業日数で割り、さらに席数で割って 1 席 1 日当たりへ換算する。"
-      }
+      "正しい。1人当たりの売上は500円、変動費は100円なので、1人当たりの利益への貢献額は400円である。月間の客数を\\(n\\)人とすると、目標利益の条件は次の式で表せる。\\n\\[400n-300{,}000=100{,}000\\]\\nこれを解くと、月間に必要な客数は\\n\\[n=1{,}000\\text{人}\\]\\nとなる。営業日は月20日、客席数は10席なので、1客席当たり1日当たりの客数は\\n\\[\\frac{1{,}000}{20\\times10}=5\\text{人}\\]\\nである。したがって、必要な客数は1客席当たり1日5人となる。"
     ],
     "original_question_id": "30077c446dd4a9f7",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_29.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:30077c446dd4a9f7",
+    "reviewQuestionId": "30077c446dd4a9f7",
+    "sourceRecordRef": "question_200902_2.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "売上高、変動費、固定費、営業日数及び客席数から必要客数を計算する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行時点の判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "売上、変動費、固定費、営業日数及び客席数を用いる損益計算で、法令による正誤判定ではない。",
+          "promptContext": "法令監査対象外の技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行時点の判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の数値は、損益分岐・目標利益に必要な客数の計算結果として判定するもので、法令による正誤判定ではない。",
+          "promptContext": "法令監査対象外の技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行時点の判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "必要客数は計算式から求める問題であり、法令の定義・義務・数値基準は正誤を直接決めない。",
+          "promptContext": "法令監査対象外の技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行時点の判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "1人当たりの貢献額400円、月間必要客数1,000人、営業日20日及び客席数10席から、1客席当たり1日5人と計算できる。",
+          "promptContext": "法令監査対象外の技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算による判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、不正アクセス行為の禁止等に関する法律が、不正アクセス行為やその助長行為を規制する。刑法は犯罪と刑罰を一般的に定める法律であり、選択肢は刑法を挙げているため誤りである。",
-      "間違い。正しくは、不正アクセス行為の禁止等に関する法律が、不正な接続やその助長行為を規制する。通信傍受法は犯罪捜査のための通信傍受に関する手続を定める法律であり、選択肢は通信傍受法を挙げているため誤りである。",
-      "間違い。正しくは、不正アクセス行為の禁止等に関する法律が、他人の識別符号を使って制限された利用を可能にする行為や、その助長行為を規制する。電気通信事業法は電気通信事業や電気通信設備などを規律する法律であり、選択肢は電気通信事業法を挙げているため誤りである。",
-      "正しい。不正アクセス行為の禁止等に関する法律は、第二条第四項第一号で、他人の識別符号を入力して制限された利用を可能にする行為を不正アクセス行為と定義し、第三条で禁止している。また、第五条で他人の識別符号を無断提供する助長行為を禁止し、第十一条及び第十三条でそれぞれの罰則を定めている。"
+      "正しい。不正アクセス行為の禁止等に関する法律は、第二条第四項第一号で、他人の識別符号を使って制限された特定利用を可能にする行為を不正アクセス行為と定義し、第三条で禁止している。また、第五条で他人の識別符号を無断提供する助長行為を禁止し、第十一条及び第十三条で罰則を定めている。"
     ],
     "original_question_id": "fcecdc682e48e458",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_30.html",
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceQuestionKey": "nw:200902:fcecdc682e48e458",
     "reviewQuestionId": "fcecdc682e48e458",
     "sourceRecordRef": "question_200902_2.json#4",
@@ -234,7 +321,161 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "不正アクセス行為の定義・禁止、他人の識別符号の提供禁止及び罰則を、不正アクセス行為の禁止等に関する法律第二条第四項第一号、第三条、第五条、第十一条及び第十三条で確認した。",
+    "lawReferences": [
+      [
+        {
+          "article": "第二百三十四条の二",
+          "choiceIndex": 0,
+          "lawId": "140AC0000000045",
+          "lawTitle": "刑法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第一条",
+          "choiceIndex": 1,
+          "lawId": "411AC0000000137",
+          "lawTitle": "犯罪捜査のための通信傍受に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第四条",
+          "choiceIndex": 2,
+          "lawId": "359AC0000000086",
+          "lawTitle": "電気通信事業法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第二条第四項第一号、第三条、第五条、第十一条から第十三条",
+          "choiceIndex": 3,
+          "lawId": "411AC0000000128",
+          "lawTitle": "不正アクセス行為の禁止等に関する法律",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定はともに間違い。",
+          "displayRefIds": [],
+          "explanationText": "刑法第二百三十四条の二は電子計算機損壊等業務妨害を定める規定であり、問題文のID・パスワードを使った不正アクセス行為及びその助長行為を対象とする法律ではない。",
+          "promptContext": "刑法が、他人のIDやパスワードを使ってコンピュータを利用可能にする行為及びその助長行為を処罰対象とする法律かを判定する。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文のprimaryLawEvidenceは未提供。公式元正答に基づく出題時判定と、2026-10-03時点の現行法判定を独立に記録した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定はともに間違い。",
+          "displayRefIds": [],
+          "explanationText": "犯罪捜査のための通信傍受に関する法律第一条は、重大犯罪の捜査における通信傍受の要件・手続等を定める法律の目的を示しており、問題文の不正アクセス行為及びその助長行為を対象とする法律ではない。",
+          "promptContext": "通信傍受法が、他人のIDやパスワードを使ってコンピュータを利用可能にする行為及びその助長行為を処罰対象とする法律かを判定する。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文のprimaryLawEvidenceは未提供。公式元正答に基づく出題時判定と、2026-10-03時点の現行法判定を独立に記録した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定はともに間違い。",
+          "displayRefIds": [],
+          "explanationText": "電気通信事業法第四条は通信の秘密を定める規定であり、問題文のID・パスワードを使った不正アクセス行為及びその助長行為を対象とする法律ではない。",
+          "promptContext": "電気通信事業法が、他人のIDやパスワードを使ってコンピュータを利用可能にする行為及びその助長行為を処罰対象とする法律かを判定する。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文のprimaryLawEvidenceは未提供。公式元正答に基づく出題時判定と、2026-10-03時点の現行法判定を独立に記録した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定はともに正しい。",
+          "displayRefIds": [],
+          "explanationText": "不正アクセス行為の禁止等に関する法律第二条第四項第一号は、他人の識別符号を入力して制限された特定利用を可能にする行為を不正アクセス行為と定義する。第三条がこれを禁止し、第五条が他人の識別符号を提供する助長行為を禁止し、第十一条及び第十三条が罰則を定める。",
+          "promptContext": "不正アクセス行為の禁止等に関する法律が、他人のIDやパスワードを使ってコンピュータを利用可能にする行為及びその助長行為を処罰対象とする法律かを判定する。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時法令本文のprimaryLawEvidenceは未提供。公式元正答に基づく出題時判定と、2026-10-03時点の現行法判定を独立に記録した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -268,33 +509,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nブロードキャストフレームは中継されるが、衝突で生じる不完全フレームはブリッジを越えて中継されないため、この組合せではない。",
-      "正しい。\n\nブリッジはブロードキャストフレームを他セグメントへ中継する。一方、衝突で壊れた不完全フレームは正常フレームとして扱えないため中継しない。",
-      "間違い。\n\n不完全フレームまで中継すると誤り拡散になるので、ブリッジの動作に合わない。",
-      "間違い。\n\nブロードキャストを中継しないと ARP などの基本動作に支障が出るため不適切である。"
-    ],
-    "suggestedQuestions": [
-      "ブリッジはブロードキャストをどう扱いますか？",
-      "不完全フレームを中継しない理由は何ですか？",
-      "リピータとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ブリッジはブロードキャストをどう扱いますか？",
-        "answer": "宛先がブロードキャストなら他ポートへ転送し、別セグメントへも届くようにする。"
-      },
-      {
-        "question": "不完全フレームを中継しない理由は何ですか？",
-        "answer": "衝突で破損したフレームを正常データとして扱えず、誤った情報伝達を防ぐ必要があるからである。"
-      },
-      {
-        "question": "リピータとの違いは何ですか？",
-        "answer": "リピータは物理信号をそのまま再生するが、ブリッジはフレーム単位で中継可否を判断する。"
-      }
+      "正しい。該当するのはイである。ブリッジはブロードキャストフレームを接続先のセグメントへ中継する。一方、衝突によって生じた不完全フレームは正常なフレームではないため、中継しない。"
     ],
     "original_question_id": "499cdeebd002ec9c",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:499cdeebd002ec9c",
+    "reviewQuestionId": "499cdeebd002ec9c",
+    "sourceRecordRef": "question_200902_2.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CSMA/CD方式のブリッジによるフレーム中継動作を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "CSMA/CD方式のブリッジ動作に関する技術判定である。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "CSMA/CD方式のブリッジ動作に関する技術判定である。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "CSMA/CD方式のブリッジ動作に関する技術判定である。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "CSMA/CD方式のブリッジ動作に関する技術判定である。",
+          "promptContext": "法令根拠を要しない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -421,7 +752,7 @@
   },
   {
     "explanationText": [
-      "正しい。OSPFは宛先までの合計コストが小さい経路を選ぶ。拠点1からWAN1を通る経路は、\\(30+100+30+10=170\\)、拠点2からWAN1を通る経路は、\\(50+100+30+10=190\\)である。一方、WAN2を通る経路は、xを使う場合が\\(40+100+x+10=150+x\\)、yを使う場合が\\(40+100+y+10=150+y\\)となる。拠点1でWAN1を選ぶにはこれらが170より大きく、拠点2でWAN2を選ぶには190より小さくする必要がある。選択肢はx=yなので、\\(20<x=y<40\\)を満たすのは30だけであり、適切な組合せはイである。"
+      "正しい。OSPFは、宛先までの合計コストが小さい経路を選ぶ。拠点1からWAN1を通る経路のコストは\\(30+100+30+10=170\\)、拠点2からWAN1を通る経路は\\(50+100+30+10=190\\)である。一方、WAN2を通る経路のコストは、xを使う場合が\\(40+100+x+10=150+x\\)、yを使う場合が\\(40+100+y+10=150+y\\)となる。拠点1でWAN1を選ぶには\\(150+x>170\\)、拠点2でWAN2を選ぶには\\(150+y<190\\)でなければならない。選択肢はいずれも\\(x=y\\)なので、\\(20<x=y<40\\)を満たす30が適切である。したがって、正しい組合せはイである。"
     ],
     "original_question_id": "30fa6061660d4b12",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_4.html",
@@ -431,7 +762,113 @@
     "sourceRecordRef": "question_200902_2.json#8",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OSPFのコスト設定とWAN経路の選択を問う工学・ネットワーク技術上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コスト計算で正誤を判定でき、法令根拠を必要としない。",
+          "promptContext": "技術問題として確定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFのコスト計算と経路選択を問う技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コスト計算で正誤を判定でき、法令根拠を必要としない。",
+          "promptContext": "技術問題として確定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "OSPFのコスト計算と経路選択を問う技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コスト計算で正誤を判定でき、法令根拠を必要としない。",
+          "promptContext": "技術問題として確定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFのコスト計算と経路選択を問う技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コスト計算で正誤を判定でき、法令根拠を必要としない。",
+          "promptContext": "技術問題として確定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFのコスト計算と経路選択を問う技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -466,8 +903,8 @@
   {
     "explanationText": [
       "間違い。正しくは、あて先IPアドレスを接続先サーバのまま保ち、選択したルータのMACアドレスをあて先に設定する。選択肢は接続先サーバのMACアドレスへ直接置き換えるとしているため誤りである。",
-      "正しい。あて先IPアドレスは最終的な接続先サーバを示すため保持し、負荷分散装置から次の中継先となるルータ1又はルータ2へ送るため、あて先MACアドレスを選択したルータのものに置き換える。",
-      "間違い。正しくは、あて先IPアドレスを接続先サーバのまま保ち、次ホップのルータのMACアドレスをあて先に設定する。選択肢はMACアドレスをそのままにして、あて先IPアドレスを接続先ルータのIPアドレスへ変更するとしているため誤りである。",
+      "正しい。あて先IPアドレスは最終的な接続先サーバを示すため維持し、負荷分散装置から次の中継先となるルータ1又はルータ2へ送るため、あて先MACアドレスを選択したルータのものに置き換える。",
+      "間違い。正しくは、あて先IPアドレスを接続先サーバのまま保ち、次ホップのルータのMACアドレスをあて先に設定する。選択肢はMACアドレスを変更せず、あて先IPアドレスを接続先ルータのIPアドレスへ変更するとしているため誤りである。",
       "間違い。正しくは、あて先IPアドレスを接続先サーバのまま保ち、負荷分散装置が選択したルータのMACアドレスをあて先に設定する。選択肢は最終宛先のIPアドレスをルータ1又はルータ2のIPアドレスへ変更するとしているため誤りである。"
     ],
     "original_question_id": "8f0aaac276a63889",
@@ -1054,37 +1491,233 @@
     "sourceRecordRef": "question_200902_2.json#17",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPアドレスとサブネットマスクに基づくネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "サブネットマスク計算で判定でき、法令根拠を要しない。",
+          "promptContext": "ホストアドレスの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。選択肢「10」はホストアドレス26と一致しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "サブネットマスク計算で判定でき、法令根拠を要しない。",
+          "promptContext": "ホストアドレスの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。選択肢「26」はホストアドレスの計算結果と一致する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "サブネットマスク計算で判定でき、法令根拠を要しない。",
+          "promptContext": "ホストアドレスの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。選択肢「90」はIPアドレスの最後のオクテットであり、ホストアドレスではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "サブネットマスク計算で判定でき、法令根拠を要しない。",
+          "promptContext": "ホストアドレスの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。選択肢「212」はIPアドレス全体の先頭オクテットであり、ホストアドレスではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n4 ネットワークを最小でまとめるには、もっと短いプレフィックスで集約する必要がある。",
-      "正しい。\n\n192.168.32.0 から 35.0 までを 2 進数で比べると上位 22 ビットが共通なので、192.168.32.0/22、すなわち 255.255.252.0 が適切である。",
-      "間違い。\n\nプレフィックスが長すぎると 4 つ全部を包含できず、スーパーネットにならない。",
-      "間違い。\n\nプレフィックスやネットワーク番号の境界が合わないと、指定された 4 ネットワークを正しく一括表現できない。"
-    ],
-    "suggestedQuestions": [
-      "スーパーネット化はどう考えますか？",
-      "なぜ/22になりますか？",
-      "CIDRの利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "スーパーネット化はどう考えますか？",
-        "answer": "まとめたいネットワークアドレスを 2 進数で並べ、上位から連続して共通する最長部分をプレフィックスにする。"
-      },
-      {
-        "question": "なぜ/22になりますか？",
-        "answer": "192.168.32.0 から 35.0 までで第 3 オクテットの上位 6 ビットまでが共通し、合計 22 ビット一致するからである。"
-      },
-      {
-        "question": "CIDRの利点は何ですか？",
-        "answer": "必要規模に応じた柔軟なアドレス割当てと、経路集約によるルーティング負荷軽減ができる。"
-      }
+      "正しい。該当するのはイである。4つのネットワークを一つにまとめるには、/24から2ビット分を集約して、プレフィックス長を22ビットにする。ネットワーク番号は最初の192.168.32.0となる。サブネットマスクは、/22を十進表記にすると255.255.252.0である。\n\n\\[24-\\log_2 4=24-2=22\\]\n\\[192.168.32.0/22=255.255.252.0\\]\n\nしたがって、192.168.32.0/22を示すイの組合せが適切である。"
     ],
     "original_question_id": "a9478775da2ea52f",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:a9478775da2ea52f",
+    "reviewQuestionId": "a9478775da2ea52f",
+    "sourceRecordRef": "question_200902_2.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CIDRによるスーパーネット化とサブネットマスクの計算を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CIDRとサブネットマスクの計算による判定であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CIDRとサブネットマスクの計算による判定であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識と計算だけで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CIDRとサブネットマスクの計算による判定であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CIDRとサブネットマスクの計算による判定であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1148,7 +1781,7 @@
   },
   {
     "explanationText": [
-      "正しい。インターネットからのリクエストをサーバ側の代理として受け取り、背後のWebサーバへ中継するのはリバースプロキシである。フォワードプロキシはクライアント側の代理として外部サーバへ接続し、DMZは公開サーバなどを配置するネットワーク領域、プロキシARPは別の機器に代わってARP応答を返す機能である。"
+      "正しい。インターネットからのリクエストをサーバ側の代理として受け取り、背後のWebサーバへ中継する仕組みはリバースプロキシである。フォワードプロキシはクライアント側の代理として外部サーバへ接続し、DMZは公開サーバなどを配置するネットワーク領域、プロキシARPは別の機器に代わってARP応答を返す機能である。"
     ],
     "original_question_id": "e4042df53ee621b0",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_17.html",

@@ -1,9 +1,9 @@
 [
   {
     "explanationText": [
-      "間違い。正しくは、卸売業者やメーカーが小売店の経営活動を支援して取引拡大につなげる方法は、リテールサポートである。選択肢はこの小売店向け支援をCRMとしているため誤りである。",
+      "間違い。正しくは、卸売業者やメーカーが小売店の経営活動を支援し、取引拡大につなげる方法はリテールサポートである。選択肢はリテールサポートの説明をCRMとしているため誤りである。",
       "間違い。正しくは、企業全体の経営資源を計画・管理して経営を効率化する手法はERPである。選択肢はERPの説明をCRMとしているため誤りである。",
-      "正しい。CRMは顧客情報や顧客との接点を統合してサービス品質を高め、顧客満足度や顧客ロイヤリティの向上につなげる考え方である。",
+      "正しい。CRMは顧客情報や顧客との接点を統合し、サービス品質を高めて顧客満足度や顧客ロイヤリティの向上につなげる考え方である。",
       "間違い。正しくは、生産・在庫・購買・販売・物流の情報を連携させ、サプライチェーン全体を最適化する経営手法はSCMである。選択肢はSCMの説明をCRMとしているため誤りである。"
     ],
     "original_question_id": "dcca231a3919c1db",
@@ -14,7 +14,113 @@
     "sourceRecordRef": "question_201702_2.json#0",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CRMは顧客情報や顧客接点を統合して顧客満足度・顧客ロイヤリティの向上を図る経営手法であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リテールサポートの説明であり、CRMの説明ではない。",
+          "promptContext": "選択肢1の用語知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない用語知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ERPの説明であり、CRMの説明ではない。",
+          "promptContext": "選択肢2の用語知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない用語知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "顧客情報や顧客接点を統合し、顧客満足度や顧客ロイヤリティの向上を図るCRMの説明である。",
+          "promptContext": "選択肢3の用語知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を必要としない用語知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SCMの説明であり、CRMの説明ではない。",
+          "promptContext": "選択肢4の用語知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない用語知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -291,10 +397,10 @@
   },
   {
     "explanationText": [
-      "間違い。RIP-2もOSPFも可変長サブネットマスクに対応しているため、OSPFだけの特徴ではない。",
+      "間違い。RIP-2もOSPFも可変長サブネットマスクに対応している。選択肢はOSPFだけの特徴としているため誤りである。",
       "正しい。OSPFはリンク状態データベースを作り、ネットワークの接続状態を基に経路を計算する。RIP-2は距離ベクトル型で、宛先までのホップ数などを用いて経路を選ぶ。",
-      "間違い。RIP-2はマルチキャストアドレス224.0.0.9を使って経路情報を送信し、OSPFもインタフェースの種類に応じたマルチキャストアドレスでプロトコルパケットを送信するため、マルチキャストの使用はOSPFだけの特徴ではない。",
-      "間違い。RIP-2は30秒ごとに経路表全体を定期送信する。OSPFはトポロジの変化などに応じてリンク状態情報をフラッディングする方式であり、30秒ごとに経路表全体を更新するプロトコルではない。"
+      "間違い。RIP-2は224.0.0.9、OSPFは224.0.0.5や224.0.0.6などのマルチキャストアドレスを使って情報を送信する。選択肢はマルチキャストの使用をOSPFだけの特徴としているため誤りである。",
+      "間違い。RIP-2は30秒ごとに経路表全体を定期送信する。OSPFはトポロジの変化に応じてリンク状態情報を送信し、30秒ごとに経路表全体を更新する方式ではない。選択肢はRIP-2の特徴をOSPFに当てはめているため誤りである。"
     ],
     "original_question_id": "d2942e52adcf89e2",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_3.html",
@@ -649,10 +755,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、IPv6は128ビットのアドレスを使うが、アドレスフィールドが拡張されたことだけを理由に、ルータでの中継処理の遅延が増加するとはいえない。選択肢はアドレスフィールドの拡張によって遅延が増加するとしているため誤りである。",
-      "間違い。正しくは、IPv6アドレスは16進数で表記する。選択肢は10進数を用いる表記が推奨されているとしているため誤りである。",
-      "間違い。正しくは、IPv4射影アドレスは上位80ビットを0、続く16ビットを1とし、下位32ビットにIPv4アドレスを置く。選択肢は上位96ビットをすべて1とするとしているため誤りである。",
-      "正しい。IPv6では、ルータ広告で通知されたプレフィックスなどを使い、ホストが自分のIPv6アドレスを自動設定できる。"
+      "間違い。IPv6は128ビットのアドレスを使うが、アドレス長が増えたことだけから、ルータの中継処理の遅延が増加すると判断することはできない。選択肢はアドレスフィールドの拡張によって遅延が増加するとしているため誤りである。",
+      "間違い。IPv6アドレスは、通常、コロンで区切った16進数で表記する。選択肢は10進数を用いる表記が推奨されているとしているため誤りである。",
+      "間違い。IPv4射影アドレスは、上位80ビットを0、続く16ビットを1とし、下位32ビットにIPv4アドレスを置く。選択肢は上位96ビットをすべて1としているため誤りである。",
+      "正しい。IPv6では、ルータ広告で通知されたプレフィックスなどを使い、ホストが自分のIPアドレスを自動設定できる。"
     ],
     "original_question_id": "d5e4d4e7d66bd97d",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_8.html",
@@ -677,7 +783,7 @@
         "title": "RFC 4862 IPv6 Stateless Address Autoconfiguration"
       }
     ],
-    "questionLearningPatternId": "terms_basics",
+    "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
     "lawContextForExplanation": "IPv6のアドレス形式と自動設定に関する技術仕様の問題で、法令条文を根拠にしない。",
@@ -828,7 +934,113 @@
     "sourceRecordRef": "question_201702_2.json#14",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "UDP、FTP、HTTP、SMTPの通信方式を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DHCPはUDPを使用する。",
+          "promptContext": "UDPを使用するプロトコルの判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FTPはTCPを使用する。",
+          "promptContext": "UDPを使用するプロトコルの判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "HTTPはTCPを使用する。",
+          "promptContext": "UDPを使用するプロトコルの判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SMTPはTCPを使用する。",
+          "promptContext": "UDPを使用するプロトコルの判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -862,7 +1074,7 @@
   },
   {
     "explanationText": [
-      "正しい。IPv4アドレスの「/28」は、32ビットのうち28ビットをネットワーク部、残り4ビットをホスト部に使うことを示す。したがって、1サブネットのアドレス数は\\(2^4=16\\)個で、192.168.10.192/28の範囲は192.168.10.192〜192.168.10.207となる。先頭の192.168.10.192がネットワークアドレス、末尾の192.168.10.207がブロードキャストアドレスである。"
+      "正しい。IPv4アドレスの「/28」は、32ビットのうち28ビットをネットワーク部、残り4ビットをホスト部に使うことを示す。ホスト部が4ビットなので、1サブネットのアドレス数は次のように16個である。\\[2^{32-28}=2^4=16\\]ネットワークアドレスが192.168.10.192であるため、アドレス範囲は192.168.10.192から192.168.10.207までとなる。ブロードキャストアドレスは範囲の末尾なので、192.168.10.207である。"
     ],
     "original_question_id": "316a3ce51d2dd052",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_12.html",
@@ -872,14 +1084,120 @@
     "sourceRecordRef": "question_201702_2.json#16",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4サブネットのアドレス計算に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題である。",
+          "promptContext": "選択肢1を問題文と結合して確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4サブネットのアドレス計算に基づく技術問題である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題である。",
+          "promptContext": "選択肢2を問題文と結合して確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "IPv4サブネットのアドレス計算に基づく技術問題である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題である。",
+          "promptContext": "選択肢3を問題文と結合して確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4サブネットのアドレス計算に基づく技術問題である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題である。",
+          "promptContext": "選択肢4を問題文と結合して確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv4サブネットのアドレス計算に基づく技術問題である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。OpenFlowは、SDNでコントローラーがネットワーク機器を制御するためのプロトコルである。コントローラーは、ネットワーク機器のフローテーブルにフロー条件や転送処理などのフローエントリを設定する。",
+      "正しい。OpenFlowは、SDNでコントローラーからネットワーク機器を制御するためのプロトコルである。コントローラーは、通信の条件と転送処理をフローテーブルのエントリとしてネットワーク機器に設定する。",
       "間違い。正しくは、ネットワーク機器のMIBを取得して構成や性能を管理するのはSNMPである。選択肢は、OpenFlowをMIB取得用の管理プロトコルとしているため誤りである。",
-      "間違い。正しくは、IPアドレスやポート番号などで分類したフローの情報を収集するのはNetFlowやIPFIXである。選択肢は、OpenFlowを機器からコレクタへ統計情報を送るプロトコルとしているため誤りである。",
-      "間違い。正しくは、レイヤー2のループを防ぎ、障害時の経路を切り替えるのはSTP系プロトコルである。選択肢は、OpenFlowをネットワーク機器間で冗長経路を制御するプロトコルとしているため誤りである。"
+      "間違い。正しくは、IPアドレスやポート番号などで分類したフローの統計情報を収集するのはNetFlowやIPFIXである。選択肢は、OpenFlowを機器からコレクタへ統計情報を送信するプロトコルとしているため誤りである。",
+      "間違い。正しくは、レイヤー2のループを防ぎ、障害時に経路を切り替えるのはSTP系プロトコルである。選択肢は、OpenFlowをネットワーク機器間で冗長経路を制御するプロトコルとしているため誤りである。"
     ],
     "original_question_id": "43bb04c4cc0c019a",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_13.html",
@@ -1456,10 +1774,10 @@
   },
   {
     "explanationText": [
-      "間違い。再帰問合せを受け付ける送信元の範囲を制御するのは、オープンリゾルバ対策などのアクセス制御である。DNSSECは、選択肢のようにDNSキャッシュサーバの設定で送信元範囲を広げる機能ではない。",
-      "正しい。DNSSECは、リソースレコードに付与されたデジタル署名を検証し、DNS応答の正当性とデータの完全性を確認する。",
-      "間違い。セカンダリDNSサーバによるDNSコンテンツサーバの二重化は、障害時にも名前解決を続けるための可用性向上策である。選択肢はこの冗長化をDNSSECの機能としているため誤りである。",
-      "間違い。共通鍵暗号とハッシュ関数を使ってDNS更新要求の送信元を認証するのは、動的DNS更新のアクセス制御に関する機能である。選択肢は更新要求の認証をDNSSECの機能としているため誤りである。"
+      "間違い。正しくは、再帰的な問合せを受け付ける送信元の範囲を制御するのは、DNSキャッシュサーバのアクセス制御である。選択肢は送信元の範囲を最大にする設定をDNSSECの機能としているため誤りである。",
+      "正しい。DNSSECは、DNS応答に付与されたデジタル署名を検証し、リソースレコードの正当性とデータの完全性を確認する。",
+      "間違い。正しくは、セカンダリDNSサーバによるDNSコンテンツサーバの二重化は、障害時にも名前解決を継続するための可用性向上策である。選択肢はDNSサーバの冗長化による可用性向上をDNSSECの機能としているため誤りである。",
+      "間違い。正しくは、共通鍵暗号技術とハッシュ関数を利用してDNS更新要求を認証するのは、動的DNS更新のアクセス制御である。選択肢は更新要求のエンドポイント認証をDNSSECの機能としているため誤りである。"
     ],
     "original_question_id": "64b75bc9b8a716b5",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_19.html",
@@ -1581,8 +1899,8 @@
     "explanationText": [
       "間違い。正しくは、PCとVDIサーバ間をVDIの画面転送プロトコルだけに限定する。ファイル転送を許可すると、マルウェアや内部データがPCとVDIサーバの間を移動でき、分離の効果が失われる。選択肢はファイル転送も利用するとしているため誤りである。",
       "正しい。PCとVDIサーバ間を画面転送プロトコルだけに限定すると、WebブラウザはVDIサーバ上で動作し、PCには画面情報だけが転送される。これにより、WebサイトからのマルウェアやPC上のデータがファイルとして直接出入りしにくくなり、侵入防止と流出防止の両方に有効である。",
-      "間違い。正しくは、PCとVDIサーバ間の通信を画面転送プロトコルだけに限定する。VDIサーバがHTTP通信をプロキシとして中継するだけでは、PCとインターネット上のWebサイトとの通信を画面転送に限定できず、マルウェアやデータの移動を十分に防げない。選択肢はHTTP通信を中継するとしているため誤りである。",
-      "間違い。正しくは、PCとVDIサーバ間で画面転送プロトコルだけを利用する。WebブラウザはVDIサーバ上でWeb通信を行い、PCとの間にはその画面を転送するため、VDIの画面転送プロトコルをプロキシとしてWeb通信の中継に使うわけではない。選択肢は画面転送プロトコルだけをプロキシとして中継するとしているため誤りである。"
+      "間違い。正しくは、PCとVDIサーバ間の通信を画面転送プロトコルだけに限定する。VDIサーバがHTTP通信をプロキシとして中継するだけでは、Webサイトとの通信を画面転送に限定できず、マルウェアやデータの移動を十分に防げない。選択肢はVDIサーバがHTTP通信を中継するとしているため誤りである。",
+      "間違い。正しくは、WebブラウザをVDIサーバ上で動作させ、PCとの間では画面転送プロトコルだけを利用する。画面転送プロトコルはWeb通信を中継するHTTPプロキシではない。選択肢は画面転送プロトコルをプロキシとして中継するとしているため誤りである。"
     ],
     "original_question_id": "62b17d9103a58022",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_20.html",

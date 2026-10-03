@@ -61,37 +61,138 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nB 案は A 案より高いが、C 案がさらに高くなるため、B＞A＞C の順にはならない。",
-      "間違い。\n\nC 案は B 案よりも高いため、B＞C＞A の順は誤りである。",
-      "間違い。\n\nA 案は B 案より低いので、C＞A＞B にはならない。",
-      "正しい。\n\nA 案と B 案では、B 案の方が中間経路の冗長性が高く稼働率が上がる。さらに C 案は B 案の中間ノード間通信路が不要になった形とみなせるため、通信路故障の要因が一つ減り、最も稼働率が高い。したがって順序は C案＞B案＞A案である。"
-    ],
-    "suggestedQuestions": [
-      "なぜC案が最も高いのですか？",
-      "冗長経路はどう稼働率を上げますか？",
-      "故障確率Fを式にするとどう比較できますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜC案が最も高いのですか？",
-        "answer": "B 案の冗長性を保ちつつ、中間ノード間の追加通信路故障要因が無くなるためである。"
-      },
-      {
-        "question": "冗長経路はどう稼働率を上げますか？",
-        "answer": "ある通信路が故障しても別経路で通信継続できる確率が高まるからである。"
-      },
-      {
-        "question": "故障確率Fを式にするとどう比較できますか？",
-        "answer": "各案の『少なくとも一つの有効経路が残る確率』を式で表し、0＜F＜1 の範囲で大小比較する。"
-      }
+      "正しい。通信路1本の稼働率を \\(1-F\\) とする。A案は、2本の通信路が直列につながった経路を2本並列にした構成なので、稼働率は \\[A=1-\\{1-(1-F)^2\\}^2=1-(2F-F^2)^2\\] である。C案は、各区間で2本の通信路が並列になり、その区間が2つ直列につながるため、稼働率は \\[C=(1-F^2)^2\\] となる。両者の差は \\[C-A=2F^2(1-F)^2>0\\] であり、C案の方が高い。B案は、中央の通信路が正常ならC案と同じ構成になり、中央の通信路が故障するとA案と同じ構成になる。そのため \\[B=(1-F)C+FA\\] となり、A案とC案の間に入る。したがって、稼働率の高い順はC案＞B案＞A案である。"
     ],
     "original_question_id": "1843fb51cd3b4564",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:1843fb51cd3b4564",
+    "reviewQuestionId": "1843fb51cd3b4564",
+    "sourceRecordRef": "question_201002_3.json#2",
+    "explanationReferences": [
+      {
+        "referenceDate": "2010-10-17",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000004d6f-att/2010h22a_nw_am2_qs.pdf",
+        "title": "平成22年度秋期ネットワークスペシャリスト試験午前Ⅱ問題"
+      },
+      {
+        "referenceDate": "2010-10-17",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000004d6f-att/2010h22a_nw_am2_ans.pdf",
+        "title": "平成22年度秋期ネットワークスペシャリスト試験午前Ⅱ解答例"
+      }
+    ],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "通信路の故障確率と冗長構成による稼働率を比較する工学・確率の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "通信路の故障確率と冗長構成の比較に基づく技術問題である。",
+          "promptContext": "選択肢1の構成順位判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく通信路の稼働率計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "通信路の故障確率と冗長構成の比較に基づく技術問題である。",
+          "promptContext": "選択肢2の構成順位判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく通信路の稼働率計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "通信路の故障確率と冗長構成の比較に基づく技術問題である。",
+          "promptContext": "選択肢3の構成順位判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく通信路の稼働率計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "通信路の故障確率と冗長構成の比較に基づく技術問題である。",
+          "promptContext": "選択肢4の構成順位判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく通信路の稼働率計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。該当する組合せはウである。is-aは「XはYの一種」という上位・下位の関係で、part-ofは「XはYを構成する一部」という全体・部分の関係である。タイヤと自動車はpart-of、人間と動物はis-a、辞書と書物はis-aに当たるため、この組合せが適切である。"
+      "正しい。該当する組合せはウである。is-aは「XはYの一種」という上位・下位の関係で、part-ofは「XはYを構成する一部」という全体・部分の関係である。タイヤと自動車はpart-of、人間と動物はis-a、辞書と書物はis-aに当たる。"
     ],
     "original_question_id": "3836ca9418b40c03",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_24.html",
