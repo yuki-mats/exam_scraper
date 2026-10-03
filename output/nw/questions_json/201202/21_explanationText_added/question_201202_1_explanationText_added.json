@@ -391,33 +391,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nキャッシュだけに書いて主記憶へは後で反映するのはライトバック方式の特徴であり、ライトスルー方式ではない。",
-      "正しい。\n\nライトスルー方式ではキャッシュと主記憶へ同時に書き込むため、主記憶の内容は常に最新状態に保たれる。",
-      "間違い。\n\nキャッシュと主記憶の両方へ即時に書く説明はライトスルー方式である。ライトバック方式はまずキャッシュにだけ書く。",
-      "間違い。\n\nライトバック方式では、変更済みデータがキャッシュから追い出されるときに主記憶へ書き戻す必要がある。"
-    ],
-    "suggestedQuestions": [
-      "ライトスルーとライトバックの違いは何ですか？",
-      "なぜライトバックは速いのですか？",
-      "どちらが整合性を取りやすいですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ライトスルーとライトバックの違いは何ですか？",
-        "answer": "ライトスルーは主記憶へ同時反映し、ライトバックは後でまとめて主記憶へ書き戻す。"
-      },
-      {
-        "question": "なぜライトバックは速いのですか？",
-        "answer": "主記憶への書込み回数を減らせるため、書込みの待ち時間が小さくなりやすい。"
-      },
-      {
-        "question": "どちらが整合性を取りやすいですか？",
-        "answer": "主記憶が常に最新になるライトスルー方式の方が整合性管理は容易である。"
-      }
+      "間違い。正しくは、ライトスルー方式ではキャッシュメモリと主記憶の両方へ同時に書き込み、ライトバック方式では主記憶への反映を後回しにする。選択肢はキャッシュメモリだけに書き込む方式をライトスルー方式としているため誤りである。",
+      "正しい。主記憶にも同時に書き込むため、キャッシュメモリと主記憶の内容は一致し、主記憶は常に最新状態に保たれる。",
+      "間違い。ライトバック方式は、まずキャッシュメモリへ書き込み、必要な時点で主記憶へ反映する。選択肢は両方へ同時に書き込む方式をライトバック方式としているため誤りである。",
+      "間違い。ライトバック方式では、キャッシュメモリから変更済みデータが追い出されるとき、主記憶へ書き戻す必要がある。選択肢は書き戻しが不要としているため誤りである。"
     ],
     "original_question_id": "015cf5014266d414",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:015cf5014266d414",
+    "reviewQuestionId": "015cf5014266d414",
+    "sourceRecordRef": "question_201202_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -451,33 +438,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n空き領域を結合して 1 つにまとめる処理はコンパクションであり、可変区画方式そのものの定義ではない。",
-      "正しい。\n\nガーベジコレクションは、プログラムが不要になったヒープ領域を回収して再利用可能にする仕組みである。",
-      "間違い。\n\n実行中に主記憶内で格納位置を変えるのは動的再配置であり、動的リンキングの説明ではない。",
-      "間違い。\n\n必要になった時点でモジュールを読み込むのは動的リンキングや動的ロードの説明であり、動的再配置ではない。"
-    ],
-    "suggestedQuestions": [
-      "コンパクションと可変区画方式の関係は何ですか？",
-      "ガーベジコレクションは主にどの領域を対象にしますか？",
-      "動的再配置と動的リンキングはどう違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "コンパクションと可変区画方式の関係は何ですか？",
-        "answer": "可変区画方式で断片化が起きた後、その空き領域を詰めて連続化する補助処理がコンパクションである。"
-      },
-      {
-        "question": "ガーベジコレクションは主にどの領域を対象にしますか？",
-        "answer": "プログラムが動的確保したヒープ領域のうち、参照されなくなった部分を対象に回収する。"
-      },
-      {
-        "question": "動的再配置と動的リンキングはどう違いますか？",
-        "answer": "動的再配置は配置先アドレスの補正、動的リンキングは必要時に別モジュールを結合して利用する処理である。"
-      }
+      "間違い。空き領域を結合して連続した領域にまとめる処理はコンパクションである。可変区画方式は、プログラムの大きさに応じて主記憶を可変長の区画に分けて割り当てる方式である。選択肢は空き領域の結合を可変区画方式としているため誤りである。",
+      "正しい。ガーベジコレクションは、プログラムから参照されなくなったヒープ領域を回収し、再利用できるようにする仕組みである。",
+      "間違い。プログラムの実行中に主記憶上の格納位置を変更する処理は動的再配置である。動的リンキングは、実行時に必要なモジュールを結合して参照関係を解決する仕組みである。選択肢は格納位置の移動を動的リンキングとしているため誤りである。",
+      "間違い。実行中に必要になった時点でモジュールを読み込む処理は動的ロードである。動的再配置は、実行中のプログラムやモジュールの格納位置に応じてアドレスを調整する処理である。選択肢は必要時のモジュール読込みを動的再配置としているため誤りである。"
     ],
     "original_question_id": "5252ed6f2c3b42ea",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:5252ed6f2c3b42ea",
+    "reviewQuestionId": "5252ed6f2c3b42ea",
+    "sourceRecordRef": "question_201202_1.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1073,33 +1047,20 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nSQLインジェクション対策としてプレースホルダを用いると、入力値が SQL 文の構造として解釈されにくくなり安全性が高まる。",
-      "間違い。\n\n信頼できない別ドメインの CSS を読み込むことは安全化ではなく、表示改ざんや古い環境での悪用リスクを持ち込む。",
-      "間違い。\n\nGET を POST に変える配慮だけでは攻撃対策の本質にならない。攻撃と対策の対応関係として不十分である。",
-      "間違い。\n\n固定のセッション ID は盗まれたときにそのまま悪用されやすく、セッションハイジャックに対して危険である。"
-    ],
-    "suggestedQuestions": [
-      "プレースホルダはなぜ SQL インジェクションに効きますか？",
-      "POST に変えるだけで防げない攻撃には何がありますか？",
-      "セッション ID はいつ再生成すべきですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "プレースホルダはなぜ SQL インジェクションに効きますか？",
-        "answer": "入力値を SQL 文の構文ではなく単なる値として扱わせ、文構造へ割り込ませにくくするからである。"
-      },
-      {
-        "question": "POST に変えるだけで防げない攻撃には何がありますか？",
-        "answer": "CSRF や XSS などはトークン検証や出力エスケープが必要で、HTTP メソッド変更だけでは不十分である。"
-      },
-      {
-        "question": "セッション ID はいつ再生成すべきですか？",
-        "answer": "特にログイン成功直後や権限変更時に再生成し、固定化攻撃や乗っ取りの影響を抑えるのが基本である。"
-      }
+      "正しい。SQL文の値にプレースホルダを使うと、入力値がSQL文の構造として解釈されにくくなり、SQLインジェクションを防ぎやすい。",
+      "間違い。正しくは、XSSには出力時のエスケープなど、スクリプトが実行されないようにする対策を行う。選択肢は任意の外部サイトのスタイルシートを読み込むことを対策としているため、XSSを防ぐ方法になっていない。",
+      "間違い。正しくは、状態を変更するリクエストにはCSRFトークンの検証などを行う。選択肢はGETメソッドを使用することを対策としているが、メソッドをGETにするだけでは、利用者の意図しないリクエストの実行を防げない。",
+      "間違い。正しくは、推測困難なセッションIDを発行し、必要に応じてログイン時などに再生成する。選択肢は利用者ごとに固定のセッションIDを使用するため、IDを知られたり推測されたりすると、その利用者になりすまされる危険がある。"
     ],
     "original_question_id": "342ce1e1e0d94ce8",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:342ce1e1e0d94ce8",
+    "reviewQuestionId": "342ce1e1e0d94ce8",
+    "sourceRecordRef": "question_201202_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1816,33 +1777,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n災害を想定した復旧テスト回数は IT サービス継続性管理の指標に近く、可用性管理の代表 KPI ではない。",
-      "正しい。\n\nサービスの中断回数は、サービスがどの程度利用可能だったかを直接示すため、可用性管理の KPI として適切である。",
-      "間違い。\n\n性能不足に起因する件数はキャパシティ管理の観点が強く、可用性管理そのものの KPI とは言いにくい。",
-      "間違い。\n\nSLA 未達項目数はサービスレベル管理の指標であり、可用性管理だけを表す KPI ではない。"
-    ],
-    "suggestedQuestions": [
-      "可用性管理では何を測りますか？",
-      "キャパシティ管理との違いは何ですか？",
-      "SLA と KPI はどう関係しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "可用性管理では何を測りますか？",
-        "answer": "サービス停止時間、中断回数、MTTR など、利用可能性や復旧性に関わる指標を測る。"
-      },
-      {
-        "question": "キャパシティ管理との違いは何ですか？",
-        "answer": "可用性管理は使える状態の維持、キャパシティ管理は性能や処理能力の確保に重点を置く。"
-      },
-      {
-        "question": "SLA と KPI はどう関係しますか？",
-        "answer": "SLA の目標達成状況を継続監視するために KPI を設定し、実績を測定する。"
-      }
+      "間違い。災害を想定した復旧テストの回数は、災害発生時の継続・復旧能力を確認するサービス継続性管理の指標である。選択肢はこの回数を可用性管理のKPIとしているため誤りである。",
+      "正しい。サービスの中断回数は、サービスを利用できない事象を直接表すため、可用性管理のKPIとして用いることができる。",
+      "間違い。性能不足に起因するインシデントの数は、必要な処理能力や資源を確保するキャパシティ管理の指標である。選択肢はこの件数を可用性管理のKPIとしているため誤りである。",
+      "間違い。目標を達成できなかったSLAの項目数は、合意したサービスレベルを管理するサービスレベル管理の指標である。選択肢はこの項目数を可用性管理のKPIとしているため誤りである。"
     ],
     "original_question_id": "2cd642e3f5c63366",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:2cd642e3f5c63366",
+    "reviewQuestionId": "2cd642e3f5c63366",
+    "sourceRecordRef": "question_201202_1.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

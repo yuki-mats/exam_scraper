@@ -1,33 +1,17 @@
 [
   {
     "explanationText": [
-      "間違い。\n\n逆ポーランド表記法は演算子を後ろへ置くので、先頭に演算子が来るこの並びは前置記法に近く不適切である。",
-      "間違い。\n\nB×C を先に処理する必要があるのに、A＋B を先にまとめた形になっており元の式の優先順位を表していない。",
-      "正しい。\n\nB×C を BC× とし、その結果に A を加えるので、式 A＋B×C は ABC×＋ と表せる。",
-      "間違い。\n\nCBA＋× は C×(B＋A) に近い構造であり、A＋(B×C) とは演算順が異なる。"
-    ],
-    "suggestedQuestions": [
-      "逆ポーランド表記法ではどう変換しますか？",
-      "なぜ BC× を先に作るのですか？",
-      "前置記法との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "逆ポーランド表記法ではどう変換しますか？",
-        "answer": "通常の優先順位どおりに部分式を処理し、各演算子を対応する被演算子の後ろへ置いていく。"
-      },
-      {
-        "question": "なぜ BC× を先に作るのですか？",
-        "answer": "乗算は加算より優先順位が高いので、B×C を先に 1 つの項としてまとめる必要がある。"
-      },
-      {
-        "question": "前置記法との違いは何ですか？",
-        "answer": "前置記法は演算子を先頭に置き、逆ポーランド表記法は演算子を末尾に置く。"
-      }
+      "正しい。逆ポーランド表記法では、演算子を対象の数値や変数の後ろに置く。式 A＋B×C は、先に B と C を掛けて BC×とし、その結果に A を加えるため、ABC×＋となる。"
     ],
     "original_question_id": "c64005683257f6ff",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:c64005683257f6ff",
+    "reviewQuestionId": "c64005683257f6ff",
+    "sourceRecordRef": "question_201102_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -604,33 +588,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n更新対象データのコピー保存はバックアップや回復対策であり、誤操作を起こしにくくするフールプルーフではない。",
-      "間違い。\n\n取消し操作は誤操作後の回復機能であり、誤操作自体を未然に防ぐ設計とは異なる。",
-      "正しい。\n\n使用権限のない機能を実行できないようにして誤操作や不適切操作を防ぐのは、利用者ミスを予防するフールプルーフの考え方である。",
-      "間違い。\n\n操作ログの保存は事後追跡や監査に役立つが、誤操作を事前に防止する仕組みではない。"
-    ],
-    "suggestedQuestions": [
-      "フールプルーフとは何ですか？",
-      "取消し機能との違いは何ですか？",
-      "フェールセーフとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フールプルーフとは何ですか？",
-        "answer": "人の誤操作や不適切入力を前提に、ミスが起こりにくいよう設計する考え方である。"
-      },
-      {
-        "question": "取消し機能との違いは何ですか？",
-        "answer": "取消し機能は誤操作後の回復、フールプルーフは誤操作の予防に主眼がある。"
-      },
-      {
-        "question": "フェールセーフとの違いは何ですか？",
-        "answer": "フールプルーフは人為ミス対策、フェールセーフは故障や異常時に安全側へ移す対策である。"
-      }
+      "間違い。正しくは、更新対象データのコピー保存はバックアップであり、障害や誤操作の後にデータを復元するための対策である。選択肢はデータをコピーして保存するとしているため、誤操作を未然に防ぐフールプルーフには該当しない。",
+      "間違い。正しくは、取消し操作は誤操作の後に元の状態へ戻すための回復機能である。選択肢は取消し操作によって事後に修正するとしているため、誤操作そのものを防ぐフールプルーフとは異なる。",
+      "正しい。フールプルーフは、利用者が誤った操作をしても問題が起きないように、実行できる操作をあらかじめ制限する設計である。使用権限のない機能を実行できなくすることは、誤操作や不適切な操作を未然に防ぐ。",
+      "間違い。正しくは、操作内容のログ保存は、後から操作を確認したり原因を追跡したりするための記録である。選択肢は操作内容を事後に記録するとしているため、誤操作を事前に防ぐフールプルーフには該当しない。"
     ],
     "original_question_id": "2b46d624d571be34",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:2b46d624d571be34",
+    "reviewQuestionId": "2b46d624d571be34",
+    "sourceRecordRef": "question_201102_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -754,33 +725,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n2 相コミットメントは分散トランザクションの整合性確保手法であり、非同期に複製 DB へ反映する仕組みではない。",
-      "間違い。\n\nクラスタリングは複数計算機をまとめて使う構成であり、設問の DB 複製手法そのものではない。",
-      "間違い。\n\nミラーリングは通常、同一内容を同期的に複製する方式であり、設問の『非同期』条件と合わない。",
-      "正しい。\n\nレプリケーションは元のデータベース更新内容を複製先へ反映する仕組みであり、非同期複製によって可用性や負荷分散を高める構成で用いられる。"
-    ],
-    "suggestedQuestions": [
-      "レプリケーションとは何ですか？",
-      "ミラーリングとの違いは何ですか？",
-      "2 相コミットメントは何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "レプリケーションとは何ですか？",
-        "answer": "元データの更新内容を複製先へ反映し、複数のデータベースで内容を保つ仕組みである。"
-      },
-      {
-        "question": "ミラーリングとの違いは何ですか？",
-        "answer": "ミラーリングは同期的に同一内容を保つ構成が中心で、レプリケーションは非同期反映も含めた広い概念である。"
-      },
-      {
-        "question": "2 相コミットメントは何に使いますか？",
-        "answer": "複数サイトにまたがるトランザクションを、全体としてコミットまたはロールバックさせるために使う。"
-      }
+      "正しい。元のデータベースの更新内容を複製データベースへ反映する方式がレプリケーションである。非同期レプリケーションでは、元の更新後に複製先へ反映するため、一時的に両者の内容に差が生じることがある。2相コミットメントは分散トランザクションの確定手順、クラスタリングは複数の計算機を連携させる構成、ミラーリングは複製による冗長化を指す構成であり、設問の方式名にはレプリケーションが当てはまる。"
     ],
     "original_question_id": "72154b5534bf1edd",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:72154b5534bf1edd",
+    "reviewQuestionId": "72154b5534bf1edd",
+    "sourceRecordRef": "question_201102_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1633,33 +1588,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nこれは必要ドキュメントを漏れなく用意するための管理であり、稼働中システムとの内容不一致を直接防ぐ論点ではない。",
-      "間違い。\n\n進捗管理は作成遅延防止には有効だが、システム変更後も内容が正しいかまでは保証しない。",
-      "間違い。\n\n機密性確保は情報漏えい対策であり、仕様と文書の不整合リスクとは別問題である。",
-      "正しい。\n\nプログラム変更に合わせてドキュメントを遅滞なく更新すれば、稼働中システムと文書の内容不一致リスクを低減できる。"
-    ],
-    "suggestedQuestions": [
-      "構成管理でドキュメント更新が重要な理由は何ですか？",
-      "進捗管理だけでは不十分な理由は何ですか？",
-      "仕様不一致はどんな問題を起こしますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "構成管理でドキュメント更新が重要な理由は何ですか？",
-        "answer": "変更後の実態を正しく反映しないと、保守や監査、障害対応で誤判断を招くからである。"
-      },
-      {
-        "question": "進捗管理だけでは不十分な理由は何ですか？",
-        "answer": "文書が予定どおり作られても、内容が最新システムと一致していなければ目的を果たさないからである。"
-      },
-      {
-        "question": "仕様不一致はどんな問題を起こしますか？",
-        "answer": "保守ミス、運用手順誤り、障害調査の遅延、監査不備などにつながる。"
-      }
+      "間違い。\n\n必要なドキュメントの一覧をあらかじめ決めることは、作成漏れを防ぐための管理である。選択肢はドキュメントの種類を決めることを示しているため、稼働中システムの変更内容をドキュメントへ反映する統制にはならない。",
+      "間違い。\n\nドキュメント作成計画の進捗管理は、作成の遅れを防ぐための管理である。選択肢は作成状況を管理することを示しているため、稼働中システムの仕様変更後もドキュメントの内容を一致させる統制にはならない。",
+      "間違い。\n\nドキュメントの機密性を確保する対策は、情報の漏えいや不正な閲覧を防ぐための管理である。選択肢は情報を誰に見せるかを管理することを示しているため、システムの仕様とドキュメントの内容を一致させる統制とは異なる。",
+      "正しい。プログラムを変更したときにドキュメントも遅滞なく更新すれば、稼働中システムの仕様とドキュメントの内容を一致させやすくなり、不整合のリスクを低減できる。"
     ],
     "original_question_id": "ff847c5bce1ba29b",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:ff847c5bce1ba29b",
+    "reviewQuestionId": "ff847c5bce1ba29b",
+    "sourceRecordRef": "question_201102_1.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1693,33 +1635,20 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n全体最適化計画策定で業務モデルを定義する目的は、企業全体の業務と情報の関係を整理し、情報システムのあるべき姿を明確にすることである。",
-      "間違い。\n\n期間・工数・費用見積りはシステム化計画やプロジェクト計画で扱う内容であり、業務モデル定義の主目的ではない。",
-      "間違い。\n\nハードウェアやネットワーク構成要素の洗い出しは方式設計段階の論点である。",
-      "間違い。\n\n運用マニュアル作成のための業務手順確認は後続の詳細化段階の活動であり、全体最適化計画で業務モデルを定義する目的とは異なる。"
-    ],
-    "suggestedQuestions": [
-      "業務モデルは何を整理しますか？",
-      "全体最適化計画とは何ですか？",
-      "方式設計との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "業務モデルは何を整理しますか？",
-        "answer": "業務の流れ、組織、扱う情報、それらの関連を整理する。"
-      },
-      {
-        "question": "全体最適化計画とは何ですか？",
-        "answer": "部門最適ではなく企業全体として整合の取れた情報システムの姿を描くための計画である。"
-      },
-      {
-        "question": "方式設計との違いは何ですか？",
-        "answer": "業務モデルは業務と情報の整理、方式設計はそれを実現する技術構成の具体化である。"
-      }
+      "正しい。企業全体の業務と情報の関係を整理し、情報システムのあるべき姿を明確にすることが、業務モデルを定義する目的である。",
+      "間違い。システム化に必要な期間、開発工数、開発費用の見積りは、システム化計画やプロジェクト計画で行う。選択肢はこれを業務モデル定義の目的としているため誤りである。",
+      "間違い。ハードウェア、ソフトウェア、ネットワークなどの構成要素を洗い出す作業は、システム方式や構成を具体化する段階で行う。選択肢はこの作業を業務モデル定義の目的としているため誤りである。",
+      "間違い。ユーザーマニュアルや運用マニュアルの作成に向けた業務手順の確認は、運用設計など後続段階で行う。選択肢はこの作業を業務モデル定義の目的としているため誤りである。"
     ],
     "original_question_id": "46cb96edd88a633d",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:46cb96edd88a633d",
+    "reviewQuestionId": "46cb96edd88a633d",
+    "sourceRecordRef": "question_201102_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

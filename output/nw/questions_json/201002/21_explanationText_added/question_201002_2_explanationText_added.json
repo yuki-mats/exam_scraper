@@ -1,33 +1,17 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nクラスタ分析法は、観測データを類似性に基づいてグループ分けし、各群の特徴を把握する代表的な多変量解析手法である。",
-      "間違い。\n\n指数平滑法は過去実績を重み付けして需要や売上を予測する手法であり、データを群に分類する手法ではない。",
-      "間違い。\n\nデルファイ法は複数の専門家の意見を反復的に集約して収束させる手法であり、観測データの分類には用いない。",
-      "間違い。\n\nモンテカルロ法は乱数や試行を使って確率や近似値を求める手法であり、類似データの群分けとは目的が異なる。"
-    ],
-    "suggestedQuestions": [
-      "クラスタ分析法は何に使いますか？",
-      "指数平滑法との違いは何ですか？",
-      "デルファイ法はどんな場面で使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クラスタ分析法は何に使いますか？",
-        "answer": "似た性質を持つデータをまとめ、群ごとの特徴や傾向を把握したいときに使う。"
-      },
-      {
-        "question": "指数平滑法との違いは何ですか？",
-        "answer": "指数平滑法は時系列予測、クラスタ分析法はデータ分類が主目的である。"
-      },
-      {
-        "question": "デルファイ法はどんな場面で使いますか？",
-        "answer": "将来予測や方針検討で、専門家の意見を段階的に収束させたいときに使う。"
-      }
+      "正しい。クラスタ分析法は、観測データを類似性に基づいてグループ分けし、各群の特徴を把握する手法である。指数平滑法は時系列データから将来を予測し、デルファイ法は専門家の意見を集約し、モンテカルロ法は乱数を使って確率的な結果を推定する。このように、データを類似した群へ分類する目的に合うのはクラスタ分析法である。"
     ],
     "original_question_id": "0e4b223f13877fe7",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_26.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:0e4b223f13877fe7",
+    "reviewQuestionId": "0e4b223f13877fe7",
+    "sourceRecordRef": "question_201002_2.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -697,33 +681,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n2 対の UTP ケーブルで 100m なのは 10BASE-T や 100BASE-TX の説明に近い。",
-      "正しい。\n\n1000BASE-T は 4 対の UTP ケーブルを用い、最大伝送距離は 100m である。",
-      "間違い。\n\nシングルモード光ファイバで数 km 級なのは 1000BASE-LX など光系規格の説明である。",
-      "間違い。\n\nマルチモード光ファイバを使う規格の説明であり、1000BASE-T ではない。"
-    ],
-    "suggestedQuestions": [
-      "1000BASE-Tの媒体は何ですか？",
-      "1000BASE-Tの最大距離は何mですか？",
-      "1000BASE-LXとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "1000BASE-Tの媒体は何ですか？",
-        "answer": "4 対のツイストペアケーブルを用いる。"
-      },
-      {
-        "question": "1000BASE-Tの最大距離は何mですか？",
-        "answer": "最大 100m である。"
-      },
-      {
-        "question": "1000BASE-LXとの違いは何ですか？",
-        "answer": "1000BASE-LX は光ファイバを使うが、1000BASE-T は銅線の UTP ケーブルを使う。"
-      }
+      "正しい。1000BASE-Tは、4対のUTPケーブルを使って最大100mの通信を行う規格である。シングルモード又はマルチモード光ファイバを使う規格とは、使用する伝送媒体が異なる。"
     ],
     "original_question_id": "e1a19600ef0b0509",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:e1a19600ef0b0509",
+    "reviewQuestionId": "e1a19600ef0b0509",
+    "sourceRecordRef": "question_201002_2.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1389,33 +1357,31 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n一つのホスト名に複数の IP アドレスを割り当てることも、複数のホスト名を同一 IP アドレスへ向けることも可能である。",
-      "正しい。\n\nDNS ではラウンドロビンなどのために一つの名前へ複数 IP アドレスを対応付けられ、別名や仮想ホストのために複数名を同一 IP アドレスへ向けることもできる。",
-      "間違い。\n\n一つのホスト名に複数の IP アドレスを持たせる構成も一般的であり、この記述は片側しか認めていない。",
-      "間違い。\n\nDNS の名前とアドレス対応は 1 対 1 に限定されない。"
-    ],
-    "suggestedQuestions": [
-      "DNSで1つの名前に複数IPを割り当てられますか？",
-      "CNAMEとAレコードの関係は何ですか？",
-      "同一IPに複数ホスト名を向ける例は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DNSで1つの名前に複数IPを割り当てられますか？",
-        "answer": "割り当てられる。負荷分散や冗長化のために使われる。"
-      },
-      {
-        "question": "CNAMEとAレコードの関係は何ですか？",
-        "answer": "CNAME は別名を示し、最終的には A/AAAA レコードで IP アドレスへ解決される。"
-      },
-      {
-        "question": "同一IPに複数ホスト名を向ける例は何ですか？",
-        "answer": "1 台の Web サーバで複数サイトを運用する仮想ホスト構成などがある。"
-      }
+      "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応付けることも、複数のホスト名を同一のIPアドレスへ対応付けることもできる。選択肢は複数のホスト名を同一のIPアドレスへ対応付けられないとしているため誤りである。",
+      "正しい。DNSでは、一つのホスト名に複数のIPアドレスを対応付けることも、複数のホスト名を同一のIPアドレスへ対応付けることもできる。そのため、ホスト名とIPアドレスの対応は1対1に限られない。",
+      "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応付けることもできる。選択肢は一つのホスト名に複数のIPアドレスを対応付けられないとしているため誤りである。",
+      "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応付けることも、複数のホスト名を同一のIPアドレスへ対応付けることもできる。選択肢はすべての対応が1対1であるとしているため誤りである。"
     ],
     "original_question_id": "a755c0173dbd0bf7",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:a755c0173dbd0bf7",
+    "reviewQuestionId": "a755c0173dbd0bf7",
+    "sourceRecordRef": "question_201002_2.json#14",
+    "explanationReferences": [
+      {
+        "referenceDate": "1987-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1034.html",
+        "title": "Domain Names - Concepts and Facilities (RFC 1034)"
+      },
+      {
+        "referenceDate": "1987-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1035.html",
+        "title": "Domain Names - Implementation and Specification (RFC 1035)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1548,33 +1514,36 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n小規模ホスト向けの通常のアドレス割当てはクラス C などであり、クラス D ではない。",
-      "間違い。\n\n中規模ホスト向けの通常のアドレス割当てはクラス B であり、クラス D ではない。",
-      "間違い。\n\nプライベートアドレスは各クラスの所定範囲に用意されているもので、クラス D を指すわけではない。",
-      "正しい。\n\nクラス D の IP アドレスはマルチキャスト通信用に予約されている。"
-    ],
-    "suggestedQuestions": [
-      "クラスDアドレスは何に使いますか？",
-      "マルチキャストとは何ですか？",
-      "プライベートアドレスとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クラスDアドレスは何に使いますか？",
-        "answer": "マルチキャストグループを表すアドレスとして使う。"
-      },
-      {
-        "question": "マルチキャストとは何ですか？",
-        "answer": "複数の受信者へ同じデータを効率よく配信する通信方式である。"
-      },
-      {
-        "question": "プライベートアドレスとの違いは何ですか？",
-        "answer": "プライベートアドレスは内部利用の単一/複数ホスト用、クラス D はマルチキャスト用途である。"
-      }
+      "間違い。正しくは、250台程度までのホストアドレスを割り振るのはクラスCのアドレスである。選択肢はクラスDとしているため誤りである。",
+      "間違い。正しくは、65,000台程度のホストアドレスを割り振るのはクラスBのアドレスである。選択肢はクラスDとしているため誤りである。",
+      "間違い。正しくは、プライベートアドレスは私設網で使うために定められた範囲であり、クラスDの用途ではない。選択肢はプライベートアドレスをクラスDとしているため誤りである。",
+      "正しい。クラスDのIPアドレスは、マルチキャスト通信に使用される。"
     ],
     "original_question_id": "014a5072be808f3a",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:014a5072be808f3a",
+    "reviewQuestionId": "014a5072be808f3a",
+    "sourceRecordRef": "question_201002_2.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "1981-09-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc791.html",
+        "title": "RFC 791: Internet Protocol"
+      },
+      {
+        "referenceDate": "1996-02-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1918.html",
+        "title": "RFC 1918: Address Allocation for Private Internets"
+      },
+      {
+        "referenceDate": "1989-08-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1112.html",
+        "title": "RFC 1112: Host Extensions for IP Multicasting"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

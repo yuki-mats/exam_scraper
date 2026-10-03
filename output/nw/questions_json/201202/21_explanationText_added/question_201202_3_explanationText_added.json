@@ -413,32 +413,16 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCSM はこの文脈でプラットフォーム依存部と非依存部を分けてモデル化する代表的技法ではない。",
-      "正しい。\n\nMDA(Model Driven Architecture) は、プラットフォーム非依存モデルとプラットフォーム依存モデルを分けて扱い、モデル変換によって設計や実装へ落とし込む技法である。組込みソフトウェア設計でも有効である。",
-      "間違い。\n\nOMT はオブジェクトモデリング手法の一つだが、この特徴を表す代表的な技法名ではない。",
-      "間違い。\n\nUML はモデリングのための表記法群であり、プラットフォーム依存部と非依存部へ分ける開発アーキテクチャそのものではない。"
-    ],
-    "suggestedQuestions": [
-      "MDAのPIMとPSMは何ですか？",
-      "UMLとの違いは何ですか？",
-      "組込み設計で有効な理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "MDAのPIMとPSMは何ですか？",
-        "answer": "PIM はプラットフォーム非依存モデル、PSM はプラットフォーム依存モデルである。"
-      },
-      {
-        "question": "UMLとの違いは何ですか？",
-        "answer": "UML は図の書き方を定める表記法、MDA はモデルを中心に設計と実装を進める開発アーキテクチャである。"
-      },
-      {
-        "question": "組込み設計で有効な理由は何ですか？",
-        "answer": "ハードウェア依存部と業務ロジックを分離しやすく、移植性や再利用性を高めやすいからである。"
-      }
+      "正しい。答えはMDA（Model Driven Architecture）である。MDAは、プラットフォームに依存しないモデルと、特定のプラットフォームに依存するモデルを分けて作成し、モデル変換によって実装へつなげる技法である。CSMはこの特徴で問われる代表的な技法ではない。OMTはオブジェクト指向の分析・設計手法、UMLはソフトウェアを表現するための標準的なモデリング言語であり、MDAとは役割が異なる。"
     ],
     "original_question_id": "8bc65f2b32935185",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:8bc65f2b32935185",
+    "reviewQuestionId": "8bc65f2b32935185",
+    "sourceRecordRef": "question_201202_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

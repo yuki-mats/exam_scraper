@@ -1,33 +1,17 @@
 [
   {
     "explanationText": [
-      "間違い。\n\nDHCP は IP アドレスを自動配布するための仕組みであり、レイヤー2スイッチや無線 LAN アクセスポイントで接続可否を制御する仕組みではない。",
-      "間違い。\n\nWeb シングルサインオンは複数 Web アプリケーション間で認証結果を共有する技術であり、ポート接続自体を許可する仕組みではない。",
-      "正しい。\n\n認証 VLAN は、認証結果に応じて接続先 VLAN を切り替える仕組みであり、レイヤー2スイッチや無線 LAN アクセスポイントで接続を許可する制御に使われる。",
-      "間違い。\n\nパーソナルファイアウォールは端末自身の通信制御を行うソフトウェアであり、スイッチやアクセスポイント側で接続を許可する仕組みではない。"
-    ],
-    "suggestedQuestions": [
-      "認証VLANは何を切り替えますか？",
-      "IEEE802.1Xとどう関係しますか？",
-      "DHCPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "認証VLANは何を切り替えますか？",
-        "answer": "利用者や端末の認証結果に応じて、所属させる VLAN や許可する通信範囲を切り替える。"
-      },
-      {
-        "question": "IEEE802.1Xとどう関係しますか？",
-        "answer": "IEEE 802.1X で認証した結果を使って認証 VLAN を適用する構成がよく用いられる。"
-      },
-      {
-        "question": "DHCPとの違いは何ですか？",
-        "answer": "DHCP はアドレス配布、認証 VLAN は接続先セグメントや接続許可の制御であり役割が異なる。"
-      }
+      "正しい。認証VLANは、利用者や端末の認証結果に応じて接続先のVLANを決め、認証された端末のネットワーク接続を許可する仕組みである。レイヤー2スイッチや無線LANアクセスポイントで利用される。"
     ],
     "original_question_id": "4042a1692f164a48",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:4042a1692f164a48",
+    "reviewQuestionId": "4042a1692f164a48",
+    "sourceRecordRef": "question_200902_3.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -160,33 +144,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nシンクライアントは端末側での処理を減らすため、主記憶のフラグメンテーションが起こりにくいことが主要な利点ではない。",
-      "正しい。\n\nシンクライアントでは、アプリケーションやデータを主にサーバ側で集中管理するため、端末へデータを残しにくくなり、セキュリティを強化しやすい。",
-      "間違い。\n\n多くの処理結果をサーバとやり取りするため、ネットワーク資源が必ず減るとはいえず、通信費削減を直接の利点とは言いにくい。",
-      "間違い。\n\nデータを集中保管する分、サーバやストレージへの投資が必要になることが多く、サーバ投資削減が主な利点ではない。"
-    ],
-    "suggestedQuestions": [
-      "シンクライアントでセキュリティが高まりやすい理由は何ですか？",
-      "ネットワーク負荷はどう変わりますか？",
-      "VDIとの関係は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "シンクライアントでセキュリティが高まりやすい理由は何ですか？",
-        "answer": "アプリケーションやデータを端末へ置かず、サーバ側で集中管理しやすいためである。"
-      },
-      {
-        "question": "ネットワーク負荷はどう変わりますか？",
-        "answer": "端末処理をサーバへ寄せる分、画面転送や入出力通信が増え、ネットワーク依存度が高まることがある。"
-      },
-      {
-        "question": "VDIとの関係は何ですか？",
-        "answer": "VDI はシンクライアントを実現する代表的方式の一つで、仮想デスクトップをサーバ側で動かす。"
-      }
+      "間違い。シンクライアントは端末側の処理を減らすが、主記憶のフラグメンテーションを防いで応答性を向上させることが主な利点ではない。選択肢は、フラグメンテーションが起こりにくいことによって応答性が向上するとしているため誤りである。",
+      "正しい。シンクライアントでは、アプリケーションやデータをサーバ側で集中管理する。端末にデータを残しにくく、ソフトウェアやデータへのアクセスを一元的に管理できるため、セキュリティを強化しやすい。",
+      "間違い。シンクライアントでは、端末の処理結果や画面表示に必要な情報をサーバと通信するため、ネットワークの利用が減るとは限らない。選択肢は、ネットワーク資源が減って通信費を削減できるとしているため誤りである。",
+      "間違い。シンクライアントは端末側の記憶装置を簡素化できる一方、アプリケーションやデータを集中管理するサーバやストレージが必要になる。選択肢は、データの保管費用が減ってサーバへの投資を削減できるとしているため誤りである。"
     ],
     "original_question_id": "31a14f17f7ed85c5",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:31a14f17f7ed85c5",
+    "reviewQuestionId": "31a14f17f7ed85c5",
+    "sourceRecordRef": "question_200902_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

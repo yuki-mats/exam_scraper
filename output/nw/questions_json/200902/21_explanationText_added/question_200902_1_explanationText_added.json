@@ -979,33 +979,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\ntitle 要素はページごとに内容を区別できる表題にする必要があり、全ページ同一にすると利用者が識別しにくい。",
-      "間違い。\n\n色だけで意味を区別すると、色覚特性やモノクロ環境で判断できなくなるため不適切である。",
-      "正しい。\n\n入力欄の直前に目的と入力方法を明示すると、スクリーンリーダー利用者も含めて入力意図を理解しやすい。",
-      "間違い。\n\nリンクやボタンは誤操作防止のため、十分な大きさと間隔を確保するのが望ましい。"
-    ],
-    "suggestedQuestions": [
-      "Webアクセシビリティで色だけに頼れないのはなぜですか？",
-      "フォームのラベルで重要な点は何ですか？",
-      "タップ対象の間隔はなぜ必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "Webアクセシビリティで色だけに頼れないのはなぜですか？",
-        "answer": "色の区別が難しい利用者や読み上げ利用者には、色だけでは情報が伝わらないからである。"
-      },
-      {
-        "question": "フォームのラベルで重要な点は何ですか？",
-        "answer": "項目の意味と入力形式を明示し、支援技術でも正しく関連付けられるようにすることが重要である。"
-      },
-      {
-        "question": "タップ対象の間隔はなぜ必要ですか？",
-        "answer": "押し間違いを防ぎ、マウスやタッチ操作が苦手な利用者でも操作しやすくするためである。"
-      }
+      "間違い。正しくは、各ページの内容を識別できる固有のtitle要素を付ける。選択肢は全ページに同じ表題を付けるとしているため誤りである。",
+      "間違い。正しくは、色に加えて文字、形、記号などでも操作の意味を判断できるようにする。選択肢は色だけでボタンの意味を判別できるようにするとしているため誤りである。",
+      "正しい。入力欄の目的と入力方法をラベルで明示すると、利用者が入力内容を理解しやすく、支援技術からも情報を取得しやすい。",
+      "間違い。正しくは、リンクやボタンを十分な大きさにし、隣接する操作対象との間隔も確保する。選択肢は隣り合うものとの間隔を狭くするとしているため誤りである。"
     ],
     "original_question_id": "9bc05ba41773a1be",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:9bc05ba41773a1be",
+    "reviewQuestionId": "9bc05ba41773a1be",
+    "sourceRecordRef": "question_200902_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1312,33 +1299,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nデジタル署名は公開鍵で作るのではなく、送信者の秘密鍵で作成する。受信者自身の秘密鍵で検証するわけでもない。",
-      "正しい。\n\n送信者は自分の秘密鍵で署名し、受信者は送信者の公開鍵で検証することで、改ざん検知と送信者確認を行う。",
-      "間違い。\n\n受信者の公開鍵と秘密鍵を使うのは暗号化通信の話であり、送信者の真正性確認にはならない。",
-      "間違い。\n\n受信者の秘密鍵を送信者が使う前提自体が成り立たず、公開鍵暗号の運用として不適切である。"
-    ],
-    "suggestedQuestions": [
-      "デジタル署名で秘密鍵と公開鍵はどう使い分けますか？",
-      "暗号化と署名の違いは何ですか？",
-      "署名で何を確認できますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "デジタル署名で秘密鍵と公開鍵はどう使い分けますか？",
-        "answer": "送信者が秘密鍵で署名を作り、受信者が送信者の公開鍵で検証する。"
-      },
-      {
-        "question": "暗号化と署名の違いは何ですか？",
-        "answer": "暗号化は秘匿性確保、署名は完全性と送信者真正性の確認が主目的である。"
-      },
-      {
-        "question": "署名で何を確認できますか？",
-        "answer": "途中で改ざんされていないことと、その署名が対応する秘密鍵保有者に由来することを確認できる。"
-      }
+      "間違い。正しくは、送信者が自分の秘密鍵で署名し、送信者の公開鍵で検証する。選択肢は送信者の公開鍵で署名し、受信者自身の秘密鍵で検証するとしているため誤りである。",
+      "正しい。送信者の秘密鍵で作成した署名を送信者の公開鍵で検証することで、文書の改ざんと送信者の真正性を確認できる。",
+      "間違い。正しくは、送信者の秘密鍵で署名し、送信者の公開鍵で検証する。選択肢は受信者の鍵を使って署名と検証を行うとしているため、送信者の真正性を確認できない。受信者の公開鍵で暗号化し、受信者の秘密鍵で復号するのは、秘密保持を目的とした暗号化通信である。",
+      "間違い。正しくは、送信者の秘密鍵で署名し、送信者の公開鍵で検証する。選択肢は送信者が受信者の秘密鍵を使って署名するとしているため、送信者だけが保持すべき秘密鍵による署名の仕組みと一致しない。"
     ],
     "original_question_id": "c0d6384c8d5e43b7",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:c0d6384c8d5e43b7",
+    "reviewQuestionId": "c0d6384c8d5e43b7",
+    "sourceRecordRef": "question_200902_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1372,33 +1346,26 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n故障後に所定の状態へ戻し、影響データを回復する能力は『回復性』であり、信頼性の副特性に分類される。",
-      "間違い。\n\n欠陥の診断や修正箇所の特定のしやすさは解析性で、保守性に属する。",
-      "間違い。\n\n他システムと相互作用できる能力は相互運用性で、機能性に属する。",
-      "間違い。\n\n利用者が運用しやすい能力は運用性で、使用性に属する。"
-    ],
-    "suggestedQuestions": [
-      "信頼性の副特性には何がありますか？",
-      "回復性とは何ですか？",
-      "保守性との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "信頼性の副特性には何がありますか？",
-        "answer": "代表的には成熟性、障害許容性、回復性などがある。"
-      },
-      {
-        "question": "回復性とは何ですか？",
-        "answer": "障害発生後に、必要なサービス水準やデータを復旧できる能力である。"
-      },
-      {
-        "question": "保守性との違いは何ですか？",
-        "answer": "保守性は直しやすさ、信頼性は正常動作し続けたり復旧できたりする性質に着目する。"
-      }
+      "正しい。故障後に所定の状態へ戻し、影響を受けたデータを回復する能力は回復性であり、信頼性の副特性に分類される。",
+      "間違い。正しくは、欠陥の診断や故障原因の追及、修正箇所の識別を行う能力は解析性であり、保守性の副特性である。選択肢はこの能力を信頼性の副特性として扱っているため誤りである。",
+      "間違い。正しくは、一つ以上の指定されたシステムと相互作用する能力は相互運用性であり、機能性の副特性である。選択肢はこの能力を信頼性の副特性として扱っているため誤りである。",
+      "間違い。正しくは、利用者がソフトウェアの運用や運用管理を行える能力は運用性であり、使用性の副特性である。選択肢はこの能力を信頼性の副特性として扱っているため誤りである。"
     ],
     "original_question_id": "30267738c3170ba6",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:30267738c3170ba6",
+    "reviewQuestionId": "30267738c3170ba6",
+    "sourceRecordRef": "question_200902_1.json#15",
+    "explanationReferences": [
+      {
+        "referenceDate": "2013-02-01",
+        "sourceUrl": "https://www.ipa.go.jp/archive/files/000026864.pdf",
+        "title": "カーナビゲーションシステムにおける利用品質（安全性）に対する監査内容の提案とコスト算出 実施報告書"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1885,33 +1852,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n問題管理はインシデントの根本原因を突き止めるが、RFC の提出先はインシデント管理ではない。",
-      "間違い。\n\n可用性管理はサービス設計上の可用性確保を扱うプロセスであり、RFC の正式な処理先ではない。",
-      "間違い。\n\n構成管理は構成品目情報を管理するが、変更要求そのものを承認・実施調整するプロセスではない。",
-      "正しい。\n\n問題管理で恒久対策が必要と判断したら、RFC を変更管理へ出し、変更の評価・承認・実施を進める。"
-    ],
-    "suggestedQuestions": [
-      "RFCとは何ですか？",
-      "問題管理と変更管理の役割分担は何ですか？",
-      "構成管理は何を管理しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RFCとは何ですか？",
-        "answer": "Request for Change の略で、システムやサービスへの変更を正式に要求する文書である。"
-      },
-      {
-        "question": "問題管理と変更管理の役割分担は何ですか？",
-        "answer": "問題管理は根本原因分析、変更管理は変更要求の審査・承認・実施統制を担う。"
-      },
-      {
-        "question": "構成管理は何を管理しますか？",
-        "answer": "構成品目の識別情報や版、関係性などを正確に保つ。"
-      }
+      "正しい。問題管理でエラーの根本原因を特定した後、恒久的な対策を実施するためのRFC（変更要求）は変更管理へ提出する。変更管理は、変更の影響やリスクを評価し、承認と実施を調整するプロセスである。"
     ],
     "original_question_id": "4169001fae5f13b1",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:4169001fae5f13b1",
+    "reviewQuestionId": "4169001fae5f13b1",
+    "sourceRecordRef": "question_200902_1.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1945,33 +1896,20 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n業務流れ図は、業務内容や実施順序を表す成果物であり、ビジネスアーキテクチャで用いられる。",
-      "間違い。\n\n実体関連ダイアグラムはデータ構造を示すもので、データアーキテクチャの成果物である。",
-      "間違い。\n\n情報システム関連図は処理体系やシステム構成に近く、アプリケーションアーキテクチャ側の成果物である。",
-      "間違い。\n\nソフトウェア構成図はテクノロジアーキテクチャの成果物である。"
-    ],
-    "suggestedQuestions": [
-      "ビジネスアーキテクチャでは何を表しますか？",
-      "データアーキテクチャとの違いは何ですか？",
-      "EAの四つの体系は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ビジネスアーキテクチャでは何を表しますか？",
-        "answer": "業務内容、実施主体、業務フロー、機能構成など、業務のあるべき姿を表す。"
-      },
-      {
-        "question": "データアーキテクチャとの違いは何ですか？",
-        "answer": "ビジネスは業務、データは情報構造やデータ間関係に主眼を置く。"
-      },
-      {
-        "question": "EAの四つの体系は何ですか？",
-        "answer": "ビジネス、データ、アプリケーション、テクノロジの各アーキテクチャである。"
-      }
+      "正しい。業務流れ図は、業務の流れや業務プロセスを表すため、ビジネスアーキテクチャの成果物である。",
+      "間違い。実体関連ダイアグラムは、データの実体とその関連を表すため、データアーキテクチャの成果物である。選択肢はこれをビジネスアーキテクチャの成果物としているため誤りである。",
+      "間違い。情報システム関連図は、情報システム間の関係を表すため、アプリケーションアーキテクチャの成果物である。選択肢はこれをビジネスアーキテクチャの成果物としているため誤りである。",
+      "間違い。ソフトウェア構成図は、ソフトウェアや技術基盤の構成を表すため、テクノロジーアーキテクチャの成果物である。選択肢はこれをビジネスアーキテクチャの成果物としているため誤りである。"
     ],
     "original_question_id": "c6ae2cf3c917cbaa",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:c6ae2cf3c917cbaa",
+    "reviewQuestionId": "c6ae2cf3c917cbaa",
+    "sourceRecordRef": "question_200902_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -2005,32 +1943,19 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nサービス内容や品質保証範囲、ペナルティを顧客と取り決める文書は SLA の説明である。",
-      "間違い。\n\n技術要件やサービス要件を示して具体提案を依頼する文書は RFP であり、RFI ではない。",
-      "正しい。\n\nRFI は Request for Information の略で、調達前に利用可能な技術、製品、導入実績などの情報提供をベンダへ求める文書である。",
-      "間違い。\n\n業務処理概要や入出力、データフローをまとめるのは要求定義書やシステム仕様書の説明に近い。"
-    ],
-    "suggestedQuestions": [
-      "RFIとRFPの違いは何ですか？",
-      "RFIでは何を集めますか？",
-      "調達のどの段階でRFIを使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RFIとRFPの違いは何ですか？",
-        "answer": "RFI は情報収集、RFP は具体提案依頼である。通常は RFI の後に RFP を出す。"
-      },
-      {
-        "question": "RFIでは何を集めますか？",
-        "answer": "実現可能な技術、製品、導入実績、概算情報、ベンダの対応可能性などを集める。"
-      },
-      {
-        "question": "調達のどの段階でRFIを使いますか？",
-        "answer": "要件を絞り込む前の初期調査段階で、市場や候補手段を把握したいときに使う。"
-      }
+      "間違い。正しくは、サービス内容や品質保証の範囲、違反時のペナルティを顧客とサービス提供者の間で定める文書はSLAである。選択肢はSLAの説明をRFIとしているため誤りである。",
+      "間違い。正しくは、技術的要件やサービスレベル要件を示し、具体的な実現方法の提案を依頼する文書はRFPである。選択肢はRFPの説明をRFIとしているため誤りである。",
+      "正しい。RFIはRequest for Informationの略で、調達前に利用可能な技術・製品やベンダーの導入実績など、実現手段に関する情報を集めるための文書である。",
+      "間違い。正しくは、業務処理の概要、入出力情報、データフローなどをまとめて関係者で共有する文書は、要求定義書やシステム仕様書などの説明である。選択肢は要求定義・システム仕様に関する文書をRFIとしているため誤りである。"
     ],
     "original_question_id": "5dfc780b8f49f766",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:5dfc780b8f49f766",
+    "reviewQuestionId": "5dfc780b8f49f766",
+    "sourceRecordRef": "question_200902_1.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

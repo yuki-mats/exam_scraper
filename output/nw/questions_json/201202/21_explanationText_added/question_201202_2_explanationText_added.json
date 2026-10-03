@@ -860,33 +860,20 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nCSMAはCarrier Sense Multiple Accessの略で、搬送波の有無を検知して送信タイミングを制御する。",
-      "間違い。\n\nトークンを受け取った端末だけが送信する方式はトークンパッシング方式である。",
-      "間違い。\n\n衝突後は待ち時間を置いて再送するのが一般的で、直ちに再送すると再衝突しやすい。",
-      "間違い。\n\nCSMAでは基本的に伝送路が使用中なら送信を控える。使用中でも送信できるという説明は不適切である。"
-    ],
-    "suggestedQuestions": [
-      "CSMA/CDのCDは何ですか？",
-      "トークン方式との違いは何ですか？",
-      "なぜ再送前に待ち時間が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CSMA/CDのCDは何ですか？",
-        "answer": "Collision Detectionで、送信中の衝突を検出する仕組みを指す。"
-      },
-      {
-        "question": "トークン方式との違いは何ですか？",
-        "answer": "CSMAは回線監視で送信判断し、トークン方式は送信権トークンを持つ端末だけが送信する。"
-      },
-      {
-        "question": "なぜ再送前に待ち時間が必要ですか？",
-        "answer": "複数端末が同時再送すると再衝突するため、ランダムなバックオフで時刻をずらす。"
-      }
+      "正しい。CSMAは、伝送路上の信号を検知して使用状況を確認し、空いているときに送信する方式である。",
+      "間違い。送信権をもつトークンを受け取った端末だけが送信する方式は、トークンパッシング方式である。選択肢はCSMAではなく、トークンパッシング方式の動作を示しているため誤りである。",
+      "間違い。衝突が起きた場合は、通常、一定の待ち時間（バックオフ）を置いてから再送する。選択肢は衝突後に直ちに再送するとしているため誤りである。",
+      "間違い。CSMAでは、伝送路が使用中かどうかを検知し、使用中なら送信を控える。選択肢は伝送路が使用中でも送信できるとしているため誤りである。"
     ],
     "original_question_id": "fc9c6f36106c46e1",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:fc9c6f36106c46e1",
+    "reviewQuestionId": "fc9c6f36106c46e1",
+    "sourceRecordRef": "question_201202_2.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1109,63 +1096,37 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nARPはIPv4でIPアドレスからMACアドレスを求めるプロトコルであり、マルチキャスト参加管理には使わない。",
-      "正しい。\n\nIGMPはホストがマルチキャストグループへの参加・離脱をルータへ通知し、ルータが参加有無を確認するために使う。",
-      "間違い。\n\nLDAPはディレクトリサービス問い合わせ用プロトコルであり、マルチキャストグループ管理ではない。",
-      "間違い。\n\nRIPはルーティング情報交換プロトコルであり、ホストのマルチキャスト参加通知には用いない。"
-    ],
-    "suggestedQuestions": [
-      "IGMPは誰と誰の間で使いますか？",
-      "IGMPとマルチキャスト転送はどう関係しますか？",
-      "ARPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IGMPは誰と誰の間で使いますか？",
-        "answer": "主に同一ローカルセグメント内のホストとルータの間で使う。"
-      },
-      {
-        "question": "IGMPとマルチキャスト転送はどう関係しますか？",
-        "answer": "ルータはIGMPで受信希望ホストの有無を把握し、必要なセグメントへだけマルチキャストを流す。"
-      },
-      {
-        "question": "ARPとの違いは何ですか？",
-        "answer": "ARPはアドレス解決、IGMPはマルチキャストグループ参加管理であり用途が全く異なる。"
-      }
+      "正しい。IGMPは、ホストがマルチキャストグループへの参加や離脱をルータへ通知し、ルータがそのグループを受信するホストの有無を確認するためのプロトコルである。ARPはIPアドレスからMACアドレスを求め、LDAPはディレクトリサービスを検索し、RIPはルーティング情報を交換するため、それぞれマルチキャストグループの参加管理には使わない。"
     ],
     "original_question_id": "f16277b06c6388e3",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:f16277b06c6388e3",
+    "reviewQuestionId": "f16277b06c6388e3",
+    "sourceRecordRef": "question_201202_2.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nESPヘッダー自体は暗号化対象の外側にあり、受信側がどこから保護データか識別するため平文で扱われる。",
-      "間違い。\n\nESP認証データは完全性確認用であり、TCPヘッダーからそこまで全部を暗号化しているわけではない。",
-      "正しい。\n\nESPトンネルモードでは、新IPヘッダーの内側にあるオリジナルIPヘッダーからESPトレーラまでが暗号化対象になる。",
-      "間違い。\n\n新IPヘッダーはルーティングに必要なので暗号化されず、ESP認証データも暗号化対象外である。"
-    ],
-    "suggestedQuestions": [
-      "ESPトンネルモードとトランスポートモードの違いは何ですか？",
-      "なぜ新IPヘッダーは暗号化しませんか？",
-      "ESP認証データの役割は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ESPトンネルモードとトランスポートモードの違いは何ですか？",
-        "answer": "トンネルモードは元のIPパケット全体を包み、新しい外側IPヘッダーを付ける。トランスポートモードは元のIPヘッダーを残す。"
-      },
-      {
-        "question": "なぜ新IPヘッダーは暗号化しませんか？",
-        "answer": "途中ルータが宛先を見て転送できるよう、外側ヘッダーは平文で残す必要がある。"
-      },
-      {
-        "question": "ESP認証データの役割は何ですか？",
-        "answer": "主に改ざん検知など完全性確認に使われる。"
-      }
+      "正しい。正答は「オリジナルIPヘッダーからESPトレーラまで」である。ESPトンネルモードでは、元のIPパケット全体をESPのペイロードとして保護するため、オリジナルIPヘッダーからTCPヘッダー、データ、ESPトレーラまでが暗号化される。一方、新IPヘッダーはIPsec装置間の経路制御に使う外側のヘッダーなので暗号化されず、ESPヘッダーも暗号化対象外である。ESP認証データは暗号化ではなく、通信内容の完全性を確認するための領域である。"
     ],
     "original_question_id": "5c6fe5b77c00cd17",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:5c6fe5b77c00cd17",
+    "reviewQuestionId": "5c6fe5b77c00cd17",
+    "sourceRecordRef": "question_201202_2.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2005-12-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4303.html",
+        "title": "RFC 4303 IP Encapsulating Security Payload (ESP)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

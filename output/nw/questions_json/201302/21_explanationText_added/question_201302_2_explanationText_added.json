@@ -2070,32 +2070,19 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nVLAN を分けても ICMP を一律遮断するわけではなく、同一 VLAN 内外の通信制御は別設定次第である。",
-      "正しい。\n\nVLAN によりブロードキャストドメインを分割できるため、ARP などのブロードキャストが届く範囲を限定し、不要なアドレス情報露出を抑えられる。",
-      "間違い。\n\nMAC アドレスによる接続可否判定はポートセキュリティ等の別機能であり、VLAN 分割そのものの効果ではない。",
-      "間違い。\n\n物理ポートごとの固定 IP 許可は VLAN 標準機能の説明ではなく、別の認証・制御機能が必要である。"
-    ],
-    "suggestedQuestions": [
-      "VLAN でブロードキャストドメインを分けるとは何ですか？",
-      "ARP はなぜ漏えい対象になりますか？",
-      "VLAN だけで不正接続は防げますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "VLAN でブロードキャストドメインを分けるとは何ですか？",
-        "answer": "同じスイッチ上でも VLAN ごとに別セグメントとして扱い、ブロードキャストが他 VLAN へ広がらないようにすることである。"
-      },
-      {
-        "question": "ARP はなぜ漏えい対象になりますか？",
-        "answer": "IP と MAC の対応情報を含むため、届く範囲が広いと端末構成情報を不要に知られる可能性がある。"
-      },
-      {
-        "question": "VLAN だけで不正接続は防げますか？",
-        "answer": "防げない。接続制御には 802.1X やポートセキュリティなど別機能の併用が必要である。"
-      }
+      "間違い。VLANはICMPパケットを一律に遮断する機能ではなく、通信の許可・遮断はアクセス制御などの別設定で決まる。選択肢は、VLANだけで全てのICMPを遮断するとしているため誤りである。",
+      "正しい。VLANでブロードキャストドメインを分割すると、ARPなどのブロードキャストが届く範囲を限定できる。その結果、同じネットワーク内に不要なアドレス情報が広がるリスクを抑えられる。",
+      "間違い。MACアドレスによる接続可否の判定は、ポートセキュリティなどの機能で行う。選択肢は、VLANがMACアドレスを判別して不正接続を防ぐとしているため誤りである。",
+      "間違い。物理ポートごとに特定のIPアドレスの端末だけを許可する制御は、VLAN分割そのものの機能ではない。選択肢は、VLANが固定IPの端末接続だけを許可するとしているため誤りである。"
     ],
     "original_question_id": "03d3f4dea1fc72cd",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:03d3f4dea1fc72cd",
+    "reviewQuestionId": "03d3f4dea1fc72cd",
+    "sourceRecordRef": "question_201302_2.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

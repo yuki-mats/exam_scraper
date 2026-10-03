@@ -124,33 +124,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n革新的な新製品そのものへの技術革新は、通常はプロダクトイノベーションの説明として捉える。",
-      "間違い。\n\n既存製品の細かな改良を積み重ねるのはインクリメンタルイノベーションである。",
-      "正しい。\n\nラディカルイノベーションは、既存の枠組みを大きく変えるような非連続的革新で、経営や事業構造の大幅な変化を伴いやすい。",
-      "間違い。\n\n研究開発や製造、物流工程の改善はプロセスイノベーションの説明である。"
-    ],
-    "suggestedQuestions": [
-      "ラディカルイノベーションとは何ですか？",
-      "インクリメンタルイノベーションとの違いは何ですか？",
-      "プロセスイノベーションとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ラディカルイノベーションとは何ですか？",
-        "answer": "既存の市場や業務の前提を大きく変える、飛躍的で非連続な技術革新や事業革新である。"
-      },
-      {
-        "question": "インクリメンタルイノベーションとの違いは何ですか？",
-        "answer": "インクリメンタルは連続的改善、ラディカルは不連続で大幅な変化を伴う点が違う。"
-      },
-      {
-        "question": "プロセスイノベーションとは何ですか？",
-        "answer": "製造方法や業務工程、物流などのやり方を改善する革新である。"
-      }
+      "間違い。ラディカルイノベーションは、技術や事業の前提を大きく変える非連続的な革新である。選択肢は新製品そのものの技術革新としているため、製品に関するプロダクトイノベーションの説明であり、ラディカルイノベーションの説明としては誤りである。",
+      "間違い。既存製品の細かな改良を積み重ねる技術革新は、インクリメンタルイノベーションである。選択肢は段階的な改良としているため、既存の枠組みを大きく変えるラディカルイノベーションの説明としては誤りである。",
+      "正しい。ラディカルイノベーションは、既存の技術や事業の枠組みを大きく変える非連続的な革新であり、経営構造の全面的な変革を必要とすることがある。",
+      "間違い。研究開発、製造、物流などの工程に関する技術革新は、プロセスイノベーションである。選択肢は業務や生産の過程の革新としているため、ラディカルイノベーションの説明としては誤りである。"
     ],
     "original_question_id": "4b373063e8af8ec3",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_27.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:4b373063e8af8ec3",
+    "reviewQuestionId": "4b373063e8af8ec3",
+    "sourceRecordRef": "question_200902_2.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1451,33 +1438,33 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCSS は Web ページの見た目やレイアウトを定義する仕様であり、コンテンツ更新プロトコルではない。",
-      "間違い。\n\nMIME はメールや HTTP でデータ型を扱うための拡張仕様であり、アップロード更新機能そのものではない。",
-      "間違い。\n\nSSL は通信路を暗号化する仕組みであって、Web コンテンツの編集更新機能ではない。",
-      "正しい。\n\nWebDAV は HTTP を拡張し、ファイルの作成、更新、削除、共同編集を可能にするプロトコルである。"
-    ],
-    "suggestedQuestions": [
-      "WebDAVで何ができますか？",
-      "HTTPのどこを拡張していますか？",
-      "FTPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "WebDAVで何ができますか？",
-        "answer": "Web サーバ上のファイルをアップロード、更新、削除したり、属性管理したりできる。"
-      },
-      {
-        "question": "HTTPのどこを拡張していますか？",
-        "answer": "PUT や PROPFIND などを用い、ファイル操作やメタデータ操作を行えるようにしている。"
-      },
-      {
-        "question": "FTPとの違いは何ですか？",
-        "answer": "WebDAV は HTTP ベースで Web と統合しやすく、プロキシや認証基盤を共通化しやすい。"
-      }
+      "正しい。WebDAV（Web Distributed Authoring and Versioning）はHTTPを拡張し、Web上のリソースの作成・更新・削除やプロパティ管理、ロックなどを行うプロトコルである。CSSは表示方法、MIMEはデータ形式の識別、SSLは通信の暗号化を担うため、Webコンテンツのアップロードや更新を行う答えにはならない。"
     ],
     "original_question_id": "239405abd7bfda68",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:239405abd7bfda68",
+    "reviewQuestionId": "239405abd7bfda68",
+    "sourceRecordRef": "question_200902_2.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4918",
+        "title": "RFC 4918: HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.w3.org/Style/CSS/",
+        "title": "Cascading Style Sheets"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2045",
+        "title": "RFC 2045: Multipurpose Internet Mail Extensions (MIME) Part One"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1721,63 +1708,34 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nTCP ではウィンドウサイズは固定ではなく、輻輳制御に応じて変動する。",
-      "間違い。\n\nフォワード誤り訂正方式は再送要求せず、受信側で誤り訂正符号を使って回復する方式である。",
-      "正しい。\n\nウィンドウ制御では、確認応答を受けた分だけ送信窓を前へずらし、複数データを連続送信できる。これがスライディングウィンドウ方式である。",
-      "間違い。\n\n仮想通信路を確立して同じ経路を通すのはバーチャルサーキット方式であり、データグラム方式ではない。"
-    ],
-    "suggestedQuestions": [
-      "スライディングウィンドウ方式とは何ですか？",
-      "フォワード誤り訂正方式とは何ですか？",
-      "データグラム方式との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "スライディングウィンドウ方式とは何ですか？",
-        "answer": "確認応答前でも一定数のデータを先行送信し、ACK に応じて送信可能範囲を前進させる方式である。"
-      },
-      {
-        "question": "フォワード誤り訂正方式とは何ですか？",
-        "answer": "送信側が誤り訂正用の冗長情報を付加し、受信側で再送なしに誤りを訂正する方式である。"
-      },
-      {
-        "question": "データグラム方式との違いは何ですか？",
-        "answer": "データグラム方式はコネクションレスで各パケットが個別に経路選択される。"
-      }
+      "間違い。TCPでは、輻輳制御に応じてウィンドウサイズを変動させ、送信量を調整する。選択肢はウィンドウサイズが固定で輻輳回避ができないとしているため誤りである。輻輳による遅延で再送が必要になる場合はあるが、それは固定ウィンドウが理由ではない。",
+      "間違い。フォワード誤り訂正方式は、受信側が付加された誤り訂正符号を使って誤りを検出・訂正し、再送を要求せずにデータを復元する。選択肢は受信側から送信側へ再送を要求するとしているため誤りであり、その方式は再送を利用する後方向誤り訂正方式である。",
+      "正しい。ウィンドウ制御では、確認応答を受けた分だけ送信可能な範囲を前へ移動させるため、確認応答を待たずに複数のデータを連続して送信できる。この仕組みをスライディングウィンドウ方式という。",
+      "間違い。データグラム方式では、通信開始時に仮想の通信路を確立せず、各データを独立したパケットとして扱う。選択肢が述べているように仮想通信路を確立して同じ経路を使うのはバーチャルサーキット方式であり、データグラム方式ではない。"
     ],
     "original_question_id": "e99decb0ab5cde9f",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:e99decb0ab5cde9f",
+    "reviewQuestionId": "e99decb0ab5cde9f",
+    "sourceRecordRef": "question_200902_2.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nARP はアドレス解決用プロトコルであり、複数ルータを仮想 1 台として見せる冗長化には使わない。",
-      "間違い。\n\nOSPF は経路制御プロトコルで、デフォルトゲートウェイ冗長化の仮想ルータ機能そのものではない。",
-      "間違い。\n\nRSTP はスイッチループ防止のためのスパニングツリー高速化プロトコルである。",
-      "正しい。\n\nVRRP は複数ルータで仮想 IP アドレスを共有し、利用者からは 1 台の仮想ルータのように見せて冗長化を実現する。"
-    ],
-    "suggestedQuestions": [
-      "VRRPは何を冗長化しますか？",
-      "仮想IPアドレスは何に使いますか？",
-      "OSPFとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "VRRPは何を冗長化しますか？",
-        "answer": "主に LAN 側から見たデフォルトゲートウェイ機能を冗長化する。"
-      },
-      {
-        "question": "仮想IPアドレスは何に使いますか？",
-        "answer": "端末が常に同じゲートウェイ宛に送信できるようにし、裏でどの実ルータが担当するかを切り替えるために使う。"
-      },
-      {
-        "question": "OSPFとの違いは何ですか？",
-        "answer": "OSPF は経路制御、VRRP はゲートウェイ冗長化という役割の違いがある。"
-      }
+      "正しい。VRRP（Virtual Router Redundancy Protocol）は、複数のルータで仮想IPアドレスを共有し、利用者からは1台の仮想ルータとして見えるようにして、デフォルトゲートウェイの冗長化を実現する。ARPはIPアドレスとMACアドレスの対応を調べるプロトコル、OSPFは経路制御プロトコル、RSTPはスイッチのループを防ぐプロトコルであり、ルータの冗長化を目的とするVRRPとは役割が異なる。"
     ],
     "original_question_id": "6bfe2b4989a11d00",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:6bfe2b4989a11d00",
+    "reviewQuestionId": "6bfe2b4989a11d00",
+    "sourceRecordRef": "question_200902_2.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -1901,92 +1859,53 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n固定パスワードを SSL で暗号化して送るだけでは、チャレンジレスポンス方式そのものの説明にならない。",
-      "間違い。\n\n毎回変わる表示値を使うのはワンタイムパスワード装置の説明である。",
-      "間違い。\n\n任意長データから固定長ハッシュ値を出すのはハッシュ関数の説明であり、認証手順そのものではない。",
-      "正しい。\n\nチャレンジレスポンス方式では、サーバが送る乱数と利用者の秘密情報をクライアント側で演算し、その結果だけを返して認証する。"
-    ],
-    "suggestedQuestions": [
-      "チャレンジレスポンス方式の利点は何ですか？",
-      "ワンタイムパスワードとの違いは何ですか？",
-      "なぜ乱数を使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "チャレンジレスポンス方式の利点は何ですか？",
-        "answer": "固定パスワードそのものをネットワークへ流さず、盗聴やリプレイへの耐性を高めやすい。"
-      },
-      {
-        "question": "ワンタイムパスワードとの違いは何ですか？",
-        "answer": "ワンタイムパスワードは毎回使い捨て値を入力する方式、チャレンジレスポンスはサーバの乱数に応じて応答値を計算する方式である。"
-      },
-      {
-        "question": "なぜ乱数を使いますか？",
-        "answer": "毎回異なる入力を使い、過去の応答値の再利用を防ぐためである。"
-      }
+      "間違い。正しくは、チャレンジレスポンス方式では、サーバが毎回異なるチャレンジを送り、秘密情報と組み合わせて演算した結果で認証する。選択肢は固定パスワードをSSLで暗号化して送信するとしているため、チャレンジを用いる認証方式の説明になっていない。",
+      "間違い。正しくは、毎回異なるデータを使って認証する方式でも、トークンが表示する値をそのままパスワードとして送信するものはワンタイムパスワード方式である。選択肢はトークンの表示値をパスワードとして送信するとしているため、秘密情報とチャレンジを演算するチャレンジレスポンス方式とは異なる。",
+      "間違い。正しくは、任意長のデータから固定長のハッシュ値を出力するのはハッシュ関数である。選択肢はデータからハッシュ値を求める処理を説明しているため、チャレンジと秘密情報の演算結果で認証する方式の説明になっていない。",
+      "正しい。チャレンジレスポンス方式では、サーバが送るランダムなデータをチャレンジとして、利用者の秘密情報と演算し、その結果をレスポンスとして返して認証する。秘密情報そのものを送信しないため、送信内容から秘密情報を直接知られにくい。"
     ],
     "original_question_id": "f0769c7cd19b44d5",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:f0769c7cd19b44d5",
+    "reviewQuestionId": "f0769c7cd19b44d5",
+    "sourceRecordRef": "question_200902_2.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nDNS キャッシュポイズニングはキャッシュへ偽情報を混入させる攻撃であり、権威 DNS の自社ゾーン情報を書き換える攻撃ではない。",
-      "間違い。\n\nワーム常駐や不正プログラム配布はこの攻撃の本質ではなく、DNS の名前解決結果を偽る攻撃である。",
-      "正しい。\n\n社内利用者が参照する DNS キャッシュへ偽の対応情報が入ると、インターネット上の特定サイトを見ようとした利用者が別の Web サーバへ誘導され得る。",
-      "間違い。\n\nメールサーバの不正中継設定を変える攻撃ではないため、踏み台化を直接説明するものではない。"
-    ],
-    "suggestedQuestions": [
-      "DNSキャッシュポイズニングとは何ですか？",
-      "なぜ社内利用者が誘導されますか？",
-      "権威DNS改ざんとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DNSキャッシュポイズニングとは何ですか？",
-        "answer": "キャッシュ DNS に偽の名前解決情報を登録させ、利用者を誤った宛先へ誘導する攻撃である。"
-      },
-      {
-        "question": "なぜ社内利用者が誘導されますか？",
-        "answer": "社内利用者が参照する DNS サーバのキャッシュ内容を信じて接続するためである。"
-      },
-      {
-        "question": "権威DNS改ざんとの違いは何ですか？",
-        "answer": "権威 DNS 改ざんは正本情報を書き換えるが、キャッシュポイズニングは問い合わせ結果の一時保存領域へ偽情報を混ぜる。"
-      }
+      "間違い。正しくは、DNSキャッシュポイズニングはDNSキャッシュに偽の対応情報を混入させ、名前解決の結果を本来と異なるものにする攻撃である。選択肢は自社の公開Webサーバに関する設定情報そのものが書き換えられるとしているため、キャッシュ情報の改ざんとは異なる。",
+      "間違い。正しくは、DNSキャッシュポイズニングでは、DNSサーバのキャッシュに偽の名前解決情報が登録される。選択肢はDNSサーバのメモリ上にワームが常駐し、不正プログラムを送り込むとしているため、攻撃の仕組みが異なる。",
+      "正しい。DNSキャッシュに偽の対応情報が入ると、社内利用者が特定のWebサーバへ接続しようとした際に、名前解決の結果として本来とは異なるWebサーバへ誘導され得る。",
+      "間違い。正しくは、DNSキャッシュポイズニングは名前解決の結果を改ざんする攻撃であり、メールサーバの不正中継設定を変更するものではない。選択肢はメールサーバを不正中継の踏み台にするとしているため、攻撃の対象と仕組みが異なる。"
     ],
     "original_question_id": "20dbe1bef217d62d",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:20dbe1bef217d62d",
+    "reviewQuestionId": "20dbe1bef217d62d",
+    "sourceRecordRef": "question_200902_2.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。\n\n外部公開していないサービスのポートへの通信を遮断すれば、必要な公開サービスへ影響を与えずに不要アクセスを防げる。",
-      "間違い。\n\nアプリケーション脆弱性を突く攻撃は、必要なサービスの通信自体を止めない限りパケットフィルタだけでは防ぎ切れない。",
-      "間違い。\n\nマクロウイルスはメール本文や添付内容の検査が必要で、単純なポート番号ベースのフィルタリングだけでは防げない。",
-      "間違い。\n\n電子メール爆弾のような DoS は必要なメール通信まで止めずに完全防止するのが難しく、単純フィルタだけで十分ではない。"
-    ],
-    "suggestedQuestions": [
-      "パケットフィルタリングで防げるものは何ですか？",
-      "アプリケーション脆弱性攻撃を防ぐには何が必要ですか？",
-      "コンテンツ検査との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "パケットフィルタリングで防げるものは何ですか？",
-        "answer": "IP アドレス、ポート番号、プロトコル種別などで明確に不要と分かる通信の遮断に向く。"
-      },
-      {
-        "question": "アプリケーション脆弱性攻撃を防ぐには何が必要ですか？",
-        "answer": "パッチ適用、WAF、プロキシ、アプリケーション検査など、内容を理解した対策が必要になる。"
-      },
-      {
-        "question": "コンテンツ検査との違いは何ですか？",
-        "answer": "パケットフィルタは主にヘッダ条件を見るが、コンテンツ検査は本文や振る舞いまで確認する。"
-      }
+      "正しい。外部公開していないサービス宛ての通信をポート番号や宛先アドレスで遮断すれば、必要な公開サービスへの通信を許可したままアクセスを防げる。",
+      "間違い。アプリケーションの脆弱性を突く攻撃は、必要なサービスへの正規の通信に含まれることがある。パケットフィルタは主に通信のアドレスやポートなどを判定するため、必要なサービスを許可したまま攻撃内容だけを識別して防ぐことはできない。",
+      "間違い。マクロウイルスの侵入を防ぐには、メールの添付ファイルやその内容を検査する必要がある。パケットフィルタは通信の内容を解析してマクロを判定する機能を持たないため、ポート単位の制御だけでは防げない。",
+      "間違い。電子メール爆弾のようなDoS攻撃は、メールサービスへの大量の通信によって発生する。必要なメール通信と攻撃通信をポート番号だけで区別できないため、必要なサービスへの影響を避けながらパケットフィルタだけで防ぐことはできない。"
     ],
     "original_question_id": "93521734e217e1f2",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:93521734e217e1f2",
+    "reviewQuestionId": "93521734e217e1f2",
+    "sourceRecordRef": "question_200902_2.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

@@ -121,33 +121,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nこの符号体系では同じビット列を複数の文字列に分解でき、一意復号できない。",
-      "間違い。\n\n文字列の切り方が複数通りに解釈できるため、一意復号可能条件を満たさない。",
-      "正しい。\n\nウは一意復号可能で、平均ビット長も (1×0.5)+(2×0.3)+(3×0.1)+(3×0.1)=1.7 ビットとなり最も短い。",
-      "間違い。\n\nエも一意復号は可能だが各文字 2 ビット固定なので、平均長は 2 ビットとなりウより長い。"
-    ],
-    "suggestedQuestions": [
-      "一意復号可能とは何ですか？",
-      "平均ビット長はどう求めますか？",
-      "なぜ高頻度文字ほど短くすると有利ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "一意復号可能とは何ですか？",
-        "answer": "符号化されたビット列から、元の文字列がただ一つに決まる性質である。"
-      },
-      {
-        "question": "平均ビット長はどう求めますか？",
-        "answer": "各文字の符号長に出現頻度を掛けて合計する。"
-      },
-      {
-        "question": "なぜ高頻度文字ほど短くすると有利ですか？",
-        "answer": "多く現れる文字の符号を短くすると、全体の平均長を大きく下げられるからである。"
-      }
+      "間違い。ビット列00を、文字c（00）とも文字aa（0・0）とも復号できるため、一意に復号できない。",
+      "間違い。ビット列010を、文字ac（0・10）とも文字ba（01・0）とも分解できるため、一意に復号できない。",
+      "正しい。各符号語の先頭が別の符号語になっていないため、一意に復号できる。平均符号長は、符号語の長さに出現頻度を掛けて、\\(1\\times0.5+2\\times0.3+3\\times0.1+3\\times0.1=1.7\\)ビットとなる。",
+      "間違い。エは各文字を2ビットで表すため一意に復号できるが、平均符号長は2ビットである。ウの1.7ビットより長いため、最も短い方式ではない。"
     ],
     "original_question_id": "73f7b074c2cd36b2",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:73f7b074c2cd36b2",
+    "reviewQuestionId": "73f7b074c2cd36b2",
+    "sourceRecordRef": "question_201002_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -520,33 +507,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nページサイズを小さくするとページ数が増えるため、ページ表管理などのオーバーヘッドはむしろ増えやすい。",
-      "間違い。\n\n設問条件では多くのプログラムがより小さなページ 1 枚に収まりやすく、直ちに性能低下とは言えない。",
-      "正しい。\n\nページ内の内部断片化が減るため、主記憶の無駄が減って主記憶不足が緩和されると期待できる。",
-      "間違い。\n\n主記憶に載せられる有効データ量が増える方向なので、ページフォールトが必ず増えるとはいえない。"
-    ],
-    "suggestedQuestions": [
-      "ページサイズを小さくすると何が減りますか？",
-      "内部断片化とは何ですか？",
-      "ページ表のオーバーヘッドはどう変わりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ページサイズを小さくすると何が減りますか？",
-        "answer": "ページ 1 枚の中で未使用のまま残る空き領域、つまり内部断片化が減りやすい。"
-      },
-      {
-        "question": "内部断片化とは何ですか？",
-        "answer": "固定サイズ領域を割り当てた結果、その中に使われないまま余る領域のことである。"
-      },
-      {
-        "question": "ページ表のオーバーヘッドはどう変わりますか？",
-        "answer": "同じ容量を表すのに必要なページ数が増えるので、管理情報は増えやすい。"
-      }
+      "間違い。ページサイズを小さくすると、同じ主記憶容量でも管理するページ数が増えるため、ページ表の管理などのオーバーヘッドは増えやすい。選択肢はオーバーヘッドが減少するとしているため誤りである。",
+      "間違い。ページサイズを半分にするとページ内の無駄な空き領域は減るため、それだけでページ置換えによる性能低下が起きるわけではない。選択肢はページ内の余裕がなくなることを理由にシステム性能が低下するとしているため誤りである。",
+      "正しい。ほとんどのプログラムが新しいページサイズの1ページ以内に収まるため、ページ内の内部断片化が減少する。その結果、主記憶の無駄が減り、主記憶不足は緩和される。",
+      "間違い。この条件では内部断片化が減って主記憶に載せられる有効なデータ量が増えるため、ページフォールトが増加して性能が低下するとは限らない。選択肢はページフォールトの回数が増加するとしているため誤りである。"
     ],
     "original_question_id": "f429af0c58bb91db",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:f429af0c58bb91db",
+    "reviewQuestionId": "f429af0c58bb91db",
+    "sourceRecordRef": "question_201002_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -793,63 +767,37 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n異なる画面でも類似手順にするのは、一貫性と標準化に関する考え方である。",
-      "正しい。\n\n処理進捗の表示は、利用者に現在の状態を分かりやすく示すので『システム状態の視認性』に当たる。",
-      "間違い。\n\n必須項目を目立たせるのは入力ミス防止に寄与するが、主眼はエラー予防に近い。",
-      "間違い。\n\n文字サイズや色、画像利用の適切さは美しさや可読性に関する話であり、状態の視認性そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "システム状態の視認性とは何ですか？",
-      "ニールセンのヒューリスティックスは何に使いますか？",
-      "一貫性と標準化との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "システム状態の視認性とは何ですか？",
-        "answer": "処理中、完了、失敗など現在の状態を利用者へ適時に伝えることを重視する原則である。"
-      },
-      {
-        "question": "ニールセンのヒューリスティックスは何に使いますか？",
-        "answer": "ユーザーインタフェースの使いやすさを点検・改善するための経験則として使う。"
-      },
-      {
-        "question": "一貫性と標準化との違いは何ですか？",
-        "answer": "一貫性は操作や表現の揃え方、視認性は今どうなっているかを伝える点に主眼がある。"
-      }
+      "間違い。異なる画面で類似した手順を使えるようにするのは、「一貫性と標準化」に関する考え方である。選択肢は画面間の操作手順の統一を説明しているため、「システム状態の視認性」には当たらない。",
+      "正しい。処理の進捗度を表示すると、利用者はシステムが現在どの状態にあるかを把握できる。これは「システム状態の視認性」に当たる。",
+      "間違い。入力フォームの必須項目を目立たせるのは、入力漏れを防ぐ「エラー予防」に関する考え方である。選択肢は入力ミスを防ぐための表示を説明しているため、「システム状態の視認性」には当たらない。",
+      "間違い。文字の大きさや色、画像の使い方を適切にすることは、表示の分かりやすさや美的で簡潔な設計に関する考え方である。選択肢は画面表示の見やすさを説明しているため、処理の進行状況などを示す「システム状態の視認性」には当たらない。"
     ],
     "original_question_id": "a4abb884b87b26d7",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:a4abb884b87b26d7",
+    "reviewQuestionId": "a4abb884b87b26d7",
+    "sourceRecordRef": "question_201002_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n全ピクセルについて視線と物体の交点を調べて陰面消去する説明は Z バッファ法やレイキャスティング寄りで、テクスチャマッピングではない。",
-      "間違い。\n\nメタボールは球や楕円体の集合で滑らかな形を表す技法であり、この説明ではない。",
-      "正しい。\n\nラジオシティ法は、拡散反射面どうしの相互反射を考慮して面の明るさを求める手法である。",
-      "間違い。\n\n形状表面へ模様を貼る説明はテクスチャマッピングであり、レイトレーシングではない。"
-    ],
-    "suggestedQuestions": [
-      "ラジオシティ法は何を考慮しますか？",
-      "レイトレーシングとの違いは何ですか？",
-      "テクスチャマッピングとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ラジオシティ法は何を考慮しますか？",
-        "answer": "面どうしの拡散反射による光エネルギーのやり取りを考慮する。"
-      },
-      {
-        "question": "レイトレーシングとの違いは何ですか？",
-        "answer": "レイトレーシングは視線方向の光路追跡、ラジオシティは面間の相互反射計算が中心である。"
-      },
-      {
-        "question": "テクスチャマッピングとは何ですか？",
-        "answer": "物体表面へ模様や質感データを貼り付けて見た目を豊かにする技法である。"
-      }
+      "間違い。テクスチャマッピングは、物体表面に画像や模様を貼り付けて見た目を表現する手法である。視線と物体の交点を求め、視点に最も近い交点を選んで陰面消去を行う説明は、レイトレーシング法などに関するものである。",
+      "間違い。メタボールは、球や楕円体のような形状を個別に描くのではなく、空間に定義したスカラー場の等値面として、互いに滑らかにつながる形状を表現する手法である。与えられた空間データから輝度を計算する説明は、メタボールの特徴ではない。",
+      "正しい。ラジオシティ法は、拡散反射面どうしの相互反射によって生じる光の影響を考慮し、各面の明るさを求める手法である。",
+      "間違い。レイトレーシング法は、視点から光線を追跡して物体との交点を求め、反射や屈折などを考慮して画像を生成する手法である。物体表面に画像や模様を貼り付けるのはテクスチャマッピングである。"
     ],
     "original_question_id": "1c8e4b578325c985",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:1c8e4b578325c985",
+    "reviewQuestionId": "1c8e4b578325c985",
+    "sourceRecordRef": "question_201002_1.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -2204,32 +2152,19 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n残業時間は労務管理指標ではあるが、サプライチェーン全体最適の改善指標としては直接的ではない。",
-      "間違い。\n\n販売単価下落の防止率は価格政策寄りであり、SCM 改善効果を測る代表指標とは言いにくい。",
-      "正しい。\n\nSCM は調達・生産・在庫・物流の全体最適化を目指すので、無駄な在庫を減らせたかを見る不良在庫の減少率は改善指標として適切である。",
-      "間違い。\n\n優良顧客数の増加はマーケティングや CRM の指標に近く、SCM の直接指標ではない。"
-    ],
-    "suggestedQuestions": [
-      "SCMでは何を最適化しますか？",
-      "なぜ在庫が重要指標ですか？",
-      "CRMとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SCMでは何を最適化しますか？",
-        "answer": "調達、生産、在庫、物流、販売までの供給連鎖全体の流れを最適化する。"
-      },
-      {
-        "question": "なぜ在庫が重要指標ですか？",
-        "answer": "過剰在庫や滞留在庫は供給連鎖の無駄を表しやすく、改善効果が数値に出やすいからである。"
-      },
-      {
-        "question": "CRMとの違いは何ですか？",
-        "answer": "SCM は供給連鎖、CRM は顧客関係管理に主眼がある。"
-      }
+      "間違い。サプライチェーンマネジメント（SCM）は、調達・生産・在庫・物流などの流れ全体を改善する。残業時間の減少率は労務管理の指標であり、SCM全体の改善を直接測る代表的な指標ではない。",
+      "間違い。販売単価下落の防止率は、商品の価格設定や販売管理に関する指標である。SCMの改善指標は、供給の流れや在庫、物流の効率を直接測るものなので、この指標は適切ではない。",
+      "正しい。不良在庫の減少率は、需要に合わない在庫や長期間売れない在庫をどれだけ減らせたかを示す。調達・生産・在庫・物流の全体最適化を目指すSCMの改善指標として適切である。",
+      "間違い。優良顧客数の増加率は、顧客管理やマーケティングの成果を測る指標である。SCMの改善を直接測るには、在庫量や納期、物流など供給の流れに関する指標を用いる。"
     ],
     "original_question_id": "d47003554b8de646",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:d47003554b8de646",
+    "reviewQuestionId": "d47003554b8de646",
+    "sourceRecordRef": "question_201002_1.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]
