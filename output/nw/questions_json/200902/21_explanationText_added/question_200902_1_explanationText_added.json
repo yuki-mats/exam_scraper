@@ -1,10 +1,10 @@
 [
   {
     "explanationText": [
-      "間違い。ビット誤りの検出には、送信側と受信側でパリティなどの規則をあらかじめ定めて照合する方式を用いる。選択肢は、1のビットを数えるだけでビット誤りを検出できるとしているため誤りである。",
-      "正しい。2の補数表現を使うと、減算を引く数の2の補数の加算に置き換えられるため、加算回路を利用して減算を実行できる。",
-      "間違い。除算を減算の組合せで行えることは、2の補数を使用する主な理由ではない。選択肢は、除算を減算の組合せで行うことが2の補数を使う理由としているため誤りである。",
-      "間違い。ビットを反転しただけで得られるのは1の補数であり、2の補数では反転後に1を加える。選択肢は、ビットの反転だけで負数を求められるとしているため誤りである。"
+      "間違い。正しくは、ビット誤りの検出には、パリティビットなどを付加して、あらかじめ定めた規則に合うかを照合する。選択肢は、1のビットを数えるだけでビット誤りを検出できるとしているため誤りである。",
+      "正しい。2の補数表現を使うと、引く数の負数を作って加算することで減算を処理できる。これにより、加算器を利用して加算と減算を実行しやすくなる。",
+      "間違い。正しくは、2の補数を使うと、引く数の負数を作って加算することで減算を処理できる。除算を減算の組合せで行えることは除算アルゴリズムの性質であり、2の補数を採用する理由ではない。選択肢は、除算を減算の組合せで行うことを2の補数を使う理由としているため誤りである。",
+      "間違い。正しくは、ビットを反転した後に1を加えることで2の補数を求め、負数を表す。選択肢は、ビットの反転だけで負数を求められるとしているため誤りである。"
     ],
     "original_question_id": "105863ac47e724c7",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_1.html",
@@ -12,7 +12,25 @@
     "sourceQuestionKey": "nw:200902:105863ac47e724c7",
     "reviewQuestionId": "105863ac47e724c7",
     "sourceRecordRef": "question_200902_1.json#0",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ibm.com/docs/en/module_1678991624569/pdf/SA22-7832-14.pdf",
+        "title": "IBM z/Architecture Principles of Operation"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.intel.com/programmable/technical-pdfs/653864.pdf",
+        "title": "Intel AN 83: Binary Numbering Systems"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://docs.oracle.com/javase/specs/jvms/se8/jvms8.pdf",
+        "title": "Java Virtual Machine Specification SE 8"
+      }
+    ],
     "questionLearningPatternId": "mechanisms_reasons",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -247,7 +265,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するのはイである。実装方法1はfrontだけをもつため、末尾への追加では末尾までたどり、末尾の削除では末尾の一つ前までたどる必要がある。したがって、追加時間と削除時間はともに比例し、\\[f_1(n)=\\Theta(n),\\qquad g_1(n)=\\Theta(n),\\qquad \\frac{g_1(n)}{f_1(n)}=\\Theta(1)\\]となる。実装方法2はrearをもつので末尾への追加は定数時間で行えるが、単方向リストでは末尾の一つ前へ戻れないため、末尾の削除には先頭からたどる必要がある。したがって、\\[f_2(n)=\\Theta(1),\\qquad g_2(n)=\\Theta(n),\\qquad \\frac{g_2(n)}{f_2(n)}=\\Theta(n)\\]となる。つまり、実装方法1の比はほぼ一定で、実装方法2の比はnに比例する。"
+      "正しい。該当するのはイである。実装方法1では、末尾への追加も末尾の削除も、先頭から末尾付近までセルを順にたどる必要がある。主要なポインタ走査を数えると、追加と削除の回数はそれぞれn程度とn−1程度になるため、比は\\(g_1(n)/f_1(n)=(n−1)/n\\)のように1へ近づく。実装方法2ではrearを使えるので末尾への追加は定数時間で済む。一方、単方向リストでは末尾の一つ前のセルへ戻れないため、末尾の削除には先頭からの走査が必要であり、削除時間はnに比例する。したがって、\\(g_2(n)/f_2(n)\\)はnに比例する。"
     ],
     "original_question_id": "85dc0379967e0c5a",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_3.html",
@@ -610,7 +628,7 @@
   },
   {
     "explanationText": [
-      "正しい。片方だけが稼働する確率は、1台目だけが稼働する場合と2台目だけが稼働する場合を足し合わせて求める。稼働率をそれぞれ\\(p_1\\)、\\(p_2\\)とすると、確率\\(P\\)は次の式で表される。\\n\\[P=p_1(1-p_2)+(1-p_1)p_2\\]\\n値を代入すると、\\[P=0.7(1-0.6)+(1-0.7)0.6=0.7\\times0.4+0.3\\times0.6=0.28+0.18=0.46\\]\\nしたがって、正答は\\(0.46\\)である。"
+      "正しい。片方だけが稼働する確率は、1台目だけが稼働する場合と2台目だけが稼働する場合を足し合わせて求める。稼働率をそれぞれ\\(p_1\\)、\\(p_2\\)とすると、確率\\(P\\)は次の式で表される。\n\\[P=p_1(1-p_2)+(1-p_1)p_2\\]\n値を代入すると、\\[P=0.7(1-0.6)+(1-0.7)0.6=0.7\\times0.4+0.3\\times0.6=0.28+0.18=0.46\\]\nしたがって、正答は\\(0.46\\)である。"
     ],
     "original_question_id": "552715e617304f80",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_6.html",
@@ -2683,10 +2701,7 @@
   },
   {
     "explanationText": [
-      "正しい。業務流れ図は、業務の流れや業務プロセスを表すため、ビジネスアーキテクチャの成果物である。",
-      "間違い。実体関連ダイアグラムは、データの実体とその関連を表すため、データアーキテクチャの成果物である。選択肢はこれをビジネスアーキテクチャの成果物としているため誤りである。",
-      "間違い。情報システム関連図は、情報システム間の関係を表すため、アプリケーションアーキテクチャの成果物である。選択肢はこれをビジネスアーキテクチャの成果物としているため誤りである。",
-      "間違い。ソフトウェア構成図は、ソフトウェアや技術基盤の構成を表すため、テクノロジーアーキテクチャの成果物である。選択肢はこれをビジネスアーキテクチャの成果物としているため誤りである。"
+      "正しい。業務流れ図は、業務の流れや業務プロセスを表すため、ビジネスアーキテクチャの成果物である。実体関連ダイアグラムはデータアーキテクチャ、情報システム関連図はアプリケーションアーキテクチャ、ソフトウェア構成図はテクノロジーアーキテクチャの成果物である。"
     ],
     "original_question_id": "c6ae2cf3c917cbaa",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_23.html",
@@ -2694,7 +2709,18 @@
     "sourceQuestionKey": "nw:200902:c6ae2cf3c917cbaa",
     "reviewQuestionId": "c6ae2cf3c917cbaa",
     "sourceRecordRef": "question_200902_1.json#22",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2009-10-18",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000f3yi-att/2009h21a_koudo_am1_qs.pdf",
+        "title": "IPA『平成21年度秋期 高度試験 午前Ⅰ 問題冊子』"
+      },
+      {
+        "referenceDate": "2009-10-18",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000f3yi-att/2009h21a_koudo_am1_ans.pdf",
+        "title": "IPA『平成21年度秋期 高度試験 午前Ⅰ 解答例』"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -2918,10 +2944,7 @@
   },
   {
     "explanationText": [
-      "間違い。サービス内容や品質保証の範囲、違反時のペナルティを定める文書はSLAである。選択肢はSLAの説明をRFIとしているため誤りである。",
-      "間違い。技術的要件やサービスレベル要件を示し、具体的な実現方法の提案を依頼する文書はRFPである。選択肢はRFPの説明をRFIとしているため誤りである。",
-      "正しい。RFIはRequest for Informationの略で、調達前に利用可能な技術・製品やベンダーの導入実績など、実現手段に関する情報を集めるための文書である。",
-      "間違い。業務処理の概要、入出力情報、データフローなどをまとめ、関係者で共有する文書はシステム仕様書などである。選択肢はシステムの内容を共有する文書をRFIとしているため誤りである。"
+      "正しい。該当するのは3番である。RFI（Request for Information）は、ユーザー要件を実現する方法を検討するため、利用可能な技術・製品やベンダーの導入実績などの情報提供を依頼する文書である。サービス内容や品質保証、未達時のペナルティを定める文書はSLA、具体的な実現策の提案を依頼する文書はRFPであり、業務処理や入出力、データフローをまとめて関係者で共有する文書はシステム仕様書などである。"
     ],
     "original_question_id": "5dfc780b8f49f766",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_25.html",
@@ -2929,7 +2952,18 @@
     "sourceQuestionKey": "nw:200902:5dfc780b8f49f766",
     "reviewQuestionId": "5dfc780b8f49f766",
     "sourceRecordRef": "question_200902_1.json#24",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2009-10-18",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000f3yi-att/2009h21a_koudo_am1_qs.pdf",
+        "title": "平成21年度秋期 高度試験 午前Ⅰ 問題冊子"
+      },
+      {
+        "referenceDate": "2009-10-18",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000f3yi-att/2009h21a_koudo_am1_ans.pdf",
+        "title": "平成21年度秋期 高度試験 午前Ⅰ 解答例"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
