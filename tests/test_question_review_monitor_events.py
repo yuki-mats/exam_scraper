@@ -5,6 +5,7 @@ import tempfile
 import threading
 import time
 import unittest
+from collections import deque
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from unittest.mock import patch
@@ -30,6 +31,88 @@ def bind_store(store, thread_id="thread-1", **context):
 
 
 class MonitorEventStoreTests(unittest.TestCase):
+    def test_full_replay_health_and_disk_snapshot_do_not_walk_retained_events(self):
+        class NoIterationReplay(deque):
+            def __iter__(self):
+                raise AssertionError("health and disk snapshots must not scan replay")
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            hub = MonitorEventHub(root, start_worker=False)
+            correlation = {
+                "qualification": "sample", "runId": "child", "parentRunId": "parent"
+            }
+            with hub._condition:
+                for sequence in range(1, 20_001):
+                    event = hub._envelope(
+                        "turnState", {"status": "completed"},
+                        sequence=sequence, correlation=correlation,
+                    )
+                    hub._append_event_locked(event)
+                hub._track_event_disk_failure_locked(event)
+                for key, events in hub._run_events.items():
+                    hub._run_events[key] = NoIterationReplay(events)
+            try:
+                for run_id in ("parent", "child"):
+                    health = hub.health("sample", run_id)["observationHealth"]
+                    self.assertEqual(health["eventCount"], 20_000)
+                    self.assertEqual(health["diskFailures"], 1)
+                hub._write_disk_batch([event])
+                snapshot = json.loads((
+                    root / "output/question_review_console/runtime_observations"
+                    / "sample/parent/snapshot.json"
+                ).read_text())
+                self.assertEqual(snapshot["observation"]["eventCount"], 20_000)
+                self.assertEqual(snapshot["observation"]["diskFailures"], 1)
+            finally:
+                hub.close()
+
+    def test_retained_replay_counts_follow_parent_child_gaps_and_late_failures(self):
+        store = MonitorEventStore(start_worker=False, replay_capacity=2)
+        correlation = {
+            "qualification": "sample", "runId": "child", "parentRunId": "parent"
+        }
+        gap = store._envelope(
+            "observationGap", {"droppedNotifications": 3},
+            sequence=1, correlation=correlation,
+        )
+        turn = store._envelope(
+            "turnState", {"status": "completed"},
+            sequence=2, correlation=correlation,
+        )
+        with store._condition:
+            store._append_event_locked(gap)
+            store._append_event_locked(turn)
+            store._track_event_disk_failure_locked(turn)
+            store._track_event_disk_failure_locked(turn)
+        # Run totals can expire before replay. Retained evidence still degrades
+        # both the child and parent with the same counts as the original scan.
+        for run_id in ("parent", "child"):
+            health = store.health("sample", run_id)["observationHealth"]
+            self.assertEqual(health["droppedNotifications"], 3)
+            self.assertEqual(health["diskFailures"], 2)
+            self.assertEqual(health["eventCount"], 2)
+        other = {"qualification": "sample", "runId": "other"}
+        with store._condition:
+            store._append_event_locked(store._envelope(
+                "turnState", {}, sequence=3, correlation=other
+            ))
+        health = store.health("sample", "parent")["observationHealth"]
+        self.assertEqual(health["droppedNotifications"], 0)
+        self.assertEqual(health["diskFailures"], 2)
+        self.assertEqual(health["eventCount"], 1)
+        with store._condition:
+            store._append_event_locked(store._envelope(
+                "turnState", {}, sequence=4, correlation=other
+            ))
+            store._track_event_disk_failure_locked(turn)
+        health = store.health("sample", "parent")["observationHealth"]
+        self.assertEqual(health["eventCount"], 0)
+        self.assertEqual(health["diskFailures"], 0)
+        self.assertNotIn(("sample", "parent"), store._run_replay_counts)
+        self.assertNotIn(turn["eventId"], store._retained_event_routes)
+        store.close()
+
     def test_lossless_input_coalescing_is_reported_without_degrading_health(self):
         store = MonitorEventStore(start_worker=False)
 

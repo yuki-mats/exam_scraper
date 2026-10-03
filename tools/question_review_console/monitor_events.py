@@ -308,6 +308,8 @@ class MonitorEventStore:
         self._projection_enqueue_lock = threading.Lock()
         self._events: deque[dict[str, Any]] = deque(maxlen=self._replay_capacity)
         self._run_events: dict[tuple[str, str], deque[dict[str, Any]]] = {}
+        self._run_replay_counts: dict[tuple[str, str], dict[str, int]] = {}
+        self._retained_event_routes: dict[str, frozenset[tuple[str, str]]] = {}
         self._bindings: dict[str, dict[str, Any]] = {}
         self._retained_binding_routes: set[tuple[str, str]] | None = None
         self._binding_order: deque[str] = deque()
@@ -671,11 +673,8 @@ class MonitorEventStore:
             self._materialize_pending_gap_locked()
             scoped = qualification is not None and run_id is not None
             key = (str(qualification), str(run_id))
-            scoped_events = (
-                list(self._run_events.get(key, ())) if scoped else []
-            )
             scoped_observation = (
-                self._run_observation_locked(key, scoped_events)
+                self._run_observation_locked(key)
                 if scoped
                 else None
             )
@@ -718,33 +717,20 @@ class MonitorEventStore:
     def _run_observation_locked(
         self,
         key: tuple[str, str],
-        events: list[dict[str, Any]],
     ) -> dict[str, Any]:
-        replay_dropped = sum(
-            int(event.get("payload", {}).get("droppedNotifications") or 0)
-            for event in events
-            if event.get("type") == "observationGap"
-            and isinstance(event.get("payload"), Mapping)
-        )
-        replay_disk_failures = sum(
-            self._event_disk_failures.get(
-                str(event.get("eventId") or ""),
-                0,
-            )
-            for event in events
-        )
+        replay_counts = self._run_replay_counts.get(key, {})
         return {
             "droppedNotifications": max(
                 self._run_dropped.get(key, 0),
-                replay_dropped,
+                replay_counts.get("droppedNotifications", 0),
             ),
             "diskFailures": max(
                 self._run_disk_failures.get(key, 0),
-                replay_disk_failures,
+                replay_counts.get("diskFailures", 0),
             ),
             "scopeTruncated": self._scope_truncated,
             "scopeTruncatedDrops": self._scope_truncated_drops,
-            "eventCount": len(events),
+            "eventCount": len(self._run_events.get(key, ())),
             "inputCoalescing": self._input_coalescing_telemetry_locked(),
         }
 
@@ -1164,8 +1150,17 @@ class MonitorEventStore:
             evicted_id = str(evicted.get("eventId") or "")
             self._retained_event_ids.discard(evicted_id)
             self._event_disk_failures.pop(evicted_id, None)
-        for key in self._route_keys(event):
+            self._retained_event_routes.pop(evicted_id, None)
+        routes = frozenset(self._route_keys(event))
+        if event_id:
+            self._retained_event_routes[event_id] = routes
+        dropped = self._replay_gap_dropped(event)
+        for key in routes:
             self._run_events.setdefault(key, deque()).append(event)
+            counts = self._run_replay_counts.setdefault(
+                key, {"droppedNotifications": 0, "diskFailures": 0}
+            )
+            counts["droppedNotifications"] += dropped
         self._condition.notify_all()
 
     def _track_event_disk_failure_locked(
@@ -1177,6 +1172,16 @@ class MonitorEventStore:
             self._event_disk_failures[event_id] = (
                 self._event_disk_failures.get(event_id, 0) + 1
             )
+            # Attribute a late disk failure to the accepted replay identity.
+            for key in self._retained_event_routes[event_id]:
+                self._run_replay_counts[key]["diskFailures"] += 1
+
+    @staticmethod
+    def _replay_gap_dropped(event: Mapping[str, Any]) -> int:
+        payload = event.get("payload")
+        if event.get("type") == "observationGap" and isinstance(payload, Mapping):
+            return int(payload.get("droppedNotifications") or 0)
+        return 0
 
     def _remove_from_run_indexes_locked(self, event: Mapping[str, Any]) -> None:
         event_id = event.get("eventId")
@@ -1184,8 +1189,14 @@ class MonitorEventStore:
             indexed = self._run_events.get(key)
             if indexed and indexed[0].get("eventId") == event_id:
                 indexed.popleft()
+                counts = self._run_replay_counts[key]
+                counts["droppedNotifications"] -= self._replay_gap_dropped(event)
+                counts["diskFailures"] -= self._event_disk_failures.get(
+                    str(event_id or ""), 0
+                )
             if not indexed:
                 self._run_events.pop(key, None)
+                self._run_replay_counts.pop(key, None)
 
     def _record_drop(
         self,
@@ -2032,7 +2043,7 @@ class MonitorEventHub(MonitorEventStore):
             key = (qualification, run_id)
             events = list(self._run_events.get(key, ()))
             result = self._replay_locked(events, None, 5000)
-            result["observation"] = self._run_observation_locked(key, events)
+            result["observation"] = self._run_observation_locked(key)
             result["observation"]["diskTelemetry"] = self._disk_telemetry_locked()
             result["serverInstanceId"] = self.server_instance_id
             result["bindings"] = copy.deepcopy(
@@ -2079,7 +2090,7 @@ class MonitorEventHub(MonitorEventStore):
                 self._condition.wait(timeout=remaining)
             events = list(self._run_events.get(key, ()))
             result = self._replay_locked(events, after or None, limit)
-            result["observation"] = self._run_observation_locked(key, events)
+            result["observation"] = self._run_observation_locked(key)
             return result
 
     def _has_result_locked(
@@ -3162,9 +3173,7 @@ class MonitorEventHub(MonitorEventStore):
 
             last_event = events[-1]
             with self._condition:
-                observation = self._run_observation_locked(
-                    route, list(self._run_events.get(route, ()))
-                )
+                observation = self._run_observation_locked(route)
                 observation["diskTelemetry"] = self._disk_telemetry_locked()
             snapshot = {
                 "schemaVersion": SCHEMA_VERSION,
