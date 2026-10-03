@@ -991,14 +991,14 @@ class SubscriptionGateTests(unittest.TestCase):
         enabled["rateLimitsByLimitId"]["codex_bengalfox"]["credits"] = {
             "hasCredits": True
         }
-        with self.assertRaisesRegex(SubscriptionGateError, "追加Codex credits"):
+        with self.assertRaisesRegex(SubscriptionGateError, "追加Codex creditsの残高"):
             validate_subscription_access(account_response(), enabled)
 
         auxiliary_only = copy.deepcopy(allowed)
         auxiliary_only["rateLimitsByLimitId"]["codex_bengalfox"]["credits"] = {
             "hasCredits": True
         }
-        with self.assertRaisesRegex(SubscriptionGateError, "補助Codex credits"):
+        with self.assertRaisesRegex(SubscriptionGateError, "補助Codex creditsの残高"):
             validate_subscription_access(account_response(), auxiliary_only)
 
     def test_rejects_missing_or_malformed_auxiliary_spend_fields(self):

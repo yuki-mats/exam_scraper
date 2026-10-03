@@ -457,8 +457,9 @@ def validate_subscription_access(
         raise SubscriptionGateError("credit状態を安全に判定できません。")
     if credits_enabled:
         raise SubscriptionGateError(
-            "追加Codex creditsが有効なため実行できません。"
-            "問題整備はサブスクリプション範囲内のStandard modeだけを使用します。"
+            "追加Codex creditsの残高があります。"
+            "追加creditsを使用しないことを確認できないため実行を停止しています。"
+            "自動チャージのオフだけでは既存残高の利用停止を確認できません。"
         )
     if "individualLimit" not in snapshot:
         raise SubscriptionGateError("spend control状態を安全に確認できません。")
@@ -488,8 +489,8 @@ def validate_subscription_access(
             raise SubscriptionGateError("補助credit状態を安全に確認できません。")
         if extra_credits is not None and extra_credits.get("hasCredits"):
             raise SubscriptionGateError(
-                "補助Codex creditsが有効なため実行できません。"
-                "問題整備はサブスクリプション範囲内のStandard modeだけを使用します。"
+                "補助Codex creditsの残高があります。"
+                "追加creditsを使用しないことを確認できないため実行を停止しています。"
             )
         if "individualLimit" not in value:
             raise SubscriptionGateError("補助spend controlを安全に確認できません。")
