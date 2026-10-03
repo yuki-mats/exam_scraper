@@ -1,33 +1,126 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nDNS amp 攻撃は外部から再帰問合せに応答してしまう公開 DNS キャッシュサーバを踏み台にするため、インターネット側からキャッシュサーバへ再帰問合せできないよう制限する対策が有効である。",
-      "間違い。\n\nWhois データベースの確認はドメイン登録情報の参照であり、公開 DNS キャッシュサーバの踏み台化防止策にはならない。",
-      "間違い。\n\n一つの DNS レコードに複数 IP アドレスを割り当てる設定は負荷分散の説明であり、DNS amp 攻撃への加担防止とは無関係である。",
-      "間違い。\n\nデジタル署名で DNS 情報の真正性を確認する設定は DNSSEC の趣旨であり、再帰問合せを悪用した DNS amp 攻撃の踏み台防止策ではない。"
-    ],
-    "suggestedQuestions": [
-      "DNS amp 攻撃はどのように踏み台を悪用しますか？",
-      "なぜ再帰問合せの制限が有効ですか？",
-      "DNSSEC では防げない理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DNS amp 攻撃はどのように踏み台を悪用しますか？",
-        "answer": "送信元 IP を偽装した再帰問合せを公開 DNS キャッシュサーバへ送り、大量の応答を被害者へ返させる。"
-      },
-      {
-        "question": "なぜ再帰問合せの制限が有効ですか？",
-        "answer": "外部から不要な再帰問合せを受け付けなければ、DNS キャッシュサーバが攻撃者の中継役にならないためである。"
-      },
-      {
-        "question": "DNSSEC では防げない理由は何ですか？",
-        "answer": "DNSSEC は応答データの真正性確認が目的であり、再帰問合せを悪用したトラフィック増幅そのものは止めないためである。"
-      }
+      "正しい。DNS amp攻撃は、外部から再帰的な問合せを受け付ける公開DNSキャッシュサーバを踏み台にして、大量の応答を送らせる。インターネット側からキャッシュサーバへ再帰的な問合せをできないようアクセスを制限すれば、踏み台として悪用されにくくなる。",
+      "間違い。DNS amp攻撃を防ぐには、外部からキャッシュサーバへ再帰的な問合せを受け付けないよう制限する。Whoisデータベースでドメインの登録情報を確認しても、DNSサーバへの再帰的な問合せを制限することにはならない。",
+      "間違い。DNS amp攻撃を防ぐには、外部からの再帰的な問合せを制限する。一つのDNSレコードに複数のIPアドレスを割り当てる設定は、アクセスを複数のサーバへ振り分ける負荷分散のためのものであり、DNSサーバの再帰問合せを制限しない。",
+      "間違い。DNS amp攻撃を防ぐには、外部からキャッシュサーバへ再帰的な問合せを受け付けないよう制限する。デジタル署名でDNS情報の正当性を確認する設定はDNSSECの機能であり、DNS応答の改ざん検知には役立つが、再帰問合せを踏み台にされることは防がない。"
     ],
     "original_question_id": "3b67bf474e0318cd",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:3b67bf474e0318cd",
+    "reviewQuestionId": "3b67bf474e0318cd",
+    "sourceRecordRef": "question_201702_3.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSの再帰問合せ制御とDNS amp攻撃対策に関する技術論点であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "公開DNSキャッシュサーバへの外部からの再帰問合せを制限すると、DNS amp攻撃の踏み台として悪用されにくい。",
+          "promptContext": "DNS amp攻撃対策の技術判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Whoisデータベースで登録情報を確認しても、DNSキャッシュサーバへの再帰問合せ制限にはならない。",
+          "promptContext": "DNS amp攻撃対策の技術判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "複数IPアドレスによる負荷分散は、DNSサーバへの再帰問合せ制限とは異なる。",
+          "promptContext": "DNS amp攻撃対策の技術判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DNSSECによるデジタル署名の検証はDNS情報の改ざん検知に関する機能であり、再帰問合せの踏み台化を防止しない。",
+          "promptContext": "DNS amp攻撃対策の技術判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

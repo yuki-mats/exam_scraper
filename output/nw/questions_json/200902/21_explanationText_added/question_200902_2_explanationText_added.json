@@ -124,10 +124,10 @@
   },
   {
     "explanationText": [
-      "間違い。ラディカルイノベーションは、技術や事業の前提を大きく変える非連続的な革新である。選択肢は新製品そのものの技術革新としているため、製品に関するプロダクトイノベーションの説明であり、ラディカルイノベーションの説明としては誤りである。",
-      "間違い。既存製品の細かな改良を積み重ねる技術革新は、インクリメンタルイノベーションである。選択肢は段階的な改良としているため、既存の枠組みを大きく変えるラディカルイノベーションの説明としては誤りである。",
-      "正しい。ラディカルイノベーションは、既存の技術や事業の枠組みを大きく変える非連続的な革新であり、経営構造の全面的な変革を必要とすることがある。",
-      "間違い。研究開発、製造、物流などの工程に関する技術革新は、プロセスイノベーションである。選択肢は業務や生産の過程の革新としているため、ラディカルイノベーションの説明としては誤りである。"
+      "間違い。製品そのものに関する技術革新は、プロダクトイノベーションである。選択肢は製品に関する革新であることだけを示しており、既存の技術や事業の前提を大きく変えるラディカルイノベーションの説明にはなっていない。",
+      "間違い。既存製品の細かな改良を積み重ねる技術革新は、インクリメンタルイノベーションである。ラディカルイノベーションは、既存の技術や事業の枠組みを大きく変える非連続的な革新を指す。",
+      "正しい。ラディカルイノベーションは、既存の技術や事業の前提を大きく変える非連続的な革新であり、経営構造の全面的な変革を必要とする。",
+      "間違い。研究開発過程、製造工程、物流過程などの工程に関する技術革新は、プロセスイノベーションである。選択肢は工程の革新を説明しているため、ラディカルイノベーションの説明としては誤りである。"
     ],
     "original_question_id": "4b373063e8af8ec3",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_27.html",
@@ -137,37 +137,236 @@
     "sourceRecordRef": "question_200902_2.json#1",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術戦略上のイノベーション分類を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "製品イノベーションとラディカルイノベーションの分類に関する技術・経営知識で判定した。",
+          "promptContext": "選択肢1の完全命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "インクリメンタルイノベーションとラディカルイノベーションの分類に関する技術・経営知識で判定した。",
+          "promptContext": "選択肢2の完全命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ラディカルイノベーションの分類に関する技術・経営知識で判定した。",
+          "promptContext": "選択肢3の完全命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プロセスイノベーションとラディカルイノベーションの分類に関する技術・経営知識で判定した。",
+          "promptContext": "選択肢4の完全命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n大量生産で効率を高めたい場面は、工程分業を進めやすいライン生産方式が向きやすい。",
-      "間違い。\n\n仕様が長期間変わらない製品は、固定的な工程で流せるライン生産の方が適することが多い。",
-      "正しい。\n\nセル生産方式は、少量多品種や仕様変動に柔軟に対応しやすく、多種類かつフレキシブルな生産に向く。",
-      "間違い。\n\n標準化・単純化・専門化による分業を重視する場面は、セル生産よりライン生産の考え方に近い。"
-    ],
-    "suggestedQuestions": [
-      "セル生産方式の特徴は何ですか？",
-      "ライン生産方式との違いは何ですか？",
-      "少量多品種に向く理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "セル生産方式の特徴は何ですか？",
-        "answer": "一人または少人数が複数工程を担当し、製品単位で柔軟に作業できる点が特徴である。"
-      },
-      {
-        "question": "ライン生産方式との違いは何ですか？",
-        "answer": "ラインは工程分業と大量生産向き、セルは多品種少量や変化への柔軟対応に向く。"
-      },
-      {
-        "question": "少量多品種に向く理由は何ですか？",
-        "answer": "工程変更や段取り替えに対応しやすく、製品ごとの違いを吸収しやすいからである。"
-      }
+      "間違い。セル生産方式は、少量多品種や仕様変更の多い製品に柔軟に対応しやすい。大量生産で生産性を高める場合は、工程を分業して流すライン生産方式が適している。選択肢は大量生産が必要なものを対象としているため誤りである。",
+      "間違い。製品の仕様が長期間変わらない場合は、作業を標準化したライン生産方式が適している。セル生産方式は、多種類の製品や仕様変更に対応しやすいよう、作業者やセルの組合せを柔軟に変える生産方式である。選択肢は仕様が長期間変わらないものを対象としているため誤りである。",
+      "正しい。セル生産方式は、作業者が複数の工程を受け持つセルを構成し、製品の種類が多く、生産量や仕様を柔軟に変える必要がある場合に適している。",
+      "間違い。標準化、単純化、専門化による分業は、工程を細かく分けて大量に生産するライン生産方式に適した考え方である。セル生産方式は、複数工程をまとめて担当し、多品種への対応を重視する。選択肢は分業を重視する生産方式としているため誤りである。"
     ],
     "original_question_id": "736c3ed2afdfe3f2",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:736c3ed2afdfe3f2",
+    "reviewQuestionId": "736c3ed2afdfe3f2",
+    "sourceRecordRef": "question_200902_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "セル生産方式の利点を問う生産管理上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は大量生産を対象とするため、セル生産方式の利点に合致しない。",
+          "promptContext": "セル生産方式の適用対象の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は仕様が長期間変わらない製品を対象とするため、セル生産方式の利点に合致しない。",
+          "promptContext": "セル生産方式の適用対象の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は多種類かつフレキシブルな生産への対応を示しており、セル生産方式の利点に合致する。",
+          "promptContext": "セル生産方式の適用対象の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は標準化・単純化・専門化による分業を重視しており、セル生産方式の利点に合致しない。",
+          "promptContext": "セル生産方式の適用対象の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -466,33 +665,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n0.02 秒では実効帯域で換算した必要時間より短すぎる。",
-      "間違い。\n\n0.08 秒でも 1,000,000 バイトを 50% 効率の 100 Mbit/s で流す時間として不足する。",
-      "正しい。\n\n総データ量は 1,000 バイト × 1,000 件 = 1,000,000 バイトで、実効速度は 100 Mbit/s ÷ 8 × 0.5 = 6.25 MByte/s だから、1 ÷ 6.25 = 0.16 秒である。",
-      "間違い。\n\n1.6 秒は 10 倍長く、単位換算か伝送効率の扱いを誤っている。"
-    ],
-    "suggestedQuestions": [
-      "実効伝送速度はどう求めますか？",
-      "ビットとバイトの換算はどうしますか？",
-      "伝送効率50%はどこに反映しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "実効伝送速度はどう求めますか？",
-        "answer": "回線速度をバイト毎秒へ直し、さらに伝送効率を掛けて実効値を求める。"
-      },
-      {
-        "question": "ビットとバイトの換算はどうしますか？",
-        "answer": "1 バイト = 8 ビットなので、Mbit/s を MByte/s にするには 8 で割る。"
-      },
-      {
-        "question": "伝送効率50%はどこに反映しますか？",
-        "answer": "理論速度の半分しか実際には使えないので、実効伝送速度に 0.5 を掛ける。"
-      }
+      "正しい。伝送時間は、総データ量を実効伝送速度で割って求める。総データ量は、1,000バイト×1,000件＝1,000,000バイト＝8,000,000ビットである。伝送効率50％を考慮した実効伝送速度は、100,000,000ビット/秒×0.5＝50,000,000ビット/秒となる。したがって、伝送時間は次のとおりである。\n\n\\[t=\\frac{8,000,000}{50,000,000}=0.16\\ \\text{秒}\\]\n\nよって、伝送時間は0.16秒である。"
     ],
     "original_question_id": "a4efd3891310c3d5",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:a4efd3891310c3d5",
+    "reviewQuestionId": "a4efd3891310c3d5",
+    "sourceRecordRef": "question_200902_2.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "LANの伝送速度、レコード長、件数、伝送効率から算出する工学的な問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "0.02秒は計算結果と一致しない。",
+          "promptContext": "総データ量と実効伝送速度から判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "0.08秒は計算結果と一致しない。",
+          "promptContext": "総データ量と実効伝送速度から判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "0.16秒は計算結果と一致する。",
+          "promptContext": "総データ量と実効伝送速度から判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "1.6秒は計算結果と一致しない。",
+          "promptContext": "総データ量と実効伝送速度から判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -859,33 +1148,126 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nアドミッション制御は、新しい通信要求を受け付ける前に帯域などの資源状況を確認し、確保可能なときだけ通す制御である。",
-      "間違い。\n\n最大速度超過を監視して破棄や優先度低下を行うのはポリシングであり、シェーピングではない。",
-      "間違い。\n\n送出間隔を調整して平準化するのはシェーピングであり、ポリシングではない。",
-      "間違い。\n\nフレーム種別や宛先に応じて優先度を変えるのは優先制御の考え方で、ベストエフォートではない。"
-    ],
-    "suggestedQuestions": [
-      "アドミッション制御とは何ですか？",
-      "ポリシングとシェーピングの違いは何ですか？",
-      "ベストエフォートとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アドミッション制御とは何ですか？",
-        "answer": "新しい通信を受け付ける前に、必要資源を割り当てられるかを判定する制御である。"
-      },
-      {
-        "question": "ポリシングとシェーピングの違いは何ですか？",
-        "answer": "ポリシングは超過トラフィックを検出して破棄や優先度変更を行い、シェーピングは送出タイミングを調整して平準化する。"
-      },
-      {
-        "question": "ベストエフォートとは何ですか？",
-        "answer": "品質保証はしないが、可能な限り配送を試みる通信サービスの方針である。"
-      }
+      "正しい。アドミッション制御は、新しい通信を始める前に帯域などの資源を確認し、確保できる場合に通信を受け付ける制御である。",
+      "間違い。入力トラフィックの速度を監視し、規定値を超えたパケットを破棄したりマーキングしたりするのはポリシングである。選択肢はこの制御をシェーピングとしているため誤りである。シェーピングは、超過分を一時的に蓄積して送出間隔を調整し、速度を平準化する。",
+      "間違い。送出間隔を調整してトラフィックを規定速度以下に平準化するのはシェーピングである。選択肢はこの制御をポリシングとしているため誤りである。ポリシングは、規定速度を超えたパケットを破棄したりマーキングしたりする。",
+      "間違い。フレームの種類や宛先に応じて優先度を変えて中継するのは、優先制御である。選択肢はこの制御をベストエフォートとしているため誤りである。ベストエフォートは、通信品質や帯域をあらかじめ保証せず、利用可能な範囲で転送する方式である。"
     ],
     "original_question_id": "fb73e9b91772decb",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:fb73e9b91772decb",
+    "reviewQuestionId": "fb73e9b91772decb",
+    "sourceRecordRef": "question_200902_2.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "QoSのアドミッション制御、シェーピング、ポリシング、ベストエフォートの定義を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "アドミッション制御は通信開始前に資源を確認して通信を受け付ける制御である。",
+          "promptContext": "QoSのトラフィック制御方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "QoSの技術定義に基づく判定であり、法令改正の影響はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "速度超過パケットの破棄やマーキングはポリシングであり、シェーピングではない。",
+          "promptContext": "QoSのトラフィック制御方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "QoSの技術定義に基づく判定であり、法令改正の影響はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "送出間隔を調整して速度を平準化するのはシェーピングであり、ポリシングではない。",
+          "promptContext": "QoSのトラフィック制御方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "QoSの技術定義に基づく判定であり、法令改正の影響はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "フレームの種類や宛先に応じた優先度制御はベストエフォートではない。",
+          "promptContext": "QoSのトラフィック制御方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "QoSの技術定義に基づく判定であり、法令改正の影響はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1135,33 +1517,129 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nスイッチングハブは同一ブロードキャストドメイン内で動作するため、DHCP ブロードキャストはそのまま届く。",
-      "間違い。\n\nブリッジもレイヤ 2 で中継するため、DHCP のブロードキャスト自体は通過できる。",
-      "間違い。\n\nリピータは物理層装置なので、ブロードキャストを遮断する原因にはならない。",
-      "正しい。\n\nルータはブロードキャストを別セグメントへ転送しないため、DHCP サーバが別ネットワークにある場合にリレーエージェントが必要になる。"
-    ],
-    "suggestedQuestions": [
-      "DHCPリレーエージェントは何をしますか？",
-      "なぜルータがあると必要ですか？",
-      "どの層の機器でブロードキャストが止まりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DHCPリレーエージェントは何をしますか？",
-        "answer": "クライアントの DHCP ブロードキャストを受け取り、DHCP サーバへユニキャスト転送する。"
-      },
-      {
-        "question": "なぜルータがあると必要ですか？",
-        "answer": "ルータはブロードキャストドメインを分割し、DHCP 要求をそのまま越境させないからである。"
-      },
-      {
-        "question": "どの層の機器でブロードキャストが止まりますか？",
-        "answer": "通常はレイヤ 3 のルータでブロードキャストが止まる。"
-      }
+      "正しい。DHCPリレーエージェントが必要になるのは、ルータで分けられた別サブネットにDHCPサーバがある構成である。DHCPクライアントは最初に同一ネットワークへDHCPメッセージをブロードキャストするが、ルータは通常このブロードキャストを別のIPネットワークへ転送しない。そのため、ルータにリレーエージェント機能を設定してDHCPサーバへ中継する。スイッチングハブやブリッジは同一ブロードキャストドメイン内の通信を中継し、リピータは信号を再生する機器なので、この条件ではリレーエージェントは必要ない。"
     ],
     "original_question_id": "471f638cc71626da",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:471f638cc71626da",
+    "reviewQuestionId": "471f638cc71626da",
+    "sourceRecordRef": "question_200902_2.json#12",
+    "explanationReferences": [
+      {
+        "referenceDate": "1997-03-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2131",
+        "title": "RFC 2131: Dynamic Host Configuration Protocol"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DHCPリレーエージェントの必要性を問う技術仕様の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、DHCPリレーエージェントとネットワーク機器の通信仕様で判断する。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくDHCPとネットワーク機器の通信仕様で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、DHCPリレーエージェントとネットワーク機器の通信仕様で判断する。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくDHCPとネットワーク機器の通信仕様で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、DHCPリレーエージェントとネットワーク機器の通信仕様で判断する。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくDHCPとネットワーク機器の通信仕様で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、DHCPリレーエージェントとネットワーク機器の通信仕様で判断する。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくDHCPとネットワーク機器の通信仕様で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1288,33 +1766,132 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nHTTP/1.1 では GET と HEAD の実装が必須で、POST はオプション扱いとされる。",
-      "間違い。\n\nGET も POST もどちらもクライアントからサーバへ送るリクエストメソッドである。",
-      "間違い。\n\n一般に GET の応答はキャッシュされやすく、POST は通常キャッシュされにくい。",
-      "間違い。\n\nGET でも POST でも CGI やアプリケーション処理を起動でき、違いは主にデータ渡し方である。"
-    ],
-    "suggestedQuestions": [
-      "GETとPOSTの主な違いは何ですか？",
-      "なぜGETはキャッシュされやすいですか？",
-      "POSTはどんな場面で使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "GETとPOSTの主な違いは何ですか？",
-        "answer": "GET は URL へ付けて取得中心に使い、POST は本文へ載せて送信量が多い処理や更新系で使う。"
-      },
-      {
-        "question": "なぜGETはキャッシュされやすいですか？",
-        "answer": "取得系で副作用が少ない前提があり、同じ URL への再利用がしやすいからである。"
-      },
-      {
-        "question": "POSTはどんな場面で使いますか？",
-        "answer": "フォーム送信、登録更新、ファイルアップロードなど、本文へデータを載せたい場面で使う。"
-      }
+      "正しい。HTTP/1.1ではGETとHEADの実装が必須で、POSTを含むその他のメソッドはオプションである。",
+      "間違い。GETもPOSTも、クライアントからサーバへ送るリクエストメソッドである。GETは指定した資源の取得を要求し、POSTはリクエストに含めたデータをサーバの処理対象として送る。選択肢はPOSTをサーバからの応答としているため誤りである。",
+      "間違い。GETの応答は、キャッシュを禁止する指定がなければキャッシュ対象になり得る。一方、POSTの応答は、明示的にキャッシュを許可する情報がある場合を除き、通常はキャッシュされない。選択肢はこの関係を逆にしているため誤りである。",
+      "間違い。GETでも、指定先がデータを生成するプロセスであれば、その処理を実行して結果を返せる。CGIなどのサーバ側処理を起動できるかはGETかPOSTかだけで決まらず、選択肢はGETでは起動できないとしているため誤りである。"
     ],
     "original_question_id": "38ab24412646cb43",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:38ab24412646cb43",
+    "reviewQuestionId": "38ab24412646cb43",
+    "sourceRecordRef": "question_200902_2.json#14",
+    "explanationReferences": [
+      {
+        "referenceDate": "1999-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2616.html",
+        "title": "RFC 2616 Hypertext Transfer Protocol -- HTTP/1.1（5.1.1、9.3、9.5、13.9）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "HTTPメソッドの仕様に基づく技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現在の法令判定を比較する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はHTTP/1.1のメソッド実装要件に関する技術知識で判定した。",
+          "promptContext": "法令関連性確認済み。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "HTTP仕様に基づく技術肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現在の法令判定を比較する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はGETとPOSTがいずれもクライアントからサーバへ送るリクエストメソッドであることに関する技術知識で判定した。",
+          "promptContext": "法令関連性確認済み。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTP仕様に基づく技術肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現在の法令判定を比較する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はGETとPOSTの応答のキャッシュ可能性に関する技術知識で判定した。",
+          "promptContext": "法令関連性確認済み。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTP仕様に基づく技術肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現在の法令判定を比較する対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はGETでもサーバ側処理を起動できることに関する技術知識で判定した。",
+          "promptContext": "法令関連性確認済み。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTP仕様に基づく技術肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1438,7 +2015,7 @@
   },
   {
     "explanationText": [
-      "正しい。WebDAV（Web Distributed Authoring and Versioning）はHTTPを拡張し、Web上のリソースの作成・更新・削除やプロパティ管理、ロックなどを行うプロトコルである。CSSは表示方法、MIMEはデータ形式の識別、SSLは通信の暗号化を担うため、Webコンテンツのアップロードや更新を行う答えにはならない。"
+      "正しい。WebDAVはHTTPを拡張し、Web上のリソースを作成・更新・削除するためのプロトコルである。CSSはWebページの表示方法、MIMEはデータ形式の識別、SSLは通信の保護を担うため、Webコンテンツのアップロードや更新を行う答えにはならない。"
     ],
     "original_question_id": "239405abd7bfda68",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_12.html",
@@ -1448,23 +2025,129 @@
     "sourceRecordRef": "question_200902_2.json#16",
     "explanationReferences": [
       {
-        "referenceDate": "2026-10-03",
+        "referenceDate": "2026-10-04",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4918",
         "title": "RFC 4918: HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"
       },
       {
-        "referenceDate": "2026-10-03",
+        "referenceDate": "2026-10-04",
         "sourceUrl": "https://www.w3.org/Style/CSS/",
         "title": "Cascading Style Sheets"
       },
       {
-        "referenceDate": "2026-10-03",
+        "referenceDate": "2026-10-04",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2045",
         "title": "RFC 2045: Multipurpose Internet Mail Extensions (MIME) Part One"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "HTTPを利用したWebコンテンツのアップロード・更新機能に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CSSはWebページの表示方法を定義する技術であり、コンテンツのアップロードや更新を行うプロトコルではない。",
+          "promptContext": "選択肢1の技術的役割を確認",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MIMEはデータのメディアタイプを識別する仕組みであり、Webコンテンツのアップロードや更新を行うプロトコルではない。",
+          "promptContext": "選択肢2の技術的役割を確認",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SSLは通信の暗号化や認証などを担う仕組みであり、Webコンテンツのアップロードや更新を行うプロトコルではない。",
+          "promptContext": "選択肢3の技術的役割を確認",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "WebDAVはHTTPを拡張し、Web上のリソースの作成、更新、削除を可能にするプロトコルである。",
+          "promptContext": "選択肢4の技術的役割を確認",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1708,8 +2391,8 @@
   },
   {
     "explanationText": [
-      "間違い。TCPでは、輻輳制御に応じてウィンドウサイズを変動させ、送信量を調整する。選択肢はウィンドウサイズが固定で輻輳回避ができないとしているため誤りである。輻輳による遅延で再送が必要になる場合はあるが、それは固定ウィンドウが理由ではない。",
-      "間違い。フォワード誤り訂正方式は、受信側が付加された誤り訂正符号を使って誤りを検出・訂正し、再送を要求せずにデータを復元する。選択肢は受信側から送信側へ再送を要求するとしているため誤りであり、その方式は再送を利用する後方向誤り訂正方式である。",
+      "間違い。TCPでは、輻輳制御に応じてウィンドウサイズを変動させ、送信量を調整する。選択肢はウィンドウサイズが固定で輻輳回避ができないとしているため誤りである。輻輳によってパケット損失や遅延が起こり、再送やタイムアウト処理が必要になる場合はあるが、固定ウィンドウが理由ではない。",
+      "間違い。フォワード誤り訂正方式は、受信側が付加された誤り訂正符号を使って誤りを検出・訂正し、再送を要求せずにデータを復元する。選択肢は受信側から送信側へ再送を要求するとしているため誤りであり、再送を利用するのは後方誤り訂正方式（ARQ）である。",
       "正しい。ウィンドウ制御では、確認応答を受けた分だけ送信可能な範囲を前へ移動させるため、確認応答を待たずに複数のデータを連続して送信できる。この仕組みをスライディングウィンドウ方式という。",
       "間違い。データグラム方式では、通信開始時に仮想の通信路を確立せず、各データを独立したパケットとして扱う。選択肢が述べているように仮想通信路を確立して同じ経路を使うのはバーチャルサーキット方式であり、データグラム方式ではない。"
     ],
@@ -1721,11 +2404,117 @@
     "sourceRecordRef": "question_200902_2.json#19",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TCPの輻輳制御、誤り訂正、フロー制御、データグラム方式に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの輻輳制御に関する技術知識で判定する。",
+          "promptContext": "ネットワーク制御の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フォワード誤り訂正方式に関する技術知識で判定する。",
+          "promptContext": "ネットワーク制御の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スライディングウィンドウ方式に関する技術知識で判定する。",
+          "promptContext": "ネットワーク制御の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データグラム方式とバーチャルサーキット方式の相違に関する技術知識で判定する。",
+          "promptContext": "ネットワーク制御の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。VRRP（Virtual Router Redundancy Protocol）は、複数のルータで仮想IPアドレスを共有し、利用者からは1台の仮想ルータとして見えるようにして、デフォルトゲートウェイの冗長化を実現する。ARPはIPアドレスとMACアドレスの対応を調べるプロトコル、OSPFは経路制御プロトコル、RSTPはスイッチのループを防ぐプロトコルであり、ルータの冗長化を目的とするVRRPとは役割が異なる。"
+      "正しい。VRRP（Virtual Router Redundancy Protocol）は、複数のルータで仮想IPアドレスを共有し、端末からは1台の仮想ルータとして見えるようにして、デフォルトゲートウェイの冗長化を実現する。ARPはIPアドレスとMACアドレスの対応付け、OSPFはルーティング情報の交換、RSTPはスイッチ間のループ防止を行うプロトコルであり、ルータの冗長化を目的とするVRRPとは役割が異なる。"
     ],
     "original_question_id": "6bfe2b4989a11d00",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_16.html",
@@ -1735,7 +2524,113 @@
     "sourceRecordRef": "question_200902_2.json#20",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "VRRP、ARP、OSPF、RSTPの役割を問う技術仕様の問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ARPはIPアドレスとMACアドレスの対応付けを行うため、複数ルータを仮想的に1台に見せるプロトコルではない。",
+          "promptContext": "選択肢1の技術仕様判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ARPはIPアドレスとMACアドレスの対応付けを行う技術仕様であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFはルーティング情報を交換するため、複数ルータを仮想的に1台に見せるプロトコルではない。",
+          "promptContext": "選択肢2の技術仕様判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFはルーティング情報を交換する技術仕様であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RSTPはスイッチ間のループを防止するため、複数ルータを仮想的に1台に見せるプロトコルではない。",
+          "promptContext": "選択肢3の技術仕様判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "RSTPはスイッチ間のループを防止する技術仕様であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "VRRPは複数のルータを仮想的に1台のルータとして扱えるようにし、冗長構成を実現する。",
+          "promptContext": "選択肢4の技術仕様判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "VRRPは複数ルータによるデフォルトゲートウェイの冗長化を実現する技術仕様であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1872,14 +2767,120 @@
     "sourceRecordRef": "question_200902_2.json#22",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "チャレンジレスポンス方式という認証技術の仕組みを問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は固定パスワードをSSLで暗号化して送信する説明であり、チャレンジレスポンス方式ではない。",
+          "promptContext": "認証技術の知識問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はトークンが表示する値をそのままパスワードとして送信するワンタイムパスワード方式の説明である。",
+          "promptContext": "認証技術の知識問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は任意長データから固定長ハッシュ値を出力するハッシュ関数の説明である。",
+          "promptContext": "認証技術の知識問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、サーバから送られたランダムデータと秘密情報をクライアント側で演算し、その結果を応答に用いるチャレンジレスポンス方式の説明である。",
+          "promptContext": "認証技術の知識問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、DNSキャッシュポイズニングはDNSキャッシュに偽の対応情報を混入させ、名前解決の結果を本来と異なるものにする攻撃である。選択肢は自社の公開Webサーバに関する設定情報そのものが書き換えられるとしているため、キャッシュ情報の改ざんとは異なる。",
-      "間違い。正しくは、DNSキャッシュポイズニングでは、DNSサーバのキャッシュに偽の名前解決情報が登録される。選択肢はDNSサーバのメモリ上にワームが常駐し、不正プログラムを送り込むとしているため、攻撃の仕組みが異なる。",
-      "正しい。DNSキャッシュに偽の対応情報が入ると、社内利用者が特定のWebサーバへ接続しようとした際に、名前解決の結果として本来とは異なるWebサーバへ誘導され得る。",
-      "間違い。正しくは、DNSキャッシュポイズニングは名前解決の結果を改ざんする攻撃であり、メールサーバの不正中継設定を変更するものではない。選択肢はメールサーバを不正中継の踏み台にするとしているため、攻撃の対象と仕組みが異なる。"
+      "間違い。正しくは、DNSキャッシュポイズニングによってDNSキャッシュの名前解決情報が改ざんされ、利用者が本来とは異なるWebサーバへ誘導される。選択肢は自社の公開Webサーバに設定されたFQDN情報そのものが書き換えられるとしているため、攻撃対象が異なる。",
+      "間違い。正しくは、DNSキャッシュポイズニングではDNSキャッシュに偽の名前解決情報が登録される。選択肢はDNSサーバのメモリ上にワームが常駐して不正プログラムを送り込むとしているため、攻撃の仕組みが異なる。",
+      "正しい。DNSキャッシュに偽の対応情報が登録されると、社内利用者が特定のWebサーバへ接続しようとしたとき、本来とは異なるWebサーバへ誘導され得る。",
+      "間違い。正しくは、DNSキャッシュポイズニングは名前解決の結果を改ざんする攻撃である。選択肢はメールサーバの不正中継設定を変更して踏み台にするとしているため、攻撃対象と仕組みが異なる。"
     ],
     "original_question_id": "20dbe1bef217d62d",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_19.html",
@@ -1889,14 +2890,120 @@
     "sourceRecordRef": "question_200902_2.json#23",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSキャッシュポイズニングによる名前解決の改ざんという技術論点であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DNSキャッシュポイズニングはDNSキャッシュの名前解決情報を改ざんする技術であり、法令根拠を要しない。",
+          "promptContext": "技術知識のみで選択肢の正誤を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。DNSキャッシュポイズニングの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DNSキャッシュポイズニングはDNSキャッシュの名前解決情報を改ざんする技術であり、法令根拠を要しない。",
+          "promptContext": "技術知識のみで選択肢の正誤を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。DNSキャッシュポイズニングの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DNSキャッシュポイズニングは、社内利用者を本来とは異なるWebサーバへ誘導し得る技術的攻撃である。",
+          "promptContext": "技術知識のみで選択肢の正誤を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。DNSキャッシュポイズニングの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DNSキャッシュポイズニングは名前解決結果の改ざんであり、メールサーバの不正中継設定を変更する攻撃ではない。",
+          "promptContext": "技術知識のみで選択肢の正誤を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。DNSキャッシュポイズニングの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。外部公開していないサービス宛ての通信をポート番号や宛先アドレスで遮断すれば、必要な公開サービスへの通信を許可したままアクセスを防げる。",
-      "間違い。アプリケーションの脆弱性を突く攻撃は、必要なサービスへの正規の通信に含まれることがある。パケットフィルタは主に通信のアドレスやポートなどを判定するため、必要なサービスを許可したまま攻撃内容だけを識別して防ぐことはできない。",
-      "間違い。マクロウイルスの侵入を防ぐには、メールの添付ファイルやその内容を検査する必要がある。パケットフィルタは通信の内容を解析してマクロを判定する機能を持たないため、ポート単位の制御だけでは防げない。",
-      "間違い。電子メール爆弾のようなDoS攻撃は、メールサービスへの大量の通信によって発生する。必要なメール通信と攻撃通信をポート番号だけで区別できないため、必要なサービスへの影響を避けながらパケットフィルタだけで防ぐことはできない。"
+      "正しい。宛先アドレスやポート番号を指定して、外部公開していないサービスへの通信だけを遮断できるため、必要な公開サービスへの通信を許可したままアクセスを防げる。",
+      "間違い。サーバの脆弱性を突く攻撃は、必要なサービスの正規ポートを使って行われることがある。パケットフィルタは主に送信元・宛先アドレスやポート番号で通信を判定するため、サービスを許可したまま攻撃内容だけを識別して防ぐことはできない。選択肢は、必要なサービスへの通信を許可しながら脆弱性攻撃も防げるとしているため誤りである。",
+      "間違い。マクロウイルスを判定するには、電子メールの添付ファイルやその内容を検査する必要がある。パケットフィルタは通信のアドレスやポート番号などを判定する機能が中心で、添付ファイル内のマクロまでは識別できない。選択肢は、必要な電子メール通信を許可しながらマクロウイルスだけを防げるとしているため誤りである。",
+      "間違い。電子メール爆弾は、メールサービスに大量の通信を送り付けてサービスを妨害する攻撃である。パケットフィルタでは、必要なメール通信と攻撃に使われるメール通信をポート番号だけで区別できないため、メールサービスへの影響を避けて防ぐことはできない。選択肢は、必要なメールサービスを維持したまま電子メール爆弾を防げるとしているため誤りである。"
     ],
     "original_question_id": "93521734e217e1f2",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_20.html",
@@ -1906,6 +3013,112 @@
     "sourceRecordRef": "question_200902_2.json#24",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "パケットフィルタリングの通信制御能力に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外部公開していないサービスへのアクセスは、宛先アドレスやポート番号による通信制御で遮断できる。",
+          "promptContext": "パケットフィルタリングの技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "正規ポートを使う脆弱性攻撃は、必要なサービスへの通信を許可したままパケットフィルタだけで識別することはできない。",
+          "promptContext": "パケットフィルタリングの技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "添付ファイル内のマクロウイルスは、パケットフィルタのアドレスやポート番号の判定だけでは識別できない。",
+          "promptContext": "パケットフィルタリングの技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "電子メール爆弾と必要なメール通信を、パケットフィルタのポート番号だけで区別して防ぐことはできない。",
+          "promptContext": "パケットフィルタリングの技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

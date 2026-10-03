@@ -70,7 +70,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "source_question_id": "202201:am:問21:https://www.nw-siken.com/kakomon/04_haru/am2_21.html"
+      "source_question_id": "202201:am:問21:https://www.nw-siken.com/kakomon/04_haru/am2_21.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "DNSの再帰問い合わせ制御やサーバ構成に関する技術問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "量子アニーリング方式の量子コンピュータの説明として，適切なものはどれか。",
@@ -138,13 +148,23 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "source_question_id": "202201:am:問22:https://www.nw-siken.com/kakomon/04_haru/am2_22.html"
+      "source_question_id": "202201:am:問22:https://www.nw-siken.com/kakomon/04_haru/am2_22.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "量子コンピュータの方式と適用アルゴリズムに関する技術問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "ある2局間の通信回線のアベイラビリティ(稼働率)は0.9であった。通信回線部分の二重化を行ったところ，アベイラビリティが0.999となった。このとき，新たに設置した通信回線のアベイラビリティは幾らか。",
       "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問23",
       "questionLabel": "問23",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "0.990",
         "0.993",
@@ -186,16 +206,16 @@
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
         [
-          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+          "新たに設置した通信回線の稼働率をRとすると、\n　0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の(1－0.9)(1－R)の部分が0.001になればよいので、\n　(1－0.9)(1－R)＝0.001\n　0.1(1－R)＝0.001\n　0.1－0.1R＝0.001\n　－0.1R＝－0.099\n　R＝0.99\nしたがって「ア」が正解です。"
         ],
         [
-          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+          "新たに設置した通信回線の稼働率をRとすると、\n　0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の(1－0.9)(1－R)の部分が0.001になればよいので、\n　(1－0.9)(1－R)＝0.001\n　0.1(1－R)＝0.001\n　0.1－0.1R＝0.001\n　－0.1R＝－0.099\n　R＝0.99\nしたがって「ア」が正解です。"
         ],
         [
-          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+          "新たに設置した通信回線の稼働率をRとすると、\n　0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の(1－0.9)(1－R)の部分が0.001になればよいので、\n　(1－0.9)(1－R)＝0.001\n　0.1(1－R)＝0.001\n　0.1－0.1R＝0.001\n　－0.1R＝－0.099\n　R＝0.99\nしたがって「ア」が正解です。"
         ],
         [
-          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+          "新たに設置した通信回線の稼働率をRとすると、\n　0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の(1－0.9)(1－R)の部分が0.001になればよいので、\n　(1－0.9)(1－R)＝0.001\n　0.1(1－R)＝0.001\n　0.1－0.1R＝0.001\n　－0.1R＝－0.099\n　R＝0.99\nしたがって「ア」が正解です。"
         ]
       ],
       "explanation_choice_correctness": [
@@ -208,13 +228,23 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "source_question_id": "202201:am:問23:https://www.nw-siken.com/kakomon/04_haru/am2_23.html"
+      "source_question_id": "202201:am:問23:https://www.nw-siken.com/kakomon/04_haru/am2_23.html",
+      "isCalculationQuestion": true,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "通信回線のアベイラビリティと二重化による信頼性計算の問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "システムに規定外の無効なデータが入力されたとき，誤入力であることを伝えるメッセージを表示して正しい入力を促すことによって，システムを異常終了させない設計は何というか。",
       "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問24",
       "questionLabel": "問24",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "フールプルーフ",
         "フェールセーフ",
@@ -276,7 +306,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "source_question_id": "202201:am:問24:https://www.nw-siken.com/kakomon/04_haru/am2_24.html"
+      "source_question_id": "202201:am:問24:https://www.nw-siken.com/kakomon/04_haru/am2_24.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "無効な入力を検出して利用者に修正を促し、異常終了を防ぐ設計を問う工学的な問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "ステージング環境の説明として，適切なものはどれか。",
@@ -346,7 +386,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "source_question_id": "202201:am:問25:https://www.nw-siken.com/kakomon/04_haru/am2_25.html"
+      "source_question_id": "202201:am:問25:https://www.nw-siken.com/kakomon/04_haru/am2_25.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "ステージング環境の定義に関する技術・開発運用上の問題で、法令条文を根拠にしない。"
     }
   ]
 }

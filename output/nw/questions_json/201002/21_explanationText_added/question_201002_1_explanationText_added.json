@@ -121,10 +121,10 @@
   },
   {
     "explanationText": [
-      "間違い。ビット列00を、文字c（00）とも文字aa（0・0）とも復号できるため、一意に復号できない。",
-      "間違い。ビット列010を、文字ac（0・10）とも文字ba（01・0）とも分解できるため、一意に復号できない。",
-      "正しい。各符号語の先頭が別の符号語になっていないため、一意に復号できる。平均符号長は、符号語の長さに出現頻度を掛けて、\\(1\\times0.5+2\\times0.3+3\\times0.1+3\\times0.1=1.7\\)ビットとなる。",
-      "間違い。エは各文字を2ビットで表すため一意に復号できるが、平均符号長は2ビットである。ウの1.7ビットより長いため、最も短い方式ではない。"
+      "間違い。アの方式では、ビット列00を文字c（00）とも文字aa（0・0）とも復号できるため、一意に復号できない。選択肢の方式は、一つのビット列に複数の文字列が対応するため誤りである。",
+      "間違い。イの方式では、ビット列010を文字ac（0・10）とも文字ba（01・0）とも復号できるため、一意に復号できない。選択肢の方式は、一つのビット列に複数の文字列が対応するため誤りである。",
+      "正しい。各符号語の先頭が別の符号語になっていないため、一意に復号できる。平均符号長は、各符号語の長さに出現頻度を掛けて、\\(1\\times0.5+2\\times0.3+3\\times0.1+3\\times0.1=1.7\\)ビットとなる。",
+      "間違い。エは各文字を2ビットで表すため一意に復号できるが、平均符号長も2ビットである。選択肢の方式は、ウの平均符号長1.7ビットより長いため、最も短い方式ではない。"
     ],
     "original_question_id": "73f7b074c2cd36b2",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_2.html",
@@ -134,7 +134,113 @@
     "sourceRecordRef": "question_201002_1.json#1",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "符号化方式の一意復号可能性と平均符号長に関する情報理論の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は符号語00と0・0の曖昧性により一意復号できない。",
+          "promptContext": "アの符号化方式を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット列010をacともbaとも復号でき、一意復号できない。",
+          "promptContext": "イの符号化方式を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は接頭語条件を満たし、一意復号でき、平均符号長は1.7ビットである。",
+          "promptContext": "ウの符号化方式を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は一意復号できるが、平均符号長が2ビットで、ウの1.7ビットより長い。",
+          "promptContext": "エの符号化方式を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -507,10 +613,10 @@
   },
   {
     "explanationText": [
-      "間違い。ページサイズを小さくすると、同じ主記憶容量でも管理するページ数が増えるため、ページ表の管理などのオーバーヘッドは増えやすい。選択肢はオーバーヘッドが減少するとしているため誤りである。",
-      "間違い。ページサイズを半分にするとページ内の無駄な空き領域は減るため、それだけでページ置換えによる性能低下が起きるわけではない。選択肢はページ内の余裕がなくなることを理由にシステム性能が低下するとしているため誤りである。",
-      "正しい。ほとんどのプログラムが新しいページサイズの1ページ以内に収まるため、ページ内の内部断片化が減少する。その結果、主記憶の無駄が減り、主記憶不足は緩和される。",
-      "間違い。この条件では内部断片化が減って主記憶に載せられる有効なデータ量が増えるため、ページフォールトが増加して性能が低下するとは限らない。選択肢はページフォールトの回数が増加するとしているため誤りである。"
+      "間違い。ページサイズを小さくすると、同じ主記憶容量で管理するページ数が増えるため、ページ表の管理などのオーバーヘッドは増えやすい。選択肢はオーバーヘッドが減少するとしているため誤りである。",
+      "間違い。ほとんどのプログラムが新しいページサイズの1ページ以内に収まる条件では、ページサイズを小さくしても、ページ内の余裕がなくなることを理由にページ置換えの性能が低下するとは考えにくい。選択肢はページ内の余裕がなくなるため性能が低下するとしているため誤りである。",
+      "正しい。ほとんどのプログラムが新しいページサイズの1ページ以内に収まるため、ページ内に生じる無駄な空き領域（内部断片化）が減少する。その結果、主記憶を有効に使えるようになり、主記憶不足が緩和される。",
+      "間違い。この条件では内部断片化が減って主記憶を有効に使えるため、ページフォールトの回数が増加して性能が低下すると予想することはできない。選択肢はページフォールトの回数が増加するとしているため誤りである。"
     ],
     "original_question_id": "f429af0c58bb91db",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_6.html",
@@ -520,7 +626,113 @@
     "sourceRecordRef": "question_201002_1.json#5",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ページサイズ、内部断片化、ページフォールトを扱うOSの技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ページサイズと内部断片化に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "法令監査対象外のOS技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術内容の正誤を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ページ置換えとページサイズの関係に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "法令監査対象外のOS技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術内容の正誤を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ページ内の無駄な空き領域と主記憶不足に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "法令監査対象外のOS技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令関連性なし。技術内容の正誤を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ページフォールトとシステム性能に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "法令監査対象外のOS技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術内容の正誤を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -767,7 +979,7 @@
   },
   {
     "explanationText": [
-      "間違い。異なる画面で類似した手順を使えるようにするのは、「一貫性と標準化」に関する考え方である。選択肢は画面間の操作手順の統一を説明しているため、「システム状態の視認性」には当たらない。",
+      "間違い。異なる画面でも類似した手順を使えるようにするのは、「一貫性と標準化」に関する考え方である。選択肢は画面間の操作手順の統一を説明しているため、「システム状態の視認性」には当たらない。",
       "正しい。処理の進捗度を表示すると、利用者はシステムが現在どの状態にあるかを把握できる。これは「システム状態の視認性」に当たる。",
       "間違い。入力フォームの必須項目を目立たせるのは、入力漏れを防ぐ「エラー予防」に関する考え方である。選択肢は入力ミスを防ぐための表示を説明しているため、「システム状態の視認性」には当たらない。",
       "間違い。文字の大きさや色、画像の使い方を適切にすることは、表示の分かりやすさや美的で簡潔な設計に関する考え方である。選択肢は画面表示の見やすさを説明しているため、処理の進行状況などを示す「システム状態の視認性」には当たらない。"
@@ -780,14 +992,120 @@
     "sourceRecordRef": "question_201002_1.json#8",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ユーザーインタフェース設計に関する技術上の知識で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は画面間の操作手順の一貫性に関する技術知識であり、法令監査対象外である。",
+          "promptContext": "問題文の問いに従い、第1選択肢をシステム状態の視認性に該当しないと判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は処理の進捗度を表示してシステム状態を知らせる技術知識であり、法令監査対象外である。",
+          "promptContext": "問題文の問いに従い、第2選択肢をシステム状態の視認性に該当すると判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は必須項目の表示による入力漏れ防止に関する技術知識であり、法令監査対象外である。",
+          "promptContext": "問題文の問いに従い、第3選択肢をシステム状態の視認性に該当しないと判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は文字や色、画像による表示の見やすさに関する技術知識であり、法令監査対象外である。",
+          "promptContext": "問題文の問いに従い、第4選択肢をシステム状態の視認性に該当しないと判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。テクスチャマッピングは、物体表面に画像や模様を貼り付けて見た目を表現する手法である。視線と物体の交点を求め、視点に最も近い交点を選んで陰面消去を行う説明は、レイトレーシング法などに関するものである。",
-      "間違い。メタボールは、球や楕円体のような形状を個別に描くのではなく、空間に定義したスカラー場の等値面として、互いに滑らかにつながる形状を表現する手法である。与えられた空間データから輝度を計算する説明は、メタボールの特徴ではない。",
-      "正しい。ラジオシティ法は、拡散反射面どうしの相互反射によって生じる光の影響を考慮し、各面の明るさを求める手法である。",
-      "間違い。レイトレーシング法は、視点から光線を追跡して物体との交点を求め、反射や屈折などを考慮して画像を生成する手法である。物体表面に画像や模様を貼り付けるのはテクスチャマッピングである。"
+      "間違い。正しくは、テクスチャマッピングは物体表面に画像や模様を貼り付けて見た目を表現する手法である。視線と物体の交点を求め、最も近い交点を選んで陰面消去を行うのは、レイトレーシング法の説明である。",
+      "間違い。正しくは、メタボールは空間に定義したスカラー場の等値面として、球などの形状が滑らかにつながった物体を表現する手法である。空間中のデータから輝度を計算する説明は、ボリュームレンダリングなどの手法に関するものである。",
+      "正しい。ラジオシティ法は、拡散反射面の間で光が相互反射する効果を考慮し、各面の明るさを求める手法である。",
+      "間違い。正しくは、レイトレーシング法は視点から光線を追跡し、物体との交点や反射・屈折を計算して画像を生成する手法である。物体表面に別の画像や模様を貼り付けるのは、テクスチャマッピングである。"
     ],
     "original_question_id": "1c8e4b578325c985",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_10.html",
@@ -797,67 +1115,356 @@
     "sourceRecordRef": "question_201002_1.json#9",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "コンピュータグラフィックスの技術概念に関する問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の監査対象外。",
+          "displayRefIds": [],
+          "explanationText": "テクスチャマッピングと陰面消去の定義を比較して判定する技術問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢1の技術概念を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の監査対象外。",
+          "displayRefIds": [],
+          "explanationText": "メタボールとボリュームレンダリングの技術概念を比較して判定する技術問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢2の技術概念を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の監査対象外。",
+          "displayRefIds": [],
+          "explanationText": "ラジオシティ法が拡散反射面間の相互反射を考慮する技術であることから判定する問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢3の技術概念を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分の監査対象外。",
+          "displayRefIds": [],
+          "explanationText": "レイトレーシング法とテクスチャマッピングの役割を比較して判定する技術問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢4の技術概念を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n参照元である『在庫』表の行削除は、通常その行が消えるだけで参照制約違反にはならない。",
-      "間違い。\n\n在庫表全体の削除を参照制約の例として問う設問ではなく、外部キー値の整合が論点である。",
-      "正しい。\n\n『在庫』表の製品番号は『製品』表に存在する値でなければならないので、存在しない製品番号で在庫行を追加すると参照制約違反で拒否される。",
-      "間違い。\n\n参照される側の『製品』表への行追加は整合性を壊さないため、参照制約では通常拒否されない。"
-    ],
-    "suggestedQuestions": [
-      "参照制約とは何ですか？",
-      "参照元と参照先の違いは何ですか？",
-      "どんな操作で参照制約違反が起きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "参照制約とは何ですか？",
-        "answer": "外部キーの値が、参照先表の主キーなどに実在することを保証する制約である。"
-      },
-      {
-        "question": "参照元と参照先の違いは何ですか？",
-        "answer": "外部キーを持つ表が参照元、その値の正本を持つ表が参照先である。"
-      },
-      {
-        "question": "どんな操作で参照制約違反が起きますか？",
-        "answer": "存在しない参照先キーを持つ行を追加したり、参照中の親行を不適切に削除したりすると起きる。"
-      }
+      "間違い。『在庫』表の行削除は、参照する在庫行そのものをなくすため、通常、参照制約違反にならない。選択肢は行削除が拒否される可能性があるとしているため誤りである。",
+      "間違い。外部キーを持つ『在庫』表を削除すると、参照元の表とその制約もなくなるため、通常、参照制約によって拒否されない。選択肢は表削除が拒否される可能性があるとしているため誤りである。",
+      "正しい。『在庫』表に行を追加するとき、製品番号に対応する行が『製品』表に存在しなければ、参照先のない外部キー値となるため、参照制約によって拒否される可能性がある。",
+      "間違い。『製品』表への行追加は、参照先となる行を増やす操作なので、参照制約による不整合を生じさせない。選択肢は製品表への行追加が拒否される可能性があるとしているため誤りである。"
     ],
     "original_question_id": "74cad726d33993b9",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:74cad726d33993b9",
+    "reviewQuestionId": "74cad726d33993b9",
+    "sourceRecordRef": "question_201002_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "データベースの参照制約と表操作の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "在庫行の削除は参照元を削除する操作であり、参照制約による拒否を生じない。",
+          "promptContext": "在庫表の行削除と参照制約の関係。",
+          "refs": [],
+          "verdict": "法令非該当・判定一致"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "参照元である在庫表の削除は、通常、参照制約による拒否の対象ではない。",
+          "promptContext": "在庫表の表削除と参照制約の関係。",
+          "refs": [],
+          "verdict": "法令非該当・判定一致"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "在庫表への行追加時に、製品表に対応する製品番号がなければ外部キー制約違反となり、追加が拒否される可能性がある。",
+          "promptContext": "在庫表への行追加と外部キー制約の関係。",
+          "refs": [],
+          "verdict": "法令非該当・判定一致"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術内容のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "製品表への行追加は参照先を増やす操作であり、参照制約による不整合を生じさせない。",
+          "promptContext": "製品表への行追加と参照制約の関係。",
+          "refs": [],
+          "verdict": "法令非該当・判定一致"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nLAN1 上のイーサネットフレーム宛先は最終宛先ホスト B ではなく、まず次ホップのルータになる。",
-      "間違い。\n\nIP データグラム宛先は途中ルータではなく最終宛先ホスト B の IP アドレスのままである。",
-      "正しい。\n\n異なる LAN 上のホスト B へ送るので、LAN1 では IP 宛先はホスト B、イーサネットフレーム宛先は次ホップであるルータ LAN1 側インタフェースになる。",
-      "間違い。\n\nMAC 宛先と IP 宛先の役割を取り違えており、LAN1 上のフレーム配送と IP 層の最終宛先指定が一致していない。"
-    ],
-    "suggestedQuestions": [
-      "なぜMAC宛先はルータになりますか？",
-      "IP宛先は途中で変わりますか？",
-      "次ホップとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜMAC宛先はルータになりますか？",
-        "answer": "同一 LAN 上でまず届けられる相手は、外部ネットワークへ転送してくれるデフォルトゲートウェイだからである。"
-      },
-      {
-        "question": "IP宛先は途中で変わりますか？",
-        "answer": "通常の転送では変わらず、最終宛先ホストの IP アドレスを保持したまま運ばれる。"
-      },
-      {
-        "question": "次ホップとは何ですか？",
-        "answer": "パケットを次に引き渡す隣接装置のことで、LAN 上ではその装置の MAC アドレスを使う。"
-      }
+      "正しい。該当する組合せはウである。LAN1上では、イーサネットフレームの宛先は次ホップであるルータのLAN1側インタフェース（MAC3）になる。一方、IPデータグラムは経路上のルータではなく、最終宛先であるホストB（IP2）を宛先とする。ルータはフレームを受信すると、次のLANに合わせてフレームを作り直すが、IPデータグラムの最終宛先は維持される。"
     ],
     "original_question_id": "056b3afc6b6d9eb5",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:056b3afc6b6d9eb5",
+    "reviewQuestionId": "056b3afc6b6d9eb5",
+    "sourceRecordRef": "question_201002_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPネットワークにおけるイーサネットフレームとIPデータグラムの宛先対応を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "LAN1上のフレーム宛先とIPデータグラム宛先の対応を技術的に確認した。",
+          "promptContext": "選択肢アのMAC2/IP2という組合せを判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "LAN1上のフレーム宛先とIPデータグラム宛先の対応を技術的に確認した。",
+          "promptContext": "選択肢イのMAC2/IP3という組合せを判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "LAN1上では次ホップのルータのMAC3をフレーム宛先とし、最終宛先ホストBのIP2をIPデータグラム宛先とする。",
+          "promptContext": "選択肢ウのMAC3/IP2という組合せを判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "LAN1上のフレーム宛先とIPデータグラム宛先の対応を技術的に確認した。",
+          "promptContext": "選択肢エのMAC3/IP3という組合せを判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1353,33 +1960,188 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n他社が特許出願する前から独自開発して実施していた者には、一定条件で先使用権が認められ、侵害とならない場合がある。",
-      "間違い。\n\nソフトウェアも一定の要件を満たす発明として特許保護の対象になり得る。",
-      "間違い。\n\n特許登録後でも、無効審判などにより特許権が無効とされる可能性がある。",
-      "間違い。\n\n独自開発であっても、他人の有効な特許発明を実施すれば侵害になり得る。"
-    ],
-    "suggestedQuestions": [
-      "先使用権とは何ですか？",
-      "ソフトウェアも特許になりますか？",
-      "独自開発でも侵害になるのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "先使用権とは何ですか？",
-        "answer": "他人の出願前から独自に発明を実施していた者に、一定範囲で継続実施を認める権利である。"
-      },
-      {
-        "question": "ソフトウェアも特許になりますか？",
-        "answer": "技術的思想として成立し、法要件を満たせばソフトウェア関連発明も特許対象になり得る。"
-      },
-      {
-        "question": "独自開発でも侵害になるのはなぜですか？",
-        "answer": "特許権は独占実施権であり、同じ発明を実施すること自体が問題になるためである。"
-      }
+      "正しい。特許出願の際に、発明の内容を知らずに独自に発明し、日本国内でその発明を実施する事業をしていた者や準備していた者には、事業の範囲内で先使用による通常実施権が認められる場合がある。この先使用による通常実施権は、特許法第79条に定められている。",
+      "間違い。ソフトウェア関連発明も、特許要件を満たせば保護対象となり得る。プログラム等を含む物の発明の実施は、特許法第2条第3項第1号に定められており、選択肢はソフトウェアを一律に保護対象外としているため誤りである。",
+      "間違い。特許取得後でも、法定の無効理由があれば特許無効審判によって特許が無効とされることがある。この手続は特許法第123条に定められており、選択肢は取得後に特許権が無効となる可能性を否定しているため誤りである。",
+      "間違い。独自開発であっても、他人の有効な特許発明を業として実施すれば、原則として特許権を侵害し得る。特許発明を実施する権利を特許権者が専有することは特許法第68条で定められており、選択肢は独自開発であれば侵害にならないとしているため誤りである。先使用権が認められるかどうかは、特許出願時の実施や準備など、別の要件で判断する。"
     ],
     "original_question_id": "fb797821f9c59474",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201002:fb797821f9c59474",
+    "reviewQuestionId": "fb797821f9c59474",
+    "sourceRecordRef": "question_201002_1.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/334AC0000000121?asof=2026-10-04",
+        "title": "特許法（昭和三十四年法律第百二十一号）"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "特許法第79条は先使用による通常実施権、第2条第3項第1号はプログラム等を含む物の発明の実施、第123条は特許無効審判、第68条は特許権の効力を定める。出題時の公式元正答と現行法判定は独立に照合する。",
+    "lawReferences": [
+      [
+        {
+          "article": "79",
+          "choiceIndex": 0,
+          "lawId": "334AC0000000121",
+          "lawTitle": "特許法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "2(3)(i)",
+          "choiceIndex": 1,
+          "lawId": "334AC0000000121",
+          "lawTitle": "特許法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "123",
+          "choiceIndex": 2,
+          "lawId": "334AC0000000121",
+          "lawTitle": "特許法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "68",
+          "choiceIndex": 3,
+          "lawId": "334AC0000000121",
+          "lawTitle": "特許法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "出題時の法令本文は取得できないため、条文が不変だったとは断定しない。00_sourceの公式元正答と現行法上の判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は正しいで一致する。",
+          "displayRefIds": [],
+          "explanationText": "特許出願時に独自に発明し、出願時に日本国内で実施又は準備していた者には、特許法第79条に基づく先使用による通常実施権が認められる場合がある。構造化可能なXML参照IDは入力にないためrefsは空配列とした。",
+          "promptContext": "独自開発して出願前に発売した製品が特許権侵害にならないか。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時判定は公式元正答から確認し、現行法判定は特許法第79条の現行本文から独立に確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時の法令本文は取得できないため、条文が不変だったとは断定しない。00_sourceの公式元正答と現行法上の判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は間違いで一致する。",
+          "displayRefIds": [],
+          "explanationText": "ソフトウェア関連発明も特許要件を満たせば保護対象となり得る。プログラム等を含む物の発明の実施は特許法第2条第3項第1号に定められる。構造化可能なXML参照IDは入力にないためrefsは空配列とした。",
+          "promptContext": "組込み機器のソフトウェアが特許権で保護されないか。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時判定は公式元正答から確認し、現行法判定は特許法第2条第3項第1号の現行法上のプログラム等の扱いから確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時の法令本文は取得できないため、条文が不変だったとは断定しない。00_sourceの公式元正答と現行法上の判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は間違いで一致する。",
+          "displayRefIds": [],
+          "explanationText": "特許取得後でも、法定の無効理由があれば特許無効審判を請求できる。特許無効審判は特許法第123条に定められる。構造化可能なXML参照IDは入力にないためrefsは空配列とした。",
+          "promptContext": "審査を経て特許権を取得した後に無効となることがないか。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時判定は公式元正答から確認し、現行法判定は特許法第123条の特許無効審判から確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "出題時の法令本文は取得できないため、条文が不変だったとは断定しない。00_sourceの公式元正答と現行法上の判定は一致する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は間違いで一致する。",
+          "displayRefIds": [],
+          "explanationText": "特許発明を業として実施する権利を特許権者が専有するため、独自開発であっても他人の有効な特許発明を実施すれば侵害し得る。根拠は特許法第68条である。構造化可能なXML参照IDは入力にないためrefsは空配列とした。",
+          "promptContext": "先行特許と同一技術でも独自開発なら特許権侵害にならないか。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時判定は公式元正答から確認し、現行法判定は特許法第68条の特許権の効力から確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -2152,10 +2914,10 @@
   },
   {
     "explanationText": [
-      "間違い。サプライチェーンマネジメント（SCM）は、調達・生産・在庫・物流などの流れ全体を改善する。残業時間の減少率は労務管理の指標であり、SCM全体の改善を直接測る代表的な指標ではない。",
-      "間違い。販売単価下落の防止率は、商品の価格設定や販売管理に関する指標である。SCMの改善指標は、供給の流れや在庫、物流の効率を直接測るものなので、この指標は適切ではない。",
-      "正しい。不良在庫の減少率は、需要に合わない在庫や長期間売れない在庫をどれだけ減らせたかを示す。調達・生産・在庫・物流の全体最適化を目指すSCMの改善指標として適切である。",
-      "間違い。優良顧客数の増加率は、顧客管理やマーケティングの成果を測る指標である。SCMの改善を直接測るには、在庫量や納期、物流など供給の流れに関する指標を用いる。"
+      "間違い。SCMの改善指標は、調達・生産・在庫・物流という供給の流れ全体の効率を測る。不良在庫の減少率のような在庫指標はSCMに関係するが、残業時間の減少率は主に労務管理の指標である。選択肢は残業時間の減少率をSCMの改善指標としているため誤りである。",
+      "間違い。販売単価下落の防止率は、商品の価格設定や販売管理に関する指標である。SCMでは、在庫や納期、物流など供給の流れの効率を測る。選択肢は販売単価下落の防止率をSCMの改善指標としているため誤りである。",
+      "正しい。不良在庫の減少率は、需要に合わず長期間売れ残る在庫をどれだけ減らせたかを示す。調達・生産・在庫・物流を連携させ、在庫を適正化するSCMの改善指標として適切である。",
+      "間違い。優良顧客数の増加率は、顧客管理やマーケティングの成果を測る指標である。SCMでは、在庫や納期、物流など供給の流れの効率を測る。選択肢は優良顧客数の増加率をSCMの改善指標としているため誤りである。"
     ],
     "original_question_id": "d47003554b8de646",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_25.html",
@@ -2165,6 +2927,112 @@
     "sourceRecordRef": "question_201002_1.json#24",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サプライチェーンマネジメントの改善指標を問う経営管理上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "残業時間の減少率は主に労務管理の指標であり、SCMの改善指標としては不適切である。",
+          "promptContext": "法令根拠を要しない技術・経営管理上の選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術・経営管理知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "販売単価下落の防止率は価格設定や販売管理の指標であり、SCMの改善指標としては不適切である。",
+          "promptContext": "法令根拠を要しない技術・経営管理上の選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術・経営管理知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "不良在庫の減少率は、調達・生産・在庫・物流を連携させた在庫適正化の成果を測るSCMの改善指標として適切である。",
+          "promptContext": "法令根拠を要しない技術・経営管理上の選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術・経営管理知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "優良顧客数の増加率は顧客管理やマーケティングの指標であり、SCMの改善指標としては不適切である。",
+          "promptContext": "法令根拠を要しない技術・経営管理上の選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術・経営管理知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

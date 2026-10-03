@@ -980,9 +980,9 @@
   {
     "explanationText": [
       "間違い。正しくは、各ページの内容を識別できる固有のtitle要素を付ける。選択肢は全ページに同じ表題を付けるとしているため誤りである。",
-      "間違い。正しくは、色に加えて文字、形、記号などでも操作の意味を判断できるようにする。選択肢は色だけでボタンの意味を判別できるようにするとしているため誤りである。",
+      "間違い。正しくは、色に加えて文字、形、記号などでもボタンの意味を判別できるようにする。選択肢は色だけでボタンの意味を判別できるようにしているため誤りである。",
       "正しい。入力欄の目的と入力方法をラベルで明示すると、利用者が入力内容を理解しやすく、支援技術からも情報を取得しやすい。",
-      "間違い。正しくは、リンクやボタンを十分な大きさにし、隣接する操作対象との間隔も確保する。選択肢は隣り合うものとの間隔を狭くするとしているため誤りである。"
+      "間違い。正しくは、リンクやボタンを操作しやすい大きさにし、隣接する操作対象との間隔も確保する。選択肢は隣り合うものとの間隔を狭くするとしているため誤りである。"
     ],
     "original_question_id": "9bc05ba41773a1be",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_9.html",
@@ -992,37 +992,236 @@
     "sourceRecordRef": "question_200902_1.json#8",
     "explanationReferences": [],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "Webアクセシビリティに関する一般的な設計原則の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "色だけで意味を識別させる設計はアクセシビリティ上不適切であり、法令根拠は用いない。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "Webアクセシビリティの設計原則に基づく技術肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ページごとの内容を識別できる固有のtitle要素が必要であり、法令根拠は用いない。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "Webアクセシビリティの設計原則に基づく技術肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "入力欄の目的と仮名の種類を明示することは、利用者の理解を助ける設計であり、法令根拠は用いない。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "Webアクセシビリティの設計原則に基づく技術肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リンクやボタンは操作しやすい大きさと間隔を確保する必要があり、法令根拠は用いない。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "Webアクセシビリティの設計原則に基づく技術肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nアンチエイリアシングは周辺画素との補間を用いて、斜線や曲線のジャギーを目立ちにくくする技法である。",
-      "間違い。\n\n光の相互反射を考慮して面の明るさを求めるのはラジオシティの説明に近い。",
-      "間違い。\n\n光線の経路追跡で反射や屈折を表現するのはレイトレーシングの説明である。",
-      "間違い。\n\n球や楕円体の集合で柔らかい形状を表すのはメタボールの説明である。"
-    ],
-    "suggestedQuestions": [
-      "アンチエイリアシングは何を改善しますか？",
-      "ラジオシティとレイトレーシングの違いは何ですか？",
-      "メタボールはどんな表現に向きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アンチエイリアシングは何を改善しますか？",
-        "answer": "低解像度表示で目立つギザギザや段差感を軽減する。"
-      },
-      {
-        "question": "ラジオシティとレイトレーシングの違いは何ですか？",
-        "answer": "ラジオシティは面間の拡散反射のエネルギー授受、レイトレーシングは視点から光線経路を追う手法である。"
-      },
-      {
-        "question": "メタボールはどんな表現に向きますか？",
-        "answer": "液体や粘土のように滑らかに融合する立体表現に向く。"
-      }
+      "正しい。周辺画素との補間や平均化によって、斜め線や曲線のギザギザを目立ちにくくする技法である。",
+      "間違い。光の相互反射を考慮して物体表面の明るさを求めるのはラジオシティである。メタボールは、球や楕円体などの影響場を組み合わせ、滑らかな曲面を表現する。選択肢はラジオシティの特徴をメタボールの説明としているため誤りである。",
+      "間違い。光源から出た光線の反射や屈折などの経路を追跡して画像を生成するのはレイトレーシングである。ラジオシティは、面どうしの光の相互反射を計算して明るさを求める。選択肢はレイトレーシングの特徴をラジオシティの説明としているため誤りである。",
+      "間違い。球や楕円体などを組み合わせて、境界が滑らかな有機的形状を表現するのはメタボールである。レイトレーシングは、光線の経路を追跡して物体の反射や屈折などを表現する。選択肢はメタボールの特徴をレイトレーシングの説明としているため誤りである。"
     ],
     "original_question_id": "b006d50aa27e2d50",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:b006d50aa27e2d50",
+    "reviewQuestionId": "b006d50aa27e2d50",
+    "sourceRecordRef": "question_200902_1.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "コンピュータグラフィックスの要素技術に関する工学・技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "アンチエイリアシングの技術的説明として妥当であり、法令根拠を要しない。",
+          "promptContext": "コンピュータグラフィックスの技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。既存の技術判定を保持する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "メタボールとラジオシティの技術的説明を取り違えており、法令根拠を要しない。",
+          "promptContext": "コンピュータグラフィックスの技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。既存の技術判定を保持する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ラジオシティとレイトレーシングの技術的説明を取り違えており、法令根拠を要しない。",
+          "promptContext": "コンピュータグラフィックスの技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。既存の技術判定を保持する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "メタボールとレイトレーシングの技術的説明を取り違えており、法令根拠を要しない。",
+          "promptContext": "コンピュータグラフィックスの技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。既存の技術判定を保持する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1149,33 +1348,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n同時更新の論理矛盾を防ぐのは排他制御の役割であり、データのブロック化が本質ではない。",
-      "正しい。\n\n媒体障害以外の停止では、チェックポイント以前に正常終了してディスクへ反映済みのトランザクションは再回復不要である。",
-      "間違い。\n\n媒体障害後はバックアップを戻したうえで、更新後ログを用いるロールフォワードでコミット済み更新を再適用する。",
-      "間違い。\n\n更新中に異常終了したトランザクションは、更新前ログを使うロールバックで元に戻す。"
-    ],
-    "suggestedQuestions": [
-      "ロールフォワードとロールバックの違いは何ですか？",
-      "チェックポイントは何のためにありますか？",
-      "媒体障害とトランザクション障害の違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ロールフォワードとロールバックの違いは何ですか？",
-        "answer": "ロールフォワードは更新後ログでコミット済み処理を再現し、ロールバックは更新前ログで未完了処理を取り消す。"
-      },
-      {
-        "question": "チェックポイントは何のためにありますか？",
-        "answer": "回復時に再処理が必要な範囲を絞り、障害復旧を効率化するためである。"
-      },
-      {
-        "question": "媒体障害とトランザクション障害の違いは何ですか？",
-        "answer": "媒体障害は記憶装置破損などでバックアップ復元が要る障害、トランザクション障害は個別処理の異常終了である。"
-      }
+      "間違い。正しくは、同時更新による論理的な矛盾を防ぐには排他制御（ロック）を行う。選択肢はデータのブロック化が必要としているため誤りである。",
+      "正しい。媒体障害以外の停止では、チェックポイント以前に正常終了したトランザクションは、既に反映済みなので回復処理を行う必要がない。",
+      "間違い。正しくは、バックアップファイルをリストアした後、更新後情報を使ってロールフォワードし、バックアップ取得後にコミットした更新を再適用する。選択肢は更新前情報を使用するとしているため誤りである。",
+      "間違い。正しくは、異常終了したトランザクションの更新を取り消すため、更新前情報を使ってロールバックする。選択肢は更新後情報を使用するとしているため誤りである。"
     ],
     "original_question_id": "22c2b376623d07da",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:22c2b376623d07da",
+    "reviewQuestionId": "22c2b376623d07da",
+    "sourceRecordRef": "question_200902_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "データベースの障害回復処理に関する技術論点で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "排他制御に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "問題文と選択肢を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "チェックポイント後の障害回復に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "問題文と選択肢を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "媒体障害後のロールフォワードに関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "問題文と選択肢を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "異常終了時のロールバックに関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "問題文と選択肢を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1300,9 +1592,9 @@
   {
     "explanationText": [
       "間違い。正しくは、送信者が自分の秘密鍵で署名し、送信者の公開鍵で検証する。選択肢は送信者の公開鍵で署名し、受信者自身の秘密鍵で検証するとしているため誤りである。",
-      "正しい。送信者の秘密鍵で作成した署名を送信者の公開鍵で検証することで、文書の改ざんと送信者の真正性を確認できる。",
-      "間違い。正しくは、送信者の秘密鍵で署名し、送信者の公開鍵で検証する。選択肢は受信者の鍵を使って署名と検証を行うとしているため、送信者の真正性を確認できない。受信者の公開鍵で暗号化し、受信者の秘密鍵で復号するのは、秘密保持を目的とした暗号化通信である。",
-      "間違い。正しくは、送信者の秘密鍵で署名し、送信者の公開鍵で検証する。選択肢は送信者が受信者の秘密鍵を使って署名するとしているため、送信者だけが保持すべき秘密鍵による署名の仕組みと一致しない。"
+      "正しい。送信者の秘密鍵で作成した署名を送信者の公開鍵で検証することで、文書が改ざんされていないことと、送信者が署名したことを確認できる。",
+      "間違い。正しくは、送信者が自分の秘密鍵で署名し、送信者の公開鍵で検証する。選択肢は受信者の公開鍵で暗号化し、受信者の秘密鍵で復号する組合せであり、受信者だけが内容を読める秘密保持の仕組みを示しているため、送信者の真正性を確認できない。",
+      "間違い。正しくは、送信者が自分の秘密鍵で署名し、送信者の公開鍵で検証する。選択肢は送信者が受信者の秘密鍵を使って署名するとしているが、受信者の秘密鍵は受信者だけが保持する鍵であり、送信者の署名には使わない。これを使っても送信者の真正性を確認できない。"
     ],
     "original_question_id": "c0d6384c8d5e43b7",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_14.html",
@@ -1312,41 +1604,240 @@
     "sourceRecordRef": "question_200902_1.json#13",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "公開鍵暗号方式におけるデジタル署名の技術的な仕組みを問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "デジタル署名の鍵の使い分けに関する技術問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢単位で技術的な署名鍵と検証鍵の対応を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "送信者の秘密鍵で署名し、送信者の公開鍵で検証するというデジタル署名の技術的知識である。",
+          "promptContext": "選択肢単位で技術的な署名鍵と検証鍵の対応を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "受信者の公開鍵で暗号化し、受信者の秘密鍵で復号する組合せは秘密保持の仕組みであり、送信者の真正性を確認するデジタル署名ではない。",
+          "promptContext": "選択肢単位で技術的な署名と暗号化の違いを確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "受信者の秘密鍵を送信者が署名に使うことはできず、デジタル署名の技術的な鍵の対応にも該当しない。",
+          "promptContext": "選択肢単位で技術的な署名鍵と検証鍵の対応を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n過去件数や対策難易度だけでは被害発生確率と影響額を数値評価する定量的な算定になっていない。",
-      "間違い。\n\n対処時間や顕在性は参考情報にはなるが、代表的な定量評価の軸ではない。",
-      "間違い。\n\n攻撃元特定可否や手法の新しさは定性的な判断要素であり、定量的リスク算定の基本形ではない。",
-      "正しい。\n\n定量的なリスク評価では、『発生確率 × 被害額』のように、起こりやすさと影響の大きさを数値で扱う。"
-    ],
-    "suggestedQuestions": [
-      "定量的リスク評価では何を掛け合わせますか？",
-      "定性的評価との違いは何ですか？",
-      "なぜ被害額を見積もるのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "定量的リスク評価では何を掛け合わせますか？",
-        "answer": "被害発生確率と損失額など、数値化した発生可能性と影響度を組み合わせる。"
-      },
-      {
-        "question": "定性的評価との違いは何ですか？",
-        "answer": "定性的評価は高・中・低などの尺度中心、定量的評価は金額や確率など数値中心である。"
-      },
-      {
-        "question": "なぜ被害額を見積もるのですか？",
-        "answer": "対策コストと比較して優先度を判断しやすくするためである。"
-      }
+      "間違い。定量的評価では、発生確率と被害の大きさを数値で扱う。選択肢は過去に発生した被害件数と対策の難易度で評価するとしているため、リスクの発生確率と影響を直接評価できず誤りである。",
+      "間違い。対処時間や被害の顕在性は、リスク判断の参考にはなるが、定量的評価の基本となる発生確率と被害の大きさを示していない。選択肢はこの二つで評価するとしているため誤りである。",
+      "間違い。攻撃元を特定できるかどうかや攻撃手法の新しさは、攻撃の特徴を表す定性的な判断材料である。選択肢はこれらで定量的なリスクを評価するとしているため誤りである。",
+      "正しい。定量的なリスク評価では、発生確率と被害額のように、起こりやすさと被害の大きさを数値で扱う。リスクの大きさを比較できるため、対策の優先度を検討しやすくなる。"
     ],
     "original_question_id": "7bd612c06bc76b30",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:7bd612c06bc76b30",
+    "reviewQuestionId": "7bd612c06bc76b30",
+    "sourceRecordRef": "question_200902_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "JIS Q 2001:2001に基づくリスク分析の技術・管理上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は定量的評価の基準である発生確率と被害の大きさを示していない。",
+          "promptContext": "技術・管理知識として判定。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくリスク分析の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は定量的評価の基本となる発生確率と被害の大きさを示していない。",
+          "promptContext": "技術・管理知識として判定。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくリスク分析の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は攻撃の特徴を示す定性的な材料であり、定量的なリスク評価の基準ではない。",
+          "promptContext": "技術・管理知識として判定。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくリスク分析の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は発生確率と被害額で評価しており、定量的リスク評価に合致する。",
+          "promptContext": "技術・管理知識として判定。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくリスク分析の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。故障後に所定の状態へ戻し、影響を受けたデータを回復する能力は回復性であり、信頼性の副特性に分類される。",
+      "正しい。故障後に指定された達成水準へ戻し、影響を受けたデータを回復する能力は回復性であり、信頼性の副特性に分類される。",
       "間違い。正しくは、欠陥の診断や故障原因の追及、修正箇所の識別を行う能力は解析性であり、保守性の副特性である。選択肢はこの能力を信頼性の副特性として扱っているため誤りである。",
       "間違い。正しくは、一つ以上の指定されたシステムと相互作用する能力は相互運用性であり、機能性の副特性である。選択肢はこの能力を信頼性の副特性として扱っているため誤りである。",
       "間違い。正しくは、利用者がソフトウェアの運用や運用管理を行える能力は運用性であり、使用性の副特性である。選択肢はこの能力を信頼性の副特性として扱っているため誤りである。"
@@ -1357,15 +1848,115 @@
     "sourceQuestionKey": "nw:200902:30267738c3170ba6",
     "reviewQuestionId": "30267738c3170ba6",
     "sourceRecordRef": "question_200902_1.json#15",
-    "explanationReferences": [
-      {
-        "referenceDate": "2013-02-01",
-        "sourceUrl": "https://www.ipa.go.jp/archive/files/000026864.pdf",
-        "title": "カーナビゲーションシステムにおける利用品質（安全性）に対する監査内容の提案とコスト算出 実施報告書"
-      }
-    ],
+    "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "JIS X 0129-1に基づくソフトウェア品質特性の分類問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は回復性に関する技術的記述である。",
+          "promptContext": "JIS X 0129-1の品質副特性分類。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は解析性を信頼性に分類しており、技術的に誤りである。",
+          "promptContext": "JIS X 0129-1の品質副特性分類。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は相互運用性を信頼性に分類しており、技術的に誤りである。",
+          "promptContext": "JIS X 0129-1の品質副特性分類。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は運用性を信頼性に分類しており、技術的に誤りである。",
+          "promptContext": "JIS X 0129-1の品質副特性分類。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1862,37 +2453,233 @@
     "sourceRecordRef": "question_200902_1.json#20",
     "explanationReferences": [],
     "questionLearningPatternId": "sequence_flow",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ITILの問題管理と変更管理に関する知識問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はITILのプロセス知識で判断し、法令監査の対象ではない。",
+          "promptContext": "ITILの問題管理とRFCに関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しないITIL知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はITILのプロセス知識で判断し、法令監査の対象ではない。",
+          "promptContext": "ITILの問題管理とRFCに関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しないITIL知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はITILのプロセス知識で判断し、法令監査の対象ではない。",
+          "promptContext": "ITILの問題管理とRFCに関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しないITIL知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はITILのプロセス知識で判断し、法令監査の対象ではない。",
+          "promptContext": "ITILの問題管理とRFCに関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を要しないITIL知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n監査チェックリストは確認観点を整理する文書であり、監査証拠や実施記録そのものを体系的にまとめたものではない。",
-      "正しい。\n\n監査調書は、監査手続の実施内容、収集した証拠、判断根拠などを残す文書で、監査意見の裏付けとなる。",
-      "間違い。\n\n監査手続書は監査の進め方や方法を示す文書であり、実施結果をまとめた記録ではない。",
-      "間違い。\n\n監査報告書は最終的な意見や指摘事項をまとめる成果物で、個々の証拠記録とは役割が異なる。"
-    ],
-    "suggestedQuestions": [
-      "監査調書には何を残しますか？",
-      "監査報告書との違いは何ですか？",
-      "監査チェックリストの役割は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "監査調書には何を残しますか？",
-        "answer": "監査手続の記録、収集した証拠、判断根拠、レビュー履歴などを残す。"
-      },
-      {
-        "question": "監査報告書との違いは何ですか？",
-        "answer": "監査調書は根拠資料、監査報告書はその根拠に基づいて外部へ示す意見・指摘の文書である。"
-      },
-      {
-        "question": "監査チェックリストの役割は何ですか？",
-        "answer": "監査項目の抜け漏れを防ぎ、確認観点を標準化することである。"
-      }
+      "正しい。監査業務の実施記録や、監査意見を裏付ける監査証拠などをまとめたものは監査調書である。監査チェックリストは確認項目、監査手続書は実施方法、監査報告書は監査結果や意見をまとめる文書であり、役割が異なる。"
     ],
     "original_question_id": "d5dcb4191b1fc47c",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:d5dcb4191b1fc47c",
+    "reviewQuestionId": "d5dcb4191b1fc47c",
+    "sourceRecordRef": "question_200902_1.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令根拠を用いないシステム監査の知識問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査チェックリストは確認項目を整理するもので、監査証拠をまとめた監査調書ではない。",
+          "promptContext": "システム監査の文書の役割を問う知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査調書は監査業務の実施記録と監査証拠などをまとめた資料である。",
+          "promptContext": "システム監査の文書の役割を問う知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査手続書は監査の実施方法を定める文書であり、監査証拠をまとめた監査調書ではない。",
+          "promptContext": "システム監査の文書の役割を問う知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査報告書は監査結果や監査意見をまとめる文書であり、監査業務の実施記録そのものではない。",
+          "promptContext": "システム監査の文書の役割を問う知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1909,44 +2696,232 @@
     "sourceRecordRef": "question_200902_1.json#22",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令条文を根拠にしないエンタープライズアーキテクチャの技術・方法論問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、ビジネスアーキテクチャと業務流れ図の対応に関する技術知識で確定でき、法令根拠を要しない。",
+          "promptContext": "技術・方法論問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、実体関連ダイアグラムがデータアーキテクチャの成果物であるという技術知識で確定でき、法令根拠を要しない。",
+          "promptContext": "技術・方法論問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、情報システム関連図がアプリケーションアーキテクチャの成果物であるという技術知識で確定でき、法令根拠を要しない。",
+          "promptContext": "技術・方法論問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、ソフトウェア構成図がテクノロジーアーキテクチャの成果物であるという技術知識で確定でき、法令根拠を要しない。",
+          "promptContext": "技術・方法論問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n開発計画は個別システム化や開発案件の進め方を示すもので、組織全体の情報システムのあるべき姿を定める計画ではない。",
-      "間違い。\n\n事業継続計画は災害時の事業継続と復旧が主題であり、情報システム全体最適の将来像とは別である。",
-      "正しい。\n\n全体最適化計画は、組織全体の情報システムのあるべき姿を整理し、個別最適ではなく全体視点で方向性を定める。",
-      "間違い。\n\n年間運用計画は運用業務の実施計画であり、全社的な将来像を定義するものではない。"
-    ],
-    "suggestedQuestions": [
-      "全体最適化計画では何を決めますか？",
-      "個別最適との違いは何ですか？",
-      "BCPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "全体最適化計画では何を決めますか？",
-        "answer": "組織全体で目指す情報システムの姿、整備方針、優先順位などを定める。"
-      },
-      {
-        "question": "個別最適との違いは何ですか？",
-        "answer": "個別部門ごとの都合ではなく、全体効率や整合性を重視して判断する点が違う。"
-      },
-      {
-        "question": "BCPとの違いは何ですか？",
-        "answer": "BCP は非常時継続計画、全体最適化計画は平時を含めた情報システム全体戦略である。"
-      }
+      "正しい。答えは全体最適化計画である。これは、組織全体の情報システムのあるべき姿を明確にし、個別システムを全体の方向性に沿って整備するための計画である。開発計画は個別の開発案件、事業継続計画は災害や障害からの事業復旧、年間運用計画は年度ごとの運用業務を扱う。"
     ],
     "original_question_id": "694ab00b9054913c",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:694ab00b9054913c",
+    "reviewQuestionId": "694ab00b9054913c",
+    "sourceRecordRef": "question_200902_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "「システム管理基準」に基づく情報システム計画の分類を問う技術・管理知識問題であり、法令条文を直接の根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令条文による正誤変更はない。",
+          "promptContext": "開発計画、事業継続計画、全体最適化計画、年間運用計画の分類を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。選択肢はシステム管理基準に関する知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令条文による正誤変更はない。",
+          "promptContext": "開発計画、事業継続計画、全体最適化計画、年間運用計画の分類を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。選択肢はシステム管理基準に関する知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令条文による正誤変更はない。",
+          "promptContext": "開発計画、事業継続計画、全体最適化計画、年間運用計画の分類を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。選択肢はシステム管理基準に関する知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令条文による正誤変更はない。",
+          "promptContext": "開発計画、事業継続計画、全体最適化計画、年間運用計画の分類を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。選択肢はシステム管理基準に関する知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、サービス内容や品質保証の範囲、違反時のペナルティを顧客とサービス提供者の間で定める文書はSLAである。選択肢はSLAの説明をRFIとしているため誤りである。",
-      "間違い。正しくは、技術的要件やサービスレベル要件を示し、具体的な実現方法の提案を依頼する文書はRFPである。選択肢はRFPの説明をRFIとしているため誤りである。",
+      "間違い。サービス内容や品質保証の範囲、違反時のペナルティを定める文書はSLAである。選択肢はSLAの説明をRFIとしているため誤りである。",
+      "間違い。技術的要件やサービスレベル要件を示し、具体的な実現方法の提案を依頼する文書はRFPである。選択肢はRFPの説明をRFIとしているため誤りである。",
       "正しい。RFIはRequest for Informationの略で、調達前に利用可能な技術・製品やベンダーの導入実績など、実現手段に関する情報を集めるための文書である。",
-      "間違い。正しくは、業務処理の概要、入出力情報、データフローなどをまとめて関係者で共有する文書は、要求定義書やシステム仕様書などの説明である。選択肢は要求定義・システム仕様に関する文書をRFIとしているため誤りである。"
+      "間違い。業務処理の概要、入出力情報、データフローなどをまとめて関係者で共有する文書は、要求定義書やシステム仕様書などである。選択肢は要件やシステムの内容を共有する文書をRFIとしているため誤りである。"
     ],
     "original_question_id": "5dfc780b8f49f766",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_25.html",
@@ -1956,6 +2931,112 @@
     "sourceRecordRef": "question_200902_1.json#24",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RFIの定義に基づく技術・業務知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RFIは情報提供依頼書を指し、利用可能な技術・製品やベンダー実績などの情報を収集する。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "RFIの定義に基づく技術・業務知識の判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サービス内容、品質保証範囲、ペナルティを定める文書はSLAである。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SLAとRFIの定義を区別する技術・業務知識の判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RFIは調達前に、利用可能な技術・製品やベンダーの導入実績など、実現手段に関する情報提供を依頼する文書である。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "RFIの定義に基づく技術・業務知識の判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "業務処理の概要、入出力情報、データフローなどをまとめる文書は、要求定義書やシステム仕様書などである。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "文書の目的と構成に関する技術・業務知識の判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

@@ -383,37 +383,127 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n決定表は条件の組合せと処理結果を整理する表現であり、状態変化を時間順に追うのには向かない。",
-      "正しい。\n\n状態遷移図は、事象の発生に応じてシステムがどの状態からどの状態へ移り、そのときどのように動作するかを表現するのに適した表記法である。通信プロトコルや制御系の仕様記述でよく使われる。",
-      "間違い。\n\nデータフローダイアグラムはデータの流れと処理の関係を表すもので、イベントに応じた状態変化の記述には最適ではない。",
-      "間違い。\n\n特性要因図は問題の原因分析に使う図であり、プロトコルの状態遷移記述には用いない。"
-    ],
-    "suggestedQuestions": [
-      "状態遷移図は何を表しますか？",
-      "決定表との違いは何ですか？",
-      "通信プロトコルでよく使う理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "状態遷移図は何を表しますか？",
-        "answer": "システムの状態、事象の発生、状態間の遷移、遷移時の動作を表す。"
-      },
-      {
-        "question": "決定表との違いは何ですか？",
-        "answer": "決定表は条件と処理の対応整理に強く、状態遷移図は時間経過やイベントによる状態変化の記述に強い。"
-      },
-      {
-        "question": "通信プロトコルでよく使う理由は何ですか？",
-        "answer": "接続中、待受け、終了などの状態とイベント応答の関係を明確に表せるからである。"
-      }
+      "正しい。状態遷移図は、事象の発生をきっかけにシステムの状態がどのように移り、そのときにどの動作を行うかを表すため、通信プロトコルの記述に適している。決定表は条件の組合せと処理結果、データフローダイアグラムはデータの流れと処理の関係、特性要因図は問題の原因を整理するために用いる。"
     ],
     "original_question_id": "5feda9830efcc060",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:5feda9830efcc060",
+    "reviewQuestionId": "5feda9830efcc060",
+    "sourceRecordRef": "question_201202_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "通信プロトコルの記述に用いる表記法の問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題であり、この選択肢は通信プロトコルに適した表記法ではない。",
+          "promptContext": "通信プロトコルの表記法",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題であり、状態遷移図は事象、状態、動作の関係を表す。",
+          "promptContext": "通信プロトコルの表記法",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題であり、データフローダイアグラムはデータの流れと処理の関係を表す。",
+          "promptContext": "通信プロトコルの表記法",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題であり、特性要因図は問題の原因を整理するために用いる。",
+          "promptContext": "通信プロトコルの表記法",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。答えはMDA（Model Driven Architecture）である。MDAは、プラットフォームに依存しないモデルと、特定のプラットフォームに依存するモデルを分けて作成し、モデル変換によって実装へつなげる技法である。CSMはこの特徴で問われる代表的な技法ではない。OMTはオブジェクト指向の分析・設計手法、UMLはソフトウェアを表現するための標準的なモデリング言語であり、MDAとは役割が異なる。"
+      "正しい。MDA（Model Driven Architecture）は、プラットフォームに依存しないモデルと、特定のプラットフォームに依存するモデルを分けて設計し、両者の変換を通じて実装につなげる技法である。OMTはオブジェクト指向の分析・設計手法、UMLはモデルを表現する標準的な記法であり、MDAとは役割が異なる。"
     ],
     "original_question_id": "8bc65f2b32935185",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_25.html",
@@ -423,6 +513,112 @@
     "sourceRecordRef": "question_201202_3.json#4",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "MDA、OMT、UMLなどのソフトウェア開発技法に関する技術知識で判定し、法令根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "CSMはMDAのようにプラットフォーム非依存モデルと依存モデルを分ける技法ではない。",
+          "promptContext": "問題文の技法の定義とCSMの役割を照合した。",
+          "refs": [],
+          "verdict": "技術知識で確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくソフトウェア開発技法の知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "MDAはプラットフォーム非依存モデルと特定プラットフォーム依存モデルを分けて設計する技法である。",
+          "promptContext": "問題文の技法の定義とMDAの特徴を照合した。",
+          "refs": [],
+          "verdict": "技術知識で確定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくソフトウェア開発技法の知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OMTはオブジェクト指向の分析・設計手法であり、MDAのプラットフォーム分離を特徴とする技法ではない。",
+          "promptContext": "問題文の技法の定義とOMTの役割を照合した。",
+          "refs": [],
+          "verdict": "技術知識で確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくソフトウェア開発技法の知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "UMLはモデルを表現する標準的な記法であり、MDAのようなモデル分離を特徴とする技法ではない。",
+          "promptContext": "問題文の技法の定義とUMLの役割を照合した。",
+          "refs": [],
+          "verdict": "技術知識で確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくソフトウェア開発技法の知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

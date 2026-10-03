@@ -41,7 +41,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "5b6ad7b570d6ff7a",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_3.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_3.html",
+    "sourceQuestionKey": "nw:201902:5b6ad7b570d6ff7a",
+    "reviewQuestionId": "5b6ad7b570d6ff7a",
+    "sourceRecordRef": "question_201902_1.json#2",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "先頭ポインタと末尾ポインタをもち，多くのデータがポインタでつながった単方向の線形リストの処理のうち，先頭ポインタ，末尾ポインタ又は各データのポインタをたどる回数が最も多いものはどれか。ここで，単方向のリストは先頭ポインタからつながっているものとし，追加するデータはポインタをたどらなくても参照できるものとする。",
@@ -51,9 +55,13 @@
       "末尾にデータを追加する処理",
       "末尾のデータを削除する処理"
     ],
-    "questionType": "true_false",
+    "questionType": "group_choice",
     "original_question_id": "cc61b080b3330f16",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_4.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_4.html",
+    "sourceQuestionKey": "nw:201902:cc61b080b3330f16",
+    "reviewQuestionId": "cc61b080b3330f16",
+    "sourceRecordRef": "question_201902_1.json#3",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "容量がaMバイトでアクセス時間がxナノ秒の命令キャッシュと，容量がbMバイトでアクセス時間がyナノ秒の主記憶をもつシステムにおいて，CPUからみた，主記憶と命令キャッシュとを合わせた平均アクセス時間を表す式はどれか。ここで，読み込みたい命令コードがキャッシュに\n存在しない確率\nをrとし，キャッシュ管理に関するオーバーヘッドは無視できるものとする。",
@@ -63,9 +71,13 @@
       "r・aa＋b\n・x＋\n(1－r)・ba＋b\n・y",
       "r・x＋(1－r)・y"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "97c05a6efefded8f",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_5.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_5.html",
+    "sourceQuestionKey": "nw:201902:97c05a6efefded8f",
+    "reviewQuestionId": "97c05a6efefded8f",
+    "sourceRecordRef": "question_201902_1.json#4",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "ジョブ群と実行の条件が次のとおりであるとき，一時ファイルを作成する磁気ディスクに必要な容量は最低何Mバイトか。\n〔ジョブ群〕\n〔実行の条件〕\nジョブの実行多重度を2とする。\n各ジョブの処理時間は同一であり，他のジョブの影響は受けない。\n各ジョブは開始時に50Mバイトの一時ファイルを新たに作成する。\nの関係があれば，ジョブXの開始時に作成した一時ファイルは，直後のジョブYで参照し，ジョブYの終了時にその一時ファイルを削除する。直後のジョブが複数個ある場合には，最初に生起されるジョブだけが先行ジョブの一時ファイルを参照する。\nはジョブXの終了時に，ジョブY，ZのようにジョブXと矢印で結ばれる全てのジョブが，上から記述された順に優先して生起されることを示す。\nは先行するジョブX，Y両方が終了したときにジョブZが生起されることを示す。\nジョブの生起とは実行待ち行列への追加を意味し，各ジョブは待ち行列の順に実行される。OSのオーバーヘッドは考慮しない。",
@@ -93,7 +105,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "b954d8d3ecbea07b",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_7.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_7.html",
+    "sourceQuestionKey": "nw:201902:b954d8d3ecbea07b",
+    "reviewQuestionId": "b954d8d3ecbea07b",
+    "sourceRecordRef": "question_201902_1.json#6",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "エネルギーハーベスティングの適用例として，適切なものはどれか。",
@@ -121,7 +137,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "66160dbb75aea2c1",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_9.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_9.html",
+    "sourceQuestionKey": "nw:201902:66160dbb75aea2c1",
+    "reviewQuestionId": "66160dbb75aea2c1",
+    "sourceRecordRef": "question_201902_1.json#8",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "イーサネットで使用されるメディアアクセス制御方式であるCSMA/CDに関する記述として，適切なものはどれか。",
@@ -165,7 +185,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "a4569f93fcc51804",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_12.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_12.html",
+    "sourceQuestionKey": "nw:201902:a4569f93fcc51804",
+    "reviewQuestionId": "a4569f93fcc51804",
+    "sourceRecordRef": "question_201902_1.json#11",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "チャレンジレスポンス認証方式の特徴はどれか。",
@@ -193,7 +217,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "5fc40d0c6c3b074c",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_14.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_14.html",
+    "sourceQuestionKey": "nw:201902:5fc40d0c6c3b074c",
+    "reviewQuestionId": "5fc40d0c6c3b074c",
+    "sourceRecordRef": "question_201902_1.json#13",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "虹彩認証に関する記述のうち，最も適切なものはどれか。",
@@ -205,7 +233,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "8ebe54b04cebd854",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_15.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_15.html",
+    "sourceQuestionKey": "nw:201902:8ebe54b04cebd854",
+    "reviewQuestionId": "8ebe54b04cebd854",
+    "sourceRecordRef": "question_201902_1.json#14",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "作業成果物の作成者以外の参加者がモデレーターとして主導する役割を受け持つこと，並びに公式な記録及び分析を行うことが特徴のレビュー技法はどれか。",
@@ -217,7 +249,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "e96b8cb9ac1fbc18",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_16.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_16.html",
+    "sourceQuestionKey": "nw:201902:e96b8cb9ac1fbc18",
+    "reviewQuestionId": "e96b8cb9ac1fbc18",
+    "sourceRecordRef": "question_201902_1.json#15",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "自社開発したソフトウェアの他社への使用許諾に関する説明として，適切なものはどれか。",
@@ -229,7 +265,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "9eb0a727100bf6d1",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_17.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_17.html",
+    "sourceQuestionKey": "nw:201902:9eb0a727100bf6d1",
+    "reviewQuestionId": "9eb0a727100bf6d1",
+    "sourceRecordRef": "question_201902_1.json#16",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "PMBOKガイド第6版によれば，プロジェクト・マネジャー，プログラム・マネジャー，ポートフォリオ・マネジャー，プロジェクトマネジメント・オフィス(PMO)は，それぞれ他と異なる役割を担っている。それぞれに対応した役割の説明のうち，PMOのものはどれか。",
@@ -321,7 +361,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "01b2510816920af8",
-    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_23.html"
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_23.html",
+    "sourceQuestionKey": "nw:201902:01b2510816920af8",
+    "reviewQuestionId": "01b2510816920af8",
+    "sourceRecordRef": "question_201902_1.json#22",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "定性的な評価項目を定量化するために評価点を与える方法がある。表に示す4段階評価を用いた場合，重み及び4段階評価の結果から評価されるシステム全体の目標達成度は，評価項目が全て目標通りだった場合の評価点に対し，何%となるか。",

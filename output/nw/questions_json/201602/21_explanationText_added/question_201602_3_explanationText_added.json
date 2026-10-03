@@ -252,33 +252,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nトランザクション処理の区間②は AP 全体の処理区間①より内側にあるので、②のタイムアウトが①より長くなることはない。",
-      "間違い。\n\nDBアクセスを含むトランザクション全体②が、AP 処理全体①より長くなる並びになっており不適切である。",
-      "正しい。\n\nWebサーバから見た応答待ち③は、AP サーバ内部の処理①と、その中で行われる DB トランザクション②をすべて含むので最も長い。AP の処理①は DB トランザクション②を含むため、長さの順は ③、①、② になる。",
-      "間違い。\n\nAP 全体の処理①は DB トランザクション②を包含するので、②を①より長く設定する順序にはならない。"
-    ],
-    "suggestedQuestions": [
-      "なぜWebサーバ側のタイムアウトが最長ですか？",
-      "AP処理とDBトランザクションの関係は何ですか？",
-      "タイムアウト設定はどの粒度で内包関係を見ますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜWebサーバ側のタイムアウトが最長ですか？",
-        "answer": "Webサーバの待ち時間には、APサーバの処理全体とその内部のDB処理がすべて含まれるからである。"
-      },
-      {
-        "question": "AP処理とDBトランザクションの関係は何ですか？",
-        "answer": "DBトランザクションはAPサーバ処理の一部分として実行されるため、AP処理時間の方が長い。"
-      },
-      {
-        "question": "タイムアウト設定はどの粒度で内包関係を見ますか？",
-        "answer": "外側の処理が内側の処理を待つ構造を確認し、外側ほど長く、内側ほど短く設定する。"
-      }
+      "正しい。該当するのは③である。Webサーバの待ち時間③は、APサーバへリクエストを送信してから返信を受けるまでなので、AP全体の処理①を含む。さらに、AP全体の処理①には、その内部で実行されるDBアクセスなどのトランザクション②が含まれる。そのため、設定時間の長い順は、③、①、②となる。"
     ],
     "original_question_id": "276682bc3166dff2",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:276682bc3166dff2",
+    "reviewQuestionId": "276682bc3166dff2",
+    "sourceRecordRef": "question_201602_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "Webサーバ、AP処理、トランザクションの処理時間関係を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AP処理、トランザクション、Webサーバの待ち時間関係で判定する技術問題です。",
+          "promptContext": "技術内容のみを確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AP処理、トランザクション、Webサーバの待ち時間関係で判定する技術問題です。",
+          "promptContext": "技術内容のみを確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AP処理、トランザクション、Webサーバの待ち時間関係で判定する技術問題です。",
+          "promptContext": "技術内容のみを確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AP処理、トランザクション、Webサーバの待ち時間関係で判定する技術問題です。",
+          "promptContext": "技術内容のみを確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

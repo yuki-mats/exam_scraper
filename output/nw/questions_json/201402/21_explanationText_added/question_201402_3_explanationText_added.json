@@ -1,33 +1,139 @@
 [
   {
     "explanationText": [
-      "間違い。\n\nDKIM は送信メールに電子署名を付与し、受信側で送信ドメインの公開鍵を使って正当性を検証する仕組みであり、一定時間だけ送信を許可する方式ではない。",
-      "間違い。\n\nOP25B は ISP が外向きの 25 番ポート通信を制限するスパム対策であり、利用者認証後に送信許可を与える方式ではない。",
-      "正しい。\n\nPOP before SMTP は、利用者がまず POP で認証されたことを条件に、その後一定時間だけ SMTP 送信を許可する仕組みである。",
-      "間違い。\n\nSPF は送信元 IP アドレスが正規の送信サーバかどうかを受信側で検証する技術であり、送信許可の一時付与を行う方式ではない。"
-    ],
-    "suggestedQuestions": [
-      "POP before SMTPは何を条件に送信を許可しますか？",
-      "SMTP AUTHとの違いは何ですか？",
-      "DKIMやSPFは何を確認する技術ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "POP before SMTPは何を条件に送信を許可しますか？",
-        "answer": "直前に POP 認証へ成功した利用者に対して、一定時間だけ SMTP 送信を許可する。"
-      },
-      {
-        "question": "SMTP AUTHとの違いは何ですか？",
-        "answer": "SMTP AUTH は SMTP セッション中に直接認証するが、POP before SMTP は別の POP 認証結果を利用する。"
-      },
-      {
-        "question": "DKIMやSPFは何を確認する技術ですか？",
-        "answer": "どちらもメールの送信元詐称対策であり、受信側が送信元ドメインや送信サーバの正当性を検証する。"
-      }
+      "正しい。該当するのはPOP before SMTPである。これは、まずPOPでメール受信の認証を行い、その認証成功を送信サーバが一定時間だけSMTP送信の許可に利用する方式である。DKIMはメールに電子署名を付けて受信側が検証し、SPFは送信ドメインが許可した送信サーバかどうかを受信側が確認する。OP25BはISPが外向きの25番ポート通信を制限する迷惑メール対策であり、利用者認証後に一時的な送信許可を与える方式ではない。"
     ],
     "original_question_id": "90aa52db4d823066",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:90aa52db4d823066",
+    "reviewQuestionId": "90aa52db4d823066",
+    "sourceRecordRef": "question_201402_3.json#0",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6409.html",
+        "title": "RFC 6409: Message Submission for Mail"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6376.html",
+        "title": "RFC 6376: DomainKeys Identified Mail (DKIM) Signatures"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc7208.html",
+        "title": "RFC 7208: Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "メール認証方式の技術問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DKIMの役割はメールへの電子署名による送信元ドメイン認証であり、利用者認証後の一時的なSMTP送信許可ではない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定した。法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OP25Bは外向きのTCP25番ポート通信を制限する迷惑メール対策であり、利用者認証後の一時的な送信許可方式ではない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定した。法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "POP before SMTPは、POPによる受信認証の成功後、一定時間だけSMTP送信を許可する方式である。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定した。法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SPFは送信ドメインが許可した送信サーバを受信側が確認する仕組みであり、利用者認証後の一時的なSMTP送信許可ではない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定した。法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -154,92 +260,365 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n400 バイト送信と 600 バイト受信の合計 1,000 バイトを回線へ流すので、10 ミリ秒だけではホスト処理時間 40 ミリ秒を含められていない。",
-      "間違い。\n\n44 ミリ秒では回線伝送時間 10 ミリ秒とホスト処理時間 40 ミリ秒の合計に届かない。",
-      "間違い。\n\n46 ミリ秒も同様に、送受信伝送時間とホスト処理時間の合計として不足している。",
-      "正しい。\n\n回線速度 1×10^6 ビット/秒は 125,000 バイト/秒、伝送効率 80% を掛けると実効速度は 100,000 バイト/秒である。送受信合計 1,000 バイトの伝送時間は 1,000 / 100,000 = 0.01 秒、つまり 10 ミリ秒であり、これにホスト処理時間 40 ミリ秒を加えると 50 ミリ秒になる。"
-    ],
-    "suggestedQuestions": [
-      "なぜ400バイトと600バイトを合計しますか？",
-      "伝送効率80%はどこに反映しますか？",
-      "ホスト処理時間はどう足し込みますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ400バイトと600バイトを合計しますか？",
-        "answer": "端末からの送信とホストからの返信の両方が完了して初めて処理が終わるため、合計 1,000 バイト分の伝送時間を見る。"
-      },
-      {
-        "question": "伝送効率80%はどこに反映しますか？",
-        "answer": "理論回線速度をバイト換算した後に 0.8 を掛けて、実効伝送速度を求める。"
-      },
-      {
-        "question": "ホスト処理時間はどう足し込みますか？",
-        "answer": "送受信の伝送時間とは別に、ホストで 40 ミリ秒処理するので最後に加算する。"
-      }
+      "正しい。答えは50ミリ秒である。実効伝送速度は、回線速度に伝送効率を掛けて求める。送信データ量を400バイト、受信データ量を600バイト、回線速度を\\(R=1\\times10^6\\)ビット／秒、伝送効率を\\(\\eta=0.8\\) 、ホストの処理時間を\\(T_p=40\\)ミリ秒とすると、回線の実効速度は次のとおりである。\\[R_{\\mathrm{eff}}=\\frac{R}{8}\\eta=\\frac{1\\times10^6}{8}\\times0.8=100{,}000\\ \\mathrm{バイト／秒}\\]送受信する電文の合計は\\(400+600=1{,}000\\)バイトなので、伝送時間は\\[T_t=\\frac{1{,}000}{100{,}000}\\ \\mathrm{秒}=0.01\\ \\mathrm{秒}=10\\ \\mathrm{ミリ秒}\\]となる。したがって、送信開始から受信完了までの時間は、\\[T=T_t+T_p=10+40=50\\ \\mathrm{ミリ秒}\\]である。"
     ],
     "original_question_id": "6a2fdad35f79c6cc",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:6a2fdad35f79c6cc",
+    "reviewQuestionId": "6a2fdad35f79c6cc",
+    "sourceRecordRef": "question_201402_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "通信量、伝送効率、処理時間から所要時間を計算する工学・性能問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、問題文の計算結果との一致で判定する。",
+          "promptContext": "通信量・伝送効率・処理時間の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信性能の計算により判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、問題文の計算結果との一致で判定する。",
+          "promptContext": "通信量・伝送効率・処理時間の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信性能の計算により判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、問題文の計算結果との一致で判定する。",
+          "promptContext": "通信量・伝送効率・処理時間の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信性能の計算により判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令ではなく、問題文の計算結果との一致で判定する。",
+          "promptContext": "通信量・伝送効率・処理時間の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "通信性能の計算により判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nエラー埋込み法では、埋め込んだエラーの発見率 m/S と、元々潜在していたエラーの発見率 (n-m)/T が同程度とみなせる。したがって m/S = (n-m)/T であり、変形すると m/S = (n-m)/T の関係、すなわち選択肢アの式が成り立つ。",
-      "間違い。\n\n分母と分子の対応が逆になっており、埋込みエラーの発見率と潜在エラーの発見率を等置した式になっていない。",
-      "間違い。\n\nn 全体をそのまま使うと、埋込みエラーと本来の潜在エラーを区別していないため誤りである。",
-      "間違い。\n\n埋込みエラーの発見率 m/S と、潜在エラーの発見率 (n-m)/T を対応させる必要があるので、この式にはならない。"
-    ],
-    "suggestedQuestions": [
-      "エラー埋込み法では何を同程度とみなしますか？",
-      "n-mは何を表しますか？",
-      "この式はどう変形して使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "エラー埋込み法では何を同程度とみなしますか？",
-        "answer": "意図的に埋め込んだエラーの発見率と、元から潜在していたエラーの発見率を同程度とみなす。"
-      },
-      {
-        "question": "n-mは何を表しますか？",
-        "answer": "発見された総エラー数 n から、埋込みエラーで発見された数 m を引いた、本来潜在していたエラーの発見数である。"
-      },
-      {
-        "question": "この式はどう変形して使いますか？",
-        "answer": "m/S = (n-m)/T と置き、未知の潜在エラー数 T を推定する形へ変形して使う。"
-      }
+      "正しい。エラー埋込み法では、埋め込んだエラーの発見率 \\(m/S\\) と、元から潜在していたエラーの発見率 \\((n-m)/T\\) が同程度と仮定する。総発見数 \\(n\\) から埋込みエラーの発見数 \\(m\\) を除いた \\(n-m\\) が、元の潜在エラーの発見数に当たるため、\\(m/S=(n-m)/T\\) となる。"
     ],
     "original_question_id": "34ae8e85880abdd4",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:34ae8e85880abdd4",
+    "reviewQuestionId": "34ae8e85880abdd4",
+    "sourceRecordRef": "question_201402_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "エラー埋込み法の推定式を問う技術・統計問題で、法令条文や制度上の義務を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "エラー埋込み法では、埋込みエラーの発見率と潜在エラーの発見率を等しいとみなす。",
+          "promptContext": "エラー埋込み法の推定式。",
+          "refs": [],
+          "verdict": "技術判定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・統計知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "提示された式はエラー埋込み法の標準的な推定関係と一致しない。",
+          "promptContext": "エラー埋込み法の推定式。",
+          "refs": [],
+          "verdict": "技術判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・統計知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "提示された式はエラー埋込み法の標準的な推定関係と一致しない。",
+          "promptContext": "エラー埋込み法の推定式。",
+          "refs": [],
+          "verdict": "技術判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・統計知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "提示された式はエラー埋込み法の標準的な推定関係と一致しない。",
+          "promptContext": "エラー埋込み法の推定式。",
+          "refs": [],
+          "verdict": "技術判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・統計知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n設計情報からコードを自動生成するのはフォワードエンジニアリングの説明である。",
-      "間違い。\n\n外部仕様を変えず内部構造だけを改善するのはリファクタリングの説明である。",
-      "正しい。\n\nリバースエンジニアリングは、既存ソフトウェアを解析して仕様や設計、構造を明らかにする活動であり、保守や再文書化で使われる。",
-      "間違い。\n\n既存ソフトウェアを分析した上で作り直すのはリエンジニアリングの説明であり、リバースエンジニアリングそのものではない。"
-    ],
-    "suggestedQuestions": [
-      "リバースエンジニアリングの目的は何ですか？",
-      "フォワードエンジニアリングとの違いは何ですか？",
-      "リエンジニアリングとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リバースエンジニアリングの目的は何ですか？",
-        "answer": "既存ソフトウェアの仕様や構造を理解し、文書化や保守へ役立てることである。"
-      },
-      {
-        "question": "フォワードエンジニアリングとの違いは何ですか？",
-        "answer": "フォワードは設計から実装へ進む方向、リバースは実装から設計や仕様を読み解く方向である。"
-      },
-      {
-        "question": "リエンジニアリングとの違いは何ですか？",
-        "answer": "リエンジニアリングは再構築まで含むが、リバースエンジニアリングはまず解析して構造を明らかにする段階を指す。"
-      }
+      "間違い。設計情報からソースコードを自動生成するのは、フォワードエンジニアリングの説明である。",
+      "間違い。外部から見た振る舞いを変えずに内部構造を改善するのは、リファクタリングの説明である。",
+      "正しい。リバースエンジニアリングは、既存のソフトウェアを解析し、仕様や設計、内部構造を明らかにする活動である。",
+      "間違い。既存ソフトウェアを分析して理解した上で全体を新しく作り直すのは、リエンジニアリングの説明である。リバースエンジニアリングは、解析して仕様や構造を明らかにする段階を指す。"
     ],
     "original_question_id": "373c8e426bf1d207",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:373c8e426bf1d207",
+    "reviewQuestionId": "373c8e426bf1d207",
+    "sourceRecordRef": "question_201402_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア工学上の用語定義を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "設計情報からソースコードを自動生成する説明はフォワードエンジニアリングに該当する。",
+          "promptContext": "ソフトウェア工学用語の定義問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ソフトウェア工学上の用語定義で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外部から見た振る舞いを変えずに内部構造を改善する説明はリファクタリングに該当する。",
+          "promptContext": "ソフトウェア工学用語の定義問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ソフトウェア工学上の用語定義で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "既存ソフトウェアを解析し、その仕様や構造を明らかにする説明はリバースエンジニアリングに該当する。",
+          "promptContext": "ソフトウェア工学用語の定義問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。ソフトウェア工学上の用語定義で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "既存ソフトウェアを分析して全体を新しく作り直す説明はリエンジニアリングに該当する。",
+          "promptContext": "ソフトウェア工学用語の定義問題",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ソフトウェア工学上の用語定義で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

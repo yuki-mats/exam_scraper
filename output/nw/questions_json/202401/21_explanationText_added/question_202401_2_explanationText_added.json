@@ -121,33 +121,126 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nフィージビリティスタディは、事業やシステム投資の実現可能性を事前に調査・評価する活動である。採算性、技術性、運用性などを投資前に見極める点が本質である。",
-      "間違い。\n\n専門家の意見を反復アンケートで収束させるのはデルファイ法である。未来予測や意見集約の手法であり、実現可能性調査そのものではない。",
-      "間違い。\n\n集団で自由にアイデアを出し合う発想法はブレーンストーミングである。発想を広げる手法であり、投資前評価とは目的が違う。",
-      "間違い。\n\n導入期から衰退期までの市場寿命を見るのはプロダクトライフサイクルの考え方である。個別案件の実現可能性調査ではない。"
-    ],
-    "suggestedQuestions": [
-      "フィージビリティスタディでは何を確認しますか？",
-      "デルファイ法との違いは何ですか？",
-      "投資前評価で重視する観点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フィージビリティスタディでは何を確認しますか？",
-        "answer": "技術的に実現できるか、費用対効果が合うか、運用可能かなどを事前に検証する。Go/No-Go判断の材料を作るのが目的である。"
-      },
-      {
-        "question": "デルファイ法との違いは何ですか？",
-        "answer": "デルファイ法は専門家意見を集約するための方法である。フィージビリティスタディは案件自体の実現可能性を評価する活動である。"
-      },
-      {
-        "question": "投資前評価で重視する観点は何ですか？",
-        "answer": "採算性、技術的実現性、スケジュール、運用体制、リスクなどを総合的に見る。単なる思いつきではなく、実行可能性を検証することが重要である。"
-      }
+      "正しい。フィージビリティスタディは、事業や情報システムなどの実現可能性を投資前に調査・評価する活動である。採算性、技術性、運用性などを確認し、実行に移せるかを見極める。",
+      "間違い。専門家の意見を反復アンケートで集約し、将来予測などに用いる手法はデルファイ法である。選択肢はこの意見集約手法をフィージビリティスタディとしているため誤りである。",
+      "間違い。参加者が自由にアイデアを出し合い、発想を広げる手法はブレーンストーミングである。選択肢はこの発想法をフィージビリティスタディとしているため誤りである。",
+      "間違い。製品が市場に投入されてから衰退するまでを導入期、成長期、成熟期、衰退期に分けて捉えるのは、プロダクトライフサイクルである。選択肢は市場における製品の寿命を分析する考え方をフィージビリティスタディとしているため誤りである。"
     ],
     "original_question_id": "4879239bd598daa5",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_27.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:4879239bd598daa5",
+    "reviewQuestionId": "4879239bd598daa5",
+    "sourceRecordRef": "question_202401_2.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "経営・一般知識の用語説明問題で、法令条文や制度上の義務・基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はフィージビリティスタディの定義に一致する。",
+          "promptContext": "用語説明問題の第1選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の用語知識として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はデルファイ法の説明であり、フィージビリティスタディではない。",
+          "promptContext": "用語説明問題の第2選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の用語知識として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はブレーンストーミングの説明であり、フィージビリティスタディではない。",
+          "promptContext": "用語説明問題の第3選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の用語知識として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はプロダクトライフサイクルの説明であり、フィージビリティスタディではない。",
+          "promptContext": "用語説明問題の第4選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の用語知識として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -391,33 +484,191 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n不正競争防止法でドメイン名取得が問題になるのは、不正の利益を得る目的や他人へ損害を与える目的がある場合である。偶然に似たドメインを取っただけでは直ちに不正競争行為とは言えない。",
-      "間違い。\n\n一地方でのみ周知な表示は、その周知性が及ぶ範囲で保護される。設問のように有名でない地方で販売するだけでは、直ちに周知表示混同惹起行為へ当たりにくい。",
-      "正しい。\n\n他人商品のコピー商品販売は商品形態模倣行為に当たり得るうえ、知名度に便乗したドメイン取得も不正競争の問題になり得る。設問の中では、不正競争防止法上の不正競争行為に最も明確に該当する。",
-      "間違い。\n\n他社サービスと類似していても、正当な利益目的があり不正取得の要件を満たさないなら、不正競争行為とまでは言えない。ドメイン名紛争では目的や態様が重要である。"
-    ],
-    "suggestedQuestions": [
-      "不正競争防止法で問題になるドメイン取得はどんな場合ですか？",
-      "商品形態模倣行為とは何ですか？",
-      "この問題で基準本文を確認する価値は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "不正競争防止法で問題になるドメイン取得はどんな場合ですか？",
-        "answer": "他人の表示へ便乗して不当利益を得たり、相手へ損害を与えたりする目的がある場合である。単に似ているだけで当然に違法となるわけではない。"
-      },
-      {
-        "question": "商品形態模倣行為とは何ですか？",
-        "answer": "他人の商品形態に依拠した実質的に同一な商品を提供する行為をいう。いわゆるデッドコピー対策として不正競争防止法で保護される。"
-      },
-      {
-        "question": "この問題で基準本文を確認する価値は何ですか？",
-        "answer": "『偶然』『正当な利益目的』のような条件が結論を変えるからである。法律問題は一般的なイメージより、要件文言を押さえた方がぶれにくい。"
-      }
+      "間違い。ドメイン名の取得・保有・使用が不正競争になるには、不正の利益を得る目的又は他人に損害を加える目的で、他人の特定商品等表示と同一・類似のドメイン名を扱うことが必要である。不正競争防止法（平成5年法律第47号）第2条第1項第19号は、この目的を要件としている。選択肢は偶然に取得したとしており、不正な目的がないため誤りである。",
+      "間違い。商品等表示が一地方で広く知られているだけなら、その周知性が及ばない地域で同一・類似表示を使っても、不正競争防止法（平成5年法律第47号）第2条第1項第1号の「需要者の間に広く認識されている」という要件や、他人の商品・営業との混同を満たすとは限らない。選択肢は、その和菓子が有名ではない地方で販売したとしており、周知性や混同を示していないため誤りである。",
+      "正しい。商標登録がない商品名でも、他人の商品や営業を表示する「商品等表示」に当たり得る。商品の知名度に便乗して利益を得る目的で類似のドメイン名を取得し、コピー商品を販売する行為は、不正競争防止法（平成5年法律第47号）第2条第1項第19号の対象となり得る。また、商品の形態を模倣していれば、同項第3号も問題となる。",
+      "間違い。他社サービスと類似するだけでは、ドメイン名に関する不正競争にはならない。自社サービスのために正当な利益を得る目的で取得・使用した場合、不正の利益を得る目的又は他人に損害を加える目的という要件を満たさない。不正競争防止法（平成5年法律第47号）第2条第1項第19号が対象とするのは、選択肢のような正当な目的ではなく、不正な目的による取得・保有・使用である。"
     ],
     "original_question_id": "2597c2ca29fc358d",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_30.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:202401:2597c2ca29fc358d",
+    "reviewQuestionId": "2597c2ca29fc358d",
+    "sourceRecordRef": "question_202401_2.json#4",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/405AC0000000047?asof=2026-10-04",
+        "title": "不正競争防止法（e-Gov法令検索）"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "現行法では、不正の利益を得る目的又は他人に損害を加える目的で、他人の特定商品等表示と同一・類似のドメイン名を取得・保有・使用する行為が第2条第1項第19号の不正競争に当たる。商品名の無登録性だけで直ちに適用が否定されるわけではなく、商品等表示の周知性・混同については同項第1号も確認する。",
+    "lawReferences": [
+      [
+        {
+          "article": "第2条第1項第19号",
+          "choiceIndex": 0,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条第1項第1号",
+          "choiceIndex": 1,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条第1項第19号",
+          "choiceIndex": 2,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "第2条第1項第1号",
+          "choiceIndex": 2,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第2条第1項第19号",
+          "choiceIndex": 3,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "不正競争防止法第2条第1項第19号の不正目的要件を満たさないため、選択肢は間違い。",
+          "promptContext": "問題文と選択肢を結合した完全な命題として判定。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceはcurrent_onlyで、出題時条文本文は未取得。公式元正答をexamTime、確認済み現行法本文をcurrentとして独立に判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "不正競争防止法第2条第1項第1号の周知性及び混同の要件を満たすとは限らないため、選択肢は間違い。",
+          "promptContext": "問題文と選択肢を結合した完全な命題として判定。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceはcurrent_onlyで、出題時条文本文は未取得。公式元正答をexamTime、確認済み現行法本文をcurrentとして独立に判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "不正競争防止法第2条第1項第19号の対象となり得る。商品の形態の模倣には同項第3号も関係する。",
+          "promptContext": "問題文と選択肢を結合した完全な命題として判定。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "primaryLawEvidenceはcurrent_onlyで、出題時条文本文は未取得。公式元正答をexamTime、確認済み現行法本文をcurrentとして独立に判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。公式元正答と現行法判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "不正競争防止法第2条第1項第19号の不正目的要件を満たさないため、選択肢は間違い。",
+          "promptContext": "問題文と選択肢を結合した完全な命題として判定。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceはcurrent_onlyで、出題時条文本文は未取得。公式元正答をexamTime、確認済み現行法本文をcurrentとして独立に判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -581,33 +832,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n8kビット/秒は1,000バイト/秒に相当し、20ミリ秒ごとにパケット化するなら1秒間に50パケット作る。したがって1パケット当たりのペイロードは 1,000/50 = 20 バイトである。",
-      "間違い。\n\n160はビット数をバイト数へ直し忘れた値に近い。8kビット/秒×20ミリ秒 = 160ビットであり、バイトへ直すと20バイトになる。",
-      "間違い。\n\n200バイトでは1パケット当たりのペイロードを10倍大きく見積もっている。生成周期20ミリ秒を秒換算して掛ける必要がある。",
-      "間違い。\n\n1,000バイトは1秒分の音声データ量であり、20ミリ秒分ではない。パケット化周期に応じて、秒間データ量を細かく分割して求める。"
-    ],
-    "suggestedQuestions": [
-      "この問題で20バイトになる計算はどう行いますか？",
-      "ビット/秒からバイト/パケットへ直すコツは何ですか？",
-      "VoIPでパケット化周期は何に影響しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この問題で20バイトになる計算はどう行いますか？",
-        "answer": "8,000ビット/秒に0.02秒を掛けて160ビットを求め、それを8で割って20バイトにする。秒単位へ直してから計算すると整理しやすい。"
-      },
-      {
-        "question": "ビット/秒からバイト/パケットへ直すコツは何ですか？",
-        "answer": "まず1秒当たりのデータ量をバイトへ直し、その後で1秒間に何パケット作るかで割るとよい。単位変換を先に固定するとミスが減る。"
-      },
-      {
-        "question": "VoIPでパケット化周期は何に影響しますか？",
-        "answer": "1パケット当たりの音声データ量、ヘッダ効率、遅延へ影響する。周期を短くすると遅延は小さくなるが、ヘッダ比率は上がりやすい。"
-      }
+      "正しい。8kビット／秒は1秒当たり8,000ビットのデータ量を表す。パケット生成周期20ミリ秒は0.02秒なので、1パケットに含まれるデータ量は次のように求める。\n\n\\[8{,}000\\,\\mathrm{bit/s}\\times0.02\\,\\mathrm{s}=160\\,\\mathrm{bit}\\]\n\n1バイトは8ビットだから、\\(160\\div8=20\\)バイトとなる。したがって、1パケットの音声ペイロードは20バイトである。"
     ],
     "original_question_id": "0a8494f60fb75d77",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:0a8494f60fb75d77",
+    "reviewQuestionId": "0a8494f60fb75d77",
+    "sourceRecordRef": "question_202401_2.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CS-ACELPのビットレートとパケット生成周期からペイロード量を計算する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "8,000ビット/秒を20ミリ秒分に換算し、8で除して20バイトとなる。",
+          "promptContext": "技術計算問題の第1選択肢を監査した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "正しいペイロード量は20バイトであり、160バイトではない。",
+          "promptContext": "技術計算問題の第2選択肢を監査した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "正しいペイロード量は20バイトであり、200バイトではない。",
+          "promptContext": "技術計算問題の第3選択肢を監査した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "正しいペイロード量は20バイトであり、1,000バイトではない。",
+          "promptContext": "技術計算問題の第4選択肢を監査した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -731,183 +1072,754 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n可変長サブネットマスク対応はOSPFだけでなくRIP-2も備えている。『OSPFだけ』という条件を満たさない。",
-      "正しい。\n\nOSPFはリンク状態データベースを用いて経路計算するリンクステート型プロトコルである。RIP-2は距離ベクトル型であり、ここが代表的な違いになる。",
-      "間違い。\n\nマルチキャストを使った更新はOSPFだけの特徴ではない。RIP-2もマルチキャストを用いるため、排他的な違いにはならない。",
-      "間違い。\n\n30秒ごとの定期更新はRIP-2の特徴である。OSPFはトポロジ変化時中心の更新で、同じ周期更新ではない。"
-    ],
-    "suggestedQuestions": [
-      "OSPFとRIP-2の一番大きな違いは何ですか？",
-      "リンクステート型とは何ですか？",
-      "RIP-2は何を30秒ごとに送りますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OSPFとRIP-2の一番大きな違いは何ですか？",
-        "answer": "OSPFはリンク状態データベースを使うリンクステート型、RIP-2は距離ベクトル型である点が本質的な違いである。経路の持ち方と更新方式が異なる。"
-      },
-      {
-        "question": "リンクステート型とは何ですか？",
-        "answer": "各ルータがネットワークの接続状態を共有し、全体像に基づいて最短経路を計算する方式である。OSPFはこの方式を採用する。"
-      },
-      {
-        "question": "RIP-2は何を30秒ごとに送りますか？",
-        "answer": "保有するルーティング情報を定期的に広告する。これがOSPFのイベント駆動型更新との違いとしてよく問われる。"
-      }
+      "間違い。可変長サブネットマスクへの対応はRIP-2にもあるため、OSPFだけの特徴ではない。",
+      "正しい。OSPFはリンク状態データベースにネットワークの接続状態を保持し、その情報から経路を計算するリンクステート型プロトコルである。RIP-2は距離ベクトル型で、リンク状態データベースを使用しない。",
+      "間違い。ルーティング情報の更新にマルチキャストを使用するのはOSPFだけではない。RIP-2もマルチキャストアドレス224.0.0.9を使って定期更新を送信できる。",
+      "間違い。30秒ごとにルーティング情報を定期更新するのはRIP-2の特徴である。OSPFはリンク状態情報を変更時にフラッディングし、同じ方式で30秒ごとに更新するわけではない。"
     ],
     "original_question_id": "eef1c1aaa46665ec",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:eef1c1aaa46665ec",
+    "reviewQuestionId": "eef1c1aaa46665ec",
+    "sourceRecordRef": "question_202401_2.json#8",
+    "explanationReferences": [
+      {
+        "referenceDate": "1998-04-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2328.html",
+        "title": "RFC 2328: OSPF Version 2"
+      },
+      {
+        "referenceDate": "1998-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2453.html",
+        "title": "RFC 2453: RIP Version 2"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RIP-2とOSPFのルーティング方式を比較する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "可変長サブネットマスク対応はRIP-2にもある。",
+          "promptContext": "選択肢1の技術内容を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFはリンク状態データベースを使用する。",
+          "promptContext": "選択肢2の技術内容を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RIP-2もマルチキャストを使用できるため、OSPFだけの特徴ではない。",
+          "promptContext": "選択肢3の技術内容を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "30秒ごとの定期更新はRIP-2の特徴であり、OSPFだけの特徴ではない。",
+          "promptContext": "選択肢4の技術内容を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nAとEは最小コスト経路に基づくスパニングツリーで直接つながらない。EはB経由でAへ到達するのが最小となる。",
-      "間違い。\n\nBとCも隣接しない。CはEを経由してAへ向かうので、ツリー上の親子関係はC-Eになる。",
-      "間違い。\n\nCとDは同じくE配下に入るが、互いを直接結ぶ必要はない。スパニングツリーはルートまでの最小コストを保つ枝だけを残す。",
-      "正しい。\n\n各ノードからAまでの最小コストをたどると、B-A、E-B、C-E、D-E が採用される。したがってスパニングツリー上で隣接する組はDとEである。"
-    ],
-    "suggestedQuestions": [
-      "スパニングツリーの枝はどう選びますか？",
-      "この問題でEがB配下になる理由は何ですか？",
-      "コスト付き図から早く判断するコツは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "スパニングツリーの枝はどう選びますか？",
-        "answer": "各ノードがルートまで最小コストで到達できる枝を選ぶ。ループを作らないように、その最小経路の集合を残すと考えるとよい。"
-      },
-      {
-        "question": "この問題でEがB配下になる理由は何ですか？",
-        "answer": "EからAへの最小コスト経路が E→B→A になるからである。Aと直接結ぶよりコストが小さいため、ルートポートはB側になる。"
-      },
-      {
-        "question": "コスト付き図から早く判断するコツは何ですか？",
-        "answer": "まず各ノードからルートへの最小コストだけを計算し、その親ノードを決めるとよい。そこから残る隣接関係を拾えばツリーが見える。"
-      }
+      "正しい。Aから各ノードまでの最小コストを求め、その経路上の辺を選ぶ。ここで、d(X)をAからノードXまでの最小コストとすると、\n\\[\nd(A)=0,\\quad d(B)=1,\\quad d(E)=d(B)+2=3,\\quad d(C)=d(E)+1=4,\\quad d(D)=d(E)+3=6\n\\]\nとなる。したがって、スパニングツリーの辺はA-B、B-E、E-C、E-Dである。よって、スパニングツリー上で隣接するノードはDとEである。"
     ],
     "original_question_id": "68293fbdee669028",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:68293fbdee669028",
+    "reviewQuestionId": "68293fbdee669028",
+    "sourceRecordRef": "question_202401_2.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "スパニングツリーの構築と区間コストに基づくネットワーク技術の問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "グラフの区間コストとスパニングツリーの構築だけで判定できる。",
+          "promptContext": "選択肢は提示されたグラフ上の辺の隣接関係を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を用いない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "グラフの区間コストとスパニングツリーの構築だけで判定できる。",
+          "promptContext": "選択肢は提示されたグラフ上の辺の隣接関係を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を用いない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "グラフの区間コストとスパニングツリーの構築だけで判定できる。",
+          "promptContext": "選択肢は提示されたグラフ上の辺の隣接関係を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を用いない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "グラフの区間コストとスパニングツリーの構築だけで判定できる。",
+          "promptContext": "選択肢は提示されたグラフ上の辺の隣接関係を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度上の根拠を用いない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nDHCPv6はIPv6アドレスや各種設定情報を配布するためのプロトコルであり、ARP相当のMACアドレス解決を担わない。",
-      "正しい。\n\nIPv6ではARPの代わりに、ICMPv6の近隣探索機能（Neighbor Discovery）がMACアドレス解決を行う。アドレス解決、重複検出、ルータ発見などをまとめて扱う。",
-      "間違い。\n\nIGMPv2はIPv4でのマルチキャストグループ管理に使うプロトコルである。IPv6の近隣探索とは無関係である。",
-      "間違い。\n\nRIPngはIPv6対応の経路制御プロトコルであり、隣接ノードのMACアドレス解決には使わない。層と役割が異なる。"
-    ],
-    "suggestedQuestions": [
-      "IPv6ではARPの代わりに何を使いますか？",
-      "Neighbor Discoveryは何をしますか？",
-      "DHCPv6との役割分担はどうなっていますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPv6ではARPの代わりに何を使いますか？",
-        "answer": "ICMPv6のNeighbor Discoveryを使う。IPv4のARPが担っていたアドレス解決機能を、IPv6ではこの仕組みが受け持つ。"
-      },
-      {
-        "question": "Neighbor Discoveryは何をしますか？",
-        "answer": "MACアドレス解決、重複アドレス検出、デフォルトルータ発見などを行う。IPv6の近隣通信の基本機能をまとめて提供する。"
-      },
-      {
-        "question": "DHCPv6との役割分担はどうなっていますか？",
-        "answer": "DHCPv6は設定情報配布、Neighbor Discoveryはリンク上の近隣探索と整理すると分かりやすい。両者は補完関係にある。"
-      }
+      "正しい。IPv6では、IPv4のARPに相当するMACアドレス解決をICMPv6の近隣探索（Neighbor Discovery）が担う。DHCPv6はアドレスや設定情報の配布、IGMPv2はIPv4のマルチキャストグループ管理、RIPngはIPv6の経路制御を行うため、ARP相当の機能を持つのはICMPv6である。"
     ],
     "original_question_id": "df27f6a4756abb9b",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:df27f6a4756abb9b",
+    "reviewQuestionId": "df27f6a4756abb9b",
+    "sourceRecordRef": "question_202401_2.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4のARPに相当するIPv6のアドレス解決機能を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6のARP相当機能に関する技術知識で判定する。",
+          "promptContext": "DHCPv6はARP相当のMACアドレス解決を行わない。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく技術知識で判定できる選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6の近隣探索に関する技術知識で判定する。",
+          "promptContext": "ICMPv6の近隣探索がIPv4のARP相当の機能を担う。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく技術知識で判定できる選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4のマルチキャスト管理に関する技術知識で判定する。",
+          "promptContext": "IGMPv2はIPv6のARP相当機能を担わない。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく技術知識で判定できる選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6の経路制御に関する技術知識で判定する。",
+          "promptContext": "RIPngはIPv6の経路制御を行うが、ARP相当のMACアドレス解決は行わない。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく技術知識で判定できる選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n127.0.0.1 はループバックアドレスであり、マルチキャストアドレスではない。IPv4マルチキャストはクラスD帯で定義される。",
-      "間違い。\n\n192.168.1.255 は 192.168.1.0/24 のブロードキャストアドレスである。マルチキャストアドレスは個別ネットワークの末尾値で決まるものではない。",
-      "間違い。\n\nIPv4マルチキャストアドレスの先頭4ビットは1111ではなく1110である。1111で始まるのは予約領域の別の範囲になる。",
-      "正しい。\n\nIPv4マルチキャストは先頭4ビット1110でクラスDを表し、残り28ビットでマルチキャストグループを識別する。どの受信グループ宛てかをこの部分で区別する。"
-    ],
-    "suggestedQuestions": [
-      "IPv4マルチキャストアドレスの先頭ビットは何ですか？",
-      "ブロードキャストとマルチキャストはどう違いますか？",
-      "残り28ビットは何を表しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPv4マルチキャストアドレスの先頭ビットは何ですか？",
-        "answer": "先頭4ビットは1110で、これがクラスDを表す。アドレス範囲では224.0.0.0から239.255.255.255に相当する。"
-      },
-      {
-        "question": "ブロードキャストとマルチキャストはどう違いますか？",
-        "answer": "ブロードキャストは同一ネットワーク内の全ホスト宛てである。マルチキャストは参加している特定グループ宛てに配信する。"
-      },
-      {
-        "question": "残り28ビットは何を表しますか？",
-        "answer": "どのマルチキャストグループかを識別する。受信ホストは参加しているグループ番号に基づいて受信可否を決める。"
-      }
+      "間違い。正しくは、127.0.0.1はループバックアドレスであり、IPマルチキャストアドレスではない。選択肢は127.0.0.1をマルチキャストアドレスとしているため誤りである。",
+      "間違い。正しくは、192.168.1.255は192.168.1.0/24のブロードキャストアドレスである。IPマルチキャストアドレスは、個別ネットワークの末尾アドレスとして決まるものではない。選択肢はブロードキャストアドレスをマルチキャストアドレスとしているため誤りである。",
+      "間違い。正しくは、IPv4マルチキャストアドレスの先頭4ビットは1110である。選択肢は先頭4ビットを1111としているため誤りである。",
+      "正しい。IPv4マルチキャストアドレスは先頭4ビットの1110でクラスDを表し、残り28ビットで送信先のマルチキャストグループを識別する。"
     ],
     "original_question_id": "8c30e68e81b1ef3b",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:8c30e68e81b1ef3b",
+    "reviewQuestionId": "8c30e68e81b1ef3b",
+    "sourceRecordRef": "question_202401_2.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4マルチキャストアドレスの技術仕様に基づく問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "127.0.0.1はループバックアドレスであり、マルチキャストアドレスではない。",
+          "promptContext": "IPv4アドレス仕様による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled_no_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "192.168.1.255は/24ネットワークのブロードキャストアドレスであり、マルチキャストアドレスではない。",
+          "promptContext": "IPv4アドレス仕様による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled_no_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4マルチキャストアドレスの先頭4ビットは1110である。",
+          "promptContext": "IPv4アドレス仕様による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled_no_law",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "先頭4ビットを除く28ビットは、マルチキャストグループの識別に利用される。",
+          "promptContext": "IPv4アドレス仕様による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled_no_law",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nCHAPはPPP系で使う認証方式であり、アカウンティング情報のやり取りは行わない。認証方式と認証基盤プロトコルを混同している。",
-      "間違い。\n\nPAPも単純なパスワード認証方式であり、認証・アカウンティング情報の集中管理には向かない。RADIUSの役割とは異なる。",
-      "間違い。\n\nPPTPはトンネリングプロトコルであり、認証やアカウンティングの集中管理そのものを担うわけではない。接続方式と認証基盤は分けて考える必要がある。",
-      "正しい。\n\nRADIUSはリモートアクセス環境で認証、認可、アカウンティングを扱うAAAプロトコルである。利用者認証情報と利用記録をネットワーク機器とサーバ間でやり取りできる。"
-    ],
-    "suggestedQuestions": [
-      "RADIUSは何をやり取りしますか？",
-      "CHAPやPAPとの違いは何ですか？",
-      "AAAとは何の略ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RADIUSは何をやり取りしますか？",
-        "answer": "利用者の認証情報、認可に必要な属性、接続時間などのアカウンティング情報をやり取りする。リモートアクセスの集中管理に使われる。"
-      },
-      {
-        "question": "CHAPやPAPとの違いは何ですか？",
-        "answer": "CHAPやPAPは認証方式そのもの、RADIUSはそれらを含む認証基盤と考えると分かりやすい。RADIUSはアカウンティングまで扱える。"
-      },
-      {
-        "question": "AAAとは何の略ですか？",
-        "answer": "Authentication、Authorization、Accounting の略である。RADIUSはこの3機能を支える代表的なプロトコルである。"
-      }
+      "正しい。RADIUSは、リモートアクセス環境で利用者の認証・認可とアカウンティング（接続時間や通信量などの利用記録）を扱うAAAプロトコルである。CHAPとPAPは主に認証方式、PPTPはトンネリングプロトコルなので、認証・アカウンティング情報を集中管理するRADIUSとは役割が異なる。"
     ],
     "original_question_id": "bc5447456a1965ee",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:bc5447456a1965ee",
+    "reviewQuestionId": "bc5447456a1965ee",
+    "sourceRecordRef": "question_202401_2.json#12",
+    "explanationReferences": [
+      {
+        "referenceDate": "2000-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2865.html",
+        "title": "Remote Authentication Dial In User Service (RADIUS)"
+      },
+      {
+        "referenceDate": "2000-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2866.html",
+        "title": "RADIUS Accounting"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RADIUSはリモートアクセス環境で認証・認可・アカウンティング情報を扱うプロトコルであり、法令条文を根拠にしない技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CHAPは認証方式であり、RADIUSのように認証・認可・アカウンティング情報を扱うAAAプロトコルではない。",
+          "promptContext": "選択肢1のプロトコル機能判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PAPは認証方式であり、RADIUSのように認証・認可・アカウンティング情報を扱うAAAプロトコルではない。",
+          "promptContext": "選択肢2のプロトコル機能判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PPTPはトンネリングプロトコルであり、認証・認可・アカウンティング情報を集中管理するAAAプロトコルではない。",
+          "promptContext": "選択肢3のプロトコル機能判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RADIUSはリモートアクセス環境で認証・認可・アカウンティング情報を扱うAAAプロトコルである。",
+          "promptContext": "選択肢4のプロトコル機能判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nTCPのシーケンス番号は送信したデータのオクテット数だけ進む。したがって連続送信する場合、次のセグメントのシーケンス番号は直前の番号に送信データ長を足した値になる。",
-      "間違い。\n\nシーケンス番号や確認応答番号は1ずつ増えるのではなく、送受信したオクテット数に応じて進む。さらにTCPの番号空間は16ビットではなく32ビットで扱う。",
-      "間違い。\n\n確認応答番号がシーケンス番号より小さいことだけで再送と断定はできない。シーケンス番号とACK番号は別方向のデータ流れに関する値で、単純比較には意味がない。",
-      "間違い。\n\n確認応答番号は受信したシーケンス番号そのものではなく、『次に受け取りたいオクテット番号』を返す。TCPの累積確認応答の考え方を押さえる必要がある。"
-    ],
-    "suggestedQuestions": [
-      "TCPのシーケンス番号はどう進みますか？",
-      "確認応答番号は何を表しますか？",
-      "TCPで番号を比較するときの注意点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "TCPのシーケンス番号はどう進みますか？",
-        "answer": "送ったデータのオクテット数だけ増える。1セグメント1番号ではなく、バイト列の位置を示す番号として扱う。"
-      },
-      {
-        "question": "確認応答番号は何を表しますか？",
-        "answer": "受信側が次に受け取りたいオクテット番号を表す。つまり、その直前までのデータは受信済みであることを意味する。"
-      },
-      {
-        "question": "TCPで番号を比較するときの注意点は何ですか？",
-        "answer": "シーケンス番号は送信方向、ACK番号は逆方向の受信確認という別の意味を持つ。単純に大小比較して異常判断しないことが重要である。"
-      }
+      "正しい。TCPのシーケンス番号は、送信したデータのオクテット数に応じて進む。したがって、応答を待たずに続けて送信する場合、次のセグメントの番号は直前の番号に送信データのオクテット数を加えた値になる。",
+      "間違い。正しくは、シーケンス番号と受信確認番号は、送受信したデータのオクテット数に応じて進み、番号空間は32ビットである。選択肢は番号を1ずつ増加させ、最大値65,535で0に戻すとしているため誤りである。",
+      "間違い。シーケンス番号は送信側のデータの位置を示し、受信確認番号は受信側が次に受け取りたいデータの位置を示す。両者は異なる方向のデータに関する番号なので、受信確認番号がシーケンス番号より小さいことだけでは、再送されたセグメントとは判断できない。",
+      "間違い。受信確認番号は、受け取ったセグメントのシーケンス番号そのものではなく、次に受け取りたいオクテットの番号を示す。通常は、受信したデータのシーケンス番号にデータ長を加えた値になるため、選択肢は確認番号の決め方を誤っている。"
     ],
     "original_question_id": "e8193551e68c5bdc",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:e8193551e68c5bdc",
+    "reviewQuestionId": "e8193551e68c5bdc",
+    "sourceRecordRef": "question_202401_2.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TCPの通信動作に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。法令適用なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPシーケンス番号の進み方に関する技術判定。",
+          "promptContext": "TCP通信の技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定した。法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。法令適用なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの番号空間とオクテット単位の番号進行に関する技術判定。",
+          "promptContext": "TCP通信の技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。法令適用なし。",
+          "displayRefIds": [],
+          "explanationText": "シーケンス番号と受信確認番号が異なる方向のデータを示すことに関する技術判定。",
+          "promptContext": "TCP通信の技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。法令適用なし。",
+          "displayRefIds": [],
+          "explanationText": "受信確認番号が次に受信したいオクテットの番号を示すことに関する技術判定。",
+          "promptContext": "TCP通信の技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1034,33 +1946,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n～a＆m ではIPアドレス側を反転してしまい、ホスト部だけを取り出す式にならない。ホストアドレスはサブネットマスクの0部分を使って抽出する。",
-      "間違い。\n\n～a｜m は論理和を使っており、ホスト部抽出ではなく別の値になる。ビット単位の抽出にはANDを使うのが基本である。",
-      "正しい。\n\nホストアドレスは、IPアドレスaのうちサブネットマスクmで0になっている部分を取り出せばよい。したがって a＆～m が正しい式になる。",
-      "間違い。\n\na｜～m はホスト部を1で埋める方向の演算になり、ブロードキャストアドレスに近い値を作る。ホスト部抽出の式ではない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ a＆～m でホストアドレスが求まりますか？",
-      "ネットワークアドレスはどう求めますか？",
-      "ANDとORの使い分けはどう考えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ a＆～m でホストアドレスが求まりますか？",
-        "answer": "～m にするとホスト部だけが1、ネットワーク部が0になるからである。これをIPアドレスとANDすれば、ホスト部だけを取り出せる。"
-      },
-      {
-        "question": "ネットワークアドレスはどう求めますか？",
-        "answer": "IPアドレスaとサブネットマスクmをANDし、a＆m で求める。ホスト部を0に落とす演算と考えると分かりやすい。"
-      },
-      {
-        "question": "ANDとORの使い分けはどう考えますか？",
-        "answer": "不要なビットを消すときはAND、特定ビットを立てるときはORが基本である。アドレス計算ではこの発想がよく使われる。"
-      }
+      "正しい。ホストアドレスを求める式は、a＆～mである。サブネットマスクmはネットワーク部を1、ホスト部を0で表すため、～mにするとネットワーク部が0、ホスト部が1になる。これをIPアドレスaとAND演算すると、ネットワーク部は0になり、ホスト部だけが残る。"
     ],
     "original_question_id": "190d85212a047dcb",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:190d85212a047dcb",
+    "reviewQuestionId": "190d85212a047dcb",
+    "sourceRecordRef": "question_202401_2.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ビット演算によるIPv4アドレス計算の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット演算の技術知識で判定し、法令監査対象ではない。",
+          "promptContext": "IPv4アドレスとサブネットマスクの演算式を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット演算の技術知識で判定し、法令監査対象ではない。",
+          "promptContext": "IPv4アドレスとサブネットマスクの演算式を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット演算の技術知識で判定し、法令監査対象ではない。",
+          "promptContext": "IPv4アドレスとサブネットマスクの演算式を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識による判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はビット演算の技術知識で判定し、法令監査対象ではない。",
+          "promptContext": "IPv4アドレスとサブネットマスクの演算式を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1693,93 +2695,402 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n偽警告で利用者を脅して購入を迫るのはサポート詐欺やローグウェアの説明である。RLOの本質は警告表示ではなく、文字表示順の細工である。",
-      "間違い。\n\n脆弱なホストを意図的に公開して攻撃を観察するのはハニーポットの説明である。RLOはファイル名や表示文字列の偽装技法として使われる。",
-      "間違い。\n\nMIB変化を通知するのはSNMP Trapの説明であり、RLOとは無関係である。制御文字による偽装という要素がない。",
-      "正しい。\n\nRLOは Right-to-Left Override という制御文字を使い、見かけ上の文字順を逆転させて拡張子を偽装する手口である。実行形式ファイルを文書ファイルのように見せかける攻撃で知られる。"
-    ],
-    "suggestedQuestions": [
-      "RLOはどうやって拡張子を偽装しますか？",
-      "なぜ利用者はだまされやすいのですか？",
-      "どんな対策が有効ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RLOはどうやって拡張子を偽装しますか？",
-        "answer": "文字の表示順を右から左へ切り替える制御文字をファイル名へ埋め込み、見た目だけ別の拡張子に見せる。実体は実行ファイルでも、表示上は文書に見えることがある。"
-      },
-      {
-        "question": "なぜ利用者はだまされやすいのですか？",
-        "answer": "OSの表示名だけを見ると安全な文書や画像へ見えるからである。拡張子表示を省略している環境では特に判別しにくい。"
-      },
-      {
-        "question": "どんな対策が有効ですか？",
-        "answer": "拡張子を常に表示し、不審な添付ファイルを直接開かないことが基本である。メールフィルタやEDRで偽装実行ファイルを検知する対策も有効である。"
-      }
+      "間違い。偽の警告で利用者を脅し、対策ソフトの購入などを迫るのは、サポート詐欺や偽セキュリティソフトの手口である。RLOは文字の表示順を操作して、ファイル名などを偽装する。",
+      "間違い。脆弱性のあるホストを意図的に公開し、攻撃を観察するのはハニーポットである。RLOは、制御文字によって文字の見かけ上の並び順を変える手口である。",
+      "間違い。MIBの値の変化を検知してSNMPマネージャーへ通知するのは、SNMPトラップの説明である。RLOには、SNMPによる監視や通知の機能はない。",
+      "正しい。RLO（Right-to-Left Override）は、文字の表示順を変える制御文字である。これを利用すると、実際の拡張子とは異なる順序でファイル名を表示でき、実行形式ファイルを文書ファイルのように見せかけるなどの偽装が可能になる。"
     ],
     "original_question_id": "40691b64fde2eef2",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:40691b64fde2eef2",
+    "reviewQuestionId": "40691b64fde2eef2",
+    "sourceRecordRef": "question_202401_2.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RLOは文字の表示順を変える制御文字を利用してファイル名の拡張子などを偽装する技術上の手口であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はサポート詐欺等の説明であり、RLOではない。",
+          "promptContext": "RLOの技術的定義と選択肢の手口を照合した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はハニーポットの説明であり、RLOではない。",
+          "promptContext": "RLOの技術的定義と選択肢の手口を照合した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はSNMPトラップの説明であり、RLOではない。",
+          "promptContext": "RLOの技術的定義と選択肢の手口を照合した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、RLOが文字の表示順を変える制御文字を利用してファイル名の拡張子を偽装する説明である。",
+          "promptContext": "RLOの技術的定義と選択肢の手口を照合した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nキーロガーは入力内容を記録して窃取するマルウェアであり、消費電力や処理時間の観測から秘密情報を推定する攻撃ではない。",
-      "正しい。\n\n暗号処理時の消費電力や処理時間など、装置が漏らす物理的副情報から鍵や秘密情報を推定するのはサイドチャネル攻撃である。暗号アルゴリズムそのものではなく実装の振る舞いを狙う。",
-      "間違い。\n\nスミッシングはSMSを使ったフィッシング詐欺であり、物理量観測による情報漏えいとは無関係である。攻撃経路が全く異なる。",
-      "間違い。\n\n中間者攻撃は通信の途中へ介入して盗聴・改ざんする攻撃である。暗号装置内部の電力変化を測る攻撃ではない。"
-    ],
-    "suggestedQuestions": [
-      "サイドチャネル攻撃は何を観測しますか？",
-      "暗号アルゴリズムが安全でも攻撃されるのはなぜですか？",
-      "どんな対策が考えられますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "サイドチャネル攻撃は何を観測しますか？",
-        "answer": "処理時間、消費電力、電磁波、キャッシュ挙動など、装置が副次的に漏らす情報を観測する。そこから秘密鍵の推定を試みる。"
-      },
-      {
-        "question": "暗号アルゴリズムが安全でも攻撃されるのはなぜですか？",
-        "answer": "攻撃対象は数式としての暗号理論ではなく、実装時の物理的な偏りや漏えいだからである。安全なアルゴリズムでも実装が弱いと破られる。"
-      },
-      {
-        "question": "どんな対策が考えられますか？",
-        "answer": "一定時間化、ダミー処理、電力平滑化、シールド、乱数化などで副情報の偏りを減らす。実装とハードウェア両面の対策が必要である。"
-      }
+      "間違い。正しくは、キーロガーはキーボード入力などを記録して情報を盗むマルウェアである。選択肢は、暗号化装置の消費電力を測定して秘密情報を推定する攻撃をキーロガーとしているため誤りである。",
+      "正しい。暗号処理中の消費電力や処理時間、電磁波など、装置の動作に伴う物理的な情報を観測・解析して暗号鍵などの秘密情報を推定する攻撃をサイドチャネル攻撃という。暗号アルゴリズムそのものではなく、実装から漏れる副情報を利用する。",
+      "間違い。正しくは、スミッシングはSMSを利用して偽サイトへ誘導するなどのフィッシングの一種である。選択肢は、暗号化装置の消費電力を測定して秘密情報を推定する攻撃をスミッシングとしているため誤りである。",
+      "間違い。正しくは、中間者攻撃は通信する二者の間に攻撃者が介入し、通信の盗聴や改ざんを行う攻撃である。選択肢は、装置内部の物理的な副情報を測定する攻撃を中間者攻撃としているため誤りである。"
     ],
     "original_question_id": "7f4c031292aff7d4",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:7f4c031292aff7d4",
+    "reviewQuestionId": "7f4c031292aff7d4",
+    "sourceRecordRef": "question_202401_2.json#22",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ipa.go.jp/archive/security/crypto/gmcbt80000005tnj-att/000026760.pdf",
+        "title": "情報漏えいを防ぐためのモバイルデバイス等設定マニュアル（解説編）"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/asia/qv6pgp0000002s9q-att/000027072.pdf",
+        "title": "情報処理技術者試験 シラバス（レベル1〜3）用語例集"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "情報セキュリティ技術上のサイドチャネル攻撃に関する問題で、法令・制度条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "キーロガーの定義に関する技術知識で判定した。",
+          "promptContext": "技術知識問題として監査した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "暗号処理時の消費電力などの副情報から秘密情報を推定する攻撃はサイドチャネル攻撃である。",
+          "promptContext": "技術知識問題として監査した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スミッシングの定義に関する技術知識で判定した。",
+          "promptContext": "技術知識問題として監査した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "中間者攻撃の定義に関する技術知識で判定した。",
+          "promptContext": "技術知識問題として監査した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nDMARCの代表的なポリシーは none、quarantine、reject であり、判定したメールを送信元サーバへ送り返す設定はない。DMARCは受信側の扱い方を指示する仕組みである。",
-      "間違い。\n\nIP25Bは、外部の動的IPアドレスから自社の受信メールサーバへ直接届く25番ポート通信を制限する考え方であり、設問の方向は逆である。ブロックする通信の向きと対象を取り違えている。",
-      "間違い。\n\nS/MIMEのデジタル署名は送信者の秘密鍵で作成し、受信者は送信者の公開鍵で検証する。選択肢は公開鍵と秘密鍵の役割が逆である。",
-      "正しい。\n\nSPFでは送信元ドメインのDNSへ、送信を許可するメールサーバのIPアドレスやホストをSPFレコードとして登録しておく。受信側はその情報を参照して送信元正当性を検証する。"
-    ],
-    "suggestedQuestions": [
-      "DMARCのポリシーには何がありますか？",
-      "SPFはどこに何を登録しますか？",
-      "S/MIMEの署名検証で鍵をどう使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DMARCのポリシーには何がありますか？",
-        "answer": "代表的なポリシーは none、quarantine、reject の3つである。受信側へ『何もしない』『隔離する』『拒否する』を指示できる。"
-      },
-      {
-        "question": "SPFはどこに何を登録しますか？",
-        "answer": "送信元ドメインのDNSへ、そのドメインから送信してよいメールサーバ情報をSPFレコードとして登録する。受信側はこれを見て送信元を検証する。"
-      },
-      {
-        "question": "S/MIMEの署名検証で鍵をどう使いますか？",
-        "answer": "送信者が秘密鍵で署名し、受信者は送信者の公開鍵で検証する。署名と暗号化で鍵の使い方が逆になりやすいので注意が必要である。"
-      }
+      "間違い。正しくは、DMARCは受信側が認証結果に応じてメールを受信・隔離・拒否するためのポリシーを示す。代表的な指定値は none、quarantine、reject である。選択肢は、判定したメールを送信元メールサーバへ送り返すポリシーを設定できるとしているため誤りである。",
+      "間違い。正しくは、IP25Bは、動的IPアドレスを割り当てた利用者の端末などから、インターネット上のメールサーバへ直接送信される25番ポート通信をISPが制限する対策である。選択肢は自社の受信メールサーバから他社ISPの動的IPアドレスへ接続するとしているため、通信の向きと対象を逆にしている。",
+      "間違い。正しくは、S/MIMEのデジタル署名は送信者の秘密鍵で生成し、受信者は送信者の公開鍵で検証する。選択肢は公開鍵で署名し、秘密鍵で検証するとしているため誤りである。",
+      "正しい。SPFは、送信元ドメインのDNSに、メール送信を許可するサーバのIPアドレスなどをSPFレコードとして公開し、受信側が送信元IPと照合する仕組みである。"
     ],
     "original_question_id": "d57be9d55bbdff45",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:d57be9d55bbdff45",
+    "reviewQuestionId": "d57be9d55bbdff45",
+    "sourceRecordRef": "question_202401_2.json#23",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc7489.html",
+        "title": "RFC 7489: Domain-based Message Authentication, Reporting, and Conformance (DMARC)"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5751.html",
+        "title": "RFC 5751: S/MIME Version 3.2 Message Specification"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc7208.html",
+        "title": "RFC 7208: Sender Policy Framework (SPF) for Authorizing Use of Domains in Email"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DMARC、IP25B、S/MIME、SPFの技術仕様を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DMARCの技術仕様に基づく判定で、法令根拠は不要である。",
+          "promptContext": "DMARCポリシーの内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくDMARCの技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "IP25Bの通信方向と制限対象に関する技術仕様に基づく判定で、法令根拠は不要である。",
+          "promptContext": "IP25Bの制限対象と通信方向を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくIP25Bの技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "S/MIME署名における秘密鍵での生成と公開鍵での検証という技術仕様に基づく判定で、法令根拠は不要である。",
+          "promptContext": "S/MIMEデジタル署名の鍵の使い分けを判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくS/MIMEの公開鍵暗号技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "SPFレコードと送信元IPアドレスの照合に関する技術仕様に基づく判定で、法令根拠は不要である。",
+          "promptContext": "SPFレコードの役割を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくSPFの技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

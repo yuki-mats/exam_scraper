@@ -847,63 +847,252 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nアクセシビリティは全ての人に全く同じ水準を保証することではなく、多様な利用者が必要な利用可能性を得られるようにする考え方である。",
-      "正しい。\n\nJIS X 8341-1 の目的は、多様な人々の利用状況を理解した上で、できるだけ多くの個人のアクセシビリティを改善することである。",
-      "間違い。\n\n人間工学規格を上回る水準を一律に目指すことが目的ではなく、利用者の多様性を踏まえて適切な改善を行うことが主眼である。",
-      "間違い。\n\n平均的能力を持つ人だけを対象にすると、高齢者や障害のある人への配慮が不足し、アクセシビリティ設計の目的に反する。"
-    ],
-    "suggestedQuestions": [
-      "アクセシビリティとユーザビリティの違いは何ですか？",
-      "なぜ多様な利用者を前提に設計するのですか？",
-      "JIS X 8341 の考え方は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アクセシビリティとユーザビリティの違いは何ですか？",
-        "answer": "アクセシビリティは利用できること、ユーザビリティは使いやすさの度合いに重点がある。"
-      },
-      {
-        "question": "なぜ多様な利用者を前提に設計するのですか？",
-        "answer": "年齢、障害、利用環境の違いがあっても必要な情報や機能へ到達できるようにするためである。"
-      },
-      {
-        "question": "JIS X 8341 の考え方は何ですか？",
-        "answer": "多様な人々の利用状況を踏まえ、より広い利用者層のアクセシビリティを改善することである。"
-      }
+      "間違い。正しくは、多様な人々の利用状況を理解し、できるだけ多くの個人のアクセシビリティを改善することを目指す。選択肢は全ての個人に等しい水準を達成するとしているため誤りである。",
+      "正しい。JIS X 8341-1:2010は、利用者の能力や利用状況の多様性を踏まえ、できるだけ多くの人が情報通信機器やサービスを利用できるようにするための共通指針である。",
+      "間違い。正しくは、多様な人々の利用状況を踏まえてアクセシビリティを改善する。選択肢は人間工学に関する規格より高い水準を多くの人々に提供することを目的としているため誤りである。",
+      "間違い。正しくは、平均的能力の人だけでなく、さまざまな能力をもつ人々の利用可能性を改善する。選択肢は平均的能力をもった人々だけを対象に標準的な水準を達成するとしているため誤りである。"
     ],
     "original_question_id": "7ac14217727f66b7",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:7ac14217727f66b7",
+    "reviewQuestionId": "7ac14217727f66b7",
+    "sourceRecordRef": "question_201702_1.json#7",
+    "explanationReferences": [
+      {
+        "referenceDate": "2010-03-23",
+        "sourceUrl": "https://webdesk.jsa.or.jp/books/W11M0090/index/?bunsyo_id=JIS+X+8341-1%3A2010",
+        "title": "JIS X 8341-1:2010 高齢者・障害者等配慮設計指針―情報通信における機器，ソフトウェア及びサービス―第1部：共通指針"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "JIS X 8341-1:2010の規格目的を問う技術規格の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1肢は、全ての個人に等しい水準を保証することではなく、多様な人々の利用状況を踏まえてアクセシビリティを改善するという規格目的と異なる。",
+          "promptContext": "JIS X 8341-1:2010の規格目的を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術規格の内容に基づく判定であり、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2肢は、多様な人々の利用状況を理解し、できるだけ多くの個人のアクセシビリティ水準を改善するという規格目的に合致する。",
+          "promptContext": "JIS X 8341-1:2010の規格目的を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術規格の内容に基づく判定であり、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3肢は、人間工学規格より高い水準を提供することを目的としておらず、規格目的と異なる。",
+          "promptContext": "JIS X 8341-1:2010の規格目的を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術規格の内容に基づく判定であり、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4肢は、平均的能力をもつ人だけを対象にするものではなく、多様な人々の利用可能性を改善するという規格目的と異なる。",
+          "promptContext": "JIS X 8341-1:2010の規格目的を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術規格の内容に基づく判定であり、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n`ALL` は重複行をそのまま返す指定であり、射影のように重複を除去した結果にはならない。",
-      "正しい。\n\n関係代数の射影は重複行を除いた結果を返すため、SQL では `SELECT DISTINCT A, C ...` とする必要がある。",
-      "間違い。\n\n`ORDER BY` は並べ替えを行う句であり、重複除去の機能は持たない。",
-      "間違い。\n\n`REFERENCES` は外部キー制約を定義する語であり、問い合わせ結果の重複除去とは無関係である。"
-    ],
-    "suggestedQuestions": [
-      "関係代数の射影ではなぜ重複を除きますか？",
-      "SQL の DISTINCT は何をしますか？",
-      "ALL と DISTINCT の違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "関係代数の射影ではなぜ重複を除きますか？",
-        "answer": "関係は集合として扱うため、同一タプルは重複して保持しないからである。"
-      },
-      {
-        "question": "SQL の DISTINCT は何をしますか？",
-        "answer": "問い合わせ結果から同じ値の行を 1 つにまとめて返す。"
-      },
-      {
-        "question": "ALL と DISTINCT の違いは何ですか？",
-        "answer": "ALL は重複を残し、DISTINCT は重複を除去する。"
-      }
+      "正しい。A列とC列への射影は、各行からAとCだけを取り出し、同じ組合せの重複を除いた結果を返す。SQLでは`SELECT DISTINCT A, C FROM T`とするため、aには`DISTINCT`が入る。`ALL`は重複を残し、`ORDER BY`は並べ替え、`REFERENCES`は外部キー制約を指定する語である。"
     ],
     "original_question_id": "9a0793cabee709cc",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:9a0793cabee709cc",
+    "reviewQuestionId": "9a0793cabee709cc",
+    "sourceRecordRef": "question_201702_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "関係データベースの射影とSQLの重複排除に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢「ALL」はSQLの重複を残す指定であり、射影結果とは一致しない。",
+          "promptContext": "関係データベースの射影とSQLの重複排除を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢「DISTINCT」は重複を除いた射影結果を得る指定であり、正しい。",
+          "promptContext": "関係データベースの射影とSQLの重複排除を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢「ORDER BY」は結果の並べ替えを指定する語であり、重複排除は行わない。",
+          "promptContext": "関係データベースの射影とSQLの重複排除を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢「REFERENCES」は外部キー制約に関する語であり、射影の重複排除には用いない。",
+          "promptContext": "関係データベースの射影とSQLの重複排除を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1170,33 +1359,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nUSB 接続時の自動実行を悪用するのは `autorun.inf` を使った感染手口の説明である。",
-      "間違い。\n\nファイルを暗号化して身代金を要求するのはランサムウェアの説明である。",
-      "間違い。\n\n外部から無線LANの脆弱なアクセスポイントを探すのはウォードライビングの説明である。",
-      "正しい。\n\nドライブバイダウンロード攻撃は、利用者が悪性又は改ざんされた Web サイトを閲覧しただけで、気付かないうちに不正プログラムをダウンロード・実行させる攻撃である。"
-    ],
-    "suggestedQuestions": [
-      "ドライブバイダウンロード攻撃はどう成立しますか？",
-      "ランサムウェアやウォードライビングとの違いは何ですか？",
-      "防止策には何がありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ドライブバイダウンロード攻撃はどう成立しますか？",
-        "answer": "ブラウザやプラグインの脆弱性、悪性スクリプトなどを使って閲覧だけで不正プログラムを転送させる。"
-      },
-      {
-        "question": "ランサムウェアやウォードライビングとの違いは何ですか？",
-        "answer": "前者は感染後の被害形態、後者は無線LAN探索行為であり、ドライブバイダウンロードは感染経路の説明である。"
-      },
-      {
-        "question": "防止策には何がありますか？",
-        "answer": "ブラウザ更新、不要プラグイン削減、Web フィルタリング、EDR などが有効である。"
-      }
+      "間違い。USBメモリに保存されたプログラムを接続時に自動実行して感染させるのは、USBメモリの自動実行機能を悪用した攻撃である。ドライブバイダウンロード攻撃は、Webサイトの閲覧をきっかけに不正プログラムを送り込む。",
+      "間違い。PC内のファイルを暗号化し、復号と引換えに金銭を要求するのはランサムウェアである。ドライブバイダウンロード攻撃は、Webサイトの閲覧をきっかけに不正プログラムを送り込む。",
+      "間違い。無線LANの電波を傍受して脆弱なアクセスポイントを探すのはウォードライビングである。ドライブバイダウンロード攻撃は、無線LANの探索ではなく、Webサイトの閲覧をきっかけに不正プログラムを送り込む。",
+      "正しい。ドライブバイダウンロード攻撃は、利用者がWebサイトを閲覧した際に、気付かないうちに不正プログラムをダウンロード・実行させる攻撃である。"
     ],
     "original_question_id": "86980546b2d216a5",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:86980546b2d216a5",
+    "reviewQuestionId": "86980546b2d216a5",
+    "sourceRecordRef": "question_201702_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "Web閲覧時に利用者が気付かないまま不正プログラムを転送・感染させる攻撃手法の説明であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "USBメモリの自動実行を悪用する攻撃はドライブバイダウンロード攻撃ではない。",
+          "promptContext": "第1選択肢の攻撃手法を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ファイルを暗号化して身代金を要求する攻撃はランサムウェアであり、ドライブバイダウンロード攻撃ではない。",
+          "promptContext": "第2選択肢の攻撃手法を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "無線LANの電波を利用して脆弱なアクセスポイントを探すのはウォードライビングであり、ドライブバイダウンロード攻撃ではない。",
+          "promptContext": "第3選択肢の攻撃手法を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Webサイトの閲覧を契機に利用者が気付かないまま不正プログラムを転送・実行させる説明は、ドライブバイダウンロード攻撃に該当する。",
+          "promptContext": "第4選択肢の攻撃手法を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判定でき、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1323,33 +1605,118 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n政府機関横断の情報収集や監視機能強化は NISC など政府側の役割の説明であり、J-CRAT そのものではない。",
-      "間違い。\n\n参加組織間で標的型攻撃情報を共有するのは J-CSIP の役割である。",
-      "間違い。\n\nセキュリティオペレーションの普及や人材育成を推進するのは ISOG-J のような組織の役割である。",
-      "正しい。\n\nJ-CRAT は標的型サイバー攻撃を受けた組織や個人から情報提供を受け、被害分析や対策着手を支援する IPA の支援チームである。"
-    ],
-    "suggestedQuestions": [
-      "J-CRAT はどのような支援を行いますか？",
-      "J-CSIP との違いは何ですか？",
-      "標的型攻撃対応で重要な初動は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "J-CRAT はどのような支援を行いますか？",
-        "answer": "標的型攻撃の情報分析、被害把握、対策の早期着手支援などを行う。"
-      },
-      {
-        "question": "J-CSIP との違いは何ですか？",
-        "answer": "J-CSIP は参加組織間の情報共有枠組みで、J-CRAT は実被害組織への分析・対処支援を行う。"
-      },
-      {
-        "question": "標的型攻撃対応で重要な初動は何ですか？",
-        "answer": "感染端末の把握、証跡保全、通信遮断、影響範囲調査を早く行うことが重要である。"
-      }
+      "間違い。政府機関を横断した情報収集や監視機能の整備は、政府側のサイバーセキュリティ対策に関する役割である。選択肢はその役割をJ-CRATのものとしているため誤りである。",
+      "間違い。参加組織から標的型サイバー攻撃の情報を集めて分析し、組織間で共有するのはJ-CSIPの役割である。選択肢はJ-CSIPの役割をJ-CRATのものとしているため誤りである。",
+      "間違い。セキュリティオペレーションの技術向上や人材育成、関係組織間の連携を推進するのは、セキュリティオペレーションに関する団体の役割である。選択肢はその役割をJ-CRATのものとしているため誤りである。",
+      "正しい。J-CRATは、標的型サイバー攻撃を受けた組織や個人から情報提供を受け、攻撃の把握や被害の分析、対策の早期着手を支援する。"
     ],
     "original_question_id": "f6ff46d6bd7fa811",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:f6ff46d6bd7fa811",
+    "reviewQuestionId": "f6ff46d6bd7fa811",
+    "sourceRecordRef": "question_201702_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "J-CRAT、J-CSIP及びセキュリティオペレーション関係組織の役割分担を問う技術・制度知識問題で、法令条文を直接の判定根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は確認対象外である。",
+          "displayRefIds": [],
+          "explanationText": "政府横断的な情報収集や監視機能の整備はJ-CRATの役割ではない。",
+          "promptContext": "J-CRATの役割として政府横断的な情報収集・監視機能の整備を挙げている。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は確認対象外である。",
+          "displayRefIds": [],
+          "explanationText": "参加組織から標的型攻撃情報を収集・分析し、組織間で共有する役割はJ-CSIPに対応する。",
+          "promptContext": "J-CRATの役割として、参加組織間の標的型攻撃情報共有を挙げている。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は確認対象外である。",
+          "displayRefIds": [],
+          "explanationText": "セキュリティオペレーション技術の向上、人材育成及び関係組織間の連携推進は、セキュリティオペレーション関係団体の役割である。",
+          "promptContext": "J-CRATの役割として、セキュリティオペレーションサービスの普及と向上を挙げている。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分は確認対象外である。",
+          "displayRefIds": [],
+          "explanationText": "J-CRATは、標的型サイバー攻撃を受けた組織や個人を支援し、攻撃の把握、被害分析及び対策の早期着手を支援する。",
+          "promptContext": "J-CRATの役割として、標的型攻撃を受けた組織や個人への分析・対策支援を挙げている。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1599,33 +1966,126 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nCMMI はソフトウェア開発組織やプロジェクトのプロセス成熟度を評価・改善するためのモデルであり、プロセス改善の道筋を示す。",
-      "間違い。\n\nウォータフォールやアジャイルのような開発プロセスモデルそのものではなく、組織のプロセス成熟度を扱う評価・改善モデルである。",
-      "間違い。\n\nソフトウェア開発及び取引のための共通フレームは共通フレーム 2013 の説明である。",
-      "間違い。\n\nCMMI はプロジェクト成熟度に応じて手順を定義したモデルではなく、組織プロセスの成熟度評価と改善指針を与える。"
-    ],
-    "suggestedQuestions": [
-      "CMMI は何を評価しますか？",
-      "成熟度レベルは何を表しますか？",
-      "開発プロセスモデルとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CMMI は何を評価しますか？",
-        "answer": "組織やプロジェクトのプロセスがどの程度管理・標準化・改善されているかを評価する。"
-      },
-      {
-        "question": "成熟度レベルは何を表しますか？",
-        "answer": "場当たり的な状態から定量管理・継続改善が行える状態までの成熟段階を表す。"
-      },
-      {
-        "question": "開発プロセスモデルとの違いは何ですか？",
-        "answer": "CMMI は手順そのものより、組織プロセスの品質と改善の成熟度を扱う。"
-      }
+      "正しい。CMMIは、ソフトウェア開発組織やプロジェクトのプロセス成熟度を評価し、改善の方向を示すモデルである。",
+      "間違い。CMMIは、ウォータフォールやアジャイルのようなソフトウェア開発のプロセスモデルそのものではない。組織やプロジェクトのプロセス成熟度を評価・改善するモデルである。",
+      "間違い。ソフトウェアを中心としたシステム開発や取引のための共通フレームは、共通フレームの説明である。CMMIはプロセス成熟度を評価・改善するモデルであり、共通フレームではない。",
+      "間違い。CMMIは、プロジェクトの成熟度に応じて具体的なソフトウェア開発手順を定義するモデルではない。組織やプロジェクトのプロセス成熟度を評価し、改善の指針を示すモデルである。"
     ],
     "original_question_id": "6b810a4f52b687ff",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:6b810a4f52b687ff",
+    "reviewQuestionId": "6b810a4f52b687ff",
+    "sourceRecordRef": "question_201702_1.json#16",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CMMIはソフトウェア開発プロセスの成熟度を評価するモデルに関する技術論点で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CMMIはプロセス成熟度を評価・改善するモデルであり、法令根拠を要しない。",
+          "promptContext": "CMMIの説明を問う技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CMMIはソフトウェア開発のプロセスモデルそのものではない。",
+          "promptContext": "CMMIの説明を問う技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "共通フレームはシステム開発や取引のための共通枠組みであり、CMMIとは異なる。",
+          "promptContext": "CMMIの説明を問う技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CMMIは具体的な開発手順を定義するモデルではなく、プロセス成熟度を評価・改善するモデルである。",
+          "promptContext": "CMMIの説明を問う技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1749,93 +2209,369 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n最終成果物当たりの誤り件数は残存欠陥の多さを示し、主に信頼性の評価指標である。",
-      "正しい。\n\n1 件の修正に要した平均時間は、修正しやすさや保守作業のしやすさを表すため、保守性の評価指標になる。",
-      "間違い。\n\n移植時に変更が必要なコード割合は移植性の評価指標であり、保守性そのものではない。",
-      "間違い。\n\n改良要求件数は機能や顧客要望の傾向を示す指標であり、保守性を直接表す指標ではない。"
-    ],
-    "suggestedQuestions": [
-      "保守性の評価指標には何がありますか？",
-      "信頼性や移植性の指標とはどう違いますか？",
-      "修正時間が短いと何が分かりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "保守性の評価指標には何がありますか？",
-        "answer": "修正時間、修正工数、変更容易性など、変更や修正のしやすさを示す指標がある。"
-      },
-      {
-        "question": "信頼性や移植性の指標とはどう違いますか？",
-        "answer": "信頼性は障害の起こりにくさ、移植性は環境変更への適応しやすさを表す。"
-      },
-      {
-        "question": "修正時間が短いと何が分かりますか？",
-        "answer": "問題箇所の特定や変更がしやすく、保守しやすい設計である可能性が高い。"
-      }
+      "間違い。残存欠陥の割合は、ソフトウェアに誤りが残っていないかを示す信頼性の指標である。選択肢は保守作業のしやすさではなく、誤りの発生状況を測る指標としているため誤りである。",
+      "正しい。修正1件当たりに要する平均時間は、問題を見つけて修正しやすいかを示すため、保守性の指標になる。",
+      "間違い。移植の際に変更が必要なソースコードの割合は、別の環境へ移しやすいかを示す移植性の指標である。選択肢は保守性ではなく、環境変更への適応しやすさを測る指標としているため誤りである。",
+      "間違い。出荷後の改良要求の発生頻度は、利用者が求める機能への適合状況を示す指標である。選択肢は修正作業のしやすさではなく、機能に対する要求の発生状況を測る指標としているため誤りである。"
     ],
     "original_question_id": "afa46ade0637b706",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:afa46ade0637b706",
+    "reviewQuestionId": "afa46ade0637b706",
+    "sourceRecordRef": "question_201702_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア工学上の保守性指標を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "残存欠陥の割合は信頼性の指標であり、保守性の指標ではない。",
+          "promptContext": "ソフトウェア工学上の品質指標問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "修正1件当たりの平均時間は保守性の指標である。",
+          "promptContext": "ソフトウェア工学上の品質指標問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "変更が必要なソースコードの割合は移植性の指標であり、保守性の指標ではない。",
+          "promptContext": "ソフトウェア工学上の品質指標問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "出荷後の改良要求件数は利用者要求の発生状況を示し、保守性の指標ではない。",
+          "promptContext": "ソフトウェア工学上の品質指標問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nサービス提供時間は 14 時間×30 日=420 時間であり、可用性計算で差し引く停止時間はサービス提供時間内の 7 時間だけなので 95.7% にはならない。",
-      "間違い。\n\nサービス提供時間外の修復 3 時間やメンテナンス 8 時間は、提供時間外なので可用性の計算対象に含めない。",
-      "正しい。\n\n可用性は `(420-7) / 420 × 100 = 98.333...%` であり、小数第 2 位を四捨五入すると 98.3% になる。",
-      "間違い。\n\n停止時間 7 時間を考慮すると 99.0% には届かず、正しい値は 98.3% である。"
-    ],
-    "suggestedQuestions": [
-      "可用性はどう計算しますか？",
-      "サービス提供時間外の停止を含めないのはなぜですか？",
-      "SLA で可用性を見るときの注意点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "可用性はどう計算しますか？",
-        "answer": "合意済みサービス時間のうち実際に利用可能だった時間の割合で計算する。"
-      },
-      {
-        "question": "サービス提供時間外の停止を含めないのはなぜですか？",
-        "answer": "その時間帯はそもそもサービス提供を約束しておらず、利用要求時間に含まれないためである。"
-      },
-      {
-        "question": "SLA で可用性を見るときの注意点は何ですか？",
-        "answer": "対象時間帯、計画停止の扱い、障害時間の定義を事前に明確にする必要がある。"
-      }
+      "正しい。該当する値は98.3である。サービス提供時間は1日14時間（20−6）なので、1か月では\\(14×30=420\\)時間となる。可用性の計算で差し引くのは、サービス提供時間内に発生した停止時間7時間だけであり、サービス提供時間外の修復時間3時間とメンテナンス時間8時間は含めない。したがって、可用性は次のとおりである。\\[\\frac{420-7}{420}×100=98.333…\\%\\]\\小数第2位を四捨五入すると98.3%になる。"
     ],
     "original_question_id": "37d632aedc2c9029",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:37d632aedc2c9029",
+    "reviewQuestionId": "37d632aedc2c9029",
+    "sourceRecordRef": "question_201702_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "可用性の計算問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1の95.7%は計算結果と一致しない。",
+          "promptContext": "可用性の計算結果を確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "可用性の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢2の97.6%は計算結果と一致しない。",
+          "promptContext": "可用性の計算結果を確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "可用性の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サービス提供時間420時間から停止時間7時間を差し引くと、可用性は98.3%となる。",
+          "promptContext": "可用性の計算結果を確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "可用性の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢4の99.0%は計算結果と一致しない。",
+          "promptContext": "可用性の計算結果を確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "可用性の計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nシステム監査人は改善施策を指示する立場ではなく、改善責任は被監査部門にある。",
-      "間違い。\n\n監査人が自ら改善活動に参加すると、独立性・客観性を損なうため適切でない。",
-      "正しい。\n\nフォローアップでは、改善が計画どおり進むよう被監査部門へ助言することが監査人の適切な役割である。",
-      "間違い。\n\n要員追加を要求するのは監査人の権限を超えており、改善責任者や経営層が判断すべき事項である。"
-    ],
-    "suggestedQuestions": [
-      "システム監査人のフォローアップの役割は何ですか？",
-      "独立性が重要なのはなぜですか？",
-      "改善責任は誰が持ちますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "システム監査人のフォローアップの役割は何ですか？",
-        "answer": "改善計画の進捗を確認し、必要な助言を行うことである。"
-      },
-      {
-        "question": "独立性が重要なのはなぜですか？",
-        "answer": "監査対象の業務執行に関与すると、客観的な評価や意見表明ができなくなるためである。"
-      },
-      {
-        "question": "改善責任は誰が持ちますか？",
-        "answer": "改善を実施する責任は被監査部門の責任者が持つ。"
-      }
+      "間違い。改善策を実施する責任は被監査部門にある。選択肢は監査人が具体的な対策の実施を指示するとしているため誤りである。",
+      "間違い。監査人は改善活動の実施主体ではなく、独立した立場で進捗を確認し、必要な助言を行う。選択肢は監査人が改善活動に参加するとしているため誤りである。",
+      "正しい。フォローアップでは、監査人は改善の進捗を確認し、遅れを取り戻すための方策を被監査部門へ助言する立場である。",
+      "間違い。要員追加の判断は被監査部門の責任者や経営層が行う。選択肢は監査人が人事部長に追加要員を要求するとしているため誤りである。"
     ],
     "original_question_id": "303416ed751382c9",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:303416ed751382c9",
+    "reviewQuestionId": "303416ed751382c9",
+    "sourceRecordRef": "question_201702_1.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査のフォローアップにおける監査人の役割・独立性に関する問題で、法令条文を正誤の直接根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分比較は対象外。",
+          "displayRefIds": [],
+          "explanationText": "具体的な法令条文ではなく、システム監査の役割分担に基づく判定である。",
+          "promptContext": "選択肢1の完全命題を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。監査人の独立性と役割分担に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分比較は対象外。",
+          "displayRefIds": [],
+          "explanationText": "具体的な法令条文ではなく、システム監査の役割分担に基づく判定である。",
+          "promptContext": "選択肢2の完全命題を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。監査人の独立性と役割分担に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分比較は対象外。",
+          "displayRefIds": [],
+          "explanationText": "具体的な法令条文ではなく、システム監査の役割分担に基づく判定である。",
+          "promptContext": "選択肢3の完全命題を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。監査人の独立性と役割分担に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分比較は対象外。",
+          "displayRefIds": [],
+          "explanationText": "具体的な法令条文ではなく、システム監査の役割分担に基づく判定である。",
+          "promptContext": "選択肢4の完全命題を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。監査人の独立性と役割分担に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

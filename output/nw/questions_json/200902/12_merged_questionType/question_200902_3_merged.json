@@ -5,7 +5,7 @@
       "questionBodyText": "レイヤー2スイッチや無線LANアクセスポイントで接続を許可する仕組みはどれか。",
       "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅱ 問21",
       "questionLabel": "問21",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "DHCP",
         "Webシングルサインオン",
@@ -42,7 +42,7 @@
       ],
       "explanation_common_prefix": [
         "VLAN",
-        "ポートベースVLANスイッチの接続ポート単位でグルーピング\nアドレスベースVLANMACアドレスやIPアドレスを基準にグルーピング\nポリシーベースVLANIP、IPX、AppleTalkなどのネットワークプロトコルごとにグルーピング\nタグVLANパケット内の拡張タグに指定された情報によってグルーピング",
+        "ポートベースVLANスイッチの接続ポート単位でグルーピングアドレスベースVLANMACアドレスやIPアドレスを基準にグルーピングポリシーベースVLAN IP、IPX、AppleTalkなどのネットワークプロトコルごとにグルーピングタグVLANパケット内の拡張タグに指定された情報によってグルーピング",
         "認証VLAN"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
@@ -71,7 +71,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "source_question_id": "200902:am:問21:https://www.nw-siken.com/kakomon/21_aki/am2_21.html"
+      "source_question_id": "200902:am:問21:https://www.nw-siken.com/kakomon/21_aki/am2_21.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "レイヤー2スイッチや無線LANアクセスポイントの接続許可に関するネットワーク技術の問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "シリアルATAの説明として，適切なものはどれか。",
@@ -141,7 +151,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "source_question_id": "200902:am:問22:https://www.nw-siken.com/kakomon/21_aki/am2_22.html"
+      "source_question_id": "200902:am:問22:https://www.nw-siken.com/kakomon/21_aki/am2_22.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "シリアルATAの用途は技術知識で判断できるため、法令根拠は不要である。"
     },
     {
       "questionBodyText": "シンクライアントシステムの利点のうち，適切なものはどれか。",
@@ -211,7 +231,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "source_question_id": "200902:am:問23:https://www.nw-siken.com/kakomon/21_aki/am2_23.html"
+      "source_question_id": "200902:am:問23:https://www.nw-siken.com/kakomon/21_aki/am2_23.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "シンクライアントの構成上の利点を問う技術問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "ブラックボックステストのテストデータの作成方法のうち，最も適切なものはどれか。",
@@ -281,10 +311,20 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "source_question_id": "200902:am:問24:https://www.nw-siken.com/kakomon/21_aki/am2_24.html"
+      "source_question_id": "200902:am:問24:https://www.nw-siken.com/kakomon/21_aki/am2_24.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "ブラックボックステストのテストデータ設計に関する技術論点で、法令条文を根拠にしない。"
     },
     {
-      "questionBodyText": "開発した製品で利用している新規技術に関して特許の出願を行った。日本において特許権の取得ができない\nものはどれか。",
+      "questionBodyText": "開発した製品で利用している新規技術に関して特許の出願を行った。日本において特許権の取得ができない可能なものはどれか。",
       "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅱ 問25",
       "questionLabel": "問25",
       "questionType": "true_false",
@@ -351,7 +391,65 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "source_question_id": "200902:am:問25:https://www.nw-siken.com/kakomon/21_aki/am2_25.html"
+      "source_question_id": "200902:am:問25:https://www.nw-siken.com/kakomon/21_aki/am2_25.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": true,
+      "lawGroundedExplanationNotNeeded": false,
+      "lawReferences": [
+        [
+          {
+            "article": "30条2項・3項",
+            "choiceIndex": 0,
+            "lawId": "334AC0000000121",
+            "lawTitle": "特許法",
+            "referenceDate": "2026-10-03",
+            "role": "current_basis",
+            "scope": "choice",
+            "source": "egov_xml",
+            "verificationStatus": "verified"
+          }
+        ],
+        [
+          {
+            "article": "29条1項1号",
+            "choiceIndex": 1,
+            "lawId": "334AC0000000121",
+            "lawTitle": "特許法",
+            "referenceDate": "2026-10-03",
+            "role": "current_basis",
+            "scope": "choice",
+            "source": "egov_xml",
+            "verificationStatus": "verified"
+          }
+        ],
+        [
+          {
+            "article": "2条1項",
+            "choiceIndex": 2,
+            "lawId": "334AC0000000121",
+            "lawTitle": "特許法",
+            "referenceDate": "2026-10-03",
+            "role": "current_basis",
+            "scope": "choice",
+            "source": "egov_xml",
+            "verificationStatus": "verified"
+          }
+        ],
+        [
+          {
+            "article": "29条1項2号・30条2項・3項",
+            "choiceIndex": 3,
+            "lawId": "334AC0000000121",
+            "lawTitle": "特許法",
+            "referenceDate": "2026-10-03",
+            "role": "current_basis",
+            "scope": "choice",
+            "source": "egov_xml",
+            "verificationStatus": "verified"
+          }
+        ]
+      ],
+      "lawContextForExplanation": "特許法第2条・第29条を判断軸とし、公開前出願、発明該当性、公知化後の例外を整理する。現行法第30条第2項は出願人の行為による公知化について1年以内の出願等を要件に例外を認めるため、2009年出題時法との差分確認を03bで行う。"
     }
   ]
 }

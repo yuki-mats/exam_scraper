@@ -684,33 +684,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n記述の内容は SOA レコードに近い。CNAME はホスト名の別名を定義するレコードである。",
-      "間違い。\n\nMX レコードが示すのはメール配送先サーバのホスト名であり、IP アドレスそのものではない。",
-      "正しい。\n\nNS レコードは、そのゾーンや委任した下位ドメインを管理する DNS サーバのホスト名を示す。",
-      "間違い。\n\nPTR レコードは逆引き用で、IP アドレスからホスト名を対応付ける。名前から IP アドレスを得るのは A レコードなどである。"
-    ],
-    "suggestedQuestions": [
-      "CNAME と A レコードの違いは何ですか？",
-      "MX レコードは何を指しますか？",
-      "PTR レコードは何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CNAME と A レコードの違いは何ですか？",
-        "answer": "CNAME は別名を正式名へ対応付け、A レコードは正式名に対する IPv4 アドレスを示す。"
-      },
-      {
-        "question": "MX レコードは何を指しますか？",
-        "answer": "メール配送を受け持つサーバのホスト名を優先度付きで指す。"
-      },
-      {
-        "question": "PTR レコードは何に使いますか？",
-        "answer": "逆引き DNS で、IP アドレスからホスト名を調べるときに使う。"
-      }
+      "間違い。正しくは、CNAMEレコードはホスト名の別名を指定する。キャッシュ情報を保持する時間や、ゾーン情報の更新を確認する間隔を指定するのはSOAレコードである。選択肢はSOAレコードの役割をCNAMEレコードのものとしているため誤りである。",
+      "間違い。正しくは、MXレコードは電子メールを受け取るメールサーバのホスト名を指定する。ホスト名に対応するIPアドレスは、AレコードやAAAAレコードなどで解決する。選択肢はMXレコードがIPアドレスそのものを指定するとしているため誤りである。",
+      "正しい。NSレコードは、そのゾーンを管理するDNSサーバのホスト名を示し、下位ドメインを委任する場合にも使われる。",
+      "間違い。正しくは、PTRレコードはIPアドレスからホスト名を調べる逆引きに使う。名前からIPv4アドレスを対応付けるのはAレコードなどである。選択肢はPTRレコードが名前からIPアドレスを指定するとしているため誤りである。"
     ],
     "original_question_id": "f2d29d359ed3baf5",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:f2d29d359ed3baf5",
+    "reviewQuestionId": "f2d29d359ed3baf5",
+    "sourceRecordRef": "question_201502_2.json#5",
+    "explanationReferences": [
+      {
+        "referenceDate": "1987-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1035.html",
+        "title": "Domain Names - Implementation and Specification (RFC 1035)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSの資源レコードの役割を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CNAMEではなくSOAがキャッシュ保持時間やゾーン更新確認間隔を扱う。",
+          "promptContext": "選択肢1のDNSレコードの役割を判定した。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DNSの資源レコードに関する技術知識で判定し、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MXはメールサーバのホスト名を指定し、IPアドレスそのものを指定しない。",
+          "promptContext": "選択肢2のDNSレコードの役割を判定した。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DNSの資源レコードに関する技術知識で判定し、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NSはゾーン自身や委任した下位ドメインを管理するDNSサーバのホスト名を指定する。",
+          "promptContext": "選択肢3のDNSレコードの役割を判定した。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "DNSの資源レコードに関する技術知識で判定し、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PTRはIPアドレスからホスト名を調べる逆引きに使い、名前からIPv4アドレスを指定するのはAレコードである。",
+          "promptContext": "選択肢4のDNSレコードの役割を判定した。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DNSの資源レコードに関する技術知識で判定し、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1240,33 +1339,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n受信確認を待たずに複数フレームを流すのはスライディングウィンドウやシーケンス番号による制御であり、フラグの役割ではない。",
-      "正しい。\n\nHDLC のフラグシーケンスはフレームの先頭と末尾を区切るために置かれる。",
-      "間違い。\n\n転送順序の管理は制御部の送受信シーケンス番号で行う。",
-      "間違い。\n\n伝送誤りの検出は FCS が担う。"
-    ],
-    "suggestedQuestions": [
-      "HDLC のフラグは何ですか？",
-      "FCS は何をしますか？",
-      "シーケンス番号は何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "HDLC のフラグは何ですか？",
-        "answer": "フレーム境界を示す特定のビット列で、開始と終了の区切りに使う。"
-      },
-      {
-        "question": "FCS は何をしますか？",
-        "answer": "送受信時のビット誤りを検出するためのチェック値である。"
-      },
-      {
-        "question": "シーケンス番号は何に使いますか？",
-        "answer": "順序制御や再送制御、スライディングウィンドウ運用に使う。"
-      }
+      "間違い。複数フレームを受信確認前に送信する制御は、スライディングウィンドウなどの送信制御で行う。フラグシーケンスはフレームの境界を示すため、選択肢はフラグシーケンスに送信制御の役割があるとしており誤りである。",
+      "正しい。HDLCのフラグシーケンスは、フレームの開始と終了を示す。",
+      "間違い。フレームの転送順序を管理するのは、制御部に含まれるシーケンス番号などである。フラグシーケンスはフレームの境界を示すため、選択肢は役割を取り違えており誤りである。",
+      "間違い。伝送誤りの検出はFCSで行う。フラグシーケンスはフレームの開始と終了を示すため、選択肢は誤り検出の役割があるとしており誤りである。"
     ],
     "original_question_id": "6d79f96c9aa966a0",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:6d79f96c9aa966a0",
+    "reviewQuestionId": "6d79f96c9aa966a0",
+    "sourceRecordRef": "question_201502_2.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "HDLC手順におけるフラグシーケンスの役割を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フラグシーケンスはフレーム境界を示す。法令根拠は不要。",
+          "promptContext": "第1選択肢の技術的役割を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フラグシーケンスはフレームの開始と終了を示す。法令根拠は不要。",
+          "promptContext": "第2選択肢の技術的役割を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フレームの転送順序はシーケンス番号などで制御し、フラグシーケンスの役割ではない。法令根拠は不要。",
+          "promptContext": "第3選択肢の技術的役割を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "伝送誤りの検出はFCSが行い、フラグシーケンスの役割ではない。法令根拠は不要。",
+          "promptContext": "第4選択肢の技術的役割を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1653,33 +1845,132 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nRSVP は IP ネットワークで通信に必要な帯域などの資源予約を行い、QoS を支援するためのプロトコルである。",
-      "間違い。\n\nこれは VLAN の説明であり、RSVP ではない。",
-      "間違い。\n\nこれは MLPPP の説明であり、RSVP の役割とは異なる。",
-      "間違い。\n\n利用者認証を行うプロトコルではなく、伝送帯域などの予約を扱う。"
-    ],
-    "suggestedQuestions": [
-      "RSVPは何を予約しますか？",
-      "QoSとの関係は何ですか？",
-      "VLANやMLPPPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RSVPは何を予約しますか？",
-        "answer": "通信経路上で必要な帯域などの資源を予約する。"
-      },
-      {
-        "question": "QoSとの関係は何ですか？",
-        "answer": "遅延や帯域要求を満たしやすくするための QoS 実現手段の一つである。"
-      },
-      {
-        "question": "VLANやMLPPPとの違いは何ですか？",
-        "answer": "VLAN は論理分割、MLPPP は回線束ね、RSVP は資源予約で役割が異なる。"
-      }
+      "正しい。RSVP（Resource ReSerVation Protocol）は、IPネットワーク上のデータフローに必要な資源を予約し、QoSを実現するためのプロトコルである。",
+      "間違い。正しくは、VLANの説明である。VLANは、物理的な接続形態に左右されず、ネットワークを論理的なグループに分ける。選択肢は、VLANの機能をRSVPの説明としているため誤りである。",
+      "間違い。正しくは、MLPPPの説明である。MLPPPは、複数のPPPリンクを束ねて利用するためのプロトコルである。選択肢は、リンクを束ねる機能をRSVPの説明としているため誤りである。",
+      "間違い。正しくは、利用者認証を行うプロトコルの説明である。RSVPは利用者を認証するのではなく、通信フローの資源予約を扱う。選択肢は、認証プロトコルの役割をRSVPの説明としているため誤りである。"
     ],
     "original_question_id": "7e6527663bccf4f6",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:7e6527663bccf4f6",
+    "reviewQuestionId": "7e6527663bccf4f6",
+    "sourceRecordRef": "question_201502_2.json#14",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2205",
+        "title": "RFC 2205: Resource ReSerVation Protocol (RSVP) -- Version 1 Functional Specification"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術プロトコルの機能を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RSVPの資源予約機能に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "第1選択肢のRSVP機能を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "VLANの論理グループ化機能に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "第2選択肢のVLAN機能との混同を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MLPPPの複数PPPリンク束ね機能に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "第3選択肢のMLPPP機能との混同を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "利用者認証プロトコルとRSVPの役割の違いに関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "第4選択肢の認証機能との混同を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1923,33 +2214,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n10 は IP アドレス下位 8 ビットの一部にすぎず、サブネットマスクを考慮したホスト部の値になっていない。",
-      "正しい。\n\n255.255.255.224 は /27 なので下位 5 ビットがホスト部である。90 は 2 進数で 01011010、下位 5 ビット 11010 は 10 進数で 26 になる。",
-      "間違い。\n\n90 は末尾オクテット全体であり、ネットワーク部を含んでしまっている。",
-      "間違い。\n\n212 は先頭オクテットであり、ホスト部ではない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ /27 だと下位 5 ビットですか？",
-      "90 を 2 進数に直す理由は何ですか？",
-      "ホストアドレスとホスト番号は同じですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ /27 だと下位 5 ビットですか？",
-        "answer": "32 ビット中 27 ビットがネットワーク部なので、残る 5 ビットがホスト部になるからである。"
-      },
-      {
-        "question": "90 を 2 進数に直す理由は何ですか？",
-        "answer": "どのビットがネットワーク部でどのビットがホスト部かを切り分けるためである。"
-      },
-      {
-        "question": "ホストアドレスとホスト番号は同じですか？",
-        "answer": "この文脈ではサブネット内のホスト部の値を指しており、実質的にホスト番号として扱う。"
-      }
+      "正しい。サブネットマスク255.255.255.224はプレフィックス長が/27で、ホスト部は下位5ビットである。ホストアドレスを求める式は次のとおりである。\n\\[h=90\\bmod 2^5=90\\bmod 32=26\\]\n\\(h\\)はホストアドレス、90はIPアドレスの末尾オクテット、5はホスト部のビット数、32はホスト部の値の範囲を表す。実際に90を2進数で表すと\\(01011010\\)であり、下位5ビット\\(11010\\)は10進数で26となる。したがって、ホストアドレスは26である。"
     ],
     "original_question_id": "143e56706733ccfb",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:143e56706733ccfb",
+    "reviewQuestionId": "143e56706733ccfb",
+    "sourceRecordRef": "question_201502_2.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPアドレスとサブネットマスクからホストアドレスを求めるネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢10は、サブネットマスクから求まるホストアドレス26と一致しない。",
+          "promptContext": "サブネット計算による選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで正誤が決まるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢26は、サブネットマスク255.255.255.224におけるホストアドレス26と一致する。",
+          "promptContext": "サブネット計算による選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算のみで正誤が決まるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢90はIPアドレスの末尾オクテットであり、ホストアドレスではない。",
+          "promptContext": "サブネット計算による選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで正誤が決まるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢212はIPアドレスの先頭オクテットであり、ホストアドレスではない。",
+          "promptContext": "サブネット計算による選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで正誤が決まるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -2199,33 +2580,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nMAC は改ざん検知のための符号であり、誤り訂正符号ではないので伝送誤りを訂正することはできない。",
-      "間違い。\n\n同じメッセージを再送されたかどうかは、連番やタイムスタンプなど別の仕組みがないと判断できない。",
-      "正しい。\n\n受信者は共有鍵で MAC を再計算し、受信した MAC と一致するかを見ればメッセージが改ざんされていないか判定できる。",
-      "間違い。\n\n盗聴の有無は MAC では分からない。盗聴対策には暗号化が必要である。"
-    ],
-    "suggestedQuestions": [
-      "MAC は何を保証しますか？",
-      "暗号化との違いは何ですか？",
-      "再送攻撃はどう防ぎますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "MAC は何を保証しますか？",
-        "answer": "共有鍵を知る相手が作ったことと、内容が途中で改ざんされていないことの確認に使える。"
-      },
-      {
-        "question": "暗号化との違いは何ですか？",
-        "answer": "暗号化は秘匿性、MAC は完全性と真正性の確認が主目的である。"
-      },
-      {
-        "question": "再送攻撃はどう防ぎますか？",
-        "answer": "メッセージに連番や nonce、タイムスタンプを加えて検証する方法が一般的である。"
-      }
+      "間違い。MACはメッセージの改ざんを検知するための符号であり、伝送誤りを元の内容へ訂正する機能はない。選択肢は、MACによって伝送誤りを訂正できるとしているため誤りである。",
+      "間違い。受信したメッセージとMACが正しくても、それが以前のメッセージの再送や複製である可能性は残る。連番やタイムスタンプなどを用いなければ、メッセージとMACだけで複製の有無は検知できない。選択肢は、MACだけでメッセージの複製を検知できるとしているため誤りである。",
+      "正しい。受信者Bは送信者Aと共有する鍵で受信メッセージからMACを再計算し、受信したMACと一致するかを確認する。一致しなければ、通信途中などでメッセージが改ざんされたと判定できる。",
+      "間違い。MACはメッセージの完全性や送信元の認証に用いるもので、内容を秘匿する機能はない。暗号化を用いても、盗聴された事実そのものを必ず検知できるわけではない。選択肢は、MACによって盗聴の有無を検知できるとしているため誤りである。"
     ],
     "original_question_id": "261d9ed02444b4aa",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:261d9ed02444b4aa",
+    "reviewQuestionId": "261d9ed02444b4aa",
+    "sourceRecordRef": "question_201502_2.json#20",
+    "explanationReferences": [
+      {
+        "referenceDate": "2025-06-23",
+        "sourceUrl": "https://csrc.nist.gov/projects/message-authentication-codes",
+        "title": "NIST Message Authentication Codes"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "メッセージ認証符号による改ざん検知の技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MACは伝送誤りの訂正機能を持たない。",
+          "promptContext": "問題文と第1選択肢を結合して確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MACとメッセージだけでは、再送や複製の有無を検知できない。",
+          "promptContext": "問題文と第2選択肢を結合して確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "共有鍵でMACを再計算して比較することで、メッセージの改ざんを判定できる。",
+          "promptContext": "問題文と第3選択肢を結合して確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術内容のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MACは完全性や認証に用いるもので、盗聴の有無を検知する機能はない。",
+          "promptContext": "問題文と第4選択肢を結合して確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -2481,33 +2961,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nOP25B は ICMP を制御する仕組みではなく、主に外向き SMTP 通信を制限する対策である。",
-      "正しい。\n\nOP25B は ISP 管理下の利用者端末から外部ネットワークへ直接送られる 25 番ポートの SMTP 通信を制限し、スパム送信を抑える。",
-      "間違い。\n\n外部から内向きの DDoS を止める対策ではない。",
-      "間違い。\n\n外部から届くスパムメール受信を止める仕組みでもなく、対象は利用者側から外へ出る SMTP 通信である。"
-    ],
-    "suggestedQuestions": [
-      "OP25B は何を遮断しますか？",
-      "なぜスパム対策になるのですか？",
-      "正規のメール送信はどうしますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OP25B は何を遮断しますか？",
-        "answer": "契約 ISP の網内から外部宛てへ直接出ていく TCP 25 番ポートの SMTP 通信を制限する。"
-      },
-      {
-        "question": "なぜスパム対策になるのですか？",
-        "answer": "マルウェア感染端末などが外部メールサーバへ直接ばらまく経路を封じられるからである。"
-      },
-      {
-        "question": "正規のメール送信はどうしますか？",
-        "answer": "ISP 提供の送信サーバや Submission ポート 587 など、認証付きの正規経路を使う。"
-      }
+      "間違い。OP25BはICMPパケットを制御する対策ではなく、ISP管理下の端末から外部へ送信されるSMTP通信を制限してスパム送信を抑える。選択肢はICMPによるDDoS攻撃を遮断するとしているため誤りである。",
+      "正しい。OP25Bは、ISP管理下の利用者端末から外部ネットワークへ直接送られる25番ポートのSMTP通信を制限し、スパムメールの送信を抑える対策である。",
+      "間違い。OP25Bが対象とするのは、ISP管理下のネットワークから外部へ出ていくSMTP通信であり、外部からISP管理下のネットワークへ向かうICMPによるDDoS攻撃ではない。選択肢は外部からのDDoS攻撃を遮断するとしているため誤りである。",
+      "間違い。OP25Bは外部ネットワークからISP管理下のネットワークへ届くスパムメールの受信を制限する仕組みではなく、ISP管理下から外部へ出るSMTP通信を制限する。選択肢は外部からのスパムメールを制限するとしているため誤りである。"
     ],
     "original_question_id": "c63600b9db73fba4",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:c63600b9db73fba4",
+    "reviewQuestionId": "c63600b9db73fba4",
+    "sourceRecordRef": "question_201502_2.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OP25Bは、ISP管理下のネットワークから外部へ送信されるスパムメールを制限する技術・運用対策であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OP25Bは25番ポートのSMTP送信を制限する技術・運用対策であり、法令監査対象ではない。",
+          "promptContext": "OP25Bの導入効果に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OP25Bの技術的機能を確認した。法令根拠は正誤を直接決めない。"
+        ],
+        "reconciliationStatus": "consistent_with_current_record",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢はOP25Bによるスパムメール送信制限を述べており、技術的に正しい。",
+          "promptContext": "OP25Bの導入効果に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "OP25BはISP管理下から外部へ送信される25番ポートのSMTP通信を制限する。"
+        ],
+        "reconciliationStatus": "consistent_with_current_record",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢はOP25Bの対象を外部からのICMPによるDDoS攻撃としており、技術的に誤りである。",
+          "promptContext": "OP25Bの導入効果に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OP25Bは外部からISP管理下へ向かうICMPによるDDoS攻撃を遮断する仕組みではない。"
+        ],
+        "reconciliationStatus": "consistent_with_current_record",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢はOP25Bの対象を外部からのスパムメール受信としており、技術的に誤りである。",
+          "promptContext": "OP25Bの導入効果に関する技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OP25Bは外部からISP管理下へ届くスパムメールの受信を制限する仕組みではない。"
+        ],
+        "reconciliationStatus": "consistent_with_current_record",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

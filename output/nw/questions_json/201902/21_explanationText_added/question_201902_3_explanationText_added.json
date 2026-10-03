@@ -1,33 +1,126 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nDNS リフレクタ攻撃は、外部から再帰問合せに応答する公開キャッシュ DNS を踏み台にして増幅応答を攻撃対象へ返させる。したがってキャッシュサーバを公開しない、又はアクセス元を制限することが有効である。",
-      "間違い。\n\nWhois でドメイン情報を確認しても、攻撃の本質である再帰問合せへの応答を防げないため対策にならない。",
-      "間違い。\n\n一つの DNS レコードへ複数 IP を割り当てるのは DNS ラウンドロビンによる負荷分散の説明であり、踏み台化防止とは無関係である。",
-      "間違い。\n\nデジタル署名で応答の正当性を確認するのは DNSSEC の考え方で、主にキャッシュポイズニング対策である。DNS リフレクタ攻撃の踏み台防止策ではない。"
-    ],
-    "suggestedQuestions": [
-      "DNS リフレクタ攻撃はなぜ増幅しますか？",
-      "踏み台にされる DNS サーバの条件は何ですか？",
-      "DNSSEC との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DNS リフレクタ攻撃はなぜ増幅しますか？",
-        "answer": "小さな問合せに対して大きな応答を返させ、しかも送信元を被害者に偽装することで、被害者へ大量の応答トラフィックを集中させるからである。"
-      },
-      {
-        "question": "踏み台にされる DNS サーバの条件は何ですか？",
-        "answer": "外部からの再帰問合せに応答してしまう公開キャッシュ DNS サーバが典型である。"
-      },
-      {
-        "question": "DNSSEC との違いは何ですか？",
-        "answer": "DNSSEC は応答の真正性確認、踏み台防止は再帰問合せのアクセス制限や公開範囲の制御が中心である。"
-      }
+      "正しい。外部から再帰問い合わせを受けるキャッシュDNSを公開しない、又は問い合わせ元を制限することで、DNSリフレクタ攻撃の踏み台にされることを防げる。",
+      "間違い。正しくは、再帰問い合わせを受け付ける範囲を制限することが対策である。選択肢はWhoisデータベースでドメイン情報を確認してからキャッシュサーバに登録するとしているため、公開DNSの再帰問い合わせへの応答を防げず、踏み台化の対策にならない。",
+      "間違い。正しくは、DNSサーバが外部から再帰問い合わせを受け付けないようにすることが対策である。選択肢は一つのDNSレコードに複数のIPアドレスを割り当てて負荷を分散するとしているため、DNSラウンドロビンの設定を示すだけで、踏み台化を防げない。",
+      "間違い。正しくは、外部からの再帰問い合わせを制限することがDNSリフレクタ攻撃の踏み台防止策である。選択肢はデジタル署名でIPアドレスとホスト名の対応情報を確認するとしているため、DNSSECによるキャッシュポイズニング対策を示しており、リフレクタ攻撃の踏み台化は防げない。"
     ],
     "original_question_id": "2cf493688fa5b82e",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:2cf493688fa5b82e",
+    "reviewQuestionId": "2cf493688fa5b82e",
+    "sourceRecordRef": "question_201902_3.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSサーバの構成と公開範囲に関する技術的なセキュリティ対策であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "外部からの再帰問い合わせを制限する対策を示しており、DNSリフレクタ攻撃の踏み台防止策として正しい。",
+          "promptContext": "DNSセキュリティの技術問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "DNS再帰問い合わせの公開範囲に関する技術判定であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Whoisデータベースの確認では、公開DNSへの再帰問い合わせを制限できないため誤り。",
+          "promptContext": "DNSセキュリティの技術問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "Whoisによる登録情報確認はDNSリフレクタ攻撃の踏み台防止策ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "複数IPアドレスへのアクセス分散はDNSラウンドロビンであり、DNSリフレクタ攻撃の踏み台化を防げないため誤り。",
+          "promptContext": "DNSセキュリティの技術問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DNSラウンドロビンは負荷分散の設定であり、再帰問い合わせの制限ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "デジタル署名による対応情報の検証はDNSSECのキャッシュポイズニング対策であり、DNSリフレクタ攻撃の踏み台化を防げないため誤り。",
+          "promptContext": "DNSセキュリティの技術問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DNSSECは情報の真正性確認に関する仕組みであり、再帰問い合わせの公開範囲制限ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -274,62 +367,258 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n外部トリガに応じたオブジェクト状態遷移を表すのはステートマシン図やステートチャート図の説明である。",
-      "間違い。\n\nクラスと関連で静的構造を表すのはクラス図の説明である。",
-      "正しい。\n\nユースケース図は、システム境界の外にいるアクタとシステム内のユースケースとの関係を示し、システムと利用者・外部主体の相互作用を表現する。",
-      "間違い。\n\nデータの流れに着目して機能を表すのは DFD の説明であり、ユースケース図ではない。"
-    ],
-    "suggestedQuestions": [
-      "ユースケース図は何を表しますか？",
-      "クラス図との違いは何ですか？",
-      "要求定義でどう役立ちますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ユースケース図は何を表しますか？",
-        "answer": "利用者や外部システムなどのアクタが、システムに対してどのような機能要求を持つかを表す。"
-      },
-      {
-        "question": "クラス図との違いは何ですか？",
-        "answer": "ユースケース図は外部との振る舞い、クラス図は内部の静的構造を表す。"
-      },
-      {
-        "question": "要求定義でどう役立ちますか？",
-        "answer": "利用者視点で必要機能を整理し、システム境界や主要な利用シナリオを共有しやすくする。"
-      }
+      "間違い。正しくは、外部からのトリガに応じてオブジェクトの状態がどのように遷移するかを表すのはステートマシン図である。選択肢はステートマシン図の説明をユースケース図としているため誤りである。",
+      "間違い。正しくは、クラスと関連から構成され、システムの静的な構造を表すのはクラス図である。選択肢はクラス図の説明をユースケース図としているため誤りである。",
+      "正しい。ユースケース図は、システム境界の外にいるアクタとシステム内のユースケースとの関係を示し、システムと利用者や外部システムとの相互作用を表現する。",
+      "間違い。正しくは、データの流れに注目してシステムの機能を表すのはDFDの説明である。選択肢はデータフローを中心とする別の図の説明をユースケース図としているため誤りである。"
     ],
     "original_question_id": "8e1d504eaefd17fb",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:8e1d504eaefd17fb",
+    "reviewQuestionId": "8e1d504eaefd17fb",
+    "sourceRecordRef": "question_201902_3.json#3",
+    "explanationReferences": [
+      {
+        "referenceDate": "2017-12-05",
+        "sourceUrl": "https://www.omg.org/spec/UML/2.5.1/PDF",
+        "title": "OMG Unified Modeling Language Specification Version 2.5.1"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "UMLのユースケース図に関する技術・モデリング知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ステートマシン図に関する説明であり、ユースケース図の説明ではない。",
+          "promptContext": "第1選択肢の技術内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの技術知識で判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラス図に関する説明であり、ユースケース図の説明ではない。",
+          "promptContext": "第2選択肢の技術内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの技術知識で判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "システムとアクタの相互作用を表現する説明であり、ユースケース図の定義に合致する。",
+          "promptContext": "第3選択肢の技術内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "UMLの技術知識で判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DFDに関する説明であり、ユースケース図の説明ではない。",
+          "promptContext": "第4選択肢の技術内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの技術知識で判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nCPPM は再生専用メディア向けの著作権保護技術であり、書換え可能な SD メモリカード向けではない。",
-      "正しい。\n\nCPRM は Content Protection for Recordable Media の略で、記録可能メディア向けの著作権保護技術である。SD メモリカードで用いられる。",
-      "間違い。\n\nDTCP は家庭内ネットワークなどでコンテンツ伝送時に保護を行う技術であり、SD カードの記録媒体保護方式ではない。",
-      "間違い。\n\nHDCP は HDMI や DisplayPort などの映像出力経路でコンテンツを保護する技術である。"
-    ],
-    "suggestedQuestions": [
-      "CPRM と CPPM の違いは何ですか？",
-      "DTCP や HDCP は何を保護しますか？",
-      "Recordable Media という語がなぜ手掛かりですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CPRM と CPPM の違いは何ですか？",
-        "answer": "CPRM は記録可能メディア向け、CPPM は再生専用メディア向けの保護方式である。"
-      },
-      {
-        "question": "DTCP や HDCP は何を保護しますか？",
-        "answer": "DTCP は主にデジタル伝送路、HDCP は映像出力インタフェース上のコンテンツ保護に使われる。"
-      },
-      {
-        "question": "Recordable Media という語がなぜ手掛かりですか？",
-        "answer": "SD メモリカードは書換え可能媒体なので、『記録可能メディア向け』を示す CPRM が適合するからである。"
-      }
+      "正しい。SDメモリカードで用いられる著作権保護技術は、記録可能メディア向けのCPRM（Content Protection for Recordable Media）である。CPPMは再生専用メディア向け、DTCPはネットワーク上のコンテンツ伝送向け、HDCPは映像出力経路向けの技術であり、SDメモリカードの記録媒体保護方式ではない。したがって、正答は2番目のCPRMである。"
     ],
     "original_question_id": "8273d6245bf63a39",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:8273d6245bf63a39",
+    "reviewQuestionId": "8273d6245bf63a39",
+    "sourceRecordRef": "question_201902_3.json#4",
+    "explanationReferences": [
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.sdcard.org/developers/sd-standard-overview/content-protection/",
+        "title": "Content Protection - SD Association"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SDメモリカードで用いられる著作権保護技術を問う技術・規格問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CPPMは再生専用メディア向けであり、SDメモリカードの技術ではない。",
+          "promptContext": "SDメモリカードと著作権保護技術の対応。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・規格知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CPRMは記録可能メディア向けの著作権保護技術であり、SDメモリカードで用いられる。",
+          "promptContext": "SDメモリカードと著作権保護技術の対応。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・規格知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DTCPはネットワーク上のコンテンツ伝送向けであり、SDメモリカードの記録媒体保護方式ではない。",
+          "promptContext": "SDメモリカードと著作権保護技術の対応。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・規格知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "HDCPは映像出力経路向けの技術であり、SDメモリカードの記録媒体保護方式ではない。",
+          "promptContext": "SDメモリカードと著作権保護技術の対応。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・規格知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

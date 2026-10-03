@@ -1,63 +1,246 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nこの手順は二分法であり、区間幅は繰返しごとに半分になる。初期幅1を0.001未満にするには 1/2^n < 0.001 を満たす最小の n が10なので、(2)の実行回数は10回である。",
-      "間違い。\n\n20回あれば条件は満たすが、最小回数ではない。二分法では必要回数を、区間幅が半分になる関係から対数的に見積もる。",
-      "間違い。\n\n100回も繰り返す必要はない。10回で 1/1024 まで区間を縮められるため、終了条件はその時点で満たせる。",
-      "間違い。\n\n1000回は過大である。二分法は1回ごとに探索区間を半減するので、必要回数は線形ではなくごく少ない回数で済む。"
-    ],
-    "suggestedQuestions": [
-      "二分法で回数を見積もる式は何ですか？",
-      "なぜ区間幅が毎回半分になるのですか？",
-      "二分法はどんな条件で使えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "二分法で回数を見積もる式は何ですか？",
-        "answer": "初期区間幅をL、許容誤差をeとすると、L/2^n < e を満たす最小の n を求めればよい。今回のように初期幅が1なら 1/2^n の形でそのまま考えられる。"
-      },
-      {
-        "question": "なぜ区間幅が毎回半分になるのですか？",
-        "answer": "区間の中点を取り、符号に応じて左右どちらか半分だけを次の探索区間として残すからである。毎回候補区間が二つに割られ、その片側だけを使う。"
-      },
-      {
-        "question": "二分法はどんな条件で使えますか？",
-        "answer": "区間の両端で関数値の符号が異なり、途中で連続であるときに使える。零点が区間内に少なくとも一つあることを保証できるのが前提である。"
-      }
+      "正しい。答えは10回である。二分法では、初期区間の幅1が1回ごとに半分になる。n回目の実行後の区間幅は \\(1/2^n\\) なので、終了条件を満たす最小のnを \\(1/2^n<0.001\\) から求める。\\(2^9=512\\) では \\(1/512\\) が0.001以上だが、\\(2^{10}=1024\\) では \\(1/1024\\) が0.001未満になる。したがって、(2)の実行回数は10回である。"
     ],
     "original_question_id": "9ba5917c9af77eb0",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:9ba5917c9af77eb0",
+    "reviewQuestionId": "9ba5917c9af77eb0",
+    "sourceRecordRef": "question_202501_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "二分法による数値計算の問題で、法令・制度上の根拠を用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の判定は二分法の実行回数に基づき、法令根拠を必要としない。",
+          "promptContext": "二分法の数値計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく二分法の計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の判定は二分法の実行回数に基づき、法令根拠を必要としない。",
+          "promptContext": "二分法の数値計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく二分法の計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の判定は二分法の実行回数に基づき、法令根拠を必要としない。",
+          "promptContext": "二分法の数値計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく二分法の計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の判定は二分法の実行回数に基づき、法令根拠を必要としない。",
+          "promptContext": "二分法の数値計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく二分法の計算で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n訓練データをそのままテストデータに使うと、未知データに対する性能ではなく学習済みデータへの当てはまりしか測れない。過学習の有無を隠してしまうので解消策にはならない。",
-      "正しい。\n\nデータ拡張で訓練データの多様性を増やすと、特定の訓練例への過剰適合を抑えやすい。汎化性能を高める代表的な過学習対策である。",
-      "間違い。\n\nモデルをより複雑にすると表現力が上がり、訓練データへさらに過剰適合しやすくなる。過学習が疑われる場面では逆方向の対策である。",
-      "間違い。\n\n過学習とは汎化性能が低い状態なので、それを下げるのは対策ではなく悪化である。未知データへの性能を高める方向で考える必要がある。"
-    ],
-    "suggestedQuestions": [
-      "過学習と汎化性能はどう関係しますか？",
-      "データ拡張はなぜ過学習対策になりますか？",
-      "過学習時にモデルを複雑化してはいけない理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "過学習と汎化性能はどう関係しますか？",
-        "answer": "過学習は訓練データには高精度でも、未知データでは精度が落ちる状態である。つまり汎化性能が低いことを意味する。"
-      },
-      {
-        "question": "データ拡張はなぜ過学習対策になりますか？",
-        "answer": "同じラベルを保ったまま入力パターンのばらつきを増やせるため、モデルが特定の訓練データだけを丸暗記しにくくなるからである。"
-      },
-      {
-        "question": "過学習時にモデルを複雑化してはいけない理由は何ですか？",
-        "answer": "複雑なモデルほど訓練データの細かな癖まで拾いやすい。過学習が起きているときは、正則化やデータ拡張などで汎化側を改善するのが基本である。"
-      }
+      "間違い。訓練データをテストデータとして使うと、未知のデータに対する性能ではなく、学習に使ったデータへの適合度しか確認できない。過学習を適切に評価できないため、解消方法にはならない。",
+      "正しい。訓練データに加工を施して種類や量を増やすデータ拡張は、特定の訓練データへの過剰な適合を抑え、汎化性能を高める代表的な対策である。",
+      "間違い。モデルを複雑にすると表現力が高まる一方、訓練データへ過剰に適合しやすくなる。過学習が疑われる場合は、モデルを単純化するなど、複雑さを抑える方向で対策する。",
+      "間違い。過学習は未知のデータに対する汎化性能が低下した状態である。選択肢は汎化性能を下げるとしているため、過学習を悪化させる内容であり、より多くの未知データへ予測できるように汎化性能を高める必要がある。"
     ],
     "original_question_id": "9c8433dc45e2a569",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:9c8433dc45e2a569",
+    "reviewQuestionId": "9c8433dc45e2a569",
+    "sourceRecordRef": "question_202501_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "機械学習の過学習と汎化性能に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "過学習対策に関する技術問題であり、法令根拠は不要。",
+          "promptContext": "選択肢1の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データ拡張に関する技術問題であり、法令根拠は不要。",
+          "promptContext": "選択肢2の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "モデルの複雑性と過学習に関する技術問題であり、法令根拠は不要。",
+          "promptContext": "選択肢3の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "汎化性能に関する技術問題であり、法令根拠は不要。",
+          "promptContext": "選択肢4の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -181,33 +364,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n132倍にはならない。処理時間はクロック周期×CPIで比較するので、桁だけで判断すると誤る。",
-      "間違い。\n\n12倍でもない。Aは 1ns×4.0=4ns、Bは 4ns×0.5=2ns なので、Aの1命令当たり処理時間はBの2倍である。",
-      "正しい。\n\n同じ命令セットで同じプログラムなら命令数は同じとみなせるため、比較すべきは1命令当たり処理時間である。Aは4ns、Bは2nsなので、Aの処理時間はBの2倍になる。",
-      "間違い。\n\n8倍では過大である。クロック周期だけでなくCPIも合わせて見ないと、実行時間の比較を誤る。"
-    ],
-    "suggestedQuestions": [
-      "なぜ命令数を考えなくてよいのですか？",
-      "CPIとクロック周期はどう組み合わせますか？",
-      "クロックが速いのに遅くなることはありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ命令数を考えなくてよいのですか？",
-        "answer": "同じ命令セットで同じプログラムを実行するので、必要な命令数は同じとみなせるからである。比較対象は1命令当たり処理時間だけで足りる。"
-      },
-      {
-        "question": "CPIとクロック周期はどう組み合わせますか？",
-        "answer": "1命令の実行時間は、1クロックの長さであるクロック周期に、その命令に必要な平均クロック数CPIを掛けて求める。"
-      },
-      {
-        "question": "クロックが速いのに遅くなることはありますか？",
-        "answer": "ある。クロック周期が短くてもCPIが大きければ、最終的な1命令当たり実行時間は長くなる。"
-      }
+      "正しい。答えは2倍である。処理時間は、命令数をN、CPIをC、CPUクロック周期をτとすると、次の式で求められる。\n\n\\[T=N\\times C\\times \\tau\\]\n\n同じ命令セットで同じプログラムを実行するため、AとBの命令数Nは同じである。Aの処理時間は \\(N\\times4.0\\times1\\,\\mathrm{ns}=4N\\,\\mathrm{ns}\\)、Bは \\(N\\times0.5\\times4\\,\\mathrm{ns}=2N\\,\\mathrm{ns}\\) となる。したがって、Aの処理時間はBの \\(4N\\div2N=2\\) 倍である。"
     ],
     "original_question_id": "2a7a715ba90946bb",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:2a7a715ba90946bb",
+    "reviewQuestionId": "2a7a715ba90946bb",
+    "sourceRecordRef": "question_202501_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CPUクロック周期とCPIから処理時間を比較する技術問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "CPUクロック周期とCPIから処理時間を比較する技術問題であり、法令の適用はない。",
+          "promptContext": "処理時間は命令数、CPI、CPUクロック周期の積で求める。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくCPU性能計算で正誤が決まるため、現行法の比較は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "CPUクロック周期とCPIから処理時間を比較する技術問題であり、法令の適用はない。",
+          "promptContext": "処理時間は命令数、CPI、CPUクロック周期の積で求める。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくCPU性能計算で正誤が決まるため、現行法の比較は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "CPUクロック周期とCPIから処理時間を比較する技術問題であり、法令の適用はない。",
+          "promptContext": "処理時間は命令数、CPI、CPUクロック周期の積で求める。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくCPU性能計算で正誤が決まるため、現行法の比較は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象ではない。",
+          "displayRefIds": [],
+          "explanationText": "CPUクロック周期とCPIから処理時間を比較する技術問題であり、法令の適用はない。",
+          "promptContext": "処理時間は命令数、CPI、CPUクロック周期の積で求める。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくCPU性能計算で正誤が決まるため、現行法の比較は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -454,93 +727,372 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n1.1秒では待機時間が短すぎて、動作時10mAの影響を十分に平均化できない。平均電流は動作時と待機時の電流×時間の加重平均で考える。",
-      "間違い。\n\n11.1秒でもまだ不足する。10mAを10ms流すと100μA・sの消費になるため、1μA以下に抑えるにはもっと長い待機時間が必要である。",
-      "正しい。\n\n平均電流を 1μA 以下とおくと、(10000×0.01 + 0.1n) / (0.01+n) ≤ 1 を満たす最小の n は約111.1秒になる。動作時電流をμAへ換算して式を立てるのがポイントである。",
-      "間違い。\n\n1111.1秒なら条件は満たすが最短ではない。要求は『最も短いもの』なので、計算で得られる境界値に最も近い選択肢を選ぶ。"
-    ],
-    "suggestedQuestions": [
-      "平均電流の式はどう立てますか？",
-      "なぜ10mAを10000μAに直すのですか？",
-      "この問題で最短を見分けるコツは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "平均電流の式はどう立てますか？",
-        "answer": "1周期当たりの総電荷量を総時間で割る。つまり、(動作時電流×動作時間 + 待機時電流×待機時間) / (動作時間 + 待機時間) で求める。"
-      },
-      {
-        "question": "なぜ10mAを10000μAに直すのですか？",
-        "answer": "目標の平均電流が1μA単位で与えられているので、単位をそろえないと不等式を正しく立てられないからである。"
-      },
-      {
-        "question": "この問題で最短を見分けるコツは何ですか？",
-        "answer": "まず不等式を解いて必要時間の境界値を出し、その値以上で最小の選択肢を選ぶ。条件を満たすだけでなく『最短』を見ることが重要である。"
-      }
+      "正しい。動作時の電流をマイクロアンペアに換算すると10mAは10,000μAであり、動作時間は10ミリ秒、つまり0.01秒である。待機時間をt秒、平均電流をIとすると、動作時と待機時の電流を時間で加重平均して、\n\n\\[I=\\frac{10{,}000\\times0.01+0.1t}{0.01+t}\\]\n\nとなる。平均電流を1μA以下にする条件は、\n\n\\[\\frac{100+0.1t}{0.01+t}\\leq1\\]\n\nである。この不等式を解くと、\\(t\\geq111.1\\)秒となるため、最も短い待機時間は111.1秒である。"
     ],
     "original_question_id": "13cf100ca59902eb",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:13cf100ca59902eb",
+    "reviewQuestionId": "13cf100ca59902eb",
+    "sourceRecordRef": "question_202501_1.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "電気回路・省電力設計に関する工学的な計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "1.1秒では平均電流が1μA以下になる条件を満たさない。",
+          "promptContext": "待機時間の選択肢1.1秒を加重平均条件で判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく平均電流の計算で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "11.1秒では平均電流が1μA以下になる条件を満たさない。",
+          "promptContext": "待機時間の選択肢11.1秒を加重平均条件で判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく平均電流の計算で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "111.1秒は平均電流を1μA以下にする最短の待機時間である。",
+          "promptContext": "待機時間の選択肢111.1秒を加重平均条件で判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく平均電流の計算で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "1111.1秒は条件を満たすが、最も短い待機時間ではない。",
+          "promptContext": "待機時間の選択肢1111.1秒を最短条件で判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく平均電流の計算で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nOpenGLは画像フォーマットではなく、2D/3Dグラフィックス描画のためのAPIである。XMLで図形オブジェクトを記述する仕様ではない。",
-      "間違い。\n\nPNGは主にラスター画像を扱う可逆圧縮の画像形式であり、矩形や円をオブジェクトとして記述するベクタ形式ではない。",
-      "正しい。\n\nSVGはXMLベースのベクタグラフィックス形式で、図形や文字列を要素として記述できる。Webページ上での拡大縮小にも強いのが特徴である。",
-      "間違い。\n\nTIFFは多様な画像データを格納できる画像ファイル形式だが、W3Cが定義したXMLベースの図形記述形式ではない。"
-    ],
-    "suggestedQuestions": [
-      "SVGがWeb描画に向く理由は何ですか？",
-      "PNGとSVGの違いは何ですか？",
-      "OpenGLは何をする技術ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SVGがWeb描画に向く理由は何ですか？",
-        "answer": "図形を座標や要素として表すベクタ形式なので、拡大縮小しても劣化しにくい。CSSやJavaScriptと組み合わせて動的に扱いやすい点も大きい。"
-      },
-      {
-        "question": "PNGとSVGの違いは何ですか？",
-        "answer": "PNGは画素単位のラスター画像、SVGは図形要素単位のベクタ画像である。拡大時の見え方や編集のしやすさが大きく異なる。"
-      },
-      {
-        "question": "OpenGLは何をする技術ですか？",
-        "answer": "OpenGLは描画命令を出すためのAPIであり、画像を保存するファイル形式ではない。用途を『形式』と『描画手段』で分けて覚えると混同しにくい。"
-      }
+      "正しい。SVG（Scalable Vector Graphics）は、W3Cで仕様化されたXMLベースのベクタ画像形式である。矩形、円、直線、文字列などを要素として記述でき、Webページに組み込んで図形を描画できる。OpenGLはグラフィックス描画用のAPIであり、PNGとTIFFは主に画素データを扱うラスター画像形式であるため、SVGのように図形をXMLの要素として記述する形式ではない。"
     ],
     "original_question_id": "6aa1fe5be5ccb3b5",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:6aa1fe5be5ccb3b5",
+    "reviewQuestionId": "6aa1fe5be5ccb3b5",
+    "sourceRecordRef": "question_202501_1.json#7",
+    "explanationReferences": [
+      {
+        "referenceDate": "2011-08-16",
+        "sourceUrl": "https://www.w3.org/TR/SVG11/single-page.html",
+        "title": "Scalable Vector Graphics (SVG) 1.1 (Second Edition)"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "W3C仕様と画像フォーマットに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OpenGLは画像フォーマットではなくグラフィックス描画用APIである。",
+          "promptContext": "選択肢1の技術的性質を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PNGは主に画素データを扱うラスター画像形式であり、XML形式の図形記述フォーマットではない。",
+          "promptContext": "選択肢2の技術的性質を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SVGはW3Cで仕様化されたXMLベースのベクタ画像形式で、矩形、円、直線、文字列などを記述できる。",
+          "promptContext": "選択肢3の技術的性質を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TIFFは主に画素データを扱うラスター画像形式であり、XML形式の図形記述フォーマットではない。",
+          "promptContext": "選択肢4の技術的性質を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n候補キー以外の属性から候補キーの一部へ従属する形を見るのは第3正規形の論点ではない。ここで除去したいのは非キー属性間の推移的従属である。",
-      "正しい。\n\n第2正規形から第3正規形へ進むときは、候補キー以外の属性同士にある関数従属性、つまり推移的従属を分解して除去する。非キー属性が別の非キー属性に依存していない形へ整えるのが目的である。",
-      "間違い。\n\n候補キーの一部から非キー属性への従属性を分解するのは、第1正規形から第2正規形へ進むときに除く部分関数従属の話である。",
-      "間違い。\n\n1つの属性に複数値が入らないようにするのは第1正規形の要件である。第3正規形はそこからさらに推移的従属を除く段階である。"
-    ],
-    "suggestedQuestions": [
-      "第2正規形と第3正規形の違いは何ですか？",
-      "推移的従属とは何ですか？",
-      "部分関数従属はどの段階で除去しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "第2正規形と第3正規形の違いは何ですか？",
-        "answer": "第2正規形は部分関数従属を除いた状態で、第3正規形はさらに推移的従属を除いた状態である。どの従属関係を解消する段階かで区別する。"
-      },
-      {
-        "question": "推移的従属とは何ですか？",
-        "answer": "主キーが非キー属性Aを決め、さらにAが別の非キー属性Bを決めるような従属関係である。非キー属性同士の依存が残っている状態と考えると分かりやすい。"
-      },
-      {
-        "question": "部分関数従属はどの段階で除去しますか？",
-        "answer": "候補キーが複合キーのとき、その一部だけで非キー属性が決まる従属を第2正規形で除去する。第3正規形ではその先の推移的従属を見る。"
-      }
+      "間違い。候補キー以外の属性から候補キーの一部へ関数従属性がある場合を、第3正規形への変換条件とはしない。",
+      "正しい。第2正規形から第3正規形へ進むときは、候補キー以外の属性間にある関数従属性、つまり推移的従属を分解して除去する。",
+      "間違い。候補キーの一部から候補キー以外の属性への関数従属性を除くのは、部分関数従属を解消して第2正規形にする段階である。",
+      "間違い。一つの属性に複数の値が入らないように分解するのは、第1正規形にするための処理である。第3正規形では、非キー属性間の推移的従属を除去する。"
     ],
     "original_question_id": "7dbb7574bb31828f",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:7dbb7574bb31828f",
+    "reviewQuestionId": "7dbb7574bb31828f",
+    "sourceRecordRef": "question_202501_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "関係データベースの正規化に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3正規形への変換条件に関する技術知識で判定した。",
+          "promptContext": "第2正規形から第3正規形への変換手順を確認した。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "推移的従属を除去する第3正規形の知識で判定した。",
+          "promptContext": "候補キー以外の属性間の関数従属性を確認した。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "部分関数従属の除去は第2正規形の段階で行うという知識で判定した。",
+          "promptContext": "候補キーの一部から非キー属性への関数従属性を確認した。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "一つの属性に複数の値を持たせない処理は第1正規形の知識で判定した。",
+          "promptContext": "属性値の原子性に関する記述を確認した。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -790,33 +1342,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n『安全性と実装性能が確認され、市場実績や普及見込みがあるので利用を推奨する』という説明は電子政府推奨暗号リストの内容であり、推奨候補暗号リストではない。",
-      "間違い。\n\n互換性維持目的で利用する暗号技術を集めたものは運用監視暗号リストである。推奨候補暗号リストの説明としては不正確である。",
-      "正しい。\n\n電子政府推奨暗号リストは、安全性や実装性能が確認され、市場での利用実績や今後の普及も見込まれるため、電子政府調達で参照・推奨される暗号技術の一覧である。",
-      "間違い。\n\n推奨段階から外れ、互換性維持のために継続利用を監視する対象は運用監視暗号リストである。電子政府推奨暗号リストそのものの説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "CRYPTRECの3つのリストはどう違いますか？",
-      "電子政府推奨暗号リストの判断基準は何ですか？",
-      "運用監視暗号リストはどんな位置付けですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CRYPTRECの3つのリストはどう違いますか？",
-        "answer": "電子政府推奨暗号リストは現時点で利用推奨、推奨候補暗号リストは将来の推奨候補、運用監視暗号リストは互換性維持などのため継続監視対象という位置付けである。"
-      },
-      {
-        "question": "電子政府推奨暗号リストの判断基準は何ですか？",
-        "answer": "安全性と実装性能が確認されていることに加え、市場での十分な実績や今後の普及見込みが重視される。単に理論上安全なだけでは足りない。"
-      },
-      {
-        "question": "運用監視暗号リストはどんな位置付けですか？",
-        "answer": "直ちに新規利用を積極推奨するのではなく、互換性維持などのため利用状況を監視しながら扱う暗号技術の一覧である。推奨リストと混同しやすい。"
-      }
+      "間違い。正しくは、安全性及び実装性能が確認され、利用実績や普及見込みから利用を推奨される暗号技術のリストは、電子政府推奨暗号リストである。選択肢はこの定義を推奨候補暗号リストとしているため誤りである。",
+      "間違い。正しくは、推奨候補暗号リストは、安全性及び実装性能が確認され、将来、電子政府推奨暗号リストに掲載される可能性がある暗号技術のリストである。互換性維持のために継続利用を認める暗号技術をまとめたものは、運用監視暗号リストである。",
+      "正しい。電子政府推奨暗号リストは、安全性及び実装性能が確認され、市場での利用実績が十分であるか今後の普及が見込まれる暗号技術を、利用を推奨するものとしてまとめたリストである。",
+      "間違い。正しくは、推奨段階から外れ、互換性維持のために継続利用が認められる暗号技術のリストは、運用監視暗号リストである。電子政府推奨暗号リストは、利用を推奨する暗号技術をまとめたものである。"
     ],
     "original_question_id": "bbdb42e10c0f5b13",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_12.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:bbdb42e10c0f5b13",
+    "reviewQuestionId": "bbdb42e10c0f5b13",
+    "sourceRecordRef": "question_202501_1.json#11",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-03-30",
+        "sourceUrl": "https://www.cryptrec.go.jp/list/cryptrec-ls-0001-2022r2.pdf",
+        "title": "電子政府における調達のために参照すべき暗号のリスト（CRYPTREC暗号リスト）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CRYPTREC暗号リストの分類定義に関する技術・制度資料の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令条文ではなく、CRYPTREC暗号リストの分類定義により判定した。",
+          "promptContext": "技術・制度資料の分類定義問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正差分の監査対象外。CRYPTREC暗号リストの分類定義に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "推奨候補暗号リストと運用監視暗号リストの役割を区別して判定した。",
+          "promptContext": "CRYPTREC暗号リストの分類定義問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正差分の監査対象外。推奨候補暗号リストの定義に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "安全性・実装性能、利用実績または普及見込み、利用推奨という電子政府推奨暗号リストの定義に合致する。",
+          "promptContext": "CRYPTREC暗号リストの分類定義問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正差分の監査対象外。電子政府推奨暗号リストの定義に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "互換性維持のため継続利用が認められる暗号技術は運用監視暗号リストに該当し、電子政府推奨暗号リストではない。",
+          "promptContext": "CRYPTREC暗号リストの分類定義問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正差分の監査対象外。運用監視暗号リストと電子政府推奨暗号リストの定義に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1347,33 +1998,129 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nスプリントプランニングは、これからのスプリントで何を作るかを計画するイベントである。成果のプレゼンテーションやスコープ調整の場ではない。",
-      "正しい。\n\nスプリントレビューは、スプリントの成果をステークホルダへ示し、プロダクトゴールに対する進捗を確認して、必要に応じてプロダクトバックログやスコープを調整する場である。",
-      "間違い。\n\nデイリースクラムは開発チーム内の短時間の進捗調整イベントであり、ステークホルダ向け成果説明の場ではない。",
-      "間違い。\n\nレトロスペクティブは、チームがやり方を振り返って改善策を考える内部イベントである。成果物のプレゼンテーションが主目的ではない。"
-    ],
-    "suggestedQuestions": [
-      "スプリントレビューの目的は何ですか？",
-      "スプリントレビューとレトロスペクティブは何が違いますか？",
-      "デイリースクラムは誰向けのイベントですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "スプリントレビューの目的は何ですか？",
-        "answer": "完成した成果を確認し、ステークホルダからフィードバックを得て、今後の方向やバックログを調整することである。適応のためのイベントと捉えるとよい。"
-      },
-      {
-        "question": "スプリントレビューとレトロスペクティブは何が違いますか？",
-        "answer": "レビューは成果物とプロダクト方向の確認、レトロスペクティブはチームの進め方の改善が主題である。対象が『作ったもの』か『働き方』かで分かれる。"
-      },
-      {
-        "question": "デイリースクラムは誰向けのイベントですか？",
-        "answer": "主に開発チームが日々の進め方を調整するためのイベントである。外部ステークホルダへの説明会ではない。"
-      }
+      "正しい。該当するのはスプリントレビューである。スプリントの成果をステークホルダに示し、プロダクトゴールに対する進捗を確認する。参加者はその結果を踏まえて次に行うことを話し合い、必要に応じてプロダクトバックログなど今後の作業範囲を調整する。スプリントプランニングは次のスプリントの計画、デイリースクラムは開発者の進捗確認と日々の計画調整、レトロスペクティブはチームの進め方の改善を扱う。"
     ],
     "original_question_id": "1e1b045145ac215d",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:1e1b045145ac215d",
+    "reviewQuestionId": "1e1b045145ac215d",
+    "sourceRecordRef": "question_202501_1.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2020-11-01",
+        "sourceUrl": "https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf",
+        "title": "The 2020 Scrum Guide"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "スクラムのイベント定義に関する技術・開発手法の問題であり、法令条文を正誤判断の根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スクラムのイベント定義によって正誤を判断する選択肢であり、法令根拠は不要である。",
+          "promptContext": "技術・開発手法問題",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連の技術問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スクラムのイベント定義によって正誤を判断する選択肢であり、法令根拠は不要である。",
+          "promptContext": "技術・開発手法問題",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非関連の技術問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スクラムのイベント定義によって正誤を判断する選択肢であり、法令根拠は不要である。",
+          "promptContext": "技術・開発手法問題",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連の技術問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スクラムのイベント定義によって正誤を判断する選択肢であり、法令根拠は不要である。",
+          "promptContext": "技術・開発手法問題",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連の技術問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1497,33 +2244,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n作業順序の組み替えはファストトラッキングの考え方である。追加資源を投入して期間短縮するクラッシングとは異なる。",
-      "間違い。\n\n分割して並行実施できる部分を増やすのもファストトラッキング寄りの発想である。クラッシングは資源追加でクリティカルパスを短くする。",
-      "間違い。\n\n先行作業完了前に後続作業を始めるのはファストトラッキングの典型である。順序重複で短縮するのであって、人や資源を足す話ではない。",
-      "正しい。\n\n外部から要員を追加してクリティカルパス上の作業へ投入するのはクラッシングである。追加コストを払って作業期間を短縮する手法として整理する。"
-    ],
-    "suggestedQuestions": [
-      "クラッシングとファストトラッキングの違いは何ですか？",
-      "クラッシングはどの作業に効かせますか？",
-      "クラッシングのデメリットは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クラッシングとファストトラッキングの違いは何ですか？",
-        "answer": "クラッシングは資源追加で期間短縮し、ファストトラッキングは順序を重ねて並行化する。コストを増やすか、リスクを増やすかの違いともいえる。"
-      },
-      {
-        "question": "クラッシングはどの作業に効かせますか？",
-        "answer": "期間短縮に効くのはクリティカルパス上の作業である。余裕のある作業に人を足しても全体工期は縮まらない。"
-      },
-      {
-        "question": "クラッシングのデメリットは何ですか？",
-        "answer": "追加要員や外注でコストが増える点である。場合によっては調整負荷が増え、期待したほど短縮できないこともある。"
-      }
+      "間違い。正しくは、作業の順序を組み替えて期間を短縮するのはファストトラッキングである。選択肢は作業順序を変える方法をクラッシングとしているため誤りである。",
+      "間違い。正しくは、作業を分割して並行実施するのはファストトラッキングである。選択肢は作業を並行化する方法をクラッシングとしているため誤りである。",
+      "間違い。正しくは、先行作業の完了前に後続作業を始めて期間を短縮するのはファストトラッキングである。選択肢は作業の重複実施による短縮をクラッシングとしているため誤りである。",
+      "正しい。クラッシングは、追加の要員や設備などの資源を投入して、通常は追加コストを伴いながらプロジェクト期間を短縮する方法である。"
     ],
     "original_question_id": "05a3df8c74e3a9e1",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:05a3df8c74e3a9e1",
+    "reviewQuestionId": "05a3df8c74e3a9e1",
+    "sourceRecordRef": "question_202501_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "プロジェクト管理上の期間短縮技法を問う問題で、法令・制度の根拠は不要。クラッシングは要員追加などによって作業資源を増やし、期間を短縮する方法である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "作業順序の組替えはファストトラッキングであり、クラッシングではない。",
+          "promptContext": "第1選択肢の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくプロジェクト管理技法の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "作業を分割して並行実施する方法はファストトラッキングであり、クラッシングではない。",
+          "promptContext": "第2選択肢の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくプロジェクト管理技法の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "先行作業の完了前に後続作業を開始する方法はファストトラッキングであり、クラッシングではない。",
+          "promptContext": "第3選択肢の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくプロジェクト管理技法の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "クラッシングは、要員や設備などの資源を追加投入してプロジェクト期間を短縮する方法である。",
+          "promptContext": "第4選択肢の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくプロジェクト管理技法の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1781,33 +2621,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n監査計画の立案や進捗管理は監査実施前後の管理活動であり、個々の監査項目について証拠を集める『監査手続』そのものではない。",
-      "間違い。\n\n監査報告書への結論記載は監査結果の取りまとめ段階である。監査手続はその前に証拠を集めるための具体的な実施行為を指す。",
-      "正しい。\n\n監査手続とは、監査項目について十分かつ適切な監査証拠を入手するために行う手続である。結論の妥当性は、この証拠収集の質に支えられる。",
-      "間違い。\n\n監査チーム編成は監査体制づくりの話であり、監査証拠を得るための手続ではない。『証拠を集める行為かどうか』で見分けるとよい。"
-    ],
-    "suggestedQuestions": [
-      "監査手続とは何をすることですか？",
-      "監査証拠はなぜ重要ですか？",
-      "監査計画と監査手続の違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "監査手続とは何をすることですか？",
-        "answer": "監査対象について観察、照合、再実施、質問などを行い、結論を裏付ける証拠を集めることである。『証拠入手の具体行為』と捉える。"
-      },
-      {
-        "question": "監査証拠はなぜ重要ですか？",
-        "answer": "監査人の結論は主観ではなく証拠に基づかなければならないからである。十分かつ適切な証拠がないと、結論の信頼性が担保できない。"
-      },
-      {
-        "question": "監査計画と監査手続の違いは何ですか？",
-        "answer": "監査計画は何をどう進めるかの段取りで、監査手続はその計画に従って実際に証拠を集める行為である。"
-      }
+      "間違い。正しくは、監査計画の立案や監査業務の進捗管理は、監査を管理するための計画・進行管理である。選択肢はこれを監査手続としているため誤りである。監査手続は、監査項目について十分かつ適切な監査証拠を入手するために実施する。",
+      "間違い。正しくは、監査結果を受けて監査報告書に結論や指摘事項を記述することは、監査結果を報告する活動である。選択肢は報告書の作成を監査手続としているため誤りである。監査手続は、その前段階で監査証拠を入手するために行う。",
+      "正しい。監査手続は、監査項目について十分かつ適切な監査証拠を入手するために実施する具体的な手続である。計画、報告、監査チームの編成などの管理活動とは区別される。",
+      "間違い。正しくは、監査テーマに合わせた監査チームの編成は、監査を実施する体制を整える活動である。選択肢はチーム編成を監査手続としているため誤りである。監査手続は、編成されたチームが監査証拠を入手するために行う。"
     ],
     "original_question_id": "a39c773b453c5cab",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:a39c773b453c5cab",
+    "reviewQuestionId": "a39c773b453c5cab",
+    "sourceRecordRef": "question_202501_1.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査の実務上の監査手続を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査計画の立案や進捗管理は監査手続ではなく、監査の管理活動である。",
+          "promptContext": "監査手続の定義に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令による正誤変更なし。システム監査の専門知識として判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査報告書への結論や指摘事項の記述は、監査結果を報告する活動である。",
+          "promptContext": "監査手続の定義に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令による正誤変更なし。システム監査の専門知識として判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査手続は、監査項目について十分かつ適切な監査証拠を入手するための具体的な手続である。",
+          "promptContext": "監査手続の定義に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令による正誤変更なし。システム監査の専門知識として判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査チームの編成は監査を実施する体制を整える活動であり、監査手続そのものではない。",
+          "promptContext": "監査手続の定義に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令による正誤変更なし。システム監査の専門知識として判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

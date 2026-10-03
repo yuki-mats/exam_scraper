@@ -124,33 +124,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nキャッシュだけに書き込んで主記憶への反映を後回しにするのはライトバック方式である。ライトスルー方式は更新のたびに主記憶にも書くため、一貫性は高いが書込みは重くなりやすい。",
-      "正しい。\n\nライトスルー方式では、キャッシュ更新と同時に主記憶にも書き込む。主記憶の内容が常にキャッシュと一致するため整合性管理は単純になるが、書込み回数は増える。",
-      "間違い。\n\nライトバック方式は主記憶へ即時反映しないので、ライトスルーより書込み性能が高くなりやすい。『両方へ同時に書く』という説明はライトスルー方式である。",
-      "間違い。\n\nライトバック方式では、更新済みキャッシュ行が追い出されるときに主記憶へ書き戻す必要がある。書戻し不要とすると、主記憶に最新内容が反映されず整合性が崩れる。"
-    ],
-    "suggestedQuestions": [
-      "ライトスルーとライトバックの違いは何ですか？",
-      "ライトスルーが遅くなりやすい理由は何ですか？",
-      "ライトバックで書戻しが必要になるのはいつですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ライトスルーとライトバックの違いは何ですか？",
-        "answer": "ライトスルーはキャッシュと主記憶の両方へ同時に書き、ライトバックはまずキャッシュだけを更新する。整合性を優先するか、書込み性能を優先するかで特性が分かれる。"
-      },
-      {
-        "question": "ライトスルーが遅くなりやすい理由は何ですか？",
-        "answer": "書込みのたびに主記憶アクセスが必要になるため、キャッシュだけで完結しないからである。主記憶の速度がボトルネックになりやすい。"
-      },
-      {
-        "question": "ライトバックで書戻しが必要になるのはいつですか？",
-        "answer": "更新済みのキャッシュブロックが追い出されるときである。dirty状態の内容を主記憶へ反映してから置換しないと、更新内容が失われる。"
-      }
+      "間違い。ライトスルー方式は、キャッシュメモリを更新するたびに主記憶にも同じデータを書き込む。キャッシュだけに書き込み、主記憶への反映を後回しにするのはライトバック方式である。",
+      "正しい。ライトスルー方式では、データをキャッシュメモリと主記憶の両方へ書き込むため、通常は両者の内容が一致する。書込みのたびに主記憶へアクセスするので、ライトバック方式より書込みに時間がかかりやすい。",
+      "間違い。ライトバック方式は、更新したデータをまずキャッシュメモリに書き込み、主記憶への反映を後回しにする。選択肢のように両方へ同時に書き込むのはライトスルー方式である。",
+      "間違い。ライトバック方式では、更新されたキャッシュのデータが追い出されるとき、主記憶へ書き戻す必要が生じることがある。書き戻さなければ、主記憶に最新のデータが反映されない。"
     ],
     "original_question_id": "bcb879dd1d73126d",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202501:bcb879dd1d73126d",
+    "reviewQuestionId": "bcb879dd1d73126d",
+    "sourceRecordRef": "question_202501_3.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "キャッシュメモリの書込み方式に関するコンピュータアーキテクチャの技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題である。",
+          "promptContext": "法令監査対象外の技術問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくキャッシュメモリの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題である。",
+          "promptContext": "法令監査対象外の技術問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくキャッシュメモリの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題である。",
+          "promptContext": "法令監査対象外の技術問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくキャッシュメモリの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題である。",
+          "promptContext": "法令監査対象外の技術問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくキャッシュメモリの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

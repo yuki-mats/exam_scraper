@@ -1,33 +1,123 @@
 [
   {
     "explanationText": [
-      "正しい。\n\n255 は 2 進数で 11111111 なので、(n+1) AND 255 は n+1 の下位 8 ビットだけを取り出す。255 の次を 0 に戻す 8 ビット循環の定義と一致する。",
-      "間違い。\n\n256 は 2 進数で 1 00000000 であり、AND を取ると 9 ビット目だけが残る。0 から 255 の範囲で循環させたい式にはならない。",
-      "間違い。\n\nOR 255 を取ると下位 8 ビットが常に 1 になり、ほとんどの値で 255 になる。next(n) のように 1 だけ増やす動きにはならない。",
-      "間違い。\n\nOR 256 を取ると 9 ビット目が常に 1 になるので、値は 256 以上に引き上がる。0 から 255 の範囲で循環する定義と矛盾する。"
-    ],
-    "suggestedQuestions": [
-      "なぜ 255 を AND すると 8 ビット循環になりますか？",
-      "255 の次が 0 になるのはどこで表現されていますか？",
-      "OR ではなく AND を使う理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ 255 を AND すると 8 ビット循環になりますか？",
-        "answer": "255 は下位 8 ビットが全て 1 なので、AND を取ると上位ビットだけが落ちる。n+1 が 256 になったときも下位 8 ビットは 00000000 となり、0 に戻る。"
-      },
-      {
-        "question": "255 の次が 0 になるのはどこで表現されていますか？",
-        "answer": "255 に 1 を足すと 256、2 進数では 1 00000000 になる。その後で AND 255 を取ると上位の 1 が消え、下位 8 ビットだけの 0 が残る。"
-      },
-      {
-        "question": "OR ではなく AND を使う理由は何ですか？",
-        "answer": "OR はビットを立てる方向に働くので値を固定化しやすい。一方 AND 255 は上位ビットを落として範囲を 0 から 255 に制限できる。"
-      }
+      "正しい。該当する式は \\((n+1)\\mathbin{\\mathrm{AND}}255\\) である。255は2進数で\\(11111111\\)なので、ANDを取ると\\(n+1\\)の下位8ビットだけが残る。\\(n\\)が0以上254以下なら値はそのまま\\(n+1\\)となり、\\(n=255\\)では\\(256\\)の下位8ビットがすべて0になるため、0に戻る。この式は、0以上255以下の範囲で1ずつ増加し、255の次に0へ戻る\\(next(n)\\)の定義と一致する。"
     ],
     "original_question_id": "5c614b6b49f9dfc1",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:5c614b6b49f9dfc1",
+    "reviewQuestionId": "5c614b6b49f9dfc1",
+    "sourceRecordRef": "question_202301_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ビット演算と整数の範囲に関する数学・アルゴリズムの問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1肢は8ビットの下位部分を取り出すため、next(n)の定義と一致する。法令根拠は不要である。",
+          "promptContext": "数学・アルゴリズムによる技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。問題文の定義とビット演算だけで判定できる。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2肢は256とのANDにより、next(n)の定義で必要な8ビット循環を実現しない。法令根拠は不要である。",
+          "promptContext": "数学・アルゴリズムによる技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。問題文の定義とビット演算だけで判定できる。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3肢はORによって下位8ビットを常に1にするため、next(n)の定義と一致しない。法令根拠は不要である。",
+          "promptContext": "数学・アルゴリズムによる技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。問題文の定義とビット演算だけで判定できる。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4肢はORによって256のビットを付加し、0以上255以下の範囲で循環するnext(n)を表さない。法令根拠は不要である。",
+          "promptContext": "数学・アルゴリズムによる技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。問題文の定義とビット演算だけで判定できる。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -151,33 +241,115 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n最初の基準値は左端の 2 であり、これより小さい 1 が左へ移るので 1,2,5,4,3 の形になる。次に右側グループ 5,4,3 を 5 基準で分割すると 1,2,3,5,4 になる。",
-      "間違い。\n\nこれは 1 回目の分割直後の並びである。設問は 2 回目の分割が終わった状態を聞いているので、右側グループの再分割まで反映する必要がある。",
-      "間違い。\n\n1 回目の分割で 1 は基準値 2 より小さいので左側へ移らなければならない。この並びは分割規則に合わない。",
-      "間違い。\n\n5 を基準にした 2 回目の分割後に 1 が末尾に残ることはない。左端基準で順に分割した結果と一致しない。"
-    ],
-    "suggestedQuestions": [
-      "この問題の 1 回目の分割はどうなりますか？",
-      "2 回目はどの部分配列を分割しますか？",
-      "クイックソートで基準値を左端に固定するときの見方は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この問題の 1 回目の分割はどうなりますか？",
-        "answer": "基準値 2 より小さい 1 を左側へ寄せるので、1,2,5,4,3 の形になる。2 より大きい 3,5,4 は右側グループとして残る。"
-      },
-      {
-        "question": "2 回目はどの部分配列を分割しますか？",
-        "answer": "1 回目の右側グループ 5,4,3 を対象にし、左端の 5 を基準に再分割する。その結果 3,5,4 となり、全体では 1,2,3,5,4 になる。"
-      },
-      {
-        "question": "クイックソートで基準値を左端に固定するときの見方は？",
-        "answer": "各段階で『その部分配列の左端値』だけを見る。全体を一気に整列させるのでなく、分割後の部分配列ごとに基準値が変わる点が重要である。"
-      }
+      "正しい。最初の基準値は左端の2である。2より小さい値1と、2より大きい値3，5，4に分けるため、1回目の分割後は1，2，3，5，4となる。次に右側のグループ3，5，4を基準値3で分割しても、3より小さい値はなく、3より大きい値は5，4の順で残る。したがって、2回目の分割が終わった状態は1，2，3，5，4である。"
     ],
     "original_question_id": "76d2a35c7e017d40",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:76d2a35c7e017d40",
+    "reviewQuestionId": "76d2a35c7e017d40",
+    "sourceRecordRef": "question_202301_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "アルゴリズムの分割手順と配列操作で正誤が決まる問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はクイックソートの2回目の分割後の配列として正しい。法令根拠は不要である。",
+          "promptContext": "アルゴリズム問題の選択肢1。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はクイックソートの分割手順と一致しない。法令根拠は不要である。",
+          "promptContext": "アルゴリズム問題の選択肢2。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はクイックソートの分割手順と一致しない。法令根拠は不要である。",
+          "promptContext": "アルゴリズム問題の選択肢3。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はクイックソートの分割手順と一致しない。法令根拠は不要である。",
+          "promptContext": "アルゴリズム問題の選択肢4。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -301,33 +473,134 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCPU やメモリの能力を増減するのは一般にスケールアップやスケールダウンの話である。スケールインは台数を減らす操作を指す。",
-      "正しい。\n\nスケールインは、分散配置したサーバ群の台数を減らして処理能力を下げることをいう。需要が減ったときに余剰サーバを減らす場面で用いる。",
-      "間違い。\n\n台数を増やすのはスケールアウトである。in と out の向きが逆になっている。",
-      "間違い。\n\nメモリ容量を増やすのは垂直方向の拡張であり、スケールインの説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "スケールインとスケールアウトの違いは？",
-      "スケールアップとの違いは何ですか？",
-      "クラウドでスケールインを行う場面は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "スケールインとスケールアウトの違いは？",
-        "answer": "スケールアウトはサーバ台数を増やすこと、スケールインは減らすことである。どちらも水平方向の台数調整である。"
-      },
-      {
-        "question": "スケールアップとの違いは何ですか？",
-        "answer": "スケールアップは 1 台当たりの CPU やメモリを強化することを指す。台数を変えるか、1 台の性能を変えるかで区別する。"
-      },
-      {
-        "question": "クラウドでスケールインを行う場面は？",
-        "answer": "アクセスピークが過ぎて処理量が下がったとき、不要なインスタンスを停止してコストを抑える場面で使う。"
-      }
+      "間違い。CPUやメモリの能力を増減するのは、サーバ1台の性能を変えるスケールアップやスケールダウンである。スケールインはサーバの台数を減らす操作を指す。",
+      "正しい。スケールインは、分散配置したサーバ群から不要なサーバを減らし、全体の処理能力を下げる操作である。システムの処理量が減ったときに、余分なサーバを停止・削除する場合に用いる。",
+      "間違い。サーバの台数を増やして処理能力を高めるのはスケールアウトである。スケールインは、反対にサーバの台数を減らす操作を指す。",
+      "間違い。メモリ容量を増やして1台のサーバの性能を高めるのはスケールアップに当たる。スケールインは、サーバの台数を減らす操作を指す。"
     ],
     "original_question_id": "7ad2706db38db073",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:7ad2706db38db073",
+    "reviewQuestionId": "7ad2706db38db073",
+    "sourceRecordRef": "question_202301_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "クラウドやサーバ資源の増減に関する技術用語の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は個々のサーバのCPU能力を減らす説明であり、スケールインではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "スケールイン、スケールアウト、スケールアップ及びスケールダウンの技術用語の定義で判定した。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令監査対象外"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、処理量に対して過剰なサーバの台数を減らすスケールインの定義に合致する。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "スケールインはサーバの台数を減らす操作である。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はサーバの台数を増やす説明であり、スケールインではなくスケールアウトに該当する。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "サーバの台数を増やす操作はスケールアウトである。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令監査対象外"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は1台のサーバのメモリ容量を増やす説明であり、スケールインではなくスケールアップに該当する。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "1台のサーバのメモリ容量を増やす操作はスケールアップである。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -451,33 +724,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nX・Y なら両方が 1 のときだけ 1 になる AND 回路である。設問の NAND 構成は最終的に OR と等価になる。",
-      "正しい。\n\n入力をそれぞれ NAND で反転し、その結果をさらに NAND に入れると、ド・モルガンの法則により X+Y になる。NAND だけで OR を実現した回路である。",
-      "間違い。\n\nこれは AND の否定か、表記上別の形を意図した式であり、真理値表が合わない。設問回路の出力は 00 のとき 0、それ以外で 1 になる。",
-      "間違い。\n\nX+Y の否定なら NOR 回路の出力になる。設問回路は最終段も NAND であり、否定が打ち消されて OR になる。"
-    ],
-    "suggestedQuestions": [
-      "NAND だけで OR を作れる理由は？",
-      "ド・モルガンの法則をどう使いますか？",
-      "真理値表で確かめるとどうなりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "NAND だけで OR を作れる理由は？",
-        "answer": "NAND は万能ゲートで、入力を同じ信号にすれば NOT として使える。NOT X と NOT Y を NAND に入れると OR に変換できる。"
-      },
-      {
-        "question": "ド・モルガンの法則をどう使いますか？",
-        "answer": "NOT((NOT X)・(NOT Y)) = X+Y と変形する。設問回路はこの形をそのまま実装している。"
-      },
-      {
-        "question": "真理値表で確かめるとどうなりますか？",
-        "answer": "X,Y が 00 のときだけ 0、01,10,11 のとき 1 になる。これは OR の真理値表と一致する。"
-      }
+      "正しい。各入力をNANDで反転すると、最終段には\\(\\overline{X}\\)と\\(\\overline{Y}\\)が入力される。最終段もNANDなので、出力Zは\\(\\overline{\\overline{X}\\cdot\\overline{Y}}=X＋Y\\)となる。したがって、XまたはYの少なくとも一方が1のときにZは1になる。"
     ],
     "original_question_id": "bb8cf969bf8dc560",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:bb8cf969bf8dc560",
+    "reviewQuestionId": "bb8cf969bf8dc560",
+    "sourceRecordRef": "question_202301_1.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "NAND素子と論理演算の関係を用いて判断する回路問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はNAND回路の論理演算だけで判定し、法令根拠を要しない。",
+          "promptContext": "NAND回路の出力式に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "NAND回路の技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はNAND回路の論理演算だけで判定し、法令根拠を要しない。",
+          "promptContext": "NAND回路の出力式に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "NAND回路の技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はNAND回路の論理演算だけで判定し、法令根拠を要しない。",
+          "promptContext": "NAND回路の出力式に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "NAND回路の技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はNAND回路の論理演算だけで判定し、法令根拠を要しない。",
+          "promptContext": "NAND回路の出力式に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "NAND回路の技術判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -724,33 +1087,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nイーサネットフレームの最外側にあるのは MAC アドレスであり、IP アドレスより先に送出される。順序が逆である。",
-      "間違い。\n\nIP アドレスより先に MAC アドレスが現れる点に加え、ポート番号は TCP ヘッダ内なので最も内側である。順序が合わない。",
-      "正しい。\n\nイーサネットフレームの宛先はまずデータリンク層の宛先 MAC アドレス、その中の IP パケットに宛先 IP アドレス、さらにその中の TCP ヘッダに宛先ポート番号が入る。外側からこの順に並ぶ。",
-      "間違い。\n\nポート番号は TCP ヘッダにあり、IP ヘッダの内側である。MAC の次にすぐポート番号が来る構造ではない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ MAC アドレスが最初に来ますか？",
-      "ポート番号はどの層の情報ですか？",
-      "カプセル化の順序はどう覚えればよいですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ MAC アドレスが最初に来ますか？",
-        "answer": "実際に LAN 上へフレームを流すには、まずデータリンク層で次ホップ宛ての MAC アドレスが必要だからである。"
-      },
-      {
-        "question": "ポート番号はどの層の情報ですか？",
-        "answer": "TCP や UDP のトランスポート層ヘッダに入る。IP ヘッダのさらに内側にある。"
-      },
-      {
-        "question": "カプセル化の順序はどう覚えればよいですか？",
-        "answer": "外側から下位層、内側ほど上位層と覚えるとよい。今回は Ethernet の中に IP、その中に TCP が入る。"
-      }
+      "正しい。イーサネットフレームの宛先情報は、外側から宛先MACアドレス、IPパケット内の宛先IPアドレス、TCPヘッダ内の宛先ポート番号の順に配置される。したがって、送出順序は宛先MACアドレス、宛先IPアドレス、宛先ポート番号となる。"
     ],
     "original_question_id": "0880f0a50a2a8b99",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:0880f0a50a2a8b99",
+    "reviewQuestionId": "0880f0a50a2a8b99",
+    "sourceRecordRef": "question_202301_1.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TCP/IPとイーサネットのプロトコル階層に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定に法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "宛先情報の配置順はプロトコル階層で決まり、法令根拠を必要としない。",
+          "promptContext": "TCP/IPとイーサネットのプロトコル階層に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCP/IPとイーサネットの階層関係に基づく技術判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定に法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "宛先情報の配置順はプロトコル階層で決まり、法令根拠を必要としない。",
+          "promptContext": "TCP/IPとイーサネットのプロトコル階層に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCP/IPとイーサネットの階層関係に基づく技術判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定に法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "宛先情報の配置順はプロトコル階層で決まり、法令根拠を必要としない。",
+          "promptContext": "TCP/IPとイーサネットのプロトコル階層に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "TCP/IPとイーサネットの階層関係に基づく技術判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定に法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "宛先情報の配置順はプロトコル階層で決まり、法令根拠を必要としない。",
+          "promptContext": "TCP/IPとイーサネットのプロトコル階層に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCP/IPとイーサネットの階層関係に基づく技術判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1005,33 +1458,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nログを集約して相関分析し不正アクセスを検出するのは SIEM や監視運用の説明であり、デジタルフォレンジックスの手順そのものではない。",
-      "正しい。\n\n削除ログの復元やディスク解析によって痕跡を保全・調査するのは、証拠を収集して分析するデジタルフォレンジックスの典型例である。",
-      "間違い。\n\nメール本文や添付ファイルの暗号化は情報漏えい対策であり、インシデント後の証拠保全・分析手順ではない。",
-      "間違い。\n\nハッシュ値と脅威情報の照合はマルウェア検査や実行制御の説明である。フォレンジックスの主要手順とは別である。"
-    ],
-    "suggestedQuestions": [
-      "デジタルフォレンジックスの目的は何ですか？",
-      "なぜ削除ログの復元が重要ですか？",
-      "SIEM とフォレンジックスの違いは？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "デジタルフォレンジックスの目的は何ですか？",
-        "answer": "インシデントの事実関係を証拠に基づいて明らかにし、再発防止や法的対応に耐える形で整理することである。"
-      },
-      {
-        "question": "なぜ削除ログの復元が重要ですか？",
-        "answer": "攻撃者は痕跡隠滅のためログ削除を試みることがある。削除痕跡を復元できると、侵入経路や実行操作の特定に役立つ。"
-      },
-      {
-        "question": "SIEM とフォレンジックスの違いは？",
-        "answer": "SIEM は主に監視と早期検知、フォレンジックスは発生後に証拠を保全し詳細分析する活動である。"
-      }
+      "間違い。ログを集約してリアルタイムに相関分析し、不正アクセスを検出するのは、SIEMなどによる監視・検知の説明である。デジタルフォレンジックスは、インシデント後に電子的な証拠を収集、検査、分析して報告する手順であり、選択肢は監視による検知をフォレンジックスの手順としているため誤りである。",
+      "正しい。サーバのディスクを解析して削除されたログファイルを復元し、不正アクセスの痕跡を調べることは、電子的な証拠を検査・分析するデジタルフォレンジックスに含まれる。",
+      "間違い。電子メールの本文や添付ファイルを暗号化するのは、通信中の情報漏えいを防ぐための情報保護対策である。デジタルフォレンジックスはインシデント後の証拠の収集、検査、分析及び報告を行う手順であり、選択肢は予防的な暗号化対策をフォレンジックスの手順としているため誤りである。",
+      "間違い。プログラムファイルのハッシュ値を脅威情報と照合してマルウェアかどうかを調べるのは、マルウェア検査や実行前の判定に当たる。デジタルフォレンジックスは電子的な証拠を収集、検査、分析してインシデントの事実を明らかにする手順であり、選択肢はマルウェア判定をフォレンジックスの手順としているため誤りである。"
     ],
     "original_question_id": "b4aae06cb1901923",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:b4aae06cb1901923",
+    "reviewQuestionId": "b4aae06cb1901923",
+    "sourceRecordRef": "question_202301_1.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "デジタルフォレンジックスの手順と技術的な調査内容を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はSIEM等による監視・検知の説明であり、デジタルフォレンジックスの手順ではない。",
+          "promptContext": "技術知識による選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令改正差分の確認対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はディスクを解析して削除ログを復元し、電子的証拠を調査する内容であり、デジタルフォレンジックスに含まれる。",
+          "promptContext": "技術知識による選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令改正差分の確認対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は電子メールの暗号化による情報漏えい対策であり、インシデント後の証拠調査手順ではない。",
+          "promptContext": "技術知識による選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令改正差分の確認対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はハッシュ値と脅威情報によるマルウェア判定であり、デジタルフォレンジックスの証拠調査手順ではない。",
+          "promptContext": "技術知識による選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令改正差分の確認対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1186,63 +1732,246 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIDS は侵入検知の仕組みであり、特定端末だけを別 VLAN へ動的に収容してアクセス制御する技術ではない。",
-      "間違い。\n\nIP マスカレードは主にアドレス変換技術であり、幹部 PC だけへ特定セグメントを動的割当てする用途には合わない。",
-      "間違い。\n\nスタティック VLAN はポート単位で固定的に VLAN を割り当てる。利用者認証に応じて動的に VLAN を切り替える要件を満たしにくい。",
-      "正しい。\n\n認証 VLAN は利用者や端末の認証結果に応じて所属 VLAN を動的に切り替えられる。幹部 PC だけへ特定 IP セグメントを割り当て、アクセス元制御に使う構成と合う。"
-    ],
-    "suggestedQuestions": [
-      "認証 VLAN はどう動作しますか？",
-      "スタティック VLAN との違いは？",
-      "この問題で IP セグメント制御が効く理由は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "認証 VLAN はどう動作しますか？",
-        "answer": "802.1X などの認証結果を受けて、スイッチが端末を適切な VLAN へ動的に収容する。利用者属性ごとにネットワークを分けられる。"
-      },
-      {
-        "question": "スタティック VLAN との違いは？",
-        "answer": "スタティック VLAN はポートに固定設定するが、認証 VLAN は同じポートでも接続端末や利用者に応じて VLAN を切り替えられる。"
-      },
-      {
-        "question": "この問題で IP セグメント制御が効く理由は？",
-        "answer": "幹部 PC を専用 VLAN に入れれば、その VLAN に対応する IP セグメントを ACL の条件に使えるため、特定サーバへのアクセス元を絞り込める。"
-      }
+      "間違い。正しくは、認証結果に応じて端末を適切なVLANへ動的に割り当てる技術を使う。IDSは通信を監視して侵入を検知する仕組みであり、選択肢は端末を特定のVLANへ動的に収容する技術としているため誤りである。",
+      "間違い。正しくは、認証結果に応じて端末を適切なVLANへ動的に割り当てる技術を使う。IPマスカレードは複数の端末でグローバルIPアドレスを共有するためのアドレス変換であり、選択肢は幹部のPCだけに特定のIPセグメントを動的に割り当てる技術としているため誤りである。",
+      "間違い。正しくは、認証結果に応じて端末を適切なVLANへ動的に割り当てる技術を使う。スタティックVLANはスイッチのポートなどに固定的にVLANを割り当てる方式であり、フリーアドレス制の環境で利用者や端末に応じて動的に割り当てる要件を満たさないため誤りである。",
+      "正しい。認証VLANは、利用者や端末の認証結果に応じて所属VLANを動的に切り替える。幹部のPCだけを特定のIPセグメントへ収容し、そのセグメントからのアクセスだけを許可する構成に適している。"
     ],
     "original_question_id": "53ec97d053f697e8",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:53ec97d053f697e8",
+    "reviewQuestionId": "53ec97d053f697e8",
+    "sourceRecordRef": "question_202301_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "scenario_application",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令根拠を要しないネットワーク技術問題であり、認証VLANなどの機能比較で判定する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IDSは侵入検知の仕組みであり、端末を認証結果に応じてVLANへ動的収容する技術ではない。",
+          "promptContext": "技術肢として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPマスカレードはアドレス変換の技術であり、認証結果に応じたVLANへの動的割当てを行わない。",
+          "promptContext": "技術肢として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スタティックVLANは固定的なVLAN割当てであり、フリーアドレス制で利用者や端末に応じて動的に割り当てる要件に適合しない。",
+          "promptContext": "技術肢として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "認証VLANは認証結果に応じて所属VLANを動的に切り替え、特定のIPセグメントへ端末を収容できる。",
+          "promptContext": "技術肢として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非関連。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n共通域データの参照は複数モジュールが同じ領域に依存するため、結合度は高くなる。独立性を高める方向ではない。",
-      "間違い。\n\n制御パラメータを渡して相手の処理手順へ干渉するのは制御結合であり、必要最小限の情報受渡しより結合度が高い。",
-      "正しい。\n\n入出力に必要なデータ項目だけを引数で渡すのはデータ結合であり、一般に結合度が低い。モジュールの独立性を高めやすい方法である。",
-      "間違い。\n\n外部宣言したデータ共有は共通結合に近く、変更影響が広がりやすい。最も低い結合度にはならない。"
-    ],
-    "suggestedQuestions": [
-      "データ結合が低結合とされる理由は？",
-      "制御結合との違いは何ですか？",
-      "結合度を下げると何が良いですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "データ結合が低結合とされる理由は？",
-        "answer": "必要なデータだけを明示的に受け渡し、相手モジュールの内部状態や処理順序へ踏み込まないからである。"
-      },
-      {
-        "question": "制御結合との違いは何ですか？",
-        "answer": "制御結合はフラグや制御情報を渡して相手の処理分岐へ影響する。データ結合は純粋な入出力データだけを渡す点が違う。"
-      },
-      {
-        "question": "結合度を下げると何が良いですか？",
-        "answer": "変更の影響範囲が狭くなり、再利用や単体テストがしやすくなる。障害切り分けもしやすい。"
-      }
+      "正しい。モジュール結合度が最も低いのは、入出力に必要なデータ項目だけを引数として渡す方法である。必要なデータだけを受け渡すため、相手の内部データや処理手順への依存が少なく、モジュールの独立性を高めやすい。共通域のデータを参照したり、外部宣言したデータを共有したりする方法はデータ共有への依存が大きく、制御パラメータを渡す方法は相手の処理手順にも依存するため、結合度が高くなる。"
     ],
     "original_question_id": "d5e2f5bd74c4ebda",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:d5e2f5bd74c4ebda",
+    "reviewQuestionId": "d5e2f5bd74c4ebda",
+    "sourceRecordRef": "question_202301_1.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "モジュール結合度に関するソフトウェア設計上の一般知識を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は共通域のデータ参照を示し、データ共有への依存があるため、最も低い結合度ではない。",
+          "promptContext": "モジュール結合度の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は制御パラメータによって相手モジュールの処理手順に依存するため、最も低い結合度ではない。",
+          "promptContext": "モジュール結合度の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は入出力に必要なデータ項目だけを引数として渡すため、モジュール間の依存が最も少ない。",
+          "promptContext": "モジュール結合度の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は外部宣言したデータを共有するため、データ共有への依存があり、最も低い結合度ではない。",
+          "promptContext": "モジュール結合度の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1366,33 +2095,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nこれはプロジェクトマネジメント計画書の説明に近い。プロジェクト憲章は実行・監視方法の詳細文書ではない。",
-      "間違い。\n\n目標、成果物、要求事項及び境界を定める文書は主にスコープ記述書の説明である。正式認可の文書とは異なる。",
-      "間違い。\n\n作業を階層構造で記した文書は WBS である。プロジェクト憲章は作業分解表ではない。",
-      "正しい。\n\nプロジェクト憲章は、ビジネスニーズや目標を背景に、そのプロジェクトを正式に立ち上げ、プロジェクトマネージャへ責任と権限を与える文書である。"
-    ],
-    "suggestedQuestions": [
-      "プロジェクト憲章の役割は何ですか？",
-      "WBS との違いは何ですか？",
-      "なぜ PM の権限明記が重要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "プロジェクト憲章の役割は何ですか？",
-        "answer": "プロジェクトの存在理由と目標を明確にし、組織として正式に開始を承認することである。"
-      },
-      {
-        "question": "WBS との違いは何ですか？",
-        "answer": "WBS は実施作業を分解した計画成果物であり、憲章は開始承認と基本方針を示す上位文書である。"
-      },
-      {
-        "question": "なぜ PM の権限明記が重要ですか？",
-        "answer": "関係者調整や資源確保を進めるうえで、プロジェクトマネージャがどこまで意思決定できるかを明確にする必要があるからである。"
-      }
+      "間違い。プロジェクトの実行、監視、管理の方法を定める文書は、プロジェクトマネジメント計画書である。選択肢はその計画書の説明としているため誤りである。",
+      "間違い。プロジェクトの目標、成果物、要求事項及び境界を定める文書は、スコープ記述書である。選択肢はスコープ記述書をプロジェクト憲章としているため誤りである。",
+      "間違い。プロジェクトで実行する作業を階層構造に分解して示す文書は、WBSである。選択肢はWBSをプロジェクト憲章としているため誤りである。",
+      "正しい。プロジェクト憲章は、ビジネスニーズや目標、成果物などを示してプロジェクトを正式に認可し、プロジェクトマネージャの責任と権限を明確にする文書である。"
     ],
     "original_question_id": "ff49796ef72ed4c9",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:ff49796ef72ed4c9",
+    "reviewQuestionId": "ff49796ef72ed4c9",
+    "sourceRecordRef": "question_202301_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "プロジェクトマネジメントの用語定義の問題であり、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "プロジェクトマネジメント計画書の説明であり、法令根拠を要しない。",
+          "promptContext": "法令関連性を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を要しない用語定義問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "スコープ記述書の説明であり、法令根拠を要しない。",
+          "promptContext": "法令関連性を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を要しない用語定義問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "WBSの説明であり、法令根拠を要しない。",
+          "promptContext": "法令関連性を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令・制度上の根拠を要しない用語定義問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "プロジェクト憲章の説明であり、法令根拠を要しない。",
+          "promptContext": "法令関連性を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令・制度上の根拠を要しない用語定義問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1639,93 +2461,384 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n予備調査を必ず現地で行うとはされていない。文書や資料の確認など、実態把握のための事前調査として位置付けられる。",
-      "正しい。\n\nシステム監査基準では、予備調査は事務手続、マニュアル、組織図などから監査対象の実態を把握する段階である。業務内容や業務分掌の体制をつかむ記述が適切である。",
-      "間違い。\n\n十分な監査証拠の入手は本調査を含む監査手続全体の目的であり、予備調査だけの説明ではない。",
-      "間違い。\n\n監査対象の実態把握では関連部門や関連資料も視野に入る。調査範囲を監査対象部門だけに限定するとはいえない。"
-    ],
-    "suggestedQuestions": [
-      "予備調査の主目的は何ですか？",
-      "本調査との違いは何ですか？",
-      "なぜマニュアルや組織図を見るのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "予備調査の主目的は何ですか？",
-        "answer": "監査対象の実態や業務の流れ、体制を事前に把握し、後続の監査計画や調査観点を具体化することである。"
-      },
-      {
-        "question": "本調査との違いは何ですか？",
-        "answer": "予備調査は全体像の把握と計画準備が中心で、本調査は監査証拠を集めて結論を裏付ける活動が中心になる。"
-      },
-      {
-        "question": "なぜマニュアルや組織図を見るのですか？",
-        "answer": "現場へ入る前に、どの業務が誰の責任でどう運用されているかを把握できるからである。監査範囲や着眼点の整理に役立つ。"
-      }
+      "間違い。予備調査は、監査対象の実態を把握するために行うが、必ず現地に赴く必要はない。関連する文書や資料の閲覧、監査対象部門や関連部門へのインタビューなどでも実施できるため、選択肢は現地実施に限定しているため誤りである。",
+      "正しい。予備調査では、事務手続やマニュアルなどから、業務内容や業務分掌の体制を把握する。これは、本調査を適切に進めるために監査対象の実態を理解する作業である。",
+      "間違い。監査の結論を裏付けるために十分かつ適切な監査証拠を入手するのは、本調査の役割である。予備調査は本調査に先立って監査対象の実態を把握する段階なので、選択肢は本調査の作業を予備調査の説明としているため誤りである。",
+      "間違い。予備調査では、必要に応じて監査対象部門だけでなく関連部門にも照会する。選択肢は調査範囲を監査対象部門に限定しているため誤りである。"
     ],
     "original_question_id": "b86f2d00ebafea89",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_21.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:b86f2d00ebafea89",
+    "reviewQuestionId": "b86f2d00ebafea89",
+    "sourceRecordRef": "question_202301_1.json#20",
+    "explanationReferences": [
+      {
+        "referenceDate": "2018-04-20",
+        "sourceUrl": "https://www.meti.go.jp/policy/netsecurity/downloadfiles/system_kansa_h30.pdf",
+        "title": "システム監査基準（平成30年4月20日）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令条文ではなく、システム監査基準に関する技術・実務知識で正誤を判定する問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は、予備調査を現地実施に限定しており、システム監査の実務知識で誤りと判断できる。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。予備調査の実務知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は、予備調査で事務手続やマニュアルから業務内容・業務分掌を把握するとしており、実務知識に照らして正しい。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。予備調査の実務知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は、監査証拠の入手を予備調査の役割としており、本調査の説明と混同しているため誤りである。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。予備調査の実務知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は、予備調査の範囲を監査対象部門だけに限定しており、関連部門への照会を含み得る実務と異なるため誤りである。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。予備調査の実務知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nシステム監査基準でいうインタビュー法は、監査人が関係者へ直接口頭で質問し、回答を入手する技法である。定義そのものに合致する。",
-      "間違い。\n\n現地調査法は現場に赴いて観察・調査する技法だが、業務時間外に限るという条件はない。監査目的に応じて適切な時間帯に実施する。",
-      "間違い。\n\nコンピュータ支援監査技法は専用ソフトに限られない。表計算ソフトなどを含む支援ツールも利用し得る。",
-      "間違い。\n\nチェックリスト法は監査人が点検観点を整理して確認に使う技法であり、被監査部門の見解取りまとめをそのまま点検する定義ではない。"
-    ],
-    "suggestedQuestions": [
-      "インタビュー法は何を確かめる技法ですか？",
-      "CAAT は専用ソフト限定ではないのですか？",
-      "監査技法の定義問題を解くコツは？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "インタビュー法は何を確かめる技法ですか？",
-        "answer": "関係者へ直接質問し、実運用の実態や認識、手続の具体像を確認するための技法である。"
-      },
-      {
-        "question": "CAAT は専用ソフト限定ではないのですか？",
-        "answer": "限定ではない。監査目的に応じて、専用ソフトや表計算、抽出ツールなどを使って検索・抽出・計算を支援できる。"
-      },
-      {
-        "question": "監査技法の定義問題を解くコツは？",
-        "answer": "『誰が』『何を』『どのように』行う技法かを定義文どおりに押さえることが重要である。余計な条件を付けた選択肢は外れやすい。"
-      }
+      "正しい。インタビュー法は、システム監査人が関係者に直接口頭で質問し、回答を入手する技法である。",
+      "間違い。正しくは、現地調査法はシステム監査人が監査対象部門へ赴き、現場を観察・調査する技法である。実施時間は監査目的や対象の状況に応じて設定する。選択肢は業務時間外に実施しなければならないとしているため誤りである。",
+      "間違い。正しくは、コンピュータ支援監査技法は、コンピュータを利用して監査手続を行う技法であり、特定の専用ソフトウェアに限定されない。選択肢は専用ソフトウェアによらなければならないとしているため誤りである。",
+      "間違い。正しくは、チェックリスト法は、システム監査人が監査対象に応じて作成したチェックリスト（通常は質問書）について、関係者に回答を求める技法である。選択肢は監査対象部門が作成した結果を監査人が点検する技法としているため誤りである。"
     ],
     "original_question_id": "dd38160aa48485a2",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_22.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:dd38160aa48485a2",
+    "reviewQuestionId": "dd38160aa48485a2",
+    "sourceRecordRef": "question_202301_1.json#21",
+    "explanationReferences": [
+      {
+        "referenceDate": "2018-04-20",
+        "sourceUrl": "https://www.meti.go.jp/policy/netsecurity/downloadfiles/system_kansa_h30.pdf",
+        "title": "システム監査基準（平成30年）"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査技法の定義を問う技術知識問題であり、正誤を直接決める法令根拠はない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "インタビュー法の定義に適合する。",
+          "promptContext": "システム監査技法の知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象ではない技術知識の選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "現地調査法の定義は適切だが、業務時間外の実施義務まではない。",
+          "promptContext": "システム監査技法の知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではない技術知識の選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "コンピュータ支援監査技法は特定の専用ソフトウェアに限定されない。",
+          "promptContext": "システム監査技法の知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではない技術知識の選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "チェックリスト法は監査人が作成したチェックリストへの回答を求める技法である。",
+          "promptContext": "システム監査技法の知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではない技術知識の選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nROI は Return on Investment であり、投資によって得られた利益を投資額で割った指標である。売上増やコスト削減の効果を投資額に対して比率で見る。",
-      "間違い。\n\n他社比較の比率はベンチマーク指標の説明であり、ROI の定義ではない。",
-      "間違い。\n\n現金流入現在価値から流出現在価値を差し引くのは NPV の説明である。ROI と別指標である。",
-      "間違い。\n\nプロジェクト未実施時の競争力は定性的評価に近く、ROI の算式定義ではない。"
-    ],
-    "suggestedQuestions": [
-      "ROI と NPV の違いは何ですか？",
-      "ROI はどんな場面で使いますか？",
-      "コスト削減も ROI の利益に入りますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ROI と NPV の違いは何ですか？",
-        "answer": "ROI は投資額に対する利益率、NPV は時間価値を考慮した正味現在価値である。ROI は比率、NPV は金額という違いもある。"
-      },
-      {
-        "question": "ROI はどんな場面で使いますか？",
-        "answer": "複数の投資案件の採算性を比較したり、投資後の効果を評価したりするときに使う。"
-      },
-      {
-        "question": "コスト削減も ROI の利益に入りますか？",
-        "answer": "入る。ROI の『利益』には売上増だけでなく、投資によって実現したコスト削減効果も含めてよい。"
-      }
+      "正しい。ROIは、投資によって得られた利益額を投資額で割って求める指標である。売上増加やコスト削減などの効果を、投資額に対する割合で評価する。",
+      "間違い。ROIは、投資から得た利益額を投資額に対する割合で表す。選択肢は他社との比較を述べており、ROIそのものの定義ではないため誤りである。",
+      "間違い。現金流入の現在価値から現金流出の現在価値を差し引いて投資価値を評価する指標はNPVである。選択肢はNPVを説明しており、利益額を投資額で割るROIとは異なるため誤りである。",
+      "間違い。ROIは、投資によって得られた利益額と投資額の比率を表す。選択肢は投資を実施しない場合の市場競争力を述べており、ROIの算式や評価対象とは異なるため誤りである。"
     ],
     "original_question_id": "1b4cea0eeb70e794",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202301:1b4cea0eeb70e794",
+    "reviewQuestionId": "1b4cea0eeb70e794",
+    "sourceRecordRef": "question_202301_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "投資価値の評価指標であるROIの定義を問う工学・経営上の知識問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分対象外。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はROIの定義に一致する。法令根拠は不要である。",
+          "promptContext": "ROIの定義に関する技術・経営知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ROIの定義は法令ではなく投資評価の一般的な知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分対象外。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は他社との投資指標比較を説明しており、ROIの定義ではない。",
+          "promptContext": "ROIと他の投資評価・比較指標の区別。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "他社比較はROIそのものの定義ではない。法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分対象外。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はNPVを説明しており、ROIの定義ではない。",
+          "promptContext": "ROIとNPVの区別。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "現金流入の現在価値と現金流出の現在価値の差はNPVである。法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分対象外。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は投資を実施しない場合の市場競争力を述べており、ROIの定義ではない。",
+          "promptContext": "ROIと市場競争力の区別。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "市場競争力の説明はROIの算式や評価対象ではない。法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

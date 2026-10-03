@@ -247,33 +247,126 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nRPA は、ホワイトカラーの定型的な事務作業をソフトウェアで自動実行させる仕組みである。ルールエンジンや認知技術を組み合わせる場合もある。",
-      "間違い。\n\n各種作業をプログラムで行う産業用ロボットの説明であり、RPA ではない。",
-      "間違い。\n\n自律走行を実現する自動運転関連機器の説明であり、RPA の対象外である。",
-      "間違い。\n\n生活支援ロボットの説明であって、PC 上の事務処理自動化を指す RPA とは異なる。"
-    ],
-    "suggestedQuestions": [
-      "RPA が向く業務は何ですか？",
-      "RPA と産業用ロボットの違いは何ですか？",
-      "認知技術を組み合わせると何ができますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RPA が向く業務は何ですか？",
-        "answer": "画面操作や転記、集計、通知のようなルール化しやすい定型事務に向く。"
-      },
-      {
-        "question": "RPA と産業用ロボットの違いは何ですか？",
-        "answer": "RPA は主にソフトウェアによる事務作業自動化、産業用ロボットは物理作業の自動化である。"
-      },
-      {
-        "question": "認知技術を組み合わせると何ができますか？",
-        "answer": "OCR や分類を取り入れて、紙帳票や半定型データの処理範囲を広げられる。"
-      }
+      "正しい。RPAは、ホワイトカラーの定型的な事務作業を、ソフトウェアによって自動化する仕組みである。ルールエンジンや認知技術などを用いて、あらかじめ定めた手順に沿って作業を代行する。",
+      "間違い。正しくは、産業用ロボットの説明である。産業用ロボットは、対象物をつかんで動かすなど、物理的な作業を実行する。選択肢は、RPAがソフトウェア上の事務作業を代行するものではなく、産業用ロボットを説明しているため誤りである。",
+      "間違い。正しくは、自動運転関連機器の説明である。レーダー、GPS、カメラなどで車両や周囲の状況を認識し、自律走行を可能にする。選択肢は、RPAが行う事務作業の自動化ではなく、自動運転を説明しているため誤りである。",
+      "間違い。正しくは、生活支援ロボットの説明である。生活支援ロボットは、人と同じ空間で安全に動作し、食事、清掃、移動、コミュニケーションなどを支援する。選択肢は、RPAが対象とするソフトウェア上の事務処理ではなく、生活支援ロボットを説明しているため誤りである。"
     ],
     "original_question_id": "cdcb64a494504228",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:cdcb64a494504228",
+    "reviewQuestionId": "cdcb64a494504228",
+    "sourceRecordRef": "question_201902_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RPAの定義を問う技術用語の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RPAは、ホワイトカラーの定型的な事務作業をソフトウェアで自動化する仕組みである。",
+          "promptContext": "技術用語の定義問題として判定した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "RPAの技術用語定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は、対象物をつかんで動かす産業用ロボットを説明している。",
+          "promptContext": "技術用語の定義問題として判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "産業用ロボットの定義に関する技術知識であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は、レーダー、GPS、カメラなどを用いる自動運転関連機器を説明している。",
+          "promptContext": "技術用語の定義問題として判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "自動運転関連機器の定義に関する技術知識であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は、人と同じ空間で生活を支援する生活支援ロボットを説明している。",
+          "promptContext": "技術用語の定義問題として判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "生活支援ロボットの定義に関する技術知識であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -607,33 +700,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nIPsec は IP パケットを別の IP パケットで包むトンネルモードを持ち、ネットワーク層パケットを対象にトンネリングできる。",
-      "間違い。\n\nL2TP は主に PPP フレームを扱う第 2 層トンネリングプロトコルであり、IP パケットそのものを IP で包む説明とは合わない。",
-      "間違い。\n\nPPTP も PPP をトンネルする第 2 層の仕組みである。",
-      "間違い。\n\nRSTP はスパニングツリープロトコルの高速化版であり、トンネリング用途のプロトコルではない。"
-    ],
-    "suggestedQuestions": [
-      "IPsec のトンネルモードとは何ですか？",
-      "L2TP や PPTP との違いは何ですか？",
-      "IPsec は実務で何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPsec のトンネルモードとは何ですか？",
-        "answer": "元の IP パケット全体を新しい IP ヘッダ付きパケットで包んで送る方式である。"
-      },
-      {
-        "question": "L2TP や PPTP との違いは何ですか？",
-        "answer": "L2TP や PPTP は PPP などの第 2 層を運ぶ用途が中心で、IPsec は IP 層での保護とトンネリングを行う。"
-      },
-      {
-        "question": "IPsec は実務で何に使いますか？",
-        "answer": "拠点間 VPN やリモートアクセス VPN で、通信内容の暗号化と認証に使う。"
-      }
+      "正しい。該当するのはIPsecである。IPsecのトンネルモードは、元のIPパケット全体を新しいIPヘッダで包み、ネットワーク層のパケットをIPでカプセル化して転送する。L2TPとPPTPは主にPPPフレームをトンネルするプロトコルであり、RSTPはネットワークのループを防ぐためのスパニングツリープロトコルで、トンネリングには使わない。"
     ],
     "original_question_id": "aafd4ff42bf45f7e",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:aafd4ff42bf45f7e",
+    "reviewQuestionId": "aafd4ff42bf45f7e",
+    "sourceRecordRef": "question_201902_2.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPsec、L2TP、PPTP、RSTPの機能を比較する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、現行法との差分はない。",
+          "displayRefIds": [],
+          "explanationText": "IPsecのトンネルモードはIPパケットをカプセル化する。",
+          "promptContext": "ネットワーク技術の機能比較として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、現行法との差分はない。",
+          "displayRefIds": [],
+          "explanationText": "L2TPは主にPPPフレームをトンネルするプロトコルである。",
+          "promptContext": "ネットワーク技術の機能比較として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、現行法との差分はない。",
+          "displayRefIds": [],
+          "explanationText": "PPTPは主にPPPフレームをトンネルするプロトコルである。",
+          "promptContext": "ネットワーク技術の機能比較として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外であり、現行法との差分はない。",
+          "displayRefIds": [],
+          "explanationText": "RSTPはネットワークのループを防ぐスパニングツリープロトコルであり、トンネリングには使わない。",
+          "promptContext": "ネットワーク技術の機能比較として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -802,92 +985,380 @@
   {
     "explanationText": [
       "間違い。\n\nスパニングツリープロトコルはデータリンク層で動作する。ネットワーク層のプロトコルではない。",
-      "間違い。\n\n複数経路を同時利用するのではなく、ループ防止のため一部経路をブロックして木構造を作る。",
-      "間違い。\n\nブロードキャストフレームを転送しないのではなく、ループによる無限増殖を防ぐことが主目的である。",
-      "正しい。\n\nルートブリッジはブリッジ ID の最小値で選ばれ、ブリッジ優先順位と MAC アドレスの組合せで決まる。"
-    ],
-    "suggestedQuestions": [
-      "STP の目的は何ですか？",
-      "ルートブリッジはどう選ばれますか？",
-      "RSTP との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "STP の目的は何ですか？",
-        "answer": "レイヤ 2 の冗長構成でループを防ぎ、ブロードキャストストームを避けることである。"
-      },
-      {
-        "question": "ルートブリッジはどう選ばれますか？",
-        "answer": "最も小さいブリッジ ID を持つ機器が選ばれ、ブリッジ ID は優先順位と MAC アドレスで構成される。"
-      },
-      {
-        "question": "RSTP との違いは何ですか？",
-        "answer": "RSTP は STP を高速収束化したもので、基本目的は同じだが遷移が速い。"
-      }
+      "間違い。\n\nスパニングツリープロトコルは、複数経路を同時に使用するためのプロトコルではない。ループを防ぐために一部の経路をブロックし、論理的に木構造となる経路だけを転送に使用する。選択肢は複数経路で同時にフレーム転送するとしているため誤りである。",
+      "間違い。\n\nブロードキャストフレームは、ループを構成しない有効な経路上ではブリッジ間を転送される。スパニングツリープロトコルの目的はブロードキャストフレームを転送しないことではなく、冗長経路によるフレームの無限循環や重複を防ぐことである。選択肢はブロードキャストフレームをブリッジ間で転送しないとしているため誤りである。",
+      "正しい。\n\nルートブリッジは、ブリッジIDが最小のブリッジに決まる。ブリッジIDはブリッジの優先順位とMACアドレスで構成され、まず優先順位、同じ場合はMACアドレスを比較する。"
     ],
     "original_question_id": "728b8bdd67e0c05d",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:728b8bdd67e0c05d",
+    "reviewQuestionId": "728b8bdd67e0c05d",
+    "sourceRecordRef": "question_201902_2.json#8",
+    "explanationReferences": [
+      {
+        "referenceDate": "1998-12-11",
+        "sourceUrl": "https://standards.ieee.org/ieee/896/1029/",
+        "title": "IEEE 802.1D-1998 IEEE Standard for Local Area Network MAC (Media Access Control) Bridges"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ネットワークプロトコルの仕様に基づく技術問題で、法令・制度上の義務、定義、手続又は基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時判定と現行法判定の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "技術仕様に基づく選択肢であり、法令根拠は正誤を直接決めない。",
+          "promptContext": "スパニングツリープロトコルはデータリンク層で動作する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSI基本参照モデルとスパニングツリープロトコルの動作層に関する技術判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時判定と現行法判定の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "技術仕様に基づく選択肢であり、法令根拠は正誤を直接決めない。",
+          "promptContext": "複数経路を同時に転送するのではなく、論理的な木構造を形成する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "スパニングツリープロトコルは冗長経路の一部をブロックしてループを防止する技術仕様に関する判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時判定と現行法判定の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "技術仕様に基づく選択肢であり、法令根拠は正誤を直接決めない。",
+          "promptContext": "有効なスパニングツリー上ではブロードキャストフレームは転送され、冗長経路による循環を防止する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ブロードキャストフレームの転送とループ防止に関する技術仕様の判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時判定と現行法判定の比較は不要である。",
+          "displayRefIds": [],
+          "explanationText": "技術仕様に基づく選択肢であり、法令根拠は正誤を直接決めない。",
+          "promptContext": "ブリッジIDはブリッジの優先順位とMACアドレスで構成され、最小のブリッジがルートブリッジになる。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ルートブリッジ選出に用いるブリッジIDの構成要素に関する技術仕様の判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nBGP-4 は AS 間で経路属性を交換し、ポリシーに基づいて経路を選ぶパスベクター型プロトコルである。",
-      "間違い。\n\n全ノードが同一リンク状態データベースを持つ説明は OSPF の特徴である。",
-      "間違い。\n\nホップ数最小で経路選択する説明は RIP 系に近い。",
-      "間違い。\n\n送信元が経路上のノードを明示するのはソースルーティングの説明であり、BGP-4 ではない。"
-    ],
-    "suggestedQuestions": [
-      "BGP-4 のパス属性とは何ですか？",
-      "OSPF と BGP の役割はどう違いますか？",
-      "ポリシーベース経路選択とは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BGP-4 のパス属性とは何ですか？",
-        "answer": "AS_PATH、LOCAL_PREF、MED など、経路選択に使う属性情報である。"
-      },
-      {
-        "question": "OSPF と BGP の役割はどう違いますか？",
-        "answer": "OSPF は主に AS 内、BGP は主に AS 間の経路制御を担当する。"
-      },
-      {
-        "question": "ポリシーベース経路選択とは何ですか？",
-        "answer": "単純な距離最小ではなく、運用方針や契約条件に応じて経路を選ぶことを指す。"
-      }
+      "正しい。BGP-4は自律システム（AS）間で経路情報を交換し、AS_PATHなどのパス属性と運用ポリシーに基づいて経路を選択するパスベクター方式のルーティングプロトコルである。",
+      "間違い。全ノードがリンク状態データベースを共有し、コストに基づいて経路を計算するのはOSPFなどのリンクステート方式である。選択肢はBGP-4をリンクステート方式としているため誤りである。",
+      "間違い。宛先までのホップ数を主な指標として経路を選ぶのはRIPの特徴である。選択肢はBGP-4をホップ数ベースの方式としているため誤りである。",
+      "間違い。送信元が経路上のノードを指定するのはソースルーティングである。BGP-4はAS間で経路情報を交換して経路を選択するプロトコルであり、選択肢はその役割をソースルーティングとしているため誤りである。"
     ],
     "original_question_id": "43744aa1f4562f67",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:43744aa1f4562f67",
+    "reviewQuestionId": "43744aa1f4562f67",
+    "sourceRecordRef": "question_201902_2.json#9",
+    "explanationReferences": [
+      {
+        "referenceDate": "2006-01-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4271",
+        "title": "RFC 4271: A Border Gateway Protocol 4 (BGP-4)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "BGP-4のパスベクター方式、パス属性及びポリシーに基づく経路選択を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はBGP-4のパスベクター方式、パス属性及びポリシーに基づく経路選択の説明として正しい。",
+          "promptContext": "技術問題の選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はリンクステート方式の説明であり、BGP-4の説明として誤り。",
+          "promptContext": "技術問題の選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はRIPのホップ数方式の説明であり、BGP-4の説明として誤り。",
+          "promptContext": "技術問題の選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はソースルーティングの説明であり、BGP-4の説明として誤り。",
+          "promptContext": "技術問題の選択肢別判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nCIDR はクラス A から C の固定境界に縛られず、任意長プレフィックスでアドレスを割り当てる方式である。",
-      "間違い。\n\nDHCP は IP アドレスなどを端末へ自動配布する仕組みであり、アドレス体系の区切り方そのものではない。",
-      "間違い。\n\nDNS は名前解決の仕組みであり、IP アドレス割当て方式ではない。",
-      "間違い。\n\nNAPT はアドレス変換技術であり、CIDR のような効率的割当て方式を指さない。"
-    ],
-    "suggestedQuestions": [
-      "CIDR の利点は何ですか？",
-      "プレフィックス長とは何ですか？",
-      "クラスフル方式の問題点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CIDR の利点は何ですか？",
-        "answer": "アドレス空間を細かく分配でき、経路集約にも使えて無駄を減らせる。"
-      },
-      {
-        "question": "プレフィックス長とは何ですか？",
-        "answer": "IP アドレスのうちネットワーク部として扱うビット数を示す値である。"
-      },
-      {
-        "question": "クラスフル方式の問題点は何ですか？",
-        "answer": "組織規模に合わない大きなブロックを割り当てやすく、アドレスを浪費しやすい。"
-      }
+      "正しい。該当する方式はCIDRである。CIDRは、クラスA～Cの固定的な区分を使わず、任意の長さのプレフィックスでネットワークアドレス部とホストアドレス部を分け、IPアドレスを効率的に割り当てる。DHCPはIPアドレスを端末へ自動配布する仕組み、DNSはドメイン名とIPアドレスを対応付ける仕組み、NAPTは複数の端末でグローバルIPアドレスを共有するためのアドレス変換技術であり、CIDRとは役割が異なる。"
     ],
     "original_question_id": "031db4ece640ad46",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:031db4ece640ad46",
+    "reviewQuestionId": "031db4ece640ad46",
+    "sourceRecordRef": "question_201902_2.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4アドレスの割当方式に関する技術問題で、法令・制度上の根拠を必要としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CIDRはクラスに依存しない可変長プレフィックスでアドレスを扱う方式である。",
+          "promptContext": "第1選択肢の完全命題を技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。CIDRの技術的定義で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DHCPはIPアドレスなどの設定を端末へ動的に配布する仕組みであり、アドレス割当て方式CIDRではない。",
+          "promptContext": "第2選択肢の完全命題を技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。DHCPの技術的役割で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DNSはドメイン名とIPアドレスなどを対応付けて名前解決を行う仕組みであり、アドレス割当て方式CIDRではない。",
+          "promptContext": "第3選択肢の完全命題を技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。DNSの技術的役割で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NAPTは複数の端末でグローバルIPアドレスを共有するためのアドレス変換技術であり、アドレス割当て方式CIDRではない。",
+          "promptContext": "第4選択肢の完全命題を技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。NAPTの技術的役割で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1011,153 +1482,652 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nNS レコードの先頭フィールドは対象となるドメイン名であり、ネームサーバ名を書く欄ではない。",
-      "正しい。\n\nサブドメインへ権限委譲する場合、そのサブドメインを担当するネームサーバを NS レコードで指定する。",
-      "間違い。\n\nRDATA にはゾーン名ではなく、権威を持つネームサーバの正規ホスト名を記述する。",
-      "間違い。\n\nRDATA に書けるのは正規ホスト名であり、CNAME のような別名を直接指定するのは不適切である。"
-    ],
-    "suggestedQuestions": [
-      "NS レコードの役割は何ですか？",
-      "権限委譲とは何ですか？",
-      "RDATA には何を書きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "NS レコードの役割は何ですか？",
-        "answer": "あるドメインやサブドメインを管理する権威 DNS サーバを示す。"
-      },
-      {
-        "question": "権限委譲とは何ですか？",
-        "answer": "親ドメインがサブドメインの名前解決責任を別のネームサーバ群へ委ねることをいう。"
-      },
-      {
-        "question": "RDATA には何を書きますか？",
-        "answer": "委譲先または権威を持つネームサーバの正規ホスト名を書く。"
-      }
+      "間違い。正しくは、先頭フィールドには、そのNSレコードが適用されるドメイン名を記述する。選択肢はネームサーバのホスト名を先頭フィールドに記述するとしているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、RDATAには権威を持つネームサーバの正規のホスト名を記述する。選択肢はゾーンのドメイン名をRDATAに記述するとしているため誤りである。",
+      "間違い。正しくは、RDATAにはネームサーバの正規のホスト名を記述する。選択肢は正規のホスト名と別名のいずれも記述できるとしているため誤りである。"
     ],
     "original_question_id": "1c740cf7a6e72840",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:1c740cf7a6e72840",
+    "reviewQuestionId": "1c740cf7a6e72840",
+    "sourceRecordRef": "question_201902_2.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSゾーンデータファイルのNSレコード仕様に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DNS仕様に基づく技術問題であり、法令根拠は使用しない。",
+          "promptContext": "NSレコードの先頭フィールド仕様を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DNS仕様に基づく技術問題であり、法令根拠は使用しない。",
+          "promptContext": "サブドメインへの権限委譲におけるNSレコードの指定を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DNS仕様に基づく技術問題であり、法令根拠は使用しない。",
+          "promptContext": "NSレコードのRDATAに記述する値を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DNS仕様に基づく技術問題であり、法令根拠は使用しない。",
+          "promptContext": "NSレコードのRDATAに正規ホスト名又は別名を記述できるかを判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nDATA はメール本文送信を始めるコマンドであり、セッション開始コマンドではない。",
-      "正しい。\n\nESMTP では EHLO がセッション開始を表す。サーバへ挨拶し、拡張機能一覧の応答を受け取る。",
-      "間違い。\n\nMAIL は送信者アドレス指定のコマンドであり、挨拶の後に使う。",
-      "間違い。\n\nRCPT は受信者アドレス指定のコマンドであり、セッション開始ではない。"
-    ],
-    "suggestedQuestions": [
-      "SMTP の基本コマンド順序はどうなりますか？",
-      "EHLO と HELO の違いは何ですか？",
-      "DATA はいつ使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SMTP の基本コマンド順序はどうなりますか？",
-        "answer": "EHLO または HELO、MAIL FROM、RCPT TO、DATA の順で進むのが基本である。"
-      },
-      {
-        "question": "EHLO と HELO の違いは何ですか？",
-        "answer": "EHLO は拡張 SMTP 用で、サーバの拡張機能を確認できる。HELO は従来 SMTP の挨拶である。"
-      },
-      {
-        "question": "DATA はいつ使いますか？",
-        "answer": "送信者と受信者を指定した後、メール本文とヘッダを送る段階で使う。"
-      }
+      "正しい。SMTP（ESMTPを含む）のセッション開始を表すコマンドはEHLOである。EHLOはクライアントがサーバへ挨拶し、ESMTPで利用できる拡張機能を確認するために使う。その後、MAILで送信者、RCPTで受信者、DATAでメール本文を指定するため、これらはセッション開始コマンドではない。"
     ],
     "original_question_id": "30dd24ebde3270c6",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:30dd24ebde3270c6",
+    "reviewQuestionId": "30dd24ebde3270c6",
+    "sourceRecordRef": "question_201902_2.json#13",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5321.html",
+        "title": "RFC 5321 Simple Mail Transfer Protocol"
+      }
+    ],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SMTP（ESMTPを含む）のセッション開始コマンドを問う技術問題で、法令・制度上の義務や基準を正誤判断に用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DATAはメール本文の送信段階で使用するコマンドであり、セッション開始コマンドではない。",
+          "promptContext": "SMTPコマンドの技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "EHLOはクライアントがサーバへセッション開始を通知し、ESMTP拡張機能を確認するためのコマンドである。",
+          "promptContext": "SMTPコマンドの技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "MAILは送信者情報を指定するコマンドであり、セッション開始コマンドではない。",
+          "promptContext": "SMTPコマンドの技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "RCPTは受信者情報を指定するコマンドであり、セッション開始コマンドではない。",
+          "promptContext": "SMTPコマンドの技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nRARP は MAC アドレスから IP アドレスを得る古い仕組みであり、デフォルトゲートウェイ冗長化には使わない。",
-      "間違い。\n\nRSTP はレイヤ 2 ループ防止のためのプロトコルである。",
-      "間違い。\n\nRTSP はストリーミング制御用プロトコルであり、ゲートウェイ障害回避とは無関係である。",
-      "正しい。\n\nVRRP は複数ルータで仮想ルータを構成し、クライアント設定を変えずにデフォルトゲートウェイの冗長化を実現する。"
-    ],
-    "suggestedQuestions": [
-      "VRRP はどう動作しますか？",
-      "HSRP との違いは何ですか？",
-      "なぜクライアント設定を変えずに済みますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "VRRP はどう動作しますか？",
-        "answer": "複数の実ルータが 1 つの仮想 IP と仮想 MAC を共有し、故障時は待機系が引き継ぐ。"
-      },
-      {
-        "question": "HSRP との違いは何ですか？",
-        "answer": "どちらも FHRP だが、VRRP は標準化された方式、HSRP は Cisco 独自方式として知られる。"
-      },
-      {
-        "question": "なぜクライアント設定を変えずに済みますか？",
-        "answer": "端末は常に仮想 IP をデフォルトゲートウェイとして使うため、背後の実ルータ交代を意識しない。"
-      }
+      "間違い。正しくは、RARPはMACアドレスからIPアドレスを求めるためのプロトコルである。選択肢はデフォルトゲートウェイの障害を回避するプロトコルとしているため誤りである。",
+      "間違い。正しくは、RSTPはネットワークのレイヤ2ループを防止するためのプロトコルである。選択肢はデフォルトゲートウェイの障害を回避するプロトコルとしているため誤りである。",
+      "間違い。正しくは、RTSPは音声や映像などのストリーミング配信を制御するためのプロトコルである。選択肢はデフォルトゲートウェイの障害を回避するプロトコルとしているため誤りである。",
+      "正しい。VRRPは複数のルータで仮想ルータを構成し、クライアントから見えるデフォルトゲートウェイを冗長化する。現用ルータに障害が発生すると、別のルータが仮想ルータの役割を引き継ぐため、クライアントの設定を変更せずに通信を継続できる。"
     ],
     "original_question_id": "26119f1767a212e6",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:26119f1767a212e6",
+    "reviewQuestionId": "26119f1767a212e6",
+    "sourceRecordRef": "question_201902_2.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RARP、RSTP、RTSP、VRRPの機能を比較する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RARPはMACアドレスからIPアドレスを求めるプロトコルであり、デフォルトゲートウェイ障害回避の機能はない。",
+          "promptContext": "選択肢1の技術機能判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令による判定ではなく、RARPの機能に基づく技術判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RSTPはレイヤ2ネットワークのループを防止するプロトコルであり、デフォルトゲートウェイ障害回避のプロトコルではない。",
+          "promptContext": "選択肢2の技術機能判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令による判定ではなく、RSTPの機能に基づく技術判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RTSPは音声や映像などのストリーミング配信を制御するプロトコルであり、デフォルトゲートウェイ障害回避のプロトコルではない。",
+          "promptContext": "選択肢3の技術機能判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令による判定ではなく、RTSPの機能に基づく技術判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "VRRPは複数のルータで仮想ルータを構成し、デフォルトゲートウェイを冗長化して障害時の切替を実現する。",
+          "promptContext": "選択肢4の技術機能判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令による判定ではなく、VRRPの機能に基づく技術判定である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nTCP のウィンドウサイズは固定ではなく、輻輳制御や受信側通知に応じて変化する。",
-      "間違い。\n\nフォワード誤り訂正は受信側で訂正可能な冗長情報を付加する方式であり、再送要求を前提としない。",
-      "正しい。\n\nウィンドウ制御では、確認応答を受けた分だけ送信窓を先へ進めることで、複数ブロックを連続送信できる。",
-      "間違い。\n\nデータグラム方式は通信路を事前確立しない。各パケットが個別に経路選択される。"
-    ],
-    "suggestedQuestions": [
-      "フロー制御と輻輳制御はどう違いますか？",
-      "ウィンドウ制御の基本は何ですか？",
-      "データグラム方式と仮想回線方式の違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フロー制御と輻輳制御はどう違いますか？",
-        "answer": "フロー制御は受信側の処理能力保護、輻輳制御はネットワーク全体の混雑抑制を目的とする。"
-      },
-      {
-        "question": "ウィンドウ制御の基本は何ですか？",
-        "answer": "ACK を待ち切らず一定数まで先行送信し、ACK 受信分だけ送信可能範囲を前へずらすことにある。"
-      },
-      {
-        "question": "データグラム方式と仮想回線方式の違いは何ですか？",
-        "answer": "前者は各パケットが独立して配送され、後者は論理的な経路を確立して転送する。"
-      }
+      "間違い。TCPは、輻輳ウィンドウや受信ウィンドウを用いて送信量を調整する。選択肢はウィンドウサイズが固定で輻輳回避ができないとしているため誤りである。",
+      "間違い。フォワード誤り訂正は、あらかじめ冗長な修復情報を付加し、受信側だけで誤りを訂正する方式である。選択肢は受信側が送信側へ再送を要求するとしているため誤りであり、その方式は再送制御に当たる。",
+      "正しい。送信可能な範囲をウィンドウで管理し、確認応答によってその範囲を先へ移動させるため、1ブロックずつ待たずに複数のデータを連続して送信できる。",
+      "間違い。データグラム方式は通信路を事前に確立しないコネクションレス方式で、各データグラムが個別に経路選択される。選択肢は仮想の通信路を確立して同じ経路を通すとしているため誤りである。"
     ],
     "original_question_id": "f30bf6600fdd2002",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:f30bf6600fdd2002",
+    "reviewQuestionId": "f30bf6600fdd2002",
+    "sourceRecordRef": "question_201902_2.json#15",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9293.html",
+        "title": "RFC 9293: Transmission Control Protocol (TCP)"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2354.html",
+        "title": "RFC 2354: Options for Repair of Streaming Media"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9293.html",
+        "title": "RFC 9293: Transmission Control Protocol (TCP)"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1122.html",
+        "title": "RFC 1122: Requirements for Internet Hosts -- Communication Layers"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TCPの輻輳制御、フォワード誤り訂正、ウィンドウ制御、データグラム方式に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPのウィンドウ制御と輻輳制御に関する技術判定であり、法令根拠は不要である。",
+          "promptContext": "TCPのウィンドウサイズと輻輳回避。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくTCPの技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フォワード誤り訂正と再送制御の違いに関する技術判定であり、法令根拠は不要である。",
+          "promptContext": "フォワード誤り訂正方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく誤り制御方式の技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ウィンドウ制御による複数データの連続送信に関する技術判定であり、法令根拠は不要である。",
+          "promptContext": "ウィンドウによるフロー制御。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくウィンドウ制御の技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データグラム方式がコネクションレスであることに関する技術判定であり、法令根拠は不要である。",
+          "promptContext": "データグラム方式と仮想通信路。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくデータグラム方式の技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nOpenFlow でコントローラとスイッチは TCP を利用して通信し、IP 直結ではない。",
-      "正しい。\n\nOpenFlow では信頼性確保のため TCP を使い、必要に応じて TLS によって機密性や認証も確保する。",
-      "間違い。\n\nファイバチャネル上の SCSI は SAN 向けの技術であり、OpenFlow の制御チャネルには使わない。",
-      "間違い。\n\nリアルタイム性を理由に UDP を使う仕様ではない。"
-    ],
-    "suggestedQuestions": [
-      "OpenFlow の制御プレーンはどう分離されますか？",
-      "なぜ TCP や TLS を使いますか？",
-      "SDN の利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OpenFlow の制御プレーンはどう分離されますか？",
-        "answer": "コントローラが制御プレーンを集中管理し、スイッチは転送プレーンとして動作する。"
-      },
-      {
-        "question": "なぜ TCP や TLS を使いますか？",
-        "answer": "制御メッセージの確実な配送や認証、暗号化が必要だからである。"
-      },
-      {
-        "question": "SDN の利点は何ですか？",
-        "answer": "ネットワーク制御を集中化し、自動化やポリシー一元管理をしやすくする。"
-      }
+      "間違い。正しくは、OpenFlowの制御チャネルはTCP又はTLSで構成する。選択肢はUDPやTCPを使わずIPを直接使用するとしているため誤りである。",
+      "正しい。OpenFlowの制御チャネルにはTCPを使用し、TLSを使用する構成では通信の暗号化や相互認証も行える。",
+      "間違い。正しくは、OpenFlowの制御チャネルはTCP又はTLSで構成する。選択肢はSANで利用されるファイバチャネル上のSCSIを使用するとしているため誤りである。",
+      "間違い。正しくは、OpenFlowの制御チャネルはリアルタイム性を理由にUDPを使用するのではなく、TCP又はTLSで構成する。選択肢はリアルタイム性を理由にUDPを使用するとしているため誤りである。"
     ],
     "original_question_id": "e461bc4211a6cb73",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:e461bc4211a6cb73",
+    "reviewQuestionId": "e461bc4211a6cb73",
+    "sourceRecordRef": "question_201902_2.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2013-12-18",
+        "sourceUrl": "https://opennetworking.org/wp-content/uploads/2014/10/openflow-spec-v1.3.3.pdf",
+        "title": "OpenFlow Switch Specification Version 1.3.3"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OpenFlow、TCP、TLS、UDPなどの通信技術仕様で判断する問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はOpenFlowの通信仕様で判断し、法令根拠を必要としない。",
+          "promptContext": "OpenFlow制御チャネルに関する技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づくため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はOpenFlowの制御チャネルにTCPやTLSを使用する技術仕様で判断し、法令根拠を必要としない。",
+          "promptContext": "OpenFlow制御チャネルに関する技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様に基づくため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はOpenFlowの通信仕様で判断し、法令根拠を必要としない。",
+          "promptContext": "OpenFlow制御チャネルに関する技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づくため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はOpenFlowの通信仕様で判断し、法令根拠を必要としない。",
+          "promptContext": "OpenFlow制御チャネルに関する技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づくため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1281,153 +2251,621 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCSS はスタイルシートであり、HTTP で更新操作を定義するプロトコルではない。",
-      "間違い。\n\nMIME はデータ形式を表すための拡張であり、アップロード操作そのものではない。",
-      "間違い。\n\nSSL は通信暗号化の仕組みであり、Web コンテンツ更新プロトコルではない。",
-      "正しい。\n\nWebDAV は HTTP を拡張して、ファイルの作成、更新、削除、共同編集に必要なメソッドを提供する。"
-    ],
-    "suggestedQuestions": [
-      "WebDAV は HTTP をどう拡張しますか？",
-      "どんな場面で使われますか？",
-      "MIME や SSL と何が違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "WebDAV は HTTP をどう拡張しますか？",
-        "answer": "PUT、DELETE、PROPFIND などを使い、Web 上の資源管理を行いやすくする。"
-      },
-      {
-        "question": "どんな場面で使われますか？",
-        "answer": "Web サーバ上のコンテンツ管理や共有ストレージのような用途で使われる。"
-      },
-      {
-        "question": "MIME や SSL と何が違いますか？",
-        "answer": "MIME はデータ表現、SSL/TLS は暗号化、WebDAV はリソース操作のための拡張である。"
-      }
+      "正しい。WebDAVはHTTPを拡張したプロトコルで、Webサーバ上のファイルやコンテンツの作成、アップロード、更新、削除などを行える。"
     ],
     "original_question_id": "74e31994c6bb356b",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:74e31994c6bb356b",
+    "reviewQuestionId": "74e31994c6bb356b",
+    "sourceRecordRef": "question_201902_2.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "HTTPを利用したWebコンテンツのアップロード・更新を可能にするプロトコルを問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CSSはWebページのスタイルを定義する技術であり、Webサーバのコンテンツをアップロード・更新するプロトコルではない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠を要しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MIMEはデータの種類を示す方式であり、Webサーバのコンテンツをアップロード・更新するプロトコルではない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠を要しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SSLは通信の暗号化や認証に用いる仕組みであり、Webサーバのコンテンツをアップロード・更新するプロトコルではない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠を要しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "WebDAVはHTTPを拡張し、Webサーバ上のファイルやコンテンツの作成、アップロード、更新、削除などを可能にする。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠を要しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nBLE は従来 Bluetooth と互換性を保つ 5GHz 拡張ではなく、主に 2.4GHz 帯を用いる低消費電力通信である。",
-      "間違い。\n\nIEEE 802.11ac は 5GHz 帯の無線 LAN 規格であり、920MHz 帯を使う IoT 規格ではない。",
-      "正しい。\n\nWi-SUN は 920MHz 帯などを用いた低消費電力広域ネットワーク向けで、マルチホップにより長距離通信を実現できる。",
-      "間違い。\n\n一つの親ノードに最大 7 子ノードという説明は Bluetooth のピコネットに近く、ZigBee の説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "Wi-SUN の特徴は何ですか？",
-      "BLE や ZigBee とどう違いますか？",
-      "なぜ 920MHz 帯が使われますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "Wi-SUN の特徴は何ですか？",
-        "answer": "低消費電力、比較的長距離、マルチホップ対応が特徴で、スマートメータなどで使われる。"
-      },
-      {
-        "question": "BLE や ZigBee とどう違いますか？",
-        "answer": "BLE は近距離機器連携、ZigBee も低電力メッシュ向け、Wi-SUN はより広域な IoT 通信に向く。"
-      },
-      {
-        "question": "なぜ 920MHz 帯が使われますか？",
-        "answer": "障害物回り込みや到達距離の面で有利で、屋外 IoT に向きやすいからである。"
-      }
+      "間違い。BLEは主に2.4GHz帯を用いる低消費電力通信であり、5GHz帯を使用する拡張ではない。選択肢は5GHz帯を使用するとしているため誤りである。",
+      "間違い。IEEE 802.11acは5GHz帯を使用する無線LAN規格であり、920MHz帯を使う規格ではない。選択肢は920MHz帯が割り当てられているとしているため誤りである。",
+      "正しい。",
+      "間違い。ZigBeeはスター型だけでなく、ツリー型やメッシュ型も構成できる。選択肢は、一つの親ノードに最大7個の子ノードを配置するBluetoothのピコネットに近い説明をZigBeeの特徴としているため誤りである。"
     ],
     "original_question_id": "bbf1ede83811cc5f",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:bbf1ede83811cc5f",
+    "reviewQuestionId": "bbf1ede83811cc5f",
+    "sourceRecordRef": "question_201902_2.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "BLE、IEEE 802.11ac、Wi-SUN、ZigBeeの通信方式・周波数・到達距離・ネットワーク構成を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "BLEの主な使用周波数に関する技術知識で判定した。",
+          "promptContext": "無線通信方式の技術仕様を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.11acの使用周波数に関する技術知識で判定した。",
+          "promptContext": "無線LAN規格の技術仕様を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Wi-SUNのマルチホップ通信に関する技術知識で判定した。",
+          "promptContext": "無線通信方式の到達距離とネットワーク構成を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ZigBeeのネットワーク構成に関する技術知識で判定した。",
+          "promptContext": "無線通信方式のネットワーク構成を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n総当たりで鍵候補を試すのはブルートフォース攻撃の説明であり、ダウングレード攻撃ではない。",
-      "間違い。\n\nサーバ証明書を失効させる操作はダウングレード攻撃の本質ではない。",
-      "間違い。\n\nブラウザのバージョン自体を古くすることではなく、通信時に古い方式や弱い暗号へ誘導することが問題である。",
-      "正しい。\n\nダウングレード攻撃は、通信確立時に弱い暗号スイートや古いプロトコル版を使わせ、攻撃しやすい状態へ落とす攻撃である。"
-    ],
-    "suggestedQuestions": [
-      "ダウングレード攻撃は何を狙いますか？",
-      "なぜ弱い暗号スイートが危険ですか？",
-      "防止策は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ダウングレード攻撃は何を狙いますか？",
-        "answer": "本来より弱い暗号方式や古い TLS 版へ誘導し、解読や改ざんをしやすくすることを狙う。"
-      },
-      {
-        "question": "なぜ弱い暗号スイートが危険ですか？",
-        "answer": "既知の脆弱性や計算量の少なさから、通信内容の保護強度が下がるためである。"
-      },
-      {
-        "question": "防止策は何ですか？",
-        "answer": "古い SSL/TLS を無効化し、強い暗号スイートのみ許可し、適切な実装更新を維持する。"
-      }
+      "間違い。総当たりで鍵候補を試して通信を解読するのは、ブルートフォース攻撃である。選択肢は鍵候補の探索による解読を説明しているため、通信方式を弱いものへ変更させるダウングレード攻撃には当たらない。",
+      "間違い。サーバのデジタル証明書を失効させる操作は、証明書の有効性を妨げる攻撃であり、ダウングレード攻撃ではない。選択肢は証明書の失効を説明しているため誤りである。",
+      "間違い。ダウングレード攻撃では、Webブラウザ自体を古いバージョンへ変更するのではなく、通信で古いプロトコルや弱い暗号スイートを使わせる。選択肢はブラウザのバージョン変更を説明しているため誤りである。",
+      "正しい。ダウングレード攻撃は、通信の確立時に本来利用できる強い暗号スイートや新しいプロトコル版ではなく、弱い暗号や古い方式を使わせる攻撃である。"
     ],
     "original_question_id": "57c4ac2ff211bbc0",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:57c4ac2ff211bbc0",
+    "reviewQuestionId": "57c4ac2ff211bbc0",
+    "sourceRecordRef": "question_201902_2.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SSL/TLSの暗号スイートや攻撃手法に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の法令差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "鍵候補の総当たりによる解読はブルートフォース攻撃であり、SSL/TLSのダウングレード攻撃ではない。",
+          "promptContext": "SSL/TLS攻撃手法の技術知識に基づく判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SSL/TLSの技術知識で正誤を判定でき、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の法令差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "デジタル証明書の失効操作は、SSL/TLSのダウングレード攻撃ではない。",
+          "promptContext": "SSL/TLS攻撃手法の技術知識に基づく判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SSL/TLSの技術知識で正誤を判定でき、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の法令差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "ダウングレード攻撃はブラウザのバージョン変更ではなく、古いプロトコルや弱い暗号スイートを使わせる攻撃である。",
+          "promptContext": "SSL/TLS攻撃手法の技術知識に基づく判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SSL/TLSの技術知識で正誤を判定でき、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の法令差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "通信確立時に弱い暗号スイートや古い方式を使わせることは、SSL/TLSのダウングレード攻撃に該当する。",
+          "promptContext": "SSL/TLS攻撃手法の技術知識に基づく判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "SSL/TLSの技術知識で正誤を判定でき、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n有効期間の制御は Expires や Max-Age に関するものであり、Secure 属性の働きではない。",
-      "間違い。\n\nJavaScript からの読出し禁止は HttpOnly 属性の役割である。",
-      "正しい。\n\nSecure 属性を付けた Cookie は HTTPS 接続時だけブラウザから送信される。HTTP では送出されない。",
-      "間違い。\n\nパスの前方一致で送出範囲を決めるのは Path 属性の役割である。"
-    ],
-    "suggestedQuestions": [
-      "Secure 属性の目的は何ですか？",
-      "HttpOnly や Path との違いは何ですか？",
-      "Cookie 属性はどう使い分けますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "Secure 属性の目的は何ですか？",
-        "answer": "Cookie が平文 HTTP に乗って漏えいしないよう、HTTPS 送信時に限定することにある。"
-      },
-      {
-        "question": "HttpOnly や Path との違いは何ですか？",
-        "answer": "HttpOnly は JavaScript からの参照防止、Path は送信対象 URL 範囲の指定である。"
-      },
-      {
-        "question": "Cookie 属性はどう使い分けますか？",
-        "answer": "Secure、HttpOnly、SameSite などを組み合わせ、盗聴、XSS、CSRF のリスクを下げる。"
-      }
+      "間違い。Secure属性を設定してもCookieの有効期間は変わらない。有効期間の制御はExpires属性やMax-Age属性が行うため、選択肢はSecure属性の働きと異なる。",
+      "間違い。Secure属性を設定してもJavaScriptによるCookieの読出しは制限されない。JavaScriptからの読出しを禁止するのはHttpOnly属性である。",
+      "正しい。Secure属性を付けたCookieは、HTTPSなどの安全な接続でだけブラウザから送信される。",
+      "間違い。Secure属性を設定しても、URLのパスに関する送出条件は変わらない。Cookieを送信するパスの範囲を決めるのはPath属性であるため、選択肢はSecure属性の設定による動作ではない。"
     ],
     "original_question_id": "22fec0bdf8622943",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:22fec0bdf8622943",
+    "reviewQuestionId": "22fec0bdf8622943",
+    "sourceRecordRef": "question_201902_2.json#21",
+    "explanationReferences": [
+      {
+        "referenceDate": "2011-04-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6265.html",
+        "title": "RFC 6265: HTTP State Management Mechanism"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令根拠を用いず、CookieのSecure属性と他属性の役割に基づいて判定する技術問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "有効期間はExpires属性又はMax-Age属性が制御するため、この選択肢はSecure属性の説明として誤りである。",
+          "promptContext": "Cookie属性の技術仕様を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "Secure属性はCookieの有効期間を制御しない。技術仕様に基づき出題時と現行の判定を同じとした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "JavaScriptからのCookie読出しを禁止するのはHttpOnly属性であり、Secure属性ではないため、この選択肢は誤りである。",
+          "promptContext": "Cookie属性の技術仕様を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "JavaScriptによるCookie読出しの制限はHttpOnly属性が担う。技術仕様に基づき出題時と現行の判定を同じとした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Secure属性は安全な接続でのみCookieを送信させるため、この選択肢は正しい。",
+          "promptContext": "Cookie属性の技術仕様を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "Secure属性を付けたCookieはHTTPSなどの安全な接続で送信される。技術仕様に基づき出題時と現行の判定を同じとした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "URLのパスに関するCookie送信条件を決めるのはPath属性であり、Secure属性ではないため、この選択肢は誤りである。",
+          "promptContext": "Cookie属性の技術仕様を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "Cookieのパス範囲はPath属性が制御する。技術仕様に基づき出題時と現行の判定を同じとした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nダークネットで送信元 A:80 の SYN/ACK を大量観測したなら、A の Web サービスへ送られた SYN に対する応答が未使用アドレス群へ返ってきたと考えられる。つまり攻撃対象は A であり、送信元を偽装したサービス妨害攻撃が推定できる。",
-      "間違い。\n\nパスワードリスト攻撃なら認証要求やアプリケーション応答が中心になる。SYN/ACK の大量観測とは結び付きにくい。",
-      "間違い。\n\nA が攻撃元なら、ダークネットへ返ってくる SYN/ACK の説明にならない。A が受け取った偽装 SYN に対し応答していると考えるのが自然である。",
-      "間違い。\n\n送信元ポート 80 の SYN/ACK 観測からは、パスワードリスト攻撃よりも TCP 接続開始を悪用した妨害攻撃を疑うべきである。"
-    ],
-    "suggestedQuestions": [
-      "ダークネット観測で何が分かりますか？",
-      "なぜ攻撃元偽装と考えられますか？",
-      "SYN/ACK が大量に来る典型例は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ダークネット観測で何が分かりますか？",
-        "answer": "本来通信がない未使用アドレス空間へのパケットを観測し、スキャンや偽装攻撃の兆候を推定できる。"
-      },
-      {
-        "question": "なぜ攻撃元偽装と考えられますか？",
-        "answer": "被害サーバ A が、偽装された送信元 IP へ SYN/ACK を返すため、無関係なダークネットに応答が飛び込むからである。"
-      },
-      {
-        "question": "SYN/ACK が大量に来る典型例は何ですか？",
-        "answer": "送信元 IP を偽装した SYN flood や、その応答が第三者へ飛ぶような攻撃で見られる。"
-      }
+      "正しい。ダークネットは通常使われていないIPアドレス空間である。そこへAの80/tcpからSYN/ACKが大量に届くのは、Aへ送られたSYNの送信元IPアドレスが偽装され、Aからの応答がダークネットへ返っているためと考えられる。この通信の流れは、Aを攻撃先とするSYNフラッドなどのサービス妨害攻撃に該当する。",
+      "間違い。正しくは、Aを攻撃先とするサービス妨害攻撃である。パスワードリスト攻撃では、盗用した認証情報によるログイン試行など、認証処理に関する通信が中心になる。選択肢はパスワードリスト攻撃としているため誤りである。",
+      "間違い。正しくは、IPアドレスAを攻撃先とするサービス妨害攻撃である。Aの80/tcpからSYN/ACKが返っていることは、Aが攻撃を受けて応答していることを示し、Aが攻撃元であることを示さない。選択肢はAを攻撃元としているため誤りである。",
+      "間違い。正しくは、Aを攻撃先とするサービス妨害攻撃である。SYN/ACKはTCP接続開始に対する応答であり、観測された通信からパスワードリスト攻撃を示す認証試行は読み取れない。選択肢はAを攻撃元とするパスワードリスト攻撃としているため誤りである。"
     ],
     "original_question_id": "fcb9780e1dc67974",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:fcb9780e1dc67974",
+    "reviewQuestionId": "fcb9780e1dc67974",
+    "sourceRecordRef": "question_201902_2.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ダークネットで観測したSYN/ACKパケットから攻撃の方向と種別を推定する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ダークネットへAの80/tcpからSYN/ACKが大量に届くため、Aを攻撃先とするサービス妨害攻撃と判断する。",
+          "promptContext": "通信方向とSYN/ACKの意味を判定した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術内容のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "観測内容は認証情報を用いるパスワードリスト攻撃ではなく、Aを攻撃先とするサービス妨害攻撃を示す。",
+          "promptContext": "攻撃種別を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Aの80/tcpからSYN/ACKが返ることは、Aが攻撃を受けて応答していることを示し、Aが攻撃元であることを示さない。",
+          "promptContext": "通信の攻撃方向を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SYN/ACKの観測からパスワードリスト攻撃は判断できず、Aを攻撃元とする根拠もない。",
+          "promptContext": "攻撃方向と攻撃種別を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術内容のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

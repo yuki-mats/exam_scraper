@@ -1,63 +1,249 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nDNSリフレクタ攻撃では、外部から利用可能な再帰問い合わせサーバが踏み台に悪用される。権威DNSサーバとキャッシュDNSサーバを分離し、インターネット側からキャッシュDNSサーバへ再帰問い合わせできないようにすれば、攻撃に使われにくくなる。",
-      "間違い。\n\nWhois データベースの確認は、再帰問い合わせの悪用防止策にはならない。攻撃者は実在ドメインに対する問い合わせでも踏み台化できるため、公開キャッシュサーバを閉じる対策が本質である。",
-      "間違い。\n\n一つの名前に複数IPアドレスを割り当てるのは DNS ラウンドロビンによる負荷分散の説明であり、DNS リフレクタ攻撃の踏み台防止策ではない。",
-      "間違い。\n\nデジタル署名で応答の真正性を確認する設定は DNSSEC に関する対策であり、主にキャッシュポイズニング対策である。再帰問い合わせサーバを外部公開しない対策とは別である。"
-    ],
-    "suggestedQuestions": [
-      "DNSリフレクタ攻撃はなぜ踏み台サーバを必要とするのですか？",
-      "DNSSEC と DNSリフレクタ対策の違いは何ですか？",
-      "キャッシュDNSサーバを公開しない設計はなぜ有効ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DNSリフレクタ攻撃はなぜ踏み台サーバを必要とするのですか？",
-        "answer": "攻撃者は送信元IPアドレスを被害者に偽装して多数のDNSサーバへ問い合わせ、DNSサーバから被害者へ大量応答を返させることで攻撃トラフィックを増幅するからである。"
-      },
-      {
-        "question": "DNSSEC と DNSリフレクタ対策の違いは何ですか？",
-        "answer": "DNSSEC はDNS応答の真正性検証により改ざんやなりすましを防ぐ仕組みで、DNSリフレクタ対策は再帰問い合わせを悪用されないよう公開キャッシュDNSサーバを閉じることが中心である。"
-      },
-      {
-        "question": "キャッシュDNSサーバを公開しない設計はなぜ有効ですか？",
-        "answer": "外部の不特定利用者が再帰問い合わせできなければ、攻撃者はそのサーバを増幅器として利用できないためである。"
-      }
+      "正しい。DNSリフレクタ攻撃では、インターネットから利用できる再帰問い合わせサーバが応答を返す踏み台として悪用される。権威DNSサーバとキャッシュDNSサーバを分離し、外部からキャッシュDNSサーバへの再帰問い合わせを受け付けない構成にすれば、踏み台にされにくくなる。",
+      "間違い。Whoisデータベースでドメイン情報を確認しても、DNSサーバが外部から再帰問い合わせを受け付ける状態は変わらない。DNSリフレクタ攻撃の防止には、外部からの再帰問い合わせを制限する必要がある。",
+      "間違い。一つのDNSレコードに複数のIPアドレスを設定してアクセス先を分散する方法は、DNSラウンドロビンによる負荷分散である。DNSサーバを攻撃の踏み台にされないための、再帰問い合わせの制限にはならない。",
+      "間違い。デジタル署名でDNS情報の正当性を確認する設定は、DNSSECによって偽のDNS応答を見抜くための対策である。DNSリフレクタ攻撃を防ぐには、DNSSECとは別に、外部からの再帰問い合わせを制限しなければならない。"
     ],
     "original_question_id": "fb573c47eb89e9b6",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:fb573c47eb89e9b6",
+    "reviewQuestionId": "fb573c47eb89e9b6",
+    "sourceRecordRef": "question_202201_3.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSの再帰問い合わせ制御やサーバ構成に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DNSの再帰問い合わせ制御に関する技術判断であり、法令根拠を要しない。",
+          "promptContext": "第1選択肢を技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "Whois確認ではDNSサーバの再帰問い合わせ制御は変わらないという技術判断であり、法令根拠を要しない。",
+          "promptContext": "第2選択肢を技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DNSラウンドロビンは負荷分散の仕組みであり、再帰問い合わせ制限ではないという技術判断である。",
+          "promptContext": "第3選択肢を技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "DNSSECはDNS情報の真正性確認に関する技術であり、再帰問い合わせ制限とは別の対策である。",
+          "promptContext": "第4選択肢を技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n極低温環境で量子ゲートを用いて汎用演算を行う説明は、量子ゲート方式の量子コンピュータに近い。量子アニーリング方式は、最適化問題を解くことに特化した別方式である。",
-      "間違い。\n\n量子アニーリング方式は、従来CPUのように命令を逐次実行して汎用計算する仕組みではない。評価関数を最小化する形へ問題を写像して解を求める。",
-      "間違い。\n\n同一演算を多数データへ高速に適用する説明だけでは量子アニーリング方式の本質を表していない。量子アニーリングは組合せ最適化問題に特化する。",
-      "正しい。\n\n量子アニーリング方式の量子コンピュータは、膨大な候補の中から評価関数が最小または最大になる解を探索する最適化問題に強みを持つ。"
-    ],
-    "suggestedQuestions": [
-      "量子アニーリング方式はどんな問題に向いていますか？",
-      "量子ゲート方式との違いは何ですか？",
-      "なぜ最適化問題に特化していると言えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "量子アニーリング方式はどんな問題に向いていますか？",
-        "answer": "多数の候補から最良の組合せを選ぶような組合せ最適化問題に向いている。"
-      },
-      {
-        "question": "量子ゲート方式との違いは何ですか？",
-        "answer": "量子ゲート方式は量子回路を組んでより汎用的な量子計算を目指すのに対し、量子アニーリング方式は最適化問題を解くことへ用途を絞っている。"
-      },
-      {
-        "question": "なぜ最適化問題に特化していると言えますか？",
-        "answer": "問題をエネルギー最小化の形へ写像し、より低い状態へ遷移させて良い解を探索する動作原理だからである。"
-      }
+      "間違い。量子アニーリング方式は、量子ゲートを順に操作して汎用的な演算を行う方式ではなく、量子ゆらぎを利用して最適化問題の解を探索する方式である。選択肢は量子ゲート方式の説明に当たるため誤りである。",
+      "間違い。量子アニーリング方式は、従来のCPUのように命令を逐次実行して、任意の処理を記憶・制御する汎用計算機ではない。最適化問題を評価関数として表し、その値が小さくなる解を探索する。選択肢はCPUのような汎用的な命令実行を示しているため誤りである。",
+      "間違い。量子アニーリング方式は、複数のデータへ同じ演算を一括して適用する方式ではなく、組合せ最適化問題の解を探索する方式である。選択肢は量子アニーリングの主な用途である最適化問題を示していないため誤りである。",
+      "正しい。量子アニーリング方式は、組合せ最適化問題を評価関数の最小化などに写像し、膨大な候補の中からよりよい解を探索することに特化している。"
     ],
     "original_question_id": "4927ab4e4e4114df",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:4927ab4e4e4114df",
+    "reviewQuestionId": "4927ab4e4e4114df",
+    "sourceRecordRef": "question_202201_3.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "量子コンピュータの方式と適用アルゴリズムに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "量子ゲート方式ではなく、量子アニーリング方式の特徴に関する技術知識で判定する。",
+          "promptContext": "第1選択肢の技術内容を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "量子アニーリング方式は従来CPUのような汎用命令実行方式ではないため、技術知識で判定する。",
+          "promptContext": "第2選択肢の技術内容を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "複数データへの同一演算ではなく、組合せ最適化問題の解探索に特化する方式であるため、技術知識で判定する。",
+          "promptContext": "第3選択肢の技術内容を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "量子アニーリング方式は組合せ最適化問題の解探索に特化するため、技術知識で判定する。",
+          "promptContext": "第4選択肢の技術内容を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

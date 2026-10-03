@@ -367,93 +367,423 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n定額法の年間減価償却費は 800÷5=160 千円で、3 年後の帳簿価額は 800-160×3=320 千円。115 千円で売却すると売却損は 320-115=205 千円である。",
-      "間違い。\n\n帳簿価額 320 千円まではよいが、売却損はそこから売却額 115 千円を引いた 205 千円である。229 千円にはならない。",
-      "間違い。\n\n減価償却額または帳簿価額の計算を誤っている。3 年後の帳簿価額は 253 千円ではなく 320 千円である。",
-      "間違い。\n\n320 千円は 3 年後の帳簿価額であり、売却損ではない。"
-    ],
-    "suggestedQuestions": [
-      "定額法の減価償却費はどう求めますか？",
-      "帳簿価額とは何ですか？",
-      "売却損はどのように計算しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "定額法の減価償却費はどう求めますか？",
-        "answer": "取得価額から残存価額を引き、耐用年数で割って毎期同額を費用化する。"
-      },
-      {
-        "question": "帳簿価額とは何ですか？",
-        "answer": "取得価額から累計減価償却額を差し引いた、会計帳簿上の資産価値である。"
-      },
-      {
-        "question": "売却損はどのように計算しますか？",
-        "answer": "売却時の帳簿価額が売却価額を上回るとき、その差額が固定資産売却損となる。"
-      }
+      "正しい。定額法の年間減価償却費は、取得価額を耐用年数で割って求める。\n\n\\[800÷5=160\\text{千円}\\]\n\n3年間の減価償却累計額は \\(160×3=480\\)千円なので、売却時の帳簿価額は \\(800-480=320\\)千円である。売却損は、帳簿価額から売却額を引いて求める。\n\n\\[320-115=205\\text{千円}\\]\n\nしたがって、固定資産売却損は205千円である。"
     ],
     "original_question_id": "72cdeeec9ed0f8b6",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_29.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:72cdeeec9ed0f8b6",
+    "reviewQuestionId": "72cdeeec9ed0f8b6",
+    "sourceRecordRef": "question_201302_2.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "減価償却費、帳簿価額及び売却損を計算する会計・簿記の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "定額法による減価償却費、帳簿価額及び売却損の計算で判定できる。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "会計・簿記の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "定額法による減価償却費、帳簿価額及び売却損の計算で判定できる。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "会計・簿記の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "定額法による減価償却費、帳簿価額及び売却損の計算で判定できる。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "会計・簿記の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "定額法による減価償却費、帳簿価額及び売却損の計算で判定できる。",
+          "promptContext": "技術・計算問題として確認。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "会計・簿記の計算問題であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n個人の趣味サイトでも公開は私的使用の範囲を超えるため、他人の著作物を無断掲載すれば著作権侵害となり得る。",
-      "間違い。\n\nフリーウェアとして公開しても著作権は消えず、著作権法による保護対象のままである。",
-      "間違い。\n\nシェアウェアの試用期間終了後の利用条件違反の問題であり、試用中に作成したデータ掲載が直ちに著作権侵害となる説明ではない。",
-      "正しい。\n\nURL の選択や配列、簡単なコメント付けに創作性があれば、リンク集も編集著作物などとして著作権法上保護され得る。"
-    ],
-    "suggestedQuestions": [
-      "私的使用の範囲はどこまでですか？",
-      "フリーウェアでも著作権は残りますか？",
-      "リンク集が保護されるのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "私的使用の範囲はどこまでですか？",
-        "answer": "自分や家庭内など限られた範囲の利用にとどまり、不特定多数へ公開する行為は含まれない。"
-      },
-      {
-        "question": "フリーウェアでも著作権は残りますか？",
-        "answer": "無償配布かどうかに関係なく、著作者の権利は原則として存続する。"
-      },
-      {
-        "question": "リンク集が保護されるのはなぜですか？",
-        "answer": "単なる事実の羅列でも、選択や配列、付随コメントに創作性があれば著作物性が認められるためである。"
-      }
+      "間違い。個人の趣味サイトでも、Webページへの掲載は公衆に向けた送信に当たり、個人や家庭内などに限った私的使用の範囲を超える。著作権法第30条は私的使用を目的とする複製の例外を定めるものであり、Web公開まで許すものではなく、同法第23条の公衆送信に関する権利も及ぶ。選択肢は、公開による利用まで私的使用に含めて著作権侵害にならないとしているため誤りである。",
+      "間違い。フリーウェアとして公開しても、作成したプログラムの著作権は失われない。著作権法第10条第1項第9号はプログラムの著作物を保護対象としており、無償配布は著作権を放棄したことを意味しない。選択肢は、フリーウェアになると著作権法の保護対象外になるとしているため誤りである。",
+      "間違い。シェアウェアは、試用期間や利用方法などの許諾条件に従って使用する必要がある。ただし、試用期間終了後にそのソフトウェアで作成したデータをWebページへ掲載することが、直ちに著作権侵害になるとは限らない。著作権法第63条第1項及び第2項は、許諾の範囲と条件に従った利用を定めている。選択肢は、利用条件に反する可能性があることを著作権侵害と断定しているため誤りである。",
+      "正しい。URLの選択や配列、コメントの付け方に創作性があるリンク集は、素材の選択又は配列によって創作性を有する編集著作物として保護される。著作権法第12条第1項がこの扱いを定めている。"
     ],
     "original_question_id": "93ee519552ed4a29",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_30.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201302:93ee519552ed4a29",
+    "reviewQuestionId": "93ee519552ed4a29",
+    "sourceRecordRef": "question_201302_2.json#4",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC0000000048?asof=2026-10-04",
+        "title": "著作権法（e-Gov法令検索）"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "Web公開の私的使用該当性、プログラムの著作物性、シェアウェアの許諾条件、リンク集の編集著作物性を、著作権法第30条・第23条、第10条第1項第9号、第63条、第12条第1項に基づいて確認した。",
+    "lawReferences": [
+      [
+        {
+          "article": "30第1項・23第1項",
+          "choiceIndex": 0,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "10第1項第9号",
+          "choiceIndex": 1,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "63第1項・第2項",
+          "choiceIndex": 2,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "12第1項",
+          "choiceIndex": 3,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第30条の私的使用は限られた範囲での複製に関する例外であり、Web公開を当然に許すものではない。第23条の公衆送信に関する権利も確認した。",
+          "promptContext": "個人の趣味サイトへの無断掲載が私的使用に当たるかを確認した。",
+          "refs": [],
+          "verdict": "第1肢は現行法上も間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceに試験時点本文はなく、公式元正答の選択肢4を出題時判定として保持した。条文本文が不変だったとは記録しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第10条第1項第9号はプログラムの著作物を例示しており、フリーウェアとして公開しても著作権法の保護対象から外れない。",
+          "promptContext": "フリーウェアとして公開したプログラムの著作物性を確認した。",
+          "refs": [],
+          "verdict": "第2肢は現行法上も間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceに試験時点本文はなく、公式元正答の選択肢4を出題時判定として保持した。条文本文が不変だったとは記録しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第63条第1項及び第2項は、著作物の利用許諾と、許諾に係る利用方法及び条件の範囲を定めている。試用期間終了後のデータ掲載が直ちに著作権侵害になるとは断定できない。",
+          "promptContext": "シェアウェアの試用期間終了後に作成データを掲載する行為を確認した。",
+          "refs": [],
+          "verdict": "第3肢は現行法上も間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceに試験時点本文はなく、公式元正答の選択肢4を出題時判定として保持した。条文本文が不変だったとは記録しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第12条第1項は、素材の選択又は配列によって創作性を有する編集物を編集著作物として保護する。特定分野のURLを選択・配列しコメントを付したリンク集は、この要件を満たし得る。",
+          "promptContext": "URLの選択・配列とコメントを含むリンク集の編集著作物性を確認した。",
+          "refs": [],
+          "verdict": "第4肢は現行法上も正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "primaryLawEvidenceに試験時点本文はなく、公式元正答の選択肢4を出題時判定として保持した。条文本文が不変だったとは記録しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nより線で外来ノイズの影響を打ち消すには、対ごとにピッチを変えるのが一般的で、全対で均一にする方が効果的とはいえない。",
-      "正しい。\n\nカテゴリ 5e の UTP ケーブルは 1000BASE-T で利用される非シールドより対線で、8 本の導線が 4 対として収められている。",
-      "間違い。\n\n1000BASE-TX は一般的な 1000BASE-T の説明と異なり、この記述のように 4 対双方向で 1Gbps を実現する規格としては不適切である。",
-      "間違い。\n\n対線の耐ノイズ性は差動伝送やより構造によって得られ、外来ノイズが導線間隔へ単純に反比例するという説明は適切でない。"
-    ],
-    "suggestedQuestions": [
-      "UTP ケーブルはなぜより対になっていますか？",
-      "1000BASE-T は何対使いますか？",
-      "カテゴリ 5e は何に使われますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "UTP ケーブルはなぜより対になっていますか？",
-        "answer": "外来ノイズの影響を相殺し、信号品質を高めるためである。"
-      },
-      {
-        "question": "1000BASE-T は何対使いますか？",
-        "answer": "4 対すべてを使って全二重通信する。"
-      },
-      {
-        "question": "カテゴリ 5e は何に使われますか？",
-        "answer": "1Gbps 級の Ethernet 配線などで広く使われる。"
-      }
+      "間違い。より線は外来ノイズや対間の漏話の影響を抑えるために用いる。対ごとによりのピッチを変えて干渉を分散させるため、すべての対のピッチを均一にする方が効果的とはいえない。",
+      "正しい。カテゴリ5eのUTPケーブルは、8本の導線を4対にした非シールドより対線であり、1000BASE-Tで使用できる。",
+      "間違い。1000BASE-TXは、2対を送信、別の2対を受信に使い、各方向2対で通信する。1対が上り下りを同時に送り、各対250Mビット／秒で4対合計1Gビット／秒とするのは、1000BASE-TXの方式ではない。",
+      "間違い。対線は2本の導線の電位差で信号を伝えるが、外来ノイズの大きさが導線間隔に単純に反比例するわけではない。より構造や信号の平衡によって、同じノイズを受けたときの影響を打ち消しやすくしている。"
     ],
     "original_question_id": "a860a6cea244b3d4",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:a860a6cea244b3d4",
+    "reviewQuestionId": "a860a6cea244b3d4",
+    "sourceRecordRef": "question_201302_2.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "LANケーブルの構造、カテゴリ、伝送方式に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "LANケーブルのより線とノイズ抑制に関する技術知識で判断する。",
+          "promptContext": "LANケーブルの構造に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "カテゴリ5eのUTPケーブルと1000BASE-Tの利用に関する技術知識で判断する。",
+          "promptContext": "LANケーブルのカテゴリと伝送規格に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判断する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "1000BASE-TXの対線利用方式に関する技術知識で判断する。",
+          "promptContext": "LANケーブルの伝送方式に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "差動伝送と外来ノイズの関係に関する技術知識で判断する。",
+          "promptContext": "LANケーブルの差動伝送に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -585,93 +915,366 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIEEE 802.11a は 5GHz 帯を使う規格であり、2.4GHz 帯ではない。",
-      "間違い。\n\nIEEE 802.11b で使う代表的方式は DSSS/CCK であり、OFDM ではない。",
-      "間違い。\n\nMIMO の本格採用は IEEE 802.11n 以降であり、802.11g では規定されていない。",
-      "正しい。\n\nIEEE 802.11n では 20MHz に加えて 40MHz のチャネルボンディングが規定され、高速化を図っている。"
-    ],
-    "suggestedQuestions": [
-      "802.11a と 802.11b の周波数帯はどう違いますか？",
-      "MIMO はどの規格から使われますか？",
-      "40MHz チャネルの利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "802.11a と 802.11b の周波数帯はどう違いますか？",
-        "answer": "802.11a は 5GHz 帯、802.11b は 2.4GHz 帯を用いる。"
-      },
-      {
-        "question": "MIMO はどの規格から使われますか？",
-        "answer": "無線 LAN では 802.11n が代表的な初採用規格として扱われる。"
-      },
-      {
-        "question": "40MHz チャネルの利点は何ですか？",
-        "answer": "帯域を広げて一度に送れる情報量を増やし、理論上の伝送速度を高められる。"
-      }
+      "間違い。正しくは、IEEE 802.11aは5GHz帯を使用する。選択肢は2.4GHz帯としているため誤りである。",
+      "間違い。正しくは、IEEE 802.11bはDSSS方式（CCKを含む）を使用する。選択肢は変調方式をOFDMとしているため誤りである。",
+      "間違い。正しくは、MIMOを規定した代表的な規格はIEEE 802.11nである。選択肢はIEEE 802.11gにMIMOが規定されているとしているため誤りである。",
+      "正しい。IEEE 802.11nでは20MHzに加えて40MHzのチャネル幅が規定され、複数のチャネルを結合して通信速度を高められる。"
     ],
     "original_question_id": "6febee537559371e",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:6febee537559371e",
+    "reviewQuestionId": "6febee537559371e",
+    "sourceRecordRef": "question_201302_2.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IEEE 802.11各規格の周波数帯、変調方式、アンテナ技術、チャネル幅に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題であり、選択肢の内容は誤りである。",
+          "promptContext": "IEEE 802.11aの周波数帯を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IEEE 802.11aの周波数帯に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題であり、選択肢の内容は誤りである。",
+          "promptContext": "IEEE 802.11bの変調方式を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IEEE 802.11bの変調方式に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題であり、選択肢の内容は誤りである。",
+          "promptContext": "IEEE 802.11gにおけるMIMOの規定有無を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IEEE 802.11gとMIMOの関係に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題であり、選択肢の内容は正しい。",
+          "promptContext": "IEEE 802.11nの20MHzおよび40MHzチャネル幅を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "IEEE 802.11nのチャネル幅に関する技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nx と y が小さすぎると拠点 1 からも WAN2 経由が選ばれてしまい、条件を満たせない。",
-      "正しい。\n\n拠点 1 から拠点 3 は WAN1 経由 170 より WAN2 経由 150 + x, 150 + y が大きく、拠点 2 から拠点 3 は WAN1 経由 190 より WAN2 経由が小さくなる必要がある。両方を満たす値が 30 である。",
-      "間違い。\n\n大きすぎる値にすると拠点 2 からも WAN1 が選ばれ、要件に反する。",
-      "間違い。\n\nx と y が条件範囲に入らないと、WAN1/WAN2 の使い分けを意図どおり制御できない。"
-    ],
-    "suggestedQuestions": [
-      "OSPFのコストはどう使われますか？",
-      "この問題の不等式はどう立てますか？",
-      "最小コスト経路はどう選ばれますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OSPFのコストはどう使われますか？",
-        "answer": "各リンクのコスト合計が最小になる経路が OSPF の最適経路として採用される。"
-      },
-      {
-        "question": "この問題の不等式はどう立てますか？",
-        "answer": "拠点 1 では 170 < 150 + x, 150 + y、拠点 2 では 150 + x, 150 + y < 190 と置く。"
-      },
-      {
-        "question": "最小コスト経路はどう選ばれますか？",
-        "answer": "ルータはリンクステート情報から全経路の合計コストを比較し、最小値の経路を使う。"
-      }
+      "正しい。拠点1から拠点3はWAN1を選び、拠点2から拠点3はWAN2を選ぶように、各経路のOSPFコストを比較する。OSPFでは、経路上のリンクコストの合計が小さい経路が選ばれる。\n\nWAN1を通る経路では、拠点1から拠点3までの最小コストは、\\[30+100+30+10=170\\]である。拠点2から拠点3までの最小コストは、\\[50+100+30+10=190\\]となる。\n\nWAN2を通る経路では、x側とy側の経路コストはそれぞれ、\\[40+100+x+10=150+x\\]、\\[40+100+y+10=150+y\\]である。拠点1でWAN1を選ばせるには、\\[170<150+x,\\qquad 170<150+y\\]が必要なので、\\(x>20\\)、\\(y>20\\)となる。一方、拠点2でWAN2を選ばせるには、\\[150+x<190,\\qquad 150+y<190\\]が必要なので、\\(x<40\\)、\\(y<40\\)となる。\n\nしたがって、両方の条件を満たす範囲は\\(20<x<40\\)、\\(20<y<40\\)であり、選択肢では\\(x=30\\)、\\(y=30\\)のイが該当する。"
     ],
     "original_question_id": "c4d9f7d6e52cff22",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:c4d9f7d6e52cff22",
+    "reviewQuestionId": "c4d9f7d6e52cff22",
+    "sourceRecordRef": "question_201302_2.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OSPFの経路コストとWAN経路制御に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コストとWAN経路制御だけで正誤を判定できる。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFの経路コスト計算に基づく技術問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コストとWAN経路制御だけで正誤を判定できる。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "OSPFの経路コスト計算に基づく技術問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コストとWAN経路制御だけで正誤を判定できる。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFの経路コスト計算に基づく技術問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFの経路コストとWAN経路制御だけで正誤を判定できる。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSPFの経路コスト計算に基づく技術問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nスパニングツリーはループ防止のために冗長経路の一部を論理的に遮断する仕組みであり、複数回線を束ねる技術ではない。",
-      "間違い。\n\nブリッジはレイヤー2で中継する装置や機能の名称で、複数物理回線の束ね技術そのものではない。",
-      "間違い。\n\nマルチホーミングは複数経路や複数 ISP へ接続する構成であり、1 本の論理回線へ束ねる説明ではない。",
-      "正しい。\n\nリンクアグリゲーションは複数の物理リンクを論理的に 1 本として扱い、帯域増強や冗長化を図る技術である。"
-    ],
-    "suggestedQuestions": [
-      "リンクアグリゲーションの利点は何ですか？",
-      "スパニングツリーとの違いは何ですか？",
-      "どんな場面で使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リンクアグリゲーションの利点は何ですか？",
-        "answer": "帯域を増やしつつ、1 本が故障しても残りで通信継続しやすい構成を作れる。"
-      },
-      {
-        "question": "スパニングツリーとの違いは何ですか？",
-        "answer": "リンクアグリゲーションは複数回線を同時活用し、スパニングツリーはループ回避のため一部経路を待機させる。"
-      },
-      {
-        "question": "どんな場面で使いますか？",
-        "answer": "サーバ接続やスイッチ間接続で帯域確保と冗長化を同時に行いたい場面で使う。"
-      }
+      "正しい。複数の物理リンクを論理的に1本として扱い、帯域の拡大や障害時の通信継続を実現する技術はリンクアグリゲーションである。スパニングツリーはネットワークのループを防ぐために冗長経路を制御し、ブリッジはレイヤー2でフレームを中継する装置や機能を指す。マルチホーミングは複数の経路やISPに接続する構成であり、物理リンクを1本の論理リンクに束ねる技術ではない。"
     ],
     "original_question_id": "fa2b18008b151bb0",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:fa2b18008b151bb0",
+    "reviewQuestionId": "fa2b18008b151bb0",
+    "sourceRecordRef": "question_201302_2.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ネットワーク技術上の一般知識で正誤が決まる問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "スパニングツリーはネットワークのループを防ぐための技術であり、複数の物理回線を1本の論理回線に束ねる技術ではない。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を技術知識として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ネットワーク技術の一般知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ブリッジはレイヤー2でフレームを中継する装置や機能であり、複数の物理回線を1本の論理回線に束ねる技術ではない。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を技術知識として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ネットワーク技術の一般知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "マルチホーミングは複数の経路やISPに接続する構成であり、複数の物理回線を1本の論理回線に束ねる技術ではない。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を技術知識として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ネットワーク技術の一般知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "リンクアグリゲーションは複数の物理リンクを論理的に1本として扱う技術である。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を技術知識として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。ネットワーク技術の一般知識で判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -937,93 +1540,391 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nFTP の二つのコネクションは受領応答専用ではなく、制御用とデータ用に分かれている。",
-      "正しい。\n\nFTP は制御コネクションとデータコネクションを分けるため、ファイル転送中でも制御コマンドをやり取りできる。",
-      "間違い。\n\nチェックデータ専用コネクションを持つ方式ではない。信頼性は TCP の機能で確保する。",
-      "間違い。\n\nバイナリ用とテキスト用に別コネクションを張る方式ではなく、同じデータコネクションで転送モードを切り替える。"
-    ],
-    "suggestedQuestions": [
-      "FTP の制御コネクションは何に使いますか？",
-      "データコネクションはいつ張られますか？",
-      "FTP はなぜ二つに分けますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "FTP の制御コネクションは何に使いますか？",
-        "answer": "ログイン、ディレクトリ移動、転送開始要求などのコマンド・応答をやり取りする。"
-      },
-      {
-        "question": "データコネクションはいつ張られますか？",
-        "answer": "ファイル転送や一覧表示など実データを送る必要があるときに張られる。"
-      },
-      {
-        "question": "FTP はなぜ二つに分けますか？",
-        "answer": "制御とデータを分離することで、転送中も別系統で制御命令を扱いやすくするためである。"
-      }
+      "間違い。FTPでは、ファイルデータを転送するデータコネクションと、コマンドや応答をやり取りする制御コネクションを使い分ける。選択肢は一方を受領応答専用としているため誤りである。",
+      "正しい。FTPは制御コネクションとデータコネクションを分ける。制御コネクションでコマンドや応答をやり取りするため、データ転送中でも制御コマンドを送信できる。",
+      "間違い。ファイルデータはデータコネクションで転送し、コマンドや応答は制御コネクションでやり取りする。選択肢はチェックデータ専用のコネクションがあるとしているため誤りである。",
+      "間違い。バイナリデータとテキストデータでコネクションを分けるのではなく、転送形式はFTPの転送モードやデータ表現形式で指定する。選択肢は二つのコネクションをバイナリ用とテキスト用に分けているため誤りである。"
     ],
     "original_question_id": "e6738789770e554a",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:e6738789770e554a",
+    "reviewQuestionId": "e6738789770e554a",
+    "sourceRecordRef": "question_201302_2.json#12",
+    "explanationReferences": [
+      {
+        "referenceDate": "1985-10-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc959.html",
+        "title": "RFC 959: File Transfer Protocol"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "FTPの技術仕様に関する問題で、法令・制度上の根拠は不要。二つのコネクションはデータ転送用と制御用に分かれる。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FTPのコネクション構成は技術仕様で判定できる。",
+          "promptContext": "選択肢1の完全命題を技術仕様に照らして判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "FTPの技術仕様に関する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FTPは制御コネクションとデータコネクションを分け、制御コネクションでコマンドや応答を扱う。",
+          "promptContext": "選択肢2の完全命題を技術仕様に照らして判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "FTPの技術仕様に関する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FTPにチェックデータ専用のコネクションはなく、データ転送と制御のコネクションを使い分ける。",
+          "promptContext": "選択肢3の完全命題を技術仕様に照らして判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "FTPの技術仕様に関する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FTPではバイナリ用とテキスト用にコネクションを分けず、転送形式を別途指定する。",
+          "promptContext": "選択肢4の完全命題を技術仕様に照らして判定した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "FTPの技術仕様に関する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n6to4 は IPv6 パケットを IPv4 網へカプセル化するトンネリング技術で、両端が IPv6 を理解している前提で使う。",
-      "正しい。\n\nIPv4/IPv6 トランスレーションは、IPv6 専用ホストと IPv4 専用ホストの間でアドレスやヘッダを変換して相互通信を可能にする。",
-      "間違い。\n\nTeredo も IPv6 over IPv4 のトンネリング技術であり、単独では単一スタック同士の直接相互運用を解決しない。",
-      "間違い。\n\nキャリアグレード NAT は主に IPv4 アドレス枯渇対策であり、IPv6 専用ホストとの相互接続技術そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "トンネリングとトランスレーションの違いは何ですか？",
-      "6to4 はどんな場面で使いますか？",
-      "IPv4/IPv6 変換では何を変えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "トンネリングとトランスレーションの違いは何ですか？",
-        "answer": "トンネリングは一方のプロトコルのパケットを他方の網で包んで運び、トランスレーションはパケット内容自体を別プロトコル向けへ変換する。"
-      },
-      {
-        "question": "6to4 はどんな場面で使いますか？",
-        "answer": "IPv6 サイト同士が IPv4 インターネットを経由して IPv6 通信をしたい場合に用いる。"
-      },
-      {
-        "question": "IPv4/IPv6 変換では何を変えますか？",
-        "answer": "IP ヘッダやアドレス形式、必要に応じて上位層の関連情報を変換して整合させる。"
-      }
+      "正しい。IPv4/IPv6トランスレーションは、IPv6専用ホストとIPv4専用ホストの間で、IPアドレスやパケットヘッダを相互に変換して通信を可能にする。6to4やTeredoはIPv6パケットをIPv4網で運ぶトンネリング技術であり、キャリアグレードNATは主にIPv4アドレスを共有する技術である。"
     ],
     "original_question_id": "14aa24e99f4d5dff",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:14aa24e99f4d5dff",
+    "reviewQuestionId": "14aa24e99f4d5dff",
+    "sourceRecordRef": "question_201302_2.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4とIPv6の相互接続技術を問う問題で、法令・制度条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "6to4はIPv6パケットをIPv4網で運ぶトンネリング技術であり、法令根拠を要しない。",
+          "promptContext": "選択肢単体ではなく問題文と結合した完全命題を技術仕様に基づき確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4/IPv6トランスレーションはIPv6専用ホストとIPv4専用ホストの通信を可能にする技術であり、法令根拠を要しない。",
+          "promptContext": "選択肢単体ではなく問題文と結合した完全命題を技術仕様に基づき確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TeredoはIPv6パケットをIPv4網で運ぶトンネリング技術であり、IPv4専用ホストとの相互変換技術ではない。法令根拠を要しない。",
+          "promptContext": "選択肢単体ではなく問題文と結合した完全命題を技術仕様に基づき確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "キャリアグレードNATは主にIPv4アドレスを共有する技術であり、IPv6専用ホストとIPv4専用ホストの相互接続技術ではない。法令根拠を要しない。",
+          "promptContext": "選択肢単体ではなく問題文と結合した完全命題を技術仕様に基づき確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n小規模ホスト向けの通常のアドレス割当てはクラス C などであり、クラス D ではない。",
-      "間違い。\n\n中規模ホスト向けの通常のアドレス割当てはクラス B であり、クラス D ではない。",
-      "間違い。\n\nプライベートアドレスは各クラスの所定範囲に用意されているもので、クラス D を指すわけではない。",
-      "正しい。\n\nクラス D の IP アドレスはマルチキャスト通信用に予約されている。"
-    ],
-    "suggestedQuestions": [
-      "クラスDアドレスは何に使いますか？",
-      "マルチキャストとは何ですか？",
-      "プライベートアドレスとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クラスDアドレスは何に使いますか？",
-        "answer": "マルチキャストグループを表すアドレスとして使う。"
-      },
-      {
-        "question": "マルチキャストとは何ですか？",
-        "answer": "複数の受信者へ同じデータを効率よく配信する通信方式である。"
-      },
-      {
-        "question": "プライベートアドレスとの違いは何ですか？",
-        "answer": "プライベートアドレスは内部利用の単一/複数ホスト用、クラス D はマルチキャスト用途である。"
-      }
+      "間違い。正しくは、約250台までの小規模なホストに割り当てるのはクラスCのアドレスである。選択肢はクラスDを小規模なホストアドレスの割当てに使うとしているため誤りである。",
+      "間違い。正しくは、約65,000台のホストを収容するのはクラスBのアドレスである。選択肢はクラスDを中規模なホストアドレスの割当てに使うとしているため誤りである。",
+      "間違い。正しくは、プライベートアドレスにはクラスA・B・Cに相当する範囲が使われ、クラスDはマルチキャスト用である。選択肢はクラスDをプライベートアドレスの割当てに使うとしているため誤りである。",
+      "正しい。クラスDのIPアドレスは、特定のホスト群へ同時にデータを送るマルチキャスト通信に使われる。"
     ],
     "original_question_id": "8f45abbc3e95bfd2",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:8f45abbc3e95bfd2",
+    "reviewQuestionId": "8f45abbc3e95bfd2",
+    "sourceRecordRef": "question_201302_2.json#14",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc791",
+        "title": "RFC 791: Internet Protocol"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1112",
+        "title": "RFC 1112: Host Extensions for IP Multicasting"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1918",
+        "title": "RFC 1918: Address Allocation for Private Internets"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "クラスDのIPアドレスはマルチキャスト用であり、法令・制度論点ではなくIP通信仕様に基づく技術問題。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスDを小規模ホスト向けとする命題は、IPアドレスクラス分類の技術仕様に反する。",
+          "promptContext": "問題文と第1選択肢を結合した完全命題を技術仕様に照らして判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく問題のため、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスDを中規模ホスト向けとする命題は、IPアドレスクラス分類の技術仕様に反する。",
+          "promptContext": "問題文と第2選択肢を結合した完全命題を技術仕様に照らして判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく問題のため、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスDをプライベートアドレス向けとする命題は、クラスDがマルチキャスト用であるという技術仕様に反する。",
+          "promptContext": "問題文と第3選択肢を結合した完全命題を技術仕様に照らして判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく問題のため、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスDのIPアドレスをマルチキャストに使用する命題は、IPアドレスクラス分類の技術仕様に適合する。",
+          "promptContext": "問題文と第4選択肢を結合した完全命題を技術仕様に照らして判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様に基づく問題のため、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1543,33 +2444,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nURL のホスト名に ftp が含まれていても、接続先ポートはスキームで決まり、https の既定ポートである 443 を使う。",
-      "間違い。\n\n80 番は HTTP の既定ポートであり、https ではない。",
-      "間違い。\n\nquery string に port=123 と書かれていても、ブラウザが TCP 接続先ポートとして自動採用するわけではない。",
-      "正しい。\n\nURL が https:// で始まるので、Web ブラウザは HTTPS の既定ポートである TCP 443 へ接続する。"
-    ],
-    "suggestedQuestions": [
-      "URL の接続先ポートは何で決まりますか？",
-      "query string の port=123 は何ですか？",
-      "https の既定ポートは何番ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "URL の接続先ポートは何で決まりますか？",
-        "answer": "通常は URL スキームに対応する既定ポート、または明示指定されたポート番号で決まる。"
-      },
-      {
-        "question": "query string の port=123 は何ですか？",
-        "answer": "アプリケーションへ渡す単なるパラメータであり、TCP 接続先ポート指定ではない。"
-      },
-      {
-        "question": "https の既定ポートは何番ですか？",
-        "answer": "TCP 443 番である。"
-      }
+      "正しい。Webブラウザが接続するTCPポート番号は、URLのスキームで決まる。`https://`の既定ポートは443であり、ホスト名に`ftp`が含まれていても変わらない。`?port=123`はパスに続くクエリ文字列で、TCP接続先ポートを指定する記述ではない。"
     ],
     "original_question_id": "a8e996075df665f5",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:a8e996075df665f5",
+    "reviewQuestionId": "a8e996075df665f5",
+    "sourceRecordRef": "question_201302_2.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "HTTPSの既定TCPポート番号を問う通信プロトコルの技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差異はない。",
+          "displayRefIds": [],
+          "explanationText": "HTTPSの既定TCPポート番号は443である。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信プロトコルの技術判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差異はない。",
+          "displayRefIds": [],
+          "explanationText": "HTTPSの既定TCPポート番号は443である。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信プロトコルの技術判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差異はない。",
+          "displayRefIds": [],
+          "explanationText": "URLのクエリ文字列port=123はTCP接続先ポート番号を指定しない。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信プロトコルの技術判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差異はない。",
+          "displayRefIds": [],
+          "explanationText": "HTTPSの既定TCPポート番号は443である。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "通信プロトコルの技術判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -2070,10 +3061,10 @@
   },
   {
     "explanationText": [
-      "間違い。VLANはICMPパケットを一律に遮断する機能ではなく、通信の許可・遮断はアクセス制御などの別設定で決まる。選択肢は、VLANだけで全てのICMPを遮断するとしているため誤りである。",
-      "正しい。VLANでブロードキャストドメインを分割すると、ARPなどのブロードキャストが届く範囲を限定できる。その結果、同じネットワーク内に不要なアドレス情報が広がるリスクを抑えられる。",
-      "間違い。MACアドレスによる接続可否の判定は、ポートセキュリティなどの機能で行う。選択肢は、VLANがMACアドレスを判別して不正接続を防ぐとしているため誤りである。",
-      "間違い。物理ポートごとに特定のIPアドレスの端末だけを許可する制御は、VLAN分割そのものの機能ではない。選択肢は、VLANが固定IPの端末接続だけを許可するとしているため誤りである。"
+      "間違い。VLANはICMPパケットを一律に遮断する機能ではない。ICMPを含む通信の許可・遮断は、ファイアウォールやアクセス制御などの設定で決まる。選択肢は、VLANによって全てのICMPパケットを遮断するとしているため誤りである。",
+      "正しい。VLANでブロードキャストドメインを分割すると、ARPなどのブロードキャストが届く範囲を限定できる。そのため、同じネットワーク内にアドレス情報が不要に広がるリスクを抑えられる。",
+      "間違い。MACアドレスに基づいて端末の接続可否を判定するのは、ポートセキュリティなどの機能である。選択肢は、VLANがPCのMACアドレスを判別して不正接続を防ぐとしているため誤りである。",
+      "間違い。特定のIPアドレスを持つ端末だけを物理ポートに接続できるようにする制御は、VLAN分割そのものの機能ではない。選択肢は、VLANが物理ポートごとに決まったIPアドレスのPCだけを許可するとしているため誤りである。"
     ],
     "original_question_id": "03d3f4dea1fc72cd",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_20.html",
@@ -2083,6 +3074,112 @@
     "sourceRecordRef": "question_201302_2.json#24",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "VLANによるセグメント分割の技術的な効果を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "VLANはICMPを一律遮断する機能ではない。",
+          "promptContext": "VLANの機能に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により正誤を判定した。法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "VLANはブロードキャストドメインを分割し、ブロードキャストの到達範囲を制限する。",
+          "promptContext": "VLANのセグメント分割によるセキュリティ効果に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識により正誤を判定した。法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MACアドレスに基づく接続可否判定はポートセキュリティなどの機能であり、VLAN分割そのものの機能ではない。",
+          "promptContext": "VLANとポートセキュリティの役割の違いを問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により正誤を判定した。法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "物理ポートごとの固定IP接続許可はVLAN分割そのものの機能ではない。",
+          "promptContext": "VLANとIPアドレスに基づく接続制御の違いを問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により正誤を判定した。法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

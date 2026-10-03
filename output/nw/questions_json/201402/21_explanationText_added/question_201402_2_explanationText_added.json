@@ -367,213 +367,944 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nアローダイアグラムは作業順序や所要日数を表して日程を管理する図であり、複雑な因果関係を整理する用途ではない。",
-      "間違い。\n\nパレート図は重要項目を大小順で把握するための図であり、原因と結果の連鎖を表すものではない。",
-      "間違い。\n\nマトリックス図は項目同士の対応関係や関連度を表形式で整理する図であり、因果関係の追究には向かない。",
-      "正しい。\n\n連関図は多くの要因が絡み合う問題について、要因間の因果関係を結びながら整理し、根本原因や解決の糸口を見つける手法である。"
-    ],
-    "suggestedQuestions": [
-      "連関図はどんなときに使いますか？",
-      "パレート図との違いは何ですか？",
-      "アローダイアグラムは何を表しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "連関図はどんなときに使いますか？",
-        "answer": "原因が多く絡み合っていて、因果関係を整理しながら問題の本質を探りたいときに使う。"
-      },
-      {
-        "question": "パレート図との違いは何ですか？",
-        "answer": "パレート図は重要度の高い項目抽出、連関図は因果関係の構造把握に使う。"
-      },
-      {
-        "question": "アローダイアグラムは何を表しますか？",
-        "answer": "作業の順序関係や所要時間を表し、工程管理やクリティカルパス分析に使う。"
-      }
+      "正しい。該当するのは連関図である。連関図は、多数の要因が複雑に絡む問題について、要因同士を結んで原因と結果のつながりを整理し、主要な原因や解決の手掛かりを見つける図である。アローダイアグラムは作業の順序や日程、パレート図は項目の大小や重要度、マトリックス図は項目同士の対応関係や関連度を整理するために用いる。したがって、因果関係を追究する目的には連関図が適している。"
     ],
     "original_question_id": "ee2b3eb4460505d8",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_29.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:ee2b3eb4460505d8",
+    "reviewQuestionId": "ee2b3eb4460505d8",
+    "sourceRecordRef": "question_201402_2.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "QC七つ道具の一つである連関図に関する技術的な問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "アローダイアグラムは作業の順序や日程を表す図であり、連関図とは異なる。",
+          "promptContext": "選択肢1を技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "パレート図は項目の大小や重要度を整理する図であり、因果関係を追究する連関図とは異なる。",
+          "promptContext": "選択肢2を技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "マトリックス図は項目同士の対応関係や関連度を整理する図であり、因果関係を追究する連関図とは異なる。",
+          "promptContext": "選択肢3を技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "連関図は、複雑に絡み合う要因について原因と結果などの関係を整理し、解決の手掛かりを見つける図である。",
+          "promptContext": "選択肢4を技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n営業譲渡できるかどうかは営業秘密の成立要件ではない。",
-      "間違い。\n\n営業秘密に一律の保護期間上限はなく、10 年超であるかどうかは要件に含まれない。",
-      "正しい。\n\n営業秘密は秘密管理性、有用性に加えて、一般に知られていない非公知性を満たして初めて保護対象となる。",
-      "間違い。\n\n特許出願は公開を伴う制度であり、非公知性を前提とする営業秘密の要件とは逆方向である。"
-    ],
-    "suggestedQuestions": [
-      "営業秘密の三要件は何ですか？",
-      "特許と営業秘密の違いは何ですか？",
-      "非公知性とは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "営業秘密の三要件は何ですか？",
-        "answer": "秘密として管理されていること、有用な事業情報であること、公然と知られていないことの三つである。"
-      },
-      {
-        "question": "特許と営業秘密の違いは何ですか？",
-        "answer": "特許は公開と引換えに独占権を得る制度、営業秘密は非公開のまま保護を受ける制度である。"
-      },
-      {
-        "question": "非公知性とは何ですか？",
-        "answer": "その情報が一般に知られておらず、容易に入手できない状態であることを指す。"
-      }
+      "間違い。正しくは、営業秘密の成立に営業譲渡が可能であることは必要ない。不正競争防止法（平成五年法律第四十七号）第2条第6項は、秘密管理性、有用性及び非公知性を要件としており、選択肢は営業譲渡の可能性を要件としているため誤りである。",
+      "間違い。正しくは、営業秘密に一律の保護期間上限はない。不正競争防止法（平成五年法律第四十七号）第2条第6項の定義に期間の制限はなく、選択肢は10年を超えないことを要件としているため誤りである。",
+      "正しい。不正競争防止法（平成五年法律第四十七号）第2条第6項は、営業秘密を、秘密として管理され、事業活動に有用な技術上又は営業上の情報であって、公然と知られていないものと定義している。したがって、非公知性は営業秘密の要件である。",
+      "間違い。正しくは、特許出願は営業秘密の成立要件ではない。不正競争防止法（平成五年法律第四十七号）第2条第6項は特許出願を要件としておらず、特許出願によって内容が公開されれば、非公知性を満たさなくなる場合もある。選択肢は特許出願を要件としているため誤りである。"
     ],
     "original_question_id": "1dc24e8951b10917",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_30.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201402:1dc24e8951b10917",
+    "reviewQuestionId": "1dc24e8951b10917",
+    "sourceRecordRef": "question_201402_2.json#4",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/405AC0000000047?asof=2026-10-04",
+        "title": "e-Gov法令検索 不正競争防止法 第二条第六項"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "不正競争防止法第2条第6項の営業秘密の定義にある秘密管理性、有用性及び非公知性を各選択肢と照合する。",
+    "lawReferences": [
+      [
+        {
+          "article": "第二条第六項",
+          "choiceIndex": 0,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第二条第六項",
+          "choiceIndex": 1,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第二条第六項",
+          "choiceIndex": 2,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第二条第六項",
+          "choiceIndex": 3,
+          "lawId": "405AC0000000047",
+          "lawTitle": "不正競争防止法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答では第3選択肢が正答であり、第1選択肢は誤り。現行の不正競争防止法第2条第6項も営業譲渡可能性を要件としていない。",
+          "promptContext": "営業秘密の成立要件に照らして第1選択肢を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文の一次資料は取得できないため、本文不変とは判断していない。公式元正答と現行法判定を独立に確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答では第3選択肢が正答であり、第2選択肢は誤り。現行の不正競争防止法第2条第6項に保護期間の一律の上限はない。",
+          "promptContext": "営業秘密の成立要件に照らして第2選択肢を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文の一次資料は取得できないため、本文不変とは判断していない。公式元正答と現行法判定を独立に確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答は第3選択肢。現行の不正競争防止法第2条第6項は、営業秘密の要件として公然と知られていないことを定めている。",
+          "promptContext": "営業秘密の成立要件に照らして第3選択肢を判定した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時本文の一次資料は取得できないため、本文不変とは判断していない。公式元正答と現行法判定を独立に確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答では第3選択肢が正答であり、第4選択肢は誤り。現行の不正競争防止法第2条第6項は特許出願を営業秘密の要件としていない。",
+          "promptContext": "営業秘密の成立要件に照らして第4選択肢を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文の一次資料は取得できないため、本文不変とは判断していない。公式元正答と現行法判定を独立に確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nIPv4 アドレス埋込み IPv6 アドレスの説明であり、リンクローカルユニキャストアドレスではない。",
-      "間違い。\n\nリンクローカルユニキャストアドレスはグローバルユニキャストアドレスの取得可否とは無関係に利用できる。",
-      "間違い。\n\n自分自身の内部だけで使うのはループバックアドレスの説明である。",
-      "正しい。\n\nリンクローカルユニキャストアドレスは同一リンク内でだけ有効で、ルータを越えない相手との通信や近隣探索に用いられる。"
-    ],
-    "suggestedQuestions": [
-      "リンクローカルユニキャストアドレスは何に使いますか？",
-      "ループバックアドレスとの違いは何ですか？",
-      "グローバルユニキャストアドレスとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リンクローカルユニキャストアドレスは何に使いますか？",
-        "answer": "同一リンク内通信、近隣探索、アドレス自動設定などで使う。"
-      },
-      {
-        "question": "ループバックアドレスとの違いは何ですか？",
-        "answer": "ループバックは自ホスト内のみ、リンクローカルは同一リンク上の他ノードとも通信できる。"
-      },
-      {
-        "question": "グローバルユニキャストアドレスとの違いは何ですか？",
-        "answer": "グローバルはルータ越え可能だが、リンクローカルは同一リンク内だけで有効である。"
-      }
+      "間違い。リンクローカルユニキャストアドレスは、同一リンク内で使うFE80::/10のアドレスである。選択肢は下位ビットにIPv4アドレスを埋め込むアドレスとしているため誤りであり、これはIPv4アドレスを埋め込んだIPv6アドレスの説明である。",
+      "間違い。リンクローカルユニキャストアドレスは、グローバルユニキャストアドレスを取得できたかどうかにかかわらず、同一リンク内の通信に利用できる。選択肢はグローバルユニキャストアドレスを取得できない場合だけ有効としているため誤りである。",
+      "間違い。リンクローカルユニキャストアドレスは同一リンク上の相手と通信するために使う。選択肢のように自分自身のPC内で動作するプログラムとの通信だけに使うのは、ループバックアドレスの説明である。",
+      "正しい。リンクローカルユニキャストアドレスは同一リンク内でだけ有効で、ルータはこのアドレスを送信元又は宛先とするパケットを別のリンクへ転送しない。近隣探索や、ルータが存在しない場合の通信にも使われる。"
     ],
     "original_question_id": "b1eda657b9753332",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:b1eda657b9753332",
+    "reviewQuestionId": "b1eda657b9753332",
+    "sourceRecordRef": "question_201402_2.json#5",
+    "explanationReferences": [
+      {
+        "referenceDate": "2006-02-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4291.html",
+        "title": "RFC 4291: IP Version 6 Addressing Architecture"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv6のリンクローカルユニキャストアドレスに関する技術仕様の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6アドレスの用途と通信範囲に関する技術仕様を確認した。",
+          "promptContext": "IPv6リンクローカルユニキャストアドレスの判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リンクローカルアドレスはグローバルアドレス取得の有無にかかわらず同一リンク内で使用される。",
+          "promptContext": "IPv6リンクローカルユニキャストアドレスの判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "自分自身のPC内のプログラムとの通信に使うのはループバックアドレスであり、リンクローカルアドレスではない。",
+          "promptContext": "IPv6リンクローカルユニキャストアドレスの判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リンクローカルユニキャストアドレスはルータを介さず、同一リンク上の相手との通信に使用する。",
+          "promptContext": "IPv6リンクローカルユニキャストアドレスの判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n音声データを IP ネットワークで運ぶ技術は VoIP の説明である。",
-      "正しい。\n\nPLC は Power Line Communications の略で、電力線を通信回線として利用する技術である。",
-      "間違い。\n\nIEEE 802.11 シリーズの総称は Wi-Fi であり、PLC ではない。",
-      "間違い。\n\n無線 LAN の暗号化方式に関する説明であり、電力線通信とは無関係である。"
-    ],
-    "suggestedQuestions": [
-      "PLCとは何の略ですか？",
-      "Wi-Fiとの違いは何ですか？",
-      "PLCの利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PLCとは何の略ですか？",
-        "answer": "Power Line Communications の略で、電力線搬送通信を指す。"
-      },
-      {
-        "question": "Wi-Fiとの違いは何ですか？",
-        "answer": "Wi-Fi は無線通信、PLC は既存の電力線を使った有線系通信である。"
-      },
-      {
-        "question": "PLCの利点は何ですか？",
-        "answer": "既存の電力配線を利用できるため、新たな通信配線工事を減らせる点がある。"
-      }
+      "間違い。正しくは、音声データをIPネットワークで伝送する技術はVoIPである。選択肢はPLCを音声データのIP伝送技術としているため誤りである。",
+      "正しい。PLCはPower Line Communicationsの略で、電力線を通信回線として利用する技術である。",
+      "間違い。IEEE 802.11シリーズは無線LANの標準規格であり、PLCではない。選択肢はPLCを無線LANの標準規格としているため誤りである。",
+      "間違い。無線通信における暗号化技術は、通信内容を保護するための技術であり、PLCの定義ではない。選択肢はPLCを無線通信の暗号化技術としているため誤りである。"
     ],
     "original_question_id": "fe2f71a0c9c4edb2",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:fe2f71a0c9c4edb2",
+    "reviewQuestionId": "fe2f71a0c9c4edb2",
+    "sourceRecordRef": "question_201402_2.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PLCの技術的な定義を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "出題時と現行時で判定は変わらない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分なし。",
+          "PLCの定義は技術知識で判定する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "音声データのIP伝送、電力線通信、IEEE 802.11、無線通信の暗号化を区別する技術知識で判定した。",
+          "promptContext": "PLCの定義に基づく選択肢別判定。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時と現行時で判定は変わらない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令改正による差分なし。",
+          "PLCは電力線を通信回線として利用する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PLCはPower Line Communicationsの略で、電力線を通信回線として利用する技術である。",
+          "promptContext": "PLCの定義に基づく選択肢別判定。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を必要としない技術問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時と現行時で判定は変わらない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分なし。",
+          "IEEE 802.11は無線LANの標準規格であり、PLCではない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.11シリーズは無線LANの標準規格であり、PLCの定義ではない。",
+          "promptContext": "PLCの定義に基づく選択肢別判定。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時と現行時で判定は変わらない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分なし。",
+          "無線通信の暗号化技術はPLCの定義ではない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "無線通信における暗号化技術は通信内容を保護する技術であり、PLCの定義ではない。",
+          "promptContext": "PLCの定義に基づく選択肢別判定。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n4アーランでは小さすぎる。180台それぞれが1時間に20回、1回80秒使うので、総利用時間はかなり大きくなる。",
-      "間違い。\n\n12アーランも不足する。発着呼頻度と平均保留時間を掛けて1時間当たりの総回線使用時間を出すと、もっと大きい値になる。",
-      "間違い。\n\n45アーランではまだ半分程度である。アーランは『総回線使用時間÷観測時間』で求めるため、台数分の積み上げを忘れると過小評価しやすい。",
-      "正しい。\n\n1台当たり1時間に20回呼が発生し、1回80秒使うので、1台当たりの使用時間は1600秒である。180台では 1600×180=288000秒、これを1時間3600秒で割ると80アーランになる。"
-    ],
-    "suggestedQuestions": [
-      "アーランはどう計算しますか？",
-      "なぜ3分に1回で1時間20回になるのですか？",
-      "アーラン1とは何を意味しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アーランはどう計算しますか？",
-        "answer": "観測時間内の総回線使用時間を、その観測時間で割って求める。1時間に1本の回線を常時使う量が1アーランである。"
-      },
-      {
-        "question": "なぜ3分に1回で1時間20回になるのですか？",
-        "answer": "1時間は60分なので、60÷3=20である。頻度を1時間当たりへ換算してから平均保留時間を掛ける。"
-      },
-      {
-        "question": "アーラン1とは何を意味しますか？",
-        "answer": "1本の回線が観測時間中ずっと100%使用されている状態に相当する。複数回線の合計利用量を直感的に表しやすい単位である。"
-      }
+      "正しい。呼量は、観測時間に対する回線の総使用時間の割合であり、アーランで表す。使用する式は次のとおりである。\n\\[A=N\\lambda\\frac{t}{3600}\\]\n\\(A\\)は呼量（アーラン）、\\(N\\)は電話機台数、\\(\\lambda\\)は1台当たり1時間の呼の発生頻度、\\(t\\)は1回当たりの平均回線保留時間（秒）である。3分に1回の呼は、1時間当たり \\(60÷3=20\\) 回である。\n\\[A=180\\times20\\times\\frac{80}{3600}=80\\]\nしたがって、呼量は80アーランである。"
     ],
     "original_question_id": "90076fe831fb346c",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:90076fe831fb346c",
+    "reviewQuestionId": "90076fe831fb346c",
+    "sourceRecordRef": "question_201402_2.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "通信トラフィックの呼量を計算する工学上の問題で、法令・制度条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の判定は呼量計算によるもので、法令を直接根拠としない。",
+          "promptContext": "通信トラフィックの呼量計算。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の判定は呼量計算によるもので、法令を直接根拠としない。",
+          "promptContext": "通信トラフィックの呼量計算。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の判定は呼量計算によるもので、法令を直接根拠としない。",
+          "promptContext": "通信トラフィックの呼量計算。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の判定は呼量計算によるもので、法令を直接根拠としない。",
+          "promptContext": "通信トラフィックの呼量計算。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算問題のため法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n一部の well-known マルチキャストアドレス以外は用途が固定されていない。すべてが固定用途ではない。",
-      "正しい。\n\nIPv4 のマルチキャストアドレスにはクラス D、すなわち先頭 4 ビットが 1110 の範囲が使われる。",
-      "間違い。\n\nTTL によって到達範囲は制限される。マルチキャストでも TTL を無視して中継されるわけではない。",
-      "間違い。\n\nマルチキャストパケットは参加ホスト向けに転送されるので、ネットワーク上すべてのホストが必ず受け取るわけではない。"
-    ],
-    "suggestedQuestions": [
-      "クラス D とは何ですか？",
-      "IGMP とマルチキャスト転送はどう関係しますか？",
-      "ブロードキャストとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クラス D とは何ですか？",
-        "answer": "IPv4 でマルチキャスト用に予約された 224.0.0.0 から 239.255.255.255 の範囲である。"
-      },
-      {
-        "question": "IGMP とマルチキャスト転送はどう関係しますか？",
-        "answer": "IGMP で受信希望ホストの有無を把握し、その情報をもとにルータが必要セグメントへだけマルチキャストを転送する。"
-      },
-      {
-        "question": "ブロードキャストとの違いは何ですか？",
-        "answer": "ブロードキャストは同一ネットワーク上の全ホスト宛て、マルチキャストは参加したグループ宛てである。"
-      }
+      "間違い。正しくは、用途があらかじめ固定されているのは一部のwell-knownマルチキャストアドレスであり、すべてのマルチキャストアドレスではない。選択肢は全てのアドレスの用途が固定されているとしているため誤りである。",
+      "正しい。IPv4のマルチキャストアドレスにはクラスDのアドレス範囲が使われる。",
+      "間違い。正しくは、マルチキャストパケットはTTLによって到達範囲が制限され、TTLが尽きると中継されない。選択肢はTTL値に関係なく中継されるとしているため誤りである。",
+      "間違い。正しくは、マルチキャストパケットはそのグループの受信を希望して参加しているホストに届けられる。選択肢は全てのホストが受信し、上位層で必要性を判断するとしているため誤りである。"
     ],
     "original_question_id": "7faf4034e030d40d",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:7faf4034e030d40d",
+    "reviewQuestionId": "7faf4034e030d40d",
+    "sourceRecordRef": "question_201402_2.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4マルチキャストのアドレス範囲、TTL、中継、受信方式に関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4マルチキャストのアドレス用途に関する技術問題である。",
+          "promptContext": "選択肢1の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4マルチキャストにクラスDアドレスを使用する技術問題である。",
+          "promptContext": "選択肢2の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4マルチキャストのTTLと中継範囲に関する技術問題である。",
+          "promptContext": "選択肢3の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4マルチキャストの受信ホストとグループ参加に関する技術問題である。",
+          "promptContext": "選択肢4の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nSTP はデータリンク層で動作する。ネットワーク層プロトコルではない。",
-      "間違い。\n\nSTP は同時フレーム転送可能化ではなく、ループ防止のため一部経路を遮断して木構造を作るプロトコルである。",
-      "間違い。\n\nブロードキャストフレーム自体は転送される。防ぐのはブロードキャストの永久ループである。",
-      "正しい。\n\nルートブリッジの選出にはブリッジ ID が使われ、これは優先順位と MAC アドレスの組合せで構成される。最小 ID のブリッジがルートになる。"
-    ],
-    "suggestedQuestions": [
-      "STP は何を防ぎますか？",
-      "ルートブリッジはどう決まりますか？",
-      "リンクアグリゲーションとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "STP は何を防ぎますか？",
-        "answer": "L2 ループによるブロードキャストストームやフレーム多重転送を防ぐ。"
-      },
-      {
-        "question": "ルートブリッジはどう決まりますか？",
-        "answer": "優先順位と MAC アドレスから成るブリッジ ID を比べ、最も小さいものがルートブリッジになる。"
-      },
-      {
-        "question": "リンクアグリゲーションとの違いは何ですか？",
-        "answer": "リンクアグリゲーションは複数リンクを束ねて帯域を増やし、STP はループを避けるために論理的な木構造を作る。目的が違う。"
-      }
+      "間違い。正しくは、STPはOSI基本参照モデルのデータリンク層で動作する。選択肢はネットワーク層のプロトコルとしているため誤りである。",
+      "間違い。正しくは、STPは複数経路によるループを防ぐため、冗長な経路をブロックして論理的な木構造を作る。選択肢は複数経路で同時にフレーム転送できるとしているため誤りである。",
+      "間違い。正しくは、STPは転送可能なポートを制御してブロードキャストフレームのループを防ぐが、ブロードキャストフレームそのものをブリッジ間で一律に転送しないプロトコルではない。選択肢はブロードキャストフレームを転送しないとしているため誤りである。",
+      "正しい。ルートブリッジはブリッジIDで選出され、ブリッジIDは優先順位とMACアドレスから構成される。最も小さいブリッジIDを持つブリッジがルートブリッジになる。"
     ],
     "original_question_id": "0f86dadf68d755d8",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:0f86dadf68d755d8",
+    "reviewQuestionId": "0f86dadf68d755d8",
+    "sourceRecordRef": "question_201402_2.json#9",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/lyr2-fwd/stp/stp-configuration-guide/m-stp.html",
+        "title": "STP Configuration Guide - Spanning Tree Protocol [Cisco IOS XE 17]"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "スパニングツリープロトコルの役割、転送経路、ブロードキャストフレーム、ルートブリッジ選出に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "STPはデータリンク層で動作し、選択肢のネットワーク層という説明は誤り。",
+          "promptContext": "法令非関連の技術肢。",
+          "refs": [],
+          "verdict": "技術知識に基づく判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "STPは冗長経路をブロックしてループを防ぐため、複数経路で同時にフレーム転送するという説明は誤り。",
+          "promptContext": "法令非関連の技術肢。",
+          "refs": [],
+          "verdict": "技術知識に基づく判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "STPはポートを制御してブロードキャストフレームのループを防ぐが、ブリッジ間でブロードキャストフレームを一律に転送しないわけではない。",
+          "promptContext": "法令非関連の技術肢。",
+          "refs": [],
+          "verdict": "技術知識に基づく判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ルートブリッジはブリッジIDで選出され、ブリッジIDは優先順位とMACアドレスから構成される。",
+          "promptContext": "法令非関連の技術肢。",
+          "refs": [],
+          "verdict": "技術知識に基づく判定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1356,33 +2087,151 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIP パケットへ優先度情報を付けてトラフィックを制御する説明は DiffServ などの QoS 制御であり、RSVP そのものではない。",
-      "間違い。\n\n連続メディアの発生源を遠隔制御するのは RTSP の役割であり、RSVP の説明ではない。",
-      "間違い。\n\nシーケンス番号やタイムスタンプを付けてリアルタイムデータを運ぶのは RTP の説明である。",
-      "正しい。\n\nRSVP は通信経路上のノードへ資源予約を要求し、音声や動画などリアルタイム通信に必要な帯域や品質を確保するためのプロトコルである。"
-    ],
-    "suggestedQuestions": [
-      "RSVPは何を予約しますか？",
-      "RTPとの違いは何ですか？",
-      "RTSPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RSVPは何を予約しますか？",
-        "answer": "帯域など通信経路上のネットワーク資源を予約し、必要な QoS を確保する。"
-      },
-      {
-        "question": "RTPとの違いは何ですか？",
-        "answer": "RTP はリアルタイムデータ自体を運ぶプロトコル、RSVP はその通信品質を確保するための予約プロトコルである。"
-      },
-      {
-        "question": "RTSPとの違いは何ですか？",
-        "answer": "RTSP はストリーミングの再生制御、RSVP は帯域などの資源予約を担当する。"
-      }
+      "間違い。IPパケットのDSフィールドなどを使って通信を分類し、転送時の扱いを制御するのはDiffServの役割である。選択肢はRSVPをパケットの優先度情報によるトラフィック制御としているため誤りである。",
+      "間違い。音声や映像などのメディアの再生・記録を遠隔制御するのはRTSPの役割である。選択肢はRSVPを情報の発生源の遠隔制御としているため誤りである。",
+      "間違い。RTPはシーケンス番号やタイムスタンプを用いて、リアルタイムデータの順序確認や再生 timing に必要な情報を伝える。選択肢はそれらの付加によってパケット間の時間差を保証するとしているため誤りである。",
+      "正しい。RSVPは通信経路上のノードにネットワーク資源の予約を要求し、音声や映像などのリアルタイム通信に必要な通信品質を確保するためのプロトコルである。"
     ],
     "original_question_id": "c2402a2c93d1e543",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:c2402a2c93d1e543",
+    "reviewQuestionId": "c2402a2c93d1e543",
+    "sourceRecordRef": "question_201402_2.json#16",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2474.html",
+        "title": "RFC 2474: Definition of the Differentiated Services Field"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2326.html",
+        "title": "RFC 2326: Real Time Streaming Protocol"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3550.html",
+        "title": "RFC 3550: RTP: A Transport Protocol for Real-Time Applications"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2205.html",
+        "title": "RFC 2205: Resource ReSerVation Protocol (RSVP)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RSVP、DiffServ、RTSP、RTPの役割を問う技術プロトコルの問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DiffServの役割はIPパケットの優先度情報などによるトラフィック制御であり、RSVPではない。",
+          "promptContext": "第1選択肢の技術的役割判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "メディアの再生や記録を遠隔制御するのはRTSPであり、RSVPではない。",
+          "promptContext": "第2選択肢の技術的役割判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "シーケンス番号やタイムスタンプを付加してリアルタイムデータを伝送するのはRTPであり、RSVPではない。",
+          "promptContext": "第3選択肢の技術的役割判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RSVPはネットワーク資源を予約し、リアルタイム通信の通信品質確保を支援するプロトコルである。",
+          "promptContext": "第4選択肢の技術的役割判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識により判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -2286,32 +3135,125 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n特徴コードを定義ファイルと照合するのはパターンマッチング法であり、ビヘイビア法ではない。",
-      "間違い。\n\n整合性保証情報の不一致で検出するのはチェックサム法の考え方である。",
-      "間違い。\n\n安全な原本のハッシュ値と比較するのはコンペア法の説明である。",
-      "正しい。\n\nビヘイビア法は、ファイル書換えや不審通信など実行時の振る舞いを監視してマルウェアやウイルスを検出する。"
-    ],
-    "suggestedQuestions": [
-      "ビヘイビア法は何を見ていますか？",
-      "パターンマッチング法との違いは何ですか？",
-      "未知のマルウェアに強い理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ビヘイビア法は何を見ていますか？",
-        "answer": "不審な書込み、設定変更、異常通信など、感染時に表れやすい挙動を監視する。"
-      },
-      {
-        "question": "パターンマッチング法との違いは何ですか？",
-        "answer": "パターンマッチング法は既知シグネチャ照合、ビヘイビア法は実行時の異常挙動検知である。"
-      },
-      {
-        "question": "未知のマルウェアに強い理由は何ですか？",
-        "answer": "既知の定義ファイルがなくても、不自然な振る舞いから検知できる可能性があるためである。"
-      }
+      "間違い。特徴的なコード列を定義ファイルと照合して検出するのはパターンマッチング法であり、プログラムを実行して挙動を見るビヘイビア法ではない。",
+      "間違い。ファイルに付加したチェックサムなどの保証情報を確認して異常を検出するのは、チェックサム法である。選択肢は保証情報の有無や有効性でウイルスを検出するとしているため誤りである。",
+      "間違い。検査対象ファイルと安全な場所に保管した原本のハッシュ値を比較するのは、コンペア法である。選択肢は原本との比較でウイルスを検出するとしているため誤りである。",
+      "正しい。ビヘイビア法は、プログラムを実行したときのファイル書換えや不審な通信などの振る舞いを監視し、ウイルスに特徴的な挙動を検出する。"
     ],
     "original_question_id": "0059628c3622b1d0",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:0059628c3622b1d0",
+    "reviewQuestionId": "0059628c3622b1d0",
+    "sourceRecordRef": "question_201402_2.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術知識のみで判定できる問題であり、法令条文を根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1は特徴的なコード列の照合を説明しており、パターンマッチング法である。",
+          "promptContext": "ウイルス検知手法の技術的定義を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術的な定義に基づく判定であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢2は保証情報の有無や有効性を確認するチェックサム法を説明している。",
+          "promptContext": "ウイルス検知手法の技術的定義を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術的な定義に基づく判定であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢3は検査対象と原本のハッシュ値を比較するコンペア法を説明している。",
+          "promptContext": "ウイルス検知手法の技術的定義を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術的な定義に基づく判定であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢4はプログラムを実行して挙動を観察するビヘイビア法を説明している。",
+          "promptContext": "ウイルス検知手法の技術的定義を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術的な定義に基づく判定であり、現行法監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

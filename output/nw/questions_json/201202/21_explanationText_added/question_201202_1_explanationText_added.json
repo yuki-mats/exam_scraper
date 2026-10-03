@@ -241,33 +241,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nスタックは最後に入れた要素だけを push/pop するので、配列で実装するなら末尾位置を示す添字が最低限あればよい。",
-      "間違い。\n\n先頭位置まで管理するのはキューや両端操作のある構造で有用だが、スタックの基本操作には不要である。",
-      "間違い。\n\n一つ前の要素へのポインタ配列は連結リスト型の発想であり、配列スタックの最小構成ではない。",
-      "間違い。\n\nスタック途中の要素を個別に指す添字は、LIFO の push/pop を行う上で本質的に必要ない。"
-    ],
-    "suggestedQuestions": [
-      "スタックとキューの違いは何ですか？",
-      "配列スタックでオーバーフローはどう検出しますか？",
-      "top 添字は push/pop でどう変わりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "スタックとキューの違いは何ですか？",
-        "answer": "スタックは後入れ先出し、キューは先入れ先出しであり、必要な管理情報も異なる。"
-      },
-      {
-        "question": "配列スタックでオーバーフローはどう検出しますか？",
-        "answer": "top が配列上限に達した状態でさらに push しようとしたときに検出する。"
-      },
-      {
-        "question": "top 添字は push/pop でどう変わりますか？",
-        "answer": "push で新要素位置へ進み、pop で直前位置へ戻す。実装流儀により前後順はあるが役割は同じである。"
-      }
+      "正しい。配列でスタックを実現する場合、最後に入れた要素の位置を示す添字の変数が最低限必要である。この位置を更新すれば、最後に入れた要素を取り出すpop操作と、新しい要素を末尾へ追加するpush操作を管理できる。最初の要素や途中の要素を個別に示す添字、又は一つ前の要素を格納する配列は、スタックの基本操作には必要ない。"
     ],
     "original_question_id": "5b7eb385251472f3",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:5b7eb385251472f3",
+    "reviewQuestionId": "5b7eb385251472f3",
+    "sourceRecordRef": "question_201202_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "配列を用いたスタックの実装に必要なデータ構造上の要素を問う問題であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "配列によるスタック実装の技術知識だけで判定できる。",
+          "promptContext": "アルゴリズム・データ構造の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "配列によるスタック実装の技術知識だけで判定できる。",
+          "promptContext": "アルゴリズム・データ構造の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "配列によるスタック実装の技術知識だけで判定できる。",
+          "promptContext": "アルゴリズム・データ構造の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "配列によるスタック実装の技術知識だけで判定できる。",
+          "promptContext": "アルゴリズム・データ構造の問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -391,10 +481,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、ライトスルー方式ではキャッシュメモリと主記憶の両方へ同時に書き込み、ライトバック方式では主記憶への反映を後回しにする。選択肢はキャッシュメモリだけに書き込む方式をライトスルー方式としているため誤りである。",
-      "正しい。主記憶にも同時に書き込むため、キャッシュメモリと主記憶の内容は一致し、主記憶は常に最新状態に保たれる。",
-      "間違い。ライトバック方式は、まずキャッシュメモリへ書き込み、必要な時点で主記憶へ反映する。選択肢は両方へ同時に書き込む方式をライトバック方式としているため誤りである。",
-      "間違い。ライトバック方式では、キャッシュメモリから変更済みデータが追い出されるとき、主記憶へ書き戻す必要がある。選択肢は書き戻しが不要としているため誤りである。"
+      "間違い。正しくは、ライトスルー方式ではキャッシュメモリと主記憶の両方に書き込む。選択肢はキャッシュメモリだけに書き込む方式をライトスルー方式としているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、ライトバック方式ではまずキャッシュメモリに書き込み、後で主記憶に反映する。選択肢は両方に同時に書き込む方式をライトバック方式としているため誤りである。",
+      "間違い。ライトバック方式では、変更されたデータがキャッシュミスによって追い出されるとき、主記憶へ書き戻す必要がある。選択肢は書き戻しが不要としているため誤りである。"
     ],
     "original_question_id": "015cf5014266d414",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_5.html",
@@ -404,44 +494,240 @@
     "sourceRecordRef": "question_201202_1.json#4",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "キャッシュメモリの書込み方式に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ライトスルー方式はキャッシュメモリと主記憶の両方へ書き込む。",
+          "promptContext": "選択肢1の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ライトスルー方式はキャッシュメモリと主記憶の両方に書き込むため、主記憶の内容を最新に保てる。",
+          "promptContext": "選択肢2の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ライトバック方式はまずキャッシュメモリへ書き込み、後で主記憶へ反映する。",
+          "promptContext": "選択肢3の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ライトバック方式では、変更されたデータが追い出されるときに主記憶へ書き戻す必要がある。",
+          "promptContext": "選択肢4の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n0.81 は大阪−名古屋−東京の直列部分だけの稼働率であり、福岡−東京全体の値ではない。",
-      "正しい。\n\n大阪−名古屋−東京は 0.9×0.9=0.81、大阪−東京は 1−(1−0.9)(1−0.81)=0.981 となる。これに福岡−大阪の 0.9 を掛けると 0.8829 で、およそ 0.88 である。",
-      "間違い。\n\n0.89 に見えても、計算結果 0.8829 を選択肢レベルで丸めると 0.88 が最も近い。",
-      "間違い。\n\n0.98 は大阪−東京間の並列部分に相当する値であり、福岡−大阪の直列 0.9 をまだ考慮していない。"
-    ],
-    "suggestedQuestions": [
-      "直列接続と並列接続の稼働率はどう計算しますか？",
-      "なぜ大阪−東京間で 1−(1−0.9)(1−0.81) になるのですか？",
-      "最後に 0.9 を掛ける理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "直列接続と並列接続の稼働率はどう計算しますか？",
-        "answer": "直列は全区間が動く必要があるので積、並列は少なくとも一方が動けばよいので 1−(双方停止確率) で求める。"
-      },
-      {
-        "question": "なぜ大阪−東京間で 1−(1−0.9)(1−0.81) になるのですか？",
-        "answer": "直接経路と名古屋経由経路の両方が同時に止まる場合だけ通信不能になるためである。"
-      },
-      {
-        "question": "最後に 0.9 を掛ける理由は何ですか？",
-        "answer": "福岡−大阪区間は大阪−東京間と直列関係にあり、両方が稼働して初めて福岡−東京が通信可能になるからである。"
-      }
+      "正しい。福岡・東京間は、福岡−大阪の回線と、大阪−東京間の並列経路が直列につながっている。大阪−東京間は、直接つながる経路の稼働率と、大阪−名古屋−東京を経由する経路の稼働率を組み合わせて求める。回線がすべて独立に故障するとすると、直列接続の稼働率は各回線の稼働率の積、並列接続の稼働率は少なくとも一方が稼働する確率である。\n\n大阪−名古屋−東京の経路は、\n\\[0.9\\times0.9=0.81\\]\nとなる。大阪−東京間の並列部分の稼働率は、両経路が同時に停止する確率を1から引いて、\n\\[1-(1-0.9)(1-0.81)=0.981\\]\nである。福岡−大阪の回線を含めた福岡・東京間の稼働率は、\n\\[0.9\\times0.981=0.8829\\]\nとなる。したがって、およそ\\(0.88\\)である。ここで、0.9は各隣接ノード間の回線稼働率、0.81は大阪−名古屋−東京経路の稼働率、0.981は大阪−東京間の並列部分の稼働率、0.8829は福岡・東京間全体の稼働率を表す。"
     ],
     "original_question_id": "be8045eeaa761609",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:be8045eeaa761609",
+    "reviewQuestionId": "be8045eeaa761609",
+    "sourceRecordRef": "question_201202_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "隣接ノード間の回線稼働率から福岡・東京間の経路稼働率を求める工学的な計算問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は回線稼働率の計算問題に関する技術的判定である。",
+          "promptContext": "ネットワーク可用性計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "回線稼働率の計算知識による技術肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は回線稼働率の計算問題に関する技術的判定である。",
+          "promptContext": "ネットワーク可用性計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "回線稼働率の計算知識による技術肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は回線稼働率の計算問題に関する技術的判定である。",
+          "promptContext": "ネットワーク可用性計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "回線稼働率の計算知識による技術肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は回線稼働率の計算問題に関する技術的判定である。",
+          "promptContext": "ネットワーク可用性計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "回線稼働率の計算知識による技術肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。空き領域を結合して連続した領域にまとめる処理はコンパクションである。可変区画方式は、プログラムの大きさに応じて主記憶を可変長の区画に分けて割り当てる方式である。選択肢は空き領域の結合を可変区画方式としているため誤りである。",
+      "間違い。空き領域を結合して連続した領域にまとめる処理はコンパクションである。可変区画方式は、プログラムの大きさに応じた可変長の区画を割り当てる方式である。選択肢はコンパクションを可変区画方式としているため誤りである。",
       "正しい。ガーベジコレクションは、プログラムから参照されなくなったヒープ領域を回収し、再利用できるようにする仕組みである。",
-      "間違い。プログラムの実行中に主記憶上の格納位置を変更する処理は動的再配置である。動的リンキングは、実行時に必要なモジュールを結合して参照関係を解決する仕組みである。選択肢は格納位置の移動を動的リンキングとしているため誤りである。",
-      "間違い。実行中に必要になった時点でモジュールを読み込む処理は動的ロードである。動的再配置は、実行中のプログラムやモジュールの格納位置に応じてアドレスを調整する処理である。選択肢は必要時のモジュール読込みを動的再配置としているため誤りである。"
+      "間違い。実行中に主記憶上のモジュールの格納位置を移動させる処理は動的再配置である。動的リンキングは、実行時に必要なモジュールを結合し、参照関係を解決する仕組みである。選択肢は格納位置の移動を動的リンキングとしているため誤りである。",
+      "間違い。実行中に必要になった時点でモジュールを読み込む処理は動的ロードである。動的再配置は、格納位置に応じてプログラムやモジュールのアドレスを調整する処理である。選択肢は必要時のモジュール読込みを動的再配置としているため誤りである。"
     ],
     "original_question_id": "5252ed6f2c3b42ea",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_7.html",
@@ -451,37 +737,233 @@
     "sourceRecordRef": "question_201202_1.json#6",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "主記憶管理に関する技術概念の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "可変区画方式とコンパクションの定義に基づき判定した。",
+          "promptContext": "主記憶管理の技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ガーベジコレクションの定義に基づき判定した。",
+          "promptContext": "主記憶管理の技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "動的再配置と動的リンキングの定義に基づき判定した。",
+          "promptContext": "主記憶管理の技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "動的ロードと動的再配置の定義に基づき判定した。",
+          "promptContext": "主記憶管理の技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nページング方式ではページ単位で主記憶へ配置できるため、連続領域でなくても割付可能で、外部断片化の問題を避けやすい。",
-      "間違い。\n\n仮想記憶のページ数を多く取れることは仮想記憶の利点だが、フラグメンテーション解決の直接理由ではない。",
-      "間違い。\n\nプログラム全体を 1 ページに収める必要はなく、ページ単位に分割して配置できることが本質である。",
-      "間違い。\n\nロード時に主記憶を割り付けること自体は他方式でも行うため、ページング特有の解決理由ではない。"
-    ],
-    "suggestedQuestions": [
-      "外部断片化と内部断片化はどう違いますか？",
-      "ページングではなぜ不連続配置が可能ですか？",
-      "仮想記憶のページ数が多いことは何に効きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "外部断片化と内部断片化はどう違いますか？",
-        "answer": "外部断片化は空き領域が細切れになる現象、内部断片化は確保した区画内に未使用部分が残る現象である。"
-      },
-      {
-        "question": "ページングではなぜ不連続配置が可能ですか？",
-        "answer": "論理アドレスをページ番号とオフセットで扱い、ページ表で物理フレームへ対応付けるからである。"
-      },
-      {
-        "question": "仮想記憶のページ数が多いことは何に効きますか？",
-        "answer": "物理メモリより大きな論理空間を扱えるが、それ自体は断片化解決の主因ではない。"
-      }
+      "正しい。主記憶を固定長のページ単位で管理し、プログラムやデータを不連続な空き領域へ割り付けられるため、連続した大きな領域を確保できない外部フラグメンテーションを避けやすい。したがって、正しいのは「一連のプログラムやデータを，不連続な主記憶に割り付けることができる」という説明である。"
     ],
     "original_question_id": "e680a877aa45e95b",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:e680a877aa45e95b",
+    "reviewQuestionId": "e680a877aa45e95b",
+    "sourceRecordRef": "question_201202_1.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ページング方式による主記憶の不連続な割付けを問うOS技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ページング方式ではプログラムやデータを不連続な主記憶へ割り付けられる。",
+          "promptContext": "技術問題の第1選択肢。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "OSのページング方式に関する技術知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "仮想記憶のページ数を主記憶のページ数より多くできることは、フラグメンテーションを解決する直接の理由ではない。",
+          "promptContext": "技術問題の第2選択肢。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSのページング方式に関する技術知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プログラム全体を1ページに割り付けることは、ページング方式がフラグメンテーションを避ける理由ではない。",
+          "promptContext": "技術問題の第3選択肢。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSのページング方式に関する技術知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ローディング時に主記憶を割り付けることは、ページング方式による不連続割付けの理由ではない。",
+          "promptContext": "技術問題の第4選択肢。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSのページング方式に関する技術知識であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -608,33 +1090,126 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nETL ツールは、業務データを抽出し、必要な形式に加工して、データウェアハウスなどへ格納するためのツールである。",
-      "間違い。\n\nOLAP ツールは多次元データを分析するためのもので、取込み前の抽出・変換・ロードを担うものではない。",
-      "間違い。\n\nデータマイニングツールは蓄積済みデータから傾向や規則を見つける用途であり、投入処理の主役ではない。",
-      "間違い。\n\n統計ツールは分析用であり、データウェアハウスへの取込み工程を一貫して実行する位置付けではない。"
-    ],
-    "suggestedQuestions": [
-      "ETL の各文字は何を表しますか？",
-      "OLAP と ETL の役割はどう違いますか？",
-      "データマイニングはどの段階で使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ETL の各文字は何を表しますか？",
-        "answer": "Extract、Transform、Load の略で、抽出・変換・格納の一連処理を表す。"
-      },
-      {
-        "question": "OLAP と ETL の役割はどう違いますか？",
-        "answer": "ETL はデータを整えて格納する前処理、OLAP は格納後の多面的分析を支援する。"
-      },
-      {
-        "question": "データマイニングはどの段階で使いますか？",
-        "answer": "データが蓄積された後に、相関や分類規則などを見つける分析段階で使う。"
-      }
+      "正しい。ETLツールは、業務データを抽出し、必要な形式に加工して、データウェアハウスなどへ書き出す一連の処理を行う。",
+      "間違い。OLAPツールは、データウェアハウスに蓄積された多次元データを分析するためのツールである。選択肢はデータの抽出・加工・書出しを行うツールとしているため誤りである。",
+      "間違い。データマイニングツールは、蓄積されたデータから傾向や規則性などを発見するためのツールである。選択肢はデータウェアハウスへの取込み処理を行うツールとしているため誤りである。",
+      "間違い。統計ツールは、データを統計的に分析し、結果を評価するためのツールである。選択肢は抽出・加工・書出しを一貫して行うツールとしているため誤りである。"
     ],
     "original_question_id": "0f09902b9221c899",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:0f09902b9221c899",
+    "reviewQuestionId": "0f09902b9221c899",
+    "sourceRecordRef": "question_201202_1.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ETL、OLAP、データマイニング、統計の各ツールの機能を区別する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ETLツールの機能は技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "データの抽出、加工、書出しを行うツールの判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "OLAPツールの機能は技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "多次元データを分析するツールの判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "データマイニングツールの機能は技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "データから傾向や規則性を発見するツールの判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "統計ツールの機能は技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "統計分析を行うツールの判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -878,33 +1453,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nクッキーは通常サーバ側が発行しクライアントへ保持させる。各サーバ上で個別に生成・保存する説明ではない。",
-      "間違い。\n\nクッキー型のシングルサインオンは同一ドメイン配下で扱うのが基本で、異なるドメインへそのまま共有できるわけではない。",
-      "間違い。\n\nリバースプロキシ型は入口を集約して複数 Web サーバを仲介する方式であり、認証対象を異なるドメインに置く必要はない。",
-      "正しい。\n\nリバースプロキシ型シングルサインオンでは、パスワードだけでなくクライアント証明書を使った利用者認証も構成可能である。"
-    ],
-    "suggestedQuestions": [
-      "クッキー型 SSO はなぜ同一ドメインが前提になりやすいですか？",
-      "リバースプロキシ型 SSO の利点は何ですか？",
-      "SAML を使う SSO は何を解決しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クッキー型 SSO はなぜ同一ドメインが前提になりやすいですか？",
-        "answer": "ブラウザのクッキー送信範囲がドメイン属性に制約されるため、別ドメイン間でそのまま共有しにくいからである。"
-      },
-      {
-        "question": "リバースプロキシ型 SSO の利点は何ですか？",
-        "answer": "認証処理を入口へ集約でき、各 Web サーバへ個別に認証機能を実装しなくてもよい。"
-      },
-      {
-        "question": "SAML を使う SSO は何を解決しますか？",
-        "answer": "異なるドメインや組織間でも認証情報を連携しやすくし、広域なシングルサインオンを実現しやすくする。"
-      }
+      "間違い。クッキー型のシングルサインオンでは、認証後の情報をサーバがクッキーとしてクライアントへ渡し、各サーバがその情報を利用して認証する。選択肢はクライアントがクッキーを生成し、各サーバで保存・管理するとしているため誤りである。",
+      "間違い。クッキー型のシングルサインオンでは、同一ドメイン配下でクッキーを共有して認証に利用する。認証対象のサーバを異なるインターネットドメインに配置する必要があるとしているため誤りである。",
+      "間違い。リバースプロキシ型のシングルサインオンは、リバースプロキシが利用者認証とWebサーバへの中継をまとめて行う方式である。認証対象のWebサーバを異なるインターネットドメインに配置する必要があるとしているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "28dc575bf51d98ee",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:28dc575bf51d98ee",
+    "reviewQuestionId": "28dc575bf51d98ee",
+    "sourceRecordRef": "question_201202_1.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "シングルサインオンの方式と認証手段に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クッキーを使ったシングルサインオンの認証情報の扱いに関する技術問題である。",
+          "promptContext": "技術問題の選択肢別監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クッキー型シングルサインオンにおけるドメイン共有の技術要件に関する選択肢である。",
+          "promptContext": "技術問題の選択肢別監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リバースプロキシ型シングルサインオンの構成に関する技術問題である。",
+          "promptContext": "技術問題の選択肢別監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リバースプロキシ型シングルサインオンでデジタル証明書を利用できる認証手段に関する技術問題である。",
+          "promptContext": "技術問題の選択肢別監査",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判断する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1047,10 +1715,7 @@
   },
   {
     "explanationText": [
-      "正しい。SQL文の値にプレースホルダを使うと、入力値がSQL文の構造として解釈されにくくなり、SQLインジェクションを防ぎやすい。",
-      "間違い。正しくは、XSSには出力時のエスケープなど、スクリプトが実行されないようにする対策を行う。選択肢は任意の外部サイトのスタイルシートを読み込むことを対策としているため、XSSを防ぐ方法になっていない。",
-      "間違い。正しくは、状態を変更するリクエストにはCSRFトークンの検証などを行う。選択肢はGETメソッドを使用することを対策としているが、メソッドをGETにするだけでは、利用者の意図しないリクエストの実行を防げない。",
-      "間違い。正しくは、推測困難なセッションIDを発行し、必要に応じてログイン時などに再生成する。選択肢は利用者ごとに固定のセッションIDを使用するため、IDを知られたり推測されたりすると、その利用者になりすまされる危険がある。"
+      "正しい。適切な組合せはアである。SQLインジェクションには、SQL文の値にプレースホルダを使うなど、入力値がSQL文の構造として解釈されないようにする対策が有効である。イは、任意の外部サイトのスタイルシートを読み込むだけではクロスサイトスクリプティング（XSS）を防げない。XSSには、出力時のエスケープなど、スクリプトが実行されないようにする対策が必要である。ウは、状態を変更するリクエストにGETメソッドを使うだけでは、クロスサイトリクエストフォージェリ（CSRF）を防げない。CSRFトークンの検証などが必要である。エは、利用者ごとに固定のセッションIDを使うと、IDを知られたり推測されたりした場合になりすまされる危険がある。セッションIDは推測困難なものを発行し、ログイン時などに再生成する。"
     ],
     "original_question_id": "342ce1e1e0d94ce8",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_15.html",
@@ -1060,7 +1725,113 @@
     "sourceRecordRef": "question_201202_1.json#14",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SQLインジェクション、クロスサイトスクリプティング、クロスサイトリクエストフォージェリ、セッションハイジャックに対する技術的対策の適否を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SQLインジェクション対策の技術的適否を確認した。",
+          "promptContext": "法令監査対象外。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "XSS対策の技術的適否を確認した。",
+          "promptContext": "法令監査対象外。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CSRF対策の技術的適否を確認した。",
+          "promptContext": "法令監査対象外。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "セッションハイジャック対策の技術的適否を確認した。",
+          "promptContext": "法令監査対象外。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1790,7 +2561,113 @@
     "sourceRecordRef": "question_201202_1.json#20",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ITサービスマネジメントの可用性管理に関する技術知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "災害を想定した復旧テストの回数は、サービス継続性管理の指標である。",
+          "promptContext": "選択肢1を技術知識に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サービスの中断回数は、可用性を直接表す指標である。",
+          "promptContext": "選択肢2を技術知識に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "性能不足に起因するインシデント数は、キャパシティ管理の指標である。",
+          "promptContext": "選択肢3を技術知識に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SLA未達項目数は、サービスレベル管理の指標である。",
+          "promptContext": "選択肢4を技術知識に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -2163,32 +3040,125 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nこれは提供サービスの品質や責任範囲を定める SLA の説明である。",
-      "間違い。\n\n技術要件やサービスレベル要件を示して提案を依頼する文書は RFP であり、RFI ではない。",
-      "正しい。\n\nRFI は、調達前に利用可能な技術や製品、導入実績など実現手段の情報提供をベンダへ依頼する文書である。",
-      "間違い。\n\nこれは要求定義と整合させた仕様書・設計文書の説明であり、RFI の説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "RFI と RFP の違いは何ですか？",
-      "RFI は調達のどの段階で使いますか？",
-      "SLA は RFI とどう違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RFI と RFP の違いは何ですか？",
-        "answer": "RFI は情報収集、RFP は要件を示して具体提案を求める文書であり、目的と調達段階が異なる。"
-      },
-      {
-        "question": "RFI は調達のどの段階で使いますか？",
-        "answer": "要件を固める前後の情報収集段階で使い、市場にどんな実現手段があるかを把握する。"
-      },
-      {
-        "question": "SLA は RFI とどう違いますか？",
-        "answer": "SLA はサービス提供時の品質合意文書であり、調達前の情報提供依頼である RFI とは役割が全く異なる。"
-      }
+      "間違い。サービス内容や品質、責任範囲、ペナルティなどをあらかじめ契約で定める文書はSLAである。選択肢はこの文書をRFIとしているため誤りである。",
+      "間違い。技術要件やサービスレベル要件を示し、期限内に実現方法の提案を依頼する文書はRFPである。選択肢はRFPをRFIとしているため誤りである。",
+      "正しい。RFIは、調達や要求定義を進める前に、利用可能な技術・製品やベンダーの導入実績など、実現手段に関する情報提供を依頼する文書である。",
+      "間違い。業務処理の概要、入出力情報、データフローなどをまとめ、要求定義との整合性を確認する文書は、要求定義書や仕様・設計に関する文書である。選択肢はこの文書をRFIとしているため誤りである。"
     ],
     "original_question_id": "fbaebe974dfb6892",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:fbaebe974dfb6892",
+    "reviewQuestionId": "fbaebe974dfb6892",
+    "sourceRecordRef": "question_201202_1.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RFI、RFP、SLA及び要求定義関連文書の役割を問う技術・調達知識の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はSLAの説明であり、RFIではない。",
+          "promptContext": "RFIを説明したものはどれか。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。RFIとSLAの役割の違いで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はRFPの説明であり、RFIではない。",
+          "promptContext": "RFIを説明したものはどれか。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。RFPとRFIの役割の違いで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、利用可能な技術・製品やベンダーの導入実績などの情報提供を依頼するRFIの説明である。",
+          "promptContext": "RFIを説明したものはどれか。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。RFIの役割に関する技術・調達知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は要求定義や仕様・設計に関する文書の説明であり、RFIではない。",
+          "promptContext": "RFIを説明したものはどれか。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。要求定義関連文書の役割で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

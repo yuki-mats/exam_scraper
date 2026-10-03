@@ -1696,123 +1696,489 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nIPsecはIP層、すなわちOSI基本参照モデルのネットワーク層で暗号化や完全性保護を提供する。IPv6通信でネットワーク層の保護を問われたら第一候補になる。",
-      "間違い。\n\nPPPは2点間接続のためのデータリンク層プロトコルであり、ネットワーク層暗号化の仕組みではない。暗号化目的で使う名称ではない点を区別する。",
-      "間違い。\n\nSSHは主にリモートログインなどで使うアプリケーション寄りの安全な通信プロトコルである。ネットワーク層の暗号化ではなく、上位層のセッション保護に使う。",
-      "間違い。\n\nTLSはトランスポート層で通信路を保護するプロトコルであり、ネットワーク層の暗号化ではない。層の違いを問う典型問題である。"
-    ],
-    "suggestedQuestions": [
-      "IPsecはどの層で何を守りますか？",
-      "TLSとIPsecはどう使い分けますか？",
-      "PPPは何のためのプロトコルですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPsecはどの層で何を守りますか？",
-        "answer": "IPsecはIPパケット単位で暗号化や完全性保護、送信元認証を行う。ネットワーク層で動くため、上位プロトコルに依存せず保護できる。"
-      },
-      {
-        "question": "TLSとIPsecはどう使い分けますか？",
-        "answer": "TLSは主に特定アプリケーションのセッションを守り、IPsecはIP層で通信全体を保護する。どの層で守るかが使い分けの基本になる。"
-      },
-      {
-        "question": "PPPは何のためのプロトコルですか？",
-        "answer": "PPPは2点間回線でデータリンクを確立し、認証や多重化を行うためのプロトコルである。暗号化層の位置を問う問題ではIPsecやTLSと混同しないことが大切である。"
-      }
+      "正しい。IPsecはIP層、すなわちネットワーク層で通信の暗号化や完全性保護を行う。IPv6通信のネットワーク層を保護する技術を問われているため、該当する。",
+      "間違い。正しくは、PPPは2点間接続でデータリンク層の通信を制御するプロトコルである。選択肢はPPPをネットワーク層の暗号化に用いるものとしているため誤りである。",
+      "間違い。正しくは、SSHは主にリモートログインなどの通信を安全に保護する上位層のプロトコルである。選択肢はSSHをネットワーク層の暗号化に用いるものとしているため誤りである。",
+      "間違い。正しくは、TLSはTCPなどのトランスポート層の上で通信を保護するプロトコルである。選択肢はTLSをネットワーク層の暗号化に用いるものとしているため誤りである。"
     ],
     "original_question_id": "8cc4cc522129ed21",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:8cc4cc522129ed21",
+    "reviewQuestionId": "8cc4cc522129ed21",
+    "sourceRecordRef": "question_202401_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv6通信のネットワーク層暗号化に用いる技術を問う、技術仕様の問題。法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPsecはネットワーク層で暗号化と完全性保護を行う。",
+          "promptContext": "IPv6通信のネットワーク層暗号化に用いる技術。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PPPはデータリンク層の2点間接続制御プロトコルであり、ネットワーク層暗号化には用いない。",
+          "promptContext": "IPv6通信のネットワーク層暗号化に用いる技術。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SSHは主にリモートログインなどを保護する上位層のプロトコルであり、ネットワーク層暗号化には用いない。",
+          "promptContext": "IPv6通信のネットワーク層暗号化に用いる技術。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TLSはTCPなどの上位で通信を保護するプロトコルであり、ネットワーク層暗号化には用いない。",
+          "promptContext": "IPv6通信のネットワーク層暗号化に用いる技術。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nUMLの関連には多項関連もあり、関係を二つのクラス間だけへ限定する説明は不正確である。1つのクラスが複数クラスと同時に関係を持つこともできる。",
-      "正しい。\n\nサブクラスはスーパークラスから継承した操作を再定義できる。これがオーバーライドであり、オブジェクト指向の多態性を支える基本機能である。",
-      "間違い。\n\nサブクラスのインスタンスは、継承した操作を自分自身の機能として実行できる。実行のたびに別のスーパークラスインスタンスへ依頼するわけではない。",
-      "間違い。\n\n集約は全体と部分の関係を表すが、属性や操作を共有する関係ではない。共有や継承が起こるのは汎化・継承の論点である。"
-    ],
-    "suggestedQuestions": [
-      "オーバーライドとは何ですか？",
-      "集約と継承はどう違いますか？",
-      "関連は二つのクラス間だけとは限らないのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "オーバーライドとは何ですか？",
-        "answer": "スーパークラスで定義された操作を、サブクラス側で同じ名前のまま振る舞いを作り直すことである。共通インタフェースを保ちつつ、具体的な動作を変えられる。"
-      },
-      {
-        "question": "集約と継承はどう違いますか？",
-        "answer": "集約は『全体が部分を持つ』関係であり、継承は『あるクラスが別クラスの性質を受け継ぐ』関係である。属性や操作の共有は継承の論点である。"
-      },
-      {
-        "question": "関連は二つのクラス間だけとは限らないのですか？",
-        "answer": "UMLでは複数クラスを結ぶ多項関連も表現できる。試験では『必ず二者間』のような断定表現を疑うと誤答を避けやすい。"
-      }
+      "間違い。関連は二つのクラス間に限られず、三つ以上のクラス間に定義する多項関連もある。選択肢は関連を二つのクラス間だけに限定しているため誤りである。",
+      "正しい。サブクラスは、スーパークラスから継承した操作を再定義できる。これはオーバーライドと呼ばれ、多態性を実現する仕組みの一つである。",
+      "間違い。サブクラスのインスタンスは、継承した操作を自分自身の操作として実行し、必要に応じてスーパークラスで定義された実装を利用する。選択肢は、実行のたびにスーパークラスのインスタンスへ依頼するとしているため誤りである。",
+      "間違い。集約は、全体を表すオブジェクトと、その一部であるオブジェクトの関係である。属性や操作を共有する関係ではない。選択肢は集約を属性及び操作の共有としているため誤りである。"
     ],
     "original_question_id": "ad499cbbc9309fdb",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:ad499cbbc9309fdb",
+    "reviewQuestionId": "ad499cbbc9309fdb",
+    "sourceRecordRef": "question_202401_1.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "オブジェクト指向のクラス間関係に関する技術上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "多項関連の存在に関する技術知識で判定した。",
+          "promptContext": "法令根拠を用いない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。オブジェクト指向の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サブクラスによる操作の再定義に関する技術知識で判定した。",
+          "promptContext": "法令根拠を用いない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。オブジェクト指向の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "継承した操作の実行に関する技術知識で判定した。",
+          "promptContext": "法令根拠を用いない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。オブジェクト指向の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "集約関係に関する技術知識で判定した。",
+          "promptContext": "法令根拠を用いない技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。オブジェクト指向の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nテスト終盤でも増加傾向が強いグラフなら、まだ多くのバグが摘出され続けており収束していない。ゴンペルツ曲線のような飽和型には見えない。",
-      "間違い。\n\n直線的で頭打ちの形が見えないグラフは、ゴンペルツ曲線のS字的な収束挙動と合わない。バグの累積摘出が飽和へ向かうかを見て判断する。",
-      "正しい。\n\nゴンペルツ曲線は、初期は増加し、その後伸びが鈍って飽和へ向かうS字型を示す。テスト後半で傾きが緩やかになる形は、バグが収束しつつある根拠の一つになる。",
-      "間違い。\n\n後半で多少緩やかでも、S字型の収束モデルとして適切でなければゴンペルツ曲線とは言えない。単に右肩上がりが鈍っただけでは収束判断の根拠として弱い。"
-    ],
-    "suggestedQuestions": [
-      "ゴンペルツ曲線は何を表しますか？",
-      "バグ収束はグラフのどこを見て判断しますか？",
-      "ソフトウェア信頼度成長モデルは何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ゴンペルツ曲線は何を表しますか？",
-        "answer": "テストの進行に伴う累積バグ摘出数の増え方を表す代表的な成長曲線の一つである。後半で増加が鈍り、飽和へ向かう形が特徴である。"
-      },
-      {
-        "question": "バグ収束はグラフのどこを見て判断しますか？",
-        "answer": "後半で曲線の傾きが小さくなり、累積摘出数が飽和へ向かっているかを見る。まだ急増しているなら潜在バグが多いと判断しやすい。"
-      },
-      {
-        "question": "ソフトウェア信頼度成長モデルは何に使いますか？",
-        "answer": "テストの進み具合から残存バグの見込みや収束時期を推定するために使う。テスト終了判断の補助指標として利用される。"
-      }
+      "正しい。ゴンペルツ曲線に該当するのはウである。累積誤り検出数が初期に増加し、中ほどで増加が大きくなった後、終盤で伸びが緩やかになる非対称なS字型を示す。テスト終盤で傾きが小さくなることは、発見されるバグが減り、バグが収束しつつあることを判断する根拠の一つになる。"
     ],
     "original_question_id": "70882b8e60d5cb22",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:70882b8e60d5cb22",
+    "reviewQuestionId": "70882b8e60d5cb22",
+    "sourceRecordRef": "question_202401_1.json#16",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア信頼度成長モデルに関する工学・統計上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この図はゴンペルツ曲線ではなく、ゴンペルツ曲線に固有の非対称なS字型を示さない。",
+          "promptContext": "ゴンペルツ曲線の図形判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ゴンペルツ曲線の定義と図形の対応を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この図は直線であり、ゴンペルツ曲線の非対称なS字型ではない。",
+          "promptContext": "ゴンペルツ曲線の図形判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ゴンペルツ曲線の定義と図形の対応を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この図は累積誤り検出数が非対称なS字型に増加し、終盤で伸びが緩やかになるゴンペルツ曲線である。",
+          "promptContext": "ゴンペルツ曲線の図形判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。ゴンペルツ曲線の定義と図形の対応を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この図は増加後に単調に飽和する曲線であり、ゴンペルツ曲線の非対称なS字型とは異なる。",
+          "promptContext": "ゴンペルツ曲線の図形判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ゴンペルツ曲線の定義と図形の対応を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\n図では EV<AC なのでコスト効率は悪く、計画より費用超過である。また EV<PV なので進捗は計画より遅れている。このまま推移するとコストは多くなり、完了は遅くなる。",
-      "間違い。\n\nコスト超過の見立ては合っても、進捗は EV<PV なので早くはならない。EVMでは EV と PV の比較でスケジュール先行か遅延かを判断する。",
-      "間違い。\n\nEV<AC の時点で計画よりコストが少なくなる見通しではない。コストが少ないという判断は EV>AC の場合に対応する。",
-      "間違い。\n\nコストもスケジュールも両方とも良い状況ではない。EV が AC より小さく、さらに PV よりも小さいので、超過かつ遅延である。"
-    ],
-    "suggestedQuestions": [
-      "EVMではEV・AC・PVをどう比べますか？",
-      "EV<ACは何を意味しますか？",
-      "EV<PVは何を意味しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EVMではEV・AC・PVをどう比べますか？",
-        "answer": "EVとACを比べてコスト効率、EVとPVを比べてスケジュール効率を見る。EVが相手より大きければ、その観点では良好と判断しやすい。"
-      },
-      {
-        "question": "EV<ACは何を意味しますか？",
-        "answer": "出来高として得られた価値より、実際に使ったコストの方が大きいことを示す。つまり予算超過気味で、コスト効率が悪い。"
-      },
-      {
-        "question": "EV<PVは何を意味しますか？",
-        "answer": "計画上この時点で得ているはずの出来高より、実際の出来高が少ないことを示す。進捗が計画より遅れていると判断する。"
-      }
+      "正しい。EVMでは、EV（出来高）がAC（実コスト）を下回ると、実際にかかった費用が計画より多いことを示す。また、EVがPV（計画価値）を下回ると、進捗が計画より遅れていることを示す。図ではこの両方が成り立つ。\n\nコスト効率は次の式で求める。\n\\[CPI=\\frac{EV}{AC}\\]\nEVがACより小さいため\\(CPI<1\\)となり、コスト超過である。スケジュール効率は次の式で求める。\n\\[SPI=\\frac{EV}{PV}\\]\nEVがPVより小さいため\\(SPI<1\\)となり、計画より遅れている。これらの効率がこのまま続くなら、計画よりコストは多くなり、プロジェクトの完了は遅くなる。"
     ],
     "original_question_id": "8216f7a1e6f4fb7e",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:8216f7a1e6f4fb7e",
+    "reviewQuestionId": "8216f7a1e6f4fb7e",
+    "sourceRecordRef": "question_202401_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "EVMのPV、EV、AC、CPI、SPIに基づく技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PV、EV、ACの関係からコスト超過とスケジュール遅延を判断する技術内容である。",
+          "promptContext": "技術問題の選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "EVMの技術知識に基づく選択肢であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVがACを下回るためコストは多くなり、EVがPVを下回るため完了は遅くなる。",
+          "promptContext": "技術問題の選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "EVMの技術知識に基づく選択肢であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVがACを下回るためコストは少なくならず、EVがPVを下回るため完了は早くならない。",
+          "promptContext": "技術問題の選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "EVMの技術知識に基づく選択肢であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVがACを下回るためコストは少なくならず、EVがPVを下回るため完了は早くならない。",
+          "promptContext": "技術問題の選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "EVMの技術知識に基づく選択肢であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1936,63 +2302,252 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n現在資源の調整や将来資源要件の予測はキャパシティ管理の活動である。サービスレベル管理はSLAで合意する目標値と提供内容の管理が中心である。",
-      "間違い。\n\n予算に応じた資金確保はITサービス財務管理の活動であり、サービスレベル管理ではない。費用管理とサービス品質目標の管理を混同している。",
-      "間違い。\n\n事業影響度評価や復旧優先順位の明確化はサービス継続管理や可用性管理の活動に近い。災害対策とSLA合意は別のプロセスである。",
-      "正しい。\n\nサービスレベル管理では、提供するサービス内容とサービスレベル目標を定め、顧客と合意文書を取り交わす。SLAの設定と維持がこのプロセスの中核である。"
-    ],
-    "suggestedQuestions": [
-      "サービスレベル管理では何を合意しますか？",
-      "キャパシティ管理との違いは何ですか？",
-      "SLAは何のために作りますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "サービスレベル管理では何を合意しますか？",
-        "answer": "提供するサービスの範囲、品質目標、応答時間、可用性などを顧客と合意する。サービスがどの水準で提供されるべきかを明文化する役割がある。"
-      },
-      {
-        "question": "キャパシティ管理との違いは何ですか？",
-        "answer": "キャパシティ管理は必要資源を見積もり調整する活動である。サービスレベル管理は顧客へ約束するサービス品質そのものを管理する。"
-      },
-      {
-        "question": "SLAは何のために作りますか？",
-        "answer": "サービス提供者と顧客の期待値を合わせ、評価基準を明確にするためである。障害時や改善時の判断基準にもなる。"
-      }
+      "間違い。キャパシティ管理は、現在の資源を調整・最適化し、将来必要となる資源量を予測する。サービスレベル管理の中心は、顧客と合意したサービス内容や達成目標を管理することである。",
+      "間違い。サービス提供に必要な資金を確保する活動は、ITサービス財務管理に当たる。サービスレベル管理は、予算の確保ではなく、サービスの品質や達成目標を顧客と合意し、維持する。",
+      "間違い。事業影響度を評価し、復旧の優先順位を定める活動は、サービス継続管理に当たる。サービスレベル管理は、災害時の復旧順位ではなく、通常時に提供するサービスとその達成目標を顧客と合意する。",
+      "正しい。サービスレベル管理では、提供するサービスとサービスレベル目標を決定し、サービス提供者と顧客の間でSLA（サービスレベル合意書）を締結する。"
     ],
     "original_question_id": "b79847746aa32a42",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:b79847746aa32a42",
+    "reviewQuestionId": "b79847746aa32a42",
+    "sourceRecordRef": "question_202401_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サービスマネジメントにおけるプロセス活動の知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1肢はキャパシティ管理の活動を示しており、サービスレベル管理ではない。",
+          "promptContext": "サービスマネジメントのプロセス知識。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。キャパシティ管理に関する技術・マネジメント知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2肢はサービス提供に必要な資金の確保を示しており、ITサービス財務管理に当たる。",
+          "promptContext": "サービスマネジメントのプロセス知識。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ITサービス財務管理に関する技術・マネジメント知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3肢は事業影響度評価と復旧優先順位の明確化を示しており、サービス継続管理に当たる。",
+          "promptContext": "サービスマネジメントのプロセス知識。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。サービス継続管理に関する技術・マネジメント知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4肢は提供サービスとサービスレベル目標を決定し、顧客と合意文書を交わす活動であり、サービスレベル管理に該当する。",
+          "promptContext": "サービスマネジメントのプロセス知識。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。サービスレベル管理に関する技術・マネジメント知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nシステム監査基準（令和5年）では、監査人が総合的に点検評価する対象は情報システムのガバナンス、マネジメント、コントロールである。マネジメントとコントロールに加わる残り一つはガバナンスである。",
-      "間違い。\n\nコンプライアンスは監査で重要な観点ではあるが、この設問が問う基準上の三本柱そのものではない。基準本文の定義ではガバナンスが並ぶ。",
-      "間違い。\n\nサイバーレジリエンスは近年重要な概念だが、システム監査基準（令和5年）の総合点検対象を列挙した語ではない。用語の新しさに引きずられないことが大切である。",
-      "間違い。\n\nモニタリングはコントロールや運用の一活動として扱われるが、三本柱の一つではない。設問は基準に明記された用語を正確に問うている。"
-    ],
-    "suggestedQuestions": [
-      "システム監査基準の三つの対象は何ですか？",
-      "ガバナンスとマネジメントはどう違いますか？",
-      "この問題で法令・基準本文を確認する価値は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "システム監査基準の三つの対象は何ですか？",
-        "answer": "情報システムのガバナンス、マネジメント、コントロールである。基準文言をそのまま押さえておくと類題にも対応しやすい。"
-      },
-      {
-        "question": "ガバナンスとマネジメントはどう違いますか？",
-        "answer": "ガバナンスは組織全体の統治や方向付け、責任体制の整備に関わる。マネジメントはその方針の下で具体的に計画・実行・管理する活動を指す。"
-      },
-      {
-        "question": "この問題で法令・基準本文を確認する価値は何ですか？",
-        "answer": "類似語が多く、一般論だけだとコンプライアンスやモニタリングを選びやすいからである。基準本文の定義を押さえると用語の切り分けが安定する。"
-      }
+      "正しい。システム監査基準（令和5年）では、監査人が情報システムを総合的に点検・評価・検証する対象を、ガバナンス、マネジメント、コントロールの三つに整理している。マネジメントとコントロールに加わる語はガバナンスである。"
     ],
     "original_question_id": "34bb76c3149a354e",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_21.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:34bb76c3149a354e",
+    "reviewQuestionId": "34bb76c3149a354e",
+    "sourceRecordRef": "question_202401_1.json#20",
+    "explanationReferences": [
+      {
+        "referenceDate": "2023-04-26",
+        "sourceUrl": "https://www.meti.go.jp/policy/netsecurity/sys-kansa/sys-kansa-2023r.pdf",
+        "title": "システム監査基準（令和5年）"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査基準（令和5年）の用語・構成を問う公的基準の問題であり、法令条文を根拠にしない。正答はガバナンス。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "システム監査基準（令和5年）の用語構成を問う問題で、法令条文による判定ではない。",
+          "promptContext": "技術・公的基準知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "公的基準知識の問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "システム監査基準（令和5年）の用語構成を問う問題で、法令条文による判定ではない。",
+          "promptContext": "技術・公的基準知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "公的基準知識の問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "システム監査基準（令和5年）の用語構成を問う問題で、法令条文による判定ではない。",
+          "promptContext": "技術・公的基準知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "公的基準知識の問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "システム監査基準（令和5年）の用語構成を問う問題で、法令条文による判定ではない。",
+          "promptContext": "技術・公的基準知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "公的基準知識の問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -2119,92 +2674,371 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n会計や人事など企業全体の業務資源を統合管理する説明はERPである。SOAは業務機能をサービスとして分割し、連携しやすくする考え方である。",
-      "間違い。\n\n要求とパッケージ機能の適合・かい離を分析するのはフィット＆ギャップ分析である。SOAそのものの説明ではない。",
-      "間違い。\n\n目標設定、実行、チェック、改善の循環はPDCAサイクルであり、業務改善のマネジメント手法である。サービス分割や連携方式を指す言葉ではない。",
-      "正しい。\n\nSOAは利用者視点の業務機能を独立したサービス部品へ分け、組み合わせて使いやすくする考え方である。再利用や他システム連携をしやすくする点が特徴である。"
-    ],
-    "suggestedQuestions": [
-      "SOAは何をサービスとして分割しますか？",
-      "ERPとSOAは何が違いますか？",
-      "SOAの利点はどこにありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SOAは何をサービスとして分割しますか？",
-        "answer": "業務システムの機能を、再利用しやすい独立したサービス単位へ分割する。利用者や業務プロセスから見た機能境界で切るのが基本である。"
-      },
-      {
-        "question": "ERPとSOAは何が違いますか？",
-        "answer": "ERPは企業資源管理の統合パッケージという業務領域寄りの概念である。SOAはシステム機能の分割・連携の設計思想であり、用途が異なる。"
-      },
-      {
-        "question": "SOAの利点はどこにありますか？",
-        "answer": "機能部品を疎結合にして再利用しやすくし、他システムとの連携を柔軟にする点である。変更影響を局所化しやすいことも利点である。"
-      }
+      "間違い。\n\n企業全体の業務プロセスを一元管理して効率化を図る手法はERPである。選択肢はERPの説明をSOAとしているため誤りである。",
+      "間違い。\n\n業務上の要求とソフトウェアパッケージの機能との差を分析する手法は、フィット＆ギャップ分析である。選択肢はこの分析手法をSOAとしているため誤りである。",
+      "間違い。\n\n目標設定、実行、チェック、改善を繰り返して業務を継続的に改善する手法はPDCAサイクルである。選択肢はPDCAサイクルをSOAとしているため誤りである。",
+      "正しい。\n\nSOAは、業務システムの機能を独立したサービスとして分け、必要に応じて組み合わせて利用する考え方である。機能を再利用しやすく、他のソフトウェアとの連携もしやすくなる。"
     ],
     "original_question_id": "c14788ae3dbcd4dd",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:c14788ae3dbcd4dd",
+    "reviewQuestionId": "c14788ae3dbcd4dd",
+    "sourceRecordRef": "question_202401_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SOAはソフトウェア設計・業務システム連携に関する技術論点で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢はERPに関する技術説明であり、法令根拠は不要である。",
+          "promptContext": "SOAの説明を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ERPの説明であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢はフィット＆ギャップ分析に関する技術説明であり、法令根拠は不要である。",
+          "promptContext": "SOAの説明を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "フィット＆ギャップ分析の説明であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢はPDCAサイクルに関する技術説明であり、法令根拠は不要である。",
+          "promptContext": "SOAの説明を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "PDCAサイクルの説明であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢はSOAに関する技術説明であり、法令根拠は不要である。",
+          "promptContext": "SOAの説明を問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "SOAの説明であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n設計だけを受託し製造は相手先が行う形は、デザインハウスなど別の形態に近い。EMSは製造受託が中心であり、『設計だけ』ではない。",
-      "間違い。\n\n外部製品へ付加価値を加えて自社ブランド販売するのはVARの説明である。EMSは自社ブランド販売より、他社ブランド向け製造受託が主眼である。",
-      "間違い。\n\nソフトウェア開発だけを外部委託する説明ではEMSにならない。EMSは電子機器の製造工程を受託するサービスである。",
-      "正しい。\n\nEMSは生産設備を持つ企業が、他社から委託を受けて電子機器を製造する形態である。設計・調達・実装・組立など製造面の受託が中心になる。"
-    ],
-    "suggestedQuestions": [
-      "EMSはどの業務を受託しますか？",
-      "EMSとVARは何が違いますか？",
-      "デザインハウスとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EMSはどの業務を受託しますか？",
-        "answer": "電子機器の製造を中心に、部品調達や実装、組立、場合によっては試験まで受託する。依頼企業のブランドで出荷される製品を作る形が典型である。"
-      },
-      {
-        "question": "EMSとVARは何が違いますか？",
-        "answer": "EMSは他社製品を製造する受託生産である。VARは既存製品へ付加価値を加えて再販売する事業形態で、役割が異なる。"
-      },
-      {
-        "question": "デザインハウスとの違いは何ですか？",
-        "answer": "デザインハウスは設計受託が中心で、必ずしも製造設備を持たない。EMSは製造受託が本体であり、生産能力が価値の中心になる。"
-      }
+      "間違い。設計だけを受託し、製造を相手先が行う形は、製造受託を中心とするEMSの説明ではない。選択肢は設計だけを受託するとしているため誤りである。",
+      "間違い。外部から調達した製品に付加価値を加えて自社ブランドで販売する形は、付加価値再販業者（VAR）に当たる。EMSは自社ブランド販売ではなく、他社から委託された電子機器の製造を行う。",
+      "間違い。ソフトウェア開発だけを外部に委託する形は、電子機器の製造受託を表していない。選択肢は製造ではなくソフトウェア開発だけを委託するとしているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "7406b7a3a96d228b",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:7406b7a3a96d228b",
+    "reviewQuestionId": "7406b7a3a96d228b",
+    "sourceRecordRef": "question_202401_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "EMSは他社から委託を受けて電子機器を製造するサービスであり、法令条文を根拠にしない一般知識の問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はEMSの定義に関する技術・ビジネス知識で判定でき、法令根拠を要しない。",
+          "promptContext": "EMSの説明として、設計のみの受託は誤りと判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "EMSの一般知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はVARとEMSの役割の違いに関する技術・ビジネス知識で判定でき、法令根拠を要しない。",
+          "promptContext": "外部調達品を自社ブランドで販売する形はEMSではないと判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "EMSの一般知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はソフトウェア開発委託と電子機器製造受託の違いに関する技術・ビジネス知識で判定でき、法令根拠を要しない。",
+          "promptContext": "ソフトウェア開発だけの外部委託はEMSの説明ではないと判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "EMSの一般知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は他社から委託を受けて電子機器を製造するEMSの一般的な説明であり、法令根拠を要しない。",
+          "promptContext": "生産設備をもつ企業が他社から委託を受けて製造する形はEMSの説明として正しいと判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "EMSの一般知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n実績のある外注先を使って発生確率を下げるのは、リスク回避・低減策である。コンティンジェンシープランは、リスクが実際に顕在化した後の対応計画を指す。",
-      "間違い。\n\n品質担保を契約へ盛り込むのは事前の予防・契約管理であり、非常時対応計画そのものではない。発生後にどう対処するかまで書いて初めてコンティンジェンシープランになる。",
-      "間違い。\n\n複数見積りの比較による委託先選定は調達時の通常活動である。リスク顕在化時の代替行動を定める計画とは別である。",
-      "正しい。\n\nコンティンジェンシープランは、部品調達リスクなどが現実化した場合に備えた代替手段や対応手順を事前に定める計画である。『起きたらどう動くか』を準備する点が本質である。"
-    ],
-    "suggestedQuestions": [
-      "コンティンジェンシープランとは何ですか？",
-      "リスク低減策との違いは何ですか？",
-      "調達リスクではどんな代替策を考えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "コンティンジェンシープランとは何ですか？",
-        "answer": "想定したリスクが実際に起きたときに備えて、代替手段や対応手順をあらかじめ定めておく計画である。非常時の行動計画と考えると分かりやすい。"
-      },
-      {
-        "question": "リスク低減策との違いは何ですか？",
-        "answer": "低減策は発生確率や影響を事前に下げるための施策である。コンティンジェンシープランは、発生してしまった後に被害を抑えるための備えである。"
-      },
-      {
-        "question": "調達リスクではどんな代替策を考えますか？",
-        "answer": "代替部品の確保、別委託先への切替え、在庫積み増し、納期調整などが候補になる。重要なのは、顕在化時に実行できる形で事前に決めておくことである。"
-      }
+      "間違い。実績のある外注先を利用して発生確率を下げるのは、リスクの低減策である。コンティンジェンシープランは、リスクが顕在化した後の対応をあらかじめ定める計画であり、選択肢は発生前の予防策を述べているため誤りである。",
+      "間違い。製造品質を契約で担保するのは、発注時に行う予防策や契約管理である。コンティンジェンシープランは、品質問題や調達停止などが起きた場合の対応を定める計画であり、選択肢は非常時の対応計画を述べていないため誤りである。",
+      "間違い。複数の会社の見積りを比較して委託先を選ぶのは、調達時の通常の選定活動である。コンティンジェンシープランは、委託先の供給停止などが起きた場合に、代替先へ切り替えるなどの対応を定める計画であり、選択肢は顕在化したリスクへの対応を述べていないため誤りである。",
+      "正しい。コンティンジェンシープランは、部品調達の停止などのリスクが顕在化した場合に備え、代替調達先や対応手順を事前に定める計画である。"
     ],
     "original_question_id": "d724ce56c7699dc8",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:d724ce56c7699dc8",
+    "reviewQuestionId": "d724ce56c7699dc8",
+    "sourceRecordRef": "question_202401_1.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令・制度論点ではなく、製造委託におけるリスク対応とコンティンジェンシープランの一般的な考え方で判断する。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "リスク低減策とコンティンジェンシープランの違いで判定する技術・管理知識の選択肢である。",
+          "promptContext": "選択肢1のリスク対応分類",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。リスク管理の一般知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "契約管理による予防策と、リスク顕在化後の対応計画を区別して判定する選択肢である。",
+          "promptContext": "選択肢2のリスク対応分類",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。リスク管理の一般知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "委託先の通常選定活動と、供給停止などのリスク顕在化後の対応計画を区別して判定する選択肢である。",
+          "promptContext": "選択肢3のリスク対応分類",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。リスク管理の一般知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "部品調達リスクが顕在化した場合の対応計画を事前に策定する内容であり、コンティンジェンシープランの説明に合致する。",
+          "promptContext": "選択肢4のコンティンジェンシープラン該当性",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。リスク管理の一般知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

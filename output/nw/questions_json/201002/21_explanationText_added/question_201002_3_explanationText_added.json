@@ -1,10 +1,10 @@
 [
   {
     "explanationText": [
-      "間違い。SPFはResent-SenderやFromなどのメールヘッダーに記載されたアドレスではなく、SMTPのMAIL FROMで示される送信ドメインと送信元IPアドレスの関係を検証する。選択肢はヘッダーの送信者アドレスを基に送信メールアカウントを検証するとしているため誤りである。",
-      "間違い。送信元サーバからの通信を制限する25番ポートブロックは、OP25B（Outbound Port 25 Blocking）の仕組みである。選択肢はOP25Bの対策をSPFの受信側処理としているため誤りである。",
-      "正しい。SPFでは、SMTPのMAIL FROMで示された送信ドメインに対応するSPF情報と、実際に接続してきた送信サーバのIPアドレスが適合するかを受信側が検証する。",
-      "間違い。電子メールに付加されたデジタル署名を検証するのはDKIMの仕組みである。選択肢はDKIMによる署名検証をSPFの処理としているため誤りである。"
+      "間違い。SPFはメールヘッダーのResent-Sender、Resent-From、Sender、Fromなどではなく、SMTPのMAIL FROMで示される送信ドメインと、接続元送信サーバのIPアドレスの適合性を検証する。選択肢はヘッダーの送信者アドレスを基に送信メールアカウントを検証するとしているため誤りである。",
+      "間違い。SMTPが利用する25番ポートの通信を制限するのは、迷惑メール対策の一つであるOP25B（Outbound Port 25 Blocking）である。選択肢はOP25BをSPFの受信側処理としているため誤りである。",
+      "正しい。SPFでは、SMTPのMAIL FROMで示された送信ドメインのSPF情報と、実際に接続してきた送信サーバのIPアドレスが適合するかを受信側が検証する。",
+      "間違い。電子メールに付加されたデジタル署名を検証するのはDKIMである。選択肢はDKIMの署名検証をSPFの処理としているため誤りである。"
     ],
     "original_question_id": "f9c9b83af1218d11",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_21.html",
@@ -14,11 +14,117 @@
     "sourceRecordRef": "question_201002_3.json#0",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SPFは送信ドメインと送信元IPアドレスの適合性をDNS情報などで検証する電子メール認証技術であり、法令・制度上の義務を問う問題ではない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SPFはメールヘッダーの送信者アドレスではなく、MAIL FROMの送信ドメインと送信サーバIPアドレスを検証する。",
+          "promptContext": "SPFの技術仕様を確認。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SMTPの25番ポート通信の制限はOP25Bであり、SPFの受信側処理ではない。",
+          "promptContext": "SPFとOP25Bの役割を確認。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SPFはMAIL FROMで示された送信ドメインと、接続元送信サーバのIPアドレスの適合性を検証する。",
+          "promptContext": "SPFの技術仕様を確認。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "電子メールのデジタル署名を検証するのはDKIMであり、SPFの処理ではない。",
+          "promptContext": "SPFとDKIMの役割を確認。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。必要なビデオメモリ容量は、画素数に1画素当たりの必要バイト数を掛けて求める。65,536色は\\(2^{16}\\)色なので、1画素を16ビット＝2バイトで表す。画素数は\\(1000\\times800=800,000\\)画素であり、必要容量は\\(800,000\\times2=1,600,000\\)バイトとなる。1Mバイト＝1,000,000バイトなので、\\(1,600,000\\div1,000,000=1.6\\)Mバイトである。したがって、答えは1.6Mバイトである。"
+      "正しい。必要なビデオメモリ容量は、画素数に1画素当たりの必要バイト数を掛けて求める。65,536色は\\(2^{16}\\)色なので、1画素を16ビット、つまり2バイトで表す。画素数は\\(1000\\times800=800,000\\)画素であり、必要容量は\\(800,000\\times2=1,600,000\\)バイトとなる。1Mバイトは\\(1,000\\times1,000=1,000,000\\)バイトなので、\\(1,600,000\\div1,000,000=1.6\\)Mバイトである。"
     ],
     "original_question_id": "1fb3d9cf336474e2",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_22.html",
@@ -28,7 +134,113 @@
     "sourceRecordRef": "question_201002_3.json#1",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "表示解像度、色数、バイト単位の換算によるビデオメモリ容量の計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "表示解像度、色数、単位換算による計算で正誤を判定する。",
+          "promptContext": "ビデオメモリ容量の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算のみで判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "表示解像度、色数、単位換算による計算で正誤を判定する。",
+          "promptContext": "ビデオメモリ容量の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "表示解像度、色数、単位換算による計算で正誤を判定する。",
+          "promptContext": "ビデオメモリ容量の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "表示解像度、色数、単位換算による計算で正誤を判定する。",
+          "promptContext": "ビデオメモリ容量の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算のみで判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -283,32 +495,125 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nSOA では可用性のために状態を抱え込むより、一般に状態依存を減らしたステートレス寄りの設計が望ましい。",
-      "間違い。\n\nサービス名は業務上の役割や意味を表すものが望ましく、業務から独立させるために抽象名へするという話ではない。",
-      "正しい。\n\nSOA では業務変更や他サービスとの連携に対応しやすくするため、サービス間の依存を弱めた疎結合な設計を重視する。",
-      "間違い。\n\nSOA の狙いの一つはサービス再利用性の向上であり、一度作ったサービスを再利用しない方がよいわけではない。"
-    ],
-    "suggestedQuestions": [
-      "SOAで疎結合を重視する理由は何ですか？",
-      "ステートレス設計が好まれるのはなぜですか？",
-      "サービス再利用の利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SOAで疎結合を重視する理由は何ですか？",
-        "answer": "一つのサービス変更が他へ波及しにくくなり、業務変更や連携追加へ柔軟に対応しやすくなるためである。"
-      },
-      {
-        "question": "ステートレス設計が好まれるのはなぜですか？",
-        "answer": "状態依存が減ることで再利用しやすくなり、分散配置や障害時の切替も容易になるからである。"
-      },
-      {
-        "question": "サービス再利用の利点は何ですか？",
-        "answer": "重複開発を避け、保守対象を減らしつつ複数業務で共通利用しやすくできる。"
-      }
+      "間違い。可用性を高めるには、サービスがセッション状態を保持するステートフルな設計より、状態依存を減らしたステートレスな設計が適している。選択肢はステートフルなインタフェースにするとしているため誤りである。",
+      "間違い。サービス名は、提供する業務上の役割や機能を表すと、サービスの目的を理解しやすい。これは業務から独立させるためではなく、サービスが提供する機能を明確にするためである。選択肢は命名の目的を業務からの独立性としているため誤りである。",
+      "正しい。サービス間の依存を小さくする疎結合な設計にすると、ある業務の変更が他のサービスへ波及しにくくなり、サービスの組合せや再利用もしやすくなる。",
+      "間違い。SOAでは、サービスを独立した機能として設計し、必要に応じて複数の業務で再利用できるようにする。選択肢は開発済みサービスを再利用しないとしているため誤りである。"
     ],
     "original_question_id": "f891fb6d4c741628",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:f891fb6d4c741628",
+    "reviewQuestionId": "f891fb6d4c741628",
+    "sourceRecordRef": "question_201002_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SOAの疎結合、ステートレス設計、サービス命名、再利用性に関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はSOAのサービス状態管理に関する技術知識で判断する。",
+          "promptContext": "法令監査対象外の技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はサービス命名と業務上の役割に関する技術知識で判断する。",
+          "promptContext": "法令監査対象外の技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はサービス間の疎結合に関する技術知識で判断する。",
+          "promptContext": "法令監査対象外の技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はサービスの再利用性に関する技術知識で判断する。",
+          "promptContext": "法令監査対象外の技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

@@ -1,7 +1,7 @@
 [
   {
     "explanationText": [
-      "正しい。クラスタ分析法は、観測データを類似性に基づいてグループ分けし、各群の特徴を把握する手法である。指数平滑法は時系列データから将来を予測し、デルファイ法は専門家の意見を集約し、モンテカルロ法は乱数を使って確率的な結果を推定する。このように、データを類似した群へ分類する目的に合うのはクラスタ分析法である。"
+      "正しい。クラスタ分析法は、観測データの類似性に基づいてデータをグループ分けし、各群の特徴を分析する手法である。指数平滑法は時系列データの予測、デルファイ法は専門家の意見の集約、モンテカルロ法は乱数を用いた確率的な推定に用いる。目的の違いを整理すると、観測データを類似した群に分類する手法はクラスタ分析法である。"
     ],
     "original_question_id": "0e4b223f13877fe7",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_26.html",
@@ -11,7 +11,113 @@
     "sourceRecordRef": "question_201002_2.json#0",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "観測データを類似性で分類する統計的手法の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスタ分析法に関する統計的手法の知識で判定し、法令根拠は不要である。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "指数平滑法ではなく、クラスタ分析法が類似性による分類に用いられるという統計的知識で判定する。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "デルファイ法は専門家の意見を集約する手法であり、類似性によるデータ分類ではないという統計的知識で判定する。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "モンテカルロ法は乱数を用いた確率的推定に用いる手法であり、類似性によるデータ分類ではないという統計的知識で判定する。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -381,63 +487,319 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n原始的帰属は話合いで後から決まるものではなく、原則として創作した者に帰属する。",
-      "間違い。\n\n特段の合意がない限り、委託者と受託者の共有にはならない。",
-      "間違い。\n\n要求仕様を示しただけでは発注者に原始的に帰属せず、著作物を創作した側に帰属する。",
-      "正しい。\n\nプログラム著作物の著作権は、特段の取り決めがなければ実際に作成した受託者 B 社に原始的に帰属する。"
-    ],
-    "suggestedQuestions": [
-      "著作物の原始的帰属とは何ですか？",
-      "委託開発では誰に著作権が帰属しますか？",
-      "仕様を出しただけで著作権は得られますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "著作物の原始的帰属とは何ですか？",
-        "answer": "著作物が創作された時点で、最初に誰へ著作権が帰属するかという考え方である。"
-      },
-      {
-        "question": "委託開発では誰に著作権が帰属しますか？",
-        "answer": "特約がなければ、実際にプログラムを創作した受託者側に帰属する。"
-      },
-      {
-        "question": "仕様を出しただけで著作権は得られますか？",
-        "answer": "得られない。著作権はアイデアではなく創作された表現に与えられる。"
-      }
+      "正しい。プログラム著作物は、法人等の発意に基づき、その法人等の業務に従事する者が職務上作成した場合、作成時に特段の定めがなければ、その法人等が著作者となる。A社は要求仕様を示した委託者で、作成を担当するB社との間に特段の取決めがないため、著作権はB社に原始的に帰属する。著作権法第15条第2項が著作者を定め、第17条第1項が著作者に著作権を認めている。"
     ],
     "original_question_id": "a1fc7ebad6c29208",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_30.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201002:a1fc7ebad6c29208",
+    "reviewQuestionId": "a1fc7ebad6c29208",
+    "sourceRecordRef": "question_201002_2.json#4",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC0000000048?asof=2026-10-04",
+        "title": "著作権法（昭和四十五年法律第四十八号）第15条第2項・第17条第1項"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "著作権法第15条第2項により、特段の定めがない限り、法人等の業務に従事する者が職務上作成したプログラムの著作者は法人等となる。第17条第1項により著作権も著作者であるB社に原始的に帰属する。",
+    "lawReferences": [
+      [
+        {
+          "article": "15条2項、17条1項",
+          "choiceIndex": 0,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "15条2項、17条1項",
+          "choiceIndex": 1,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "15条2項、17条1項",
+          "choiceIndex": 2,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "15条2項、17条1項",
+          "choiceIndex": 3,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "A社とB社が話し合って決定するとはいえない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定は一致する。出題時本文は未取得であり、不変とは断定しない。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第15条第2項により、特段の定めがない場合のプログラム著作物の著作者は、作成を担当する法人等であるB社となる。",
+          "promptContext": "A社とB社が話し合って決定するという完全命題を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文はprimaryLawEvidenceにないため、本文不変とは判定していない。00_sourceの公式元正答を出題時判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "著作権はA社とB社で共有するとはいえない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定は一致する。出題時本文は未取得であり、不変とは断定しない。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第15条第2項および第17条第1項により、特段の定めがない場合、著作者であるB社に著作権が原始的に帰属するため、A社との共有にはならない。",
+          "promptContext": "A社とB社で共有するという完全命題を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文はprimaryLawEvidenceにないため、本文不変とは判定していない。00_sourceの公式元正答を出題時判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "A社に帰属するとはいえない。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定は一致する。出題時本文は未取得であり、不変とは断定しない。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第15条第2項により、特段の定めがない場合、プログラム著作物の著作者は作成を担当するB社となるため、A社には帰属しない。",
+          "promptContext": "A社に帰属するという完全命題を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文はprimaryLawEvidenceにないため、本文不変とは判定していない。00_sourceの公式元正答を出題時判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "特段の定めがないため、プログラム著作物の著作者および著作権はB社に原始的に帰属する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時公式正答と現行法判定は一致する。出題時本文は未取得であり、不変とは断定しない。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第15条第2項により、法人等の発意に基づきその業務に従事する者が職務上作成したプログラムの著作者は、特段の定めがない限り法人等となる。第17条第1項により著作権もB社に帰属する。",
+          "promptContext": "B社に帰属するという完全命題を判定した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時法令本文はprimaryLawEvidenceにないため、本文不変とは判定していない。00_sourceの公式元正答を出題時判定として保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nこれは Bluetooth の特徴であり、ZigBee の説明ではない。",
-      "間違い。\n\n5.8GHz 帯で ETC などに使われるのは DSRC 系の近距離無線であり、ZigBee ではない。",
-      "正しい。\n\nZigBee は IEEE 802.15.4 を下位層に用いる低消費電力の無線通信方式で、センサーネットワークなどへの応用が進んでいる。",
-      "間違い。\n\n広帯域へ拡散して高速伝送する方式は UWB などの特徴であり、ZigBee の説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "ZigBeeの特徴は何ですか？",
-      "IEEE 802.15.4との関係は何ですか？",
-      "Bluetoothとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ZigBeeの特徴は何ですか？",
-        "answer": "低消費電力・低速通信を特徴とし、センサーや制御用途で使われる。"
-      },
-      {
-        "question": "IEEE 802.15.4との関係は何ですか？",
-        "answer": "ZigBee は物理層・MAC 層に IEEE 802.15.4 を利用する。"
-      },
-      {
-        "question": "Bluetoothとの違いは何ですか？",
-        "answer": "Bluetooth は近距離機器接続向け、ZigBee はより低消費電力なセンサー用途に向く。"
-      }
+      "間違い。正しくは、ZigBeeはIEEE 802.15.4を下位層に用いる低消費電力の無線通信方式である。選択肢は、一つのマスタと最大七つのスレーブからなるスター型ネットワークをZigBeeの特徴としているため誤りである。",
+      "間違い。正しくは、ZigBeeはIEEE 802.15.4を下位層に用いる低消費電力の無線通信方式である。選択肢は、5.8GHz帯を使用し、ETCなどに利用される近距離無線技術としているため、ZigBeeの説明ではなく誤りである。",
+      "正しい。ZigBeeはIEEE 802.15.4を下位層に用いる低消費電力の無線通信方式であり、センサーネットワークなどへの応用に適している。",
+      "間違い。正しくは、ZigBeeはIEEE 802.15.4を下位層に用いる低消費電力の無線通信方式である。選択肢は、広い周波数帯にデータを拡散して高速伝送する方式としているため、ZigBeeの特徴と異なり誤りである。"
     ],
     "original_question_id": "a2cb2fc188612d53",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:a2cb2fc188612d53",
+    "reviewQuestionId": "a2cb2fc188612d53",
+    "sourceRecordRef": "question_201002_2.json#5",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://csa-iot.org/all-solutions/zigbee/zigbee-faq/",
+        "title": "Zigbee FAQs"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://standards.ieee.org/ieee/1159/7029/",
+        "title": "IEEE 802.15.4-2020 Standard for Low-Rate Wireless Networks"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IEEE 802.15.4を下位層に用いる低消費電力無線通信方式の技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時正誤と現行判定の差はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はZigBeeの特徴を誤って説明している。",
+          "promptContext": "ZigBeeの特徴に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時正誤と現行判定の差はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はETCなどに用いられる近距離無線技術をZigBeeとしており、誤っている。",
+          "promptContext": "ZigBeeの特徴に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時正誤と現行判定の差はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、IEEE 802.15.4を下位層に用いる低消費電力無線通信方式としてZigBeeを正しく説明している。",
+          "promptContext": "ZigBeeの特徴に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時正誤と現行判定の差はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、広い周波数帯へデータを拡散して高速伝送する方式をZigBeeとしており、誤っている。",
+          "promptContext": "ZigBeeの特徴に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -681,7 +1043,7 @@
   },
   {
     "explanationText": [
-      "正しい。1000BASE-Tは、4対のUTPケーブルを使って最大100mの通信を行う規格である。シングルモード又はマルチモード光ファイバを使う規格とは、使用する伝送媒体が異なる。"
+      "正しい。1000BASE-Tは、4対のUTPケーブルを使って最大100mの通信を行う規格である。光ファイバを使う規格とは、使用する伝送媒体が異なる。"
     ],
     "original_question_id": "e1a19600ef0b0509",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_4.html",
@@ -691,7 +1053,113 @@
     "sourceRecordRef": "question_201002_2.json#8",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "1000BASE-Tの通信仕様を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分はない。",
+          "displayRefIds": [],
+          "explanationText": "1000BASE-Tは4対のUTPケーブルを使用し、最大伝送距離は100mである。",
+          "promptContext": "1000BASE-Tの伝送媒体と最大距離を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "1000BASE-Tの仕様に基づく技術肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分はない。",
+          "displayRefIds": [],
+          "explanationText": "1000BASE-Tは4対のUTPケーブルを使用し、最大伝送距離は100mである。",
+          "promptContext": "1000BASE-Tの伝送媒体と最大距離を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "1000BASE-Tの仕様に基づく技術肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分はない。",
+          "displayRefIds": [],
+          "explanationText": "1000BASE-TはUTPを使用し、光ファイバは使用しない。",
+          "promptContext": "1000BASE-Tの伝送媒体を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "1000BASE-Tの仕様に基づく技術肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分はない。",
+          "displayRefIds": [],
+          "explanationText": "1000BASE-TはUTPを使用し、光ファイバは使用しない。",
+          "promptContext": "1000BASE-Tの伝送媒体を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "1000BASE-Tの仕様に基づく技術肢であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1358,7 +1826,7 @@
   {
     "explanationText": [
       "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応付けることも、複数のホスト名を同一のIPアドレスへ対応付けることもできる。選択肢は複数のホスト名を同一のIPアドレスへ対応付けられないとしているため誤りである。",
-      "正しい。DNSでは、一つのホスト名に複数のIPアドレスを対応付けることも、複数のホスト名を同一のIPアドレスへ対応付けることもできる。そのため、ホスト名とIPアドレスの対応は1対1に限られない。",
+      "正しい。",
       "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応付けることもできる。選択肢は一つのホスト名に複数のIPアドレスを対応付けられないとしているため誤りである。",
       "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応付けることも、複数のホスト名を同一のIPアドレスへ対応付けることもできる。選択肢はすべての対応が1対1であるとしているため誤りである。"
     ],
@@ -1381,7 +1849,113 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSの名前解決に関する技術仕様の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "一つのホスト名への複数IPアドレス対応は可能であり、複数のホスト名を同一IPアドレスへ対応付けることも可能である。",
+          "promptContext": "技術仕様のみで判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DNSの技術仕様に基づく選択肢であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "一つのホスト名に複数のIPアドレスを対応付けることも、複数のホスト名を同一のIPアドレスへ対応付けることも可能である。",
+          "promptContext": "技術仕様のみで判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "DNSの技術仕様に基づく選択肢であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "一つのホスト名に複数のIPアドレスを対応付けることが可能である。",
+          "promptContext": "技術仕様のみで判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DNSの技術仕様に基づく選択肢であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "一つのホスト名に複数のIPアドレスを対応付けることも、複数のホスト名を同一のIPアドレスへ対応付けることも可能である。",
+          "promptContext": "技術仕様のみで判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DNSの技術仕様に基づく選択肢であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1514,9 +2088,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、250台程度までのホストアドレスを割り振るのはクラスCのアドレスである。選択肢はクラスDとしているため誤りである。",
-      "間違い。正しくは、65,000台程度のホストアドレスを割り振るのはクラスBのアドレスである。選択肢はクラスDとしているため誤りである。",
-      "間違い。正しくは、プライベートアドレスは私設網で使うために定められた範囲であり、クラスDの用途ではない。選択肢はプライベートアドレスをクラスDとしているため誤りである。",
+      "間違い。正しくは、端末数が250台程度までの比較的小規模なホストアドレスを割り振るのはクラスCである。選択肢はクラスDとしているため誤りである。",
+      "間違い。正しくは、端末数が65,000台程度のホストアドレスを割り振るのはクラスBである。選択肢はクラスDとしているため誤りである。",
+      "間違い。正しくは、プライベートアドレスは組織内のネットワークで使うために定められたアドレス範囲である。選択肢はプライベートアドレスをクラスDの用途としているため誤りである。",
       "正しい。クラスDのIPアドレスは、マルチキャスト通信に使用される。"
     ],
     "original_question_id": "014a5072be808f3a",
@@ -1543,7 +2117,113 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPアドレスのクラスDはマルチキャスト用途を示す技術事項で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスDはマルチキャスト用途であり、小規模ホストアドレスの割当てには用いない。",
+          "promptContext": "クラスDの用途判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "中規模のホストアドレス割当てはクラスBの用途であり、クラスDではない。",
+          "promptContext": "クラスDの用途判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プライベートアドレスは組織内ネットワークで使用するアドレス範囲であり、クラスDの用途ではない。",
+          "promptContext": "クラスDの用途判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスDのIPアドレスはマルチキャスト通信に使用される。",
+          "promptContext": "クラスDの用途判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

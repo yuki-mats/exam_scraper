@@ -1,7 +1,7 @@
 [
   {
     "explanationText": [
-      "正しい。逆ポーランド表記法では、演算子を対象の数値や変数の後ろに置く。式 A＋B×C は、先に B と C を掛けて BC×とし、その結果に A を加えるため、ABC×＋となる。"
+      "正しい。逆ポーランド記法では、演算子を対象の数値や変数の後ろに置く。式A＋B×Cは、先にBとCを掛けてBC×とし、その結果にAを加えるため、ABC×＋となる。"
     ],
     "original_question_id": "c64005683257f6ff",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_1.html",
@@ -11,7 +11,113 @@
     "sourceRecordRef": "question_201102_1.json#0",
     "explanationReferences": [],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "逆ポーランド記法における演算子の配置を問う情報処理の基礎問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は逆ポーランド記法の演算子配置だけで判定できる。",
+          "promptContext": "法令根拠を用いない技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報処理の基礎知識による判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は逆ポーランド記法の演算子配置だけで判定できる。",
+          "promptContext": "法令根拠を用いない技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報処理の基礎知識による判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は逆ポーランド記法の演算子配置だけで判定できる。",
+          "promptContext": "法令根拠を用いない技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "情報処理の基礎知識による判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は逆ポーランド記法の演算子配置だけで判定できる。",
+          "promptContext": "法令根拠を用いない技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報処理の基礎知識による判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -498,99 +604,372 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nMTBF と MTTR を同じ倍率で増やすと分子・分母へ同じ係数が掛かるので、稼働率は上がらない。",
-      "正しい。\n\n稼働率は MTBF/(MTBF+MTTR) である。両方を 1.5 倍すると 1.5MTBF/{1.5(MTBF+MTTR)} となり、元の値と同じになる。",
-      "間違い。\n\n稼働率そのものが 1.5 倍になるわけではなく、比率は変化しない。",
-      "間違い。\n\n2/3 倍にもならず、同じ値のままである。"
-    ],
-    "suggestedQuestions": [
-      "稼働率の式は何ですか？",
-      "なぜ同じ倍率で変えると値が変わらないのですか？",
-      "MTBF と MTTR は何を表しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "稼働率の式は何ですか？",
-        "answer": "一般に MTBF/(MTBF+MTTR) で表す。"
-      },
-      {
-        "question": "なぜ同じ倍率で変えると値が変わらないのですか？",
-        "answer": "分子・分母に共通因子として同じ倍率が掛かり、約分できるからである。"
-      },
-      {
-        "question": "MTBF と MTTR は何を表しますか？",
-        "answer": "MTBF は平均故障間隔、MTTR は平均修復時間を表す。"
-      }
+      "正しい。稼働率は、平均故障間隔（MTBF）を平均修復時間（MTTR）との合計で割って求める。元の稼働率は \\(\\frac{x}{x+y}\\) である。MTBFとMTTRがともに1.5倍になると、新しい稼働率は \\(\\frac{1.5x}{1.5x+1.5y}=\\frac{1.5x}{1.5(x+y)}=\\frac{x}{x+y}\\) となるため、従来と同じ値になる。"
     ],
     "original_question_id": "9162787d28f0b2a6",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:9162787d28f0b2a6",
+    "reviewQuestionId": "9162787d28f0b2a6",
+    "sourceRecordRef": "question_201102_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "MTBFとMTTRに基づく稼働率の計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令監査の対象ではなく、稼働率計算に関する誤った記述である。",
+          "promptContext": "MTBFとMTTRの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文によらず、稼働率の計算式で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令監査の対象ではなく、MTBFとMTTRが同じ倍率で増加すると稼働率が変わらないことを示す正しい記述である。",
+          "promptContext": "MTBFとMTTRの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文によらず、稼働率の計算式で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令監査の対象ではなく、稼働率は従来の1.5倍にはならないため誤った記述である。",
+          "promptContext": "MTBFとMTTRの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文によらず、稼働率の計算式で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は法令監査の対象ではなく、稼働率は従来の2／3倍にはならないため誤った記述である。",
+          "promptContext": "MTBFとMTTRの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文によらず、稼働率の計算式で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nディスパッチは、実行可能状態のタスクへ CPU の実行権を与え、現在のタスクから別タスクへ切り替える処理である。",
-      "間違い。\n\n各タスクの実行順序を決めるのはスケジューリングの役割である。",
-      "間違い。\n\nこれはタスク制御ブロック(TCB)など、タスク管理情報の説明である。",
-      "間違い。\n\n複数タスクを同時進行のように見せる状態はマルチタスク処理の説明であり、ディスパッチそのものではない。"
-    ],
-    "suggestedQuestions": [
-      "ディスパッチとスケジューリングの違いは何ですか？",
-      "TCBとは何ですか？",
-      "CPU 実行権はどう切り替わりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ディスパッチとスケジューリングの違いは何ですか？",
-        "answer": "スケジューリングは誰を走らせるかを決め、ディスパッチは実際に CPU を渡して切り替える。"
-      },
-      {
-        "question": "TCBとは何ですか？",
-        "answer": "タスクの状態やレジスタ値など、実行管理に必要な情報を保持する制御ブロックである。"
-      },
-      {
-        "question": "CPU 実行権はどう切り替わりますか？",
-        "answer": "OS が現在タスクの文脈を保存し、次に走るタスクの文脈を復元して切り替える。"
-      }
+      "正しい。ディスパッチは、実行可能なタスクへCPUの実行権を与え、現在のタスクから別のタスクへ切り替える処理である。",
+      "間違い。各タスクの実行順序を決めるのはスケジューリングである。選択肢は実行順序の決定をディスパッチの説明としているため誤りである。",
+      "間違い。タスクの内部状態や実行に必要な情報は、タスク制御ブロック（TCB）などで管理される。選択肢はタスク管理情報をディスパッチの説明としているため誤りである。",
+      "間違い。複数のタスクを同時に実行しているように見せるのは、マルチタスク処理である。選択肢はマルチタスク処理の状態をディスパッチの説明としているため誤りである。"
     ],
     "original_question_id": "c845c535ad6902dd",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:c845c535ad6902dd",
+    "reviewQuestionId": "c845c535ad6902dd",
+    "sourceRecordRef": "question_201102_1.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "オペレーティングシステムのタスク管理に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ディスパッチは実行権を別のタスクへ切り替えて与える処理である。",
+          "promptContext": "第1選択肢の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令関連性なし。技術知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "実行順序の決定はスケジューリングの説明であり、ディスパッチの説明ではない。",
+          "promptContext": "第2選択肢の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "タスクの内部状態など実行に必要な情報はタスク制御ブロックなどで管理される。",
+          "promptContext": "第3選択肢の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "複数のタスクを同時に実行しているように見せる状態はマルチタスク処理の説明である。",
+          "promptContext": "第4選択肢の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nS を 0 にした後のラッチ動作で状態が反転するため、最終的に X=0,Y=0 にはならない。",
-      "間違い。\n\n初期状態と同じ X=0,Y=1 のまま保持されるのではなく、S 操作によって出力状態が切り替わる。",
-      "正しい。\n\nこの回路は相互帰還を持つフリップフロップであり、S を一度 0 にして戻すと安定状態が反転し、最終的に X=1,Y=0 となる。",
-      "間違い。\n\n相補的な出力を持つ回路なので、安定状態として X=1,Y=1 にはならない。"
-    ],
-    "suggestedQuestions": [
-      "フリップフロップは何を保持しますか？",
-      "なぜ S を変えると状態が変わるのですか？",
-      "相補出力とは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フリップフロップは何を保持しますか？",
-        "answer": "1 ビットの状態情報を保持する。"
-      },
-      {
-        "question": "なぜ S を変えると状態が変わるのですか？",
-        "answer": "入力が相互帰還回路の安定点を切り替え、次の安定状態へ遷移させるからである。"
-      },
-      {
-        "question": "相補出力とは何ですか？",
-        "answer": "一方が 1 なら他方が 0 になるような対になった出力である。"
-      }
+      "正しい。正答はX=1、Y=0である。この回路はNANDゲートを相互に帰還させたラッチで、Sを0にすると上側の出力Xが1になり、それを受けて下側の出力Yが0になる。その後Sを1に戻しても、Y=0が上側に帰還するため、X=1、Y=0の安定状態が保持される。"
     ],
     "original_question_id": "df77530c6b2fdb63",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:df77530c6b2fdb63",
+    "reviewQuestionId": "df77530c6b2fdb63",
+    "sourceRecordRef": "question_201102_1.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "論理回路の動作と信号値の変化を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はラッチ回路の状態遷移に基づき誤りであり、法令根拠を必要としない。",
+          "promptContext": "技術内容のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令差分なし。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はラッチ回路の状態遷移に基づき誤りであり、法令根拠を必要としない。",
+          "promptContext": "技術内容のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令差分なし。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はラッチ回路の安定状態X=1、Y=0を正しく示しており、法令根拠を必要としない。",
+          "promptContext": "技術内容のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題のため法令差分なし。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による正誤差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はラッチ回路の状態遷移に基づき誤りであり、法令根拠を必要としない。",
+          "promptContext": "技術内容のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令差分なし。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
       "間違い。正しくは、更新対象データのコピー保存はバックアップであり、障害や誤操作の後にデータを復元するための対策である。選択肢はデータをコピーして保存するとしているため、誤操作を未然に防ぐフールプルーフには該当しない。",
       "間違い。正しくは、取消し操作は誤操作の後に元の状態へ戻すための回復機能である。選択肢は取消し操作によって事後に修正するとしているため、誤操作そのものを防ぐフールプルーフとは異なる。",
-      "正しい。フールプルーフは、利用者が誤った操作をしても問題が起きないように、実行できる操作をあらかじめ制限する設計である。使用権限のない機能を実行できなくすることは、誤操作や不適切な操作を未然に防ぐ。",
+      "正しい。フールプルーフは、利用者が誤った操作をしても問題が起きないように、実行できる操作をあらかじめ制限する設計である。使用権限のない機能を実行できなくすることは、不適切な操作を未然に防ぐ仕組みに当たる。",
       "間違い。正しくは、操作内容のログ保存は、後から操作を確認したり原因を追跡したりするための記録である。選択肢は操作内容を事後に記録するとしているため、誤操作を事前に防ぐフールプルーフには該当しない。"
     ],
     "original_question_id": "2b46d624d571be34",
@@ -601,7 +980,113 @@
     "sourceRecordRef": "question_201102_1.json#8",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ユーザーインタフェース設計上のフールプルーフに関する問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "バックアップは復元、取消しは事後回復、権限のない機能の実行禁止は誤操作防止、ログ保存は事後記録である。",
+          "promptContext": "フールプルーフに関する技術知識の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "バックアップは障害や誤操作の後にデータを復元する対策であり、誤操作を未然に防ぐフールプルーフではない。",
+          "promptContext": "フールプルーフに関する技術知識の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "権限のない機能を実行できないようにすることは、不適切な操作を未然に防ぐフールプルーフに当たる。",
+          "promptContext": "フールプルーフに関する技術知識の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "操作内容のログ保存は、後から操作を確認したり原因を追跡したりするための事後記録であり、フールプルーフではない。",
+          "promptContext": "フールプルーフに関する技術知識の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -735,67 +1220,356 @@
     "sourceRecordRef": "question_201102_1.json#10",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "データベース複製方式の技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "2相コミットメントは分散トランザクションの確定手順であり、設問の非同期データ複製方式ではない。",
+          "promptContext": "データベース技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスタリングは複数の計算機を連携させる構成であり、設問の非同期データ複製方式そのものではない。",
+          "promptContext": "データベース技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ミラーリングは複製による冗長化を指す構成であり、設問が問う方式名はレプリケーションである。",
+          "promptContext": "データベース技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "元のデータベースの更新を複製データベースへ非同期に反映する方式はレプリケーションである。",
+          "promptContext": "データベース技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nMAC アドレス表でフレーム転送先を判断するのはブリッジやスイッチングハブの機能である。",
-      "間違い。\n\nデータリンク層で同種ネットワークを中継するのはブリッジの説明であり、ルータは主にネットワーク層で動作する。",
-      "間違い。\n\nトランスポート層からアプリケーション層でのプロトコル変換はゲートウェイの説明である。",
-      "正しい。\n\nルータは IP アドレスを見て転送経路を選び、伝送媒体やアクセス制御方式が異なるネットワーク同士も接続できる。"
-    ],
-    "suggestedQuestions": [
-      "ルータはどの層で動作しますか？",
-      "スイッチやブリッジとの違いは何ですか？",
-      "ゲートウェイとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ルータはどの層で動作しますか？",
-        "answer": "主に OSI 基本参照モデルのネットワーク層で動作する。"
-      },
-      {
-        "question": "スイッチやブリッジとの違いは何ですか？",
-        "answer": "スイッチやブリッジは MAC アドレス中心、ルータは IP アドレス中心に転送判断する。"
-      },
-      {
-        "question": "ゲートウェイとの違いは何ですか？",
-        "answer": "ゲートウェイはより上位層で異種プロトコル変換を行う装置である。"
-      }
+      "間違い。MACアドレステーブルを使ってフレームの転送先ポートを選ぶのは、ブリッジやスイッチングハブの機能である。選択肢は、これをルータの機能としているため誤りである。",
+      "間違い。ルータは主にネットワーク層で動作し、IPアドレスに基づいて異なるネットワーク間の転送経路を決める。選択肢は、ルータがデータリンク層でネットワーク同士を接続するとしているため誤りである。",
+      "間違い。異なるプロトコル間の変換をトランスポート層からアプリケーション層で行うのは、ゲートウェイの機能である。選択肢は、このプロトコル変換をルータの機能としているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "8380f6f584354f1d",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:8380f6f584354f1d",
+    "reviewQuestionId": "8380f6f584354f1d",
+    "sourceRecordRef": "question_201102_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ルータの機能、OSI階層、IPアドレスによる経路選択を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ルータとスイッチの機能差に基づく技術判定であり、法令監査対象外である。",
+          "promptContext": "MACアドレステーブルによる転送はスイッチの機能である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ルータは主にネットワーク層で動作し、異なるネットワーク間を接続する技術である。",
+          "promptContext": "ルータのOSI参照モデル上の主な動作層を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "トランスポート層からアプリケーション層までのプロトコル変換はゲートウェイの機能である。",
+          "promptContext": "ゲートウェイとルータの機能差を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ルータはIPアドレスを識別して転送経路を決定し、異なるネットワークを接続できる。",
+          "promptContext": "ルータによるネットワーク間接続と経路選択を問う。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を必要としない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nIMAP4 はメール受信やサーバ上のメール管理に使うプロトコルであり、内容の機密性を高める仕組みではない。",
-      "間違い。\n\nPOP3 も受信プロトコルであり、メール本文を暗号化して保護する役割は持たない。",
-      "間違い。\n\nSMTP はメール送信・転送に使うプロトコルであり、機密性確保のためのエンドツーエンド暗号方式ではない。",
-      "正しい。\n\nS/MIME は公開鍵暗号やデジタル証明書を利用して電子メールの暗号化や署名を行い、機密性や完全性を高める。"
-    ],
-    "suggestedQuestions": [
-      "S/MIMEは何を保護しますか？",
-      "POP3 や IMAP4 との違いは何ですか？",
-      "電子メールの機密性はどう確保しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "S/MIMEは何を保護しますか？",
-        "answer": "電子メール本文の機密性と、必要に応じて送信者認証や改ざん検出を保護する。"
-      },
-      {
-        "question": "POP3 や IMAP4 との違いは何ですか？",
-        "answer": "POP3/IMAP4 は受信手順、S/MIME はメール内容の暗号化・署名の仕組みである。"
-      },
-      {
-        "question": "電子メールの機密性はどう確保しますか？",
-        "answer": "公開鍵暗号で本文を暗号化し、受信者だけが復号できるようにする。"
-      }
+      "正しい。電子メール関連プロトコルは役割で見分ける。IMAP4はサーバ上のメールを閲覧・管理する受信プロトコル、POP3はメールを受信するプロトコル、SMTPはメールを送信・転送するプロトコルで、いずれもメール本文そのものの暗号化を主目的としない。S/MIMEは公開鍵暗号と証明書を使ってメールを暗号化し、内容の機密性を高める。電子署名による改ざん検知や送信者認証にも利用できる。"
     ],
     "original_question_id": "b7999f70fb956dc7",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:b7999f70fb956dc7",
+    "reviewQuestionId": "b7999f70fb956dc7",
+    "sourceRecordRef": "question_201102_1.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IMAP4、POP3、SMTP、S/MIMEの機能差を問う技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IMAP4はメールの閲覧・管理を行う受信プロトコルであり、メール本文の機密性を高めるプロトコルではない。",
+          "promptContext": "選択肢1のプロトコル機能を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定でき、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "POP3はメールを受信するプロトコルであり、メール本文の機密性を高めるプロトコルではない。",
+          "promptContext": "選択肢2のプロトコル機能を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定でき、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SMTPはメールの送信・転送を行うプロトコルであり、メール本文の機密性を高めるプロトコルではない。",
+          "promptContext": "選択肢3のプロトコル機能を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定でき、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "S/MIMEは公開鍵暗号と証明書を用いて電子メールを暗号化し、内容の機密性を高める。",
+          "promptContext": "選択肢4のプロトコル機能を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定でき、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1498,100 +2272,382 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCOCOMO は主にプログラム規模や係数から工数を推定するモデルであり、五つの機能要素を数える手法ではない。",
-      "間違い。\n\nDoty モデルはソフトウェア規模見積りの別手法であり、外部入力や内部論理ファイルを重み付け集計するものではない。",
-      "間違い。\n\nPutnam モデルも要員・期間の関係などから見積るモデルで、機能要素の個数集計ではない。",
-      "正しい。\n\n外部入力・外部出力・外部照会・内部論理ファイル・外部インタフェースファイルを数えて重み付けする考え方は、ファンクションポイント法である。"
-    ],
-    "suggestedQuestions": [
-      "ファンクションポイント法は何を数えますか？",
-      "COCOMOとの違いは何ですか？",
-      "なぜ機能量で規模を見積もれるのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ファンクションポイント法は何を数えますか？",
-        "answer": "利用者から見える機能要素である外部入力・出力・照会やファイル群を数える。"
-      },
-      {
-        "question": "COCOMOとの違いは何ですか？",
-        "answer": "COCOMO は主にコード規模などから工数を推定し、FP 法は機能量から規模を見積もる。"
-      },
-      {
-        "question": "なぜ機能量で規模を見積もれるのですか？",
-        "answer": "利用者へ提供する機能数と複雑さが、開発作業量と相関しやすいからである。"
-      }
+      "正しい。ファンクションポイント法は、利用者から見えるソフトウェアの機能を、外部入力、外部出力、外部照会、内部論理ファイル、外部インタフェースファイルの5種類に分けて数え、それぞれの複雑さに応じた重みを合計してソフトウェア規模を測定する。プログラム規模や開発実績などから工数・期間を推定するCOCOMO、Dotyモデル、Putnamモデルとは、規模の測り方が異なる。"
     ],
     "original_question_id": "f2307a3bb04b665d",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:f2307a3bb04b665d",
+    "reviewQuestionId": "f2307a3bb04b665d",
+    "sourceRecordRef": "question_201102_1.json#18",
+    "explanationReferences": [
+      {
+        "referenceDate": "2006-04-25",
+        "sourceUrl": "https://www.ipa.go.jp/archive/publish/qv6pgp0000000y34-att/000005124.pdf",
+        "title": "ソフトウェア改良開発見積りガイドブック"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア開発規模の見積り手法に関する技術知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "COCOMOは開発規模や工数を推定するモデルであり、五つの機能要素を数えて重み付けする手法ではない。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Dotyモデルはソフトウェア開発規模の見積りモデルであり、五つの機能要素を数えて重み付けする手法ではない。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Putnamモデルは開発規模や工程を推定するモデルであり、五つの機能要素を数えて重み付けする手法ではない。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ファンクションポイント法は、五つの機能要素を数え、複雑さに応じて重み付けした合計値でソフトウェア規模を測定する。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nSLA は重要項目へ絞って設定すべきであり、考えられる全項目へ一律にサービスレベルを設けると管理コストが過大になりやすい。",
-      "正しい。\n\nサービスレベルを高くすると一般に提供コストも上がるため、顧客要求と負担可能コストのバランスを見て設定するのが適切である。",
-      "間違い。\n\n努力目標型の項目など、すべてに一律のペナルティ補償を付けるとは限らない。",
-      "間違い。\n\nSLA は業務要件や環境変化に応じて見直すものであり、将来変更不要を前提に固定すべきではない。"
-    ],
-    "suggestedQuestions": [
-      "SLA は何を基準に決めますか？",
-      "なぜコストとのバランスが必要ですか？",
-      "SLA は見直しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SLA は何を基準に決めますか？",
-        "answer": "顧客が必要とするサービス品質と、それを実現・維持するためのコストを踏まえて決める。"
-      },
-      {
-        "question": "なぜコストとのバランスが必要ですか？",
-        "answer": "高いサービスレベルには冗長構成や要員確保など追加費用が伴うからである。"
-      },
-      {
-        "question": "SLA は見直しますか？",
-        "answer": "業務や利用状況の変化に応じて定期的に見直すのが望ましい。"
-      }
+      "間違い。正しくは、顧客にとって重要な項目を選び、管理可能な範囲でサービスレベルを設定する。考えられる全ての項目に設定すると、測定や管理の負担が過大になる。",
+      "正しい。",
+      "間違い。正しくは、ペナルティとしての補償を設定するかどうかは、サービスの重要度や顧客との合意に応じて決める。サービスレベルを設定する全ての項目に、一律の補償を設ける必要はない。",
+      "間違い。正しくは、業務要件や利用環境の変化に応じて、サービスレベルを定期的に見直す。将来にわたって変更不要と決めておくのは適切でない。"
     ],
     "original_question_id": "c9036a9cf4ebced9",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:c9036a9cf4ebced9",
+    "reviewQuestionId": "c9036a9cf4ebced9",
+    "sourceRecordRef": "question_201102_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SLAのサービスレベル設定に関するサービスマネジメント上の判断であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "全項目への一律設定は測定・管理負担が過大となるため不適切である。",
+          "promptContext": "SLAのサービスレベル設定項目に関する技術判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、SLAのサービスマネジメント上の原則で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "顧客の要望とコストとの兼ね合いでサービスレベルを設定することは適切である。",
+          "promptContext": "SLAのサービスレベル設定方針に関する技術判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく、顧客要望とコストの均衡を踏まえるサービスマネジメント上の原則で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ペナルティとしての補償は、サービスの重要度や顧客との合意に応じて決めるため、全項目への一律設定は不適切である。",
+          "promptContext": "SLAの補償設定に関する技術判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、補償設定を一律に求めないサービスマネジメント上の原則で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "業務要件や利用環境は変化するため、サービスレベルを将来にわたって変更不要とするのは不適切である。",
+          "promptContext": "SLAの見直し方針に関する技術判断。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、サービスレベルを環境変化に応じて見直すサービスマネジメント上の原則で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n緊急変更でも影響範囲やリスク評価を省略してよいわけではなく、必要なアセスメントは行うべきである。",
-      "間違い。\n\n顧客起因の要求でも他要求との優先度、影響、コストを見て判断する必要があり、無条件優先は不適切である。",
-      "正しい。\n\n変更要求を漏れなく追跡するため、承認されなかった要求も含めて記録に残すのが適切である。",
-      "間違い。\n\n法改正対応でも変更コストや影響を見積もり、管理された変更として扱う必要がある。"
-    ],
-    "suggestedQuestions": [
-      "変更管理では何を記録しますか？",
-      "緊急変更でも評価は必要ですか？",
-      "なぜ却下要求も残すのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "変更管理では何を記録しますか？",
-        "answer": "要求内容、影響範囲、評価結果、承認可否、実施状況などを記録する。"
-      },
-      {
-        "question": "緊急変更でも評価は必要ですか？",
-        "answer": "必要である。時間制約があっても影響やリスクを把握したうえで進める。"
-      },
-      {
-        "question": "なぜ却下要求も残すのですか？",
-        "answer": "後日の追跡、監査、再評価、類似要求との比較に役立つからである。"
-      }
+      "間違い。緊急の変更要求でも、影響範囲やリスクを評価してから実装する。選択肢はアセスメントをせずに実装したとしているため誤りである。",
+      "間違い。顧客からの変更要求でも、他の変更要求との優先度、影響、コストなどを比較して判断する。選択肢は顧客起因だけを理由に無条件で優先しているため誤りである。",
+      "正しい。",
+      "間違い。法改正への対応でも、変更による影響や必要なコストを見積もって計画的に実装する。選択肢はコストを見積もらずに実装したとしているため誤りである。"
     ],
     "original_question_id": "35b820152e0491f6",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:35b820152e0491f6",
+    "reviewQuestionId": "35b820152e0491f6",
+    "sourceRecordRef": "question_201102_1.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "変更要求の記録、優先順位付け、影響・コスト評価など、ITサービスマネジメント上の変更管理プロセスを問う問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分確認は不要である。",
+          "displayRefIds": [],
+          "explanationText": "変更要求の影響評価に関する技術・運用知識で判断する。",
+          "promptContext": "変更管理プロセスの適切な運用を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分確認は不要である。",
+          "displayRefIds": [],
+          "explanationText": "変更要求の優先順位付けに関する技術・運用知識で判断する。",
+          "promptContext": "変更要求を顧客起因だけで無条件に優先できるかを判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分確認は不要である。",
+          "displayRefIds": [],
+          "explanationText": "承認されなかった変更要求も記録するという変更管理上の知識で判断する。",
+          "promptContext": "変更要求を漏れなく管理する方法を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分確認は不要である。",
+          "displayRefIds": [],
+          "explanationText": "変更の影響やコストを見積もる変更管理上の知識で判断する。",
+          "promptContext": "法改正対応であってもコスト見積りを省略できるかを判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n必要なドキュメントの一覧をあらかじめ決めることは、作成漏れを防ぐための管理である。選択肢はドキュメントの種類を決めることを示しているため、稼働中システムの変更内容をドキュメントへ反映する統制にはならない。",
-      "間違い。\n\nドキュメント作成計画の進捗管理は、作成の遅れを防ぐための管理である。選択肢は作成状況を管理することを示しているため、稼働中システムの仕様変更後もドキュメントの内容を一致させる統制にはならない。",
-      "間違い。\n\nドキュメントの機密性を確保する対策は、情報の漏えいや不正な閲覧を防ぐための管理である。選択肢は情報を誰に見せるかを管理することを示しているため、システムの仕様とドキュメントの内容を一致させる統制とは異なる。",
-      "正しい。プログラムを変更したときにドキュメントも遅滞なく更新すれば、稼働中システムの仕様とドキュメントの内容を一致させやすくなり、不整合のリスクを低減できる。"
+      "間違い。ドキュメント一覧をあらかじめ決めることは、必要な文書の作成漏れを防ぐ管理である。選択肢は作成する文書の種類を決めることを示しているため、稼働中システムの変更内容をドキュメントへ反映する統制にはならない。",
+      "間違い。ドキュメント作成計画の進捗管理は、文書作成の遅れを把握して計画どおりに進めるための管理である。選択肢は作成状況を管理することを示しているため、システムの仕様とドキュメントの内容を一致させる統制にはならない。",
+      "間違い。ドキュメントの機密性を確保する対策は、情報の漏えいや権限のない閲覧を防ぐための管理である。選択肢は閲覧や漏えいを管理することを示しているため、システムの仕様とドキュメントの内容を一致させる統制とは異なる。",
+      "正しい。プログラムの変更を契機にドキュメントも遅滞なく更新すれば、稼働中システムの仕様とドキュメントの内容を一致させやすくなり、不整合のリスクを低減できる。"
     ],
     "original_question_id": "ff847c5bce1ba29b",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_22.html",
@@ -1601,44 +2657,243 @@
     "sourceRecordRef": "question_201102_1.json#21",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査・ドキュメント管理の一般的な統制論点であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。一般的なドキュメント管理知識として判定。",
+          "displayRefIds": [],
+          "explanationText": "ドキュメント一覧の事前決定は作成漏れを防ぐ管理であり、稼働中システムの仕様とドキュメントの不一致を直接低減する変更連動更新の統制ではない。",
+          "promptContext": "法令非該当の技術・監査知識問題。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当のため、出題時と現行法の法令差分比較は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。一般的なドキュメント管理知識として判定。",
+          "displayRefIds": [],
+          "explanationText": "ドキュメント作成計画の進捗管理は作成の遅れを管理するものであり、稼働中システムの仕様変更をドキュメントへ反映する統制ではない。",
+          "promptContext": "法令非該当の技術・監査知識問題。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当のため、出題時と現行法の法令差分比較は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。一般的なドキュメント管理知識として判定。",
+          "displayRefIds": [],
+          "explanationText": "ドキュメントの機密性対策は漏えいや権限のない閲覧を防ぐ管理であり、システム仕様とドキュメントの内容を一致させる統制とは異なる。",
+          "promptContext": "法令非該当の技術・監査知識問題。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当のため、出題時と現行法の法令差分比較は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。一般的なドキュメント管理知識として判定。",
+          "displayRefIds": [],
+          "explanationText": "プログラム変更に伴ってドキュメントを遅滞なく更新すれば、稼働中システムの仕様とドキュメントの内容の不一致を低減できる。",
+          "promptContext": "法令非該当の技術・監査知識問題。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当のため、出題時と現行法の法令差分比較は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nROI は投資によって得られた利益額を投資額で割った指標で、投資効率を表す。",
-      "間違い。\n\n他社との比較によるベンチマーク指標の説明であり、ROI ではない。",
-      "間違い。\n\n現金流入・流出の現在価値差は NPV の説明である。",
-      "間違い。\n\n実施しない場合の競争力や機会損失の話であり、ROI の定義ではない。"
-    ],
-    "suggestedQuestions": [
-      "ROI はどう計算しますか？",
-      "NPVとの違いは何ですか？",
-      "ROI で何を判断できますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ROI はどう計算しますか？",
-        "answer": "一般に投資で得た利益額を投資額で割って求める。"
-      },
-      {
-        "question": "NPVとの違いは何ですか？",
-        "answer": "ROI は投資効率の比率、NPV は将来キャッシュフローを現在価値へ割り引いた差額である。"
-      },
-      {
-        "question": "ROI で何を判断できますか？",
-        "answer": "投資額に対してどの程度の利益を生んだかを比較しやすい。"
-      }
+      "正しい。ROI（投資利益率）は、投資によって得られた利益額を投資額で割った割合で、投資効率を表す。",
+      "間違い。複数企業の投資関連指標を比較する説明はベンチマークであり、利益額を投資額で割るROIとは異なる。選択肢は他社との比較を説明しているため誤りである。",
+      "間違い。現金流入の現在価値から現金流出の現在価値を差し引いた値は、NPV（正味現在価値）である。選択肢は現在価値の差をROIとしているため誤りである。",
+      "間違い。プロジェクトを実施しない場合の市場での競争力を表す説明は、投資額に対する利益の割合を示すROIとは異なる。選択肢は競争力をROIとしているため誤りである。"
     ],
     "original_question_id": "c6c78f8c07d23979",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:c6c78f8c07d23979",
+    "reviewQuestionId": "c6c78f8c07d23979",
+    "sourceRecordRef": "question_201102_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ROIは投資額に対する利益額の割合を示す投資評価指標であり、法令・制度論点ではない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定差なし。",
+          "displayRefIds": [],
+          "explanationText": "ROIは投資によって得られた利益額を投資額で割った割合である。",
+          "promptContext": "ROIの定義を問う選択肢。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を要しないROIの定義問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定差なし。",
+          "displayRefIds": [],
+          "explanationText": "他社の投資関連指標を比較する説明はベンチマークであり、ROIではない。",
+          "promptContext": "ROIとベンチマークの違いを問う選択肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない投資評価指標の比較問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定差なし。",
+          "displayRefIds": [],
+          "explanationText": "現金流入の現在価値から現金流出の現在価値を差し引く値はNPVであり、ROIではない。",
+          "promptContext": "ROIとNPVの違いを問う選択肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない投資評価指標の定義問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定差なし。",
+          "displayRefIds": [],
+          "explanationText": "市場での競争力を表す説明は、投資額に対する利益の割合を示すROIではない。",
+          "promptContext": "ROIと競争力の違いを問う選択肢。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない投資評価指標の定義問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。企業全体の業務と情報の関係を整理し、情報システムのあるべき姿を明確にすることが、業務モデルを定義する目的である。",
-      "間違い。システム化に必要な期間、開発工数、開発費用の見積りは、システム化計画やプロジェクト計画で行う。選択肢はこれを業務モデル定義の目的としているため誤りである。",
-      "間違い。ハードウェア、ソフトウェア、ネットワークなどの構成要素を洗い出す作業は、システム方式や構成を具体化する段階で行う。選択肢はこの作業を業務モデル定義の目的としているため誤りである。",
-      "間違い。ユーザーマニュアルや運用マニュアルの作成に向けた業務手順の確認は、運用設計など後続段階で行う。選択肢はこの作業を業務モデル定義の目的としているため誤りである。"
+      "正しい。",
+      "間違い。システム化に要する期間、開発工数、開発費用の見積りは、システム化計画やプロジェクト計画で行う。選択肢はこれを業務モデル定義の目的としているため誤りである。",
+      "間違い。ハードウェア、ソフトウェア、ネットワークなどの構成要素を具体化する作業は、システム方式やシステム構成を検討する段階で行う。選択肢はこの作業を業務モデル定義の目的としているため誤りである。",
+      "間違い。ユーザーマニュアルや運用マニュアルの作成に必要な業務手順の確認は、運用設計などの後続段階で行う。選択肢はこれを業務モデル定義の目的としているため誤りである。"
     ],
     "original_question_id": "46cb96edd88a633d",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_24.html",
@@ -1648,7 +2903,113 @@
     "sourceRecordRef": "question_201102_1.json#23",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "情報システム戦略における業務モデル定義の目的を問う技術・業務知識問題であり、正誤を直接決める法令根拠はない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "業務モデル定義の目的に関する知識問題であり、法令根拠を使用しない。",
+          "promptContext": "法令非該当問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当の知識問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "システム化に要する期間、工数、費用の見積りに関する知識問題であり、法令根拠を使用しない。",
+          "promptContext": "法令非該当問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の知識問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "システム構成要素の具体化に関する知識問題であり、法令根拠を使用しない。",
+          "promptContext": "法令非該当問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の知識問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時点と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "運用設計やマニュアル作成に関する知識問題であり、法令根拠を使用しない。",
+          "promptContext": "法令非該当問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の知識問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

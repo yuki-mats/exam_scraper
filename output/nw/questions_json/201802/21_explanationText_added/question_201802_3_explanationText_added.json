@@ -137,93 +137,385 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n受信バッファあふれを防ぐために一時停止を要求するのは IEEE 802.3x の PAUSE フレームによるフロー制御の説明である。",
-      "間違い。\n\n接続相手との速度や通信モードを自動調整するのはオートネゴシエーションの説明である。",
-      "間違い。\n\n物理 NIC 数以上の論理インタフェースを使えるようにするのは仮想 NIC の説明であり、NIC チーミングではない。",
-      "正しい。\n\nNIC チーミングは複数の NIC を束ねて一つの論理インタフェースとして扱い、負荷分散、帯域活用、耐障害性向上を図る技術である。"
-    ],
-    "suggestedQuestions": [
-      "NIC チーミングの目的は何ですか？",
-      "フロー制御やオートネゴシエーションとの違いは何ですか？",
-      "NIC チーミングで何が向上しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "NIC チーミングの目的は何ですか？",
-        "answer": "複数の NIC を束ねて帯域確保や冗長化を実現することである。"
-      },
-      {
-        "question": "フロー制御やオートネゴシエーションとの違いは何ですか？",
-        "answer": "フロー制御は送受信調整、オートネゴシエーションはリンク条件調整であり、NIC チーミングは複数 NIC の統合である。"
-      },
-      {
-        "question": "NIC チーミングで何が向上しますか？",
-        "answer": "通信帯域の有効活用、負荷分散、障害時の継続性が向上する。"
-      }
+      "間違い。正しくは、受信側のバッファがあふれそうなときに送信側へ一時停止を要求するのは、イーサネットのフロー制御で使うPAUSEフレームの説明である。NICチーミングは複数のNICを組み合わせて通信経路の性能や可用性を高める技術であり、送信を一時停止させる機能ではない。",
+      "間違い。正しくは、接続相手と対応する通信速度や通信モードを自動調整するのはオートネゴシエーションの説明である。NICチーミングは、複数のNICを一つの論理的なチームとして扱う技術である。",
+      "間違い。正しくは、物理NICをソフトウェア上の論理的なNICとして見せるのは仮想NICの説明である。NICチーミングは物理NICをエミュレートして数を増やすのではなく、複数の物理NICを束ねて利用する。",
+      "正しい。NICチーミングは複数のNICを一つの論理インタフェースとして扱い、通信を分散して帯域を有効に使うとともに、NICや接続経路の障害時にも通信を継続しやすくする。"
     ],
     "original_question_id": "c41fadf1af09cd92",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:c41fadf1af09cd92",
+    "reviewQuestionId": "c41fadf1af09cd92",
+    "sourceRecordRef": "question_201802_3.json#1",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/failover-cluster-network-recommendations",
+        "title": "Network recommendations for a Hyper-V cluster"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.cisco.com/c/en/us/support/docs/lan-switching/ethernet/10561-3.pdf",
+        "title": "Configure and Verify Ethernet 10/100/1000Mb Half/Full Duplex Auto-Negotiation"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://learn.microsoft.com/en-us/windows-hardware/drivers/network/types-of-physical-network-adapter-configurations",
+        "title": "Types of Physical Network Adapter Configurations"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "NICチーミングの機能を問う技術問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "PAUSEフレームによるフロー制御の説明ではなく、NICチーミングの説明でもない。",
+          "promptContext": "第1選択肢の技術内容を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "通信速度や通信モードの自動調整はオートネゴシエーションの説明であり、NICチーミングではない。",
+          "promptContext": "第2選択肢の技術内容を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "物理NICを論理的なNICとしてエミュレートする説明は仮想NICに該当し、NICチーミングではない。",
+          "promptContext": "第3選択肢の技術内容を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "複数のNICを一つの論理インタフェースとして扱い、負荷分散、帯域活用、耐障害性向上を図る説明はNICチーミングに該当する。",
+          "promptContext": "第4選択肢の技術内容を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\na=0.1 のとき P=n/{1+(n-1)×0.1}=10n/(9+n) となる。n を大きくすると上限は 5 ではなく 10 に近づく。",
-      "正しい。\n\n式に a=0.1 を代入すると P=n/(0.9+0.1n)=10n/(9+n) である。n を無限に大きくすると 9 の影響は無視でき、P は 10 を上限として近づく。",
-      "間違い。\n\nP=10n/(9+n) の分母分子を n で割ると、n を大きくした極限は 10 であり 15 にはならない。",
-      "間違い。\n\nCPU 台数を増やしてもオーバーヘッド項があるため性能は無限には伸びず、上限は 20 ではなく 10 である。"
-    ],
-    "suggestedQuestions": [
-      "この式の性能上限はどう求めますか？",
-      "オーバーヘッド係数 a は何を表しますか？",
-      "なぜ CPU 台数を増やしても性能は無限に伸びませんか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この式の性能上限はどう求めますか？",
-        "answer": "式を整理して n を非常に大きくしたときの極限値を考える。"
-      },
-      {
-        "question": "オーバーヘッド係数 a は何を表しますか？",
-        "answer": "CPU を増やしたときに発生する同期や通信などの追加コストを表す。"
-      },
-      {
-        "question": "なぜ CPU 台数を増やしても性能は無限に伸びませんか？",
-        "answer": "並列化できない部分や協調のためのオーバーヘッドがあるため、増設効果に上限が生じる。"
-      }
+      "正しい。正答は10である。性能は \\(P=\\frac{n}{1+(n-1)a}\\) で表される。\\(n\\) はCPU台数、\\(a\\) はオーバーヘッドを表す定数である。\\(a=0.1\\) を代入すると、\\(P=\\frac{n}{0.9+0.1n}=\\frac{10n}{9+n}\\) となる。\\(n\\) を限りなく大きくすると、\\(P\\) は \\(\\lim_{n\\to\\infty}\\frac{10n}{9+n}=10\\) に近づくため、性能の上限は10である。"
     ],
     "original_question_id": "c1a95f647f11c88e",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:c1a95f647f11c88e",
+    "reviewQuestionId": "c1a95f647f11c88e",
+    "sourceRecordRef": "question_201802_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "マルチプロセッサの性能式に基づく工学・性能評価の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "性能式に各値を代入し、上限値が10であることから、選択肢5は誤りです。",
+          "promptContext": "マルチプロセッサ性能の上限値を求める技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "性能式の極限は10であり、選択肢10は正しいです。",
+          "promptContext": "マルチプロセッサ性能の上限値を求める技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識と計算だけで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "性能式の極限は10であり、選択肢15は誤りです。",
+          "promptContext": "マルチプロセッサ性能の上限値を求める技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "性能式の極限は10であり、選択肢20は誤りです。",
+          "promptContext": "マルチプロセッサ性能の上限値を求める技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識と計算だけで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n遠隔保守で駆付け時間が不要になれば短くなるのは修復時間 MTTR であり、故障間隔 MTBF は変わらない。",
-      "間違い。\n\n故障後の修理は正常復旧のための作業であり、次回故障までの平均時間を表す MTBF を直ちに長くする説明ではない。",
-      "正しい。\n\n保守センターを分散配置して現地到着までの時間を短縮すれば、故障から復旧までの平均修復時間 MTTR を短くできる。",
-      "間違い。\n\n予防保守は故障を起こりにくくして MTBF を延ばす方向の施策であり、MTTR を短くする説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "MTBF と MTTR の違いは何ですか？",
-      "保守拠点の分散はどの指標に効きますか？",
-      "予防保守は何を改善しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "MTBF と MTTR の違いは何ですか？",
-        "answer": "MTBF は故障と故障の間隔、MTTR は故障してから復旧するまでの平均時間である。"
-      },
-      {
-        "question": "保守拠点の分散はどの指標に効きますか？",
-        "answer": "現地到着時間を短縮できるため、主に MTTR の短縮に効く。"
-      },
-      {
-        "question": "予防保守は何を改善しますか？",
-        "answer": "故障発生頻度を下げ、MTBF を長くする方向に働く。"
-      }
+      "間違い。遠隔保守によって短くなるのは、故障してから復旧するまでの平均時間であるMTTRであり、故障と故障の間の平均時間を表すMTBFではない。選択肢は遠隔保守によってMTBFが長くなるとしているため誤りである。",
+      "間違い。故障後の修理は機器を復旧させる作業であり、修理を行ったことだけで次の故障までの平均時間を表すMTBFが長くなるわけではない。選択肢は機器の修理によってMTBFが長くなるとしているため誤りである。",
+      "正しい。保守センターを分散配置すると、故障現場へ到着するまでの時間を短縮できる。その結果、故障から復旧までの平均時間を表すMTTRが短くなる。",
+      "間違い。予防保守は故障を未然に防ぎ、故障と故障の間の平均時間を表すMTBFを長くする方向の施策である。選択肢は予防保守によってMTTRが短くなるとしているため誤りである。"
     ],
     "original_question_id": "b79621d21f1d0cd6",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:b79621d21f1d0cd6",
+    "reviewQuestionId": "b79621d21f1d0cd6",
+    "sourceRecordRef": "question_201802_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "機器保守におけるMTBF・MTTRと保守体制の技術的な問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "遠隔保守はMTTRに関係し、MTBFを直接長くするものではない。",
+          "promptContext": "第1選択肢の完全命題をMTBF・MTTRの定義で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "故障後の修理は復旧作業であり、修理だけでMTBFが長くなるとはいえない。",
+          "promptContext": "第2選択肢の完全命題をMTBFの定義と修理の効果で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "保守センターの分散配置は駆付け時間を短縮し、MTTRを短くする。",
+          "promptContext": "第3選択肢の完全命題を保守体制とMTTRの関係で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "予防保守は故障発生を抑え、MTBFを長くする方向の施策であり、MTTRを直接短くするものではない。",
+          "promptContext": "第4選択肢の完全命題を予防保守とMTBF・MTTRの関係で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

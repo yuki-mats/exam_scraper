@@ -1,63 +1,243 @@
 [
   {
     "explanationText": [
-      "間違い。\n\nHTTPヘッダーインジェクションは、レスポンスヘッダーへ改行などを埋め込んで不正なヘッダーや本文を挿入させる攻撃である。OS のシェルコマンド実行とは対象が異なる。",
-      "正しい。\n\nOSコマンドインジェクションは、入力値にシェルで解釈される文字列を混入させ、アプリケーションが `system` や `exec` などへ渡したときに不正なOSコマンドを実行させる攻撃である。",
-      "間違い。\n\nクロスサイトリクエストフォージェリは、利用者がログイン済みのWebサイトに対し、別サイト経由で意図しない操作を送らせる攻撃である。サーバ上でシェルを実行させる攻撃ではない。",
-      "間違い。\n\nセッションハイジャックは、正規利用者のセッションIDなどを盗用して本人になりすます攻撃である。OSコマンド注入とは成立条件も被害も異なる。"
-    ],
-    "suggestedQuestions": [
-      "OSコマンドインジェクションとSQLインジェクションの違いは何ですか？",
-      "なぜ `exec` 系関数が危険になりますか？",
-      "典型的な対策は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OSコマンドインジェクションとSQLインジェクションの違いは何ですか？",
-        "answer": "OSコマンドインジェクションはシェルやOSコマンド実行機構を悪用し、SQLインジェクションはDBMSへ送るSQL文を改変させる点が違う。"
-      },
-      {
-        "question": "なぜ `exec` 系関数が危険になりますか？",
-        "answer": "入力値を十分に検証せずコマンド文字列へ連結すると、攻撃者が追加のコマンドや制御文字を混入させられるためである。"
-      },
-      {
-        "question": "典型的な対策は何ですか？",
-        "answer": "シェル経由実行を避け、必要なら許可リストによる入力検証、引数の固定化、権限最小化を行う。"
-      }
+      "正しい。正答はOSコマンドインジェクションである。Webアプリケーションが入力値をPerlのsystem関数やPHPのexec関数などへ渡す際、入力にシェルで解釈される文字列を混入させて、攻撃者が意図しないOSコマンドやシェルスクリプトを実行させる攻撃を指す。HTTPヘッダーインジェクションはレスポンスヘッダーへの不正な挿入、クロスサイトリクエストフォージェリはログイン済み利用者に意図しない操作を送信させる攻撃、セッションハイジャックはセッション情報を盗用してなりすます攻撃であり、対象が異なる。"
     ],
     "original_question_id": "a23ebaca3468718e",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202101:a23ebaca3468718e",
+    "reviewQuestionId": "a23ebaca3468718e",
+    "sourceRecordRef": "question_202101_3.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "Perlのsystem関数やPHPのexec関数を介してシェルスクリプトを実行させる攻撃手法の技術分類であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "HTTPヘッダーインジェクションではなく、OSコマンドインジェクションに該当する。",
+          "promptContext": "Webアプリケーション脆弱性の技術分類として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "入力値を介してsystem関数やexec関数でOSコマンドを実行させる攻撃は、OSコマンドインジェクションである。",
+          "promptContext": "Webアプリケーション脆弱性の技術分類として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識による判定のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クロスサイトリクエストフォージェリは、ログイン済み利用者に意図しない操作を送信させる攻撃であり、対象が異なる。",
+          "promptContext": "Webアプリケーション脆弱性の技術分類として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "セッションハイジャックはセッション情報を盗用してなりすます攻撃であり、対象が異なる。",
+          "promptContext": "Webアプリケーション脆弱性の技術分類として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n加重平均CPIは 3×0.2 + 5×0.2 + 2×0.6 = 2.8 である。1,000,000命令の実行に必要なクロック数は 2.8×10^6 回なので、1GHz では 2.8×10^6 ÷ 10^9 = 0.0028 秒、すなわち 2.8 ミリ秒である。0.4 ミリ秒にはならない。",
-      "正しい。\n\n命令ごとの CPI と構成比率から平均CPIは 2.8 になる。必要クロック数は 2.8×10^6 回で、クロック周波数 1GHz = 10^9 Hz だから実行時間は 0.0028 秒、つまり 2.8 ミリ秒である。",
-      "間違い。\n\n4.0 ミリ秒なら必要クロック数は 4.0×10^6 回に相当するが、実際の平均CPIは 2.8 なので過大である。",
-      "間違い。\n\n28.0 ミリ秒は 10 倍大きい。ミリ秒換算で 0.0028 秒を 2.8 ミリ秒と直すところを誤ると出やすい値である。"
-    ],
-    "suggestedQuestions": [
-      "加重平均CPIはどう求めますか？",
-      "GHz から秒へどう換算しますか？",
-      "この種の問題でよくあるミスは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "加重平均CPIはどう求めますか？",
-        "answer": "各命令種別の CPI に、その命令の構成比率を掛けて合計する。"
-      },
-      {
-        "question": "GHz から秒へどう換算しますか？",
-        "answer": "1GHz は毎秒 10^9 クロックを意味するので、必要クロック数を 10^9 で割れば秒になる。"
-      },
-      {
-        "question": "この種の問題でよくあるミスは何ですか？",
-        "answer": "平均CPIを単純平均してしまうこと、秒からミリ秒への換算で 1000 倍を誤ることが多い。"
-      }
+      "正しい。正答は2.8ミリ秒である。命令ごとのCPIと構成比率から、平均CPIを求める。\n\n\\[\\mathrm{平均CPI}=3\\times0.2+5\\times0.2+2\\times0.6=2.8\\]\n\n1,000,000命令を実行するためのクロック数は、\\(2.8\\times1{,}000{,}000=2.8\\times10^6\\)クロックである。クロック周波数1GHzは毎秒\\(10^9\\)クロックなので、実行時間は次のとおりとなる。\n\n\\[\\frac{2.8\\times10^6}{10^9}=2.8\\times10^{-3}\\,\\mathrm{s}=2.8\\,\\mathrm{ms}\\]\n\nしたがって、正しい選択肢は2.8である。"
     ],
     "original_question_id": "af06e5b4a3b43890",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202101:af06e5b4a3b43890",
+    "reviewQuestionId": "af06e5b4a3b43890",
+    "sourceRecordRef": "question_202101_3.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "プロセッサのCPI、命令構成比率、クロック周波数から実行時間を求める性能計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は計算結果2.8ミリ秒と一致しないため間違い。法令根拠は不要である。",
+          "promptContext": "CPIと実行時間の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による選択肢判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は平均CPIから算出される実行時間2.8ミリ秒と一致する。法令根拠は不要である。",
+          "promptContext": "CPIと実行時間の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算による選択肢判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は計算結果2.8ミリ秒と一致しないため間違い。法令根拠は不要である。",
+          "promptContext": "CPIと実行時間の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による選択肢判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は計算結果2.8ミリ秒と一致しないため間違い。法令根拠は不要である。",
+          "promptContext": "CPIと実行時間の計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による選択肢判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

@@ -241,93 +241,372 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n既存グループ間へ分離境界を引いて新しいデータを分類するのは教師あり学習の分類手法である。教師なし学習ではない。",
-      "間違い。\n\nモンテカルロ法は確率的シミュレーション手法であり、教師なし学習の代表手法ではない。",
-      "正しい。\n\nクラスタリングはラベルなしデータ同士の類似度にもとづいてグループ分けを行うため、教師なし学習の典型的手法である。",
-      "間違い。\n\n回帰分析は入力と数値出力の対応を学習する教師あり学習の手法である。"
-    ],
-    "suggestedQuestions": [
-      "教師あり学習と教師なし学習の違いは何ですか？",
-      "クラスタリングは何に使いますか？",
-      "回帰分析との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "教師あり学習と教師なし学習の違いは何ですか？",
-        "answer": "教師あり学習は正解ラベル付きデータで学習し、教師なし学習はラベルなしデータの構造やまとまりを学習する。"
-      },
-      {
-        "question": "クラスタリングは何に使いますか？",
-        "answer": "顧客分類、異常検知の前処理、文書や画像のグループ化などに使われる。"
-      },
-      {
-        "question": "回帰分析との違いは何ですか？",
-        "answer": "回帰分析は数値予測のための教師あり学習、クラスタリングはラベルなしデータの群分けである。"
-      }
+      "間違い。分類は、正解ラベル付きのデータを使って、データをどのグループに属するか判定する教師あり学習の手法である。選択肢は、既存データ間に分離境界を定めて新しいデータを分類するとしているため、教師なし学習の手法ではない。",
+      "間違い。モンテカルロ法は、乱数を用いた確率的シミュレーションによって数値を推定する手法であり、教師なし学習の代表的な手法ではない。選択肢は、数値計算の方法を教師なし学習の手法としているため誤りである。",
+      "正しい。クラスタリングは、正解ラベルのないデータから類似度やデータの構造を見つけ、似たもの同士をグループ化する教師なし学習の手法である。",
+      "間違い。回帰分析は、正解ラベルに相当する数値を使って入力と数値の関係を学習し、未知の値を予測する教師あり学習の手法である。選択肢は、回帰分析を教師なし学習の手法としているため誤りである。"
     ],
     "original_question_id": "5b6ad7b570d6ff7a",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:5b6ad7b570d6ff7a",
+    "reviewQuestionId": "5b6ad7b570d6ff7a",
+    "sourceRecordRef": "question_201902_1.json#2",
+    "explanationReferences": [
+      {
+        "referenceDate": "2021-10-11",
+        "sourceUrl": "https://www.ipa.go.jp/publish/wp-dx/qv6pgp0000000txx-att/000093703.pdf",
+        "title": "DX白書2021 付録第1部 第1章 AI技術"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "機械学習の分類・クラスタリング・モンテカルロ法・回帰分析に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "分類は教師あり学習の手法であり、教師なし学習の手法ではない。",
+          "promptContext": "問題文と選択肢を結合した完全命題を技術知識に基づいて確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "モンテカルロ法は数値計算手法であり、教師なし学習の代表的手法ではない。",
+          "promptContext": "問題文と選択肢を結合した完全命題を技術知識に基づいて確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスタリングは、ラベルのないデータを類似性に基づいてグループ化する教師なし学習の手法である。",
+          "promptContext": "問題文と選択肢を結合した完全命題を技術知識に基づいて確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "回帰分析は、数値の正解データを用いて未知の値を予測する教師あり学習の手法である。",
+          "promptContext": "問題文と選択肢を結合した完全命題を技術知識に基づいて確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n先頭追加は新ノードの次ポインタへ現在の先頭を設定し、先頭ポインタを更新すればよく、たどる回数は少ない。",
-      "間違い。\n\n先頭削除は先頭ポインタが指すノードを見て、その次ノードを新たな先頭にするだけで済むため、探索はほぼ不要である。",
-      "間違い。\n\n末尾ポインタを持っているので末尾追加は末尾ノードと新ノードの接続、および末尾ポインタ更新で済む。たどる回数は少ない。",
-      "正しい。\n\n単方向リストで末尾削除するには、末尾ノードの一つ前のノードを見つける必要がある。しかし前方向ポインタしかないので、先頭から順にたどって末尾直前まで探索しなければならず、最も回数が多い。"
-    ],
-    "suggestedQuestions": [
-      "単方向リストと双方向リストの違いは何ですか？",
-      "なぜ末尾ポインタがあっても末尾削除は重いのですか？",
-      "計算量で表すとどうなりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "単方向リストと双方向リストの違いは何ですか？",
-        "answer": "単方向リストは次ノードだけを持ち、双方向リストは前後両方向のポインタを持つ。"
-      },
-      {
-        "question": "なぜ末尾ポインタがあっても末尾削除は重いのですか？",
-        "answer": "削除後に新しい末尾となる『一つ前のノード』を特定する手段がないため、先頭から探す必要がある。"
-      },
-      {
-        "question": "計算量で表すとどうなりますか？",
-        "answer": "先頭追加・削除や末尾追加は O(1)、単方向リストの末尾削除は O(n) になりやすい。"
-      }
+      "正しい。最も多くポインタをたどるのは、末尾のデータを削除する処理である。先頭への追加と先頭の削除は先頭ポインタを更新すればよく、末尾への追加も末尾ポインタから新しいデータを接続できるため、リスト全体をたどる必要はない。一方、末尾を削除するには新しい末尾となる一つ前のデータを見つけなければならない。単方向リストには後ろ向きのポインタがないので、先頭から順にたどって末尾直前まで探す必要がある。"
     ],
     "original_question_id": "cc61b080b3330f16",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:cc61b080b3330f16",
+    "reviewQuestionId": "cc61b080b3330f16",
+    "sourceRecordRef": "question_201902_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "単方向線形リストのポインタ操作回数を比較するアルゴリズム上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "単方向線形リストの先頭追加に関する技術判定であり、法令根拠を必要としない。",
+          "promptContext": "単方向線形リストのポインタ操作問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "単方向線形リストの先頭削除に関する技術判定であり、法令根拠を必要としない。",
+          "promptContext": "単方向線形リストのポインタ操作問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "単方向線形リストの末尾追加に関する技術判定であり、法令根拠を必要としない。",
+          "promptContext": "単方向線形リストのポインタ操作問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "単方向線形リストの末尾削除に関する技術判定であり、法令根拠を必要としない。",
+          "promptContext": "単方向線形リストのポインタ操作問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n容量比 a/(a+b) や b/(a+b) を使う必要はない。平均アクセス時間は容量ではなくヒット率と各アクセス時間の加重平均で表す。",
-      "正しい。\n\nキャッシュに存在しない確率が r なので、ヒット率は 1-r である。平均アクセス時間は (1-r)×x + r×y で求められる。",
-      "間違い。\n\n容量比で重み付けしており不適切である。平均時間の重みはヒット率とミス率で決まる。",
-      "間違い。\n\nr×x + (1-r)×y だとヒット率とミス率の対応が逆である。キャッシュヒット時に x、ミス時に y を使うべきである。"
-    ],
-    "suggestedQuestions": [
-      "なぜ容量は式に入らないのですか？",
-      "ヒット率とミス率はどう対応しますか？",
-      "キャッシュ平均アクセス時間の基本式はどう覚えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ容量は式に入らないのですか？",
-        "answer": "この問題ではヒット率が既に r で与えられており、容量からヒット率を推定する必要がないからである。"
-      },
-      {
-        "question": "ヒット率とミス率はどう対応しますか？",
-        "answer": "存在しない確率が r なのでミス率が r、ヒット率が 1-r になる。"
-      },
-      {
-        "question": "キャッシュ平均アクセス時間の基本式はどう覚えますか？",
-        "answer": "『ヒット時の時間×ヒット率＋ミス時の時間×ミス率』と覚えるとよい。"
-      }
+      "正しい。キャッシュヒット時のアクセス時間は x、キャッシュミス時のアクセス時間は y であり、キャッシュヒット率は 1-r、ミス率は r である。したがって、平均アクセス時間は各場合の時間を発生確率で重み付けして求める。\n\n\\[\\text{平均アクセス時間}=(1-r)\\times x+r\\times y\\]\n\nここで、容量 aMバイトと bMバイトは平均アクセス時間の重みには使わない。容量比で重み付けする式は不適切であり、\\(r\\times x+(1-r)\\times y\\) はヒット時とミス時の確率を逆に対応させている。数値が与えられていないため、代入後の数値計算ではなく、\\((1-r)\\times x+r\\times y\\) という式が最終結果になる。"
     ],
     "original_question_id": "97c05a6efefded8f",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:97c05a6efefded8f",
+    "reviewQuestionId": "97c05a6efefded8f",
+    "sourceRecordRef": "question_201902_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "命令キャッシュと主記憶の平均アクセス時間を確率で求める工学・計算機アーキテクチャの問題であり、法令根拠を必要としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない計算問題である。",
+          "promptContext": "命令キャッシュと主記憶の平均アクセス時間の計算。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない計算問題である。",
+          "promptContext": "命令キャッシュと主記憶の平均アクセス時間の計算。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない計算問題である。",
+          "promptContext": "命令キャッシュと主記憶の平均アクセス時間の計算。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない計算問題である。",
+          "promptContext": "命令キャッシュと主記憶の平均アクセス時間の計算。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -451,33 +730,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nボトルネックだけに着目した個別チューニングは性能改善策の一部ではあるが、キャパシティプランニングの目的全体を最もよく表してはいない。",
-      "正しい。\n\nキャパシティプランニングは現在の性能や応答時間を調査・監視し、将来の利用増加も見据えて必要資源を計画する活動であり、将来を含めて要求性能を維持することが目的である。",
-      "間違い。\n\n現状の能力を最大限引き出すチューニングは性能改善策であり、長期的な資源計画というキャパシティプランニングの中心ではない。",
-      "間違い。\n\n特定リソースの有効利用向上は個別の改善策にすぎず、将来需要を見越した全体計画という視点が欠けている。"
-    ],
-    "suggestedQuestions": [
-      "キャパシティプランニングでは何を監視しますか？",
-      "チューニングとの違いは何ですか？",
-      "将来予測はどう役立ちますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "キャパシティプランニングでは何を監視しますか？",
-        "answer": "CPU 使用率、メモリ、ディスク、ネットワーク帯域、応答時間、スループットなどを継続的に見る。"
-      },
-      {
-        "question": "チューニングとの違いは何ですか？",
-        "answer": "チューニングは現状改善、キャパシティプランニングは将来需要も含む資源計画である。"
-      },
-      {
-        "question": "将来予測はどう役立ちますか？",
-        "answer": "需要増で性能要件を満たせなくなる前に、増設や構成変更を計画できる。"
-      }
+      "間違い。ボトルネックへの個別チューニングは性能改善策の一つであり、将来の需要を見据えて必要な処理能力を計画するキャパシティプランニングの目的全体を表していない。選択肢は一つのボトルネックだけに着目しているため誤りである。",
+      "正しい。キャパシティプランニングは、現在の応答時間や資源の使用状況を調査・監視し、将来の利用増加も見込んで必要な資源を計画する活動である。",
+      "間違い。ソフトウェアやハードウェアのチューニングで現状の処理能力を引き出すことは、個別の性能改善に当たる。選択肢は現状のスループット向上だけを示しており、将来の需要を見据えた計画を含まないため誤りである。",
+      "間違い。特定のリソースを効率よく使うことは個別の資源改善策である。選択肢は一つのリソースの有効利用だけを示しており、システム全体の将来需要に備える計画を表していないため誤りである。"
     ],
     "original_question_id": "b954d8d3ecbea07b",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:b954d8d3ecbea07b",
+    "reviewQuestionId": "b954d8d3ecbea07b",
+    "sourceRecordRef": "question_201902_1.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "キャパシティプランニングの目的を問う技術・運用管理の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はボトルネックへの個別改善であり、キャパシティプランニングの目的全体ではない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・運用管理の知識で判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は現在の応答時間を調査・監視し、将来を含めて維持する内容であり、目的に適合する。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・運用管理の知識で判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は現状のチューニングによるスループット向上であり、将来需要に備える計画ではない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・運用管理の知識で判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は特定リソースの有効利用に限定され、システム全体の将来需要に備える計画を示していない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・運用管理の知識で判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -604,33 +976,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n異常終了したトランザクションのロールバックは障害回復の一部ではあるが、媒体障害ではデータベースそのものが失われるため、それだけでは回復できない。",
-      "間違い。\n\n未反映コミットトランザクションのロールフォワードだけでは足りない。まずバックアップからデータベース全体を復元する必要がある。",
-      "間違い。\n\n未確定トランザクションのロールバックは論理回復の一部だが、媒体障害時の主たる回復手順ではない。",
-      "正しい。\n\n媒体障害ではバックアップコピーからデータベースを復元し、その後ログを使ってバックアップ取得以降にコミット済みのトランザクションをロールフォワードして回復する。"
-    ],
-    "suggestedQuestions": [
-      "媒体障害とトランザクション障害の違いは何ですか？",
-      "ロールバックとロールフォワードの違いは何ですか？",
-      "なぜバックアップが必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "媒体障害とトランザクション障害の違いは何ですか？",
-        "answer": "媒体障害はディスク破損などでデータベース自体が失われる障害、トランザクション障害は個々の処理失敗である。"
-      },
-      {
-        "question": "ロールバックとロールフォワードの違いは何ですか？",
-        "answer": "ロールバックは未完了変更を取り消し、ロールフォワードはログを再適用して確定済み変更を反映する。"
-      },
-      {
-        "question": "なぜバックアップが必要ですか？",
-        "answer": "媒体障害では元データが物理的に失われる可能性があり、ログだけでは土台を復元できないからである。"
-      }
+      "間違い。異常終了したトランザクションのロールバックは、システム障害などで未完了の処理を取り消す回復処理である。媒体障害ではデータベースの記憶媒体上のデータ自体が失われるため、ロールバックだけでは復旧できない。",
+      "間違い。媒体障害では、まずバックアップからデータベースを復元し、その後、バックアップ取得以降にコミットされたトランザクションをログによってロールフォワードする。選択肢はロールフォワードだけで復旧できるとしているため誤りである。",
+      "間違い。媒体障害の基本手順は、バックアップからデータベースを復元し、バックアップ取得以降にコミットされたトランザクションをロールフォワードすることである。選択肢は未確定トランザクションのロールバックだけを回復法としているため誤りである。",
+      "正しい。媒体障害では、バックアップコピーからデータベースを復元した後、バックアップ取得以降にコミットされたトランザクションをログによってロールフォワードする。これにより、障害発生前の状態までデータベースを回復する。"
     ],
     "original_question_id": "66160dbb75aea2c1",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:66160dbb75aea2c1",
+    "reviewQuestionId": "66160dbb75aea2c1",
+    "sourceRecordRef": "question_201902_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "データベースの回復処理に関する技術問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はデータベース回復処理の技術知識で判定され、法令による正誤変更はない。",
+          "promptContext": "媒体障害時の回復法に関する選択肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "データベース回復処理の技術問題であり、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はデータベース回復処理の技術知識で判定され、法令による正誤変更はない。",
+          "promptContext": "媒体障害時の回復法に関する選択肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "データベース回復処理の技術問題であり、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はデータベース回復処理の技術知識で判定され、法令による正誤変更はない。",
+          "promptContext": "媒体障害時の回復法に関する選択肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "データベース回復処理の技術問題であり、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はデータベース回復処理の技術知識で判定され、法令による正誤変更はない。",
+          "promptContext": "媒体障害時の回復法に関する選択肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "データベース回復処理の技術問題であり、法令監査は適用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -886,33 +1351,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nDMZ 上の公開 Web サーバの脆弱性を突く攻撃そのものを NAPT だけで防げるわけではない。NAPT の主効果とは異なる。",
-      "間違い。\n\n侵入検知と遮断は IDS/IPS の役割に近く、NAPT 自体の説明ではない。",
-      "間違い。\n\n特定 Web サービス利用の HTTP 通信を検知して遮断するのはアプリケーション制御や URL フィルタリングの役割である。",
-      "正しい。\n\nNAPT により内部 PC の私設 IP アドレスやポート番号は外部から直接見えにくくなり、外部から内部 PC への不正アクセスは困難になる。内部端末の秘匿という副次的なセキュリティ効果がある。"
-    ],
-    "suggestedQuestions": [
-      "NAT と NAPT の違いは何ですか？",
-      "なぜ内部 PC への不正アクセスが難しくなりますか？",
-      "NAPT だけで十分な防御になりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "NAT と NAPT の違いは何ですか？",
-        "answer": "NAT は主にアドレス変換、NAPT はアドレスに加えてポート番号も変換して多重化する。"
-      },
-      {
-        "question": "なぜ内部 PC への不正アクセスが難しくなりますか？",
-        "answer": "外部からは内部端末の私設アドレスや動的に割り当てられたポート番号が直接分からず、対応セッションも無ければ到達しにくいからである。"
-      },
-      {
-        "question": "NAPT だけで十分な防御になりますか？",
-        "answer": "いいえ。秘匿効果はあるが、脆弱性対策や侵入検知など他の防御策も必要である。"
-      }
+      "間違い。NAPTだけで、DMZ上の公開Webサーバの脆弱性を突く攻撃を防ぐことはできない。NAPTはアドレスとポートを変換する機能であり、Webサーバの脆弱性を検査・防御する機能ではない。",
+      "間違い。インターネットからの侵入を検知し、検知後の通信を遮断するのは、主にIDSやIPSの役割である。NAPTは通信のアドレスとポートを変換する機能であり、侵入の検知や攻撃通信の判定を行う機能ではない。",
+      "間違い。特定のWebサービスを利用するHTTP通信を判別して遮断するには、アプリケーション制御やURLフィルタリングなどの機能が必要である。NAPTは通信内容をサービス単位で検査して遮断する機能ではない。",
+      "正しい。NAPTは、内部ネットワークの端末のプライベートIPアドレスとポート番号を、外部向けのIPアドレスとポート番号に変換する。そのため、外部から内部端末へ直接接続するための変換情報がなく、インターネットからの不正アクセスが困難になる。"
     ],
     "original_question_id": "a4569f93fcc51804",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:a4569f93fcc51804",
+    "reviewQuestionId": "a4569f93fcc51804",
+    "sourceRecordRef": "question_201902_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "NAPTのアドレス変換によって内部ネットワークの端末へ外部から直接アクセスしにくくなる技術上の効果を問う問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NAPTの技術的機能に基づき判定した。",
+          "promptContext": "法令根拠は不要。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NAPTは侵入検知や攻撃通信の判定を行わない。",
+          "promptContext": "法令根拠は不要。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NAPTはHTTP通信をサービス単位で検査・遮断する機能ではない。",
+          "promptContext": "法令根拠は不要。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NAPTは内部端末への外部からの直接アクセスを困難にする。",
+          "promptContext": "法令根拠は不要。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1039,123 +1597,537 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nFIN パケット送信と応答観測でサービスを見つけるのはポートスキャンの説明である。ファジングではない。",
-      "間違い。\n\nログやコマンド履歴の解析で改ざんを検知するのはログ分析や完全性監視の説明である。",
-      "正しい。\n\nファジングはソフトウェアへ多様で異常な入力を大量に与え、その挙動を監視してクラッシュや異常動作から脆弱性を見つける手法である。",
-      "間違い。\n\n登録済み攻撃パターンとの一致で不正アクセスを判断するのはシグネチャ型 IDS/IPS の説明である。"
-    ],
-    "suggestedQuestions": [
-      "ファジングはどんな脆弱性発見に向きますか？",
-      "ブラックボックステストとして使えますか？",
-      "シグネチャ型検知との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ファジングはどんな脆弱性発見に向きますか？",
-        "answer": "入力値検証不足による異常終了、メモリ破壊、例外処理漏れなどの発見に向く。"
-      },
-      {
-        "question": "ブラックボックステストとして使えますか？",
-        "answer": "はい。内部実装を知らなくても多様な入力を与えて挙動を観察できる。"
-      },
-      {
-        "question": "シグネチャ型検知との違いは何ですか？",
-        "answer": "ファジングは脆弱性を見つける試験手法、シグネチャ型検知は既知攻撃パターンを照合する運用時検知手法である。"
-      }
+      "間違い。FINパケットを送信して応答を調べ、稼働中のサービスを特定するのはポートスキャンである。多様な入力でソフトウェアの脆弱性を探すファジングとは異なる。",
+      "間違い。ログやコマンド履歴を解析してファイルの改ざんを検知するのは、ログ分析や完全性監視である。ソフトウェアへ多様なデータを入力して脆弱性を探すファジングではない。",
+      "正しい。ファジングは、ソフトウェアに問題を引き起こしそうな多様なデータを入力し、クラッシュや異常動作などを監視して脆弱性を見つける手法である。",
+      "間違い。ネットワークパケットを解析し、登録済みの攻撃パターンとの一致から不正アクセスを判定するのは、シグネチャ型IDS/IPSである。ファジングとは異なる。"
     ],
     "original_question_id": "5fc40d0c6c3b074c",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:5fc40d0c6c3b074c",
+    "reviewQuestionId": "5fc40d0c6c3b074c",
+    "sourceRecordRef": "question_201902_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ファジングはソフトウェアへ多様なデータを入力して挙動を監視し、脆弱性を検出する技術上の手法である。法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "FINパケットによるサービス特定はポートスキャンであり、ファジングではない。",
+          "promptContext": "選択肢1を技術内容に基づいて確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ログやコマンド履歴の解析による改ざん検知は、ファジングではない。",
+          "promptContext": "選択肢2を技術内容に基づいて確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "多様なデータを入力して挙動を監視し、脆弱性を見つけるのはファジングである。",
+          "promptContext": "選択肢3を技術内容に基づいて確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "攻撃パターンとの一致から不正アクセスを判定するのはシグネチャ型IDS/IPSであり、ファジングではない。",
+          "promptContext": "選択肢4を技術内容に基づいて確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n虹彩は幼少期以降ほとんど変化せず安定しているため、経年変化対策として定期登録し直しが必須というわけではない。",
-      "間違い。\n\n赤外線利用で認証精度を高められるが、照度をただ高くすれば目への負担なく精度向上できるとは限らない。",
-      "正しい。\n\n虹彩認証は個人差が大きく安定した特徴を使えるため、顔認証より他人受入率を低く抑えやすい。高精度な生体認証として知られる。",
-      "間違い。\n\n装置へ直接触れずに認証できるため、指紋認証のように遺留物を採取して偽造されるリスクは比較的小さい。"
-    ],
-    "suggestedQuestions": [
-      "虹彩認証の利点は何ですか？",
-      "顔認証や指紋認証との違いは何ですか？",
-      "他人受入率とは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "虹彩認証の利点は何ですか？",
-        "answer": "高精度で経年変化が少なく、非接触で利用できる点が利点である。"
-      },
-      {
-        "question": "顔認証や指紋認証との違いは何ですか？",
-        "answer": "顔認証は照明や姿勢の影響を受けやすく、指紋認証は接触が必要だが、虹彩認証は高精度かつ非接触である。"
-      },
-      {
-        "question": "他人受入率とは何ですか？",
-        "answer": "本人でない人を誤って本人と認めてしまう確率であり、生体認証の安全性指標の一つである。"
-      }
+      "間違い。虹彩は幼少期以降ほとんど変化しない安定した特徴であるため、経年変化を理由に利用者が定期的に虹彩情報を登録し直す必要はない。選択肢は定期的な再登録を必須としているため誤りである。",
+      "間違い。赤外線カメラは虹彩を撮影するために用いられるが、照度を高くするほど認証精度が上がるとは限らない。選択肢は照度を高くすれば目に負担を掛けずに精度を向上できるとしているため誤りである。",
+      "正しい。虹彩は個人差が大きく、経年変化も少ない特徴である。そのため、虹彩認証は顔認証より他人を本人として受け入れる割合を低くできる場合がある。",
+      "間違い。虹彩認証は通常、カメラで目を撮影する非接触方式である。選択肢は装置に残った遺留物から認証データを偽造できるとしているが、これは本人が装置に接触することを前提とした方法であり、虹彩認証にはそのまま当てはまらない。"
     ],
     "original_question_id": "8ebe54b04cebd854",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:8ebe54b04cebd854",
+    "reviewQuestionId": "8ebe54b04cebd854",
+    "sourceRecordRef": "question_201902_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "生体認証技術の特性を問う問題で、法令・制度上の義務、定義、手続又は数値基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術知識問題である。",
+          "promptContext": "虹彩認証の技術特性に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。虹彩認証の技術特性に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術知識問題である。",
+          "promptContext": "赤外線カメラと照度に関する虹彩認証の技術特性。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。虹彩認証の撮影条件に関する技術知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術知識問題である。",
+          "promptContext": "虹彩認証と顔認証の他人受入率に関する技術特性。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。生体認証の精度特性に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術知識問題である。",
+          "promptContext": "虹彩認証における遺留物利用の可否に関する技術特性。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。虹彩認証の非接触性に関する技術知識に基づく判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nインスペクションはモデレーターが主導し、役割分担を明確にした上で成果物を厳密に点検し、公式な記録や分析を行うレビュー技法である。",
-      "間違い。\n\nウォークスルーは作成者主体で比較的自由に進めるレビューであり、インスペクションほど形式化されていない。",
-      "間違い。\n\nパスアラウンドは成果物を回覧して意見を集める形のレビューであり、モデレーター主導の正式記録を特徴としない。",
-      "間違い。\n\nペアプログラミングはレビュー技法というより二人一組で実装する開発手法である。"
-    ],
-    "suggestedQuestions": [
-      "インスペクションとウォークスルーの違いは何ですか？",
-      "モデレーターの役割は何ですか？",
-      "なぜ正式記録が重要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "インスペクションとウォークスルーの違いは何ですか？",
-        "answer": "インスペクションは役割分担と記録を伴う形式的レビュー、ウォークスルーは作成者主体で比較的柔軟なレビューである。"
-      },
-      {
-        "question": "モデレーターの役割は何ですか？",
-        "answer": "議事進行、役割調整、観点整理、レビュー品質の維持を担う。"
-      },
-      {
-        "question": "なぜ正式記録が重要ですか？",
-        "answer": "欠陥傾向の分析や是正追跡、再発防止へつなげられるからである。"
-      }
+      "正しい。インスペクションはモデレーターが主導し、参加者の役割を明確にして成果物を厳密に点検する。公式な記録を残し、その結果を分析する点も特徴である。",
+      "間違い。正しくは、ウォークスルーは作成者が成果物を説明し、参加者から意見を求める作成者主体のレビューである。選択肢はモデレーターが主導し、公式な記録と分析を行う技法としているため誤りである。",
+      "間違い。正しくは、パスアラウンドは成果物を参加者へ回覧し、それぞれからコメントや指摘を集めるレビューである。選択肢はモデレーターが主導する正式な記録と分析を特徴としているため誤りである。",
+      "間違い。正しくは、ペアプログラミングは2人の開発者が同じ作業を分担しながらプログラムを作成する開発手法である。選択肢は、モデレーターが主導して成果物を公式に記録・分析するレビュー技法としているため誤りである。"
     ],
     "original_question_id": "e96b8cb9ac1fbc18",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:e96b8cb9ac1fbc18",
+    "reviewQuestionId": "e96b8cb9ac1fbc18",
+    "sourceRecordRef": "question_201902_1.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "レビュー技法の役割分担、公式記録、分析に関する知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時・現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "インスペクションはモデレーターが主導し、公式な記録と分析を行うレビュー技法である。",
+          "promptContext": "レビュー技法の知識判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非関連の技術知識として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時・現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ウォークスルーは作成者主体のレビューであり、選択肢のモデレーター主導という説明とは異なる。",
+          "promptContext": "レビュー技法の知識判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連の技術知識として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時・現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "パスアラウンドは成果物を回覧してコメントを集めるレビューであり、選択肢のモデレーター主導・公式記録と分析という説明とは異なる。",
+          "promptContext": "レビュー技法の知識判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連の技術知識として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時・現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ペアプログラミングは2人の開発者が共同でプログラムを作成する手法であり、選択肢のレビュー技法の説明とは異なる。",
+          "promptContext": "レビュー技法の知識判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非関連の技術知識として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n自社製品へ組み込んで販売していても、そのソフトウェア自体を別途使用許諾することは可能である。",
-      "間違い。\n\nハードウェアと組み合わせた特許取得の有無は、ソフトウェア単体の使用許諾可否を直接決めるものではない。",
-      "間違い。\n\n無償で利用許諾しただけでは自動的にオープンソースソフトウェアにはならない。利用条件を定めたライセンス内容が重要である。",
-      "正しい。\n\n特許で保護された技術を使っていないソフトウェアであっても、著作物として利用許諾契約を結んで他社へ使用を認めることは可能である。"
-    ],
-    "suggestedQuestions": [
-      "ソフトウェア使用許諾の根拠は何ですか？",
-      "無償ライセンスとオープンソースはどう違いますか？",
-      "特許と著作権の違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ソフトウェア使用許諾の根拠は何ですか？",
-        "answer": "ソフトウェアは著作物として保護されるため、著作権者が利用条件を定めて許諾できる。"
-      },
-      {
-        "question": "無償ライセンスとオープンソースはどう違いますか？",
-        "answer": "無償は対価が不要というだけで、オープンソースは再配布・改変など一定の自由をライセンスで認める点が異なる。"
-      },
-      {
-        "question": "特許と著作権の違いは何ですか？",
-        "answer": "特許は技術的発明、著作権はプログラム表現そのものを保護する。"
-      }
+      "間違い。正しくは、自社製品に搭載して販売しているソフトウェアでも、単体で他社に使用許諾できる。著作権法63条1項は、著作権者が他人に著作物の利用を許諾できると定めている。選択肢は、製品への搭載・販売を理由に単体の使用許諾ができないとしているため誤りである。",
+      "間違い。正しくは、ハードウェアと組み合わせた特許の有無にかかわらず、ソフトウェアの著作権者は利用許諾できる。特許による技術保護と、ソフトウェアの著作権に基づく使用許諾は別の制度である。選択肢は、特許取得を理由にソフトウェア単体の使用許諾ができないとしているため誤りである。",
+      "間違い。正しくは、オープンソースソフトウェアかどうかは、ソースコードを無償で提供するかだけでなく、ライセンスが定める利用、改変、再配布などの条件によって決まる。選択肢は、無償の使用許諾だけで無条件にオープンソースソフトウェアになるとしているため誤りである。",
+      "正しい。特許で保護された技術を使っていなくても、ソフトウェアの著作権者は著作物の利用を他人に許諾できる。著作権法63条1項は、著作権者が他人に著作物の利用を許諾できると定めている。"
     ],
     "original_question_id": "9eb0a727100bf6d1",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_17.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201902:9eb0a727100bf6d1",
+    "reviewQuestionId": "9eb0a727100bf6d1",
+    "sourceRecordRef": "question_201902_1.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC0000000048?asof=2026-10-04",
+        "title": "著作権法（昭和四十五年法律第四十八号）第六十三条（e-Gov法令検索）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "著作権法63条1項は、著作権者が他人に著作物の利用を許諾できることを定める。製品への搭載や特許取得の有無は利用許諾の可否を直接制限しない。第3肢はライセンス条件に関する技術・制度判断である。",
+    "lawReferences": [
+      [
+        {
+          "article": "63",
+          "choiceIndex": 0,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "63",
+          "choiceIndex": 1,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ],
+      [],
+      [
+        {
+          "article": "63",
+          "choiceIndex": 3,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "egov_xml",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時の公式解答と現行法判定はいずれも誤り。",
+          "displayRefIds": [],
+          "explanationText": "著作権法63条1項により、製品への搭載販売の有無にかかわらず、著作権者はソフトウェアの利用を許諾できる。",
+          "promptContext": "自社製品に搭載して販売しているソフトウェアを単体で使用許諾できるかを判定した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時の公式解答では第4肢が正答。出題時法令本文は取得されていないため、条文本文の不変性は判定していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時の公式解答と現行法判定はいずれも誤り。",
+          "displayRefIds": [],
+          "explanationText": "著作権法63条1項により、ハードウェアと組み合わせた特許取得の有無にかかわらず、著作権者はソフトウェアの利用を許諾できる。",
+          "promptContext": "ハードウェアと組み合わせて特許を取得している場合に、ソフトウェア単体を使用許諾できるかを判定した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時の公式解答では第4肢が正答。出題時法令本文は取得されていないため、条文本文の不変性は判定していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法改正による差分ではなく、ライセンス概念の判断である。",
+          "displayRefIds": [],
+          "explanationText": "ソースコードの無償使用許諾だけでオープンソースソフトウェアになるわけではなく、利用、改変、再配布などのライセンス条件が関係する。",
+          "promptContext": "ソースコードの無償使用許諾だけでオープンソースソフトウェアになるかを判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ソースコードの無償提供だけでオープンソースソフトウェアになるかは、ライセンス条件に関する技術・制度判断であり、今回確認した著作権法63条が正誤を直接決める肢ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時の公式解答と現行法判定はいずれも正しい。",
+          "displayRefIds": [],
+          "explanationText": "著作権法63条1項により、特許で保護された技術を使っていない場合でも、著作権者はソフトウェアの利用を許諾できる。",
+          "promptContext": "特許で保護された技術を使っていないソフトウェアを使用許諾できるかを判定した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時の公式解答では第4肢が正答。出題時法令本文は取得されていないため、条文本文の不変性は判定していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1698,33 +2670,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n財務、顧客、内部プロセス、学習と成長の四視点は BSC の説明であり、BCP ではない。",
-      "間違い。\n\n業務内容や流れを可視化して継続改善するのは BPM の説明に近い。",
-      "間違い。\n\n業務プロセスの外部委託は BPO の説明であり、BCP ではない。",
-      "正しい。\n\nBCP は事業継続計画であり、災害や事故などで事業が中断・阻害された場合に、復旧・再開し、あらかじめ定めたレベルまで回復するための手順を文書化したものである。"
-    ],
-    "suggestedQuestions": [
-      "BCP と DR の違いは何ですか？",
-      "BCP に何を書きますか？",
-      "なぜ事前に文書化が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BCP と DR の違いは何ですか？",
-        "answer": "BCP は事業継続全体の計画、DR は主に IT システムやデータの災害復旧計画である。"
-      },
-      {
-        "question": "BCP に何を書きますか？",
-        "answer": "優先業務、代替手段、体制、連絡網、復旧目標、手順、訓練方針などを書く。"
-      },
-      {
-        "question": "なぜ事前に文書化が必要ですか？",
-        "answer": "緊急時に判断や行動を迅速にそろえ、混乱を減らすためである。"
-      }
+      "間違い。財務、顧客、内部ビジネスプロセス、学習と成長の四つの視点で戦略を検討するのは、バランススコアカード（BSC）である。BCPは、災害や事故などで事業が中断した場合の復旧・再開を計画する。",
+      "間違い。業務内容や業務の流れを可視化し、継続的に業務プロセスを改善するのは、ビジネスプロセスマネジメント（BPM）である。BCPは、事業中断時に事業を復旧・再開するための計画を指す。",
+      "間違い。業務プロセスを外部の事業者へ委託するのは、ビジネスプロセスアウトソーシング（BPO）である。BCPは、外部委託ではなく、事業の中断に備えた継続・復旧の計画である。",
+      "正しい。BCPは事業継続計画であり、事業の中断・阻害が起きたときに、復旧・再開して目標 स्तरまで回復するための手順を定める。"
     ],
     "original_question_id": "01b2510816920af8",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:01b2510816920af8",
+    "reviewQuestionId": "01b2510816920af8",
+    "sourceRecordRef": "question_201902_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "BCPの一般的な業務継続管理の定義を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "BSCとBCPの定義を区別する技術・マネジメント知識問題である。",
+          "promptContext": "選択肢1の完全命題を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・マネジメント用語の定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "BPMとBCPの定義を区別する技術・マネジメント知識問題である。",
+          "promptContext": "選択肢2の完全命題を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・マネジメント用語の定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "BPOとBCPの定義を区別する技術・マネジメント知識問題である。",
+          "promptContext": "選択肢3の完全命題を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・マネジメント用語の定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "BCPの定義に合致する選択肢である。",
+          "promptContext": "選択肢4の完全命題を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・マネジメント用語の定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

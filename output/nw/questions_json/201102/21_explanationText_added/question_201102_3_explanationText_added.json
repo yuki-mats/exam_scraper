@@ -1,9 +1,9 @@
 [
   {
     "explanationText": [
-      "間違い。AHにもトランスポートモードとトンネルモードはあるが、AHは暗号化を行わない。選択肢は暗号化する対象部分によって方式を分けるとしているため誤りであり、AHでは認証と完全性保護の適用範囲やパケット構成がモードによって異なる。",
-      "間違い。暗号化アルゴリズムや鍵の有効期間を管理するのは、AHそのものではなく、セキュリティアソシエーション（SA）と、それを格納するSADなどの仕組みである。選択肢はこの管理情報をAHの説明としているため誤りである。",
-      "間違い。暗号化アルゴリズムを選択し、通信に使う鍵やSAを動的に確立するのは、IKEなどの鍵管理プロトコルである。選択肢は鍵交換プロトコルの役割をAHの機能としているため誤りである。",
+      "間違い。AHにもトランスポートモードとトンネルモードはあるが、AHはIPパケットを暗号化しない。選択肢は暗号化する対象部分によって方式を分けるとしているため誤りである。AHでは、認証と完全性保護をどの範囲に適用するかがモードによって異なる。",
+      "間違い。暗号化アルゴリズムや鍵の有効期間などを管理するのは、AHではなくセキュリティアソシエーション（SA）と、その情報を格納するセキュリティアソシエーションデータベース（SAD）である。選択肢はSAやSADの役割をAHの説明としているため誤りである。",
+      "間違い。暗号化アルゴリズムを選択し、鍵やSAを動的に確立するのは、IKEなどの鍵管理プロトコルである。選択肢は鍵交換プロトコルの役割をAHの機能としているため誤りである。",
       "正しい。AH（Authentication Header）はデータを暗号化せず、SPI、シーケンス番号、認証データを用いて、IPパケットの完全性と送信元の認証を確保する。"
     ],
     "original_question_id": "c5852ee4200254f2",
@@ -30,11 +30,117 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPsec AHの技術仕様を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AHはIPパケットを暗号化せず、完全性保護と認証を行う。",
+          "promptContext": "法令非関連のネットワーク技術問題。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPsec AHの技術仕様による判断であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "暗号化アルゴリズムや鍵の有効期間を管理するのはSA・SADであり、AHの機能ではない。",
+          "promptContext": "法令非関連のネットワーク技術問題。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SAとSADの役割に関する技術判断であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "暗号化アルゴリズムの選択や鍵・SAの動的確立は、IKEなどの鍵管理プロトコルの役割である。",
+          "promptContext": "法令非関連のネットワーク技術問題。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IKEなどの鍵管理プロトコルに関する技術判断であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AHはデータを暗号化せず、SPI、シーケンス番号、認証データを用いて完全性と送信元認証を確保する。",
+          "promptContext": "法令非関連のネットワーク技術問題。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "AHの技術仕様に関する判断であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。ECCメモリでは、ハミング符号の冗長ビットを利用して、1ビットの誤りを訂正し、2ビットの誤りを検出できる。パリティやチェックサムは誤りの検出が中心で、誤り位置を特定して訂正する方式ではない。"
+      "正しい。ECCメモリでは、ハミング符号の冗長ビットを利用して、1ビットの誤りを訂正し、2ビットの誤りを検出できる。偶数パリティ、垂直パリティ、チェックサムは誤りの検出が主な役割であり、誤り位置を特定して訂正する方式ではない。"
     ],
     "original_question_id": "0ccb8e598863d891",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_22.html",
@@ -44,7 +150,113 @@
     "sourceRecordRef": "question_201102_3.json#1",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ECCメモリの誤り検出・訂正方式に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はECCメモリの誤り検出・訂正方式に関する技術知識で判定し、法令根拠を要しない。",
+          "promptContext": "法令非該当の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はECCメモリの誤り検出・訂正方式に関する技術知識で判定し、法令根拠を要しない。",
+          "promptContext": "法令非該当の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はECCメモリの誤り検出・訂正方式に関する技術知識で判定し、法令根拠を要しない。",
+          "promptContext": "法令非該当の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はECCメモリの誤り検出・訂正方式に関する技術知識で判定し、法令根拠を要しない。",
+          "promptContext": "法令非該当の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -171,9 +383,9 @@
   },
   {
     "explanationText": [
-      "間違い。クラスの定義を引き継ぐことは継承（インヘリタンス）であり、インスタンスとは、クラスから生成された個々のオブジェクトを指す。選択肢は継承をインスタンスとしているため誤りである。",
-      "正しい。汎化は、複数の下位クラスに共通する属性や操作を抽出し、より一般的な上位クラスとして定義することである。バスやトラックの共通部分から自動車クラスを定義する関係が汎化に当たる。",
-      "間違い。バスやトラックは、自動車クラスの性質を引き継ぐ下位クラスである。オブジェクトとは、クラスを基に生成された個々の実体を指すため、選択肢はクラスをオブジェクトとしているため誤りである。",
+      "間違い。クラスの定義を引き継ぐことは継承（インヘリタンス）であり、インスタンスはクラスから生成された個々のオブジェクトを指す。選択肢は継承をインスタンスとしているため誤りである。",
+      "正しい。汎化は、複数の下位クラスに共通する属性や操作を抽出し、より一般的な上位クラスとして定義することである。バスやトラックなどの共通部分から自動車クラスを定義する関係が汎化に当たる。",
+      "間違い。バスやトラックは、自動車クラスの性質を引き継ぐ下位クラスである。オブジェクトはクラスを基に生成された個々の実体を指すため、選択肢はクラスをオブジェクトとしているため誤りである。",
       "間違い。特化は、上位クラスの性質を受け継ぎ、用途や特徴に応じた下位クラスを定義することである。共通部分を抽出して自動車クラスを定義するのは汎化であり、選択肢は汎化と特化を逆に説明しているため誤りである。"
     ],
     "original_question_id": "70d566718d31f017",
@@ -184,7 +396,113 @@
     "sourceRecordRef": "question_201102_3.json#3",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "オブジェクト指向設計におけるクラス間関係の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は継承とインスタンスを取り違えている。",
+          "promptContext": "オブジェクト指向設計の用語問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識だけで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は下位クラスの共通部分から上位クラスを定義する汎化を説明している。",
+          "promptContext": "オブジェクト指向設計の用語問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識だけで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はクラスをオブジェクトとして扱っている。",
+          "promptContext": "オブジェクト指向設計の用語問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識だけで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は汎化と特化を逆に説明している。",
+          "promptContext": "オブジェクト指向設計の用語問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識だけで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

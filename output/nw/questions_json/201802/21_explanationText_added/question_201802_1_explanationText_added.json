@@ -1,33 +1,123 @@
 [
   {
     "explanationText": [
-      "正しい。\n\n排他的論理和 XOR は入力が異なるときだけ 1 になる。これを否定した演算、すなわち入力が等しいとき 1 になる演算が相補演算であり、等価演算である。",
-      "間違い。\n\nXOR 自身は相補演算ではなく元の演算そのものである。否定関係になっていない。",
-      "間違い。\n\n論理和や論理積では、入力が等しいときだけ真になるという XOR の補集合の性質を表せない。",
-      "間違い。\n\n否定を含まない別の基本演算では XOR の補集合にはならない。XOR の相補は XNOR、すなわち等価演算である。"
-    ],
-    "suggestedQuestions": [
-      "XOR と等価演算はどう違いますか？",
-      "相補演算はどう見分けますか？",
-      "真理値表でどう確認しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "XOR と等価演算はどう違いますか？",
-        "answer": "XOR は入力が異なるとき 1、等価演算は入力が等しいとき 1 になる。"
-      },
-      {
-        "question": "相補演算はどう見分けますか？",
-        "answer": "全ての入力パターンで結果が 0 と 1 で反転しているかを見ればよい。"
-      },
-      {
-        "question": "真理値表でどう確認しますか？",
-        "answer": "XOR の各出力を反転した列が等価演算の出力列と一致する。"
-      }
+      "正しい。排他的論理和（XOR）の相補演算は、否定排他的論理和（XNOR、等価演算）である。XORは二つの入力が異なるときに1になり、XNORは入力が等しいときに1になるため、両者の結果は常に互いに否定の関係になる。"
     ],
     "original_question_id": "bd1f1f7e83de5468",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:bd1f1f7e83de5468",
+    "reviewQuestionId": "bd1f1f7e83de5468",
+    "sourceRecordRef": "question_201802_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ブール代数・論理演算の性質で正誤が決まる技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "排他的論理和の相補演算に関する技術知識で判定する。",
+          "promptContext": "ブール代数・論理演算の技術問題。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の正誤はブール代数・論理演算の技術知識で判定する。",
+          "promptContext": "ブール代数・論理演算の技術問題。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の正誤はブール代数・論理演算の技術知識で判定する。",
+          "promptContext": "ブール代数・論理演算の技術問題。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢の正誤はブール代数・論理演算の技術知識で判定する。",
+          "promptContext": "ブール代数・論理演算の技術問題。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -994,33 +1084,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n共有ロックや排他ロックの整合が取れていない組合せでは、同一データへの競合を正しく表せない。",
-      "間違い。\n\n更新系処理同士や更新中の読取り可否が誤っている組合せはトランザクション制御の基本に反する。",
-      "間違い。\n\n排他制御では、更新と更新、更新と不適切な読取りを同時許可できない場面があるため、この組合せは不適切である。",
-      "正しい。\n\n読取り同士は共有できるが、更新を伴うアクセスは他処理を待たせる必要がある。表でその関係を正しく示しているのが正解である。"
-    ],
-    "suggestedQuestions": [
-      "読取りと更新の並行実行はどう考えますか？",
-      "共有ロックと排他ロックの違いは何ですか？",
-      "なぜ排他制御が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "読取りと更新の並行実行はどう考えますか？",
-        "answer": "読取り同士は共有しやすいが、更新が絡むと整合性維持のため待ちが必要になる。"
-      },
-      {
-        "question": "共有ロックと排他ロックの違いは何ですか？",
-        "answer": "共有ロックは複数読取りを許し、排他ロックは更新のため他アクセスを制限する。"
-      },
-      {
-        "question": "なぜ排他制御が必要ですか？",
-        "answer": "同時更新や未確定データ読取りを防ぎ、データベース整合性を守るためである。"
-      }
+      "正しい。該当するのはエである。共有ロック同士はデータを変更しないため並行して実行できる。一方、排他ロックはデータを更新するアクセスなので、共有ロックまたは別の排他ロックが同じデータへアクセスしている間は、後続プログラムを待たせる。したがって、共有・共有だけが○、共有・排他、排他・共有、排他・排他はすべて×となる。"
     ],
     "original_question_id": "280cd45eb89ed912",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:280cd45eb89ed912",
+    "reviewQuestionId": "280cd45eb89ed912",
+    "sourceRecordRef": "question_201802_1.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "データベースのロック制御に関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はデータベースのロック制御に関する技術知識で決まり、法令根拠を要しない。",
+          "promptContext": "法令関連性の確認結果",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。既存の技術的正答を保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はデータベースのロック制御に関する技術知識で決まり、法令根拠を要しない。",
+          "promptContext": "法令関連性の確認結果",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。既存の技術的正答を保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はデータベースのロック制御に関する技術知識で決まり、法令根拠を要しない。",
+          "promptContext": "法令関連性の確認結果",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。既存の技術的正答を保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はデータベースのロック制御に関する技術知識で決まり、法令根拠を要しない。",
+          "promptContext": "法令関連性の確認結果",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。既存の技術的正答を保持した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1393,63 +1573,249 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nセッション情報を盗んで乗っ取るのはセッションハイジャックの説明である。",
-      "間違い。\n\nキー入力を記録して外部送信するのはキーロガーの説明である。",
-      "正しい。\n\nブルートフォース攻撃は、利用可能な文字列の組合せを総当たりで試して認証突破を狙う攻撃である。",
-      "間違い。\n\n正規利用者の認証シーケンスを再送するのはリプレイ攻撃の説明である。"
-    ],
-    "suggestedQuestions": [
-      "ブルートフォース攻撃とは何ですか？",
-      "辞書攻撃との違いは何ですか？",
-      "防止策は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ブルートフォース攻撃とは何ですか？",
-        "answer": "考えられるパスワード候補を総当たりで順に試す攻撃である。"
-      },
-      {
-        "question": "辞書攻撃との違いは何ですか？",
-        "answer": "辞書攻撃は頻出語や漏えい済み候補を使うのに対し、ブルートフォースは全組合せを試す。"
-      },
-      {
-        "question": "防止策は何ですか？",
-        "answer": "長く複雑なパスワード、多要素認証、試行回数制限、ロックアウトなどが有効である。"
-      }
+      "間違い。正しくは、セッション情報を盗んで利用者になりすますのはセッションハイジャックである。選択肢はセッション情報を盗む攻撃としているため、ブルートフォース攻撃の説明ではない。",
+      "間違い。正しくは、キー入力を記録して外部へ送信するのはキーロガーである。選択肢はキーロガーによる情報窃取としているため、ブルートフォース攻撃の説明ではない。",
+      "正しい。",
+      "間違い。正しくは、正規利用者の認証シーケンスを記録して再送するのはリプレイ攻撃である。選択肢は認証情報の再送としているため、ブルートフォース攻撃の説明ではない。"
     ],
     "original_question_id": "a16ae11316cc8d53",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:a16ae11316cc8d53",
+    "reviewQuestionId": "a16ae11316cc8d53",
+    "sourceRecordRef": "question_201802_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "パスワードの総当たり試行に関する技術知識であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "セッション情報の窃取はセッションハイジャックに該当し、ブルートフォース攻撃ではない。",
+          "promptContext": "問題文と選択肢を結合した完全命題を技術知識で確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定。法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "キー入力の記録と外部送信はキーロガーによる情報窃取であり、ブルートフォース攻撃ではない。",
+          "promptContext": "問題文と選択肢を結合した完全命題を技術知識で確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定。法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "使用可能な文字の組合せをパスワードとして繰り返しログインを試みる攻撃はブルートフォース攻撃である。",
+          "promptContext": "問題文と選択肢を結合した完全命題を技術知識で確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識による判定。法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "正規利用者の認証シーケンスを記録して再送する攻撃はリプレイ攻撃であり、ブルートフォース攻撃ではない。",
+          "promptContext": "問題文と選択肢を結合した完全命題を技術知識で確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定。法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n既知脆弱性やパッチ適用状況を見るのはバージョンチェック型の検査であり、ファジングではない。",
-      "正しい。\n\nファジングは、異常値や多様な入力を大量投入して挙動を観察し、例外や異常終了から脆弱性を見つける手法である。",
-      "間違い。\n\n最新アドバイザリを参照するのは脆弱性情報ベースの確認であり、ファジングの説明ではない。",
-      "間違い。\n\n内部構造や構文を確認するのは静的解析やソースコードレビューに近い。"
-    ],
-    "suggestedQuestions": [
-      "ファジングは何を狙いますか？",
-      "ブラックボックスでもできますか？",
-      "静的解析との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ファジングは何を狙いますか？",
-        "answer": "想定外入力でクラッシュや不正動作を起こさせ、潜在的な脆弱性を露出させることを狙う。"
-      },
-      {
-        "question": "ブラックボックスでもできますか？",
-        "answer": "はい。入出力仕様だけを基にしたブラックボックス型のファジングも広く使われる。"
-      },
-      {
-        "question": "静的解析との違いは何ですか？",
-        "answer": "静的解析はコードを実行せずに検査し、ファジングは実際に入力を与えて動作を観察する。"
-      }
+      "間違い。正しくは、既知の脆弱性やパッチの適用状況を確認するのは、ソフトウェアのバージョンや脆弱性情報を基にした検査である。選択肢は既知の脆弱性への対応状況とバージョン、パッチ適用状況を調べるとしているため、異常なデータを入力して挙動を観察するファジングの説明ではない。",
+      "正しい。ファジングは、ソフトウェアの入出力に異常値や想定外のデータを大量に与え、例外、異常終了、予期しない応答などを手掛かりに脆弱性を見つける。",
+      "間違い。正しくは、ベンダーや情報セキュリティ関連機関のアドバイザリを調べるのは、既知の脆弱性情報を基にソフトウェアの影響や対応状況を確認する方法である。選択肢は最新のセキュリティ情報を参照して検査するとしているため、データを入力して未知の異常を探すファジングとは異なる。",
+      "間違い。正しくは、ソフトウェアの内部構造やソースコードを調べるのは、ホワイトボックステスト、静的解析又はソースコードレビューに当たる。選択肢はソースコードの構文をチェックするとしているため、外部から多様なデータを入力して挙動を観察するファジングの説明ではない。"
     ],
     "original_question_id": "60177cc5db1cb820",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:60177cc5db1cb820",
+    "reviewQuestionId": "60177cc5db1cb820",
+    "sourceRecordRef": "question_201802_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術的な脆弱性検査手法の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は既知の脆弱性、ソフトウェアバージョン、パッチ適用状況の検査を説明しており、ファジングではない。",
+          "promptContext": "脆弱性検査手法に関する技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は入出力へ多様なデータを大量に入力し、挙動を観察して脆弱性を見つけるファジングを説明している。",
+          "promptContext": "脆弱性検査手法に関する技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はセキュリティアドバイザリなどの既知の脆弱性情報を調べる方法であり、ファジングではない。",
+          "promptContext": "脆弱性検査手法に関する技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はソースコードの構文確認などのホワイトボックス検査、静的解析又はコードレビューを説明しており、ファジングではない。",
+          "promptContext": "脆弱性検査手法に関する技術問題。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1939,33 +2305,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nサービスライフサイクル各段階の対応付けが一部ずれており、戦略・設計・移行・運用・改善の順になっていない。",
-      "正しい。\n\nITIL 2011 edition のサービスライフサイクルは、サービスストラテジ、サービスデザイン、サービストランジション、サービスオペレーション、継続的サービス改善の 5 段階で構成される。図の説明と流れに合うのはこの組合せである。",
-      "間違い。\n\n継続的サービス改善や運用段階の位置づけが誤っており、標準的な ITIL ライフサイクルと一致しない。",
-      "間違い。\n\nサービス設計と移行などの対応が誤っているため、図の説明に合致しない。"
-    ],
-    "suggestedQuestions": [
-      "ITIL 2011 の 5 段階は何ですか？",
-      "サービスデザインとトランジションの違いは何ですか？",
-      "継続的サービス改善はどこで効きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ITIL 2011 の 5 段階は何ですか？",
-        "answer": "サービスストラテジ、サービスデザイン、サービストランジション、サービスオペレーション、継続的サービス改善である。"
-      },
-      {
-        "question": "サービスデザインとトランジションの違いは何ですか？",
-        "answer": "前者は要件を満たすサービスの設計、後者は変更をテストして本番へ移す段階である。"
-      },
-      {
-        "question": "継続的サービス改善はどこで効きますか？",
-        "answer": "全ライフサイクルを通じてサービス品質やプロセスを改善する考え方として効く。"
-      }
+      "正しい。該当する組合せはイである。ITIL 2011 editionのサービスライフサイクルは、まずITサービスの戦略を定め、次にサービスを設計し、その後にサービス変更を実環境へ移行する。続いてサービスを運用し、全体を通じて継続的サービス改善を行う。図では、aがサービスストラテジ、bがサービスデザイン、cがサービストランジション、dがサービスオペレーションに対応している。"
     ],
     "original_question_id": "98032fd0f666a518",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:98032fd0f666a518",
+    "reviewQuestionId": "98032fd0f666a518",
+    "sourceRecordRef": "question_201802_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ITIL 2011 editionのサービスライフサイクルに関する技術・運用知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "aの段階名はITIL 2011 editionのサービスストラテジではない。",
+          "promptContext": "ITILサービスライフサイクルの段階名判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "bの段階名はサービスデザインで正しい。",
+          "promptContext": "ITILサービスライフサイクルの段階名判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "cの段階名はサービストランジションではない。",
+          "promptContext": "ITILサービスライフサイクルの段階名判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "dの段階名はサービスオペレーションではない。",
+          "promptContext": "ITILサービスライフサイクルの段階名判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -2221,33 +2677,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nエンティティと属性、関連で捉えるのは E-R 図によるデータ中心表現であり、UML 採用時の特徴ではない。",
-      "間違い。\n\nデータ送出しや格納域を矢印で結ぶのは DFD の説明である。",
-      "正しい。\n\nUML はオブジェクトモデリング用に標準化された図法群を持ち、目的に応じて複数のモデル図を使い分けて業務プロセスやシステムを可視化できる。",
-      "間違い。\n\n条件分岐形式で事象を記述する説明は、意思決定表や業務フロー表現に近く、UML の特徴を表していない。"
-    ],
-    "suggestedQuestions": [
-      "UML は何を標準化していますか？",
-      "DFD や E-R 図との違いは何ですか？",
-      "業務プロセス可視化でどの図を使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "UML は何を標準化していますか？",
-        "answer": "オブジェクト指向分析・設計に用いる複数の図法と記述ルールを標準化している。"
-      },
-      {
-        "question": "DFD や E-R 図との違いは何ですか？",
-        "answer": "DFD はデータ流れ、E-R 図はデータ構造中心、UML は振る舞いと構造を複数観点で表せる。"
-      },
-      {
-        "question": "業務プロセス可視化でどの図を使いますか？",
-        "answer": "用途に応じてユースケース図、アクティビティ図、シーケンス図などを使い分ける。"
-      }
+      "間違い。エンティティ、属性、エンティティ間の関連でデータを表すのはER図によるデータ中心アプローチである。選択肢はこれをUMLの活用シーンとしているため誤りである。",
+      "間違い。データの流れ、データ送出し、データ受取り、データ格納域、処理を表すのはDFDである。選択肢はDFDの説明をUMLの活用シーンとしているため誤りである。",
+      "正しい。UMLはオブジェクトモデリングのために標準化された記述ルールであり、目的に応じて複数のモデル図を使い分け、業務プロセスやシステムを可視化できる。",
+      "間違い。要件に対して発生する事象を条件分岐で表すのは、意思決定表や決定木などの説明である。選択肢はこの表現をUMLの活用シーンとしているため誤りである。"
     ],
     "original_question_id": "cd5a3c302e4a0abc",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:cd5a3c302e4a0abc",
+    "reviewQuestionId": "cd5a3c302e4a0abc",
+    "sourceRecordRef": "question_201802_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "UML、ER図、DFD、意思決定表・決定木の役割を問う技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ER図によるデータ中心アプローチとUMLは別の表現手法である。",
+          "promptContext": "選択肢1の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではなく、技術知識により正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "データの流れを表す手法はDFDであり、UMLの説明ではない。",
+          "promptContext": "選択肢2の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではなく、技術知識により正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "UMLはオブジェクトモデリングのために標準化された記述ルールであり、複数のモデル図を使い分けられる。",
+          "promptContext": "選択肢3の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象ではなく、技術知識により正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "条件分岐で事象を表す説明は意思決定表や決定木に関するものであり、UMLの説明ではない。",
+          "promptContext": "選択肢4の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではなく、技術知識により正誤を判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

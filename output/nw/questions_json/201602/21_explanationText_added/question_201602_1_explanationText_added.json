@@ -1,93 +1,377 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nこのアルゴリズムは二分法であり、反復ごとに探索区間の長さが 1/2 になる。誤差 0.001 未満にするには 1/2^n < 0.001 を満たす最小の n を求めればよく、2^10 = 1024 なので 10 回で足りる。",
-      "間違い。\n\n20 回なら 1/2^20 程度まで区間が縮み、必要条件 0.001 未満よりはるかに細かい。必要回数を過大に見積もっている。",
-      "間違い。\n\n100 回も繰り返す必要はない。二分法では誤差が指数的に減るので、10 回程度で条件を満たす。",
-      "間違い。\n\n1000 回は明らかに過大である。区間を毎回半分にする手順なので、誤差 0.001 未満には 10 回で到達する。"
-    ],
-    "suggestedQuestions": [
-      "二分法では誤差はどう減りますか？",
-      "なぜ 2 の累乗で回数を見積もれますか？",
-      "終了条件 0.001 はどう使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "二分法では誤差はどう減りますか？",
-        "answer": "各反復で探索区間が半分になるので、誤差の上限も 1/2, 1/4, 1/8 のように半減する。"
-      },
-      {
-        "question": "なぜ 2 の累乗で回数を見積もれますか？",
-        "answer": "初期区間長を 1 とすると、n 回後の区間長は 1/2^n で表せるからである。"
-      },
-      {
-        "question": "終了条件 0.001 はどう使いますか？",
-        "answer": "1/2^n < 0.001 を満たす最小の n を求め、そこで反復回数を判断する。"
-      }
+      "正しい。正答は10回である。このアルゴリズムは二分法であり、反復するたびに探索区間の長さが半分になる。初期区間の長さは1なので、10回後の区間の長さは次のようになる。\n\n\\[\\frac{1}{2^{10}}=\\frac{1}{1024}\\approx0.000976<0.001\\]\n\nしたがって、終了条件を満たす最小の反復回数は10回である。"
     ],
     "original_question_id": "6f6ac56e6c0bef9b",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:6f6ac56e6c0bef9b",
+    "reviewQuestionId": "6f6ac56e6c0bef9b",
+    "sourceRecordRef": "question_201602_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "数学的な二分法アルゴリズムの問題であり、法令・制度上の義務、定義、手続又は基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "二分法の反復回数に関する選択肢で、法令根拠を要しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "数学的アルゴリズムによる判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "二分法の反復回数に関する選択肢で、法令根拠を要しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "数学的アルゴリズムによる判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "二分法の反復回数に関する選択肢で、法令根拠を要しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "数学的アルゴリズムによる判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "二分法の反復回数に関する選択肢で、法令根拠を要しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "数学的アルゴリズムによる判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n受理状態を a にすると、最後が 110 で終わる列を一意に受理できない。末尾 110 を読んだ後に到達すべき状態は a ではなく c である。",
-      "間違い。\n\n最後の 0 を読んだ後の遷移先は b にはならない。110 の終端を識別する受理状態としては不適切である。",
-      "正しい。\n\nどの開始状態からでも末尾の 110 を順に読むと、最後の 0 の入力後に到達する状態は c になる。したがって 110 で終わる列を受理するには c を受理状態にすればよい。",
-      "間違い。\n\n最後が 110 のときに最終到達状態は d ではない。d を受理状態にすると別の末尾パターンまで受理してしまう。"
-    ],
-    "suggestedQuestions": [
-      "有限オートマトンでは何を受理状態にしますか？",
-      "末尾 110 をどう追跡しますか？",
-      "受理状態の決め方のコツは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "有限オートマトンでは何を受理状態にしますか？",
-        "answer": "読み終えた時点で目的の文字列条件を満たす入力列が到達する状態を受理状態にする。"
-      },
-      {
-        "question": "末尾 110 をどう追跡しますか？",
-        "answer": "最後の 3 ビットだけに注目し、1、11、110 という一致状況を状態遷移で表す。"
-      },
-      {
-        "question": "受理状態の決め方のコツは何ですか？",
-        "answer": "正解候補の文字列を実際に入力し、読み終わった直後の状態を特定するのが早い。"
-      }
+      "正しい。110を左から順に読むと、最初の1で状態はb又はd、次の1でいずれもdになり、最後の0でcへ遷移する。したがって、先頭にどのビット列があっても、末尾の110を読み終えた状態はcである。"
     ],
     "original_question_id": "bb75063b89810e11",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:bb75063b89810e11",
+    "reviewQuestionId": "bb75063b89810e11",
+    "sourceRecordRef": "question_201602_1.json#1",
+    "explanationReferences": [
+      {
+        "referenceDate": "2016-10-16",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000g6fw-att/2016h28a_nw_am2_qs.pdf",
+        "title": "平成28年度秋期 ネットワークスペシャリスト試験 問題冊子"
+      },
+      {
+        "referenceDate": "2016-10-16",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000g6fw-att/2016h28a_nw_am2_ans.pdf",
+        "title": "平成28年度秋期 ネットワークスペシャリスト試験 解答例（午前Ⅱ）"
+      }
+    ],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "有限オートマトンの状態遷移と受理条件を判定する問題で、法令・制度上の義務や基準は関係しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "任意の状態から110を読むと状態cに到達するため、選択肢aは誤り。",
+          "promptContext": "有限オートマトンの状態遷移を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。状態aを受理状態とする選択肢は、末尾110の読了状態cと一致しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "任意の状態から110を読むと状態cに到達するため、選択肢bは誤り。",
+          "promptContext": "有限オートマトンの状態遷移を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。状態bを受理状態とする選択肢は、末尾110の読了状態cと一致しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "任意の状態から110を読むと状態cに到達するため、選択肢cが正しい。",
+          "promptContext": "有限オートマトンの状態遷移を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。任意の状態から末尾110を読むと状態cに到達する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "任意の状態から110を読むと状態cに到達するため、選択肢dは誤り。",
+          "promptContext": "有限オートマトンの状態遷移を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。状態dを受理状態とする選択肢は、末尾110の読了状態cと一致しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n一定間隔の部分列を順に整列し、間隔を縮めていくのはシェルソートの説明である。",
-      "間違い。\n\n基準値より大小で分割し、各区分に再帰的に同じ処理を行うのはクイックソートの説明である。",
-      "間違い。\n\n隣接要素を比較して逆順なら交換し続けるのはバブルソートの説明である。",
-      "正しい。\n\nヒープソートは未整列部分をヒープ木にして最大値または最小値を順に取り出し、整列済み領域を広げていく。"
-    ],
-    "suggestedQuestions": [
-      "ヒープソートはどの構造を使いますか？",
-      "シェルソートやクイックソートとの違いは何ですか？",
-      "ヒープ木では何を取り出しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ヒープソートはどの構造を使いますか？",
-        "answer": "親子関係に大小規則を持たせたヒープ木を使う。"
-      },
-      {
-        "question": "シェルソートやクイックソートとの違いは何ですか？",
-        "answer": "ヒープソートは木構造による最大値・最小値の取り出し、シェルソートは間隔付き挿入、クイックソートは基準値分割で進む。"
-      },
-      {
-        "question": "ヒープ木では何を取り出しますか？",
-        "answer": "最大ヒープなら最大値、最小ヒープなら最小値を先頭から順に取り出す。"
-      }
+      "間違い。一定間隔の部分列を整列し、間隔を縮めながら同じ操作を繰り返すのはシェルソートである。選択肢はシェルソートの処理をヒープソートとしているため誤りである。",
+      "間違い。基準値より大きい値と小さい値に分け、それぞれに同じ処理を繰り返すのはクイックソートである。選択肢はクイックソートの処理をヒープソートとしているため誤りである。",
+      "間違い。隣り合う要素を比較し、逆順なら交換する操作を繰り返すのはバブルソートである。選択肢はバブルソートの処理をヒープソートとしているため誤りである。",
+      "正しい。ヒープソートは、未整列の要素をヒープ（親子間に大小関係を持つ木構造）として管理し、最小値または最大値を順に取り出して整列済みの領域を広げる。"
     ],
     "original_question_id": "35d836fe7cccc241",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:35d836fe7cccc241",
+    "reviewQuestionId": "35d836fe7cccc241",
+    "sourceRecordRef": "question_201602_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ヒープソートのアルゴリズムを問う問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はなく、法令監査対象外である。",
+          "displayRefIds": [],
+          "explanationText": "シェルソートの定義と一致する。法令根拠は不要である。",
+          "promptContext": "選択肢1のアルゴリズム定義を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はなく、法令監査対象外である。",
+          "displayRefIds": [],
+          "explanationText": "クイックソートの定義と一致する。法令根拠は不要である。",
+          "promptContext": "選択肢2のアルゴリズム定義を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はなく、法令監査対象外である。",
+          "displayRefIds": [],
+          "explanationText": "バブルソートの定義と一致する。法令根拠は不要である。",
+          "promptContext": "選択肢3のアルゴリズム定義を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分はなく、法令監査対象外である。",
+          "displayRefIds": [],
+          "explanationText": "ヒープを用いて最小値または最大値を取り出し、整列済み領域を広げる説明であり、ヒープソートの定義に合致する。法令根拠は不要である。",
+          "promptContext": "選択肢4のアルゴリズム定義を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -944,63 +1228,262 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nARP は同一リンク上で IP アドレスに対応する MAC アドレスを求めるためのプロトコルである。",
-      "間違い。\n\n誤り制御は ICMP や TCP などの役割であり、ARP の目的ではない。",
-      "間違い。\n\nホップ数に基づく経路制御は RIP などのルーティングプロトコルの役割である。",
-      "間違い。\n\n端末へ動的に IP アドレスを割り当てるのは DHCP の役割である。"
-    ],
-    "suggestedQuestions": [
-      "ARP は何を解決しますか？",
-      "DHCP や RIP との違いは何ですか？",
-      "ARP はどの範囲で使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ARP は何を解決しますか？",
-        "answer": "IP アドレスから対応する MAC アドレスを求める。"
-      },
-      {
-        "question": "DHCP や RIP との違いは何ですか？",
-        "answer": "DHCP はアドレス割当、RIP は経路交換、ARP はアドレス解決で役割が異なる。"
-      },
-      {
-        "question": "ARP はどの範囲で使いますか？",
-        "answer": "同一セグメント内のデータリンク層通信で使う。"
-      }
+      "正しい。ARPは、IPアドレスに対応するMACアドレスを求めるためのプロトコルである。",
+      "間違い。誤り制御はICMPやTCPなどの役割である。選択肢はARPを誤り制御のプロトコルとしているため誤りである。",
+      "間違い。ホップ数などに基づく経路制御は、RIPなどのルーティングプロトコルの役割である。選択肢はARPを経路制御のプロトコルとしているため誤りである。",
+      "間違い。端末へ動的にIPアドレスを割り当てるのはDHCPの役割である。選択肢はARPをIPアドレス割当てのプロトコルとしているため誤りである。"
     ],
     "original_question_id": "df24452484300002",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:df24452484300002",
+    "reviewQuestionId": "df24452484300002",
+    "sourceRecordRef": "question_201602_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ARPの機能を問う技術問題で、法令・制度上の義務、定義、手続又は基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ARPはIPアドレスから対応するMACアドレスを求める技術プロトコルであり、法令根拠を要しない。",
+          "promptContext": "ARPの機能を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定する問題のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "誤り制御はARPの機能ではなく、ICMPやTCPなどが担う。",
+          "promptContext": "ARPを誤り制御プロトコルとする選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する問題のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ホップ数などに基づく経路制御はRIPなどのルーティングプロトコルの機能であり、ARPの機能ではない。",
+          "promptContext": "ARPを経路制御プロトコルとする選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する問題のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "動的なIPアドレスの割当てはDHCPの機能であり、ARPの機能ではない。",
+          "promptContext": "ARPをIPアドレス割当てプロトコルとする選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する問題のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nURL フィルタリングはアプリケーション層でのアクセス制御であり、IPv6 拡張ヘッダで実現する機能ではない。",
-      "正しい。\n\nIPv6 では AH や ESP などの拡張ヘッダを用いることで IPsec を実現でき、暗号化や完全性保護を行える。",
-      "間違い。\n\nウイルス検疫は端末やゲートウェイでのセキュリティ制御であり、IPv6 拡張ヘッダの役割ではない。",
-      "間違い。\n\n情報漏えい検知は DLP などの仕組みで行うもので、IPv6 拡張ヘッダの機能ではない。"
-    ],
-    "suggestedQuestions": [
-      "IPv6 拡張ヘッダで使うセキュリティ機能は何ですか？",
-      "IPsec はどの層で働きますか？",
-      "URL フィルタリングとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPv6 拡張ヘッダで使うセキュリティ機能は何ですか？",
-        "answer": "AH や ESP による IPsec の暗号化・完全性保護である。"
-      },
-      {
-        "question": "IPsec はどの層で働きますか？",
-        "answer": "ネットワーク層でパケット単位の保護を行う。"
-      },
-      {
-        "question": "URL フィルタリングとの違いは何ですか？",
-        "answer": "URL フィルタリングは Web 利用制御、IPsec は IP パケット保護で階層も目的も異なる。"
-      }
+      "間違い。URLフィルタリングはURLなどを基準にWebアクセスを制御する機能であり、IPv6拡張ヘッダが提供する機能ではない。選択肢は、拡張ヘッダでURLフィルタリングを実現できるとしているため誤りである。",
+      "正しい。IPv6の拡張ヘッダにはESP（Encapsulating Security Payload）があり、通信内容を暗号化して機密性を保護できる。",
+      "間違い。ウイルス検疫は端末やゲートウェイでウイルスを検査し、必要に応じて隔離する機能であり、IPv6拡張ヘッダが提供する機能ではない。選択肢は、拡張ヘッダでウイルスの有無を検査して隔離できるとしているため誤りである。",
+      "間違い。情報漏えい検知は、DLPなどで情報の持出しや送信を監視する機能であり、IPv6拡張ヘッダが提供する機能ではない。選択肢は、拡張ヘッダで情報漏えいを検知できるとしているため誤りである。"
     ],
     "original_question_id": "9f4e410d65f5a9be",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:9f4e410d65f5a9be",
+    "reviewQuestionId": "9f4e410d65f5a9be",
+    "sourceRecordRef": "question_201602_1.json#11",
+    "explanationReferences": [
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2017-07-14",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc8200",
+        "title": "RFC 8200: Internet Protocol, Version 6 (IPv6) Specification"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2005-12-22",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc4303",
+        "title": "RFC 4303: IP Encapsulating Security Payload (ESP)"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv6拡張ヘッダの機能を問う技術仕様の問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "URLフィルタリング、ウイルス検疫、情報漏えい検知はIPv6拡張ヘッダの機能ではない。",
+          "promptContext": "技術仕様問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6の拡張ヘッダにはESPがあり、通信内容を暗号化できる。",
+          "promptContext": "技術仕様問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ESPによる暗号化を問う技術仕様であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ウイルス検疫は端末やゲートウェイで実施する機能であり、IPv6拡張ヘッダの機能ではない。",
+          "promptContext": "技術仕様問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "情報漏えい検知はDLPなどで実施する機能であり、IPv6拡張ヘッダの機能ではない。",
+          "promptContext": "技術仕様問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1127,33 +1610,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nUSB メモリ型の認証デバイスは、それ自体に格納した証明書や鍵を用いて認証するため、利用 PC の MAC アドレスを組み込むことは本質要件ではない。",
-      "正しい。\n\n虹彩は成人では経年変化が小さく、虹彩認証は一度登録したパターンを長期間使いやすい。更新頻度が低い点が特徴である。",
-      "間違い。\n\n静電容量方式の指紋認証は明るさの影響を受けにくい。光源条件が問題になりやすいのは顔認証や虹彩認証である。",
-      "間違い。\n\nコイルの誘導起電力を利用するのは非接触型 IC カードであり、接触型 IC カードは端子経由で給電される。"
-    ],
-    "suggestedQuestions": [
-      "虹彩認証の特徴は何ですか？",
-      "接触型 IC カードと非接触型の違いは何ですか？",
-      "静電容量方式の指紋認証は何を検出しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "虹彩認証の特徴は何ですか？",
-        "answer": "個人差が大きく経年変化が小さい虹彩パターンを用いるため、長期運用に向く。"
-      },
-      {
-        "question": "接触型 IC カードと非接触型の違いは何ですか？",
-        "answer": "接触型は端子接続で給電し、非接触型は読取機の磁界による誘導電力を使う。"
-      },
-      {
-        "question": "静電容量方式の指紋認証は何を検出しますか？",
-        "answer": "指先の凹凸による電気容量差を読み取って指紋パターンを識別する。"
-      }
+      "間違い。デジタル証明書や鍵を用いるUSBメモリ型認証デバイスでは、証明書などを利用して認証する。選択肢は利用するPCのMACアドレスを組み込む必要があるとしているため誤りである。",
+      "正しい。成人の虹彩は経年変化が小さいため、一度登録した虹彩パターンは長期間利用でき、更新はほとんど必要ない。",
+      "間違い。静電容量方式の指紋認証は、指とセンサーの間の静電容量の変化を読み取るため、LED照明の明るさの影響を受けにくい。選択肢はLED照明のある室内で正常に認証できなくなるとしているため誤りである。",
+      "間違い。接触型ICカードは、カード表面の端子を介して電力やデータをやり取りする。カード内のコイルの誘導起電力を利用するのは非接触型ICカードである。選択肢は接触型ICカードがコイルの誘導起電力を利用するとしているため誤りである。"
     ],
     "original_question_id": "9245dee9bdd436ff",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:9245dee9bdd436ff",
+    "reviewQuestionId": "9245dee9bdd436ff",
+    "sourceRecordRef": "question_201602_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "認証デバイスの技術的特徴に関する問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "USBメモリ型認証デバイスにPCのMACアドレスを組み込む必要はない。",
+          "promptContext": "技術知識問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定したため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "成人の虹彩は経年変化が小さく、虹彩パターンの更新はほとんど不要である。",
+          "promptContext": "技術知識問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定したため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "静電容量方式の指紋認証はLED照明の影響を受けにくい。",
+          "promptContext": "技術知識問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定したため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "接触型ICカードは端子を介して電力やデータをやり取りし、コイルの誘導起電力を利用するのは非接触型ICカードである。",
+          "promptContext": "技術知識問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定したため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1403,93 +1979,422 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nソフトウェアの使用許諾は著作権などの権利に基づいて行えるため、特許で保護された技術を使っていないソフトウェアでもライセンス供与は可能である。",
-      "間違い。\n\n自社製品に搭載して販売済みでも、ソフトウェア単体の使用許諾を別途行うことは可能である。",
-      "間違い。\n\nハードウェアとの組合せで特許取得していても、ソフトウェア自体の著作権や利用許諾は別に扱える。",
-      "間違い。\n\n無償でソースコードを提供しただけではオープンソースソフトウェアにはならない。利用条件を定めたライセンスが必要である。"
-    ],
-    "suggestedQuestions": [
-      "ソフトウェア使用許諾の法的根拠は何ですか？",
-      "特許と著作権の違いは何ですか？",
-      "オープンソースになる条件は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ソフトウェア使用許諾の法的根拠は何ですか？",
-        "answer": "主に著作権者が複製や利用条件を許諾する権限に基づく。"
-      },
-      {
-        "question": "特許と著作権の違いは何ですか？",
-        "answer": "特許は技術的発明の保護、著作権はプログラム表現そのものの保護である。"
-      },
-      {
-        "question": "オープンソースになる条件は何ですか？",
-        "answer": "再配布や改変などの条件を満たす OSS ライセンスで公開される必要がある。"
-      }
+      "正しい。プログラムは著作物として著作権法の保護対象になり得るため、特許で保護された技術を使っていないソフトウェアでも使用許諾できる。著作権法第10条第1項第9号はプログラムの著作物を例示し、第63条は著作権者が他人に著作物の利用を許諾できると定めている。",
+      "間違い。正しくは、自社製品に搭載して販売済みのソフトウェアでも、ソフトウェア単体で使用許諾できる。選択肢は、製品への搭載・販売済みであることだけを理由に単体の使用許諾ができないとしているため誤りである。",
+      "間違い。正しくは、ハードウェアと組み合わせて特許を取得していても、ソフトウェア自体の著作権に基づく使用許諾は別に行える。選択肢は、ハードウェアとの組合せに関する特許取得だけでソフトウェア単体の使用許諾ができないとしているため誤りである。",
+      "間違い。正しくは、ソースコードを無償で使用許諾しただけでは、無条件にオープンソースソフトウェアにはならない。選択肢は、無償許諾だけでオープンソースソフトウェアになるとしているため誤りである。オープンソースソフトウェアには、利用・改変・再配布などを認めるライセンス条件が必要である。"
     ],
     "original_question_id": "950f7487a450c4ab",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_17.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201602:950f7487a450c4ab",
+    "reviewQuestionId": "950f7487a450c4ab",
+    "sourceRecordRef": "question_201602_1.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC0000000048?asof=2026-10-04",
+        "title": "著作権法（e-Gov法令検索）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "第1〜3肢は、著作権法第10条第1項第9号がプログラムの著作物を例示し、第63条第1項が著作物の利用許諾を認めることにより判断できる。第4肢はオープンソースライセンスの要件に関する非法令肢である。出題時法令本文は未取得であり、現行法との本文不変は断定しない。",
+    "lawReferences": [
+      [
+        {
+          "article": "10条1項9号",
+          "choiceIndex": 0,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "63条",
+          "choiceIndex": 0,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "63条",
+          "choiceIndex": 1,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "63条",
+          "choiceIndex": 2,
+          "lawId": "345AC0000000048",
+          "lawTitle": "著作権法",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得であり、不変とは断定しない。公式元正答と現行法判定は正しいで一致した。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第10条第1項第9号及び第63条第1項により、特許で保護された技術を使わないプログラムでも著作物として利用許諾の対象になり得る。",
+          "promptContext": "問題文の『適切なもの』と第1肢を結合して判定した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時法令本文は未取得。00_sourceの公式元正答をexamTime判定に用い、現行法本文をcurrent判定に用いた。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得であり、不変とは断定しない。公式元正答と現行法判定は間違いで一致した。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第63条第1項は著作物の利用許諾を認めており、製品への搭載・販売済みであることだけを理由にソフトウェア単体の使用許諾ができなくなるわけではない。",
+          "promptContext": "問題文の『適切なもの』と第2肢を結合して判定した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文は未取得。00_sourceの公式元正答をexamTime判定に用い、現行法本文をcurrent判定に用いた。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得であり、不変とは断定しない。公式元正答と現行法判定は間違いで一致した。",
+          "displayRefIds": [],
+          "explanationText": "著作権法第63条第1項に基づく著作物の利用許諾は、ハードウェアとの組合せに関する特許取得だけで妨げられない。",
+          "promptContext": "問題文の『適切なもの』と第3肢を結合して判定した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時法令本文は未取得。00_sourceの公式元正答をexamTime判定に用い、現行法本文をcurrent判定に用いた。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分は対象外である。",
+          "displayRefIds": [],
+          "explanationText": "ソースコードを無償で使用許諾しただけでは、オープンソースソフトウェアになるとは限らない。オープンソースライセンスの条件を満たす必要がある。",
+          "promptContext": "問題文の『適切なもの』と第4肢を結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "オープンソースソフトウェアの成立条件に関する技術・ライセンス知識として判定した。法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nアーンド・バリュー・マネジメントは進捗やコストを定量評価する手法であり、変更内容や構成要素の記録管理を主目的としない。",
-      "正しい。\n\nコンフィギュレーション・マネジメントは、プロダクトや構成要素の変更内容・実施状況を記録、報告し、要求事項への適合確認を支援する活動である。",
-      "間違い。\n\nコンフリクト・マネジメントは利害対立や人間関係の調整に関する管理であり、構成変更管理の活動ではない。",
-      "間違い。\n\nポートフォリオマネジメントは複数プロジェクト全体の優先度や資源配分を扱うもので、個別プロジェクトの変更記録とは別である。"
-    ],
-    "suggestedQuestions": [
-      "コンフィギュレーション・マネジメントは何を管理しますか？",
-      "EVM との違いは何ですか？",
-      "統合変更管理で重要なことは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "コンフィギュレーション・マネジメントは何を管理しますか？",
-        "answer": "構成要素の識別、変更履歴、現状、適合性確認などを管理する。"
-      },
-      {
-        "question": "EVM との違いは何ですか？",
-        "answer": "EVM は進捗・コスト測定、コンフィギュレーション管理は成果物や変更状態の管理である。"
-      },
-      {
-        "question": "統合変更管理で重要なことは何ですか？",
-        "answer": "変更を記録し、影響を評価し、承認後の実施状況を追跡できるようにすることが重要である。"
-      }
+      "間違い。正しくは、アーンド・バリュー・マネジメントは、計画値・実績値・出来高を用いてプロジェクトの進捗やコストを定量的に評価する手法である。選択肢は、変更内容や構成要素の記録・報告を行う活動としているため誤りである。",
+      "正しい。コンフィギュレーション・マネジメントは、プロダクトや構成要素の変更内容と実施状況を記録・報告し、要求事項に適合しているかの確認を支援する活動である。",
+      "間違い。正しくは、コンフリクト・マネジメントは、プロジェクト内の意見や利害の対立を調整する活動である。選択肢は、プロダクトや構成要素の変更を記録・管理する活動としているため誤りである。",
+      "間違い。正しくは、ポートフォリオマネジメントは、複数のプロジェクトやプログラムを組織の戦略に合わせて選定・優先付けし、全体を管理する活動である。選択肢は、個別のプロダクトや構成要素の変更を記録・報告する活動としているため誤りである。"
     ],
     "original_question_id": "92aa8e053496f633",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:92aa8e053496f633",
+    "reviewQuestionId": "92aa8e053496f633",
+    "sourceRecordRef": "question_201602_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PMBOKの統合変更管理とコンフィギュレーション・マネジメントに関する問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "計画値・実績値・出来高を用いる進捗・コスト評価手法に関する知識問題で、法令根拠は不要。",
+          "promptContext": "PMBOKの用語定義による選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "PMBOKのアーンド・バリュー・マネジメントに関する技術知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "変更内容と実施状況の記録・報告、要求事項への適合性確認の支援に関する技術知識で、法令根拠は不要。",
+          "promptContext": "PMBOKの用語定義による選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "PMBOKのコンフィギュレーション・マネジメントに関する技術知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プロジェクト内の意見や利害の対立を調整する活動に関する技術知識で、法令根拠は不要。",
+          "promptContext": "PMBOKの用語定義による選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "PMBOKのコンフリクト・マネジメントに関する技術知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "複数のプロジェクトやプログラムを組織戦略に合わせて管理する活動に関する技術知識で、法令根拠は不要。",
+          "promptContext": "PMBOKの用語定義による選択肢判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "PMBOKのポートフォリオマネジメントに関する技術知識であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n12 日後では H と I に必要な 9 日を考慮しても余裕が大きすぎ、最遅開始時刻の計算結果と一致しない。",
-      "間違い。\n\n14 日後は早すぎる。クリティカルパス全体の最短所要日数 30 日から H と I の所要 9 日を引くと 21 日後まで開始を遅らせられる。",
-      "間違い。\n\n18 日後でもまだ早い。H の最遅開始日は 21 日後であり、それまでは全体完了日を遅らせない。",
-      "正しい。\n\nクリティカルパスは A→D→G の 30 日である。一方 H の後には I があり、H(5 日)+I(4 日)=9 日必要なので、30-9=21 より H は遅くとも開始 21 日後までに始めればよい。"
-    ],
-    "suggestedQuestions": [
-      "クリティカルパスはどう求めますか？",
-      "最遅開始時刻はどう計算しますか？",
-      "H の後続作業はどう考慮しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クリティカルパスはどう求めますか？",
-        "answer": "開始から終了までの各経路の所要日数を合計し、最長の経路を特定する。"
-      },
-      {
-        "question": "最遅開始時刻はどう計算しますか？",
-        "answer": "全体最短工期から対象作業以降に必要な日数を引いて求める。"
-      },
-      {
-        "question": "H の後続作業はどう考慮しますか？",
-        "answer": "H だけでなく後続の I も完了して初めて全体終了に間に合うので、H+I の合計日数で考える。"
-      }
+      "正しい。プロジェクト全体の最短所要日数は、各経路の所要日数を比べて最長となる経路で決まる。主な経路は次のとおりである。\n\\[A+D+G=8+10+12=30\\]\n\\[B+E+G=5+9+12=26\\]\n\\[C+H+I=12+5+4=21\\]\nしたがって、プロジェクトは30日で完了する。Hの後にはIが続き、HとIに合計9日かかるため、Hの開始を遅らせられる日数は次のように求める。\n\\[30-(5+4)=21\\]\nよって、Hはプロジェクト開始から遅くとも21日後までに開始すれば、最短所要日数30日で完了できる。"
     ],
     "original_question_id": "5f18f5d6773e4eb3",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:5f18f5d6773e4eb3",
+    "reviewQuestionId": "5f18f5d6773e4eb3",
+    "sourceRecordRef": "question_201602_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "作業ネットワークに基づく最短日数と作業開始時期の計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "作業ネットワークの計算に関する選択肢であり、法令根拠を要しない。",
+          "promptContext": "PERT/CPM計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識・計算で判定するため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "作業ネットワークの計算に関する選択肢であり、法令根拠を要しない。",
+          "promptContext": "PERT/CPM計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識・計算で判定するため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "作業ネットワークの計算に関する選択肢であり、法令根拠を要しない。",
+          "promptContext": "PERT/CPM計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識・計算で判定するため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "作業ネットワークの計算に関する選択肢であり、法令根拠を要しない。",
+          "promptContext": "PERT/CPM計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識・計算で判定するため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1613,33 +2518,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n12 本では 6 か月前同日まで復元できる期間を満たせない。対象 7 か月分に対しフル・差分の両方が必要である。",
-      "間違い。\n\n13 本では 1 本不足する。各月にフル用 1 本、差分用 1 本の計 2 本が必要で、対象は 7 か月分になる。",
-      "正しい。\n\n6 か月前同日まで復元するには、例として 10 月 31 日時点なら 4 月 30 日を含む 4〜10 月の 7 か月分を保持する必要がある。各月でフル 1 本と差分 1 本の合計 2 本なので、2×7=14 本必要である。",
-      "間違い。\n\n15 本まで必要にはならない。保持対象は 7 か月分であり、月ごとに 2 本ずつで足りる。"
-    ],
-    "suggestedQuestions": [
-      "なぜ 7 か月分を保持しますか？",
-      "差分バックアップ復元には何が必要ですか？",
-      "フルと差分の本数はどう数えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ 7 か月分を保持しますか？",
-        "answer": "現在月を含め、6 か月前同日まで遡って復元できるようにすると、例では 4〜10 月の 7 か月が必要になるからである。"
-      },
-      {
-        "question": "差分バックアップ復元には何が必要ですか？",
-        "answer": "対象月の初日のフルバックアップと、その月の差分バックアップが必要である。"
-      },
-      {
-        "question": "フルと差分の本数はどう数えますか？",
-        "answer": "1 か月につきフル 1 本、差分 1 本の計 2 本として月数分を掛ける。"
-      }
+      "正しい。毎月初のフルバックアップに1本、翌日以降の差分バックアップに1本を使うため、1か月当たり2本必要である。6か月前の同一日までを復元対象にする場合は、当月と6か月前の月を含む7か月分を保持する。例えば10月31日なら、4月30日まで復元するため、4月から10月までの7か月分が必要になる。したがって、必要な磁気テープは \\(2\\times7=14\\) 本である。"
     ],
     "original_question_id": "dfb4014763a58411",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:dfb4014763a58411",
+    "reviewQuestionId": "dfb4014763a58411",
+    "sourceRecordRef": "question_201602_1.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "磁気テープのバックアップ運用本数を算定する技術・計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "磁気テープのバックアップ本数を算定する技術・計算問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢1の本数計算結果を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "磁気テープのバックアップ本数を算定する技術・計算問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢2の本数計算結果を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "磁気テープのバックアップ本数を算定する技術・計算問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢3の本数計算結果を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "現行法による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "磁気テープのバックアップ本数を算定する技術・計算問題であり、法令根拠は不要である。",
+          "promptContext": "選択肢4の本数計算結果を確認した。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

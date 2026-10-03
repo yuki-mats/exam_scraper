@@ -1,7 +1,7 @@
 [
   {
     "explanationText": [
-      "正しい。認証VLANは、利用者や端末の認証結果に応じて接続先のVLANを決め、認証された端末のネットワーク接続を許可する仕組みである。レイヤー2スイッチや無線LANアクセスポイントで利用される。"
+      "正しい。答えは認証VLANである。利用者や端末を認証し、その結果に応じて接続を許可するVLANへ振り分けるため、レイヤー2スイッチや無線LANアクセスポイントで利用される。DHCPはIPアドレスなどを自動設定し、WebシングルサインオンはWebサービスへのログインを一元化する仕組みである。パーソナルファイアウォールは端末上の通信を制御する。"
     ],
     "original_question_id": "4042a1692f164a48",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_21.html",
@@ -11,7 +11,113 @@
     "sourceRecordRef": "question_200902_3.json#0",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "レイヤー2スイッチや無線LANアクセスポイントの接続許可に関するネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DHCPはIPアドレスなどの自動設定方式であり、接続許可方式ではない。",
+          "promptContext": "選択肢1の技術判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できる選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "WebシングルサインオンはWebサービスへのログインを一元化する仕組みであり、接続許可方式ではない。",
+          "promptContext": "選択肢2の技術判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できる選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "認証VLANは認証結果に応じて接続を許可するVLANへ振り分ける方式である。",
+          "promptContext": "選択肢3の技術判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できる選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "パーソナルファイアウォールは端末上の通信を制御する仕組みであり、接続許可VLANへの振り分け方式ではない。",
+          "promptContext": "選択肢4の技術判定",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できる選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -144,10 +250,10 @@
   },
   {
     "explanationText": [
-      "間違い。シンクライアントは端末側の処理を減らすが、主記憶のフラグメンテーションを防いで応答性を向上させることが主な利点ではない。選択肢は、フラグメンテーションが起こりにくいことによって応答性が向上するとしているため誤りである。",
-      "正しい。シンクライアントでは、アプリケーションやデータをサーバ側で集中管理する。端末にデータを残しにくく、ソフトウェアやデータへのアクセスを一元的に管理できるため、セキュリティを強化しやすい。",
-      "間違い。シンクライアントでは、端末の処理結果や画面表示に必要な情報をサーバと通信するため、ネットワークの利用が減るとは限らない。選択肢は、ネットワーク資源が減って通信費を削減できるとしているため誤りである。",
-      "間違い。シンクライアントは端末側の記憶装置を簡素化できる一方、アプリケーションやデータを集中管理するサーバやストレージが必要になる。選択肢は、データの保管費用が減ってサーバへの投資を削減できるとしているため誤りである。"
+      "間違い。シンクライアントは端末側の処理を減らすが、主記憶のフラグメンテーションを防ぐことが応答性向上の理由ではない。選択肢は、フラグメンテーションが起こりにくいことによって応答性が向上するとしているため誤りである。",
+      "正しい。アプリケーションやデータをサーバ側で集中管理するため、端末にデータを残しにくく、アクセス権やソフトウェアを一元管理しやすい。その結果、セキュリティを強化しやすくなる。",
+      "間違い。シンクライアントは処理結果や画面表示に必要な情報をサーバと通信するため、ネットワークへの依存が大きくなる。選択肢は、利用するネットワーク資源が減って通信費を削減できるとしているため誤りである。",
+      "間違い。端末の記憶装置や処理機能を簡素化できる一方、アプリケーションやデータを集中管理するサーバやストレージが必要になる。選択肢は、データ保管費用が減ってサーバへの投資を削減できるとしているため誤りである。"
     ],
     "original_question_id": "31a14f17f7ed85c5",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_23.html",
@@ -157,7 +263,113 @@
     "sourceRecordRef": "question_200902_3.json#2",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "シンクライアントの構成上の利点を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は、主記憶のフラグメンテーション防止をシンクライアントの応答性向上の理由としており、誤りである。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、サーバ側でアプリケーションやデータを集中管理することによるセキュリティ強化を述べており、正しい。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、シンクライアントでネットワーク資源が減るとしているが、実際にはサーバとの通信への依存が大きくなるため、誤りである。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、データ保管費用の減少によってサーバへの投資を削減できるとしているが、集中管理のためのサーバやストレージが必要になるため、誤りである。",
+          "promptContext": "技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

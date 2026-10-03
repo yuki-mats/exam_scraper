@@ -255,63 +255,246 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n並列化可能部分の割合が大きいほど性能向上比は増えるが、アムダールの法則の式は比例関係ではない。",
-      "間違い。\n\nプロセッサ数を増やすと、同じ並列化可能割合であれば性能向上比は大きくなる方向であり、反比例ではない。",
-      "正しい。\n\n並列化可能部の割合を 0.5 とすると、性能向上比は 1 / ((1 - 0.5) + 0.5 / n) = 1 / (0.5 + 0.5 / n) となる。分母は常に 0.5 以上なので、性能向上比は 2 を超えられない。",
-      "間違い。\n\n並列化可能割合が 0.9 あっても、直列部分が残るため、プロセッサ数を大きくしたときの性能向上比が常にプロセッサ数の半分以上になるわけではない。"
-    ],
-    "suggestedQuestions": [
-      "アムダールの法則で性能向上を制限する要因は何ですか？",
-      "並列化可能割合が0.5だと上限が2になるのはなぜですか？",
-      "プロセッサ数を増やしても頭打ちになる理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アムダールの法則で性能向上を制限する要因は何ですか？",
-        "answer": "並列化できない直列部分が残ることが、性能向上の上限を決める。"
-      },
-      {
-        "question": "並列化可能割合が0.5だと上限が2になるのはなぜですか？",
-        "answer": "分母の直列部分が 0.5 固定で残るため、どれだけ n を大きくしても 1 / 0.5 を超えられないからである。"
-      },
-      {
-        "question": "プロセッサ数を増やしても頭打ちになる理由は何ですか？",
-        "answer": "直列実行が必要な部分は並列化できず、その待ち時間が全体の下限として残るためである。"
-      }
+      "間違い。アムダールの法則では、並列化可能部の割合を大きくすると性能向上比は増加するが、性能向上比はその割合に単純に比例しない。性能向上比は、並列化可能部の割合をp、プロセッサ数をnとすると、\\[S=\\frac{1}{(1-p)+\\frac{p}{n}}\\]で求める。選択肢は性能向上比が割合に比例するとしているため誤りである。",
+      "間違い。プロセッサ数を増やすと、並列化可能部の処理時間が短くなるため、同じ割合pであれば性能向上比Sは増加する。選択肢はプロセッサ数を増やすと性能向上比の割合に反比例するとしているため誤りである。",
+      "正しい。並列化可能部の割合をp=0.5、プロセッサ数をnとすると、性能向上比は\\[S=\\frac{1}{(1-0.5)+\\frac{0.5}{n}}=\\frac{1}{0.5+\\frac{0.5}{n}}\\]となる。nは正の値なので分母は常に0.5以上であり、Sは2を超えない。",
+      "間違い。並列化可能部の割合をp=0.9、プロセッサ数をnとすると、性能向上比は\\[S=\\frac{1}{0.1+\\frac{0.9}{n}}\\]である。例えばn=20ではSは約6.9となり、プロセッサ数の半分である10を下回る。選択肢はpが0.9以上なら常に性能向上比がn/2以上になるとしているため誤りである。"
     ],
     "original_question_id": "79c537e932a77db3",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:79c537e932a77db3",
+    "reviewQuestionId": "79c537e932a77db3",
+    "sourceRecordRef": "question_201502_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "アムダールの法則による性能向上比を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項はない。",
+          "displayRefIds": [],
+          "explanationText": "アムダールの法則の性能向上比は S=1/((1-p)+p/n) で表され、並列化可能部の割合に単純比例しない。",
+          "promptContext": "選択肢1の技術的正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項はない。",
+          "displayRefIds": [],
+          "explanationText": "プロセッサ数を増やすと性能向上比は増加するため、並列化可能部の割合に反比例するという説明は誤りである。",
+          "promptContext": "選択肢2の技術的正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項はない。",
+          "displayRefIds": [],
+          "explanationText": "p=0.5では S=1/(0.5+0.5/n) となり、nを増やしてもSは2を超えない。",
+          "promptContext": "選択肢3の技術的正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項はない。",
+          "displayRefIds": [],
+          "explanationText": "p=0.9、n=20では性能向上比は約6.9であり、n/2=10を下回るため、常にn/2以上とはいえない。",
+          "promptContext": "選択肢4の技術的正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nクラスとその操作の関係を示す図であり、クラス間の is-a 関係、つまり汎化と特化の関係を表していない。",
-      "間違い。\n\nクラスがもつ属性の関係を示す図であり、is-a 関係の図ではない。",
-      "正しい。\n\nis-a 関係は、あるクラスが別のクラスの一種である関係を表す。乗用車やトラックは自動車の一種なので、汎化された自動車に対する特化クラスの関係になる。",
-      "間違い。\n\n電話機と受話器やプッシュボタンの関係は、全体と部分の関係である part-of 関係であり、is-a 関係ではない。"
-    ],
-    "suggestedQuestions": [
-      "is-a関係とは何ですか？",
-      "part-of関係との違いは何ですか？",
-      "汎化と特化はどう読み替えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "is-a関係とは何ですか？",
-        "answer": "あるクラスが別のクラスの一種として扱える継承関係、つまり汎化と特化の関係である。"
-      },
-      {
-        "question": "part-of関係との違いは何ですか？",
-        "answer": "is-a は種類の関係、part-of は全体と部品・構成要素の関係である。"
-      },
-      {
-        "question": "汎化と特化はどう読み替えますか？",
-        "answer": "上位概念へまとめるのが汎化、上位概念を具体的な種類へ分けるのが特化である。"
-      }
+      "正しい。該当するのはウである。is-a関係は、あるクラスが別のクラスの一種であることを表す汎化・特化関係である。自動車を上位クラス、乗用車とトラックを特化クラスとして表す。アの拡大・縮小は画像の種類、イの氏名・生年月日は社員の属性、エの受話器・プッシュボタンは電話機を構成する部分であり、いずれもクラス間のis-a関係ではない。"
     ],
     "original_question_id": "a9dab81c1bea7139",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:a9dab81c1bea7139",
+    "reviewQuestionId": "a9dab81c1bea7139",
+    "sourceRecordRef": "question_201502_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "UMLにおけるクラス間のis-a関係を問う情報技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "画像の拡大・縮小はクラス間のis-a関係ではない。",
+          "promptContext": "選択肢アの図の関係を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "氏名と生年月日は社員の属性であり、クラス間のis-a関係ではない。",
+          "promptContext": "選択肢イの図の関係を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "自動車と乗用車・トラックの関係は、上位クラスと特化クラスの汎化・特化関係である。",
+          "promptContext": "選択肢ウの図の関係を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "UMLの技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "受話器とプッシュボタンは電話機を構成する部分であり、クラス間のis-a関係ではない。",
+          "promptContext": "選択肢エの図の関係を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UMLの技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

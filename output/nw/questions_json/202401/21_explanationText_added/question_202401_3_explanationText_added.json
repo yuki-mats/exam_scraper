@@ -124,63 +124,262 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nPCI Expressは世代が上がるごとに1レーン当たりの片方向最大転送レートが倍増し、3.0は8GT/s、4.0は16GT/s、5.0は32GT/sである。世代差はまずレーン当たり速度で比較すると整理しやすい。",
-      "間違い。\n\nPCI Expressは後方互換性を保つ設計であり、4.0も旧世代デバイスと接続できる。異なる世代同士で接続した場合は、低い世代の速度に合わせて通信する。",
-      "間違い。\n\n最大レーン数は3.0までは32レーンだが、4.0以降は64レーンまで拡張されている。世代によって帯域だけでなく規格上の上限も変わる点に注意する。",
-      "間違い。\n\n8b/10b変換が使われたのは2.0までで、3.0以降は効率の高い128b/130b変換が採用されている。符号化方式の変更も高速化を支える要素である。"
-    ],
-    "suggestedQuestions": [
-      "PCI Expressの世代差は何を見て比較すればよいですか？",
-      "後方互換性があると何が起こりますか？",
-      "8b/10bと128b/130bの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PCI Expressの世代差は何を見て比較すればよいですか？",
-        "answer": "まず1レーン当たりの転送レートを見ると整理しやすい。さらに最大レーン数や符号化方式まで見ると、世代ごとの帯域向上の理由も理解できる。"
-      },
-      {
-        "question": "後方互換性があると何が起こりますか？",
-        "answer": "新しい世代のスロットに古い世代のデバイスを挿しても動作できるということである。ただし通信速度は双方のうち低い世代に合わせられる。"
-      },
-      {
-        "question": "8b/10bと128b/130bの違いは何ですか？",
-        "answer": "8b/10bは8ビットの実データを10ビットで送る方式で、冗長分が多い。128b/130bはオーバーヘッドが小さく、3.0以降の高速化に有利である。"
-      }
+      "正しい。PCI Expressは世代が上がるごとに1レーン当たりの片方向最大転送レートが倍増し、3.0は8GT/s、4.0は16GT/s、5.0は32GT/sである。",
+      "間違い。正しくは、PCI Express 4.0もそれ以前の世代と後方互換性がある。PCI Express 3.0だけでなく4.0も旧世代のデバイスと接続でき、異なる世代同士では対応する低い世代の速度で通信する。選択肢は、PCI Express 4.0には後方互換性がないとしているため誤りである。",
+      "間違い。正しくは、PCI Express 3.0、4.0及び5.0のいずれも、規格上の最大レーン数は32レーンである。選択肢は、4.0以降の最大レーン数を64レーンとしているため誤りである。",
+      "間違い。正しくは、8b/10b変換を採用しているのはPCI Express 2.0までであり、3.0、4.0及び5.0は128b/130b変換を採用している。選択肢は、3.0以降も8b/10b変換を採用しているとしているため誤りである。"
     ],
     "original_question_id": "5d27586b94ba128c",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:5d27586b94ba128c",
+    "reviewQuestionId": "5d27586b94ba128c",
+    "sourceRecordRef": "question_202401_3.json#1",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://pcisig.com/what-bit-rates-does-pcie-50-specification-support-and-how-does-it-compare-prior-pcie-generations",
+        "title": "What bit rates does the PCIe 5.0 specification support and how does it compare to prior PCIe generations?"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://pcisig.com/faq?field_category_value%5B%5D=pci_express_4.0&keys=compatible",
+        "title": "Will PCIe 4.0 products be compatible with existing PCIe 1.x, PCIe 2.x and PCIe 3.x products?"
+      },
+      {
+        "referenceDate": "2024-07-11",
+        "sourceUrl": "https://pcisig.com/sites/default/files/2026-01/PCI-SIG%20Cabling%20Webinar_FINAL.pdf",
+        "title": "PCI Express 5.0 Compliance Testing"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PCI Expressの技術規格に関する問題で、法令・制度条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PCI Expressの世代別転送レートに関する技術問題であり、法令監査対象外である。",
+          "promptContext": "選択肢1は技術規格の転送レートで判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PCI Expressの後方互換性に関する技術問題であり、法令監査対象外である。",
+          "promptContext": "選択肢2は技術規格の互換性で判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PCI Expressの最大レーン数に関する技術問題であり、法令監査対象外である。",
+          "promptContext": "選択肢3は技術規格のレーン数で判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PCI Expressの符号化方式に関する技術問題であり、法令監査対象外である。",
+          "promptContext": "選択肢4は技術規格の符号化方式で判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nターンアラウンドタイムは到着から完了までの総所要時間である。図のスケジュールではジョブCは3秒時点で到着し14秒で完了するので、14-3=11秒になる。",
-      "間違い。\n\n12秒になるのは到着時刻や待ち時間の数え方を一つずらした場合の誤りである。この種の問題は『到着時刻』と『完了時刻』を先にタイムラインへ置くと取り違えにくい。",
-      "間違い。\n\n13秒はジョブCが到着する前の経過時間まで含めてしまった誤答である。ターンアラウンドタイムはシステム全体の開始時刻ではなく、対象ジョブ自身の到着時刻を起点に測る。",
-      "間違い。\n\n14秒はジョブCの完了時刻そのものであって、ターンアラウンドタイムではない。性能指標では『絶対時刻』と『差分時間』を区別することが重要である。"
-    ],
-    "suggestedQuestions": [
-      "ターンアラウンドタイムは何を起点に測りますか？",
-      "待ち時間とターンアラウンドタイムはどう違いますか？",
-      "この種のスケジューリング問題はどう解けばよいですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ターンアラウンドタイムは何を起点に測りますか？",
-        "answer": "対象ジョブがシステムへ到着した時刻を起点にし、そのジョブの処理が完了する時刻までを測る。全体の処理開始時刻を起点にしない点が重要である。"
-      },
-      {
-        "question": "待ち時間とターンアラウンドタイムはどう違いますか？",
-        "answer": "待ち時間は実行待ちキューで待たされた時間であり、ターンアラウンドタイムは待ち時間に実行時間も含めた総所要時間である。利用者目線の体感に近いのは後者である。"
-      },
-      {
-        "question": "この種のスケジューリング問題はどう解けばよいですか？",
-        "answer": "まず到着順と実行順に沿ってタイムラインを書くとよい。各ジョブの開始時刻と完了時刻を置いてから、求める指標を差分で計算するとミスが減る。"
-      }
+      "正しい。ターンアラウンドタイムは、対象ジョブの到着から実行完了までの時間である。ジョブの多重度が1で到着順に実行するため、ジョブAは時刻0〜5秒、ジョブBは時刻5〜11秒、ジョブCは時刻11〜14秒に実行される。ジョブCの到着時刻を\\(t_a=3\\)、完了時刻を\\(t_f=14\\)とすると、ターンアラウンドタイム\\(T\\)は次のとおりである。\n\\[T=t_f-t_a=14-3=11\\,\\mathrm{秒}\\]\nしたがって、答えは11秒である。"
     ],
     "original_question_id": "e1304e352065986e",
     "question_url": "https://www.nw-siken.com/kakomon/06_haru/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202401:e1304e352065986e",
+    "reviewQuestionId": "e1304e352065986e",
+    "sourceRecordRef": "question_202401_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ジョブスケジューリングとターンアラウンドタイムの計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1の11秒は、Cの到着時刻3秒から完了時刻14秒までの計算結果と一致する。",
+          "promptContext": "ジョブスケジューリングの計算判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢2の12秒は、Cの到着時刻3秒から完了時刻14秒までのターンアラウンドタイムと一致しない。",
+          "promptContext": "ジョブスケジューリングの計算判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢3の13秒は、Cの到着時刻3秒から完了時刻14秒までのターンアラウンドタイムと一致しない。",
+          "promptContext": "ジョブスケジューリングの計算判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢4の14秒は、Cの到着時刻を起点とするターンアラウンドタイムではなく、実行完了時刻そのものである。",
+          "promptContext": "ジョブスケジューリングの計算判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

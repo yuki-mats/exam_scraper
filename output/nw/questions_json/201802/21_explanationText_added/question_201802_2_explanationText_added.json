@@ -244,33 +244,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n在庫を考慮した正味所要量計算では 80 個にはならない。必要数量を一段ずつ展開すると不足する。",
-      "正しい。\n\n製品A 10個にはユニットBが 4×10=40 個必要だが在庫 5 個があるので正味所要量は 35 個である。ユニットC は 10 個必要。部品Dは B 用に 35×3=105 個、C 用に 10×1=10 個必要で、在庫 25 個を差し引くと 105+10-25=90 個となる。",
-      "間違い。\n\n95 個は在庫控除や B・C への展開計算が合っていない。",
-      "間違い。\n\n105 個は B 系統だけを見た数量であり、C 系統と D 在庫を反映できていない。"
-    ],
-    "suggestedQuestions": [
-      "正味所要量はどう求めますか？",
-      "部品表の展開はどう考えますか？",
-      "在庫はどの段階で差し引きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "正味所要量はどう求めますか？",
-        "answer": "総所要量から在庫や引当可能量を差し引いて求める。"
-      },
-      {
-        "question": "部品表の展開はどう考えますか？",
-        "answer": "親品目の必要数量を求めた後、子品目へ必要数を乗算して段階的に展開する。"
-      },
-      {
-        "question": "在庫はどの段階で差し引きますか？",
-        "answer": "各品目ごとに、その品目の総所要量が分かった段階で在庫を差し引く。"
-      }
+      "正しい。製品A 10個に必要なユニットBは、1個当たり4個なので \\(4\\times10=40\\) 個である。在庫5個を差し引くと、正味所要量は \\(40-5=35\\) 個となる。ユニットCは \\(1\\times10=10\\) 個必要である。部品Dは、ユニットB用に \\(3\\times35=105\\) 個、ユニットC用に \\(1\\times10=10\\) 個必要なので、総所要量は \\(105+10=115\\) 個となる。部品Dの在庫25個を差し引くと、正味所要量は \\(115-25=90\\) 個である。"
     ],
     "original_question_id": "97a7cffaea55d2e6",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:97a7cffaea55d2e6",
+    "reviewQuestionId": "97a7cffaea55d2e6",
+    "sourceRecordRef": "question_201802_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "部品表、総所要量、在庫残から正味所要量を計算する生産管理の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分は適用されない。",
+          "displayRefIds": [],
+          "explanationText": "部品Dの正味所要量は90個ではない選択肢のため間違い。",
+          "promptContext": "部品表と在庫残に基づく計算問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分は適用されない。",
+          "displayRefIds": [],
+          "explanationText": "部品Dの正味所要量は90個である。",
+          "promptContext": "部品表と在庫残に基づく計算問題。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分は適用されない。",
+          "displayRefIds": [],
+          "explanationText": "部品Dの正味所要量は95個ではなく90個である。",
+          "promptContext": "部品表と在庫残に基づく計算問題。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分は適用されない。",
+          "displayRefIds": [],
+          "explanationText": "部品Dの正味所要量は105個ではなく90個である。",
+          "promptContext": "部品表と在庫残に基づく計算問題。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -424,63 +514,257 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCCK は IEEE802.11b で使われる拡散符号化方式であり、サブキャリア分割による多重化ではない。",
-      "間違い。\n\nCDM は符号分割で同一周波数帯を共有する方式であり、複数のサブキャリアを直交配置する説明ではない。",
-      "正しい。\n\nOFDM はデータ信号を複数のサブキャリアへ分割し、それらを互いに干渉しないよう直交配置して伝送する多重化方式である。",
-      "間違い。\n\nTDM は時分割多重であり、時間軸で分けて共有する方式である。"
-    ],
-    "suggestedQuestions": [
-      "OFDM の特徴は何ですか？",
-      "CDM や TDM との違いは何ですか？",
-      "なぜ高速無線通信で使われますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OFDM の特徴は何ですか？",
-        "answer": "多数の直交サブキャリアへ分散して送るため、周波数利用効率が高くマルチパスにも比較的強い。"
-      },
-      {
-        "question": "CDM や TDM との違いは何ですか？",
-        "answer": "CDM は符号で分離、TDM は時間で分離し、OFDM は周波数上のサブキャリアで分離する。"
-      },
-      {
-        "question": "なぜ高速無線通信で使われますか？",
-        "answer": "高速伝送しやすく、周波数選択性フェージングの影響を分散できるためである。"
-      }
+      "正しい。OFDMは、データ信号を複数のサブキャリアに分割し、各サブキャリアを互いに直交するように配置して伝送する多重化方式である。CCKは拡散符号化、CDMは符号分割多重、TDMは時間分割多重であり、サブキャリアを直交配置する方式ではない。"
     ],
     "original_question_id": "ab342533d4be5211",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:ab342533d4be5211",
+    "reviewQuestionId": "ab342533d4be5211",
+    "sourceRecordRef": "question_201802_2.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CCK、CDM、OFDM、TDMの技術的な多重化方式を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CCKは拡散符号化方式である。",
+          "promptContext": "選択肢1の技術的内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CDMは符号分割多重方式である。",
+          "promptContext": "選択肢2の技術的内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OFDMはサブキャリアを直交配置する多重化方式である。",
+          "promptContext": "選択肢3の技術的内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TDMは時間分割多重方式である。",
+          "promptContext": "選択肢4の技術的内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nCSMA は Carrier Sense Multiple Access の略で、送信前に伝送路上のキャリアを監視し、他端末の送信有無を見て送信制御を行う方式である。",
-      "間違い。\n\nトークンを得た端末が送信するのはトークンパッシング方式の説明である。",
-      "間違い。\n\n衝突発生時には直ちに再送せず、一定の待ち時間や再送制御を行う。",
-      "間違い。\n\n伝送路使用中であれば待機するのが CSMA の基本であり、使用中でも送信できるわけではない。"
-    ],
-    "suggestedQuestions": [
-      "CSMA の基本動作は何ですか？",
-      "CSMA/CD と CSMA/CA の違いは何ですか？",
-      "なぜキャリア検知が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CSMA の基本動作は何ですか？",
-        "answer": "送信前に媒体が空いているかを監視し、空いていれば送信し、使用中なら待機する。"
-      },
-      {
-        "question": "CSMA/CD と CSMA/CA の違いは何ですか？",
-        "answer": "前者は衝突検出、後者は衝突回避を重視する。"
-      },
-      {
-        "question": "なぜキャリア検知が必要ですか？",
-        "answer": "同時送信による衝突の可能性を下げ、伝送効率を高めるためである。"
-      }
+      "正しい。CSMAは、送信前に伝送路上のキャリアを検出し、他端末が送信中かどうかを確認して送信を制御する方式である。",
+      "間違い。正しくは、端末が伝送路を監視し、空いていると判断したときに送信する。トークンを取得した端末だけが送信するのはトークンパッシング方式であり、選択肢は送信権をトークンで受け渡す方式としているため誤りである。",
+      "間違い。正しくは、衝突後は直ちに再送せず、再送までの待ち時間を設ける。CSMA/CDでは衝突を検出して送信を中止し、バックオフ時間の後に再送する。選択肢は衝突直後に再送するとしているため誤りである。",
+      "間違い。正しくは、伝送路が使用中なら送信を待つ。CSMAは送信前にキャリアを検出して使用状況を確認する方式であり、選択肢は使用中でも送信できるとしているため誤りである。"
     ],
     "original_question_id": "7640cae2e1e25b14",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:7640cae2e1e25b14",
+    "reviewQuestionId": "7640cae2e1e25b14",
+    "sourceRecordRef": "question_201802_2.json#6",
+    "explanationReferences": [
+      {
+        "referenceDate": "2018-10-21",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000f01f-att/2018h30a_nw_am2_qs.pdf",
+        "title": "平成30年度秋期ネットワークスペシャリスト試験 午前Ⅱ 問題冊子"
+      },
+      {
+        "referenceDate": "2018-10-21",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000f01f-att/2018h30a_nw_am2_ans.pdf",
+        "title": "平成30年度秋期ネットワークスペシャリスト試験 解答例"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CSMA方式のキャリア検出と送信制御を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はCSMAのキャリア検出と送信制御を正しく述べている。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "CSMA方式の技術知識で判断できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はトークンパッシング方式の説明であり、CSMAの説明ではない。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "トークンパッシング方式との混同であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は衝突直後に再送するとしているが、CSMA/CDではバックオフ後に再送する。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "衝突後のバックオフを無視しており、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は伝送路が使用中でも送信できるとしているが、CSMAでは送信を待つ。",
+          "promptContext": "技術問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "キャリア検出後に使用中なら送信を待つため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -847,33 +1131,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n端末A は宛先 IP と MAC の両方を自力で決めるわけではなく、ARP の対象は同一セグメント上の次ホップである。",
-      "正しい。\n\n端末A から見て端末C は別ネットワーク上にあるため、A は宛先 IP は C のものを使い、フレーム宛先 MAC はデフォルトゲートウェイであるルータ Z の MAC に対応付ける。ARP 解決の対象はルータ Z である。",
-      "間違い。\n\nレイヤ2スイッチX は MAC 学習と転送を行うが、IP アドレスと MAC アドレスの対応付け主体ではない。",
-      "間違い。\n\nレイヤ2スイッチY も同様に、ARP による対応付けを行う主体ではない。"
-    ],
-    "suggestedQuestions": [
-      "別ネットワーク宛てで ARP は誰に対して行いますか？",
-      "IP 宛先と MAC 宛先はどう違いますか？",
-      "プロキシARPがない条件は何を意味しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "別ネットワーク宛てで ARP は誰に対して行いますか？",
-        "answer": "最終宛先ではなく、同一セグメント上の次ホップであるデフォルトゲートウェイに対して行う。"
-      },
-      {
-        "question": "IP 宛先と MAC 宛先はどう違いますか？",
-        "answer": "IP 宛先は最終到達先、MAC 宛先はその区間で直接渡す相手を示す。"
-      },
-      {
-        "question": "プロキシARPがない条件は何を意味しますか？",
-        "answer": "ルータが他ホストの代理で ARP 応答しないため、通常どおりゲートウェイ MAC を解決することになる。"
-      }
+      "正しい。端末Aと端末Cは異なるネットワークに属するため、AはCのIPアドレスを宛先IPアドレスに使いながら、同一セグメント上の次ホップであるルータZのMACアドレスをARPで求める。ルータZはC側のセグメントでCのIPアドレスに対応するMACアドレスをARPで求め、パケットを転送する。したがって、端末CのIPアドレスとMACアドレスを対応付ける機器はルータZである。"
     ],
     "original_question_id": "d4633f8019ef5d59",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:d4633f8019ef5d59",
+    "reviewQuestionId": "d4633f8019ef5d59",
+    "sourceRecordRef": "question_201802_2.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ARPによるIPアドレスとMACアドレスの対応付けを問うネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で技術的判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "端末Aは端末Cと異なるネットワークに属するため、端末CのMACアドレスを直接ARPで求めない。",
+          "promptContext": "端末Aに関するARP処理を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ARPに関する技術肢であり、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で技術的判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "ルータZはC側のセグメントで端末CのIPアドレスに対応するMACアドレスをARPで求め、パケットを転送する。",
+          "promptContext": "ルータZに関するARP処理を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ARPに関する技術肢であり、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で技術的判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "レイヤ2スイッチXはMACアドレスの転送を行うが、端末CのIPアドレスとMACアドレスをARPで対応付ける機器ではない。",
+          "promptContext": "レイヤ2スイッチXに関する役割を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ARPに関する技術肢であり、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行で技術的判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "レイヤ2スイッチYはMACアドレスの転送を行うが、端末CのIPアドレスとMACアドレスをARPで対応付ける機器ではない。",
+          "promptContext": "レイヤ2スイッチYに関する役割を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ARPに関する技術肢であり、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1011,63 +1385,265 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nICMP は疎通確認やエラーメッセージに使われるプロトコルであり、マルチキャストグループ管理には用いない。",
-      "正しい。\n\nIGMP は IPv4 のローカルセグメントで、ホストがどのマルチキャストグループに参加するかをルータへ通知するプロトコルである。",
-      "間違い。\n\nRTP は音声・映像ストリーム伝送のためのプロトコルであり、グループ管理は行わない。",
-      "間違い。\n\nSDP はセッション記述用であり、ローカルセグメント上の参加ホスト管理には使わない。"
-    ],
-    "suggestedQuestions": [
-      "IGMP は何を管理しますか？",
-      "マルチキャストルータとの関係は何ですか？",
-      "RTP や SDP との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IGMP は何を管理しますか？",
-        "answer": "各ホストが参加したい IPv4 マルチキャストグループをローカルルータへ通知する。"
-      },
-      {
-        "question": "マルチキャストルータとの関係は何ですか？",
-        "answer": "ルータは IGMP 情報を基に、そのセグメントへ対象グループのトラフィックを転送する。"
-      },
-      {
-        "question": "RTP や SDP との違いは何ですか？",
-        "answer": "RTP はメディア配送、SDP はセッション情報記述、IGMP は参加グループ管理を担う。"
-      }
+      "正しい。正答はIGMPである。IGMPは、IPv4ネットワークでホストが参加するマルチキャストグループをルータへ通知し、ローカルセグメントでの配信対象を管理する。ICMPは疎通確認やエラー通知、RTPは音声・映像などのデータ伝送、SDPは通信セッションの条件記述に用いるため、マルチキャストグループの管理には使わない。"
     ],
     "original_question_id": "506c35a79289723b",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:506c35a79289723b",
+    "reviewQuestionId": "506c35a79289723b",
+    "sourceRecordRef": "question_201802_2.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4マルチキャストにおけるIGMPの機能を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分は適用対象外。",
+          "displayRefIds": [],
+          "explanationText": "ICMP、RTP、SDPではなく、IGMPがIPv4マルチキャストグループを管理する。",
+          "promptContext": "IPv4マルチキャストのローカルセグメントにおけるグループ管理。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分は適用対象外。",
+          "displayRefIds": [],
+          "explanationText": "IGMPはホストのマルチキャストグループ参加をルータへ通知し、配信対象を管理する。",
+          "promptContext": "IPv4マルチキャストのローカルセグメントにおけるグループ管理。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分は適用対象外。",
+          "displayRefIds": [],
+          "explanationText": "RTPは音声・映像などのデータ伝送に用いられ、マルチキャストグループの管理プロトコルではない。",
+          "promptContext": "IPv4マルチキャストのローカルセグメントにおけるグループ管理。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分は適用対象外。",
+          "displayRefIds": [],
+          "explanationText": "SDPは通信セッションの条件を記述するプロトコルであり、マルチキャストグループの管理には用いない。",
+          "promptContext": "IPv4マルチキャストのローカルセグメントにおけるグループ管理。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nLDAP は X.500 の機能追加版ではなく、X.500 を簡素化して TCP/IP 上で使いやすくしたディレクトリアクセスプロトコルである。",
-      "間違い。\n\nルート DSE は各 LDAP サーバが持つディレクトリ情報であり、インターネット全体の最上位サーバがあるわけではない。",
-      "正しい。\n\nLDAP はディレクトリツリーへのアクセス方法や、検索・追加などの操作手順、データ交換形式を規定している。",
-      "間違い。\n\nLDAP は通常 TCP を利用して通信し、UDP 前提ではない。"
-    ],
-    "suggestedQuestions": [
-      "LDAP は何を定めていますか？",
-      "X.500 との関係は何ですか？",
-      "どんな用途で使われますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "LDAP は何を定めていますか？",
-        "answer": "ディレクトリサービスへの問い合わせや更新の手順、データ表現、応答形式などを定める。"
-      },
-      {
-        "question": "X.500 との関係は何ですか？",
-        "answer": "X.500 の考え方を踏まえつつ、TCP/IP 環境で簡便に使えるよう軽量化したものである。"
-      },
-      {
-        "question": "どんな用途で使われますか？",
-        "answer": "ユーザー情報管理、認証基盤、アドレス帳、組織情報管理などに使われる。"
-      }
+      "間違い。正しくは、LDAPはX.500のデータ・サービスモデルに基づいて簡素化されたディレクトリアクセスプロトコルである。X.500のDAPなどのプロトコルをそのまま包含するものではない。",
+      "間違い。正しくは、root DSEは各LDAPサーバが自身の対応機能や管理情報を示すために持つサーバ固有のエントリである。インターネット全体の最上位サーバとして設置されるものではない。",
+      "正しい。LDAPは、ディレクトリツリーに対する検索や追加などの操作手順と、LDAPメッセージのデータ形式を規定している。",
+      "間違い。正しくは、LDAPは通常TCP上で通信し、LDAPv3ではTCPポート389が標準的に使われる。UDPを使ってLDAP自身が通信の信頼性を確保する方式ではない。"
     ],
     "original_question_id": "94db5a7395de8394",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:94db5a7395de8394",
+    "reviewQuestionId": "94db5a7395de8394",
+    "sourceRecordRef": "question_201802_2.json#13",
+    "explanationReferences": [
+      {
+        "referenceDate": "2006-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4511.html",
+        "title": "RFC 4511: Lightweight Directory Access Protocol (LDAP): The Protocol"
+      },
+      {
+        "referenceDate": "2006-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4512.html",
+        "title": "RFC 4512: Lightweight Directory Access Protocol (LDAP): Directory Information Models"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "LDAPのプロトコル仕様に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による判定差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "LDAPの技術仕様に基づく判定であり、法令根拠は不要である。",
+          "promptContext": "LDAPのX.500との関係を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "LDAPのX.500との関係に関する技術仕様を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による判定差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "LDAPの技術仕様に基づく判定であり、法令根拠は不要である。",
+          "promptContext": "root DSEが各LDAPサーバ固有のエントリであることを確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "root DSEの性質に関する技術仕様を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令改正による判定差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "LDAPの技術仕様に基づく判定であり、法令根拠は不要である。",
+          "promptContext": "LDAPがディレクトリ操作手順とLDAPメッセージのデータ形式を規定することを確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "LDAPの操作手順とデータ形式に関する技術仕様を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による判定差分はない。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時と現在の判定は同じである。",
+          "displayRefIds": [],
+          "explanationText": "LDAPの技術仕様に基づく判定であり、法令根拠は不要である。",
+          "promptContext": "LDAPが通常TCPを使用し、LDAPv3でTCPポート389が標準的に使われることを確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "LDAPの通信プロトコルに関する技術仕様を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1191,153 +1767,629 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n一部の well-known マルチキャストを除き、全アドレスで用途が固定されているわけではない。",
-      "正しい。\n\nIPv4 マルチキャストには先頭ビット列 1110 のクラス D アドレス帯が使われる。",
-      "間違い。\n\nマルチキャストパケットも TTL によって到達範囲が制限される。",
-      "間違い。\n\nマルチキャストグループに参加しているホストだけが受信対象となり、全ホストが受信するわけではない。"
-    ],
-    "suggestedQuestions": [
-      "IPv4 マルチキャストのアドレス帯は何ですか？",
-      "IGMP はどう関係しますか？",
-      "ブロードキャストとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPv4 マルチキャストのアドレス帯は何ですか？",
-        "answer": "224.0.0.0 から 239.255.255.255 のクラス D アドレス帯である。"
-      },
-      {
-        "question": "IGMP はどう関係しますか？",
-        "answer": "ホストが受信したいマルチキャストグループ参加をルータへ通知するために使う。"
-      },
-      {
-        "question": "ブロードキャストとの違いは何ですか？",
-        "answer": "ブロードキャストは全端末宛て、マルチキャストは参加グループだけを対象にする。"
-      }
+      "間違い。IPv4マルチキャストアドレスには、恒久的に割り当てられるものだけでなく、動的に割り当てられる一時的なグループ用もある。選択肢は全てのマルチキャストアドレスの用途があらかじめ固定されているとしているため誤りである。",
+      "正しい。IPv4マルチキャストにはクラスDのアドレスが使われる。先頭4ビットが1110で、範囲は224.0.0.0〜239.255.255.255である。",
+      "間違い。マルチキャストパケットもTTLによって到達範囲が制限され、ルータを通過するたびにTTLが減少する。選択肢はTTL値に関係なく中継されるとしているため誤りである。",
+      "間違い。通常は、そのマルチキャストグループに参加しているホストが受信する。IGMPなどでグループ参加を管理するため、選択肢はネットワーク上の全てのホストが受信するとしている点で誤りである。"
     ],
     "original_question_id": "7b4284bc874d75db",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:7b4284bc874d75db",
+    "reviewQuestionId": "7b4284bc874d75db",
+    "sourceRecordRef": "question_201802_2.json#15",
+    "explanationReferences": [
+      {
+        "referenceDate": "1989-08-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1112.html",
+        "title": "RFC 1112: Host Extensions for IP Multicasting"
+      },
+      {
+        "referenceDate": "1989-10-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1122.html",
+        "title": "RFC 1122: Requirements for Internet Hosts — Communication Layers"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4マルチキャストの技術仕様に関する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は、IPv4マルチキャストアドレスの用途が全て固定的に定められているとしており、技術仕様と一致しない。",
+          "promptContext": "IPv4マルチキャストのアドレス仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくIPv4マルチキャストの技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、IPv4マルチキャストにクラスDアドレスを使用するという技術仕様と一致する。",
+          "promptContext": "IPv4マルチキャストのアドレス範囲。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくIPv4マルチキャストの技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、TTL値に関係なく中継されるとしており、TTLによって到達範囲が制限される技術仕様と一致しない。",
+          "promptContext": "IPv4マルチキャストパケットのTTL。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくIPv4マルチキャストの技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、全てのホストが受信するとしており、通常はマルチキャストグループ参加ホストが受信する技術仕様と一致しない。",
+          "promptContext": "IPv4マルチキャストの受信ホストとグループ参加。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくIPv4マルチキャストの技術仕様で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nBluetooth は 2.4GHz 帯を利用する近距離無線規格である。",
-      "正しい。\n\nIEEE802.11ac は 5GHz 帯のみを用いる無線 LAN 規格であり、2.4GHz 帯は使用しない。",
-      "間違い。\n\nIEEE802.11b は 2.4GHz 帯を使用する。",
-      "間違い。\n\nIEEE802.11g も 2.4GHz 帯を使用する。"
-    ],
-    "suggestedQuestions": [
-      "802.11ac はどの周波数帯を使いますか？",
-      "Bluetooth や 11b/g との違いは何ですか？",
-      "周波数帯で何が変わりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "802.11ac はどの周波数帯を使いますか？",
-        "answer": "5GHz 帯を使う。"
-      },
-      {
-        "question": "Bluetooth や 11b/g との違いは何ですか？",
-        "answer": "それらは 2.4GHz 帯を使う点が大きな違いである。"
-      },
-      {
-        "question": "周波数帯で何が変わりますか？",
-        "answer": "利用可能帯域、混雑のしやすさ、到達特性などが変わる。"
-      }
+      "正しい。IEEE 802.11acは5GHz帯を使用する無線LAN規格で、Bluetooth、IEEE 802.11b、IEEE 802.11gはいずれも2.4GHz帯を使用する。したがって、2.4GHz帯を使用しない規格はIEEE 802.11acである。"
     ],
     "original_question_id": "e4ae2b7e55da00e6",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:e4ae2b7e55da00e6",
+    "reviewQuestionId": "e4ae2b7e55da00e6",
+    "sourceRecordRef": "question_201802_2.json#16",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "無線通信規格の周波数帯に関する技術知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Bluetoothは2.4GHz帯を使用するため、問題文の命題は誤りである。",
+          "promptContext": "無線通信規格の周波数帯を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.11acは5GHz帯を使用するため、問題文の命題は正しい。",
+          "promptContext": "無線通信規格の周波数帯を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.11bは2.4GHz帯を使用するため、問題文の命題は誤りである。",
+          "promptContext": "無線通信規格の周波数帯を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.11gは2.4GHz帯を使用するため、問題文の命題は誤りである。",
+          "promptContext": "無線通信規格の周波数帯を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠は使用しない。"
+        ],
+        "reconciliationStatus": "not_law_related_confirmed",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nOpenFlow はコントローラの処理フロー定義ではなく、コントローラとネットワーク機器間で転送制御情報をやり取りするプロトコルである。",
-      "正しい。\n\nOpenFlow では、ネットワーク機器がデータ転送を行うためのフロー情報をコントローラが集中管理し、各機器へ配布する。",
-      "間違い。\n\nアプリケーションが使うのは通常ノースバウンドインタフェースであり、サウスバウンドインタフェースではない。",
-      "間違い。\n\nアプリケーションはネットワーク機器へ直接指示せず、コントローラ経由で制御する。"
-    ],
-    "suggestedQuestions": [
-      "OpenFlow の役割は何ですか？",
-      "ノースバウンドとサウスバウンドの違いは何ですか？",
-      "SDN の利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OpenFlow の役割は何ですか？",
-        "answer": "コントローラがスイッチへ転送ルールを与え、データプレーンを制御するための手段である。"
-      },
-      {
-        "question": "ノースバウンドとサウスバウンドの違いは何ですか？",
-        "answer": "ノースバウンドはアプリとコントローラ間、サウスバウンドはコントローラと機器間のインタフェースである。"
-      },
-      {
-        "question": "SDN の利点は何ですか？",
-        "answer": "ネットワーク制御を集中化し、自動化や柔軟なポリシー変更をしやすくする。"
-      }
+      "間違い。OpenFlowは、コントローラーとネットワーク機器の間で転送制御情報をやり取りするプロトコルである。選択肢はコントローラーの処理フローを定義したものとしているため誤りである。",
+      "正しい。コントローラーがフロー情報をネットワーク機器へ提供し、ネットワーク機器はその情報に基づいてデータを転送する。",
+      "間違い。アプリケーションは、ノースバウンドインタフェースを介してコントローラーに指示を出す。選択肢はサウスバウンドインタフェースとしているため誤りである。",
+      "間違い。アプリケーションはコントローラーを介してネットワークを制御し、ネットワーク機器へ直接指示を出さない。選択肢はアプリケーションがネットワーク機器へ直接指示を出すとしているため誤りである。"
     ],
     "original_question_id": "ed6f89425a82600b",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:ed6f89425a82600b",
+    "reviewQuestionId": "ed6f89425a82600b",
+    "sourceRecordRef": "question_201802_2.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SDN、OpenFlow、ノースバウンドインタフェース及びサウスバウンドインタフェースの役割を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OpenFlowの役割に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "コントローラーとネットワーク機器のフロー情報に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ノースバウンドインタフェースとサウスバウンドインタフェースの役割に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SDNにおけるアプリケーション、コントローラー及びネットワーク機器の関係に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n21 番は FTP 制御接続の既定ポートだが、この URL のスキームは https なので対象ではない。",
-      "間違い。\n\n80 番は HTTP の既定ポートであり、https 指定時には使わない。",
-      "間違い。\n\n?port=123 はクエリ文字列であり、接続先ポート指定ではない。",
-      "正しい。\n\nURL のスキームが https で、ポート番号を明示していないため、Web ブラウザは既定の TCP 443 番へ接続する。"
-    ],
-    "suggestedQuestions": [
-      "URL でポート番号を指定する書き方は何ですか？",
-      "クエリ文字列は何を表しますか？",
-      "https の既定ポートは何番ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "URL でポート番号を指定する書き方は何ですか？",
-        "answer": "https://example.jp:8443/ のようにホスト名の後へ :ポート番号 を書く。"
-      },
-      {
-        "question": "クエリ文字列は何を表しますか？",
-        "answer": "アプリケーションへ渡すパラメータであり、接続先ポート指定とは別である。"
-      },
-      {
-        "question": "https の既定ポートは何番ですか？",
-        "answer": "443 番である。"
-      }
+      "正しい。URLのスキームがhttpsで、ポート番号を明示していないため、接続先のTCPポートは既定の443番になる。ホスト名にftpが含まれていても、FTPの既定ポート21番には接続しない。また、URL末尾の「?port=123」はサーバへ渡すクエリ文字列であり、TCPポート番号の指定ではない。"
     ],
     "original_question_id": "fdd58fb6d6525e8e",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:fdd58fb6d6525e8e",
+    "reviewQuestionId": "fdd58fb6d6525e8e",
+    "sourceRecordRef": "question_201802_2.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "URLのhttpsスキームでは、ホスト名がftp.example.jpであっても接続先TCPポートは既定の443番になる。法令根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "httpsの既定TCPポートは443番であり、選択肢の21番はFTPの既定ポートである。",
+          "promptContext": "技術知識問題の第1選択肢を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "httpsの既定TCPポートは443番であり、選択肢の80番はHTTPの既定ポートである。",
+          "promptContext": "技術知識問題の第2選択肢を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "URLのクエリ文字列「port=123」はTCPポート番号の指定ではないため、接続先ポートは123番にならない。",
+          "promptContext": "技術知識問題の第3選択肢を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "httpsの既定TCPポートは443番であり、この選択肢は問題文のURLから接続先ポートを正しく示している。",
+          "promptContext": "技術知識問題の第4選択肢を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nWebSocket は XML に限定されず、テキストやバイナリを扱える。",
-      "間違い。\n\nWebSocket の URI スキームは ws または wss であり、http/https ではない。",
-      "間違い。\n\n接続開始要求はクライアント側から行う。サーバが一方的に接続開始を要求するわけではない。",
-      "正しい。\n\nWebSocket は HTTP の GET リクエストと Upgrade ヘッダを使ってハンドシェイクを始め、接続確立後は双方向通信を行う。"
-    ],
-    "suggestedQuestions": [
-      "WebSocket の開始手順は何ですか？",
-      "ws と wss の違いは何ですか？",
-      "HTTP と何が違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "WebSocket の開始手順は何ですか？",
-        "answer": "まず HTTP GET で Upgrade を要求し、サーバ応答で WebSocket へ切り替える。"
-      },
-      {
-        "question": "ws と wss の違いは何ですか？",
-        "answer": "ws は平文、wss は TLS による暗号化付きである。"
-      },
-      {
-        "question": "HTTP と何が違いますか？",
-        "answer": "接続確立後に双方向で継続的なメッセージ交換がしやすい点が大きく異なる。"
-      }
+      "間違い。WebSocketのデータはテキスト又はバイナリで扱い、XML形式に限定されない。接続開始時にはHTTPのUpgradeを利用するが、選択肢は通信メッセージがXML形式に限定されるとしているため誤りである。",
+      "間違い。WebSocketのURIスキームはws又はwssである。wsとwssの既定ポートはそれぞれHTTP及びHTTPSと同じ80番及び443番だが、URIにhttp又はhttpsを使用するわけではない。",
+      "間違い。WebSocketは接続確立後にクライアントとサーバが双方向に通信できるが、接続開始のハンドシェイクはクライアントが行う。選択肢は、サーバからも接続開始を要求できるとしているため誤りである。",
+      "正しい。WebSocketの接続は、クライアントがHTTPのGETメソッドとUpgradeヘッダを含むハンドシェイクを送り、サーバが応答して確立する。接続確立後は、クライアントとサーバが双方向に通信できる。"
     ],
     "original_question_id": "89de89a06bc80605",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:89de89a06bc80605",
+    "reviewQuestionId": "89de89a06bc80605",
+    "sourceRecordRef": "question_201802_2.json#19",
+    "explanationReferences": [
+      {
+        "referenceDate": "2011-12-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6455.html",
+        "title": "RFC 6455 The WebSocket Protocol"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "WebSocketの通信仕様に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "WebSocketのデータ形式及び接続時のUpgrade仕様から誤りと判定した。",
+          "promptContext": "第1選択肢の完全命題を技術仕様に基づき判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WebSocketの技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "WebSocketのURIスキームはws又はwssであり、http又はhttpsではないため誤りと判定した。",
+          "promptContext": "第2選択肢の完全命題を技術仕様に基づき判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WebSocketの技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "接続開始のハンドシェイクはクライアントが行うため、サーバからも接続開始を要求できるとする記述は誤りと判定した。",
+          "promptContext": "第3選択肢の完全命題を技術仕様に基づき判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WebSocketの技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クライアントがGETとUpgradeヘッダを含むハンドシェイクを開始し、サーバが応答して接続を確立するため正しいと判定した。",
+          "promptContext": "第4選択肢の完全命題を技術仕様に基づき判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "WebSocketの技術仕様に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1584,63 +2636,290 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nContent-Security-Policy は読込み元制限などを指定するヘッダであり、HTTPS 接続を一定期間強制する役目ではない。",
-      "正しい。\n\nStrict-Transport-Security は HSTS 用ヘッダであり、ブラウザに対して指定期間そのサイトへ HTTPS でのみアクセスするよう指示する。",
-      "間違い。\n\nX-Content-Type-Options は MIME スニッフィング制御用であり、HTTPS 強制ではない。",
-      "間違い。\n\nX-XSS-Protection は古いブラウザ向け XSS フィルタ制御用であり、HTTPS 強制機能ではない。"
-    ],
-    "suggestedQuestions": [
-      "HSTS は何を防ぎますか？",
-      "Strict-Transport-Security には何を書きますか？",
-      "CSP との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "HSTS は何を防ぎますか？",
-        "answer": "利用者が HTTP へ降格させられることや、中間者による HTTPS 回避のリスクを減らす。"
-      },
-      {
-        "question": "Strict-Transport-Security には何を書きますか？",
-        "answer": "有効期間 max-age や includeSubDomains などの属性を書く。"
-      },
-      {
-        "question": "CSP との違いは何ですか？",
-        "answer": "HSTS は HTTPS 強制、CSP は読込み元やスクリプト実行元の制御である。"
-      }
+      "間違い。正しくは、Content-Security-Policy は、ブラウザが読み込む又は実行するリソースの制限などを指定するヘッダーフィールドである。選択肢は指定期間のHTTPS利用を指示するヘッダーフィールドとしているため誤りである。",
+      "正しい。Strict-Transport-Security はHSTS用のヘッダーフィールドで、max-ageに指定した秒数の間、そのホストへの接続にHTTPSを使うようブラウザへ指示する。",
+      "間違い。正しくは、X-Content-Type-Options はContent-Typeの扱いを確認し、nosniffによるMIMEタイプの推測抑止に用いるヘッダーフィールドである。選択肢は指定期間のHTTPS利用を指示するヘッダーフィールドとしているため誤りである。",
+      "間違い。正しくは、X-XSS-Protection はブラウザのXSSフィルタリングを制御するヘッダーフィールドである。選択肢は指定期間のHTTPS利用を指示するヘッダーフィールドとしているため誤りである。"
     ],
     "original_question_id": "61b389bafe9afcb3",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:61b389bafe9afcb3",
+    "reviewQuestionId": "61b389bafe9afcb3",
+    "sourceRecordRef": "question_201802_2.json#22",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.w3.org/TR/2016/REC-CSP2-20161215/",
+        "title": "Content Security Policy Level 2"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6797.html",
+        "title": "RFC 6797: HTTP Strict Transport Security (HSTS)"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://fetch.spec.whatwg.org/#x-content-type-options",
+        "title": "Fetch Standard: X-Content-Type-Options header"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://learn.microsoft.com/th-th/windows-server/identity/ad-fs/operations/customize-http-security-headers-ad-fs",
+        "title": "Customize HTTP security response headers with AD FS"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "HTTPレスポンスヘッダーの技術仕様を問う問題であり、法令・制度論点ではない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時・現行ともに間違い。",
+          "displayRefIds": [],
+          "explanationText": "Content-Security-Policyはリソース制御のヘッダーであり、指定期間のHTTPS利用を指示するものではない。",
+          "promptContext": "技術仕様の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTPヘッダーの技術仕様に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時・現行ともに正しい。",
+          "displayRefIds": [],
+          "explanationText": "Strict-Transport-Securityは、max-ageで指定した期間のHTTPS利用をブラウザへ指示するHSTS用ヘッダーである。",
+          "promptContext": "技術仕様の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "HTTPヘッダーの技術仕様に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時・現行ともに間違い。",
+          "displayRefIds": [],
+          "explanationText": "X-Content-Type-OptionsはnosniffによってMIMEタイプの推測を抑止するヘッダーであり、HTTPS利用期間を指示するものではない。",
+          "promptContext": "技術仕様の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTPヘッダーの技術仕様に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "試験時・現行ともに間違い。",
+          "displayRefIds": [],
+          "explanationText": "X-XSS-ProtectionはブラウザのXSSフィルタリングを制御するヘッダーであり、HTTPS利用期間を指示するものではない。",
+          "promptContext": "技術仕様の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTPヘッダーの技術仕様に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nESP のトンネルモードでは、元の IP ヘッダを含む IP パケット全体を暗号化し、その外側へ新しい IP ヘッダを付加して送ることができる。",
-      "間違い。\n\nIKE は通常 UDP 500 番などを使用して鍵交換を行い、80 番ではない。",
-      "間違い。\n\nHMAC-SHA1 は完全性保護や認証用であり、暗号化アルゴリズムそのものではない。",
-      "間違い。\n\n認証や暗号化アルゴリズムの合意は IKE で行い、AH を使うから決められるというものではない。"
-    ],
-    "suggestedQuestions": [
-      "ESP トンネルモードは何を暗号化しますか？",
-      "IKE の役割は何ですか？",
-      "AH と ESP の違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ESP トンネルモードは何を暗号化しますか？",
-        "answer": "元の IP パケット全体をペイロードとして包み、内部ヘッダを含めて暗号化できる。"
-      },
-      {
-        "question": "IKE の役割は何ですか？",
-        "answer": "鍵交換や暗号スイートの合意、SA の確立を行う。"
-      },
-      {
-        "question": "AH と ESP の違いは何ですか？",
-        "answer": "AH は認証中心、ESP は暗号化と認証を提供できる。"
-      }
+      "正しい。ESPのトンネルモードでは、元のIPヘッダーを含むIPパケット全体を暗号化し、その外側に新しいIPヘッダーを付けて転送する。したがって、暗号化区間ではエンドツーエンド通信に使う元のIPヘッダーも保護対象になる。",
+      "間違い。IKEはIPsecのセキュリティアソシエーションや鍵を確立・管理するプロトコルで、通常はUDP 500番を使い、NATトラバーサル時はUDP 4500番を使う。選択肢はポート番号80としているため誤りである。",
+      "間違い。HMAC-SHA1は完全性の確認や送信元認証に用いる方式で、データを秘匿する暗号化アルゴリズムではない。選択肢は暗号化アルゴリズムとしているため誤りである。",
+      "間違い。認証や暗号化アルゴリズムの選択・合意はIKEで行う。AHはIPパケットの完全性や送信元認証を提供するプロトコルであり、アルゴリズムを決めるために使うものではない。選択肢はAHヘッダーを使ってアルゴリズムを決めるとしているため誤りである。"
     ],
     "original_question_id": "4b9684e7ec4f4aff",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:4b9684e7ec4f4aff",
+    "reviewQuestionId": "4b9684e7ec4f4aff",
+    "sourceRecordRef": "question_201802_2.json#23",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4303",
+        "title": "RFC 4303: IP Encapsulating Security Payload (ESP)"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5996",
+        "title": "RFC 5996: Internet Key Exchange Protocol Version 2 (IKEv2)"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2404",
+        "title": "RFC 2404: The Use of HMAC-SHA-1-96 within ESP and AH"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPsec、IKE、ESP、AH、HMAC-SHA1の技術仕様のみを根拠とし、法令条文は根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分は対象外。",
+          "displayRefIds": [],
+          "explanationText": "ESPトンネルモードは元のIPヘッダーを含むIPパケット全体を保護する。",
+          "promptContext": "IPsecのトンネルモードに関する技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分は対象外。",
+          "displayRefIds": [],
+          "explanationText": "IKEは通常UDP 500番、NATトラバーサル時はUDP 4500番を使用する。",
+          "promptContext": "IKEの用途とポート番号に関する技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分は対象外。",
+          "displayRefIds": [],
+          "explanationText": "HMAC-SHA1は完全性確認や送信元認証に用いられ、暗号化アルゴリズムではない。",
+          "promptContext": "HMAC-SHA1の用途に関する技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分は対象外。",
+          "displayRefIds": [],
+          "explanationText": "認証や暗号化アルゴリズムの合意はIKEで行い、AHは完全性や送信元認証を提供する。",
+          "promptContext": "IKEとAHの役割に関する技術仕様。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
