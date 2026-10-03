@@ -1146,16 +1146,13 @@ tasks:
     type: pm
     assignee: PM
     status: active
-    objective: 2018/2024の標準再取得とidentity照合、2025の一次本文に基づく新しい一問監査及び候補差分、2020のlegacy snapshot導入契約案をprivate成果物として完成させる。2025の検証済み正答proposalを既存propose入口で台帳へ登録し、承認及び公開阻害条件を追跡する。製品実装は編集しない。
+    objective: 外部追加を観測履歴として固定し、新baselineの下で2025の真正監査、候補差分及びv2 sidecar、他3件のidentity比較と導入契約を一つのprivate evidence packageとして完成させる。製品コード、正本data及び公開状態は変更しない。
     allowed_files:
-      - output/user_feedback_response_system/staging/recovery-source-2018/**
-      - output/user_feedback_response_system/staging/recovery-source-2024/**
-      - output/user_feedback_response_system/staging/recovery-law-2025/**
-      - output/user_feedback_response_system/staging/recovery-legacy-2020/**
       - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/**
-      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
-      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-wal
-      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-shm
+      - output/user_feedback_response_system/staging/recovery-law-2025/**
+      - output/user_feedback_response_system/staging/recovery-source-2018/*comparison*.json
+      - output/user_feedback_response_system/staging/recovery-source-2024/*comparison*.json
+      - output/user_feedback_response_system/staging/recovery-legacy-2020/import-contract-proposal.json
     source_reacquisition_contract:
       '2018':
         qualification: 2nd-class-kenchikushi
@@ -1241,34 +1238,32 @@ tasks:
         - 一意対応が証明できない場合はその欠落を保持し、snapshotから新しいcanonical sourceを自動作成しない。
     ledger_contract:
       mode: readback_only_superseded_by_formal_patch_tracking
-      reason: actual additional approval and T017 formal24 commit/push completed before T015; propose would now reject existing patch_ref and
-        must not regress status
+      reason: actual additional approval and T017 formal24 commit/push completed before T015; propose would now reject existing patch_ref and must not regress
+        status
       scope: verify existing 2025 target patch_ref/commit_sha and published_at NULL without updating rows
       proof: promotion-2025/ledger-tracking-readback.json
     verify:
-      - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/verify_recovery_slice.py
-      - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/promotion-2025/verify_promoted_patch.py
-      - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily summary
-      - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily list-reports --limit 100
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/verify_private_evidence_package.py
       - git diff --check
       - git status --short
     verification_requirements:
-      - private再取得と監査のsource identity、取得資料、response及びreview hashが実物へ解決できる。
-      - 新監査sidecarと候補lawFactsを既存v2 schema及びlawFacts validatorで検証する。validator変更は行わない。
-      - 全5肢の配列長、順序、choiceIndex、locator、試験時及び現在判定と候補差分が対応する。
-      - 正本00_source、stage patch、24、merged、converted、upload-ready及び既存監査ファイルの前後fingerprintが一致する。
-      - 台帳更新は対象taskのproposal hash/refだけで、他task及びcase判断が変わっていない。
-      - Firestore writes及びStorage uploadsがなく、credentials又は追加credits関連設定を変更していない。
+      - 新baselineとの差が0で、旧baselineとの差が明示した同一承認patch一fileだけである。
+      - 取得raw、production snapshot、固定一次資料、既存review及び新responseのhashがpackage manifestと一致する。
+      - 新版確認のphase別inputHashと実task provenanceが一致し、旧outputの改変がない。
+      - 候補sidecar及びlawFactsを既存validatorで検証し、命題・choice順・locator・evidence bindingも独立に確認する。
+      - 現行policy適合、監査確定、追加field承認、source identity導入、artifact同期及び公開を区別する。
+      - WORK書込み、正本patch変更、Firestore write、Storage upload、gate又はprovider設定変更がない。
     stop_if:
-      - 実装編集、永久doc追加、gate緩和、外部provider、追加credits許可又はallowed_files外の変更が必要。
-      - scraperがprivate出力先以外へ保存又は公開しようとする。
-      - 再取得ID不一致をraw alias追加又はID書換えで解消する必要がある。
-      - 同じsource identity又は固定監査入力へ一意に対応できない。
-      - 必要な法令本文がtruncate、根拠不足又は版競合で、追加取得を安全に固定できない。
-      - 真正reviewの改作、旧監査run IDの再利用、旧hashとの架空対応又は機械的reviewState昇格が必要。
-      - canonical00、正式24、Firestore又はStorageの変更が必要。
+      - 新baseline候補に当該一file以外の正本追加、既存hash変更又は削除がある。
+      - ROOT、WORK又は候補の承認済み24 bytesが一致しない。
+      - 現在projectionが承認済み値又はexact source bindingと一致しない。
+      - 不同のphase入力を同一auditInputHashの確認済み履歴として保存する必要がある。
+      - PMによるreviewの手修正、架空run ID、機械的reviewState昇格又はraw alias追加が必要。
+      - 正本data、製品code、既存verifier、公開状態又はallowed_files外の変更が必要。
     receipt: null
-    baseline: promotion-2025/postpromotion-fingerprint.json; old baseline plus exactly the approved 24 file
+    baseline: proposals/2026-10-03/recovery-slice/post-external-copy-fingerprint.json; sole observed external approved WORK copy, writer unknown; historical
+      baseline and failure preserved
+    risk_review_note: notes/T015-risk-review-receipt.json
   - id: T004
     type: pm
     assignee: PM
