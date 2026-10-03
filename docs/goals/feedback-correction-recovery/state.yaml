@@ -1,0 +1,322 @@
+# GoalBuddy v2 state.yaml
+# Board truth lives here. goal.md is the editable charter; notes/ holds long receipts only.
+
+version: 2
+
+goal:
+  title: "問題報告の正式訂正と公開工程を復旧する"
+  slug: "feedback-correction-recovery"
+  kind: recovery # specific | open_ended | existing_plan | recovery | audit
+  tranche: "確認済み4件の正本patch・独立review・限定公開検証・台帳追跡を復旧する"
+  status: active # active | blocked | done
+  oracle:
+    signal: "一次根拠、全カテゴリ判断、source identity、真正なreview、機械gate、台帳状態、承認済み公開対象のlive readbackが一致"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "各対象の根拠付き処理結果、検証済み正式patchとcommit/push、承認及びlive readback"
+  intake:
+    original_request: "/goalあるべき姿にして"
+    interpreted_outcome: "前回未完了の4件を正本patchから公開まで追跡可能にする"
+    input_shape: recovery # vague | specific | existing_plan | recovery | audit
+    audience: Repaso利用者と運用者
+    authority: requested # requested | approved | inferred | needs_approval | blocked
+    proof_type: artifact # test | demo | artifact | metric | review | source_backed_answer | decision
+    completion_proof: "正式patchとreadbackと台帳、又は一次根拠付き保留と再開条件"
+    likely_misfire: "隔離simulationで完了扱い又は安全gateの迂回"
+    blind_spots_considered:
+      - 歴史的mergedと現行sourceの差
+      - 年度全体gateと一問gateの混同
+      - patch承認と公開判断の混同
+    existing_plan_facts:
+      - 2025年学科II問3の具体的差分は承認済み
+      - 本番公開は別明示判断を要する
+      - 4件のprivate提案とcase記録を引き継ぐ
+      - 常設UIの既存goalは別scopeで維持する
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  # installed | bundled_not_installed | missing | unknown
+  # missing and bundled_not_installed use PM fallback; unknown requires one exact-role attempt before fallback.
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  # none | local | unknown
+  selected: local
+  local:
+    status: live # not_requested | starting | live | generated | blocked
+    url: "http://goalbuddy.localhost:41737/feedback-correction-recovery/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/feedback-correction-recovery"
+
+active_task: T006
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    objective: "4件のsource・patch・merged・live対応と独立review実行経路、一問限定の検査経路を読み取りで確定する"
+    constraints:
+      - Read-only
+      - 生の利用者本文と識別情報を出力しない
+    expected_output:
+      - 根拠付きreceiptと次の具体的slice
+    receipt:
+      result: done
+      summary: "2025対象の正式reviewと年度全体mergeは別の入口。問題詳細projectionは対象bindingのerrorだけを評価するが、physical mergeとstage_current_recordは全patch indexを検証するため19 unmatchedは実障害。一問公開は既存QuestionPublisherが全siblingを抽出・評価・readbackする。別6問のnullは対象問の品質不足とは断定できない。公式reviewの既存サービスは真正なBlind A/B・Challengeと24保存を実装済み。2018/2024はsource復旧、2020は改題identityの正本対応を先に確定する必要がある。"
+      evidence:
+        - path: "scripts/merge/00_merge_all.py:359"
+          finding: "全stage indexへensure_identity_candidate_index_validを実行してから全sourceをprojectionする。"
+        - path: "scripts/merge/patch_views.py:339"
+          finding: "全binding errorsとunmatched_countを停止条件にする。19 orphanの削除は既存正本変更なので限定公開の代用にならない。"
+        - path: "tools/question_review_console/inventory.py:1687"
+          finding: "一覧・詳細の各問題はproject_record(source_binding=...)で論理projectionし、対象bindingのdownstream errorsを加える。"
+        - path: "tools/question_review_console/inventory.py:1299"
+          finding: "stage_current_record系入口はensure_projection_indexes_validを呼ぶため、一覧の対象projectionが正常でも工程実行は全group orphanで止まり得る。"
+        - path: "tools/question_review_console/evaluation.py:1950"
+          finding: "一問machineReadyはその問題のmerge/convert/upload一致、blockingIssuesなし、failed deltaなし、uploadReadyDocs、work policyを要求する。passed評価も公開条件。"
+        - path: "tools/question_review_console/publisher.py:1250"
+          finding: "_load_question_artifactは対象uploadReadyDocsの全IDを抽出し、single originalQuestionId・資格・group・必須fieldを検証する。対象外6問を直接公開しない。"
+        - path: "tools/question_review_console/official_source_correction.py:466"
+          finding: "OfficialSourceCorrectionService.runはcategory correct_answer/question_content/image、stateHash、資料path/title/locator/確認済み転記を受け、server-owned projected値と00_source exact one bindingを検証する。"
+        - path: "tools/question_review_console/official_source_correction.py:650"
+          finding: "AppServerReviewExecutor→run_objective_review→patch_builder→patch_verifier→24への保存。executorはCodexAppServer read-only turn、changed_files拒否、fixture禁止。"
+        - path: "tools/question_bank/question_issue_reports.py:1058"
+          finding: "run_objective_reviewは独立Blind A/BをThreadPoolExecutorで実行後Challenge。記録済みhash付きreviewの再開を実装。"
+        - path: "tools/question_review_console/server.py:2630"
+          finding: "POST /api/official-source-corrections/startからservice.runへstateHash/category/evidencePath/evidenceTitle/evidenceLocator/verifiedTranscription/resumeWorkDirectoryを渡す。UI以外に専用公式review CLIは確認できなかった。"
+        - path: output/user_feedback_response_system/proposals/2026-10-03
+          finding: "4proposalと4case_reviewを照合。2025 exact diff承認済み・公開未承認。2018/2024 sourceRecordRefなし、2020 live original=kanrigyo-2020-8と候補source original=ee8135114d92e847は不一致。"
+        - path: "scripts/pipeline/materialize_gas_shunin_firestore_source.py:292"
+          finding: "Firestore snapshotからsource形式へ復元する先例はあるが甲種ガス主任専用。対象資格へそのまま流用する経路ではない。"
+      facts:
+        - candidate_slice: "2025一問の現行Inventory projected/stateHash/source bindingとwork policyを非変異で取得し、official review serviceを承認済みdiffだけ許可するstaging経由で実行。真正reviewが既承認差分に一致した場合に正式24保存し、対象binding限定artifact同期→一問evaluation→publisher previewまで完成させる。"
+          bounded_files: "tools/question_review_console/official_source_correction.py,tools/question_review_console/inventory.py,scripts/merge/record_projection.py,tests/test_official_source_correction.py"
+          risk: "既存serviceはfixなら直ちに正式24へ保存する。独立reviewが未承認fieldを提案した場合の事前比較を追加するか、隔離repoでreview結果だけ先に固定する必要がある。"
+        - candidate_recovery: "2018/2024は欠損sourceの既存Git履歴・scraper取得元・manifestをidentity付きで探索し、元取得原本を復旧してから正答・解説・lawRevisionFactsを再生成する。原本復旧不可なら、snapshotを取得原本と偽らず明示的な新規source provenance契約を設計する。"
+        - candidate_recovery: "2020は公開IDへの変換履歴、05_originalizedや40_convert/upload artifactに候補source bindingからlive originalへの一意対応があるか探索。対応がなければ公式原問の正しいsourceへ誤字patchを作らず、改題された現行公開問題の正本導入経路を設計する。"
+      contradictions:
+        - claim: "19 unmatchedと別6問nullが正式24生成そのものを必ず停止させる。"
+          finding: "一覧の対象projectionとserver-owned公式reviewは全index検証を直接要求しない。一方physical merge及びstage_current_recordは停止する。入口ごとの区別が必要。"
+        - claim: "年度全体quality-gateを通さなければ一問公開の品質判定経路がない。"
+          finding: "CLI quality-gateはgroupまでのscopeだが既存QuestionEvaluationServiceとQuestionPublisherは一問scopeを実装済み。artifact同期の安全な限定経路は未確認。"
+      ambiguity_requiring_judge:
+        - "対象binding限定artifact同期でglobal unmatchedを対象外として扱うことが、既存fail-closed契約と整合するか。限定scopeの独立artifactと対象外不変を証明する実装が必要か判定してほしい。"
+        - "ユーザー承認は2025の正答vectorとanswer_result_textだけ。現行projectionのexpectedBeforeHashは歴史的mergedと異なるため、同じ差分を再承認扱いにできる条件及び追加fieldが出た場合の承認gateを確定してほしい。"
+        - "2018/2024 missing sourceの新規snapshot導入、2020改題identityのmapping契約は未確定。Firestore直接変更を先行させる根拠はない。"
+      commands:
+        - "state.yamlとquestion_issue_report_workflowのtargeted read"
+        - "private proposalsのmetadata・gateNotes・simulationのtargeted read"
+        - "4case_reviewのverification20261003照合"
+        - "record_projection・patch_views・00_merge_allのgate inspection"
+        - "Inventory projection・stage_current_record inspection"
+        - "OfficialSourceCorrectionService・AppServerReviewExecutor・run_objective_review inspection"
+        - "QuestionEvaluationService・QuestionPublisherの一問scope inspection"
+        - "quality-gate CLI arguments inspection"
+        - "materialize_gas_shunin_firestore_sourceの復旧先例inspection"
+      note_needed: false
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    objective: "根拠と承認範囲とscopeを監査して最大安全の復旧sliceを選ぶ"
+    constraints:
+      - Read-only
+      - 生の利用者本文と識別情報を出力しない
+    expected_output:
+      - 根拠付きreceiptと次の具体的slice
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: "2025年一問の正式reviewは既存serviceで進められ、先行するコード変更は不要。19件のorphanは年度全体mergeの実障害だが、一問reviewの停止条件ではない。別6問のnullも対象問reviewを止める根拠にならない。現行projectionへの補正は同一identityと承認済みpost-valuesを厳密に確認する必要がある。限定artifact同期の安全性は未証明なので、今回許可するsliceは隔離review、真正な24候補、承認比較と正式反映manifestの完成までとする."
+      evidence:
+        - path: docs/goals/feedback-correction-recovery/notes/T001-receipt.json
+          finding: "一問projection、年度全体merge、一問publisherの停止条件は異なる。artifact同期の限定経路は未確認。"
+        - path: "tools/question_review_console/official_source_correction.py:263"
+          finding: "server-owned projected hashと完全source bindingを検証し、00_sourceのexact one recordへ解決する。"
+        - path: "tools/question_review_console/official_source_correction.py:466"
+          finding: "既存serviceは公式資料を固定し、真正なBlind A/B・Challenge、patch builder、verifierを通して24候補を保存できる。"
+        - path: "tools/question_review_console/official_source_correction.py:736"
+          finding: "fix結果をrepo_root配下の24へ直接保存するため、未承認追加fieldの混入を正本保存前に比較するには隔離repo実行が適する。"
+        - path: "tests/test_official_source_correction.py:376"
+          finding: "executorは変更不要fieldを除去する。既にanswer_result_textが1であることは、同じ値を無理に再変更する理由にならない。"
+        - path: "scripts/merge/patch_views.py:339"
+          finding: "physical publication output変更前に全indexの未対応patchを拒否する。orphan削除による迂回は許可できない。"
+        - path: output/user_feedback_response_system/proposals/2026-10-03/2025-12c59a4c014e49de.json
+          finding: "承認済み結果は正誤vector [正しい,間違い,間違い,間違い,間違い] と原問正答表示1。Firestore公開承認はない。"
+      next_allowed_task:
+        package_type: pm
+        proposed_task_id: T003
+        objective: "2025年学科II問3について現行projectionとfresh liveを固定し、既存OfficialSourceCorrectionServiceを正本同内容の隔離repoで実行する。真正review付き24候補、承認済みpost-valuesとの機械比較、正本へ反映する正確なファイルmanifestと残るartifact同期条件を完成させる。製品コード変更は行わない。"
+        allowed_files:
+          - "output/user_feedback_response_system/staging/goal-recovery-2025-review/**"
+          - output/user_feedback_response_system/proposals/2026-10-03/2025-review-current-projection.json
+          - output/user_feedback_response_system/proposals/2026-10-03/2025-review-live-readback.json
+          - output/user_feedback_response_system/proposals/2026-10-03/2025-review-canonical-fingerprint.json
+          - output/user_feedback_response_system/proposals/2026-10-03/2025-review-approval-comparison.json
+          - output/user_feedback_response_system/proposals/2026-10-03/2025-review-promotion-manifest.json
+          - output/user_feedback_response_system/proposals/2026-10-03/2025-review-receipt.json
+          - output/user_feedback_response_system/proposals/2026-10-03/run_2025_isolated_review.py
+          - output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py
+        verify:
+          - "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_official_source_correction.py"
+          - "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py"
+          - "git diff --check"
+          - "git status --short"
+        verification_requirements:
+          - "隔離repoへコピーした00_sourceと全stage patchの内容hashが正本と一致し、既存orphanを削除又は除外していない。"
+          - "対象bindingが2nd-class-kenchikushi:85011:12c59a4c014e49de、reviewQuestionIdが12c59a4c014e49de、sourceRecordRefがquestion_85011_empty_1.json#0として一意に解決する。"
+          - "現行Inventory生成projectionとstateHashを使用し、歴史的mergedのbefore hashを流用しない。"
+          - "公式資料のhash、対象ページ画像、真正Blind A/B、Challenge、受信及びvalidation証跡、生成patchのexpectedBeforeHashが一致する。"
+          - "承認済み結果との比較はcorrectChoiceTextの5肢vectorとanswer_result_textだけを許可する。既に正答表示1ならno-opの省略を許可する。"
+          - "fresh liveの全5sibling identity、本文及び選択肢が承認時対象と一致し、今回の修正結果が肢1/2の承認済み入替に一致する。"
+          - "正本へ反映するpatch、review、資料の正確な相対pathとhashをmanifestへ記録し、移送後もprovenanceが解決可能であることを確認する。"
+          - "正本00_source、stage patch、merged、converted、uploadReady及び他3件に変更がないことをfingerprintで確認する。"
+        approval_interpretation:
+          same_post_values_without_reapproval: "現行projectionのnullを承認済み正誤vectorへ補完することと、既に1のanswer_result_textを変更しないことは、同一問題identity・本文・選択肢・意図を確認し、追加field変更がなく、fresh liveが承認対象と一致する場合に限り既存承認の範囲内。"
+          requires_new_exact_diff_approval: "questionBodyText、choiceTextList、questionIntent、解説、lawRevisionFacts、画像、その他fieldの変更、別source binding又は承認時と異なる公開本文への適用。"
+          publication: "Firestore公開は別の明示判断が必要。このsliceに公開権限を含めない。"
+        stop_if:
+          - "既存service実行のため製品コード変更、正本00_source編集、orphan除去又は安全gate緩和が必要。"
+          - "対象identityが一意に解決しない、stateHashが変わる、fresh liveの本文又は選択肢が承認時から変わる。"
+          - "reviewが未承認追加field、異なる正誤vector又は矛盾する一次根拠を提示する。"
+          - "fixture、レビューhashの手作業生成、歴史的before hashの流用が必要。"
+          - "隔離serviceのprovenanceを正本へ移送した際に証跡が解決不能となる。"
+          - "allowed_files外の変更又はFirestore writeが必要。"
+        follow_on_gate: "真正review結果とpromotion manifestが揃った後、正本24保存と対象binding限定artifact同期の契約を判断する。全年度mergeのfail-closed検査を無条件に省略する許可ではない。"
+      parallel_safety:
+        approved: false
+        reason: "このsliceは一人のPMが実行する。2018/2024のsource欠落復旧と2020の改題identity復旧は別sliceとして扱い、今回の書込みscopeへ含めない。"
+      blocked_tasks:
+        - task: "年度全体physical merge"
+          reason: "19 orphanは実障害。既存正本の復旧又は正式な限定artifact契約が必要。"
+        - task: "一問artifact同期とpublisher preview"
+          reason: "対象外不変、全5sibling一致及び限定scopeでのfail-closedを証明する既存経路が未確認。"
+        - task: "Firestore公開"
+          reason: "別の明示公開判断と一問evaluation及びreadback準備が未完了。"
+      missing_evidence:
+        - "真正な2025年一問review結果及び現行projectionに対する24候補。"
+        - "承認済みpost-valuesとfresh live及び正式patch候補の一致。"
+        - "安全な対象binding限定artifact同期の具体的経路と対象外不変の証明。"
+        - "他3件のsource provenance又は改題identityの一意対応。"
+      required_board_updates:
+        - "T003を製品コードWorker実装から既存serviceによる隔離reviewのPM sliceへ変更し、上記allowed_files、verify、stop_ifを転記する。active taskの選択はPMが行う。"
+        - "2025年の正式review入口を年度全体merge障害から区別する。"
+        - "正本24保存、artifact同期、公開をそれぞれ証跡付きphase gateとして追跡する。"
+        - "他3件のsource復旧とidentity復旧は独立した後続sliceとして明記する。"
+        - "既存承認は2025年の具体的post-valuesのみ、Firestore公開は未承認として維持する。"
+  - id: T003
+    type: pm
+    assignee: PM
+    status: blocked
+    objective: "2025年学科II問3について現行projectionとfresh liveを固定し、既存OfficialSourceCorrectionServiceを正本同内容の隔離repoで実行する。真正review付き24候補、承認済みpost-valuesとの機械比較、正本へ反映する正確なファイルmanifestと残るartifact同期条件を完成させる。製品コード変更は行わない。"
+    allowed_files:
+      - "output/user_feedback_response_system/staging/goal-recovery-2025-review/**"
+      - "output/user_feedback_response_system/proposals/2026-10-03/2025-review-current-projection.json"
+      - "output/user_feedback_response_system/proposals/2026-10-03/2025-review-live-readback.json"
+      - "output/user_feedback_response_system/proposals/2026-10-03/2025-review-canonical-fingerprint.json"
+      - "output/user_feedback_response_system/proposals/2026-10-03/2025-review-approval-comparison.json"
+      - "output/user_feedback_response_system/proposals/2026-10-03/2025-review-promotion-manifest.json"
+      - "output/user_feedback_response_system/proposals/2026-10-03/2025-review-receipt.json"
+      - "output/user_feedback_response_system/proposals/2026-10-03/run_2025_isolated_review.py"
+      - "output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py"
+    verify:
+      - "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_official_source_correction.py"
+      - "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py"
+      - "git diff --check"
+      - "git status --short"
+    stop_if:
+      - "既存service実行のため製品コード変更、正本00_source編集、orphan除去又は安全gate緩和が必要。"
+      - "対象identityが一意に解決しない、stateHashが変わる、fresh liveの本文又は選択肢が承認時から変わる。"
+      - "reviewが未承認追加field、異なる正誤vector又は矛盾する一次根拠を提示する。"
+      - "fixture、レビューhashの手作業生成、歴史的before hashの流用が必要。"
+      - "隔離serviceのprovenanceを正本へ移送した際に証跡が解決不能となる。"
+      - "allowed_files外の変更又はFirestore writeが必要。"
+    receipt:
+      result: blocked
+      summary: "正本と同内容の隔離repo、Inventoryの現行projection、fresh live全5siblingを固定。既存serviceの真正reviewは追加creditsの利用停止を確認できないSubscriptionGateErrorでA/B開始時に停止した。正本とFirestore writesは実施していない。"
+      blocked_reason: "CodexAppServerClient.validate_subscription_access rejects any positive additional credits balance; no blind outputs produced."
+      changed_files:
+        - output/user_feedback_response_system/proposals/2026-10-03/run_2025_isolated_review.py
+        - output/user_feedback_response_system/proposals/2026-10-03/2025-review-canonical-fingerprint.json
+        - output/user_feedback_response_system/proposals/2026-10-03/2025-review-current-projection.json
+        - output/user_feedback_response_system/proposals/2026-10-03/2025-review-live-readback.json
+        - "output/user_feedback_response_system/staging/goal-recovery-2025-review/repo/**"
+      commands:
+        - cmd: "python run_2025_isolated_review.py"
+          status: fail
+        - cmd: "python -m unittest discover -s tests -p test_official_source_correction.py"
+          status: pass
+      spawned_tasks:
+        - T006
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: active
+    objective: "AppServer credits gateを維持し、native GoalBuddy独立reviewを既存CLI ReviewExecutorの真正な記録結果として使う経路が契約を満たすか判定する"
+    constraints:
+      - Read-only
+      - 追加credits使用又はgate緩和なし
+      - 外部API又はproviderへのfallbackなし
+    expected_output:
+      - decisionとbounded PM package
+    receipt: null
+  - id: T004
+    type: pm
+    assignee: PM
+    status: queued
+    objective: "4件を独立reviewし、承認済み2025年の正式patchと他3件の承認可能proposalを完成させる"
+    constraints:
+      - 2025年以外の正式patchは具体的差分承認後
+      - 真正なreview証跡を保存する
+      - Firestoreは別公開承認後
+    receipt: null
+  - id: T005
+    type: pm
+    assignee: PM
+    status: queued
+    objective: "別の公開承認を得た対象を限定uploadし、readbackと台帳追跡を完了する"
+    constraints:
+      - 2025年以外の正式patchは具体的差分承認後
+      - 真正なreview証跡を保存する
+      - Firestoreは別公開承認後
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    objective: "原依頼とoracleに対して全成果と未完了を最終監査する"
+    constraints:
+      - Read-only
+      - 生の利用者本文と識別情報を出力しない
+    expected_output:
+      - 根拠付きreceiptと次の具体的slice
+    receipt: null
+
+checks:
+  dirty_fingerprint: clean-at-93e7236e7
+  last_verification:
+    result: unknown
+    task: null
+    commands: []

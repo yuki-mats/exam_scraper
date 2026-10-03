@@ -1,0 +1,26 @@
+{
+  "result": "blocked",
+  "task_id": "T003",
+  "summary": "正本と同内容の隔離repo、Inventoryの現行projection、fresh live全5siblingを固定。既存serviceの真正reviewは追加creditsの利用停止を確認できないSubscriptionGateErrorでA/B開始時に停止した。正本とFirestore writesは実施していない。",
+  "blocked_reason": "CodexAppServerClient.validate_subscription_access rejects any positive additional credits balance; no blind outputs produced.",
+  "changed_files": [
+    "output/user_feedback_response_system/proposals/2026-10-03/run_2025_isolated_review.py",
+    "output/user_feedback_response_system/proposals/2026-10-03/2025-review-canonical-fingerprint.json",
+    "output/user_feedback_response_system/proposals/2026-10-03/2025-review-current-projection.json",
+    "output/user_feedback_response_system/proposals/2026-10-03/2025-review-live-readback.json",
+    "output/user_feedback_response_system/staging/goal-recovery-2025-review/repo/**"
+  ],
+  "commands": [
+    {
+      "cmd": "python run_2025_isolated_review.py",
+      "status": "fail"
+    },
+    {
+      "cmd": "python -m unittest discover -s tests -p test_official_source_correction.py",
+      "status": "pass"
+    }
+  ],
+  "spawned_tasks": [
+    "T006"
+  ]
+}
