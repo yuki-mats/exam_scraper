@@ -457,10 +457,15 @@ def apply_question_type(
                 if question.get("isCalculationQuestion") != new_calculation_flag:
                     question["isCalculationQuestion"] = new_calculation_flag
                     changed = True
-            # 新規01は本文・選択肢を所有しない。既存10だけに保存済みの
-            # 内容は05へ移行し切るまでread-compatとして維持する。
-            # 集約回答targetはserverが原文spanから投影した内容を正本とする。
-            if not approved_aggregate_target and apply_legacy_content_fields:
+            # 通常の公式問題は取得元の現在内容を本文・選択肢の正本とする。
+            # 10の機械複写は形式判断時の参照snapshotであり、source更新を
+            # 上書きしない。独自問題の旧内容だけは05へ移行するまで維持する。
+            # 集約回答targetは検証済み原文spanから投影した内容を正本とする。
+            if (
+                not approved_aggregate_target
+                and apply_legacy_content_fields
+                and question.get("examYear") in (None, "")
+            ):
                 for field in LEGACY_QUESTION_TYPE_CONTENT_FIELDS:
                     if (
                         field in patch_entry

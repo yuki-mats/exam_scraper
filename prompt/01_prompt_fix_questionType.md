@@ -79,6 +79,8 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 | `original_question_id` | serverがsource identityから機械付加する。 |
 | `question_url` | server又はmaterialize処理がsource bindingから機械付加する。 |
 
+通常の公式問題では、複写した本文と選択肢は形式判断時の参照snapshotです。合成時の本文・選択肢は現在の`00_source`を基礎とし、古い10 snapshotで取得元の更新を上書きしません。独自問題は05を正本とし、05への移行前だけ旧10内容を読み取り互換として保持します。
+
 集約回答型の合意済み問題だけは、serverが`aggregateAnswerDecomposition`、原文span由来の`choiceTextList`、派生`sourceUniqueKeys`を追加します。
 
 CLIで正式patchを作る場合:

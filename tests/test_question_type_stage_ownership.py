@@ -75,6 +75,33 @@ class QuestionTypeStageOwnershipTests(unittest.TestCase):
                             {"q1": targets},
                         )
 
+    def test_official_source_refresh_survives_copied_question_type_snapshot(self):
+        source = {
+            "original_question_id": "stable-id", "examYear": 2019,
+            "questionBodyText": "A̅∩B̅に等しいものはどれか。",
+            "choiceTextList": ["A̅－B", "S－(A∩B)"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "answer_result_text": "正解は 1 です。",
+        }
+        before = copy.deepcopy(source)
+        stale_snapshot = PatchArtifactEntry(Path("10/q.json"), {
+            "original_question_id": "stable-id",
+            "questionBodyText": "A∩Bに等しいものはどれか。",
+            "choiceTextList": ["A－B", "S－(A∩B)"],
+            "questionType": "flash_card", "isCalculationQuestion": False,
+            "firestoreQuestionIds": ["published-id"],
+        })
+        result = project_merge_record(source, question_type=(stale_snapshot,))
+        self.assertFalse(result.errors)
+        for record in (result.merged1, result.merged2):
+            self.assertEqual(record["questionBodyText"], source["questionBodyText"])
+            self.assertEqual(record["choiceTextList"], source["choiceTextList"])
+            self.assertEqual(record["correctChoiceText"], source["correctChoiceText"])
+            self.assertEqual(record["questionType"], "flash_card")
+            self.assertFalse(record["isCalculationQuestion"])
+            self.assertEqual(record["firestoreQuestionIds"], ["published-id"])
+        self.assertEqual(source, before)
+
     def test_only_stage_01_controls_type_through_merge_and_conversion(self):
         source = {
             "original_question_id": "q1",
