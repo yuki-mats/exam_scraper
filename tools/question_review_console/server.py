@@ -969,6 +969,7 @@ class QuestionReviewApplication:
                     "speedMode",
                     "previewToken",
                     "modelProfile",
+                    "existingCreditsApproved",
                 }
                 unknown_fields = sorted(set(body) - allowed_fields)
                 if unknown_fields:
@@ -1069,6 +1070,11 @@ class QuestionReviewApplication:
                         mode,
                         **run_options,
                     )
+                existing_credit_approval = body.get("existingCreditsApproved", False)
+                if not isinstance(existing_credit_approval, bool):
+                    raise ValueError("existingCreditsApprovedはbooleanで指定してください。")
+                if existing_credit_approval:
+                    run_options["existing_credits_approved"] = True
                 result = self.qualification_runs.start(
                     qualification,
                     stage_id,

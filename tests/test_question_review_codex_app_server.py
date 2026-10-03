@@ -754,6 +754,40 @@ class SubscriptionGateTests(unittest.TestCase):
         self.assertTrue(status["standardMode"])
         self.assertFalse(status["fastMode"])
 
+    def test_existing_credit_approval_allows_only_a_known_positive_balance(self):
+        limits = rate_limit_response()
+        limits["rateLimits"]["credits"] = {"hasCredits": True, "unlimited": False, "balance": "62500"}
+        limits["rateLimits"]["primary"]["usedPercent"] = 100
+        limits["rateLimits"]["rateLimitReachedType"] = "rate_limit_reached"
+        with self.assertRaises(SubscriptionGateError):
+            validate_subscription_access(account_response(), limits)
+        self.assertTrue(validate_subscription_access(account_response(), limits, allow_existing_credits=True)["allowed"])
+        for balance in (None, "0", "-1", "NaN", "Infinity", "unknown"):
+            with self.subTest(balance=balance):
+                limits["rateLimits"]["credits"]["balance"] = balance
+                with self.assertRaises(SubscriptionGateError):
+                    validate_subscription_access(account_response(), limits, allow_existing_credits=True)
+        limits["rateLimits"]["credits"]["balance"] = "62500"
+        for reached in ("workspace_owner_credits_depleted", "workspace_member_usage_limit_reached"):
+            limits["rateLimits"]["rateLimitReachedType"] = reached
+            with self.assertRaises(SubscriptionGateError):
+                validate_subscription_access(account_response(), limits, allow_existing_credits=True)
+
+    def test_credit_approval_is_scoped_to_run_and_does_not_leak_through_status_cache(self):
+        client = self.diagnostic_client()
+        limits = rate_limit_response()
+        limits["rateLimits"]["credits"] = {"hasCredits": True, "unlimited": False, "balance": "62500"}
+        client._request = lambda method, _params: account_response() if method == "account/read" else limits
+        client.grant_existing_credits_for_run("nw", "approved-run")
+        self.assertTrue(client._existing_credits_approved({"qualification": "nw", "runId": "approved-run"}))
+        self.assertFalse(client._existing_credits_approved({"qualification": "nw", "runId": "other-run"}))
+        self.assertFalse(client._existing_credits_approved({"qualification": "other", "runId": "approved-run"}))
+        self.assertFalse(client._existing_credits_approved(None))
+        client.assert_subscription_access(force=True, allow_existing_credits=True)
+        self.assertIsNot(client.public_status(refresh=False)["allowed"], True)
+        with self.assertRaises(SubscriptionGateError):
+            client.assert_subscription_access(force=False)
+
     def test_public_subscription_status_reports_effective_and_turn_model_settings(self):
         client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
         client._ensure_started = lambda: None

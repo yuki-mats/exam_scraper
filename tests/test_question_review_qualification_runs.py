@@ -592,6 +592,57 @@ class LegacyRunModelProfileResumeTests(unittest.TestCase):
                 )
 
 
+class ExistingCreditRunApprovalTests(unittest.TestCase):
+    def test_start_grants_only_created_run_before_scheduling_and_persists_scope(self):
+        approvals = []
+        checks = []
+        scheduled = []
+
+        class ApprovedServer(ConfiguredAppServer):
+            def assert_subscription_access(self, **options):
+                checks.append(options)
+
+            def grant_existing_credits_for_run(self, qualification, run_id):
+                approvals.append((qualification, run_id))
+
+        def schedule(**options):
+            self.assertEqual(len(approvals), 1)
+            scheduled.append(options["kind"])
+            return {"jobId": "approved-job"}
+
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory), FakeWorkflow(), FakeSynchronizer(),
+                SimpleNamespace(start=schedule), "secret", app_server=ApprovedServer(),
+            )
+            preview = coordinator.preview("sample", "explanation", "refresh")
+            self.assertEqual(approvals, [])
+            result = coordinator.start(
+                "sample", "explanation", "refresh", preview["previewToken"],
+                existing_credits_approved=True,
+            )
+            run = coordinator.store.get("sample", result["run"]["runId"])
+            self.assertTrue(run["existingCreditsApproved"])
+            self.assertTrue(run["existingCreditsApprovedAt"])
+            self.assertEqual(run["targetIdentity"], preview["targetIdentity"])
+            self.assertEqual(run["previewPlanHash"], preview["previewPlanHash"])
+            self.assertEqual(approvals, [("sample", run["runId"])])
+            self.assertEqual(checks, [{"force": True, "allow_existing_credits": True}])
+            self.assertTrue(scheduled)
+
+    def test_missing_approval_capability_does_not_create_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory), FakeWorkflow(), FakeSynchronizer(), JobManager(),
+                "secret", app_server=ConfiguredAppServer(),
+            )
+            plan = FakeWorkflow().plan("sample", "explanation")
+            plan["existingCreditsApproved"] = True
+            with self.assertRaisesRegex(QualificationRunError, "run別承認"):
+                coordinator._create_execution_run(plan, status="queued")
+            self.assertEqual(list(coordinator.store.root.rglob("manifest.json")), [])
+
+
 class EvaluationReworkStageTests(unittest.TestCase):
     def test_content_rework_runs_originalize_before_answer_and_explanation(self):
         stages = evaluation_rework_stage_codes(

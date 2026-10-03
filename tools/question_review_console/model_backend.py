@@ -342,8 +342,14 @@ class CodexAppServerBackend:
     def run_turn(self, prompt: str, **kwargs: Any) -> Any:
         return self.client.run_turn(prompt, **kwargs)
 
-    def assert_subscription_access(self, *, force: bool = False) -> Any:
-        return self.client.assert_subscription_access(force=force)
+    def assert_subscription_access(self, *, force: bool = False, allow_existing_credits: bool = False) -> Any:
+        options = {"force": force}
+        if allow_existing_credits:
+            options["allow_existing_credits"] = True
+        return self.client.assert_subscription_access(**options)
+
+    def grant_existing_credits_for_run(self, qualification: str, run_id: str) -> None:
+        self.client.grant_existing_credits_for_run(qualification, run_id)
 
     def public_status(self, *, refresh: bool = False) -> Any:
         return self.client.public_status(refresh=refresh)
@@ -641,7 +647,7 @@ class ProfileModelRouter:
     def provider_for(self, profile_name: str, role: str = "maintenance") -> str:
         return str(self.backend_for(profile_name, role).provider)
 
-    def assert_profile_access(self, profile_name: str, *, force: bool = False) -> None:
+    def assert_profile_access(self, profile_name: str, *, force: bool = False, allow_existing_credits: bool = False) -> None:
         seen: set[int] = set()
         for role in ROLE_NAMES:
             backend = self.backend_for(profile_name, role)
@@ -650,7 +656,16 @@ class ProfileModelRouter:
             seen.add(id(backend))
             check = getattr(backend, "assert_subscription_access", None)
             if callable(check):
-                check(force=force)
+                options = {"force": force}
+                if allow_existing_credits:
+                    options["allow_existing_credits"] = True
+                check(**options)
+
+    def grant_existing_credits_for_run(self, qualification: str, run_id: str) -> None:
+        for backend in self._instances.values():
+            grant = getattr(backend, "grant_existing_credits_for_run", None)
+            if callable(grant):
+                grant(qualification, run_id)
 
     @property
     def configured(self) -> bool:

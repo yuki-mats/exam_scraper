@@ -3823,6 +3823,7 @@ function qualificationRunResumedFrom() {
 }
 
 async function previewQualificationRun() {
+  $("#qualification-run-credit-approval").checked = false;
   const workflow = state.qualificationWorkflow;
   const stageId = state.qualificationWorkflowStageId;
   if (!workflow || !stageId || state.qualificationRunDialog.running) return;
@@ -4165,6 +4166,7 @@ async function startQualificationRun(event) {
         questionConcurrency: preview.questionConcurrency,
         modelProfile: preview.modelProfile || "codex_only",
         speedMode: preview.speedMode,
+        existingCreditsApproved: $("#qualification-run-credit-approval").checked,
         listGroupIds: preview.scopeListGroupIds?.length ? preview.scopeListGroupIds : undefined,
         updateTargetIds: preview.selectedUpdateTargetIds?.length
           ? preview.selectedUpdateTargetIds

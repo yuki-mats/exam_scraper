@@ -19,6 +19,7 @@ import urllib.request
 from collections import OrderedDict, deque
 from dataclasses import dataclass, field
 from datetime import datetime
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, TextIO
 
@@ -416,8 +417,9 @@ def validate_subscription_access(
     rate_limit_response: Mapping[str, Any],
     *,
     speed_mode: str = STANDARD_SPEED_MODE,
+    allow_existing_credits: bool = False,
 ) -> dict[str, Any]:
-    """ChatGPT subscription以外へ決して進まないためのfail-closed gate。"""
+    """ChatGPT利用枠と実行ごとの既存credits承認を検証するgate。"""
 
     speed_mode = normalize_speed_mode(speed_mode)
     account = _as_mapping(account_response.get("account"), "Codex account")
@@ -431,12 +433,29 @@ def validate_subscription_access(
     if plan_type not in KNOWN_SUBSCRIPTION_PLANS:
         raise SubscriptionGateError("subscription planを安全に判定できません。")
     snapshot = _as_mapping(rate_limit_response.get("rateLimits"), "利用上限")
+    if not isinstance(allow_existing_credits, bool):
+        raise SubscriptionGateError("既存creditsの利用承認を確認できません。")
+    credits = _as_mapping(snapshot.get("credits"), "credit状態")
+    credits_enabled = credits.get("hasCredits")
+    if not isinstance(credits_enabled, bool):
+        raise SubscriptionGateError("credit状態を安全に判定できません。")
+    approved_balance = False
+    if allow_existing_credits and credits_enabled:
+        try:
+            balance = Decimal(str(credits.get("balance")))
+        except InvalidOperation as exc:
+            raise SubscriptionGateError("既存creditsの残高を確認できません。") from exc
+        if not balance.is_finite() or balance <= 0 or credits.get("unlimited") is not False:
+            raise SubscriptionGateError("利用できる既存creditsの残高を確認できません。")
+        approved_balance = True
     snapshot_plan = snapshot.get("planType")
     if str(snapshot_plan or "") != plan_type:
         raise SubscriptionGateError("accountと利用上限のplan情報が一致しません。")
     if "rateLimitReachedType" not in snapshot:
         raise SubscriptionGateError("利用上限到達状態を安全に判定できません。")
-    if snapshot.get("rateLimitReachedType") is not None:
+    if snapshot.get("rateLimitReachedType") is not None and not (
+        approved_balance and snapshot.get("rateLimitReachedType") == "rate_limit_reached"
+    ):
         raise SubscriptionGateError("サブスクリプションの利用上限に達しています。")
     for window_name in ("primary", "secondary"):
         window = snapshot.get(window_name)
@@ -448,18 +467,13 @@ def validate_subscription_access(
             raise SubscriptionGateError("利用率を安全に判定できません。")
         if not math.isfinite(float(used_percent)):
             raise SubscriptionGateError("利用率を安全に判定できません。")
-        if used_percent >= 100:
+        if used_percent >= 100 and not approved_balance:
             raise SubscriptionGateError("サブスクリプションの利用上限に達しています。")
 
-    credits = _as_mapping(snapshot.get("credits"), "credit状態")
-    credits_enabled = credits.get("hasCredits")
-    if not isinstance(credits_enabled, bool):
-        raise SubscriptionGateError("credit状態を安全に判定できません。")
-    if credits_enabled:
+    if credits_enabled and not allow_existing_credits:
         raise SubscriptionGateError(
-            "追加Codex creditsの残高があります。"
-            "追加creditsを使用しないことを確認できないため実行を停止しています。"
-            "自動チャージのオフだけでは既存残高の利用停止を確認できません。"
+            "追加Codex creditsの残高があります。この実行で既存残高を利用する承認が必要です。"
+            "追加購入・自動チャージは行いません。"
         )
     if "individualLimit" not in snapshot:
         raise SubscriptionGateError("spend control状態を安全に確認できません。")
@@ -476,7 +490,9 @@ def validate_subscription_access(
             raise SubscriptionGateError("補助利用上限を安全に判定できません。")
         if "rateLimitReachedType" not in value:
             raise SubscriptionGateError("補助利用上限の到達状態を確認できません。")
-        if value.get("rateLimitReachedType") is not None:
+        if value.get("rateLimitReachedType") is not None and not (
+            approved_balance and value.get("rateLimitReachedType") == "rate_limit_reached"
+        ):
             raise SubscriptionGateError("サブスクリプションの利用上限に達しています。")
         if "credits" not in value:
             raise SubscriptionGateError("補助credit状態を安全に確認できません。")
@@ -487,7 +503,7 @@ def validate_subscription_access(
             extra_credits.get("hasCredits"), bool
         ):
             raise SubscriptionGateError("補助credit状態を安全に確認できません。")
-        if extra_credits is not None and extra_credits.get("hasCredits"):
+        if extra_credits is not None and extra_credits.get("hasCredits") and not approved_balance:
             raise SubscriptionGateError(
                 "補助Codex creditsの残高があります。"
                 "追加creditsを使用しないことを確認できないため実行を停止しています。"
@@ -502,8 +518,9 @@ def validate_subscription_access(
         "allowed": True,
         "accountType": "chatgpt",
         "planType": plan_type,
-        "rateLimitReachedType": None,
+        "rateLimitReachedType": snapshot.get("rateLimitReachedType"),
         "creditsEnabled": credits_enabled,
+        "existingCreditsApproved": allow_existing_credits,
         "fastModeAvailable": False,
         "speedMode": STANDARD_SPEED_MODE,
         "standardMode": True,
@@ -1386,6 +1403,8 @@ class CodexAppServerClient:
         self._last_status: dict[str, Any] | None = None
         self._last_status_at = 0.0
         self._last_status_speed_mode: str | None = None
+        self._last_status_credit_approval = False
+        self._approved_credit_runs: set[tuple[str, str]] = set()
         self._effective_model = ""
         self._configured_reasoning_effort = ""
         self._source_codex_home = Path(
@@ -1436,7 +1455,7 @@ class CodexAppServerClient:
             with self._state_lock:
                 cached = (
                     copy.deepcopy(self._last_status)
-                    if self._last_status is not None
+                    if self._last_status is not None and not self._last_status_credit_approval
                     else None
                 )
                 cached_at = self._last_status_at
@@ -1596,11 +1615,25 @@ class CodexAppServerClient:
                 "peakInFlight": self._peak_active_turns,
             }
 
+    def grant_existing_credits_for_run(self, qualification: str, run_id: str) -> None:
+        """Only the trusted coordinator grants credit use for one approved run."""
+        if not qualification or not run_id:
+            raise SubscriptionGateError("既存creditsの承認対象runを確認できません。")
+        with self._state_lock:
+            self._approved_credit_runs.add((qualification, run_id))
+
+    def _existing_credits_approved(self, context: Mapping[str, Any] | None) -> bool:
+        context = context or {}
+        key = (str(context.get("qualification") or ""), str(context.get("runId") or ""))
+        with self._state_lock:
+            return key in self._approved_credit_runs
+
     def assert_subscription_access(
         self,
         *,
         force: bool = True,
         speed_mode: str = STANDARD_SPEED_MODE,
+        allow_existing_credits: bool = False,
     ) -> dict[str, Any]:
         speed_mode = normalize_speed_mode(speed_mode)
         requested_at = time.monotonic()
@@ -1609,6 +1642,7 @@ class CodexAppServerClient:
                 not force
                 and self._last_status is not None
                 and self._last_status_speed_mode == speed_mode
+                and self._last_status_credit_approval == allow_existing_credits
                 and requested_at - self._last_status_at <= self.status_cache_seconds
             ):
                 return copy.deepcopy(self._last_status)
@@ -1619,11 +1653,13 @@ class CodexAppServerClient:
                 refreshed_after_request = (
                     self._last_status is not None
                     and self._last_status_speed_mode == speed_mode
+                    and self._last_status_credit_approval == allow_existing_credits
                     and self._last_status_at >= requested_at
                 )
                 cache_is_fresh = (
                     self._last_status is not None
                     and self._last_status_speed_mode == speed_mode
+                    and self._last_status_credit_approval == allow_existing_credits
                     and time.monotonic() - self._last_status_at
                     <= self.status_cache_seconds
                 )
@@ -1652,6 +1688,7 @@ class CodexAppServerClient:
                 _as_mapping(account, "Codex account response"),
                 _as_mapping(rate_limits, "Codex rate limit response"),
                 speed_mode=speed_mode,
+                allow_existing_credits=allow_existing_credits,
             )
             status.update(
                 {
@@ -1667,6 +1704,7 @@ class CodexAppServerClient:
                 self._last_status = dict(status)
                 self._last_status_at = time.monotonic()
                 self._last_status_speed_mode = speed_mode
+                self._last_status_credit_approval = allow_existing_credits
             return status
 
     def run_turn(
@@ -1780,7 +1818,11 @@ class CodexAppServerClient:
         # 同じwaveのturnは直前60秒以内に取得した一つの検証結果を共有する。
         # cacheが無い又は期限切れなら最初のturnだけが再取得し、後続は
         # single-flight結果を待つ。UIのrun開始時確認とは独立にfail-closed。
-        self.assert_subscription_access(force=False, speed_mode=speed_mode)
+        credit_approval = self._existing_credits_approved(monitor_context)
+        access_options = {"force": False, "speed_mode": speed_mode}
+        if credit_approval:
+            access_options["allow_existing_credits"] = True
+        self.assert_subscription_access(**access_options)
         # 構造化候補と評価のpromptは一問分の入力と品質規則を自己完結で持つ。
         # repositoryをcwdにすると64 threadが同時にworkspace初期化を行うため、
         # modelだけが判断するturnは空の隔離workspaceから起動する。

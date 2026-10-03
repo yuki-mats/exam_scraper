@@ -3819,6 +3819,8 @@ class QualificationRunStore:
             "speedMode": normalize_speed_mode(
                 plan.get("speedMode") or STANDARD_SPEED_MODE
             ),
+            "existingCreditsApproved": plan.get("existingCreditsApproved") is True,
+            "existingCreditsApprovedAt": plan.get("existingCreditsApprovedAt"),
             "requestedServiceTier": plan.get("requestedServiceTier"),
             "parallelWorkerLimit": int(plan.get("parallelWorkerLimit") or 1),
             "writeWorkerLimit": int(plan.get("writeWorkerLimit") or 1),
@@ -9964,6 +9966,16 @@ class QualificationRunCoordinator:
             "previewToken": self._token(token_payload),
         }
 
+    def _create_execution_run(self, plan: Mapping[str, Any], **kwargs: Any) -> dict[str, Any]:
+        approved = plan.get("existingCreditsApproved") is True
+        grant = getattr(self.app_server, "grant_existing_credits_for_run", None)
+        if approved and not callable(grant):
+            raise QualificationRunError("既存creditsのrun別承認に接続が対応していません。")
+        run = self.store.create(plan, **kwargs)
+        if approved:
+            grant(str(run["qualification"]), str(run["runId"]))
+        return run
+
     def start(
         self,
         qualification: str,
@@ -9982,7 +9994,10 @@ class QualificationRunCoordinator:
         blocked_rework_from: str | None = None,
         model_profile: str = "codex_only",
         hydrate_result: bool = True,
+        existing_credits_approved: bool = False,
     ) -> dict[str, Any]:
+        if not isinstance(existing_credits_approved, bool):
+            raise QualificationRunError("既存creditsの利用承認はbooleanで指定してください。")
         question_concurrency = normalize_question_concurrency(question_concurrency)
         speed_mode = normalize_speed_mode(speed_mode)
         request_key = self._prepared_preview_request_key(
@@ -10062,6 +10077,8 @@ class QualificationRunCoordinator:
             **plan,
             "targetIdentity": copy.deepcopy(preview["targetIdentity"]),
             "previewPlanHash": str(preview["previewPlanHash"]),
+            "existingCreditsApproved": existing_credits_approved,
+            "existingCreditsApprovedAt": _now() if existing_credits_approved else None,
         }
         if plan["kind"] == "human":
             selected_stage_ids = list(plan.get("stageIds") or [stage_id])
@@ -10098,7 +10115,7 @@ class QualificationRunCoordinator:
                     qualification, selected_stage_ids[0], mode
                 )["prompt"]
             if self.app_server is None:
-                run = self.store.create(
+                run = self._create_execution_run(
                     plan,
                     status="awaiting_changes",
                     prompt=prompt,
@@ -10109,9 +10126,15 @@ class QualificationRunCoordinator:
             try:
                 access_check = getattr(self.app_server, "assert_profile_access", None)
                 if callable(access_check):
-                    access_check(model_profile, force=False)
+                    options = {"force": False}
+                    if existing_credits_approved:
+                        options.update(force=True, allow_existing_credits=True)
+                    access_check(model_profile, **options)
                 else:
-                    self.app_server.assert_subscription_access(force=False)
+                    options = {"force": False}
+                    if existing_credits_approved:
+                        options.update(force=True, allow_existing_credits=True)
+                    self.app_server.assert_subscription_access(**options)
             except Exception as exc:  # noqa: BLE001
                 raise QualificationRunError(str(exc)) from exc
             plan = {
@@ -10177,7 +10200,7 @@ class QualificationRunCoordinator:
                     "queueStatus": "queued",
                     "queueOrder": "question_turn",
                 }
-                run = self.store.create(
+                run = self._create_execution_run(
                     flow_plan,
                     status="queued",
                     prompt=prompt,
@@ -10219,7 +10242,7 @@ class QualificationRunCoordinator:
                     jobId=job["jobId"],
                 )
                 return {"run": run, "prompt": None, "job": job}
-            run = self.store.create(
+            run = self._create_execution_run(
                 plan,
                 status="queued",
                 prompt=prompt,
@@ -10264,7 +10287,7 @@ class QualificationRunCoordinator:
             )
             return {"run": run, "prompt": None, "job": job}
 
-        run = self.store.create(
+        run = self._create_execution_run(
             plan,
             status="queued",
             resumed_from=resumed_from,
