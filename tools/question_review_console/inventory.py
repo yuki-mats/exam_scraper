@@ -1191,6 +1191,52 @@ class QuestionInventory:
             raise KeyError(f"question not loaded: {question_id}")
         return question
 
+    def scoped_question(self, manifest_path: Path) -> dict[str, Any]:
+        """Read an explicit recovery manifest without altering group inventory."""
+        from tools.question_review_console.scoped_artifacts import load_scoped_artifacts
+        manifest, context, record, documents = load_scoped_artifacts(self.repo_root, manifest_path)
+        source = context.target.record
+        stable_key = review_key(context.qualification, context.list_group_id, context.target.path.stem, source)
+        warnings = [*projected_required_warnings(record),
+                    *(w for doc in documents for w in upload_document_required_warnings(doc))]
+        quality = law_audit_quality_warnings(record, stage="projected")
+        issues = detect_issues(record, record, documents, documents, [], warnings, quality)
+        # Artifacts remain private until a separate formal save and genuine
+        # maintenance checkpoints. A reviewed candidate is not a checkpoint.
+        if manifest["candidate"] is not None:
+            issues.append({"code": "scoped_formal_approval_pending", "detail": "追加4fieldの正式反映前です。"})
+        question = {
+            "id": api_question_id(stable_key), "reviewKey": stable_key,
+            "qualification": context.qualification, "listGroupId": context.list_group_id,
+            "publicationQualificationId": documents[0].get("qualificationId"),
+            "sourceQuestionKey": context.binding.source_question_key,
+            "sourceRecordRef": context.binding.source_record_ref,
+            "originalQuestionId": context.binding.review_question_id,
+            "sourceStem": context.target.path.stem, "source": copy.deepcopy(source),
+            "projected": record, "merged": record, "convertedDocs": documents,
+            "uploadReadyDocs": documents, "choiceCount": len(record.get("choiceTextList") or []),
+            "questionLabel": record.get("questionLabel", ""),
+            "isLawRelated": record.get("isLawRelated") is True,
+            "stateHash": sha256_json({f: record.get(f) for f in PROJECTED_COMPARE_FIELDS}),
+            "sourceCorrectChoiceComparison": correct_choice_comparison(source, record),
+            "sourceAnswerDifferenceApproval": source_answer_difference_approval(
+                context.projection.applied_files, repo_root=self.repo_root,
+                source_question_key=context.binding.source_question_key,
+                review_question_id=context.binding.review_question_id,
+                current_correct_choice_text=record.get("correctChoiceText")),
+            "requiredFieldWarnings": warnings, "qualityWarnings": quality,
+            "issues": issues, "issueCodes": [i["code"] for i in issues],
+            "workflow": {"source": "match", "patch": "match", "merge": "match", "convert": "match", "upload": "match", "firestore": "unread"},
+            "paths": {kind: entry["path"] for kind, entry in manifest["artifacts"].items()},
+            "scopedArtifactManifest": str(Path(manifest_path).resolve()),
+            "scopedArtifactHash": manifest["manifestHash"],
+        }
+        from tools.question_review_console.qualification_workflow import QualificationWorkflow
+        workflow = QualificationWorkflow(self.repo_root, self)
+        question["workVersions"] = workflow.work_versions.status_for(
+            question, workflow.versioned_policies(context.qualification).values())
+        return question
+
     def projected_input(
         self,
         qualification: str,

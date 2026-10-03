@@ -176,10 +176,26 @@ def extract_locator_text(
     number: LocatorNumber,
 ) -> str:
     root = ET.fromstring(xml_text)
+    if kind not in {"article", "appendix_table"}:
+        raise PrimaryLawEvidenceError("附則を含む未対応の抽出領域は指定できません。")
+    bodies = root.findall("LawBody")
+    if len(bodies) != 1:
+        raise PrimaryLawEvidenceError("LawBodyを一意に解決できません。")
+    body = bodies[0]
     tag = "Article" if kind == "article" else "AppdxTable"
+    if kind == "article":
+        main = body.findall("MainProvision")
+        if len(main) != 1:
+            raise PrimaryLawEvidenceError("本則MainProvisionを一意に解決できません。")
+        elements = main[0].iter(tag)
+    else:
+        # e-Gov's main-law appendices are direct LawBody children. Supplementary
+        # appendices must never be resolved by a descendant-wide traversal.
+        elements = iter(body.findall(tag))
     values: list[str] = []
+    matched = 0
     target_parts = _locator_number_parts(number)
-    for element in root.iter(tag):
+    for element in elements:
         raw_number = str(element.attrib.get("Num") or "").strip()
         parsed_parts = _xml_locator_parts(raw_number)
         if parsed_parts is None and kind == "appendix_table":
@@ -192,14 +208,15 @@ def extract_locator_text(
                 parsed_parts = (parsed,) if parsed is not None else None
         if parsed_parts != target_parts:
             continue
+        matched += 1
         text = _element_text(element)
         if text:
             values.append(text)
-    if not values:
+    if matched != 1 or not values:
         raise PrimaryLawEvidenceError(
-            f"e-Gov法令XMLに{kind}:{_locator_num(number)}がありません。"
+            f"e-Gov本則法令XMLの{kind}:{_locator_num(number)}が欠落又は複数一致です。"
         )
-    return "\n".join(dict.fromkeys(values))
+    return values[0]
 
 
 def _flatten_references(value: Any) -> list[Mapping[str, Any]]:
@@ -505,6 +522,13 @@ class PrimaryLawEvidenceResolver:
             "revisionId": snapshot.revision_id,
             "sourceUrl": snapshot.source_url,
             "locator": _locator_payload(kind, number),
+            "xmlHash": _sha256(snapshot.xml_text),
+            "extractionRegion": (
+                "LawBody/MainProvision/descendant::Article"
+                if kind == "article" else "LawBody/AppdxTable"
+            ),
+            "extractionVersion": "egov-main-provision/v2",
+            "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
             "textHash": _sha256(text),
             "text": text[:12_000],
             "textTruncated": len(text) > 12_000,

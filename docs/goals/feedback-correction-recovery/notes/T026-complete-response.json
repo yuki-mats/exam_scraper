@@ -1,0 +1,132 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T026",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "最大安全sliceは3件の具体的訂正候補・カテゴリ判断・公開identity対応・レビュー入力をprivate保存先で完成する作業である。2018は公式正答4と公開2の不一致を確認した。2024は公開正誤と解説が「確認が必要」の命題に対応する一方、公開設問は「必要がない」を問うため、公式答2だけで反転できない。2020はproduction_snapshotに束縛した1文字訂正を準備できる。汎用providerやfull pipelineの拡張は先行させず、独立レビュー、正式承認、別公開判断を後続へ残す。",
+    "evidence": [
+      {
+        "path": "docs/goals/feedback-correction-recovery/state.yaml#T026",
+        "finding": "PyYAMLで全文確認。3件の具体的候補と公開identity保持が対象。2025の再審査は対象外。"
+      },
+      {
+        "path": "output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2018-official-source-comparison.json",
+        "finding": "公式PDF・画像の保存hashを照合し、公式問題画像と解答PDFを読んだ。学科II問3の正答は4。"
+      },
+      {
+        "path": "output/user_feedback_response_system/staging/recovery-source-2018/publication-identity-snapshot.json",
+        "finding": "5公開文は再取得rawの本文＋各選択肢と完全一致。公開vectorは[間違い,正しい,間違い,間違い,間違い]。肢2の解説は確認不要、肢4は確認必要と記載し、保存lawRevisionFactsは全肢で答2を記載している。"
+      },
+      {
+        "path": "output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2024-selection-semantics-comparison.json",
+        "finding": "公式問題画像は「確認済証の交付を受ける必要がないもの」を問う。公式解答PDFは2。公開vector[正しい,間違い,正しい,正しい,正しい]は各解説の「確認が必要」の判定と対応し、選択結果とは異なる。"
+      },
+      {
+        "path": "output/user_feedback_response_system/staging/recovery-source-2024/publication-identity-snapshot.json",
+        "finding": "5公開文は再取得rawの本文＋各選択肢と完全一致。公開questionIntentは欠落。過去caseのselect_incorrect記録と公開documentの状態を同一視できない。"
+      },
+      {
+        "path": "scripts/convert/convert_merged_to_firestore.py:979",
+        "finding": "true_false変換はcorrectChoiceText配列を各documentへそのまま移す。questionIntentによる反転はしない。firestoreQuestionIdsとuploadOriginalQuestionIdで既存公開identityを変換前に指定できる。"
+      },
+      {
+        "path": "output/user_feedback_response_system/staging/recovery-legacy-2020/production-snapshot.json",
+        "finding": "保存file hashとselected contentHashを照合。改題公開文の「明らかなたとき」に余分な「た」がある。snapshotは元取得sourceとの完全bindingを主張せず、group・membership・削除状態などの選択証跡が不足している。"
+      },
+      {
+        "path": "output/user_feedback_response_system/official_sources/2020-kanri-question-page7.png",
+        "finding": "公式問8肢3は「明らかなとき」。公開文は改題済みなので、公式原問全文への置換は認められない。"
+      },
+      {
+        "path": "scripts/upload/upload_questions_to_firestore.py:282",
+        "finding": "既存narrow upload契約はquestionText単独更新を受け付けない。この1文字訂正のためにfull-document uploadへ置き換えてはならない。"
+      },
+      {
+        "path": "docs/goals/feedback-correction-recovery/notes/T024-complete-receipt.json",
+        "finding": "184testsと2025限定処理の検証証跡を引き継ぐ。今回それらの再実行を目的とした範囲拡張は不要。"
+      }
+    ],
+    "next_allowed_task": {
+      "package_type": "worker",
+      "activation_owner": "PM",
+      "worker_package": {
+        "objective": "2018・2024・2020の3件について既存一次証跡を引き継ぎ、必要最小限のfresh selected read、明示的publication variant、具体的before/after差分、全カテゴリ判断、決定的なprivate候補、独立レビュー入力及び正式保存・公開の未完条件を完成する。Worker自身の判断を独立レビュー済みとは記載しない。",
+        "implementation_root": "/Users/yuki/development/exam_scraper_feedback",
+        "allowed_files": [
+          "output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py",
+          "output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py",
+          "output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py",
+          "output/user_feedback_response_system/staging/recovery-three-cases/runs/**"
+        ],
+        "ownership": "一人のWorkerが候補作成を所有する。他者差分を戻さない。製品code、board、commit/push、旧case・receipt更新はPM所有。",
+        "required_work": [
+          "旧raw・snapshot・公式資料・case・132固定fileを変更せず、hash付き入力manifestへ参照する。新資料・snapshot・候補はdirs700/files600の新runへ保存し、生の利用者本文・利用者識別情報を入力、通常ログ、Gitへ出さない。",
+          "2018/2024は対象全5公開IDとoriginalQuestionId、全文、updateTime、資格/group、questionSet所属、画像、削除状態をselected readで固定する。既存本文・選択肢が変わっていれば古い候補を適用せず差異を保存する。2020は対象1documentの同情報を必要最小限で補完し、欠落とnullを区別する。",
+          "2018/2024のsource bindingは既存loaderで得た再取得rawの完全bindingを使用する。公開identityとは別に、個別URL・raw hash・record ref・資格・年度・科目・問番号・ordered choice・全5公開文hashで結合する。科目を欠くcanonical_question_key単独で結合しない。",
+          "rawにlegacy IDを注入せず、privateのtyped publication variantへfirestoreQuestionIds・uploadOriginalQuestionIdと取得来歴を設定してから既存projector/converterを使う。生成後のID書換え、汎用25 provider、正式source導入、UI変更は行わない。",
+          "2018は出題時の答4、公開答2、各肢の完全命題、説明及びlawRevisionFactsの不一致を分ける。出題時訂正候補は[間違い,間違い,間違い,正しい,間違い]と答表示4を出発点とし、現行法の正誤を公式解答番号から推測しない。必要な現行・出題時一次法令を固定し、根拠不足は保留する。",
+          "2024は読者が公開全文から判断する命題と、解説が判定する「確認が必要」の命題を明示する。選択結果2、設問意図、各肢真偽、converted scalarを別欄にする。正誤一括反転を固定せず、曖昧な公開文を解消する場合は実際の全文before/afterと、正誤・解説を維持又は変更する理由を具体化する。未確定なら代替候補と判断に必要な根拠を保存する。",
+          "2020はproduction_snapshotを正本候補の来歴として扱い、元原問は別参照として保持する。questionTextの「明らかなたとき」から「た」1文字を削除する候補をcontentHash・updateTimeへ束縛する。originalQuestionChoiceTextにも残る誤字を明示し、このfieldを直す必要がある場合は別の具体的差分として記載して無断で候補へ混ぜない。",
+          "3件それぞれで現行configの全8カテゴリにfix/no_change/holdと根拠を付ける。具体的patch候補、field責務、最終projection、公開document差分、必要な正式保存先と移送hash、未実装のprovider又はnarrow publication条件をapproval packageへまとめる。",
+          "2018/2024は各5IDの候補を同入力から2回生成し、内容hashと全field一致を確認する。2020は1文字差分及びその他selected field不変を確認する。既存required fields・alignment・正誤契約・strict law検査を関連候補へ適用し、失敗を公開準備成功へ補正しない。",
+          "完全命題・一次資料・候補・policy/input hashを固定した独立レビュー入力を作る。真正native別reviewerは後続read-only role taskとしてPMがdispatchする。reviewPending=true、approvalReady=false、formalDataUpdated=false、publicationReady=falseを維持する。"
+        ],
+        "verify": [
+          "ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live",
+          "ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests -p 'test_candidate_contracts.py'",
+          "ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py --all",
+          "ROOTをcwdとして git diff --check",
+          "ROOTをcwdとして git status --short"
+        ],
+        "verification_policy": "開発中は関連検証だけを行う。実変換・重いpipelineは直列にし、完成の区切りで候補全体を一度検証する。各実行に入力・依存hash、HEAD、dirty、Python/環境、開始終了日時、command、結果を保存する。完了済み184testsや2025法令レビューの再実行を目的とした範囲拡張は禁止。",
+        "stop_if": [
+          "raw、WORK、正式24、旧132file、既存case・receipt又はallowed_files外の変更が必要。",
+          "公開identityの一意対応、全文、全5sibling集合又はfresh updateTimeを確認できず、推測で結合する必要。",
+          "2024の完全命題と真偽が未確定のまま公式答2から反転を確定する必要。",
+          "2020の最小訂正をfull-document uploadへ置き換える、group/membershipを推測する、又は未承認fieldを追加する必要。",
+          "独立レビュー済み、工程current、評価passed又は公開準備完了を実行証跡なしで記載する必要。",
+          "製品provider・schema・公開gateの変更、Firestore/Storage write、credit allowance変更又は新しい認証設定が必要。"
+        ],
+        "acceptance_oracle": "3件すべてに具体的差分又は一次根拠付き保留、全カテゴリ判断、identityと来歴、private検証結果、真正別reviewerへの固定入力、正式承認と公開の未完条件が揃えば候補作成sliceのみ完了。正式反映、独立レビュー完了、真正評価合格、Firestore公開の完了とは扱わない。"
+      }
+    },
+    "subgoal_contract": null,
+    "parallel_safety": {
+      "approved": false,
+      "reason": "一人のWorkerが3件の候補を固定した後、PMが別のread-only reviewerをdispatchする。共有成果物へ並列に書き込まない。"
+    },
+    "blocked_tasks": [
+      {
+        "task": "2018正式訂正",
+        "reason": "公式答4との不一致は確認済み。現行法の各命題、lawRevisionFacts、明示publication mappingのレビューと具体的差分承認が未済。"
+      },
+      {
+        "task": "2024訂正方向の確定",
+        "reason": "否定形の選択設問と「確認が必要」の真偽・解説が混在する。全文の命題を確定した真正別reviewerの判断が必要。"
+      },
+      {
+        "task": "2020正式保存・公開",
+        "reason": "1文字訂正は確認可能だが、snapshot補完、正式variantの来歴とoverwrite防止、questionText単独のguarded公開契約は未済。"
+      },
+      {
+        "task": "2025後続及び全4件公開",
+        "reason": "2025追加4field承認、真正checkpoint・評価、各対象の別Firestore公開承認、live readbackと台帳完了が残る。"
+      }
+    ],
+    "missing_evidence": [
+      "3件のfresh selected snapshotと完全なidentity・membership条件。",
+      "3件の具体的候補・全カテゴリ判断・関連検証。",
+      "2018/2024の出題時及び現行法と完全命題に対する真正別reviewer判断。",
+      "正式保存・overwrite防止・必要最小限の公開契約と具体的承認。",
+      "正式入力の真正評価、別公開判断後のguarded write・live readback・台帳更新。"
+    ],
+    "required_board_updates": [
+      "PMが本packageを次Worker taskへ設定し、候補作成と独立レビューを別receiptで追跡する。",
+      "2024の旧「公式答2だからvector反転」候補を承認可能と扱わず、完全命題の未確定を保持する。",
+      "2020の1文字訂正に汎用provider又はfull pipeline拡張を抱き合わせない。",
+      "旧case・receiptは保存し、新候補から参照する。全4件と2025後続を残しfull_outcome_complete=falseを維持する。"
+    ]
+  }
+}

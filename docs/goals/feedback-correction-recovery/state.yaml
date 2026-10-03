@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T021
+active_task: T028
 tasks:
   - id: T001
     type: scout
@@ -1761,9 +1761,9 @@ tasks:
   - id: T021
     type: worker
     assignee: Worker
-    status: active
-    objective: 元T018の2025対象限定生成・本則抽出・Inventory/checkpoint/真正評価/Publisher接続を新taskで実装する。同source stem共有の判定だけを本receiptの候補別outside proof契約へ明確化し、固定103
-      orphanのproofと既存全group停止を実証する。
+    status: blocked
+    objective: 元T018の2025対象限定生成・本則抽出・Inventory/checkpoint/真正評価/Publisher接続を新taskで実装する。同source stem共有の判定だけを本receiptの候補別outside
+      proof契約へ明確化し、固定103 orphanのproofと既存全group停止を実証する。
     implementation_root: /Users/yuki/development/exam_scraper_feedback
     allowed_files:
       - scripts/common/scoped_canonical_context.py
@@ -1873,8 +1873,8 @@ tasks:
         - legacy IDとURLの組について、固定した全source及び全candidate内の既知対応と矛盾しないことを確認する。同じIDが別URL、同じURLが別IDへ対応する場合は証明不能として残す。
         - このlegacy証明経路では明示sourceQuestionKey/sourceRecordRef/reviewQuestionId及びsnake_case別名を持つpartial bindingを受理しない。明示bindingを持つ場合は、完全で内部矛盾がなく、現在inventoryの別recordへ正確に解決する別の証明が必要。存在しない完全bindingも自動的に対象外扱いにしない。
         - source stemが対象と同じであることはchunk共有情報として保存する。同stemを対象一致とも対象外とも判定する根拠にせず、上記record identity条件で判定する。
-        - 証明recordはstage、相対file path、candidate位置、candidate全内容hash、source stem、legacy ID、URL、rawの明示binding field、alias intersection、resolver結果、inventory
-          hash、候補集合hash、resolver実装版を持つ。candidate位置は証跡識別だけに使い、問題内容の結合には使わない。
+        - 証明recordはstage、相対file path、candidate位置、candidate全内容hash、source stem、legacy ID、URL、rawの明示binding field、alias
+          intersection、resolver結果、inventory hash、候補集合hash、resolver実装版を持つ。candidate位置は証跡識別だけに使い、問題内容の結合には使わない。
         - 生成直前及び結果確定前に入力hashを再照合する。scope外候補は削除・書換えず、限定操作の対象外証明として記録する。通常全group index及びそのfail-closed結果を維持する。
       reject_conditions:
         - 対象のlegacy ID、URL、source key、record ref、review ID又はいずれかの公開IDがcandidate aliasへ含まれる。
@@ -1900,6 +1900,1159 @@ tasks:
       - notes/T020-outside-proof-receipt.json
       - notes/T018-product-slice-receipt.json
       - notes/T019-stopped-receipt.json
+    receipt:
+      result: blocked
+      task_id: T021
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - scripts/common/scoped_canonical_context.py
+        - scripts/pipeline/prepare_scoped_question_artifacts.py
+        - tools/question_review_console/scoped_artifacts.py
+        - tools/question_review_console/validated_evidence_import.py
+        - tools/question_review_console/primary_law_evidence.py
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/workflow_runner.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/evaluation.py
+        - tools/question_review_console/publisher.py
+        - tests/test_scoped_canonical_context.py
+        - tests/test_question_review_scoped_artifacts.py
+        - tests/test_question_review_validated_evidence_import.py
+        - tests/test_question_review_primary_law_evidence.py
+        - document/operations/artifact_contract.md
+        - document/operations/local_question_review_console.md
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/merged.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/converted.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/uploadReady.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/evidence-import.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json
+      commands:
+        - command: Python YAMLによるT021全定義とT018/T020/T019 receipt読み取り
+          status: pass
+          note: system PythonとWORK PythonにはPyYAMLがなく、/Users/yuki/.pyenv/versions/3.14.0/bin/python3を使用。
+        - command: 既存canonical contextの実入力照合
+          status: pass
+          note: 58原問、103対象外proof、unmatched 19/10/48/26、全group停止を確認。
+        - command: T015 package-manifestの固定132file SHA256照合
+          status: pass
+          note: 実装中の照合で不一致0。停止後の最終再照合は未実施。
+        - command: private候補の限定生成とInventory読み取り
+          status: pass
+          note: 全5公開IDを保持。issueCodesはscoped_formal_approval_pending、実workVersions.allCurrent=false。生成後にコードfingerprintが変わったため、保存manifestは再生成が必要。
+        - command: 保存済みnative証拠の実再生検証
+          status: pass
+          note: 固定package、native4出力、session event、input、candidate、sidecarを照合。importRunId=evidence-import:00866b34-b6c1-440d-a268-6dc76ed08a9b、status=validated_private、checkpointStages=[]。model実行・評価合格を意味しない。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'
+          status: fail
+          exit_code: 1
+          note: 6tests中2error。macOSのTemporaryDirectoryが/var経由であり、physical root制約に抵触。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'
+          status: pass
+          exit_code: 0
+          note: 1test。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'
+          status: pass
+          exit_code: 0
+          note: 1test。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'
+          status: pass
+          exit_code: 0
+          note: 17tests。本則・附則分離、枝番、欠落、重複、別表、旧hash保持を含む。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'
+          status: fail
+          exit_code: 1
+          note: 50tests中1failure。output/g-kentei/questions_json配下にsourceが存在するが、config/qualification_display_catalog.jsonにg-kenteiがない。修正configは許可外。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'
+          status: pass
+          exit_code: 0
+          note: 24tests。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_artifact_sync_e2e.py'
+          status: fail
+          exit_code: 1
+          note: 既存実pipeline prepare_firestore_upload.pyの実行が30秒でTimeoutExpired。原因未確定。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'
+          status: pass
+          exit_code: 0
+          note: 61tests。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'
+          status: pass
+          exit_code: 0
+          note: 16tests。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+          status: not_run
+          note: 許可外config blockerで停止。新鮮subscription判定、評価preview、Publisher preview、決定的2回生成、最終不変照合は未実施。
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: git status --short
+          status: pass
+          exit_code: 0
+          note: T021差分を保全。PM所有T021-resumed-worker.mdはWorker変更に含めない。commit/push・board変更なし。
+      summary: 引継ぎ5差分を保全し、context再照合、manifest経由のInventory・評価・Publisher接続、native証拠取込と回帰試験を追加した。実58原問・103proof・全5IDを確認し、native取込はvalidated_privateでcheckpointなし。指定unitは6pass/3fail。Inventoryの許可外catalog欠落により編集停止。category正本漏れ、temp
+        fixture、E2E timeout、再生成・統合検証・runtimeは未完了。正式24・追加4field・WORK・Firestoreへの書込みはしていない。
+      remaining_blockers:
+        - config/qualification_display_catalog.jsonのg-kentei欠落を修正するには新taskの許可範囲設定が必要。
+        - canonical category正本はWORK/output/2nd-class-kenchikushi/category/category.json。現在contextとfixtureはquestions_json/category*.jsonしか覆っていない。所属・追加削除・内容変更のhash固定と回帰試験が未完了。
+        - 新規context fixtureのtemp rootをresolveしたphysical pathへ修正する必要がある。
+        - 既存artifact_sync E2Eの30秒timeout原因を調査する必要がある。
+        - 新規artifact/import試験は限定的。manifest改変、候補削除、同名24衝突、stale beforeHash、strict law coverageと各接続の追加回帰・実統合検証が必要。
+        - private manifestは生成後のコードfingerprint変更でstale。完成コードと正しいcategory依存から再生成し、同入力2回生成と全field一致を検証する必要がある。
+        - verify_integration.pyは保存のみで未実行。runtime判定、真正評価preview、Publisher preview、canonical251file・T015132file・WORK差分の最終前後照合は未完了。
+        - 新鮮assert_subscription_access(force=true, allow_existing_credits=false)は未実行。runtime復旧や真正評価合格の証跡はない。
+        - 追加4field正式承認と真正工程checkpointは未取得。正式反映とFirestore writeは別task・承認境界を維持する。
+        - 既存private成果物のpermission補正は未実施。停止時観測はroot/dir755、生成files644、unit結果のみ600。要求dirs700/files600へ補正が必要。
+        - source fingerprintとcanonical候補不使用の公開経路の新規接続は実装したが、追加の実証が必要。全面slice完了とは扱えない。
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: 指定Inventory検証が許可外configの表示catalog欠落で失敗。T021のallowed_files外変更が必要という停止条件とPMの編集停止指示に従った。停止後の修正試行は0回。
+  - id: T022
+    type: judge
+    assignee: Judge
+    status: done
+    objective: T021途中実装と実失敗を審査し、catalog欠落・カテゴリ正本・physical path・E2E停止原因を解決して実統合/runtime/各接続まで完成する最大の安全な復旧Worker packageを確定する。
+    inputs:
+      - notes/T021-stopped-receipt.json
+      - notes/T021-stopped-provenance.json
+      - notes/T020-outside-proof-receipt.json
+      - notes/T018-product-slice-receipt.json
+      - 現在の未commit T021全差分
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json
+    constraints:
+      - Read-only。T021途中変更を保存し、既存verify失敗を隠さない。
+      - 追加4field正式反映とFirestore writeは別の承認境界。正式24・WORK・T015132filesを変更しない。
+      - 同じ法令レビューを再実行しない。checkpointと評価の実行事実を捏造しない。
+      - 表示catalog追加の根拠、E2E timeoutの実原因と適切な検証を確認する。timeout延長だけで成功扱いにしない。
+      - goal全4件は未完了。単独helper又は用意済みprivate候補だけで完成扱いにしない。
+    expected_output:
+      - goalbuddy_receipt_v1、次の具体的Worker package (allowed_files/verify/stop_if)、未完了の公開前oracle、full_outcome_complete=false
+    receipt:
+      result: done
+      task_id: T022
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: T021の停止は妥当だが、同じ縦断実装の復旧を続行できる。G検定の表示名は既存presetに根拠があり、catalog補修を許可する。実カテゴリ正本の固定漏れ、古いmanifest、限定的な試験、strict
+        law検査省略、Publisherの早期拒否だけの確認は解消が必要。E2Eの実停止原因は未確定なので段階別証跡を取得して最小修復する。正式24・追加4field承認・工程checkpoint・公開条件を維持し、実拒否を正確に記録した実装検証までを一人のWorkerへ許可する。
+      evidence:
+        - path: docs/goals/feedback-correction-recovery/state.yaml#T021,T022
+          finding: PyYAMLでT021・T022全文を読んだ。T021はblocked、9指定suite中6pass・3fail、統合とruntimeは未実行。
+        - path: docs/goals/feedback-correction-recovery/notes/T021-stopped-receipt.json
+          finding: 全5ID生成とvalidated_privateの取込は部分証跡。checkpointStages=[]、workVersions.allCurrent=false。完成や公開準備の証明ではない。
+        - path: docs/goals/feedback-correction-recovery/notes/T021-stopped-provenance.json
+          finding: 停止receiptのnative session・event・assistant outputのhashと来歴が保存されている。今回の審査では旧receiptを変更していない。
+        - path: docs/goals/feedback-correction-recovery/notes/T018-product-slice-receipt.json
+          finding: canonical contextからInventory・checkpoint・真正評価・Publisherまでの縦断契約と、追加4field正式反映・Firestore公開の別承認境界を維持する必要がある。
+        - path: docs/goals/feedback-correction-recovery/notes/T020-outside-proof-receipt.json
+          finding: 全58原問と全候補に結合した103件の個別対象外証明を要求する。同stemだけの許可・拒否や件数だけの証明は認めない。
+        - path: config/scrape_presets.json:1145
+          finding: g-kentei_udemyのqualification_codeはg-kentei、qualification_nameはG検定。表示catalogへ同名一項目を追加する根拠になる。
+        - path: scripts/common/scoped_canonical_context.py:168
+          finding: questions_json/category*.jsonしか列挙していない。実正本WORK/output/2nd-class-kenchikushi/category/category.jsonは存在し、保存manifestにも含まれていない。
+        - path: output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json
+          finding: 保存fingerprintと現ファイルを読取照合したところscoped_canonical_context.pyが不一致。現manifestは再利用できない。
+        - path: tests/test_scoped_canonical_context.py:54
+          finding: TemporaryDirectoryの未resolveパスをphysical rootへ渡すためmacOSの/var別名で2errorとなる。fixtureのphysical path補修で解決すべきである。
+        - path: tests/test_question_review_artifact_sync_e2e.py:138
+          finding: 実pipelineを30秒で実行するが、停止証跡にpartial stdoutと子工程が残っていない。pipelineはmerge・convert・count・upload dry-runを順次実行し、dry-runはFirestore初期化前にreturnする。どの段階が遅れたかは未確定。
+        - path: output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py:49
+          finding: merged required fieldsとalignmentは確認するがstrict law coverageを呼ばない。Publisher(None).preview(private候補)は品質条件で早期returnするためartifact
+            loader接続を実証しない。
+        - path: tools/question_review_console/scoped_artifacts.py:20
+          finding: 書込み後に直近parentだけをchmodする。観測した既存root・private directoryは755、manifestは644。保存前のprivate directory保護と600での保存が必要。
+        - path: 現在の未commit T021全差分
+          finding: tracked差分と全untracked実装・試験を読んだ。Judgeによる編集・stage・commitはなく、git diff --checkはpass。
+      next_allowed_task:
+        package_type: worker
+        activation_owner: PM
+        worker_package:
+          objective: T021の途中差分を保全して、2025二級建築士85011問3の読取専用canonical context、本則抽出、対象限定生成、Inventory、証拠取込とcheckpoint判定、既存評価・Publisher接続を完成する。catalog欠落、実カテゴリ正本、physical
+            fixture、E2E停止原因、private permissionと回帰不足を修復する。正式24現状と未承認private候補の両経路を実入力で検証し、新鮮subscription判定及び実previewの成功又は拒否を別々に保存する。sourceQuestionKey=2nd-class-kenchikushi:85011:12c59a4c014e49de、reviewQuestionId=12c59a4c014e49de、sourceRecordRef=question_85011_empty_1.json#0、既存5公開IDを維持する。
+          implementation_root: /Users/yuki/development/exam_scraper_feedback
+          canonical_read_only_root: /Users/yuki/development/exam_scraper_work
+          base_contracts:
+            - docs/goals/feedback-correction-recovery/notes/T018-product-slice-receipt.json#goalbuddy_receipt_v1.worker_package
+            - docs/goals/feedback-correction-recovery/notes/T020-outside-proof-receipt.json#goalbuddy_receipt_v1.outside_proof_contract
+            - docs/goals/feedback-correction-recovery/state.yaml#T021
+          allowed_files:
+            - config/qualification_display_catalog.json
+            - scripts/common/scoped_canonical_context.py
+            - scripts/merge/record_projection.py
+            - scripts/pipeline/prepare_scoped_question_artifacts.py
+            - scripts/pipeline/prepare_firestore_upload.py
+            - tools/question_review_console/scoped_artifacts.py
+            - tools/question_review_console/validated_evidence_import.py
+            - tools/question_review_console/primary_law_evidence.py
+            - tools/question_review_console/inventory.py
+            - tools/question_review_console/workflow_runner.py
+            - tools/question_review_console/qualification_runs.py
+            - tools/question_review_console/evaluation.py
+            - tools/question_review_console/publisher.py
+            - tests/test_scoped_canonical_context.py
+            - tests/test_question_review_scoped_artifacts.py
+            - tests/test_question_review_validated_evidence_import.py
+            - tests/test_question_review_primary_law_evidence.py
+            - tests/test_question_review_inventory.py
+            - tests/test_question_review_projection.py
+            - tests/test_question_review_artifact_sync_e2e.py
+            - tests/test_question_review_evaluation.py
+            - tests/test_question_review_publisher_safety.py
+            - document/operations/artifact_contract.md
+            - document/operations/delivery_workflow.md
+            - document/operations/local_question_review_console.md
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/**
+          permission_only_paths:
+            - output/user_feedback_response_system/staging/recovery-scoped-2025
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/private
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/private/merged.json
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/private/converted.json
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/private/uploadReady.json
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/evidence-import.json
+            - output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json
+          ownership: 一人のWorkerがこの縦断sliceを所有する。他者も作業しているため他者差分を戻さず、開始時fingerprintを保存して共存する。board・旧receipt・commit/push・remote統合はPM所有。
+          scope_limits:
+            - catalog変更はg-kenteiへdisplayName=G検定を追加する一項目だけ。preset・資格ID・他の表示名を変更しない。
+            - prepare_firestore_upload.pyの追加許可は段階別診断と、実証された同ファイル内の停止原因への最小修復に限る。工程削除、品質条件変更、upload意味変更、根拠のないtimeout延長は許可しない。
+            - 既存private manifest・artifact・evidence-import・unit-verification-attempt-1は内容を保持し、permission補正だけ行う。新生成・実行証跡は新しいruns/<run-id>/へ保存する。
+            - WORK、ROOT正式24、T015固定132file、旧T019/T021 receipt・provenanceを変更しない。正式18/21への追加4field保存とFirestore/Storage
+              writeを含めない。
+          required_work:
+            - 全58原問・全stage候補・ROOT正式24・参照証跡を実contextへ固定する。WORK/output/2nd-class-kenchikushi/category/category.jsonの内容、category依存集合の追加削除、対象documentのquestionSetId所属を覆う。実際の変換・資格ID解決・検証に使うcode/configの版を固定し、終了直前にも再照合する。
+            - physical root拒否を維持してtemp fixtureをresolveする。カテゴリ内容変更・追加削除、source/candidate追加削除、両rootの24同名一致及び不一致、resolver版変更、対象alias混入、partial
+              binding、stale beforeHashを自動試験で確認する。
+            - manifest内容・hash・mode改変、artifact欠落・改変、candidate変化、重複又は変更ID、symlink又は保存先逸脱を拒否する実試験を追加する。fixtureによるunit試験を実対象の評価合格へ転用しない。
+            - 既存native本人出力・event・入力・固定package・candidate・sidecarを現行validatorで再生検証する。各改変を拒否し、使用validatorの版を証跡で確認する。validated_privateはmodel
+              run及び全面checkpointを意味しない。元法令レビューを再実行しない。
+            - E2Eをunbufferedで再現し、開始終了時刻、実command、段階、partial stdout/stderrを新receiptへ残す。必要なら同一fixtureの子工程を個別に測定して停止箇所を確定する。原因に対する最小修復後、元の実pipeline・strict
+              checker・source不変条件を維持してpassさせる。継続して原因不明なら失敗を保存して停止する。
+            - private root以下を保存前からdirs700/files600にする。既存内容hashを保全してpermissionだけ補正する。失敗経路でも新private成果物を広いpermissionで残さない。
+            - 完成codeから正式24現状のみとprivate4field候補の両経路を新規生成する。同一入力で各経路を2回生成し、全field、全5ID、artifact content hashが一致することを確認する。18/21責務配分後のprivate最終projectionは固定candidate4fieldと完全一致し、保護fieldは不変である。
+            - merged・converted・upload-readyへ既存required fields、choice alignment、correct-choice coverage及びstrict law
+              coverageを適用する。strict条件はrequire-all-law-related、fail-on-hold、require-evidence-summary、require-law-references、require-current-correct-choice、require-verified-law-references、require-public-law-evidenceを維持する。正式現状が不合格なら具体的失敗を保存し、private候補のpassで置き換えない。
+            - ArtifactSynchronizer.prepare_scoped、QuestionInventory.scoped_question、QualificationRunCoordinator.import_scoped_native_evidenceを実entryで接続する。実workVersionsとcheckpoint適用範囲を保存し、承認待ち又は未実行工程をcurrentへ補正しない。
+            - 正式24現状のmanifestについてPublisherの実artifact loaderを読取実行し、全5ID・資格/group/originalQuestionId・必須field・input
+              fingerprintとの一致を確認する。private候補のloader拒否も確認する。両経路の実QuestionEvaluationService.previewとQuestionPublisher.previewを実行し、failed
+              delta、工程版、評価、承認待ちによる実拒否理由を保存する。
+            - 新鮮assert_subscription_access(force=True, allow_existing_credits=False)を実行する。要求前時刻と応答後時刻、結果、既存credit未承認、standardMode、provider/model不変を記録する。実gate拒否・通信障害・検証assert失敗を区別し、一般Exceptionを成功相当の拒否へ丸めない。
+            - 実machineReadyが不足する対象には評価を実行せず、既存評価入口の停止条件を証明する。真正評価runが必要となる場合は既存経路・正確なrun/session/thread/turn・policy/state/artifact
+              hashを使用し、許可外の正式保存が必要なら停止する。
+            - 全group診断19/10/48/26と103個別outside proofを保存し、通常全group gateは引き続き停止することを確認する。WORK既存差分、canonical基準251fileに新たなカテゴリ依存を加えた集合、正式24、T015132file、対象外成果物・membership・公開IDの前後不変を確認する。
+          verify:
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests
+              -p 'test_scoped_canonical_context.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests
+              -p 'test_question_review_scoped_artifacts.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests
+              -p 'test_question_review_validated_evidence_import.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests
+              -p 'test_question_review_primary_law_evidence.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests
+              -p 'test_question_review_inventory.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests
+              -p 'test_question_review_projection.py'
+            - ROOTをcwdとして PYTHONUNBUFFERED=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest
+              discover -s tests -p 'test_question_review_artifact_sync_e2e.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests
+              -p 'test_question_review_evaluation.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests
+              -p 'test_question_review_publisher_safety.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+            - ROOTをcwdとして git diff --check
+            - ROOTをcwdとして git status --short
+          verification_policy: 修復途中は関係する試験だけを実行し、完成時にT021の9指定suiteを一度通す。既存6passを探索目的で繰り返さず、変更又は具体的失敗に応じて再実行する。統合検証は新runへ全証跡を保存し、strict検査結果と実runtime・preview拒否を個別に報告する。
+          stop_if:
+            - 対象identity、本文、選択肢、正誤vector、select_correct、固定candidate又は5公開IDの変更が必要。
+            - T020の個別outside proofを満たせない候補を無視する必要、又は全group gate・resolver・品質条件・公開条件の緩和が必要。
+            - WORK、ROOT正式24、T015132file、旧receipt又はallowed_files外の内容変更が必要。
+            - E2E原因が不明のままtimeout延長・skip・mock置換・strict条件削除でpassさせる必要。
+            - 実停止原因の修復がprepare_firestore_upload.py以外の未許可pipeline/upload/dependency変更、install又は認証設定変更を必要とする。
+            - 追加4field正式反映、候補値の改作、Firestore/Storage write又は公開設定変更が必要。
+            - 法令レビュー再実行、架空session/thread/turn、checkpoint一括current化、評価代作又はpassed補正が必要。
+            - subscription/credit gate、allow_existing_credits、provider又はmodel設定変更が必要。
+            - 同時変更で開始fingerprintが変化した、又は安全なprivate保存と入力不変を証明できない。
+          acceptance_oracle:
+            - この実装sliceは9必須suiteと実統合検証が成功し、カテゴリ正本・実code版・全候補proof・全artifact・Inventory・checkpoint判定・評価・Publisherが同じ検証済み入力へ結合した時だけ完成とする。
+            - E2Eは実停止原因の証跡と、工程・品質条件を維持した実pipelineのpassを要求する。原因不明の失敗を残したままslice完成にしない。
+            - 正式現状のloader成功、private候補loader拒否、両経路の実preview拒否、実subscription判定はそれぞれ別に記録する。承認待ち又はcheckpoint不足による正しい拒否は接続実証になり得るが、runtime復旧・評価合格・公開準備完了ではない。
+            - 2025公開準備には別承認後の正式18/21・sidecarから固定4fieldと一致するprojection、全5artifact、真正current checkpoint、実runtime許可、真正評価passed、厳密なPublisher
+              previewを別途要求する。
+            - 原goal全4件の完成には2018・2024・2020の根拠とsource/publication identity、正式処理、別公開判断後のguarded write・全対象live readback・台帳更新が残る。
+      subgoal_contract: null
+      parallel_safety:
+        approved: false
+        reason: 一人のWorkerが共有context・Inventory・workflow・評価・Publisherを所有する。現在の途中差分及びPMのremote統合作業と並列編集しない。
+      blocked_tasks:
+        - task: 2025追加4field正式反映
+          reason: 具体的ユーザー承認待ち。安全な実装とprivate実証は続行可能。
+        - task: 2025真正評価合格・公開準備完了
+          reason: 正式追加field保存、真正current checkpoint、実runtime・評価passed・Publisher条件が未成立。
+        - task: 全group生成
+          reason: 103 orphanは正式解決されていない。対象外proofで全group gateを解除しない。
+        - task: 2018・2024・2020の必須後続処理
+          reason: 旧公開identity復旧、2024の意図と正誤対応、2020 production_snapshotの正本契約と正式処理が残る。
+        - task: Firestore公開・live readback・台帳完了
+          reason: 別の明示公開判断と正式入力の公開前oracleが必要。
+      missing_evidence:
+        - 実カテゴリ正本と現在code版を固定した新context・manifest。
+        - E2Eの実停止箇所・原因と修復後pass。
+        - manifest・artifact・overlay collision・stale beforeHash・候補削除を含む追加回帰証跡。
+        - 全artifactに対するstrict law coverageと正式現状の具体的診断。
+        - 同入力各2回生成、全field一致、対象外及び固定成果物の最終不変証跡。
+        - 実entryでのInventory・取込・checkpoint判定・canonical Publisher loader・実preview接続。
+        - 新鮮subscription判定と、成功・実gate拒否・通信障害の区別。
+        - 追加4field正式承認、真正工程・評価合格、他3件及び公開後の全成果。
+      required_board_updates:
+        - PMが本packageを次Worker taskへ設定する。Judgeはactive taskを選択・変更しない。
+        - T021停止receipt・provenanceと3指定失敗を保持し、新taskの修復・検証結果を別receiptへ保存する。
+        - 実装検証完了、承認待ち、runtime結果、checkpoint不足、評価合格、公開承認、live readbackを個別に追跡する。
+        - 追加4fieldの承認待ちを、安全な実装・private統合検証を止める理由にしない。
+        - PMのremote統合後に影響する検証を行い、統合前code版のreceiptだけで完成判定しない。
+        - full_outcome_complete=falseを維持し、原goalの4件とT004・T005・T999の必須後続を残す。
+  - id: T023
+    type: worker
+    assignee: Worker
+    status: blocked
+    objective: T021の途中差分を保全して、2025二級建築士85011問3の読取専用canonical context、本則抽出、対象限定生成、Inventory、証拠取込とcheckpoint判定、既存評価・Publisher接続を完成する。catalog欠落、実カテゴリ正本、physical
+      fixture、E2E停止原因、private permissionと回帰不足を修復する。正式24現状と未承認private候補の両経路を実入力で検証し、新鮮subscription判定及び実previewの成功又は拒否を別々に保存する。sourceQuestionKey=2nd-class-kenchikushi:85011:12c59a4c014e49de、reviewQuestionId=12c59a4c014e49de、sourceRecordRef=question_85011_empty_1.json#0、既存5公開IDを維持する。
+    implementation_root: /Users/yuki/development/exam_scraper_feedback
+    canonical_read_only_root: /Users/yuki/development/exam_scraper_work
+    base_contracts:
+      - docs/goals/feedback-correction-recovery/notes/T018-product-slice-receipt.json#goalbuddy_receipt_v1.worker_package
+      - docs/goals/feedback-correction-recovery/notes/T020-outside-proof-receipt.json#goalbuddy_receipt_v1.outside_proof_contract
+      - docs/goals/feedback-correction-recovery/state.yaml#T021
+    allowed_files:
+      - config/qualification_display_catalog.json
+      - scripts/common/scoped_canonical_context.py
+      - scripts/merge/record_projection.py
+      - scripts/pipeline/prepare_scoped_question_artifacts.py
+      - scripts/pipeline/prepare_firestore_upload.py
+      - tools/question_review_console/scoped_artifacts.py
+      - tools/question_review_console/validated_evidence_import.py
+      - tools/question_review_console/primary_law_evidence.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/workflow_runner.py
+      - tools/question_review_console/qualification_runs.py
+      - tools/question_review_console/evaluation.py
+      - tools/question_review_console/publisher.py
+      - tests/test_scoped_canonical_context.py
+      - tests/test_question_review_scoped_artifacts.py
+      - tests/test_question_review_validated_evidence_import.py
+      - tests/test_question_review_primary_law_evidence.py
+      - tests/test_question_review_inventory.py
+      - tests/test_question_review_projection.py
+      - tests/test_question_review_artifact_sync_e2e.py
+      - tests/test_question_review_evaluation.py
+      - tests/test_question_review_publisher_safety.py
+      - document/operations/artifact_contract.md
+      - document/operations/delivery_workflow.md
+      - document/operations/local_question_review_console.md
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/**
+    permission_only_paths:
+      - output/user_feedback_response_system/staging/recovery-scoped-2025
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private/merged.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private/converted.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private/uploadReady.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/evidence-import.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json
+    ownership: 一人のWorkerがこの縦断sliceを所有する。他者も作業しているため他者差分を戻さず、開始時fingerprintを保存して共存する。board・旧receipt・commit/push・remote統合はPM所有。
+    scope_limits:
+      - catalog変更はg-kenteiへdisplayName=G検定を追加する一項目だけ。preset・資格ID・他の表示名を変更しない。
+      - prepare_firestore_upload.pyの追加許可は段階別診断と、実証された同ファイル内の停止原因への最小修復に限る。工程削除、品質条件変更、upload意味変更、根拠のないtimeout延長は許可しない。
+      - 既存private manifest・artifact・evidence-import・unit-verification-attempt-1は内容を保持し、permission補正だけ行う。新生成・実行証跡は新しいruns/<run-id>/へ保存する。
+      - WORK、ROOT正式24、T015固定132file、旧T019/T021 receipt・provenanceを変更しない。正式18/21への追加4field保存とFirestore/Storage writeを含めない。
+    required_work:
+      - 全58原問・全stage候補・ROOT正式24・参照証跡を実contextへ固定する。WORK/output/2nd-class-kenchikushi/category/category.jsonの内容、category依存集合の追加削除、対象documentのquestionSetId所属を覆う。実際の変換・資格ID解決・検証に使うcode/configの版を固定し、終了直前にも再照合する。
+      - physical root拒否を維持してtemp fixtureをresolveする。カテゴリ内容変更・追加削除、source/candidate追加削除、両rootの24同名一致及び不一致、resolver版変更、対象alias混入、partial
+        binding、stale beforeHashを自動試験で確認する。
+      - manifest内容・hash・mode改変、artifact欠落・改変、candidate変化、重複又は変更ID、symlink又は保存先逸脱を拒否する実試験を追加する。fixtureによるunit試験を実対象の評価合格へ転用しない。
+      - 既存native本人出力・event・入力・固定package・candidate・sidecarを現行validatorで再生検証する。各改変を拒否し、使用validatorの版を証跡で確認する。validated_privateはmodel
+        run及び全面checkpointを意味しない。元法令レビューを再実行しない。
+      - E2Eをunbufferedで再現し、開始終了時刻、実command、段階、partial stdout/stderrを新receiptへ残す。必要なら同一fixtureの子工程を個別に測定して停止箇所を確定する。原因に対する最小修復後、元の実pipeline・strict
+        checker・source不変条件を維持してpassさせる。継続して原因不明なら失敗を保存して停止する。
+      - private root以下を保存前からdirs700/files600にする。既存内容hashを保全してpermissionだけ補正する。失敗経路でも新private成果物を広いpermissionで残さない。
+      - 完成codeから正式24現状のみとprivate4field候補の両経路を新規生成する。同一入力で各経路を2回生成し、全field、全5ID、artifact content hashが一致することを確認する。18/21責務配分後のprivate最終projectionは固定candidate4fieldと完全一致し、保護fieldは不変である。
+      - merged・converted・upload-readyへ既存required fields、choice alignment、correct-choice coverage及びstrict law coverageを適用する。strict条件はrequire-all-law-related、fail-on-hold、require-evidence-summary、require-law-references、require-current-correct-choice、require-verified-law-references、require-public-law-evidenceを維持する。正式現状が不合格なら具体的失敗を保存し、private候補のpassで置き換えない。
+      - ArtifactSynchronizer.prepare_scoped、QuestionInventory.scoped_question、QualificationRunCoordinator.import_scoped_native_evidenceを実entryで接続する。実workVersionsとcheckpoint適用範囲を保存し、承認待ち又は未実行工程をcurrentへ補正しない。
+      - 正式24現状のmanifestについてPublisherの実artifact loaderを読取実行し、全5ID・資格/group/originalQuestionId・必須field・input fingerprintとの一致を確認する。private候補のloader拒否も確認する。両経路の実QuestionEvaluationService.previewとQuestionPublisher.previewを実行し、failed
+        delta、工程版、評価、承認待ちによる実拒否理由を保存する。
+      - 新鮮assert_subscription_access(force=True, allow_existing_credits=False)を実行する。要求前時刻と応答後時刻、結果、既存credit未承認、standardMode、provider/model不変を記録する。実gate拒否・通信障害・検証assert失敗を区別し、一般Exceptionを成功相当の拒否へ丸めない。
+      - 実machineReadyが不足する対象には評価を実行せず、既存評価入口の停止条件を証明する。真正評価runが必要となる場合は既存経路・正確なrun/session/thread/turn・policy/state/artifact
+        hashを使用し、許可外の正式保存が必要なら停止する。
+      - 全group診断19/10/48/26と103個別outside proofを保存し、通常全group gateは引き続き停止することを確認する。WORK既存差分、canonical基準251fileに新たなカテゴリ依存を加えた集合、正式24、T015132file、対象外成果物・membership・公開IDの前後不変を確認する。
+    verify:
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_scoped_canonical_context.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_scoped_artifacts.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_validated_evidence_import.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_primary_law_evidence.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_inventory.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_projection.py'
+      - ROOTをcwdとして PYTHONUNBUFFERED=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover
+        -s tests -p 'test_question_review_artifact_sync_e2e.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_evaluation.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_publisher_safety.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+      - ROOTをcwdとして git diff --check
+      - ROOTをcwdとして git status --short
+    verification_policy: 修復途中は関係する試験だけを実行し、完成時にT021の9指定suiteを一度通す。既存6passを探索目的で繰り返さず、変更又は具体的失敗に応じて再実行する。統合検証は新runへ全証跡を保存し、strict検査結果と実runtime・preview拒否を個別に報告する。
+    stop_if:
+      - 対象identity、本文、選択肢、正誤vector、select_correct、固定candidate又は5公開IDの変更が必要。
+      - T020の個別outside proofを満たせない候補を無視する必要、又は全group gate・resolver・品質条件・公開条件の緩和が必要。
+      - WORK、ROOT正式24、T015132file、旧receipt又はallowed_files外の内容変更が必要。
+      - E2E原因が不明のままtimeout延長・skip・mock置換・strict条件削除でpassさせる必要。
+      - 実停止原因の修復がprepare_firestore_upload.py以外の未許可pipeline/upload/dependency変更、install又は認証設定変更を必要とする。
+      - 追加4field正式反映、候補値の改作、Firestore/Storage write又は公開設定変更が必要。
+      - 法令レビュー再実行、架空session/thread/turn、checkpoint一括current化、評価代作又はpassed補正が必要。
+      - subscription/credit gate、allow_existing_credits、provider又はmodel設定変更が必要。
+      - 同時変更で開始fingerprintが変化した、又は安全なprivate保存と入力不変を証明できない。
+    acceptance_oracle:
+      - この実装sliceは9必須suiteと実統合検証が成功し、カテゴリ正本・実code版・全候補proof・全artifact・Inventory・checkpoint判定・評価・Publisherが同じ検証済み入力へ結合した時だけ完成とする。
+      - E2Eは実停止原因の証跡と、工程・品質条件を維持した実pipelineのpassを要求する。原因不明の失敗を残したままslice完成にしない。
+      - 正式現状のloader成功、private候補loader拒否、両経路の実preview拒否、実subscription判定はそれぞれ別に記録する。承認待ち又はcheckpoint不足による正しい拒否は接続実証になり得るが、runtime復旧・評価合格・公開準備完了ではない。
+      - 2025公開準備には別承認後の正式18/21・sidecarから固定4fieldと一致するprojection、全5artifact、真正current checkpoint、実runtime許可、真正評価passed、厳密なPublisher
+        previewを別途要求する。
+      - 原goal全4件の完成には2018・2024・2020の根拠とsource/publication identity、正式処理、別公開判断後のguarded write・全対象live readback・台帳更新が残る。
+    inputs:
+      - notes/T022-recovery-receipt.json
+      - notes/T021-stopped-receipt.json
+      - notes/T021-stopped-provenance.json
+      - 現T021途中差分
+    receipt:
+      result: blocked
+      task_id: T023
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - config/qualification_display_catalog.json
+        - scripts/common/scoped_canonical_context.py
+        - scripts/pipeline/prepare_firestore_upload.py
+        - tools/question_review_console/scoped_artifacts.py
+        - tools/question_review_console/validated_evidence_import.py
+        - tests/test_scoped_canonical_context.py
+        - tests/test_question_review_scoped_artifacts.py
+        - output/user_feedback_response_system/staging/recovery-scoped-2025
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/merged.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/converted.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/uploadReady.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/evidence-import.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T023-9d4541d0b5b1/start-fingerprint.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T023-9d4541d0b5b1/e2e-diagnostic-before.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T023-9d4541d0b5b1/subscription-runtime.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T023-9d4541d0b5b1/stopped-verification-summary.json
+      commands:
+        - command: 指定PyYAML interpreterによるT023全定義とT022 worker_package読み取り
+          status: pass
+        - command: 開始fingerprint保存とpermission_only_paths補正
+          status: pass
+          note: start-fingerprint.jsonに補正前の内容SHA256を保存。既存private内容は不変で、指定directory700/file600へchmodのみ実施。
+        - command: PYTHONUNBUFFERED=1で同一E2E fixtureの実prepare_firestore_upload.pyを30秒制限で再現
+          status: pass
+          exit_code: 0
+          note: 未修正pipelineが5.228秒で完了。merge・convert・count・upload dry-runのstdout、command、開始終了時刻をe2e-diagnostic-before.jsonへ保存。旧timeout原因は未確定で、修復したとは扱わない。
+        - command: CodexAppServerClient.assert_subscription_access(force=True, allow_existing_credits=False)
+          status: pass
+          note: subscription-runtime.jsonへ実応答を保存。allowed=true、existingCreditsApproved=false、standardMode=true、provider=Codex
+            App Server。要求2026-10-03T12:53:15.339260+00:00、応答2026-10-03T12:53:16.934726+00:00。model turnは未実行。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'
+          status: pass
+          exit_code: 0
+          note: 関連試験として8testsが成功。その後artifact fixture修復でsource fixtureへexamYearと補足問題field形状を変更しており、最終状態の再実行は未実施。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'
+          status: fail
+          exit_code: 1
+          note: 関連試験3回とも5testsのsetUp失敗。初回examYear欠落、修復1はexamYear=2026追加、次に補足問題entry形状違反。修復2はchoiceIndex/itemsへ変更したが、空itemsが既存contract違反。最後の実errorはsuggestedQuestionDetailsByChoice[0].items
+            must contain 1 to 3 entries。fixture初期化の問題で、production不具合の証明ではない。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'
+          status: not_run
+          note: T023では未実行。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'
+          status: not_run
+          note: T023では未実行。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'
+          status: not_run
+          note: catalog一項目追加後の再検証は未実行。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'
+          status: not_run
+        - command: PYTHONUNBUFFERED=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover
+            -s tests -p 'test_question_review_artifact_sync_e2e.py'
+          status: not_run
+          note: 同一fixtureのpipeline直接診断は成功したが、指定suite自体はT023で未実行。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'
+          status: not_run
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'
+          status: not_run
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+          status: not_run
+          note: 旧scriptの新run対応改修も未完了。旧成果物を上書きするため現状のまま実行していない。
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: git status --short
+          status: pass
+          exit_code: 0
+          note: T021途中差分を保全。Workerによるboard・commit・remote変更なし。
+        - command: 停止時の固定fileとWORK status照合
+          status: pass_with_concurrent_change
+          note: T015132file不一致0、canonical基準251file不一致0、旧private内容不一致0。WORK statusへnw/201302のquestionType_fixed_1/_2の2行が追加された。WorkerはWORKを書き換えていない。
+      summary: T021差分を引継ぎ、catalog一項目、category正本・membership・code依存hash、private安全保存、段階診断とmutation試験を追加した。未修正実pipelineは5.23秒で成功し、真正subscription判定はallowed。artifact試験fixtureを2回修復しても空items違反が残り、契約に従い停止した。旧private内容・T015132・canonical251は不変。全9suite、strictlaw、2系統生成、実preview・loader接続は未完了。正式保存・評価・Firestore
+        writeは実施していない。
+      remaining_blockers:
+        - artifact試験fixtureが既存suggested_question_contractを満たしていない。scripts/common/suggested_question_contract.py:46-55ではトップレベル空配列[]は受理されるが、entryを持つ場合はchoiceIndex/itemsが必須。71-75ではitemsが1〜3件必要。fixture用途ならトップレベル[]が適切な候補であり、未修正。
+        - 2修復後も5testsがsetUpで失敗したため、これ以上のWorker修復は停止した。mutation assertions自体は未到達。
+        - 追加category/membership/code依存hashと安全保存の実canonical生成は未検証。native assistant event照合強化も実取込で未検証。
+        - 完成時9suite一回の検証、strict law coverage、正式現状とprivate候補の各2回生成、全field一致、実ArtifactSynchronizer・Coordinator・Inventory・evaluation/publisher
+          preview・canonical loader実証は未実施。
+        - 旧verify_integration.pyは新runs保存先とT023契約へ改修が必要。旧private成果物・receiptを上書きしてはならない。
+        - 旧E2E timeoutの原因は不明。今回の同一実pipeline成功と新段階診断は別事実として扱う。指定E2E suiteの最終実行は未実施。
+        - WORK statusが開始から変化した。追加行はoutput/nw/questions_json/201302/10_questionType_fixed/question_201302_1_questionType_fixed.jsonとquestion_201302_2_questionType_fixed.json。次taskは新しい開始状態を固定する必要がある。
+        - subscription実判定は成功したが、真正工程checkpoint・追加4field正式承認・真正評価合格・公開準備を証明しない。
+        - T021から引継いだ未完成差分を含めて次taskで継続する。今回のchanged_filesはT023編集とpermission補正、新証跡の範囲。
+      needs_judge: false
+      verification_attempts: 3
+      stopped_because: artifact回帰fixtureの検証が2回の修復後にも失敗したためWorker hard contractで停止。停止時にはWORK開始statusの同時変更も観測し、T023の同時変更停止条件にも該当した。
+  - id: T024
+    type: worker
+    assignee: Worker
+    status: done
+    objective: T023の全縦断sliceを引き継ぎ、既存contractで確認済みのfixture修正（補足なしはトップレベル空配列）から実関連回帰・新規生成・strict law・runtime・各entry接続まで完成する。途中保存と既存失敗は保全し、対象inputを変えない別資格の外部差分を明示観測して共存する。
+    implementation_root: /Users/yuki/development/exam_scraper_feedback
+    canonical_read_only_root: /Users/yuki/development/exam_scraper_work
+    base_contracts:
+      - docs/goals/feedback-correction-recovery/notes/T018-product-slice-receipt.json#goalbuddy_receipt_v1.worker_package
+      - docs/goals/feedback-correction-recovery/notes/T020-outside-proof-receipt.json#goalbuddy_receipt_v1.outside_proof_contract
+      - docs/goals/feedback-correction-recovery/state.yaml#T021
+    allowed_files:
+      - config/qualification_display_catalog.json
+      - scripts/common/scoped_canonical_context.py
+      - scripts/merge/record_projection.py
+      - scripts/pipeline/prepare_scoped_question_artifacts.py
+      - scripts/pipeline/prepare_firestore_upload.py
+      - tools/question_review_console/scoped_artifacts.py
+      - tools/question_review_console/validated_evidence_import.py
+      - tools/question_review_console/primary_law_evidence.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/workflow_runner.py
+      - tools/question_review_console/qualification_runs.py
+      - tools/question_review_console/evaluation.py
+      - tools/question_review_console/publisher.py
+      - tests/test_scoped_canonical_context.py
+      - tests/test_question_review_scoped_artifacts.py
+      - tests/test_question_review_validated_evidence_import.py
+      - tests/test_question_review_primary_law_evidence.py
+      - tests/test_question_review_inventory.py
+      - tests/test_question_review_projection.py
+      - tests/test_question_review_artifact_sync_e2e.py
+      - tests/test_question_review_evaluation.py
+      - tests/test_question_review_publisher_safety.py
+      - document/operations/artifact_contract.md
+      - document/operations/delivery_workflow.md
+      - document/operations/local_question_review_console.md
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/**
+    permission_only_paths:
+      - output/user_feedback_response_system/staging/recovery-scoped-2025
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private/merged.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private/converted.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/private/uploadReady.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/evidence-import.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json
+    ownership: 一人のWorkerがこの縦断sliceを所有する。他者も作業しているため他者差分を戻さず、開始時fingerprintを保存して共存する。board・旧receipt・commit/push・remote統合はPM所有。
+    scope_limits:
+      - catalog変更はg-kenteiへdisplayName=G検定を追加する一項目だけ。preset・資格ID・他の表示名を変更しない。
+      - prepare_firestore_upload.pyの追加許可は段階別診断と、実証された同ファイル内の停止原因への最小修復に限る。工程削除、品質条件変更、upload意味変更、根拠のないtimeout延長は許可しない。
+      - 既存private manifest・artifact・evidence-import・unit-verification-attempt-1は内容を保持し、permission補正だけ行う。新生成・実行証跡は新しいruns/<run-id>/へ保存する。
+      - WORK、ROOT正式24、T015固定132file、旧T019/T021 receipt・provenanceを変更しない。正式18/21への追加4field保存とFirestore/Storage writeを含めない。
+    required_work:
+      - 全58原問・全stage候補・ROOT正式24・参照証跡を実contextへ固定する。WORK/output/2nd-class-kenchikushi/category/category.jsonの内容、category依存集合の追加削除、対象documentのquestionSetId所属を覆う。実際の変換・資格ID解決・検証に使うcode/configの版を固定し、終了直前にも再照合する。
+      - physical root拒否を維持してtemp fixtureをresolveする。カテゴリ内容変更・追加削除、source/candidate追加削除、両rootの24同名一致及び不一致、resolver版変更、対象alias混入、partial
+        binding、stale beforeHashを自動試験で確認する。
+      - manifest内容・hash・mode改変、artifact欠落・改変、candidate変化、重複又は変更ID、symlink又は保存先逸脱を拒否する実試験を追加する。fixtureによるunit試験を実対象の評価合格へ転用しない。
+      - 既存native本人出力・event・入力・固定package・candidate・sidecarを現行validatorで再生検証する。各改変を拒否し、使用validatorの版を証跡で確認する。validated_privateはmodel
+        run及び全面checkpointを意味しない。元法令レビューを再実行しない。
+      - E2Eをunbufferedで再現し、開始終了時刻、実command、段階、partial stdout/stderrを新receiptへ残す。必要なら同一fixtureの子工程を個別に測定して停止箇所を確定する。原因に対する最小修復後、元の実pipeline・strict
+        checker・source不変条件を維持してpassさせる。継続して原因不明なら失敗を保存して停止する。
+      - private root以下を保存前からdirs700/files600にする。既存内容hashを保全してpermissionだけ補正する。失敗経路でも新private成果物を広いpermissionで残さない。
+      - 完成codeから正式24現状のみとprivate4field候補の両経路を新規生成する。同一入力で各経路を2回生成し、全field、全5ID、artifact content hashが一致することを確認する。18/21責務配分後のprivate最終projectionは固定candidate4fieldと完全一致し、保護fieldは不変である。
+      - merged・converted・upload-readyへ既存required fields、choice alignment、correct-choice coverage及びstrict law coverageを適用する。strict条件はrequire-all-law-related、fail-on-hold、require-evidence-summary、require-law-references、require-current-correct-choice、require-verified-law-references、require-public-law-evidenceを維持する。正式現状が不合格なら具体的失敗を保存し、private候補のpassで置き換えない。
+      - ArtifactSynchronizer.prepare_scoped、QuestionInventory.scoped_question、QualificationRunCoordinator.import_scoped_native_evidenceを実entryで接続する。実workVersionsとcheckpoint適用範囲を保存し、承認待ち又は未実行工程をcurrentへ補正しない。
+      - 正式24現状のmanifestについてPublisherの実artifact loaderを読取実行し、全5ID・資格/group/originalQuestionId・必須field・input fingerprintとの一致を確認する。private候補のloader拒否も確認する。両経路の実QuestionEvaluationService.previewとQuestionPublisher.previewを実行し、failed
+        delta、工程版、評価、承認待ちによる実拒否理由を保存する。
+      - 新鮮assert_subscription_access(force=True, allow_existing_credits=False)を実行する。要求前時刻と応答後時刻、結果、既存credit未承認、standardMode、provider/model不変を記録する。実gate拒否・通信障害・検証assert失敗を区別し、一般Exceptionを成功相当の拒否へ丸めない。
+      - 実machineReadyが不足する対象には評価を実行せず、既存評価入口の停止条件を証明する。真正評価runが必要となる場合は既存経路・正確なrun/session/thread/turn・policy/state/artifact
+        hashを使用し、許可外の正式保存が必要なら停止する。
+      - 全group診断19/10/48/26と103個別outside proofを保存し、通常全group gateは引き続き停止することを確認する。WORK既存差分、canonical基準251fileに新たなカテゴリ依存を加えた集合、正式24、T015132file、対象外成果物・membership・公開IDの前後不変を確認する。
+    verify:
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_scoped_canonical_context.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_scoped_artifacts.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_validated_evidence_import.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_primary_law_evidence.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_inventory.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_projection.py'
+      - ROOTをcwdとして PYTHONUNBUFFERED=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover
+        -s tests -p 'test_question_review_artifact_sync_e2e.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_evaluation.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p
+        'test_question_review_publisher_safety.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+      - ROOTをcwdとして git diff --check
+      - ROOTをcwdとして git status --short
+    verification_policy: 2026-10-03更新ユーザーAGENTSを適用。開発中は変更の関連testを直列実行し、既知field contractを読む前にfixture値を推測して試さない。全9suiteと実E2E・統合は実装完成の区切りで一度、重い検証を並列起動しない。30分以内の同入力hash・依存・環境成功だけ再利用可能（証跡条件不足なら成功再利用しない）。gateと本番承認は維持。
+    stop_if:
+      - 対象identity、本文、選択肢、正誤vector、select_correct、固定candidate又は5公開IDの変更が必要。
+      - T020の個別outside proofを満たせない候補を無視する必要、又は全group gate・resolver・品質条件・公開条件の緩和が必要。
+      - WORK、ROOT正式24、T015132file、旧receipt又はallowed_files外の内容変更が必要。
+      - E2E原因が不明のままtimeout延長・skip・mock置換・strict条件削除でpassさせる必要。
+      - 実停止原因の修復がprepare_firestore_upload.py以外の未許可pipeline/upload/dependency変更、install又は認証設定変更を必要とする。
+      - 追加4field正式反映、候補値の改作、Firestore/Storage write又は公開設定変更が必要。
+      - 法令レビュー再実行、架空session/thread/turn、checkpoint一括current化、評価代作又はpassed補正が必要。
+      - subscription/credit gate、allow_existing_credits、provider又はmodel設定変更が必要。
+      - 対象58source、全stage候補、正式24、category、法令evidence、reader/code/config依存のfingerprintが他者変更で変化した、又はprivate保存と入力不変を証明できない。別資格nwのみの変更は対象input
+        hashに影響しないことを記録し、他者差分を変更せず新baselineを固定する。
+    acceptance_oracle:
+      - この実装sliceは9必須suiteと実統合検証が成功し、カテゴリ正本・実code版・全候補proof・全artifact・Inventory・checkpoint判定・評価・Publisherが同じ検証済み入力へ結合した時だけ完成とする。
+      - E2Eは実停止原因の証跡と、工程・品質条件を維持した実pipelineのpassを要求する。原因不明の失敗を残したままslice完成にしない。
+      - 正式現状のloader成功、private候補loader拒否、両経路の実preview拒否、実subscription判定はそれぞれ別に記録する。承認待ち又はcheckpoint不足による正しい拒否は接続実証になり得るが、runtime復旧・評価合格・公開準備完了ではない。
+      - 2025公開準備には別承認後の正式18/21・sidecarから固定4fieldと一致するprojection、全5artifact、真正current checkpoint、実runtime許可、真正評価passed、厳密なPublisher
+        previewを別途要求する。
+      - 原goal全4件の完成には2018・2024・2020の根拠とsource/publication identity、正式処理、別公開判断後のguarded write・全対象live readback・台帳更新が残る。
+    inputs:
+      - notes/T023-stopped-receipt.json
+      - notes/T022-recovery-receipt.json
+      - 現在のT021/T023途中差分
+      - scripts/common/suggested_question_contract.py:46-75
+    receipt:
+      result: done
+      task_id: T024
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - config/qualification_display_catalog.json
+        - scripts/common/scoped_canonical_context.py
+        - scripts/pipeline/prepare_scoped_question_artifacts.py
+        - scripts/pipeline/prepare_firestore_upload.py
+        - tools/question_review_console/scoped_artifacts.py
+        - tools/question_review_console/validated_evidence_import.py
+        - tools/question_review_console/primary_law_evidence.py
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/workflow_runner.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/evaluation.py
+        - tools/question_review_console/publisher.py
+        - tests/test_scoped_canonical_context.py
+        - tests/test_question_review_scoped_artifacts.py
+        - tests/test_question_review_validated_evidence_import.py
+        - tests/test_question_review_primary_law_evidence.py
+        - document/operations/artifact_contract.md
+        - document/operations/delivery_workflow.md
+        - document/operations/local_question_review_console.md
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-a3887978f71a/**
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-integration-193695ac4029/**
+      commands:
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'
+          status: pass
+          exit_code: 0
+          tests: 8
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'
+          status: pass
+          exit_code: 0
+          tests: 5
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'
+          status: pass
+          exit_code: 0
+          tests: 2
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'
+          status: pass
+          exit_code: 0
+          tests: 17
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'
+          status: pass
+          exit_code: 0
+          tests: 50
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'
+          status: pass
+          exit_code: 0
+          tests: 24
+        - command: PYTHONUNBUFFERED=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover
+            -s tests -p 'test_question_review_artifact_sync_e2e.py'
+          status: pass
+          exit_code: 0
+          tests: 1
+          elapsed_seconds: 1.388
+          original_timeout_seconds: 30
+          historical_timeout_cause: unknown
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'
+          status: pass
+          exit_code: 0
+          tests: 61
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'
+          status: pass
+          exit_code: 0
+          tests: 16
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+          status: pass
+          exit_code: 0
+          result_path: output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-integration-193695ac4029/integration-receipt.json
+          source_count: 58
+          outside_proof_count: 103
+          generation_runs:
+            canonical: 2
+            private: 2
+          strict_law_exit_codes:
+            canonical:
+              merged: 1
+              converted: 1
+              uploadReady: 1
+            private:
+              merged: 0
+              converted: 0
+              uploadReady: 0
+          runtime:
+            result: allowed
+            force: true
+            allow_existing_credits: false
+            standard_mode: true
+            configuration_unchanged: true
+            model_turn_performed: false
+          evaluation_performed: false
+          can_publish: false
+          target_inputs_unchanged: true
+          historical_canonical_files_unchanged: 251
+          T015_files_unchanged: 132
+          old_private_and_receipts_unchanged: true
+          external_WORK_status_changed: true
+          external_change_observation: external-work-status-observation.json
+          worker_wrote_WORK: false
+          Firestore_written: false
+          permission_errors: 0
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: git status --short
+          status: pass
+          exit_code: 0
+          result: 継承した製品差分を保全。追跡対象変更は許可範囲内。新成果は指定runs以下。commit/push未実行。
+      summary: T021/T023途中差分を保全し、既存契約に従ってfixtureを修正。9suiteを直列実行し184tests成功。カテゴリ正本・依存版・103proof、両経路各2生成の全field/5ID/hash一致、真正native
+        import、実Inventory/Synchronizer/Coordinator/Evaluation/Publisher接続を検証した。正式現状のstrict不合格とprivate合格を別保存し、承認/checkpoint不足による評価未実行・公開拒否を維持。対象入力、固定251/132、旧成果不変。対象外WORK変更は別観測。保存先はT024の2新run。実装sliceのみ完了。
+      remaining_blockers:
+        - 追加4field正式18/21反映とsidecarの承認待ち。
+        - 真正current checkpoint不足によりmachineReady=false。真正評価は未実行、passedではない。
+        - 正式現状はstrict lawが3形態とも不合格。private候補の合格で置換していない。
+        - Publisher previewは公開を拒否。Firestore/Storage writeとlive readbackは未実行。
+        - 原goalの2018・2024・2020および全体公開判断は別途残る。
+        - 旧E2E timeout原因はunknownのまま保全。今回の元30秒条件の成功は新しい接続証拠として保存。
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
+    clarifications:
+      - 旧30秒E2E timeout原因は未確定で保持。今回同じfixtureの元30秒条件・全既存工程が5.23秒成功した事実を区別し、原因未確定を理由に無根拠な修復を作らない。今の元suiteが成功し段階診断を記録できれば現在の工程接続証拠として扱う。再び失敗すれば段階別原因切分けを行う。
+      - T023最後の失敗はfixture setUpのsuggestedQuestionDetailsByChoice[0].items=空配列。トップレベル[]は既存contractで受理される。製品validatorの変更は不要。
+      - T023終了時にWORK/nw/201302の2 patch行が他者により追加。T015132・canonical基準251・旧private内容は不変確認済み。対象context依存を改めてhash固定し、無関係な別資格変化を対象検証成功と混同しない。
+  - id: T025
+    type: pm
+    assignee: PM
+    status: done
+    objective: 検証済み19製品fileをmainへcommitし、他者remote差分を保全して統合・必要な影響検証・pushを完了する。実装検証・正式追加field承認待ち・checkpoint未済・独立評価・公開を区別し、残る3caseと2025後続を次の最大安全packageへ整理する。
+    allowed_files:
+      - docs/goals/feedback-correction-recovery/state.yaml
+      - docs/goals/feedback-correction-recovery/notes/**
+      - config/qualification_display_catalog.json
+      - scripts/common/scoped_canonical_context.py
+      - scripts/pipeline/prepare_scoped_question_artifacts.py
+      - scripts/pipeline/prepare_firestore_upload.py
+      - tools/question_review_console/scoped_artifacts.py
+      - tools/question_review_console/validated_evidence_import.py
+      - tools/question_review_console/primary_law_evidence.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/workflow_runner.py
+      - tools/question_review_console/qualification_runs.py
+      - tools/question_review_console/evaluation.py
+      - tools/question_review_console/publisher.py
+      - tests/test_scoped_canonical_context.py
+      - tests/test_question_review_scoped_artifacts.py
+      - tests/test_question_review_validated_evidence_import.py
+      - tests/test_question_review_primary_law_evidence.py
+      - document/operations/artifact_contract.md
+      - document/operations/delivery_workflow.md
+      - document/operations/local_question_review_console.md
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/**
+    inputs:
+      - notes/T024-complete-receipt.json
+      - notes/T024-complete-provenance.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-a3887978f71a/suite-input-snapshot.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-integration-193695ac4029/integration-receipt.json
+      - 現在の未commit own差分とorigin/main
+    constraints:
+      - Gitへstageするのは19検証済み製品fileとPM controlfilesのみ。private output、WORK、正式24、T015固定132は編集/commitしない。
+      - main単一branch、force pushなし。remote統合はWriterが停止したclean treeで行い、重複file変更時は影響testを実施。
+      - 最新ユーザー検証方針:同入力/依存/環境の30分以内successのみ再利用。重いE2E/buildを並列しない。
+      - 追加4field正式反映・独立評価合格・Firestore公開は未完了。原goal全4件を残す。
+    receipt:
+      result: done
+      summary: 19検証済み製品fileをcommitし、mainの他者SC/SG/UI差分を保全してrebase・push完了。184tests、影響する5suite直列再確認、変更された依存hashで実統合を確認。正本strict
+        law不合格・候補合格・評価未実行・公開拒否を区別した。
+      commands:
+        - cmd: git diff --check
+          status: pass
+        - cmd: 検証済み19fileをcommitしmainへ安全にrebase
+          status: pass
+        - cmd: qualification/source設定への影響5suiteを直列実行
+          status: pass
+          note: 103 tests; T025-post-integration-tests.json
+        - cmd: 現在hashを記録した実統合oracle実行
+          status: pass
+          note: T025-post-integration-oracle.json; private strict0/canonical1、evaluation false、canPublish false
+        - cmd: git push origin main
+          status: pass
+          note: 2d57b9b46210daad1ac8349e24b04e5a90d715fd
+      evidence:
+        - notes/T024-complete-receipt.json
+        - notes/T025-post-integration-tests.json
+        - notes/T025-post-integration-oracle.json
+      implementation_commit: c83f338fe
+      pushed_head: 2d57b9b46210daad1ac8349e24b04e5a90d715fd
+      full_outcome_complete: false
+      remaining_blockers:
+        - 追加4field正式承認
+        - 真正current checkpointと独立評価
+        - 2018/2024/2020のsource/publication identityと正式proposal
+        - 別の公開承認とlive readback/台帳完了
+    verification_note: 9suite snapshotと現在codeはprivate統合oracle scriptだけが異なる。19製品fileとunitの依存hashは一致。統合scriptはunit後に新run対応へ更新されて実行されているため、PMはこの変更の関連検証だけを現在script
+      hash・HEAD・dirty・時刻付きで一度実行し、184unit/E2Eは反復しない。
+  - id: T026
+    type: judge
+    assignee: Judge
+    status: done
+    objective: 既存の2018・2024再取得証跡と2020 production snapshotを一次資料・現行published variantへ照合し、公開IDを変えずに正本パッチ候補と各報告判断を完成する最大の安全な次Workerを選定する。2024は完全命題と設問意図を見て、不確定な反転訂正を決め打ちしない。
+    inputs:
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/next-implementation-acceptance.json
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2018-identity-import-contract-proposal.json
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2024-identity-import-contract-proposal.json
+      - output/user_feedback_response_system/staging/recovery-source-2018/
+      - output/user_feedback_response_system/staging/recovery-source-2024/
+      - output/user_feedback_response_system/staging/recovery-legacy-2020/
+      - output/user_feedback_response_system/cases/
+      - notes/T024-complete-receipt.json
+      - notes/T025-post-integration-oracle.json
+      - 実scoped context/projector/converter/publisher契約
+    constraints:
+      - Read-only。既存T015固定132/候補と正式24、WORK、private原本、既存receiptを変更しない。
+      - 完了済み2025法令レビューを再実施しない。2025追加4fieldとFirestore公開はそれぞれ別の承認境界。
+      - 既存3caseのfacts/差分を引き継いで、不要な方針調査を繰り返さない。新たなlegal verdictが必要なら現行一次法令と公式問題を使う。
+      - 生の利用者本文/識別情報をGit・通知・通常ログへ出さない。
+      - source再取得rawにlegacy原問/公開IDを注入しない。originalized/production_snapshotは明示のtyped input来歴として扱い、偽の00_sourceにしない。
+      - source↔publicationの別IDは完全proposition・元問題個別URL・公開5siblings・実snapshot根拠で結び、生成後のID書換えをしない。
+      - 最新ユーザー検証方針:開発中は関連テスト、重いE2E直列、区切りの全体検証は入力hash/環境/時刻ログを持つ。
+    expected_output:
+      - goalbuddy_receipt_v1 decision、exact worker_package(allowed_files/verify/stop_if)、case別の根拠/保留と公開前oracle
+      - 2018正答4と既存公開2の修正候補、2024の意図/真偽関係のsource-backed判断、2020単独誤字を必要なscopeだけで扱う正本契約
+      - 既存184testsとscope処理を再利用し、genericproviderやUIの不要拡張を避ける最大実用slice
+      - full_outcome_complete=false、2025 checkpointや追加field承認待ちも追跡して残す
+    receipt:
+      result: done
+      task_id: T026
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: 最大安全sliceは3件の具体的訂正候補・カテゴリ判断・公開identity対応・レビュー入力をprivate保存先で完成する作業である。2018は公式正答4と公開2の不一致を確認した。2024は公開正誤と解説が「確認が必要」の命題に対応する一方、公開設問は「必要がない」を問うため、公式答2だけで反転できない。2020はproduction_snapshotに束縛した1文字訂正を準備できる。汎用providerやfull
+        pipelineの拡張は先行させず、独立レビュー、正式承認、別公開判断を後続へ残す。
+      evidence:
+        - path: docs/goals/feedback-correction-recovery/state.yaml#T026
+          finding: PyYAMLで全文確認。3件の具体的候補と公開identity保持が対象。2025の再審査は対象外。
+        - path: output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2018-official-source-comparison.json
+          finding: 公式PDF・画像の保存hashを照合し、公式問題画像と解答PDFを読んだ。学科II問3の正答は4。
+        - path: output/user_feedback_response_system/staging/recovery-source-2018/publication-identity-snapshot.json
+          finding: 5公開文は再取得rawの本文＋各選択肢と完全一致。公開vectorは[間違い,正しい,間違い,間違い,間違い]。肢2の解説は確認不要、肢4は確認必要と記載し、保存lawRevisionFactsは全肢で答2を記載している。
+        - path: output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2024-selection-semantics-comparison.json
+          finding: 公式問題画像は「確認済証の交付を受ける必要がないもの」を問う。公式解答PDFは2。公開vector[正しい,間違い,正しい,正しい,正しい]は各解説の「確認が必要」の判定と対応し、選択結果とは異なる。
+        - path: output/user_feedback_response_system/staging/recovery-source-2024/publication-identity-snapshot.json
+          finding: 5公開文は再取得rawの本文＋各選択肢と完全一致。公開questionIntentは欠落。過去caseのselect_incorrect記録と公開documentの状態を同一視できない。
+        - path: scripts/convert/convert_merged_to_firestore.py:979
+          finding: true_false変換はcorrectChoiceText配列を各documentへそのまま移す。questionIntentによる反転はしない。firestoreQuestionIdsとuploadOriginalQuestionIdで既存公開identityを変換前に指定できる。
+        - path: output/user_feedback_response_system/staging/recovery-legacy-2020/production-snapshot.json
+          finding: 保存file hashとselected contentHashを照合。改題公開文の「明らかなたとき」に余分な「た」がある。snapshotは元取得sourceとの完全bindingを主張せず、group・membership・削除状態などの選択証跡が不足している。
+        - path: output/user_feedback_response_system/official_sources/2020-kanri-question-page7.png
+          finding: 公式問8肢3は「明らかなとき」。公開文は改題済みなので、公式原問全文への置換は認められない。
+        - path: scripts/upload/upload_questions_to_firestore.py:282
+          finding: 既存narrow upload契約はquestionText単独更新を受け付けない。この1文字訂正のためにfull-document uploadへ置き換えてはならない。
+        - path: docs/goals/feedback-correction-recovery/notes/T024-complete-receipt.json
+          finding: 184testsと2025限定処理の検証証跡を引き継ぐ。今回それらの再実行を目的とした範囲拡張は不要。
+      next_allowed_task:
+        package_type: worker
+        activation_owner: PM
+        worker_package:
+          objective: 2018・2024・2020の3件について既存一次証跡を引き継ぎ、必要最小限のfresh selected read、明示的publication variant、具体的before/after差分、全カテゴリ判断、決定的なprivate候補、独立レビュー入力及び正式保存・公開の未完条件を完成する。Worker自身の判断を独立レビュー済みとは記載しない。
+          implementation_root: /Users/yuki/development/exam_scraper_feedback
+          allowed_files:
+            - output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+            - output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+            - output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py
+            - output/user_feedback_response_system/staging/recovery-three-cases/runs/**
+          ownership: 一人のWorkerが候補作成を所有する。他者差分を戻さない。製品code、board、commit/push、旧case・receipt更新はPM所有。
+          required_work:
+            - 旧raw・snapshot・公式資料・case・132固定fileを変更せず、hash付き入力manifestへ参照する。新資料・snapshot・候補はdirs700/files600の新runへ保存し、生の利用者本文・利用者識別情報を入力、通常ログ、Gitへ出さない。
+            - 2018/2024は対象全5公開IDとoriginalQuestionId、全文、updateTime、資格/group、questionSet所属、画像、削除状態をselected readで固定する。既存本文・選択肢が変わっていれば古い候補を適用せず差異を保存する。2020は対象1documentの同情報を必要最小限で補完し、欠落とnullを区別する。
+            - 2018/2024のsource bindingは既存loaderで得た再取得rawの完全bindingを使用する。公開identityとは別に、個別URL・raw hash・record ref・資格・年度・科目・問番号・ordered
+              choice・全5公開文hashで結合する。科目を欠くcanonical_question_key単独で結合しない。
+            - rawにlegacy IDを注入せず、privateのtyped publication variantへfirestoreQuestionIds・uploadOriginalQuestionIdと取得来歴を設定してから既存projector/converterを使う。生成後のID書換え、汎用25
+              provider、正式source導入、UI変更は行わない。
+            - 2018は出題時の答4、公開答2、各肢の完全命題、説明及びlawRevisionFactsの不一致を分ける。出題時訂正候補は[間違い,間違い,間違い,正しい,間違い]と答表示4を出発点とし、現行法の正誤を公式解答番号から推測しない。必要な現行・出題時一次法令を固定し、根拠不足は保留する。
+            - 2024は読者が公開全文から判断する命題と、解説が判定する「確認が必要」の命題を明示する。選択結果2、設問意図、各肢真偽、converted scalarを別欄にする。正誤一括反転を固定せず、曖昧な公開文を解消する場合は実際の全文before/afterと、正誤・解説を維持又は変更する理由を具体化する。未確定なら代替候補と判断に必要な根拠を保存する。
+            - 2020はproduction_snapshotを正本候補の来歴として扱い、元原問は別参照として保持する。questionTextの「明らかなたとき」から「た」1文字を削除する候補をcontentHash・updateTimeへ束縛する。originalQuestionChoiceTextにも残る誤字を明示し、このfieldを直す必要がある場合は別の具体的差分として記載して無断で候補へ混ぜない。
+            - 3件それぞれで現行configの全8カテゴリにfix/no_change/holdと根拠を付ける。具体的patch候補、field責務、最終projection、公開document差分、必要な正式保存先と移送hash、未実装のprovider又はnarrow
+              publication条件をapproval packageへまとめる。
+            - 2018/2024は各5IDの候補を同入力から2回生成し、内容hashと全field一致を確認する。2020は1文字差分及びその他selected field不変を確認する。既存required fields・alignment・正誤契約・strict
+              law検査を関連候補へ適用し、失敗を公開準備成功へ補正しない。
+            - 完全命題・一次資料・候補・policy/input hashを固定した独立レビュー入力を作る。真正native別reviewerは後続read-only role taskとしてPMがdispatchする。reviewPending=true、approvalReady=false、formalDataUpdated=false、publicationReady=falseを維持する。
+          verify:
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+              --all --read-live
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests
+              -p 'test_candidate_contracts.py'
+            - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+              --all
+            - ROOTをcwdとして git diff --check
+            - ROOTをcwdとして git status --short
+          verification_policy: 開発中は関連検証だけを行う。実変換・重いpipelineは直列にし、完成の区切りで候補全体を一度検証する。各実行に入力・依存hash、HEAD、dirty、Python/環境、開始終了日時、command、結果を保存する。完了済み184testsや2025法令レビューの再実行を目的とした範囲拡張は禁止。
+          stop_if:
+            - raw、WORK、正式24、旧132file、既存case・receipt又はallowed_files外の変更が必要。
+            - 公開identityの一意対応、全文、全5sibling集合又はfresh updateTimeを確認できず、推測で結合する必要。
+            - 2024の完全命題と真偽が未確定のまま公式答2から反転を確定する必要。
+            - 2020の最小訂正をfull-document uploadへ置き換える、group/membershipを推測する、又は未承認fieldを追加する必要。
+            - 独立レビュー済み、工程current、評価passed又は公開準備完了を実行証跡なしで記載する必要。
+            - 製品provider・schema・公開gateの変更、Firestore/Storage write、credit allowance変更又は新しい認証設定が必要。
+          acceptance_oracle: 3件すべてに具体的差分又は一次根拠付き保留、全カテゴリ判断、identityと来歴、private検証結果、真正別reviewerへの固定入力、正式承認と公開の未完条件が揃えば候補作成sliceのみ完了。正式反映、独立レビュー完了、真正評価合格、Firestore公開の完了とは扱わない。
+      subgoal_contract: null
+      parallel_safety:
+        approved: false
+        reason: 一人のWorkerが3件の候補を固定した後、PMが別のread-only reviewerをdispatchする。共有成果物へ並列に書き込まない。
+      blocked_tasks:
+        - task: 2018正式訂正
+          reason: 公式答4との不一致は確認済み。現行法の各命題、lawRevisionFacts、明示publication mappingのレビューと具体的差分承認が未済。
+        - task: 2024訂正方向の確定
+          reason: 否定形の選択設問と「確認が必要」の真偽・解説が混在する。全文の命題を確定した真正別reviewerの判断が必要。
+        - task: 2020正式保存・公開
+          reason: 1文字訂正は確認可能だが、snapshot補完、正式variantの来歴とoverwrite防止、questionText単独のguarded公開契約は未済。
+        - task: 2025後続及び全4件公開
+          reason: 2025追加4field承認、真正checkpoint・評価、各対象の別Firestore公開承認、live readbackと台帳完了が残る。
+      missing_evidence:
+        - 3件のfresh selected snapshotと完全なidentity・membership条件。
+        - 3件の具体的候補・全カテゴリ判断・関連検証。
+        - 2018/2024の出題時及び現行法と完全命題に対する真正別reviewer判断。
+        - 正式保存・overwrite防止・必要最小限の公開契約と具体的承認。
+        - 正式入力の真正評価、別公開判断後のguarded write・live readback・台帳更新。
+      required_board_updates:
+        - PMが本packageを次Worker taskへ設定し、候補作成と独立レビューを別receiptで追跡する。
+        - 2024の旧「公式答2だからvector反転」候補を承認可能と扱わず、完全命題の未確定を保持する。
+        - 2020の1文字訂正に汎用provider又はfull pipeline拡張を抱き合わせない。
+        - 旧case・receiptは保存し、新候補から参照する。全4件と2025後続を残しfull_outcome_complete=falseを維持する。
+  - id: T027
+    type: worker
+    assignee: Worker
+    status: done
+    objective: 2018・2024・2020の3件について既存一次証跡を引き継ぎ、必要最小限のfresh selected read、明示的publication variant、具体的before/after差分、全カテゴリ判断、決定的なprivate候補、独立レビュー入力及び正式保存・公開の未完条件を完成する。Worker自身の判断を独立レビュー済みとは記載しない。
+    implementation_root: /Users/yuki/development/exam_scraper_feedback
+    allowed_files:
+      - output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/**
+    ownership: 一人のWorkerが候補作成を所有する。他者差分を戻さない。製品code、board、commit/push、旧case・receipt更新はPM所有。
+    required_work:
+      - 旧raw・snapshot・公式資料・case・132固定fileを変更せず、hash付き入力manifestへ参照する。新資料・snapshot・候補はdirs700/files600の新runへ保存し、生の利用者本文・利用者識別情報を入力、通常ログ、Gitへ出さない。
+      - 2018/2024は対象全5公開IDとoriginalQuestionId、全文、updateTime、資格/group、questionSet所属、画像、削除状態をselected readで固定する。既存本文・選択肢が変わっていれば古い候補を適用せず差異を保存する。2020は対象1documentの同情報を必要最小限で補完し、欠落とnullを区別する。
+      - 2018/2024のsource bindingは既存loaderで得た再取得rawの完全bindingを使用する。公開identityとは別に、個別URL・raw hash・record ref・資格・年度・科目・問番号・ordered
+        choice・全5公開文hashで結合する。科目を欠くcanonical_question_key単独で結合しない。
+      - rawにlegacy IDを注入せず、privateのtyped publication variantへfirestoreQuestionIds・uploadOriginalQuestionIdと取得来歴を設定してから既存projector/converterを使う。生成後のID書換え、汎用25
+        provider、正式source導入、UI変更は行わない。
+      - 2018は出題時の答4、公開答2、各肢の完全命題、説明及びlawRevisionFactsの不一致を分ける。出題時訂正候補は[間違い,間違い,間違い,正しい,間違い]と答表示4を出発点とし、現行法の正誤を公式解答番号から推測しない。必要な現行・出題時一次法令を固定し、根拠不足は保留する。
+      - 2024は読者が公開全文から判断する命題と、解説が判定する「確認が必要」の命題を明示する。選択結果2、設問意図、各肢真偽、converted scalarを別欄にする。正誤一括反転を固定せず、曖昧な公開文を解消する場合は実際の全文before/afterと、正誤・解説を維持又は変更する理由を具体化する。未確定なら代替候補と判断に必要な根拠を保存する。
+      - 2020はproduction_snapshotを正本候補の来歴として扱い、元原問は別参照として保持する。questionTextの「明らかなたとき」から「た」1文字を削除する候補をcontentHash・updateTimeへ束縛する。originalQuestionChoiceTextにも残る誤字を明示し、このfieldを直す必要がある場合は別の具体的差分として記載して無断で候補へ混ぜない。
+      - 3件それぞれで現行configの全8カテゴリにfix/no_change/holdと根拠を付ける。具体的patch候補、field責務、最終projection、公開document差分、必要な正式保存先と移送hash、未実装のprovider又はnarrow
+        publication条件をapproval packageへまとめる。
+      - 2018/2024は各5IDの候補を同入力から2回生成し、内容hashと全field一致を確認する。2020は1文字差分及びその他selected field不変を確認する。既存required fields・alignment・正誤契約・strict
+        law検査を関連候補へ適用し、失敗を公開準備成功へ補正しない。
+      - 完全命題・一次資料・候補・policy/input hashを固定した独立レビュー入力を作る。真正native別reviewerは後続read-only role taskとしてPMがdispatchする。reviewPending=true、approvalReady=false、formalDataUpdated=false、publicationReady=falseを維持する。
+    verify:
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+        --all --read-live
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests
+        -p 'test_candidate_contracts.py'
+      - ROOTをcwdとして /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+        --all
+      - ROOTをcwdとして git diff --check
+      - ROOTをcwdとして git status --short
+    verification_policy: 開発中は関連検証だけを行う。実変換・重いpipelineは直列にし、完成の区切りで候補全体を一度検証する。各実行に入力・依存hash、HEAD、dirty、Python/環境、開始終了日時、command、結果を保存する。完了済み184testsや2025法令レビューの再実行を目的とした範囲拡張は禁止。
+    stop_if:
+      - raw、WORK、正式24、旧132file、既存case・receipt又はallowed_files外の変更が必要。
+      - 公開identityの一意対応、全文、全5sibling集合又はfresh updateTimeを確認できず、推測で結合する必要。
+      - 2024の完全命題と真偽が未確定のまま公式答2から反転を確定する必要。
+      - 2020の最小訂正をfull-document uploadへ置き換える、group/membershipを推測する、又は未承認fieldを追加する必要。
+      - 独立レビュー済み、工程current、評価passed又は公開準備完了を実行証跡なしで記載する必要。
+      - 製品provider・schema・公開gateの変更、Firestore/Storage write、credit allowance変更又は新しい認証設定が必要。
+    acceptance_oracle: 3件すべてに具体的差分又は一次根拠付き保留、全カテゴリ判断、identityと来歴、private検証結果、真正別reviewerへの固定入力、正式承認と公開の未完条件が揃えば候補作成sliceのみ完了。正式反映、独立レビュー完了、真正評価合格、Firestore公開の完了とは扱わない。
+    inputs:
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/next-implementation-acceptance.json
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2018-identity-import-contract-proposal.json
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2024-identity-import-contract-proposal.json
+      - output/user_feedback_response_system/staging/recovery-source-2018/
+      - output/user_feedback_response_system/staging/recovery-source-2024/
+      - output/user_feedback_response_system/staging/recovery-legacy-2020/
+      - output/user_feedback_response_system/cases/
+      - notes/T024-complete-receipt.json
+      - notes/T025-post-integration-oracle.json
+      - 実scoped context/projector/converter/publisher契約
+      - notes/T026-complete-receipt.json
+    receipt:
+      result: done
+      task_id: T027
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-a2566e49a9ac/**
+        - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/**
+      commands:
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+            --all --read-live
+          status: pass
+          exit_code: 0
+          run: T027-a2566e49a9ac
+          completion_evidence: false
+          finding: 終了後の全field照合で2024本文案の未適用を発見。旧runは保全し、完成証拠から除外。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests
+            -p 'test_candidate_contracts.py'
+          status: pass
+          exit_code: 0
+          tests: 7
+          phase: repair前
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+            --all
+          status: pass
+          exit_code: 0
+          phase: repair前
+          limitation: 2024本文案とprojectionの一致検査が不足していたため完成証拠から除外。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+            --all --read-live
+          status: pass
+          exit_code: 0
+          run: T027-3a8307ea9d5f
+          result: fresh selected read、3件候補、2018/2024各2生成、一次法令XML6件、全8カテゴリ判断とレビュー入力を保存。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests
+            -p 'test_candidate_contracts.py'
+          status: pass
+          exit_code: 0
+          tests: 8
+          phase: repair後
+          evidence: runs/T027-3a8307ea9d5f/command-results.json
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+            --all
+          status: pass
+          exit_code: 0
+          phase: repair後
+          strict_law_exit_codes:
+            '2018':
+              merged: 1
+              firestore: 1
+            '2024':
+              merged: 1
+              firestore: 1
+          required_fields: 2018/2024のmerged・convertedはいずれも違反なし
+          alignment: 2018/2024の正答・選択肢alignmentはいずれも問題なし
+          '2020': questionTextから「た」1文字のみ削除。他selected fields不変。
+          publication_pass: false
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: git status --short
+          status: pass
+          exit_code: 0
+          evidence: runs/T027-3a8307ea9d5f/command-results.json
+        - command: 最終private permission・候補field一致・Git追跡範囲のread-only確認
+          status: pass
+          exit_code: 0
+          permission_errors: 0
+          private_files_tracked_by_git: 0
+      summary: 3件のfresh selected snapshotと具体候補をprivate保存した。2018/2024は全5ID・全文・updateTime・所属・画像・削除状態を確認し、typed variantから各2回生成して一致。2018は出題時答4候補と現行法holdを分離。2024は意味変更を全文差分で示し正式移送未解決を明記。2020はquestionText一文字だけ訂正。1回repair後8testsと実verify成功。strict
+        law不合格、独立レビュー・承認・公開未済を維持。旧132/raw/case/正式入力のhash不変、製品codeとWORKは変更なし。
+      artifacts:
+        final_run: /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f
+        review_input: review-input-v2.json
+        review_restart_conditions: review-restart-plan.json
+        2024_approval_package: 2024/approval-package-v2.json
+        verification: verification-receipt.json
+        execution_metadata:
+          - execution.json
+          - command-results.json
+          - input-manifest.json
+        reviewPending: true
+        approvalReady: false
+        formalDataUpdated: false
+        publicationReady: false
+        evaluationPerformed: false
+        FirestoreWritten: false
+        StorageWritten: false
+      remaining_blockers:
+        - 真正別native reviewerによる完全命題・時点別一次法令・具体差分の独立レビュー待ち。
+        - 2018の保存lawRevisionFacts答2と公式出題時答4の矛盾、現行法の各肢真偽・解説は保留。必要法条と再開条件を保存。
+        - 2024の本文改題案・vector維持案は未承認。現10は年度あり公式本文の上書きを禁止し、現05には独立問題化の影響があるため、正式variant/providerと移送方法は未解決。
+        - 2020のoriginalQuestionChoiceText訂正は別差分として保存し候補から除外。正式production_snapshot variant、overwrite防止、questionText単独のguarded公開契約は未実装。
+        - 2018/2024 strict lawは両形態とも不合格。候補作成検証成功を公開準備合格として扱っていない。
+        - 具体的正式承認、真正current checkpoint・評価、別公開判断、guarded writeとlive readbackは未実行。
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+  - id: T028
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 3件の固定候補を独立に一次資料と現行法・出題時法・現行公開全文へ照合し、2018全5肢の真偽/答/法改正情報、2024の命題と意図、2020最小誤字差分を個別判定する。計画のみで終えず実判断と根拠を返す。
+    inputs:
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/review-input-v2.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/review-restart-plan.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/input-manifest.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/verification-receipt.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/2018/approval-package.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/2024/approval-package-v2.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/2020/approval-package.json
+      - 固定原問/公式PDF/一次法令XML/公開snapshotへのmanifest参照
+    constraints:
+      - Read-only。全private候補/既存132/WORK/正式patch/旧receiptは不変。
+      - 他reviewerの判定を参照しない。自分で完全命題・法条・適用時点を確認する。
+      - 2025完了済レビューは再実施しない。公式番号だけで現在真偽を決めない。
+      - current 2026-10-03と出題時の基準日を別々に確認。法令XMLの本則から条文を読み、附則同番号と混同しない。原問の試験基準日が不明ならその範囲を明示する。
+      - 2024の公開否定設問と各解説の肯定命題の混在を評価し、実際に受験者が回答できる全文とTF値を独立確定する。無断で内容反転を承認しない。
+      - 2020はquestionTextのみ1文字差分と他fields不変を確認。originalQuestionChoiceText案は別差分。
+      - 生利用者本文/識別情報を返答や通常log/Gitへ出さない。追加一次web資料が必要なら公式sourceのみ。
+      - 法令根拠が不足したら具体法条/適用時点/必要資料を示してhold。推測でpassed/approvalReady/publicationReadyを記載しない。
+    expected_output:
+      - goalbuddy_receipt_v1、各case全カテゴリ判断と各法令肢の出題時/current真偽、正答・意図、候補accept/reject/hold理由と正確な一次根拠
+      - 候補を修正すべきなら具体field値と理由、正式保存/公開と別承認境界を残す
+      - full_outcome_complete=false、第二の独立reviewはPM後続、自己レビューのみで承認可能としない
     receipt: null
   - id: T004
     type: pm

@@ -19,6 +19,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 import json
+import time
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -54,8 +55,9 @@ MERGED2_SUBDIR = "30_merged_2"
 
 def run_step(name: str, command: list[str], dry_run: bool) -> None:
     printable = " ".join(shlex.quote(part) for part in command)
-    print(f"\n[STEP] {name}")
-    print(f"$ {printable}")
+    started = time.monotonic()
+    print(f"\n[STEP] {name} startedAt={datetime.now().astimezone().isoformat()}", flush=True)
+    print(f"$ {printable}", flush=True)
     if dry_run:
         print("[DRY RUN] 実行をスキップしました。")
         return
@@ -66,8 +68,10 @@ def run_step(name: str, command: list[str], dry_run: bool) -> None:
     if existing_pythonpath:
         pythonpath_parts.append(existing_pythonpath)
     env["PYTHONPATH"] = os.pathsep.join(pythonpath_parts)
+    env["PYTHONUNBUFFERED"] = "1"
 
     result = subprocess.run(command, cwd=ROOT_DIR, env=env)
+    print(f"[STEP END] {name} exit={result.returncode} elapsedSeconds={time.monotonic() - started:.3f} finishedAt={datetime.now().astimezone().isoformat()}", flush=True)
     if result.returncode != 0:
         raise RuntimeError(f"ステップ失敗: {name}")
 

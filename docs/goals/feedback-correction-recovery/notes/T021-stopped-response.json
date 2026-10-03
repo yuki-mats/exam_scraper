@@ -1,0 +1,146 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T021",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "changed_files": [
+      "scripts/common/scoped_canonical_context.py",
+      "scripts/pipeline/prepare_scoped_question_artifacts.py",
+      "tools/question_review_console/scoped_artifacts.py",
+      "tools/question_review_console/validated_evidence_import.py",
+      "tools/question_review_console/primary_law_evidence.py",
+      "tools/question_review_console/inventory.py",
+      "tools/question_review_console/workflow_runner.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/evaluation.py",
+      "tools/question_review_console/publisher.py",
+      "tests/test_scoped_canonical_context.py",
+      "tests/test_question_review_scoped_artifacts.py",
+      "tests/test_question_review_validated_evidence_import.py",
+      "tests/test_question_review_primary_law_evidence.py",
+      "document/operations/artifact_contract.md",
+      "document/operations/local_question_review_console.md",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private/merged.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private/converted.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private/uploadReady.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/evidence-import.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json"
+    ],
+    "commands": [
+      {
+        "command": "Python YAMLによるT021全定義とT018/T020/T019 receipt読み取り",
+        "status": "pass",
+        "note": "system PythonとWORK PythonにはPyYAMLがなく、/Users/yuki/.pyenv/versions/3.14.0/bin/python3を使用。"
+      },
+      {
+        "command": "既存canonical contextの実入力照合",
+        "status": "pass",
+        "note": "58原問、103対象外proof、unmatched 19/10/48/26、全group停止を確認。"
+      },
+      {
+        "command": "T015 package-manifestの固定132file SHA256照合",
+        "status": "pass",
+        "note": "実装中の照合で不一致0。停止後の最終再照合は未実施。"
+      },
+      {
+        "command": "private候補の限定生成とInventory読み取り",
+        "status": "pass",
+        "note": "全5公開IDを保持。issueCodesはscoped_formal_approval_pending、実workVersions.allCurrent=false。生成後にコードfingerprintが変わったため、保存manifestは再生成が必要。"
+      },
+      {
+        "command": "保存済みnative証拠の実再生検証",
+        "status": "pass",
+        "note": "固定package、native4出力、session event、input、candidate、sidecarを照合。importRunId=evidence-import:00866b34-b6c1-440d-a268-6dc76ed08a9b、status=validated_private、checkpointStages=[]。model実行・評価合格を意味しない。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'",
+        "status": "fail",
+        "exit_code": 1,
+        "note": "6tests中2error。macOSのTemporaryDirectoryが/var経由であり、physical root制約に抵触。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "1test。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "1test。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "17tests。本則・附則分離、枝番、欠落、重複、別表、旧hash保持を含む。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'",
+        "status": "fail",
+        "exit_code": 1,
+        "note": "50tests中1failure。output/g-kentei/questions_json配下にsourceが存在するが、config/qualification_display_catalog.jsonにg-kenteiがない。修正configは許可外。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "24tests。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_artifact_sync_e2e.py'",
+        "status": "fail",
+        "exit_code": 1,
+        "note": "既存実pipeline prepare_firestore_upload.pyの実行が30秒でTimeoutExpired。原因未確定。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "61tests。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "16tests。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py",
+        "status": "not_run",
+        "note": "許可外config blockerで停止。新鮮subscription判定、評価preview、Publisher preview、決定的2回生成、最終不変照合は未実施。"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass",
+        "exit_code": 0
+      },
+      {
+        "command": "git status --short",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "T021差分を保全。PM所有T021-resumed-worker.mdはWorker変更に含めない。commit/push・board変更なし。"
+      }
+    ],
+    "summary": "引継ぎ5差分を保全し、context再照合、manifest経由のInventory・評価・Publisher接続、native証拠取込と回帰試験を追加した。実58原問・103proof・全5IDを確認し、native取込はvalidated_privateでcheckpointなし。指定unitは6pass/3fail。Inventoryの許可外catalog欠落により編集停止。category正本漏れ、temp fixture、E2E timeout、再生成・統合検証・runtimeは未完了。正式24・追加4field・WORK・Firestoreへの書込みはしていない。",
+    "remaining_blockers": [
+      "config/qualification_display_catalog.jsonのg-kentei欠落を修正するには新taskの許可範囲設定が必要。",
+      "canonical category正本はWORK/output/2nd-class-kenchikushi/category/category.json。現在contextとfixtureはquestions_json/category*.jsonしか覆っていない。所属・追加削除・内容変更のhash固定と回帰試験が未完了。",
+      "新規context fixtureのtemp rootをresolveしたphysical pathへ修正する必要がある。",
+      "既存artifact_sync E2Eの30秒timeout原因を調査する必要がある。",
+      "新規artifact/import試験は限定的。manifest改変、候補削除、同名24衝突、stale beforeHash、strict law coverageと各接続の追加回帰・実統合検証が必要。",
+      "private manifestは生成後のコードfingerprint変更でstale。完成コードと正しいcategory依存から再生成し、同入力2回生成と全field一致を検証する必要がある。",
+      "verify_integration.pyは保存のみで未実行。runtime判定、真正評価preview、Publisher preview、canonical251file・T015132file・WORK差分の最終前後照合は未完了。",
+      "新鮮assert_subscription_access(force=true, allow_existing_credits=false)は未実行。runtime復旧や真正評価合格の証跡はない。",
+      "追加4field正式承認と真正工程checkpointは未取得。正式反映とFirestore writeは別task・承認境界を維持する。",
+      "既存private成果物のpermission補正は未実施。停止時観測はroot/dir755、生成files644、unit結果のみ600。要求dirs700/files600へ補正が必要。",
+      "source fingerprintとcanonical候補不使用の公開経路の新規接続は実装したが、追加の実証が必要。全面slice完了とは扱えない。"
+    ],
+    "needs_judge": true,
+    "verification_attempts": 1,
+    "stopped_because": "指定Inventory検証が許可外configの表示catalog欠落で失敗。T021のallowed_files外変更が必要という停止条件とPMの編集停止指示に従った。停止後の修正試行は0回。"
+  }
+}

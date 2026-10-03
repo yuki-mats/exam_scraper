@@ -1,0 +1,122 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T027",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "changed_files": [
+      "output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-a2566e49a9ac/**",
+      "output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/**"
+    ],
+    "commands": [
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live",
+        "status": "pass",
+        "exit_code": 0,
+        "run": "T027-a2566e49a9ac",
+        "completion_evidence": false,
+        "finding": "終了後の全field照合で2024本文案の未適用を発見。旧runは保全し、完成証拠から除外。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests -p 'test_candidate_contracts.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "tests": 7,
+        "phase": "repair前"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py --all",
+        "status": "pass",
+        "exit_code": 0,
+        "phase": "repair前",
+        "limitation": "2024本文案とprojectionの一致検査が不足していたため完成証拠から除外。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live",
+        "status": "pass",
+        "exit_code": 0,
+        "run": "T027-3a8307ea9d5f",
+        "result": "fresh selected read、3件候補、2018/2024各2生成、一次法令XML6件、全8カテゴリ判断とレビュー入力を保存。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests -p 'test_candidate_contracts.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "tests": 8,
+        "phase": "repair後",
+        "evidence": "runs/T027-3a8307ea9d5f/command-results.json"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py --all",
+        "status": "pass",
+        "exit_code": 0,
+        "phase": "repair後",
+        "strict_law_exit_codes": {
+          "2018": {
+            "merged": 1,
+            "firestore": 1
+          },
+          "2024": {
+            "merged": 1,
+            "firestore": 1
+          }
+        },
+        "required_fields": "2018/2024のmerged・convertedはいずれも違反なし",
+        "alignment": "2018/2024の正答・選択肢alignmentはいずれも問題なし",
+        "2020": "questionTextから「た」1文字のみ削除。他selected fields不変。",
+        "publication_pass": false
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass",
+        "exit_code": 0
+      },
+      {
+        "command": "git status --short",
+        "status": "pass",
+        "exit_code": 0,
+        "evidence": "runs/T027-3a8307ea9d5f/command-results.json"
+      },
+      {
+        "command": "最終private permission・候補field一致・Git追跡範囲のread-only確認",
+        "status": "pass",
+        "exit_code": 0,
+        "permission_errors": 0,
+        "private_files_tracked_by_git": 0
+      }
+    ],
+    "summary": "3件のfresh selected snapshotと具体候補をprivate保存した。2018/2024は全5ID・全文・updateTime・所属・画像・削除状態を確認し、typed variantから各2回生成して一致。2018は出題時答4候補と現行法holdを分離。2024は意味変更を全文差分で示し正式移送未解決を明記。2020はquestionText一文字だけ訂正。1回repair後8testsと実verify成功。strict law不合格、独立レビュー・承認・公開未済を維持。旧132/raw/case/正式入力のhash不変、製品codeとWORKは変更なし。",
+    "artifacts": {
+      "final_run": "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f",
+      "review_input": "review-input-v2.json",
+      "review_restart_conditions": "review-restart-plan.json",
+      "2024_approval_package": "2024/approval-package-v2.json",
+      "verification": "verification-receipt.json",
+      "execution_metadata": [
+        "execution.json",
+        "command-results.json",
+        "input-manifest.json"
+      ],
+      "reviewPending": true,
+      "approvalReady": false,
+      "formalDataUpdated": false,
+      "publicationReady": false,
+      "evaluationPerformed": false,
+      "FirestoreWritten": false,
+      "StorageWritten": false
+    },
+    "remaining_blockers": [
+      "真正別native reviewerによる完全命題・時点別一次法令・具体差分の独立レビュー待ち。",
+      "2018の保存lawRevisionFacts答2と公式出題時答4の矛盾、現行法の各肢真偽・解説は保留。必要法条と再開条件を保存。",
+      "2024の本文改題案・vector維持案は未承認。現10は年度あり公式本文の上書きを禁止し、現05には独立問題化の影響があるため、正式variant/providerと移送方法は未解決。",
+      "2020のoriginalQuestionChoiceText訂正は別差分として保存し候補から除外。正式production_snapshot variant、overwrite防止、questionText単独のguarded公開契約は未実装。",
+      "2018/2024 strict lawは両形態とも不合格。候補作成検証成功を公開準備合格として扱っていない。",
+      "具体的正式承認、真正current checkpoint・評価、別公開判断、guarded writeとlive readbackは未実行。"
+    ],
+    "needs_judge": false,
+    "verification_attempts": 2,
+    "stopped_because": null
+  }
+}

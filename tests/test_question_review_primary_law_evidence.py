@@ -38,6 +38,44 @@ def _law_xml(*, article_text: str, appendix_text: str = "別表本文") -> str:
 
 
 class PrimaryLawEvidenceTests(unittest.TestCase):
+    def test_supplementary_appendix_cannot_replace_main_appendix(self):
+        xml = _law_xml(article_text="本則").replace("</LawBody>", '<SupplProvision><AppdxTable Num="3">附則別表</AppdxTable></SupplProvision></LawBody>')
+        self.assertNotIn("附則別表", extract_locator_text(xml, "appendix_table", 3))
+        missing = xml.replace('<AppdxTable Num="3">', '<AppdxTable Num="4">', 1)
+        with self.assertRaises(PrimaryLawEvidenceError):
+            extract_locator_text(missing, "appendix_table", 3)
+        duplicate = xml.replace("</LawBody>", '<AppdxTable Num="3">重複本則別表</AppdxTable></LawBody>')
+        with self.assertRaises(PrimaryLawEvidenceError):
+            extract_locator_text(duplicate, "appendix_table", 3)
+
+    def test_main_and_supplementary_articles_are_separate(self):
+        xml = _law_xml(article_text="本則本文").replace(
+            "</LawBody>", '<SupplProvision><Article Num="11">附則本文</Article></SupplProvision></LawBody>'
+        )
+        self.assertIn("本則本文", extract_locator_text(xml, "article", 11))
+        self.assertNotIn("附則本文", extract_locator_text(xml, "article", 11))
+        with self.assertRaises(PrimaryLawEvidenceError):
+            extract_locator_text(xml.replace('Num="11"', 'Num="12"', 1), "article", 11)
+        duplicate = xml.replace("</MainProvision>", '<Article Num="11">重複</Article></MainProvision>')
+        with self.assertRaises(PrimaryLawEvidenceError):
+            extract_locator_text(duplicate, "article", 11)
+        with self.assertRaises(PrimaryLawEvidenceError):
+            extract_locator_text(xml, "supplementary_article", 11)
+
+    def test_snapshot_versions_new_hash_without_overwriting_old(self):
+        import hashlib
+        xml = _law_xml(article_text="本則本文").replace(
+            "</LawBody>", '<SupplProvision><Article Num="11">附則本文</Article></SupplProvision></LawBody>'
+        )
+        snapshot = LawFileSnapshot(law_id="law", as_of="2026-10-03", source_url="url", revision_id="rev", xml_text=xml)
+        old = {"textHash": hashlib.sha256("本則本文附則本文".encode()).hexdigest()}
+        old_copy = dict(old)
+        new = PrimaryLawEvidenceResolver._snapshot_payload(snapshot, kind="article", number=11)
+        self.assertEqual(old, old_copy)
+        self.assertEqual(new["xmlHash"], hashlib.sha256(xml.encode()).hexdigest())
+        self.assertNotEqual(old["textHash"], new["textHash"])
+        self.assertEqual(new["extractionVersion"], "egov-main-provision/v2")
+
     def test_wrong_law_title_is_not_accepted_as_primary_evidence(self):
         def fetcher(law_id, as_of):
             return LawFileSnapshot(
