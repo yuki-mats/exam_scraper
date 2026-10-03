@@ -24,6 +24,23 @@ RUN_LIVE_TESTS = os.environ.get("RUN_LIVE_TESTS") == "1"
 
 
 class ScrapeSgsikenTests(unittest.TestCase):
+    def test_question_number_excludes_heading_tools_and_keeps_existing_ids(self):
+        html = """<h2>ネットワークスペシャリスト令和7年春期 午前Ⅰ 問1</h2>
+        <h3 class="qno">問1<div class="tool-box">note_alt calculate</div></h3>
+        <div id="mondai">適切な説明はどれか。</div>
+        <ul class="selectList"><li><button class="selectBtn">ア</button>A</li>
+        <li><button class="selectBtn">イ</button>B</li></ul>
+        <div class="answerBox"><span id="answerChar">ア</span></div>"""
+        url = "https://www.nw-siken.com/kakomon/07_haru/am1_1.html"
+        identity = {"source_question_id": f"202501:am:問1:{url}", "public_question_id": "old-public", "original_question_id": "old-original"}
+        record = parse_q_question_page(html, url, http_session=None, download_images=False,
+                                      output_list_group_id="202501", existing_identity=identity)
+        self.assertIsNotNone(record)
+        self.assertEqual(record["questionLabel"], "問1")
+        self.assertEqual(record["source_question_id"], identity["source_question_id"])
+        self.assertEqual(record["public_question_id"], "old-public")
+        self.assertEqual(record["original_question_id"], "old-original")
+
     def test_missing_image_stops_source_acquisition(self):
         with patch("scrape_sgsiken._download_and_save_images", return_value=[]):
             with self.assertRaises(ValueError):

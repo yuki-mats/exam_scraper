@@ -405,6 +405,10 @@ def parse_q_question_page(
         # フォールバック: パンくず等から問番号を拾う
         pan = soup.find("div", class_="pan")
         question_label = normalize_inline_text(pan.get_text(" ", strip=True) if pan else "")
+    # 見出し内のメモ・電卓ボタンは問番号の一部ではない。
+    question_number = re.search(r"問\s*([0-9]+)", normalize_digits(question_label))
+    if question_number:
+        question_label = f"問{question_number.group(1)}"
 
     mondai = soup.find(id="mondai")
     question_body_text = normalize_question_body_text(mondai.get_text("\n", strip=True) if mondai else "")
