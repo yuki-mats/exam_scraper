@@ -7,6 +7,7 @@ import hashlib
 import threading
 import time
 from pathlib import Path
+from unittest.mock import patch
 
 from tests.qualification_run_test_support import *  # noqa: F403
 
@@ -10435,6 +10436,78 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertEqual(spec["status"], "queued")
         self.assertEqual(spec["stageId"], "law_audit")
         self.assertEqual(spec["target"]["id"], "new-exam-2026-q1")
+
+    def test_non_law_independent_metadata_rework_uses_normal_writer(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator, _sync, _server, parent = self._start_deferred_flow(
+                root, NonLawSourceInventory(), ["law_audit"]
+            )
+            parent = coordinator.store.get("new-exam", parent["runId"])
+            feedback = {
+                "source": "independent_evaluation",
+                "reworkItems": [{"stage": "03b", "message": "補足の帰属を確認する"}],
+            }
+            coordinator.store.update_question_stage(
+                "new-exam", parent["runId"], "new-exam-2026-q1", "law_audit",
+                priorValidationFeedback=[feedback],
+            )
+            parent = coordinator.store.get("new-exam", parent["runId"])
+            phase = parent["phaseExecutions"][0]
+            phase_plan, phase_prompt = coordinator._flow_phase_plan_prompt(parent, phase)
+            # A valid no-op receipt must not conceal the requested metadata work.
+            with patch.object(coordinator, "_record_work_versions") as record:
+                spec = coordinator._question_stage_spec(
+                    "new-exam", parent["runId"], phase, "new-exam-2026-q1",
+                    phase_plan, phase_prompt, parent=parent,
+                )
+                record.assert_not_called()
+
+        self.assertEqual(spec["status"], "queued")
+        self.assertEqual(spec["stageId"], "law_audit")
+        self.assertEqual(spec["target"]["id"], "new-exam-2026-q1")
+
+    def test_non_law_dynamic_rework_requires_same_question_stage_feedback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root, QualificationWorkflow(root, NonLawSourceInventory()),
+                FakeSynchronizer(), DeferredJobs(), "secret",
+                app_server=ConfiguredAppServer(),
+            )
+            phase_plan = coordinator._plan(
+                "new-exam", "law_audit", "group_refresh", None,
+                list_group_ids=["2026"],
+            )
+            cases = [
+                ("new-exam-2026-q1", "law_audit", "independent_evaluation", "03b", True),
+                ("another-question", "law_audit", "independent_evaluation", "03b", False),
+                ("new-exam-2026-q1", "explanation", "independent_evaluation", "03b", False),
+                ("new-exam-2026-q1", "law_audit", "independent_evaluation", "03", False),
+                ("new-exam-2026-q1", "law_audit", "candidate_validation", "03b", False),
+            ]
+            for question_id, stage_id, source, requested, expected in cases:
+                with self.subTest(question_id=question_id, stage_id=stage_id,
+                                  source=source, requested=requested):
+                    parent = {
+                        **phase_plan, "mode": "outdated",
+                        "questionExecutions": [{
+                            "questionId": question_id,
+                            "stages": [{
+                                "stageId": stage_id,
+                                "priorValidationFeedback": [{
+                                    "source": source,
+                                    "reworkItems": [{"stage": requested}],
+                                }],
+                            }],
+                        }],
+                    }
+                    plan, target = coordinator._dynamic_question_phase_plan(
+                        "new-exam", parent, {"id": "law_audit"}, phase_plan,
+                        "new-exam-2026-q1",
+                    )
+                    self.assertEqual(target is not None, expected)
+                    self.assertEqual(plan["targetQuestionKeys"], ["new-exam-2026-q1"])
 
     def test_missing_logical_projection_blocks_only_that_question(self):
         class MissingProjectionInventory(SourceOnlyInventory):

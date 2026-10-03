@@ -11823,6 +11823,17 @@ class QualificationRunCoordinator:
             stage_id,
             projected,
         )
+        if not applicable and stage_id == "law_audit":
+            # Non-law questions normally need no law writer. A saved audit
+            # can still identify incorrect law-owned metadata on that question;
+            # the classification prerequisite must not erase that repair task.
+            queued_stage = self._queue_stage(parent, question_id, stage_id) or {}
+            applicable = any(
+                isinstance(feedback, Mapping)
+                and feedback.get("source") == "independent_evaluation"
+                and "03b" in evaluation_rework_stage_codes(feedback)
+                for feedback in queued_stage.get("priorValidationFeedback") or []
+            )
 
         identity = SourceIdentityBinding.from_mapping(target)
         aliases = sorted(

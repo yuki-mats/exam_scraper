@@ -64,6 +64,7 @@
 - 03bを含むUI runは、`00_source`不変確認後かつmodel開始前に、対象年度の旧sidecarを現在のsource inventoryへ一意に対応させる。旧UI IDは3要素のsource identityへ原子的に正規化し、実質的な監査内容は変えない。v2契約を満たさない旧行はschemaだけを昇格せず、その一問の通常再整備へ送る。正規化件数、保留したmetadata件数、前後hashは親manifestのreceiptへ残す。
 - UIの`reviewKey`が衝突しても、`sourceRecordRef`で問題を分離して資格・年度・問題一覧を表示する。3要素を一意に確定できない場合は03bだけをfail-closedでblockし、他工程の閲覧・実行は妨げない。selected artifactをsource recordへ対応できない場合は、path・工程・件数を`artifactResolutionBlockers`へ出し、その工程とdeliveryを完了扱いにしない。
 - 技術知識や計算だけで正誤を判断できる問題は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`として03b完了を記録できる。法令根拠がないという理由だけで`hold`にしない。
+- 別session評価がその問の03b補足・監査metadataに再整備を要求した場合は、02bによる分類確認後もその指摘を一問queueへ保持し、非法律問題でも通常の03b writerへ渡す。非法律という分類だけで再整備を省略せず、03bの担当metadataを根拠から再生成する。技術的な正答・解説の更新範囲は02a・03の責務のままとする。
 - 03bの工程版を記録する前に、工程03と同じ解説文の形式・日本語品質を検証する。加えて、`lawRevisionFacts`、正答対応、verified根拠、v2 sidecarの識別・分類・必須metadataをserverが検証する。どちらかに失敗した成功receiptは確定しない。
 
 判断内容と保存項目は[現行法監査](current_law_question_maintenance_workflow.md)と[03b prompt](../../prompt/03b_prompt_audit_current_law_and_patch.md)を正本とします。
