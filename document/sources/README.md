@@ -17,7 +17,7 @@
 | `kakomonn` | `*.kakomonn.com` | `code.py` | 一覧をページ送りし、各問題ページと解答endpointを取得。公開ページ。 | `tests/test_kakomonn_inventory.py`, `tests/test_scrape_identity_keys.py`, `tests/test_scrape_presets.py` |
 | `kakomon` | `kako-mon.com` | `scrape_kakomon.py` | 資格slugと試験回をpresetから受け取り、1問1ページを取得。公開ページ。 | [抽出契約](kako-mon/source_contract.md), `tests/test_scrape_kakomon.py`, `tests/test_scrape_presets.py` |
 | `gassyunin` | `gassyunin.com` | `scrape_gassyunin.py` | 年度ごとの単一ページ内に5科目。公開ページ。 | [抽出契約](gas-shunin/gassyunin_source_contract.md), `tests/test_scrape_gassyunin.py` |
-| `sgsiken` | `sg-siken.com`, `nw-siken.com` | `scrape_sgsiken.py` | 一覧から午前問題と午後の共通問題ページを収集。公開ページ。 | `tests/test_scrape_sgsiken.py`, `tests/test_scrape_presets.py` |
+| `sgsiken` | `sg-siken.com`, `nw-siken.com`, `chintaikanrishi-siken.com` | `scrape_sgsiken.py` | 一覧から単問ページと午後の共通問題ページを収集。公開ページ。番号式DOMにも対応。 | `tests/test_scrape_sgsiken.py`, `tests/test_chintaikanrishi_acquisition.py`, `tests/test_scrape_presets.py` |
 | `kurohon` | `kurohon.jp` | `scrape_kurohon.py` | 1試験回のページから問題ブロックと正答表を対応付ける。公開ページ。 | `tests/test_scrape_kurohon.py`, `tests/test_scrape_presets.py` |
 | `mecnet` | `study.mecnet.jp` | `scrape_mecnet_kokushi.py` | 一覧、ページ送り、解説ページ。ログイン必須。 | `tests/test_scrape_presets.py`, `tests/test_mecnet_kokushi_category_build.py` |
 | `kougai` | `yaku-tik.com`, `qualification-text.com`, `zoron.hatenablog.com` | `scrape_kougai.py` | domainごとに一覧発見と問題parserを切り替えるmulti-source adapter。公開ページ。 | `tests/test_scrape_kougai.py`, `tests/test_scrape_identity_keys.py` |
@@ -41,11 +41,13 @@
 - 1年度の期待構成は法令16、基礎理論15、製造9、供給9、消費機器9の計58問。件数差があればDOM変更として停止・再監査する。
 - 公式冊子との照合ではWeb検索をやり直さず、[JIA公式PDFアーカイブ](gas-shunin/official_exam_pdf_archive.md)の問題・論述問題・正答を使う。
 
-### sg-siken.com / nw-siken.com
+### sg-siken.com / nw-siken.com / chintaikanrishi-siken.com
 
 - source側の回表記と出力`list_group_id`が異なるため、`scrape_targets`で明示的に対応付ける。
 - 午前問題と午後問題ではDOMとID粒度が異なる。午後は共通問題文、設問、空欄を既存parserで分解する。
 - 新しい系列domainでも同じページ構造なら`scraper_type=sgsiken`を再利用し、live testで一覧URLと1問を確認する。
+- 賃貸管理の番号式ページでは、年度・問番号と正答の二つの表示を独立に照合する。個数・組合せ問題を含む抽出の詳細は[番号式過去問道場の抽出契約](kakomon-dojo/numbered_source_contract.md)を参照する。
+- 賃貸管理の新規取得は西暦年度groupへ保存する。既存の過去問.comの`880xx`groupはID・ファイル名を維持して同じ取得元から更新し、両取得元を混在させない。presetの`chintaikanrishi_kakomonn`は保全記録にある全groupの更新用とする。
 
 ### kurohon.jp
 

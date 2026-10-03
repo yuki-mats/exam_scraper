@@ -41,6 +41,8 @@ site、実装、認証、既知制約の対応は[site台帳](../sources/README.
 - 既存Firestore IDがある更新では、その対応を維持する。
 - 独自問題の`source_question_id`はsiteの不変IDを優先し、なければ問題固有の安定URLを使う。表示順、一覧URL、本文ハッシュは恒久IDにしない。どちらも得られない取得元は保留する。
 - 再取得で同じ`source_question_id`が見つかった場合は取得元の現在内容と照合する。同一なら確認のみ、異なる場合は標準scraperの成功後に同じファイルを更新し、変更IDをreportへ残す。公開済み問題は自動上書きせず、変更IDだけを再整備・再評価する。
+- kakomonnの標準取得では、既存recordのID・ファイル名・位置を保ち、新しいsource IDだけを空いているchunkへ追加する。復元作業のやり直しで`--identity-baseline <JSON>`を使う場合は、作業開始時から存在したIDの記録を渡す。JSONは`qualificationCode`と`identities`（source IDをキーに公開ID・原問ID等を保持するobject）を持ち、資格と現存recordのID一致を検証する。この記録に含まれない同じ作業中の新規取得IDだけを、取得元の正しい番号で再生成できる。通常の再取得では全既存IDを保持する。
+- source IDとcanonical identity、保持した公開IDはそれぞれの根拠で確定する。古い公開IDに重複がある場合は`identityConflicts`へ記録し、該当データの公開・ID移行を保留する。取得した正しい問番号を古いIDへ合わせて変更しない。
 - ローカル資格コードと既存Firestoreの`qualificationId`が異なる場合は`publication_qualification_id`を明示し、公開IDを暗黙に変更しない。
 - `source_list_group_id`は取得元siteのIDとして保持する。`output_list_group_id`は、公式過去問では`YYYY`又は`YYYY01`・`YYYY02`、独自問題では講座・問題集を識別できる安定名とする。
 

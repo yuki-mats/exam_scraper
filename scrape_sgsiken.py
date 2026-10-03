@@ -4,10 +4,11 @@ import os
 import re
 import json
 import tempfile
+import gzip
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Iterable
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
 from bs4.element import Tag
@@ -20,6 +21,10 @@ from scripts.scrape.common import (
     load_local_secure_env,
     is_placeholder_image_url,
     make_public_question_id,
+    make_canonical_question_key,
+    make_url_source_question_id,
+    source_site_from_url,
+    extract_text_with_subsup,
     make_storage_url,
     normalize_inline_text,
     normalize_question_body_text,
@@ -43,6 +48,7 @@ AM2_PAGE_HREF_RE = re.compile(r"^am2_(?P<num>[0-9]+)\.html$")
 # CBT公開問題（科目A/科目B）
 A_PAGE_HREF_RE = re.compile(r"^a(?P<num>[0-9]+)\.html$")
 B_PAGE_HREF_RE = re.compile(r"^b(?P<num>[0-9]+)\.html$")
+NUMBERED_PAGE_HREF_RE = re.compile(r"^(?P<num>[0-9]{2})\.html$")
 
 ERA_START_YEAR = {
     "令和": 2019,
@@ -193,6 +199,7 @@ def collect_question_page_urls(list_page_html: str, list_page_url: str) -> tuple
             or B_PAGE_HREF_RE.fullmatch(href)
             or AM1_PAGE_HREF_RE.fullmatch(href)
             or AM2_PAGE_HREF_RE.fullmatch(href)
+            or NUMBERED_PAGE_HREF_RE.fullmatch(href)
         ):
             url = normalize_question_page_url(urljoin(list_page_url, href))
             if url not in seen_question_urls:
@@ -393,6 +400,12 @@ def parse_q_question_page(
     existing_identity: dict | None = None,
 ) -> dict | None:
     soup = BeautifulSoup(html_text, "html.parser")
+    if soup.select_one(".mondai") is not None and soup.select_one("ol.selectList") is not None:
+        return parse_numbered_question_page(
+            html_text, page_url, http_session=http_session,
+            download_images=download_images, output_list_group_id=output_list_group_id,
+            existing_identity=existing_identity,
+        )
     exam_label, exam_year, _ = extract_exam_meta_from_h2(soup)
     if exam_year is None:
         return None
@@ -550,6 +563,103 @@ def parse_q_question_page(
         "answer_result_text": answer_result_text,
         "answer_result_inferred_correct_choice_numbers": answer_numbers,
         "source_question_id": source_question_id,
+    }
+
+
+def _own_list_item(item: Tag) -> Tag:
+    """省略されたli閉じタグによる兄弟の混入を除き、当該項目だけを読む。"""
+    copied = BeautifulSoup(str(item), "html.parser").find("li")
+    for nested in list(copied.find_all("li", recursive=False)):
+        nested.decompose()
+    return copied
+
+
+def parse_numbered_question_page(
+    html_text: str, page_url: str, *, http_session, download_images: bool,
+    output_list_group_id: str, existing_identity: dict | None = None,
+) -> dict:
+    """番号式の過去問道場DOM。正答表示と同じ問のdata-answerを独立に照合する。"""
+    soup = BeautifulSoup(html_text, "html.parser")
+    path = re.fullmatch(r"/kakomon/(\d{4})/(\d{2})\.html", urlparse(page_url).path)
+    if path is None:
+        raise ValueError(f"番号式の問題URLではありません: {page_url}")
+    year, number = map(int, path.groups())
+    exam_label, heading_year, _ = extract_exam_meta_from_h2(soup)
+    heading_number = re.search(r"問\s*(\d+)", exam_label)
+    if heading_year != year or not heading_number or int(heading_number[1]) != number:
+        raise ValueError(f"ページ題名とURLの年度・問番号が一致しません: {page_url}")
+    body = soup.select_one(".mondai")
+    choices = [_own_list_item(item) for item in soup.select("ol.selectList li")]
+    answer = soup.select_one(".answerBox .answerChar")
+    if body is None or answer is None or len(choices) != 4:
+        raise ValueError(f"本文・正答・4選択肢がそろいません: {page_url}")
+    answer_numbers = [int(value) for value in re.findall(r"\d+", answer.get_text(" ", strip=True))]
+    marked = [index for index, item in enumerate(choices, 1) if item.get("data-answer") == "t"]
+    if not answer_numbers or sorted(set(answer_numbers)) != marked:
+        raise ValueError(f"正答表示とdata-answerが一致しません: {page_url}")
+    source_id = make_url_source_question_id(QUALIFICATION_CODE, page_url)
+    canonical_key = make_canonical_question_key(
+        qualification_code=QUALIFICATION_CODE, exam_year=year, question_number=number,
+    )
+    public_id = make_public_question_id(canonical_key)
+    if existing_identity:
+        if existing_identity.get("source_question_id") != source_id:
+            raise ValueError(f"既存の取得元IDが一致しません: {page_url}")
+        public_id = existing_identity.get("public_question_id") or public_id
+
+    def images(element: Tag, purpose: str) -> list[str]:
+        urls = extract_image_urls_from_element(element, page_url)
+        filenames = download_and_save_images(
+            http_session, urls, f"dojo_q{public_id}_{purpose}", base_dir=IMAGE_OUTPUT_DIR or ".",
+        ) if download_images and urls else []
+        return [make_storage_url(filename, QUALIFICATION_CODE) for filename in filenames]
+
+    question_images = images(body, "q")
+    # kanaListのア～エ等はCSSの表示なので、本文へ明示して保持する。
+    for ordered in body.select("ol.kanaList"):
+        for index, item in enumerate(ordered.find_all("li", recursive=False)):
+            item.insert(0, "アイウエオカキクケコ"[index] + "　")
+    choice_texts = [normalize_question_body_text(extract_text_with_subsup(item)) for item in choices]
+    if not all(choice_texts):
+        raise ValueError(f"空の選択肢があります: {page_url}")
+    explanation = soup.select_one("section.kaisetsu")
+    if explanation is None:
+        raise ValueError(f"解説がありません: {page_url}")
+    explanation_images = images(explanation, "exp")
+    heading = explanation.find("h3")
+    if heading:
+        heading.decompose()
+    snippets = [[] for _ in choices]
+    explanation_list = explanation.select_one("ol.kaisetsuList")
+    # 個数・組合せ問題のア～エ解説を、回答候補1～4に結び付けない。
+    if explanation_list is not None and "kanaList" not in explanation_list.get("class", []):
+        items = [_own_list_item(item) for item in explanation_list.find_all("li")]
+        if len(items) == len(choices):
+            snippets = [[normalize_question_body_text(extract_text_with_subsup(item))] for item in items]
+    for ordered in explanation.select("ol.kanaList"):
+        for index, item in enumerate(ordered.find_all("li", recursive=False)):
+            item.insert(0, "アイウエオカキクケコ"[index] + "　")
+    classification = [normalize_inline_text(a.get_text(" ", strip=True)) for a in soup.select(".bunyalinks a")]
+    selected = [choice_texts[index - 1] for index in answer_numbers]
+    return {
+        "questionBodyText": normalize_question_body_text(extract_text_with_subsup(body)),
+        "examLabel": exam_label, "examYear": year, "questionLabel": f"問{number}",
+        "list_group_id": output_list_group_id, "source_list_group_id": str(year),
+        "choiceTextList": choice_texts,
+        "correctChoiceText": selected[0] if len(selected) == 1 else selected,
+        "answer_result_text": build_answer_result_text(answer_numbers),
+        "answer_result_inferred_correct_choice_numbers": answer_numbers,
+        "question_url": page_url, "source_question_id": source_id,
+        "questionSourceSite": source_site_from_url(page_url),
+        "canonical_question_key": canonical_key, "public_question_id": public_id,
+        "original_question_id": existing_identity.get("original_question_id", public_id) if existing_identity else public_id,
+        "source_public_question_id": make_public_question_id(source_id),
+        "questionImageStorageUrls": question_images,
+        "originalQuestionChoiceImageUrls": [images(item, f"c{index:02d}") for index, item in enumerate(choices, 1)],
+        "explanationImageStorageUrls": explanation_images,
+        "explanation_common_prefix": [normalize_question_body_text(extract_text_with_subsup(explanation))],
+        "explanation_choice_snippets": snippets,
+        "category": " » ".join(classification), "categoryHierarchy": classification,
     }
 
 
@@ -911,6 +1021,11 @@ def main() -> int:
         if not can_add_more():
             break
         html = fetch_html_text(http_session, url)
+        if NUMBERED_PAGE_HREF_RE.fullmatch(urlparse(url).path.rsplit("/", 1)[-1]):
+            evidence_dir = Path(OUTPUT_DIR) / QUALIFICATION_CODE / "verification" / "dojo" / output_list_group_id
+            evidence_dir.mkdir(parents=True, exist_ok=True)
+            with gzip.open(evidence_dir / (urlparse(url).path.rsplit("/", 1)[-1] + ".gz"), "wt", encoding="utf-8") as evidence:
+                evidence.write(html)
         qb = parse_q_question_page(
             html,
             url,
@@ -922,6 +1037,7 @@ def main() -> int:
         if qb is None:
             raise ValueError(f"問題の解析に失敗しました: {url}")
         question_bodies.append(qb)
+        print(f"[FETCH] {output_list_group_id} {len(question_bodies)}/{len(q_urls)} {qb['questionLabel']}", flush=True)
 
     for url in pm_urls:
         if not can_add_more():

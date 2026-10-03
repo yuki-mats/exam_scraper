@@ -38,6 +38,7 @@ from scripts.scrape.common import (
     normalize_inline_text as common_normalize_inline_text,
     normalize_question_body_text as common_normalize_question_body_text,
     save_question_body_chunks,
+    save_source_snapshot,
     slow_down as common_slow_down,
     source_site_from_url as common_source_site_from_url,
 )
@@ -412,6 +413,16 @@ def parse_exam_labels(html_soup: BeautifulSoup) -> Tuple[str, str]:
     else:
         exam_label = " ".join(parts[:q_start_index]).strip()
         question_label = " ".join(parts[q_start_index:]).strip()
+
+    # titleの問番号が分野内番号で、h1が試験全体の番号を持つページがある。
+    # 表示順で推定せず、同じ問題の見出しに明示された全体番号を使う。
+    heading = html_soup.find("h1")
+    heading_text = normalize_inline_text(heading.get_text(" ", strip=True)) if heading else ""
+    heading_match = re.search(r"過去問\s+.+?\s+(問\s*[0-9]+\s*[（(].*?[)）])", heading_text)
+    if heading_match:
+        if extract_exam_year_value(heading_text) != extract_exam_year_value(exam_label):
+            raise ValueError("題名と見出しの試験年度が一致しません")
+        question_label = heading_match.group(1)
 
     return exam_label, question_label
 
@@ -2606,6 +2617,29 @@ def main() -> None:
             unique_question_bodies_empty,
         )
         print("\n[INFO] Update completed.")
+        return
+
+    if os.environ.get("SCRAPER_SOURCE_REFRESH") == "1":
+        records = [*unique_question_bodies.values(), *unique_question_bodies_empty.values()]
+        identity_baseline = None
+        baseline_path = os.environ.get("SCRAPER_IDENTITY_BASELINE")
+        if baseline_path:
+            with open(baseline_path, encoding="utf-8") as baseline_file:
+                baseline = json.load(baseline_file)
+            if baseline.get("qualificationCode") != QUALIFICATION_CODE or not isinstance(baseline.get("identities"), dict):
+                raise ValueError("ID保全記録の資格又は形式が一致しません")
+            identity_baseline = baseline["identities"]
+        details = save_source_snapshot(
+            json_output_dir, output_list_group_id, records, expected_count=len(target_question_urls),
+            identity_baseline=identity_baseline,
+        )
+        report_path = os.path.join(qualification_dir, "scrape_reports", f"{output_list_group_id}.json")
+        os.makedirs(os.path.dirname(report_path), exist_ok=True)
+        with open(report_path, "w", encoding="utf-8") as report_file:
+            json.dump({"status": "succeeded", "qualification": QUALIFICATION_CODE,
+                       "listGroupId": output_list_group_id, "sourceListUrl": LIST_FIRST_PAGE_URL,
+                       **details}, report_file, ensure_ascii=False, indent=2)
+        print(f"[DONE] source snapshot verified and saved: {len(records)} -> {json_output_dir}")
         return
 
     # JSON として分割して保存（1ファイル = 25問）

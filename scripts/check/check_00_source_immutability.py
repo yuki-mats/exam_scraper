@@ -14,12 +14,14 @@ from pathlib import Path
 DEFAULT_MANIFEST = Path("docs/contracts/00_source_sha256_manifest.jsonl")
 
 
-def source_hashes(root: Path) -> dict[str, str]:
+def source_hashes(root: Path, *, scopes: list[str] | None = None) -> dict[str, str]:
     hashes: dict[str, str] = {}
-    for path in (root / "output").rglob("*.json"):
-        relative = path.relative_to(root).as_posix()
-        if path.is_file() and "00_source" in path.parts:
-            hashes[relative] = hashlib.sha256(path.read_bytes()).hexdigest()
+    directories = [root / normalize_source_scope(scope) for scope in scopes] if scopes else [root / "output"]
+    for directory in directories:
+        for path in directory.rglob("*.json"):
+            relative = path.relative_to(root).as_posix()
+            if path.is_file() and "00_source" in path.parts:
+                hashes[relative] = hashlib.sha256(path.read_bytes()).hexdigest()
     return dict(sorted(hashes.items()))
 
 
@@ -261,7 +263,9 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[OK] staged 00_source親ディレクトリ移動: {len(changes)} files")
             return 0
 
-        current = source_hashes(root)
+        current = source_hashes(
+            root, scopes=args.scope if args.check_scrape_refresh or args.record_scrape_refresh else None,
+        )
         diff = differences(manifest, current)
         if args.check_scrape_refresh:
             if not args.scope:

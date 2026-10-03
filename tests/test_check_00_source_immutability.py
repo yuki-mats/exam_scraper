@@ -18,6 +18,15 @@ from scripts.check.check_00_source_immutability import (
 
 
 class SourceImmutabilityTest(unittest.TestCase):
+    def test_scoped_hashes_do_not_read_unrelated_sources(self) -> None:
+        other = self.root / 'output/unrelated/00_source/question_2.json'
+        other.parent.mkdir(parents=True)
+        other.write_text('unrelated')
+        scoped = source_hashes(self.root, scopes=['output/sample/00_source'])
+        self.assertEqual(set(scoped), {'output/sample/00_source/question_1.json'})
+        with self.assertRaises(ValueError):
+            source_hashes(self.root, scopes=['../output/sample/00_source'])
+
     def test_staged_parent_move_with_same_content_and_filename_is_allowed(self) -> None:
         changes = [
             (

@@ -74,6 +74,10 @@ def parse_args() -> argparse.Namespace:
         help="既に 00_source が存在する list_group_id も再取得する",
     )
     parser.add_argument(
+        "--identity-baseline", type=Path, default=None,
+        help="復元作業開始時のID保全記録JSON。kakomonnの取得をやり直す場合に使用する。",
+    )
+    parser.add_argument(
         "--group-retries",
         type=int,
         default=2,
@@ -224,6 +228,10 @@ def main() -> int:
         env["SCRAPER_QUALIFICATION_NAME"] = preset.qualification_name
         env["SCRAPER_LIST_FIRST_PAGE_URL"] = list_url
         env["SCRAPER_OUTPUT_LIST_GROUP_ID"] = list_group_id
+        if preset.scraper_type == "kakomonn":
+            env["SCRAPER_SOURCE_REFRESH"] = "1"
+            if args.identity_baseline is not None:
+                env["SCRAPER_IDENTITY_BASELINE"] = str(args.identity_baseline.expanduser().resolve())
         if preset.expected_question_count is not None:
             env["SCRAPER_EXPECTED_QUESTION_COUNT"] = str(preset.expected_question_count)
 

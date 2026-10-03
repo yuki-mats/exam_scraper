@@ -1225,5 +1225,119 @@
       }
     ],
     "expected_question_count": 55
+  },
+  "chintaikanrishi_dojo": {
+    "qualification_code": "chintaikanrishi",
+    "scraper_type": "sgsiken",
+    "qualification_name": "賃貸不動産経営管理士",
+    "list_first_page_url_template": "https://chintaikanrishi-siken.com/kakomon/{list_group_id}/",
+    "expected_question_count": 50,
+    "scrape_targets": [
+      {
+        "source_list_group_id": "2025",
+        "output_list_group_id": "2025"
+      },
+      {
+        "source_list_group_id": "2024",
+        "output_list_group_id": "2024"
+      },
+      {
+        "source_list_group_id": "2023",
+        "output_list_group_id": "2023"
+      },
+      {
+        "source_list_group_id": "2022",
+        "output_list_group_id": "2022"
+      },
+      {
+        "source_list_group_id": "2021",
+        "output_list_group_id": "2021"
+      },
+      {
+        "source_list_group_id": "2020",
+        "output_list_group_id": "2020"
+      }
+    ]
+  },
+  "chintaikanrishi_dojo_legacy": {
+    "qualification_code": "chintaikanrishi",
+    "scraper_type": "sgsiken",
+    "qualification_name": "賃貸不動産経営管理士",
+    "list_first_page_url_template": "https://chintaikanrishi-siken.com/kakomon/{list_group_id}/",
+    "expected_question_count": 40,
+    "scrape_targets": [
+      {
+        "source_list_group_id": "2019",
+        "output_list_group_id": "2019"
+      },
+      {
+        "source_list_group_id": "2018",
+        "output_list_group_id": "2018"
+      },
+      {
+        "source_list_group_id": "2017",
+        "output_list_group_id": "2017"
+      },
+      {
+        "source_list_group_id": "2016",
+        "output_list_group_id": "2016"
+      },
+      {
+        "source_list_group_id": "2015",
+        "output_list_group_id": "2015"
+      }
+    ]
+  },
+  "chintaikanrishi_kakomonn": {
+    "qualification_code": "chintaikanrishi",
+    "scraper_type": "kakomonn",
+    "qualification_name": "賃貸不動産経営管理士",
+    "list_first_page_url_template": "https://chintaikanrishi.kakomonn.com/list1/{list_group_id}?page=1",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "88011",
+        "output_list_group_id": "88011"
+      },
+      {
+        "source_list_group_id": "88010",
+        "output_list_group_id": "88010"
+      },
+      {
+        "source_list_group_id": "88009",
+        "output_list_group_id": "88009"
+      },
+      {
+        "source_list_group_id": "88008",
+        "output_list_group_id": "88008"
+      },
+      {
+        "source_list_group_id": "88007",
+        "output_list_group_id": "88007"
+      },
+      {
+        "source_list_group_id": "88006",
+        "output_list_group_id": "88006"
+      },
+      {
+        "source_list_group_id": "88005",
+        "output_list_group_id": "88005"
+      },
+      {
+        "source_list_group_id": "88004",
+        "output_list_group_id": "88004"
+      },
+      {
+        "source_list_group_id": "88003",
+        "output_list_group_id": "88003"
+      },
+      {
+        "source_list_group_id": "88002",
+        "output_list_group_id": "88002"
+      },
+      {
+        "source_list_group_id": "88001",
+        "output_list_group_id": "88001"
+      }
+    ]
   }
 }

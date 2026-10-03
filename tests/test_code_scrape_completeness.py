@@ -45,6 +45,15 @@ def make_question(url: str, *, with_answer: bool = True):
 
 
 class ScrapeCompletenessTests(unittest.TestCase):
+    def test_absolute_question_number_comes_from_same_page_heading(self) -> None:
+        soup = BeautifulSoup('''<title>賃貸不動産経営管理士の過去問 令和6年度（2024年） 金銭管理 問3 - 過去問ドットコム</title>
+            <h1>賃貸不動産経営管理士 過去問 令和6年度（2024年） 問11 (金銭管理 問3)</h1>''', 'html.parser')
+        exam, label = code_module.parse_exam_labels(soup)
+        self.assertEqual(exam, '令和6年度（2024年） 金銭管理')
+        self.assertEqual(label, '問11 (金銭管理 問3)')
+        soup.h1.string = '賃貸不動産経営管理士 過去問 令和7年度（2025年） 問11 (金銭管理 問3)'
+        with self.assertRaises(ValueError):
+            code_module.parse_exam_labels(soup)
     def test_answer_result_uses_bounded_request_level_retries(self) -> None:
         class FailingSession:
             def __init__(self) -> None:

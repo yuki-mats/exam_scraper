@@ -619,3 +619,80 @@ def save_question_body_chunks(
         saved_paths.append(file_path)
 
     return saved_paths
+
+
+def save_source_snapshot(
+    json_output_dir: str, list_group_id: str, records: list[dict], *, expected_count: int,
+    identity_baseline: dict[str, dict] | None = None,
+) -> dict:
+    """全件検証後に既存ID・ファイル名・record位置を保ってsourceを更新する。"""
+    import tempfile
+
+    root = Path(json_output_dir)
+    root.mkdir(parents=True, exist_ok=True)
+    current = {record.get("source_question_id"): dict(record) for record in records}
+    if len(records) != expected_count or len(current) != len(records) or not all(current):
+        raise ValueError("sourceの件数・IDに欠損又は重複があります")
+    for record in current.values():
+        choices = record.get("choiceTextList")
+        answers = record.get("answer_result_inferred_correct_choice_numbers")
+        if not record.get("questionBodyText") or not choices or not answers or any(
+            not isinstance(answer, int) or not 1 <= answer <= len(choices) for answer in answers
+        ):
+            raise ValueError(f"本文・選択肢・正答が不足しています: {record['source_question_id']}")
+    old_by_id = {}
+    existing = {}
+    for path in sorted(root.glob("question_*.json")):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        existing[path] = payload
+        for record in payload.get("question_bodies", []):
+            source_id = record.get("source_question_id")
+            if not source_id or source_id in old_by_id:
+                raise ValueError(f"既存sourceのIDに欠損又は重複があります: {path}")
+            old_by_id[source_id] = record
+    disappeared = sorted(set(old_by_id) - set(current))
+    if disappeared:
+        raise ValueError(f"取得元から既存問題が消失しています。sourceを変更しません: {disappeared}")
+    identity_fields = ("public_question_id", "original_question_id", "source_public_question_id")
+    protected = old_by_id if identity_baseline is None else {
+        source_id: identity for source_id, identity in identity_baseline.items() if source_id in current
+    }
+    for source_id, previous in protected.items():
+        if source_id not in old_by_id or any(
+            previous.get(field) != old_by_id[source_id].get(field)
+            for field in identity_fields if previous.get(field)
+        ):
+            raise ValueError(f"取得前のID記録と現在のsourceが一致しません: {source_id}")
+        for field in identity_fields:
+            if previous.get(field):
+                current[source_id][field] = previous[field]
+    new_ids = [source_id for source_id in current if source_id not in old_by_id]
+    changed_ids = sorted(source_id for source_id, old in old_by_id.items() if current[source_id] != old)
+    unchanged_ids = sorted(set(old_by_id) - set(changed_ids))
+    planned = {}
+    for path, payload in existing.items():
+        updated = {**payload, "question_bodies": [current[r['source_question_id']] for r in payload['question_bodies']]}
+        if updated != payload:
+            planned[path] = updated
+    next_index = 1
+    for start in range(0, len(new_ids), 25):
+        while (root / f"question_{list_group_id}_{next_index}.json").exists():
+            next_index += 1
+        path = root / f"question_{list_group_id}_{next_index}.json"
+        planned[path] = {"list_group_id": list_group_id, "question_bodies": [current[x] for x in new_ids[start:start + 25]]}
+        next_index += 1
+    for path, payload in planned.items():
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=root, delete=False) as temporary:
+            json.dump(payload, temporary, ensure_ascii=False, indent=2)
+            temporary.write("\n")
+            temporary_path = Path(temporary.name)
+        os.replace(temporary_path, path)
+    public_ids = {}
+    for source_id, record in current.items():
+        public_ids.setdefault(record.get("public_question_id"), []).append(source_id)
+    conflicts = [dict(publicQuestionId=public_id, sourceQuestionIds=source_ids)
+                 for public_id, source_ids in public_ids.items() if len(source_ids) > 1]
+    return {"newSourceQuestionIds": new_ids, "changedSourceQuestionIds": changed_ids,
+            "unchangedSourceQuestionIds": unchanged_ids, "questionCount": len(records),
+            "expectedQuestionCount": expected_count, "preservedIdentityCount": len(protected),
+            "identityConflicts": conflicts}
