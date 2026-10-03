@@ -1,0 +1,49 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T010",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "changed_files": [
+      "prompt/question_issue_reports/02_challenge_review.md",
+      "tests/test_question_issue_reports.py"
+    ],
+    "commands": [
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_question_issue_reports.py",
+        "exit_code": 0,
+        "result": "23 tests、0.079秒、OK",
+        "status": "pass"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_official_source_correction.py",
+        "exit_code": 0,
+        "result": "14 tests、0.024秒、OK",
+        "status": "pass"
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0,
+        "result": "指摘なし",
+        "status": "pass"
+      },
+      {
+        "command": "git diff -- prompt/question_issue_reports/02_challenge_review.md tests/test_question_issue_reports.py",
+        "exit_code": 0,
+        "result": "指定2ファイルの変更を確認",
+        "status": "pass"
+      },
+      {
+        "command": "git status --short",
+        "exit_code": 0,
+        "result": "指定2ファイルの変更と既存のboard・T006〜T009 receipt差分のみ",
+        "status": "pass"
+      }
+    ],
+    "summary": "Challengeプロンプトの三次監査facts必須条件をoutdated_law_or_informationへ限定。correct_answerの公式正答照合、未許可facts禁止、現行法矛盾時のhold、監査・公開判断との責務を明記した。same_as_current/secondary_verified自体を不備扱いしない。カテゴリ通過・拒否、facts欠落・監査不足・空summary・schema不正・A/B不一致・非公式根拠の回帰テストを追加。board更新、receipt保存、commit/pushは実施していない。",
+    "rationale": "既存validatorのカテゴリ契約へプロンプトを合わせる修正。validator・config・公開gate・credit gateは変更していない。全検証の実測exit_code=0に対応してstatusをpassへ修正した再提出。追加変更・再検証は行っていない。真正Challenge実行と現行法照合は後続作業。",
+    "remaining_blockers": [],
+    "needs_judge": false,
+    "verification_attempts": 1,
+    "stopped_because": null
+  }
+}

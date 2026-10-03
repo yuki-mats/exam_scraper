@@ -1,0 +1,14 @@
+{
+  "result": "blocked",
+  "task_id": "T007",
+  "summary": "履歴非共有のnative A/Bが公式画像を直接確認し、同じ正誤vectorとquestionIntent=select_correctを独立提案。本人のmetadata再提出を無修正保存し、既存Blind validatorとresume consensusを通過した。questionIntent変更は既存の具体的承認範囲外なので正式反映を停止し、private候補完成のT008へ進む。",
+  "blocked_reason": "Independent reviews found additional unapproved questionIntent null→select_correct; exact approval is required before canonical patch promotion.",
+  "evidence": [
+    "Private native-review/a_response.json and b_response.json",
+    "Existing validate_blind_review and validate_resume_blind_consensus passed",
+    "Fresh Firestore 5 siblings questionIntent null"
+  ],
+  "spawned_tasks": [
+    "T008"
+  ]
+}

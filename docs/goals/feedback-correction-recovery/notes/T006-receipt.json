@@ -1,0 +1,99 @@
+{
+  "result": "done",
+  "task_id": "T006",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "decision": "approve_next",
+  "full_outcome_complete": false,
+  "rationale": "既存ReviewExecutorは保存済みの真正JSONをfixture置換なしに読み、同じBlind及びChallenge validatorへ渡す正式入口を持つ。ユーザーが明示したGoalBuddyのnative read-only reviewをこの入口で使うことは許可できる。AppServer設定、credits gate、providerを変更する許可ではない。独立性、本人出力、入力及び一次資料へのbindingを実証し、AppServer失敗とnative経路を区別する。正式patch保存や公開の許可範囲はT002の条件を維持する。",
+  "evidence": [
+    {
+      "path": "docs/goals/feedback-correction-recovery/notes/T003-receipt.json",
+      "finding": "AppServerはSubscriptionGateErrorで停止し、Blind出力はなく、正本及びFirestore writesは行われていない。"
+    },
+    {
+      "path": "tools/question_bank/question_issue_reports.py:788",
+      "finding": "ReviewExecutorはrecorded_results_dirのwork_id及びphase別JSONを読み、allow_fixture_placeholders=Falseなら値を置換しない。"
+    },
+    {
+      "path": "tools/question_bank/question_issue_reports.py:898",
+      "finding": "run_objective_reviewはinputHash、workflow contract、slot、resume bindingを固定し、Blind及びChallengeの既存validatorを適用する。"
+    },
+    {
+      "path": "tools/question_bank/question_issue_reports.py:585",
+      "finding": "fixは両Blindのproblem_found、完全一致するchanges、両slot由来の公式根拠を要求する。"
+    },
+    {
+      "path": "tools/question_bank/question_issue_reports.py:1137",
+      "finding": "build_correction_patchは実際のBlind及びChallenge JSONからhashを計算する。PMによる架空hashの埋込みは不要。"
+    }
+  ],
+  "next_allowed_task": {
+    "package_type": "pm",
+    "objective": "2025年一問を、相互に履歴を共有しないnative read-only A/Bと第三者Challengeでreviewする。本人が生成したreview objectとnative task provenanceを保存し、既存ReviewExecutor及びrun_objective_reviewで無修正検証して隔離24候補と承認比較を完成させる。",
+    "allowed_files": [
+      "output/user_feedback_response_system/staging/goal-recovery-2025-review/native-review/**",
+      "output/user_feedback_response_system/staging/goal-recovery-2025-review/repo/output/question_issue_reports/**",
+      "output/user_feedback_response_system/staging/goal-recovery-2025-review/repo/output/2nd-class-kenchikushi/questions_json/85011/24_questionIssueCorrections/**",
+      "output/user_feedback_response_system/proposals/2026-10-03/run_2025_isolated_review.py",
+      "output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-approval-comparison.json",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-promotion-manifest.json",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-receipt.json"
+    ],
+    "execution_conditions": [
+      "A/Bを別々の新規native goal_judge task、fork_turns=none、read-onlyとして実行する。親board、過去会話、承認済み差分、利用者report、他slot出力及びPMの期待結論をBlindへ渡さない。",
+      "Blindへ渡すstate receiptは判断を含まないsanitized intakeのみとし、名前を指定した実blind_input、既存prompt、workflow contract、公式PDF及び対象ページ画像だけを読ませる。",
+      "goal_judgeの外側出力はgoalbuddy_receipt_v1を維持する。本人が生成した完全なblind/challenge review objectをevidence内に含め、PMはそれを無修正で抽出する。",
+      "各slotのnative task ID、開始完了、実promptとinputのhash、資料hash、生の最終応答とそのhash、抽出JSONのhashをprivateなappend-only provenanceとして保存する。",
+      "A/B完了後に第三のno-fork read-only taskへ既存Challenge promptと機械生成challenge_input、本人作成A/Bと根拠を渡す。ChallengeをPMが代作しない。",
+      "recorded_results_dirを使用し、command=None、allow_fixture_placeholders=Falseとする。既存validator、resume binding、consensus、patch builder及びpatch verifierを変更しない。",
+      "AppServerを再呼出しせず、gate設定、credentials、account、provider及び追加creditsの利用許可を変更しない。AppServer失敗証跡を維持し、native-recorded-results経路として正確に記録する。",
+      "T002の同一source identity、現行expectedBeforeHash、fresh live、承認済みpost-valuesのみという条件を維持する。"
+    ],
+    "verify": [
+      "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py",
+      "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_official_source_correction.py",
+      "git diff --check",
+      "git status --short"
+    ],
+    "verification_requirements": [
+      "実際のnative task tool応答に保存provenanceのtask IDと最終応答が対応し、PMによるreview fieldの編集がない。",
+      "A/Bの入力hash、公式根拠、workflow contract、slotが既存validatorで一致する。",
+      "Challenge及びpatchのhashは保存された真正JSONから既存関数が計算した値と一致する。",
+      "正本及びFirestoreのfingerprintが変わらず、AppServer credits gateも変わっていない。"
+    ],
+    "stop_if": [
+      "native利用自体で追加creditsの明示利用許可、外部provider又はgate変更が必要。",
+      "Blindが親履歴、承認済み差分、利用者report又は他slot出力を読んだ。",
+      "本人出力の改変、placeholder置換、架空native task ID又はhash生成が必要。",
+      "reviewが既存schemaを満たさない。PMは修正せず、本人へ独立性を維持した再提出を求める。",
+      "reviewが不一致、hold、未承認追加field又は異なる正答を示す。",
+      "allowed_files外の変更、正本patch保存又はFirestore writeが必要。"
+    ]
+  },
+  "parallel_safety": {
+    "approved": true,
+    "scope": "read-onlyのBlind A/Bのみ。PMだけがprivate成果物を保存する。",
+    "reason": "A/Bは書込み権限を持たず、peer結果も共有しない。Challengeは両slot完了後の依存順で実行する。"
+  },
+  "blocked_tasks": [
+    {
+      "task": "AppServer自動review経路",
+      "reason": "SubscriptionGateErrorは未解消。native reviewの成功で復旧済みとしない。"
+    },
+    {
+      "task": "正本24保存及びFirestore公開",
+      "reason": "T002のpromotion、artifact同期及び別公開判断の条件を引き続き要する。"
+    }
+  ],
+  "missing_evidence": [
+    "native A/B及びChallengeの真正最終応答と独立性provenance。",
+    "既存validator及びbuilderを通過した隔離24候補。",
+    "承認済みpost-valuesとの機械比較と移送可能なpromotion manifest。"
+  ],
+  "required_board_updates": [
+    "AppServer経路のblocked理由を維持し、native-recorded-resultsを別の実行経路として記録する。",
+    "PMの次sliceへ上記allowed_files、verify、stop_ifとnative provenance条件を追加する。active taskの選択はPMが行う。",
+    "真正review完了、正本patch反映、artifact同期、公開を別phaseの証跡として追跡する。"
+  ]
+}

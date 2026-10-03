@@ -1,0 +1,14 @@
+{
+  "result": "blocked",
+  "task_id": "T008",
+  "summary": "真正A/B完全一致と第三者Challengeを既存契約で検証し、既存serviceはholdを返した。Challenge promptは法令に関する全fixへchanges.lawRevisionFactsのtertiaryを要求するが、correct_answerカテゴリは同fieldを許可せずvalidatorはoutdated_law_or_informationだけに要求する。現行lawRevisionFactsもsecondary_verifiedのため公開に向けた三次監査は別途必要。",
+  "blocked_reason": "Challenge prompt and category validator disagree on legal correct_answer corrections; current law audit remains secondary_verified.",
+  "evidence": [
+    "prompt/question_issue_reports/02_challenge_review.md",
+    "tools/question_bank/question_issue_reports.py:674",
+    "private native Challenge hold and validated service result"
+  ],
+  "spawned_tasks": [
+    "T009"
+  ]
+}
