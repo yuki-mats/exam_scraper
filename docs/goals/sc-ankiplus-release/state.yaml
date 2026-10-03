@@ -1,0 +1,146 @@
+# GoalBuddy v2 state.yaml
+# Board truth lives here. goal.md is the editable charter; notes/ holds long receipts only.
+
+version: 2
+
+goal:
+  title: "情報処理安全確保支援士の過去問整備と暗記プラス公開"
+  slug: "sc-ankiplus-release"
+  kind: specific # specific | open_ended | existing_plan | recovery | audit
+  tranche: "取得・全件精査から整備、独立評価、暗記プラス公開まで。現在は取得・全件精査。"
+  status: active # active | blocked | done
+  oracle:
+    signal: "公開回・問題URL集合の全件一致、IPA正答照合、問題ごとの整備・独立評価、実機検証、App Store公開確認。"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "全問の取得・独立評価receipt、データ反映readback、暗記プラス実機検証とApp Store公開readback。"
+  intake:
+    original_request: "情報処理安全確保支援士の過去問を整備して、暗記プラスのアプリとして公開することを最終目標とする。"
+    interpreted_outcome: "支援士の過去問を正確に取得・整備・評価し、暗記プラスアプリとして公開する。"
+    input_shape: specific # vague | specific | existing_plan | recovery | audit
+    audience: 支援士の受験者
+    authority: requested # requested | approved | inferred | needs_approval | blocked
+    proof_type: artifact # test | demo | artifact | metric | review | source_backed_answer | decision
+    completion_proof: "整備・評価済み問題が公開アプリで学習できることを実機操作と公開状態のreadbackで確認する。"
+    likely_misfire: "取得成功又はアプリのビルド成功だけで整備・公開を完了扱いする。"
+    blind_spots_considered:
+      - 午前選択式と午後記述式の学習方式を区別する。
+      - 新規アプリrelease設定・公開scopeを確定する。
+      - データ公開とiOS提出の確認を分ける。
+    existing_plan_facts:
+      - 取得元はhttps://www.sc-siken.com/sckakomon.php。
+      - 既存scraperを利用して全件精査し、再取得を安定させる。
+      - 定期実行は今回は設定しない。
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  # installed | bundled_not_installed | missing | unknown
+  # missing and bundled_not_installed use PM fallback; unknown requires one exact-role attempt before fallback.
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  # none | local | unknown
+  selected: local
+  local:
+    status: live # not_requested | starting | live | generated | blocked
+    url: "http://goalbuddy.localhost:41737/sc-ankiplus-release/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/sc-ankiplus-release"
+
+active_task: T002
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: done
+    objective: "指定サイトの全公開回を既存scraperで取得し、HTML・IPA正答・画像・PDFを全件照合して取得receiptを保存する。"
+    inputs: ["config/scrape_presets.json", "document/operations/scraping_workflow.md"]
+    constraints:
+      - "mainのみを使用し、既存IDと00_sourceを保護する。"
+      - "定期実行の自動化は今回は設定しない。"
+      - "他者の変更を破棄・混在コミットしない。"
+    expected_output: ["全件取得receipt", "公式正答照合", "再取得・ID維持証拠"]
+    receipt:
+      result: done
+      summary: "33回・午前1,815問を取得し、HTML・画像・公式PDFを全件照合した。1,812問で公式正答番号が一致、3問は取得元変更を目視確認して公開前の整備対象に記録した。"
+      evidence:
+        - output/sc/reports/acquisition_verification.json
+        - output/sc/reports/validation_receipt.json
+        - output/sc/reports/target_tests_receipt.json
+        - document/temporary/audits/sc_scrape_verification_20261003.md
+      full_outcome_complete: false
+      next_task: T002
+  - id: T002
+    type: scout
+    assignee: Scout
+    status: active
+    objective: "取得receiptを基に整備工程、午前と午後の学習方式、Repaso release設定と未確定事項をread-onlyで特定する。"
+    inputs: ["T001 receipt", "document/operations/exam_pipeline_manual_and_automation.md", "/Users/yuki/StudioProjects/repaso/release/config.json", "/Users/yuki/StudioProjects/repaso/release/README.md"]
+    constraints: ["Read-only。現行値と未確定事項を分ける。"]
+    expected_output: ["問題整備scope", "新規アプリの公開準備・未確定設定", "最初の整備package候補"]
+    receipt: null
+  - id: T003
+    type: judge
+    assignee: Judge
+    status: queued
+    objective: "scopeと学習方式を確認し、一問ごとの目視・整備・独立評価を証明できる最初の実行packageを決める。"
+    inputs: ["T001 receipt", "T002 receipt"]
+    constraints: ["Read-only。午後の形式を午前の仕様で決め打ちしない。"]
+    expected_output: ["Worker objective", "allowed_files", "verify", "stop_if"]
+    receipt: null
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "確定scopeで一問ずつ問題文・全選択肢・正答・解説を整備し、必須機械検査と問題単位の独立評価まで完了する。"
+    allowed_files: []
+    verify: []
+    stop_if: ["scope又は根拠が曖昧", "00_sourceの手動変更が必要", "allowed_files外の変更が必要"]
+    receipt: null
+  - id: T005
+    type: pm
+    assignee: PM
+    status: queued
+    objective: "合格問題の公開準備と暗記プラスrelease準備を進め、実機検証と外部反映の確認を経てアプリ公開を確認する。"
+    inputs: ["問題ごとの独立評価receipt", "release/config.json", "release/README.md"]
+    constraints:
+      - "本番データ反映・ASC設定・iOS提出は具体的な設定と検証結果をそろえて明示確認する。"
+      - "データ公開とiOS公開は別々に検証する。"
+    expected_output: ["データ公開readback", "実機操作証拠", "App Store公開readback"]
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    objective: "過去問整備と暗記プラス公開の最終目標に全receiptを対応付け、未完了項目を残したまま完了しない。"
+    inputs: ["All done receipts"]
+    constraints: ["Read-only。取得成功・ビルド成功だけで公開完了にしない。"]
+    expected_output: ["complete又はnot_complete", "full_outcome_complete", "未完了項目と次task"]
+    receipt: null
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: passed
+    task: T001
+    commands: ["check_scsiken_acquisition.py", "quality-gate --qualification sc --mode source"]
