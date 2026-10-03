@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20261003065857-3ee52438fc",
+  "category": "correct_answer",
+  "caseIds": [
+    "ui-official-3ee52438fc780523a10c"
+  ],
+  "inputCaseHashes": {
+    "ui-official-3ee52438fc780523a10c": "3ee52438fc780523a10c53b48535ccc8a6a793d2e17c0868551ab0cf3827bf49"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "3f11cdf609db0afe5ccf2a5b937bc1493639c4b9fa9b9444193ee2205d5c32a6",
+    "495352572a22cdf2c84cb3f51adbd315e8290c56c778699008c4803f52aacfa5"
+  ],
+  "challengeReviewHash": "8ad726d94ba3caa44fad780ec48af829803847dcad2302dd1df54d683f0393ad",
+  "createdAt": "2026-10-03T07:34:33.833265Z",
+  "entries": [
+    {
+      "original_question_id": "12c59a4c014e49de",
+      "sourceQuestionKey": "2nd-class-kenchikushi:85011:12c59a4c014e49de",
+      "reviewQuestionId": "12c59a4c014e49de",
+      "sourceRecordRef": "question_85011_empty_1.json#0",
+      "expectedBeforeHash": "7d5db63d3f78d48c330c873533d03c83070649d56de75ea75ddbbdbd03e74142",
+      "changes": {
+        "correctChoiceText": [
+          "正しい",
+          "間違い",
+          "間違い",
+          "間違い",
+          "間違い"
+        ],
+        "questionIntent": "select_correct"
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=correct_answer, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "令和7年二級建築士試験「学科の試験」の合格基準点等について",
+          "locator": "output/user_feedback_response_system/official_sources/2025-answer.pdf / PDF 1ページ、1.正答肢の表、学科II 問3",
+          "verifiedAt": "2026-10-03T06:58:57Z",
+          "contentHash": "1ff7ce618cbdfabe09130829119b50ce8e8b6ad0f65d6bea66a3889b3e217d4d"
+        }
+      ]
+    }
+  ]
+}
