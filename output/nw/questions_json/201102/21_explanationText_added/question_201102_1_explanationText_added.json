@@ -61,7 +61,7 @@
   },
   {
     "explanationText": [
-      "正しい。ハッシュ値が衝突するのは、キーaとbのハッシュ値が等しい、つまりa mod nとb mod nが一致するときである。この条件は、a−bがnの倍数であることと同値なので、正しい選択肢は「a−bがnの倍数」である。"
+      "正しい。ハッシュ値が衝突するのは、キーaとbのハッシュ値が等しく、a mod nとb mod nが一致するときである。二つの整数をnで割った余りが等しいことは、差a−bがnの倍数であることと同値である。"
     ],
     "original_question_id": "26c977a2e7d51f27",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_3.html",
@@ -71,7 +71,113 @@
     "sourceRecordRef": "question_201102_1.json#2",
     "explanationReferences": [],
     "questionLearningPatternId": "conditions_scope",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ハッシュ関数の剰余計算に関する技術問題で、法令条文や制度上の義務・基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "「a＋bがnの倍数」は、ハッシュ値が等しい条件を表さない。",
+          "promptContext": "ハッシュ関数の衝突条件。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "a mod nとb mod nが等しい条件は、a−bがnの倍数であることと同値である。",
+          "promptContext": "ハッシュ関数の衝突条件。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "「nがa＋bの倍数」は、ハッシュ値が等しい条件を表さない。",
+          "promptContext": "ハッシュ関数の衝突条件。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "「nがa−bの倍数」は、a−bがnの倍数という衝突条件と異なる。",
+          "promptContext": "ハッシュ関数の衝突条件。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -399,10 +505,10 @@
   },
   {
     "explanationText": [
-      "間違い。ブラックボックステストでは、仕様上重要な条件や境界を確認できるようにテストケースを設計する。選択肢は実データを無作為に抽出するだけとしているため、仕様を十分に確認できない。",
-      "間違い。ブラックボックステストでは、使用頻度だけでなく、仕様上の例外条件や境界条件も確認する。選択肢は使用頻度が高いデータだけを重点的に抽出するとしているため、重要な条件を見落とすおそれがある。",
+      "間違い。正しくは、仕様上の条件や境界を確認できるようにテストケースを設計する。選択肢は実データを無作為に抽出するとしているため、仕様上重要な条件を十分に確認できない。",
+      "間違い。正しくは、使用頻度だけでなく、仕様上の例外条件や境界条件も含めてテストケースを設計する。選択肢は使用頻度が高いデータを重点的に抽出するとしているため、使用頻度の低い重要な条件を見落とすおそれがある。",
       "正しい。ブラックボックステストはプログラムの内部構造ではなく、仕様に基づく入力と出力を確認するため、仕様書を調べてテストケースを設計する。",
-      "間違い。プログラムの内部構造や命令の実行状況に基づいてテストするのはホワイトボックステストである。選択肢は全命令を実行するとしているため、ブラックボックステストの設計方法ではない。"
+      "間違い。正しくは、プログラムの内部構造や命令の実行状況に基づいてテストするのはホワイトボックステストである。選択肢は全命令が少なくとも1回実行されるようにするとしているため、ブラックボックステストの設計方法ではない。"
     ],
     "original_question_id": "afac82f21f90aec5",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_16.html",
@@ -456,9 +562,9 @@
   {
     "explanationText": [
       "正しい。",
-      "間違い。作業の前後関係やクリティカルパスを把握するには、アローダイアグラムやPERTなどのネットワーク工程表を用いる。ガントチャートは各作業の期間を示すのに適しているため、選択肢はガントチャートで前後関係とクリティカルパスを把握できるとしており誤りである。",
-      "間違い。作業の余裕日数を把握するには、ネットワーク工程表を用いて各作業の最早開始時刻や最遅開始時刻などを計算する。ガントチャートは作業期間を示す図表であり、余裕日数を容易に把握できるとしているため誤りである。",
-      "間違い。作業を要素に分解して管理しやすくするのはWBSの役割である。ガントチャートは分解された作業の期間や進捗を示す図表であるため、選択肢はガントチャートが作業の分解を行うとしており誤りである。"
+      "間違い。作業の前後関係やクリティカルパスを把握するには、アローダイアグラムやPERTなどのネットワーク工程表を用いる。ガントチャートは各作業の期間を示す図表であるため、選択肢は前後関係とクリティカルパスを把握できるとしており誤りである。",
+      "間違い。作業の余裕日数を把握するには、ネットワーク工程表を用いて各作業の最早開始時刻や最遅開始時刻などを計算する。ガントチャートは作業期間を示す図表であるため、選択肢は余裕日数を容易に把握できるとしており誤りである。",
+      "間違い。作業を要素に分解して管理しやすくするのはWBSの役割である。ガントチャートは分解された作業の期間や進捗を示す図表であるため、選択肢は作業の分解によって管理しやすくするとしており誤りである。"
     ],
     "original_question_id": "21abc8bb93f06d54",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_18.html",

@@ -31,10 +31,10 @@
   },
   {
     "explanationText": [
-      "間違い。フラッシュメモリを採用しても、ソフトウェアのコードサイズそのものは小さくならない。選択肢は、メモリの種類によってコードサイズを縮小できるとしているため誤りである。",
-      "正しい。フラッシュメモリは電気的に内容を書き換えられるため、マイコンを出荷した後でもソフトウェアの更新や修正ができる。",
-      "間違い。マイコンの処理性能は、主にCPUの性能やバス構成などで決まる。選択肢は、フラッシュメモリを採用すれば処理性能が向上するとしているため誤りである。",
-      "間違い。フラッシュメモリには書換え回数の制限があり、マスクROMより常に信頼性が高いとはいえない。選択肢は、フラッシュメモリの採用によってマスクROMより信頼性が向上するとしているため誤りである。"
+      "間違い。フラッシュメモリを採用しても、ソフトウェアのコードサイズそのものは小さくならない。選択肢は、メモリの種類によってコードサイズを小さくできるとしているため誤りである。",
+      "正しい。フラッシュメモリは電気的に内容を書き換えられるため、マイコンを出荷した後でもソフトウェアを更新・修正できる。",
+      "間違い。マイコンの処理性能は、主にCPUやバスなどの構成で決まる。選択肢は、フラッシュメモリを採用すれば処理性能が向上するとしているため誤りである。",
+      "間違い。フラッシュメモリは電気的に書き換えられる一方、書換え回数に制限がある。マスクROMより信頼性が向上することは、フラッシュメモリを採用する理由ではない。選択肢は、フラッシュメモリの採用によってマスクROMより信頼性が向上するとしているため誤りである。"
     ],
     "original_question_id": "9e121451199270c7",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_27.html",
@@ -154,10 +154,10 @@
   },
   {
     "explanationText": [
-      "間違い。企業間の取引条件や契約内容は、取引上の取り決めであり、情報表現規約が定めるデータの表し方ではない。選択肢は契約内容を情報表現規約の対象としているため誤りである。",
-      "間違い。システムの運用時間は、業務運用上の取り決めであり、情報表現規約が定めるデータの表し方ではない。選択肢は運用時間を情報表現規約の対象としているため誤りである。",
-      "間違い。伝送制御手順は、データを送受信する通信手順に関する規約である。選択肢は通信手順を情報表現規約の対象としているため誤りである。",
-      "正しい。情報表現規約は、企業間で交換するデータ項目やメッセージの形式を定め、異なるシステム間でデータを同じ意味で扱えるようにする。"
+      "間違い。企業間の取引条件や契約内容は、取引上の取り決めであり、データの表し方を定める情報表現規約の対象ではない。選択肢は契約内容を情報表現規約で規定するとしているため誤りである。",
+      "間違い。システムの運用時間は、業務運用上の取り決めであり、データの表し方を定める情報表現規約の対象ではない。選択肢は運用時間を情報表現規約で規定するとしているため誤りである。",
+      "間違い。伝送制御手順は、データを送受信するための通信手順に関する規約である。選択肢は通信手順を情報表現規約で規定するとしているため誤りである。",
+      "正しい。情報表現規約は、企業間で交換するメッセージの形式やデータ項目の表し方を定め、異なるシステム間でデータを共通に扱えるようにする。"
     ],
     "original_question_id": "2c825fc0aaabed5d",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_28.html",
@@ -799,10 +799,10 @@
   },
   {
     "explanationText": [
-      "間違い。IPv6で特別な扱いを求めるフローを識別するのは、TOSフィールドではなく20ビットのFlow Labelである。選択肢はTOSフィールドで資源予約を行うとしているため誤りである。",
+      "間違い。IPv6で特別な扱いを求めるフローを識別するのは、IPv4のTOSフィールドではなく20ビットのFlow Labelである。選択肢はTOSフィールドで資源予約を行うとしているため誤りである。",
       "間違い。正しくは、IPv6のIPアドレスは32ビットから128ビットへ拡張されている。選択肢は64ビットに拡張されたとしているため誤りである。",
-      "間違い。IPv6ではヘッダを簡素化するため、IPv4にあったIPヘッダーのチェックサムは廃止されている。選択肢はチェックサムを追加するとしているため誤りである。",
-      "正しい。この問題の出題当時のIPv6仕様では、IPsecの認証ヘッダーとEncapsulating Security Payload（ESP）の実装が求められていた。これにより、送信元の認証、改ざん検出、通信内容の暗号化を行える。"
+      "間違い。IPv6ではヘッダーを簡素化するため、IPv4にあったIPヘッダーのチェックサムは廃止されている。選択肢はチェックサムを追加するとしているため誤りである。",
+      "正しい。出題当時のIPv6仕様では、IPsecの認証ヘッダーとESPの実装が必須とされていた。これにより、送信元の認証、改ざん検出、通信内容の暗号化を行える。"
     ],
     "original_question_id": "b042a7b47ddef4ce",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_11.html",
@@ -818,7 +818,113 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv6のプロトコル仕様に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6のFlow Label、アドレス長、ヘッダーチェックサムに関する技術仕様で判定する。",
+          "promptContext": "法令根拠を用いない技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv6の技術仕様に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6アドレスのビット長に関する技術仕様で判定する。",
+          "promptContext": "法令根拠を用いない技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv6の技術仕様に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6ヘッダーのチェックサム廃止に関する技術仕様で判定する。",
+          "promptContext": "法令根拠を用いない技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv6の技術仕様に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv6におけるIPsec機能の仕様に関する技術知識で判定する。",
+          "promptContext": "法令根拠を用いない技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "IPv6の技術仕様に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -1102,7 +1208,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するメッセージタイプはtrapである。trapは、エージェントが障害や状態変化などの事象を検知したとき、マネージャからの要求を待たずに通知するために使われる。get-request、get-response、set-requestは、マネージャからの取得・設定要求又はその応答に用いる。"
+      "正しい。trapは、エージェントが障害や状態変化などの事象を検知したとき、マネージャからの要求を待たずに自発的に通知するために使われる。get-requestとget-responseは情報の取得、set-requestは設定の変更に用いる。"
     ],
     "original_question_id": "ad34b10140b1ac20",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_17.html",
