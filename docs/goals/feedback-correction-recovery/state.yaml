@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T015
+active_task: T018
 tasks:
   - id: T001
     type: scout
@@ -1145,7 +1145,7 @@ tasks:
   - id: T015
     type: pm
     assignee: PM
-    status: active
+    status: done
     objective: 外部追加を観測履歴として固定し、新baselineの下で2025の真正監査、候補差分及びv2 sidecar、他3件のidentity比較と導入契約を一つのprivate evidence packageとして完成させる。製品コード、正本data及び公開状態は変更しない。
     allowed_files:
       - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/**
@@ -1180,7 +1180,8 @@ tasks:
       identity_boundary: 再取得IDが旧公開IDと違う場合、rawへalias追加、original ID書換え、旧sourceQuestionKeyの注入を行わない。測定結果と移行候補だけを保存し、正本導入は別のidentity契約判断へ戻す。
       adapter_contract:
         decision: approve_private_adapter
-        reason: UPDATE_JSON_MODEは既存URLを持つfileの更新専用であり、fresh directoryへ保存しない。標準parser、取得値及びIDを保持して標準writerへ渡すprivate callback adapterは、raw seedを合成する方法よりも正直な新規取得となる。
+        reason: UPDATE_JSON_MODEは既存URLを持つfileの更新専用であり、fresh directoryへ保存しない。標準parser、取得値及びIDを保持して標準writerへ渡すprivate callback adapterは、raw
+          seedを合成する方法よりも正直な新規取得となる。
         allowed_scope:
           - output/user_feedback_response_system/staging/recovery-source-2018/**
           - output/user_feedback_response_system/staging/recovery-source-2024/**
@@ -1238,8 +1239,8 @@ tasks:
         - 一意対応が証明できない場合はその欠落を保持し、snapshotから新しいcanonical sourceを自動作成しない。
     ledger_contract:
       mode: readback_only_superseded_by_formal_patch_tracking
-      reason: actual additional approval and T017 formal24 commit/push completed before T015; propose would now reject existing patch_ref and must not regress
-        status
+      reason: actual additional approval and T017 formal24 commit/push completed before T015; propose would now reject existing patch_ref
+        and must not regress status
       scope: verify existing 2025 target patch_ref/commit_sha and published_at NULL without updating rows
       proof: promotion-2025/ledger-tracking-readback.json
     verify:
@@ -1260,10 +1261,50 @@ tasks:
       - 不同のphase入力を同一auditInputHashの確認済み履歴として保存する必要がある。
       - PMによるreviewの手修正、架空run ID、機械的reviewState昇格又はraw alias追加が必要。
       - 正本data、製品code、既存verifier、公開状態又はallowed_files外の変更が必要。
-    receipt: null
-    baseline: proposals/2026-10-03/recovery-slice/post-external-copy-fingerprint.json; sole observed external approved WORK copy, writer unknown; historical
-      baseline and failure preserved
+    receipt:
+      result: done
+      summary: 新版共通法令入力を本人が確認した独立Primary/Secondaryと真正Tertiaryを保存。schema非対応の参照metadata2fieldを本人承認の限定投影で整理し、原review/FAILを保持。26本則参照、5個別facts、v2
+        sidecar、132file manifest、再取得rawと旧公開IDの分離、2020 production_snapshot及び未公開台帳を既存validatorで検証した。追加4fieldはprivate候補・ユーザー承認待ち。製品工程とFirestore公開は未完了。
+      evidence:
+        - private recovery-slice/package-manifest.json
+        - private recovery-slice/verification-receipt.json
+        - private recovery-law-2025/final-candidate-field-diff.json
+        - private recovery-law-2025/approval-proposal.md
+        - private recovery-law-2025/tertiary-union-schema-amendment-provenance.json
+      commands:
+        - cmd: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/verify_private_evidence_package.py
+          status: pass
+        - cmd: git diff --check
+          status: pass
+        - cmd: git status --short
+          status: pass
+      note: notes/T015-package-complete.md
+      harness: codex
+      full_outcome_complete: false
+    baseline: proposals/2026-10-03/recovery-slice/post-external-copy-fingerprint.json; sole observed external approved WORK copy, writer
+      unknown; historical baseline and failure preserved
     risk_review_note: notes/T015-risk-review-receipt.json
+  - id: T018
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 2025承認済み一問のsource bindingと全5公開IDを保持し、対象だけの決定的artifact同期・本則法令抽出・真正評価を通せる最大の安全な製品実装sliceを定義する。private完成候補と既存19 orphan、現在のsubscription実行条件変化を踏まえる。
+    inputs:
+      - notes/T015-package-complete.md
+      - private recovery-slice/package-manifest.json
+      - private recovery-slice/verification-receipt.json
+      - private recovery-slice/next-implementation-acceptance.json
+      - private recovery-law-2025/final-candidate-field-diff.json
+    constraints:
+      - Read-only。全sourceとprivate一次資料を保持。正式追加patchは承認後、Firestoreは別公開承認後。
+      - 全group checkerと公開gateを弱めず、対象一問のsource/patch/evaluation identityを厳密に結合する。
+      - 信用・provider設定を変更しない。upstream修正後の既存gateを実際に通せるか評価条件として残す。
+      - 2024の正誤反転は未確定。legacy source providerを実装済みと扱わない。
+    expected_output:
+      - goalbuddy_receipt_v1、最大の安全なWorker packageのallowed_files/verify/stop_if、公開前oracle。
+      - 2025の生成artifactと真正evaluationを実行可能にする具体的implementation path。
+      - 2018/2024/2020の残件を後続scopeとして正確に追跡。
+    receipt: null
   - id: T004
     type: pm
     assignee: PM
