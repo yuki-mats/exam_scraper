@@ -36,6 +36,10 @@ from scripts.common.image_storage_urls import extract_storage_object_path
 
 
 DEFAULT_CODEX_PATH = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
+PACKAGED_CODEX_PATH = Path(
+    "/Applications/ChatGPT.app/Contents/Resources/"
+    "codex-cli/CodexCLI.app/Contents/MacOS/codex"
+)
 MAX_INPUT_IMAGE_BYTES = 20 * 1024 * 1024
 
 
@@ -3460,7 +3464,7 @@ class CodexAppServerClient:
         if explicit is not None:
             candidates = [explicit.expanduser()]
         else:
-            candidates = [DEFAULT_CODEX_PATH]
+            candidates = [PACKAGED_CODEX_PATH, DEFAULT_CODEX_PATH]
         for candidate in candidates:
             if candidate.is_file() and os.access(candidate, os.X_OK):
                 return candidate.resolve()

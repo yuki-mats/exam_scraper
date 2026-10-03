@@ -208,6 +208,24 @@ def rate_limit_response(plan="pro"):
     }
 
 
+class BinaryDiscoveryTests(unittest.TestCase):
+    def test_packaged_binary_and_legacy_fallback(self):
+        with tempfile.TemporaryDirectory() as directory:
+            packaged = Path(directory) / "packaged"
+            legacy = Path(directory) / "legacy"
+            for binary in (packaged, legacy):
+                binary.write_text("#!/bin/sh\n")
+                binary.chmod(0o755)
+            with patch("tools.question_review_console.codex_app_server.PACKAGED_CODEX_PATH", packaged), patch(
+                "tools.question_review_console.codex_app_server.DEFAULT_CODEX_PATH", legacy
+            ):
+                client = CodexAppServerClient(Path.cwd())
+                self.assertEqual(client.binary_path, packaged.resolve())
+                packaged.chmod(0o644)
+                self.assertEqual(client._resolve_binary(None), legacy.resolve())
+                self.assertIsNone(client._resolve_binary(Path(directory) / "missing"))
+
+
 class SubscriptionGateTests(unittest.TestCase):
     def diagnostic_client(self):
         client = CodexAppServerClient(Path.cwd(), binary_path=Path("/bin/echo"))
