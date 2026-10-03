@@ -2117,7 +2117,7 @@ assert.deepEqual(
         self.assertNotIn('name="qualification-run-concurrency" value="50"', html)
         self.assertNotIn('name="qualification-run-speed"', html)
         self.assertIn("応答モードはStandard固定です", html)
-        self.assertIn("追加Codex creditsとAPI従量課金は使用しません", html)
+        self.assertIn("creditsの追加購入・自動チャージ設定の変更・API従量課金は行いません", html)
         self.assertNotIn("最大100問", html)
         self.assertNotIn("合計300本", html)
         self.assertNotIn("全資格合計300turn", javascript)
