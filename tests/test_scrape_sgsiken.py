@@ -67,6 +67,8 @@ class ScrapeSgsikenTests(unittest.TestCase):
         before = str(node)
         self.assertEqual(extract_q_text(node), '平均時間×(ρ)/(1－ρ)。√((A²)/(B̅＋1))')
         self.assertEqual(str(node), before)
+        separator = BeautifulSoup('<span class="frac">10,000×0.01＋0.1×n<span></span>0.01＋n</span>', 'html.parser').span
+        self.assertEqual(extract_q_text(separator), '(10,000×0.01＋0.1×n)/(0.01＋n)')
         double = BeautifulSoup('<span class="dol"><span class="ol">A</span></span>', 'html.parser').span
         self.assertEqual(extract_q_text(double), 'A̅̅')
         for markup in ('<span class="frac">A</span>',

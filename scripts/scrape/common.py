@@ -512,9 +512,11 @@ def extract_text_with_subsup(
                                   and child.name == "span" and not child.has_attr("class")), None)
                 if numerator is None:
                     raise ValueError("fraction markup has no numerator span")
-                numerator_text = render(numerator).strip()
-                denominator_text = "".join(render(child) for child in children
-                                           if child is not numerator).strip()
+                divider_index = next(i for i, child in enumerate(children) if child is numerator)
+                # The site's dividing span either contains the numerator or
+                # is an empty rule after it. Its position separates the rows.
+                numerator_text = "".join(render(child) for child in children[:divider_index + 1]).strip()
+                denominator_text = "".join(render(child) for child in children[divider_index + 1:]).strip()
                 if not numerator_text or not denominator_text:
                     raise ValueError("fraction markup has an empty numerator or denominator")
                 text = f"({numerator_text})/({denominator_text})"
