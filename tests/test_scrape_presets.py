@@ -133,8 +133,9 @@ class ScrapePresetTests(unittest.TestCase):
 
         self.assertEqual(preset.qualification_name, "情報セキュリティマネジメント")
         self.assertEqual(preset.scraper_type, "sgsiken")
-        self.assertEqual(preset.list_group_ids[0], "202501")
+        self.assertEqual(preset.list_group_ids[0], "202601")
         self.assertEqual(preset.list_group_ids[-1], "201601")
+        self.assertEqual(len(preset.list_group_ids), 12)
 
     def test_build_list_first_page_url_for_sg(self) -> None:
         preset = load_scrape_preset("sg")

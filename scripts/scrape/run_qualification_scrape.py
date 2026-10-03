@@ -130,6 +130,9 @@ def main() -> int:
         args.qualification_code,
         config_path=Path(args.config).expanduser().resolve(),
     )
+    if preset.qualification_code == "sg" and not args.dry_run and args.max_questions is None:
+        from scripts.check.check_sgsiken_acquisition import check_live_inventory
+        check_live_inventory(preset, resolved_output_dir)
     manifest_managed_refresh = (
         preset.scraper_type in SOURCE_REFRESH_SCRAPER_TYPES
         and resolved_output_dir == REPO_ROOT / "output"
@@ -246,6 +249,12 @@ def main() -> int:
             env=env,
             group_retries=args.group_retries,
         )
+        if preset.qualification_code == "sg" and args.max_questions is None:
+            subprocess.run(
+                [args.python_executable, str(REPO_ROOT / "scripts/check/check_sgsiken_acquisition.py"),
+                 preset.qualification_code, list_group_id, "--output-dir", str(resolved_output_dir)],
+                cwd=REPO_ROOT, check=True,
+            )
 
     if manifest_managed_refresh:
         subprocess.run(

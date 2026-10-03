@@ -451,7 +451,6 @@ SUBSCRIPT_MAP = {
     "(": "₍",
     ")": "₎",
     "a": "ₐ",
-    "b": "ᵦ",
     "e": "ₑ",
     "h": "ₕ",
     "i": "ᵢ",
@@ -473,11 +472,16 @@ SUBSCRIPT_MAP = {
 
 
 def to_superscript(text: str) -> str:
-    return "".join(SUPERSCRIPT_MAP.get(ch, SUPERSCRIPT_MAP.get(ch.lower(), ch)) for ch in text)
+    if any(ch not in SUPERSCRIPT_MAP for ch in text):
+        return f"^({text})"
+    return "".join(SUPERSCRIPT_MAP[ch] for ch in text)
 
 
 def to_subscript(text: str) -> str:
-    return "".join(SUBSCRIPT_MAP.get(ch, SUBSCRIPT_MAP.get(ch.lower(), ch)) for ch in text)
+    # Unicodeにない添字を小文字や別の文字へ置き換えない。
+    if any(ch not in SUBSCRIPT_MAP for ch in text):
+        return f"_({text})"
+    return "".join(SUBSCRIPT_MAP[ch] for ch in text)
 
 
 def extract_text_with_subsup(

@@ -45,6 +45,8 @@
 
 - source側の回表記と出力`list_group_id`が異なるため、`scrape_targets`で明示的に対応付ける。
 - 午前問題と午後問題ではDOMとID粒度が異なる。午後は共通問題文、設問、空欄を既存parserで分解する。
+- SGの午後は共通本文・図表・設問を保持し、同じ解答群からの複数選択を一問、異なる名前付き空欄を別問として取得する。全件取得は保存前にHTMLと内容を照合し、標準runnerは保存後にも `scripts/check/check_sgsiken_acquisition.py` で一覧・内容・画像を検証する。取得時HTMLはローカルの `verification/dojo/` に保持する。
+- SGの全件取得は最初にliveの年度一覧とpresetを照合する。未設定の新年度又は一覧から消えた年度があれば停止して取得設定を確認し、年度の取り漏れを既存年度の取得成功で隠さない。
 - 新しい系列domainでも同じページ構造なら`scraper_type=sgsiken`を再利用し、live testで一覧URLと1問を確認する。
 - 賃貸管理の番号式ページでは、年度・問番号と正答の二つの表示を独立に照合する。個数・組合せ問題を含む抽出の詳細は[番号式過去問道場の抽出契約](kakomon-dojo/numbered_source_contract.md)を参照する。
 - 賃貸管理の新規取得は西暦年度groupへ保存する。既存の過去問.comの`880xx`groupはID・ファイル名を維持して同じ取得元から更新し、両取得元を混在させない。presetの`chintaikanrishi_kakomonn`は保全記録にある全groupの更新用とする。

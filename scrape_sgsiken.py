@@ -292,12 +292,56 @@ def marker_list_from_q_page(choice_items: list[Tag]) -> list[str]:
 
 
 def extract_q_text(element: Tag | None) -> str:
-    # nw/sg-siken の .ol は補集合や論理否定を表す上線であり、装飾ではない。
+    if element is None:
+        return ""
+    # CSS生成の手順番号とHTMLの番号付きリストも問題本文の一部である。
+    copied = BeautifulSoup(str(element), "html.parser").find(element.name)
+    for item in copied.find_all("li"):
+        number_class = next((c for c in (item.get("class") or []) if re.fullmatch(r"li[0-9]+", c)), None)
+        if number_class:
+            # 同じCSS counterはli1でリセットされ、クラス数字そのものではない。
+            siblings = item.parent.find_all("li", recursive=False)
+            counter = 0
+            for sibling in siblings:
+                classes = sibling.get("class") or []
+                if "li1" in classes:
+                    counter = 0
+                if any(re.fullmatch(r"li[0-9]+", c) for c in classes):
+                    counter += 1
+                if sibling is item:
+                    break
+            item.insert(0, f"({counter}) ")
+        elif item.parent.name == "ol":
+            counter = int(item.parent.get("start", "1"))
+            for sibling in item.parent.find_all("li", recursive=False):
+                counter = int(sibling.get("value", counter))
+                if sibling is item:
+                    break
+                counter += 1
+            marker = str(counter)
+            list_type = item.parent.get("type", "1")
+            if list_type in ("i", "I"):
+                roman = ""
+                remaining = counter
+                for value, symbol in ((1000, "M"), (900, "CM"), (500, "D"), (400, "CD"), (100, "C"), (90, "XC"), (50, "L"), (40, "XL"), (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")):
+                    count, remaining = divmod(remaining, value)
+                    roman += symbol * count
+                marker = roman.lower() if list_type == "i" else roman
+            elif list_type in ("a", "A"):
+                marker = ""
+                remaining = counter
+                while remaining > 0:
+                    remaining, digit = divmod(remaining - 1, 26)
+                    marker = chr(ord("a") + digit) + marker
+                if list_type == "A":
+                    marker = marker.upper()
+            item.insert(0, f"{marker}. ")
+    # nw/sg/sc-siken の .ol は補集合や論理否定を表す上線である。
     return normalize_question_body_text(
         extract_text_with_subsup(
-            element, overline_classes=("ol", "dol"), fraction_classes=("frac",),
+            copied, overline_classes=("ol", "dol"), fraction_classes=("frac",),
             radical_classes=("root",),
-        ) if element else ""
+        )
     )
 
 
@@ -383,22 +427,19 @@ def parse_q_explanation_fields(
         for li in explanation_items
         if extract_q_text(li)
     ]
-    prefix_parts: list[str] = []
-    for child in kaisetsu.children:
-        if isinstance(child, Tag) and child.name == "ul":
-            break
-        if isinstance(child, Tag):
-            text = extract_q_text(child)
-            if text:
-                prefix_parts.append(text)
-
     if len(choice_texts) == choice_count:
+        contents = kaisetsu.decode_contents()
+        first_start = contents.find(str(explanation_items[0]))
+        last_end = contents.rfind(str(explanation_items[-1])) + len(str(explanation_items[-1]))
+        prefix = BeautifulSoup("<div>" + contents[:first_start] + "</div>", "html.parser").div
+        summary = BeautifulSoup("<div>" + contents[last_end:] + "</div>", "html.parser").div
+        prefix_text, summary_text = extract_q_text(prefix), extract_q_text(summary)
         snippets = [[text] if text else [] for text in choice_texts]
-        return prefix_parts, None, [], snippets, [None for _ in range(choice_count)]
+        return [prefix_text] if prefix_text else [], None, [summary_text] if summary_text else [], snippets, [None for _ in range(choice_count)]
 
     fallback = extract_q_text(kaisetsu)
     snippets = [[fallback] if fallback else [] for _ in range(choice_count)]
-    return prefix_parts, None, [], snippets, [None for _ in range(choice_count)]
+    return [], None, [], snippets, [None for _ in range(choice_count)]
 
 
 def parse_q_question_page(
@@ -686,36 +727,25 @@ def _iter_tags_between(start: Tag, stop_condition) -> Iterable[Tag]:
             yield node
 
 
-def extract_common_problem_statement(soup: BeautifulSoup) -> str:
-    """
-    午後問題ページの共通本文（冒頭の大きな mondai ブロック）を抽出する。
-    最初の「設問」開始までの mondai を採用する。
-    """
-    first_setumon = soup.find("h3", class_="inline", string=lambda s: s and "設問" in s)
-    if first_setumon is None:
-        return ""
-    first_mondai = first_setumon.find_parent("div", class_="mondai")
-    if first_mondai is None:
-        return ""
-
-    # 先頭の本文は、first_mondai より前にある .mondai（h3.qno の後）を対象にする
+def common_problem_blocks(soup: BeautifulSoup) -> list[Tag]:
+    """問見出しの後から最初の設問までを、DOMの文書順で収集する。"""
     qno = soup.find("h3", class_="qno")
     if qno is None:
-        return ""
-    qno_wrap = qno.find_parent("div")
-    if qno_wrap is None:
-        return ""
+        return []
+    blocks = []
+    for node in qno.find_all_next():
+        if node.name == "h3" and re.match(r"設問\s*[0-9０-９]+", node.get_text(strip=True)):
+            break
+        if node.name == "div" and "mondai" in (node.get("class") or []):
+            if node.find(lambda tag: tag.name == "h3" and re.match(r"設問\s*[0-9０-９]+", tag.get_text(strip=True))) is not None:
+                break
+            if not any(parent in blocks for parent in node.parents):
+                blocks.append(node)
+    return blocks
 
-    lines: list[str] = []
-    for node in _iter_tags_between(qno_wrap, lambda n: n == first_mondai):
-        if node.name != "div":
-            continue
-        if "mondai" not in (node.get("class") or []):
-            continue
-        text = normalize_question_body_text(node.get_text("\n", strip=True))
-        if text:
-            lines.append(text)
-    return "\n\n".join(lines).strip()
+
+def extract_common_problem_statement(soup: BeautifulSoup) -> str:
+    return "\n\n".join(filter(None, (extract_q_text(block) for block in common_problem_blocks(soup))))
 
 
 def parse_answer_map_from_answer_chars(answer_chars: Tag) -> dict[str, list[str]]:
@@ -750,12 +780,25 @@ def parse_choices_from_select_options(select_tag: Tag) -> tuple[list[str], list[
 
 
 def find_nearest_setumon_number(node: Tag) -> str:
-    h3 = node.find_previous("h3", class_="inline", string=lambda s: s and "設問" in s)
+    h3 = node.find_previous(lambda tag: tag.name == "h3" and re.match(r"設問\s*[0-9０-９]+", tag.get_text(strip=True)))
     if h3 is None:
         return ""
     text = normalize_inline_text(h3.get_text(" ", strip=True))
     m = re.search(r"設問\s*([0-9０-９]+)", normalize_digits(text))
     return m.group(1) if m else ""
+
+
+def pm_select_groups(input_box: Tag) -> list[list[Tag]]:
+    """同一解答群から複数を選ぶ欄を一問に、名前付き空欄は別問にする。"""
+    groups: dict[str, list[Tag]] = {}
+    for select in input_box.find_all("select"):
+        match = re.search(r"([a-z]+)$", select.get("name", ""))
+        key = match[1] if match else "main"
+        group = groups.setdefault(key, [])
+        if group and parse_choices_from_select_options(group[0]) != parse_choices_from_select_options(select):
+            raise ValueError("同一空欄の解答群が一致しません")
+        group.append(select)
+    return list(groups.values())
 
 
 def find_pm_question_number(soup: BeautifulSoup) -> str:
@@ -772,6 +815,7 @@ def parse_pm_question_page(
     http_session,
     download_images: bool,
     output_list_group_id: str,
+    existing_identities: dict[str, dict] | None = None,
 ) -> list[dict]:
     soup = BeautifulSoup(html_text, "html.parser")
     exam_label, exam_year, _ = extract_exam_meta_from_h2(soup)
@@ -780,15 +824,27 @@ def parse_pm_question_page(
 
     pm_question_no = find_pm_question_number(soup)
     common_statement = extract_common_problem_statement(soup)
+    common_image_urls = list(dict.fromkeys(
+        url for block in common_problem_blocks(soup)
+        for url in extract_image_urls_from_element(block, page_url)
+    ))
+    common_image_filenames = (
+        download_and_save_images(
+            http_session, common_image_urls,
+            f"pm{output_list_group_id}_q{pm_question_no or 'x'}_common",
+            base_dir=IMAGE_OUTPUT_DIR or ".",
+        ) if download_images and common_image_urls else []
+    )
+    common_image_storage_urls = [make_storage_url(name, QUALIFICATION_CODE) for name in common_image_filenames]
 
     question_bodies: list[dict] = []
     for input_box in soup.find_all("div", class_="inputAnswerBox"):
-        select_tags = input_box.find_all("select")
+        select_tags = [group[0] for group in pm_select_groups(input_box)]
         if not select_tags:
             continue
 
         statement_div = input_box.find_previous("div", class_="mondai")
-        statement_text = normalize_question_body_text(statement_div.get_text("\n", strip=True) if statement_div else "")
+        statement_text = extract_q_text(statement_div)
         if not statement_text:
             continue
 
@@ -828,11 +884,17 @@ def parse_pm_question_page(
             if download_images and question_image_urls_deduped
             else []
         )
-        question_image_storage_urls = [make_storage_url(fname, QUALIFICATION_CODE) for fname in question_image_filenames]
+        question_image_storage_urls = common_image_storage_urls + [make_storage_url(fname, QUALIFICATION_CODE) for fname in question_image_filenames]
 
         combined_body_lines = []
         if common_statement:
             combined_body_lines.append(common_statement)
+        section_heading = input_box.find_previous(lambda tag: tag.name == "h3" and re.match(r"設問\s*[0-9０-９]+", tag.get_text(strip=True)))
+        section_block = section_heading.find_parent("div", class_="mondai") if section_heading else None
+        if section_block is not None and section_block is not statement_div:
+            combined_body_lines.append(extract_q_text(section_block))
+        elif section_heading is not None and section_block is None:
+            combined_body_lines.append(extract_q_text(section_heading))
         combined_body_lines.append(statement_text)
         combined_body_text = "\n\n".join(line for line in combined_body_lines if line).strip()
 
@@ -881,7 +943,8 @@ def parse_pm_question_page(
             question_label = " ".join(label_parts) if label_parts else normalize_inline_text(statement_text)[:50]
 
             source_question_id = f"{output_list_group_id}:pm{pm_question_no}:setumon{setumon_no}:{sub_no}:{blank_key}:{page_url}"
-            public_question_id = make_public_question_id(source_question_id)
+            identity = (existing_identities or {}).get(source_question_id, {})
+            public_question_id = identity.get("public_question_id") or make_public_question_id(source_question_id)
 
             question_bodies.append(
                 {
@@ -900,7 +963,7 @@ def parse_pm_question_page(
                     "list_group_id": output_list_group_id,
                     "question_url": page_url,
                     "public_question_id": public_question_id,
-                    "original_question_id": public_question_id,
+                    "original_question_id": identity.get("original_question_id", public_question_id),
                     "questionImageStorageUrls": question_image_storage_urls,
                     "questionIntent": question_intent,
                     "correctChoiceText": correct_choice_texts,
@@ -931,10 +994,11 @@ def load_existing_identities(group_dir: Path) -> dict[str, dict]:
                     continue
                 identity = {key: record[key] for key in keys if record.get(key)}
                 url = identity["question_url"]
-                previous = identities.get(url, {})
+                key = identity.get("source_question_id", url) if PM_PAGE_HREF_RE.fullmatch(urlparse(url).path.rsplit("/", 1)[-1]) else url
+                previous = identities.get(key, {})
                 if any(previous[key] != value for key, value in identity.items() if key in previous):
                     raise ValueError(f"既存記録のIDが競合しています: {url}")
-                identities[url] = {**previous, **identity}
+                identities[key] = {**previous, **identity}
     # 旧sgsikenは同じ公開IDを両fieldへ保存していた。patchにだけ残る
     # original_question_idも、その取得契約に基づく公開IDのexact aliasである。
     for identity in identities.values():
@@ -953,6 +1017,12 @@ def atomic_write_json(path: Path, payload: dict) -> None:
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)
+
+
+def save_page_evidence(evidence_dir: Path, filename: str, html: str) -> None:
+    evidence_dir.mkdir(parents=True, exist_ok=True)
+    with gzip.open(evidence_dir / f"{filename}.gz", "wt", encoding="utf-8") as evidence:
+        evidence.write(html)
 
 
 def save_validated_source(json_dir: Path, group_id: str, records: list[dict], *, expected_count: int) -> dict:
@@ -1015,6 +1085,8 @@ def main() -> int:
 
     http_session = create_http_session()
     list_html = fetch_html_text(http_session, LIST_FIRST_PAGE_URL)
+    evidence_dir = Path(OUTPUT_DIR) / QUALIFICATION_CODE / "verification" / "dojo" / output_list_group_id
+    save_page_evidence(evidence_dir, "index.html", list_html)
     q_urls, pm_urls = collect_question_page_urls(list_html, LIST_FIRST_PAGE_URL)
     if not q_urls and not pm_urls:
         raise ValueError("取得一覧に問題がありません")
@@ -1024,6 +1096,7 @@ def main() -> int:
     identities = load_existing_identities(Path(json_output_dir).parent)
 
     question_bodies: list[dict] = []
+    discovered_count = len(q_urls)
 
     def can_add_more() -> bool:
         return MAX_QUESTIONS is None or len(question_bodies) < MAX_QUESTIONS
@@ -1032,11 +1105,7 @@ def main() -> int:
         if not can_add_more():
             break
         html = fetch_html_text(http_session, url)
-        if NUMBERED_PAGE_HREF_RE.fullmatch(urlparse(url).path.rsplit("/", 1)[-1]):
-            evidence_dir = Path(OUTPUT_DIR) / QUALIFICATION_CODE / "verification" / "dojo" / output_list_group_id
-            evidence_dir.mkdir(parents=True, exist_ok=True)
-            with gzip.open(evidence_dir / (urlparse(url).path.rsplit("/", 1)[-1] + ".gz"), "wt", encoding="utf-8") as evidence:
-                evidence.write(html)
+        save_page_evidence(evidence_dir, urlparse(url).path.rsplit("/", 1)[-1], html)
         qb = parse_q_question_page(
             html,
             url,
@@ -1054,24 +1123,41 @@ def main() -> int:
         if not can_add_more():
             break
         html = fetch_html_text(http_session, url)
+        save_page_evidence(evidence_dir, urlparse(url).path.rsplit("/", 1)[-1], html)
+        page_expected_count = sum(len(pm_select_groups(box)) for box in BeautifulSoup(html, "html.parser").select("div.inputAnswerBox"))
+        discovered_count += page_expected_count
         qbs = parse_pm_question_page(
             html,
             url,
             http_session=http_session,
             download_images=True,
             output_list_group_id=output_list_group_id,
+            existing_identities=identities,
         )
-        if not qbs:
+        if not qbs or len(qbs) != page_expected_count:
             raise ValueError(f"午後問題の解析に失敗しました: {url}")
         for qb in qbs:
             if not can_add_more():
                 break
             question_bodies.append(qb)
 
-    if expected_count:
+    if MAX_QUESTIONS is None:
+        expected_count = expected_count or discovered_count
+        if QUALIFICATION_CODE == "sg":
+            from scripts.check.check_sgsiken_acquisition import audit_page
+            by_url: dict[str, list[dict]] = {}
+            for record in question_bodies:
+                by_url.setdefault(record["question_url"], []).append(record)
+            for url, records in by_url.items():
+                with gzip.open(evidence_dir / (urlparse(url).path.rsplit("/", 1)[-1] + ".gz"), "rt", encoding="utf-8") as evidence:
+                    errors = audit_page(evidence.read(), records, url)
+                if errors:
+                    raise ValueError(f"保存前HTML照合に失敗しました: {url}: {errors}")
         details = save_validated_source(Path(json_output_dir), output_list_group_id, question_bodies, expected_count=expected_count)
         report = {"status": "succeeded", "qualification": QUALIFICATION_CODE, "listGroupId": output_list_group_id,
                   "sourceListUrl": LIST_FIRST_PAGE_URL, "questionCount": len(question_bodies),
+                  "singleQuestionPageCount": len(q_urls), "afternoonPageCount": len(pm_urls),
+                  "includeAfternoonQuestions": include_afternoon,
                   "expectedQuestionCount": expected_count, "completedAt": datetime.now(timezone.utc).isoformat(), **details}
         atomic_write_json(Path(OUTPUT_DIR) / QUALIFICATION_CODE / "scrape_reports" / f"{output_list_group_id}.json", report)
     else:

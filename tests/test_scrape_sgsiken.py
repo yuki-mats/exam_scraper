@@ -24,6 +24,118 @@ RUN_LIVE_TESTS = os.environ.get("RUN_LIVE_TESTS") == "1"
 
 
 class ScrapeSgsikenTests(unittest.TestCase):
+    def test_unknown_script_characters_keep_their_exact_symbol_and_case(self):
+        from bs4 import BeautifulSoup
+        from scrape_sgsiken import extract_q_text
+        node = BeautifulSoup('<div>事務<sup>※</sup>、X<sub>N</sub>、T<sub>b</sub></div>', 'html.parser').div
+        self.assertEqual(extract_q_text(node), '事務^(※)、X_(N)、T_(b)')
+
+    def test_nested_explanation_list_keeps_its_leading_conclusion(self):
+        from bs4 import BeautifulSoup
+        from scrape_sgsiken import parse_q_explanation_fields
+        html = '<div id="kaisetsu">定義。<ul><br>したがってアです。<ul><li class="lia">A。</li><li class="lii">B。</li></ul></ul>補足。</div>'
+        prefix, _, summary, snippets, _ = parse_q_explanation_fields(BeautifulSoup(html, "html.parser"), choice_count=2)
+        self.assertIn("したがってアです。", prefix[0])
+        self.assertEqual(summary, ["補足。"])
+        self.assertEqual(snippets, [["A。"], ["B。"]])
+
+    def test_ordered_list_preserves_roman_and_alphabetic_reference_labels(self):
+        from bs4 import BeautifulSoup
+        from scrape_sgsiken import extract_q_text
+        for style, expected in (("i", "i. Aii. B"), ("I", "I. AII. B"), ("a", "a. Ab. B")):
+            with self.subTest(style=style):
+                node = BeautifulSoup(f'<div><ol type="{style}"><li>A</li><li>B</li></ol></div>', "html.parser").div
+                self.assertEqual(extract_q_text(node), expected)
+
+    def test_pm_plain_headings_and_multiple_selection_form_one_question(self):
+        html = """<h2>情報セキュリティマネジメント平成31年春期 午後問2</h2>
+        <h3 class="qno">問2</h3><div class="mondai">共通本文。</div>
+        <h3 id="s1">設問1</h3><div class="mondai">該当するものを二つ選べ。</div>
+        <div class="inputAnswerBox">
+        <select name="sel_11"><option>-</option><option>ア A</option><option>イ B</option><option>ウ C</option></select>
+        <select name="sel_12"><option>-</option><option>ア A</option><option>イ B</option><option>ウ C</option></select>
+        </div><div class="answerChars"><span id="ans_11">ア</span><span id="ans_12">ウ</span></div>
+        <h3 id="s2">設問2</h3><div class="mondai">適切なものを選べ。</div>
+        <div class="inputAnswerBox"><select name="sel_2"><option>-</option><option>ア D</option><option>イ E</option></select></div>
+        <div class="answerChars"><span id="ans_2">イ</span></div>"""
+        records = parse_pm_question_page(
+            html, "https://www.sg-siken.com/kakomon/31_haru/pm02.html",
+            http_session=None, download_images=False, output_list_group_id="201901",
+        )
+        self.assertEqual(len(records), 2)
+        self.assertEqual(records[0]["answer_result_inferred_correct_choice_numbers"], [1, 3])
+        self.assertEqual(records[1]["answer_result_inferred_correct_choice_numbers"], [2])
+        self.assertEqual(records[0]["questionLabel"], "午後問2 設問1")
+        self.assertEqual(records[1]["questionLabel"], "午後問2 設問2")
+        self.assertIn("共通本文。\n\n設問1", records[0]["questionBodyText"])
+        from scripts.check.check_sgsiken_acquisition import audit_page
+        for record in records:
+            record["examYear"] = 2019
+        self.assertEqual(audit_page(html, records, records[0]["question_url"]), [])
+
+    def test_explanation_keeps_plain_text_prefix_normal_lists_and_summary(self):
+        from bs4 import BeautifulSoup
+        from scrape_sgsiken import parse_q_explanation_fields
+        html = """<div id="kaisetsu"><strong>用語</strong>とは説明です。<br>
+        <ul><li>共通の条件。</li></ul>続く説明。X<sub>1</sub>
+        <ul><li class="lia">Aの理由。</li><li class="lii">Bの理由。</li></ul>
+        最後の結論。</div>"""
+        prefix, _, summary, snippets, _ = parse_q_explanation_fields(
+            BeautifulSoup(html, "html.parser"), choice_count=2,
+        )
+        self.assertIn("用語とは説明です。", prefix[0])
+        self.assertIn("共通の条件。", prefix[0])
+        self.assertIn("続く説明。X₁", prefix[0])
+        self.assertEqual(summary, ["最後の結論。"])
+        self.assertEqual(snippets, [["Aの理由。"], ["Bの理由。"]])
+
+    def test_pm_keeps_common_statement_section_images_and_exact_existing_ids(self):
+        html = """<div class="main kako">
+        <h2>情報セキュリティマネジメント令和元年秋期 午後問1</h2>
+        <h3 class="qno">問1 ECサイト</h3>
+        <div class="mondai">J社の対策を読め。<img src="common.png">X<sub>1</sub></div>
+        <div class="mondai"><h3 class="inline">設問1</h3>攻撃1への対応を答えよ。</div>
+        <div class="mondai">(1) 本文中のaに入れる字句はどれか。</div>
+        <div class="inputAnswerBox"><select name="answer_a">
+        <option>-</option><option>ア 対策A</option><option>イ 対策B</option>
+        </select><select name="answer_b">
+        <option>-</option><option>ア 対策C</option><option>イ 対策D</option>
+        </select></div>
+        <div class="answerChars"><span id="correct_a">イ</span><span id="correct_b">ア</span></div>
+        <div class="kaisetsu">対策の根拠。</div></div>"""
+        url = "https://www.sg-siken.com/kakomon/01_aki/pm01.html"
+        ids = {
+            f"201902:pm1:setumon1:1:{key}:{url}": {
+                "public_question_id": f"public-{key}",
+                "original_question_id": f"original-{key}",
+            } for key in ("a", "b")
+        }
+        with patch("scrape_sgsiken.download_and_save_images", return_value=["common.png"]) as download:
+            records = parse_pm_question_page(
+                html, url, http_session=None, download_images=True,
+                output_list_group_id="201902", existing_identities=ids,
+            )
+        self.assertEqual(download.call_count, 1)
+        self.assertEqual(len(records), 2)
+        self.assertEqual(records[0]["choiceTextList"], ["対策A", "対策B"])
+        self.assertEqual(records[1]["choiceTextList"], ["対策C", "対策D"])
+        self.assertEqual(records[0]["answer_result_inferred_correct_choice_numbers"], [2])
+        self.assertEqual(records[1]["answer_result_inferred_correct_choice_numbers"], [1])
+        for record in records:
+            self.assertIn("J社の対策を読め。X₁", record["questionBodyText"])
+            self.assertIn("攻撃1への対応を答えよ。", record["questionBodyText"])
+            self.assertIn("(1) 本文中のa", record["questionBodyText"])
+            self.assertEqual(len(record["questionImageStorageUrls"]), 1)
+            identity = ids[record["source_question_id"]]
+            self.assertEqual(record["public_question_id"], identity["public_question_id"])
+            self.assertEqual(record["original_question_id"], identity["original_question_id"])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "00_source").mkdir()
+            (root / "00_source" / "question.json").write_text(json.dumps({"question_bodies": records}))
+            loaded = load_existing_identities(root)
+            self.assertEqual(set(loaded), set(ids))
+
     def test_inline_math_keeps_complements_powers_indices_and_stable_ids(self):
         html = """<h2>ネットワークスペシャリスト令和元年秋期 午前Ⅰ 問1</h2>
         <h3 class="qno">問1</h3>
