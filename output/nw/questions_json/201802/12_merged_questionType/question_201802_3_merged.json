@@ -72,7 +72,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "source_question_id": "201802:am:問21:https://www.nw-siken.com/kakomon/30_aki/am2_21.html"
+      "source_question_id": "201802:am:問21:https://www.nw-siken.com/kakomon/30_aki/am2_21.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "IEEE 802.1XとRADIUSの技術的な役割分担を問う問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "ネットワークインタフェースカード(NIC)のチーミングの説明として，適切なものはどれか。",
@@ -142,13 +152,23 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "source_question_id": "201802:am:問22:https://www.nw-siken.com/kakomon/30_aki/am2_22.html"
+      "source_question_id": "201802:am:問22:https://www.nw-siken.com/kakomon/30_aki/am2_22.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "NICチーミングの機能を問う技術問題で、法令・制度上の根拠は不要。"
     },
     {
       "questionBodyText": "1台のCPUの性能を1とするとき，そのCPUをn台用いたマルチプロセッサの性能Pが，\nで表されるとする。ここで，aはオーバーヘッドを表す定数である。例えば，a＝0.1，n＝4とすると，p≒3なので，4台のCPUからなるマルチプロセッサの性能は約3倍になる。この式で表されるマルチプロセッサの性能には上限があり，nを幾ら大きくしてもPはある値以上には大きくならない。a＝0.1の場合，Pの上限は幾らか。",
       "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問23",
       "questionLabel": "問23",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "5",
         "10",
@@ -192,16 +212,16 @@
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
         [
-          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。P＝n／{1＋(n－1)×0.1}\nP＝n／(1＋0.1n－0.1)\nP＝n／(0.9＋0.1n)\nP＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝\n10となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
+          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。\n　P＝n／{1＋(n－1)×0.1}\n　P＝n／(1＋0.1n－0.1)\n　P＝n／(0.9＋0.1n)\n　P＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝10 となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
         ],
         [
-          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。P＝n／{1＋(n－1)×0.1}\nP＝n／(1＋0.1n－0.1)\nP＝n／(0.9＋0.1n)\nP＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝\n10となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
+          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。\n　P＝n／{1＋(n－1)×0.1}\n　P＝n／(1＋0.1n－0.1)\n　P＝n／(0.9＋0.1n)\n　P＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝10 となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
         ],
         [
-          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。P＝n／{1＋(n－1)×0.1}\nP＝n／(1＋0.1n－0.1)\nP＝n／(0.9＋0.1n)\nP＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝\n10となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
+          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。\n　P＝n／{1＋(n－1)×0.1}\n　P＝n／(1＋0.1n－0.1)\n　P＝n／(0.9＋0.1n)\n　P＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝10 となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
         ],
         [
-          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。P＝n／{1＋(n－1)×0.1}\nP＝n／(1＋0.1n－0.1)\nP＝n／(0.9＋0.1n)\nP＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝\n10となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
+          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。\n　P＝n／{1＋(n－1)×0.1}\n　P＝n／(1＋0.1n－0.1)\n　P＝n／(0.9＋0.1n)\n　P＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝10 となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
         ]
       ],
       "explanation_choice_correctness": [
@@ -214,7 +234,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "source_question_id": "201802:am:問23:https://www.nw-siken.com/kakomon/30_aki/am2_23.html"
+      "source_question_id": "201802:am:問23:https://www.nw-siken.com/kakomon/30_aki/am2_23.html",
+      "isCalculationQuestion": true,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "マルチプロセッサの性能式に基づく工学・性能評価の問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "全国に分散しているシステムを構成する機器の保守に関する記述のうち，適切なものはどれか。",
@@ -256,7 +286,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "MTBF(Mean Time Between Failures)\nシステムの修理が完了し正常に稼働し始めてから、次回故障するまでの平均故障間隔\nMTTR(Mean Time To Repair)\nシステムの故障を修理するために要した平均修復時間"
+        "MTBF(Mean Time Between Failures)システムの修理が完了し正常に稼働し始めてから、次回故障するまでの平均故障間隔MTTR(Mean Time To Repair)システムの故障を修理するために要した平均修復時間"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -284,7 +314,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "source_question_id": "201802:am:問24:https://www.nw-siken.com/kakomon/30_aki/am2_24.html"
+      "source_question_id": "201802:am:問24:https://www.nw-siken.com/kakomon/30_aki/am2_24.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "機器保守におけるMTBF・MTTRと保守体制の技術的な問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "ソフトウェアのリファクタリングの説明はどれか。",
@@ -354,7 +394,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "source_question_id": "201802:am:問25:https://www.nw-siken.com/kakomon/30_aki/am2_25.html"
+      "source_question_id": "201802:am:問25:https://www.nw-siken.com/kakomon/30_aki/am2_25.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "ソフトウェア工学上のリファクタリングの定義を問う技術問題で、正誤を直接決める法令根拠はありません。"
     }
   ]
 }

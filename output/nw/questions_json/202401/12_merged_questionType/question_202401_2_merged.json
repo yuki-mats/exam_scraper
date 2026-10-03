@@ -461,7 +461,7 @@
           }
         ]
       ],
-      "lawContextForExplanation": "現行法では、不正の利益を得る目的又は他人に損害を加える目的で、他人の特定商品等表示と同一・類似のドメイン名を取得・保有・使用する行為が第2条第1項第19号の不正競争に当たる。商品名の無登録性だけで直ちに適用が否定されるわけではなく、商品等表示の周知性・混同については同項第1号も確認する。"
+      "lawContextForExplanation": "現行法では、不正の利益を得る目的又は他人に損害を加える目的で、他人の特定商品等表示と同一・類似のドメイン名を取得・保有・使用する行為が不正競争防止法第2条第1項第19号に該当する。商品等表示の周知性と混同は同項第1号で確認する。"
     },
     {
       "questionBodyText": "BGP-4におけるASに関する記述として，適切なものはどれか。",
@@ -621,7 +621,7 @@
         [],
         []
       ],
-      "lawContextForExplanation": "CS-ACELPのビットレートとパケット生成周期からペイロード量を計算する技術問題で、法令条文を根拠にしない。"
+      "lawContextForExplanation": "CS-ACELPの8 kビット／秒とパケット生成周期20ミリ秒から、音声ペイロード量を計算する技術問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "1時間当たりの平均通話回数が60で，平均保留時間は120秒である。呼損率を0.1にしたいとき，必要な回線数は最低幾らか。ここで，表中の数値は加わる呼量(アーラン)を表す。",
@@ -854,7 +854,7 @@
         4
       ],
       "source_question_id": "202401:am:問5:https://www.nw-siken.com/kakomon/06_haru/am2_5.html",
-      "isCalculationQuestion": true,
+      "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
       "lawReferences": [
@@ -1100,7 +1100,7 @@
         [],
         []
       ],
-      "lawContextForExplanation": "RADIUSはリモートアクセス環境で認証・認可・アカウンティング情報を扱うプロトコルであり、法令条文を根拠にしない技術問題。"
+      "lawContextForExplanation": "リモートアクセス環境で認証情報やアカウンティング情報を扱うプロトコルを問う技術問題であり、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "ホストAからホストBにTCPを用いてデータを送信するとき，TCPセグメントのシーケンス番号と受信確認番号(肯定応答番号)に関する記述のうち，適切なものはどれか。",
@@ -1839,7 +1839,7 @@
       "questionBodyText": "暗号化装置における暗号化処理時の消費電力を測定するなどして，当該装置内部の秘密情報を推定する攻撃はどれか。",
       "examLabel": "ネットワークスペシャリスト令和6年春期 午前Ⅱ 問18",
       "questionLabel": "問18",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "キーロガー",
         "サイドチャネル攻撃",
@@ -1911,7 +1911,7 @@
         [],
         []
       ],
-      "lawContextForExplanation": "情報セキュリティ技術上のサイドチャネル攻撃に関する問題で、法令・制度条文を根拠にしない。"
+      "lawContextForExplanation": "暗号化装置の消費電力などから秘密情報を推定するサイドチャネル攻撃に関する技術問題で、法令・制度条文を根拠にしない。"
     },
     {
       "questionBodyText": "なりすましメール対策に関する記述のうち，適切なものはどれか。",

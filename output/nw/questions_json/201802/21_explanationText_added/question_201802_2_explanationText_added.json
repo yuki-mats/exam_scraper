@@ -244,7 +244,7 @@
   },
   {
     "explanationText": [
-      "正しい。製品A 10個に必要なユニットBは、1個当たり4個なので \\(4\\times10=40\\) 個である。在庫5個を差し引くと、正味所要量は \\(40-5=35\\) 個となる。ユニットCは \\(1\\times10=10\\) 個必要である。部品Dは、ユニットB用に \\(3\\times35=105\\) 個、ユニットC用に \\(1\\times10=10\\) 個必要なので、総所要量は \\(105+10=115\\) 個となる。部品Dの在庫25個を差し引くと、正味所要量は \\(115-25=90\\) 個である。"
+      "正しい。製品A 10個に必要なユニットBは、1個当たり4個なので \\(4\\times10=40\\) 個である。在庫5個を差し引くと、ユニットBの正味所要量は \\(40-5=35\\) 個となる。ユニットCは \\(1\\times10=10\\) 個必要である。部品Dは、ユニットB用に \\(3\\times35=105\\) 個、ユニットC用に \\(1\\times10=10\\) 個必要なので、総所要量は \\(105+10=115\\) 個となる。部品Dの在庫25個を差し引くと、正味所要量は \\(115-25=90\\) 個である。"
     ],
     "original_question_id": "97a7cffaea55d2e6",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_28.html",
@@ -484,37 +484,192 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nやむを得ない事情がある場合には、具体額の代わりに算定方法を記載することが認められるため、この行為が直ちに禁止とはいえない。",
-      "正しい。\n\n委託業務内容が既に確定しているのに、ユーザーとの契約代金未定を理由として製造委託等代金の取決めを後回しにすることは認められない。委託時点で代金を定めない行為として禁止される。",
-      "間違い。\n\n相手方の承諾があれば、必要事項を記載した電子メールなど電磁的方法での発注は認められる。",
-      "間違い。\n\n未定部分について正当な理由がある場合には、後日補充事項を明示する取扱いが認められる。"
-    ],
-    "suggestedQuestions": [
-      "中小受託取引適正化法で何が禁止されますか？",
-      "代金を後回しにできる場合はありますか？",
-      "書面交付は電子メールでもよいですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "中小受託取引適正化法で何が禁止されますか？",
-        "answer": "不当に代金を定めない、減額する、支払遅延を行うなど受託事業者に不利益な取引慣行が禁止される。"
-      },
-      {
-        "question": "代金を後回しにできる場合はありますか？",
-        "answer": "委託内容自体が未確定など、正当な理由で必要事項が定められない部分に限って補充が認められる。"
-      },
-      {
-        "question": "書面交付は電子メールでもよいですか？",
-        "answer": "相手方の承諾があれば、電磁的方法による提供も可能である。"
-      }
+      "正しい。交通費など、発注時に具体的な金額を確定できない経費は、実費負担という算定方法を発注書面に示すことができる。この扱いは、中小受託取引適正化法（正式名称：製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律）第4条第1項の明示に関する規定に沿っている。",
+      "間違い。正しくは、委託する業務内容が決まっているなら、ユーザーとの契約代金が未定でも、委託時に製造委託等代金を定めて明示する。ユーザーとの契約代金が決まっていないことは、受託事業者への代金を後で決める正当な理由にはならない。これは、中小受託取引適正化法の第4条第1項が、代金の額を直ちに明示するよう求めているためである。",
+      "正しい。必要事項を記載した電子メールなどの電磁的方法で明示することは、認められている。中小受託取引適正化法第4条第1項も、書面に加えて、法令で定める電磁的方法による明示を認めている。",
+      "正しい。委託内容の一部や代金を定められないことに正当な理由がある場合は、未定事項を後日決定し、決定後直ちに書面又は電磁的方法で明示する扱いが認められている。これは、中小受託取引適正化法第4条第1項ただし書の定めに該当する。"
     ],
     "original_question_id": "6019c18f40a9d114",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_30.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201802:6019c18f40a9d114",
+    "reviewQuestionId": "6019c18f40a9d114",
+    "sourceRecordRef": "question_201802_2.json#4",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/331AC0000000120?asof=2026-10-04",
+        "title": "製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律"
+      }
+    ],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "現行法では中小受託取引適正化法（正式名称：製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律）第4条第1項が判断軸である。発注時の給付内容・代金等の明示、正当な理由がある未定事項の扱い、電磁的方法による明示を確認する。ユーザーとの契約代金が未定であることだけでは受託代金を後決めする正当な理由にならない。出題時本文は取得されていないため、出題時判定は00_sourceの公式元正答に基づく。",
+    "lawReferences": [
+      [
+        {
+          "article": "第4条第1項",
+          "choiceIndex": 0,
+          "lawId": "331AC0000000120",
+          "lawTitle": "製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第4条第1項",
+          "choiceIndex": 1,
+          "lawId": "331AC0000000120",
+          "lawTitle": "製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第4条第1項",
+          "choiceIndex": 2,
+          "lawId": "331AC0000000120",
+          "lawTitle": "製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "第4条第1項ただし書",
+          "choiceIndex": 3,
+          "lawId": "331AC0000000120",
+          "lawTitle": "製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律",
+          "referenceDate": "2026-10-04",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "出題時の公式判定と現行法上の判定は一致する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "現行法では、発注時に具体額を確定できない経費について実費負担の算定方法を明示できる。",
+          "promptContext": "交通費などの経費を実費負担とする旨を発注書面に記載する命題を確認した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "primaryLawEvidenceに出題時本文はなく、出題時法令本文が不変だったとは判定していない。出題時判定は00_sourceの公式元正答に基づく。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時の公式判定と現行法上の判定は一致する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "委託する業務内容が決まっている場合、ユーザーとの契約代金が未定であることだけでは、受託事業者への製造委託等代金を後決めする正当な理由にならない。",
+          "promptContext": "ユーザーとの契約代金が未定であることを理由に、受託事業者への代金決定を遅らせる命題を確認した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "primaryLawEvidenceに出題時本文はなく、出題時法令本文が不変だったとは判定していない。出題時判定は00_sourceの公式元正答に基づく。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時の公式判定と現行法上の判定は一致する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "必要事項を記載した電子メールなどの電磁的方法による明示は認められる。",
+          "promptContext": "書面の交付に代えて、承諾を得た上で必要事項を記載した電子メールで発注する命題を確認した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "primaryLawEvidenceに出題時本文はなく、出題時法令本文が不変だったとは判定していない。出題時判定は00_sourceの公式元正答に基づく。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時の公式判定と現行法上の判定は一致する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得だが、公式元正答と現行法判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "内容や代金を定められないことに正当な理由がある場合は、後日決定して直ちに明示する扱いが認められる。",
+          "promptContext": "ユーザーの事情で委託内容の一部が未定であり、その部分と代金を後日取り決める命題を確認した。",
+          "refs": [],
+          "verdict": "same_as_current"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "primaryLawEvidenceに出題時本文はなく、出題時法令本文が不変だったとは判定していない。出題時判定は00_sourceの公式元正答に基づく。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。OFDMは、データ信号を複数のサブキャリアに分割し、各サブキャリアを互いに直交するように配置して伝送する多重化方式である。CCKは拡散符号化、CDMは符号分割多重、TDMは時間分割多重であり、サブキャリアを直交配置する方式ではない。"
+      "正しい。OFDMは、データ信号を複数のサブキャリアに分け、それぞれを互いに直交するように配置して同時に伝送する多重化方式である。CCKは符号を使ってデータを拡散する方式、CDMは符号の違いで信号を分ける方式、TDMは時間を分けて信号を伝送する方式であり、サブキャリアを直交配置するOFDMとは異なる。"
     ],
     "original_question_id": "ab342533d4be5211",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_1.html",
@@ -1385,7 +1540,7 @@
   },
   {
     "explanationText": [
-      "正しい。正答はIGMPである。IGMPは、IPv4ネットワークでホストが参加するマルチキャストグループをルータへ通知し、ローカルセグメントでの配信対象を管理する。ICMPは疎通確認やエラー通知、RTPは音声・映像などのデータ伝送、SDPは通信セッションの条件記述に用いるため、マルチキャストグループの管理には使わない。"
+      "正しい。答えはIGMPである。IGMPは、IPv4マルチキャストでホストが参加しているグループをローカルセグメントに接続するルータへ通知し、ルータがそのグループ宛ての通信をセグメントへ配信するか判断できるようにする。"
     ],
     "original_question_id": "506c35a79289723b",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_8.html",
@@ -1393,7 +1548,13 @@
     "sourceQuestionKey": "nw:201802:506c35a79289723b",
     "reviewQuestionId": "506c35a79289723b",
     "sourceRecordRef": "question_201802_2.json#12",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2236",
+        "title": "RFC 2236: Internet Group Management Protocol, Version 2"
+      }
+    ],
     "questionLearningPatternId": "terms_basics",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -1505,10 +1666,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、LDAPはX.500のデータ・サービスモデルに基づいて簡素化されたディレクトリアクセスプロトコルである。X.500のDAPなどのプロトコルをそのまま包含するものではない。",
-      "間違い。正しくは、root DSEは各LDAPサーバが自身の対応機能や管理情報を示すために持つサーバ固有のエントリである。インターネット全体の最上位サーバとして設置されるものではない。",
-      "正しい。LDAPは、ディレクトリツリーに対する検索や追加などの操作手順と、LDAPメッセージのデータ形式を規定している。",
-      "間違い。正しくは、LDAPは通常TCP上で通信し、LDAPv3ではTCPポート389が標準的に使われる。UDPを使ってLDAP自身が通信の信頼性を確保する方式ではない。"
+      "間違い。正しくは、LDAPはX.500のディレクトリサービスモデルを基に、X.500のDAPを簡素化したディレクトリアクセスプロトコルである。選択肢は、LDAPがX.500シリーズに機能を追加し、そのプロトコルを包含しているとしているため誤りである。",
+      "間違い。正しくは、root DSEは各LDAPサーバのディレクトリ情報ツリーの最上位にあるサーバ固有のエントリで、サーバの対応機能や命名コンテキストなどを示す。選択肢は、インターネット上のLDAPサーバ全体に共通する最上位サーバとしてroot DSEが設置されるとしているため誤りである。",
+      "正しい。LDAPは、ディレクトリツリーに対する検索、追加、変更などの操作と、LDAPメッセージのデータ交換形式を定める。",
+      "間違い。正しくは、LDAPは通常TCP上で通信し、LDAPv3の標準ポートは389である。選択肢は、TCPを使わずUDPで通信し、LDAP自身が通信の信頼性を確保するとしているため誤りである。"
     ],
     "original_question_id": "94db5a7395de8394",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_9.html",
@@ -1767,10 +1928,10 @@
   },
   {
     "explanationText": [
-      "間違い。IPv4マルチキャストアドレスには、恒久的に割り当てられるものだけでなく、動的に割り当てられる一時的なグループ用もある。選択肢は全てのマルチキャストアドレスの用途があらかじめ固定されているとしているため誤りである。",
+      "間違い。正しくは、IPv4マルチキャストアドレスには、用途が恒久的に割り当てられたもののほか、動的に割り当てられる一時的なグループアドレスもある。選択肢は、全てのマルチキャストアドレスの用途があらかじめ固定されているとしているため誤りである。",
       "正しい。IPv4マルチキャストにはクラスDのアドレスが使われる。先頭4ビットが1110で、範囲は224.0.0.0〜239.255.255.255である。",
-      "間違い。マルチキャストパケットもTTLによって到達範囲が制限され、ルータを通過するたびにTTLが減少する。選択肢はTTL値に関係なく中継されるとしているため誤りである。",
-      "間違い。通常は、そのマルチキャストグループに参加しているホストが受信する。IGMPなどでグループ参加を管理するため、選択肢はネットワーク上の全てのホストが受信するとしている点で誤りである。"
+      "間違い。正しくは、マルチキャストパケットもTTLによって到達範囲が制限され、ルータを通過するたびにTTLが減少する。選択肢は、TTL値に関係なくルータが中継するとしているため誤りである。",
+      "間違い。正しくは、そのマルチキャストグループへの参加を通知したホストが受信する。選択肢は、ネットワーク上の全てのホストが受信するとしているため誤りである。"
     ],
     "original_question_id": "7b4284bc874d75db",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_11.html",
@@ -1783,11 +1944,6 @@
         "referenceDate": "1989-08-01",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1112.html",
         "title": "RFC 1112: Host Extensions for IP Multicasting"
-      },
-      {
-        "referenceDate": "1989-10-01",
-        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1122.html",
-        "title": "RFC 1122: Requirements for Internet Hosts — Communication Layers"
       }
     ],
     "questionLearningPatternId": "terms_basics",
@@ -1901,7 +2057,7 @@
   },
   {
     "explanationText": [
-      "正しい。IEEE 802.11acは5GHz帯を使用する無線LAN規格で、Bluetooth、IEEE 802.11b、IEEE 802.11gはいずれも2.4GHz帯を使用する。したがって、2.4GHz帯を使用しない規格はIEEE 802.11acである。"
+      "正しい。IEEE 802.11acは5GHz帯を使用する無線LAN規格である。一方、Bluetooth、IEEE 802.11b、IEEE 802.11gはいずれも2.4GHz帯を使用するため、2.4GHz帯を使用しない規格はIEEE 802.11acである。"
     ],
     "original_question_id": "e4ae2b7e55da00e6",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_12.html",
@@ -2021,10 +2177,10 @@
   },
   {
     "explanationText": [
-      "間違い。OpenFlowは、コントローラーとネットワーク機器の間で転送制御情報をやり取りするプロトコルである。選択肢はコントローラーの処理フローを定義したものとしているため誤りである。",
-      "正しい。コントローラーがフロー情報をネットワーク機器へ提供し、ネットワーク機器はその情報に基づいてデータを転送する。",
-      "間違い。アプリケーションは、ノースバウンドインタフェースを介してコントローラーに指示を出す。選択肢はサウスバウンドインタフェースとしているため誤りである。",
-      "間違い。アプリケーションはコントローラーを介してネットワークを制御し、ネットワーク機器へ直接指示を出さない。選択肢はアプリケーションがネットワーク機器へ直接指示を出すとしているため誤りである。"
+      "間違い。正しくは、OpenFlowはコントローラーとネットワーク機器の間で制御情報を交換するプロトコルである。コントローラーの処理フローそのものを定義するものではない。",
+      "正しい。コントローラーがネットワーク機器へ転送情報を提供し、ネットワーク機器はその情報に基づいてデータを転送する。",
+      "間違い。正しくは、アプリケーションはノースバウンドインタフェースを介してコントローラーに指示を出す。サウスバウンドインタフェースは、コントローラーとネットワーク機器の間を接続する。",
+      "間違い。正しくは、アプリケーションはコントローラーを介してネットワークを制御する。アプリケーションがネットワーク機器へ直接指示を出す構成ではない。"
     ],
     "original_question_id": "ed6f89425a82600b",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_13.html",
@@ -2144,7 +2300,7 @@
   },
   {
     "explanationText": [
-      "正しい。URLのスキームがhttpsで、ポート番号を明示していないため、接続先のTCPポートは既定の443番になる。ホスト名にftpが含まれていても、FTPの既定ポート21番には接続しない。また、URL末尾の「?port=123」はサーバへ渡すクエリ文字列であり、TCPポート番号の指定ではない。"
+      "正しい。URLのスキームがhttpsで、ポート番号を明示していないため、接続先のTCPポート番号は既定値の443番になる。ホスト名にftpが含まれていてもFTPの既定ポート21番には接続せず、「?port=123」はサーバへ渡すクエリ文字列であって、TCPポート番号の指定ではない。"
     ],
     "original_question_id": "fdd58fb6d6525e8e",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_14.html",
@@ -2264,9 +2420,9 @@
   },
   {
     "explanationText": [
-      "間違い。WebSocketのデータはテキスト又はバイナリで扱い、XML形式に限定されない。接続開始時にはHTTPのUpgradeを利用するが、選択肢は通信メッセージがXML形式に限定されるとしているため誤りである。",
-      "間違い。WebSocketのURIスキームはws又はwssである。wsとwssの既定ポートはそれぞれHTTP及びHTTPSと同じ80番及び443番だが、URIにhttp又はhttpsを使用するわけではない。",
-      "間違い。WebSocketは接続確立後にクライアントとサーバが双方向に通信できるが、接続開始のハンドシェイクはクライアントが行う。選択肢は、サーバからも接続開始を要求できるとしているため誤りである。",
+      "間違い。WebSocketのデータはテキスト又はバイナリで扱い、XML形式に限定されない。接続開始時にはHTTPのUpgradeを利用するが、選択肢は通信メッセージをXML形式に限定しているため誤りである。",
+      "間違い。WebSocketのURIスキームはws又はwssである。既定ポートはそれぞれHTTP及びHTTPSと同じ80番及び443番だが、URIにhttp又はhttpsを使用するわけではない。",
+      "間違い。WebSocketは接続確立後にクライアントとサーバが双方向に通信できるが、接続開始のハンドシェイクはクライアントが行う。選択肢はサーバからも接続開始を要求できるとしているため誤りである。",
       "正しい。WebSocketの接続は、クライアントがHTTPのGETメソッドとUpgradeヘッダを含むハンドシェイクを送り、サーバが応答して確立する。接続確立後は、クライアントとサーバが双方向に通信できる。"
     ],
     "original_question_id": "89de89a06bc80605",
@@ -2282,7 +2438,7 @@
         "title": "RFC 6455 The WebSocket Protocol"
       }
     ],
-    "questionLearningPatternId": "terms_basics",
+    "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
     "lawContextForExplanation": "WebSocketの通信仕様に関する技術問題で、法令条文を根拠にしない。",
@@ -2636,10 +2792,7 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、Content-Security-Policy は、ブラウザが読み込む又は実行するリソースの制限などを指定するヘッダーフィールドである。選択肢は指定期間のHTTPS利用を指示するヘッダーフィールドとしているため誤りである。",
-      "正しい。Strict-Transport-Security はHSTS用のヘッダーフィールドで、max-ageに指定した秒数の間、そのホストへの接続にHTTPSを使うようブラウザへ指示する。",
-      "間違い。正しくは、X-Content-Type-Options はContent-Typeの扱いを確認し、nosniffによるMIMEタイプの推測抑止に用いるヘッダーフィールドである。選択肢は指定期間のHTTPS利用を指示するヘッダーフィールドとしているため誤りである。",
-      "間違い。正しくは、X-XSS-Protection はブラウザのXSSフィルタリングを制御するヘッダーフィールドである。選択肢は指定期間のHTTPS利用を指示するヘッダーフィールドとしているため誤りである。"
+      "正しい。答えはStrict-Transport-Securityである。このヘッダーフィールドはHSTSを有効にし、max-ageで指定した期間、そのWebサイトへHTTPSで接続するようブラウザに指示する。Content-Security-Policyは読み込みや実行を許可するリソースを制限し、X-Content-Type-OptionsはMIMEタイプの推測を抑止し、X-XSS-ProtectionはブラウザのXSSフィルタリングを制御する。"
     ],
     "original_question_id": "61b389bafe9afcb3",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_18.html",
@@ -2649,25 +2802,21 @@
     "sourceRecordRef": "question_201802_2.json#22",
     "explanationReferences": [
       {
-        "choiceIndex": 0,
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://www.w3.org/TR/2016/REC-CSP2-20161215/",
         "title": "Content Security Policy Level 2"
       },
       {
-        "choiceIndex": 1,
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6797.html",
         "title": "RFC 6797: HTTP Strict Transport Security (HSTS)"
       },
       {
-        "choiceIndex": 2,
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://fetch.spec.whatwg.org/#x-content-type-options",
         "title": "Fetch Standard: X-Content-Type-Options header"
       },
       {
-        "choiceIndex": 3,
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://learn.microsoft.com/th-th/windows-server/identity/ad-fs/operations/customize-http-security-headers-ad-fs",
         "title": "Customize HTTP security response headers with AD FS"

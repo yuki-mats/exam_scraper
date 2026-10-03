@@ -260,10 +260,10 @@
   },
   {
     "explanationText": [
-      "間違い。シリアルATAによる内蔵ストレージの1対1接続は、サーバに直接接続するDASに近い構成である。選択肢はこの構成をSANとしているため誤りである。",
-      "正しい。SANは、ファイバチャネルやiSCSIなどを用いたストレージ専用のネットワークで、サーバとストレージを接続する。",
-      "間違い。CIFSを使ってLAN経由でファイル単位の共有を行う方式はNASである。選択肢はこの方式をSANとしているため誤りである。",
-      "間違い。NFSを使ってLAN経由でファイル単位の共有を行う方式もNASである。選択肢はこの方式をSANとしているため誤りである。"
+      "間違い。シリアルATAなどでサーバ内部のストレージを1対1に接続する構成は、サーバに直接接続するDASに該当する。選択肢はこの直接接続をSANとしているため誤りである。",
+      "正しい。SANは、ファイバチャネルやiSCSIなどを用いたストレージ専用ネットワークで、サーバとストレージを接続する。",
+      "間違い。CIFSを使ってLAN経由でファイル単位の共有を行う方式はNASである。選択肢はこのNASの接続形態をSANとしているため誤りである。",
+      "間違い。NFSを使ってLAN経由でファイル単位の共有を行う方式もNASである。選択肢はこのNASの接続形態をSANとしているため誤りである。"
     ],
     "original_question_id": "e2b00cc20b88f670",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_23.html",
@@ -271,13 +271,7 @@
     "sourceQuestionKey": "nw:201302:e2b00cc20b88f670",
     "reviewQuestionId": "e2b00cc20b88f670",
     "sourceRecordRef": "question_201302_3.json#2",
-    "explanationReferences": [
-      {
-        "referenceDate": "2026-10-04",
-        "sourceUrl": "https://www.ibm.com/think/topics/san-vs-nas",
-        "title": "Storage Area Network (SAN) vs. Network Attached Storage (NAS)"
-      }
-    ],
+    "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
