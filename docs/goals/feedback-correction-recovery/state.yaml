@@ -1,0 +1,144 @@
+# GoalBuddy v2 state.yaml
+# Board truth lives here. goal.md is the editable charter; notes/ holds long receipts only.
+
+version: 2
+
+goal:
+  title: "問題報告の正式訂正と公開工程を復旧する"
+  slug: "feedback-correction-recovery"
+  kind: recovery # specific | open_ended | existing_plan | recovery | audit
+  tranche: "確認済み4件の正本patch・独立review・限定公開検証・台帳追跡を復旧する"
+  status: active # active | blocked | done
+  oracle:
+    signal: "一次根拠、全カテゴリ判断、source identity、真正なreview、機械gate、台帳状態、承認済み公開対象のlive readbackが一致"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "各対象の根拠付き処理結果、検証済み正式patchとcommit/push、承認及びlive readback"
+  intake:
+    original_request: "/goalあるべき姿にして"
+    interpreted_outcome: "前回未完了の4件を正本patchから公開まで追跡可能にする"
+    input_shape: recovery # vague | specific | existing_plan | recovery | audit
+    audience: Repaso利用者と運用者
+    authority: requested # requested | approved | inferred | needs_approval | blocked
+    proof_type: artifact # test | demo | artifact | metric | review | source_backed_answer | decision
+    completion_proof: "正式patchとreadbackと台帳、又は一次根拠付き保留と再開条件"
+    likely_misfire: "隔離simulationで完了扱い又は安全gateの迂回"
+    blind_spots_considered:
+      - 歴史的mergedと現行sourceの差
+      - 年度全体gateと一問gateの混同
+      - patch承認と公開判断の混同
+    existing_plan_facts:
+      - 2025年学科II問3の具体的差分は承認済み
+      - 本番公開は別明示判断を要する
+      - 4件のprivate提案とcase記録を引き継ぐ
+      - 常設UIの既存goalは別scopeで維持する
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  # installed | bundled_not_installed | missing | unknown
+  # missing and bundled_not_installed use PM fallback; unknown requires one exact-role attempt before fallback.
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  # none | local | unknown
+  selected: local
+  local:
+    status: live # not_requested | starting | live | generated | blocked
+    url: "http://goalbuddy.localhost:41737/feedback-correction-recovery/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/feedback-correction-recovery"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    objective: "4件のsource・patch・merged・live対応と独立review実行経路、一問限定の検査経路を読み取りで確定する"
+    constraints:
+      - Read-only
+      - 生の利用者本文と識別情報を出力しない
+    expected_output:
+      - 根拠付きreceiptと次の具体的slice
+    receipt: null
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    objective: "根拠と承認範囲とscopeを監査して最大安全の復旧sliceを選ぶ"
+    constraints:
+      - Read-only
+      - 生の利用者本文と識別情報を出力しない
+    expected_output:
+      - 根拠付きreceiptと次の具体的slice
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: "判定した復旧sliceを実装し、正式patchの一問scope検証と台帳追跡を可能にする"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - allowed_files外の変更が必要
+      - 00_source編集又は未承認の正式patch変更が必要
+    receipt: null
+  - id: T004
+    type: pm
+    assignee: PM
+    status: queued
+    objective: "4件を独立reviewし、承認済み2025年の正式patchと他3件の承認可能proposalを完成させる"
+    constraints:
+      - 2025年以外の正式patchは具体的差分承認後
+      - 真正なreview証跡を保存する
+      - Firestoreは別公開承認後
+    receipt: null
+  - id: T005
+    type: pm
+    assignee: PM
+    status: queued
+    objective: "別の公開承認を得た対象を限定uploadし、readbackと台帳追跡を完了する"
+    constraints:
+      - 2025年以外の正式patchは具体的差分承認後
+      - 真正なreview証跡を保存する
+      - Firestoreは別公開承認後
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    objective: "原依頼とoracleに対して全成果と未完了を最終監査する"
+    constraints:
+      - Read-only
+      - 生の利用者本文と識別情報を出力しない
+    expected_output:
+      - 根拠付きreceiptと次の具体的slice
+    receipt: null
+
+checks:
+  dirty_fingerprint: clean-at-93e7236e7
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
