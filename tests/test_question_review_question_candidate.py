@@ -7,6 +7,8 @@ from tools.question_review_console.question_candidate import (
     CANDIDATE_PAYLOAD_SCHEMA_VERSION,
     CANDIDATE_VALIDATION_ISSUE_SCHEMA_VERSION,
     CandidateTarget,
+    CandidateUpdate,
+    QuestionCandidate,
     QuestionCandidateError,
     candidate_targets,
     output_schema,
@@ -22,6 +24,67 @@ from tools.question_review_console.question_candidate import (
 
 
 class QuestionCandidateTest(unittest.TestCase):
+    def test_non_law_audit_rejects_technical_rewrite_without_auto_correction(self):
+        current = {
+            "questionBodyText": "技術用語として該当するものはどれか。",
+            "questionType": "flash_card",
+            "choiceTextList": ["対象A", "対象B"],
+            "questionIntent": "select_correct",
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["正しい。対象Aは定義された技術概念に当てはまる。"],
+            "isLawRelated": False,
+        }
+        targets = (
+            CandidateTarget("q:explanation", "explanation", "patch.json",
+                            ("explanationText", "isLawRelated", "correctChoiceText")),
+            CandidateTarget("q:law_audit", "law_audit", "audit.json", ()),
+        )
+        for field, value in (
+            ("explanationText", ["正しい。対象Bが該当する。"]),
+            ("explanationText", ["正しい。対象Aが該当する。", "間違い。対象Bは異なる。"]),
+            ("correctChoiceText", ["間違い", "正しい"]),
+        ):
+            with self.subTest(field=field, value=value):
+                candidate = QuestionCandidate("q", "candidate", "監査対象外",
+                    (CandidateUpdate("q:explanation", {field: value}, ()),))
+                errors = validate_candidate_content(candidate, targets, current)
+                self.assertTrue(any(f"{field}は03bの更新責務" in e for e in errors))
+                self.assertEqual(candidate.updates[0].set_fields[field], value)
+
+    def test_non_law_audit_keeps_technical_fields_and_allows_metadata_work(self):
+        current = {
+            "questionBodyText": "技術用語として該当するものはどれか。",
+            "questionType": "flash_card", "choiceTextList": ["対象A", "対象B"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["正しい。対象Aが該当する。"],
+            "isLawRelated": False,
+        }
+        target = CandidateTarget("q:law_audit", "law_audit", "audit.json", ())
+        candidate = QuestionCandidate("q", "candidate", "対象外の監査metadataを確定",
+            (CandidateUpdate("q:law_audit", {"auditStatus": "not_law_related"}, ()),))
+        errors = validate_candidate_content(candidate, (target,), current)
+        self.assertFalse(any("03bの更新責務" in e for e in errors))
+
+    def test_law_reclassification_does_not_apply_non_law_ownership_gate(self):
+        current = {
+            "questionBodyText": "法令が直接決める基準はどれか。",
+            "questionType": "flash_card", "choiceTextList": ["基準A", "基準B"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["正しい。基準Aが該当する。"],
+            "isLawRelated": False,
+        }
+        targets = (
+            CandidateTarget("q:explanation", "explanation", "patch.json", ()),
+            CandidateTarget("q:law_audit", "law_audit", "audit.json", ()),
+        )
+        candidate = QuestionCandidate("q", "candidate", "法令該当性を再確認",
+            (CandidateUpdate("q:explanation", {"isLawRelated": True,
+                "explanationText": ["正しい。確認した法令基準に該当する。"]}, ()),))
+        errors = validate_candidate_content(candidate, targets, current)
+        # Verified legal evidence is still required by the normal audit gates.
+        self.assertFalse(any("03bの更新責務" in e for e in errors))
+        self.assertTrue(errors)
+
     def test_candidate_normalization_dedupes_identical_explanation_references(self):
         reference = {
             "title": "公式資料",

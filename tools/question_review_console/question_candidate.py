@@ -1906,6 +1906,25 @@ def _validate_candidate_content_messages(
     audit = dict(audit_payloads[-1]) if audit_payloads else {}
 
     errors: list[str] = []
+    if has_law_audit_target and logical.get("isLawRelated") is False:
+        # 03b owns law classification and audit metadata.  Technical verdicts
+        # and learner explanations remain owned by 02a/03; reject a conflicting
+        # candidate rather than silently replacing either independently decided
+        # value.  A grounded reclassification to law-related follows the normal
+        # law audit validation below.
+        for field in (
+            "correctChoiceText",
+            "explanationText",
+            "suggestedQuestionDetailsByChoice",
+        ):
+            before = projected_record.get(field)
+            after = logical.get(field)
+            if before != after and not (before is None and after == []):
+                errors.append(
+                    f"非法令と確定した問題の{field}は03bの更新責務ではありません。"
+                    "技術内容の訂正は02a/03又は独立評価へ戻し、"
+                    "03bでは法令分類と監査metadataを確定してください。"
+                )
     independently_required_fields = {
         field
         for target in target_values
